@@ -51,10 +51,15 @@
 .img-a{
   display: none !important;
   align-items: center;
+  vertical-align: middle;
 }
 .img-h{
   align-items: center;
   height: 22px;
+  vertical-align: middle;
+}
+.img-collapsed{
+  margin-top: -10px !important;
 }
 .ant-menu.ant-menu-dark .ant-menu-item-selected, .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
   color: $green !important;

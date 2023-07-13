@@ -17,16 +17,16 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
     className: Number(indexOf) === 0 ? 'menu-sidebar-hover':'',
     key: '0',
     label: <Link to={'/profile-view'}>
-      <img className="img-h anticon" src="/Icons/menu-white-01.svg" alt="" width="22px" height="20px" />
-      <img className="img-a anticon" src="/Icons/menu-green-01.svg" alt="" width="22px" height="22px" />
+      <img className={"img-h anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-01.svg" alt="" width="22px" height="20px" />
+      <img className={"img-a anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-01.svg" alt="" width="22px" height="22px" />
       <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>my confluence</span>
     </Link>
   }, {
     className: Number(indexOf) === 1 ? 'menu-sidebar-hover':'',
     key: '1',
     label: <Link to={'/map'} >
-      <img className="img-h anticon" src="/Icons/menu-white-02.svg" alt="" width="22px" height="20px" />
-      <img className="img-a anticon" src="/Icons/menu-green-02.svg" alt="" width="22px" height="22px" />
+      <img className={"img-h anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-02.svg" alt="" width="22px" height="20px" />
+      <img className={"img-a anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-02.svg" alt="" width="22px" height="22px" />
       <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>map view</span>
     </Link>
   }, 
@@ -34,8 +34,8 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
     key: '4',
     className: Number(indexOf) === 4 ? 'menu-sidebar-hover':'',
     label: <Link to={userApproved ? '/work-request' : '#'}>
-      <img className={"img-h anticon"+(userApproved?'':'img-opaque')} src="/Icons/menu-white-14.svg" alt="" width="22px" height="22px" />
-      <img className={"img-a anticon"+(userApproved?'':'img-opaque')} src="/Icons/menu-green-14.svg" alt="" width="22px" height="22px" />
+      <img className={"img-h anticon"+(userApproved?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-14.svg" alt="" width="22px" height="22px" />
+      <img className={"img-a anticon"+(userApproved?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-14.svg" alt="" width="22px" height="22px" />
       <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>work request</span>
     </Link>
   },
@@ -43,8 +43,8 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
     key: '3',
     className: Number(indexOf) === 3 ? 'menu-sidebar-hover':'',
     label: <Link to={userApproved ? '/work-plan' : '#'}>
-      <img className={"img-h anticon"+(userApproved?'':'img-opaque')} src="/Icons/menu-white-13.svg" alt="" width="22px" height="22px" />
-      <img className={"img-a anticon"+(userApproved?'':'img-opaque')} src="/Icons/menu-green-13.svg" alt="" width="22px" height="22px" />
+      <img className={"img-h anticon"+(userApproved?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-13.svg" alt="" width="22px" height="22px" />
+      <img className={"img-a anticon"+(userApproved?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-13.svg" alt="" width="22px" height="22px" />
       <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>work plan</span>
     </Link>
   },
@@ -52,8 +52,8 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
     className: Number(indexOf) === 5 ? 'menu-sidebar-hover':'',
     key: '5',
     label: <Link to={pmToolsAccess ? '/pm-tools' : '#'}>
-      <img className={"img-h anticon"+(pmToolsAccess?'':'img-opaque')}src="/Icons/menu-white-11.svg" alt="" width="22px" height="22px"/>
-      <img className={"img-a anticon"+(pmToolsAccess?'':'img-opaque')} src="/Icons/menu-green-11.svg" alt="" width="22px" height="22px"/>
+      <img className={"img-h anticon"+(pmToolsAccess?'':' img-opaque')+(collapsed?" img-collapsed":"")}src="/Icons/menu-white-11.svg" alt="" width="22px" height="22px"/>
+      <img className={"img-a anticon"+(pmToolsAccess?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-11.svg" alt="" width="22px" height="22px"/>
       <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>pm tools</span>
     </Link>
   }, {
@@ -75,16 +75,16 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
     className: Number(indexOf) === 7 ? 'menu-sidebar-hover':'',
     key: '7',
     label: <a href={'https://forms.office.com/r/CUgfTnrTUm'} target="_blank">
-      <img className="img-h anticon" src="/Icons/menu-white-12.svg" alt="" width="22px" height="22px" />
-      <img className="img-a anticon" src="/Icons/menu-green-12.svg" alt="" width="22px" height="22px" />
+      <img className={"img-h anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-12.svg" alt="" width="22px" height="22px" />
+      <img className={"img-h anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-12.svg" alt="" width="22px" height="22px" />
       <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>feedback</span>
     </a>
   }, {
     key: '8',
     className: Number(indexOf) === 8 ? 'menu-sidebar-hover':'',
     label: <Link to={'/user'}>
-      <img className="img-h anticon" src="/Icons/menu-white-06.svg" alt="" width="22px" height="22px" />
-      <img className="img-a anticon" src="/Icons/menu-green-06.svg" alt="" width="22px" height="22px" />
+      <img className={"img-h anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-06.svg" alt="" width="22px" height="22px" />
+      <img className={"img-h anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-06.svg" alt="" width="22px" height="22px" />
       <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>settings</span>
     </Link>
   }];
