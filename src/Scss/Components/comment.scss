@@ -93,7 +93,7 @@
     margin-bottom: -7px;
   }
 }
-
+//popup note
 .popover-note {
   .ant-popover-inner-content {
     padding: 0px;
@@ -274,6 +274,7 @@
             flex-direction: row;
             justify-content: space-between;
             padding: 12px 16px;
+            align-items: center;
   
             .title {
               display: block;
@@ -321,64 +322,20 @@
               bottom: 9px;
               bottom: 10px;
               font-weight: bolder;
-              color: #5C538B;
+              color: #5C538B  ;
             }
-  
-            a.ant-dropdown-link.ant-dropdown-trigger {
-              display: block;
-              margin: 0;
-              padding: 0;
-  
-              span {
-                display: block;
-                margin: 0;
-                padding: 0;
-                width: 16px;
-                height: 16px;
-                content: url("../../Icons/ic_plus_default.svg");
-              }
+
+            .dropdown-ico-plus{
+              font-size: 25px;
+              line-height: 14px;
+              padding: 6px;
+              height: auto;
+              border-radius: 5px;
+              display: flex;
+              align-items: center;
             }
-  
-            a.ant-dropdown-link.ant-dropdown-trigger:hover {
-              span {
-                display: block;
-                margin: 0;
-                padding: 0;
-                width: 16px;
-                height: 16px;
-                content: url("../../Icons/ic_plus_hover.svg");
-              }
-            }
-  
-            a.ant-dropdown-link.ant-dropdown-trigger.ant-dropdown-open {
-              display: block;
-              margin: 0;
-              padding: 0;
-  
-              span {
-                display: block;
-                margin: 0;
-                padding: 0;
-                width: 16px;
-                height: 16px;
-                content: url("../../Icons/ic_plus_hover.svg");
-              }
-            }
-  
-            a.ant-dropdown-link.ant-dropdown-trigger.inactive {
-              display: block;
-              margin: 0;
-              padding: 0;
-              cursor: pointer;
-  
-              span {
-                display: block;
-                margin: 0;
-                padding: 0;
-                width: 16px;
-                height: 16px;
-                content: url("../../Icons/ic_plus_inactive.svg");
-              }
+            .dropdown-ico-plus:hover{
+              background-color: #c2c2e340;
             }
           }
   
@@ -496,7 +453,7 @@
     }
   }
 }
-// STYLE FOR POPUP MAP
+// STYLE FOR MENU POPUP MAP Commnets
 .divoptions {
   position: relative;
   float: right;
@@ -677,11 +634,35 @@
   padding-left: 322px !important;
 }
 
+// marker style 
+
+.marker-note {
+  -webkit-mask-image: url('../../Icons/circlecomment.svg');
+  mask-image: url('../../Icons/circlecomment.svg');
+  background-size: cover;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: #F6BE0F;
+  border: 2px solid rgba(255, 255, 255, 1);
+
+  &:hover {
+    width: 25px;
+    height: 25px;
+    mask-size: 25px;
+    border: 6px solid rgba(255, 255, 255, 1);
+  }
+}
+
 // 1920x1080 DISPLAY
 @media (min-width: 1900px) and (max-width: 2499px) {
+  // STYLE FOR MENU POPUP MAP Commnets
   .divoptions {
-    font-size: 15px !important;
-
+    padding: 6px;
+    li {
+      font-size: 15px;
+    }
     img {
       width: 13px;
     }
@@ -712,7 +693,7 @@
       line-height: 30px;
     }
   }
-
+//popup note
   .popover-note {
     .ant-list-item {
       padding: 6px 0 !important;
@@ -784,7 +765,7 @@
 
   // POPUP MAP
   .popup-comment {
-    width: 370px;
+    width: 318px;
 
     .list-popup-comment .inputlabel {
       line-height: 16px;
@@ -792,19 +773,14 @@
     }
 
     .headmap {
-      min-height: 34px;
-      font-size: 14px;
-      padding: 12px 15px;
-      line-height: 16px;
-
       .testheader {
-        padding-left: 13px;
+        font-size: 16px;
       }
 
       button,
       button:hover,
       button:focus {
-        font-size: 18px !important;
+        font-size: 16px !important;
       }
 
       i {
@@ -817,7 +793,7 @@
       padding: 15px;
 
       .ant-input {
-        font-size: 17px;
+        font-size: 14px;
       }
 
       button {
@@ -840,32 +816,18 @@
   }
 }
 
-// marker style 
-
-.marker-note {
-  -webkit-mask-image: url('../../Icons/circlecomment.svg');
-  mask-image: url('../../Icons/circlecomment.svg');
-  background-size: cover;
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  cursor: pointer;
-  background-color: #F6BE0F;
-  border: 2px solid rgba(255, 255, 255, 1);
-
-  &:hover {
-    width: 25px;
-    height: 25px;
-    mask-size: 25px;
-    border: 6px solid rgba(255, 255, 255, 1);
-  }
-}
 
 // 2560x2999px DISPLAY
 @media (min-width: 2500px) and (max-width: 2999px) {
+  .padding-comment{
+    padding-left: 436px !important;
+  }
+  // STYLE FOR MENU POPUP MAP Commnets
   .divoptions {
-    font-size: 18px !important;
-
+    padding: 7px;
+    li{
+      font-size: 18px;
+    }
     img {
       width: 16px;
     }
@@ -875,6 +837,7 @@
   .comment-title {
     display: flex;
     position: relative;
+    height: 32px;
 
     h5 {
       font-size: 16px;
@@ -918,8 +881,6 @@
       margin-bottom: -7px;
     }
 
-    height: 32px;
-
     h5 {
       font-size: 22px !important;
       line-height: 30px
@@ -943,7 +904,7 @@
       line-height: 40px;
     }
   }
-
+//popup note
   .popover-note {
     .ant-list-item {
       padding: 6px 0 !important;
@@ -972,15 +933,27 @@
   }
 
   .comment-drawer {
+    .ant-drawer-content-wrapper {
+      width: 434px !important;
+      padding: 5px;
+    }
+    //header drawer
     .ant-drawer-header {
       padding: 20px 20px;
       padding-right: 14px;
     }
-
+    //body drawer
     .ant-drawer-body {
       height: calc(100vh - 151px);
-      .a-layers .title {
-        font-size: 20px !important;
+      .a-layers{
+        .title {
+          font-size: 20px !important;
+        }
+        .dropdown-ico-plus{
+          font-size: 28px !important;
+          line-height: 14px !important;
+          padding: 7px 7px 10px 7px !important;
+        }
       }
       .main-node{
         .s-item{
@@ -994,6 +967,9 @@
             height: 18px;
           }
         }
+      }
+      .menu-wr{
+        height: 17px;
       }
     }
 
@@ -1042,7 +1018,7 @@
   }
   // POPUP MAP
   .popup-comment {
-    width: 490px;
+    width: 435px;
 
     .headmap {
       min-height: 34px;
@@ -1052,6 +1028,9 @@
 
       .testheader {
         padding-left: 17px;
+        .dr .legend-select .anticon {
+          font-size: 26px;
+        }
       }
 
       button,
@@ -1070,7 +1049,8 @@
       padding: 20px;
 
       .ant-input {
-        font-size: 16px;
+        padding: 10px 15px;
+        min-height: 110px;
       }
 
       button {
@@ -1098,36 +1078,89 @@
 // 3800pxx5999px DISPLAY
 @media (min-width: 3800px) and (max-width: 5999px) {
   .padding-comment{
-    padding-left: 556px !important;
+    padding-left: 630px !important;
+  }
+  // STYLE FOR MENU POPUP MAP Commnets
+  .divoptions {
+    padding: 10px;
+    li{
+      font-size: 27px;
+    }
+    img {
+      width: 24px;
+    }
   }
   .comment-drawer {
     .ant-drawer-content-wrapper {
       margin-left: 46px;
       margin-top: 42px;
-      width: 554px !important;
+      width: 626px !important;
+      padding: 10px;
     }
     .ant-drawer-title{
       h5{
-        font-size: 32px !important;
+        font-size: 34px !important;
       }
     }
     .ant-drawer-body{
       .main-node .s-item {
-        height: 60px !important;
+        height: 80px !important;
         .f-title {
           font-size: 28px !important;
           line-height: 34px !important;
+          padding-left: 20px !important;
+        }
+        .ll-00{
+          padding: 6px 8px 6px 8px;
+          font-size: 18px;
+        }
+        .ic-folder{
+          width: 26px !important;
+          height: 26px !important;
         }
       }
       .a-layers{
+        padding: 24px 16px !important;
         .title{
-          font-size: 42px !important;
+          font-size: 36px !important;
+        }
+        .dropdown-ico-plus{
+          font-size: 50px !important;
+          line-height: 24px !important;
+          padding: 9px 11px 17px 11px !important;
         }
       }
     }
-    .ant-drawer-content{
-
+    .menu-wr{
+      img{
+        height: 26px;
+      }
     }
   }
-
+  //POPUP style
+  .popup-comment{
+    width: 480px;
+    border-radius: 10px;
+    .headmap{
+      padding: 12px 17px !important;
+      i{
+        font-size: 65px !important;
+      }
+      .testheader{
+        height: auto;
+        font-size: 30px !important;
+      }
+      .anticon{
+        font-size: 34px;
+        margin-top: 11px !important;
+      }
+    }
+    .bodymap{
+      padding: 21px;
+      .ant-input{
+        padding: 15px 20px;
+        min-height: 130px !important;
+      }
+    }
+  }
 }
