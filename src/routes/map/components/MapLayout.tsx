@@ -19,6 +19,16 @@ import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 import { FiltersContext } from 'utils/filterContext';
+import { useLocation } from 'react-router-dom';
+import { useRequestDispatch, useRequestState } from 'hook/requestHook';
+import ConfigurationService from 'services/ConfigurationService';
+import { BoardDataRequest } from 'Components/Work/Request/RequestTypes';
+import ModalProjectView from 'Components/ProjectModal/ModalProjectView';
+import Analytics from 'Components/Work/Drawers/Analytics';
+import Status from 'Components/Work/Drawers/Status';
+import Filter from 'Components/Work/Drawers/Filter';
+import NavbarView from 'Components/Shared/Navbar/NavbarView';
+import RequestView from 'Components/Work/Request/RequestView';
 
 const Map = React.lazy(() => import('routes/map/components/Map'));
 const MapView = React.lazy(() => import('routes/map/components/MapView'));
@@ -45,14 +55,79 @@ const MapLayout = () => {
   const emptyStyle: React.CSSProperties = {};
   const [loaded, setLoaded] = useState(false);
   const [rotationStyle, setRotationStyle] = useState(emptyStyle);
-  const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN_LEFT);
+  const [leftWidthMap, setLeftWidthMap] = useState(MEDIUM_SCREEN_LEFT);
+  const [leftWidth2, setLeftWidth2] = useState(MEDIUM_SCREEN_LEFT);
   const [isExtendedView, setCompleteView] = useState(false);
   const { tutorialStatus } = useMapState();
   const { status } = useProjectState();
   const { open } = useNotesState();
+  const [optionSelect, setOptionSelect] = useState('MAP');
   const { setSave } = useProjectDispatch();
   const { getUserInformation } = useAppUserDispatch();
   const [safeLoading, setSafeLoading] = useState(false);
+//WORK REQUEST-WORK-PLAN
+  const location = useLocation();
+  // const type = location.pathname === '/work-request' ? 'WORK_REQUEST' : 'WORK_PLAN';
+  const {
+    showModalProject,
+    completeProjectData,
+    locality,
+    year,
+    tabKey,
+    tabKeys,
+    showCreateProject,
+    problemId,
+    namespaceId,
+    showBoardStatus,
+    boardStatus,
+    boardSubstatus,
+    boardComment,
+    leftWidth,
+    showFilters,
+    visibleCreateProject,
+    showAlert,
+    alertStatus,
+  } = useRequestState();
+  const {
+    setShowModalProject,
+    setShowCreateProject,
+    setShowBoardStatus,
+    setAlertStatus,
+    setShowAlert,
+    setVisibleCreateProject,
+    setYearList,
+  } = useRequestDispatch();
+  const currentDataForBoard: BoardDataRequest = {
+    type: optionSelect === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN',
+    year: `${year}`,
+    locality,
+    projecttype: tabKey ? tabKey : tabKeys[0],
+    position: ''
+  };
+
+  const onUpdateBoard = () => {
+    //This fn is intented to be used to reload getBoardData2
+  }
+
+  useEffect(() => {
+    const initLoading = async () => {
+      let config;
+      try {
+        config = await ConfigurationService.getConfiguration('BOARD_YEAR');
+      } catch (e) {
+        console.log(e);
+      }
+      let boardYearLimit = +config.value;
+      let array = [];
+      for (var i = 0; i < 5; i++) {
+        array.push(boardYearLimit - i);
+      }
+      setYearList(array);
+    }
+    initLoading();
+  }, [setYearList]);
+
+  // END WORK REQUEST-WORK-PLAN
 
   const loadData = (trigger: any, name?: string): any => {
     const controller = new AbortController();
@@ -131,24 +206,24 @@ const MapLayout = () => {
 
   useEffect(() => {
     if (tutorialStatus) {
-      setLeftWidth(MEDIUM_SCREEN_LEFT);
+      setLeftWidth2(MEDIUM_SCREEN_LEFT);
       setRotationStyle(emptyStyle);
     }
   }, [tutorialStatus])
   const closeWidth = () => {
-    setLeftWidth(COMPLETE_SCREEN);
+    setLeftWidth2(COMPLETE_SCREEN);
     setRotationStyle({ transform: 'rotate(180deg)', marginRight: '-4px', right: '4px', position: 'relative' });
   }
   const openWidth = () => {
-    setLeftWidth(MEDIUM_SCREEN_LEFT);
+    setLeftWidth2(MEDIUM_SCREEN_LEFT);
     setRotationStyle(emptyStyle);
   }
   const updateWidth = () => {
     if (leftWidth === MEDIUM_SCREEN_LEFT) {
-      setLeftWidth(COMPLETE_SCREEN);
+      setLeftWidth2(COMPLETE_SCREEN);
       setRotationStyle({ transform: 'rotate(180deg)', marginRight: '-4px', right: '4px', position: 'relative' });
     } else {
-      setLeftWidth(MEDIUM_SCREEN_LEFT);
+      setLeftWidth2(MEDIUM_SCREEN_LEFT);
       setRotationStyle(emptyStyle);
       const copySelectedLayers = [...selectedLayers];
       if (!copySelectedLayers.includes(PROBLEMS_TRIGGER)) {
@@ -161,44 +236,116 @@ const MapLayout = () => {
     }
     setCompleteView(!isExtendedView);
   }
-
+  console.log(leftWidth, 'leftWidth___________')
   return (
-    <Layout>
-      <Navbar />
-      <FiltersContext>
+    <>
+    {/* WORK-PLAN-ComPONMENTS */}
+      {
+        showModalProject &&
+        <ModalProjectView
+          visible={showModalProject}
+          setVisible={setShowModalProject}
+          data={completeProjectData}
+          showDefaultTab={true}
+          locality={locality}
+          editable={true}
+          currentData={currentDataForBoard}
+          year={year}
+        />
+      }
+      {
+        showCreateProject &&
+        <ModalProjectView
+          visible={showCreateProject}
+          setVisible={setShowCreateProject}
+          data={"no data"}
+          showDefaultTab={true}
+          locality={locality}
+          editable={true}
+          problemId={problemId}
+          currentData={currentDataForBoard}
+          year={year}
+        />
+      }
+      {
+        <Analytics
+          type={optionSelect === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN'}
+        />
+      }
+      {
+        showBoardStatus &&
+        <Status
+          locality={locality}
+          boardId={namespaceId}
+          visible={showBoardStatus}
+          setVisible={setShowBoardStatus}
+          status={boardStatus}
+          substatus={boardSubstatus}
+          comment={boardComment}
+          type={optionSelect === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN'}
+          setAlertStatus={setAlertStatus}
+          setShowAlert={setShowAlert}
+          onUpdateHandler={onUpdateBoard}
+        />
+      }
+      {
+        showFilters && <Filter/>
+      }
+      {
+        visibleCreateProject &&
+        <ModalProjectView
+          visible={visibleCreateProject}
+          setVisible={setVisibleCreateProject}
+          data={"no data"}
+          defaultTab={tabKey}
+          locality={locality}
+          editable={true}
+          currentData={currentDataForBoard}
+          year={year}
+        />
+      }
+     {/* END-WORK-PLAN-ComPONMENTS */}
       <Layout>
-        <SidebarView></SidebarView>
-        {safeLoading && <LoadingViewOverall />}
-        <Layout className="map-00">
-          {
-            !!(longitude && latitude && loaded) ? (
-              <Row>
-                <Col
-                  xs={{ span: 24 }}
-                  className={open ? "padding-comment transition-map" : "transition-map"}
-                  lg={leftWidth}
-                >
-                  <Map
-                    leftWidth={leftWidth}
-                  />
-                  <Button className="btn-coll" onClick={updateWidth}>
-                    <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px" />
-                  </Button>
-                </Col>
-                <Col
-                  xs={{ span: 24 }}
-                  className="menu-mobile"
-                  lg={24 - leftWidth}
-                >
-                  <MapView />
-                </Col>
-              </Row>
-           ) : <LoadingView />
-          }
+        <NavbarView tabActive={optionSelect} setTabActive={setOptionSelect} />
+        <FiltersContext>
+        <Layout>
+          <SidebarView></SidebarView>
+          {safeLoading && <LoadingViewOverall />}
+          <Layout className="map-00">
+            {
+              !!(longitude && latitude && loaded) ? (
+                <Row>
+                  <Col
+                    xs={{ span: 24 }}
+                    className={open ? "padding-comment transition-map" : "transition-map"}
+                    lg={optionSelect === 'MAP' ? leftWidthMap: { span: leftWidth }}
+                  >
+                    <Map
+                      leftWidth={optionSelect === 'MAP' ? leftWidthMap : leftWidth}
+                    />
+                    <Button className="btn-coll" onClick={updateWidth}>
+                      <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px" />
+                    </Button>
+                  </Col>
+                  <Col
+                    xs={{ span: 24 }}
+                    className="menu-mobile"
+                    lg={24 - (optionSelect === 'MAP' ? leftWidthMap : leftWidth)}
+                  >
+                    {optionSelect === 'MAP' && <MapView />}
+                    {(optionSelect === 'WORK_REQUEST' || optionSelect === 'WORK_PLAN') &&<RequestView
+                      type={optionSelect}
+                      isFirstRendering={false}
+                  />}
+                  </Col>
+                </Row>
+            ) : <LoadingView />
+            }
+          </Layout>
         </Layout>
+        </FiltersContext>
       </Layout>
-      </FiltersContext>
-    </Layout>
+    </>
   );
 };
 

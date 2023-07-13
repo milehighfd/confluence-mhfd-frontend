@@ -236,7 +236,8 @@ const RequestView = ({ type, isFirstRendering }: {
       ['tabKey', encodeURIComponent(tabKey)]
     ]
     history.push({
-      pathname: type === "WORK_REQUEST" ? '/work-request' : '/work-plan',
+      // pathname: type === "WORK_REQUEST" ? '/work-request' : '/work-plan',
+      pathname: type === "WORK_REQUEST" ? '/map' : '/map',
       search: `?${params.map(p => p.join('=')).join('&')}`
     })
   }, [year, locality, tabKey]);
@@ -294,7 +295,7 @@ const RequestView = ({ type, isFirstRendering }: {
       {(fakeLoading) && <LoadingViewOverall />}
       {
         <Row>
-          <Col xs={{ span: 24 }}
+          {/* <Col xs={{ span: 24 }}
             className={"height-mobile"}
             lg={{ span: leftWidth }}
             style={{ transition: 'all 0.7s ease' }}>
@@ -308,9 +309,9 @@ const RequestView = ({ type, isFirstRendering }: {
               currentTab={tabKey}
             />
             <ResizableButton />
-          </Col>
-
-          <Col xs={{ span: 24 }} lg={{ span: 24 - leftWidth }}>
+          </Col> */}
+          {/* <Col xs={{ span: 24 }} lg={{ span: 24 - leftWidth }}></Col> */}
+          <Col xs={{ span: 24 }} lg={{ span: 24 }}>
             <div className="work-head" >
               <Row>
                 <Col xs={{ span: 24 }} lg={{ span: 12 }}>
