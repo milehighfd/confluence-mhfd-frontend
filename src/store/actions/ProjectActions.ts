@@ -726,7 +726,6 @@ export const setIndComponents = (independentComponents: any) => {
 
 export const setNextPageOfCards = (nextPageOfCards: number) => {
   return (dispatch: Function) => {
-    console.log(nextPageOfCards)
     dispatch({type: types.NEXT_PAGE, nextPageOfCards})
   }
 }

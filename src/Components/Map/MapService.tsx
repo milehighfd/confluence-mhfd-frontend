@@ -79,7 +79,6 @@ class MapService {
     const imagesPaths = [
       'custom-sprite/30x30px.png',
       'custom-sprite/dollar.png',
-      'custom-sprite/fema-floodway.png',
       'custom-sprite/Levee.png',
       'custom-sprite/Frame13a.png',
       'custom-sprite/Frame17m2t.png',
@@ -95,7 +94,7 @@ class MapService {
       'custom-sprite/prop-acq-apprv_GREEN.png',
       'custom-sprite/prop-acq-draft_ORANGE.png',
       'custom-sprite/MEP-X.png',
-      'custom-sprite/floodwaypattern.png',
+      'custom-sprite/floodway43.png',
     ];
     imagesPaths.forEach((imagePath: string) => {
       this.map.loadImage(imagePath, (error: any, image: any) => {
@@ -117,7 +116,6 @@ class MapService {
         styles[key].forEach((_: LayerStylesType, index: number) => {
           if (this.map.getLayer(key + '_highlight_' + index)) {
             this.map.moveLayer(key + '_highlight_' + index);
-            console.log('Works ');
           }
         });
       }
