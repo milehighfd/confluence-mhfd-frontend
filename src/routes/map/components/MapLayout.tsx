@@ -65,7 +65,7 @@ const MapLayout = () => {
   const { getUserInformation } = useAppUserDispatch();
   const [safeLoading, setSafeLoading] = useState(false);
 //WORK REQUEST-WORK-PLAN
-  const location = useLocation();
+  // const location = useLocation();
   // const type = location.pathname === '/work-request' ? 'WORK_REQUEST' : 'WORK_PLAN';
   const {
     showModalProject,
@@ -330,11 +330,15 @@ const MapLayout = () => {
                     className="menu-mobile"
                     lg={24 - (optionSelect === 'MAP' ? leftWidthMap : leftWidth)}
                   >
-                    {optionSelect === 'MAP' && <MapView />}
-                    {(optionSelect === 'WORK_REQUEST' || optionSelect === 'WORK_PLAN') &&<RequestView
+                   {optionSelect === 'MAP' && <MapView />}
+                   {optionSelect === 'WORK_REQUEST' && <RequestView
                       type={optionSelect}
                       isFirstRendering={false}
-                  />}
+                    />}
+                   {optionSelect === 'WORK_PLAN' && <RequestView
+                      type={optionSelect}
+                      isFirstRendering={false}
+                    />}
                   </Col>
                 </Row>
             ) : <LoadingView />
