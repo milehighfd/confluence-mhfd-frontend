@@ -61,6 +61,7 @@ import {
   getProblemCounter,
   resetFilterProjectOptionsEmpty,
   getExtraGalleryProjects,
+  setTabMapActive
 } from 'store/actions/mapActions';
 
 import { OptionProblems, OptionProjects } from 'Classes/MapTypes';
@@ -261,5 +262,8 @@ export const useMapDispatch = () => {
     getExtraProjects: (data: any) => {
       dispatch(getExtraGalleryProjects(data));
     },
+    setTabMapActive: (tab: string) => {
+      dispatch(setTabMapActive(tab));
+    }
   };
 };

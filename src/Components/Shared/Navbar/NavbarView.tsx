@@ -6,7 +6,7 @@ import { GlobalMapHook } from 'utils/globalMapHook';
 import * as datasets from 'Config/datasets';
 import 'Scss/Components/navbar.scss';
 import { FILTER_PROJECTS_TRIGGER, ROUTERS, ROUTER_TITLE } from 'constants/constants';
-import { useMapDispatch } from 'hook/mapHook';
+import { useMapDispatch, useMapState } from 'hook/mapHook';
 import { useProfileDispatch, useProfileState } from 'hook/profileHook';
 import { useUsersState } from 'hook/usersHook';
 import ModalEditUserView from 'Components/Profile/ProfileComponents/ModalEditUserView';
@@ -23,10 +23,10 @@ const content = (<div className="popoveer-00">No Notifications</div>);
 
 const NavbarView = ({
   tabActive,
-  setTabActive,
+  // setTabActive,
 }: {
   tabActive?: string,
-  setTabActive?: React.Dispatch<React.SetStateAction<string>>
+  // setTabActive?: React.Dispatch<React.SetStateAction<string>>
 }) => {
   const { deleteNotification } = useAppUserDispatch();
   const [key, setKey] = useState('1');
@@ -45,7 +45,8 @@ const NavbarView = ({
   const [state, setState] = useState(stateValue);
   const [visibleTutorial, setVisibleTutorial] = useState(false);
   const [notification,setNotification] = useState<any>([]);
-  const { changeTutorialStatus,getDetailedPageProject } = useMapDispatch();
+  const { changeTutorialStatus,getDetailedPageProject, setTabMapActive } = useMapDispatch();
+  const { tabMapActive } = useMapState();
   const { getTimesLogin, resetTimesLogin } = useProfileDispatch();
   const { timesLogged } = useUsersState();
   const { deleteMaps } = GlobalMapHook();
@@ -235,13 +236,13 @@ const NavbarView = ({
     {location[1] === ROUTERS.MAP ?
       (
         <div className='group-button-navbar'>
-          <Button className={tabActive === 'MAP'? 'navbar-btn navbar-btn-active' : 'navbar-btn'} onClick={() =>{setTabActive && setTabActive('MAP')}}>
+          <Button className={tabMapActive === 'MAP'? 'navbar-btn navbar-btn-active' : 'navbar-btn'} onClick={() =>{setTabMapActive && setTabMapActive('MAP')}}>
             Main Map
           </Button>
-          <Button className={tabActive === 'WORK_REQUEST'? 'navbar-btn navbar-btn-active' : 'navbar-btn'} onClick={() =>{setTabActive && setTabActive('WORK_REQUEST')}}>
+          <Button className={tabMapActive === 'WORK_REQUEST'? 'navbar-btn navbar-btn-active' : 'navbar-btn'} onClick={() =>{setTabMapActive && setTabMapActive('WORK_REQUEST')}}>
             Requests
           </Button>
-          <Button className={tabActive === 'WORK_PLAN'? 'navbar-btn navbar-btn-active' : 'navbar-btn'} onClick={() =>{setTabActive && setTabActive('WORK_PLAN')}}>
+          <Button className={tabMapActive === 'WORK_PLAN'? 'navbar-btn navbar-btn-active' : 'navbar-btn'} onClick={() =>{setTabMapActive && setTabMapActive('WORK_PLAN')}}>
             Work Plan
           </Button>
         </div>
@@ -446,7 +447,7 @@ const NavbarView = ({
       setVisibleTutorial={setVisibleTutorial}
       locationPage={locationPage}
       sliderIndex={sliderIndex}
-      tabActive={tabActive}
+      tabActive={tabMapActive}
       setSliderIndex={setSliderIndex}
     />
   </Header>

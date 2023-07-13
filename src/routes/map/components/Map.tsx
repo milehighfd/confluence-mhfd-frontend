@@ -161,6 +161,7 @@ const Map = ({ leftWidth }: MapProps) => {
     applyFilter,
     zoomProblemOrProject: zoom,
     projectsids,
+    tabMapActive
   } = useMapState();
   const { mhfdmanagers } = useFilterContext();
   let geocoderRef = useRef<HTMLDivElement>(null);
@@ -337,6 +338,9 @@ const Map = ({ leftWidth }: MapProps) => {
     }
   }, [data]);
 
+  useEffect(() => {
+    console.log('tabMapActive', tabMapActive);
+  }, [tabMapActive]);
   useEffect(() => {
     let totalmarkers: any = [];
     if (map) {

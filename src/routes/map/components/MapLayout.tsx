@@ -36,12 +36,14 @@ const MapLayout = () => {
   const {
     updateSelectedLayers,
     getMapWithSublayers,
-    getMapLayers
+    getMapLayers,
+    setTabMapActive
   } = useMapDispatch();
 
   const {
     selectedLayers,
     galleryProjectsV2,
+    tabMapActive
   } = useMapState();
   const {
     userInformation: {
@@ -59,7 +61,7 @@ const MapLayout = () => {
   const { tutorialStatus } = useMapState();
   const { status } = useProjectState();
   const { open } = useNotesState();
-  const [optionSelect, setOptionSelect] = useState('MAP');
+  // const [tabMapActive, setOptionSelect] = useState('MAP');
   const { setSave } = useProjectDispatch();
   const { getUserInformation } = useAppUserDispatch();
   const [safeLoading, setSafeLoading] = useState(false);
@@ -94,7 +96,7 @@ const MapLayout = () => {
     setYearList,
   } = useRequestDispatch();
   const currentDataForBoard: BoardDataRequest = {
-    type: optionSelect === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN',
+    type: tabMapActive === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN',
     year: `${year}`,
     locality,
     projecttype: tabKey ? tabKey : tabKeys[0],
@@ -264,7 +266,7 @@ const MapLayout = () => {
       }
       {
         <Analytics
-          type={optionSelect === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN'}
+          type={tabMapActive === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN'}
         />
       }
       {
@@ -277,7 +279,7 @@ const MapLayout = () => {
           status={boardStatus}
           substatus={boardSubstatus}
           comment={boardComment}
-          type={optionSelect === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN'}
+          type={tabMapActive === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN'}
           setAlertStatus={setAlertStatus}
           setShowAlert={setShowAlert}
           onUpdateHandler={onUpdateBoard}
@@ -301,7 +303,7 @@ const MapLayout = () => {
       }
      {/* END-WORK-PLAN-ComPONMENTS */}
       <Layout>
-        <NavbarView tabActive={optionSelect} setTabActive={setOptionSelect} />
+        <NavbarView />
         <FiltersContext>
         <Layout>
           <SidebarView></SidebarView>
@@ -313,10 +315,10 @@ const MapLayout = () => {
                   <Col
                     xs={{ span: 24 }}
                     className={open ? "padding-comment transition-map" : "transition-map"}
-                    lg={optionSelect === 'MAP' ? leftWidthMap: { span: leftWidth }}
+                    lg={tabMapActive === 'MAP' ? leftWidthMap: { span: leftWidth }}
                   >
                     <Map
-                      leftWidth={optionSelect === 'MAP' ? leftWidthMap : leftWidth}
+                      leftWidth={tabMapActive === 'MAP' ? leftWidthMap : leftWidth}
                     />
                     <Button className="btn-coll" onClick={updateWidth}>
                       <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px" />
@@ -325,15 +327,15 @@ const MapLayout = () => {
                   <Col
                     xs={{ span: 24 }}
                     className="menu-mobile"
-                    lg={24 - (optionSelect === 'MAP' ? leftWidthMap : leftWidth)}
+                    lg={24 - (tabMapActive === 'MAP' ? leftWidthMap : leftWidth)}
                   >
-                   {optionSelect === 'MAP' && <MapView />}
-                   {optionSelect === 'WORK_REQUEST' && <RequestView
-                      type={optionSelect}
+                   {tabMapActive === 'MAP' && <MapView />}
+                   {tabMapActive === 'WORK_REQUEST' && <RequestView
+                      type={tabMapActive}
                       isFirstRendering={true}
                     />}
-                   {optionSelect === 'WORK_PLAN' && <RequestView
-                      type={optionSelect}
+                   {tabMapActive === 'WORK_PLAN' && <RequestView
+                      type={tabMapActive}
                       isFirstRendering={true}
                     />}
                   </Col>

@@ -838,3 +838,9 @@ export const changeTutorialStatus = (tutorialStatus: boolean) => {
     dispatch({ type: types.TUTORIAL_STATUS, tutorialStatus });
   };
 };
+
+export const setTabMapActive = (tabMapActive: string) => {
+  return (dispatch: Function) => {
+    dispatch({ type: types.SET_TAB_MAP_ACTIVE, tabMapActive });
+  };
+};
