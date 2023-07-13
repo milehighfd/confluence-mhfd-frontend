@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { Button } from 'antd';
-import { useLocation } from 'react-router-dom';
 import DownloadCSV from 'Components/Work/Request/Toolbar/DownloadCSV';
 import ShareURL from 'Components/Work/Request/Toolbar/ShareURL';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
@@ -8,9 +7,11 @@ import { MEDIUM_SCREEN_RIGHT } from 'constants/constants';
 
 const ButtonGroup = Button.Group;
 
-const Toolbar = () => {
-  const location = useLocation();
-  const type = location.pathname === '/work-request' ? 'WORK_REQUEST' : 'WORK_PLAN';
+const Toolbar = ({
+  type,
+}:{
+  type: string,
+}) => {
   const {
     locality,
     year,
@@ -58,7 +59,7 @@ const Toolbar = () => {
         className={leftWidth === (MEDIUM_SCREEN_RIGHT - 1) ? '' : 'hide-when-1'}
       >
         <DownloadCSV
-          type={type}
+          type={type === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN'}
           localities={localities}
           columns={columns}
           locality={locality}

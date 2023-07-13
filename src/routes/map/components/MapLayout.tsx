@@ -19,7 +19,6 @@ import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 import { FiltersContext } from 'utils/filterContext';
-import { useLocation } from 'react-router-dom';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import ConfigurationService from 'services/ConfigurationService';
 import { BoardDataRequest } from 'Components/Work/Request/RequestTypes';
@@ -65,8 +64,6 @@ const MapLayout = () => {
   const { getUserInformation } = useAppUserDispatch();
   const [safeLoading, setSafeLoading] = useState(false);
 //WORK REQUEST-WORK-PLAN
-  // const location = useLocation();
-  // const type = location.pathname === '/work-request' ? 'WORK_REQUEST' : 'WORK_PLAN';
   const {
     showModalProject,
     completeProjectData,
@@ -333,11 +330,11 @@ const MapLayout = () => {
                    {optionSelect === 'MAP' && <MapView />}
                    {optionSelect === 'WORK_REQUEST' && <RequestView
                       type={optionSelect}
-                      isFirstRendering={false}
+                      isFirstRendering={true}
                     />}
                    {optionSelect === 'WORK_PLAN' && <RequestView
                       type={optionSelect}
-                      isFirstRendering={false}
+                      isFirstRendering={true}
                     />}
                   </Col>
                 </Row>

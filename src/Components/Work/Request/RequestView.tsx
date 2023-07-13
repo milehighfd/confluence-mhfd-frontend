@@ -315,11 +315,11 @@ const RequestView = ({ type, isFirstRendering }: {
             <div className="work-head" >
               <Row>
                 <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                  <AutoCompleteDropdown />
+                  <AutoCompleteDropdown type={type}/>
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{ textAlign: 'right' }}>
                   <YearDropdown />
-                  <Toolbar />
+                  <Toolbar type={type}/>
                 </Col>
               </Row>
             </div>
@@ -343,10 +343,11 @@ const RequestView = ({ type, isFirstRendering }: {
                     <TabPane tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style">{tk} </Popover> </span>} key={tk}>
                       <div className="work-table" ref={wrtRef}>
                         <ColumsTrelloCard
+                          type={type}
                           flagforScroll={flagforScroll}
                         />
                       </div>
-                      <RequestCostRows />
+                      <RequestCostRows type={type}/>
                     </TabPane>
                   ))
                 }

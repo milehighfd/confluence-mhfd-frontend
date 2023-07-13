@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, Fragment } from 'react';
 import { Button } from 'antd';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { useLocation } from 'react-router-dom';
 import { useAttachmentDispatch } from 'hook/attachmentHook';
 import { useProjectDispatch } from 'hook/projectHook';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
@@ -15,9 +14,13 @@ let fixedDragAction = [false, 0, 0];
 let scrollValues: any = [0, 0, 0, 0, 0, 0];
 let scrollByIds: any = [];
 
-const ColumsTrelloCard = ({ flagforScroll }: { flagforScroll: any }) => {
-  const location = useLocation();
-  const type = location.pathname === '/work-request' ? 'WORK_REQUEST' : 'WORK_PLAN';
+const ColumsTrelloCard = ({
+  flagforScroll,
+  type,
+}: {
+  flagforScroll: any
+  type: string
+}) => {
   const { columns2: columns, tabKey, locality, year, namespaceId, boardStatus } = useRequestState();
   const { setVisibleCreateProject, moveProjectsManual, handleMoveFromColumnToColumn } = useRequestDispatch();
   const { userInformation } = useProfileState();
@@ -197,7 +200,7 @@ const ColumsTrelloCard = ({ flagforScroll }: { flagforScroll: any }) => {
                                 <TrelloLikeCard
                                   key={i}
                                   year={year}
-                                  type={type}
+                                  type={type === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN'}
                                   namespaceId={namespaceId}
                                   project={p}
                                   columnIdx={columnIdx}
@@ -208,7 +211,7 @@ const ColumsTrelloCard = ({ flagforScroll }: { flagforScroll: any }) => {
                                     userInformation.designation === ADMIN || userInformation.designation === STAFF
                                   }
                                   locality={locality}
-                                  borderColor={ColorService.getColor(type, p, arr, columnIdx)}
+                                  borderColor={ColorService.getColor(type === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN', p, arr, columnIdx)}
                                   divRef={divRef}
                                 />
                               </div>
@@ -241,7 +244,7 @@ const ColumsTrelloCard = ({ flagforScroll }: { flagforScroll: any }) => {
                                 <TrelloLikeCard
                                   key={i}
                                   year={year}
-                                  type={type}
+                                  type={type === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN'}
                                   namespaceId={namespaceId}
                                   project={p}
                                   columnIdx={columnIdx}
@@ -252,7 +255,7 @@ const ColumsTrelloCard = ({ flagforScroll }: { flagforScroll: any }) => {
                                     userInformation.designation === ADMIN || userInformation.designation === STAFF
                                   }
                                   locality={locality}
-                                  borderColor={ColorService.getColor(type, p, arr, columnIdx)}
+                                  borderColor={ColorService.getColor(type === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN', p, arr, columnIdx)}
                                   divRef={divRef}
                                 />
                               </div>
@@ -276,7 +279,7 @@ const ColumsTrelloCard = ({ flagforScroll }: { flagforScroll: any }) => {
                                 <TrelloLikeCard
                                   key={i}
                                   year={year}
-                                  type={type}
+                                  type={type === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN'}
                                   namespaceId={namespaceId}
                                   project={p}
                                   columnIdx={columnIdx}
@@ -287,7 +290,7 @@ const ColumsTrelloCard = ({ flagforScroll }: { flagforScroll: any }) => {
                                     userInformation.designation === ADMIN || userInformation.designation === STAFF
                                   }
                                   locality={locality}
-                                  borderColor={ColorService.getColor(type, p, arr, columnIdx)}
+                                  borderColor={ColorService.getColor(type === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN', p, arr, columnIdx)}
                                   divRef={divRef}
                                 />
                               </div>

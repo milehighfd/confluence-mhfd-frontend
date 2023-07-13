@@ -3,16 +3,17 @@ import { Collapse, InputNumber, Timeline } from 'antd';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import TotalHeader from 'Components/Work/Request/TotalHeader';
 import CostTableBody from 'Components/Work/Request/CostTableBody';
-import { useLocation } from 'react-router-dom';
 import { priceFormatter, priceParser, formatter } from 'Components/Work/Request/RequestViewUtil';
 import { DownSquareOutlined, UpSquareOutlined } from '@ant-design/icons';
 import { UseDebouncedEffect } from "routes/Utils/useDebouncedEffect";
 
 const { Panel } = Collapse;
 
-const RequestCostRows = () => {
-  const location = useLocation();
-  const type = location.pathname === '/work-request' ? 'WORK_REQUEST' : 'WORK_PLAN';
+const RequestCostRows = ({
+  type,
+}:{
+  type: string,
+}) => {
   const {
     sumByCounty,
     tabKey,
@@ -66,7 +67,7 @@ const RequestCostRows = () => {
               {
                 tabKey !== 'Maintenance' && sumByCounty.map((countySum: any) => (
                   <Timeline.Item color="purple" key={Math.random()}>
-                    <CostTableBody type={type} countySum={countySum} tabKey={tabKey} />
+                    <CostTableBody type={type === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN'} countySum={countySum} tabKey={tabKey} />
                   </Timeline.Item>
                 ))
               }

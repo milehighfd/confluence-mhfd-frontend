@@ -235,13 +235,13 @@ const NavbarView = ({
     {location[1] === ROUTERS.MAP ?
       (
         <div className='group-button-navbar'>
-          <Button className={tabActive === 'MAP'? 'navbar-btn navbar-btn-active' : 'navbar-btn'} onClick={() =>{setTabActive? setTabActive('MAP') : console.log('MAP'); console.log('MAP')}}>
+          <Button className={tabActive === 'MAP'? 'navbar-btn navbar-btn-active' : 'navbar-btn'} onClick={() =>{setTabActive && setTabActive('MAP')}}>
             Main Map
           </Button>
-          <Button className={tabActive === 'WORK_REQUEST'? 'navbar-btn navbar-btn-active' : 'navbar-btn'} onClick={() =>{setTabActive? setTabActive('WORK_REQUEST') : console.log('WORK_REQUEST');console.log('WORK_REQUEST')}}>
+          <Button className={tabActive === 'WORK_REQUEST'? 'navbar-btn navbar-btn-active' : 'navbar-btn'} onClick={() =>{setTabActive && setTabActive('WORK_REQUEST')}}>
             Requests
           </Button>
-          <Button className={tabActive === 'WORK_PLAN'? 'navbar-btn navbar-btn-active' : 'navbar-btn'} onClick={() =>{setTabActive? setTabActive('WORK_PLAN') : console.log('WORK_PLAN');console.log('WORK_PLAN')}}>
+          <Button className={tabActive === 'WORK_PLAN'? 'navbar-btn navbar-btn-active' : 'navbar-btn'} onClick={() =>{setTabActive && setTabActive('WORK_PLAN')}}>
             Work Plan
           </Button>
         </div>
