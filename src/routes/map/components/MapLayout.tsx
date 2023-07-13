@@ -56,7 +56,6 @@ const MapLayout = () => {
   const [loaded, setLoaded] = useState(false);
   const [rotationStyle, setRotationStyle] = useState(emptyStyle);
   const [leftWidthMap, setLeftWidthMap] = useState(MEDIUM_SCREEN_LEFT);
-  const [leftWidth2, setLeftWidth2] = useState(MEDIUM_SCREEN_LEFT);
   const [isExtendedView, setCompleteView] = useState(false);
   const { tutorialStatus } = useMapState();
   const { status } = useProjectState();
@@ -206,24 +205,24 @@ const MapLayout = () => {
 
   useEffect(() => {
     if (tutorialStatus) {
-      setLeftWidth2(MEDIUM_SCREEN_LEFT);
+      setLeftWidthMap(MEDIUM_SCREEN_LEFT);
       setRotationStyle(emptyStyle);
     }
   }, [tutorialStatus])
   const closeWidth = () => {
-    setLeftWidth2(COMPLETE_SCREEN);
+    setLeftWidthMap(COMPLETE_SCREEN);
     setRotationStyle({ transform: 'rotate(180deg)', marginRight: '-4px', right: '4px', position: 'relative' });
   }
   const openWidth = () => {
-    setLeftWidth2(MEDIUM_SCREEN_LEFT);
+    setLeftWidthMap(MEDIUM_SCREEN_LEFT);
     setRotationStyle(emptyStyle);
   }
   const updateWidth = () => {
     if (leftWidth === MEDIUM_SCREEN_LEFT) {
-      setLeftWidth2(COMPLETE_SCREEN);
+      setLeftWidthMap(COMPLETE_SCREEN);
       setRotationStyle({ transform: 'rotate(180deg)', marginRight: '-4px', right: '4px', position: 'relative' });
     } else {
-      setLeftWidth2(MEDIUM_SCREEN_LEFT);
+      setLeftWidthMap(MEDIUM_SCREEN_LEFT);
       setRotationStyle(emptyStyle);
       const copySelectedLayers = [...selectedLayers];
       if (!copySelectedLayers.includes(PROBLEMS_TRIGGER)) {
@@ -236,7 +235,6 @@ const MapLayout = () => {
     }
     setCompleteView(!isExtendedView);
   }
-  console.log(leftWidth, 'leftWidth___________')
   return (
     <>
     {/* WORK-PLAN-ComPONMENTS */}
