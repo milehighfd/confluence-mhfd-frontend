@@ -280,13 +280,13 @@ export class MapService {
             this.map.addImage('dollar', image);
         }
     });
-    this.map.loadImage('custom-sprite/fema-floodway.png', (error: any, image: any) => {
+    this.map.loadImage('custom-sprite/floodway4.3.png', (error: any, image: any) => {
         if (error) {
             console.log('error on load floodway', error);
             return;
         }
-        if (!this.map.hasImage('fema-floodway')) {
-            this.map.addImage('fema-floodway', image);
+        if (!this.map.hasImage('floodway4.3')) {
+            this.map.addImage('floodway4.3', image);
         }
     });
     this.map.loadImage('custom-sprite/Levee.png', (error: any, image: any) => {
