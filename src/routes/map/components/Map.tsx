@@ -172,7 +172,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     tabActiveNavbar
   } = useMapState();
   const { tabKey } = useRequestState();
-  const { boardProjects } = useProjectState();
+  const { boardProjects, zoomProject } = useProjectState();
   const { mhfdmanagers } = useFilterContext();
   let geocoderRef = useRef<HTMLDivElement>(null);
   const divMapRef = useRef<HTMLDivElement>(null);
@@ -184,8 +184,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     getAllComponentsByProblemId,
     getComponentGeom,
     getZoomGeomProblem,
-    getZoomGeomComp,
-    setBoardProjects
+    getZoomGeomComp
   } = useProjectDispatch();
   const [mobilePopups, setMobilePopups] = useState<any>([]);
   const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
@@ -325,6 +324,24 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
       },
     });
   };
+
+  useEffect(() => {
+    if (zoomProject && (zoomProject.projectid || zoomProject.project_id)) {
+      const projectid = zoomProject.project_id ? zoomProject.project_id : zoomProject.projectid;
+      datasets.getData(`${SERVER.URL_BASE}/board/bbox/${projectid}`).then(
+        (r: any) => {
+          if (r.bbox) {
+            let BBoxPolygon = JSON.parse(r.bbox);
+            let bboxBounds = turf.bbox(BBoxPolygon);
+            if (map) {
+              map.fitBounds(bboxBounds, { padding: 140 });
+            }
+          }
+        },
+        (e: any) => { },
+      );
+    }
+  }, [zoomProject]);
 
   useEffect(() => {
     const user = userInformation;
