@@ -8,7 +8,7 @@ import {
   PROJECTS_MAP_STYLES,
   MEDIUM_SCREEN_LEFT
 } from 'routes/map/constants/layout.constants';
-import { PROBLEMS_TRIGGER } from 'constants/constants';
+import { MAP, MEDIUM_SCREEN_RIGHT, PROBLEMS_TRIGGER, WORK_PLAN, WORK_REQUEST } from 'constants/constants';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
 import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { useNotesState } from 'hook/notesHook';
@@ -58,10 +58,11 @@ const MapLayout = () => {
   const [rotationStyle, setRotationStyle] = useState(emptyStyle);
   const [leftWidthMap, setLeftWidthMap] = useState(MEDIUM_SCREEN_LEFT);
   const [isExtendedView, setCompleteView] = useState(false);
+  const [commentVisible, setCommentVisible] = useState(false); // is set on open notes sidebar
   const { tutorialStatus } = useMapState();
   const { status } = useProjectState();
   const { open } = useNotesState();
-  // const [tabMapActive, setOptionSelect] = useState('MAP');
+  // const [tabMapActive, setOptionSelect] = useState(MAP);
   const { setSave } = useProjectDispatch();
   const { getUserInformation } = useAppUserDispatch();
   const [safeLoading, setSafeLoading] = useState(false);
@@ -94,9 +95,10 @@ const MapLayout = () => {
     setShowAlert,
     setVisibleCreateProject,
     setYearList,
+    setLeftWidth,
   } = useRequestDispatch();
   const currentDataForBoard: BoardDataRequest = {
-    type: tabActiveNavbar === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN',
+    type: tabActiveNavbar === WORK_REQUEST ? WORK_REQUEST: WORK_PLAN,
     year: `${year}`,
     locality,
     projecttype: tabKey ? tabKey : tabKeys[0],
@@ -217,23 +219,45 @@ const MapLayout = () => {
     setRotationStyle(emptyStyle);
   }
   const updateWidth = () => {
-    if (leftWidth === MEDIUM_SCREEN_LEFT) {
-      setLeftWidthMap(COMPLETE_SCREEN);
-      setRotationStyle({ transform: 'rotate(180deg)', marginRight: '-4px', right: '4px', position: 'relative' });
-    } else {
-      setLeftWidthMap(MEDIUM_SCREEN_LEFT);
-      setRotationStyle(emptyStyle);
-      const copySelectedLayers = [...selectedLayers];
-      if (!copySelectedLayers.includes(PROBLEMS_TRIGGER)) {
-        copySelectedLayers.push(PROBLEMS_TRIGGER);
+    if(tabActiveNavbar === MAP){
+      if (leftWidthMap === MEDIUM_SCREEN_LEFT) {
+        setLeftWidthMap(COMPLETE_SCREEN);
+        setRotationStyle({ transform: 'rotate(180deg)', marginRight: '-4px', right: '4px', position: 'relative' });
+      } else {
+        setLeftWidthMap(MEDIUM_SCREEN_LEFT);
+        setRotationStyle(emptyStyle);
+        const copySelectedLayers = [...selectedLayers];
+        if (!copySelectedLayers.includes(PROBLEMS_TRIGGER)) {
+          copySelectedLayers.push(PROBLEMS_TRIGGER);
+        }
+        if (!copySelectedLayers.includes(PROJECTS_MAP_STYLES)) {
+          copySelectedLayers.push(PROJECTS_MAP_STYLES);
+        }
+        updateSelectedLayers(copySelectedLayers);
       }
-      if (!copySelectedLayers.includes(PROJECTS_MAP_STYLES)) {
-        copySelectedLayers.push(PROJECTS_MAP_STYLES);
+    }else{
+      if (leftWidth === (MEDIUM_SCREEN_RIGHT - 1)) {
+        setLeftWidth(MEDIUM_SCREEN_LEFT);
+        setRotationStyle({ transform: 'rotate(180deg)', marginRight: '-4px', right: '4px', position: 'relative' });
+      } else {
+        setLeftWidth(MEDIUM_SCREEN_RIGHT - 1);
+        setRotationStyle(emptyStyle);
       }
-      updateSelectedLayers(copySelectedLayers);
     }
     setCompleteView(!isExtendedView);
   }
+  useEffect(() => {
+    if(commentVisible && leftWidth === (MEDIUM_SCREEN_RIGHT - 1)){
+      setLeftWidth(MEDIUM_SCREEN_LEFT);
+      setRotationStyle({ transform: 'rotate(180deg)', marginRight: '-4px', right: '4px', position: 'relative' });
+    }
+  }, [commentVisible]);
+
+  useEffect(() => {
+    setLeftWidthMap(MEDIUM_SCREEN_LEFT);
+    setLeftWidth(MEDIUM_SCREEN_RIGHT - 1);
+    setRotationStyle(emptyStyle);
+  },[tabActiveNavbar])
   return (
     <>
     {/* WORK-PLAN-ComPONMENTS */}
@@ -266,7 +290,7 @@ const MapLayout = () => {
       }
       {
         <Analytics
-          type={tabActiveNavbar === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN'}
+          type={tabActiveNavbar === WORK_REQUEST ? WORK_REQUEST: WORK_PLAN}
         />
       }
       {
@@ -279,7 +303,7 @@ const MapLayout = () => {
           status={boardStatus}
           substatus={boardSubstatus}
           comment={boardComment}
-          type={tabActiveNavbar === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN'}
+          type={tabActiveNavbar === WORK_REQUEST ? WORK_REQUEST: WORK_PLAN}
           setAlertStatus={setAlertStatus}
           setShowAlert={setShowAlert}
           onUpdateHandler={onUpdateBoard}
@@ -315,26 +339,28 @@ const MapLayout = () => {
                   <Col
                     xs={{ span: 24 }}
                     className={open ? "padding-comment transition-map" : "transition-map"}
-                    lg={tabActiveNavbar === 'MAP' ? leftWidthMap: { span: leftWidth }}
+                    lg={tabActiveNavbar === MAP ? leftWidthMap: { span: leftWidth }}
                   >
                     <Map
-                      leftWidth={tabActiveNavbar === 'MAP' ? leftWidthMap : leftWidth}
+                      leftWidth={tabActiveNavbar === MAP ? leftWidthMap : leftWidth}
+                      commentVisible={commentVisible}
+                      setCommentVisible={setCommentVisible}
                     />
-                    <Button className="btn-coll" onClick={updateWidth}>
+                    <Button className="btn-coll" onClick={updateWidth} disabled={tabActiveNavbar!==MAP && commentVisible}>
                       <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px" />
                     </Button>
                   </Col>
                   <Col
                     xs={{ span: 24 }}
                     className="menu-mobile"
-                    lg={24 - (tabActiveNavbar === 'MAP' ? leftWidthMap : leftWidth)}
+                    lg={24 - (tabActiveNavbar === MAP ? leftWidthMap : leftWidth)}
                   >
-                   {tabActiveNavbar === 'MAP' && <MapView />}
-                   {tabActiveNavbar === 'WORK_REQUEST' && <RequestView
+                   {tabActiveNavbar === MAP && <MapView />}
+                   {tabActiveNavbar === WORK_REQUEST && <RequestView
                       type={tabActiveNavbar}
                       isFirstRendering={true}
                     />}
-                   {tabActiveNavbar === 'WORK_PLAN' && <RequestView
+                   {tabActiveNavbar === WORK_PLAN && <RequestView
                       type={tabActiveNavbar}
                       isFirstRendering={true}
                     />}
