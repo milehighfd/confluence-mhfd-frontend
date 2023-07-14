@@ -30,6 +30,8 @@ import {
   MAPTYPES,
   initFilterProblems,
   WINDOW_WIDTH,
+  PROJECTS_DRAFT_MAP_STYLES,
+  PROJECTS_DRAFT,
 } from 'constants/constants';
 import {
   tileStyles,
@@ -38,7 +40,7 @@ import {
 import { addMapGeocoder, getMapBoundingBoxTrimmed } from 'utils/mapUtils';
 import { Input, AutoComplete } from 'antd';
 import { useMapState, useMapDispatch } from 'hook/mapHook';
-import { useProjectDispatch } from 'hook/projectHook';
+import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { handleAbortError, setOpacityLayer } from 'store/actions/mapActions';
 import { MapboxLayer } from '@deck.gl/mapbox';
 import { ArcLayer, ScatterplotLayer } from '@deck.gl/layers';
@@ -69,6 +71,8 @@ import useIsMobile from 'hook/custom/useIsMobile';
 import { areObjectsDifferent } from 'utils/comparators';
 import MapDropdownLayers from './MapDropdownLayers';
 import { useFilterContext } from 'utils/filterContext';
+import { getToken, postDataAsyn } from 'Config/datasets';
+import { useRequestState } from 'hook/requestHook';
 const SideBarComment = React.lazy(() => import('Components/Map/SideBarComment'));
 const ModalProjectView = React.lazy(() => import('Components/ProjectModal/ModalProjectView'));
 const DetailModal = React.lazy(() => import('routes/detail-page/components/DetailModal'));
@@ -161,8 +165,11 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     applyFilter,
     zoomProblemOrProject: zoom,
     projectsids,
+    filterProjects,
     tabActiveNavbar
   } = useMapState();
+  const { tabKey } = useRequestState();
+  const { boardProjects } = useProjectState();
   const { mhfdmanagers } = useFilterContext();
   let geocoderRef = useRef<HTMLDivElement>(null);
   const divMapRef = useRef<HTMLDivElement>(null);
@@ -175,6 +182,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     getComponentGeom,
     getZoomGeomProblem,
     getZoomGeomComp,
+    setBoardProjects
   } = useProjectDispatch();
   const [mobilePopups, setMobilePopups] = useState<any>([]);
   const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
@@ -192,6 +200,8 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
   const [dragEndCounter, setDragEndCounter] = useState(0);
   const [allLayers, setAllLayers] = useState<any[]>([]);
   const [mapService] = useState<MapService>(new MapService());
+  const [idsBoardProjects, setIdsBoardProjects] = useState<any>([]);
+  const [groupedIdsBoardProjects, setGroupedIdsBoardProjects] = useState<any>([]);
   const coorBounds: any[][] = [];
   const [data, setData] = useState({
     problemid: '',
@@ -248,6 +258,71 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     markerNote.remove();
     popup.remove();
   };
+
+  const updateLayerSource = (key: string, tiles: Array<string>) => {
+    if (!map.getSource(key) && tiles && !tiles.hasOwnProperty('error')) {
+      mapService.addLayersSource(key, tiles, addMapListeners);
+      mapService.addTilesLayers(key, addMapListeners);
+    } else if (map.getSource(key)) {
+      map.getSource(key).setTiles(tiles);
+      mapService.addTilesLayers(key, addMapListeners);
+    }
+  };
+
+  const addGeojsonLayer = (geojsonData: any) => {
+    if (map?.map.getLayer('project_board_layer')) {
+      map?.map.removeLayer('project_board_layer');
+    }
+    if (map?.map.getSource('project_board')) {
+      map?.map.removeSource('project_board');
+    }
+    map?.map.addSource('project_board', {
+      type: 'geojson',
+      // Use a URL for the value for the `data` property.
+      data: geojsonData,
+    });
+
+    map?.map.addLayer({
+      id: 'project_board_layer',
+      type: 'symbol',
+      source: 'project_board',
+      layout: {
+        'text-field': ['to-string', ['get', 'project_name']],
+        'icon-ignore-placement': true,
+      },
+      paint: {
+        'text-color': [
+          'match',
+          ['get', 'project_status'],
+          [4],
+          '#139660', //INITIATED  verde
+          [2],
+          '#9309EA', //REQUESTED violeta
+          [3],
+          '#497BF3', // APPROVED azul
+          [8],
+          '#FF0000', // CANCELLED   rojo
+          [6],
+          '#06242D', //COMPLETED  casi negro
+          [5],
+          '#416EDA', // ACTIVE   AZUL
+          [7],
+          '#A4BCF8', //INACTIVE   celeste
+          [9],
+          '#DAE4FC', //CLOSED  casi blanco
+          [10],
+          '#ECF1FD', //CLOSED OUT casi blanco
+          '#b36304',
+        ],
+        'text-halo-color': '#ffffff',
+        'text-halo-width': 1,
+        'text-halo-blur': 0,
+
+        'text-opacity': ['step', ['zoom'], 0.9, 14, 1, 22, 1],
+      },
+    });
+  };
+
   useEffect(() => {
     const user = userInformation;
     if (user?.polygon[0]) {
@@ -337,8 +412,52 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
   }, [data]);
 
   useEffect(() => {
-    console.log('tabMapActive', tabActiveNavbar);
+    if (map && tabActiveNavbar === 'MAP') {
+      // map.setLayoutProperty(PROJECTS_DRAFT + 'draft', 'visibility', 'none');
+    }
   }, [tabActiveNavbar]);
+  
+  useEffect(() => {
+    popup.remove();
+    if (boardProjects && !boardProjects.ids) {
+      setIdsBoardProjects(boardProjects);
+    }
+    if (boardProjects) {
+      setIdsBoardProjects(boardProjects.ids);
+      setGroupedIdsBoardProjects(boardProjects.groupedIds);
+    }
+    if (map) {
+      map.isStyleLoaded(() => {
+        addGeojsonLayer(boardProjects.geojsonData);
+      });
+    }
+  }, [boardProjects]);
+
+  useEffect(() => {
+    console.log('idsBoardProjects', idsBoardProjects)
+    let filterProjectsDraft = { ...filterProjects };
+    filterProjectsDraft.projecttype = '';
+    filterProjectsDraft.status = '';
+    // if (idsBoardProjects.length) {
+    const [intervalId, promise] = waitingInterval(map);
+    promise.then(() => {
+      let requestData = { table: PROJECTS_DRAFT_MAP_STYLES.tiles[0] };
+      const promises: Promise<any>[] = [];
+      promises.push(postDataAsyn(SERVER.MAP_TABLES, requestData, getToken()));
+      Promise.all(promises).then(tiles => {
+        if (tiles.length > 0) {
+          console.log('tiles', tiles);
+          updateLayerSource(PROJECTS_DRAFT + 'draft', tiles[0]);
+          showLayers(PROJECTS_DRAFT + 'draft');
+        }
+      });
+    });
+    return () => {
+      clearInterval(intervalId);
+    };
+    // }
+  }, [idsBoardProjects]);
+  
   useEffect(() => {
     let totalmarkers: any = [];
     if (map) {
@@ -687,8 +806,67 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
 
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
+      const currentLayer: any = map.getLayer(key + '_' + index);
       if (map.getLayer(key + '_' + index)) {
-        map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
+        if (key === PROJECTS_DRAFT + 'draft' && tabActiveNavbar !== 'MAP') {
+          let allFilters: any = ['in', ['get', 'projectid'], ['literal', []]];
+          const statusLayer = currentLayer?.metadata?.project_status;
+          const typeLayer = currentLayer?.metadata?.project_type || currentLayer?.metadata?.projecttype;
+          let verifiedStatus;
+          typeLayer?.forEach((type: any) => {
+            if (statusLayer.length > 0) {
+              statusLayer.forEach((currentStatus: any) => {
+                verifiedStatus = currentStatus;
+                switch (tabKey) {
+                  case 'Capital':
+                    verifiedStatus = 5;
+                    break;
+                  case 'Maintenance':
+                    verifiedStatus = 8;
+                    break;
+                  case 'Study':
+                    verifiedStatus = 1;
+                    break;
+                  case 'Acquisition':
+                    verifiedStatus = 13;
+                    break;
+                  case 'R&D':
+                    verifiedStatus = 15;
+                    break;
+                  default:
+                    break;
+                }
+              });
+            }
+          });
+          const undefinedValues = groupedIdsBoardProjects?.undefined?.undefined ?? [];
+          const newValues = [...(groupedIdsBoardProjects[1]?.[1] ?? []), ...undefinedValues];
+          const result = {
+            ...groupedIdsBoardProjects,
+            1: {
+              ...groupedIdsBoardProjects[1],
+              [Number(verifiedStatus)]: newValues,
+            },
+          };
+          // delete result.undefined;
+          let idsToFilter: any = [];
+          typeLayer?.forEach((type: any) => {
+            if (statusLayer.length > 0) {
+              statusLayer.forEach((currentStatus: any) => {
+                let idsCurrent = result[currentStatus];
+                if (idsCurrent && idsCurrent[type]?.length > 0) {
+                  idsToFilter = [...idsToFilter, ...result[currentStatus][type]];
+                }
+              });
+            }
+          });
+
+          allFilters = ['all', ['in', ['get', 'projectid'], ['literal', [...idsToFilter]]]];
+          map.setFilter(key + '_' + index, allFilters);
+          map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
+        } else {
+          map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
+        }
         if (COMPONENT_LAYERS.tiles.includes(key) && filterComponents) {
           mapService.showSelectedComponents(filterComponents.component_type.split(','));
         }

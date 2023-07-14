@@ -36,6 +36,7 @@ import {
   DWR_DAM_SAFETY,
   RESEARCH_MONITORING,
   CLIMB_TO_SAFETY,
+  PROJECTS_DRAFT,
 } from 'constants/constants';
 import {
   COMPONENT_LAYERS_STYLE,
@@ -568,7 +569,19 @@ class MapService {
     } else {
       const styles = { ...(tileStyles as any) };
       styles[key].forEach((style: LayerStylesType, index: number) => {
-        if (style)
+        if (key.includes(PROJECTS_DRAFT + 'draft')) {
+          if (this.map.getLayer(key + '_' + index)) {
+            return;
+          }
+          this.map.addLayer({
+            id: key + '_' + index,
+            source: key,
+            filter: ['in', ['get', 'projectid'], ['literal', []]],
+            ...style,
+          });
+          this.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
+        }else{
+          if (style)
           if (style.source_name) {
             this.map.addLayer({
               id: key + '_' + index,
@@ -582,6 +595,7 @@ class MapService {
               ...style,
             });
           }
+        }
         this.addLayerProperties(key, index, style);
       });
     }
