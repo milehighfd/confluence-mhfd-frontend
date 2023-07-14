@@ -36,7 +36,7 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
   }, 
   {
     key: '4',
-    className: Number(indexOf) === 4 ? 'menu-sidebar-hover':'',
+    className: Number(indexOf) === 4  ? 'menu-sidebar-hover':'',
     label: <Link to={userApproved ? '/map' : '#'} onClick={()=>{setTabActiveNavbar(WORK_REQUEST)}}>
       <img className={"img-h anticon"+(userApproved?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-14.svg" alt="" width="22px" height="22px" />
       <img className={"img-a anticon"+(userApproved?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-14.svg" alt="" width="22px" height="22px" />
@@ -80,7 +80,7 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
     key: '7',
     label: <a href={'https://forms.office.com/r/CUgfTnrTUm'} target="_blank">
       <img className={"img-h anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-12.svg" alt="" width="22px" height="22px" />
-      <img className={"img-h anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-12.svg" alt="" width="22px" height="22px" />
+      <img className={"img-a anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-12.svg" alt="" width="22px" height="22px" />
       <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>feedback</span>
     </a>
   }, {
@@ -88,7 +88,7 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
     className: Number(indexOf) === 8 ? 'menu-sidebar-hover':'',
     label: <Link to={'/user'}>
       <img className={"img-h anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-06.svg" alt="" width="22px" height="22px" />
-      <img className={"img-h anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-06.svg" alt="" width="22px" height="22px" />
+      <img className={"img-a anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-06.svg" alt="" width="22px" height="22px" />
       <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>settings</span>
     </Link>
   }];
