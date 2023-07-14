@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GOVERNMENT_STAFF } from 'constants/constants';
 import { useProfileState } from 'hook/profileHook';
 import { AutoComplete, Input } from 'antd';
@@ -10,7 +10,7 @@ const windowWidth: any = window.innerWidth;
 const AutoCompleteDropdown = (
   {
     type,
-  }:{
+  }: {
     type: string,
   }
 ) => {
@@ -24,6 +24,8 @@ const AutoCompleteDropdown = (
     tabKey,
     locality,
     boardStatus,
+    filterMap,
+    namespaceId,
   } = useRequestState();
   const {
     setShowAnalytics,
@@ -37,9 +39,10 @@ const AutoCompleteDropdown = (
     setLocalityType,
     setTabKey,
     setIsOnSelected,
+    loadColumns,
   } = useRequestDispatch();
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
-
+  const [dropdownSelected, setDropdownSelected] = useState();
   const renderOption = (item: string) => {
     return {
       key: `${item}|${item}`,
@@ -47,17 +50,58 @@ const AutoCompleteDropdown = (
       label: item
     };
   };
+  useEffect(() => {
+    updateFilterSelected(dropdownSelected);
+  }, [filterMap])
 
-  const onSelect = (value: any) => {
+  const updateFilterSelected = (value: any) => {
+    if (filterMap && value) {
+      const jurisdictionFilterList = [true];
+      filterMap?.project_local_governments.map((r: any, index: any) => {
+        jurisdictionFilterList[index] = true
+      });
+      const priorityFilterList = [true, true, true, true, true];
+      setJurisdictionSelected(jurisdictionFilterList);
+      setPrioritySelected(priorityFilterList);
+      if (value && value.includes('County')) {
+        const valueName = value.replace('County', '').trim();
+        let filterSelected = [false];
+        filterMap?.project_counties.map((p: any, index: number) => {
+          if (p.county_name === valueName) {
+            filterSelected[index] = true;
+          } else {
+            filterSelected[index] = false;
+          }
+        })
+        setCountiesSelected(filterSelected);
+      }
+      if (value && value.includes('Service Area')) {
+        const valueName = value.replace('Service Area', '').trim();
+        let filterSelected = [false];
+        filterMap?.project_service_areas.map((p: any, index: number) => {
+          if (p.service_area_name === valueName) {
+            filterSelected[index] = true;
+          } else {
+            filterSelected[index] = false;
+          }
+        })
+        setServiceAreasSelected(filterSelected)
+      }
+      loadColumns(namespaceId)
+    }
+  }
+
+  const onSelect = async (value: any) => {
+    setDropdownSelected(value);
     setShowAnalytics(false);
     setShowBoardStatus(false);
-    setLocality(value);
     setIsOnSelected(true);
     setLocalityFilter(value);
     setPrioritySelected([]);
     setJurisdictionSelected([]);
     setCountiesSelected([]);
     setServiceAreasSelected([]);
+    updateFilterSelected(value);
     let l = localities.find((p: any) => {
       return p.name === value;
     })
@@ -66,7 +110,6 @@ const AutoCompleteDropdown = (
       setLocalityType(l.table);
       if (type === 'WORK_PLAN') {
         let displayedTabKey: string[] = [];
-
         if (year < 2022) {
           if (l.table === 'CODE_STATE_COUNTY') {
             displayedTabKey = ['Capital', 'Maintenance']
@@ -107,7 +150,7 @@ const AutoCompleteDropdown = (
         userInformation.designation !== GOVERNMENT_STAFF ? (
           <AutoComplete
             className={'ant-select-1'}
-            options={renderOption.length > 0 ? [...dataAutocomplete.map(renderOption), {}]: dataAutocomplete.map(renderOption)}
+            options={renderOption.length > 0 ? [...dataAutocomplete.map(renderOption), {}] : dataAutocomplete.map(renderOption)}
             placeholder={localityFilter}
             filterOption={(inputValue, option: any) => {
               if (dataAutocomplete.includes(inputValue)) {

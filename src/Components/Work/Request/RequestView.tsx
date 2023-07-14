@@ -285,7 +285,7 @@ const RequestView = ({ type, isFirstRendering }: {
         displayedTabKey = ['Study'];
       }
     }
-    if (locality === 'MHFD District Work Plan' || locality === 'Mile High Flood District') {
+    if (locality.name === 'MHFD District Work Plan' || locality.name === 'Mile High Flood District') {
       displayedTabKey = tabKeys;
     }
   }
@@ -315,11 +315,11 @@ const RequestView = ({ type, isFirstRendering }: {
             <div className="work-head" >
               <Row>
                 <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                  <AutoCompleteDropdown type={type}/>
+                  <AutoCompleteDropdown type={type} />
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{ textAlign: 'right' }}>
                   <YearDropdown />
-                  <Toolbar type={type}/>
+                  <Toolbar type={type} />
                 </Col>
               </Row>
             </div>
@@ -335,8 +335,6 @@ const RequestView = ({ type, isFirstRendering }: {
                   setTabKey(key);
                   setPrioritySelected([]);
                   setJurisdictionSelected([]);
-                  setCountiesSelected([]);
-                  setServiceAreasSelected([]);
                 }} className="tabs-map">
                 {
                   displayedTabKey.map((tk: string) => (
@@ -347,7 +345,7 @@ const RequestView = ({ type, isFirstRendering }: {
                           flagforScroll={flagforScroll}
                         />
                       </div>
-                      <RequestCostRows type={type}/>
+                      <RequestCostRows type={type} />
                     </TabPane>
                   ))
                 }
