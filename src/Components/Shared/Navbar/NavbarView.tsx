@@ -5,7 +5,7 @@ import { CaretDownOutlined, DoubleRightOutlined, QuestionCircleOutlined } from '
 import { GlobalMapHook } from 'utils/globalMapHook';
 import * as datasets from 'Config/datasets';
 import 'Scss/Components/navbar.scss';
-import { FILTER_PROJECTS_TRIGGER, ROUTERS, ROUTER_TITLE } from 'constants/constants';
+import { FILTER_PROJECTS_TRIGGER, ROUTERS, ROUTER_TITLE, MAP_TAB, WORK_REQUEST_TAB, WORK_PLAN_TAB } from 'constants/constants';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
 import { useProfileDispatch, useProfileState } from 'hook/profileHook';
 import { useUsersState } from 'hook/usersHook';
@@ -237,13 +237,13 @@ const NavbarView = ({
     {location[1] === ROUTERS.MAP ?
       (
         <div className='group-button-navbar'>
-          <Button className={tabActiveNavbar === 'MAP'? 'navbar-btn navbar-btn-active' : 'navbar-btn'} onClick={() =>{setTabActiveNavbar('MAP')}}>
+          <Button className={tabActiveNavbar === 'MAP'? 'navbar-btn navbar-btn-active' : 'navbar-btn'} onClick={() =>{setTabActiveNavbar(MAP_TAB)}}>
             Main Map
           </Button>
-          <Button className={tabActiveNavbar === 'WORK_REQUEST'? 'navbar-btn navbar-btn-active' : 'navbar-btn'} onClick={() =>{setTabActiveNavbar('WORK_REQUEST')}}>
+          <Button className={tabActiveNavbar === 'WORK_REQUEST'? 'navbar-btn navbar-btn-active' : 'navbar-btn'} onClick={() =>{setTabActiveNavbar(WORK_REQUEST_TAB)}}>
             Requests
           </Button>
-          <Button className={tabActiveNavbar === 'WORK_PLAN'? 'navbar-btn navbar-btn-active' : 'navbar-btn'} onClick={() =>{setTabActiveNavbar('WORK_PLAN')}}>
+          <Button className={tabActiveNavbar === 'WORK_PLAN'? 'navbar-btn navbar-btn-active' : 'navbar-btn'} onClick={() =>{setTabActiveNavbar(WORK_PLAN_TAB)}}>
             Work Plan
           </Button>
         </div>

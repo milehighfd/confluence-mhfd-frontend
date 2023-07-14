@@ -32,6 +32,9 @@ import {
   WINDOW_WIDTH,
   PROJECTS_DRAFT_MAP_STYLES,
   PROJECTS_DRAFT,
+  MAP_TAB,
+  WORK_REQUEST_TAB,
+  WORK_PLAN_TAB
 } from 'constants/constants';
 import {
   tileStyles,
@@ -377,6 +380,12 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
   const removeLayerMask = (id: any) => {
     map.removeLayer(id + 'MASK');
   };
+
+  const resetBoardIds = () => {
+    setIdsBoardProjects([]);
+    setGroupedIdsBoardProjects([]);
+  };
+
   useEffect(() => {
     mapService.autocomplete = autocomplete;
   }, [autocomplete]);
@@ -411,9 +420,10 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     }
   }, [data]);
 
+  
   useEffect(() => {
-    if (map && tabActiveNavbar === 'MAP') {
-      // map.setLayoutProperty(PROJECTS_DRAFT + 'draft', 'visibility', 'none');
+    if (map && tabActiveNavbar === MAP_TAB) {
+      resetBoardIds();
     }
   }, [tabActiveNavbar]);
   
@@ -431,6 +441,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
         addGeojsonLayer(boardProjects.geojsonData);
       });
     }
+    console.log('Board project ', boardProjects);
   }, [boardProjects]);
 
   useEffect(() => {
@@ -446,7 +457,6 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
       promises.push(postDataAsyn(SERVER.MAP_TABLES, requestData, getToken()));
       Promise.all(promises).then(tiles => {
         if (tiles.length > 0) {
-          console.log('tiles', tiles);
           updateLayerSource(PROJECTS_DRAFT + 'draft', tiles[0]);
           showLayers(PROJECTS_DRAFT + 'draft');
         }
@@ -808,7 +818,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     styles[key].forEach((style: LayerStylesType, index: number) => {
       const currentLayer: any = map.getLayer(key + '_' + index);
       if (map.getLayer(key + '_' + index)) {
-        if (key === PROJECTS_DRAFT + 'draft' && tabActiveNavbar !== 'MAP') {
+        if (key === PROJECTS_DRAFT + 'draft') {
           let allFilters: any = ['in', ['get', 'projectid'], ['literal', []]];
           const statusLayer = currentLayer?.metadata?.project_status;
           const typeLayer = currentLayer?.metadata?.project_type || currentLayer?.metadata?.projecttype;
@@ -840,7 +850,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
             }
           });
           const undefinedValues = groupedIdsBoardProjects?.undefined?.undefined ?? [];
-          const newValues = [...(groupedIdsBoardProjects[1]?.[1] ?? []), ...undefinedValues];
+          const newValues = [...(groupedIdsBoardProjects ? groupedIdsBoardProjects[1]?.[1] ?? []: []), ...undefinedValues];
           const result = {
             ...groupedIdsBoardProjects,
             1: {

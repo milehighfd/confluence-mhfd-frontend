@@ -1405,3 +1405,7 @@ export const notComponentOptions: any[] = [
   MENU_OPTIONS.CLIMB_TO_SAFETY_SIGNS,
   MENU_OPTIONS.MEASURES,
 ];
+
+export const MAP_TAB = 'MAP';
+export const WORK_REQUEST_TAB = 'WORK_REQUEST';
+export const WORK_PLAN_TAB = 'WORK_PLAN';
