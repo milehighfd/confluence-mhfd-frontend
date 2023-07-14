@@ -120,7 +120,7 @@ let isProblemActive = true;
 
 let commentAvailable = false;
 
-const Map = ({ leftWidth }: MapProps) => {
+const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
   const {
     updateSelectedLayers,
     setFilterCoordinates,
@@ -192,9 +192,7 @@ const Map = ({ leftWidth }: MapProps) => {
   const [dragEndCounter, setDragEndCounter] = useState(0);
   const [allLayers, setAllLayers] = useState<any[]>([]);
   const [mapService] = useState<MapService>(new MapService());
-  const [commentVisible, setCommentVisible] = useState(false); // is set on open notes sidebar
   const coorBounds: any[][] = [];
-
   const [data, setData] = useState({
     problemid: '',
     id: '',
