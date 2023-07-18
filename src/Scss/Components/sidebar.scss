@@ -68,12 +68,6 @@
   color: $green !important;
   background-color: #516065 !important;
 }
-.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected .img-a{
-  display: inline-block !important;
-}
-.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected .img-h{
-  display: none;
-}
 .ant-layout-sider-trigger{
   background: $dark !important;
 }
@@ -116,6 +110,12 @@
 }
 .menu-sidebar-hover{
     background-color: #516065 !important;
+    .img-h{
+      display: none !important;
+    }
+    .img-a{
+      display: inline-block !important;
+    }
 }
 .menu-sidebar-hove:hover{
   background-color: #516065 !important;
