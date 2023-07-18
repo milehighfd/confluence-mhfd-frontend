@@ -458,11 +458,9 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
         addGeojsonLayer(boardProjects.geojsonData);
       });
     }
-    console.log('Board project ', boardProjects);
   }, [boardProjects]);
 
   useEffect(() => {
-    console.log('idsBoardProjects', idsBoardProjects)
     let filterProjectsDraft = { ...filterProjects };
     filterProjectsDraft.projecttype = '';
     filterProjectsDraft.status = '';
@@ -830,11 +828,10 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
   useMapResize(leftWidth, map);
 
   const showLayers = (key: string) => {
-
     const styles = { ...tileStyles as any };
-    styles[key].forEach((style: LayerStylesType, index: number) => {
+    styles[key].forEach((_: LayerStylesType, index: number) => {
       const currentLayer: any = map.getLayer(key + '_' + index);
-      if (map.getLayer(key + '_' + index)) {
+      if (currentLayer) {
         if (key === PROJECTS_DRAFT + 'draft') {
           let allFilters: any = ['in', ['get', 'projectid'], ['literal', []]];
           const statusLayer = currentLayer?.metadata?.project_status;
@@ -871,7 +868,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
           const result = {
             ...groupedIdsBoardProjects,
             1: {
-              ...groupedIdsBoardProjects[1],
+              ...(groupedIdsBoardProjects?groupedIdsBoardProjects[1]: []),
               [Number(verifiedStatus)]: newValues,
             },
           };
@@ -892,6 +889,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
           map.setFilter(key + '_' + index, allFilters);
           map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
         } else {
+          console.log('Should be set to visible', key + '_' + index);
           map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
         }
         if (COMPONENT_LAYERS.tiles.includes(key) && filterComponents) {
@@ -1150,7 +1148,6 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
                 continue;
               }
               if (typeof filters === 'object' && filterField !== 'mhfdmanager') {
-                console.log('yxxFilters', filters, filterField, mhfdmanagers);
                 if (filterField === 'solutioncost') {
                   const lower = filters[0];
                   const upper = filters[1];
@@ -1400,6 +1397,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     const styles = { ...(tileStyles as any) };
     styles[key].forEach((_: LayerStylesType, index: number) => {
       if (map.getLayer(key + '_' + index)) {
+        console.log('Hide layer', key + '_' + index);
         map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
       }
     });
@@ -1904,7 +1902,6 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
           ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
         }
       }
-      console.log('opups ', popups);
       if (popups.length) {
         setMobilePopups(mobile);
         setSelectedPopup(0);

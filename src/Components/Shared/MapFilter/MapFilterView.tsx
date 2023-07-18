@@ -29,6 +29,7 @@ import {
   AREA_BASED_MASK,
   ACTIVE_LOMS,
   EFFECTIVE_REACHES,
+  EFFECTIVE_REACHES_LAYERS,
   FLOOD_HAZARDS,
   USE_LAND_COVER_LABEL,
   USE_LAND_COVER
@@ -244,7 +245,7 @@ const MapFilterView = ({
       <Switch key="KIwYxEF3V7Z8" checked={groups['hydraulic']} size="small" onClick={(value, event) => {
          event.stopPropagation();
          changeGroup(value, [FLOODPLAINS,
-          FEMA_FLOOD_HAZARD, ACTIVE_LOMS, EFFECTIVE_REACHES
+          FEMA_FLOOD_HAZARD, ACTIVE_LOMS, EFFECTIVE_REACHES_LAYERS
          ], 'hydraulic')}
        }/>
     </div>
@@ -540,7 +541,7 @@ const MapFilterView = ({
                   <Popover key="7O7aHaRJRovW" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.effective_reaches)}>
                 <img key="GYvKUUrfba7Q" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
-              <Switch key="pif15LiChpkx" checked={switches[EFFECTIVE_REACHES]} size="small" onClick={(value) => onChange(value, EFFECTIVE_REACHES)} />
+              <Switch key="pif15LiChpkx" checked={switches[EFFECTIVE_REACHES_LAYERS.name]} size="small" onClick={(value) => onChange(value, EFFECTIVE_REACHES_LAYERS)} />
             </p> 
 
             <p>

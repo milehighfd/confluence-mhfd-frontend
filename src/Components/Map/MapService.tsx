@@ -37,6 +37,7 @@ import {
   RESEARCH_MONITORING,
   CLIMB_TO_SAFETY,
   PROJECTS_DRAFT,
+  EFFECTIVE_REACHES_ENDPOINTS,
 } from 'constants/constants';
 import {
   COMPONENT_LAYERS_STYLE,
@@ -100,7 +101,7 @@ class MapService {
     imagesPaths.forEach((imagePath: string) => {
       this.map.loadImage(imagePath, (error: any, image: any) => {
         if (error) {
-          console.log('error on load ', error);
+          console.error('error on load ', error);
           return;
         }
         if (!this.map.hasImage(imagePath.split('/')[1].split('.')[0])) {
@@ -271,6 +272,11 @@ class MapService {
     styles[EFFECTIVE_REACHES].forEach((style: LayerStylesType, index: number) => {
       if (this.map.getLayer(`${EFFECTIVE_REACHES}_${index}`)) {
         this.map.moveLayer(`${EFFECTIVE_REACHES}_${index}`);
+      }
+    });
+    styles[EFFECTIVE_REACHES_ENDPOINTS].forEach((style: LayerStylesType, index: number) => {
+      if (this.map.getLayer(`${EFFECTIVE_REACHES_ENDPOINTS}_${index}`)) {
+        this.map.moveLayer(`${EFFECTIVE_REACHES_ENDPOINTS}_${index}`);
       }
     });
   };
@@ -501,7 +507,9 @@ class MapService {
       }
     }
     if (key) {
-      this.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
+      // if (this.map.getLayer(key + '_' + index)) {
+        this.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
+      // }
     }
 
     if (!hovereableLayers.includes(key)) {
@@ -580,8 +588,8 @@ class MapService {
             ...style,
           });
           this.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
-        }else{
-          if (style)
+        } else {
+          console.log('Add source', key, index, style);
           if (style.source_name) {
             this.map.addLayer({
               id: key + '_' + index,
