@@ -116,7 +116,7 @@ const RequestView = ({ type, isFirstRendering }: {
     const initLoading = async () => {
       let params = new URLSearchParams(history.location.search)
       let _year = params.get('year');
-      let _locality = params.get('locality');
+      let _locality: any; //= params.get('locality'); commented to avoid preserve the same locality for wr and wp
       let _tabKey = params.get('tabKey') || users.projecttype;
       if (_locality !== userInformation.organization && userInformation.designation === GOVERNMENT_STAFF) {
         _locality = userInformation.organization;

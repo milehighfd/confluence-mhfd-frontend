@@ -327,6 +327,23 @@
   }
 }
 
+.btn-coll{
+  border: none !important;
+  background: white;
+  box-shadow: none !important;
+  position: absolute !important;
+  top: calc(50% - 27px);
+  right: 0px;
+  padding: 0px !important;
+  width: 50px;
+  height: 55px !important;
+  border-radius: 10px 0px 0px 10px !important;
+  z-index: 1000;
+}
+.btn-coll:hover > img {
+  margin-right: -2px !important;
+}
+
 .ant-select-dropdown-menu-item-active:not(.ant-select-dropdown-menu-item-disabled),
 .ant-select-dropdown-menu-item:hover:not(.ant-select-dropdown-menu-item-disabled) {
   background-color: #f3f3f3 !important;
@@ -3175,6 +3192,61 @@ hr.filters-line {
     }
   }
 
+  .legendProblemTypemap {
+    padding-left: 21px;
+    padding-right: 21px;
+    bottom: 49px;
+    right: 18px;
+    width: 288px;
+    height: 210px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: stretch;
+    h5 {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 22px;
+    }
+  
+    .iconwatershed {
+      width: 42px;
+      height: 42px;
+      margin-right: 12px;
+    }
+  
+    .iconstreamfunction {
+      width: 42px;
+      height: 42px;
+      margin-right: 12px;
+    }
+  
+    .iconfloodhazard {
+      width: 42px;
+      height: 42px;
+      margin-right: 12px;
+    }
+  
+    .legendprob {
+      font-size: 21px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+    }
+  
+  }
+
+  .btn-coll {
+    top: calc(50% - 54px);
+    width: 65px;
+    height: 72px !important;
+
+    img{
+      width: 21px;
+    }
+  }
+
   .popoveer-00 {
     font-size: 17px;
 
@@ -3342,6 +3414,60 @@ hr.filters-line {
       align-items: center;
       justify-content: center;
      }
+  }
+
+  .legendProblemTypemap {
+    padding-left: 35px;
+    padding-right: 35px;
+    bottom: 85px;
+    right: 30px;
+    width: 480px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: stretch;
+    h5 {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 38px;
+    }
+  
+    .iconwatershed {
+      width: 70px;
+      height: 70px;
+      margin-right: 20px;
+    }
+  
+    .iconstreamfunction {
+      width: 70px;
+      height: 70px;
+      margin-right: 20px;
+    }
+  
+    .iconfloodhazard {
+      width: 70px;
+      height: 70px;
+      margin-right: 20px;
+    }
+  
+    .legendprob {
+      font-size: 36px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+    }
+  
+  }
+  .btn-coll {
+    top: calc(50% - 54px);
+    width: 110px;
+    height: 120px !important;
+
+    img{
+      width: 36px;
+    }
   }
   hr.linedropdown {
     margin-top: 33px !important;
