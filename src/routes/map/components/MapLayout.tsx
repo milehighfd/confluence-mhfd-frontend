@@ -326,7 +326,7 @@ const MapLayout = () => {
         />
       }
      {/* END-WORK-PLAN-ComPONMENTS */}
-      <Layout>
+      <Layout key={'main-map'}>
         <NavbarView />
         <FiltersContext>
         <Layout>
