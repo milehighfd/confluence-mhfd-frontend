@@ -1600,16 +1600,27 @@ const Map = ({ leftWidth }: MapProps) => {
     }
   };
   const renderOption = (item: any) => {
-    return {
-      key: `${item.text}|${item.place_name}`,
-      value: `${item.center[0]},${item.center[1]}?${item.text}|${item.place_name}`,
-      label: (
-        <div className="global-search-item">
-          <h6 style={{ whiteSpace: 'normal' }}>{item.text}</h6>
-          <p>{item.place_name}</p>
-        </div>
-      ),
-    };
+    if (item.place_name === 'Stream'){
+      return {
+        key: `${item.text}|${item.place_name}|${item.center[0]}|${item.center[1]}`,
+        value: `${item.center[0]},${item.center[1]}?${item.text}|${item.place_name}`,
+        label: (
+          <div className="global-search-item">
+            <h6 style={{ whiteSpace: 'normal' }}>{item.text}</h6>
+          </div>
+        ),
+      };
+    }else{
+      return {
+        key: `${item.text}|${item.place_name}|${item.center[0]}|${item.center[1]}`,
+        value: `${item.center[0]},${item.center[1]}?${item.text}|${item.place_name}`,
+        label: (
+          <div className="global-search-item">
+            <h6 style={{ whiteSpace: 'normal' }}>{item.place_name}</h6>
+          </div>
+        ),
+      };
+    }    
   };
   const [keyword, setKeyword] = useState('');
   const handleSearch = (value: string) => {
@@ -1849,7 +1860,7 @@ const Map = ({ leftWidth }: MapProps) => {
           <AutoComplete
             dropdownMatchSelectWidth={true}
             className='autocomplete-map'
-            options={mapSearch.length > 0 ? [...mapSearch.map(renderOption), {}] : mapSearch.map(renderOption)}
+            options={mapSearch.map(renderOption)}
             onSelect={onSelect}
             onSearch={handleSearch}
             value={keyword}
