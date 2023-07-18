@@ -25,10 +25,6 @@
     padding: 6px 11px;
     font-size: 16px;
   }
-  .map-00 .mapboxgl-ctrl-scale {
-    font-size: 14px;
-    padding: 3px 6px;
-  }
   .pre-signup{
     font-size: 16px;
   }
@@ -524,52 +520,6 @@
       padding: 30px 30px !important;
       mask-size: 30px 30px !important;
     }
-    .m-zoom {
-     width: 50px;
-     bottom: 220px;
-
-      button {
-        width: 50px;
-        height: 50px;
-      }
-      button .img-icon {
-        height: 34px;
-        width: 28px;
-      }
-      button .img-icon-01 {
-        height: 34px;
-        width: 28px;
-      }
-      .ant-btn:hover > .img-icon {
-        height: 34px;
-        width: 28px;
-      }
-     
-    }
-  }
-  .mapboxgl-ctrl-group button {
-    width: 50px !important;
-    height: 50px !important;
-  }
-  .map-00 {
-    .mapboxgl-ctrl-group {
-      width: 50px !important;
-      bottom: 50px;
-    }
-    .mapboxgl-ctrl-scale {
-     font-size: 24px;
-     padding: 12px 14px;
-    }
-    .mapboxgl-ctrl-scale {
-     left: 80px;
-     bottom: 50px;
-    }
-  }
-  .mapboxgl-ctrl button.mapboxgl-ctrl-zoom-in .mapboxgl-ctrl-icon {
-    background-size: 26px 26px;
-  }
-  .mapboxgl-ctrl button.mapboxgl-ctrl-zoom-out .mapboxgl-ctrl-icon {
-    background-size: 26px 26px;
   }
 
   // CARDS

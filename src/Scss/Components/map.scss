@@ -3028,13 +3028,15 @@ hr.filters-line {
       font-size: 12px !important;
     }
   }
-
   .map-pop-02 .btn-transparent {
     span {
       font-size: 14px !important;
     }
   }
-
+  .map-00 .mapboxgl-ctrl-scale {
+    font-size: 14px;
+    padding: 3px 6px;
+  }
   .popoveer-00 {
     .notification-header {
       a {
@@ -3080,6 +3082,74 @@ hr.filters-line {
     span {
       font-size: 14px !important;
     }
+  }
+
+  .mapboxgl-ctrl{
+    button.mapboxgl-ctrl-zoom-in .mapboxgl-ctrl-icon {
+      background-size: 15px 15px !important;
+    }
+    button.mapboxgl-ctrl-zoom-out .mapboxgl-ctrl-icon {
+      background-size: 15px 15px !important;
+    }
+    button.mapboxgl-ctrl-compass .mapboxgl-ctrl-icon {
+      background-size: 15px !important;
+    }
+  } 
+  .map{
+    .mapboxgl-ctrl-group {
+      width: 108px !important;
+    }
+    .m-zoom{
+      width: 45px !important;
+      left: 25px;
+      bottom: 230px !important;
+      button {
+        width: 45px !important;
+        height: 45px !important;
+        .img-icon {
+          height: 27px ;
+          width: 25px;
+        }
+        .img-icon-01 {
+          -webkit-mask-size: 30px 30px
+        }
+        .img-icon-04 {
+          -webkit-mask-size: 30px 30px
+        }
+        .img-icon-01:hover {
+          -webkit-mask-size: 30px 30px !important;
+        }
+        .img-icon:hover {
+          height: 27px !important;
+          width: 25px !important;
+        }
+        .img-icon-04:hover {
+          -webkit-mask-size: 30px 30px !important;
+        }
+      }
+    }
+  }
+  .map-00{
+    .mapboxgl-ctrl-group {
+      left: 25px;
+      width: 45px !important;
+      bottom: 70px;  
+    }
+    .mapboxgl-ctrl-group button {
+      width: 45px !important;
+      height: 45px !important;
+    }
+    .mapboxgl-ctrl-scale {
+      font-size: 25px;
+      padding: 12px 14px;
+      left: 85px;
+      bottom: 70px;
+      height: 35px;
+      width: 45px !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+     }
   }
 
   .map-pop-00 {
@@ -3200,13 +3270,79 @@ hr.filters-line {
     }
   }
 
-  .map .m-head {
-    .ant-input-search>.ant-input-group>.ant-input-group-addon:last-child {
-      margin-top: -43px;
-      margin-left: 14px;
+  .mapboxgl-ctrl{
+    button.mapboxgl-ctrl-zoom-in .mapboxgl-ctrl-icon {
+      background-size: 30px 30px !important;
+    }
+    button.mapboxgl-ctrl-zoom-out .mapboxgl-ctrl-icon {
+      background-size: 30px 30px !important;
+    }
+    button.mapboxgl-ctrl-compass .mapboxgl-ctrl-icon {
+      background-size: 25px !important;
+    }
+  } 
+  .map{
+    .mapboxgl-ctrl-group {
+      width: 128x !important;
+    }
+    .m-head {
+      .ant-input-search>.ant-input-group>.ant-input-group-addon:last-child {
+        margin-top: -43px;
+        margin-left: 14px;
+      }
+    }
+    .m-zoom{
+      width: 75px !important;
+      left: 32px;
+      bottom: 335px !important;
+      button {
+        width: 75px !important;
+        height: 75px !important;
+        .img-icon {
+          height: 50px ;
+          width: 45px;
+        }
+        .img-icon-01 {
+          -webkit-mask-size: 55px 55px
+        }
+        .img-icon-04 {
+          -webkit-mask-size: 55px 55px
+        }
+        .img-icon-01:hover {
+          -webkit-mask-size: 55px 55px !important;
+        }
+        .img-icon:hover {
+          height: 50px !important;
+          width: 45px !important;
+        }
+        .img-icon-04:hover {
+          -webkit-mask-size: 55px 55px !important;
+        }
+      }
     }
   }
-
+  .map-00{
+    .mapboxgl-ctrl-group {
+      left: 32px;
+      width: 75px !important;
+      bottom: 85px;  
+    }
+    .mapboxgl-ctrl-group button {
+      width: 75px !important;
+      height: 75px !important;
+    }
+    .mapboxgl-ctrl-scale {
+      font-size: 35px;
+      padding: 12px 14px;
+      left: 125px;
+      bottom: 85px;
+      height: 60px;
+      width: 80px !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+     }
+  }
   hr.linedropdown {
     margin-top: 33px !important;
   }

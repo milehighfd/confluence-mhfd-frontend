@@ -6105,6 +6105,7 @@ export const tileStyles = {
   ...MEP_PROJECTS_STYLES,
   ...ROUTINE_MAINTENANCE_STYLES,
   ...PROJECTS_STYLES,
+  ...PROJECTS_STYLES_WR
 };
 
 export const tileStylesDetailPage = {

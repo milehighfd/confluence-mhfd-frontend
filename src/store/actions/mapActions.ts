@@ -838,3 +838,10 @@ export const changeTutorialStatus = (tutorialStatus: boolean) => {
     dispatch({ type: types.TUTORIAL_STATUS, tutorialStatus });
   };
 };
+
+export const setTabActiveNavbar = (tabActiveNavbar: string) => {
+  return (dispatch: Function) => {
+    console.log('inside action',tabActiveNavbar)
+    dispatch({ type: types.SET_TAB_ACTIVE_NAVBAR, tabActiveNavbar });
+  };
+};

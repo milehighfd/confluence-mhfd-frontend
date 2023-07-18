@@ -5,8 +5,8 @@ import { CaretDownOutlined, DoubleRightOutlined, QuestionCircleOutlined } from '
 import { GlobalMapHook } from 'utils/globalMapHook';
 import * as datasets from 'Config/datasets';
 import 'Scss/Components/navbar.scss';
-import { FILTER_PROJECTS_TRIGGER, ROUTERS, ROUTER_TITLE } from 'constants/constants';
-import { useMapDispatch } from 'hook/mapHook';
+import { FILTER_PROJECTS_TRIGGER, ROUTERS, ROUTER_TITLE, MAP_TAB, WORK_REQUEST_TAB, WORK_PLAN_TAB } from 'constants/constants';
+import { useMapDispatch, useMapState } from 'hook/mapHook';
 import { useProfileDispatch, useProfileState } from 'hook/profileHook';
 import { useUsersState } from 'hook/usersHook';
 import ModalEditUserView from 'Components/Profile/ProfileComponents/ModalEditUserView';
@@ -23,10 +23,10 @@ const content = (<div className="popoveer-00">No Notifications</div>);
 
 const NavbarView = ({
   tabActive,
-  setTabActive,
+  // setTabActive,
 }: {
   tabActive?: string,
-  setTabActive?: React.Dispatch<React.SetStateAction<string>>
+  // setTabActive?: React.Dispatch<React.SetStateAction<string>>
 }) => {
   const { deleteNotification } = useAppUserDispatch();
   const [key, setKey] = useState('1');
@@ -45,7 +45,8 @@ const NavbarView = ({
   const [state, setState] = useState(stateValue);
   const [visibleTutorial, setVisibleTutorial] = useState(false);
   const [notification,setNotification] = useState<any>([]);
-  const { changeTutorialStatus,getDetailedPageProject } = useMapDispatch();
+  const { changeTutorialStatus,getDetailedPageProject, setTabActiveNavbar } = useMapDispatch();
+  const { tabActiveNavbar } = useMapState();
   const { getTimesLogin, resetTimesLogin } = useProfileDispatch();
   const { timesLogged } = useUsersState();
   const { deleteMaps } = GlobalMapHook();
@@ -112,7 +113,7 @@ const NavbarView = ({
     changeTutorialStatus(state.visible1);
   }, [state]);
   useEffect(() => {
-      if(locationPage.pathname === '/profile-view' || tabActive === 'Schedule' || tabActive === 'Phase') {
+      if(locationPage.pathname === '/profile-view' || tabActiveNavbar === 'Schedule' || tabActiveNavbar === 'Phase') {
         if (sliderIndex === 1) {
           setState({...state, visible1: false});
           setSliderIndex(0);
@@ -124,6 +125,7 @@ const NavbarView = ({
         }
     }
   }, [sliderIndex]);
+  
   const showModal = () => {
     const auxState = {...state};
     auxState.visible = true;
@@ -235,13 +237,13 @@ const NavbarView = ({
     {location[1] === ROUTERS.MAP ?
       (
         <div className='group-button-navbar'>
-          <Button className={tabActive === 'MAP'? 'navbar-btn navbar-btn-active' : 'navbar-btn'} onClick={() =>{setTabActive && setTabActive('MAP')}}>
+          <Button className={tabActiveNavbar === 'MAP'? 'navbar-btn navbar-btn-active' : 'navbar-btn'} onClick={() =>{setTabActiveNavbar(MAP_TAB)}}>
             Main Map
           </Button>
-          <Button className={tabActive === 'WORK_REQUEST'? 'navbar-btn navbar-btn-active' : 'navbar-btn'} onClick={() =>{setTabActive && setTabActive('WORK_REQUEST')}}>
+          <Button className={tabActiveNavbar === 'WORK_REQUEST'? 'navbar-btn navbar-btn-active' : 'navbar-btn'} onClick={() =>{setTabActiveNavbar(WORK_REQUEST_TAB)}}>
             Requests
           </Button>
-          <Button className={tabActive === 'WORK_PLAN'? 'navbar-btn navbar-btn-active' : 'navbar-btn'} onClick={() =>{setTabActive && setTabActive('WORK_PLAN')}}>
+          <Button className={tabActiveNavbar === 'WORK_PLAN'? 'navbar-btn navbar-btn-active' : 'navbar-btn'} onClick={() =>{setTabActiveNavbar(WORK_PLAN_TAB)}}>
             Work Plan
           </Button>
         </div>
@@ -446,7 +448,7 @@ const NavbarView = ({
       setVisibleTutorial={setVisibleTutorial}
       locationPage={locationPage}
       sliderIndex={sliderIndex}
-      tabActive={tabActive}
+      tabActive={tabActiveNavbar}
       setSliderIndex={setSliderIndex}
     />
   </Header>

@@ -1,5 +1,7 @@
 export type MapProps = {
-    leftWidth: number
+    leftWidth: number,
+    commentVisible: boolean,
+    setCommentVisible:React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 export type OptionProblems = {

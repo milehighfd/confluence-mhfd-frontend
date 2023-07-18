@@ -4,11 +4,15 @@ import { Link, useLocation } from "react-router-dom";
 import store from "../../../store";
 import { ROUTERS_SIDEBAR } from "./constants/layout.constants";
 import '../../../Scss/Components/sidebar.scss';
+import { useMapDispatch, useMapState } from "hook/mapHook";
+import { MAP, WORK_PLAN, WORK_REQUEST } from "constants/constants";
 
 const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
   const location = useLocation();
   const appUser = store.getState().appUser;
-  const indexOf = '' + ROUTERS_SIDEBAR.indexOf(location.pathname);
+  const { setTabActiveNavbar } =  useMapDispatch();
+  const { tabActiveNavbar } = useMapState();
+  const indexOf = '' + (ROUTERS_SIDEBAR.indexOf(location.pathname) === 1 ? (tabActiveNavbar === MAP? '1': (tabActiveNavbar === WORK_REQUEST ? '4':'3')):ROUTERS_SIDEBAR.indexOf(location.pathname));
   const showWorkRequestPlan = (appUser?.designation?.toLocaleLowerCase() !== 'guest' && (appUser.designation === 'admin' || appUser.designation === 'staff' || appUser.designation === 'government_staff'))
   const userApproved = appUser.status === 'approved';
   const pmToolsAccess = (appUser?.designation?.toLocaleLowerCase() !== 'guest' && (appUser.designation === 'admin' || appUser.designation === 'staff') && appUser.status === 'approved');
@@ -24,7 +28,7 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
   }, {
     className: Number(indexOf) === 1 ? 'menu-sidebar-hover':'',
     key: '1',
-    label: <Link to={'/map'} >
+    label: <Link to={'/map'} onClick={()=>{setTabActiveNavbar(MAP)}}>
       <img className={"img-h anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-02.svg" alt="" width="22px" height="20px" />
       <img className={"img-a anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-02.svg" alt="" width="22px" height="22px" />
       <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>map view</span>
@@ -33,7 +37,7 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
   {
     key: '4',
     className: Number(indexOf) === 4 ? 'menu-sidebar-hover':'',
-    label: <Link to={userApproved ? '/work-request' : '#'}>
+    label: <Link to={userApproved ? '/map' : '#'} onClick={()=>{setTabActiveNavbar(WORK_REQUEST)}}>
       <img className={"img-h anticon"+(userApproved?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-14.svg" alt="" width="22px" height="22px" />
       <img className={"img-a anticon"+(userApproved?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-14.svg" alt="" width="22px" height="22px" />
       <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>work request</span>
@@ -42,7 +46,7 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
   {
     key: '3',
     className: Number(indexOf) === 3 ? 'menu-sidebar-hover':'',
-    label: <Link to={userApproved ? '/work-plan' : '#'}>
+    label: <Link to={userApproved ? '/map' : '#'} onClick={()=>{setTabActiveNavbar(WORK_PLAN)}}>
       <img className={"img-h anticon"+(userApproved?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-13.svg" alt="" width="22px" height="22px" />
       <img className={"img-a anticon"+(userApproved?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-13.svg" alt="" width="22px" height="22px" />
       <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>work plan</span>
