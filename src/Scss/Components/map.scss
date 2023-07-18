@@ -3175,6 +3175,49 @@ hr.filters-line {
     }
   }
 
+  .legendProblemTypemap {
+    padding-left: 21px;
+    padding-right: 21px;
+    bottom: 49px;
+    right: 18px;
+    width: 288px;
+    height: 210px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: stretch;
+    h5 {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 22px;
+    }
+  
+    .iconwatershed {
+      width: 42px;
+      height: 30px;
+      margin-right: 12px;
+    }
+  
+    .iconstreamfunction {
+      width: 42px;
+      height: 30px;
+      margin-right: 12px;
+    }
+  
+    .iconfloodhazard {
+      width: 42px;
+      height: 30px;
+      margin-right: 12px;
+    }
+  
+    .legendprob {
+      font-size: 21px;
+      height: 42px;
+    }
+  
+  }
+
   .popoveer-00 {
     font-size: 17px;
 
@@ -3343,6 +3386,50 @@ hr.filters-line {
       justify-content: center;
      }
   }
+
+  .legendProblemTypemap {
+    padding-left: 35px;
+    padding-right: 35px;
+    bottom: 85px;
+    right: 30px;
+    width: 480px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: stretch;
+    h5 {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 38px;
+    }
+  
+    .iconwatershed {
+      width: 70px;
+      height: 50px;
+      margin-right: 20px;
+    }
+  
+    .iconstreamfunction {
+      width: 70px;
+      height: 50px;
+      margin-right: 20px;
+    }
+  
+    .iconfloodhazard {
+      width: 70px;
+      height: 50px;
+      margin-right: 20px;
+    }
+  
+    .legendprob {
+      font-size: 36px;
+      height: 70px;
+    }
+  
+  }
+
   hr.linedropdown {
     margin-top: 33px !important;
   }
