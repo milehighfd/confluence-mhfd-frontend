@@ -666,6 +666,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
       }
       globalMapId = null;
       itMoved = false;
+
     };
     const zoomEndFn = () => {
       mapService.hideOpacity();
@@ -889,7 +890,6 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
           map.setFilter(key + '_' + index, allFilters);
           map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
         } else {
-          console.log('Should be set to visible', key + '_' + index);
           map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
         }
         if (COMPONENT_LAYERS.tiles.includes(key) && filterComponents) {
@@ -1317,6 +1317,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     if (styles[key]) {
       styles[key].forEach((style: LayerStylesType, index: number) => {
         if (map.getLayer(key + '_' + index)) {
+          // HERE IS HIDING THE LAYER
           map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
         }
       });
@@ -1397,7 +1398,6 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     const styles = { ...(tileStyles as any) };
     styles[key].forEach((_: LayerStylesType, index: number) => {
       if (map.getLayer(key + '_' + index)) {
-        console.log('Hide layer', key + '_' + index);
         map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
       }
     });

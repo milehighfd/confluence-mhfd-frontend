@@ -589,7 +589,6 @@ class MapService {
           });
           this.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
         } else {
-          console.log('Add source', key, index, style);
           if (style.source_name) {
             this.map.addLayer({
               id: key + '_' + index,

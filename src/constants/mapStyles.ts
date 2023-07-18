@@ -3654,127 +3654,91 @@ export const tileStyles = {
     {
       // "id": "effectivereaches_unknw_shdw",
       "type": "line",
-      // "source": "composite",
       "source-layer": "pluto15v1",
-      "filter": ["match", ["get", "StudyName"], ["unknown"], true, false],
-      "paint": {"line-width": 10, "line-blur": 11, "line-offset": 2, "line-opacity":0.2}
+      "filter": ["match", ["get", "studyname"], ["unknown"], true, false],
+      "paint": {"line-width": 10, "line-blur": 11, "line-offset": 2}
     },
     {
-        // "id": "effectivereaches_known_shdw",
+      // "id": "effectivereaches_known_shdw",
       "type": "line",
-      // "source": "composite",
       "source-layer": "pluto15v1",
-      "filter": ["match", ["get", "StudyName"], ["unknown"], false, true],
-      "paint": {"line-width": 10, "line-blur": 11, "line-opacity":0.2}
+      "filter": ["match", ["get", "studyname"], ["unknown"], false, true],
+      "paint": {"line-width": 10, "line-blur": 11}
     },
     {
-        // "id": "effectivereaches_known copy",
+      // "id": "effectivereaches_known copy",
       "type": "line",
-      // "source": "composite",
       "source-layer": "pluto15v1",
-      "filter": ["match", ["get", "StudyName"], ["unknown"], false, true],
-      "paint": {"line-color": "rgb(71, 250, 0)", "line-width": 2.5, "line-opacity":0.2}
+      "filter": ["match", ["get", "studyname"], ["unknown"], false, true],
+      "paint": {"line-color": "rgb(71, 250, 0)", "line-width": 2.5}
     },
     {
-        // "id": "effectivereaches_unknown",
-        "type": "line",
-        "metadata": {"mapbox:group": "56d9c3cd975ea01ac20735d3b5e8855c"},
-        // "source": "composite",
-        "source-layer": "pluto15v1",
-        "filter": ["match", ["get", "StudyName"], ["unknown"], true, false],
-        "paint": {
-            "line-color": "rgb(250, 0, 0)",
-            "line-width": 2.5,
-            "line-offset": 2
-        }
+      // "id": "effectivereaches_unknown",
+      "type": "line",
+      "source-layer": "pluto15v1",
+      "filter": ["match", ["get", "studyname"], ["unknown"], true, false],
+      "paint": {
+          "line-color": "rgb(250, 0, 0)",
+          "line-width": 2.5,
+          "line-offset": 2
+      }
     },
   ],
   [EFFECTIVE_REACHES_ENDPOINTS]: [
     {
-      type: 'circle',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'circle-color': 'hsl(295, 90%, 51%)',
-        'circle-stroke-width': 20,
-        'circle-stroke-color': 'hsla(91, 83%, 46%, 0.44)',
-      },
+      // "id": "effectivereaches_startend_shadow",
+      "type": "circle",
+      "source-layer": "pluto15v1",
+      "minzoom": 11,
+      "paint": {
+          "circle-color": "rgb(0, 0, 0)",
+          "circle-radius": 12,
+          "circle-blur": 1.8
+      }
     },
     {
-      'type': 'symbol',
-      // 'source': 'points',
-      'source-layer': 'pluto15v1',
-      'layout': {
-          'icon-image': 'custom-marker',
-          // get the title name from the source's "title" property
-          'text-font': [
-              'Open Sans Semibold',
-              'Arial Unicode MS Bold'
-          ],
-          'text-offset': [0, 1.25],
-          'text-anchor': 'top'
-      }
+        // "id": "effectivereaches_startend_shadow copy",
+        "type": "circle",
+        "source-layer": "pluto15v1",
+        "maxzoom": 11,
+        "paint": {
+            "circle-color": "rgb(0, 0, 0)",
+            "circle-radius": 9,
+            "circle-blur": 1.8
+        }
+    },
+    {
+        // "id": "kn_efctvrch_startend_z11",
+        "type": "circle",
+        "source-layer": "pluto15v1",
+        "minzoom": 11,
+        "filter": ["match", ["get", "studyname"], ["unknown"], false, true],
+        "paint": {"circle-color": "#47fa00", "circle-radius": 6}
+    },
+    {
+        // "id": "kn_efctvrch_startend_z0",
+        "type": "circle",
+        "source-layer": "pluto15v1",
+        "maxzoom": 11,
+        "filter": ["match", ["get", "studyname"], ["unknown"], false, true],
+        "paint": {"circle-color": "#47fa00", "circle-radius": 4.5}
+    },
+    {
+        // "id": "unkn_efctvrchs_startend_z11 copy",
+        "type": "circle",
+        "source-layer": "pluto15v1",
+        "minzoom": 11,
+        "filter": ["match", ["get", "studyname"], ["unknown"], true, false],
+        "paint": {"circle-color": "#fa0000", "circle-radius": 4}
+    },
+    {
+        // "id": "unkn_efctvrch_startend_z0 ",
+        "type": "circle",
+        "source-layer": "pluto15v1",
+        "maxzoom": 11,
+        "filter": ["match", ["get", "studyname"], ["unknown"], true, false],
+        "paint": {"circle-color": "#fa0000", "circle-radius": 3}
     }
-    // {
-    //   // "id": "effectivereaches_startend_shadow",
-    //   "type": "circle",
-    //   // "source": "composite",
-    //   "source-layer": "pluto15v1",
-    //   // "minzoom": 11,
-    //   "paint": {
-    //       "circle-color": "#f00",
-    //       "circle-radius": 12,
-    //       "circle-blur": 1.8
-    //   }
-    // },
-    // {
-    //     // "id": "effectivereaches_startend_shadow copy",
-    //     "type": "circle",
-    //     // "source": "composite",
-    //     "source-layer": "pluto15v1",
-    //     // "maxzoom": 11,
-    //     "paint": {
-    //         "circle-color": "#e55e5e",
-    //         "circle-radius": 20,
-    //         // "circle-blur": 1.8
-    //     }
-    // },
-    // {
-    //     // "id": "kn_efctvrch_startend_z11",
-    //     "type": "circle",
-    //     // "source": "composite",
-    //     "source-layer": "pluto15v1",
-    //     // "minzoom": 11,
-    //     // "filter": ["match", ["get", "studyname"], ["unknown"], false, true],
-    //     "paint": {"circle-color": "#47fa00", "circle-radius": 6}
-    // },
-    // {
-    //     // "id": "kn_efctvrch_startend_z0",
-    //     "type": "circle",
-    //     // "source": "composite",
-    //     "source-layer": "pluto15v1",
-    //     // "maxzoom": 11,
-    //     // "filter": ["match", ["get", "studyname"], ["unknown"], false, true],
-    //     "paint": {"circle-color": "#47fa00", "circle-radius": 4.5}
-    // },
-    // {
-    //     // "id": "unkn_efctvrchs_startend_z11 copy",
-    //     "type": "circle",
-    //     // "source": "composite",
-    //     "source-layer": "pluto15v1",
-    //     // "minzoom": 11,
-    //     // "filter": ["match", ["get", "studyname"], ["unknown"], true, false],
-    //     "paint": {"circle-color": "#fa0000", "circle-radius": 4}
-    // },
-    // {
-    //     // "id": "unkn_efctvrch_startend_z0 ",
-    //     "type": "circle",
-    //     // "source": "composite",
-    //     "source-layer": "pluto15v1",
-    //     // "maxzoom": 11,
-    //     // "filter": ["match", ["get", "studyname"], ["unknown"], true, false],
-    //     "paint": {"circle-color": "#fa0000", "circle-radius": 3}
-    // }
   ],
   [FEMA_FLOOD_HAZARD]: [
     {
