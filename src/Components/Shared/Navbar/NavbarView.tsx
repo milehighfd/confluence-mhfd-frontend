@@ -150,13 +150,17 @@ const NavbarView = ({
   if(location[1] === ROUTERS.PROFILE_VIEW && location.length === 2) {
     value = ROUTER_TITLE.PROFILE_VIEW;
   } else if (location[1] === ROUTERS.MAP && location.length === 2) {
-    value = ROUTER_TITLE.MAP;
+    if(tabActiveNavbar === MAP_TAB) {
+      value = ROUTER_TITLE.MAP;
+    }else{
+      if(tabActiveNavbar === WORK_REQUEST_TAB) {
+        value = ROUTER_TITLE.WORK_REQUEST;
+      }else{
+        value = ROUTER_TITLE.WORK_PLAN;
+      } 
+    }
   } else if (location[1] === ROUTERS.NEW_PROJECT_TYPES && location.length === 2) {
     value = ROUTER_TITLE.NEW_PROJECT_TYPES;
-  } else if (location[1] === ROUTERS.WORK_PLAN && location.length === 2) {
-    value = ROUTER_TITLE.WORK_PLAN;
-  } else if (location[1] === ROUTERS.WORK_REQUEST && location.length === 2) {
-    value = ROUTER_TITLE.WORK_REQUEST;
   } else if (location[1] === ROUTERS.USER && location.length === 2) {
     value = ROUTER_TITLE.USER;
   } else if (location[1] === ROUTERS.PROJECT_CAPITAL && location.length === 3) {
@@ -234,21 +238,7 @@ const NavbarView = ({
     />}
     {openProfile && <ModalEditUserView updateUserInformation={updateUserInformation} user={user}
       isVisible={true} hideProfile={hideProfile} groupOrganization={groupOrganization} getGroupOrganization={getGroupOrganization} />}
-    {location[1] === ROUTERS.MAP ?
-      (
-        <div className='group-button-navbar'>
-          <Button className={tabActiveNavbar === 'MAP'? 'navbar-btn navbar-btn-active' : 'navbar-btn'} onClick={() =>{setTabActiveNavbar(MAP_TAB)}}>
-            Main Map
-          </Button>
-          <Button className={tabActiveNavbar === 'WORK_REQUEST'? 'navbar-btn navbar-btn-active' : 'navbar-btn'} onClick={() =>{setTabActiveNavbar(WORK_REQUEST_TAB)}}>
-            Requests
-          </Button>
-          <Button className={tabActiveNavbar === 'WORK_PLAN'? 'navbar-btn navbar-btn-active' : 'navbar-btn'} onClick={() =>{setTabActiveNavbar(WORK_PLAN_TAB)}}>
-            Work Plan
-          </Button>
-        </div>
-      ) : <h6>{value}</h6> 
-    }
+    <h6>{value}</h6>
     <div className="navbar-options-box">
       <Popover overlayClassName="popoveer-notification-box" placement="bottom" content={notification?.length > 0 ? contentNotification : content}>
         {locationPage.pathname === '/portfolio-list-view' ?
