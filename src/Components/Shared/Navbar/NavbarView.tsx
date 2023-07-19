@@ -4,7 +4,7 @@ import { Badge, Button, Dropdown, Layout, Menu, Modal, Popover, Tabs } from 'ant
 import { CaretDownOutlined, DoubleRightOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { GlobalMapHook } from 'utils/globalMapHook';
 import * as datasets from 'Config/datasets';
-import 'Scss/Components/navbar.scss';
+import 'Scss/Components/Shared/navbar.scss';
 import { FILTER_PROJECTS_TRIGGER, ROUTERS, ROUTER_TITLE } from 'constants/constants';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
 import { useProfileDispatch, useProfileState } from 'hook/profileHook';
