@@ -86,6 +86,14 @@ export const FLOODPLAINS_FEMA_FILTERS = 'floodplains_fema_sfha';
 export const FLOODPLAINS_NON_FEMA_FILTERS = 'floodplains_non_fema';
 export const ACTIVE_LOMS = 'active_lomcs';
 export const EFFECTIVE_REACHES = 'effective_reaches';
+export const EFFECTIVE_REACHES_ENDPOINTS = 'effective_reaches_endpoints';
+export const EFFECTIVE_REACHES_LAYERS = {
+  name: EFFECTIVE_REACHES,
+  tiles: [
+    EFFECTIVE_REACHES,
+    EFFECTIVE_REACHES_ENDPOINTS
+  ]
+} 
 export const FEMA_FLOOD_HAZARD = 'fema_flood_hazard_zones';
 export const WATERSHED_FILTERS = 'mhfd_catchments_simple_v1';
 export const STREAMS_FILTERS = 'streams';
@@ -420,7 +428,7 @@ export const SELECT_ALL_FILTERS = [
   MUNICIPALITIES,
   FEMA_FLOOD_HAZARD,
   ACTIVE_LOMS,
-  EFFECTIVE_REACHES,
+  EFFECTIVE_REACHES_LAYERS,
   FLOODPLAINS,
   STREAM_MANAGEMENT_CORRIDORS,
   DWR_DAM_SAFETY,
@@ -451,7 +459,7 @@ export const SWITCHES_MAP = [
   WATERSHED_FILTERS,
   FLOODPLAINS,
   FEMA_FLOOD_HAZARD,
-  EFFECTIVE_REACHES,
+  EFFECTIVE_REACHES_LAYERS,
   ACTIVE_LOMS,
   SERVICE_AREA_LAYERS,
   COUNTIES_LAYERS,
@@ -1405,3 +1413,7 @@ export const notComponentOptions: any[] = [
   MENU_OPTIONS.CLIMB_TO_SAFETY_SIGNS,
   MENU_OPTIONS.MEASURES,
 ];
+
+export const MAP_TAB = 'MAP';
+export const WORK_REQUEST_TAB = 'WORK_REQUEST';
+export const WORK_PLAN_TAB = 'WORK_PLAN';

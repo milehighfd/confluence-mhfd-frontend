@@ -36,6 +36,8 @@ import {
   DWR_DAM_SAFETY,
   RESEARCH_MONITORING,
   CLIMB_TO_SAFETY,
+  PROJECTS_DRAFT,
+  EFFECTIVE_REACHES_ENDPOINTS,
 } from 'constants/constants';
 import {
   COMPONENT_LAYERS_STYLE,
@@ -79,7 +81,6 @@ class MapService {
     const imagesPaths = [
       'custom-sprite/30x30px.png',
       'custom-sprite/dollar.png',
-      'custom-sprite/fema-floodway.png',
       'custom-sprite/Levee.png',
       'custom-sprite/Frame13a.png',
       'custom-sprite/Frame17m2t.png',
@@ -95,12 +96,12 @@ class MapService {
       'custom-sprite/prop-acq-apprv_GREEN.png',
       'custom-sprite/prop-acq-draft_ORANGE.png',
       'custom-sprite/MEP-X.png',
-      'custom-sprite/floodwaypattern.png',
+      'custom-sprite/floodway43.png',
     ];
     imagesPaths.forEach((imagePath: string) => {
       this.map.loadImage(imagePath, (error: any, image: any) => {
         if (error) {
-          console.log('error on load ', error);
+          console.error('error on load ', error);
           return;
         }
         if (!this.map.hasImage(imagePath.split('/')[1].split('.')[0])) {
@@ -117,7 +118,6 @@ class MapService {
         styles[key].forEach((_: LayerStylesType, index: number) => {
           if (this.map.getLayer(key + '_highlight_' + index)) {
             this.map.moveLayer(key + '_highlight_' + index);
-            console.log('Works ');
           }
         });
       }
@@ -272,6 +272,11 @@ class MapService {
     styles[EFFECTIVE_REACHES].forEach((style: LayerStylesType, index: number) => {
       if (this.map.getLayer(`${EFFECTIVE_REACHES}_${index}`)) {
         this.map.moveLayer(`${EFFECTIVE_REACHES}_${index}`);
+      }
+    });
+    styles[EFFECTIVE_REACHES_ENDPOINTS].forEach((style: LayerStylesType, index: number) => {
+      if (this.map.getLayer(`${EFFECTIVE_REACHES_ENDPOINTS}_${index}`)) {
+        this.map.moveLayer(`${EFFECTIVE_REACHES_ENDPOINTS}_${index}`);
       }
     });
   };
@@ -502,7 +507,9 @@ class MapService {
       }
     }
     if (key) {
-      this.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
+      // if (this.map.getLayer(key + '_' + index)) {
+        this.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
+      // }
     }
 
     if (!hovereableLayers.includes(key)) {
@@ -570,7 +577,18 @@ class MapService {
     } else {
       const styles = { ...(tileStyles as any) };
       styles[key].forEach((style: LayerStylesType, index: number) => {
-        if (style)
+        if (key.includes(PROJECTS_DRAFT + 'draft')) {
+          if (this.map.getLayer(key + '_' + index)) {
+            return;
+          }
+          this.map.addLayer({
+            id: key + '_' + index,
+            source: key,
+            filter: ['in', ['get', 'projectid'], ['literal', []]],
+            ...style,
+          });
+          this.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
+        } else {
           if (style.source_name) {
             this.map.addLayer({
               id: key + '_' + index,
@@ -584,6 +602,7 @@ class MapService {
               ...style,
             });
           }
+        }
         this.addLayerProperties(key, index, style);
       });
     }

@@ -34,11 +34,9 @@ const Filter = () => {
 
   useEffect(() => {
     console.log('entraaaaa', jurisdictionFilterList, countiesFilterList, priorityFilterList, serviceAreasFilterList);
-    if(prioritySelected.length === 0) {
+    if (prioritySelected.length === 0) {
       setJurisdictionSelected(jurisdictionFilterList.map((r: any) => true));
-      setCountiesSelected(countiesFilterList.map((r: any) => true));
       setPrioritySelected(priorityFilterList.map((r: any) => true));
-      setServiceAreasSelected(serviceAreasFilterList.map((r: any) => true));
     }
   }, [jurisdictionFilterList, countiesFilterList, priorityFilterList, serviceAreasFilterList]);
 
@@ -46,10 +44,10 @@ const Filter = () => {
     loadColumns(namespaceId);
   }
   const reset = (value: boolean) => {
-    setJurisdictionSelected(jurisdictionSelected.map((_:any) => value));
-    setCountiesSelected(countiesSelected.map((_:any) => value));
-    setPrioritySelected(prioritySelected.map((_:any) => value));
-    setServiceAreasSelected(serviceAreasSelected.map((_:any) => value));
+    setJurisdictionSelected(jurisdictionSelected.map((_: any) => value));
+    setCountiesSelected(countiesSelected.map((_: any) => value));
+    setPrioritySelected(prioritySelected.map((_: any) => value));
+    setServiceAreasSelected(serviceAreasSelected.map((_: any) => value));
   }
   let label;
   if (l === 'CODE_STATE_COUNTY') {
