@@ -315,6 +315,8 @@
 
   .style-input {
     margin-top: 5px;
+    background-color: #ffffff;
+    border-radius: 3px;
 
     .ant-input-group-addon {
       margin-top: -27px !important;
@@ -3192,6 +3194,7 @@ hr.filters-line {
     }
   }
 
+  //Legend Map Problems
   .legendProblemTypemap {
     padding-left: 21px;
     padding-right: 21px;
