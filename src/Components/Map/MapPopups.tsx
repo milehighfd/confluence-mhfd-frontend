@@ -96,10 +96,10 @@ export const MainPopup = ({id, item, eventFunctions, sw, ep, detailPage, mapType
             >Create Project</Button>}
             <Button id={"buttonPopup-" + id} style={{ width: sw? '100%' : '50%', color: '#28C499' }} onClick={() => eventFunctions['getDetailPage'](item)} className="btn-borde">See Details</Button>
         </div>} 
-        { (ep && mapType === MAPTYPES.MAINMAP) && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
+        { (ep && mapType === MAPTYPES.MAINMAP && item.type !== 'projectDraft') && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
             <Button id={"buttonEdit-" + id} style={{ width: sw? '100%' : '50%', color: '#28C499'}} onClick={() => eventFunctions['getDetailPage'](item)} className="btn-borde">See Details</Button>
         </div>}
-        { (ep && (mapType === MAPTYPES.WORKPLAN || (mapType === MAPTYPES.WORKREQUEST)) && item.isEditPopup) && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
+        { (ep && mapType === MAPTYPES.MAINMAP && item.type === 'projectDraft') && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
             <Button id={"buttonEdit-" + id} style={{ width: sw? '100%' : '100%', color: '#28C499'}} onClick={() => eventFunctions['openEdit'](item)} className="btn-borde">Edit Project</Button>
         </div>}
       </Card>

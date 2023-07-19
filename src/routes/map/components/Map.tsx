@@ -73,7 +73,7 @@ import { areObjectsDifferent } from 'utils/comparators';
 import MapDropdownLayers from './MapDropdownLayers';
 import { useFilterContext } from 'utils/filterContext';
 import { getToken, postDataAsyn } from 'Config/datasets';
-import { useRequestState } from 'hook/requestHook';
+import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 const SideBarComment = React.lazy(() => import('Components/Map/SideBarComment'));
 const ModalProjectView = React.lazy(() => import('Components/ProjectModal/ModalProjectView'));
 const DetailModal = React.lazy(() => import('routes/detail-page/components/DetailModal'));
@@ -170,6 +170,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     tabActiveNavbar
   } = useMapState();
   const { tabKey } = useRequestState();
+  const { setCompleteProjectData, setShowModalProject } = useRequestDispatch();
   const { boardProjects, zoomProject } = useProjectState();
   const { mhfdmanagers } = useFilterContext();
   let geocoderRef = useRef<HTMLDivElement>(null);
@@ -1651,10 +1652,25 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
           measureCenterAndDelete,
           e,
           ids,
+          undefined,
+          openEdit
         );
       }
     }
   };
+
+  const openEdit = (project: any) => {
+    datasets.getData(
+      SERVER.V2_DETAILED_PAGE(project.project_id),
+      datasets.getToken()
+    ).then((value: any) => {
+      setCompleteProjectData({ ...value, tabKey });
+      setTimeout(() => {
+        setShowModalProject(true);
+      }, 200);
+    });
+  }
+
   const seeDetails = (details: any, event: any) => {
     if (details.problemid) {
       setData({
