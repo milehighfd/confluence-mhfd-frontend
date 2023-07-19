@@ -438,6 +438,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
 
   
   useEffect(() => {
+    popup.remove();
     if (map && tabActiveNavbar === MAP_TAB) {
       resetBoardIds();
     }
