@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Modal, Button, Row, Col, Popover, Collapse, Timeline, Checkbox } from 'antd';
-import { AlertView } from "../../Alerts/AlertView";
-import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
-import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
-import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
-import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
-import { Project } from "../../../Classes/Project";
-import { JURISDICTION, NEW_PROJECT_TYPES, ADMIN, STAFF } from "../../../constants/constants";
-import store from "../../../store";
-import { useProfileState } from "../../../hook/profileHook";
-import { useHistory, useLocation } from "react-router-dom";
-import { UploadImagesDocuments } from "../TypeProjectComponents/UploadImagesDocuments";
-import { useAttachmentDispatch } from "../../../hook/attachmentHook";
+import { AlertView } from 'Components/Alerts/AlertView';
+import { ProjectInformation } from 'Components/Project/TypeProjectComponents/ProjectInformation';
+import { LocationInformation } from 'Components/Project/TypeProjectComponents/LocationInformation';
+import { useProjectState, useProjectDispatch } from 'hook/projectHook';
+import CreateProjectMap from 'Components/CreateProjectMap/CreateProjectMap';
+import { Project } from 'Classes/Project';
+import { NEW_PROJECT_TYPES, ADMIN, STAFF, WORK_PLAN_TAB } from 'constants/constants';
+import store from 'store';
+import { useProfileState } from 'hook/profileHook';
+import { useHistory } from 'react-router-dom';
+import { UploadImagesDocuments } from 'Components/Project/TypeProjectComponents/UploadImagesDocuments';
+import { useAttachmentDispatch } from 'hook/attachmentHook';
+import { useMapState } from 'hook/mapHook';
 const { Panel } = Collapse;
 const content = (<div className="popver-info">Master plans that set goals for the watershed and stream corridor, identify problems, and recommend improvements.</div>);
 
@@ -48,10 +49,9 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
     setHighlightedStream, 
     setHighlightedStreams, 
     setIsEdit,
-    setDeleteAttachmentsIds,
   } = useProjectDispatch();
   const { streamsIntersectedIds, isDraw , deleteAttachmentsIds} = useProjectState();
-  const { organization, groupOrganization } = useProfileState();
+  const { groupOrganization } = useProfileState();
   const { listStreams } = useProjectState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -77,13 +77,13 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   const [lengthName, setlengthName] = useState(0);
   const [studyreason, setStudyReason] = useState<any>();
   const history = useHistory();
-  const location = useLocation();
   const { toggleAttachmentCover,removeAttachment} = useAttachmentDispatch();
   const appUser = store.getState().appUser;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
   const pageWidth  = document.documentElement.scrollWidth;
-  const isWorkPlan = location.pathname.includes('work-plan');
+  const { tabActiveNavbar } = useMapState();
+  const isWorkPlan = tabActiveNavbar === WORK_PLAN_TAB;
   const { userInformation } = useProfileState();
 
   useEffect(() => {
@@ -422,7 +422,6 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
     <>
       {visibleAlert && <AlertView
         isWorkPlan={isWorkPlan}
-        sponsor={sponsor}
         visibleAlert={visibleAlert}
         setVisibleAlert={setVisibleAlert}
         setSave={setSave}

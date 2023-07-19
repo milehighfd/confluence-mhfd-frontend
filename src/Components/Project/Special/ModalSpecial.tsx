@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { Modal, Button, Row, Col, Popover, Checkbox } from 'antd';
-import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
-import { SERVER } from "../../../Config/Server.config";
-import { AlertView } from "../../Alerts/AlertView";
-import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
-import { DropPin } from "../TypeProjectComponents/DropPin";
-import { getData, getToken } from "../../../Config/datasets";
-import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
-import { useProjectDispatch,useProjectState } from "../../../hook/projectHook";
-import { Project} from "../../../Classes/Project";
-import { useProfileState } from "../../../hook/profileHook";
-import { useAttachmentDispatch } from "../../../hook/attachmentHook";
-import { JURISDICTION, ADMIN, STAFF } from "../../../constants/constants";
-import { useHistory, useLocation } from "react-router-dom";
-import { UploadImagesDocuments } from "../TypeProjectComponents/UploadImagesDocuments";
-import store from "../../../store";
+import CreateProjectMap from 'Components/CreateProjectMap/CreateProjectMap';
+import { SERVER } from 'Config/Server.config';
+import { AlertView } from 'Components/Alerts/AlertView';
+import { ProjectInformation } from 'Components/Project/TypeProjectComponents/ProjectInformation';
+import { DropPin } from 'Components/Project/TypeProjectComponents/DropPin';
+import { getData, getToken } from 'Config/datasets';
+import { LocationInformation } from 'Components/Project/TypeProjectComponents/LocationInformation';
+import { useProjectDispatch,useProjectState } from 'hook/projectHook';
+import { Project} from 'Classes/Project';
+import { useProfileState } from 'hook/profileHook';
+import { useAttachmentDispatch } from 'hook/attachmentHook';
+import { ADMIN, STAFF, WORK_PLAN_TAB } from 'constants/constants';
+import { useHistory } from 'react-router-dom';
+import { UploadImagesDocuments } from 'Components/Project/TypeProjectComponents/UploadImagesDocuments';
+import store from 'store';
+import { useMapState } from 'hook/mapHook';
 
 const content = (<div className="popver-info"> Any effort for which MHFD funds or staff participation is requested that doesn’t fit into one of the other Project categories.</div>);
 const selec = [1];
@@ -58,8 +59,8 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const [jurisdiction, setjurisdiction] = useState<any>([]);
   const [lengthName, setlengthName] = useState(0);
   const history = useHistory();
-  const location = useLocation();
-  const isWorkPlan = location.pathname.includes('work-plan');
+  const { tabActiveNavbar } = useMapState();
+  const isWorkPlan = tabActiveNavbar === WORK_PLAN_TAB;
   const { userInformation } = useProfileState();
   const [isEditingPosition,setIsEditingPosition ]= useState(false)
 
@@ -270,7 +271,6 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
     <>
     {visibleAlert && <AlertView
       isWorkPlan={isWorkPlan}
-      sponsor={sponsor}
       visibleAlert = {visibleAlert}
       setVisibleAlert ={setVisibleAlert}
       setSave = {setSave}

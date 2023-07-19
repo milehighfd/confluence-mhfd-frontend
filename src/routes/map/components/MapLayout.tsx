@@ -254,9 +254,14 @@ const MapLayout = () => {
   }, [commentVisible]);
 
   useEffect(() => {
-    setLeftWidthMap(MEDIUM_SCREEN_LEFT);
-    setLeftWidth(MEDIUM_SCREEN_RIGHT - 1);
-    setRotationStyle(emptyStyle);
+    if(commentVisible && tabActiveNavbar !== MAP){
+      setLeftWidth(MEDIUM_SCREEN_LEFT);
+      setRotationStyle({ transform: 'rotate(180deg)', marginRight: '-4px', right: '4px', position: 'relative' });
+    }else{
+      setLeftWidthMap(MEDIUM_SCREEN_LEFT);
+      setLeftWidth(MEDIUM_SCREEN_RIGHT - 1);
+      setRotationStyle(emptyStyle);
+    }
   },[tabActiveNavbar])
   return (
     <>

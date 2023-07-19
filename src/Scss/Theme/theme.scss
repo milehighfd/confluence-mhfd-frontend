@@ -2415,6 +2415,20 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
     font-size: 20px !important;    
   }
 
+  .header-tab-modal-detail{
+    color: #11093C;
+    opacity: 0.6;
+    margin: 15px 13px;
+    font-size: 16px ;
+  }
+  .header-tab-modal-detail-active {
+    color: #11093C;
+    opacity: 1;
+    border-bottom: 2px solid #11093C;
+    padding-bottom: 8px;
+    margin-bottom: 1px;
+  }
+
   .header-body-modal-active {
     color: #11093C;
     opacity: 1;
@@ -4423,6 +4437,9 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
 
   .detailed-modal {
     width: 1850px !important;
+    .header-tab-modal-detail {
+      font-size: 20 px !important;
+    }
   }
 
   .detailed-mmm {
@@ -5027,6 +5044,9 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
 
   .detailed {
     .header-body-modal {
+      font-size: 24px !important;
+    }
+    .header-tab-modal-detail {
       font-size: 24px !important;
     }
   }

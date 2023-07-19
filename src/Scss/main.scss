@@ -7,7 +7,8 @@
   '../Scss/Components/comment',
   '../Scss/Components/login',
   '../Scss/Components/map',
-  '../Scss/Components/navbar',
+  '../Scss/Components/Shared/navbar.scss',
+  '../Scss/Components/Shared/modal.scss',
   '../Scss/Components/new-project',
   '../Scss/Components/profile',
   '../Scss/Components/projects',
@@ -24,6 +25,7 @@
 
 // THEME
 @import
+  '../Scss/Theme/ant-general.scss',
   '../Scss/Theme/button',
   '../Scss/Theme/loader',
   '../Scss/Theme/scroll',
