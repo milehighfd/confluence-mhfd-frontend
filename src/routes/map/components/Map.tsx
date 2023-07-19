@@ -32,9 +32,7 @@ import {
   WINDOW_WIDTH,
   PROJECTS_DRAFT_MAP_STYLES,
   PROJECTS_DRAFT,
-  MAP_TAB,
-  WORK_REQUEST_TAB,
-  WORK_PLAN_TAB
+  MAP_TAB
 } from 'constants/constants';
 import {
   tileStyles,
@@ -910,6 +908,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
   };
 
   useEffect(() => {
+    console.log('selectedLayers', selectedLayers);
     const [intervalId, promise] = waitingInterval(map);
     promise.then(() => {
       applySkyMapLayer();

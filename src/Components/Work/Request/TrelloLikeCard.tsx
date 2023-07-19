@@ -135,9 +135,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   }, [completeProjectData]);
 
   useEffect(()=>{
-    if(showModalProject) {
-      updateSelectedLayers([]);
-    } else {
+    if(!showModalProject) {
       setCompleteProjectData(null);
     }
   },[showModalProject]);
