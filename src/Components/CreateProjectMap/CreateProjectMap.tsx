@@ -1690,44 +1690,44 @@ const CreateProjectMap = (type: any) => {
       <div className="map">
         {isProblemActive === true ? (
           <div className="legendProblemTypemap">
-            <h5>
-              Problem Type
-              <Popover
-                content={
-                  <div className="popoveer-00">
-                    <p style={{ fontWeight: '600' }}>Problem Types</p>
-                    <p>
-                      <span style={{ fontWeight: '600' }}>Flood Hazard </span> Problems related to existing flood or
-                      fluvial hazard to life and property.
-                    </p>
-                    <p>
-                      <span style={{ fontWeight: '600' }}>Stream Condition </span> Problems related to the physical,
-                      environmental, and social function or condition of the stream in an urban context.
-                    </p>
-                    <p>
-                      <span style={{ fontWeight: '600' }}>Watershed Change </span> Problems related to flood waters that
-                      may pose safety or functional concerns related to people, property, and the environment due to
-                      changing watershed conditions (land use, topography, regional detention, etc).
-                    </p>
-                  </div>
-                }
-              >
-                <InfoCircleOutlined className='info-circle-outlined'/>
-              </Popover>{' '}
-            </h5>
-            <div className="legendprob">
-              <div className="iconfloodhazard" />
-              Flood Hazard
-            </div>
-            <div className="legendprob">
-              <div className="iconwatershed" />
-              Watershed Change
-            </div>
-            <div className="legendprob">
-              <div className="iconstreamfunction" />
-              Stream Condition
-            </div>
+          <h5>
+            Problem Type
+            <Popover
+              content={
+                <div className="popoveer-00">
+                  <p className='dark-text'>Problem Types</p>
+                  <p>
+                    <span className='dark-text'>Flood Hazard </span> Problems related to existing flood or
+                    fluvial hazard to life and property.
+                  </p>
+                  <p>
+                    <span className='dark-text'>Stream Condition </span> Problems related to the physical,
+                    environmental, and social function or condition of the stream in an urban context.
+                  </p>
+                  <p>
+                    <span className='dark-text'>Watershed Change </span> Problems related to flood waters that
+                    may pose safety or functional concerns related to people, property, and the environment due to
+                    changing watershed conditions (land use, topography, regional detention, etc).
+                  </p>
+                </div>
+              }
+            >
+              <InfoCircleOutlined className='iconinfocircle' />
+            </Popover>{' '}
+          </h5>
+          <div className="legendprob">
+            <div className="iconfloodhazard" />
+            Flood Hazard
           </div>
+          <div className="legendprob">
+            <div className="iconwatershed" />
+            Watershed Change
+          </div>
+          <div className="legendprob">
+            <div className="iconstreamfunction" />
+            Stream Condition
+          </div>
+        </div>
         ) : (
           ''
         )}
