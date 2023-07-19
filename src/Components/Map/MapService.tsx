@@ -97,6 +97,17 @@ class MapService {
       'custom-sprite/prop-acq-draft_ORANGE.png',
       'custom-sprite/MEP-X.png',
       'custom-sprite/floodway43.png',
+      'custom-sprite/propacq_ORANGE_bold_small.png',
+      'custom-sprite/RD_ORANGE_bold_small.png',
+      'custom-sprite/propacq_PINK_bold_small.png',
+      'custom-sprite/RD_PINK_bold_small.png',
+      'custom-sprite/propacq_GREEN_bold_small.png',
+      'custom-sprite/RD_GREEN_bold_small.png',
+      'custom-sprite/rd_YELLOW.png',
+      'custom-sprite/prop-acq_YELLOW.png',
+      'custom-sprite/rd_RED.png',
+      'custom-sprite/prop-acq_RED.png',
+      'custom-sprite/MEP-X.png'
     ];
     imagesPaths.forEach((imagePath: string) => {
       this.map.loadImage(imagePath, (error: any, image: any) => {
