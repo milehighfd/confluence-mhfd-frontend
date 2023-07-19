@@ -1,19 +1,19 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Modal, Button, Row, Col, Popover, Select, Switch, Checkbox } from 'antd';
-import { AlertView } from "../../Alerts/AlertView";
-import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
-import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
-import { NEW_PROJECT_TYPES, MAINTENANCE_ELIGIBILITY, WINDOW_WIDTH } from "../../../constants/constants";
-import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
-import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
-import { Project } from "../../../Classes/Project";
-import { useProfileState } from "../../../hook/profileHook";
-import { JURISDICTION, ADMIN, STAFF } from "../../../constants/constants";
-import { useHistory, useLocation } from "react-router-dom";
-import { UploadImagesDocuments } from "../TypeProjectComponents/UploadImagesDocuments";
-import store from "../../../store";
-import { useAttachmentDispatch } from "../../../hook/attachmentHook";
+import { AlertView } from 'Components/Alerts/AlertView';
+import { ProjectInformation } from 'Components/Project/TypeProjectComponents/ProjectInformation';
+import CreateProjectMap from 'Components/CreateProjectMap/CreateProjectMap';
+import { ADMIN, STAFF, NEW_PROJECT_TYPES, MAINTENANCE_ELIGIBILITY, WINDOW_WIDTH, WORK_PLAN_TAB } from 'constants/constants';
+import { LocationInformation } from 'Components/Project/TypeProjectComponents/LocationInformation';
+import { useProjectState, useProjectDispatch } from 'hook/projectHook';
+import { Project } from 'Classes/Project';
+import { useProfileState } from 'hook/profileHook';
+import { useHistory } from 'react-router-dom';
+import { UploadImagesDocuments } from 'Components/Project/TypeProjectComponents/UploadImagesDocuments';
+import store from 'store';
+import { useAttachmentDispatch } from 'hook/attachmentHook';
+import { useMapState } from 'hook/mapHook';
 
 const { Option } = Select;
 const content = (<div className="popver-info"> Projects that repair or restore existing infrastructure and are eligible for MHFD participation.</div>);
@@ -48,7 +48,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
     setDeleteAttachmentsIds,
   } = useProjectDispatch();
   const { streamIntersected, deleteAttachmentsIds } = useProjectState();
-  const { organization, groupOrganization } = useProfileState();
+  const { groupOrganization } = useProfileState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] = useState('');
@@ -71,14 +71,14 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   const [jurisdiction, setjurisdiction] = useState<any>([]);
   const [lengthName, setlengthName] = useState(0);
   const history = useHistory();
-  const location = useLocation();
   const textRef = useRef<any>(null);
   const appUser = store.getState().appUser;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
   const { toggleAttachmentCover, removeAttachment } = useAttachmentDispatch();
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
   const pageWidth  = document.documentElement.scrollWidth;
-  const isWorkPlan = location.pathname.includes('work-plan');
+  const { tabActiveNavbar } = useMapState();
+  const isWorkPlan = tabActiveNavbar === WORK_PLAN_TAB;
   const { userInformation } = useProfileState();
 
   useEffect(() => {
@@ -363,7 +363,6 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
     <>
       {visibleAlert && <AlertView
         isWorkPlan={isWorkPlan}
-        sponsor={sponsor}
         visibleAlert={visibleAlert}
         setVisibleAlert={setVisibleAlert}
         setSave={setSave}

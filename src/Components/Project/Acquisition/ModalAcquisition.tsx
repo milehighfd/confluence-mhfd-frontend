@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { Modal, Button, Row, Col, Popover, Select, Checkbox } from 'antd';
-import { SERVER } from "../../../Config/Server.config";
-import { AlertView } from "../../Alerts/AlertView";
-import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
-import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
-import { DropPin } from "../TypeProjectComponents/DropPin";
-import { PROJECT_INFORMATION, PROGRESS_ACQUISITION, WINDOW_WIDTH } from "../../../constants/constants";
-import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
-import { getData, getToken } from "../../../Config/datasets";
-import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
-import { Project } from "../../../Classes/Project";
-import { useProfileState } from "../../../hook/profileHook";
-import { JURISDICTION, ADMIN, STAFF } from "../../../constants/constants";
-import { useAttachmentDispatch } from "../../../hook/attachmentHook";
-import { useHistory, useLocation } from "react-router-dom";
-import { UploadImagesDocuments } from "../TypeProjectComponents/UploadImagesDocuments";
-import store from "../../../store";
+import { SERVER } from 'Config/Server.config';
+import { AlertView } from 'Components/Alerts/AlertView';
+import CreateProjectMap from 'Components/CreateProjectMap/CreateProjectMap';
+import { ProjectInformation } from 'Components/Project/TypeProjectComponents/ProjectInformation';
+import { DropPin } from 'Components/Project/TypeProjectComponents/DropPin';
+import { WORK_PLAN_TAB, PROGRESS_ACQUISITION, WINDOW_WIDTH, ADMIN, STAFF } from 'constants/constants';
+import { LocationInformation } from 'Components/Project/TypeProjectComponents/LocationInformation';
+import { getData, getToken } from 'Config/datasets';
+import { useProjectState, useProjectDispatch } from 'hook/projectHook';
+import { Project } from 'Classes/Project';
+import { useProfileState } from 'hook/profileHook';
+import { useAttachmentDispatch } from 'hook/attachmentHook';
+import { useHistory } from 'react-router-dom';
+import { UploadImagesDocuments } from 'Components/Project/TypeProjectComponents/UploadImagesDocuments';
+import store from 'store';
+import { useMapState } from 'hook/mapHook';
 
 const { Option } = Select;
 const content = (<div className="popver-info">The purchase of property that is shown to have high flood risk or is needed to implement master plan improvements.</div>);
@@ -52,9 +52,8 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
     setServiceAreaCounty, 
     setJurisdictionSponsor,
     setIsEdit,
-    setDeleteAttachmentsIds,
   } = useProjectDispatch();
-  const { organization, groupOrganization } = useProfileState();
+  const { groupOrganization } = useProfileState();
   const { deleteAttachmentsIds } = useProjectState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -74,7 +73,6 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
   const [jurisdiction, setjurisdiction] = useState<any>([]);
   var date = new Date();
   const history = useHistory();
-  const location = useLocation();
   var year = date.getFullYear();
   const [currentYear, setCurrentYear] = useState(2023);
   const [lengthName, setlengthName] = useState(0);
@@ -83,7 +81,8 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
   const { toggleAttachmentCover, removeAttachment } = useAttachmentDispatch();
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
   const pageWidth  = document.documentElement.scrollWidth;
-  const isWorkPlan = location.pathname.includes('work-plan');
+  const { tabActiveNavbar } = useMapState();
+  const isWorkPlan = tabActiveNavbar === WORK_PLAN_TAB;
   const { userInformation } = useProfileState();
   const [isEditingPosition,setIsEditingPosition ]= useState(false)
 
@@ -92,9 +91,6 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
     setJurisdictionSponsor(undefined);
     setStreamIntersected({ geom: null });
     setStreamsIds([]);
-    // return () => {
-    //   setGeom('');
-    // }
   }, []);
 
   useEffect(() => {
@@ -321,7 +317,6 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
     <>
       {visibleAlert && <AlertView
         isWorkPlan={isWorkPlan}
-        sponsor={sponsor}
         visibleAlert={visibleAlert}
         setVisibleAlert={setVisibleAlert}
         setSave={setSave}

@@ -619,7 +619,7 @@ const DetailModal = ({
                 onClick={() => {
                   activeTab(0, '#project-basics');
                 }}
-                className={openSecction === 0 ? 'header-body-modal header-body-modal-active' : 'header-body-modal'}
+                className={openSecction === 0 ? 'header-tab-modal-detail header-tab-modal-detail-active' : 'header-tab-modal-detail'}
                 style={!activeScroll ? { cursor: 'default' } : { cursor: 'pointer' }}
               >
                 Project Basics
@@ -628,7 +628,7 @@ const DetailModal = ({
                 onClick={() => {
                   activeTab(1, '#problem');
                 }}
-                className={openSecction === 1 ? 'header-body-modal header-body-modal-active' : 'header-body-modal'}
+                className={openSecction === 1 ? 'header-tab-modal-detail header-tab-modal-detail-active' : 'header-tab-modal-detail'}
                 style={!activeScroll ? { cursor: 'default' } : { cursor: 'pointer' }}
               >
                 Problem
@@ -637,7 +637,7 @@ const DetailModal = ({
                 onClick={() => {
                   activeTab(2, '#vendors');
                 }}
-                className={openSecction === 2 ? 'header-body-modal header-body-modal-active' : 'header-body-modal'}
+                className={openSecction === 2 ? 'header-tab-modal-detail header-tab-modal-detail-active' : 'header-tab-modal-detail'}
                 style={!activeScroll ? { cursor: 'default' } : { cursor: 'pointer' }}
               >
                 Vendors
@@ -646,7 +646,7 @@ const DetailModal = ({
                 onClick={() => {
                   activeTab(3, '#proposed-actions');
                 }}
-                className={openSecction === 3 ? 'header-body-modal header-body-modal-active' : 'header-body-modal'}
+                className={openSecction === 3 ? 'header-tab-modal-detail header-tab-modal-detail-active' : 'header-tab-modal-detail'}
                 style={!activeScroll ? { cursor: 'default' } : { cursor: 'pointer' }}
               >
                 Proposed Actions
@@ -655,29 +655,29 @@ const DetailModal = ({
                 onClick={() => {
                   activeTab(4, '#project-roadmap');
                 }}
-                className={openSecction === 4 ? 'header-body-modal header-body-modal-active' : 'header-body-modal'}
+                className={openSecction === 4 ? 'header-tab-modal-detail header-tab-modal-detail-active' : 'header-tab-modal-detail'}
                 style={!activeScroll ? { cursor: 'default' } : { cursor: 'pointer' }}
               >
                 Project Roadmap
               </p>
-              {/* <p style={{opacity:'0.25'}} className={openSecction === 5 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Graph</p> */}
+              {/* <p style={{opacity:'0.25'}} className={openSecction === 5 ? "header-tab-modal-detail header-tab-modal-detail-active" : "header-tab-modal-detail"} >Graph</p> */}
               {appUser && appUser.designation && (appUser.designation === ADMIN || appUser.designation === STAFF) && (
                 <p
                   onClick={() => {
                     activeTab(6, '#project-financials');
                   }}
-                  className={openSecction === 6 ? 'header-body-modal header-body-modal-active' : 'header-body-modal'}
+                  className={openSecction === 6 ? 'header-tab-modal-detail header-tab-modal-detail-active' : 'header-tab-modal-detail'}
                   style={!activeScroll ? { cursor: 'default' } : { cursor: 'pointer' }}
                 >
                   Project Financials
                 </p>
               )}
-              {/* <p style={{opacity:'0.25'}} className={openSecction === 7 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Management</p> */}
+              {/* <p style={{opacity:'0.25'}} className={openSecction === 7 ? "header-tab-modal-detail header-tab-modal-detail-active" : "header-tab-modal-detail"} >Project Management</p> */}
               <p
                 onClick={() => {
                   activeTab(8, '#maps');
                 }}
-                className={openSecction === 8 ? 'header-body-modal header-body-modal-active' : 'header-body-modal'}
+                className={openSecction === 8 ? 'header-tab-modal-detail header-tab-modal-detail-active' : 'header-tab-modal-detail'}
                 style={!activeScroll ? { cursor: 'default' } : { cursor: 'pointer' }}
               >
                 Maps
@@ -686,7 +686,7 @@ const DetailModal = ({
                 onClick={() => {
                   activeTab(9, '#gallery');
                 }}
-                className={openSecction === 9 ? 'header-body-modal header-body-modal-active' : 'header-body-modal'}
+                className={openSecction === 9 ? 'header-tab-modal-detail header-tab-modal-detail-active' : 'header-tab-modal-detail'}
                 style={!activeScroll ? { cursor: 'default' } : { cursor: 'pointer' }}
               >
                 Gallery
@@ -695,7 +695,7 @@ const DetailModal = ({
                 onClick={() => {
                   activeTab(10, '#attachments');
                 }}
-                className={openSecction === 10 ? 'header-body-modal header-body-modal-active' : 'header-body-modal'}
+                className={openSecction === 10 ? 'header-tab-modal-detail header-tab-modal-detail-active' : 'header-tab-modal-detail'}
                 style={!activeScroll ? { cursor: 'default' } : { cursor: 'pointer' }}
               >
                 Attachments
@@ -706,7 +706,7 @@ const DetailModal = ({
                     activeTab(11, '#history');
                   }
                 }}
-                className={openSecction === 11 ? 'header-body-modal header-body-modal-active' : 'header-body-modal'}
+                className={openSecction === 11 ? 'header-tab-modal-detail header-tab-modal-detail-active' : 'header-tab-modal-detail'}
                 style={!activeScroll ? { cursor: 'default' } : { cursor: 'pointer' }}
               >
                 History
