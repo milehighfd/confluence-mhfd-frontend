@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { Modal, Button, Input, Row, Col, Popover, Select, Collapse, Timeline , Tooltip, Checkbox } from 'antd';
 import { InfoCircleOutlined, PlusCircleFilled } from '@ant-design/icons';
-import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
-import { AlertView } from "../../Alerts/AlertView";
-import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
-import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
-import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
-import { useAttachmentDispatch } from "../../../hook/attachmentHook";
-import { Project } from "../../../Classes/Project";
-import { useProfileState } from "../../../hook/profileHook";
-import { GOVERNMENT_STAFF, WINDOW_WIDTH } from "../../../constants/constants";
-import { useHistory, useLocation } from "react-router-dom";
-import { UploadImagesDocuments } from "../TypeProjectComponents/UploadImagesDocuments";
-import store from "../../../store";
-import { ADMIN, STAFF } from "../../../constants/constants";
-import { getProjectOverheadCost } from "utils/parsers";
+import CreateProjectMap from 'Components/CreateProjectMap/CreateProjectMap';
+import { AlertView } from 'Components/Alerts/AlertView';
+import { ProjectInformation } from 'Components/Project/TypeProjectComponents/ProjectInformation';
+import { LocationInformation } from 'Components/Project/TypeProjectComponents/LocationInformation';
+import { useProjectState, useProjectDispatch } from 'hook/projectHook';
+import { useAttachmentDispatch } from 'hook/attachmentHook';
+import { Project } from 'Classes/Project';
+import { useProfileState } from 'hook/profileHook';
+import { ADMIN, STAFF, WINDOW_WIDTH, WORK_PLAN_TAB } from 'constants/constants';
+import { useHistory } from 'react-router-dom';
+import { UploadImagesDocuments } from 'Components/Project/TypeProjectComponents/UploadImagesDocuments';
+import store from 'store';
+import { getProjectOverheadCost } from 'utils/parsers';
+import { useMapState } from 'hook/mapHook';
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -131,14 +131,14 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [editprojectid, setEditsetprojectid] = useState("");
   const [jurisdiction, setjurisdiction] = useState<any>([]);
   const history = useHistory();
-  const location = useLocation();
   const [lengthName, setlengthName] = useState(0);
   const appUser = store.getState().appUser;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
   const { toggleAttachmentCover , removeAttachment } = useAttachmentDispatch();
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
   const pageWidth  = document.documentElement.scrollWidth;
-  const isWorkPlan = location.pathname.includes('work-plan');
+  const { tabActiveNavbar } = useMapState();
+  const isWorkPlan = tabActiveNavbar === WORK_PLAN_TAB;
   const { groupOrganization } = useProfileState();
 
   //Delete all data when opening
@@ -658,7 +658,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     <>
     {visibleAlert && <AlertView
       isWorkPlan={isWorkPlan}
-      sponsor={sponsor}
       visibleAlert = {visibleAlert}
       setVisibleAlert ={setVisibleAlert}
       setSave = {setSave}
