@@ -177,7 +177,7 @@ const ColumsTrelloCard = ({
                   ) {
                     if (i === 0 && columnIdx === 0 && fixedDragAction[0]) {
                       return (
-                        <Fragment key={p.project_id}>
+                        <Fragment key={`${p.project_id}_${i}`}>
                           <div
                             style={{
                               backgroundColor: '#ffff00',
@@ -221,7 +221,7 @@ const ColumsTrelloCard = ({
                       );
                     } else {
                       return (
-                        <Fragment key={p.project_id}>
+                        <Fragment key={`${p.project_id}_${i}`}>
                           <div
                             style={{
                               backgroundColor: '#d6d8e0',
@@ -268,7 +268,7 @@ const ColumsTrelloCard = ({
                     if (i === 0 && columnIdx === 0 && fixedDragAction[0]) {
                     } else {
                       return (
-                        <Fragment key={p.project_id}>
+                        <Fragment key={`${p.project_id}_${i}`}>
                           <Draggable key={i} draggableId={`${columnIdx}_${i}`} index={i}>
                             {draggableProvided => (
                               <div
