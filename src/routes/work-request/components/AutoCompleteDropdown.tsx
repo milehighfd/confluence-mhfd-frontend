@@ -96,6 +96,7 @@ const AutoCompleteDropdown = (
     setShowAnalytics(false);
     setShowBoardStatus(false);
     setIsOnSelected(true);
+    setLocality(value);
     setLocalityFilter(value);
     setPrioritySelected([]);
     setJurisdictionSelected([]);
