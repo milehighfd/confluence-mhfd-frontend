@@ -628,6 +628,22 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     { label: 'Contingency', index: 8 },
   ];
 
+  const getServiceAreaAndCountyString = (serviceArea: string[], county: string[]): string => {
+    const serviceAreaWithoutLabel = serviceArea?.map(area => area.replace(' Service Area', ''));
+    const countyWithoutLabel = county?.map(county => county.replace(' County', ''));
+    let result = '';
+    if (serviceAreaWithoutLabel?.length > 0) {
+      result += serviceAreaWithoutLabel.length > 1 ? 'Multiple Service Areas' : `${serviceAreaWithoutLabel[0]} Service Area`;
+    }
+    if (serviceAreaWithoutLabel?.length > 0 && countyWithoutLabel?.length > 0) {
+      result += ' · ';
+    }
+    if (countyWithoutLabel?.length > 0) {
+      result += countyWithoutLabel.length > 1 ? 'Multiple Counties' : `${countyWithoutLabel[0]} County`;
+    }
+    return result;
+  };
+
   function renderTimelineItem(label: string, index: number) {
     return (
       <Timeline.Item color="purple" key={index}>
@@ -692,7 +708,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                     height: lengthName > 259 ? 'unset' :'34px'
                   }} />
                 </label>
-                <p>{serviceArea?(serviceArea?.length > 1? 'Multiple Service Area': (serviceArea[0])):''} { (serviceArea?.length > 0 && county?.length > 0)?'·':''} {county?(county?.length > 1? 'Multiple Counties': (county[0])):''} </p>
+                <p>{getServiceAreaAndCountyString(serviceArea, county)} </p>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 7 }} className='project-type'>
                 <label className="tag-name">Capital Project</label>

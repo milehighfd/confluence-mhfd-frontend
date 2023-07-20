@@ -111,11 +111,13 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   useEffect(() => {
     setIsEdit(false);
     if (data !== 'no data') {
+      const counties = data.project_counties.map(( e :any ) => e?.CODE_STATE_COUNTY?.county_name);
+      const serviceAreas = data.project_service_areas.map((e: any) => e?.CODE_SERVICE_AREA?.service_area_name);
       setIsEdit(true);
       setSwSave(true);
       setDescription(data.description);
-      setCounty(parseCountiesToArray(data.project_counties));
-      setServiceArea(parseServiceAreaToArray(data.project_service_areas));
+      setCounty(counties);
+      setServiceArea(serviceAreas);
       setjurisdiction(parseJurisdictionToArray(data.project_local_governments));
       setCosponsor(parseSponsorCosponsorToArray(data.project_partners, 'cosponsor'));
       setSponsor(parseSponsorCosponsorToArray(data.project_partners, 'sponsor'));
@@ -418,6 +420,22 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
     changeDrawState(isDrawState);
   }, [isDrawState]);
 
+  const getServiceAreaAndCountyString = (serviceArea: string[], county: string[]): string => {
+    const serviceAreaWithoutLabel = serviceArea?.map(area => area.replace(' Service Area', ''));
+    const countyWithoutLabel = county?.map(county => county.replace(' County', ''));
+    let result = '';
+    if (serviceAreaWithoutLabel?.length > 0) {
+      result += serviceAreaWithoutLabel.length > 1 ? 'Multiple Service Areas' : `${serviceAreaWithoutLabel[0]} Service Area`;
+    }
+    if (serviceAreaWithoutLabel?.length > 0 && countyWithoutLabel?.length > 0) {
+      result += ' · ';
+    }
+    if (countyWithoutLabel?.length > 0) {
+      result += countyWithoutLabel.length > 1 ? 'Multiple Counties' : `${countyWithoutLabel[0]} County`;
+    }
+    return result;
+  };
+
   return (
     <>
       {visibleAlert && <AlertView
@@ -463,7 +481,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
                       height: lengthName > 280 ? 'unset' : '34px'
                     }} />
                   </label>
-                  <p>{serviceArea ? (serviceArea.length > 1 ? 'Multiple Service Area' : (serviceArea[0])) : ''} {(serviceArea.length > 0 && county.length > 0) ? '·' : ''} {county ? (county.length > 1 ? 'Multiple Counties' : (county[0])) : ''} </p>
+                  <p>{getServiceAreaAndCountyString(serviceArea, county)} </p>
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{ textAlign: 'right' }}>
                   <label className="tag-name" style={{ padding: '10px' }}>Study</label>
@@ -527,10 +545,20 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
                                     return (
                                       <Timeline.Item color="green" key={index}>
                                         <Row style={{ marginLeft: '-18px' }}>
-                                          <Col className="first" xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}><label>{stream?.code_local_goverment.length > 0 ? stream.code_local_goverment[0].local_government_name: ''}</label></Col>
-                                          <Col className="second" style={{textAlign:'center'}} xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{swSave ? stream.length : formatterDec.format(stream.length * 0.000621371)}</Col>
-                                          <Col className="third" style={{textAlign:'center',paddingLeft: '0px'}} xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7 }}>{swSave ? stream.drainage : formatterDec.format(stream.drainage)}</Col>
-                                          <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent" onClick={() => removeStream(stream)} ><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
+                                          <Col className="first" xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}>
+                                            <label>{stream?.code_local_goverment.length > 0 ? stream.code_local_goverment[0].local_government_name : ''}</label>
+                                          </Col>
+                                          <Col className="second" style={{ textAlign: 'center' }} xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>
+                                          {swSave ? stream.length.toFixed(3) : (Math.round(stream.length * 1000) / 1000).toFixed(3)}
+                                          </Col>
+                                          <Col className="third" style={{ textAlign: 'center', paddingLeft: '0px' }} xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7 }}>
+                                            {swSave ? stream.drainage.toFixed(2) : (Math.round(stream.drainage * 100) / 100).toFixed(2)}
+                                          </Col>
+                                          <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}>
+                                            <Button className="btn-transparent" onClick={() => removeStream(stream)}>
+                                              <img src="/Icons/icon-16.svg" alt="" height="15px" />
+                                            </Button>
+                                          </Col>
                                         </Row>
                                       </Timeline.Item>
                                     );
