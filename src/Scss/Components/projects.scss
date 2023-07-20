@@ -14,6 +14,18 @@
   .head-project {
     padding: 0px 20px;
     padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    p{
+      font-size: 14px;
+      margin-bottom: 0px;
+      color: $opacity;
+      margin-top: 4px;
+    }
+    .project-title{
+      width: -webkit-fill-available;
+      padding-right: 10px;
+    }
     .project-name{
       border: none;
       width: 100%;
@@ -21,10 +33,41 @@
       color: #11093C;
       word-wrap: break-word;
       resize: none;
-      line-height: 27px;     
+      line-height: 27px;
+      font-weight: 500;
+    }
+    .project-sub-name{
+      margin-top: -7px;
+      margin-left: 4px;
     }
     .project-type{
       text-align: right;
+      display: flex;
+      justify-content: right;
+      height: min-content;
+      align-items: center;
+      height: min-content;
+      .hh-img{
+        margin-left: 8px;
+      }
+      .drop-espace{
+        min-width: 115px;
+        border: 1px solid #eae8f0;
+        border-radius: 5px;
+        padding: 3px 12px;
+        font-size: 12px;
+        width: max-content;
+        a{
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin: 0px;
+          margin-left: 0px !important;
+          p{
+            padding-right: 8px;
+          }
+        }
+      }
     }
     ::placeholder {
       color: $purple00;
@@ -80,32 +123,8 @@
         }
       }
     }
-    p{
-      font-size: 14px;
-      margin-bottom: 0px;
-      color: $opacity;
-      margin-top: 4px;
-    }
     .btn-transparent{
       height:25px;
-    }
-    .tag-name{
-      background: $light-purple;
-      border-radius: 20px;
-      text-align: center;
-      font-size: 12px;
-      color: $purple;
-      min-width: 105px;
-      width: 105px;
-      padding: 10px;
-      margin-right: 5px;
-      position: relative;
-      top: 6px;
-      letter-spacing: -0.8px;
-      
-    }
-    .hh-img{
-      margin-top: 8px;
     }
   }
   .body-project{
@@ -740,9 +759,6 @@
       p{
         font-size: 18px !important;
       }
-      .tag-name{
-        font-size: 16px !important;
-      }
       .btn-transparent{
         height: 35px;
 
@@ -986,11 +1002,6 @@
       }
       p{
         font-size: 24px !important;
-      }
-      .tag-name{
-        font-size: 21px !important;
-        padding: 14px 20px !important;
-        margin-right: 15px;
       }
       .hh-img {
        margin-top: 8px;
@@ -1338,11 +1349,6 @@
       }
       p{
         font-size: 24px !important;
-      }
-      .tag-name{
-        font-size: 25px !important;
-        padding: 14px 20px !important;
-        margin-right: 15px;
       }
       .hh-img {
        margin-top: 8px;

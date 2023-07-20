@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button, Input, Row, Col, Popover, Select, Collapse, Timeline , Tooltip, Checkbox } from 'antd';
-import { InfoCircleOutlined, PlusCircleFilled } from '@ant-design/icons';
+import { Modal, Button, Input, Row, Col, Popover, Select, Collapse, Timeline , Tooltip, Checkbox, Dropdown } from 'antd';
+import { DownOutlined, InfoCircleOutlined, PlusCircleFilled, UpOutlined } from '@ant-design/icons';
 import CreateProjectMap from 'Components/CreateProjectMap/CreateProjectMap';
 import { AlertView } from 'Components/Alerts/AlertView';
 import { ProjectInformation } from 'Components/Project/TypeProjectComponents/ProjectInformation';
@@ -15,6 +15,7 @@ import { UploadImagesDocuments } from 'Components/Project/TypeProjectComponents/
 import store from 'store';
 import { getProjectOverheadCost } from 'utils/parsers';
 import { useMapState } from 'hook/mapHook';
+import TypeProjectsFilter from 'Components/FiltersProject/TypeProjectsFilter/TypeProjectsFilter';
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -140,6 +141,10 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const { tabActiveNavbar } = useMapState();
   const isWorkPlan = tabActiveNavbar === WORK_PLAN_TAB;
   const { groupOrganization } = useProfileState();
+  const [openDropdownTypeProject, setOpenDropdownTypeProject] = useState(false);
+
+  //list Menu TypeProjects
+  const menuTypeProjects = <TypeProjectsFilter />;
 
   //Delete all data when opening
   useEffect(() => {
@@ -693,30 +698,35 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
        onOk={handleOk}
        onCancel={handleCancel}
        className="projects"
-       width={pageWidth >3000 ? "2000px" : "1100px"}
+       width={pageWidth >3000 ? "2000px" : "90.5%"}
      >
       <Row>
-        <Col xs={{ span: 24 }} lg={{ span: 10 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 12 }}>
           <CreateProjectMap type="CAPITAL" locality={locality} projectid={projectid} isEdit={swSave} problemId={problemId}></CreateProjectMap>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 14 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 12 }}>
           <div className="head-project">
-            <Row>
-              <Col xs={{ span: 24 }} lg={{ span: 17 }}>
-                <label data-value={nameProject} style={{width: '100%'}}>
-                  <textarea className="project-name" value={nameProject} onChange={(e) => onChange(e)} style={{                  
-                    height: lengthName > 259 ? 'unset' :'34px'
-                  }} />
-                </label>
-                <p>{getServiceAreaAndCountyString(serviceArea, county)} </p>
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 7 }} className='project-type'>
-                <label className="tag-name">Capital Project</label>
-                <Popover content={content}>
-                  <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" />
-                </Popover>
-              </Col>
-            </Row>
+            <div className='project-title'>
+              <label data-value={nameProject} style={{width: '100%'}}>
+                <textarea className="project-name" value={nameProject} onChange={(e) => onChange(e)} style={{                  
+                  height: lengthName > 259 ? 'unset' :'34px'
+                }} />
+                <p className='project-sub-name'>Aurora · Northeast Service Area · Adams County</p>
+              </label>
+            </div>
+            <div className='project-type'>
+              <Dropdown overlay={menuTypeProjects} trigger={['click']} overlayClassName="drop-menu-type-project" placement="bottomRight" onVisibleChange={()=>{setOpenDropdownTypeProject(!openDropdownTypeProject)}}>
+                <div className="drop-espace">
+                  <a onClick={e => e.preventDefault()} style={{marginLeft:'2%', display:'flex', alignItems:'baseline'}}>
+                    {<p>Capital</p>} &nbsp;
+                    {openDropdownTypeProject ? <UpOutlined style={{color:'#251863',fontSize:'14px'}} /> : < DownOutlined style={{color:'#251863',fontSize:'14px'}} />}
+                  </a>
+                </div>
+              </Dropdown>
+              <Popover content={content}>
+                <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" />
+              </Popover>
+            </div>
           </div>
 
           <div className="body-project">
