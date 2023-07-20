@@ -63,14 +63,14 @@ export const ProjectInformation = ({type, description, setDescription, reason, s
   return (
     <>
       <Row>
-        <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{marginBottom: '-25px'}}>
+        <Col xs={{ span: 24 }} lg={{ span: 12 }} className="create-information">
           <h5>1. Project Information<span className="requiered">&nbsp;*</span></h5>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{marginBottom: '-25px', paddingTop: '5px'}}>
+        <Col xs={{ span: 24 }} lg={{ span: 12 }} className="create-required">
           <p className="requiered-text"><span className="requiered">*&nbsp;</span>Required</p>
         </Col>
       </Row>
-      <Row gutter={[16, 16]} style={{marginTop:'20px'}}>
+      <Row gutter={[16, 16]} className="information-description">
         {type && type === NEW_PROJECT_TYPES.Study && (
           <>
             <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{ padding: '8px' }}>
