@@ -1655,31 +1655,31 @@ const CreateProjectMap = (type: any) => {
     <>
       {showIntersectionError && (
         <Modal
+          className="detailed-version detailed-upload-save"
           centered
           visible={showIntersectionError}
           onCancel={() => setShowIntersectionError(false)}
-          className="modal-confirm"
-          width="400px"
+         
         >
           <div className="detailed">
-            <Row className="detailed-h-head" gutter={[16, 8]}>
+            <Row className="detailed-h" gutter={[16, 8]}>
               <Col xs={{ span: 44 }} lg={{ span: 20 }}>
-                <h1>Geometry Error</h1>
+                <h1  style={{marginTop: '15px'}}>Geometry Error</h1>
               </Col>
-              <Col xs={{ span: 4 }} lg={{ span: 4 }} className='col-h-head'>
+              <Col xs={{ span: 4 }} lg={{ span: 4 }} style={{textAlign: 'end'}}>
                 <Button className="btn-transparent" onClick={() => setShowIntersectionError(false)}>
                   <img src="/Icons/icon-62.svg" alt="" height="15px" />
                 </Button>
               </Col>
             </Row>
-            <Row className="detailed-h-body" gutter={[16, 8]}>
-              <Col xs={{ span: 48 }} lg={{ span: 24 }} className='col-h-body'>
+            <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
+              <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
                 Please draw your project geometry over the nearest blue stream line in order to proceed. You may
                 describe the actual location of your project in the 'Project Information' section if a blue stream line
                 does not exist in your project area.
               </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 12, offset: 12 }} className='col-body-1'>
-                <button className="btn-purple" style={{ width: '95%' }} onClick={() => setShowIntersectionError(false)}>
+              <Col xs={{ span: 24 }} lg={{ span: 12, offset: 12 }} style={{color: '#11093c', textAlign:'end'}}>
+                <button className="btn-purple" style={{width: '95%', height:'auto', padding: '10px'}} onClick={() => setShowIntersectionError(false)}>
                   Review your geometry
                 </button>
               </Col>
