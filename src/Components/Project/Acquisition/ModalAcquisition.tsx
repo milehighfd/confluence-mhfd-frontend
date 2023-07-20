@@ -313,6 +313,22 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
     setVisible(false);    
   };
 
+  const getServiceAreaAndCountyString = (serviceArea: string[], county: string[]): string => {
+    const serviceAreaWithoutLabel = serviceArea?.map(area => area.replace(' Service Area', ''));
+    const countyWithoutLabel = county?.map(county => county.replace(' County', ''));
+    let result = '';
+    if (serviceAreaWithoutLabel?.length > 0) {
+      result += serviceAreaWithoutLabel.length > 1 ? 'Multiple Service Areas' : `${serviceAreaWithoutLabel[0]} Service Area`;
+    }
+    if (serviceAreaWithoutLabel?.length > 0 && countyWithoutLabel?.length > 0) {
+      result += ' · ';
+    }
+    if (countyWithoutLabel?.length > 0) {
+      result += countyWithoutLabel.length > 1 ? 'Multiple Counties' : `${countyWithoutLabel[0]} County`;
+    }
+    return result;
+  };
+
   return (
     <>
       {visibleAlert && <AlertView
@@ -358,8 +374,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
                       height: lengthName > 271 ? 'unset' : '34px'
                     }} />
                   </label>
-
-                  <p>{serviceArea ? (serviceArea.length > 1 ? 'Multiple Service Area' : (serviceArea[0])) : ''} {(serviceArea.length > 0 && county.length > 0) ? '·' : ''} {county ? (county.length > 1 ? 'Multiple Counties' : (county[0])) : ''} </p>
+                  <p>{getServiceAreaAndCountyString(serviceArea, county)} </p>
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{ textAlign: 'right' }}>
                   <label className="tag-name" style={{ padding: '10px' }}>Acquisition</label>
