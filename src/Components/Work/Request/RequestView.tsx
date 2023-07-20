@@ -22,6 +22,7 @@ import RequestCostRows from 'routes/work-request/components/RequestCostRows';
 import AutoCompleteDropdown from 'routes/work-request/components/AutoCompleteDropdown';
 
 import '../../../index.scss';
+import { useMapDispatch } from 'hook/mapHook';
 
 const { TabPane } = Tabs;
 
@@ -77,12 +78,19 @@ const RequestView = ({ type, isFirstRendering }: {
     loadFilters,
     setTotalCountyBudget
   } = useRequestDispatch();
+  const {
+    setOpacityLayer,
+    setCoordinatesJurisdiction,
+    setNameZoomArea,
+    setAutocomplete,
+    setBBOXComponents
+  } = useMapDispatch();
   const [flagforScroll, setFlagforScroll] = useState(0);
   const [showCreateProject, setShowCreateProject] = useState(false);
   const history = useHistory();
   const { setZoomProject, setComponentsFromMap, setStreamIntersected, setComponentIntersected } = useProjectDispatch();
   const wrtRef = useRef(null);
-  const { userInformation } = useProfileState();
+  const { userInformation, groupOrganization } = useProfileState();
   const { saveBoardProjecttype } = useProfileDispatch();
   const users = useMyUser();
   const fakeLoading = useFakeLoadingHook(tabKey);
@@ -269,6 +277,68 @@ const RequestView = ({ type, isFirstRendering }: {
     let parent = element.parentElement;
     parent.scroll(parent.scrollWidth, 0);
   }
+
+  useEffect(() => {
+    if (locality) {
+      onSelect(locality);
+    }
+  }, [locality]);
+
+  const onSelect = (value: any, isSelect?: any) => {
+    setAutocomplete(value);
+    const zoomareaSelected = groupOrganization
+      .filter((x: any) => x.name === value)
+      .map((element: any) => {
+        return {
+          aoi: element.name,
+          filter: element.table,
+          coordinates: element.coordinates.coordinates,
+        };
+      });
+    if (zoomareaSelected[0]) {
+      changeCenter(value, zoomareaSelected[0].coordinates, isSelect == 'noselect' ? undefined : 'isSelect');
+    }
+    setBBOXComponents({ bbox: [], centroids: [] });
+  };
+
+  const changeCenter = (name: string, coordinates: any, isSelect?: any) => {
+    const user = userInformation;
+    user.polygon = coordinates;
+    user.isSelect = isSelect;
+    //saveUserInformation(user);
+    setNameZoomArea(name);
+    const zoomareaSelected = groupOrganization
+      .filter((x: any) => x.name === name)
+      .map((element: any) => {
+        return {
+          aoi: element.name,
+          filter: element.table,
+          coordinates: element.coordinates.coordinates,
+        };
+      });
+    if (zoomareaSelected.length > 0) {
+      switch (zoomareaSelected[0].filter) {
+        case 'County':
+        case 'CODE_STATE_COUNTY':
+          setOpacityLayer(true);
+          setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
+          break;
+        case 'Jurisdiction':
+        case 'CODE_LOCAL_GOVERNMENT':
+          setOpacityLayer(true);
+          setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
+          break;
+        case 'Service Area':
+        case 'CODE_SERVICE_AREA':
+          setOpacityLayer(true);
+          setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
+          break;
+        default:
+          setOpacityLayer(true);
+          setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
+      }
+    }
+  };
 
   let displayedTabKey = tabKeys;
   if (type === "WORK_PLAN") {
