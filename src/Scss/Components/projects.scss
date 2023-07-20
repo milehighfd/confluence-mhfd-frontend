@@ -14,7 +14,18 @@
   .head-project {
     padding: 0px 20px;
     padding-top: 10px;
-
+    .project-name{
+      border: none;
+      width: 100%;
+      font-size: 24px;
+      color: #11093C;
+      word-wrap: break-word;
+      resize: none;
+      line-height: 27px;     
+    }
+    .project-type{
+      text-align: right;
+    }
     ::placeholder {
       color: $purple00;
       opacity: 1;
@@ -86,11 +97,12 @@
       color: $purple;
       min-width: 105px;
       width: 105px;
-      padding: 10px 5px;
+      padding: 10px;
       margin-right: 5px;
       position: relative;
       top: 6px;
       letter-spacing: -0.8px;
+      
     }
     .hh-img{
       margin-top: 8px;
@@ -100,7 +112,13 @@
     padding: 10px 20px;
     height: calc(100vh - 200px);
     overflow-y: auto;
-
+    .span-project-text{
+      padding-bottom: 15px;
+    }
+    .checkbox-body-project{ 
+      padding-right: 10px;
+      padding-top: 10px;
+    }
     h5{
       font-size: 13px;
       text-transform: uppercase;
@@ -116,12 +134,39 @@
         padding: 0px 3px;
       }
     }
+    .title-actions{
+      margin-top: 15px;
+    }
+    .icon-actions{
+      margin-bottom: 2px;
+    }
+    .create-information{
+      margin-bottom: -25px;
+    }
+    .create-required{
+      margin-bottom: -25px;
+      padding-top: 5px;
+    }
     .requiered-text {
       text-align: end;
       font-size: 12px;
       color: #000;
       .requiered {
         color: #df3232;
+      }
+    }
+    .information-description{
+      margin-top: 20px;
+    }
+    .title-geometry{
+      margin-top: 10px;
+    }
+    .title-financial{
+      margin-top: 20px;
+    }    
+    .sub-project{
+      .title-sub-project{
+        font-weight: 600;     
       }
     }
     .sub-title{
@@ -131,6 +176,9 @@
       img{
         margin: -2px 0px 0px 2px;
       }
+    }
+    .icon-cost{
+      margin-bottom: 2px;
     }
     textarea.ant-input{
       margin-bottom: 20px;
