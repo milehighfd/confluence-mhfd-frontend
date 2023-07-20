@@ -192,12 +192,13 @@ export const LocationInformation = ({
   }
   return (
     <>
+    <div className="location-information">
       <h5>{isCapital ? '5.' : '3.'} Location Information <Popover content={contentLocInf}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
       <Row gutter={[16, 16]}>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
           <label className="sub-title">Service Area <Popover content={contentSerAre}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
           {(isMaintenance || isStudy) && !isWorkPlan && <>
-            <span style={{ color: '#df3232' }} className="requiered">&nbsp;*&nbsp;</span>
+            <span id="required-location" className="requiered">&nbsp;*&nbsp;</span>
             </>}
           <div className="sponsor-select" id="serviceid">
             <Select
@@ -240,7 +241,7 @@ export const LocationInformation = ({
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
           <label className="sub-title">Local Government <Popover content={contentJuris}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
           {(isMaintenance || isStudy) && !isWorkPlan && <>
-            <span style={{ color: '#df3232' }} className="requiered">&nbsp;*&nbsp;</span>
+            <span id="required-location" className="requiered">&nbsp;*&nbsp;</span>
             </>}
           <div className="sponsor-select" id="jurisdictionid">
             <Select
@@ -300,6 +301,7 @@ export const LocationInformation = ({
           </div>
         </Col>
       </Row>
+      </div>
     </>
   );
 }
