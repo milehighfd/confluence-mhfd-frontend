@@ -172,6 +172,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
   const { tabKey } = useRequestState();
   const { setCompleteProjectData, setShowModalProject } = useRequestDispatch();
   const { boardProjects, zoomProject } = useProjectState();
+  const { setZoomGeom } = useProjectDispatch();
   const { mhfdmanagers } = useFilterContext();
   let geocoderRef = useRef<HTMLDivElement>(null);
   const divMapRef = useRef<HTMLDivElement>(null);
@@ -705,6 +706,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
 
   useEffect(() => {
     const bounds = map.getBounds();
+    setZoomGeom(bounds);
     if (markerGeocoder) {
       let lnglat = markerGeocoder.getLngLat();
       let swInside = true;

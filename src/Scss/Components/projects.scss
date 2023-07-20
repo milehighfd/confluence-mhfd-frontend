@@ -14,7 +14,61 @@
   .head-project {
     padding: 0px 20px;
     padding-top: 10px;
-
+    display: flex;
+    justify-content: space-between;
+    p{
+      font-size: 14px;
+      margin-bottom: 0px;
+      color: $opacity;
+      margin-top: 4px;
+    }
+    .project-title{
+      width: -webkit-fill-available;
+      padding-right: 10px;
+    }
+    .project-name{
+      border: none;
+      width: 100%;
+      font-size: 24px;
+      color: #11093C;
+      word-wrap: break-word;
+      resize: none;
+      line-height: 27px;
+      font-weight: 500;
+    }
+    .project-sub-name{
+      margin-top: -7px;
+      margin-left: 4px;
+    }
+    .project-type{
+      text-align: right;
+      display: flex;
+      justify-content: right;
+      height: min-content;
+      align-items: center;
+      height: min-content;
+      .hh-img{
+        margin-left: 8px;
+      }
+      .drop-espace{
+        min-width: 115px;
+        border: 1px solid #eae8f0;
+        border-radius: 5px;
+        padding: 3px 12px;
+        font-size: 12px;
+        width: max-content;
+        a{
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin: 0px;
+          margin-left: 0px !important;
+          p{
+            padding-right: 8px;
+          }
+        }
+      }
+    }
     ::placeholder {
       color: $purple00;
       opacity: 1;
@@ -69,38 +123,21 @@
         }
       }
     }
-    p{
-      font-size: 14px;
-      margin-bottom: 0px;
-      color: $opacity;
-      margin-top: 4px;
-    }
     .btn-transparent{
       height:25px;
-    }
-    .tag-name{
-      background: $light-purple;
-      border-radius: 20px;
-      text-align: center;
-      font-size: 12px;
-      color: $purple;
-      min-width: 105px;
-      width: 105px;
-      padding: 10px 5px;
-      margin-right: 5px;
-      position: relative;
-      top: 6px;
-      letter-spacing: -0.8px;
-    }
-    .hh-img{
-      margin-top: 8px;
     }
   }
   .body-project{
     padding: 10px 20px;
     height: calc(100vh - 200px);
     overflow-y: auto;
-
+    .span-project-text{
+      padding-bottom: 15px;
+    }
+    .checkbox-body-project{ 
+      padding-right: 10px;
+      padding-top: 10px;
+    }
     h5{
       font-size: 13px;
       text-transform: uppercase;
@@ -116,12 +153,39 @@
         padding: 0px 3px;
       }
     }
+    .title-actions{
+      margin-top: 15px;
+    }
+    .icon-actions{
+      margin-bottom: 2px;
+    }
+    .create-information{
+      margin-bottom: -25px;
+    }
+    .create-required{
+      margin-bottom: -25px;
+      padding-top: 5px;
+    }
     .requiered-text {
       text-align: end;
       font-size: 12px;
       color: #000;
       .requiered {
         color: #df3232;
+      }
+    }
+    .information-description{
+      margin-top: 20px;
+    }
+    .title-geometry{
+      margin-top: 10px;
+    }
+    .title-financial{
+      margin-top: 20px;
+    }    
+    .sub-project{
+      .title-sub-project{
+        font-weight: 600;     
       }
     }
     .sub-title{
@@ -131,6 +195,9 @@
       img{
         margin: -2px 0px 0px 2px;
       }
+    }
+    .icon-cost{
+      margin-bottom: 2px;
     }
     textarea.ant-input{
       margin-bottom: 20px;
@@ -692,9 +759,6 @@
       p{
         font-size: 18px !important;
       }
-      .tag-name{
-        font-size: 16px !important;
-      }
       .btn-transparent{
         height: 35px;
 
@@ -938,11 +1002,6 @@
       }
       p{
         font-size: 24px !important;
-      }
-      .tag-name{
-        font-size: 21px !important;
-        padding: 14px 20px !important;
-        margin-right: 15px;
       }
       .hh-img {
        margin-top: 8px;
@@ -1290,11 +1349,6 @@
       }
       p{
         font-size: 24px !important;
-      }
-      .tag-name{
-        font-size: 25px !important;
-        padding: 14px 20px !important;
-        margin-right: 15px;
       }
       .hh-img {
        margin-top: 8px;
