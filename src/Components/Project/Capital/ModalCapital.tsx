@@ -688,21 +688,14 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 17 }}>
                 <label data-value={nameProject} style={{width: '100%'}}>
-                  <textarea className="project-name" value={nameProject} onChange={(e) => onChange(e)} style={{
-                    border: 'none',
-                    width: '100%',
-                    fontSize: '24px',
-                    color: '#11093c',
-                    wordWrap: 'break-word',
-                    resize: 'none',
-                    lineHeight: '27px',
+                  <textarea className="project-name" value={nameProject} onChange={(e) => onChange(e)} style={{                  
                     height: lengthName > 259 ? 'unset' :'34px'
                   }} />
                 </label>
                 <p>{serviceArea?(serviceArea?.length > 1? 'Multiple Service Area': (serviceArea[0])):''} { (serviceArea?.length > 0 && county?.length > 0)?'·':''} {county?(county?.length > 1? 'Multiple Counties': (county[0])):''} </p>
               </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{textAlign:'right'}}>
-                <label className="tag-name" style={{padding:'10px'}}>Capital Project</label>
+              <Col xs={{ span: 24 }} lg={{ span: 7 }} className='project-type'>
+                <label className="tag-name">Capital Project</label>
                 <Popover content={content}>
                   <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" />
                 </Popover>
@@ -713,8 +706,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
           <div className="body-project">
               {
                 (isWorkPlan && showCheckBox && !swSave) &&  <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
-                  <div style={{paddingBottom: '15px'}} className='span-project-text'>
-                    <Checkbox style={{paddingRight:'10px', paddingTop:'10px'}} checked={sendToWR} onChange={() => setsendToWR(!sendToWR)}></Checkbox>Submit this project also as a Work Request
+                  <div className='span-project-text'>
+                    <Checkbox className='checkbox-body-project' checked={sendToWR} onChange={() => setsendToWR(!sendToWR)}></Checkbox>Submit this project also as a Work Request
                   </div>
                 </Col>
               }
@@ -723,7 +716,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               setDescription = {setDescription}
             />
             <br/>
-            <h5 style={{marginTop:'15px'}}>
+            <h5 className='title-actions' >
               2. SELECT ACTIONS
               <span className="requiered">&nbsp;*&nbsp;</span>
               <img src="/Icons/icon-08.svg" />
@@ -844,26 +837,26 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 </Panel>
               }
             </Collapse>
-            <Button className="btn-transparent-green" onClick={()=>{applyIndependentComponent()}}><PlusCircleFilled /> Independent Actions</Button> <Popover content={contentIndComp}><img src="/Icons/icon-19.svg" alt="" height="10px" style={{marginBottom:'2px'}}/></Popover>
-            <h5 style={{marginTop:'10px'}}>3. PROJECT GEOMETRY<span className="requiered">&nbsp;*</span></h5>
+            <Button className="btn-transparent-green" onClick={()=>{applyIndependentComponent()}}><PlusCircleFilled /> Independent Actions</Button> <Popover content={contentIndComp}><img src="/Icons/icon-19.svg" alt="" height="10px" className='icon-actions'/></Popover>
+            <h5 className='title-geometry'>3. PROJECT GEOMETRY<span className="requiered">&nbsp;*</span></h5>
 
             <div className={"draw "+(isDrawStateCapital?'active':'')}  onClick={onClickDrawCapital}>
               <img src="" className="icon-draw active" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
               <p >Click on the icon above and draw a polygon to define the project feature</p>
             </div>
-            <h5 style={{marginTop:'20px'}}>4. FINANCIAL INFORMATION </h5>
+            <h5 className='title-financial'>4. FINANCIAL INFORMATION </h5>
             <Row className="cost-project">
               <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>SUBTOTAL COST</Col>
               <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>{formatter.format( getSubTotalCost())}</b></Col>
             </Row>
             <hr/>
-            <Row className="sub-project overcost-capital">
+            <Row className="sub-project">
               <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}>
-                <p style={{fontWeight:'600'}}>Overhead Cost &nbsp;&nbsp;<Popover content={contentOverheadCost}><InfoCircleOutlined style={{color:'#c5c2d5'}} /></Popover></p>
+                <p className='title-sub-project'>Overhead Cost &nbsp;&nbsp;<Popover content={contentOverheadCost}><InfoCircleOutlined style={{color:'#c5c2d5'}} /></Popover></p>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
               </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><p style={{fontWeight:'600'}}>{formatter.format(getOverheadCost())}</p></Col>
+              <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><p className='title-sub-project'>{formatter.format(getOverheadCost())}</p></Col>
             </Row>
 
             <Timeline className="sub-project" style={{marginTop:'10px'}}>
@@ -879,7 +872,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
             <Row className="sub-project">
               <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>
-                <p>Additional Cost <Popover content={contentAdditionalCost}><img src="/Icons/icon-19.svg" alt="" height="10px" style={{marginBottom:'2px'}}/></Popover></p>
+                <p>Additional Cost <Popover content={contentAdditionalCost}><img src="/Icons/icon-19.svg" alt="" height="10px" className='icon-cost'/></Popover></p>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>
                 <Input style={{paddingLeft:'0px'}} placeholder="$0" onChange={(description) => onChangeAdditionalCost(description)} value={formatter.format(additionalCost ? additionalCost : 0)}/>
