@@ -250,6 +250,9 @@ const MapLayout = () => {
     if(commentVisible && leftWidth === (MEDIUM_SCREEN_RIGHT - 1)){
       setLeftWidth(MEDIUM_SCREEN_LEFT);
       setRotationStyle({ transform: 'rotate(180deg)', marginRight: '-4px', right: '4px', position: 'relative' });
+    }else {
+      setLeftWidth(MEDIUM_SCREEN_RIGHT - 1);
+      setRotationStyle(emptyStyle);
     }
   }, [commentVisible]);
 
@@ -257,6 +260,10 @@ const MapLayout = () => {
     setLeftWidthMap(MEDIUM_SCREEN_LEFT);
     setLeftWidth(MEDIUM_SCREEN_RIGHT - 1);
     setRotationStyle(emptyStyle);
+    if(commentVisible){      
+      setLeftWidth(MEDIUM_SCREEN_LEFT);
+      setRotationStyle({ transform: 'rotate(180deg)', marginRight: '-4px', right: '4px', position: 'relative' });
+    }
   },[tabActiveNavbar])
   return (
     <>
