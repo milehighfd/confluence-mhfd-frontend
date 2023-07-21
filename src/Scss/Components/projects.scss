@@ -2,6 +2,10 @@
 @import "../Theme/styles.scss";
 // CAPITAL
 .projects {
+  color: #11093c;
+  .text-default{
+    opacity: 0.34;
+  }
   .ant-modal-body{
     padding: 0px;
   }
@@ -20,11 +24,40 @@
       font-size: 14px;
       margin-bottom: 0px;
       color: $opacity;
-      margin-top: 4px;
+      margin-top: 0px;
     }
     .project-title{
       width: -webkit-fill-available;
       padding-right: 10px;
+      .project-name-icons{
+        display: flex;
+        margin-bottom: 7px;
+        margin-right: 40px;
+        .ico-title{
+          display: flex;
+          color: #b3aec9;
+          font-size: 24px;
+          align-items: center;
+          margin-top: -3px;
+          img{
+            opacity: 0.5;
+            height: 22px;
+            margin-left: 10px;
+          }
+          img:active, img:hover{
+            opacity: 1;
+          }
+          .heart, .heart:hover, .heart:active{
+            color:#f5575c;
+          }
+          .btn-transparent{
+            padding: 0px;
+            height: auto;
+            color: #b7b4c4 !important;
+            font-size: 24px;
+          }
+        }
+      }
     }
     .project-name{
       border: none;
@@ -35,6 +68,9 @@
       resize: none;
       line-height: 27px;
       font-weight: 500;
+      p{
+        margin-top: 4px;
+      }
     }
     .project-sub-name{
       margin-top: -7px;
@@ -174,6 +210,47 @@
       h5, p{
         margin: 0px
       }
+      .requestor-information{
+        margin-top: 32px;
+      }
+      .location{
+        margin-top: 12px;
+      }
+      .delete-upload{
+        color: red;
+      }
+      .bottomn-heder {
+        color: #000000;
+        margin-left: 10px;
+        transition: all .0s cubic-bezier(.645, .045, .355, 1);
+      
+        .ic-document {
+          transition: all .3s cubic-bezier(.645, .045, .355, 1);
+          margin-right: 5px;
+          content: url("../../../public/Icons/ic-document.svg");
+        }
+      }
+      .bottomn-heder:hover,
+      .bottomn-heder:active,
+      .bottomn-heder:focus-visible,
+      .bottomn-heder:visited {
+        color: #29c499 !important;
+        border-color: #29c499;
+        transition: all .0s cubic-bezier(.645, .045, .355, 1);
+
+        .ic-document {
+          transition: all .3s cubic-bezier(.645, .045, .355, 1);
+          margin-right: 5px;
+          content: url("../../../public/Icons/ic-document-active.svg") !important;
+        }
+      }
+    }
+    .sub-title-project-upload{
+      align-items: baseline;
+      .group-btn{
+        // margin-top: 24px;
+        margin-bottom: 16px;
+      }
     }
     .span-project-text{
       padding-bottom: 15px;
@@ -224,41 +301,6 @@
       }
     }
     .upload-sections{
-      .upload-images{
-        .title-upload{
-          margin-top: 5px;
-          .text-upload{
-            margin-bottom: -25px;
-            align-self: center;
-          }
-          .icon-upload{
-            margin-left: 5px;
-          }
-          .add-upload{
-            margin-bottom: -25px;
-            text-align: end;
-            .delete-upload{
-              color: red;
-            }
-          }
-        }
-        .subtitle-upload{
-          padding: 8px;
-          margin-top: 25px;
-          .subtext-upload{
-            margin-bottom: -25px;
-            .uploaded-span{
-              color: #11093C;
-            }
-          }
-        }
-        .table-upload{
-          padding: 8px;
-          margin-top: 10px;
-          margin-left: 0px;
-          padding-left: 0px;
-        }
-      }
       .upload-documents{
         .title-upload{
           margin-top: 5px;
@@ -312,7 +354,27 @@
       min-height: 36px;
       padding: 6px 11px;
     }
+    .section-gemetry{
+      margin-left: 16px;
+      p{
+        opacity: 0.6;
+        margin-bottom: 12px;
+      }
+      .section-county{
+        width: 50%;
+        margin-bottom: 16px;
+      }
+      .text-radio-btn{
+        font-size: 12px;
+        color:$purple00;
+        opacity: 0.6;
+      }
+      .sub-sub-title-projects{
+        margin-top: 10px;
+      }
+    }
     .table-project{
+      margin-bottom: 20px;
       .tag-active{
         background: rgba(41, 196, 153, 0.20);
         border-radius: 19px;
@@ -329,6 +391,37 @@
       }
       .total-cost{
         font-weight: 700;
+      }
+      .input-independent{
+        border: none;
+        background: transparent;
+        color: $purple00;
+        border: none;
+        padding: 0px;
+        margin: 0px;
+        width: 100%;
+      }
+      .input-independent:focus{
+        border-bottom: 1.5px solid $green;
+        border-radius: 0px;
+      }
+      .row-geometry-body{
+        background: #f5f7ff;
+      }
+      .row-geometry-title{
+        td {
+          padding: 11px 4px !important;
+        }
+      }
+      .ant-pagination{
+        display: none;
+      }
+      .ant-table {
+        border-radius: 5px;
+        border: 1px solid #d9d9d9;
+      }
+      .ant-table-thead>tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan]):before{
+        background-color: transparent;
       }
       .ant-table-thead > tr > th {
         color: #11093C;
@@ -727,27 +820,6 @@
     }
 
     // ACQUISITION AND SPECIAL
-    .ant-table {
-      border-radius: 5px;
-      border: 1px solid #d9d9d9;
-    }
-    .ant-table-thead > tr > th {
-      color: $opacity;
-      font-weight: 400;
-      background: $light-purple;
-      font-size: 12px;
-      padding: 3px 16px;
-      // border-bottom: none;
-      border-bottom: 1px solid #d9d9d9;
-    }
-    .ant-pagination{
-      display: none;
-    }
-    .ant-table-bordered .ant-table-tbody > tr > td{
-      font-size: 12px;
-      color: $purple;
-      padding: 8px 16px;
-    }
     .btn-location,.btn-location:hover{
       border: 1px solid $green;
       color: $green;
@@ -756,9 +828,6 @@
       font-size: 12px;
       margin-top: 27px;
     }
-  }
-  .ant-table-thead>tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan]):before{
-    background-color: transparent;
   }
   .switch-option{
     font-size: 10px;
@@ -1964,53 +2033,5 @@
         height: 24px !important;
       }
     }
-  }
-}
-
-.bottomn-heder {
-  color: #000000;
-  margin-left: 10px;
-  transition: all .0s cubic-bezier(.645, .045, .355, 1);
-
-  .ant-btn:focus,
-  .ant-btn:hover {
-    color: #29c499;
-    transition: all .0s cubic-bezier(.645, .045, .355, 1);
-    border-color: #29c499;
-  }
-
-  .ic-document {
-    transition: all .3s cubic-bezier(.645, .045, .355, 1);
-    margin-right: 5px;
-    content: url("../../../public/Icons/ic-document.svg");
-  }
-}
-
-.bottomn-heder:hover,
-.bottomn-heder:active,
-.bottomn-heder:focus-visible,
-.bottomn-heder:visited {
-  color: #29c499;
-  border-color: #29c499;
-  transition: all .0s cubic-bezier(.645, .045, .355, 1);
-
-  .ic-document {
-    transition: all .3s cubic-bezier(.645, .045, .355, 1);
-    margin-right: 5px;
-    content: url("../../../public/Icons/ic-document-active.svg") !important;
-  }
-}
-
-.bottomn-heder:focus,
-.bottomn-heder::before,
-.bottomn-heder:focus-visible {
-  color: #29c499;
-  border-color: #29c499;
-  transition: all .0s cubic-bezier(.645, .045, .355, 1);
-
-  .ic-document {
-    transition: all .3s cubic-bezier(.645, .045, .355, 1);
-    margin-right: 5px;
-    content: url("../../../public/Icons/ic-document-active.svg") !important;
   }
 }

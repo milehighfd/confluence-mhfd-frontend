@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button, Input, Row, Col, Popover, Select, Collapse, Timeline , Tooltip, Checkbox, Dropdown, Table } from 'antd';
-import { DeleteOutlined, DownOutlined, InfoCircleOutlined, PlusCircleFilled, UpOutlined } from '@ant-design/icons';
+import { Modal, Button, Input, Row, Col, Popover, Select, Collapse, Timeline , Tooltip, Checkbox, Dropdown, Table, Radio } from 'antd';
+import { DeleteOutlined, DownOutlined, HeartFilled, HeartOutlined, InfoCircleOutlined, PlusCircleFilled, UpOutlined } from '@ant-design/icons';
 import CreateProjectMap from 'Components/CreateProjectMap/CreateProjectMap';
 import { AlertView } from 'Components/Alerts/AlertView';
 import { ProjectInformation } from 'Components/Project/TypeProjectComponents/ProjectInformation';
@@ -142,7 +142,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const isWorkPlan = tabActiveNavbar === WORK_PLAN_TAB;
   const { groupOrganization } = useProfileState();
   const [openDropdownTypeProject, setOpenDropdownTypeProject] = useState(false);
-  const [openDetail, setOpenDetail] = useState(true);
+  const [activeTabBodyProject, setActiveTabBodyProject] = useState('Details');
+  const [favorite, setFavorite] = useState(false);
 
   //list Menu TypeProjects
   const menuTypeProjects = <TypeProjectsFilter />;
@@ -715,6 +716,202 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       }
     },
   ];
+  //table independent action
+  const dataSourceIndependent = [
+    {
+      key: '1',
+      status: 'Proposed',
+      problem:'None'
+    },
+    {
+      key: '2',
+      status: 'Proposed',
+      problem:'None'
+    },
+    {
+      key: '3',
+      status: 'Proposed',
+      problem:'None'
+    },
+    {
+      key: '4',
+      status: 'Proposed',
+      problem:'None'
+    },
+    {
+      key: '5',
+      status: 'Proposed',
+      problem:'None'
+    },
+  ];
+  
+  const columnsIndependent  = [
+    {
+      title: 'Independent Actions',
+      dataIndex: 'action',
+      key: 'action',
+      width: '35%',
+      sorter: (a:any, b:any) => a.age - b.age,
+      render: () => (
+        <input className='input-independent' placeholder='Proposed Actions'/>
+      )
+    },
+    {
+      title: 'Cost',
+      dataIndex: 'cost',
+      key: 'cost',
+      sorter: (a:any, b:any) => a.age - b.age,
+      render: () => (
+        <input className='input-independent' placeholder='$0'/>
+      ),
+      width: '15%',
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+      sorter: (a:any, b:any) => a.age - b.age,
+      width: '15%',
+      render: (text: any) => {
+        if(text && text.length > 0){
+          return (
+            <span className='tag-active'>
+              {text}
+            </span>
+          );
+        }
+        return ('');
+      }
+    },
+    {
+      title: 'Problem',
+      dataIndex: 'problem',
+      key: 'problem',
+      sorter: (a:any, b:any) => a.age - b.age,
+      width: '34%',
+    },
+    {
+      title: '',
+      dataIndex: 'delete',
+      key: 'delete',
+      width: '1%',
+      render: (text:any) => {
+        console.log(text, 'STATE')
+        if(text && text === true){
+          return ('');
+        }else{
+          return (
+            <div>
+              <DeleteOutlined className='ico-delete' onClick={() => console.log('delete')} />
+            </div>
+          );
+        }
+      }
+    },
+  ];
+    //table geomeotry
+    const dataSourceGeomeotry = [
+      {
+        key: 'title-1',
+        reach: 'Clear Creek',
+        delete: true,
+      },
+      {
+        key: '2',
+        reach: 'Alpha St culvert',
+        code:'6.3600.2',
+        tributary:'2302 acres',
+        length:'1861 ft',
+      },
+      {
+        key: '3',
+        reach: 'Beta Ave culvert',
+        code:'6.3600.2',
+        tributary:'2302 acres',
+        length:'1861 ft',
+      },
+      {
+        key: '4',
+        reach: 'Beta Ave culvert',
+        code:'6.3600.2',
+        tributary:'2302 acres',
+        length:'1861 ft',
+      },
+      {
+        key: 'title-2',
+        reach: 'Big Bear Branch',
+        delete: true,
+      },
+      {
+        key: '5',
+        reach: 'Beta Ave culvert',
+        code:'6.3600.2',
+        tributary:'2302 acres',
+        length:'1861 ft',
+      },
+      {
+        key: 'total',
+        reach: 'Total',
+        tributary:'2302 acres',
+        length:'1861 ft',
+        delete: true,
+      },
+    ];
+    
+    const columnsGeomeotry  = [
+      {
+        title: 'Reach',
+        dataIndex: 'reach',
+        key: 'reach',
+        width: '39%',
+        render: (text: any) => {
+          if(text === 'Total'){
+            return (
+              <span className='total-cost'>
+                {text}
+              </span>
+            );
+          }
+          return (text);
+        }
+      },
+      {
+        title: 'MHFD Code',
+        dataIndex: 'code',
+        key: 'code',
+        width: '20%',
+      },
+      {
+        title: 'Tributary',
+        dataIndex: 'tributary',
+        key: 'tributary',
+        width: '20%',
+      },
+      {
+        title: 'Reach Length',
+        dataIndex: 'length',
+        key: 'length',
+        width: '20%',
+      },
+      {
+        title: '',
+        dataIndex: 'delete',
+        key: 'delete',
+        width: '1%',
+        render: (text:any) => {
+          console.log(text, 'STATE')
+          if(text && text === true){
+            return ('');
+          }else{
+            return (
+              <div>
+                <DeleteOutlined className='ico-delete' onClick={() => console.log('delete')} />
+              </div>
+            );
+          }
+        }
+      },
+    ];
   const getTextWidth = (text: any) => {
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
@@ -821,9 +1018,17 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
           <div className="head-project">
             <div className='project-title'>
               <label data-value={nameProject} style={{width: '100%'}}>
-                <textarea className="project-name" value={nameProject} onChange={(e) => onChange(e)} style={{                  
-                  height: lengthName > 259 ? 'unset' :'34px'
-                }} />
+                <div className='project-name-icons'>
+                  <textarea className="project-name" value={nameProject} onChange={(e) => onChange(e)} style={{                  
+                    height: lengthName > 259 ? 'unset' :'34px'
+                  }} />
+                  <div className='ico-title'>
+                  <Button className={favorite ? "btn-transparent":"btn-transparent" } onClick={()=>{setFavorite(!favorite)}}>
+                    {favorite? <HeartFilled className='heart'/>:<HeartOutlined  />}
+                  </Button>
+                    <img src="/Icons/ic_send.svg" alt="" height="16px"></img>
+                  </div>
+                </div>
                 <p className='project-sub-name'>Aurora · Northeast Service Area · Adams County</p>
               </label>
             </div>
@@ -842,10 +1047,11 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             </div>
           </div>
           <div className='header-tab'>
-            <p className={openDetail ? 'tab active-tab': 'tab'} onClick={()=>{setOpenDetail(true)}}>Details</p>
-            {/* <p className={!openDetail ? 'tab active-tab': 'tab'} onClick={()=>{setOpenDetail(false)}}>Discussion</p> */}
+            <p className={activeTabBodyProject ===  'Details'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Details')}}>Details</p>
+            <p className={activeTabBodyProject ===  'Discussion'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Discussion')}}>Discussion</p>
+            <p className={activeTabBodyProject ===  'Activity'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Activity')}}>Activity</p>
           </div>
-          {openDetail ?
+          {activeTabBodyProject === 'Details' ?
             <div className="body-project">
               {
                 (isWorkPlan && showCheckBox && !swSave) &&  <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
@@ -868,9 +1074,13 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 <p>Click on the icon above and draw a polygon to select action items</p>
               </div>
               {((keys && keys!==0 && keys.length && groups && Object.keys(groups).length > 0)  || visibleUnnamedComponent) &&
-                <Table dataSource={dataSource} columns={columns} className='table-project'/>
+                <>
+                  <Table dataSource={dataSource} columns={columns} className='table-project'/>
+                  <Table dataSource={dataSourceIndependent } columns={columnsIndependent } className='table-project'/>
+                </>
               }
-              {((keys && keys!==0 && keys.length && groups && Object.keys(groups).length > 0)  || visibleUnnamedComponent) &&
+              {/* proposet actions */}
+              {/* {((keys && keys!==0 && keys.length && groups && Object.keys(groups).length > 0)  || visibleUnnamedComponent) &&
               <div className="tab-titles">
                   <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10}}>Problem</Col>
                   <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}></Col>
@@ -980,15 +1190,58 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                     }
                   </Panel>
                 }
-              </Collapse>
+              </Collapse> */}
               <Button className="btn-transparent-green" onClick={()=>{applyIndependentComponent()}}><PlusCircleFilled /> Independent Actions</Button> <Popover content={contentIndComp}><img src="/Icons/icon-19.svg" alt="" height="10px" className='icon-actions'/></Popover>
-              <h5 className='title-geometry'>3. PROJECT GEOMETRY<span className="requiered">&nbsp;*</span></h5>
+              <div className="sub-title-project">
+                <h5>3. PROJECT GEOMETRY *</h5>
+              </div>
+              <p className='text-default'>Projects are spatially defined by stream reaches.  Select the option below that best allows you to define the project.</p>
+              <div className='section-gemetry'>
+                <p>i. Is this a countywide project?</p>
+                <Radio.Group>
+                  <Radio value="Yes"><span className='text-radio-btn'>Yes</span></Radio>
+                  <Radio value="No"><span className='text-radio-btn'>No</span></Radio>
+                </Radio.Group>
+                <div className='section-county'>
+                  <label className="sub-title">Select one or multiple counties </label>
+                  <Select
+                    mode="multiple"
+                    placeholder={serviceArea?.length !== 0 ? serviceArea : "Select a County"}
+                    style={{ width: '100%' }}
+                    listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+                    onChange={(serviceArea: any) => setServiceArea(serviceArea)}
+                    value={serviceArea}>
+                    <Option key='Adams' value='Adams'>Adams</Option>
+                  </Select>
+                </div>
+                <p>ii. Is this project located on the South Platte River?</p>
+                <Radio.Group>
+                  <Radio value="Yes"><span className='text-radio-btn'>Yes</span></Radio>
+                  <Radio value="No"><span className='text-radio-btn'>No</span></Radio>
+                </Radio.Group>
+                <p className='sub-sub-title-projects'>iii. Draw your project geometry</p>
+              </div>
 
               <div className={"draw "+(isDrawStateCapital?'active':'')}  onClick={onClickDrawCapital}>
                 <img src="" className="icon-draw active" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
-                <p >Click on the icon above and draw a polygon to define the project feature</p>
+                <p className='text-body-project'>Click on the icon above and draw a polygon to define the project feature</p>
               </div>
-              <br></br>
+              <Table
+                dataSource={dataSourceGeomeotry }
+                columns={columnsGeomeotry }
+                className='table-project'
+                rowClassName={(record, index) => {
+                  console.log(record, index, 'RECORD');
+                  if(record.key.includes('total')){
+                    return ('')
+                  }
+                  if (record.key.includes('title') || record.key.includes('total')) {
+                    return('row-geometry-title')
+                  }else{
+                    return ('row-geometry-body')
+                  }
+                }}
+              />
               <LocationInformation
                 setServiceArea = {setServiceArea}
                 serviceArea = {serviceArea}
@@ -1005,8 +1258,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 isCapital={true}
                 originModal="Capital"
               />
-              <br/>
-              <h5 className='title-financial'>4. FINANCIAL INFORMATION </h5>
+              <div className="sub-title-project">
+                <h5 className="requestor-information">6. FINANCIAL INFORMATION </h5>
+              </div>
               <Row className="cost-project">
                 <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>SUBTOTAL COST</Col>
                 <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>{formatter.format( getSubTotalCost())}</b></Col>
@@ -1050,7 +1304,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>TOTAL COST</Col>
                 <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>{formatter.format(getTotalCost() ? getTotalCost() : 0)}</b></Col>
               </Row>
-              <br/>
               <UploadImagesDocuments
                 isCapital={true}
                 setFiles={setFiles}

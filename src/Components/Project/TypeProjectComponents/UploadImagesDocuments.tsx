@@ -322,77 +322,61 @@ const mimeToExtension = (mimeType:any) => {
   return (
     <>
     <div className="upload-sections">
-      <div className="upload-images">
-        <Row className="title-upload">
-          <Col xs={{ span: 24 }} lg={{ span: 7 }} className="text-upload" >
-            <h5 >{isCapital?'6':'4'}
-            . Upload images<img src="/Icons/icon-19.svg" alt="" height="14px" className="icon-upload"/>
-            </h5>
-          </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 17 }} className="add-upload">
-            <span>
-              {toDelete.length ?  <span onClick={deleteImages} className="delete-upload">Delete</span> : null }
-              <Button className="bottomn-heder" onClick={() => (setModal(true))}>
-                <span className="ic-document"/>Add Image
-              </Button>
-              {isEdit?<Button className="bottomn-heder" onClick={() => downloadZip(true)} disabled={!dataImages.length}>
-                <CloudDownloadOutlined />Download All 
-              </Button>:<></>}
-            </span>
-          </Col>
-        </Row>
-        <Row className="subtitle-upload">
-          <Col xs={{ span: 24 }} lg={{ span: 12 }} className="subtext-upload">
-            <span className="uploaded-span">Uploaded</span>
-          </Col>
-        </Row>
-        <Row gutter={[16, 16]} className="table-upload">
+      <div className="upload-documents">
+        <div className="sub-title-project sub-title-project-upload">
+          <h5 className="requestor-information">{isCapital?'7':'4'}
+            . Upload images <img src="/Icons/icon-19.svg" alt="" height="14px" className="icon-upload"/>
+          </h5>
+          <div className="group-btn">
+            {toDelete.length ?  <span onClick={deleteImages} className="delete-upload">Delete</span> : null }
+            <Button className="bottomn-heder" onClick={() => (setModal(true))}>
+              <span className="ic-document"/>Add Image
+            </Button>
+            {isEdit?<Button className="bottomn-heder" onClick={() => downloadZip(true)} disabled={!dataImages.length}>
+              <CloudDownloadOutlined />Download All 
+            </Button>:<></>}
+          </div>
+        </div>
           <Table
             style={{width: '100%'}}
             rowSelection={{
               type: 'checkbox',
               ...rowSelection,
             }}
+            className="table-project"
             columns={COLUMNS_UPLOAD}
             dataSource={dataImages}
           />
-        </Row>
         {modal &&
           <UploaderModal  modal={modal} setModal={setModal} addFile={addFile} type="images"/>
         }
       </div>
-      <br></br>
       <div className="upload-documents">
-        <Row className="title-upload">
-          <Col xs={{ span: 24 }} lg={{ span: 14 }} className="text-upload" >
-            <h5 style={{marginBottom: '0px'}}>{isCapital?'7':'5'}
-            . Upload documents<img src="/Icons/icon-19.svg" alt="" height="14px" className="icon-upload"/>
-            </h5>
-          </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 10 }} className="add-upload">
-            <span>
-            {toDeleteFiles.length ?  <span onClick={deleteFiles} className="delete-upload">Delete</span> : null }
-              <Button className="bottomn-heder" onClick={() => (setModal02(true))}>
-                <span className="ic-document"/>Add Document
-              </Button>
-              {isEdit?<Button className="bottomn-heder" onClick={() => downloadZip(false)} disabled={!dataFiles.length}>
-                <CloudDownloadOutlined />Download All 
-              </Button>:<></>}
-            </span>
-          </Col>
-        </Row>
-        <Row gutter={[16, 16]} className="table-upload-documents">
+        <div className="sub-title-project sub-title-project-upload">
+          <h5 className="location">{isCapital?'8':'5'}
+            . Upload documents <img src="/Icons/icon-19.svg" alt="" height="14px" className="icon-upload"/>
+          </h5>
+          <div className="group-btn">
+          {toDeleteFiles.length ?  <span onClick={deleteFiles} className="delete-upload">Delete</span> : null }
+            <Button className="bottomn-heder" onClick={() => (setModal02(true))}>
+              <span className="ic-document"/>Add Document
+            </Button>
+            {isEdit?<Button className="bottomn-heder" onClick={() => downloadZip(false)} disabled={!dataFiles.length}>
+              <CloudDownloadOutlined />Download All 
+            </Button>:<></>}
+          </div>
+        </div>
           <Table
             style={{width: '100%'}}
             rowSelection={{
               type: 'checkbox',
               ...rowSelectionFiles,
             }}
+            className="table-project"
             columns={COLUMNS_UPLOAD02}
             dataSource={dataFiles}
 
           />
-        </Row>
         {modal02 &&
           <UploaderModal  modal={modal02} setModal={setModal02} addFile={addFile} type="documents"/>
         }
