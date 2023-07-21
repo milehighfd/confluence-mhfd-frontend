@@ -3,7 +3,7 @@ import { Menu, MenuProps } from 'antd';
 import { Link, useLocation } from "react-router-dom";
 import store from "../../../store";
 import { ROUTERS_SIDEBAR } from "./constants/layout.constants";
-import '../../../Scss/Components/sidebar.scss';
+import '../../../Scss/Components/Shared/sidebar.scss';
 import { useMapDispatch, useMapState } from "hook/mapHook";
 import { MAP, WORK_PLAN, WORK_REQUEST } from "constants/constants";
 
@@ -64,8 +64,8 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
     className: Number(indexOf) === 2 ? 'menu-sidebar-hover':'',
     key: '2',
     label: <Link to={'/map'}>
-      <img className="img-h anticon img-opaque" src="/Icons/menu-white-15.svg" alt="" width="22px" height="22px" />
-      <img className="img-a anticon img-opaque" src="/Icons/menu-green-15.svg" alt="" width="22px" height="22px" />
+      <img className={"img-h anticon img-opaque"+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-15.svg" alt="" width="22px" height="22px" />
+      <img className={"img-a anticon img-opaque"+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-15.svg" alt="" width="22px" height="22px" />
       <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>watershed story</span>
     </Link>
   // }, {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Layout } from 'antd';
 import SidebarMenu from './SidebarMenu';
 import SidebarModal from './SidebarModal';
-import '../../../Scss/Components/sidebar.scss';
+import '../../../Scss/Components/Shared/sidebar.scss';
 
 const { Sider } = Layout;
 const SidebarView = () => {

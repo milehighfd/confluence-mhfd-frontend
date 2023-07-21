@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal } from 'antd';
-import '../../../Scss/Components/sidebar.scss';
+import '../../../Scss/Components/Shared/sidebar.scss';
 import { stateValue } from "./constants/layout.constants";
 
 
