@@ -74,7 +74,7 @@ import MapDropdownLayers from './MapDropdownLayers';
 import { useFilterContext } from 'utils/filterContext';
 import { getToken, postDataAsyn } from 'Config/datasets';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
-const SideBarComment = React.lazy(() => import('Components/Map/SideBarComment'));
+import SideBarComment from 'Components/Map/SideBarComment';
 const ModalProjectView = React.lazy(() => import('Components/ProjectModal/ModalProjectView'));
 const DetailModal = React.lazy(() => import('routes/detail-page/components/DetailModal'));
 const MobilePopup = React.lazy(() => import('Components/MobilePopup/MobilePopup'));
@@ -1555,11 +1555,12 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
         setDistanceValueMi,
       );
     } else {
-      if (markersNotes.length > 0) {
-        markersNotes.forEach((marker: any) => {
-          marker.marker._popup.remove();
-        });
-      }
+      // if (markersNotes.length > 0) {
+      //   markersNotes.forEach((marker: any) => {
+      //     console.log('entra 2')
+      //     marker.marker._popup.remove();
+      //   });
+      // }
       if (commentAvailable && canAdd.value) {
         const html = notesPopup(setNote, handleDeleteNote);
         popup = new mapboxgl.Popup({
