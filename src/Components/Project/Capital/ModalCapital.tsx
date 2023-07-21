@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button, Input, Row, Col, Popover, Select, Collapse, Timeline , Tooltip, Checkbox, Dropdown } from 'antd';
-import { DownOutlined, InfoCircleOutlined, PlusCircleFilled, UpOutlined } from '@ant-design/icons';
+import { Modal, Button, Input, Row, Col, Popover, Select, Collapse, Timeline , Tooltip, Checkbox, Dropdown, Table } from 'antd';
+import { DeleteOutlined, DownOutlined, InfoCircleOutlined, PlusCircleFilled, UpOutlined } from '@ant-design/icons';
 import CreateProjectMap from 'Components/CreateProjectMap/CreateProjectMap';
 import { AlertView } from 'Components/Alerts/AlertView';
 import { ProjectInformation } from 'Components/Project/TypeProjectComponents/ProjectInformation';
@@ -142,6 +142,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const isWorkPlan = tabActiveNavbar === WORK_PLAN_TAB;
   const { groupOrganization } = useProfileState();
   const [openDropdownTypeProject, setOpenDropdownTypeProject] = useState(false);
+  const [openDetail, setOpenDetail] = useState(true);
 
   //list Menu TypeProjects
   const menuTypeProjects = <TypeProjectsFilter />;
@@ -601,7 +602,119 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   }
   const setKeyOpenClose = (groupid: any) => {
   }
+  //table information action
+  const dataSource = [
+    {
+      key: '1',
+      action: 'Alpha St culvert',
+      cost: '$500,000',
+      status: 'Active',
+      problem:'Increased Conveyance - Crossing'
+    },
+    {
+      key: '2',
+      action: 'Beta Ave culvert',
+      cost: '$1,200,000',
+      status: 'Active',
+      problem:'Increased Conveyance - Crossing'
+    },
+    {
+      key: '3',
+      action: 'Beta Ave culvert',
+      cost: '$600,000',
+      status: 'Active',
+      problem:'Increased Conveyance - Crossing'
+    },
+    {
+      key: '4',
+      action: 'Beta Ave culvert',
+      cost: '$250,000',
+      status: 'Active',
+      problem:'Increased Conveyance - Crossing'
+    },
+    {
+      key: '5',
+      action: 'Beta Ave culvert',
+      cost: '$2,650,000',
+      status: 'Active',
+      problem:'Increased Conveyance - Crossing'
+    },
+    {
+      key: '6',
+      action: 'Total Proposed Cost',
+      cost: '$2,650,000',
+      delete: true,
+    },
+  ];
   
+  const columns = [
+    {
+      title: 'Action',
+      dataIndex: 'action',
+      key: 'action',
+      sorter: (a:any, b:any) => a.age - b.age,
+      width: '35%',
+      render: (text: any) => {
+        if(text === 'Total Proposed Cost'){
+          return (
+            <span className='total-cost'>
+              {text}
+            </span>
+          );
+        }
+        return (text);
+      }
+    },
+    {
+      title: 'Cost',
+      dataIndex: 'cost',
+      key: 'cost',
+      sorter: (a:any, b:any) => a.age - b.age,
+      width: '15%',
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+      sorter: (a:any, b:any) => a.age - b.age,
+      width: '15%',
+      render: (text: any) => {
+        if(text && text.length > 0){
+          return (
+            <span className='tag-active'>
+              {text}
+            </span>
+          );
+        }
+        return ('');
+      }
+    },
+    {
+      title: 'Problem',
+      dataIndex: 'problem',
+      key: 'problem',
+      sorter: (a:any, b:any) => a.age - b.age,
+      width: '34%',
+    },
+    {
+      title: '',
+      dataIndex: 'delete',
+      key: 'delete',
+      width: '1%',
+      render: (text:any) => {
+        console.log(text, 'STATE')
+        if(text && text === true){
+          return ('');
+        }else{
+          return (
+            <div>
+              <DeleteOutlined className='ico-delete' onClick={() => console.log('delete')} />
+            </div>
+          );
+        }
+      }
+    },
+  ];
   const getTextWidth = (text: any) => {
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
@@ -728,8 +841,12 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               </Popover>
             </div>
           </div>
-
-          <div className="body-project">
+          <div className='header-tab'>
+            <p className={openDetail ? 'tab active-tab': 'tab'} onClick={()=>{setOpenDetail(true)}}>Details</p>
+            {/* <p className={!openDetail ? 'tab active-tab': 'tab'} onClick={()=>{setOpenDetail(false)}}>Discussion</p> */}
+          </div>
+          {openDetail ?
+            <div className="body-project">
               {
                 (isWorkPlan && showCheckBox && !swSave) &&  <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
                   <div className='span-project-text'>
@@ -737,56 +854,85 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                   </div>
                 </Col>
               }
-            <ProjectInformation
-              description = {description}
-              setDescription = {setDescription}
-            />
-            <br/>
-            <h5 className='title-actions' >
-              2. SELECT ACTIONS
-              <span className="requiered">&nbsp;*&nbsp;</span>
-              <img src="/Icons/icon-08.svg" />
-            </h5>
-
-            <div className={"draw "+(isDrawState?'active':'')} onClick={onClickDraw}>
-              <img src="" className="icon-draw active" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
-              <p>Click on the icon above and draw a polygon to select actions</p>
-            </div>
-            {((keys && keys!==0 && keys.length && groups && Object.keys(groups).length > 0)  || visibleUnnamedComponent) &&
-            <div className="tab-titles">
-                <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10}}>Problem</Col>
-                <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}></Col>
-                <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>Status <Popover content={content10}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></Col>
-                <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }}>Cost</Col>
+              <ProjectInformation
+                description = {description}
+                setDescription = {setDescription}
+              />
+              <br/>
+              <div className="sub-title-project">
+                <h5>2. SELECT PROPOSED  ACTIONS&nbsp;*</h5>
               </div>
-             }
-            {keys!=0 && keys.length &&
-            <Collapse
-            defaultActiveKey={keys}
-            activeKey={keys}
-            destroyInactivePanel={false}
-            expandIconPosition="end"
-            onChange={(event: any)=> {setKeys(event)}}
-          >
-              {groups && Object.keys(groups).map((key: any) => {
-                if(key.toString() === '-1') {
-                  if(groups[key].components.length > 0){
+
+              <div className={"draw "+(isDrawState?'active':'')} onClick={onClickDraw}>
+                <img src="" className="icon-draw active" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
+                <p>Click on the icon above and draw a polygon to select action items</p>
+              </div>
+              {((keys && keys!==0 && keys.length && groups && Object.keys(groups).length > 0)  || visibleUnnamedComponent) &&
+                <Table dataSource={dataSource} columns={columns} className='table-project'/>
+              }
+              {((keys && keys!==0 && keys.length && groups && Object.keys(groups).length > 0)  || visibleUnnamedComponent) &&
+              <div className="tab-titles">
+                  <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10}}>Problem</Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}></Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>Status <Popover content={content10}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }}>Cost</Col>
+                </div>
+              }
+              {keys!=0 && keys.length &&
+              <Collapse
+              defaultActiveKey={keys}
+              activeKey={keys}
+              destroyInactivePanel={false}
+              expandIconPosition="end"
+              onChange={(event: any)=> {setKeys(event)}}
+            >
+                {groups && Object.keys(groups).map((key: any) => {
+                  if(key.toString() === '-1') {
+                    if(groups[key].components.length > 0){
+                      return (
+                        <Panel header="" key={key + '-collapse1'} extra={genTitleNoAvailable(groups[key], setKeyOpenClose)}>
+                          <div className="tab-body-project">
+                            <Timeline>
+                              {
+                                groups[key].components.map((component:any, index: number) => {
+                                  return (
+                                    <div key={component.type + component.status+ index}>
+                                    <Timeline.Item color="green">
+                                      <Row style={{marginLeft:'-18px'}}
+                                      onMouseEnter={() => setValuesComp(component)}
+                                      onMouseLeave={()=> setValuesComp({table:'', value:''})}
+                                      >
+                                        <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }} onClick={()=>setValueZoomComp(component)}><label>{component.type}</label></Col>
+                                        <Col className="second" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }} onClick={()=>setValueZoomComp(component)}>{component.status}</Col>
+                                        <Col className="third cost-third" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 3 }} onClick={()=>setValueZoomComp(component)}> {formatter.format(Math.floor(component.original_cost))}</Col>
+                                        <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}>
+                                          <Button className="btn-transparent" onClick={() => removeComponent(component)}><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
+                                      </Row>
+                                    </Timeline.Item>
+                                    </div>
+                                  );
+                                })
+                              }
+
+                            </Timeline>
+                          </div>
+                        </Panel>)
+                    }
+                    return null;
+                  } else {
                     return (
-                      <Panel header="" key={key + '-collapse1'} extra={genTitleNoAvailable(groups[key], setKeyOpenClose)}>
+                      <Panel header="" key={key + '-collapse1'} extra={genTitleProblem(groups[key], key, setValuesProblem, setValueZoomProb, setKeyOpenClose)}>
                         <div className="tab-body-project">
                           <Timeline>
                             {
-                              groups[key].components.map((component:any, index: number) => {
+                              groups[key].components.map((component:any) => {
                                 return (
-                                  <div key={component.type + component.status+ index}>
+                                  <div onMouseEnter={() => setValuesComp(component)} onMouseLeave={()=> setValuesComp({table:'', value:''})} key={key+'-'+Math.random()}>
                                   <Timeline.Item color="green">
-                                    <Row style={{marginLeft:'-18px'}}
-                                    onMouseEnter={() => setValuesComp(component)}
-                                    onMouseLeave={()=> setValuesComp({table:'', value:''})}
-                                    >
+                                    <Row style={{marginLeft:'-18px'}}>
                                       <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }} onClick={()=>setValueZoomComp(component)}><label>{component.type}</label></Col>
                                       <Col className="second" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }} onClick={()=>setValueZoomComp(component)}>{component.status}</Col>
-                                      <Col className="third cost-third" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 3 }} onClick={()=>setValueZoomComp(component)}> {formatter.format(Math.floor(component.original_cost))}</Col>
+                                      <Col className="third cost-third" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 3 }} onClick={()=>setValueZoomComp(component)}>{formatter.format(component.original_cost)}</Col>
                                       <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}>
                                         <Button className="btn-transparent" onClick={() => removeComponent(component)}><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
                                     </Row>
@@ -799,145 +945,118 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                           </Timeline>
                         </div>
                       </Panel>)
-                  }
-                  return null;
-                } else {
-                  return (
-                    <Panel header="" key={key + '-collapse1'} extra={genTitleProblem(groups[key], key, setValuesProblem, setValueZoomProb, setKeyOpenClose)}>
-                      <div className="tab-body-project">
-                        <Timeline>
-                          {
-                            groups[key].components.map((component:any) => {
-                              return (
-                                <div onMouseEnter={() => setValuesComp(component)} onMouseLeave={()=> setValuesComp({table:'', value:''})} key={key+'-'+Math.random()}>
-                                <Timeline.Item color="green">
-                                  <Row style={{marginLeft:'-18px'}}>
-                                    <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }} onClick={()=>setValueZoomComp(component)}><label>{component.type}</label></Col>
-                                    <Col className="second" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }} onClick={()=>setValueZoomComp(component)}>{component.status}</Col>
-                                    <Col className="third cost-third" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 3 }} onClick={()=>setValueZoomComp(component)}>{formatter.format(component.original_cost)}</Col>
-                                    <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}>
-                                      <Button className="btn-transparent" onClick={() => removeComponent(component)}><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
-                                  </Row>
-                                </Timeline.Item>
-                                </div>
-                              );
-                            })
-                          }
-
-                        </Timeline>
-                      </div>
-                    </Panel>)
-                  }
-                })
+                    }
+                  })
+                }
+              </Collapse>
               }
-            </Collapse>
-            }
-            <Collapse
-              defaultActiveKey={["Unnamed Component"]}
-              expandIconPosition="end"
-            >
-                {visibleUnnamedComponent &&
-                <Panel header="" key="Unnamed Component" extra={genExtra05(getTotalIndComp())}>
-                  {
-                    thisIndependentComponents.map((indComp:any) => {
-                      return (
-                        <div className="tab-body-project" key={indComp?.index}>
-                          <Timeline>
-                            <Timeline.Item color="green">
-                              <Row style={{marginLeft:'-18px'}}>
-                                <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}  ><label><Input placeholder="Proposed Actions"  onChange={(e) => changeValueIndComp(e, 'name',indComp)} value={indComp.name} /></label></Col>
-                                <Col className="second" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}><Input className='ant-input-color' placeholder="Proposed"  defaultValue="Proposed"  onChange={(e) => changeValueIndComp(e,'status', indComp)} value={indComp.action_status} disabled={true} /></Col>
-                                <Col className="third cost-third" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 3 }} >
-                                  <Tooltip placement="topLeft" title="Only numeric values are accepted.">
-                                    <Input placeholder="$200,000" onChange={(e) => changeValueIndComp(e, 'cost',indComp)} value={formatter.format(indComp.cost)} maxLength={11}/>
-                                  </Tooltip>
-                                </Col>
-                                <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }} ><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" onClick={() => removeIndComponent(indComp)} /></Button></Col>
-                              </Row>
-                            </Timeline.Item>
-                          </Timeline>
-                        </div>
-                      )
-                    })
-                  }
-                </Panel>
-              }
-            </Collapse>
-            <Button className="btn-transparent-green" onClick={()=>{applyIndependentComponent()}}><PlusCircleFilled /> Independent Actions</Button> <Popover content={contentIndComp}><img src="/Icons/icon-19.svg" alt="" height="10px" className='icon-actions'/></Popover>
-            <h5 className='title-geometry'>3. PROJECT GEOMETRY<span className="requiered">&nbsp;*</span></h5>
+              <Collapse
+                defaultActiveKey={["Unnamed Component"]}
+                expandIconPosition="end"
+              >
+                  {visibleUnnamedComponent &&
+                  <Panel header="" key="Unnamed Component" extra={genExtra05(getTotalIndComp())}>
+                    {
+                      thisIndependentComponents.map((indComp:any) => {
+                        return (
+                          <div className="tab-body-project" key={indComp?.index}>
+                            <Timeline>
+                              <Timeline.Item color="green">
+                                <Row style={{marginLeft:'-18px'}}>
+                                  <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}  ><label><Input placeholder="Proposed Actions"  onChange={(e) => changeValueIndComp(e, 'name',indComp)} value={indComp.name} /></label></Col>
+                                  <Col className="second" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}><Input className='ant-input-color' placeholder="Proposed"  defaultValue="Proposed"  onChange={(e) => changeValueIndComp(e,'status', indComp)} value={indComp.action_status} disabled={true} /></Col>
+                                  <Col className="third cost-third" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 3 }} >
+                                    <Tooltip placement="topLeft" title="Only numeric values are accepted.">
+                                      <Input placeholder="$200,000" onChange={(e) => changeValueIndComp(e, 'cost',indComp)} value={formatter.format(indComp.cost)} maxLength={11}/>
+                                    </Tooltip>
+                                  </Col>
+                                  <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }} ><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" onClick={() => removeIndComponent(indComp)} /></Button></Col>
+                                </Row>
+                              </Timeline.Item>
+                            </Timeline>
+                          </div>
+                        )
+                      })
+                    }
+                  </Panel>
+                }
+              </Collapse>
+              <Button className="btn-transparent-green" onClick={()=>{applyIndependentComponent()}}><PlusCircleFilled /> Independent Actions</Button> <Popover content={contentIndComp}><img src="/Icons/icon-19.svg" alt="" height="10px" className='icon-actions'/></Popover>
+              <h5 className='title-geometry'>3. PROJECT GEOMETRY<span className="requiered">&nbsp;*</span></h5>
 
-            <div className={"draw "+(isDrawStateCapital?'active':'')}  onClick={onClickDrawCapital}>
-              <img src="" className="icon-draw active" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
-              <p >Click on the icon above and draw a polygon to define the project feature</p>
+              <div className={"draw "+(isDrawStateCapital?'active':'')}  onClick={onClickDrawCapital}>
+                <img src="" className="icon-draw active" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
+                <p >Click on the icon above and draw a polygon to define the project feature</p>
+              </div>
+              <br></br>
+              <LocationInformation
+                setServiceArea = {setServiceArea}
+                serviceArea = {serviceArea}
+                setCounty = {setCounty}
+                county = {county} 
+                setjurisdiction={setjurisdiction}
+                jUrisdiction={jurisdiction}
+                setCoSponsor={setCosponsor}
+                cosponsor={cosponsor}
+                setSponsor={setSponsor}
+                sponsor={sponsor}
+                editable= {editable}
+                isEdit={swSave}
+                isCapital={true}
+                originModal="Capital"
+              />
+              <br/>
+              <h5 className='title-financial'>4. FINANCIAL INFORMATION </h5>
+              <Row className="cost-project">
+                <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>SUBTOTAL COST</Col>
+                <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>{formatter.format( getSubTotalCost())}</b></Col>
+              </Row>
+              <hr/>
+              <Row className="sub-project">
+                <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}>
+                  <p className='title-sub-project'>Overhead Cost &nbsp;&nbsp;<Popover content={contentOverheadCost}><InfoCircleOutlined style={{color:'#c5c2d5'}} /></Popover></p>
+                </Col>
+                <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
+                </Col>
+                <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><p className='title-sub-project'>{formatter.format(getOverheadCost())}</p></Col>
+              </Row>
+
+              <Timeline className="sub-project" style={{marginTop:'10px'}}>
+                {timelineItems.map(({ label, index }) => renderTimelineItem(label, index))}              
+              </Timeline>
+
+              <Row className="sub-project">
+                <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 18 }}>
+                <Input placeholder={overheadDescription!==""? overheadDescription  +"": "Overhead Cost Description"} onChange={(description) => onChangeOverheadDescription(description)} value={overheadDescription}/>
+                </Col>
+              </Row>
+              <br/>
+
+              <Row className="sub-project">
+                <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>
+                  <p>Additional Cost <Popover content={contentAdditionalCost}><img src="/Icons/icon-19.svg" alt="" height="10px" className='icon-cost'/></Popover></p>
+                </Col>
+                <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>
+                  <Input style={{paddingLeft:'0px'}} placeholder="$0" onChange={(description) => onChangeAdditionalCost(description)} value={formatter.format(additionalCost ? additionalCost : 0)}/>
+                </Col>
+              </Row>
+              <Row className="sub-project">
+                <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 18 }}>
+                  <Input placeholder={additionalDescription!==""? additionalDescription  +"":"Additional Cost Description"} onChange={(description) => onChangeAdditionalDescription(description)} value={additionalDescription}/>
+                </Col>
+              </Row>
+              <hr/>
+              <Row className="cost-project">
+                <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>TOTAL COST</Col>
+                <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>{formatter.format(getTotalCost() ? getTotalCost() : 0)}</b></Col>
+              </Row>
+              <br/>
+              <UploadImagesDocuments
+                isCapital={true}
+                setFiles={setFiles}
+              />
             </div>
-            <h5 className='title-financial'>4. FINANCIAL INFORMATION </h5>
-            <Row className="cost-project">
-              <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>SUBTOTAL COST</Col>
-              <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>{formatter.format( getSubTotalCost())}</b></Col>
-            </Row>
-            <hr/>
-            <Row className="sub-project">
-              <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}>
-                <p className='title-sub-project'>Overhead Cost &nbsp;&nbsp;<Popover content={contentOverheadCost}><InfoCircleOutlined style={{color:'#c5c2d5'}} /></Popover></p>
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><p className='title-sub-project'>{formatter.format(getOverheadCost())}</p></Col>
-            </Row>
-
-            <Timeline className="sub-project" style={{marginTop:'10px'}}>
-              {timelineItems.map(({ label, index }) => renderTimelineItem(label, index))}              
-            </Timeline>
-
-            <Row className="sub-project">
-              <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 18 }}>
-              <Input placeholder={overheadDescription!==""? overheadDescription  +"": "Overhead Cost Description"} onChange={(description) => onChangeOverheadDescription(description)} value={overheadDescription}/>
-              </Col>
-            </Row>
-            <br/>
-
-            <Row className="sub-project">
-              <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>
-                <p>Additional Cost <Popover content={contentAdditionalCost}><img src="/Icons/icon-19.svg" alt="" height="10px" className='icon-cost'/></Popover></p>
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>
-                <Input style={{paddingLeft:'0px'}} placeholder="$0" onChange={(description) => onChangeAdditionalCost(description)} value={formatter.format(additionalCost ? additionalCost : 0)}/>
-              </Col>
-            </Row>
-            <Row className="sub-project">
-              <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 18 }}>
-                <Input placeholder={additionalDescription!==""? additionalDescription  +"":"Additional Cost Description"} onChange={(description) => onChangeAdditionalDescription(description)} value={additionalDescription}/>
-              </Col>
-            </Row>
-            <hr/>
-            <Row className="cost-project">
-              <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>TOTAL COST</Col>
-              <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>{formatter.format(getTotalCost() ? getTotalCost() : 0)}</b></Col>
-            </Row>
-
-            <br></br>
-            <LocationInformation
-              setServiceArea = {setServiceArea}
-              serviceArea = {serviceArea}
-              setCounty = {setCounty}
-              county = {county} 
-              setjurisdiction={setjurisdiction}
-              jUrisdiction={jurisdiction}
-              setCoSponsor={setCosponsor}
-              cosponsor={cosponsor}
-              setSponsor={setSponsor}
-              sponsor={sponsor}
-              editable= {editable}
-              isEdit={swSave}
-              isCapital={true}
-              originModal="Capital"
-            />
-            <br/>
-            <UploadImagesDocuments
-              isCapital={true}
-              setFiles={setFiles}
-            />
-          </div>
+          :<></>}
           <div className="footer-project">
             <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>
             <Button className="btn-purple" onClick={handleOk} disabled={disable}><span className="text-color-disable">Save Draft Project</span></Button>

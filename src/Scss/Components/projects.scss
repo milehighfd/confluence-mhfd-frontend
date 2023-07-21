@@ -127,17 +127,30 @@
       height:25px;
     }
   }
+  .header-tab{
+    display: flex;
+    margin: 0px 23px;
+    border-bottom: 1px solid #eae8f0;
+    margin-top: 22px;
+    .tab{
+      color: $purple00;
+      margin: 0px;
+      padding-bottom: 10px;
+      font-weight: 400;
+      margin-right: 28px;
+      opacity: 0.6;
+      font-size: 12px;
+    }
+    .active-tab{
+      border-bottom: 3px solid $purple00;
+      font-weight: 500;
+      opacity: 1;
+    }
+  }
   .body-project{
     padding: 10px 20px;
-    height: calc(100vh - 200px);
+    height: calc(100vh - 214px);
     overflow-y: auto;
-    .span-project-text{
-      padding-bottom: 15px;
-    }
-    .checkbox-body-project{ 
-      padding-right: 10px;
-      padding-top: 10px;
-    }
     h5{
       font-size: 13px;
       text-transform: uppercase;
@@ -153,6 +166,23 @@
         padding: 0px 3px;
       }
     }
+    .sub-title-project{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      h5, p{
+        margin: 0px
+      }
+    }
+    .span-project-text{
+      padding-bottom: 15px;
+    }
+    .checkbox-body-project{ 
+      padding-right: 10px;
+      padding-top: 10px;
+    }
+   
     .title-actions{
       margin-top: 15px;
     }
@@ -277,11 +307,51 @@
     .icon-cost{
       margin-bottom: 2px;
     }
-    
     textarea.ant-input{
-      margin-bottom: 20px;
+      margin-bottom: 32px;
       min-height: 36px;
       padding: 6px 11px;
+    }
+    .table-project{
+      .tag-active{
+        background: rgba(41, 196, 153, 0.20);
+        border-radius: 19px;
+        padding: 2px 11px;
+        display: flex;
+        justify-content: center;
+        color: #29C499;
+      }
+      .ico-delete{
+        color: #cfced8;
+      }
+      .ico-delete:hover{
+        color: #11093C;
+      }
+      .total-cost{
+        font-weight: 700;
+      }
+      .ant-table-thead > tr > th {
+        color: #11093C;
+        font-weight: 700;
+        background: #ffffff;
+        font-size: 12px;
+        padding: 3px 8px;
+        border-bottom: 1px solid #d9d9d9;
+      }
+      .ant-table-column-sorter {
+        color: #11093C;
+      }
+      .ant-table-tbody>tr>td {
+        border-bottom: 1px solid #f0f0f0;
+        color: #11093C;
+        font-family: Ubuntu;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 18px;
+        border: none;
+        padding: 11px 8px;
+      }
     }
     .ant-input{
       border: solid 1px $opacity04;

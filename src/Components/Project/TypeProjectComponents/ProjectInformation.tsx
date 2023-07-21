@@ -62,17 +62,13 @@ export const ProjectInformation = ({type, description, setDescription, reason, s
   };
   return (
     <>
-      <Row>
-        <Col xs={{ span: 24 }} lg={{ span: 12 }} className="create-information">
-          <h5>1. Project Information<span className="requiered">&nbsp;*</span></h5>
-        </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 12 }} className="create-required">
-          <p className="requiered-text"><span className="requiered">*&nbsp;</span>Required</p>
-        </Col>
-      </Row>
-      <Row gutter={[16, 16]} className="information-description">
+      <div className="sub-title-project">
+        <h5>1. Project Information&nbsp;*</h5>
+        <p className="requiered-text"><span className="requiered">*&nbsp;Required</span></p>
+      </div>
         {type && type === NEW_PROJECT_TYPES.Study && (
           <>
+          <Row gutter={[16, 16]} className="information-description">
             <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{ padding: '8px' }}>
               <label className="sub-title">Reason for Study<Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
               <div id="reason">
@@ -88,6 +84,7 @@ export const ProjectInformation = ({type, description, setDescription, reason, s
                 </Select>
               </div>
             </Col>
+          </Row>
           </>
         )}
         {reason && (
@@ -95,6 +92,7 @@ export const ProjectInformation = ({type, description, setDescription, reason, s
            getValue(reason) !== reason
         ) && (
             <>
+            <Row gutter={[16, 16]} className="information-description">
               <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{ padding: '0px 8px' }}>
                 <label className="sub-title">Sub-Reason for Study</label>
                 <div id="subReason">
@@ -110,18 +108,20 @@ export const ProjectInformation = ({type, description, setDescription, reason, s
                   </Select>
                 </div>
               </Col>
+              </Row>
             </>
           )}
 
         {reason && reason === studyReasons.find((x:any)=> 'Other' === x.name)?.id && ( 
           <>
+          <Row gutter={[16, 16]} className="information-description">
             <Col xs={{ span: 24 }} lg={{ span: 12 }}>
               <label className="sub-title">Other reason<Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
               <TextArea rows={1} placeholder="Add another reason" onChange={(text)=>apllyOtherReason(text)} value={otherReason}/>
             </Col>
+            </Row>
           </>
         )}
-      </Row>
       <label className="sub-title">Description <Popover content={content00}><img src="../Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
       <TextArea rows={4} placeholder="Add description" onChange={(description)=>apllyDescription(description)} value={description}/>
     </>
