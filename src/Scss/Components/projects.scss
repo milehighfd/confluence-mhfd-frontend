@@ -816,9 +816,9 @@
     }
   }
 }
-.menu-large{
-  width: 200px !important;
-}
+// .menu-large{
+//   width: 200px !important;
+// }
 .menu-medium{
   width: 100px !important;
   .ant-select:not(.ant-select-disabled):hover .ant-select-selector {
@@ -1461,9 +1461,6 @@
   border-radius: 0px;
 }
 
-.ant-select-arrow {
-  align-items: right;
-}
 
 @media (min-width: 2500px) and (max-width: 2999px){
   .ant-modal .new-project {
@@ -1810,10 +1807,6 @@
   border-radius: 0px;
 }
 
-.ant-select-arrow {
-  align-items: right;
-}
-
 //
 .modal-confirm {
   width: 430px !important;
@@ -1901,27 +1894,6 @@
   box-shadow: $shadow;
   background-color: $white;
   overflow-y: auto;
-
-  .detailed-h-head{
-    h1{
-      margin-top: 15px !important;
-    }
-    .col-h-head{
-      text-align: end;
-    }
-  }
-
-  .detailed-h-body{
-    background-color: white;
-    .col-h-body{
-      color: #11093c;
-    }
-
-    .col-body-1{
-      color: #11093c;
-      text-align: end;
-    }
-  }
 
   .ant-carousel .slick-list {
     height: auto;
