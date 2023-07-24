@@ -8,6 +8,7 @@ const Filter = () => {
     showFilters,
     localityType: l,
     filterMap,
+    year,
     namespaceId,
     prioritySelected,
     jurisdictionSelected,
@@ -37,6 +38,10 @@ const Filter = () => {
     if (prioritySelected.length === 0) {
       setJurisdictionSelected(jurisdictionFilterList.map((r: any) => true));
       setPrioritySelected(priorityFilterList.map((r: any) => true));
+      if(year < 2024){
+        setCountiesSelected(countiesFilterList.map((r: any) => true));
+        setServiceAreasSelected(serviceAreasFilterList.map((r: any) => true)); 
+      }
     }
   }, [jurisdictionFilterList, countiesFilterList, priorityFilterList, serviceAreasFilterList]);
 

@@ -42,7 +42,7 @@ const AutoCompleteDropdown = (
     loadColumns,
   } = useRequestDispatch();
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
-  const [dropdownSelected, setDropdownSelected] = useState();
+  const [dropdownSelected, setDropdownSelected] = useState('');
   const renderOption = (item: string) => {
     return {
       key: `${item}|${item}`,
@@ -51,41 +51,70 @@ const AutoCompleteDropdown = (
     };
   };
   useEffect(() => {
-    updateFilterSelected(dropdownSelected);
-  }, [filterMap])
+    if (year >= 2024) {
+      setLocality('Mile High Flood District');
+      setDropdownSelected('Mile High Flood District')
+      setLocalityFilter('Mile High Flood District');
+    } else {
+      if (dropdownSelected) {
+        setLocality(dropdownSelected);
+      }
+      if (filterMap && filterMap?.project_counties?.length > 0) {
+        setCountiesSelected(filterMap?.project_counties?.map((_: any) => true));
+      }
+      if (filterMap && filterMap?.project_service_areas?.length > 0) {
+        setServiceAreasSelected(filterMap?.project_service_areas?.map((_: any) => true))
+      }
+    }
+    loadColumns(namespaceId)
+  }, [year]);
+
+  useEffect(() => {
+    if (year >= 2024) {
+      updateFilterSelected(dropdownSelected);
+    }
+    if (filterMap?.project_local_governments?.length > 0) {
+      setJurisdictionSelected(filterMap?.project_local_governments?.map((_: any) => true));
+    }
+  }, [filterMap, dropdownSelected])
 
   const updateFilterSelected = (value: any) => {
     if (filterMap && value) {
-      const jurisdictionFilterList = [true];
-      filterMap?.project_local_governments.map((r: any, index: any) => {
-        jurisdictionFilterList[index] = true
-      });
       const priorityFilterList = [true, true, true, true, true];
-      setJurisdictionSelected(jurisdictionFilterList);
       setPrioritySelected(priorityFilterList);
-      if (value && value.includes('County')) {
-        const valueName = value.replace('County', '').trim();
-        let filterSelected = [false];
+      let filterSelected = [false];
+      if (value === 'MHFD District Work Plan' || value === 'Mile High Flood District') {
+        filterMap?.project_service_areas.map((p: any, index: number) => {
+          filterSelected[index] = true;
+        })
         filterMap?.project_counties.map((p: any, index: number) => {
-          if (p.county_name === valueName) {
-            filterSelected[index] = true;
-          } else {
-            filterSelected[index] = false;
-          }
+          filterSelected[index] = true;
         })
         setCountiesSelected(filterSelected);
-      }
-      if (value && value.includes('Service Area')) {
-        const valueName = value.replace('Service Area', '').trim();
-        let filterSelected = [false];
-        filterMap?.project_service_areas.map((p: any, index: number) => {
-          if (p.service_area_name === valueName) {
-            filterSelected[index] = true;
-          } else {
-            filterSelected[index] = false;
-          }
-        })
         setServiceAreasSelected(filterSelected)
+      } else {
+        if (value.includes('County')) {
+          const valueName = value.replace('County', '').trim();
+          filterMap?.project_counties.map((p: any, index: number) => {
+            if (p.county_name === valueName) {
+              filterSelected[index] = true;
+            } else {
+              filterSelected[index] = false;
+            }
+          })
+          setCountiesSelected(filterSelected);
+        }
+        if (value.includes('Service Area')) {
+          const valueName = value.replace('Service Area', '').trim();
+          filterMap?.project_service_areas.map((p: any, index: number) => {
+            if (p.service_area_name === valueName) {
+              filterSelected[index] = true;
+            } else {
+              filterSelected[index] = false;
+            }
+          })
+          setServiceAreasSelected(filterSelected)
+        }
       }
       loadColumns(namespaceId)
     }
@@ -96,13 +125,16 @@ const AutoCompleteDropdown = (
     setShowAnalytics(false);
     setShowBoardStatus(false);
     setIsOnSelected(true);
-    setLocality(value);
     setLocalityFilter(value);
     setPrioritySelected([]);
     setJurisdictionSelected([]);
     setCountiesSelected([]);
     setServiceAreasSelected([]);
-    updateFilterSelected(value);
+    if (year < 2024) {
+      setLocality(value);
+    } else {
+      updateFilterSelected(value);
+    }
     let l = localities.find((p: any) => {
       return p.name === value;
     })

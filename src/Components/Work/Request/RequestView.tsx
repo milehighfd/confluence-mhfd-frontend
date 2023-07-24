@@ -335,6 +335,10 @@ const RequestView = ({ type, isFirstRendering }: {
                   setTabKey(key);
                   setPrioritySelected([]);
                   setJurisdictionSelected([]);
+                  if (year < 2024) {
+                    setCountiesSelected([]);
+                    setServiceAreasSelected([]);
+                  }
                 }} className="tabs-map">
                 {
                   displayedTabKey.map((tk: string) => (
