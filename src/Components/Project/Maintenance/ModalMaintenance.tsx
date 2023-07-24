@@ -464,7 +464,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
                 description={description}
                 setDescription={setDescription}
               />
-              <Row gutter={[16, 16]} style={{marginTop: '-5px'}}>
+              <Row gutter={[16, 16]} style={{marginTop: '13px'}}>
                 <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                   <label className="sub-title">Frequency <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
                   <div id="freqid">
@@ -514,7 +514,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
                 <p>Click on the icon and draw a polygon to draw the activity area</p>
               </div> */}
               <div className="sub-title-project">
-                <h5>2. PROJECT GEOMETRY *</h5>
+                <h5 className="location">2. PROJECT GEOMETRY *</h5>
               </div>
               <p className='text-default'>Projects are spatially defined by stream reaches.  Select the option below that best allows you to define the project.</p>
               <div className='section-gemetry'>
@@ -578,7 +578,6 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
                 originModal="Maintenance"
                 isWorkPlan={isWorkPlan}
               />
-              <br />
               <UploadImagesDocuments
               isCapital={false}
               setFiles={setFiles}

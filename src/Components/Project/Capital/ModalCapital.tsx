@@ -1064,9 +1064,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 description = {description}
                 setDescription = {setDescription}
               />
-              <br/>
               <div className="sub-title-project">
-                <h5>2. SELECT PROPOSED  ACTIONS&nbsp;*</h5>
+                <h5  className="requestor-information ">2. SELECT PROPOSED  ACTIONS&nbsp;*</h5>
               </div>
 
               <div className={"draw "+(isDrawState?'active':'')} onClick={onClickDraw}>

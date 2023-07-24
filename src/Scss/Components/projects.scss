@@ -215,6 +215,7 @@
       }
       .location{
         margin-top: 12px;
+        margin-bottom: 6px;
       }
       .delete-upload{
         color: red;
@@ -282,7 +283,7 @@
       }
     }
     .information-description{
-      margin-top: 20px;
+      margin-top: 6px;
     }
     .title-geometry{
       margin-top: 10px;
@@ -350,7 +351,7 @@
       margin-bottom: 2px;
     }
     textarea.ant-input{
-      margin-bottom: 32px;
+      // margin-bottom: 6px;
       min-height: 36px;
       padding: 6px 11px;
     }
@@ -362,7 +363,7 @@
       }
       .section-county{
         width: 50%;
-        margin-bottom: 16px;
+        margin-bottom: 10px;
       }
       .text-radio-btn{
         font-size: 12px;
@@ -371,6 +372,10 @@
       }
       .sub-sub-title-projects{
         margin-top: 10px;
+        margin-bottom: 16px;
+      }
+      .ant-radio-group{
+        margin-bottom: 6px;
       }
     }
     .table-project{
@@ -809,7 +814,7 @@
       border: none;
       color: $green;
       padding: 0px;
-      margin-bottom: 15px;
+      margin-bottom: 17px;
       box-shadow: none;
       font-size: 12px;
 

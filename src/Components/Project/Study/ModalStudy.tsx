@@ -533,7 +533,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
               />
               <br />
               <div className="sub-title-project">
-                <h5>2. PROJECT GEOMETRY *</h5>
+                <h5 className="requestor-information">2. PROJECT GEOMETRY *</h5>
               </div>
               <p className='text-default'>Projects are spatially defined by stream reaches.  Select the option below that best allows you to define the project.</p>
               <div className='section-gemetry'>
@@ -618,7 +618,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
                                         <Row style={{ marginLeft: '-18px' }}>
                                           <Col className="first" xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}>
                                             <label>{stream?.code_local_goverment.length > 0 ? stream.code_local_goverment[0].local_government_name : ''}</label>
-                                          </Col>
+                                          </Col>  
                                           <Col className="second" style={{ textAlign: 'center' }} xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>
                                           {swSave ? stream.length.toFixed(3) : (Math.round(stream.length * 1000) / 1000).toFixed(3)}
                                           </Col>
@@ -651,7 +651,6 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
                 <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }} style={{textAlign:'center'}}><b>{getTotalLength()} mi</b></Col>
                 <Col xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7 }} style={{textAlign:'center'}}><b>{getTotalDreinage()} sq mi</b></Col>
               </Row> */}
-              <br></br>
               <LocationInformation
                 setServiceArea={setServiceArea}
                 serviceArea={serviceArea}
@@ -668,7 +667,6 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
                 originModal="Study"
               />
 
-              <br />
               <UploadImagesDocuments
               isCapital={false}
               setFiles={setFiles}

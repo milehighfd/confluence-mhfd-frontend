@@ -314,9 +314,11 @@
   }
 
   .style-input {
-    margin-top: 5px;
     background-color: #ffffff;
     border-radius: 3px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
 
     .ant-input-group-addon {
       margin-top: -27px !important;
