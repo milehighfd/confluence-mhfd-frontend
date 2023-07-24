@@ -324,7 +324,7 @@ const mimeToExtension = (mimeType:any) => {
     <div className="upload-sections">
       <div className="upload-documents">
         <div className="sub-title-project sub-title-project-upload">
-          <h5 className="requestor-information">{isCapital?'7':'4'}
+          <h5 className="requestor-information">{isCapital?'7':'5'}
             . Upload images <img src="/Icons/icon-19.svg" alt="" height="14px" className="icon-upload"/>
           </h5>
           <div className="group-btn">
@@ -353,7 +353,7 @@ const mimeToExtension = (mimeType:any) => {
       </div>
       <div className="upload-documents">
         <div className="sub-title-project sub-title-project-upload">
-          <h5 className="location">{isCapital?'8':'5'}
+          <h5 className="location">{isCapital?'8':'6'}
             . Upload documents <img src="/Icons/icon-19.svg" alt="" height="14px" className="icon-upload"/>
           </h5>
           <div className="group-btn">

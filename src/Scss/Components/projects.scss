@@ -405,8 +405,16 @@
         border-bottom: 1.5px solid $green;
         border-radius: 0px;
       }
+      .row-geometry-total{
+        td{
+          padding-left: 20px !important;
+        }
+      }
       .row-geometry-body{
         background: #f5f7ff;
+        td{
+          padding-left: 20px !important;
+        }
       }
       .row-geometry-title{
         td {
@@ -444,6 +452,11 @@
         line-height: 18px;
         border: none;
         padding: 11px 8px;
+      }
+    }
+    .table-geometry{
+      .ant-table-thead > tr > th {
+        padding-left: 20px !important;
       }
     }
     .ant-input{
@@ -827,6 +840,13 @@
       // width: 115px;
       font-size: 12px;
       margin-top: 27px;
+    }
+
+    //DISCUTIOM
+
+    .discution-body{
+      height: calc(100% - 50px);
+      overflow: auto;
     }
   }
   .switch-option{

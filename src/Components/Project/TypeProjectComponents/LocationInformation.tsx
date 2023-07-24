@@ -194,7 +194,7 @@ export const LocationInformation = ({
     <>
     <div className="location-information">
       <div className="sub-title-project">
-        <h5 className="location">{isCapital ? '4.' : '3.'} LOCATION<Popover content={contentLocInf}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
+        <h5 className="location">{isCapital ? '4.' : '3.'} LOCATION <Popover content={contentLocInf}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
       </div>
       <Row gutter={[16, 16]}>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>

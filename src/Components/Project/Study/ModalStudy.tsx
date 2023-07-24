@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Modal, Button, Row, Col, Popover, Collapse, Timeline, Checkbox } from 'antd';
+import { Modal, Button, Row, Col, Popover, Collapse, Timeline, Checkbox, Dropdown, Radio, Select, Table } from 'antd';
 import { AlertView } from 'Components/Alerts/AlertView';
 import { ProjectInformation } from 'Components/Project/TypeProjectComponents/ProjectInformation';
 import { LocationInformation } from 'Components/Project/TypeProjectComponents/LocationInformation';
 import { useProjectState, useProjectDispatch } from 'hook/projectHook';
 import CreateProjectMap from 'Components/CreateProjectMap/CreateProjectMap';
 import { Project } from 'Classes/Project';
-import { NEW_PROJECT_TYPES, ADMIN, STAFF, WORK_PLAN_TAB } from 'constants/constants';
+import { NEW_PROJECT_TYPES, ADMIN, STAFF, WORK_PLAN_TAB, WINDOW_WIDTH } from 'constants/constants';
 import store from 'store';
 import { useProfileState } from 'hook/profileHook';
 import { useHistory } from 'react-router-dom';
 import { UploadImagesDocuments } from 'Components/Project/TypeProjectComponents/UploadImagesDocuments';
 import { useAttachmentDispatch } from 'hook/attachmentHook';
 import { useMapState } from 'hook/mapHook';
+import { DownOutlined, HeartFilled, HeartOutlined, UpOutlined } from '@ant-design/icons';
+import TypeProjectsFilter from 'Components/FiltersProject/TypeProjectsFilter/TypeProjectsFilter';
+import { Option } from 'antd/lib/mentions';
+import { COLUMNS_GEOMEOTRY, DATA_SOURCE_GEOMEOTRY } from '../Constants/Constants';
 const { Panel } = Collapse;
 const content = (<div className="popver-info">Master plans that set goals for the watershed and stream corridor, identify problems, and recommend improvements.</div>);
 
@@ -85,6 +89,13 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   const { tabActiveNavbar } = useMapState();
   const isWorkPlan = tabActiveNavbar === WORK_PLAN_TAB;
   const { userInformation } = useProfileState();
+  const [favorite, setFavorite] = useState(false);
+  const [activeTabBodyProject, setActiveTabBodyProject] = useState('Details');
+  const [openDropdownTypeProject, setOpenDropdownTypeProject] = useState(false);
+
+  //list Menu TypeProjects
+  const menuTypeProjects = <TypeProjectsFilter />;
+
 
   useEffect(() => {
     setServiceAreaCounty({});
@@ -467,31 +478,42 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 14 }}>
             <div className="head-project">
-              <Row>
-                <Col xs={{ span: 24 }} lg={{ span: 17 }}>
-                  <label data-value={nameProject} style={{ width: '100%' }}>
-                    <textarea className="project-name" value={nameProject} onChange={(e) => onChange(e)} style={{
-                      border: 'none',
-                      width: '100%',
-                      fontSize: '24px',
-                      color: '#11093c',
-                      wordWrap: 'break-word',
-                      resize: 'none',
-                      lineHeight: '27px',
-                      height: lengthName > 280 ? 'unset' : '34px'
-                    }} />
-                  </label>
-                  <p>{getServiceAreaAndCountyString(serviceArea, county)} </p>
-                </Col>
-                <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{ textAlign: 'right' }}>
-                  <label className="tag-name" style={{ padding: '10px' }}>Study</label>
-                  <Popover content={content}>
-                    <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" />
-                  </Popover>
-                </Col>
-              </Row>
+            <div className='project-title'>
+              <label data-value={nameProject} style={{width: '100%'}}>
+                <div className='project-name-icons'>
+                  <textarea className="project-name" value={nameProject} onChange={(e) => onChange(e)} style={{                  
+                    height: lengthName > 259 ? 'unset' :'34px'
+                  }} />
+                  <div className='ico-title'>
+                  <Button className={favorite ? "btn-transparent":"btn-transparent" } onClick={()=>{setFavorite(!favorite)}}>
+                    {favorite? <HeartFilled className='heart'/>:<HeartOutlined  />}
+                  </Button>
+                    <img src="/Icons/ic_send.svg" alt="" height="16px"></img>
+                  </div>
+                </div>
+                <p className='project-sub-name'>Aurora · Northeast Service Area · Adams County</p>
+              </label>
             </div>
-
+            <div className='project-type'>
+              <Dropdown overlay={menuTypeProjects} trigger={['click']} overlayClassName="drop-menu-type-project" placement="bottomRight" onVisibleChange={()=>{setOpenDropdownTypeProject(!openDropdownTypeProject)}}>
+                <div className="drop-espace">
+                  <a onClick={e => e.preventDefault()} style={{marginLeft:'2%', display:'flex', alignItems:'baseline'}}>
+                    {<p>Study</p>} &nbsp;
+                    {openDropdownTypeProject ? <UpOutlined style={{color:'#251863',fontSize:'14px'}} /> : < DownOutlined style={{color:'#251863',fontSize:'14px'}} />}
+                  </a>
+                </div>
+              </Dropdown>
+              <Popover content={content}>
+                <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" />
+              </Popover>
+            </div>
+          </div>
+          <div className='header-tab'>
+            <p className={activeTabBodyProject ===  'Details'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Details')}}>Details</p>
+            <p className={activeTabBodyProject ===  'Discussion'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Discussion')}}>Discussion</p>
+            <p className={activeTabBodyProject ===  'Activity'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Activity')}}>Activity</p>
+          </div>
+          {activeTabBodyProject === 'Details' ?
             <div className="body-project">
               {
                 (isWorkPlan && showCheckBox && !swSave) && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
@@ -510,7 +532,56 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
                 setOtherReason={setOtherReason}
               />
               <br />
-              <h5 style={{marginTop:'5px'}}>
+              <div className="sub-title-project">
+                <h5>2. PROJECT GEOMETRY *</h5>
+              </div>
+              <p className='text-default'>Projects are spatially defined by stream reaches.  Select the option below that best allows you to define the project.</p>
+              <div className='section-gemetry'>
+                <p>i. Is this a countywide project?</p>
+                <Radio.Group>
+                  <Radio value="Yes"><span className='text-radio-btn'>Yes</span></Radio>
+                  <Radio value="No"><span className='text-radio-btn'>No</span></Radio>
+                </Radio.Group>
+                <div className='section-county'>
+                  <label className="sub-title">Select one or multiple counties </label>
+                  <Select
+                    mode="multiple"
+                    placeholder={serviceArea?.length !== 0 ? serviceArea : "Select a County"}
+                    style={{ width: '100%' }}
+                    listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+                    onChange={(serviceArea: any) => setServiceArea(serviceArea)}
+                    value={serviceArea}>
+                    <Option key='Adams' value='Adams'>Adams</Option>
+                  </Select>
+                </div>
+                <p>ii. Is this project located on the South Platte River?</p>
+                <Radio.Group>
+                  <Radio value="Yes"><span className='text-radio-btn'>Yes</span></Radio>
+                  <Radio value="No"><span className='text-radio-btn'>No</span></Radio>
+                </Radio.Group>
+                <p className='sub-sub-title-projects'>iii. Draw your project geometry</p>
+              </div>
+              <div className={"draw " + (isDraw ? 'active' : '')} onClick={onClickDraw}>
+                <img src="" className="icon-draw active" style={{ WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat' }} />
+                <p>Click on the icon above and draw a polygon to define the project feature</p>
+              </div>
+              <Table
+                dataSource={DATA_SOURCE_GEOMEOTRY }
+                columns={COLUMNS_GEOMEOTRY }
+                className='table-project table-geometry'
+                rowClassName={(record, index) => {
+                  console.log(record, index, 'RECORD');
+                  if(record.key.includes('total')){
+                    return ('row-geometry-total')
+                  }
+                  if (record.key.includes('title') || record.key.includes('total')) {
+                    return('row-geometry-title')
+                  }else{
+                    return ('row-geometry-body')
+                  }
+                }}
+              />  
+              {/* <h5 style={{marginTop:'5px'}}>
                 2. SELECT STREAMS
             </h5>
               <div className={"draw " + (isDrawState ? 'active' : '')} onClick={onClickDraw}>
@@ -579,7 +650,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
                 <Col xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}>TOTAL</Col>
                 <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }} style={{textAlign:'center'}}><b>{getTotalLength()} mi</b></Col>
                 <Col xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7 }} style={{textAlign:'center'}}><b>{getTotalDreinage()} sq mi</b></Col>
-              </Row>
+              </Row> */}
               <br></br>
               <LocationInformation
                 setServiceArea={setServiceArea}
@@ -602,7 +673,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
               isCapital={false}
               setFiles={setFiles}
             />
-            </div>
+            </div>:<></>}
             <div className="footer-project">
               <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>
               <Button className="btn-purple" onClick={handleOk} disabled={disable}><span className="text-color-disable">Save Draft Project</span></Button>

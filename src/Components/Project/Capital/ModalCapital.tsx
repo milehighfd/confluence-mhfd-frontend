@@ -1229,11 +1229,11 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               <Table
                 dataSource={dataSourceGeomeotry }
                 columns={columnsGeomeotry }
-                className='table-project'
+                className='table-project table-geometry'
                 rowClassName={(record, index) => {
                   console.log(record, index, 'RECORD');
                   if(record.key.includes('total')){
-                    return ('')
+                    return ('row-geometry-total')
                   }
                   if (record.key.includes('title') || record.key.includes('total')) {
                     return('row-geometry-title')
@@ -1309,7 +1309,35 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 setFiles={setFiles}
               />
             </div>
-          :<></>}
+          :<>
+          <div className="body-project">
+            <div className='discution-body'>
+              <div className='discution-other-user'>
+                <div className='other-user-information'>
+                  02/14/23
+                </div>
+                <div className='discution'>
+                  <div>
+                    Hi, I would like to follow-up on my submission
+                  </div>
+                  <div>
+                    We are requesting a new culvert along Almond Rd to Shawnee Avenue, as shown through our submission in February 2023.
+                  </div>
+                </div>
+              </div>
+              <div className='discution-user'>
+                We are requesting a new culvert along Almond Rd to Shawnee Avenue, as shown through our submission in February 2023.
+              </div>
+            </div>
+            <div className='discution-footer'>
+              <input placeholder="Write a comment..."/>
+              <Button>
+                <img>
+                </img>
+              </Button>
+            </div>
+          </div>
+          </>}
           <div className="footer-project">
             <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>
             <Button className="btn-purple" onClick={handleOk} disabled={disable}><span className="text-color-disable">Save Draft Project</span></Button>
