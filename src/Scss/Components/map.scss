@@ -20,9 +20,6 @@
 
 .mapboxgl-popup-content {
   padding: 0px;
-}
-
-.mapboxgl-popup-content {
   background: #fff0;
 }
 
@@ -31,14 +28,6 @@
   margin-right: 10px;
   padding-left: 10px;
   font-size: 25px;
-}
-
-.ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
-  color: rgba(0, 0, 0, .85);
-  font-weight: 600;
-  background-color: #f7f7f9 !important;
-  margin: 3px;
-  border-radius: 5px;
 }
 
 .body-modal-data {
@@ -346,12 +335,6 @@
 }
 .btn-coll:hover > img {
   margin-right: -2px !important;
-}
-
-.ant-select-dropdown-menu-item-active:not(.ant-select-dropdown-menu-item-disabled),
-.ant-select-dropdown-menu-item:hover:not(.ant-select-dropdown-menu-item-disabled) {
-  background-color: #f3f3f3 !important;
-  white-space: pre-line;
 }
 
 .global-search-item {
@@ -1458,34 +1441,10 @@
   }
 }
 
-.ant-select-item-option {
-  padding: 7.5px 10px 8px 10px;
-  margin: 0px 0px;
-  text-align: left;
-  font-size: 14px;
-  color: #706b8ab8 !important;
-  margin: 3px;
-  border-radius: 5px;
-  font-weight: 400 !important;
-}
-
-.ant-select-item-option-active {
-  background: #f7f7f9 !important;
-  color: #1e1748 !important;
-  font-weight: 400 !important;
-  margin: 3px;
-  border-radius: 5px;
-}
-
 .mdi-circle {
   font-size: 16px;
 }
-
-.ant-input-clear-icon {
-  position: absolute;
-  right: 0px;
-}
-
+//hay lo mismo en theme en la linea 52
 .arrow-popover-delete {
   .ant-popover-placement-bottomRight .ant-popover-arrow {
     display: none !important;
@@ -2277,10 +2236,6 @@
   margin-top: -10px;
   border-radius: 0px;
   padding: 6px 0px;
-}
-
-.ant-popover-placement-bottomLeft .ant-popover-arrow {
-  left: 12px;
 }
 
 .card-button-hover {
