@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
-import { Input, Row, Col, Popover, Select, Switch } from 'antd';
+import { Input,  Popover, Select } from 'antd';
 import {  MAINTENANCE_ELIGIBILITY, NEW_PROJECT_TYPES,  STUDY_REASON, WINDOW_WIDTH } from "../../../constants/constants";
 import { SERVER } from "../../../Config/Server.config";
 import * as datasets from "../../../Config/datasets";
+import { StudyReason } from "./StudyReason";
+import { InformationMaintenance } from "./InformationMaintenance";
+import { InformationAcquisition } from "./InformationAcquisition";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -35,7 +38,13 @@ export const ProjectInformation = ({
   eligibility,
   applyEligibility,
   ownership,
-  applyOwnership
+  applyOwnership,
+  progress,
+  setProgress,
+  purchaseDate,
+  setPurchaseDate,
+  year,
+  index,
 }:{
   type?: string, 
   description: string, 
@@ -49,12 +58,16 @@ export const ProjectInformation = ({
   eligibility?: any,
   applyEligibility?: any,
   ownership?: any,
-  applyOwnership?: any
+  applyOwnership?: any,
+  progress?: any,
+  setProgress?: any,
+  purchaseDate?: any,
+  setPurchaseDate?: any,
+  year?: any,
+  index?: any,
 }) => {
   const [studyReasons, setStudyReasons] = React.useState<any[]>([]);
-  const [studySubReasons, setStudySubReasons] = React.useState<any[]>([]);
   useEffect(() => {
-    console.log(reason, studyReasons, studyReasons.find(d => d.id === reason)?.isParent);
     if(reason && reason === studyReasons.find((x:any)=> 'Other' === x.name)?.id){
       setOtherReason('');
     } else {
@@ -63,14 +76,8 @@ export const ProjectInformation = ({
     if(otherReason) setOtherReason(otherReason);
   }, [reason]);
   
-  const apllyDescription = (e: any)=>{
+  const applyDescription = (e: any)=>{
     setDescription(e.target.value);
-  };
-
-  const apllyOtherReason = (e: any)=>{
-    if(e.target.value.length <= 100){
-      setOtherReason(e.target.value);
-    }
   };
 
   useEffect(() => {
@@ -83,127 +90,42 @@ export const ProjectInformation = ({
         })));
       });
     }
-  }, []);
-
-  const handleChange = (e: any) => {
-    if (e) setReason(e);
-  }
-
-  const getValue = (reason: number | undefined) => {
-    const found = studyReasons.find(d => d.id === reason);
-    if (found) {
-      if (found.isSubreason) {
-        return studyReasons.find(d => d.name === 'Master plan recomendations are outdated').id;
-      } else {
-        return reason;
-      }
-    }
-    return null;
-  };
+  }, [type]);
+ 
   return (
     <>
       <div className="sub-title-project">
-        <h5>1. Project Information&nbsp;*</h5>
+        <h5>{index}. Project Information&nbsp;*</h5>
         <p className="requiered-text"><span className="requiered">*&nbsp;Required</span></p>
       </div>
-        {type && type?.toLowerCase() === NEW_PROJECT_TYPES.Study.toLowerCase() && (
-          <>
-          <Row gutter={[16, 16]} className="information-description">
-            <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{ padding: '8px' }}>
-              <label className="sub-title">Reason for Study<Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-              <div id="reason">
-                <Select
-                  style={{ width: '100%' }}
-                  placeholder={"Select a Reason"}
-                  listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-                  value={getValue(reason)}
-                  onChange={handleChange}>
-                  {studyReasons.filter((x: any) => !x.isSubreason).map((x: any) => {
-                    return (<Option key={x.id} value={x.id}>{x.name}</Option>)
-                  })}
-                </Select>
-              </div>
-            </Col>
-          </Row>
-          </>
-        )}
-        {reason && (
-           studyReasons.find(d => d.id === reason)?.isParent ||
-           getValue(reason) !== reason
-        ) && (
-            <>
-            <Row gutter={[16, 16]} className="information-description">
-              <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{ padding: '0px 8px' }}>
-                <label className="sub-title">Sub-Reason for Study</label>
-                <div id="subReason">
-                <Select
-                  style={{ width: '100%' }}
-                  placeholder={"Select a Sub-Reason"}
-                  listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-                  value={studyReasons.filter((x: any) => x.isSubreason).find(d => reason === d.id) ? reason : 'Select a Sub-Reason'}
-                  onChange={handleChange}>
-                    {studyReasons.filter((x: any) => x.isSubreason).map((x: any) => {
-                      return (<Option key={x.id} value={x.id}>{x.name}</Option>)
-                    })}
-                  </Select>
-                </div>
-              </Col>
-              </Row>
-            </>
-          )}
-
-        {reason && reason === studyReasons.find((x:any)=> 'Other' === x.name)?.id && ( 
-          <>
-          <Row gutter={[16, 16]} className="information-description">
-            <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-              <label className="sub-title">Other reason<Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-              <TextArea rows={1} placeholder="Add another reason" onChange={(text)=>apllyOtherReason(text)} value={otherReason}/>
-            </Col>
-            </Row>
-          </>
-        )}
+      <StudyReason
+        type={type}
+        studyReasons={studyReasons}
+        reason={reason}
+        setReason={setReason}
+        otherReason={otherReason}
+        setOtherReason={setOtherReason}
+      />
       <label className="sub-title">Description <Popover content={content00}><img src="../Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-      <TextArea rows={4} placeholder="Add description" onChange={(description)=>apllyDescription(description)} value={description}/>
-      {type && type?.toLowerCase() === NEW_PROJECT_TYPES.Maintenance.toLowerCase() && (<><Row gutter={[16, 16]} style={{ marginTop: '-5px' }}>
-        <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-          <label className="sub-title">Frequency <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-          <div id="freqid">
-            <Select
-              placeholder={frequency != '' ? frequency + "" : "Select a Frequency"}
-              style={{ width: '100%' }}
-              listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-              onChange={(frequency) => applyFrequency(frequency)}
-              getPopupContainer={() => (document.getElementById("freqid") as HTMLElement)}>
-              {selec.map((element) => {
-                return <Option key={element} value={element}>{element}</Option>
-              })}
-            </Select>
-          </div>
-        </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-          <label className="sub-title">Access Control <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-          <p className="switch-option" style={{ fontSize: '14px' }}>Public Access / Ownership <span>
-            <Switch checkedChildren="Yes" unCheckedChildren="No" checked={ownership} onChange={(ownership) => applyOwnership(ownership)} />
-          </span></p>
-        </Col>
-      </Row>
-        <Row gutter={[16, 16]} style={{ marginTop: '10px' }}>
-          <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-            <label className="sub-title">Maintenance Eligibility <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-            <div id="elegid">
-              <Select
-                placeholder={eligibility != '' ? MAINTENANCE_ELIGIBILITY.find((el: any) => parseInt(el.id) === parseInt(eligibility))?.name + "" : "Select a Eligibility"}
-                style={{ width: '100%' }}
-                listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-                onChange={(eligibilit) => applyEligibility(eligibilit)}
-                getPopupContainer={() => (document.getElementById("elegid") as HTMLElement)}>
-                {MAINTENANCE_ELIGIBILITY.map((element) => {
-                  return <Option key={element.id} value={element.id}>{element.name}</Option>
-                })}
-              </Select>
-            </div>
-          </Col>
-        </Row></>)}
+      <TextArea rows={4} placeholder="Add description" onChange={(description) => applyDescription(description)} value={description} />
+      {type && type?.toLowerCase() === NEW_PROJECT_TYPES.Maintenance.toLowerCase() && (<>
+        <InformationMaintenance
+          frequency={frequency}
+          applyFrequency={applyFrequency}
+          ownership={ownership}
+          applyOwnership={applyOwnership}
+          eligibility={eligibility}
+          applyEligibility={applyEligibility}
+        />
+      </>)}
+      {type && type?.toLowerCase() === NEW_PROJECT_TYPES.Acquisition.toLowerCase() && (
+        <InformationAcquisition
+          progress={progress}
+          setProgress={setProgress}
+          purchaseDate={purchaseDate}
+          setPurchaseDate={setPurchaseDate}
+          year={year}
+        />)}
     </>
   );
 }
