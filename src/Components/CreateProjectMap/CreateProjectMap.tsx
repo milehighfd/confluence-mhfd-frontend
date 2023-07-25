@@ -208,6 +208,7 @@ const CreateProjectMap = (type: any) => {
   useEffect(() => {
     magicAddingVariable = isAddLocation;
   }, [isAddLocation]);
+
   useEffect(() => {
     setLoading(true);
     const waiting = () => {
@@ -259,7 +260,7 @@ const CreateProjectMap = (type: any) => {
       marker.remove();
       setZoomGeom(undefined);
     };
-  }, []);
+  }, [type.type]);
   useEffect(() => {
     if (map && map.map) {
       const bounds = map.getBoundingBox();
@@ -534,7 +535,7 @@ const CreateProjectMap = (type: any) => {
     if (isDraw || isDrawCapital) {
       isDrawingCurrently = true;
       currentDraw = isDraw ? 'polygon' : isDrawCapital ? 'capitalpolygon' : 'polygon';
-      if (isDrawCapital) {
+      if (isDrawCapital && type.type === 'CAPITAL') {
         showHoverComponents();
         if (userPolygon.length !== 0 || Object.keys(userPolygon).length !== 0) {
           let bboxBounds = turf.bbox(userPolygon);
