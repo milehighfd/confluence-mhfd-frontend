@@ -359,7 +359,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
         onOk={handleOk}
         onCancel={handleCancel}
         className="projects"
-        width={pageWidth >3000 ? "2000px" : "1100px"}
+        width={pageWidth >3000 ? "2000px" : "90.5%"}
       >
         <Row>
           <Col xs={{ span: 24 }} lg={{ span: 12 }}>
@@ -375,9 +375,9 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
                   }} />
                   <div className='ico-title'>
                   <Button className={favorite ? "btn-transparent":"btn-transparent" } onClick={()=>{setFavorite(!favorite)}}>
-                    {favorite? <HeartFilled className='heart'/>:<HeartOutlined  />}
+                  {favorite? <HeartFilled className='heart'/>:<HeartOutlined className='ico-heart'/>}
                   </Button>
-                    <img src="/Icons/ic_send.svg" alt="" height="16px"></img>
+                    <img src="/Icons/ic_send_purple.svg" alt="" height="16px"></img>
                   </div>
                 </div>
                 <p className='project-sub-name'>Aurora · Northeast Service Area · Adams County</p>
@@ -392,7 +392,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
                   </a>
                 </div>
               </Dropdown>
-              <Popover content={content}>
+              <Popover content={content} overlayClassName='popover-project'>
                 <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" style={{opacity:0.4}}/>
               </Popover>
             </div>

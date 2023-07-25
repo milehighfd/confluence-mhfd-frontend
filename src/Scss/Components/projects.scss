@@ -4,7 +4,7 @@
 .projects {
   color: #11093c;
   .text-default{
-    opacity: 0.34;
+    // opacity: 0.34;
   }
   .ant-modal-body{
     padding: 0px;
@@ -40,11 +40,11 @@
           align-items: center;
           margin-top: -3px;
           img{
-            opacity: 0.5;
+            opacity: 0.34;
             height: 19px;
             margin-left: 10px;
           }
-          img:active, img:hover{
+          img:active, img:hover, img:focus{
             opacity: 1;
           }
           .heart, .heart:hover, .heart:active{
@@ -53,9 +53,22 @@
           .btn-transparent{
             padding: 0px;
             height: auto;
-            color: #b7b4c4 !important;
+            color: $purple00 !important;
             font-size: 21px;
+            .ico-heart{
+              opacity: 0.34;
+            }
           }
+          .btn-transparent:hover, .btn-transparent:active, .btn-transparent:focus{
+            opacity: 1;
+            .ico-heart{
+              opacity: 1;
+            }
+          }
+          
+          // .ico-heart:hover .ico-heart:active .ico-heart:focus{
+          //   opacity: 1;
+          // }
         }
       }
     }
@@ -85,6 +98,10 @@
       height: min-content;
       .hh-img{
         margin-left: 8px;
+        opacity: 0.34;
+      }
+      .hh-img:hover, .hh-img:active{
+        opacity: 1;
       }
       .drop-espace{
         min-width: 115px;
@@ -344,7 +361,7 @@
     }
     .sub-title{
       font-size: 10px;
-      color: $opacity;
+      color: $purple00;
 
       img{
         margin: -2px 0px 0px 2px;
@@ -352,7 +369,7 @@
     }
     .sub-title-footer{
       font-size: 12px;
-      color: $opacity;
+      color: $purple00;
     }
     .icon-cost{
       margin-bottom: 2px;
@@ -361,11 +378,11 @@
       // margin-bottom: 6px;
       min-height: 36px;
       padding: 6px 11px;
+      color: $purple00;
     }
     .section-gemetry{
       margin-left: 16px;
       p{
-        opacity: 0.6;
         margin-bottom: 12px;
       }
       .section-county{
@@ -375,7 +392,6 @@
       .text-radio-btn{
         font-size: 12px;
         color:$purple00;
-        opacity: 0.6;
       }
       .sub-sub-title-projects{
         margin-top: 10px;
@@ -514,7 +530,7 @@
       border: 1px dashed $opacity04;
       margin: 10px 0px 25px 0px;
       padding: 18px 0px;
-      color: $opacity;
+      color: $purple00;
       display: block;
 
       p{
@@ -586,6 +602,7 @@
         border: none;
         padding: 4px 0px;
         font-size: 12px;
+        color: $purple00;
       }
       .ant-input:focus{
         border-bottom: 1.5px solid $green;
@@ -922,6 +939,14 @@
 // .menu-large{
 //   width: 200px !important;
 // }
+.popover-project{
+  .ant-popover-arrow{
+    display: none;
+  }
+  .ant-popover-content{
+    margin-top: -10px;
+  }
+}
 .menu-medium{
   width: 100px !important;
   .ant-select:not(.ant-select-disabled):hover .ant-select-selector {

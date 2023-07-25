@@ -314,13 +314,13 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
        onOk={handleOk}
        onCancel={handleCancel}
        className="projects"
-       width={pageWidth >3000 ? "2000px" : "1100px"}
+       width={pageWidth >3000 ? "2000px" : "90.5%"}
      >
       <Row>
-        <Col xs={{ span: 24 }} lg={{ span: 10 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 12 }}>
             <CreateProjectMap type="SPECIAL" locality={locality} projectid={editprojectid} isEdit={swSave}></CreateProjectMap>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 14 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 12 }}>
           <div className="head-project">
             <div className='project-title'>
               <label data-value={nameProject} style={{width: '100%'}}>
@@ -330,9 +330,9 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
                   }} />
                   <div className='ico-title'>
                   <Button className={favorite ? "btn-transparent":"btn-transparent" } onClick={()=>{setFavorite(!favorite)}}>
-                    {favorite? <HeartFilled className='heart'/>:<HeartOutlined  />}
+                    {favorite? <HeartFilled className='heart'/>:<HeartOutlined className='ico-heart'/>}
                   </Button>
-                    <img src="/Icons/ic_send.svg" alt="" height="16px"></img>
+                    <img src="/Icons/ic_send_purple.svg" alt="" height="16px"></img>
                   </div>
                 </div>
                 <p className='project-sub-name'>Aurora · Northeast Service Area · Adams County</p>
@@ -347,7 +347,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
                   </a>
                 </div>
               </Dropdown>
-              <Popover content={content}>
+              <Popover content={content} overlayClassName='popover-project'>
                 <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" style={{opacity:0.4}}/>
               </Popover>
             </div>

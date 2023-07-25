@@ -101,10 +101,10 @@ export const DropPin = ({typeProject, geom, setGeom, setIsEditingPosition}:
       Drop a pin on the map by first clicking on ‘Add Location’.
     </p>
       <Row gutter={[16, 16]}>
-        <Col xs={{ span: 24 }} lg={{ span: 16 }} xxl={{ span: 16 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 16 }}>
         <Table dataSource={dataSource} columns={columns} bordered  className="table-project"/>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 8}} xxl={{ span: 8 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 6}} xxl={{ span: 8 }}>
           <Button className="btn-location" onClick={changeLocation}>{isAddLocation?'Remove Location':(latitude != '--' && longitude != '--' ? 'Change Location':'Add Location')}</Button>
            {/* <Button className="btn-location" onClick={changeLocation}>{isAddLocation?'Remove Location':(latitude != '--' && longitude != '--' ? 'Change Location':'Add Location')}</Button> */}
         </Col>

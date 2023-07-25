@@ -1024,9 +1024,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                   }} />
                   <div className='ico-title'>
                   <Button className={favorite ? "btn-transparent":"btn-transparent" } onClick={()=>{setFavorite(!favorite)}}>
-                    {favorite? <HeartFilled className='heart'/>:<HeartOutlined  />}
+                  {favorite? <HeartFilled className='heart'/>:<HeartOutlined className='ico-heart'/>}
                   </Button>
-                    <img src="/Icons/ic_send.svg" alt="" height="16px"></img>
+                    <img src="/Icons/ic_send_purple.svg" alt="" height="16px"></img>
                   </div>
                 </div>
                 <p className='project-sub-name'>Aurora · Northeast Service Area · Adams County</p>
@@ -1041,8 +1041,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                   </a>
                 </div>
               </Dropdown>
-              <Popover content={content}>
-                <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" style={{opacity:0.4}}/>
+              <Popover content={content} overlayClassName='popover-project' placement="bottomRight">
+                <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px"/>
               </Popover>
             </div>
           </div>

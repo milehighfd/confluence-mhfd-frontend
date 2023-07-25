@@ -470,13 +470,13 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
         onOk={handleOk}
         onCancel={handleCancel}
         className="projects"
-        width={pageWidth >3000 ? "2000px" : "1100px"}
+        width={pageWidth >3000 ? "2000px" : "90.5%"}
       >
         <Row>
-          <Col xs={{ span: 24 }} lg={{ span: 10 }}>
+          <Col xs={{ span: 24 }} lg={{ span: 12 }}>
             <CreateProjectMap type="STUDY" setGeom={setGeom} locality={locality} projectid={projectid} isEdit={swSave}></CreateProjectMap>
           </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 14 }}>
+          <Col xs={{ span: 24 }} lg={{ span: 12 }}>
             <div className="head-project">
             <div className='project-title'>
               <label data-value={nameProject} style={{width: '100%'}}>
@@ -486,9 +486,9 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
                   }} />
                   <div className='ico-title'>
                   <Button className={favorite ? "btn-transparent":"btn-transparent" } onClick={()=>{setFavorite(!favorite)}}>
-                    {favorite? <HeartFilled className='heart'/>:<HeartOutlined  />}
+                  {favorite? <HeartFilled className='heart'/>:<HeartOutlined className='ico-heart'/>}
                   </Button>
-                    <img src="/Icons/ic_send.svg" alt="" height="16px"></img>
+                    <img src="/Icons/ic_send_purple.svg" alt="" height="16px"></img>
                   </div>
                 </div>
                 <p className='project-sub-name'>Aurora · Northeast Service Area · Adams County</p>
@@ -497,14 +497,14 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
             <div className='project-type'>
               <Dropdown overlay={menuTypeProjects} trigger={['click']} overlayClassName="drop-menu-type-project" placement="bottomRight" onVisibleChange={()=>{setOpenDropdownTypeProject(!openDropdownTypeProject)}}>
                 <div className="drop-espace">
-                  <a onClick={e => e.preventDefault()} style={{marginLeft:'2%', display:'flex', alignItems:'baseline'}}>
+                  <a onClick={e => e.preventDefault()} style={{marginLeft:'2%', display:'flex', alignItems:'center'}}>
                     {<p>Study</p>} &nbsp;
                     {openDropdownTypeProject ? <UpOutlined style={{color:'#251863',fontSize:'14px'}} /> : < DownOutlined style={{color:'#251863',fontSize:'14px'}} />}
                   </a>
                 </div>
               </Dropdown>
-              <Popover content={content}>
-                <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" />
+              <Popover content={content} className='popover-project' placement="bottomRight">
+                <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px"/>
               </Popover>
             </div>
           </div>
