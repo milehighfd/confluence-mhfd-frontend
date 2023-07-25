@@ -4,7 +4,8 @@ import { useProfileState } from 'hook/profileHook';
 import { AutoComplete, Input } from 'antd';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
-import { YEAR_LOGIC_2024, YEAR_LOGIC_2022, MMFD_LOCALITY, MMFD_LOCALITY_TYPE} from 'constants/constants';
+import { YEAR_LOGIC_2024, YEAR_LOGIC_2022, MMFD_LOCALITY, MMFD_LOCALITY_TYPE, WORK_PLAN_TAB } from 'constants/constants';
+
 const windowWidth: any = window.innerWidth;
 
 const AutoCompleteDropdown = (
@@ -51,12 +52,13 @@ const AutoCompleteDropdown = (
     };
   };
   useEffect(() => {
-    if (year >= YEAR_LOGIC_2024) {
+    if (year >= YEAR_LOGIC_2024 && type === WORK_PLAN_TAB) {
       setLocality(MMFD_LOCALITY);
       setDropdownSelected(MMFD_LOCALITY)
       setLocalityFilter(MMFD_LOCALITY);
       setLocalityType(MMFD_LOCALITY_TYPE);
       setTabKey(tabKeys[0]);
+
     } else {
       if (dropdownSelected) {
         setLocality(dropdownSelected);
@@ -72,13 +74,13 @@ const AutoCompleteDropdown = (
   }, [year]);
 
   useEffect(() => {
-    if (year >= YEAR_LOGIC_2024) {
+    if (year >= YEAR_LOGIC_2024 && type === WORK_PLAN_TAB) {
       updateFilterSelected(dropdownSelected);
     }
     if (filterMap?.project_local_governments?.length > 0) {
       setJurisdictionSelected(filterMap?.project_local_governments?.map((_: any) => true));
     }
-  }, [filterMap, dropdownSelected, year])
+  }, [filterMap, dropdownSelected])
 
   const updateFilterSelected = (value: any) => {
     if (filterMap && value) {
@@ -86,10 +88,10 @@ const AutoCompleteDropdown = (
       setPrioritySelected(priorityFilterList);
       let filterSelected = [false];
       if (value === 'MHFD District Work Plan' || value === MMFD_LOCALITY) {
-        filterMap?.project_service_areas.map((p: any, index: number) => {
+        filterMap?.project_service_areas?.map((p: any, index: number) => {
           filterSelected[index] = true;
         })
-        filterMap?.project_counties.map((p: any, index: number) => {
+        filterMap?.project_counties?.map((p: any, index: number) => {
           filterSelected[index] = true;
         })
         setCountiesSelected(filterSelected);
@@ -132,7 +134,7 @@ const AutoCompleteDropdown = (
     setJurisdictionSelected([]);
     setCountiesSelected([]);
     setServiceAreasSelected([]);
-    if (year < YEAR_LOGIC_2024) {
+    if (year < YEAR_LOGIC_2024 && type !== WORK_PLAN_TAB) {
       setLocality(value);
     } else {
       updateFilterSelected(value);
