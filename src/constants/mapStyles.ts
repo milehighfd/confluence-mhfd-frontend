@@ -65,6 +65,7 @@ import {
   USE_LAND_COVER,
   TEST_LINE,
   EFFECTIVE_REACHES_ENDPOINTS,
+  ROUTINE_MAINTENANCES,
 } from './constants';
 
 export const localComponents = {
@@ -1073,6 +1074,52 @@ export const MEP_PROJECTS_STYLES = {
 };
 
 export const ROUTINE_MAINTENANCE_STYLES = {
+  [ROUTINE_MAINTENANCES]: [
+    {
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'fill-color': 'hsl(283, 68%, 46%)',
+        'fill-outline-color': '#c58b26',
+        // 'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 13, 0, 14, 1, 19, 0, 22, 0],
+        'fill-opacity': 1,
+      },
+    },
+    {
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'line-gap-width': 4,
+        'line-width': 8,
+        'line-blur': 8,
+        'line-color': [
+          'interpolate',
+          ['linear'],
+          ['zoom'],
+          0,
+          'hsla(38, 68%, 46%, 0)',
+          13,
+          'hsla(38, 68%, 46%, 0)',
+          22,
+          'hsl(38, 68%, 46%)',
+        ],
+        // 'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 13, 0, 14, 1, 22, 1],
+        'line-opacity': 1,
+      },
+    },
+    {
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'line-color': 'red',
+        'line-width': 12,
+        'line-opacity': 0,
+      },
+    },
+  ],  
   [ROUTINE_NATURAL_AREAS]: [
     {
       type: 'fill',

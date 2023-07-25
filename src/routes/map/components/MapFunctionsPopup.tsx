@@ -27,6 +27,7 @@ import {
   COMPONENT_LAYERS,
   STREAM_IMPROVEMENT_MEASURE,
   MAPTYPES,
+  ROUTINE_MAINTENANCES,
 } from '../../../constants/constants';
 import * as datasets from '../../../Config/datasets';
 import {
@@ -700,6 +701,32 @@ export const addPopupsOnClick = async (
       };
       menuOptions.push(MENU_OPTIONS.FLOODPLAINS_NON_FEMA);
       popups.push(item);
+      ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
+    }
+    if (feature.source === ROUTINE_MAINTENANCES) {
+      const item = {
+        layer: feature.properties.routine_type,
+        feature: feature.properties.work_item_name ? feature.properties.work_item_name : '-',
+        work_item_description: feature.properties.work_item_description ? feature.properties.work_item_description : '-',
+        contract: feature.properties.contract ? feature.properties.contract : '-',
+        contractor: feature.properties.contractor ? feature.properties.contractor : '-',
+        local_government: feature.properties.local_government ? feature.properties.local_government : '-',
+        frequency: 'NA',
+        acreage: feature.properties.routine_maintenance_area_ac
+          ? numberWithCommas(Math.round(feature.properties.routine_maintenance_area_ac * 100) / 100)
+          : '-',
+        schedule: 'NA',
+        source: feature.source ? feature.source : '-',
+        // project_subtype: feature.properties.project_subtype ? feature.properties.project_subtype : '-',
+      };
+      menuOptions.push(feature.properties.routine_type);
+      popups.push(item);
+      mobile.push({
+        layer: MENU_OPTIONS.ROUTINE_MAINTENANCE,
+        // project_subtype: item.project_subtype,
+        frequency: item.frequency,
+      });
+      mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
       ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
     }
     if (feature.source === ROUTINE_NATURAL_AREAS) {

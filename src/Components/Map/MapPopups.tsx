@@ -247,6 +247,9 @@ export const ComponentPopup = ({ id, item, isComponent, maptype, eventFunctions 
   else if (item.layer.includes('LAND USE LAND COVER')) {
     isComponent = false;
   }
+  else if (item.source.includes('routine_maintenance')) {
+    isComponent = false;
+  }
     return <div id={'popup-' + id} className="map-pop-01">
         <Card hoverable
         >
@@ -264,13 +267,10 @@ export const ComponentPopup = ({ id, item, isComponent, maptype, eventFunctions 
             {item.studyname && !item.layer.includes('LOMC') && !item.layer.includes('Effective') ? <p><i>Study Name:</i>  {item.studyname}</p> : ''}
             {item.jurisdiction ? <p><i>Jurisdiction:</i>  {item.jurisdiction}</p> : ''}
             {item.description ? <p><i>Description:</i>  {item.description}</p> : ''}
-            {item.contract ? <p><i>Contract:</i>  {item.contract}</p> : ''}
-            {item.contractor ? <p><i>Contractor:</i>  {item.contractor}</p> : ''}
             {item.local_gov ? <p><i>Local Government:</i>  {item.local_gov}</p> : ''}
             {item.problem ? <p><i>Problem:</i>  <a href="#" id={"problemdetail"+id} onClick={() => eventFunctions['seeDetails'](item, item)}>{item.problem}</a></p> : ''}
             {item.mow_frequency ? <p><i>Frequency:</i>  {item.mow_frequency}</p> : ''}
             {item.debris_frequency ? <p><i>Frequency:</i>  {item.debris_frequency}</p> : ''}
-            {item.acreage ? <p><i>Acreage:</i>  {item.acreage}</p> : ''}
             {item.length ? <p><i>Length:</i>  {item.length}</p> : ''}
             {item.problem_part_category ? <p><i>Problem Part Category:</i>  {item.problem_part_category}</p> : ''}
             {item.problem_part_subcategory ? <p><i>Problem Part Subcategory:</i>  {item.problem_part_subcategory}</p> : ''}
@@ -279,8 +279,13 @@ export const ComponentPopup = ({ id, item, isComponent, maptype, eventFunctions 
             {item.source_name ? <p><i>Source Name:</i>  {item.source_name}</p> : ''}
             {item.source_complete_year ? <p><i>Source Completion Year:</i>  {item.source_complete_year}</p> : ''}
             {item.stream_name ? <p><i>Stream Name:</i>  {item.stream_name}</p> : ''}
+            {item.work_item_description ? <p><i>Work Item Description:</i>  {item.work_item_description}</p> : ''}
+            {item.contract ? <p><i>Contract:</i>  {item.contract}</p> : ''}
+            {item.contractor ? <p><i>Contractor:</i>  {item.contractor}</p> : ''}
             {item.local_government ? <p><i>Local Government:</i>  {item.local_government}</p> : ''}
-
+            {item.frequency ? <p><i>Frequency:</i>  {item.frequency}</p> : ''}
+            {item.acreage ? <p><i>Acreage:</i>  {item.acreage}</p> : ''}
+            {item.schedule ? <p><i>Schedule:</i>  {item.schedule}</p> : ''}
             {item.hydgrpdcd ? <p><i>Hydrologic Group:</i> {item.hydgrpdcd}</p> : ''}
             {item.muname ? <p><i>Mapunit Name:</i> {item.muname}</p> : ''}
             {item.aws0150wta ? <p><i>Available Water Storage 0-150 cm:</i> {item.aws0150wta}</p> : ''}
@@ -398,12 +403,14 @@ export const ComponentPopupCreate = ({ id, item, isComponent, isWR, eventFunctio
           {item.jurisdiction ? <p><i>Jurisdiction:</i>  {item.jurisdiction}</p> : ''}
           {item.description ? <p><i>Description:</i>  {item.description}</p> : ''}
 
+          {item.work_item_description ? <p><i>Work Item Description:</i>  {item.work_item_description}</p> : ''}
           {item.contract ? <p><i>Contract:</i>  {item.contract}</p> : ''}
           {item.contractor ? <p><i>Contractor:</i>  {item.contractor}</p> : ''}
-          {item.local_gov ? <p><i>Local Government:</i>  {item.local_gov}</p> : ''}
+          {item.local_government ? <p><i>Local Government:</i>  {item.local_government}</p> : ''}
           {item.mow_frequency ? <p><i>Frequency:</i>  {item.mow_frequency}</p> : ''}
           {item.debris_frequency ? <p><i>Frequency:</i>  {item.debris_frequency}</p> : ''}
           {item.acreage ? <p><i>Acreage:</i>  {item.acreage}</p> : ''}
+          {item.schedule ? <p><i>Schedule:</i>  {item.schedule}</p> : ''}
           {item.length ? <p><i>Length:</i>  {item.length}</p> : ''}
           {item.problem ? <p><i>Problem:</i>  {item.problem}</p> : ''}
 

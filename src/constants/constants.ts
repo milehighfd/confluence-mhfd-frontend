@@ -364,14 +364,16 @@ export const ROUTINE_NATURAL_AREAS = 'routine_natural_area';
 export const ROUTINE_WEED_CONTROL = 'routine_weed_control';
 export const ROUTINE_DEBRIS_AREA = 'routine_debris_area';
 export const ROUTINE_DEBRIS_LINEAR = 'routine_debris_linear';
+export const ROUTINE_MAINTENANCES = 'routine_maintenance';
 
 export const ROUTINE_MAINTENANCE = {
   name: 'routine_maintenance',
   tiles: [
-    ROUTINE_DEBRIS_LINEAR,
-    ROUTINE_DEBRIS_AREA,
-    ROUTINE_WEED_CONTROL,
-    ROUTINE_NATURAL_AREAS
+    // ROUTINE_DEBRIS_LINEAR,
+    // ROUTINE_DEBRIS_AREA,
+    // ROUTINE_WEED_CONTROL,
+    // ROUTINE_NATURAL_AREAS
+    ROUTINE_MAINTENANCES
   ]
 };
 
