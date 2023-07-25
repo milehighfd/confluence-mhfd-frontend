@@ -15,8 +15,8 @@ interface DataType {
   age: number;
   address: string;
 }
-export const UploadImagesDocuments = ({isCapital, setFiles }: {
-  isCapital?: any, setFiles: any
+export const UploadImagesDocuments = ({isCapital, setFiles, index }: {
+  isCapital?: any, setFiles: any, index?: any
 }) => {
   const {
     setDeleteAttachmentsIds,
@@ -324,7 +324,7 @@ const mimeToExtension = (mimeType:any) => {
     <div className="upload-sections">
       <div className="upload-documents">
         <div className="sub-title-project sub-title-project-upload">
-          <h5 className="requestor-information">{isCapital?'7':'5'}
+          <h5 className="requestor-information">{index}
             . Upload images <img src="/Icons/icon-19.svg" alt="" height="14px" className="icon-upload"/>
           </h5>
           <div className="group-btn">
@@ -353,7 +353,7 @@ const mimeToExtension = (mimeType:any) => {
       </div>
       <div className="upload-documents">
         <div className="sub-title-project sub-title-project-upload">
-          <h5 className="location">{isCapital?'8':'6'}
+          <h5 className="location">{index+1}
             . Upload documents <img src="/Icons/icon-19.svg" alt="" height="14px" className="icon-upload"/>
           </h5>
           <div className="group-btn">
