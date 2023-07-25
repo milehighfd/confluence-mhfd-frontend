@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Modal, Button, Input, Row, Col, Popover, Select, Collapse, Timeline , Tooltip, Checkbox, Dropdown, Table, Radio,Menu } from 'antd';
 import { DeleteOutlined, DownOutlined, HeartFilled, HeartOutlined, InfoCircleOutlined, PlusCircleFilled, UpOutlined } from '@ant-design/icons';
 import CreateProjectMap from 'Components/CreateProjectMap/CreateProjectMap';
@@ -21,6 +21,7 @@ import { ProposedActions } from '../TypeProjectComponents/ProposedActions';
 import { ProjectGeometry } from '../TypeProjectComponents/ProjectGeometry';
 import FinancialInformation from '../TypeProjectComponents/FinancialInformation';
 import { DropPin } from '../TypeProjectComponents/DropPin';
+import RequestorInformation from '../TypeProjectComponents/RequestorInformation';
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -75,8 +76,29 @@ const genTitleProblem = (problem: any, key:any, setValuesProblem:Function, setVa
     </Row>
   )
 }
-export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, setNameProject, typeProject, setVisible, locality, data, editable, problemId}:
-  {visibleCapital: boolean, setVisibleCapital: Function, nameProject: string , setNameProject: Function, typeProject: string, setVisible: Function, locality?:any, data:any, editable:boolean, problemId?: any}) => {
+export const ModalCapital = ({
+  visibleCapital, 
+  setVisibleCapital, 
+  nameProject, 
+  setNameProject, 
+  typeProject, 
+  setVisible, 
+  locality, 
+  data, 
+  editable, 
+  problemId
+}:{
+  visibleCapital: boolean, 
+  setVisibleCapital: Function, 
+  nameProject: string, 
+  setNameProject: Function, 
+  typeProject: string, 
+  setVisible: Function, 
+  locality?:any, 
+  data:any, 
+  editable:boolean, 
+  problemId?: any
+}) => {
  
   const {
     saveProjectCapital,
@@ -150,8 +172,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [activeTabBodyProject, setActiveTabBodyProject] = useState('Details');
   const [favorite, setFavorite] = useState(false);
   const [groupParsed, setGroupParsed] = useState<any>([]);
-  const [selectedTypeProject, setSelectedTypeProject] = useState('Capital');
-  const [selectedLabelProject, setSelectedLabelProject] = useState('Capital');
+  const [selectedTypeProject, setSelectedTypeProject] = useState(typeProject.toLowerCase()||'capital');
+  const [selectedLabelProject, setSelectedLabelProject] = useState(typeProject||'Capital');
+  const [lastValue, setLastValue] = useState('');
   //maintenance
   const [frequency, setFrequency] = useState('');
   const [eligibility, setEligibility] = useState('');
@@ -238,7 +261,13 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     ]}/>
   )
 };
-  
+
+  // useRef to store last value
+  const currentTypeRef = useRef(selectedTypeProject);
+  useEffect(() => {
+    setLastValue(currentTypeRef.current);
+    currentTypeRef.current = selectedTypeProject;
+  }, [selectedTypeProject]);
 
   //Delete all data when opening
   useEffect(() => {
@@ -893,8 +922,16 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 editable= {editable}
                 isEdit={swSave}
                 isCapital={true}
-                originModal="Capital"
+                originModal={selectedTypeProject}
                 index={indexForm++}
+              />
+              <RequestorInformation
+                index = {indexForm++}
+                sponsor = {sponsor}
+                setSponsor = {setSponsor}
+                cosponsor = {cosponsor}
+                setCoSponsor = {setCosponsor}                
+                originModal={selectedTypeProject}
               />
               {selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Capital.toLowerCase() &&
                 <FinancialInformation

@@ -3,11 +3,6 @@ import { Row, Col, Input, Timeline, Popover, Select } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import {  WINDOW_WIDTH } from 'constants/constants';
 
-interface TimelineItem {
-  label: string;
-  index: number;
-}
-
 interface Props {
   formatter: any;
   getSubTotalCost: any;
@@ -28,7 +23,7 @@ interface Props {
 }
 const { Option } = Select;
 
-const FinancialInformation: React.FC<Props> = ({
+export const FinancialInformation = ({
   formatter,
   getSubTotalCost,
   getOverheadCost,  
@@ -45,7 +40,7 @@ const FinancialInformation: React.FC<Props> = ({
   overheadCosts,
   changeValue,
   index
-}) => {
+}:Props) => {
   const timelineItems = [
     { label: 'Mobilization', index: 1 },
     { label: 'Traffic Control', index: 2 },
