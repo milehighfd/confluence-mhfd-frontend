@@ -268,7 +268,7 @@ const ColumsTrelloCard = ({
                     if (i === 0 && columnIdx === 0 && fixedDragAction[0]) {
                     } else {
                       return (
-                        <Fragment key={p.project_id}>
+                        <Fragment key={p.project_id + '_' + p.board_project_id}>
                           <Draggable key={i} draggableId={`${columnIdx}_${i}`} index={i}>
                             {draggableProvided => (
                               <div
