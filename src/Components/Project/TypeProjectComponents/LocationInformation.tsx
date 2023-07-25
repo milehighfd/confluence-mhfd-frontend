@@ -11,7 +11,7 @@ import store from '../../../store';
 const { Option } = Select;
 export const LocationInformation = ({
   setServiceArea, setCounty, setjurisdiction, serviceArea, county, editable, jUrisdiction, setCoSponsor, setSponsor, cosponsor, sponsor, isEdit, isCapital, originModal,
-  isWorkPlan
+  isWorkPlan, index
 }: {
   setServiceArea: Function,
   setCounty: Function,
@@ -28,7 +28,7 @@ export const LocationInformation = ({
   isCapital?: boolean,
   originModal?: string,
   isWorkPlan?: boolean
-
+  index?: number
 }) => {
   const isMaintenance = originModal === 'Maintenance';
   const isStudy = originModal === 'Study';
@@ -194,7 +194,7 @@ export const LocationInformation = ({
     <>
     <div className="location-information">
       <div className="sub-title-project">
-        <h5 className="location">{isCapital ? '4.' : '3.'} LOCATION <Popover content={contentLocInf}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
+        <h5 className="location">{index}. LOCATION <Popover content={contentLocInf}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
       </div>
       <Row gutter={[16, 16]}>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
@@ -262,7 +262,7 @@ export const LocationInformation = ({
         </Col>
       </Row>
       <div className="sub-title-project">
-        <h5 className="requestor-information">{isCapital ? '5.' : '4.'} REQUESTOR INFORMATION <Popover content={contentLocInf}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
+        <h5 className="requestor-information">{index} REQUESTOR INFORMATION <Popover content={contentLocInf}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
       </div>
       <Row gutter={[16, 16]} style={{marginTop:'10px'}}>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
