@@ -444,10 +444,16 @@
           padding-left: 20px !important;
         }
       }
+      .row-geometry-body:hover{
+        background: #f5f7ff;
+      }
       .row-geometry-title{
         td {
           padding: 11px 4px !important;
         }
+      }
+      .row-geometry-title:hover{
+        background: transparent;
       }
       .ant-pagination{
         display: none;
