@@ -10,6 +10,9 @@ import {
   ROUTINE_WEED_CONTROL,
   ROUTINE_DEBRIS_AREA,
   ROUTINE_DEBRIS_LINEAR,
+  MEP_PROJECTS_DETENTION_BASINS,
+  MEP_PROJECTS_CHANNELS,
+  MEP_PROJECTS_STORM_OUTFALLS,
   NRCS_SOILS,
   DWR_DAM_SAFETY,
   STREAM_MANAGEMENT_CORRIDORS,
@@ -477,16 +480,22 @@ export const addPopupsOnClick = async (
       mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
       ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
     }
-    if (feature.source === 'mep_detentionbasins') {
+    if (feature.source === MEP_PROJECTS_DETENTION_BASINS) {
       const item = {
         layer: MENU_OPTIONS.MEP_DETENTION_BASIN,
-        feature: feature.properties.projectname ? feature.properties.projectname : '-',
-        projectno: feature.properties.projectno ? feature.properties.projectno : '-',
-        mep_eligibilitystatus: feature.properties.mep_eligibilitystatus
-          ? feature.properties.mep_eligibilitystatus
-          : '-',
-        mep_summarynotes: feature.properties.mep_summarynotes ? feature.properties.mep_summarynotes : '-',
-        pondname: feature.properties.pondname ? feature.properties.pondname : '-',
+        feature: feature.properties.mhfd_projectname ? feature.properties.mhfd_projectname : '-',
+        pondname: feature.properties.mhfd_detentionname ? feature.properties.mhfd_detentionname : '-',
+        onbaseId: feature.properties.onbaseid ? feature.properties.onbaseid : '-',
+        mhfd_projectstatus: feature.properties.mhfd_projectstatus ? feature.properties.mhfd_projectstatus : '-',
+        designApprovalDate: feature.properties.mhfd_designapprovaldate ? feature.properties.mhfd_designapprovaldate : '-',
+        constructionApprovalDate: feature.properties.mhfd_constructionapprovaldate ? feature.properties.mhfd_constructionapprovaldate : '-', 
+        finalacceptancedate: feature.properties.mhfd_finalacceptancedate ? feature.properties.mhfd_finalacceptancedate : '-',
+        mhfd_ineligibledate: feature.properties.mhfd_ineligibledate ? feature.properties.mhfd_ineligibledate : '-',
+        // projectno: feature.properties.projectno ? feature.properties.projectno : '-',
+        // mep_eligibilitystatus: feature.properties.mep_eligibilitystatus
+        //   ? feature.properties.mep_eligibilitystatus
+        //   : '-',
+        // mep_summarynotes: feature.properties.mep_summarynotes ? feature.properties.mep_summarynotes : '-',
         mhfd_servicearea: feature.properties.mhfd_servicearea ? feature.properties.mhfd_servicearea : '-',
         mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties),
       };
@@ -495,21 +504,37 @@ export const addPopupsOnClick = async (
       mobile.push({
         layer: item.layer,
         proj_name: item.feature,
-        mep_status: item.mep_eligibilitystatus,
+        // mep_status: item.mep_eligibilitystatus,
       });
       mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
       ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
     }
-    if (feature.source === 'mep_channels') {
+    if (feature.source === MEP_PROJECTS_CHANNELS) {
       const item = {
+
+        // Onbase Project Number: {onbaseid}
+        // MEP Status: {mhfd_projectstatus}
+        // Design Approval Date: {mhfd_designapprovaldate}
+        // Construction Approval Date: {mhfd_constructionapprovaldate}
+        // Final Acceptance Date: {mhfd_finalacceptancedate}
+        // Ineligible Date: {mhfd_ineligibledate}
+        // Service Area: {mhfd_servicearea}
+
         layer: MENU_OPTIONS.MEP_CHANNEL,
-        feature: feature.properties.projectname ? feature.properties.projectname : '-',
-        projectno: feature.properties.projectno ? feature.properties.projectno : '-',
-        mep_eligibilitystatus: feature.properties.mep_eligibilitystatus
-          ? feature.properties.mep_eligibilitystatus
-          : '-',
-        mep_summarynotes: feature.properties.mep_summarynotes ? feature.properties.mep_summarynotes : '-',
-        pondname: feature.properties.pondname ? feature.properties.pondname : '-',
+        feature: feature.properties.mhfd_projectname ? feature.properties.mhfd_projectname : '-',
+        onbaseId: feature.properties.onbaseid ? feature.properties.onbaseid : '-',
+        mhfd_projectstatus: feature.properties.mhfd_projectstatus ? feature.properties.mhfd_projectstatus : '-',
+        designApprovalDate: feature.properties.mhfd_designapprovaldate ? feature.properties.mhfd_designapprovaldate : '-',
+        constructionApprovalDate: feature.properties.mhfd_constructionapprovaldate ? feature.properties.mhfd_constructionapprovaldate : '-', 
+        finalacceptancedate: feature.properties.mhfd_finalacceptancedate ? feature.properties.mhfd_finalacceptancedate : '-',
+        mhfd_ineligibledate: feature.properties.mhfd_ineligibledate ? feature.properties.mhfd_ineligibledate : '-',
+
+        // projectno: feature.properties.projectno ? feature.properties.projectno : '-',
+        // mep_eligibilitystatus: feature.properties.mep_eligibilitystatus
+        //   ? feature.properties.mep_eligibilitystatus
+        //   : '-',
+        // mep_summarynotes: feature.properties.mep_summarynotes ? feature.properties.mep_summarynotes : '-',
+        // pondname: feature.properties.pondname ? feature.properties.pondname : '-',
         mhfd_servicearea: feature.properties.mhfd_servicearea ? feature.properties.mhfd_servicearea : '-',
         mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties),
       };
@@ -518,21 +543,28 @@ export const addPopupsOnClick = async (
       mobile.push({
         layer: item.layer,
         proj_name: item.feature,
-        mep_status: item.mep_eligibilitystatus,
+        // mep_status: item.mep_eligibilitystatus,
       });
       mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
       ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
     }
-    if (feature.source === 'mep_outfalls') {
+    if (feature.source === MEP_PROJECTS_STORM_OUTFALLS) {
       const item = {
         layer: MENU_OPTIONS.MEP_STORM_OUTFALL,
-        feature: feature.properties.projectname ? feature.properties.projectname : '-',
-        projectno: feature.properties.projectno ? feature.properties.projectno : '-',
-        mep_eligibilitystatus: feature.properties.mep_eligibilitystatus
-          ? feature.properties.mep_eligibilitystatus
-          : '-',
-        mep_summarynotes: feature.properties.mep_summarynotes ? feature.properties.mep_summarynotes : '-',
-        pondname: feature.properties.pondname ? feature.properties.pondname : '-',
+        feature: feature.properties.mhfd_projectname ? feature.properties.mhfd_projectname : '-',
+        onbaseId: feature.properties.onbaseid ? feature.properties.onbaseid : '-',
+        mhfd_projectstatus: feature.properties.mhfd_projectstatus ? feature.properties.mhfd_projectstatus : '-',
+        designApprovalDate: feature.properties.mhfd_designapprovaldate ? feature.properties.mhfd_designapprovaldate : '-',
+        constructionApprovalDate: feature.properties.mhfd_constructionapprovaldate ? feature.properties.mhfd_constructionapprovaldate : '-', 
+        finalacceptancedate: feature.properties.mhfd_finalacceptancedate ? feature.properties.mhfd_finalacceptancedate : '-',
+        mhfd_ineligibledate: feature.properties.mhfd_ineligibledate ? feature.properties.mhfd_ineligibledate : '-',
+
+        // projectno: feature.properties.projectno ? feature.properties.projectno : '-',
+        // mep_eligibilitystatus: feature.properties.mep_eligibilitystatus
+        //   ? feature.properties.mep_eligibilitystatus
+        //   : '-',
+        // mep_summarynotes: feature.properties.mep_summarynotes ? feature.properties.mep_summarynotes : '-',
+        // pondname: feature.properties.pondname ? feature.properties.pondname : '-',
         mhfd_servicearea: feature.properties.mhfd_servicearea ? feature.properties.mhfd_servicearea : '-',
         mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties),
       };
@@ -541,7 +573,7 @@ export const addPopupsOnClick = async (
       mobile.push({
         layer: item.layer,
         proj_name: item.feature,
-        mep_status: item.mep_eligibilitystatus,
+        // mep_status: item.mep_eligibilitystatus,
       });
       mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
       ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });

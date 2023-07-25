@@ -306,9 +306,16 @@ export const ComponentPopup = ({ id, item, isComponent, maptype, eventFunctions 
             {item.str_name ? <p><i>Stream Name:</i> {item.str_name}</p> : ''}
             {item.typeLand ? <p><i>Type: </i> {item.typeLand}</p> : ''}
             
-            {item.pondname? <p><i>Pond Name:</i>  {item.pondname}</p> : ''}
+            {item.pondname? <p><i>Pond Name: </i>  {item.pondname}</p> : ''}
+            {item.onbaseId ? <p><i>Onbase Project Number: </i> {item.onbaseId}</p> : ''}
+            {item.mhfd_projectstatus ? <p><i>MEP Status: </i> {item.mhfd_projectstatus}</p> : ''}
+            {item.designApprovalDate ? <p><i>Design Approval Date: </i> {item.designApprovalDate}</p> : ''}
+            {item.constructionApprovalDate ? <p><i>Construction Approval Date: </i> {item.constructionApprovalDate}</p> : ''}
+            {item.finalacceptancedate ? <p><i>Final Acceptance Date: </i> {item.finalacceptancedate}</p> : ''}
+            {item.mhfd_ineligibledate ? <p><i>Ineligible Date: </i> {item.mhfd_ineligibledate}</p> : ''}
             {item.projectno ? <p><i>Project Number:</i>  {item.projectno}</p> : ''}
             {item.mep_eligibilitystatus ? <p><i>MEP Status:</i>  {item.mep_eligibilitystatus}</p> : ''}
+            {item.mhfd_servicearea ? <p><i>Service Area:</i>  {item.mhfd_servicearea}</p> : ''}
             
             {item.area?<p><i>Area:</i> {item.area} Acre</p>:''}
             {(item.perimeterFeet && item.perimeterMi) ?<p><i>Distance:</i> {item.perimeterFeet} Feet ( {item.perimeterMi} Miles)</p>:''}

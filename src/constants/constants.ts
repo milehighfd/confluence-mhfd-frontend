@@ -347,9 +347,9 @@ export const SERVICE_AREA_LAYERS = {
   ]
 };
 export const MEP_PROJECTS_TEMP_LOCATIONS = 'mep_projects_temp_locations';
-export const MEP_PROJECTS_DETENTION_BASINS = 'mep_detentionbasins';
-export const MEP_PROJECTS_CHANNELS = 'mep_channels';
-export const MEP_PROJECTS_STORM_OUTFALLS = 'mep_outfalls';
+export const MEP_PROJECTS_DETENTION_BASINS = 'mep_detentionbasins_1';
+export const MEP_PROJECTS_CHANNELS = 'mep_channels_1';
+export const MEP_PROJECTS_STORM_OUTFALLS = 'mep_outfalls_1';
 
 export const MEP_PROJECTS = {
   name: 'mep_projects',
