@@ -1035,14 +1035,14 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             <div className='project-type'>
               <Dropdown overlay={menuTypeProjects} trigger={['click']} overlayClassName="drop-menu-type-project" placement="bottomRight" onVisibleChange={()=>{setOpenDropdownTypeProject(!openDropdownTypeProject)}}>
                 <div className="drop-espace">
-                  <a onClick={e => e.preventDefault()} style={{marginLeft:'2%', display:'flex', alignItems:'baseline'}}>
+                  <a onClick={e => e.preventDefault()} style={{marginLeft:'2%', display:'flex', alignItems:'center'}}>
                     {<p>Capital</p>} &nbsp;
                     {openDropdownTypeProject ? <UpOutlined style={{color:'#251863',fontSize:'14px'}} /> : < DownOutlined style={{color:'#251863',fontSize:'14px'}} />}
                   </a>
                 </div>
               </Dropdown>
               <Popover content={content}>
-                <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" />
+                <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" style={{opacity:0.4}}/>
               </Popover>
             </div>
           </div>
@@ -1065,7 +1065,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 setDescription = {setDescription}
               />
               <div className="sub-title-project">
-                <h5  className="requestor-information ">2. SELECT PROPOSED  ACTIONS&nbsp;*</h5>
+                <h5  className="requestor-information ">2. PROPOSED  ACTIONS&nbsp;*</h5>
               </div>
 
               <div className={"draw "+(isDrawState?'active':'')} onClick={onClickDraw}>

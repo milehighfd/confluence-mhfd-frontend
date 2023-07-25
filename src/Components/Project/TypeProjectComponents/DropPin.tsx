@@ -94,21 +94,21 @@ export const DropPin = ({typeProject, geom, setGeom, setIsEditingPosition}:
   }, [latitude])
   return(
     <>
-    <h5>
-      2. Drop Pin
-      <span className="requiered">&nbsp;*</span>
-      <Button className="btn-transparent"><img src="/Icons/icon-10.svg" alt="" height="15px" style={{marginBottom: '3px'}}/></Button>
-      {typeProject == 'Special'? <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover>:''}
-    </h5>
+    <div className="sub-title-project">
+        <h5 className="requestor-information "> 2. PROJECT GEOMETRY *</h5>
+    </div>
+    <p className='text-default'>
+      Drop a pin on the map by first clicking on ‘Add Location’.
+    </p>
       <Row gutter={[16, 16]}>
-        <Col xs={{ span: 24 }} lg={{ span: 12 }} xxl={{ span: 12 }}>
-        <Table dataSource={dataSource} columns={columns} bordered />
+        <Col xs={{ span: 24 }} lg={{ span: 16 }} xxl={{ span: 16 }}>
+        <Table dataSource={dataSource} columns={columns} bordered  className="table-project"/>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 12}} xxl={{ span: 12 }}>
-           <Button className="btn-location" onClick={changeLocation}>{isAddLocation?'Remove Location':(latitude != '--' && longitude != '--' ? 'Change Location':'Add Location')}</Button>
+        <Col xs={{ span: 24 }} lg={{ span: 8}} xxl={{ span: 8 }}>
+          <Button className="btn-location" onClick={changeLocation}>{isAddLocation?'Remove Location':(latitude != '--' && longitude != '--' ? 'Change Location':'Add Location')}</Button>
+           {/* <Button className="btn-location" onClick={changeLocation}>{isAddLocation?'Remove Location':(latitude != '--' && longitude != '--' ? 'Change Location':'Add Location')}</Button> */}
         </Col>
       </Row>
-      <br/>
     </>
   );
 }

@@ -305,6 +305,7 @@ export const LocationInformation = ({
             </Select>
           </div>
         </Col>
+        <label className="sub-title-footer" style={{paddingLeft:'10px'}}>This project was submitted by Jon Villines (MHFD) on 2/10/23.</label>
       </Row>
       </div>
     </>

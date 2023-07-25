@@ -41,7 +41,7 @@
           margin-top: -3px;
           img{
             opacity: 0.5;
-            height: 22px;
+            height: 19px;
             margin-left: 10px;
           }
           img:active, img:hover{
@@ -54,7 +54,7 @@
             padding: 0px;
             height: auto;
             color: #b7b4c4 !important;
-            font-size: 24px;
+            font-size: 21px;
           }
         }
       }
@@ -301,6 +301,9 @@
         color: #df3232;
       }
     }
+    .acquisition-progress{
+      margin-top: 10px;
+    }
     .upload-sections{
       .upload-documents{
         .title-upload{
@@ -346,6 +349,10 @@
       img{
         margin: -2px 0px 0px 2px;
       }
+    }
+    .sub-title-footer{
+      font-size: 12px;
+      color: $opacity;
     }
     .icon-cost{
       margin-bottom: 2px;
@@ -839,12 +846,14 @@
 
     // ACQUISITION AND SPECIAL
     .btn-location,.btn-location:hover{
-      border: 1px solid $green;
-      color: $green;
+      border: 1px solid #eae8f0;
+      color: #706b8a;
       height: 30px;
-      // width: 115px;
       font-size: 12px;
       margin-top: 27px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
     }
 
     //DISCUTIOM
