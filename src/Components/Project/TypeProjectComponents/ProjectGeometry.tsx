@@ -8,10 +8,11 @@ interface Props {
   setCounty: any;
   isDrawStateCapital: any;
   onClickDrawCapital: any;
+  index: number;
 }
 const { Option } = Select;
 
-export const ProjectGeometry = ({ county, setCounty, isDrawStateCapital, onClickDrawCapital }: Props) => {
+export const ProjectGeometry = ({ county, setCounty, isDrawStateCapital, onClickDrawCapital, index }: Props) => {
   //table geomeotry
   const dataSourceGeomeotry = [
     {
@@ -117,7 +118,7 @@ export const ProjectGeometry = ({ county, setCounty, isDrawStateCapital, onClick
   return (
     <>
       <div className="sub-title-project">
-        <h5>3. PROJECT GEOMETRY *</h5>
+        <h5>{index}. PROJECT GEOMETRY *</h5>
       </div>
       <p className='text-default'>Projects are spatially defined by stream reaches.  Select the option below that best allows you to define the project.</p>
       <div className='section-gemetry'>
