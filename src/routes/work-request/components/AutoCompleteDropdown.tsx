@@ -52,33 +52,36 @@ const AutoCompleteDropdown = (
     };
   };
   useEffect(() => {
-    if (year >= YEAR_LOGIC_2024 && type === WORK_PLAN_TAB) {
-      setLocality(MMFD_LOCALITY);
-      setDropdownSelected(MMFD_LOCALITY)
-      setLocalityFilter(MMFD_LOCALITY);
-      setLocalityType(MMFD_LOCALITY_TYPE);
-      setTabKey(tabKeys[0]);
-
-    } else {
-      if (dropdownSelected) {
-        setLocality(dropdownSelected);
+    if (type === WORK_PLAN_TAB) {
+      if (year >= YEAR_LOGIC_2024) {
+        setLocality(MMFD_LOCALITY);
+        setDropdownSelected(MMFD_LOCALITY)
+        setLocalityFilter(MMFD_LOCALITY);
+        setLocalityType(MMFD_LOCALITY_TYPE);
+        setTabKey(tabKeys[0]);
+      } else {
+        if (dropdownSelected) {
+          setLocality(dropdownSelected);
+        }
+        if (filterMap && filterMap?.project_counties?.length > 0) {
+          setCountiesSelected(filterMap?.project_counties?.map((_: any) => true));
+        }
+        if (filterMap && filterMap?.project_service_areas?.length > 0) {
+          setServiceAreasSelected(filterMap?.project_service_areas?.map((_: any) => true))
+        }
       }
-      if (filterMap && filterMap?.project_counties?.length > 0) {
-        setCountiesSelected(filterMap?.project_counties?.map((_: any) => true));
-      }
-      if (filterMap && filterMap?.project_service_areas?.length > 0) {
-        setServiceAreasSelected(filterMap?.project_service_areas?.map((_: any) => true))
-      }
+      loadColumns(namespaceId)
     }
-    loadColumns(namespaceId)
   }, [year]);
 
   useEffect(() => {
-    if (year >= YEAR_LOGIC_2024 && type === WORK_PLAN_TAB) {
-      updateFilterSelected(dropdownSelected);
-    }
-    if (filterMap?.project_local_governments?.length > 0) {
-      setJurisdictionSelected(filterMap?.project_local_governments?.map((_: any) => true));
+    if (type === WORK_PLAN_TAB) {
+      if (year >= YEAR_LOGIC_2024) {
+        updateFilterSelected(dropdownSelected);
+      }
+      if (filterMap?.project_local_governments?.length > 0) {
+        setJurisdictionSelected(filterMap?.project_local_governments?.map((_: any) => true));
+      }
     }
   }, [filterMap, dropdownSelected])
 
@@ -134,10 +137,14 @@ const AutoCompleteDropdown = (
     setJurisdictionSelected([]);
     setCountiesSelected([]);
     setServiceAreasSelected([]);
-    if (year < YEAR_LOGIC_2024 && type !== WORK_PLAN_TAB) {
-      setLocality(value);
+    if (type === WORK_PLAN_TAB) {
+      if (year < YEAR_LOGIC_2024) {
+        setLocality(value);
+      } else {
+        updateFilterSelected(value);
+      }
     } else {
-      updateFilterSelected(value);
+      setLocality(value);
     }
     let l = localities.find((p: any) => {
       return p.name === value;
