@@ -17,8 +17,8 @@ const columns = [
   },
 ];
 
-export const DropPin = ({typeProject, geom, setGeom, setIsEditingPosition}:
-  {typeProject: string, geom: any, setGeom: Function, setIsEditingPosition?: any}) => {
+export const DropPin = ({typeProject, geom, setGeom, setIsEditingPosition,index}:
+  {typeProject: string, geom: any, setGeom: Function, setIsEditingPosition?: any,index?:number}) => {
   const content05 = (<div className="popver-info">If the Special Project does not have a physical location (i.e. research study, criteria update, etc.), please drop a pin on the Local Government's City Hall or MHFD Office.</div>);
   const [latitude, setLatitude] = useState('--');
   const [longitude, setLongitude] = useState('--');
@@ -34,7 +34,7 @@ export const DropPin = ({typeProject, geom, setGeom, setIsEditingPosition}:
     },
   ];
   useEffect(()=>{
-    if(geom) {
+    if(geom && geom[0]) {
       setLatitude(geom[0][0]);
       setLongitude(geom[0][1]);
       saveSpecialLocation({geom: {coordinates: [geom[0]]}});
