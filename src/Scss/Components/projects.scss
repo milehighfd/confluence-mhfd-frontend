@@ -23,7 +23,7 @@
     p{
       font-size: 14px;
       margin-bottom: 0px;
-      color: $opacity;
+      color: $purple00;
       margin-top: 0px;
     }
     .project-title{
@@ -536,12 +536,13 @@
       p{
         font-size: 13px;
         margin-bottom: 0px;
+        color: $opacity05;
       }
       .icon-draw{
         margin-bottom: 2px;
         height: 0px;
         width: 0px;
-        background: $purple;
+        background: $opacity05;
         transition: width 2s;
         padding: 9px;
       }
@@ -556,6 +557,9 @@
     .draw:hover, .draw:focus, .draw:active, .draw.active{
       border: 1px dashed $green;
       color: $green;
+      p{
+        color: $green;
+      }
     }
     .draw:hover > .icon-draw, .draw:focus > .icon-draw, .draw:active > .icon-draw, .draw.active > .icon-draw{
       background: $green;
@@ -862,7 +866,7 @@
     }
 
     // ACQUISITION AND SPECIAL
-    .btn-location,.btn-location:hover{
+    .btn-location{
       border: 1px solid #eae8f0;
       color: #706b8a;
       height: 30px;
@@ -871,6 +875,10 @@
       border-radius: 3px;
       display: flex;
       align-items: center;
+    }
+    .btn-location:hover{
+      border:1px solid $green;
+      color: $green;
     }
 
     //DISCUTIOM
@@ -882,7 +890,7 @@
   }
   .switch-option{
     font-size: 10px;
-    color: $opacity;
+    color: $purple00;
     line-height: 24px;
 
     span{
