@@ -247,7 +247,7 @@ export const ComponentPopup = ({ id, item, isComponent, maptype, eventFunctions 
   else if (item.layer.includes('LAND USE LAND COVER')) {
     isComponent = false;
   }
-  else if (item.source.includes('routine_maintenance')) {
+  else if (item.source && item.source.includes('routine_maintenance')) {
     isComponent = false;
   }
     return <div id={'popup-' + id} className="map-pop-01">

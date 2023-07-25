@@ -848,8 +848,8 @@ export const MEP_PROJECTS_STYLES = {
       maxzoom: 13,
       filter: [
         'match',
-        ['get', 'mep_eligibilitystatus'],
-        ['In Design', 'Final Acceptance', 'Design Approval', 'Construction Approval', 'Not Applicable'],
+        ['get', 'mhfd_projectstatus'],
+        ['IN DESIGN', 'FINAL ACCEPTANCE', 'DESIGN APPROVED', 'CONSTRUCTION APPROVED', 'Not Applicable'],
         true,
         false,
       ],
@@ -865,8 +865,8 @@ export const MEP_PROJECTS_STYLES = {
       maxzoom: 13,
       filter: [
         'match',
-        ['get', 'mep_eligibilitystatus'],
-        ['In Design', 'Final Acceptance', 'Design Approval', 'Construction Approval', 'Not Applicable'],
+        ['get', 'mhfd_projectstatus'],
+        ['IN DESIGN', 'FINAL ACCEPTANCE', 'DESIGN APPROVED', 'CONSTRUCTION APPROVED', 'Not Applicable'],
         true,
         false,
       ],
@@ -880,7 +880,7 @@ export const MEP_PROJECTS_STYLES = {
       type: 'line',
       'source-layer': 'pluto15v1',
       maxzoom: 13,
-      filter: ['match', ['get', 'mep_eligibilitystatus'], ['Ineligible'], true, false],
+      filter: ['match', ['get', 'mhfd_projectstatus'], ['INELIGIBLE'], true, false],
       paint: {
         'line-color': '#febf71',
         'line-width': 4,
@@ -891,7 +891,7 @@ export const MEP_PROJECTS_STYLES = {
       type: 'line',
       'source-layer': 'pluto15v1',
       maxzoom: 13,
-      filter: ['match', ['get', 'mep_eligibilitystatus'], ['Ineligible'], true, false],
+      filter: ['match', ['get', 'mhfd_projectstatus'], ['INELIGIBLE'], true, false],
       paint: {
         'line-color': '#febf71',
         'line-width': 2,
@@ -902,7 +902,7 @@ export const MEP_PROJECTS_STYLES = {
       type: 'line',
       'source-layer': 'pluto15v1',
       maxzoom: 13,
-      filter: ['match', ['get', 'mep_eligibilitystatus'], ['Ineligible'], true, false],
+      filter: ['match', ['get', 'mhfd_projectstatus'], ['INELIGIBLE'], true, false],
       paint: {
         'line-color': '#febf71',
         'line-width': 2,
@@ -916,8 +916,8 @@ export const MEP_PROJECTS_STYLES = {
       minzoom: 13,
       filter: [
         'match',
-        ['get', 'mep_eligibilitystatus'],
-        ['In Design', 'Final Acceptance', 'Design Approval', 'Construction Approval', 'Not Applicable'],
+        ['get', 'mhfd_projectstatus'],
+        ['IN DESIGN', 'FINAL ACCEPTANCE', 'DESIGN APPROVED', 'CONSTRUCTION APPROVED', 'Not Applicable'],
         true,
         false,
       ],
@@ -933,8 +933,8 @@ export const MEP_PROJECTS_STYLES = {
       minzoom: 13,
       filter: [
         'match',
-        ['get', 'mep_eligibilitystatus'],
-        ['In Design', 'Final Acceptance', 'Design Approval', 'Construction Approval', 'Not Applicable'],
+        ['get', 'mhfd_projectstatus'],
+        ['IN DESIGN', 'FINAL ACCEPTANCE', 'DESIGN APPROVED', 'CONSTRUCTION APPROVED', 'Not Applicable'],
         true,
         false,
       ],
@@ -950,8 +950,8 @@ export const MEP_PROJECTS_STYLES = {
       minzoom: 13,
       filter: [
         'match',
-        ['get', 'mep_eligibilitystatus'],
-        ['In Design', 'Final Acceptance', 'Design Approval', 'Construction Approval', 'Not Applicable'],
+        ['get', 'mhfd_projectstatus'],
+        ['IN DESIGN', 'FINAL ACCEPTANCE', 'DESIGN APPROVED', 'CONSTRUCTION APPROVED', 'Not Applicable'],
         true,
         false,
       ],
@@ -967,8 +967,8 @@ export const MEP_PROJECTS_STYLES = {
       minzoom: 13,
       filter: [
         'match',
-        ['get', 'mep_eligibilitystatus'],
-        ['In Design', 'Final Acceptance', 'Design Approval', 'Construction Approval', 'Not Applicable'],
+        ['get', 'mhfd_projectstatus'],
+        ['IN DESIGN', 'FINAL ACCEPTANCE', 'DESIGN APPROVED', 'CONSTRUCTION APPROVED', 'Not Applicable'],
         true,
         false,
       ],
@@ -982,7 +982,7 @@ export const MEP_PROJECTS_STYLES = {
       type: 'line',
       'source-layer': 'pluto15v1',
       minzoom: 13,
-      filter: ['match', ['get', 'mep_eligibilitystatus'], ['Ineligible'], true, false],
+      filter: ['match', ['get', 'mhfd_projectstatus'], ['INELIGIBLE'], true, false],
       paint: {
         'line-color': '#febf71',
         'line-width': 12,
@@ -994,7 +994,7 @@ export const MEP_PROJECTS_STYLES = {
       type: 'line',
       'source-layer': 'pluto15v1',
       minzoom: 13,
-      filter: ['match', ['get', 'mep_eligibilitystatus'], ['Ineligible'], true, false],
+      filter: ['match', ['get', 'mhfd_projectstatus'], ['INELIGIBLE'], true, false],
       paint: {
         'line-color': '#613500',
         'line-width': 4,
@@ -1005,7 +1005,7 @@ export const MEP_PROJECTS_STYLES = {
       type: 'line',
       'source-layer': 'pluto15v1',
       minzoom: 13,
-      filter: ['match', ['get', 'mep_eligibilitystatus'], ['Ineligible'], true, false],
+      filter: ['match', ['get', 'mhfd_projectstatus'], ['INELIGIBLE'], true, false],
       paint: {
         'line-color': '#613500',
         'line-width': 4,
@@ -1016,7 +1016,7 @@ export const MEP_PROJECTS_STYLES = {
       type: 'line',
       'source-layer': 'pluto15v1',
       minzoom: 13,
-      filter: ['match', ['get', 'mep_eligibilitystatus'], ['Ineligible'], true, false],
+      filter: ['match', ['get', 'mhfd_projectstatus'], ['INELIGIBLE'], true, false],
       paint: {
         'line-color': '#febf71',
         'line-width': 2,
@@ -1027,7 +1027,7 @@ export const MEP_PROJECTS_STYLES = {
       type: 'line',
       'source-layer': 'pluto15v1',
       minzoom: 13,
-      filter: ['match', ['get', 'mep_eligibilitystatus'], ['Ineligible'], true, false],
+      filter: ['match', ['get', 'mhfd_projectstatus'], ['INELIGIBLE'], true, false],
       paint: {
         'line-color': '#febf71',
         'line-width': 2,
