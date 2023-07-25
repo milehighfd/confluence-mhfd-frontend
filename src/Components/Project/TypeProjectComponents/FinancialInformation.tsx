@@ -24,6 +24,7 @@ interface Props {
   overheadValues: any;
   overheadCosts: any;
   changeValue: any;
+  index: number;
 }
 const { Option } = Select;
 
@@ -42,7 +43,8 @@ const FinancialInformation: React.FC<Props> = ({
   onChangeAdditionalDescription,
   overheadValues,
   overheadCosts,
-  changeValue
+  changeValue,
+  index
 }) => {
   const timelineItems = [
     { label: 'Mobilization', index: 1 },
@@ -83,7 +85,7 @@ const FinancialInformation: React.FC<Props> = ({
   return (
     <div>
       <div className="sub-title-project">
-        <h5 className="requestor-information">6. FINANCIAL INFORMATION </h5>
+        <h5 className="requestor-information">{index}. FINANCIAL INFORMATION </h5>
       </div>
       <Row className="cost-project">
         <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>SUBTOTAL COST</Col>
