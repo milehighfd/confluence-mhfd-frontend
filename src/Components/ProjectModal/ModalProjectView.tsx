@@ -85,21 +85,22 @@ const ModalProjectView = ({
           }
         }
       )
-    if(typeProject === NEW_PROJECT_TYPES.Capital ){
-      setVisibleCapital(true);
-    }
-    if(typeProject === NEW_PROJECT_TYPES.Acquisition ){
-      setVisibleAcquisition(true);
-    }
-    if(typeProject === NEW_PROJECT_TYPES.Maintenance && subType !== '' ){
-      setVisibleMaintenance(true);
-    }
-    if(typeProject ===  NEW_PROJECT_TYPES.Special || typeProject === RandD ){
-      setVisibleSpecial(true);
-    }
-    if(typeProject === NEW_PROJECT_TYPES.Study ){
-      setVisibleStudy(true);
-    }
+    setVisibleCapital(true);
+    // if(typeProject === NEW_PROJECT_TYPES.Capital ){
+    //   setVisibleCapital(true);
+    // }
+    // if(typeProject === NEW_PROJECT_TYPES.Acquisition ){
+    //   setVisibleAcquisition(true);
+    // }
+    // if(typeProject === NEW_PROJECT_TYPES.Maintenance && subType !== '' ){
+    //   setVisibleMaintenance(true);
+    // }
+    // if(typeProject ===  NEW_PROJECT_TYPES.Special || typeProject === RandD ){
+    //   setVisibleSpecial(true);
+    // }
+    // if(typeProject === NEW_PROJECT_TYPES.Study ){
+    //   setVisibleStudy(true);
+    // }
     setDisable(true);
     setVisibleModal(false);
     setVisibleSubType(false);
@@ -215,8 +216,9 @@ const ModalProjectView = ({
       data={data}
       editable= {editable}
       problemId= {problemId}
+      subTypeInit={subType}
      />}
-     {visibleAcquisition && <ModalAcquisition
+     {/* {visibleAcquisition && <ModalAcquisition
       visibleAcquisition = {visibleAcquisition} 
       setVisibleAcquisition = {setVisibleAcquisition}
       nameProject = {nameProject}
@@ -260,7 +262,7 @@ const ModalProjectView = ({
       locality = {locality}
       data={data}
       editable= {editable}
-     />}
+     />} */}
      {visibleModal && <Modal
        title="Create Project"
        centered

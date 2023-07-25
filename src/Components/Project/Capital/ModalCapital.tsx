@@ -86,7 +86,8 @@ export const ModalCapital = ({
   locality, 
   data, 
   editable, 
-  problemId
+  problemId,
+  subTypeInit,
 }:{
   visibleCapital: boolean, 
   setVisibleCapital: Function, 
@@ -97,7 +98,8 @@ export const ModalCapital = ({
   locality?:any, 
   data:any, 
   editable:boolean, 
-  problemId?: any
+  problemId?: any,
+  subTypeInit?: string
 }) => {
  
   const {
@@ -179,7 +181,7 @@ export const ModalCapital = ({
   const [frequency, setFrequency] = useState('');
   const [eligibility, setEligibility] = useState('');
   const [ownership, setOwnership] = useState(true);
-  const [subType, setSubType] = useState('');
+  const [subType, setSubType] = useState(subTypeInit||'');
   //study 
   const [studyreason, setStudyReason] = useState<any>();
   const [otherReason, setOtherReason] = useState('');
