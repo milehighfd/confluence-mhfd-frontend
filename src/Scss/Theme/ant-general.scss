@@ -324,3 +324,45 @@
 .ant-select-arrow {
   align-items: right;
 }
+//movend from map.scss
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  color: rgba(0, 0, 0, .85);
+  font-weight: 600;
+  background-color: #f7f7f9 !important;
+  margin: 3px;
+  border-radius: 5px;
+}
+//movend from map.scss
+.ant-select-dropdown-menu-item-active:not(.ant-select-dropdown-menu-item-disabled),
+.ant-select-dropdown-menu-item:hover:not(.ant-select-dropdown-menu-item-disabled) {
+  background-color: #f3f3f3 !important;
+  white-space: pre-line;
+}
+//movend from map.scss
+.ant-select-item-option {
+  padding: 7.5px 10px 8px 10px;
+  margin: 0px 0px;
+  text-align: left;
+  font-size: 14px;
+  color: #706b8ab8 !important;
+  margin: 3px;
+  border-radius: 5px;
+  font-weight: 400 !important;
+}
+//movend from map.scss
+.ant-select-item-option-active {
+  background: #f7f7f9 !important;
+  color: #1e1748 !important;
+  font-weight: 400 !important;
+  margin: 3px;
+  border-radius: 5px;
+}
+//movend from map.scss
+.ant-input-clear-icon {
+  position: absolute;
+  right: 0px;
+}
+//movend from map.scss
+.ant-popover-placement-bottomLeft .ant-popover-arrow {
+  left: 12px;
+}
