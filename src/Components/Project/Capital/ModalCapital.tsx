@@ -20,6 +20,7 @@ import { Header } from '../TypeProjectComponents/Header';
 import { ProposedActions } from '../TypeProjectComponents/ProposedActions';
 import { ProjectGeometry } from '../TypeProjectComponents/ProjectGeometry';
 import FinancialInformation from '../TypeProjectComponents/FinancialInformation';
+import { DropPin } from '../TypeProjectComponents/DropPin';
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -123,7 +124,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [files, setFiles] = useState<any[]>([]);
   const [groups,setGroups] = useState<any>({});
   const [componentsToSave, setComponentsToSave] = useState([]);
-  const [geom, setGeom] = useState();
+  const [geom, setGeom] = useState<any>();
   const [visibleUnnamedComponent, setVisibleUnnamedComponent] = useState(false)
   const [thisIndependentComponents, setIndependentComponents] = useState<any[]>([]);
   const [overheadValues, setOverheadValues] = useState<any>([0,5,0,0,5,15,5,10,25]);
@@ -156,6 +157,16 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [eligibility, setEligibility] = useState('');
   const [ownership, setOwnership] = useState(true);
   const [subType, setSubType] = useState('');
+  //study 
+  const [studyreason, setStudyReason] = useState<any>();
+  const [otherReason, setOtherReason] = useState('');
+  //acquisition
+  var date = new Date();
+  var year = date.getFullYear();
+  const [progress, setProgress] = useState('');
+  const [purchaseDate, setPurchaseDate] = useState('');
+  const [isEditingPosition,setIsEditingPosition ]= useState(false)
+  //special
 
   const setTypeAndSubType = (type:string, subType:string, label:string) => {
     if(subType !== ''){
@@ -165,6 +176,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     setSelectedTypeProject(type);
     setSelectedLabelProject(label);
   }; 
+  
 
   //list Menu TypeProjects
   const menuTypeProjects = () => {
@@ -184,27 +196,27 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             {
               key: 'Maintenance Restoration',
               label: 'Maintenance Restoration',
-              onClick: () => {setTypeAndSubType('maintenance','','Maintenance Restoration')},
+              onClick: () => {setTypeAndSubType('maintenance','Restoration','Maintenance Restoration')},
             },
             {
               key: 'Routine Trash & Debris',
               label: 'Routine Trash & Debris',
-              onClick: () => {setTypeAndSubType('maintenance','','Routine Trash & Debris')},
+              onClick: () => {setTypeAndSubType('maintenance','Routine Trash and Debris','Routine Trash & Debris')},
             },
             {
               key: 'Sediment Removal',
               label: 'Sediment Removal',
-              onClick: () => {setTypeAndSubType('maintenance','','Sediment Removal')},
+              onClick: () => {setTypeAndSubType('maintenance','Sediment Removal','Sediment Removal')},
             },
             {
               key: 'General Maintenance',
               label: 'General Maintenance',
-              onClick: () => {setTypeAndSubType('maintenance','','General Maintenance')},
+              onClick: () => {setTypeAndSubType('maintenance','Minor Repairs','General Maintenance')},
             },
             {
               key: 'Vegetation Management',
               label: 'Vegetation Management',
-              onClick: () => {setTypeAndSubType('maintenance','','Vegetation Management')},
+              onClick: () => {setTypeAndSubType('maintenance','Vegetation Management','Vegetation Management')},
             },
           ],
         },
@@ -256,25 +268,25 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   }, [userInformation]);
 
   //Load Data if is Edit
-  useEffect(()=>{
+  useEffect(() => {
     setIsEdit(false);
-    if(data !== 'no data' ) {
-      const counties = data.project_counties.map(( e :any ) => e?.CODE_STATE_COUNTY?.county_name);
+    if (data !== 'no data') {
+      const counties = data.project_counties.map((e: any) => e?.CODE_STATE_COUNTY?.county_name);
       const serviceAreas = data.project_service_areas.map((e: any) => e?.CODE_SERVICE_AREA?.service_area_name);
-      const localJurisdiction = data.project_local_governments.map((e:any) => e?.CODE_LOCAL_GOVERNMENT?.local_government_name);
-      const aditionalCostObject = data.project_costs.filter((e:any) => e.code_cost_type_id === 4)[0];
-      const coEsponsor = data.project_partners.map((e:any) => {
+      const localJurisdiction = data.project_local_governments.map((e: any) => e?.CODE_LOCAL_GOVERNMENT?.local_government_name);
+      const aditionalCostObject = data.project_costs.filter((e: any) => e.code_cost_type_id === 4)[0];
+      const coEsponsor = data.project_partners.map((e: any) => {
         if (e.code_partner_type_id === 12) {
           return titleCase(e.business_associate.business_name)
         }
         return undefined;
-      }).filter((e:any)=> !!e);
-      const sponsor = data.project_partners.map((e:any) => {
+      }).filter((e: any) => !!e);
+      const sponsor = data.project_partners.map((e: any) => {
         if (e.code_partner_type_id === 11) {
           return e.business_associate.business_name
         }
         return undefined;
-      }).filter((e:any)=> !!e).join("");
+      }).filter((e: any) => !!e).join("");
       setComponentIntersected(data.project_proposed_actions || []);
       setSwSave(true);
       setIsEdit(true);
@@ -293,25 +305,25 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         setOverheadCosts(parsed);
       }
       setSponsor(titleCase(sponsor));
-      setTimeout(()=>{
+      setTimeout(() => {
         getGEOMByProjectId(data.project_id)
-      },2200);
+      }, 2200);
     } else {
       setStreamIntersected([]);
       setIndComponents([]);
       setIndependentComponents([]);
       setEditLocation(undefined);
     }
-  },[data]);
+  }, [data]);
 
   //Send for Create Data or Edit Data
-  useEffect(()=>{
-    let serviceAreaIds:any=[];
-    let countyIds:any=[];
-    let jurisdictionIds:any=[];
-    const jurisdictionList:any = [];
-    const countyList:any = [];
-    const serviceAreaList:any = [];   
+  useEffect(() => {
+    let serviceAreaIds: any = [];
+    let countyIds: any = [];
+    let jurisdictionIds: any = [];
+    const jurisdictionList: any = [];
+    const countyList: any = [];
+    const serviceAreaList: any = [];
     if (save === true) {
       groupOrganization.forEach((item: any) => {
         if (item.table === 'CODE_LOCAL_GOVERNMENT') {
@@ -334,26 +346,26 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       const _locality = params.get('locality');
       var capital = new Project();
       //general
-      capital.locality = _locality;      
+      capital.locality = _locality;
       capital.year = _year ?? capital.year;
       let csponsor = "";
-      if(cosponsor){
-        cosponsor.forEach((element:any) => {
-          csponsor= csponsor + element + ",";
-        }); 
-        if(cosponsor.length != 0 ){
-          csponsor = csponsor.substring(0, csponsor.length-1)
+      if (cosponsor) {
+        cosponsor.forEach((element: any) => {
+          csponsor = csponsor + element + ",";
+        });
+        if (cosponsor.length != 0) {
+          csponsor = csponsor.substring(0, csponsor.length - 1)
         }
       }
       capital.servicearea = serviceAreaIds;
       capital.county = countyIds;
-      capital.jurisdiction= jurisdictionIds;
+      capital.jurisdiction = jurisdictionIds;
       capital.sponsor = sponsor === 'Select a Sponsor' ? '' : sponsor;
       capital.cosponsor = csponsor;
       capital.projectname = nameProject;
       capital.description = description;
       capital.geom = streamIntersected.geom;
-      capital.files = files ;
+      capital.files = files;
       capital.editProject = editprojectid;
       capital.cover = '';
       capital.sendToWR = sendToWR;
@@ -364,36 +376,36 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       capital.overheadcostdescription = overheadDescription;
       capital.additionalcost = additionalCost;
       capital.additionalcostdescription = additionalDescription;
-      capital.components = componentsToSave? JSON.stringify(componentsToSave, null, 2 ): [];
-      capital.independentComponent = JSON.stringify(thisIndependentComponents, null,2);     
+      capital.components = componentsToSave ? JSON.stringify(componentsToSave, null, 2) : [];
+      capital.independentComponent = JSON.stringify(thisIndependentComponents, null, 2);
       capital.estimatedcost = getTotalCost();
-      capital.componentcost = getSubTotalCost();      
+      capital.componentcost = getSubTotalCost();
       capital.componentcount = (
-        componentsToSave?.length > 0 ? 
-        componentsToSave.length : 0) + 
+        componentsToSave?.length > 0 ?
+          componentsToSave.length : 0) +
         (thisIndependentComponents?.length > 0 ? thisIndependentComponents.length : 0);
       //maintenance
       capital.projectsubtype = subType;
       capital.frequency = frequency === 'None' ? 0 : frequency;
       capital.maintenanceeligibility = eligibility;
       capital.ownership = String(ownership);
-      
-      files.forEach((file:any) => {
-        if(file._id) {
+
+      files.forEach((file: any) => {
+        if (file._id) {
           toggleAttachmentCover(0, file._id, file.isCover);
         }
       });
       removeAttachment(deleteAttachmentsIds);
-      if(swSave){
+      if (swSave) {
         editProjectCapital(capital);
       }
-      else{
+      else {
         saveProjectCapital(capital);
       }
       setVisibleCapital(false);
       setVisible(false);
     }
-  },[save]);
+  }, [save]);
 
   //Check if required fields are filled to enable save button
   useEffect(()=>{
@@ -524,11 +536,13 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   useEffect(()=>{
     changeDrawStateCapital(isDrawStateCapital);
   },[isDrawStateCapital]);
+
   useEffect(()=>{
     if(isDrawStateCapital && !isDrawCapital){
       setIsDrawCapital(isDrawCapital);
     }
   },[isDrawCapital]);
+
   useEffect(()=>{
     if(thisIndependentComponents.length > 0 ){
       setVisibleUnnamedComponent(true);
@@ -536,6 +550,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setVisibleUnnamedComponent(false);
     }
   },[thisIndependentComponents]);
+
   useEffect(()=>{
     if((((listComponents && listComponents.groups && listComponents.result.length > 0)) || thisIndependentComponents.length > 0) && !flagInit) {
       flagInit = true;
@@ -608,8 +623,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     let newoverhead = [...overheadValues];
     newoverhead[index] = parseInt(e);
     setOverheadValues(newoverhead);
-
   }
+
   const getSubTotalCost = () => {
     let subtotalcost = 0;
     if(listComponents && listComponents.result) {
@@ -625,10 +640,12 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     }
     return subtotalcost;
   }
+
   const getOverheadCost = () => {
     let overheadcost = overheadCosts.reduce((a:any, b:any) => a + b, 0);
     return overheadcost;
   }
+
   const changeValueIndComp = (value:any, key:any, indComp:any) => {
     let currentComponents = [...thisIndependentComponents];
     for(let ic of currentComponents) {
@@ -672,28 +689,11 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     }
     return total;
   }
+
   const getTotalCost = () =>{
     let n = getSubTotalCost() + additionalCost + getOverheadCost();
     return(n);
   }
-  const setValuesComp = (comp: any) => {
-    if(comp.source_table_name === "stream_improvement_measure"){
-      comp.source_table_name = 'stream_improvement_measure_copy'
-      comp.table = 'stream_improvement_measure_copy'
-    }
-    setHighlightedComponent(comp);
-  }
-  const setValueZoomComp = (comp: any) => {
-    if(comp.table && comp.objectid) {
-      getZoomGeomComp(comp.table, comp.objectid);
-    }
-  }
-  const setValuesProblem = (problemid:any, problemname:any) => {
-    setHighlightedProblem(problemid);
-  }
-  const setValueZoomProb = (problemid: any) => {
-    getZoomGeomProblem(problemid);
-  }  
     
   const getTextWidth = (text: any) => {
     const canvas = document.createElement('canvas');
@@ -762,7 +762,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     setOwnership(e);
   };
 
-  return (
+  let indexForm = 1;
+
+    return (
     <>
     {visibleAlert && <AlertView
       isWorkPlan={isWorkPlan}
@@ -789,7 +791,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
      >
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-          <CreateProjectMap type="CAPITAL" locality={locality} projectid={projectid} isEdit={swSave} problemId={problemId}></CreateProjectMap>
+          <CreateProjectMap type={selectedTypeProject.toUpperCase()} locality={locality} projectid={projectid} isEdit={swSave} problemId={problemId}></CreateProjectMap>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
           <Header
@@ -827,29 +829,56 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 applyEligibility={applyEligibility}
                 ownership={ownership}
                 applyOwnership={applyOwnership}
+                reason={studyreason}
+                setReason={setStudyReason}
+                otherReason={otherReason}
+                setOtherReason={setOtherReason}
+                progress={progress}
+                setProgress={setProgress}
+                purchaseDate={purchaseDate}
+                setPurchaseDate={setPurchaseDate}
+                year={year}
+                index= {indexForm++}
               />
               <br/>
               {selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Capital.toLowerCase() && 
-              <ProposedActions
-                keys={keys}
-                groups={groups}
-                removeIndComponent={removeIndComponent}
-                removeComponent={removeComponent}
-                thisIndependentComponents={thisIndependentComponents}
-                setThisIndependentComponents={setIndependentComponents}
-                visibleUnnamedComponent={visibleUnnamedComponent}
-                isDrawState={isDrawState}
-                onClickDraw={onClickDraw}
-                applyIndependentComponent={applyIndependentComponent}
-                contentIndComp={contentIndComp}
-                changeValueIndComp={changeValueIndComp}
-              />}
+                <ProposedActions
+                  keys={keys}
+                  groups={groups}
+                  removeIndComponent={removeIndComponent}
+                  removeComponent={removeComponent}
+                  thisIndependentComponents={thisIndependentComponents}
+                  setThisIndependentComponents={setIndependentComponents}
+                  visibleUnnamedComponent={visibleUnnamedComponent}
+                  isDrawState={isDrawState}
+                  onClickDraw={onClickDraw}
+                  applyIndependentComponent={applyIndependentComponent}
+                  contentIndComp={contentIndComp}
+                  changeValueIndComp={changeValueIndComp}
+                  index={indexForm++}
+                />
+              }
+              {(selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Capital.toLowerCase()||
+              selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Maintenance.toLowerCase()||
+              selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Study.toLowerCase()) && 
               <ProjectGeometry
                 county={county}
                 setCounty={setCounty}
                 isDrawStateCapital={isDrawStateCapital}
                 onClickDrawCapital={onClickDrawCapital}
-              />             
+                index={indexForm++}
+              />
+              }
+              {(selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Acquisition.toLowerCase()||
+                selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Special.toLowerCase()) &&
+                <DropPin
+                  typeProject={typeProject}
+                  geom={geom}
+                  setGeom={setGeom}
+                  setIsEditingPosition={setIsEditingPosition}
+                  index={indexForm++}
+                />
+              }
               <LocationInformation
                 setServiceArea = {setServiceArea}
                 serviceArea = {serviceArea}
@@ -865,27 +894,32 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 isEdit={swSave}
                 isCapital={true}
                 originModal="Capital"
+                index={indexForm++}
               />
-              <FinancialInformation
-                formatter={formatter}
-                getSubTotalCost={getSubTotalCost}
-                getOverheadCost={getOverheadCost}
-                onChangeOverheadDescription={onChangeOverheadDescription}
-                overheadDescription={overheadDescription}
-                onChangeAdditionalCost={onChangeAdditionalCost}
-                additionalCost={additionalCost}
-                additionalDescription={additionalDescription}
-                contentOverheadCost={contentOverheadCost}
-                contentAdditionalCost={contentAdditionalCost}
-                getTotalCost={getTotalCost}
-                onChangeAdditionalDescription={onChangeAdditionalDescription}
-                overheadValues={overheadValues}
-                overheadCosts={overheadCosts}
-                changeValue={changeValue}
-              />              
+              {selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Capital.toLowerCase() &&
+                <FinancialInformation
+                  formatter={formatter}
+                  getSubTotalCost={getSubTotalCost}
+                  getOverheadCost={getOverheadCost}
+                  onChangeOverheadDescription={onChangeOverheadDescription}
+                  overheadDescription={overheadDescription}
+                  onChangeAdditionalCost={onChangeAdditionalCost}
+                  additionalCost={additionalCost}
+                  additionalDescription={additionalDescription}
+                  contentOverheadCost={contentOverheadCost}
+                  contentAdditionalCost={contentAdditionalCost}
+                  getTotalCost={getTotalCost}
+                  onChangeAdditionalDescription={onChangeAdditionalDescription}
+                  overheadValues={overheadValues}
+                  overheadCosts={overheadCosts}
+                  changeValue={changeValue}
+                  index={indexForm++}
+                />
+              }                        
               <UploadImagesDocuments
                 isCapital={true}
                 setFiles={setFiles}
+                index={indexForm++}
               />
             </div>
           :<>
