@@ -86,7 +86,6 @@ const RequestView = ({ type, isFirstRendering }: {
   const { saveBoardProjecttype } = useProfileDispatch();
   const users = useMyUser();
   const fakeLoading = useFakeLoadingHook(tabKey);
-
   const resetOnClose = () => {
     setStreamIntersected([]);
     setComponentIntersected([]);
@@ -269,27 +268,34 @@ const RequestView = ({ type, isFirstRendering }: {
     let parent = element.parentElement;
     parent.scroll(parent.scrollWidth, 0);
   }
-
+  
   let displayedTabKey = tabKeys;
-  if (type === "WORK_PLAN") {
-    if (year < 2022) {
-      if (localityType === 'CODE_STATE_COUNTY') {
-        displayedTabKey = ['Capital', 'Maintenance']
-      } else if (localityType === 'CODE_SERVICE_AREA') {
-        displayedTabKey = ['Study', 'Acquisition', 'R&D'];
+
+  useEffect(() => {
+    loadTabkeysDisplayed();
+  }, [localityType]);
+
+  const loadTabkeysDisplayed = () => {
+    if (type === "WORK_PLAN") {
+      if (year < 2022) {
+        if (localityType === 'CODE_STATE_COUNTY') {
+          displayedTabKey = ['Capital', 'Maintenance']
+        } else if (localityType === 'CODE_SERVICE_AREA') {
+          displayedTabKey = ['Study', 'Acquisition', 'R&D'];
+        }
+      } else {
+        if (localityType === 'CODE_STATE_COUNTY') {
+          displayedTabKey = ['Capital', 'Maintenance', 'Acquisition', 'R&D']
+        } else if (localityType === 'CODE_SERVICE_AREA') {
+          displayedTabKey = ['Study'];
+        }
       }
-    } else {
-      if (localityType === 'CODE_STATE_COUNTY') {
-        displayedTabKey = ['Capital', 'Maintenance', 'Acquisition', 'R&D']
-      } else if (localityType === 'CODE_SERVICE_AREA') {
-        displayedTabKey = ['Study'];
+      if (locality.name === 'MHFD District Work Plan' || locality.name === 'Mile High Flood District') {
+        displayedTabKey = tabKeys;
       }
-    }
-    if (locality.name === 'MHFD District Work Plan' || locality.name === 'Mile High Flood District') {
-      displayedTabKey = tabKeys;
     }
   }
-
+  loadTabkeysDisplayed();
   return (
     <Layout className="work">
       {(fakeLoading) && <LoadingViewOverall />}

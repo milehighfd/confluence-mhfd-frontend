@@ -1417,3 +1417,8 @@ export const notComponentOptions: any[] = [
 export const MAP_TAB = 'MAP';
 export const WORK_REQUEST_TAB = 'WORK_REQUEST';
 export const WORK_PLAN_TAB = 'WORK_PLAN';
+
+export const YEAR_LOGIC_2024 = 2024;
+export const YEAR_LOGIC_2022 = 2022;
+export const MMFD_LOCALITY = 'Mile High Flood District'
+export const MMFD_LOCALITY_TYPE = 'MHFD_BOUNDARY'

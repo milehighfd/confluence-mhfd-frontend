@@ -4,7 +4,7 @@ import { useProfileState } from 'hook/profileHook';
 import { AutoComplete, Input } from 'antd';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
-
+import { YEAR_LOGIC_2024, YEAR_LOGIC_2022, MMFD_LOCALITY, MMFD_LOCALITY_TYPE} from 'constants/constants';
 const windowWidth: any = window.innerWidth;
 
 const AutoCompleteDropdown = (
@@ -51,10 +51,12 @@ const AutoCompleteDropdown = (
     };
   };
   useEffect(() => {
-    if (year >= 2024) {
-      setLocality('Mile High Flood District');
-      setDropdownSelected('Mile High Flood District')
-      setLocalityFilter('Mile High Flood District');
+    if (year >= YEAR_LOGIC_2024) {
+      setLocality(MMFD_LOCALITY);
+      setDropdownSelected(MMFD_LOCALITY)
+      setLocalityFilter(MMFD_LOCALITY);
+      setLocalityType(MMFD_LOCALITY_TYPE);
+      setTabKey(tabKeys[0]);
     } else {
       if (dropdownSelected) {
         setLocality(dropdownSelected);
@@ -70,20 +72,20 @@ const AutoCompleteDropdown = (
   }, [year]);
 
   useEffect(() => {
-    if (year >= 2024) {
+    if (year >= YEAR_LOGIC_2024) {
       updateFilterSelected(dropdownSelected);
     }
     if (filterMap?.project_local_governments?.length > 0) {
       setJurisdictionSelected(filterMap?.project_local_governments?.map((_: any) => true));
     }
-  }, [filterMap, dropdownSelected])
+  }, [filterMap, dropdownSelected, year])
 
   const updateFilterSelected = (value: any) => {
     if (filterMap && value) {
       const priorityFilterList = [true, true, true, true, true];
       setPrioritySelected(priorityFilterList);
       let filterSelected = [false];
-      if (value === 'MHFD District Work Plan' || value === 'Mile High Flood District') {
+      if (value === 'MHFD District Work Plan' || value === MMFD_LOCALITY) {
         filterMap?.project_service_areas.map((p: any, index: number) => {
           filterSelected[index] = true;
         })
@@ -130,7 +132,7 @@ const AutoCompleteDropdown = (
     setJurisdictionSelected([]);
     setCountiesSelected([]);
     setServiceAreasSelected([]);
-    if (year < 2024) {
+    if (year < YEAR_LOGIC_2024) {
       setLocality(value);
     } else {
       updateFilterSelected(value);
@@ -143,7 +145,7 @@ const AutoCompleteDropdown = (
       setLocalityType(l.table);
       if (type === 'WORK_PLAN') {
         let displayedTabKey: string[] = [];
-        if (year < 2022) {
+        if (year < YEAR_LOGIC_2022) {
           if (l.table === 'CODE_STATE_COUNTY') {
             displayedTabKey = ['Capital', 'Maintenance']
           } else if (l.table === 'CODE_SERVICE_AREA') {
