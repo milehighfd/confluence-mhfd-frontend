@@ -15,6 +15,7 @@ interface ProposedActionsProps {
   applyIndependentComponent: any;
   contentIndComp: any;
   changeValueIndComp: any;
+  index: number;
 }
 
 export const ProposedActions = (props: ProposedActionsProps) => {
@@ -29,7 +30,8 @@ export const ProposedActions = (props: ProposedActionsProps) => {
     onClickDraw,
     applyIndependentComponent,
     contentIndComp,
-    changeValueIndComp
+    changeValueIndComp,
+    index
   } = props;
 
   const [groupParsed, setGroupParsed] = useState<any[]>([]);
@@ -118,7 +120,6 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       }
     },
   ];
-  console.log('thisIndependentComponents', thisIndependentComponents)
   const columnsIndependent  = [
     {
       title: 'Independent Actions',
@@ -196,7 +197,7 @@ export const ProposedActions = (props: ProposedActionsProps) => {
   return (
     <>
       <div className="sub-title-project">
-        <h5>2. SELECT PROPOSED ACTIONS&nbsp;*</h5>
+        <h5>{index}. SELECT PROPOSED ACTIONS&nbsp;*</h5>
       </div>
       <div className={"draw " + (isDrawState ? 'active' : '')} onClick={onClickDraw}>
         <img src="" className="icon-draw active" style={{ WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat' }} />
