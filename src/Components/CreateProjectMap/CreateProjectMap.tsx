@@ -231,7 +231,7 @@ const CreateProjectMap = (type: any) => {
         }
       }
     };
-    map = undefined;
+    // map = undefined;
     waiting();
     EventService.setRef('click', eventClick);
     EventService.setRef('move', eventMove);
@@ -250,7 +250,7 @@ const CreateProjectMap = (type: any) => {
       },
     );
     return () => {
-      setStreamIntersected([]);
+      // setStreamIntersected([]);
       setStreamsIds([]);
       setComponentIntersected([]);
       setComponentGeom(undefined);
@@ -468,8 +468,8 @@ const CreateProjectMap = (type: any) => {
 
       componentsList = listComponents.result;
     } else {
-      setStreamIntersected({ geom: null });
-      setStreamsIds([]);
+      // setStreamIntersected({ geom: null }); // TODO entender porque se borraba la intersection cuando no habia listcompoennts
+      // setStreamsIds([]);
       if (!flagInit) {
         setLoading(false);
       }
@@ -483,6 +483,7 @@ const CreateProjectMap = (type: any) => {
   }, [componentsHover, flagtoDraw]);
 
   useEffect(() => {
+    console.log('is Add location', isAddLocation);
     if (isAddLocation) {
       isPopup = false;
       let eventToMove = EventService.getRef('move');
@@ -495,6 +496,7 @@ const CreateProjectMap = (type: any) => {
       map.map.off('mousemove', eventToMove);
       let eventToAddMarker = EventService.getRef('addmarker');
       map.map.off('click', eventToAddMarker);
+      console.log('IN theory should remove event ');
       isPopup = true;
       map.removePopUpOffset();
       marker.remove();
@@ -583,6 +585,7 @@ const CreateProjectMap = (type: any) => {
     }
   };
   useEffect(() => {
+    console.log('STream intersected', streamIntersected);
     let geom: any = undefined;
     let thisStreamIntersected = streamIntersected;
     let drawStream = true;
@@ -1556,13 +1559,13 @@ const CreateProjectMap = (type: any) => {
         popup,
         map.map,
         showPopup,
-        () => { },
-        () => { },
-        () => { },
+        () => {},
+        () => {},
+        () => {},
         e,
         ids,
         addRemoveComponent,
-        () => { },
+        () => {},
         false,
         getComponentsFromProjProb,
       );
@@ -1660,27 +1663,30 @@ const CreateProjectMap = (type: any) => {
           centered
           visible={showIntersectionError}
           onCancel={() => setShowIntersectionError(false)}
-         
         >
           <div className="detailed">
             <Row className="detailed-h" gutter={[16, 8]}>
               <Col xs={{ span: 44 }} lg={{ span: 20 }}>
-                <h1  style={{marginTop: '15px'}}>Geometry Error</h1>
+                <h1 style={{ marginTop: '15px' }}>Geometry Error</h1>
               </Col>
-              <Col xs={{ span: 4 }} lg={{ span: 4 }} style={{textAlign: 'end'}}>
+              <Col xs={{ span: 4 }} lg={{ span: 4 }} style={{ textAlign: 'end' }}>
                 <Button className="btn-transparent" onClick={() => setShowIntersectionError(false)}>
                   <img src="/Icons/icon-62.svg" alt="" height="15px" />
                 </Button>
               </Col>
             </Row>
-            <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
-              <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
+            <Row className="detailed-h" gutter={[16, 8]} style={{ backgroundColor: 'white' }}>
+              <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{ color: '#11093c' }}>
                 Please draw your project geometry over the nearest blue stream line in order to proceed. You may
                 describe the actual location of your project in the 'Project Information' section if a blue stream line
                 does not exist in your project area.
               </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 12, offset: 12 }} style={{color: '#11093c', textAlign:'end'}}>
-                <button className="btn-purple" style={{width: '95%', height:'auto', padding: '10px'}} onClick={() => setShowIntersectionError(false)}>
+              <Col xs={{ span: 24 }} lg={{ span: 12, offset: 12 }} style={{ color: '#11093c', textAlign: 'end' }}>
+                <button
+                  className="btn-purple"
+                  style={{ width: '95%', height: 'auto', padding: '10px' }}
+                  onClick={() => setShowIntersectionError(false)}
+                >
                   Review your geometry
                 </button>
               </Col>
@@ -1691,44 +1697,44 @@ const CreateProjectMap = (type: any) => {
       <div className="map">
         {isProblemActive === true ? (
           <div className="legendProblemTypemap">
-          <h5>
-            Problem Type
-            <Popover
-              content={
-                <div className="popoveer-00">
-                  <p className='dark-text'>Problem Types</p>
-                  <p>
-                    <span className='dark-text'>Flood Hazard </span> Problems related to existing flood or
-                    fluvial hazard to life and property.
-                  </p>
-                  <p>
-                    <span className='dark-text'>Stream Condition </span> Problems related to the physical,
-                    environmental, and social function or condition of the stream in an urban context.
-                  </p>
-                  <p>
-                    <span className='dark-text'>Watershed Change </span> Problems related to flood waters that
-                    may pose safety or functional concerns related to people, property, and the environment due to
-                    changing watershed conditions (land use, topography, regional detention, etc).
-                  </p>
-                </div>
-              }
-            >
-              <InfoCircleOutlined className='iconinfocircle' />
-            </Popover>{' '}
-          </h5>
-          <div className="legendprob">
-            <div className="iconfloodhazard" />
-            Flood Hazard
+            <h5>
+              Problem Type
+              <Popover
+                content={
+                  <div className="popoveer-00">
+                    <p className="dark-text">Problem Types</p>
+                    <p>
+                      <span className="dark-text">Flood Hazard </span> Problems related to existing flood or fluvial
+                      hazard to life and property.
+                    </p>
+                    <p>
+                      <span className="dark-text">Stream Condition </span> Problems related to the physical,
+                      environmental, and social function or condition of the stream in an urban context.
+                    </p>
+                    <p>
+                      <span className="dark-text">Watershed Change </span> Problems related to flood waters that may
+                      pose safety or functional concerns related to people, property, and the environment due to
+                      changing watershed conditions (land use, topography, regional detention, etc).
+                    </p>
+                  </div>
+                }
+              >
+                <InfoCircleOutlined className="iconinfocircle" />
+              </Popover>{' '}
+            </h5>
+            <div className="legendprob">
+              <div className="iconfloodhazard" />
+              Flood Hazard
+            </div>
+            <div className="legendprob">
+              <div className="iconwatershed" />
+              Watershed Change
+            </div>
+            <div className="legendprob">
+              <div className="iconstreamfunction" />
+              Stream Condition
+            </div>
           </div>
-          <div className="legendprob">
-            <div className="iconwatershed" />
-            Watershed Change
-          </div>
-          <div className="legendprob">
-            <div className="iconstreamfunction" />
-            Stream Condition
-          </div>
-        </div>
         ) : (
           ''
         )}
@@ -1742,7 +1748,7 @@ const CreateProjectMap = (type: any) => {
           />
           <AutoComplete
             dropdownMatchSelectWidth={true}
-            className='autocomplete-mhead'            
+            className="autocomplete-mhead"
             options={mapSearch.length > 0 ? [...mapSearch.map(renderOption), {}] : mapSearch.map(renderOption)}
             onSelect={onSelect}
             onSearch={handleSearch}
