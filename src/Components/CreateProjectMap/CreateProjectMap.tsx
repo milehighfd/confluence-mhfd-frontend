@@ -251,7 +251,10 @@ const CreateProjectMap = (type: any) => {
       },
     );
     console.log('Type ', type);
-    if((type.type === 'STUDY' && type.projectid === -1) || ((type.type === 'CAPITAL' || type.type === 'MAINTENANCE') && (type.lastValue !== 'capital' || type.lastValue !== 'maintenance') )){
+    if((type.type === 'STUDY' && type.projectid === -1) 
+    || ((type.type !== 'CAPITAL' && type.type !== 'MAINTENANCE') && (type.lastValue === 'capital' || type.lastValue === 'maintenance'))
+    || (type.type !== 'STUDY' && type.lastValue === 'study')
+     ){
       setStreamIntersected([])
     }
     return () => {
