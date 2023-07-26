@@ -475,8 +475,7 @@ export const ModalCapital = ({
       capital.sponsor = sponsor === 'Select a Sponsor' ? '' : sponsor;
       capital.cosponsor = csponsor;
       capital.projectname = nameProject;
-      capital.description = description;
-      capital.geom = streamIntersected.geom;
+      capital.description = description;      
       capital.files = files;
       capital.editProject = editprojectid;
       capital.cover = '';
@@ -484,31 +483,44 @@ export const ModalCapital = ({
       capital.isWorkPlan = isWorkPlan;
       capital.type = selectedTypeProject;
       //capital
-      capital.overheadcost = overheadCosts;
-      capital.overheadcostdescription = overheadDescription;
-      capital.additionalcost = additionalCost;
-      capital.additionalcostdescription = additionalDescription;
-      capital.components = componentsToSave ? JSON.stringify(componentsToSave, null, 2) : [];
-      capital.independentComponent = JSON.stringify(thisIndependentComponents, null, 2);
-      capital.estimatedcost = getTotalCost();
-      capital.componentcost = getSubTotalCost();
-      capital.componentcount = (
-        componentsToSave?.length > 0 ?
-          componentsToSave.length : 0) +
-        (thisIndependentComponents?.length > 0 ? thisIndependentComponents.length : 0);
+      if (selectedTypeProject === 'capital') {
+        capital.geom = streamIntersected.geom;
+        capital.overheadcost = overheadCosts;
+        capital.overheadcostdescription = overheadDescription;
+        capital.additionalcost = additionalCost;
+        capital.additionalcostdescription = additionalDescription;
+        capital.components = componentsToSave ? JSON.stringify(componentsToSave, null, 2) : [];
+        capital.independentComponent = JSON.stringify(thisIndependentComponents, null, 2);
+        capital.estimatedcost = getTotalCost();
+        capital.componentcost = getSubTotalCost();
+        capital.componentcount = (
+          componentsToSave?.length > 0 ?
+            componentsToSave.length : 0) +
+          (thisIndependentComponents?.length > 0 ? thisIndependentComponents.length : 0);
+      }     
       //maintenance
-      capital.projectsubtype = subType;
-      capital.frequency = frequency === 'None' ? 0 : frequency;
-      capital.maintenanceeligibility = eligibility;
-      capital.ownership = String(ownership);
+      if (selectedTypeProject === 'maintenance') {
+        capital.geom = streamIntersected.geom;
+        capital.projectsubtype = subType;
+        capital.frequency = frequency === 'None' ? 0 : frequency;
+        capital.maintenanceeligibility = eligibility;
+        capital.ownership = String(ownership);
+      }      
       //study
-      capital.studyreason = studyreason;
-      capital.otherReason = otherReason;
+      if (selectedTypeProject === 'study') {
+        capital.studyreason = studyreason;
+        capital.otherReason = otherReason;
+      }
       //acquisition
-      capital.acquisitionprogress = progress;
-      capital.acquisitionanticipateddate = purchaseDate;
-
-
+      if (selectedTypeProject === 'acquisition') {
+        capital.geom = geom;
+        capital.acquisitionprogress = progress;
+        capital.acquisitionanticipateddate = purchaseDate;
+      }
+      //special
+      if (selectedTypeProject === 'special') {
+        capital.geom = geom;
+      }
       files.forEach((file: any) => {
         if (file._id) {
           toggleAttachmentCover(0, file._id, file.isCover);
@@ -902,7 +914,7 @@ export const ModalCapital = ({
       setjurisdiction([])
     }
   },[isEditingPosition])
-  console.log(selectedTypeProject)
+  
   let indexForm = 1;
 
     return (
