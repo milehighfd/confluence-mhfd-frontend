@@ -360,10 +360,11 @@ const showPopup = (index: any, size: number, id: any, event: any) => {
     }
 }, []);
   return (
-    <div
+    <div className='map-view-detail'>
+    <div 
       id="map3"
-      style={{height:'100%', width:'100%', borderRadius:'15px', paddingBottom:'10px'}}
     />
+    </div>
   )
 }
 
