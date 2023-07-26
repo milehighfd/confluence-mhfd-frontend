@@ -11,9 +11,20 @@ interface HeaderProps {
   menuTypeProjects: any;
   locationData: any;
   selectedType: any;
+  isEdit: boolean;
 }
 
-export const Header = ({ nameProject, onChange, favorite, setFavorite, content, menuTypeProjects, locationData, selectedType }: HeaderProps) => {
+export const Header = ({ 
+  nameProject, 
+  onChange, 
+  favorite, 
+  setFavorite, 
+  content, 
+  menuTypeProjects, 
+  locationData, 
+  selectedType,
+  isEdit 
+  }: HeaderProps) => {
   const [openDropdownTypeProject, setOpenDropdownTypeProject] = useState(false);
   const lengthName = nameProject.length;
 
@@ -36,14 +47,14 @@ export const Header = ({ nameProject, onChange, favorite, setFavorite, content, 
         </label>
       </div>
       <div className='project-type'>
-        <Dropdown overlay={menuTypeProjects} trigger={['click']} overlayClassName="drop-menu-type-project" placement="bottomRight" onVisibleChange={() => { setOpenDropdownTypeProject(!openDropdownTypeProject) }}>
+        {isEdit?<p>{selectedType}</p>:<Dropdown overlay={menuTypeProjects} trigger={['click']} overlayClassName="drop-menu-type-project" placement="bottomRight" onVisibleChange={() => { setOpenDropdownTypeProject(!openDropdownTypeProject) }}>
           <div className="drop-espace">
             <a onClick={e => e.preventDefault()} style={{ marginLeft: '2%', display: 'flex', alignItems: 'baseline' }}>
               {<p>{selectedType}</p>} &nbsp;
               {openDropdownTypeProject ? <UpOutlined style={{ color: '#251863', fontSize: '14px' }} /> : <DownOutlined style={{ color: '#251863', fontSize: '14px' }} />}
             </a>
           </div>
-        </Dropdown>
+        </Dropdown>}
         <Popover content={content}>
           <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" />
         </Popover>
