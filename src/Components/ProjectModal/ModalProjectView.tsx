@@ -169,9 +169,11 @@ const ModalProjectView = ({
       
       if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 5 || data.tabKey === 'Capital'){
         setVisibleCapital(true);
+        setTypeProyect(NEW_PROJECT_TYPES.Capital);
       }
       if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 1 || data.tabKey === 'Study'){
-        setVisibleStudy(true);
+        setVisibleCapital(true);
+        setTypeProyect(NEW_PROJECT_TYPES.Study);
       }
       if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 7 || 
         getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 8 || 
@@ -180,13 +182,16 @@ const ModalProjectView = ({
         getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 11 || data.tabKey === 'Maintenance'
         ){
         setSubType(data?.code_project_type?.project_type_name);
-        setVisibleMaintenance(true);
+        setVisibleCapital(true);
+        setTypeProyect(NEW_PROJECT_TYPES.Maintenance);
       }
       if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 13 || data.tabKey === 'Acquisition'){
-        setVisibleAcquisition(true);
+        setVisibleCapital(true);
+        setTypeProyect(NEW_PROJECT_TYPES.Acquisition);
       }
       if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 15 || data.tabKey === 'Special'){
-        setVisibleSpecial(true);
+        setVisibleCapital(true);
+        setTypeProyect(NEW_PROJECT_TYPES.Special);
       }
     }
   },[showDefaultTab]);
