@@ -58,27 +58,6 @@
   .navbar-btn-active {
     background: rgba(66, 82, 86, 0.8) !important;
   }
-  .popoveer-notification-box {
-    .ant-popover-arrow {
-      display: none;
-    }
-    .ant-popover-placement-bottom .ant-popover-arrow {
-      display: none;
-    }
-  }
-  .ll-00 {
-    color: $white;
-    background: $green;
-    border-radius: 50%;
-    padding: 5px 5.23px;
-    margin-right: 5px;
-  }
-  .ll-img {
-    height: 24px;
-    width: 24px;
-    border-radius: 15px;
-    margin-right: 5px;
-  }
   .ll-0 {
     width: 2px;
     background: #ffffff;
@@ -243,18 +222,7 @@
     left: 210px;
   }
 }
-.notification-icon {
-  -webkit-mask: url('../../../Icons/icon-26.svg') no-repeat center;
-  height: 24px;
-  background: $white;
-  padding: 5px 7px;
-}
-.notification-icon:hover {
-  opacity: 1;
-  -webkit-mask: url('../../../Icons/icon-26.svg') no-repeat center;
-  height: 24px;
-  background: $green !important;
-}
+
 .tutorial-carousel {
   top: 0;
   height: 100vh;
@@ -1284,11 +1252,6 @@
     }
     .btn-purple {
       left: 511px;
-    }
-  }
-  .popoveer-notification-box {
-    .ant-popover-inner {
-      margin-top: 6px !important;
     }
   }
   .menu-drop-sub {

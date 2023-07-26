@@ -85,6 +85,9 @@
   overflow-y: auto;
 }
 
+.submenu-sidebar {
+  padding: 0px !important;
+}
 //SIDEBAR
 .ant-layout-sider {
   background: $dark !important;
@@ -94,7 +97,7 @@
   }
   li {
     margin-bottom: 15px !important;
-    padding: 0 20px !important;
+    padding: 0 20px;
   }
   .ant-menu-submenu-title {
     padding: 0px 20px !important;
@@ -107,6 +110,9 @@
 .ant-menu-root.ant-menu-inline {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0);
 }
+
+.ant-menu-submenu,
+.ant-menu-submenu-vertical,
 .ant-menu-dark.ant-menu-inline .ant-menu-item,
 .ant-menu-dark.ant-menu-vertical .ant-menu-item,
 .ant-menu-dark.ant-menu-vertical-left .ant-menu-item,
@@ -123,12 +129,17 @@
 .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
   color: $green !important;
 }
+.ant-menu-submenu-popup {
+  .ant-menu {
+    background-color: #fff !important;
+    outline: solid 1px #e3e5e5 !important;
+    outline-offset: -1px !important;
+    border-radius: 4px !important ;
+    color: $purple00 !important;
+  }
+}
 .ant-menu-dark .ant-menu-item:hover,
-.ant-menu-dark .ant-menu-item-active,
-.ant-menu-dark .ant-menu-submenu-active,
-.ant-menu-dark .ant-menu-submenu-open,
-.ant-menu-dark .ant-menu-submenu-selected,
-.ant-menu-dark .ant-menu-submenu-title:hover {
+.ant-menu-dark .ant-menu-submenu-open {
   color: $green !important;
   background-color: #516065 !important;
 }

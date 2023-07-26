@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect, useLocation } from 'react-router-dom';
 import { Badge, Button, Dropdown, Layout, Menu, Modal, Popover, Tabs } from 'antd';
-import { CaretDownOutlined, DoubleRightOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { CaretDownOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { GlobalMapHook } from 'utils/globalMapHook';
 import * as datasets from 'Config/datasets';
 import 'Scss/Components/Shared/navbar.scss';
@@ -13,7 +13,7 @@ import ModalEditUserView from 'Components/Profile/ProfileComponents/ModalEditUse
 import { useAppUserDispatch, useAppUserState } from 'hook/useAppUser';
 import moment from 'moment';
 import { SERVER } from 'Config/Server.config';
-import ModalTutorial from './ModalTutorial';
+import ModalTutorial from '../Sidebar/ModalTutorial';
 
 const DetailModal = React.lazy(() => import('routes/detail-page/components/DetailModal'));
 
@@ -131,15 +131,11 @@ const NavbarView = ({
     auxState.visible = true;
     setState(auxState);
   };
-  const handleOk = (e: any) => {
-     const auxState = {...state};
-     auxState.visible = false;
-     setState(auxState);
+  const handleOk = () => {
+    setState({...state, visible:false});
    };
-   const handleCancel = (e: any) => {
-     const auxState = {...state};
-     auxState.visible = false;
-     setState(auxState);
+   const handleCancel = () => {
+     setState({...state, visible:false});
    };
 
   const [redirect, setRedirect] = useState(false);
@@ -239,7 +235,7 @@ const NavbarView = ({
     {openProfile && <ModalEditUserView updateUserInformation={updateUserInformation} user={user}
       isVisible={true} hideProfile={hideProfile} groupOrganization={groupOrganization} getGroupOrganization={getGroupOrganization} />}
     <h6>{value}</h6>
-    <div className="navbar-options-box">
+    {/* <div className="navbar-options-box">
       <Popover overlayClassName="popoveer-notification-box" placement="bottom" content={notification?.length > 0 ? contentNotification : content}>
         {locationPage.pathname === '/portfolio-list-view' ?
         (<span className="avatar-item">
@@ -440,7 +436,7 @@ const NavbarView = ({
       sliderIndex={sliderIndex}
       tabActive={tabActiveNavbar}
       setSliderIndex={setSliderIndex}
-    />
+    /> */}
   </Header>
 
 };
