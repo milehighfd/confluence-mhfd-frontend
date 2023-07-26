@@ -99,6 +99,7 @@
       .hh-img{
         margin-left: 8px;
         opacity: 0.34;
+        height: 21px;
       }
       .hh-img:hover, .hh-img:active{
         opacity: 1;
@@ -444,10 +445,16 @@
           padding-left: 20px !important;
         }
       }
+      .row-geometry-body:hover{
+        background: #f5f7ff;
+      }
       .row-geometry-title{
         td {
           padding: 11px 4px !important;
         }
+      }
+      .row-geometry-title:hover{
+        background: transparent;
       }
       .ant-pagination{
         display: none;

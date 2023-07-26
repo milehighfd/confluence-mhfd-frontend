@@ -814,7 +814,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       {
         key: 'title-1',
         reach: 'Clear Creek',
-        delete: true,
       },
       {
         key: '2',
@@ -822,6 +821,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         code:'6.3600.2',
         tributary:'2302 acres',
         length:'1861 ft',
+        delete: true,
       },
       {
         key: '3',
@@ -829,6 +829,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         code:'6.3600.2',
         tributary:'2302 acres',
         length:'1861 ft',
+        delete: true,
       },
       {
         key: '4',
@@ -836,11 +837,11 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         code:'6.3600.2',
         tributary:'2302 acres',
         length:'1861 ft',
+        delete: true,
       },
       {
         key: 'title-2',
         reach: 'Big Bear Branch',
-        delete: true,
       },
       {
         key: '5',
@@ -848,6 +849,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         code:'6.3600.2',
         tributary:'2302 acres',
         length:'1861 ft',
+        delete: true,
       },
       {
         key: 'total',

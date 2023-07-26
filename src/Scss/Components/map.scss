@@ -3471,3 +3471,15 @@ hr.filters-line {
     }
   }
 }
+
+.map-view-detail{
+  height: 100%;
+  width: 100%;
+  border-radius: 15px;
+  padding-bottom: 20px;
+  #map3{
+    height: 100% !important;
+    width: 100% !important;
+    border-radius: 10px;
+  }
+}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Menu, MenuProps } from 'antd';
+import { Menu, MenuProps, Badge, Popover } from 'antd';
 import { Link, useLocation } from "react-router-dom";
 import store from "../../../store";
 import { ROUTERS_SIDEBAR } from "./constants/layout.constants";
@@ -91,7 +91,8 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
       <img className={"img-a anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-06.svg" alt="" width="22px" height="22px" />
       <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>settings</span>
     </Link>
-  }];
+  },
+];
   const removeItemArray = (key: string) => {
     let index = itemMenuSidebar.map((x: any) => x.key).indexOf(key);
     if (index > -1) {
