@@ -227,7 +227,7 @@ const CreateProjectMap = (type: any) => {
           map.dragEnd(() => {
             setDragEndCounter(__++);
           });
-          setLayersSelectedOnInit();
+          
         }
       }
     };
@@ -238,6 +238,7 @@ const CreateProjectMap = (type: any) => {
     EventService.setRef('addmarker', addMarker);
     EventService.setRef('oncreatedraw', onCreateDraw);
     changeAddLocationState(false);
+    setLayersSelectedOnInit();
     componentsList = [];
     getData(`${SERVER.URL_BASE}/locality/`, getToken()).then(
       (r: any) => {
@@ -249,6 +250,10 @@ const CreateProjectMap = (type: any) => {
         console.log('e', e);
       },
     );
+    console.log('aaaa', type,type.type, type.projectid)
+    if(type.type === 'STUDY' && type.projectid === -1 && type.projectid ){
+      setStreamIntersected([])
+    }
     return () => {
       // setStreamIntersected([]);
       setStreamsIds([]);
@@ -536,6 +541,7 @@ const CreateProjectMap = (type: any) => {
   };
   useEffect(() => {
     if (isDraw || isDrawCapital) {
+      console.log('type inside draw',type)
       isDrawingCurrently = true;
       currentDraw = isDraw ? 'polygon' : isDrawCapital ? 'capitalpolygon' : 'polygon';
       if (isDrawCapital && type.type === 'CAPITAL') {
@@ -803,6 +809,7 @@ const CreateProjectMap = (type: any) => {
     if (firstCallDraw) {
       return;
     }
+    console.log('onCreateDraw', type);
     firstCallDraw = true;
     removeProjectLayer();
     setLoading(true);
@@ -817,7 +824,7 @@ const CreateProjectMap = (type: any) => {
     } else if (type.type === 'MAINTENANCE') {
       getStreamIntersectionPolygon(userPolygon.geometry);
     } else if (type.type === 'STUDY') {
-      type.setGeom(userPolygon.geometry);
+      // type.setGeom(userPolygon.geometry); TODO verify if this is needed
       getStreamsIntersectedPolygon(userPolygon.geometry);
       getStreamsList(userPolygon.geometry);
       getServiceAreaStreams(userPolygon.geometry);
