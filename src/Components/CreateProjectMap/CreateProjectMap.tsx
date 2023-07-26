@@ -491,6 +491,7 @@ const CreateProjectMap = (type: any) => {
 
       let eventToAddMarker = EventService.getRef('addmarker');
       map.map.on('click', eventToAddMarker);
+      
     } else {
       let eventToMove = EventService.getRef('move');
       map.map.off('mousemove', eventToMove);
@@ -748,7 +749,7 @@ const CreateProjectMap = (type: any) => {
       waiting();
     }
     EventService.setRef('oncreatedraw', onCreateDraw);
-    EventService.setRef('addmarker', addMarker);
+    // EventService.setRef('addmarker', addMarker);
   }, [selectedLayersCP]);
 
   const setLayersSelectedOnInit = () => {
