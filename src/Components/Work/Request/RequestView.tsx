@@ -212,10 +212,10 @@ const RequestView = ({ type, isFirstRendering }: {
       }
 
       setBoard(board);
-      loadColumns(board.board_id);
       if (type === "WORK_PLAN") {
         loadFilters(board.board_id);
       }
+      loadColumns(board.board_id);
       /* TODO: this should be replaced */
       console.log('Sub status', board.substatus);
       setBoardStatus(board.status);
@@ -239,7 +239,7 @@ const RequestView = ({ type, isFirstRendering }: {
       pathname: type === "WORK_REQUEST" ? '/map' : '/map',
       search: `?${params.map(p => p.join('=')).join('&')}`
     })
-  }, [year, locality, tabKey]);
+  }, [year, locality, tabKey, type]);
 
 
   useEffect(() => {
