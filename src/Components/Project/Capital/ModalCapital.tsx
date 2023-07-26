@@ -17,11 +17,13 @@ import { getProjectOverheadCost } from 'utils/parsers';
 import { useMapState } from 'hook/mapHook';
 import TypeProjectsFilter from 'Components/FiltersProject/TypeProjectsFilter/TypeProjectsFilter';
 import { Header } from '../TypeProjectComponents/Header';
-import { ProposedActions } from '../TypeProjectComponents/ProposedActions';
-import { ProjectGeometry } from '../TypeProjectComponents/ProjectGeometry';
 import FinancialInformation from '../TypeProjectComponents/FinancialInformation';
 import { DropPin } from '../TypeProjectComponents/DropPin';
+import ProposedActions from '../TypeProjectComponents/ProposedActions';
+import { ProjectGeometry } from '../TypeProjectComponents/ProjectGeometry';
 import RequestorInformation from '../TypeProjectComponents/RequestorInformation';
+import { getData, getToken } from 'Config/datasets';
+import { SERVER } from 'Config/Server.config';
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -174,8 +176,8 @@ export const ModalCapital = ({
   const [activeTabBodyProject, setActiveTabBodyProject] = useState('Details');
   const [favorite, setFavorite] = useState(false);
   const [groupParsed, setGroupParsed] = useState<any>([]);
-  const [selectedTypeProject, setSelectedTypeProject] = useState(typeProject.toLowerCase()||'capital');
-  const [selectedLabelProject, setSelectedLabelProject] = useState(typeProject||'Capital');
+  const [selectedTypeProject, setSelectedTypeProject] = useState(typeProject.toLowerCase() === 'r&d' ? 'special' : typeProject.toLowerCase());
+  const [selectedLabelProject, setSelectedLabelProject] = useState(subTypeInit === '' ? (typeProject) : subTypeInit);
   const [lastValue, setLastValue] = useState('');
   //maintenance
   const [frequency, setFrequency] = useState('');
@@ -183,7 +185,7 @@ export const ModalCapital = ({
   const [ownership, setOwnership] = useState(true);
   const [subType, setSubType] = useState(subTypeInit||'');
   //study 
-  const [studyreason, setStudyReason] = useState<any>();
+  const [studyreason, setStudyReason] = useState<any>(-1);
   const [otherReason, setOtherReason] = useState('');
   //acquisition
   var date = new Date();
@@ -300,12 +302,18 @@ export const ModalCapital = ({
 
   //Load Data if is Edit
   useEffect(() => {
+    console.log(typeProject)
     setIsEdit(false);
     if (data !== 'no data') {
       const counties = data.project_counties.map((e: any) => e?.CODE_STATE_COUNTY?.county_name);
       const serviceAreas = data.project_service_areas.map((e: any) => e?.CODE_SERVICE_AREA?.service_area_name);
       const localJurisdiction = data.project_local_governments.map((e: any) => e?.CODE_LOCAL_GOVERNMENT?.local_government_name);
-      const aditionalCostObject = data.project_costs.filter((e: any) => e.code_cost_type_id === 4)[0];
+      setCounty(counties);
+      setServiceArea(serviceAreas);
+      setjurisdiction(localJurisdiction);
+      setDescription(data.description);
+      setNameProject(data.project_name);
+      setProjectId(data.project_id);
       const coEsponsor = data.project_partners.map((e: any) => {
         if (e.code_partner_type_id === 12) {
           return titleCase(e.business_associate.business_name)
@@ -318,27 +326,98 @@ export const ModalCapital = ({
         }
         return undefined;
       }).filter((e: any) => !!e).join("");
-      setComponentIntersected(data.project_proposed_actions || []);
+      setCosponsor(coEsponsor);
+      setSponsor(titleCase(sponsor));
       setSwSave(true);
       setIsEdit(true);
-      setCounty(counties);
-      setServiceArea(serviceAreas);
-      setjurisdiction(localJurisdiction);
-      setCosponsor(coEsponsor);
-      setDescription(data.description);
-      setNameProject(data.project_name);
-      setProjectId(data.project_id);
-      setEditsetprojectid(data.project_id);
-      setAdditionalCost(parseInt(aditionalCostObject?.cost || '0'));
-      setAdditionalDescription(aditionalCostObject?.cost_description);
-      if (data.project_costs.length > 0) {
-        const parsed = getProjectOverheadCost(data.project_costs);
-        setOverheadCosts(parsed);
+      if (selectedTypeProject === 'capital') {
+        setEditsetprojectid(data.project_id);
+        const aditionalCostObject = data.project_costs.filter((e: any) => e.code_cost_type_id === 4)[0];
+        setComponentIntersected(data.project_proposed_actions || []);
+        setAdditionalCost(parseInt(aditionalCostObject?.cost || '0'));
+        setAdditionalDescription(aditionalCostObject?.cost_description);
+        if (data.project_costs.length > 0) {
+          const parsed = getProjectOverheadCost(data.project_costs);
+          setOverheadCosts(parsed);
+        }
+        setTimeout(() => {
+          getGEOMByProjectId(data.project_id)
+        }, 2200);
       }
-      setSponsor(titleCase(sponsor));
-      setTimeout(() => {
-        getGEOMByProjectId(data.project_id)
-      }, 2200);
+      if (selectedTypeProject === 'study') {
+        setStudyReason(data?.project_details[0]?.code_study_reason_id);
+        setOtherReason(data?.project_details[0]?.comment);
+      }
+      if (selectedTypeProject === 'acquisition') {
+        setTimeout(() => {
+          getData(SERVER.GET_GEOM_BY_PROJECTID(data.project_id), getToken())
+            .then(
+              (r: any) => {
+                console.log('r', r);
+                let coor = JSON.parse(r.createdCoordinates);
+                let coordinates = coor.coordinates[0];
+                setGeom(coordinates);
+                setEditLocation(coordinates);
+              },
+              (e) => {
+                console.log('e', e);
+              }
+            )
+        }, 1200);
+        if (data?.project_details[0]?.code_acquisition_progress_status_id == null) {
+          setProgress('');
+        } else {
+          setProgress(data?.project_details[0]?.code_acquisition_progress_status_id);
+        }
+        if (data?.project_details[0]?.acquisition_anticipated_year == null) {
+          setPurchaseDate('');
+        } else {
+          setPurchaseDate(data?.project_details[0]?.acquisition_anticipated_year);
+        }
+      }
+      if (selectedTypeProject === 'maintenance') {
+        setTimeout(() => {
+          getGEOMByProjectId(data.project_id);
+        }, 2200);
+        if (data?.code_maintenance_eligibility_type_id === null) {
+          setEligibility('');
+        } else {
+          setEligibility(data?.code_maintenance_eligibility_type_id);
+        }
+        if (data?.project_details[0]?.maintenance_frequency === null) {
+          setFrequency('');
+        } else {
+          console.log(data?.project_details[0]?.maintenance_frequency, 'frequency')
+          if (data?.project_details[0]?.maintenance_frequency === 0) {
+            setFrequency('None');
+          } else {
+            setFrequency(data?.project_details[0]?.maintenance_frequency);
+          }
+        }
+        if (data?.project_details[0]?.is_public_ownership === true) {
+          console.log(data?.project_details[0]?.is_public_ownership === true);
+          setOwnership(true);
+        } else {
+          console.log(data?.project_details[0]?.is_public_ownership === true);
+          setOwnership(false);
+        }
+      }   
+      if (selectedTypeProject === 'special') {
+        setTimeout(() => {
+          getData(SERVER.GET_GEOM_BY_PROJECTID(data.project_id), getToken())
+            .then(
+              (r: any) => {
+                let coor = JSON.parse(r.createdCoordinates);
+                let coordinates = coor.coordinates[0];
+                setGeom(coordinates);
+                setEditLocation(coordinates);
+              },
+              (e) => {
+                console.log('e', e);
+              }
+            )
+        }, 1200);
+      }
     } else {
       setStreamIntersected([]);
       setIndComponents([]);
@@ -420,6 +499,13 @@ export const ModalCapital = ({
       capital.frequency = frequency === 'None' ? 0 : frequency;
       capital.maintenanceeligibility = eligibility;
       capital.ownership = String(ownership);
+      //study
+      capital.studyreason = studyreason;
+      capital.otherReason = otherReason;
+      //acquisition
+      capital.acquisitionprogress = progress;
+      capital.acquisitionanticipateddate = purchaseDate;
+
 
       files.forEach((file: any) => {
         if (file._id) {
@@ -440,12 +526,23 @@ export const ModalCapital = ({
 
   //Check if required fields are filled to enable save button
   useEffect(()=>{
+    console.log(geom)
     let streamValidation = streamIntersected.geom ? JSON.parse(streamIntersected.geom): undefined;
-    if(geom != undefined && description !== '' && county.length !== 0 && serviceArea.length !== 0 && nameProject !== ''   && streamValidation != undefined && streamValidation.coordinates.length > 0  && jurisdiction.length > 0 && componentsToSave.length > 0){
-        setDisable(false);
+    if (selectedTypeProject === 'capital' && geom  && description !== '' && county.length !== 0 && serviceArea.length !== 0 && nameProject !== '' && streamValidation != undefined && streamValidation.coordinates.length > 0 && jurisdiction.length > 0 && componentsToSave.length > 0) {
+      setDisable(false);
+    } else if (selectedTypeProject === 'maintenance' && description != '' && county.length && serviceArea.length && jurisdiction.length && nameProject !== '') {
+      setDisable(false);
+    } else if (selectedTypeProject === 'acquisition' && nameProject !== '' && geom && description != '' && county.length && serviceArea.length && jurisdiction.length) {      
+      setDisable(false);
+    } else if (selectedTypeProject === 'study' && geom && description !== '' && county.length !== 0 && serviceArea.length !== 0 && jurisdiction.length !== 0) {
+      setDisable(false);
+    } else if (selectedTypeProject === 'special' && geom  && description != '' && county.length !== 0 && serviceArea.length !== 0 && jurisdiction.length !== 0 ) {
+      setDisable(false);
     }
-    else{setDisable(true);}
-  },[geom, description, county, serviceArea , sponsor, nameProject, componentsToSave, streamIntersected, jurisdiction]);
+    else {
+      setDisable(true);
+    }
+  },[geom, description, county, serviceArea , sponsor, nameProject, componentsToSave, streamIntersected, jurisdiction, selectedTypeProject]);
 
   useEffect(() => {
     if(componentsFromMap.length > 0 ) {      
@@ -478,11 +575,13 @@ export const ModalCapital = ({
       }
     }
   },[componentsFromMap]);
-
-  useEffect(()=>{
-    setGeom(userPolygon);
-  },[userPolygon]);
   
+  useEffect(() => {
+    if (selectedTypeProject === 'capital' || selectedTypeProject === 'maintenance' || selectedTypeProject === 'study') {
+      setGeom(userPolygon);
+    }
+  }, [userPolygon, selectedTypeProject]);
+
   useEffect(()=>{
     if(listComponents && listComponents.groups && listComponents.result.length > 0){
       const myset = new Set(keys);
@@ -793,6 +892,15 @@ export const ModalCapital = ({
     setOwnership(e);
   };
 
+  //acquisition special functions
+  useEffect(()=> {
+    if(isEditingPosition && (selectedTypeProject === 'acquisition'|| selectedTypeProject === 'special')){
+      setServiceArea([])
+      setCounty([])
+      setjurisdiction([])
+    }
+  },[isEditingPosition])
+  console.log(selectedTypeProject)
   let indexForm = 1;
 
     return (
@@ -834,6 +942,7 @@ export const ModalCapital = ({
             menuTypeProjects={menuTypeProjects}
             locationData={getServiceAreaAndCountyString(jurisdiction, serviceArea, county)}
             selectedType={selectedLabelProject}
+            isEdit = {swSave}
           />          
           <div className='header-tab'>
             <p className={activeTabBodyProject ===  'Details'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Details')}}>Details</p>
@@ -901,7 +1010,7 @@ export const ModalCapital = ({
               />
               }
               {(selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Acquisition.toLowerCase()||
-                selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Special.toLowerCase()) &&
+                selectedTypeProject && selectedTypeProject?.toLowerCase() === 'special') &&
                 <DropPin
                   typeProject={typeProject}
                   geom={geom}
