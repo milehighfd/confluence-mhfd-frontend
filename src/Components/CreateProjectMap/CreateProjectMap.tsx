@@ -250,8 +250,8 @@ const CreateProjectMap = (type: any) => {
         console.log('e', e);
       },
     );
-    console.log('aaaa', type,type.type, type.projectid)
-    if(type.type === 'STUDY' && type.projectid === -1 && type.projectid ){
+    console.log('Type ', type);
+    if((type.type === 'STUDY' && type.projectid === -1) || ((type.type === 'CAPITAL' || type.type === 'MAINTENANCE') && (type.lastValue !== 'capital' || type.lastValue !== 'maintenance') )){
       setStreamIntersected([])
     }
     return () => {

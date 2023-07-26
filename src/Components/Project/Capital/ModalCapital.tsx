@@ -200,6 +200,7 @@ export const ModalCapital = ({
 
     }
     setSubType(subType);
+    setLastValue(selectedTypeProject);
     setSelectedTypeProject(type);
     setSelectedLabelProject(label);
   }; 
@@ -267,11 +268,12 @@ export const ModalCapital = ({
 };
 
   // useRef to store last value
-  const currentTypeRef = useRef(selectedTypeProject);
-  useEffect(() => {
-    setLastValue(currentTypeRef.current);
-    currentTypeRef.current = selectedTypeProject;
-  }, [selectedTypeProject]);
+  // const currentTypeRef = useRef(selectedTypeProject);
+  // useEffect(() => {
+  //   const newValue = JSON.stringify(currentTypeRef.current);
+  //   setLastValue(newValue);
+  //   currentTypeRef.current = selectedTypeProject;
+  // }, [selectedTypeProject]);
 
   //Delete all data when opening
   useEffect(() => {
@@ -930,7 +932,7 @@ export const ModalCapital = ({
      >
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-          <CreateProjectMap type={selectedTypeProject.toUpperCase()} locality={locality} projectid={projectid} isEdit={swSave} problemId={problemId}></CreateProjectMap>
+          <CreateProjectMap type={selectedTypeProject.toUpperCase()} locality={locality} projectid={projectid} isEdit={swSave} problemId={problemId} lastValue={lastValue}></CreateProjectMap>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
           <Header
