@@ -98,6 +98,7 @@ export const ProjectInformation = ({
         <h5>{index}. Project Information&nbsp;*</h5>
         <p className="requiered-text"><span className="requiered">*&nbsp;Required</span></p>
       </div>
+      {type && type?.toLowerCase() === NEW_PROJECT_TYPES.Study.toLowerCase() && (<>
       <StudyReason
         type={type}
         studyReasons={studyReasons}
@@ -105,7 +106,7 @@ export const ProjectInformation = ({
         setReason={setReason}
         otherReason={otherReason}
         setOtherReason={setOtherReason}
-      />
+      /></>)}
       <label className="sub-title">Description <Popover content={content00}><img src="../Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
       <TextArea rows={4} placeholder="Add description" onChange={(description) => applyDescription(description)} value={description} />
       {type && type?.toLowerCase() === NEW_PROJECT_TYPES.Maintenance.toLowerCase() && (<>
