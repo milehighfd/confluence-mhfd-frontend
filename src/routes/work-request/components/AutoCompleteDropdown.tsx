@@ -63,22 +63,18 @@ const AutoCompleteDropdown = (
         if (dropdownSelected) {
           setLocality(dropdownSelected);
         }
-        if (filterMap && filterMap?.project_counties?.length > 0) {
-          setCountiesSelected(filterMap?.project_counties?.map((_: any) => true));
-        }
-        if (filterMap && filterMap?.project_service_areas?.length > 0) {
-          setServiceAreasSelected(filterMap?.project_service_areas?.map((_: any) => true))
-        }
       }
-      loadColumns(namespaceId)
+      if (filterMap && filterMap?.project_counties?.length > 0) {
+        setCountiesSelected(filterMap?.project_counties?.map((_: any) => true));
+      }
+      if (filterMap && filterMap?.project_service_areas?.length > 0) {
+        setServiceAreasSelected(filterMap?.project_service_areas?.map((_: any) => true))
+      }
     }
   }, [year]);
 
   useEffect(() => {
     if (type === WORK_PLAN_TAB) {
-      if (year >= YEAR_LOGIC_2024) {
-        updateFilterSelected(dropdownSelected);
-      }
       if (filterMap?.project_local_governments?.length > 0) {
         setJurisdictionSelected(filterMap?.project_local_governments?.map((_: any) => true));
       }
