@@ -1047,7 +1047,7 @@ const MapView = () => {
           ground up to meet the unique data needs of a regional flood control and stream management district.
         </p>
       </div>
-      <div className="count" style={{ paddingBottom: '0px', marginTop: '1px' }}>
+      <div className="count">
         {groupOrganization && <MapAutoComplete onAutoCompleteSelected={onSelect} />}
         <div className="head-filter mobile-display">
           <Row justify="space-around" align="middle">

@@ -149,6 +149,79 @@
 }
 
 .work-body{
+  .tabs-work {
+    .ant-tabs-nav{
+      padding-left: 16px;
+    }
+    .ant-tabs-nav .ant-tabs-tab-active .ant-tabs-tab-btn {
+      color: $purple !important;
+      padding: 0px -10px 0px -10px !important;
+      font-weight: 400 !important;
+    }
+  
+    .ant-tabs-nav .ant-tabs-tab {
+      padding: 15px 0px 15px 0px !important;
+      margin: 0 20px 0 0;
+      font-size: 15px;
+      color: $opacity;
+      font-weight: 400;
+    }
+  
+    .ant-tabs-ink-bar {
+      background-color: $purple !important;
+    }
+  
+    .ant-tabs-nav .ant-tabs-tab:hover {
+      color: $purple !important;
+    }
+  
+    .ant-collapse>.ant-collapse-item>.ant-collapse-header .ant-collapse-extra {
+      float: none;
+    }
+  
+    .ant-collapse>.ant-collapse-item>.ant-collapse-header .ant-collapse-arrow {
+      display: none;
+    }
+  
+    .ant-collapse>.ant-collapse-item>.ant-collapse-header {
+      padding: 12px 10px;
+      padding-left: 10px;
+      color: $black !important;
+      line-height: 30px;
+      height: 54px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15) !important;
+    }
+  
+    .ant-collapse>.ant-collapse-item {
+      border-bottom: none;
+      background: $white;
+    }
+  
+    .ant-collapse {
+      border: none;
+      background: transparent;
+    }
+  
+    .ant-tabs-ink-bar {
+      height: 2px !important;
+      background-color: $purple;
+      margin-bottom: 1.5px !important;
+    }
+  
+    .ant-collapse-content {
+      background-color: $opacity00;
+      border-top: none;
+    }
+  
+    .ant-collapse>.ant-collapse-item:last-child,
+    .ant-collapse>.ant-collapse-item:last-child>.ant-collapse-header {
+      border-radius: 0 0 0px 0px;
+    }
+  
+    .ant-collapse-content>.ant-collapse-content-box {
+      padding: 20px 15px 0px 15px;
+    }
+  }
   .btn-filter-d{
     position: absolute;
     top: 60px;
