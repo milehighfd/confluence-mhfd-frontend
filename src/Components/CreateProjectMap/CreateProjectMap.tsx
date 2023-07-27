@@ -211,6 +211,9 @@ const CreateProjectMap = (type: any) => {
   }, [isAddLocation]);
 
   useEffect(() => {
+    map = undefined;
+  }, []);
+  useEffect(() => {
     setLoading(true);
     const waiting = () => {
       html = document.getElementById('map3');
