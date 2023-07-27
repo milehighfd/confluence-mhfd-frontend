@@ -95,7 +95,7 @@ export const DropPin = ({typeProject, geom, setGeom, setIsEditingPosition,index}
   return(
     <>
     <h5>
-      2. Drop Pin
+      {index}. Drop Pin
       <span className="requiered">&nbsp;*</span>
       <Button className="btn-transparent"><img src="/Icons/icon-10.svg" alt="" height="15px" style={{marginBottom: '3px'}}/></Button>
       {typeProject == 'Special'? <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover>:''}
