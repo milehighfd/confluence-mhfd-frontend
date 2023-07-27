@@ -24,6 +24,7 @@ import { ProjectGeometry } from '../TypeProjectComponents/ProjectGeometry';
 import RequestorInformation from '../TypeProjectComponents/RequestorInformation';
 import { getData, getToken } from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
+import * as datasets from "../../../Config/datasets";
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -179,6 +180,7 @@ export const ModalCapital = ({
   const [selectedTypeProject, setSelectedTypeProject] = useState(typeProject.toLowerCase() === 'r&d' ? 'special' : typeProject.toLowerCase());
   const [selectedLabelProject, setSelectedLabelProject] = useState(subTypeInit === '' ? (typeProject) : subTypeInit);
   const [lastValue, setLastValue] = useState('');
+  const [showDraw, setShowDraw] = React.useState(false);
   //maintenance
   const [frequency, setFrequency] = useState('');
   const [eligibility, setEligibility] = useState('');
@@ -196,9 +198,6 @@ export const ModalCapital = ({
   //special
 
   const setTypeAndSubType = (type:string, subType:string, label:string) => {
-    if(subType !== ''){
-
-    }
     setSubType(subType);
     setLastValue(selectedTypeProject);
     setSelectedTypeProject(type);
@@ -540,7 +539,6 @@ export const ModalCapital = ({
 
   //Check if required fields are filled to enable save button
   useEffect(()=>{
-    console.log(geom)
     let streamValidation = streamIntersected.geom ? JSON.parse(streamIntersected.geom): undefined;
     if (selectedTypeProject === 'capital' && geom  && description !== '' && county.length !== 0 && serviceArea.length !== 0 && nameProject !== '' && streamValidation != undefined && streamValidation.coordinates.length > 0 && jurisdiction.length > 0 && componentsToSave.length > 0) {
       setDisable(false);
@@ -821,19 +819,6 @@ export const ModalCapital = ({
     setIndependentComponents([...currentComponents]);
   }
 
-  const getTotalIndComp = () => {
-    let total = 0;
-    if(thisIndependentComponents.length > 0) {
-      for( let comp of thisIndependentComponents) {
-        let newValue= comp.cost+','
-        let value = newValue.replace("$", "");
-        value = value.replace(",", "");
-        total += parseFloat(value) ;
-      }
-    }
-    return total;
-  }
-
   const getTotalCost = () =>{
     let n = getSubTotalCost() + additionalCost + getOverheadCost();
     return(n);
@@ -878,6 +863,32 @@ export const ModalCapital = ({
     return result;
   };
 
+  useEffect(() => {
+    if (!showDraw) {
+      if(county.length > 0) {
+        const countyList: any = [];
+        groupOrganization.forEach((item: any) => {
+          if (item.table === 'CODE_STATE_COUNTY') {
+            item.name = item.name.replace(' County', '');
+            countyList.push(item);
+          }
+        });
+        let countyA = county.map((element: any) => element.replace(' County', ''));
+        let countyIds = countyList.filter((countys: any) => countyA.includes(countys.name)).map((countyl: any) => countyl.id);
+        datasets.postData(SERVER.GET_COUNTY_DATA_CREATE, { state: countyIds }, datasets.getToken()).then(data => {
+          const serviceAreaNames = data.serviceArea.map((item: any) => item.service_area_name);
+          const localGovernmentNames = data.localGovernment.map((item: any) => item.local_government_name);
+          setServiceArea(serviceAreaNames);
+          setjurisdiction(localGovernmentNames);
+        })
+      }else{
+        setServiceArea([]);
+        setjurisdiction([]);
+      }      
+    }
+  }, [county]);
+
+  //capital
   useEffect(() => {
     if (Array.isArray(groups)) {
       const output = groups.flatMap((x: any) =>
@@ -1021,6 +1032,8 @@ export const ModalCapital = ({
                 isDrawStateCapital={isDrawStateCapital}
                 onClickDrawCapital={onClickDrawCapital}
                 index={indexForm++}
+                showDraw={showDraw}
+                setShowDraw={setShowDraw}
               />
               }
               {(selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Acquisition.toLowerCase()||
