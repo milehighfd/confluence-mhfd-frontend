@@ -142,11 +142,111 @@
   }
 }
 
+
+
+.notification-popoveer {
+  width: 369px;
+  font-size: 12px;
+
+  .notification-header {
+    //without header 
+    height: 15px;
+    padding-left: 5px;
+
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+
+    h2 {
+      color: $purple00;
+    }
+
+    a {
+      font-family: 'Ubuntu';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 14px;
+      text-decoration-line: underline;
+      color: $purple00;
+      margin-top: 7px;
+    }
+  }
+
+  .notification-body {
+    display: flex;
+    padding: 7px;
+    margin: 0px -7px;
+
+    .text-notification {
+      margin-left: 5px;
+
+      p {
+        margin-bottom: 2px;
+        font-size: 13px;
+        color: $purple00;
+        font-family: 'Ubuntu';
+        font-style: normal;
+        font-weight: 400;
+        line-height: 16px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        width: 320px;
+      }
+
+      .date {
+        font-size: 12px;
+        opacity: 0.6;
+      }
+    }
+  }
+
+  .notification-body:hover {
+    background-color: #f7f7f9;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}
+
 .notification-layout:hover {
   cursor: context-menu;
+  display: table;
   span{
     color: $purple00;
   }
+}
+.notification-layout-body{
+  max-height: 250px;
+  height: fit-content;
+  width: fit-content;
+  overflow-y: auto;
+  overflow-x: clip;
+}
+
+.clear-notifications{
+  text-decoration: underline;
+}
+.clear-notifications:hover{
+  cursor: pointer;
+}
+
+.none-notification{
+  color: $purple00;
+  :hover{
+    color: $purple00;
+  }
+}
+.notification-badge{
+  width: 15px;
+}
+
+.custom-menu .custom-submenu {
+  position: absolute;
+  right: 0;
+  bottom: 100%;
 }
 
 .option-layout {
@@ -183,7 +283,122 @@
     display: inline !important;
   }
 }
+@media (min-width: 1900px) and (max-width: 2549px) {
+  .notification-layout-body{
+    max-height: 275px;
+  }
+  .notification-popoveer {
+    width: 418px !important;
+  }
+  .notification-popoveer {
+    .notification-header {
+      a {
+        font-size: 14px !important;
+      }
+    }
+
+    .notification-body {
+      padding: 9px 7px !important;
+
+      .text-notification {
+        p {
+          font-size: 15px !important;
+          width: 369px !important;
+        }
+
+        .date {
+          font-size: 13px !important;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 2550px) and (max-width: 3799px) {
+  .notification-layout-body{
+    max-height: 400px;
+  }
+  .notification-popoveer {
+    width: 640px !important;
+    padding: 10px !important;
+  }
+  .notification-popoveer {
+    font-size: 17px;
+
+    .notification-header {
+      a {
+        font-size: 17px !important;
+      }
+
+      h2 {
+        font-size: 23px;
+      }
+    }
+
+    .notification-body {
+      padding: 15.5px 15px !important;
+
+      .text-notification {
+        p {
+          font-size: 21px !important;
+          width: 552px !important;
+          line-height: 19px !important;
+          margin-left: 9px !important;
+        }
+
+        .date {
+          font-size: 19px !important;
+          margin-top: 8px !important;
+        }
+      }
+    }
+  }
+}
 @media (min-width: 3800px) and (max-width: 5999px) {
+  .notification-badge{
+    width: 42px;
+  }
+  .notification-layout-body{
+    max-height: 450px;
+  }
+  .notification-popoveer {
+    font-size: 20px;
+    width: 720px !important;
+    .notification-header {
+      height: 45px;
+      a {
+        font-size: 23px !important;
+        margin-top: 10px;
+      }
+
+      h2 {
+        font-size: 32px;
+        margin-left: 14px;
+        margin-top: 10px;
+      }
+    }
+
+    .notification-body {
+      padding: 17.5px 16px !important;
+
+      img {
+        height: 45px !important;
+        margin-right: 10px !important;
+      }
+
+      .text-notification {
+        p {
+          font-size: 25.5px !important;
+          line-height: 25px !important;
+          width: 628px !important;
+        }
+
+        .date {
+          font-size: 24px !important;
+        }
+      }
+    }
+  }
   .img-a {
     margin-left: 10px !important;
     width: 40px !important;

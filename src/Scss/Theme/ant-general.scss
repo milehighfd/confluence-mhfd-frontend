@@ -126,18 +126,27 @@
   width: auto;
 }
 .ant-menu.ant-menu-dark .ant-menu-item-selected,
-.ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
+.ant-menu-submenu-popup .ant-menu-dark .ant-menu-item-selected {
   color: $green !important;
 }
 .ant-menu-submenu-popup {
+  display: table;
   .ant-menu {
     background-color: #fff !important;
     outline: solid 1px #e3e5e5 !important;
     outline-offset: -1px !important;
     border-radius: 4px !important ;
     color: $purple00 !important;
+    .ant-menu-item {
+      height: fit-content !important;
+    }
   }
 }
+
+.ant-menu-submenu-hidden {
+  display: none !important;
+}
+
 .ant-menu-dark .ant-menu-item:hover,
 .ant-menu-dark .ant-menu-submenu-open {
   color: $green !important;
@@ -337,7 +346,7 @@
 }
 //movend from map.scss
 .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
-  color: rgba(0, 0, 0, .85);
+  color: rgba(0, 0, 0, 0.85);
   font-weight: 600;
   background-color: #f7f7f9 !important;
   margin: 3px;
@@ -363,7 +372,7 @@
 //movend from map.scss
 .ant-select-item-option-active {
   background: #f7f7f9 !important;
-  color: $purple00  !important;
+  color: $purple00 !important;
   font-weight: 400 !important;
   margin: 3px;
   border-radius: 5px;
