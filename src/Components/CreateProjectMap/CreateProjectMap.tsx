@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import * as mapboxgl from 'mapbox-gl';
 import { MapService } from '../../utils/MapService';
 import { InfoCircleOutlined } from '@ant-design/icons';
@@ -90,6 +90,7 @@ const CreateProjectMap = (type: any) => {
   let html = document.getElementById('map3');
   let popup = new mapboxgl.Popup({ closeButton: true });
   const user = store.getState().profile.userInformation;
+  const typeRef = useRef(type.type);
   const {
     layers,
     mapSearch,
@@ -250,7 +251,7 @@ const CreateProjectMap = (type: any) => {
         console.log('e', e);
       },
     );
-    console.log('Type ', type);
+    typeRef.current = type.type
     if((type.type === 'STUDY' && type.projectid === -1) 
     || ((type.type !== 'CAPITAL' && type.type !== 'MAINTENANCE') && (type.lastValue === 'capital' || type.lastValue === 'maintenance'))
     || (type.type !== 'STUDY' && type.lastValue === 'study')
@@ -812,22 +813,24 @@ const CreateProjectMap = (type: any) => {
     if (firstCallDraw) {
       return;
     }
-    console.log('onCreateDraw', type);
+    const currentType = typeRef.current;
     firstCallDraw = true;
     removeProjectLayer();
     setLoading(true);
     const userPolygon = event.features[0];
-    if (type.type === 'CAPITAL') {
+    console.log('current Type', currentType);
+    if (currentType === 'CAPITAL') {
       if (currentDraw == 'polygon') {
         getListComponentsByComponentsAndPolygon(componentsList, userPolygon.geometry);
       } else {
         hideHighlighted();
         getStreamIntersectionPolygon(userPolygon.geometry);
       }
-    } else if (type.type === 'MAINTENANCE') {
+    } else if (currentType === 'MAINTENANCE') {
       getStreamIntersectionPolygon(userPolygon.geometry);
-    } else if (type.type === 'STUDY') {
+    } else if (currentType === 'STUDY') {
       // type.setGeom(userPolygon.geometry); TODO verify if this is needed
+      console.log('should call Study cases', currentType);
       getStreamsIntersectedPolygon(userPolygon.geometry);
       getStreamsList(userPolygon.geometry);
       getServiceAreaStreams(userPolygon.geometry);
