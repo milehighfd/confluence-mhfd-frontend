@@ -8,13 +8,8 @@
 }
 
 //NAVBAR NOTIFICATIONS
-.notification-popoveer {
-  max-width: 1000000px;
-  width: 369px;
-}
-.notification-layout {
-  margin-bottom: 0px;
-}
+
+
 //NAVBARLOGO
 .logo-navbar {
   background-image: url('/Icons/logo-02.svg');
@@ -643,10 +638,6 @@
 }
 
 @media (min-width: 1900px) and (max-width: 2549px) {
-  //navbar notification
-  .notification-popoveer {
-    width: 418px !important;
-  }
   .menu-drop-sub {
     font-size: 16px !important;
     padding: 5px 10px !important;
@@ -913,11 +904,6 @@
   }
 }
 @media (min-width: 2550px) and (max-width: 3799px) {
-  //navbar notification
-  .notification-popoveer {
-    width: 610px !important;
-    padding: 10px !important;
-  }
   .tutorial {
     .ant-tabs-tab {
       font-size: 22px;
@@ -1215,10 +1201,6 @@
   }
 }
 @media (min-width: 3800px) and (max-width: 5999px) {
-  //navbar notification
-  .notification-popoveer {
-    width: 697px !important;
-  }
   .new-style-drop-navbar {
     margin-top: 0px !important;
     padding: 12px 0px !important;

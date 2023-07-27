@@ -4,6 +4,7 @@ import { Redirect, useLocation } from 'react-router-dom';
 import store from '../../../store';
 import { ROUTERS_SIDEBAR } from './constants/layout.constants';
 import '../../../Scss/Components/Shared/sidebar.scss';
+import '../../../Scss/Theme/scroll.scss';
 import * as datasets from 'Config/datasets';
 import { useProfileState } from 'hook/profileHook';
 import { GlobalMapHook } from 'utils/globalMapHook';
@@ -37,16 +38,17 @@ const SidebarMenuDown = ({
   const indexOf = '' + ROUTERS_SIDEBAR.indexOf(location.pathname);
   const name = user.firstName;
   const initialName = user.firstName.charAt(0) + user.lastName.charAt(0);
-  const content = <div className="popoveer-00">No Notifications</div>;
+  const content = <div className="none-notification">No Notifications</div>;
   const logout = () => {
     datasets.logout();
     setRedirect(true);
     deleteMaps();
   };
   const contentNotification = (
-    <div className="popoveer-00 notification-popoveer">
+    <div className="notification-popoveer">
       <div className="notification-header">
         <h2 className="notification-layout">NOTIFICATIONS</h2>
+        <span className="clear-notifications">Mark all as read</span>
       </div>
       <Tabs
         defaultActiveKey={displayedTabKey[1]}
@@ -56,28 +58,30 @@ const SidebarMenuDown = ({
       >
         {displayedTabKey.map((tk: string) => (
           <TabPane className="notification-layout" key={tk}>
-            {notification?.map((item: any) => {
-              let check1 = moment.utc(
-                item?.project_status_notification?.project_status?.planned_end_date,
-                'YYYY-MM-DD',
-              );
-              let monthEnd = check1.format('MM');
-              let dayEnd = check1.format('DD');
-              let yearEnd = check1.format('YYYY');
-              return (
-                <div
-                  key={item.notification_id}
-                  className="notification-body"
-                  onClick={() => readClick(item?.project?.project_id, item?.notification_id)}
-                >
-                  <img src={'/picture/user03.png'} alt="" height="35px" />
-                  <div className="text-notification">
-                    <p>{item?.project?.project_name}</p>
-                    <p className="date">{`${item?.project_status_notification?.project_status?.code_phase_type?.phase_name} is due on ${monthEnd}/${dayEnd}/${yearEnd}`}</p>
+            <div className='notification-layout-body'>
+              {notification?.map((item: any) => {
+                let check1 = moment.utc(
+                  item?.project_status_notification?.project_status?.planned_end_date,
+                  'YYYY-MM-DD',
+                );
+                let monthEnd = check1.format('MM');
+                let dayEnd = check1.format('DD');
+                let yearEnd = check1.format('YYYY');
+                return (
+                  <div
+                    key={item.notification_id}
+                    className="notification-body"
+                    onClick={() => readClick(item?.project?.project_id, item?.notification_id)}
+                  >
+                    <img src={'/picture/user03.png'} alt="" height="35px" />
+                    <div className="text-notification">
+                      <p>{item?.project?.project_name}</p>
+                      <p className="date">{`${item?.project_status_notification?.project_status?.code_phase_type?.phase_name} is due on ${monthEnd}/${dayEnd}/${yearEnd}`}</p>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </TabPane>
         ))}
       </Tabs>
@@ -85,7 +89,7 @@ const SidebarMenuDown = ({
   );
   const notificationLabel = (
     <div className="menu-back-layout">
-      <Badge count={notification?.length}>
+      <Badge className="notification-badge" count={notification?.length}>
         <button className="notification-icon"></button>
       </Badge>
       <span className={collapsed ? 'menu-down-sidebar-colapse' : 'menu-down-sidebar'}>Notifications</span>
@@ -120,12 +124,24 @@ const SidebarMenuDown = ({
 
   return (
     <Menu theme="dark" className="menu-mobile sidebar-down" defaultSelectedKeys={[indexOf]} mode="vertical">
-      <SubMenu className="submenu-sidebar" key="sub1" theme="light" title={notificationLabel} popupOffset={[15,-10]}>
+      <SubMenu
+        className="submenu-sidebar custom-submenu"
+        key="sub1"
+        theme="light"
+        title={notificationLabel}
+        popupOffset={[15, -10]}
+      >
         <Menu.Item key="1" className="notification-layout">
           {notification?.length > 0 ? contentNotification : content}
         </Menu.Item>
       </SubMenu>
-      <SubMenu className="submenu-sidebar submenu-sidebar-porfile" key="sub4" theme="light" title={optionsLabel} popupOffset={[15,-80]}>
+      <SubMenu
+        className="submenu-sidebar submenu-sidebar-porfile"
+        key="sub4"
+        theme="light"
+        title={optionsLabel}
+        popupOffset={[15, -80]}
+      >
         <Menu.Item className="option-layout" onClick={() => setVisibleIntroduction(true)} key="2">
           Introduction
         </Menu.Item>
