@@ -33,7 +33,7 @@ export const InformationAcquisition = ({
   };
   return (
     <Row gutter={[16, 16]}>
-    <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+    <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{marginTop:'10px'}}>
       <label className="sub-title">Progress <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
       <div id="progreid">
         <Select

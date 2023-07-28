@@ -4,7 +4,7 @@
 .projects {
   color: #11093c;
   .text-default{
-    opacity: 0.34;
+    // opacity: 0.34;
   }
   .ant-modal-body{
     padding: 0px;
@@ -23,7 +23,7 @@
     p{
       font-size: 14px;
       margin-bottom: 0px;
-      color: $opacity;
+      color: $purple00;
       margin-top: 0px;
     }
     .project-title{
@@ -40,11 +40,11 @@
           align-items: center;
           margin-top: -3px;
           img{
-            opacity: 0.5;
-            height: 22px;
+            opacity: 0.34;
+            height: 19px;
             margin-left: 10px;
           }
-          img:active, img:hover{
+          img:active, img:hover, img:focus{
             opacity: 1;
           }
           .heart, .heart:hover, .heart:active{
@@ -53,9 +53,22 @@
           .btn-transparent{
             padding: 0px;
             height: auto;
-            color: #b7b4c4 !important;
-            font-size: 24px;
+            color: $purple00 !important;
+            font-size: 21px;
+            .ico-heart{
+              opacity: 0.34;
+            }
           }
+          .btn-transparent:hover, .btn-transparent:active, .btn-transparent:focus{
+            opacity: 1;
+            .ico-heart{
+              opacity: 1;
+            }
+          }
+          
+          // .ico-heart:hover .ico-heart:active .ico-heart:focus{
+          //   opacity: 1;
+          // }
         }
       }
     }
@@ -85,6 +98,11 @@
       height: min-content;
       .hh-img{
         margin-left: 8px;
+        opacity: 0.34;
+        height: 21px;
+      }
+      .hh-img:hover, .hh-img:active{
+        opacity: 1;
       }
       .drop-espace{
         min-width: 115px;
@@ -215,6 +233,10 @@
       }
       .location{
         margin-top: 12px;
+        margin-bottom: 6px;
+      }
+      .geometry{
+        margin-top: 27px;
       }
       .delete-upload{
         color: red;
@@ -282,7 +304,7 @@
       }
     }
     .information-description{
-      margin-top: 20px;
+      margin-bottom: 6px;
     }
     .title-geometry{
       margin-top: 10px;
@@ -299,6 +321,9 @@
       #required-location{
         color: #df3232;
       }
+    }
+    .acquisition-progress{
+      margin-top: 10px;
     }
     .upload-sections{
       .upload-documents{
@@ -340,37 +365,44 @@
     }
     .sub-title{
       font-size: 10px;
-      color: $opacity;
+      color: $purple00;
 
       img{
         margin: -2px 0px 0px 2px;
       }
     }
+    .sub-title-footer{
+      font-size: 12px;
+      color: $purple00;
+    }
     .icon-cost{
       margin-bottom: 2px;
     }
     textarea.ant-input{
-      margin-bottom: 32px;
+      // margin-bottom: 6px;
       min-height: 36px;
       padding: 6px 11px;
+      color: $purple00;
     }
     .section-gemetry{
       margin-left: 16px;
       p{
-        opacity: 0.6;
         margin-bottom: 12px;
       }
       .section-county{
         width: 50%;
-        margin-bottom: 16px;
+        margin-bottom: 10px;
       }
       .text-radio-btn{
         font-size: 12px;
         color:$purple00;
-        opacity: 0.6;
       }
       .sub-sub-title-projects{
         margin-top: 10px;
+        margin-bottom: 16px;
+      }
+      .ant-radio-group{
+        margin-bottom: 6px;
       }
     }
     .table-project{
@@ -416,10 +448,16 @@
           padding-left: 20px !important;
         }
       }
+      .row-geometry-body:hover{
+        background: #f5f7ff;
+      }
       .row-geometry-title{
         td {
           padding: 11px 4px !important;
         }
+      }
+      .row-geometry-title:hover{
+        background: transparent;
       }
       .ant-pagination{
         display: none;
@@ -455,9 +493,13 @@
       }
     }
     .table-geometry{
+      margin-top: 10px;
       .ant-table-thead > tr > th {
         padding-left: 20px !important;
       }
+    }
+    .table-dropin{
+      margin-bottom: 0px;
     }
     .ant-input{
       border: solid 1px $opacity04;
@@ -502,18 +544,19 @@
       border: 1px dashed $opacity04;
       margin: 10px 0px 25px 0px;
       padding: 18px 0px;
-      color: $opacity;
+      color: $purple00;
       display: block;
 
       p{
         font-size: 13px;
         margin-bottom: 0px;
+        color: $opacity05;
       }
       .icon-draw{
         margin-bottom: 2px;
         height: 0px;
         width: 0px;
-        background: $purple;
+        background: $opacity05;
         transition: width 2s;
         padding: 9px;
       }
@@ -528,6 +571,9 @@
     .draw:hover, .draw:focus, .draw:active, .draw.active{
       border: 1px dashed $green;
       color: $green;
+      p{
+        color: $green;
+      }
     }
     .draw:hover > .icon-draw, .draw:focus > .icon-draw, .draw:active > .icon-draw, .draw.active > .icon-draw{
       background: $green;
@@ -574,6 +620,7 @@
         border: none;
         padding: 4px 0px;
         font-size: 12px;
+        color: $purple00;
       }
       .ant-input:focus{
         border-bottom: 1.5px solid $green;
@@ -809,9 +856,7 @@
       border: none;
       color: $green;
       padding: 0px;
-      margin-bottom: 15px;
       box-shadow: none;
-      font-size: 12px;
 
       .anticon{
         font-size: 18px;
@@ -833,13 +878,19 @@
     }
 
     // ACQUISITION AND SPECIAL
-    .btn-location,.btn-location:hover{
-      border: 1px solid $green;
-      color: $green;
+    .btn-location{
+      border: 1px solid #eae8f0;
+      color: #706b8a;
       height: 30px;
-      // width: 115px;
       font-size: 12px;
       margin-top: 27px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+    }
+    .btn-location:hover{
+      border:1px solid $green;
+      color: $green;
     }
 
     //DISCUTIOM
@@ -851,7 +902,7 @@
   }
   .switch-option{
     font-size: 10px;
-    color: $opacity;
+    color: $purple00;
     line-height: 24px;
 
     span{
@@ -908,6 +959,14 @@
 // .menu-large{
 //   width: 200px !important;
 // }
+.popover-project{
+  .ant-popover-arrow{
+    display: none;
+  }
+  .ant-popover-content{
+    margin-top: -10px;
+  }
+}
 .menu-medium{
   width: 100px !important;
   .ant-select:not(.ant-select-disabled):hover .ant-select-selector {
@@ -1894,164 +1953,4 @@
 .project-name:focus{
   border-bottom: 1.6px solid $green !important;
   border-radius: 0px;
-}
-
-//
-.modal-confirm {
-  width: 430px !important;
-
-  /* Default close button */
-  .ant-modal-close {
-    display: none;
-  }
-
-  /* Body of the Modal */
-  .ant-modal-body {
-    padding: 0;
-  }
-
-  /* Moldal's Footer */
-  .ant-modal-footer {
-    display: none;
-  }
-
-  h2 {
-    color: $purple00;
-    font-size: 21px;
-    text-align: center;
-    margin-bottom: 20px;
-    font-weight: 400;
-  }
-
-  .btn-danger {
-    width: 130px;
-    height: 45px;
-    border-radius: 4px;
-    background-color: #FA4659;
-    font-size: 14px;
-    color: $white;
-    margin-top: 10px;
-    border: none;
-    font-weight: bold;
-  }
-
-  .btn-danger:hover,
-  .btn-danger:focus {
-    border-bottom: 4px solid #E5E5E5 !important;
-  }
-
-  .btn-purple {
-    width: 130px;
-    height: 45px;
-    border-radius: 4px;
-    background-color: $purple;
-    font-size: 14px;
-    color: $white;
-    margin-top: 10px;
-    border: none;
-  }
-
-  .btn-purple:hover,
-  .btn-purple:focus {
-    border-bottom: 4px solid $green !important;
-  }
-
-  .btn-borde {
-    width: 130px;
-    height: 45px;
-    border-radius: 4px;
-    background-color: $white;
-    font-size: 14px;
-    color: $opacity;
-    margin-top: 10px;
-    border: 1px solid $opacity01;
-    margin-right: 15px;
-  }
-
-  .title {
-    font-size: 10px !important;
-  }
-
-  .infomation {
-    font-size: 12px !important;
-  }
-
-.detailed {
-  width: 100%;
-  height: 100%;
-  border-radius: 4px;
-  box-shadow: $shadow;
-  background-color: $white;
-  overflow-y: auto;
-
-  .ant-carousel .slick-list {
-    height: auto;
-  }
-
-  .ant-carousel .slick-dots {
-    display: none !important;
-    padding-bottom: 50px !important;
-  }
-
-  .header-body-modal {
-    color: #11093C;
-    opacity: 0.6;
-    margin: 15px 13px;    
-    font-size: 20px !important;    
-  }
-
-  .header-body-modal-active {
-    color: #11093C;
-    opacity: 1;
-    border-bottom: 2px solid #11093C;
-    padding-bottom: 8px;
-    margin-bottom: 1px;
-  }
-
-  .ant-tabs-bottom>.ant-tabs-nav,
-  .ant-tabs-bottom>div>.ant-tabs-nav,
-  .ant-tabs-top>.ant-tabs-nav,
-  .ant-tabs-top>div>.ant-tabs-nav {
-    margin: 0;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
-    z-index: 10000;
-  }
-
-  .ant-tabs>.ant-tabs-nav .ant-tabs-nav-list,
-  .ant-tabs>div>.ant-tabs-nav .ant-tabs-nav-list {
-    margin-left: 41px;
-  }
-
-  .tabs-map .ant-tabs-nav .ant-tabs-tab {
-    font-size: 14px;
-  }
-
-}
-} 
-
-
-.modal-confirm{
-  width: 795px !important;
-  h1{
-    font-size: 34px !important;
-    line-height: 45px !important;
-  }
-  .detailed-h{
-    font-size: 28px !important;
-    line-height: 42px !important;
-     button{
-      font-size: 32px !important;
-      line-height: 36px !important;
-      padding: 32px !important;
-      margin: 22px 0px;
-      height: auto !important;
-    }
-    .btn-transparent{
-      padding: 0px 12px !important;
-      margin-top: 19px !important;
-      img{
-        height: 24px !important;
-      }
-    }
-  }
 }
