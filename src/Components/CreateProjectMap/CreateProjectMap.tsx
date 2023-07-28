@@ -689,6 +689,7 @@ const CreateProjectMap = (type: any) => {
     }
   }, [streamIntersected]);
   useEffect(() => {
+    console.log('Stream intersected ids', streamsIntersectedIds);
     if (streamsIntersectedIds.length > 0) {
       let streamsCodes: any = streamsIntersectedIds
         .filter((fstr: any) => fstr.mhfd_code)

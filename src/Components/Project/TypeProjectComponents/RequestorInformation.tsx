@@ -114,6 +114,7 @@ export const RequestorInformation = ({
             </Select>
           </div>
         </Col>
+        <label className="sub-title-footer" style={{paddingLeft:'10px'}}>This project was created by Jon Villines (MHFD) on 2/10/23.</label>
       </Row>
     </div>
   );
