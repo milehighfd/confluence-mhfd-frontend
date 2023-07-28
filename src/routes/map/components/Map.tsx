@@ -1600,16 +1600,32 @@ const Map = ({ leftWidth }: MapProps) => {
     }
   };
   const renderOption = (item: any) => {
-    return {
-      key: `${item.text}|${item.place_name}`,
-      value: `${item.center[0]},${item.center[1]}?${item.text}|${item.place_name}`,
-      label: (
-        <div className="global-search-item">
-          <h6 style={{ whiteSpace: 'normal' }}>{item.text}</h6>
-          <p>{item.place_name}</p>
-        </div>
-      ),
-    };
+    if (item.place_name === 'Stream'){
+      return {
+        key: `${item.text}|${item.place_name}|${item.center[0]}|${item.center[1]}`,
+        value: `${item.center[0]},${item.center[1]}?${item.text}|${item.place_name}`,
+        label: (
+          <div className="global-search-item">
+            <h6 style={{ whiteSpace: 'normal' }}>{item.text}</h6>
+            <h5 className="wraptext" style={{ whiteSpace: 'normal' }}>Stream</h5>
+          </div>
+        ),
+      };
+    }else{
+      const firstText = item.place_name.split(',')[0];
+      const secondText = item.place_name.split(',');
+      secondText.splice(0,1);
+      return {
+        key: `${item.text}|${item.place_name}|${item.center[0]}|${item.center[1]}`,
+        value: `${item.center[0]},${item.center[1]}?${item.text}|${item.place_name}`,
+        label: (
+          <div className="global-search-item">
+            <h6 style={{ whiteSpace: 'normal' }}>{firstText}</h6>
+            <h5 className="wraptext" style={{ whiteSpace: 'normal' }}>{secondText.join(',')}</h5>
+          </div>
+        ),
+      };
+    }    
   };
   const [keyword, setKeyword] = useState('');
   const handleSearch = (value: string) => {
