@@ -166,7 +166,7 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
     }
     <Drawer
       title={<h5 className='title-drawer'>
-        <span>STATUS</span>
+        <span> <img src="/Icons/icon-88.svg" alt="" className="icons-drawers"/> STATUS</span>
         <img src="/Icons/ic_close.svg" alt="" style={{ alignItems: 'flex-end', cursor: 'pointer' }} onClick={() => setVisible(false)} />
         </h5>
         

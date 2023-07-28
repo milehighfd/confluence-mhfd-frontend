@@ -150,7 +150,7 @@ const Analytics = ({
     <Drawer
       title={
         <h5 className='title-drawer'>
-          <span style={{}}><img src="/Icons/icon-89.svg" alt="" className="icon-analytics" />Analytics</span>
+          <span style={{}}><img src="/Icons/icon-89.svg" alt="" className="icons-drawers" />Analytics</span>
           {/* {tabKey !== 'Maintenance' &&
             <Select
               dropdownClassName='dropdown-menu'

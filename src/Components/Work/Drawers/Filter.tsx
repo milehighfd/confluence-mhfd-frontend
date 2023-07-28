@@ -60,7 +60,7 @@ const Filter = () => {
     <Drawer
       title={
         <h5 className='title-drawer'>
-          <span><img src="/Icons/icon-73.svg" alt="" style={{width:'18px', marginRight:'5px'}} /> FILTER</span>
+          <span><img src="/Icons/icon-73.svg" alt="" style={{width:'18px'}} className="icons-drawers" /> FILTER</span>
           <img src="/Icons/ic_close.svg" alt="" style={{ alignItems: 'flex-end', cursor: 'pointer' }} onClick={() => setShowFilters(false)} />
         </h5>
       }
@@ -76,17 +76,17 @@ const Filter = () => {
         <span style={{fontSize:'16px', fontWeight:'bold', lineHeight:'19.2px', marginRight:'4px'}}>County</span><img src="/Icons/icon-19.svg" alt="" /> 
         </div>
         <div className="body-f-p-filter">
-        <Checkbox>Lonetree</Checkbox><br/>
-        <Checkbox style={{paddingTop:'16px'}}>Parker</Checkbox><br/>
-        <Checkbox style={{paddingTop:'16px'}}>SEMSWA</Checkbox><br/>
-        <Checkbox style={{paddingTop:'16px'}}>Adams</Checkbox><br/>
-        <Checkbox style={{paddingTop:'16px'}}>Cherry Creek</Checkbox><br/>
-        <Checkbox style={{paddingTop:'16px'}}>Unincorporated Arapahoe C...</Checkbox><br/>
-        <Checkbox style={{paddingTop:'16px'}}>Lonetree</Checkbox><br/>
-        <Checkbox style={{paddingTop:'16px'}}>Parker</Checkbox><br/>
-        <Checkbox style={{paddingTop:'16px'}}>SEMSWA</Checkbox><br/>
-        <Checkbox style={{paddingTop:'16px'}}>Adams</Checkbox><br/>
-        <Checkbox style={{paddingTop:'16px'}}>Cherry Creek</Checkbox>
+        <Checkbox className="check-filter1">Lonetree</Checkbox><br/>
+        <Checkbox className="check-filter">Parker</Checkbox><br/>
+        <Checkbox className="check-filter">SEMSWA</Checkbox><br/>
+        <Checkbox className="check-filter">Adams</Checkbox><br/>
+        <Checkbox className="check-filter">Cherry Creek</Checkbox><br/>
+        <Checkbox className="check-filter">Unincorporated Arapahoe C...</Checkbox><br/>
+        <Checkbox className="check-filter">Lonetree</Checkbox><br/>
+        <Checkbox className="check-filter">Parker</Checkbox><br/>
+        <Checkbox className="check-filter">SEMSWA</Checkbox><br/>
+        <Checkbox className="check-filter">Adams</Checkbox><br/>
+        <Checkbox className="check-filter">Cherry Creek</Checkbox>
         </div>
       </div>
       <div style={{marginTop:'32px'}}>
@@ -94,17 +94,17 @@ const Filter = () => {
         <span style={{fontSize:'16px', fontWeight:'bold', lineHeight:'19.2px', marginRight:'4px'}}>Project Status</span><img src="/Icons/icon-19.svg" alt="" /> 
         </div>
         <div className="body-f-p-filter">
-        <Checkbox>Lonetree</Checkbox><br/>
-        <Checkbox style={{paddingTop:'16px'}}>Parker</Checkbox><br/>
-        <Checkbox style={{paddingTop:'16px'}}>SEMSWA</Checkbox><br/>
-        <Checkbox style={{paddingTop:'16px'}}>Adams</Checkbox><br/>
-        <Checkbox style={{paddingTop:'16px'}}>Cherry Creek</Checkbox><br/>
-        <Checkbox style={{paddingTop:'16px'}}>Unincorporated Arapahoe C...</Checkbox><br/>
-        <Checkbox style={{paddingTop:'16px'}}>Lonetree</Checkbox><br/>
-        <Checkbox style={{paddingTop:'16px'}}>Parker</Checkbox><br/>
-        <Checkbox style={{paddingTop:'16px'}}>SEMSWA</Checkbox><br/>
-        <Checkbox style={{paddingTop:'16px'}}>Adams</Checkbox><br/>
-        <Checkbox style={{paddingTop:'16px'}}>Cherry Creek</Checkbox>
+        <Checkbox className="check-filter1">Lonetree</Checkbox><br/>
+        <Checkbox className="check-filter">Parker</Checkbox><br/>
+        <Checkbox className="check-filter">SEMSWA</Checkbox><br/>
+        <Checkbox className="check-filter">Adams</Checkbox><br/>
+        <Checkbox className="check-filter">Cherry Creek</Checkbox><br/>
+        <Checkbox className="check-filter">Unincorporated Arapahoe C...</Checkbox><br/>
+        <Checkbox className="check-filter">Lonetree</Checkbox><br/>
+        <Checkbox className="check-filter">Parker</Checkbox><br/>
+        <Checkbox className="check-filter">SEMSWA</Checkbox><br/>
+        <Checkbox className="check-filter">Adams</Checkbox><br/>
+        <Checkbox className="check-filter">Cherry Creek</Checkbox>
         </div>
       </div>
       {/* <FilterGroup
@@ -148,7 +148,7 @@ const Filter = () => {
 
       <div className="footer-drawer" style={{ position: 'fixed', bottom: '50px', right: '19px', backgroundColor: 'white', 'width': '277px' }}>
         <div className="buttons-filters" style={{display:'flex'}}>
-          <Button className="btn-purple" onClick={()=> reset(true)}>
+          <Button className="btn-borde" onClick={()=> reset(true)}>
             Reset
           </Button>
           <Button className="btn-purple" style={{marginLeft:'10px'}} onClick={applyFilters}>
