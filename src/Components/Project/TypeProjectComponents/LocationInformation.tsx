@@ -260,53 +260,7 @@ export const LocationInformation = ({
             </Select>
           </div>
         </Col>
-      </Row>
-      <div className="sub-title-project">
-        <h5 className="requestor-information">{isCapital ? '5.' : '4.'} REQUESTOR INFORMATION <Popover content={contentLocInf}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
-      </div>
-      <Row gutter={[16, 16]} style={{marginTop:'10px'}}>
-        <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-          <label className="sub-title">Requestor <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-          <div id="sponsorid">
-            <Select
-              style={{ width: '100%' }}
-              placeholder={'Select a Requestor'}
-              value={sponsor === "" ? undefined : sponsor}
-              listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-              disabled={isLocalGovernment}
-              onChange={setSponsor}
-              getPopupContainer={() => (document.getElementById("sponsorid") as HTMLElement)}>
-              {
-                isLocalGovernment ? (
-                  <Option value={sponsor + ""}>{sponsor + ""}</Option>
-                ) : (
-                  localities.map((element: string) => {
-                    return <Option key={element} value={element}>{element}</Option>
-                  })
-                )
-              }
-            </Select>
-          </div>
-        </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-          <label className="sub-title">Potential Co-Requestor <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-          <div className="sponsor-select" id="cosponsorid">
-            <Select
-              mode="multiple"
-              placeholder={cosponsor?.length != 0 ? cosponsor : "Select a Co-Requestor"}
-              style={{ width: '100%' }}
-              listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-              onChange={(coSponsor: any) => setCoSponsor(coSponsor)}
-              value={cosponsor}
-              getPopupContainer={() => (document.getElementById("cosponsorid") as HTMLElement)}>
-              {localities.map((element: string) => {
-                return <Option key={element} value={element}>{element}</Option>
-              })}
-            </Select>
-          </div>
-        </Col>
-        <label className="sub-title-footer" style={{paddingLeft:'10px'}}>This project was submitted by Jon Villines (MHFD) on 2/10/23.</label>
-      </Row>
+      </Row>      
       </div>
     </>
   );
