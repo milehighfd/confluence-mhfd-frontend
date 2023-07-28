@@ -473,7 +473,7 @@ const MapFilterView = ({
             </p>
 
             <p>
-              <img key="DmSWHhgS6DaI" src="/Icons/Filters/ic_routine.png" width="18px" alt="" />
+              <img key="DmSWHhgS6DaI" src="/Icons/Filters/layer-routine-maintenance.png" width="18px" alt="" />
                   Routine Maintenance
                   <Popover key="rE4eb5EEJudC" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.routine_maintenance)}>
                 <img key="HACPYCulwMIE" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
