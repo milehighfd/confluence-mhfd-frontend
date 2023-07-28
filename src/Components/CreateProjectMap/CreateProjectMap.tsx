@@ -131,6 +131,7 @@ const CreateProjectMap = (type: any) => {
     setComponentIntersected,
     setComponentGeom,
     setEditLocation,
+    setStreamsList
   } = useProjectDispatch();
   const {
     userPolygon,
@@ -259,10 +260,11 @@ const CreateProjectMap = (type: any) => {
     || ((type.type !== 'CAPITAL' && type.type !== 'MAINTENANCE') && (type.lastValue === 'capital' || type.lastValue === 'maintenance'))
     || (type.type !== 'STUDY' && type.lastValue === 'study')
      ){
-      setStreamIntersected([])
+      setStreamIntersected([]);
+      setStreamsList([]);
     }
     return () => {
-      // setStreamIntersected([]);
+      setStreamsList([]);
       setStreamsIds([]);
       setComponentIntersected([]);
       setComponentGeom(undefined);
@@ -273,6 +275,11 @@ const CreateProjectMap = (type: any) => {
       setZoomGeom(undefined);
     };
   }, [type.type]);
+  useEffect(() => {
+    return () => {
+      setStreamIntersected([]);
+    };
+  }, []);
   useEffect(() => {
     if (map && map.map) {
       const bounds = map.getBoundingBox();
@@ -308,7 +315,6 @@ const CreateProjectMap = (type: any) => {
     }
   }, [listStreams]);
   useEffect(() => {
-    console.log('ZOOM GEOM', zoomGeom);
     if (zoomGeom && map) {
       map.map.once('load', () => {
         map.map.fitBounds(zoomGeom);
@@ -459,7 +465,6 @@ const CreateProjectMap = (type: any) => {
     }, 500);
   }, [groupOrganization, type.locality, localAOI]);
   useEffect(() => {
-    console.log('List Components', listComponents);
     if (listComponents && listComponents.result && listComponents.result.length > 0) {
       let componentsHovers: any = {};
       for (let i of listComponents.result) {
@@ -495,7 +500,6 @@ const CreateProjectMap = (type: any) => {
   }, [componentsHover, flagtoDraw]);
 
   useEffect(() => {
-    console.log('is Add location', isAddLocation);
     if (isAddLocation) {
       isPopup = false;
       let eventToMove = EventService.getRef('move');
@@ -509,7 +513,6 @@ const CreateProjectMap = (type: any) => {
       map.map.off('mousemove', eventToMove);
       let eventToAddMarker = EventService.getRef('addmarker');
       map.map.off('click', eventToAddMarker);
-      console.log('IN theory should remove event ');
       isPopup = true;
       map.removePopUpOffset();
       marker.remove();
@@ -548,7 +551,6 @@ const CreateProjectMap = (type: any) => {
   };
   useEffect(() => {
     if (isDraw || isDrawCapital) {
-      console.log('type inside draw',type)
       isDrawingCurrently = true;
       currentDraw = isDraw ? 'polygon' : isDrawCapital ? 'capitalpolygon' : 'polygon';
       if (isDrawCapital && type.type === 'CAPITAL') {
@@ -599,7 +601,6 @@ const CreateProjectMap = (type: any) => {
     }
   };
   useEffect(() => {
-    console.log('STream intersected', streamIntersected);
     let geom: any = undefined;
     let thisStreamIntersected = streamIntersected;
     let drawStream = true;
@@ -617,7 +618,7 @@ const CreateProjectMap = (type: any) => {
       }
       if (type.type === 'CAPITAL' || type.type === 'MAINTENANCE') {
         getServiceAreaPolygonofStreams(thisStreamIntersected.geom);
-        setLoading(false);
+        // setLoading(false);
       }
 
       if (type.problemId && geom.coordinates.length > 0) {
@@ -821,7 +822,6 @@ const CreateProjectMap = (type: any) => {
     removeProjectLayer();
     setLoading(true);
     const userPolygon = event.features[0];
-    console.log('current Type', currentType);
     if (currentType === 'CAPITAL') {
       if (currentDraw == 'polygon') {
         getListComponentsByComponentsAndPolygon(componentsList, userPolygon.geometry);
@@ -829,11 +829,12 @@ const CreateProjectMap = (type: any) => {
         hideHighlighted();
         getStreamIntersectionPolygon(userPolygon.geometry);
       }
+      getStreamsList(userPolygon.geometry);
     } else if (currentType === 'MAINTENANCE') {
       getStreamIntersectionPolygon(userPolygon.geometry);
+      getStreamsList(userPolygon.geometry);
     } else if (currentType === 'STUDY') {
       // type.setGeom(userPolygon.geometry); TODO verify if this is needed
-      console.log('should call Study cases', currentType);
       getStreamsIntersectedPolygon(userPolygon.geometry);
       getStreamsList(userPolygon.geometry);
       getServiceAreaStreams(userPolygon.geometry);

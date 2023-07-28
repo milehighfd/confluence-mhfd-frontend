@@ -25,6 +25,7 @@ import RequestorInformation from '../TypeProjectComponents/RequestorInformation'
 import { getData, getToken } from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import * as datasets from "../../../Config/datasets";
+import { setStreamsList } from 'store/actions/ProjectActions';
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -282,6 +283,7 @@ export const ModalCapital = ({
     setJurisdictionSponsor(undefined);
     setStreamIntersected({ geom: null });
     setStreamsIds([]);
+    setStreamsList([]);
     return () => {
       setIndependentComponents([]);
       setComponentsFromMap([]);
@@ -1032,6 +1034,7 @@ export const ModalCapital = ({
                 index={indexForm++}
                 showDraw={showDraw}
                 setShowDraw={setShowDraw}
+                type={selectedTypeProject.toUpperCase()}
               />
               }
               {(selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Acquisition.toLowerCase()||
