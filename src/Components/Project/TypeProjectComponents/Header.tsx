@@ -27,7 +27,6 @@ export const Header = ({
   const [openDropdownTypeProject, setOpenDropdownTypeProject] = useState(false);
   const lengthName = nameProject.length;
 
-  console.log(selectedType, 'SELECTED TYPE')
   let content;
   switch (selectedType) {
     case CAPITAL_POPUP:

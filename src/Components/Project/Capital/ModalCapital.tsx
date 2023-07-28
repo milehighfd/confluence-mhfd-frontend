@@ -28,6 +28,7 @@ import * as datasets from "../../../Config/datasets";
 import { Countywide } from '../TypeProjectComponents/Countywide';
 import { TypeProjectsMenu } from '../TypeProjectComponents/TypeProjectMenu';
 import { setStreamsList } from 'store/actions/ProjectActions';
+import { deletefirstnumbersmhfdcode } from 'utils/utils';
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -130,7 +131,9 @@ export const ModalCapital = ({
     getZoomGeomProblem, 
     setHighlightedProblem, 
     setIsEdit,
-    setDeleteAttachmentsIds
+    setDeleteAttachmentsIds,
+    setHighlightedStream, 
+    setHighlightedStreams
   } = useProjectDispatch();
   const {
     listComponents, 

@@ -1,9 +1,10 @@
 import { Radio, Select, Table } from 'antd';
 import React, { useEffect, useState } from 'react';
 import {  WINDOW_WIDTH } from 'constants/constants';
-import { useProjectState } from 'hook/projectHook';
+import { useProjectState, useProjectDispatch } from 'hook/projectHook';
 import { DeleteOutlined } from '@ant-design/icons';
 import { Countywide } from './Countywide';
+import { deletefirstnumbersmhfdcode } from 'utils/utils';
 
 interface Props {
   isDrawStateCapital: any;
@@ -24,6 +25,10 @@ export const ProjectGeometry = ({
   const {
     listStreams
   } = useProjectState();
+  const {
+    setHighlightedStreams,
+    setHighlightedStream
+  } = useProjectDispatch();
   const formatter = new Intl.NumberFormat('en-US', {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
@@ -41,6 +46,7 @@ export const ProjectGeometry = ({
       });
       setKeys(Array.from(myset));
       const dataFormated: any = [];
+      console.log('Parsing, listSTreams', listStreams);
       Object.keys(listStreams).forEach((key: any, id: any) => {
         const titleTemplate = {
           key: `title-${id}`,
@@ -49,6 +55,7 @@ export const ProjectGeometry = ({
         };
         dataFormated.push(titleTemplate);
         const substreams = listStreams[key];
+        console.log('substreams', substreams, 'of main ', key);
         substreams.forEach((substream: any, index: any) => {
           let formatedNumber = formatter.format(substream.length);
           if (formatedNumber.length === 5) {
@@ -64,6 +71,7 @@ export const ProjectGeometry = ({
           dataFormated.push(rowTemplate);
         });
       });
+      console.log('Data ormated', dataFormated);
       setStreamListData(dataFormated);
     } else{
       setStreamListData([]);
@@ -145,6 +153,7 @@ export const ProjectGeometry = ({
         )}
         {streamListdata.length > 0 && (
           <Table
+            pagination={false}
             dataSource={streamListdata}
             columns={columnsGeometry}
             className='table-project table-geometry'
@@ -158,6 +167,32 @@ export const ProjectGeometry = ({
                 return ('row-geometry-body')
               }
             }}
+            onRow={(record, rowIndex) => {
+              if (record.key.includes('title')) {
+                return {
+                  onMouseEnter: (event) => {
+                    const key = record.reach;
+                    console.log('streamListdata[key]', listStreams[key], key);
+                    if (key === 'Unnamed Streams') {
+                      setHighlightedStreams(listStreams[key])
+                    } else {
+                      const streamData = listStreams[key];
+                      const valueHighlight = !(streamData[0].mhfd_code) ? deletefirstnumbersmhfdcode(streamData[0]) : streamData[0].mhfd_code;
+                      console.log('valueHighlight', valueHighlight, streamData[0].mhfd_code, 'streamData[0]', streamData[0]);
+                      setHighlightedStream(valueHighlight);
+                    }
+                  },
+                  onMouseLeave: (event) => {
+                    setHighlightedStream(undefined);
+                  },
+                };
+              }  else {
+                return {
+                  onMouseEnter: (event) => {},
+                }
+              }
+            }}
+          
           />
         )}
       </>}
