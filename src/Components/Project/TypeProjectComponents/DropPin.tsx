@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Row, Col, Popover, Table } from 'antd';
 import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
+import { Countywide } from "./Countywide";
 
 const columns = [
   {
@@ -17,9 +18,19 @@ const columns = [
   },
 ];
 
-export const DropPin = ({typeProject, geom, setGeom, setIsEditingPosition,index}:
-  {typeProject: string, geom: any, setGeom: Function, setIsEditingPosition?: any,index?:number}) => {
-  const content05 = (<div className="popver-info">If the Special Project does not have a physical location (i.e. research study, criteria update, etc.), please drop a pin on the Local Government's City Hall or MHFD Office.</div>);
+export const DropPin = ({
+  typeProject, 
+  geom, 
+  setGeom, 
+  setIsEditingPosition,
+  showDraw,
+}:{
+  typeProject: string, 
+  geom: any, 
+  setGeom: Function, 
+  setIsEditingPosition?: any,
+  showDraw?: any,
+}) => {
   const [latitude, setLatitude] = useState('--');
   const [longitude, setLongitude] = useState('--');
   const {saveSpecialLocation, saveAcquisitionLocation} = useProjectDispatch();
@@ -93,21 +104,15 @@ export const DropPin = ({typeProject, geom, setGeom, setIsEditingPosition,index}
     }
   }, [latitude])
   return(
-    <>
-    <h5>
-      {index}. Drop Pin
-      <span className="requiered">&nbsp;*</span>
-      <Button className="btn-transparent"><img src="/Icons/icon-10.svg" alt="" height="15px" style={{marginBottom: '3px'}}/></Button>
-      {typeProject == 'Special'? <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover>:''}
-    </h5>
-      <Row gutter={[16, 16]}>
+    <>    
+      {showDraw && <Row gutter={[16, 16]}>
         <Col xs={{ span: 24 }} lg={{ span: 12 }} xxl={{ span: 12 }}>
         <Table dataSource={dataSource} columns={columns} bordered />
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 12}} xxl={{ span: 12 }}>
            <Button className="btn-location" onClick={changeLocation}>{isAddLocation?'Remove Location':(latitude != '--' && longitude != '--' ? 'Change Location':'Add Location')}</Button>
         </Col>
-      </Row>
+      </Row>}
       <br/>
     </>
   );

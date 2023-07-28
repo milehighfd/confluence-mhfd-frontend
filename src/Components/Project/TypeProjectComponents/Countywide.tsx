@@ -1,5 +1,5 @@
 import { Radio, Select, Table } from 'antd';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {  WINDOW_WIDTH } from 'constants/constants';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useProfileState } from 'hook/profileHook';
@@ -9,6 +9,12 @@ interface Props {
   setCounty: Function;
   setShowDraw: Function;
   showDraw: boolean;
+  showCounty: boolean;
+  setShowCounty: Function;
+  isCountyWide: boolean | undefined;
+  setIsCountyWide: Function;
+  isSouthPlate: boolean | undefined;
+  setIsSouthPlate: Function;
 }
 const { Option } = Select;
 
@@ -17,10 +23,22 @@ export const Countywide = ({
   setCounty,
   setShowDraw,
   showDraw,
+  showCounty,
+  setShowCounty,
+  isCountyWide,
+  setIsCountyWide,
+  isSouthPlate,
+  setIsSouthPlate,
 }: Props) => {
   const { groupOrganization } = useProfileState();
-  const [countyList, setCountyList] = React.useState<any>([]);
-  
+  const [countyList, setCountyList] = useState<any>([]);
+  const [defaultValueCounty, setDefaultValueCounty] = useState<any>('');
+  const [defaultValueSouthPlate, setDefaultValueSouthPlate] = useState<any>('');
+
+  useEffect(() => {
+    setDefaultValueCounty(isCountyWide ? 'Yes' : 'No');
+    setDefaultValueSouthPlate(isSouthPlate ? 'Yes' : 'No');
+  }, [isCountyWide, isSouthPlate])
 
   useEffect(() => {
     if (groupOrganization.length > 0) {
@@ -52,12 +70,26 @@ export const Countywide = ({
       <p className='text-default'>Projects are spatially defined by stream reaches.  Select the option below that best allows you to define the project.</p>
       <div className='section-gemetry'>
         <p>i. Is this a countywide project?</p>
-        <Radio.Group onChange={(e) => setShowDraw((e.target.value === 'No') ? true : false)}>
+        <Radio.Group value={defaultValueCounty} onChange={(e) => {
+          if (e.target.value === 'Yes') {
+            setIsCountyWide(true);
+            setShowDraw(false);
+            setShowCounty(true);
+          } else if (e.target.value === 'No') {
+            setIsCountyWide(false);
+            setShowDraw(true);
+            setShowCounty(false);
+          } else{
+            setIsCountyWide(false);
+            setShowDraw(false);
+            setShowCounty(false);
+          }
+        }}>
           <Radio value="Yes"><span className='text-radio-btn'>Yes</span></Radio>
           <Radio value="No"><span className='text-radio-btn'>No</span></Radio>
         </Radio.Group>
         <div className='section-county'>
-          {!showDraw && <><label className="sub-title">Select one or multiple counties </label>
+          {showCounty && <><label className="sub-title">Select one or multiple counties </label>
             <Select
               mode="multiple"
               placeholder={county?.length !== 0 ? county : "Select a County"}
@@ -73,7 +105,13 @@ export const Countywide = ({
             </>}
         </div>
         <p>ii. Is this project located on the South Platte River?</p>
-        <Radio.Group>
+        <Radio.Group value={defaultValueSouthPlate} onChange={(e) => {
+          if (e.target.value === 'Yes') {
+            setIsSouthPlate(true);
+          } else if (e.target.value === 'No') {
+            setIsSouthPlate(false);
+          }
+        }}>
           <Radio value="Yes"><span className='text-radio-btn'>Yes</span></Radio>
           <Radio value="No"><span className='text-radio-btn'>No</span></Radio>
         </Radio.Group>
