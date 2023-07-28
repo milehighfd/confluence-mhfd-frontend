@@ -98,7 +98,7 @@ const SidebarMenuDown = ({
   const optionsLabel = (
     <div className="menu-back-layout">
       {user.photo ? (
-        <img src={user.photo} className={'ll-img anticon' + (collapsed ? ' img-collapsed' : '')} alt="profile" />
+        <img src={user.photo} className={'ll-img anticon' + (collapsed ? ' img-profile-collapsed' : '')} alt="profile" />
       ) : (
         <label className="ll-00">{initialName}</label>
       )}
