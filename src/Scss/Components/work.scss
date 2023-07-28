@@ -748,9 +748,10 @@
     color: $purple00;
     font-weight: bold;   
   }
-  .icon-analytics{
+  .icons-drawers{
     margin-left: 0px;
     margin-right: 10px;
+    padding-bottom: 3px;
   }
 
   .ant-drawer-close{
@@ -911,6 +912,27 @@
     overflow-y: auto;
     padding-top: 0px !important;
 
+
+    .check-filter {
+        padding-top: 16px;
+    
+        .ant-checkbox-checked .ant-checkbox-inner {
+          background-color: $blue-opacity !important;
+          /* Cambia el color de fondo del checkbox cuando está seleccionado */
+          border-color: $blue-opacity !important;
+          /* Cambia el color del borde del checkbox cuando está seleccionado */
+        }
+      }
+      .check-filter1 {
+       
+        .ant-checkbox-checked .ant-checkbox-inner {
+          background-color: $blue-opacity !important;
+          /* Cambia el color de fondo del checkbox cuando está seleccionado */
+          border-color: $blue-opacity !important;
+          /* Cambia el color del borde del checkbox cuando está seleccionado */
+        }
+      }
+
     p{
       font-size: 12px !important;
       line-height: 14px;
@@ -947,6 +969,10 @@
     box-shadow: none !important;
   }
   .buttons-filters{
+    .btn-borde{
+      width: 127px;
+      margin-right: 10px;
+    }
     .btn-purple{
       width: 127px;
     }
