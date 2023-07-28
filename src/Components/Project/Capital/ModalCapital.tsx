@@ -820,15 +820,18 @@ export const ModalCapital = ({
     const countyWithoutLabel = county?.map(county => county.replace(' County', ''));
     let result = '';
     if (jurisdictions?.length > 0) {
-      result += jurisdictions.length > 1 ? 'Multiple Jurisdictions' : `${jurisdictions[0]} · `;
+      result += jurisdictions.length > 1 ? 'Multiple Jurisdictions' : `${jurisdictions[0]}`;
     }
     if (serviceAreaWithoutLabel?.length > 0) {
+      if (result){
+        result += ' · ';
+      }
       result += serviceAreaWithoutLabel.length > 1 ? 'Multiple Service Areas' : `${serviceAreaWithoutLabel[0]} Service Area`;
-    }
-    if (serviceAreaWithoutLabel?.length > 0 && countyWithoutLabel?.length > 0) {
-      result += ' · ';
-    }
+    }    
     if (countyWithoutLabel?.length > 0) {
+      if (result){
+        result += ' · ';
+      }
       result += countyWithoutLabel.length > 1 ? 'Multiple Counties' : `${countyWithoutLabel[0]} County`;
     }
     return result;
