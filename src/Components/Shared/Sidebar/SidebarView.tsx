@@ -41,7 +41,7 @@ const SidebarView = () => {
     <Sider
       className="display-sider"
       collapsedWidth="58"
-      collapsible
+      collapsible = {false}
       collapsed={collapsed}
       onCollapse={() => setCollapsed(!collapsed)}
     >
