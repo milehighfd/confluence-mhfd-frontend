@@ -51,20 +51,24 @@ export const Header = ({
   return (
     <div className="head-project">
       <div className='project-title'>
-        <label data-value={nameProject} style={{ width: '100%' }}>
-          <div className='project-name-icons'>
-            <textarea className="project-name" value={nameProject} onChange={onChange} style={{
-              height: lengthName > 259 ? 'unset' : '34px'
-            }} />
+        <div className='project-name-icons'>
+            <textarea
+              className="project-name"
+              value={nameProject}
+              onChange={onChange}
+              style={{
+                height: lengthName > 259 ? 'unset' : '34px'
+              }}
+              cols={lengthName> 25 ? 25: lengthName} 
+            />
             <div className='ico-title'>
               <Button className={favorite ? "btn-transparent" : "btn-transparent"} onClick={() => { setFavorite(!favorite) }}>
                 {favorite ? <HeartFilled className='heart'/>:<HeartOutlined className='ico-heart'/>}
               </Button>
               <img src="/Icons/ic_send_purple.svg" alt="" height="16px"></img>
             </div>
-          </div>
-          <p className='project-sub-name'>{locationData}</p>
-        </label>
+        </div>
+        <p className='project-sub-name'>{locationData}</p>
       </div>
       <div className='project-type'>
         {isEdit?<p>{selectedType}</p>:<Dropdown overlay={menuTypeProjects} trigger={['click']} overlayClassName="drop-menu-type-project" placement="bottomRight" onVisibleChange={() => { setOpenDropdownTypeProject(!openDropdownTypeProject) }}>
