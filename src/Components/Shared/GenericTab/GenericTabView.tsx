@@ -292,6 +292,7 @@ const GenericTabView = ({
                 endMessage={''}
                 scrollableTarget="card-on-map"
                 loader={<></>}>
+                    
                 {type !== FILTER_PROBLEMS_TRIGGER ? infiniteScrollItems.map((_: any, index: number) => {
                     return data[index] && <CardInformationView  
                         key={index}
