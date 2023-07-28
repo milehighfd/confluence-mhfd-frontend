@@ -79,7 +79,7 @@ export const RequestorInformation = ({
           <div id="sponsorid">
             <Select
               style={{ width: '100%' }}
-              placeholder={'Select a Requestor'}
+              placeholder={'Select a Sponsor'}
               value={sponsor === "" ? undefined : sponsor}
               listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
               disabled={isLocalGovernment}
@@ -102,7 +102,7 @@ export const RequestorInformation = ({
           <div className="sponsor-select" id="cosponsorid">
             <Select
               mode="multiple"
-              placeholder={cosponsor?.length != 0 ? cosponsor : "Select a Co-Requestor"}
+              placeholder={cosponsor?.length != 0 ? cosponsor : "Select a Co-Sponsor"}
               style={{ width: '100%' }}
               listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
               onChange={(coSponsor: any) => setCoSponsor(coSponsor)}
