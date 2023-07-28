@@ -43,6 +43,8 @@ export class Project {
     otherReason? : any;
     isWorkPlan: boolean;
     type: string;
+    isCountyWide: boolean | undefined;
+    isSouthPlate: boolean | undefined;
     constructor() {
         this.year = '2023';
         this.projectname = "special";
@@ -75,5 +77,7 @@ export class Project {
         this.sendToWR = false;
         this.isWorkPlan = false;
         this.type = '';
+        this.isCountyWide = false;
+        this.isSouthPlate = false;
     }
 }

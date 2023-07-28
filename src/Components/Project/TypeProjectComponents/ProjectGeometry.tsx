@@ -6,26 +6,18 @@ import { DeleteOutlined } from '@ant-design/icons';
 import { Countywide } from './Countywide';
 
 interface Props {
-  county: any;
-  setCounty: any;
   isDrawStateCapital: any;
   onClickDrawCapital: any;
-  index: number;
   showDraw: boolean;
-  setShowDraw: Function;
   type: string;
 }
 const { Option } = Select;
 
 export const ProjectGeometry = ({ 
-  county, 
-  setCounty, 
   isDrawStateCapital, 
   onClickDrawCapital,
-  index,
   showDraw,
-  setShowDraw,
-  type
+  type,
 }: Props) => {
   const [streamListdata, setStreamListData] = useState<any>([]);
   const [keys, setKeys] = useState<any>(['-false']);
@@ -140,36 +132,31 @@ export const ProjectGeometry = ({
   }, [type]);
   return (
     <>
-      <div className="sub-title-project">
-        <h5>{index}. PROJECT GEOMETRY *</h5>
-      </div>      
-      <Countywide
-        county={county}
-        setCounty={setCounty}
-        setShowDraw={setShowDraw}
-        showDraw={showDraw}
-      />
-      {showDraw && <div className={"draw " + (isDrawStateCapital ? 'active' : '')} onClick={onClickDrawCapital}>
-        <img src="" className="icon-draw active" style={{ WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat' }} />
-        <p className='text-body-project'>Click on the icon above and draw a polygon to define the project feature</p>
-      </div>}
-      {
-        streamListdata.length > 0 && <Table
-          dataSource={streamListdata}
-          columns={columnsGeometry}
-          className='table-project table-geometry'
-          rowClassName={(record, index) => {
-            if (record.key.includes('total')) {
-              return ('row-geometry-total')
-            }
-            if (record.key.includes('title') || record.key.includes('total')) {
-              return ('row-geometry-title')
-            } else {
-              return ('row-geometry-body')
-            }
-          }}
-        />
-      }
+      {showDraw && <>
+        {(
+          <div className={`draw ${isDrawStateCapital ? 'active' : ''}`} onClick={onClickDrawCapital}>
+            <img src="/Icons/icon-08.svg" className="icon-draw" style={{ WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat' }} />
+            <p className='text-body-project'>Click on the icon above and draw a polygon to define the project feature</p>
+          </div>
+        )}
+        {streamListdata.length > 0 && (
+          <Table
+            dataSource={streamListdata}
+            columns={columnsGeometry}
+            className='table-project table-geometry'
+            rowClassName={(record, index) => {
+              if (record.key.includes('total')) {
+                return ('row-geometry-total')
+              }
+              if (record.key.includes('title') || record.key.includes('total')) {
+                return ('row-geometry-title')
+              } else {
+                return ('row-geometry-body')
+              }
+            }}
+          />
+        )}
+      </>}
     </>
-  );
+  )
 };

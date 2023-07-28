@@ -25,14 +25,22 @@ import RequestorInformation from '../TypeProjectComponents/RequestorInformation'
 import { getData, getToken } from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import * as datasets from "../../../Config/datasets";
+import { Countywide } from '../TypeProjectComponents/Countywide';
+import { TypeProjectsMenu } from '../TypeProjectComponents/TypeProjectMenu';
 import { setStreamsList } from 'store/actions/ProjectActions';
 
 const { Option } = Select;
 const { Panel } = Collapse;
+const content = (<div className="popver-info">Projects identified in a MHFD master plan that increase conveyance or reduce flow and require a 50% local match.</div>);
 const contentIndComp = (<div className="popver-info">Independent Actions should be added to represent any known project actions that are not already shown in the Actions layer. Independent Action costs should reflect only the cost of construction; they will have Overhead Costs applied to them</div>);
 const contentOverheadCost = (<div className="popver-info"> Overhead Cost includes all costs beyond the costs of physical construction (Subtotal Cost). The default values shown here can and should be changed when different percentages are anticipated, such as in urban settings. Please add a description explaining any changes from default values. </div>);
 const contentAdditionalCost = (<div className="popver-info"> Enter any additional costs here that were not captured previously as Actions, Independent Actions, or Overhead Costs. Additional Costs (unlike Independent Actions) will NOT have Overhead Costs applied to them. </div>);
 const content10 = (<div className="popver-info">The Action Status indicates whether or not the Action has already been built (Complete) or still needs to be built (Proposed).</div>);
+const content05 = (<div className="popver-info" style={{ width: '261px' }}> Indicate why this project is eligible for MHFD maintenance. <br /><br /><b>Capital Project</b> – The project was completed as part of a MHFD Capital Improvement Plan
+  <br /> <b>MEP</b> – The project has been accepted through development review as part of MHFD's Maintenance Eligibility Program (MEP)
+  <br /><b>Grandfathered</b> – Development occurred before MHFD’s Maintenance Eligibility Program started in 1980
+  <br /><b>Not Eligible</b> – The project does not meet any of the above criteria
+  <br /><b>Unknown</b>  – Maintenance eligibility status is unknown</div>);
 let flagInit = false;
 const stateValue = {
   visibleCapital: false
@@ -180,7 +188,10 @@ export const ModalCapital = ({
   const [selectedTypeProject, setSelectedTypeProject] = useState(typeProject.toLowerCase() === 'r&d' ? 'special' : typeProject.toLowerCase());
   const [selectedLabelProject, setSelectedLabelProject] = useState(subTypeInit === '' ? (typeProject) : subTypeInit);
   const [lastValue, setLastValue] = useState('');
-  const [showDraw, setShowDraw] = React.useState(false);
+  const [showDraw, setShowDraw] = useState(true);
+  const [showCounty, setShowCounty] = useState(false);
+  const [isCountyWide, setIsCountyWide] = useState();
+  const [isSouthPlate, setIsSouthPlate] = useState();
   //maintenance
   const [frequency, setFrequency] = useState('');
   const [eligibility, setEligibility] = useState('');
@@ -207,72 +218,8 @@ export const ModalCapital = ({
 
   //list Menu TypeProjects
   const menuTypeProjects = () => {
-  return(
-    <Menu
-      className="menu-drop"
-      items={[
-        {
-          key: 'Capital',
-          label: 'Capital',
-          onClick: () => {setTypeAndSubType('capital','','Capital')},
-        },
-        {
-          key: 'Maintenance',
-          label: 'Maintenance',
-          children: [
-            {
-              key: 'Maintenance Restoration',
-              label: 'Maintenance Restoration',
-              onClick: () => {setTypeAndSubType('maintenance','Restoration','Maintenance Restoration')},
-            },
-            {
-              key: 'Routine Trash & Debris',
-              label: 'Routine Trash & Debris',
-              onClick: () => {setTypeAndSubType('maintenance','Routine Trash and Debris','Routine Trash & Debris')},
-            },
-            {
-              key: 'Sediment Removal',
-              label: 'Sediment Removal',
-              onClick: () => {setTypeAndSubType('maintenance','Sediment Removal','Sediment Removal')},
-            },
-            {
-              key: 'General Maintenance',
-              label: 'General Maintenance',
-              onClick: () => {setTypeAndSubType('maintenance','Minor Repairs','General Maintenance')},
-            },
-            {
-              key: 'Vegetation Management',
-              label: 'Vegetation Management',
-              onClick: () => {setTypeAndSubType('maintenance','Vegetation Management','Vegetation Management')},
-            },
-          ],
-        },
-        {
-          key: 'Study',
-          label: 'Study',
-          onClick: () => {setTypeAndSubType('study','','Study')},
-        },
-        {
-          key: 'Acquisition',
-          label: 'Acquisition',
-          onClick: () => {setTypeAndSubType('acquisition','','Acquisition')},
-        },
-        {
-          key: 'R&D',
-          label: 'R&D',
-          onClick: () => {setTypeAndSubType('special','','R&D')},
-        },
-    ]}/>
-  )
-};
-
-  // useRef to store last value
-  // const currentTypeRef = useRef(selectedTypeProject);
-  // useEffect(() => {
-  //   const newValue = JSON.stringify(currentTypeRef.current);
-  //   setLastValue(newValue);
-  //   currentTypeRef.current = selectedTypeProject;
-  // }, [selectedTypeProject]);
+    return (<TypeProjectsMenu setTypeAndSubType={setTypeAndSubType} />)
+  };
 
   //Delete all data when opening
   useEffect(() => {
@@ -301,7 +248,7 @@ export const ModalCapital = ({
       }
     }       
   }, [userInformation]);
-
+  
   //Load Data if is Edit
   useEffect(() => {
     console.log(typeProject)
@@ -316,6 +263,15 @@ export const ModalCapital = ({
       setDescription(data.description);
       setNameProject(data.project_name);
       setProjectId(data.project_id);
+      setIsCountyWide(data.is_county_wide);
+      setIsSouthPlate(data.is_located_on_south_plate_river);
+      if(isCountyWide){
+        setShowCounty(true);
+        setShowDraw(false);
+      }else{
+        setShowCounty(false);
+        setShowDraw(true);
+      }
       const coEsponsor = data.project_partners.map((e: any) => {
         if (e.code_partner_type_id === 12) {
           return titleCase(e.business_associate.business_name)
@@ -332,8 +288,8 @@ export const ModalCapital = ({
       setSponsor(titleCase(sponsor));
       setSwSave(true);
       setIsEdit(true);
-      if (selectedTypeProject === 'capital') {
-        setEditsetprojectid(data.project_id);
+      setEditsetprojectid(data.project_id);
+      if (selectedTypeProject === 'capital') {        
         const aditionalCostObject = data.project_costs.filter((e: any) => e.code_cost_type_id === 4)[0];
         setComponentIntersected(data.project_proposed_actions || []);
         setAdditionalCost(parseInt(aditionalCostObject?.cost || '0'));
@@ -482,7 +438,9 @@ export const ModalCapital = ({
       capital.sendToWR = sendToWR;
       capital.isWorkPlan = isWorkPlan;
       capital.type = selectedTypeProject;
-      //capital
+      capital.isCountyWide = isCountyWide ? isCountyWide : false;
+      capital.isSouthPlate = isSouthPlate ? isSouthPlate : false;
+      //capital 
       if (selectedTypeProject === 'capital') {
         capital.geom = streamIntersected.geom;
         capital.overheadcost = overheadCosts;
@@ -541,15 +499,15 @@ export const ModalCapital = ({
   //Check if required fields are filled to enable save button
   useEffect(()=>{
     let streamValidation = streamIntersected.geom ? JSON.parse(streamIntersected.geom): undefined;
-    if (selectedTypeProject === 'capital' && geom  && description !== '' && county.length !== 0 && serviceArea.length !== 0 && nameProject !== '' && streamValidation != undefined && streamValidation.coordinates.length > 0 && jurisdiction.length > 0 && componentsToSave.length > 0) {
+    if (selectedTypeProject === 'capital' && (geom || isCountyWide)  && description !== '' && county.length !== 0 && serviceArea.length !== 0 && nameProject !== '' && streamValidation != undefined && streamValidation.coordinates.length > 0 && jurisdiction.length > 0 && componentsToSave.length > 0) {
       setDisable(false);
-    } else if (selectedTypeProject === 'maintenance' && description != '' && county.length && serviceArea.length && jurisdiction.length && nameProject !== '') {
+    } else if (selectedTypeProject === 'maintenance' && (geom || isCountyWide) && description != '' && county.length && serviceArea.length && jurisdiction.length && nameProject !== '') {
       setDisable(false);
-    } else if (selectedTypeProject === 'acquisition' && nameProject !== '' && geom && description != '' && county.length && serviceArea.length && jurisdiction.length) {      
+    } else if (selectedTypeProject === 'acquisition' && nameProject !== '' && (geom || isCountyWide) && description != '' && county.length && serviceArea.length && jurisdiction.length) {      
       setDisable(false);
-    } else if (selectedTypeProject === 'study' && geom && description !== '' && county.length !== 0 && serviceArea.length !== 0 && jurisdiction.length !== 0) {
+    } else if (selectedTypeProject === 'study' && (geom || isCountyWide) && description !== '' && county.length !== 0 && serviceArea.length !== 0 && jurisdiction.length !== 0) {
       setDisable(false);
-    } else if (selectedTypeProject === 'special' && geom  && description != '' && county.length !== 0 && serviceArea.length !== 0 && jurisdiction.length !== 0 ) {
+    } else if (selectedTypeProject === 'special' && (geom || isCountyWide)  && description != '' && county.length !== 0 && serviceArea.length !== 0 && jurisdiction.length !== 0 ) {
       setDisable(false);
     }
     else {
@@ -1141,7 +1099,7 @@ export const ModalCapital = ({
   };
 
   useEffect(() => {
-    if (!showDraw) {
+    if (showCounty) {
       if(county.length > 0) {
         const countyList: any = [];
         groupOrganization.forEach((item: any) => {
@@ -1164,6 +1122,29 @@ export const ModalCapital = ({
       }      
     }
   }, [county]);
+
+  const RestartLocation = () => {
+    setGeom(undefined);
+    setServiceAreaCounty({});
+    setServiceArea([]);
+    setCounty([]);
+    setjurisdiction([]);
+  }
+
+  useEffect(() => {
+    if ((['capital', 'maintenance'].includes(lastValue)) && (['acquisition', 'special'].includes(selectedTypeProject))) {
+      RestartLocation();
+    }
+    if ((['acquisition', 'special'].includes(lastValue)) && (['capital', 'maintenance'].includes(selectedTypeProject))) {
+      RestartLocation();
+    }
+    if ((['study'].includes(lastValue)) && (['capital', 'maintenance', 'acquisition', 'special'].includes(selectedTypeProject))) {
+      RestartLocation();
+    }
+    if ((['capital', 'maintenance', 'acquisition', 'special'].includes(lastValue)) && (['study'].includes(selectedTypeProject))) {
+      RestartLocation();
+    }
+  },[selectedTypeProject]);
 
   //capital
   useEffect(() => {
@@ -1301,26 +1282,51 @@ export const ModalCapital = ({
               }
               {(selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Capital.toLowerCase()||
               selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Maintenance.toLowerCase()||
-              selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Study.toLowerCase()) && 
-              <ProjectGeometry
+              selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Study.toLowerCase()) &&
+                <div className="sub-title-project">
+                  <h5>{indexForm++}. PROJECT GEOMETRY *</h5>
+                </div>
+              }
+              {
+                (selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Acquisition.toLowerCase()||
+                selectedTypeProject && selectedTypeProject?.toLowerCase() === 'special') &&
+                <h5>
+                  {indexForm++}. Drop Pin
+                  <span className="requiered">&nbsp;*</span>
+                  <Button className="btn-transparent"><img src="/Icons/icon-10.svg" alt="" height="15px" style={{marginBottom: '3px'}}/></Button>
+                  {typeProject == 'Special'? <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover>:''}
+                </h5>
+              }
+              <Countywide
                 county={county}
                 setCounty={setCounty}
-                isDrawStateCapital={isDrawStateCapital}
-                onClickDrawCapital={onClickDrawCapital}
-                index={indexForm++}
-                showDraw={showDraw}
                 setShowDraw={setShowDraw}
-                type={selectedTypeProject.toUpperCase()}
+                showDraw={showDraw}
+                showCounty={showCounty}
+                setShowCounty={setShowCounty} 
+                isSouthPlate={isSouthPlate}
+                setIsSouthPlate={setIsSouthPlate}
+                isCountyWide={isCountyWide}
+                setIsCountyWide={setIsCountyWide}
               />
+              {(selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Capital.toLowerCase()||
+              selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Maintenance.toLowerCase()||
+              selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Study.toLowerCase()) && 
+                <ProjectGeometry
+                  isDrawStateCapital={isDrawStateCapital}
+                  onClickDrawCapital={onClickDrawCapital}
+                  showDraw={showDraw}
+                  type = {selectedTypeProject}
+                />              
               }
               {(selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Acquisition.toLowerCase()||
                 selectedTypeProject && selectedTypeProject?.toLowerCase() === 'special') &&
                 <DropPin
-                  typeProject={typeProject}
+                  typeProject={selectedTypeProject}
                   geom={geom}
                   setGeom={setGeom}
                   setIsEditingPosition={setIsEditingPosition}
-                  index={indexForm++}
+                  showDraw={showDraw}
                 />
               }
               <LocationInformation
