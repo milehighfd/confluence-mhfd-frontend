@@ -28,6 +28,7 @@ import * as datasets from "../../../Config/datasets";
 import { Countywide } from '../TypeProjectComponents/Countywide';
 import { TypeProjectsMenu } from '../TypeProjectComponents/TypeProjectMenu';
 import { setStreamsList } from 'store/actions/ProjectActions';
+import { deletefirstnumbersmhfdcode } from 'utils/utils';
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -130,7 +131,9 @@ export const ModalCapital = ({
     getZoomGeomProblem, 
     setHighlightedProblem, 
     setIsEdit,
-    setDeleteAttachmentsIds
+    setDeleteAttachmentsIds,
+    setHighlightedStream, 
+    setHighlightedStreams
   } = useProjectDispatch();
   const {
     listComponents, 
@@ -139,7 +142,9 @@ export const ModalCapital = ({
     streamIntersected, 
     independentComponents, 
     isEdit,
-    deleteAttachmentsIds
+    deleteAttachmentsIds,
+    listStreams,
+    streamsIntersectedIds,
   } = useProjectState();
   const { userInformation } = useProfileState();
   const [state, setState] = useState(stateValue);
@@ -198,7 +203,7 @@ export const ModalCapital = ({
   const [ownership, setOwnership] = useState(true);
   const [subType, setSubType] = useState(subTypeInit||'');
   //study 
-  const [studyreason, setStudyReason] = useState<any>(-1);
+  const [studyreason, setStudyReason] = useState<any>();
   const [otherReason, setOtherReason] = useState('');
   //acquisition
   var date = new Date();
@@ -466,6 +471,13 @@ export const ModalCapital = ({
       }      
       //study
       if (selectedTypeProject === 'study') {
+        let mhfd_codes = streamsIntersectedIds.map((str: any) => str.mhfd_code);
+        capital.ids = mhfd_codes;
+        let newStreamsArray: any = [];
+        for (let str in listStreams) {
+          newStreamsArray = [...newStreamsArray, ...listStreams[str]];
+        }
+        capital.streams = newStreamsArray;
         capital.studyreason = studyreason;
         capital.otherReason = otherReason;
       }
