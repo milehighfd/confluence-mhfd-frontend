@@ -71,11 +71,11 @@ export const RequestorInformation = ({
   return (
     <div>
       <div className="sub-title-project">
-        <h5 className="requestor-information">{index} REQUESTOR INFORMATION <Popover content={contentLocInf}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
+        <h5 className="requestor-information">{index}. SPONSOR INFORMATION <Popover content={contentLocInf}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
       </div>
       <Row gutter={[16, 16]} style={{ marginTop: '10px' }}>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-          <label className="sub-title">Requestor <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+          <label className="sub-title">Sponsor <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
           <div id="sponsorid">
             <Select
               style={{ width: '100%' }}
@@ -98,7 +98,7 @@ export const RequestorInformation = ({
           </div>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-          <label className="sub-title">Potential Co-Requestor <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+          <label className="sub-title">Potential Co-Sponsor <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
           <div className="sponsor-select" id="cosponsorid">
             <Select
               mode="multiple"

@@ -1262,7 +1262,6 @@ export const ModalCapital = ({
                 year={year}
                 index= {indexForm++}
               />
-              <br/>
               {selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Capital.toLowerCase() && 
                 <ProposedActions
                   keys={keys}
@@ -1284,18 +1283,17 @@ export const ModalCapital = ({
               selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Maintenance.toLowerCase()||
               selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Study.toLowerCase()) &&
                 <div className="sub-title-project">
-                  <h5>{indexForm++}. PROJECT GEOMETRY *</h5>
+                  <h5 className="geometry">{indexForm++}. PROJECT GEOMETRY *</h5>
                 </div>
               }
               {
                 (selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Acquisition.toLowerCase()||
                 selectedTypeProject && selectedTypeProject?.toLowerCase() === 'special') &&
-                <h5>
-                  {indexForm++}. Drop Pin
-                  <span className="requiered">&nbsp;*</span>
-                  <Button className="btn-transparent"><img src="/Icons/icon-10.svg" alt="" height="15px" style={{marginBottom: '3px'}}/></Button>
-                  {typeProject == 'Special'? <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover>:''}
-                </h5>
+                <div className="sub-title-project">
+                  <h5 className="requestor-information">
+                    {indexForm++}. Drop Pin *
+                  </h5>
+                </div>
               }
               <Countywide
                 county={county}

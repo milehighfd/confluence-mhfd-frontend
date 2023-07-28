@@ -59,9 +59,9 @@ export const Header = ({
             }} />
             <div className='ico-title'>
               <Button className={favorite ? "btn-transparent" : "btn-transparent"} onClick={() => { setFavorite(!favorite) }}>
-                {favorite ? <HeartFilled className='heart' /> : <HeartOutlined />}
+                {favorite ? <HeartFilled className='heart'/>:<HeartOutlined className='ico-heart'/>}
               </Button>
-              <img src="/Icons/ic_send.svg" alt="" height="16px"></img>
+              <img src="/Icons/ic_send_purple.svg" alt="" height="16px"></img>
             </div>
           </div>
           <p className='project-sub-name'>{locationData}</p>
@@ -70,7 +70,7 @@ export const Header = ({
       <div className='project-type'>
         {isEdit?<p>{selectedType}</p>:<Dropdown overlay={menuTypeProjects} trigger={['click']} overlayClassName="drop-menu-type-project" placement="bottomRight" onVisibleChange={() => { setOpenDropdownTypeProject(!openDropdownTypeProject) }}>
           <div className="drop-espace">
-            <a onClick={e => e.preventDefault()} style={{ marginLeft: '2%', display: 'flex', alignItems: 'baseline' }}>
+            <a onClick={e => e.preventDefault()} style={{ marginLeft: '2%', display: 'flex', alignItems: 'center' }}>
               {<p>{selectedType}</p>} &nbsp;
               {openDropdownTypeProject ? <UpOutlined style={{ color: '#251863', fontSize: '14px' }} /> : <DownOutlined style={{ color: '#251863', fontSize: '14px' }} />}
             </a>
