@@ -66,6 +66,7 @@ import {
   TEST_LINE,
   EFFECTIVE_REACHES_ENDPOINTS,
   ROUTINE_MAINTENANCES,
+  ALERT_STATION,
 } from './constants';
 
 export const localComponents = {
@@ -5748,6 +5749,160 @@ export const tileStyles = {
         ],
       },
     },
+  ],
+  [ALERT_STATION]: [
+  {
+      // "id": "Wthr Shadow",
+      "type": "circle",
+      'source-layer': 'pluto15v1',
+      "filter": [
+          "match",
+          ["get", "station_type"],
+          ["Repeater, Weather", "Weather, Stage", "Weather"],
+          true,
+          false
+      ],
+      "paint": {
+          "circle-stroke-opacity": 0,
+          "circle-opacity": 0.5,
+          "circle-blur": 1,
+          "circle-radius": 20
+      }
+  },
+  {
+      // "id": "Prcp Shadow",
+      "type": "circle",
+      'source-layer': 'pluto15v1',
+      "filter": [
+          "match",
+          ["get", "station_type"],
+          [
+              "Precipitation",
+              "Precipitation, Stage",
+              "Repeater, Precipitation",
+              "Precipitation, Dual Stage"
+          ],
+          true,
+          false
+      ],
+      "paint": {
+          "circle-stroke-opacity": 0,
+          "circle-blur": 1,
+          "circle-radius": 15
+      }
+  },
+  {
+      // "id": "Stage Shadow",
+      "type": "circle",
+      'source-layer': 'pluto15v1',
+      "filter": [
+          "match",
+          ["get", "station_type"],
+          ["Stage", "Dual Stage"],
+          true,
+          false
+      ],
+      "paint": {
+          "circle-stroke-opacity": 0,
+          "circle-blur": 1,
+          "circle-radius": 10
+      }
+  },
+  {
+      // "id": "Weather",
+      "type": "symbol",
+      'source-layer': 'pluto15v1',
+      "filter": [
+          "match",
+          ["get", "station_type"],
+          ["Repeater, Weather", "Weather"],
+          true,
+          false
+      ],
+      "layout": {
+          "icon-image": "Weather",
+          "icon-size": 0.1,
+          "icon-allow-overlap": true,
+          "icon-ignore-placement": true
+      },
+      "paint": {}
+  },
+  {
+      // "id": "Precip",
+      "type": "symbol",
+      'source-layer': 'pluto15v1',
+      "filter": [
+          "match",
+          ["get", "station_type"],
+          ["Precipitation", "Repeater, Precipitation"],
+          true,
+          false
+      ],
+      "layout": {
+          "icon-image": "Precip",
+          "icon-size": 0.1,
+          "icon-ignore-placement": true,
+          "icon-allow-overlap": true
+      },
+      "paint": {}
+  },
+  {
+      // "id": "Stage",
+      "type": "symbol",
+      'source-layer': 'pluto15v1',
+      "filter": [
+          "match",
+          ["get", "station_type"],
+          ["Stage", "Dual Stage"],
+          true,
+          false
+      ],
+      "layout": {
+          "icon-image": "Stage",
+          "icon-size": 0.1,
+          "icon-allow-overlap": true,
+          "icon-ignore-placement": true
+      },
+      "paint": {}
+  },
+  {
+      // "id": "Weather Stage",
+      "type": "symbol",
+      'source-layer': 'pluto15v1',
+      "filter": [
+          "match",
+          ["get", "station_type"],
+          ["Weather, Stage"],
+          true,
+          false
+      ],
+      "layout": {
+          "icon-image": "WeatherStage",
+          "icon-size": 0.1,
+          "icon-allow-overlap": true,
+          "icon-ignore-placement": true
+      },
+      "paint": {}
+  },
+  {
+      // "id": "Precip Stage",
+      "type": "symbol",
+      'source-layer': 'pluto15v1',
+      "filter": [
+          "match",
+          ["get", "station_type"],
+          ["Precipitation, Stage", "Precipitation, Dual Stage"],
+          true,
+          false
+      ],
+      "layout": {
+          "icon-image": "PrecipStage",
+          "icon-size": 0.1,
+          "icon-ignore-placement": true,
+          "icon-allow-overlap": true
+      },
+      "paint": {}
+  }
   ],
   [DWR_DAM_SAFETY]: [
     {

@@ -32,7 +32,8 @@ import {
   EFFECTIVE_REACHES_LAYERS,
   FLOOD_HAZARDS,
   USE_LAND_COVER_LABEL,
-  USE_LAND_COVER
+  USE_LAND_COVER,
+  ALERT_STATION
 } from '../../../constants/constants';
 
 
@@ -85,6 +86,7 @@ const MapFilterView = ({
     [COUNTIES_LAYERS.name]: false,
     [MUNICIPALITIES.name]: false,
     [NRCS_SOILS]: false,
+    [ALERT_STATION]: false,
     [DWR_DAM_SAFETY]: false,
     [USE_LAND_COVER_LABEL]: false,
     [STREAM_MANAGEMENT_CORRIDORS]: false,
@@ -123,7 +125,7 @@ const MapFilterView = ({
       } else {
         newGroups['MHFDData'] = false;
       }
-    if ( switches[WATERSHED_FILTERS] && switches[NRCS_SOILS] && switches[STREAMS_FILTERS]) {
+    if ( switches[WATERSHED_FILTERS] && switches[NRCS_SOILS] && switches[STREAMS_FILTERS] && switches[ALERT_STATION]) {
       newGroups['hydrologic'] = true;
     } else {
       newGroups['hydrologic'] = false;
@@ -229,10 +231,10 @@ const MapFilterView = ({
     return (
       <div className="filter-coll-header" key="o0J90xA0GWXI">
 
-         <div key="Iwo7J4ogHFZQ" style={(switches[WATERSHED_FILTERS] || switches[NRCS_SOILS]) ? weightStyle : emptyStyle }>{/*<img key="xwQ2RQ0DRJKR" src="/Icons/icon-77.svg" alt="" />*/} HYDROLOGIC </div>
+         <div key="Iwo7J4ogHFZQ" style={(switches[WATERSHED_FILTERS] || switches[NRCS_SOILS] || switches[ALERT_STATION]) ? weightStyle : emptyStyle }>{/*<img key="xwQ2RQ0DRJKR" src="/Icons/icon-77.svg" alt="" />*/} HYDROLOGIC </div>
         <Switch key="ETPVzxlFrXL8" checked={groups['hydrologic']} size="small" onClick={(value, event) => {
          event.stopPropagation();
-         changeGroup(value, [STREAMS_FILTERS, WATERSHED_FILTERS, NRCS_SOILS
+         changeGroup(value, [STREAMS_FILTERS, WATERSHED_FILTERS, NRCS_SOILS, ALERT_STATION
          ], 'hydrologic')}
        }/>
       </div>
@@ -504,6 +506,15 @@ const MapFilterView = ({
                 <img key="koY1HwMtgfSL" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
               <Switch key="nmx72gLiLfnK" size="small" checked={switches[NRCS_SOILS]} onClick={(value) => onChange(value, NRCS_SOILS)} />
+            </p> 
+
+            <p>
+              <img key="ekLYh8KbLIjE" src="/Icons/Filters/layer-alert-station.png" width="18px" alt="" />
+                  Alert Station
+                  <Popover key="ihK408aNAXrw" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.alert_station)}>
+                <img key="koY1HwMtgfSL" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+              </Popover>
+              <Switch key="nmx72gLiLfnK" size="small" checked={switches[ALERT_STATION]} onClick={(value) => onChange(value, ALERT_STATION)} />
             </p> 
 
             <p style={{ display: 'none' }}>

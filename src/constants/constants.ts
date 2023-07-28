@@ -401,6 +401,7 @@ export const PROJECTS_DRAFT_MAP_STYLES = {
   ]
 }
 export const NRCS_SOILS = 'usda_nrcs_soils';
+export const ALERT_STATION = 'alert_stations';
 export const DWR_DAM_SAFETY = 'dwr_dam_safety';
 export const STREAM_MANAGEMENT_CORRIDORS = 'mhfd_smcs';
 export const BCZ_PREBLE_MEADOW_JUMPING =
@@ -423,6 +424,7 @@ export const SELECT_ALL_FILTERS = [
   FLOOD_HAZARDS,
   MHFD_BOUNDARY_FILTERS,
   NRCS_SOILS,
+  ALERT_STATION,
   WATERSHED_FILTERS,
   SERVICE_AREA_LAYERS,
   SEMSWA_SERVICE_AREA,
@@ -467,6 +469,7 @@ export const SWITCHES_MAP = [
   COUNTIES_LAYERS,
   MUNICIPALITIES,
   NRCS_SOILS,
+  ALERT_STATION,
   DWR_DAM_SAFETY,
   USE_LAND_COVER,
   STREAM_MANAGEMENT_CORRIDORS,
@@ -1182,7 +1185,8 @@ export const popUps = {
   borders: 'A thin border surrounding the selected work request or work plan area.',
   area_based_mask: 'An opacity mask surrounding the selected work request or work plan area.',
   active_lomcs: 'A Letter of Map Change (LOMC) is issued when FEMA is requested to revise its effective flood map to reflect changed flooding conditions. reflects an official change to an effective Flood Insurance Rate Map (FIRM).',
-  effective_reaches: 'The Effective Model Reaches catalogue and track the hydraulic model information used to create the effective Flood Insurance Rate Maps (FIRMs) available from the Federal Emergency Management Agency (FEMA).'
+  effective_reaches: 'The Effective Model Reaches catalogue and track the hydraulic model information used to create the effective Flood Insurance Rate Maps (FIRMs) available from the Federal Emergency Management Agency (FEMA).',
+  alert_station: ' Alert Stations show the locations of MHFD real-time rainfall and stream flow sensors',
 }
 
 export const MENU_OPTIONS =
@@ -1202,6 +1206,7 @@ export const MENU_OPTIONS =
   ROUTINE_MAINTENANCE: 'ROUTINE MAINTENANCE',
   DEBRIS_MANAGEMENT_LINEAR: 'Debris Management Linear',
   NCRS_SOILS: 'NCRS Soils',
+  ALERT_STATION: 'Alert Station',
   DWR_DAM_SAFETY: 'DWR Dam Safety',
   STREAM_MANAGEMENT_CORRIDORS: 'Stream Management Corridors',
   BCZ_PREBLES_MEADOW_JUMPING_MOUSE: 'BCZ - Preble’s Meadow Jumping Mouse',
