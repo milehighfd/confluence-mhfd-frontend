@@ -395,37 +395,6 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
     maximumFractionDigits: 1
   });
 
-  const removeStream = (stream: any) => {
-    console.log('Stream to remove', stream);
-    let mhfd_codeIdToRemove = stream?.mhfd_code;
-    let copyList = { ...streamsList };
-    console.log('Current list', streamsList, mhfd_codeIdToRemove);
-    for (let jurisdiction in copyList) {
-      let newArray = [...copyList[jurisdiction]].filter((st: any) => st.mhfd_code != mhfd_codeIdToRemove);
-      copyList[jurisdiction] = newArray;
-    }
-    let newCopyList: any = {};
-    for (let jurisdiction in copyList) {
-      if (copyList[jurisdiction].length > 0) {
-        newCopyList[jurisdiction] = copyList[jurisdiction];
-      }
-    }
-
-    setStreamsList(newCopyList);
-    if (ids.length > 0) {
-      let newIds = [...ids].filter((id: any) => {
-        const arrayValues = mhfd_codeIdToRemove.split('.');
-        arrayValues.shift();
-        console.log('THIS IS TRHUE', id.mhfd_code,  arrayValues.join('.'), id.mhfd_code == arrayValues.join('.'));
-        return id.mhfd_code !== arrayValues.join('.');
-      });
-      
-      
-      console.log('Ids before', ids, 'After', newIds);
-      setStreamsIds(newIds);
-    }
-
-  }
   
   useEffect(() => {
     changeDrawState(isDrawState);

@@ -1,5 +1,5 @@
 import { Radio, Select, Table } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {  WINDOW_WIDTH } from 'constants/constants';
 import { useProjectState, useProjectDispatch } from 'hook/projectHook';
 import { DeleteOutlined } from '@ant-design/icons';
@@ -22,39 +22,43 @@ export const ProjectGeometry = ({
 }: Props) => {
   const [streamListdata, setStreamListData] = useState<any>([]);
   const [keys, setKeys] = useState<any>(['-false']);
+  
   const {
-    listStreams
+    listStreams,
+    streamsIntersectedIds
   } = useProjectState();
+  const currentListStreams = useRef<any>(listStreams);
+  const currentStreamsIds = useRef<any>(streamsIntersectedIds);
   const {
     setHighlightedStreams,
-    setHighlightedStream
+    setHighlightedStream,
+    setStreamsIds,
+    setStreamsList
   } = useProjectDispatch();
   const formatter = new Intl.NumberFormat('en-US', {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   });
-  useEffect(() => {
-    console.log('Should reach ', listStreams);
-    if (listStreams) {
-      const myset = new Set(keys);
-      Object.keys(listStreams).forEach((key: any, id: any) => {
+  const formatListStreams = (thislistStreams: any) => {
+    const myset = new Set(keys);
+      Object.keys(thislistStreams).forEach((key: any, id: any) => {
         if (!streamListdata[key]) {
           myset.add(`${key}`);
-        } else if (streamListdata[key].length !== listStreams[key].length) {
+        } else if (streamListdata[key].length !== thislistStreams[key].length) {
           myset.add(`${key}`);
         }
       });
       setKeys(Array.from(myset));
       const dataFormated: any = [];
-      console.log('Parsing, listSTreams', listStreams);
-      Object.keys(listStreams).forEach((key: any, id: any) => {
+      console.log('Parsing, thislistStreams', thislistStreams);
+      Object.keys(thislistStreams).forEach((key: any, id: any) => {
         const titleTemplate = {
           key: `title-${id}`,
           reach: key,
           delete: true,
         };
         dataFormated.push(titleTemplate);
-        const substreams = listStreams[key];
+        const substreams = thislistStreams[key];
         console.log('substreams', substreams, 'of main ', key);
         substreams.forEach((substream: any, index: any) => {
           let formatedNumber = formatter.format(substream.length);
@@ -66,13 +70,22 @@ export const ProjectGeometry = ({
             reach: substream.str_name,
             code: substream.mhfd_code,
             tributary:'XXXX acres',
-            length:`${formatedNumber} ft`
+            length:`${formatedNumber} ft`,
+            ...substream
           };
           dataFormated.push(rowTemplate);
         });
       });
       console.log('Data ormated', dataFormated);
       setStreamListData(dataFormated);
+  }
+  useEffect(() => {
+    currentStreamsIds.current = streamsIntersectedIds;
+  }, [streamsIntersectedIds]);
+  useEffect(() => {
+    if (listStreams) {
+      currentListStreams.current = listStreams;
+      formatListStreams(listStreams);
     } else{
       setStreamListData([]);
     }
@@ -118,19 +131,51 @@ export const ProjectGeometry = ({
       dataIndex: 'delete',
       key: 'delete',
       width: '1%',
-      render: (text:any) => {
+      render: (text:any, record:any, index:any) => {
         if(text && text === true){
           return ('');
         }else{
           return (
             <div>
-              <DeleteOutlined className='ico-delete' onClick={() => console.log('delete')} />
+              <DeleteOutlined className='ico-delete' onClick={() => removeStream(record)} />
             </div>
           );
         }
       }
     },
   ];
+
+  const removeStream = (stream: any) => {
+    console.log('Stream to remove', stream);
+    let mhfd_codeIdToRemove = stream?.mhfd_code;
+    let copyList = { ...currentListStreams.current };
+    console.log('Current list', currentListStreams.current, mhfd_codeIdToRemove);
+    for (let jurisdiction in copyList) {
+      let newArray = [...copyList[jurisdiction]].filter((st: any) => st.mhfd_code != mhfd_codeIdToRemove);
+      copyList[jurisdiction] = newArray;
+    }
+    let newCopyList: any = {};
+    for (let jurisdiction in copyList) {
+      if (copyList[jurisdiction].length > 0) {
+        newCopyList[jurisdiction] = copyList[jurisdiction];
+      }
+    }
+
+    setStreamsList(newCopyList);
+    if (currentStreamsIds.current.length > 0) {
+      let newIds = [...currentStreamsIds.current].filter((id: any) => {
+        const arrayValues = mhfd_codeIdToRemove.split('.');
+        // arrayValues.shift();
+        console.log('THIS IS TRHUE', id.mhfd_code,  arrayValues.join('.'), id.mhfd_code == arrayValues.join('.'));
+        return id.mhfd_code !== arrayValues.join('.');
+      });
+      
+      
+      console.log('Ids before', currentStreamsIds.current, 'After', newIds);
+      setStreamsIds(newIds);
+    }
+
+  }
   const [columnsGeometry, setColumnsGeometry] = useState(columnsGeometryDefault);
   useEffect(() => {
     if (type !== 'STUDY') {
@@ -172,7 +217,6 @@ export const ProjectGeometry = ({
                 return {
                   onMouseEnter: (event) => {
                     const key = record.reach;
-                    console.log('streamListdata[key]', listStreams[key], key);
                     if (key === 'Unnamed Streams') {
                       setHighlightedStreams(listStreams[key])
                     } else {
