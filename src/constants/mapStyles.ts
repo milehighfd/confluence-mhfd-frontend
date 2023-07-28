@@ -1076,226 +1076,420 @@ export const MEP_PROJECTS_STYLES = {
 export const ROUTINE_MAINTENANCE_STYLES = {
   [ROUTINE_MAINTENANCES]: [
     {
-      type: 'fill',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'fill-color': 'hsl(283, 68%, 46%)',
-        'fill-outline-color': '#c58b26',
-        // 'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 13, 0, 14, 1, 19, 0, 22, 0],
-        'fill-opacity': 1,
-      },
+      "type": "line",
+      "source-layer": 'pluto15v1',
+      "maxzoom": 15,
+      "filter": [
+          "match",
+          ["get", "routine_type"],
+          ["Sensitive Area"],
+          true,
+          false
+      ],
+      "paint": {"line-color": "#2e0047", "line-width": 5}
     },
     {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'line-gap-width': 4,
-        'line-width': 8,
-        'line-blur': 8,
-        'line-color': [
-          'interpolate',
-          ['linear'],
-          ['zoom'],
-          0,
-          'hsla(38, 68%, 46%, 0)',
-          13,
-          'hsla(38, 68%, 46%, 0)',
-          22,
-          'hsl(38, 68%, 46%)',
+        "type": "fill",
+        "source-layer": 'pluto15v1',
+        "maxzoom": 15,
+        "filter": [
+            "match",
+            ["get", "routine_type"],
+            ["Sensitive Area"],
+            true,
+            false
         ],
-        // 'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 13, 0, 14, 1, 22, 1],
-        'line-opacity': 1,
-      },
+        "paint": {
+            "fill-color": "#caa8ff",
+            "fill-outline-color": "#caa8ff",
+            "fill-pattern": "prpl_angl"
+        }
     },
     {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'line-color': 'red',
-        'line-width': 12,
-        'line-opacity': 0,
-      },
+        "type": "line",
+        "source-layer": 'pluto15v1',
+        "maxzoom": 15,
+        "filter": [
+            "match",
+            ["get", "routine_type"],
+            ["Sensitive Area"],
+            true,
+            false
+        ],
+        "paint": {"line-color": "#caa8ff", "line-width": 2.5}
     },
+    {
+        "type": "line",
+        "source-layer": 'pluto15v1',
+        "maxzoom": 15,
+        "filter": [
+            "match",
+            ["get", "routine_type"],
+            ["Vegetation Management"],
+            true,
+            false
+        ],
+        "paint": {"line-color": "#caa8ff", "line-width": 5}
+    },
+    {
+        "type": "fill",
+        "source-layer": 'pluto15v1',
+        "maxzoom": 15,
+        "filter": [
+            "match",
+            ["get", "routine_type"],
+            ["Vegetation Management"],
+            true,
+            false
+        ],
+        "paint": {"fill-pattern": "VM_07_sml"}
+    },
+    {
+        "type": "line",
+        "source-layer": 'pluto15v1',
+        "maxzoom": 15,
+        "filter": [
+            "match",
+            ["get", "routine_type"],
+            ["Vegetation Management"],
+            true,
+            false
+        ],
+        "paint": {"line-color": "#2e0047", "line-width": 2.5}
+    },
+    {
+        "type": "line",
+        "source-layer": 'pluto15v1',
+        "maxzoom": 15,
+        "filter": [
+            "match",
+            ["get", "routine_type"],
+            ["Debris Management"],
+            true,
+            false
+        ],
+        "layout": {"line-cap": "round", "line-join": "bevel"},
+        "paint": {
+            "line-color": "#2e0047",
+            "line-width": 5,
+            "line-dasharray": [0.5, 1.5]
+        }
+    },
+    {
+        "type": "line",
+        "source-layer": 'pluto15v1',
+        "maxzoom": 15,
+        "filter": [
+            "match",
+            ["get", "routine_type"],
+            ["Debris Management"],
+            true,
+            false
+        ],
+        "layout": {"line-cap": "round", "line-join": "bevel"},
+        "paint": {
+            "line-color": "#f994fe",
+            "line-dasharray": [1, 3],
+            "line-width": 2.5
+        }
+    },
+    {
+        "type": "line",
+        "source-layer": 'pluto15v1',
+        "minzoom": 15,
+        "filter": [
+            "match",
+            ["get", "routine_type"],
+            ["Sensitive Area"],
+            true,
+            false
+        ],
+        "paint": {"line-color": "#2e0047", "line-width": 8}
+    },
+    {
+        "type": "fill",
+        "source-layer": 'pluto15v1',
+        "minzoom": 15,
+        "filter": [
+            "match",
+            ["get", "routine_type"],
+            ["Sensitive Area"],
+            true,
+            false
+        ],
+        "paint": {
+            "fill-color": "#caa8ff",
+            "fill-outline-color": "#caa8ff",
+            "fill-pattern": "prpl_angl_thk"
+        }
+    },
+    {
+        "type": "line",
+        "source-layer": 'pluto15v1',
+        "minzoom": 15,
+        "filter": [
+            "match",
+            ["get", "routine_type"],
+            ["Sensitive Area"],
+            true,
+            false
+        ],
+        "paint": {"line-color": "#caa8ff", "line-width": 4}
+    },
+    {
+        "type": "line",
+        "source-layer": 'pluto15v1',
+        "minzoom": 15,
+        "filter": [
+            "match",
+            ["get", "routine_type"],
+            ["Vegetation Management"],
+            true,
+            false
+        ],
+        "layout": {"line-cap": "round"},
+        "paint": {"line-color": "#caa8ff", "line-width": 8}
+    },
+    {
+        "type": "fill",
+        "source-layer": 'pluto15v1',
+        "minzoom": 15,
+        "filter": [
+            "match",
+            ["get", "routine_type"],
+            ["Vegetation Management"],
+            true,
+            false
+        ],
+        "paint": {"fill-pattern": "VM_07_sml"}
+    },
+    {
+        "type": "line",
+        "source-layer": 'pluto15v1',
+        "minzoom": 15,
+        "filter": [
+            "match",
+            ["get", "routine_type"],
+            ["Vegetation Management"],
+            true,
+            false
+        ],
+        "layout": {"line-cap": "round"},
+        "paint": {"line-color": "#2e0047", "line-width": 5}
+    },
+    {
+        "type": "line",
+        "source-layer": 'pluto15v1',
+        "minzoom": 15,
+        "filter": [
+            "match",
+            ["get", "routine_type"],
+            ["Debris Management"],
+            true,
+            false
+        ],
+        "layout": {"line-cap": "round", "line-join": "bevel"},
+        "paint": {
+            "line-color": "#2e0047",
+            "line-width": 8,
+            "line-dasharray": [1, 1.5]
+        }
+    },
+    {
+        "type": "line",
+        "source-layer": 'pluto15v1',
+        "minzoom": 15,
+        "filter": [
+            "match",
+            ["get", "routine_type"],
+            ["Debris Management"],
+            true,
+            false
+        ],
+        "layout": {"line-cap": "round", "line-join": "bevel"},
+        "paint": {
+            "line-color": "#f994fe",
+            "line-dasharray": [2, 3],
+            "line-width": 4
+        }
+    }
   ],  
-  [ROUTINE_NATURAL_AREAS]: [
-    {
-      type: 'fill',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'fill-color': 'hsl(283, 68%, 46%)',
-        'fill-outline-color': '#c58b26',
-        'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 13, 0, 14, 1, 19, 0, 22, 0],
-      },
-    },
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'line-gap-width': 4,
-        'line-width': 8,
-        'line-blur': 8,
-        'line-color': [
-          'interpolate',
-          ['linear'],
-          ['zoom'],
-          0,
-          'hsla(38, 68%, 46%, 0)',
-          13,
-          'hsla(38, 68%, 46%, 0)',
-          22,
-          'hsl(38, 68%, 46%)',
-        ],
-        'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 13, 0, 14, 1, 22, 1],
-      },
-    },
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'line-color': 'red',
-        'line-width': 12,
-        'line-opacity': 0,
-      },
-    },
-  ],
-  [ROUTINE_WEED_CONTROL]: [
-    {
-      type: 'fill',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'fill-outline-color': 'hsl(32, 94%, 38%)',
-        'fill-color': 'hsla(278, 80%, 46%, 0.56)',
-        'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 12, 0.5, 13.5, 0.84, 14, 0.5, 22, 0],
-      },
-    },
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'line-color': 'hsl(38, 68%, 15%)',
-        'line-width': ['interpolate', ['linear'], ['zoom'], 0, 0, 14, 2, 22, 16],
-        'line-dasharray': [1, 1],
-        'line-translate': [2, 2],
-        'line-opacity': ['step', ['zoom'], 0, 14, 1, 22, 1],
-      },
-    },
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'line-color': [
-          'interpolate',
-          ['linear'],
-          ['zoom'],
-          0,
-          'hsla(38, 68%, 46%, 0)',
-          14,
-          'hsl(38, 68%, 46%)',
-          22,
-          'hsl(38, 68%, 46%)',
-        ],
-        'line-width': ['interpolate', ['linear'], ['zoom'], 0, 0, 14, 2, 22, 16],
-        'line-dasharray': [1, 1],
-        'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 13.5, 0, 14, 1, 22, 1],
-      },
-    },
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'line-color': 'red',
-        'line-width': 12,
-        'line-opacity': 0,
-      },
-    },
-  ],
-  [ROUTINE_DEBRIS_AREA]: [
-    {
-      type: 'fill',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'fill-color': 'hsl(288, 54%, 18%)',
-        'fill-outline-color': [
-          'interpolate',
-          ['linear'],
-          ['zoom'],
-          0,
-          'hsla(190, 86%, 71%, 0)',
-          22,
-          'hsl(190, 86%, 71%)',
-        ],
-        'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 11, 0, 14.5, 1, 18, 0.1],
-      },
-    },
-  ],
-  [ROUTINE_DEBRIS_LINEAR]: [
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: { 'line-join': 'round' },
-      paint: {
-        'line-width': ['interpolate', ['linear'], ['zoom'], 13, 6, 16, 18, 22, 18],
-        'line-color': 'hsl(308, 92%, 55%)',
-        'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 11, 0, 14.5, 1, 22, 0.1],
-      },
-    },
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: { 'line-join': 'round' },
-      paint: {
-        'line-color': 'hsl(308, 92%, 55%)',
-        'line-gap-width': ['interpolate', ['linear'], ['zoom'], 9, 4, 13.57, 4, 16, 24, 22, 60],
-        'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 11, 0, 14.56, 1, 22, 1],
-      },
-    },
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: { 'line-join': 'round' },
-      paint: {
-        'line-color': 'hsla(308, 26%, 77%, 0.82)',
-        'line-gap-width': ['interpolate', ['linear'], ['zoom'], 9, 4, 13.57, 4, 16, 24, 22, 60],
-        'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 11, 0, 14.56, 1, 22, 1],
-        'line-dasharray': [2, 1, 0.5],
-        'line-width': 6,
-        'line-translate': [-1, -1],
-      },
-    },
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: { 'line-join': 'round' },
-      paint: {
-        'line-color': 'hsla(308, 93%, 11%, 0.82)',
-        'line-gap-width': ['interpolate', ['linear'], ['zoom'], 9, 4, 13.57, 4, 16, 24, 22, 60],
-        'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 11, 0, 14.56, 1, 22, 1],
-        'line-dasharray': [2, 1, 0.5],
-        'line-width': 6,
-      },
-    },
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'line-color': 'red',
-        'line-width': 12,
-        'line-opacity': 0,
-      },
-    },
-  ],
+  // [ROUTINE_NATURAL_AREAS]: [
+  //   {
+  //     type: 'fill',
+  //     'source-layer': 'pluto15v1',
+  //     layout: {},
+  //     paint: {
+  //       'fill-color': 'hsl(283, 68%, 46%)',
+  //       'fill-outline-color': '#c58b26',
+  //       'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 13, 0, 14, 1, 19, 0, 22, 0],
+  //     },
+  //   },
+  //   {
+  //     type: 'line',
+  //     'source-layer': 'pluto15v1',
+  //     layout: {},
+  //     paint: {
+  //       'line-gap-width': 4,
+  //       'line-width': 8,
+  //       'line-blur': 8,
+  //       'line-color': [
+  //         'interpolate',
+  //         ['linear'],
+  //         ['zoom'],
+  //         0,
+  //         'hsla(38, 68%, 46%, 0)',
+  //         13,
+  //         'hsla(38, 68%, 46%, 0)',
+  //         22,
+  //         'hsl(38, 68%, 46%)',
+  //       ],
+  //       'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 13, 0, 14, 1, 22, 1],
+  //     },
+  //   },
+  //   {
+  //     type: 'line',
+  //     'source-layer': 'pluto15v1',
+  //     layout: {},
+  //     paint: {
+  //       'line-color': 'red',
+  //       'line-width': 12,
+  //       'line-opacity': 0,
+  //     },
+  //   },
+  // ],
+  // [ROUTINE_WEED_CONTROL]: [
+  //   {
+  //     type: 'fill',
+  //     'source-layer': 'pluto15v1',
+  //     layout: {},
+  //     paint: {
+  //       'fill-outline-color': 'hsl(32, 94%, 38%)',
+  //       'fill-color': 'hsla(278, 80%, 46%, 0.56)',
+  //       'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 12, 0.5, 13.5, 0.84, 14, 0.5, 22, 0],
+  //     },
+  //   },
+  //   {
+  //     type: 'line',
+  //     'source-layer': 'pluto15v1',
+  //     layout: {},
+  //     paint: {
+  //       'line-color': 'hsl(38, 68%, 15%)',
+  //       'line-width': ['interpolate', ['linear'], ['zoom'], 0, 0, 14, 2, 22, 16],
+  //       'line-dasharray': [1, 1],
+  //       'line-translate': [2, 2],
+  //       'line-opacity': ['step', ['zoom'], 0, 14, 1, 22, 1],
+  //     },
+  //   },
+  //   {
+  //     type: 'line',
+  //     'source-layer': 'pluto15v1',
+  //     layout: {},
+  //     paint: {
+  //       'line-color': [
+  //         'interpolate',
+  //         ['linear'],
+  //         ['zoom'],
+  //         0,
+  //         'hsla(38, 68%, 46%, 0)',
+  //         14,
+  //         'hsl(38, 68%, 46%)',
+  //         22,
+  //         'hsl(38, 68%, 46%)',
+  //       ],
+  //       'line-width': ['interpolate', ['linear'], ['zoom'], 0, 0, 14, 2, 22, 16],
+  //       'line-dasharray': [1, 1],
+  //       'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 13.5, 0, 14, 1, 22, 1],
+  //     },
+  //   },
+  //   {
+  //     type: 'line',
+  //     'source-layer': 'pluto15v1',
+  //     layout: {},
+  //     paint: {
+  //       'line-color': 'red',
+  //       'line-width': 12,
+  //       'line-opacity': 0,
+  //     },
+  //   },
+  // ],
+  // [ROUTINE_DEBRIS_AREA]: [
+  //   {
+  //     type: 'fill',
+  //     'source-layer': 'pluto15v1',
+  //     layout: {},
+  //     paint: {
+  //       'fill-color': 'hsl(288, 54%, 18%)',
+  //       'fill-outline-color': [
+  //         'interpolate',
+  //         ['linear'],
+  //         ['zoom'],
+  //         0,
+  //         'hsla(190, 86%, 71%, 0)',
+  //         22,
+  //         'hsl(190, 86%, 71%)',
+  //       ],
+  //       'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 11, 0, 14.5, 1, 18, 0.1],
+  //     },
+  //   },
+  // ],
+  // [ROUTINE_DEBRIS_LINEAR]: [
+  //   {
+  //     type: 'line',
+  //     'source-layer': 'pluto15v1',
+  //     layout: { 'line-join': 'round' },
+  //     paint: {
+  //       'line-width': ['interpolate', ['linear'], ['zoom'], 13, 6, 16, 18, 22, 18],
+  //       'line-color': 'hsl(308, 92%, 55%)',
+  //       'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 11, 0, 14.5, 1, 22, 0.1],
+  //     },
+  //   },
+  //   {
+  //     type: 'line',
+  //     'source-layer': 'pluto15v1',
+  //     layout: { 'line-join': 'round' },
+  //     paint: {
+  //       'line-color': 'hsl(308, 92%, 55%)',
+  //       'line-gap-width': ['interpolate', ['linear'], ['zoom'], 9, 4, 13.57, 4, 16, 24, 22, 60],
+  //       'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 11, 0, 14.56, 1, 22, 1],
+  //     },
+  //   },
+  //   {
+  //     type: 'line',
+  //     'source-layer': 'pluto15v1',
+  //     layout: { 'line-join': 'round' },
+  //     paint: {
+  //       'line-color': 'hsla(308, 26%, 77%, 0.82)',
+  //       'line-gap-width': ['interpolate', ['linear'], ['zoom'], 9, 4, 13.57, 4, 16, 24, 22, 60],
+  //       'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 11, 0, 14.56, 1, 22, 1],
+  //       'line-dasharray': [2, 1, 0.5],
+  //       'line-width': 6,
+  //       'line-translate': [-1, -1],
+  //     },
+  //   },
+  //   {
+  //     type: 'line',
+  //     'source-layer': 'pluto15v1',
+  //     layout: { 'line-join': 'round' },
+  //     paint: {
+  //       'line-color': 'hsla(308, 93%, 11%, 0.82)',
+  //       'line-gap-width': ['interpolate', ['linear'], ['zoom'], 9, 4, 13.57, 4, 16, 24, 22, 60],
+  //       'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 11, 0, 14.56, 1, 22, 1],
+  //       'line-dasharray': [2, 1, 0.5],
+  //       'line-width': 6,
+  //     },
+  //   },
+  //   {
+  //     type: 'line',
+  //     'source-layer': 'pluto15v1',
+  //     layout: {},
+  //     paint: {
+  //       'line-color': 'red',
+  //       'line-width': 12,
+  //       'line-opacity': 0,
+  //     },
+  //   },
+  // ],
 };
 export const USE_LAND_TILES_STYLE = {
   type: 'fill',
