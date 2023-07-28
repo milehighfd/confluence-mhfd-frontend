@@ -31,7 +31,7 @@ const popovers: any = [
   <div className="popoveer-00"><b>Study:</b> Master plans that identify problems and recommend improvements.</div>,
   <div className="popoveer-00"><b>Maintenance:</b> Restore existing infrastructure eligible for MHFD participation.</div>,
   <div className="popoveer-00"><b>Acquisition:</b> Property with high flood risk or needed for improvements.</div>,
-  <div className="popoveer-00"><b>R&D:</b> Any other effort for which MHFD funds or staff time is requested.</div>
+  <div className="popoveer-00"><b>R&D:</b> Research and Development projects include new stream/rain gages, research, data development, new education and outreach programming, and criteria or guidance development.</div>
 ]
 const RequestView = ({ type, isFirstRendering }: {
   type: boardType,

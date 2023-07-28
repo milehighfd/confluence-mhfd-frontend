@@ -12,6 +12,7 @@ import { postData } from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import { getCurrentProjectStatus } from 'utils/parsers';
 import { useAttachmentDispatch } from 'hook/attachmentHook';
+import { DownOutlined, UpOutlined } from '@ant-design/icons';
 
 const content00 = (<div className="popver-info">Collection and removal of trash and debris that could prevent the system from functioning as intended.</div>);
 const content01 = (<div className="popver-info">Planting, seeding, thinning, weed control, adaptive management, and other vegetation-related activities.</div>);
@@ -61,6 +62,7 @@ const ModalProjectView = ({
   const [visibleMaintenance, setVisibleMaintenance] = useState(false);
   const [visibleSpecial, setVisibleSpecial] = useState(false);
   const [visibleStudy, setVisibleStudy] = useState(false);
+  const [openCollapserd, setOpenCollapserd] = useState(false);
   const [allowed, setAllowed] = useState<string[]>([]);
   const pageWidth  = document.documentElement.scrollWidth;
   const RandD = 'R&D';
@@ -352,13 +354,13 @@ const ModalProjectView = ({
         {
           allowed.includes(NEW_PROJECT_TYPES.Special || RandD) &&  !allowed.includes(NEW_PROJECT_TYPES.Study) &&
           <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.Special) } style={{padding: '8px'}}>
-          <Button className={typeProject===NEW_PROJECT_TYPES.Special || typeProject === RandD?"button-project button-project-active" : "button-project" }>
-            <div className="project-img">
+          <Button className={typeProject===NEW_PROJECT_TYPES.Special || typeProject === RandD?(openCollapserd ? "button-project button-project-active open-button-project" : "button-project button-project-active") :(openCollapserd ? "button-project open-button-project":"button-project")}>
+            <div className={openCollapserd ? "project-img-rd-open project-img":"project-img-rd project-img"}>
               <img src="/Icons/project/special.svg" alt="" height="30px" />
             </div>
-            <div className="project-info">
-              <h5>R&D</h5>
-              <p>Any other effort for which MHFD funds or staff time is requested.</p>
+            <div className={openCollapserd ? "project-info-rd-open project-info":"project-info-rd project-info"}>
+              <h5>R&D {openCollapserd ? <UpOutlined onClick={()=>{setOpenCollapserd(!openCollapserd)}}/>:<DownOutlined onClick={()=>{setOpenCollapserd(!openCollapserd)}}/>}</h5>
+              <p>Research and Development projects include new stream/rain gages, research, data development, new education and outreach programming, and criteria or guidance development.</p>
             </div>
           </Button>
         </Col>
@@ -368,13 +370,13 @@ const ModalProjectView = ({
         {
           allowed.includes(NEW_PROJECT_TYPES.Special || RandD) && allowed.includes(NEW_PROJECT_TYPES.Study) &&
           <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.Special) } style={{padding: '8px'}}>
-          <Button className={typeProject===NEW_PROJECT_TYPES.Special || typeProject === RandD?"button-project button-project-active" : "button-project" }>
-            <div className="project-img">
+          <Button className={typeProject===NEW_PROJECT_TYPES.Special || typeProject === RandD?(openCollapserd ? "button-project button-project-active open-button-project" : "button-project button-project-active") :(openCollapserd ? "button-project open-button-project":"button-project")}>
+            <div className={openCollapserd ? "project-img-rd-open project-img":"project-img-rd project-img"}>
               <img src="/Icons/project/special.svg" alt="" height="30px" />
             </div>
-            <div className="project-info">
-              <h5>R&D</h5>
-              <p>Any other effort for which MHFD funds or staff time is requested.</p>
+            <div className={openCollapserd ? "project-info-rd-open project-info":"project-info-rd project-info"}>
+              <h5>R&D {openCollapserd ? <UpOutlined onClick={()=>{setOpenCollapserd(!openCollapserd)}}/>:<DownOutlined onClick={()=>{setOpenCollapserd(!openCollapserd)}}/>}</h5>
+              <p>Research and Development projects include new stream/rain gages, research, data development, new education and outreach programming, and criteria or guidance development.</p>
             </div>
           </Button>
         </Col>

@@ -28,7 +28,6 @@ import * as datasets from "../../../Config/datasets";
 
 const { Option } = Select;
 const { Panel } = Collapse;
-const content = (<div className="popver-info">Projects identified in a MHFD master plan that increase conveyance or reduce flow and require a 50% local match.</div>);
 const contentIndComp = (<div className="popver-info">Independent Actions should be added to represent any known project actions that are not already shown in the Actions layer. Independent Action costs should reflect only the cost of construction; they will have Overhead Costs applied to them</div>);
 const contentOverheadCost = (<div className="popver-info"> Overhead Cost includes all costs beyond the costs of physical construction (Subtotal Cost). The default values shown here can and should be changed when different percentages are anticipated, such as in urban settings. Please add a description explaining any changes from default values. </div>);
 const contentAdditionalCost = (<div className="popver-info"> Enter any additional costs here that were not captured previously as Actions, Independent Actions, or Overhead Costs. Additional Costs (unlike Independent Actions) will NOT have Overhead Costs applied to them. </div>);
@@ -963,7 +962,6 @@ export const ModalCapital = ({
             onChange={onChange}
             favorite={favorite}
             setFavorite={setFavorite}
-            content={content}
             menuTypeProjects={menuTypeProjects}
             locationData={getServiceAreaAndCountyString(jurisdiction, serviceArea, county)}
             selectedType={selectedLabelProject}

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Button, Dropdown, Popover } from 'antd';
 import { HeartFilled, HeartOutlined, UpOutlined, DownOutlined } from '@ant-design/icons';
+import { ACQUISITION_POPUP, CAPITAL_POPUP, CONTENT_POPUP_ACQUISITION, CONTENT_POPUP_CAPITAL, CONTENT_POPUP_MAINTENANCE, CONTENT_POPUP_R_D, CONTENT_POPUP_STUDY, MAINTENANCE_POPUP, R_D_POPUP, STUDY_POPUP } from "../Constants/Constants";
 
 interface HeaderProps {
   nameProject: string;
   onChange: any;
   favorite: any;
   setFavorite: any;
-  content: any;
   menuTypeProjects: any;
   locationData: any;
   selectedType: any;
@@ -19,7 +19,6 @@ export const Header = ({
   onChange, 
   favorite, 
   setFavorite, 
-  content, 
   menuTypeProjects, 
   locationData, 
   selectedType,
@@ -27,6 +26,28 @@ export const Header = ({
   }: HeaderProps) => {
   const [openDropdownTypeProject, setOpenDropdownTypeProject] = useState(false);
   const lengthName = nameProject.length;
+
+  console.log(selectedType, 'SELECTED TYPE')
+  let content;
+  switch (selectedType) {
+    case CAPITAL_POPUP:
+      content = CONTENT_POPUP_CAPITAL;
+      break;
+    case MAINTENANCE_POPUP:
+      content = CONTENT_POPUP_MAINTENANCE;
+      break;
+    case R_D_POPUP:
+      content = CONTENT_POPUP_R_D;
+      break;
+    case STUDY_POPUP:
+      content = CONTENT_POPUP_STUDY;
+      break;
+    case ACQUISITION_POPUP:
+      content = CONTENT_POPUP_ACQUISITION;
+      break;
+    default:
+      content = CONTENT_POPUP_CAPITAL;
+  }
 
   return (
     <div className="head-project">
