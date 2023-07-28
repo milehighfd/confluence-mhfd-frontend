@@ -259,7 +259,7 @@ const CardInformationView = ({
               data.priority === 'Low' ? <p style={{ color: '#28c499', width: '80%', fontSize: '13px' }}>{data.priority} Priority</p> :
               <p style={{ color: '#FFD300', width: '80%', fontSize: '13px' }}>{data.priority} Priority</p>
               }
-              <span style={{ textAlign: 'right', width: '50%', fontSize: '13px' }}> {data.percentage}% Solved</span>
+              <span style={{ textAlign: 'right', width: '50%', fontSize: '13px' }}> {data.percentage}%</span>
             </div>
           ) : (
               <div style={{ display: 'flex', width: '100%' }}>
