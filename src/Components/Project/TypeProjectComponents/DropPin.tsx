@@ -17,8 +17,8 @@ const columns = [
   },
 ];
 
-export const DropPin = ({typeProject, geom, setGeom, setIsEditingPosition}:
-  {typeProject: string, geom: any, setGeom: Function, setIsEditingPosition?: any}) => {
+export const DropPin = ({typeProject, geom, setGeom, setIsEditingPosition,index}:
+  {typeProject: string, geom: any, setGeom: Function, setIsEditingPosition?: any,index?:number}) => {
   const content05 = (<div className="popver-info">If the Special Project does not have a physical location (i.e. research study, criteria update, etc.), please drop a pin on the Local Government's City Hall or MHFD Office.</div>);
   const [latitude, setLatitude] = useState('--');
   const [longitude, setLongitude] = useState('--');
@@ -34,7 +34,7 @@ export const DropPin = ({typeProject, geom, setGeom, setIsEditingPosition}:
     },
   ];
   useEffect(()=>{
-    if(geom) {
+    if(geom && geom[0]) {
       setLatitude(geom[0][0]);
       setLongitude(geom[0][1]);
       saveSpecialLocation({geom: {coordinates: [geom[0]]}});
@@ -94,21 +94,21 @@ export const DropPin = ({typeProject, geom, setGeom, setIsEditingPosition}:
   }, [latitude])
   return(
     <>
-    <div className="sub-title-project">
-        <h5 className="requestor-information "> 2. PROJECT GEOMETRY *</h5>
-    </div>
-    <p className='text-default'>
-      Drop a pin on the map by first clicking on ‘Add Location’.
-    </p>
+    <h5>
+      {index}. Drop Pin
+      <span className="requiered">&nbsp;*</span>
+      <Button className="btn-transparent"><img src="/Icons/icon-10.svg" alt="" height="15px" style={{marginBottom: '3px'}}/></Button>
+      {typeProject == 'Special'? <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover>:''}
+    </h5>
       <Row gutter={[16, 16]}>
-        <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 16 }}>
-        <Table dataSource={dataSource} columns={columns} bordered  className="table-project"/>
+        <Col xs={{ span: 24 }} lg={{ span: 12 }} xxl={{ span: 12 }}>
+        <Table dataSource={dataSource} columns={columns} bordered />
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 6}} xxl={{ span: 8 }}>
-          <Button className="btn-location" onClick={changeLocation}>{isAddLocation?'Remove Location':(latitude != '--' && longitude != '--' ? 'Change Location':'Add Location')}</Button>
-           {/* <Button className="btn-location" onClick={changeLocation}>{isAddLocation?'Remove Location':(latitude != '--' && longitude != '--' ? 'Change Location':'Add Location')}</Button> */}
+        <Col xs={{ span: 24 }} lg={{ span: 12}} xxl={{ span: 12 }}>
+           <Button className="btn-location" onClick={changeLocation}>{isAddLocation?'Remove Location':(latitude != '--' && longitude != '--' ? 'Change Location':'Add Location')}</Button>
         </Col>
       </Row>
+      <br/>
     </>
   );
 }

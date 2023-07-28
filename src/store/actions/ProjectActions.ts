@@ -514,6 +514,7 @@ export const getStreamsList = (geom: any) => {
 
 export const setStreamsList = (listStreams: any) => {
   return ( dispatch: Function) => {
+    console.log('Should reset', listStreams);
     dispatch({type: types.SET_LIST_STREAMS, listStreams});
   }
 } 
