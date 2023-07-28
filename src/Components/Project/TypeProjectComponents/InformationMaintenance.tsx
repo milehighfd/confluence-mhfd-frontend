@@ -27,7 +27,7 @@ export const InformationMaintenance = ({ frequency, applyFrequency, ownership, a
  
   return (
     <>
-      <Row gutter={[16, 16]} style={{ marginTop: '-5px' }}>
+      <Row gutter={[16, 16]} style={{ marginTop: '13px' }}>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
           <label className="sub-title">Frequency <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
           <div id="freqid">

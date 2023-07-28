@@ -235,6 +235,9 @@
         margin-top: 12px;
         margin-bottom: 6px;
       }
+      .geometry{
+        margin-top: 27px;
+      }
       .delete-upload{
         color: red;
       }
@@ -301,7 +304,7 @@
       }
     }
     .information-description{
-      margin-top: 6px;
+      margin-bottom: 6px;
     }
     .title-geometry{
       margin-top: 10px;
@@ -490,9 +493,13 @@
       }
     }
     .table-geometry{
+      margin-top: 10px;
       .ant-table-thead > tr > th {
         padding-left: 20px !important;
       }
+    }
+    .table-dropin{
+      margin-bottom: 0px;
     }
     .ant-input{
       border: solid 1px $opacity04;
@@ -849,9 +856,7 @@
       border: none;
       color: $green;
       padding: 0px;
-      margin-bottom: 17px;
       box-shadow: none;
-      font-size: 12px;
 
       .anticon{
         font-size: 18px;
