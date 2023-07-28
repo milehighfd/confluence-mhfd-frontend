@@ -50,12 +50,16 @@ export const ProjectGeometry = ({
         dataFormated.push(titleTemplate);
         const substreams = listStreams[key];
         substreams.forEach((substream: any, index: any) => {
+          let formatedNumber = formatter.format(substream.length);
+          if (formatedNumber.length === 5) {
+            formatedNumber = formatedNumber.replace(',', '');
+          } 
           const rowTemplate = {
             key: `${id}_${index}`,
             reach: substream.str_name,
             code: substream.mhfd_code,
             tributary:'XXXX acres',
-            length:`${formatter.format(substream.length)} ft`
+            length:`${formatedNumber} ft`
           };
           dataFormated.push(rowTemplate);
         });
