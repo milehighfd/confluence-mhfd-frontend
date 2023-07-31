@@ -109,12 +109,24 @@
     min-width: 110px !important;
   }
   .ant-select:not(.ant-select-customize-input) .ant-select-selector {
-    color: $opacity;
-    position: relative;
-    background-color: $white;
-    border: 0;
+    width: 100px;
+    display: flex;
+height: 36px;
+padding: 9px 8px;
+justify-content: center;
+align-items: center;
+gap: 10px;
+    border-radius: 4px;
+    background-color: rgba(245, 247, 255, 0.80);
     transition: all .3s cubic-bezier(.645,.045,.355,1);
     box-shadow: none !important;
+    color: $purple;
+    border: none;
+    font-size: 14px;
+font-style: normal;
+font-weight: bold;
+line-height: normal;
+letter-spacing: 0.2px;
   }
   .ant-select-single.ant-select-show-arrow .ant-select-selection-item, .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
     margin-right: 8px !important;
@@ -2276,3 +2288,34 @@
     padding: 75px 6px 20px 6px !important;
   }
 }
+
+.work-header-buttons{
+  border: none;
+  .buttons-header:hover{
+    .icon-bt{
+    background-color: $purple;
+  }
+    #share{
+      color: $purple;
+    }
+  }
+  .icon-bt{
+    background-color: $opacity;
+    margin-left: -16px;
+   
+  }
+  #share{
+   width: 22px;
+    height: 22px;
+    margin-left: -18px;
+    margin-right: -4px;
+
+  }
+ 
+}
+.popover-work-header {
+  .ant-popover-arrow{
+  display: none !important;
+}
+}
+
