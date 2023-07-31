@@ -142,13 +142,13 @@ const SidebarMenuDown = ({
         title={optionsLabel}
         popupOffset={[15, -80]}
       >
-        <Menu.Item className="option-layout" onClick={() => setVisibleIntroduction(true)} key="2">
+        <Menu.Item className="option-layout option-layout-top" onClick={() => setVisibleIntroduction(true)} key="2">
           Introduction
         </Menu.Item>
-        <Menu.Item className="option-layout" onClick={() => setVisibleTutorial(true)} key="3">
+        <Menu.Item className="option-layout option-layout-central" onClick={() => setVisibleTutorial(true)} key="3">
           Tutorial
         </Menu.Item>
-        <Menu.Item className="option-layout" onClick={logout} key="4">
+        <Menu.Item className="option-layout option-layout-bottom" onClick={logout} key="4">
           {localStorage.getItem('mfx-token') == 'GUEST' ? 'Sign In' : 'Logout'}
         </Menu.Item>
       </SubMenu>

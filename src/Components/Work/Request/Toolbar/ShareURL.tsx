@@ -1,4 +1,4 @@
-import { Button, notification } from 'antd';
+import { Button, Popover, notification } from 'antd';
 import React from 'react';
 
 const ShareURL = () => {
@@ -10,19 +10,25 @@ const ShareURL = () => {
   };
 
   return (
-    <Button className="btn-opacity" onClick={
+    <Popover content={<span>Export:<br/>Download a CSV of the board below.</span>} placement='bottom' overlayClassName='popover-work-header' >
+    <Button 
+    className='buttons-header'
+    type='link'
+    style={{border:'none'}}
+     onClick={
       () => {
         navigator.clipboard.writeText(window.location.href);
         openNotification();
       }
     }>
       <img
-        className="icon-bt"
-        style={{ WebkitMask: "url('/Icons/ic_share1.svg') no-repeat center" }}
+        id='share'
+        src='/Icons/ic-list.png'
+      
         alt=""
-        src=""
       />
     </Button>
+    </Popover>
   );
 };
 

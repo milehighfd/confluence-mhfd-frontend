@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+import { Button, Popover } from 'antd';
 import React, { useState } from 'react';
 import { CSVLink } from 'react-csv';
 import { boardType } from 'Components/Work/Request/RequestTypes';
@@ -30,15 +30,17 @@ const DownloadCSV = ({
   const [csvData, setCsvData] = useState<string[][]>([[]]);
   const [csvFileName, setCsvFileName] = useState<string>('');
   return (
-    <Button className="btn-opacity">
+    <Popover content={<span>Export:<br/>Download a CSV of the board below.</span>} placement='bottom' overlayClassName='popover-work-header' >
+    <Button 
+    className='buttons-header'
+    type='link' style={{border:'none'}}>
       <CSVLink
         filename={csvFileName}
         data={csvData}
         onClick={() => {
           setCsvFileName(getCsvFileName(year, locality, type));
           setCsvData(getCsv(type, localities, columns, locality, year, tabKey, sumTotal, sumByCounty, reqManager, diff));
-        }}
-        className="btn-opacity"
+        }}        
         style={{ padding: '0px' }}
       >
         <img
@@ -49,6 +51,7 @@ const DownloadCSV = ({
         />
       </CSVLink>
     </Button>
+    </Popover>
   );
 };
 
