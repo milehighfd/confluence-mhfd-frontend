@@ -389,7 +389,7 @@ export const ModalCapital = ({
       setEditLocation(undefined);
     }
   }, [data]);
-
+  
   //Send for Create Data or Edit Data
   useEffect(() => {
     let serviceAreaIds: any = [];
@@ -415,7 +415,8 @@ export const ModalCapital = ({
       serviceAreaIds = serviceAreaList.filter((service: any) => serviceA.includes(service.name)).map((service: any) => service.id);
       countyIds = countyList.filter((countys: any) => countyA.includes(countys.name)).map((countyl: any) => countyl.id);
       jurisdictionIds = jurisdictionList.filter((juris: any) => jurisdiction.includes(juris.name)).map((juris: any) => juris.id);
-      let sponsorList = [...serviceAreaList, ...countyList, ...jurisdictionList];
+      const filteredCountyList = countyList.filter((county: any) => county.name.toLowerCase().includes('county'));
+      let sponsorList = [...serviceAreaList, ...filteredCountyList, ...jurisdictionList];
       let matchedSponsor = sponsorList.find((item: any) => sponsor.toLowerCase() === item.name.toLowerCase());
       let sponsorId = matchedSponsor ? matchedSponsor.id : null;
       const params = new URLSearchParams(history.location.search)
