@@ -238,33 +238,33 @@ const CardInformationView = ({
           {
             type === 'Problems'
             ?
-            <h5>{
+            <h5 className='card-content-text'>{
               data.componentCost === 0 || data.componentCost === null
               ? 'No Cost Data'
               :('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(data.componentCost))
               }
-                <span style={{ float: 'right' }}><b>{data.count ?? 0} Actions</b></span>
+                <span><b>{data.count ?? 0} Actions</b></span>
             </h5>
             :
-            <h5>{
+            <h5  className='card-content-text'>{
               (getTotalEstimatedCost(data?.project_costs || []) != null ?(new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(getTotalEstimatedCost(data?.project_costs || [])) === '0' ? 'No Cost Data' : ('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(getTotalEstimatedCost(data?.project_costs || [])))): 'No Cost Data')
               } 
-                <span style={{ float: 'right' }}><b>{data.totalComponents ?? 0} Actions</b></span>
+                <span><b>{data.totalComponents ?? 0} Actions</b></span>
             </h5>
           }
           <hr />
           {type === 'Problems' ? (
-            <div style={{ display: 'flex', width: '100%' }}>
-              {data.priority === 'High' ? <p style={{ color: 'red', width: '88%', fontSize: '13px' }}>{data.priority} Priority</p> :
-              data.priority === 'Low' ? <p style={{ color: '#28c499', width: '80%', fontSize: '13px' }}>{data.priority} Priority</p> :
-              <p style={{ color: '#FFD300', width: '80%', fontSize: '13px' }}>{data.priority} Priority</p>
+            <div className='card-content-text'>
+              {data.priority === 'High' ? <p  className='text-type-percentage' style={{ color: 'red'}}>{data.priority} Priority</p> :
+              data.priority === 'Low' ? <p  className='text-type-percentage' style={{ color: '#28c499'}}>{data.priority} Priority</p> :
+              <p  className='text-type-percentage' style={{ color: '#FFD300'}}>{data.priority} Priority</p>
               }
-              <span style={{ textAlign: 'right', width: '50%', fontSize: '13px' }}> {data.percentage}%</span>
+              <span><b> {data.percentage}%</b></span>
             </div>
           ) : (
-              <div style={{ display: 'flex', width: '100%' }}>
-                 <p style={{ color: ' #11093c', width: '70%', opacity: '0.6', fontSize: '13px' }}>{data.projecttype}</p>
-                  <span style={{ textAlign: 'right', width: '30%', color: ' #11093c', opacity: '0.6', fontSize: '13px' }}>{data.status}</span>
+              <div className='card-content-text'>
+                 <p className='text-type-percentage' style={{ color: ' #11093c', opacity: '0.6'}}>{data.projecttype}</p>
+                  <span style={{ textAlign: 'right', color: ' #11093c', opacity: '0.6'}}><b>{data.status}</b></span>
               </div>
             )}
         </Card>
