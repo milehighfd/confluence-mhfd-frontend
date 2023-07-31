@@ -594,6 +594,11 @@ letter-spacing: 0.2px;
   .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow{
     display: none;
   }
+  .ant-timeline-item-head-blue{
+    color: $purple !important;
+    background-color: $purple !important;
+    border-color: $purple !important;
+  }
 }
 .work-footer{
   text-align: right;
