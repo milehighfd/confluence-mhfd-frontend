@@ -109,8 +109,8 @@ export const DropPin = ({
         <Col xs={{ span: 24 }} lg={{ span: 12 }} xxl={{ span: 12 }}>
         <Table dataSource={dataSource} columns={columns} bordered className="table-project table-dropin"/>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 12}} xxl={{ span: 12 }}>
-           <Button className="btn-location" onClick={changeLocation}>{isAddLocation?'Remove Location':(latitude != '--' && longitude != '--' ? 'Change Location':'Add Location')}</Button>
+        <Col xs={{ span: 24 }} lg={{ span: 12}} xxl={{ span: 12 }} className="center-droppin">
+           <Button className="btn-purple" onClick={changeLocation}>{isAddLocation?'Remove Location':(latitude != '--' && longitude != '--' ? 'Change Location':'Add Location')}</Button>
         </Col>
       </Row>}
       <br/>

@@ -405,8 +405,15 @@
         margin-bottom: 6px;
       }
     }
+    .center-droppin{
+      display: flex;
+      align-items: center;
+    }
     .table-project{
       margin-bottom: 20px;
+      .ant-table-column-sorters {
+        display: inline-flex ;
+      }
       .tag-active{
         background: rgba(41, 196, 153, 0.20);
         border-radius: 19px;
@@ -479,6 +486,7 @@
       }
       .ant-table-column-sorter {
         color: #11093C;
+        margin-left: 8px;
       }
       .ant-table-tbody>tr>td {
         border-bottom: 1px solid #f0f0f0;
@@ -541,7 +549,7 @@
     .draw{
       height: 80px;
       text-align: center;
-      border: 1px dashed $opacity04;
+      border: 1px dashed $purple00;
       margin: 10px 0px 25px 0px;
       padding: 18px 0px;
       color: $purple00;
@@ -550,13 +558,13 @@
       p{
         font-size: 13px;
         margin-bottom: 0px;
-        color: $opacity05;
+        color: $purple00;
       }
       .icon-draw{
         margin-bottom: 2px;
         height: 0px;
         width: 0px;
-        background: $opacity05;
+        background: $purple00;
         transition: width 2s;
         padding: 9px;
       }
