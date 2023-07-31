@@ -278,13 +278,13 @@
   margin-bottom: 8px !important;
 }
 .option-layout:hover {
-  background-color: $menu-background;
+  background-color: #F7F7F9;
   background-clip: content-box;
   border-radius: 4px;
   color: $purple00;
   span{
-    color: $purple00;
-    font-weight: bold;
+    color: #11093c !important;
+    font-weight: 400 !important;
   }
 }
 .sidebar-down{
