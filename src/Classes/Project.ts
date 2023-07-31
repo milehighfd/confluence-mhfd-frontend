@@ -45,6 +45,7 @@ export class Project {
     type: string;
     isCountyWide: boolean | undefined;
     isSouthPlate: boolean | undefined;
+    sponsorId: any;
     constructor() {
         this.year = '2023';
         this.projectname = "special";
@@ -79,5 +80,6 @@ export class Project {
         this.type = '';
         this.isCountyWide = false;
         this.isSouthPlate = false;
+        this.sponsorId = 0;
     }
 }

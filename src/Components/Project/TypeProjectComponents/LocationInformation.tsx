@@ -241,7 +241,7 @@ export const LocationInformation = ({
       </Row>
       <Row gutter={[16, 16]} style={{marginTop:'10px'}}>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-          <label className="sub-title">Jurisdiction <Popover content={contentJuris}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+          <label className="sub-title">Local Government <Popover content={contentJuris}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
           {(isMaintenance || isStudy) && !isWorkPlan && <>
             <span id="required-location" className="requiered">&nbsp;*&nbsp;</span>
             </>}
