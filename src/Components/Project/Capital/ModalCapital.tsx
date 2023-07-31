@@ -205,6 +205,7 @@ export const ModalCapital = ({
   //study 
   const [studyreason, setStudyReason] = useState<any>();
   const [otherReason, setOtherReason] = useState('');
+  const [streamsList, setThisStreamsList] = useState<any>([]);
   //acquisition
   var date = new Date();
   var year = date.getFullYear();
@@ -460,6 +461,13 @@ export const ModalCapital = ({
           componentsToSave?.length > 0 ?
             componentsToSave.length : 0) +
           (thisIndependentComponents?.length > 0 ? thisIndependentComponents.length : 0);
+        let mhfd_codes = streamsIntersectedIds.map((str: any) => str.mhfd_code);
+        capital.ids = mhfd_codes;
+        let newStreamsArray: any = [];
+        for (let str in listStreams) {
+          newStreamsArray = [...newStreamsArray, ...listStreams[str]];
+        }
+        capital.streams = newStreamsArray;
       }     
       //maintenance
       if (selectedTypeProject === 'maintenance') {
@@ -468,6 +476,13 @@ export const ModalCapital = ({
         capital.frequency = frequency === 'None' ? 0 : frequency;
         capital.maintenanceeligibility = eligibility;
         capital.ownership = String(ownership);
+        let mhfd_codes = streamsIntersectedIds.map((str: any) => str.mhfd_code);
+        capital.ids = mhfd_codes;
+        let newStreamsArray: any = [];
+        for (let str in listStreams) {
+          newStreamsArray = [...newStreamsArray, ...listStreams[str]];
+        }
+        capital.streams = newStreamsArray;
       }      
       //study
       if (selectedTypeProject === 'study') {
@@ -884,6 +899,23 @@ export const ModalCapital = ({
       RestartLocation();
     }
   },[selectedTypeProject]);
+
+  useEffect(() => {
+    if (listStreams) {
+      const idKey: any = [];
+      const myset = new Set(keys);
+      Object.keys(listStreams).forEach((key: any, id: any) => {
+        if (!streamsList[key]) {
+          myset.add(`${key}`);
+        } else if (streamsList[key].length !== listStreams[key].length) {
+          myset.add(`${key}`);
+        }
+        idKey.push(`${key}`);
+      })
+      setKeys(Array.from(myset));
+      setThisStreamsList(listStreams);
+    }
+  }, [listStreams]);
 
   //capital
   useEffect(() => {
