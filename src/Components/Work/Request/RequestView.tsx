@@ -433,7 +433,7 @@ const RequestView = ({ type, isFirstRendering }: {
                           flagforScroll={flagforScroll} type={''}                            />
                       </div> }
                       </div>
-                      {/* <RequestCostRows/> */}
+                      <RequestCostRows type={''}/>
                     </TabPane>
                   ))
                 }
