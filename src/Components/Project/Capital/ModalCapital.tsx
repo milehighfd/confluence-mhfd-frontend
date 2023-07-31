@@ -131,6 +131,7 @@ export const ModalCapital = ({
     getZoomGeomProblem, 
     setHighlightedProblem, 
     setIsEdit,
+    setStreamsList,
     setDeleteAttachmentsIds,
     setHighlightedStream, 
     setHighlightedStreams
@@ -662,6 +663,7 @@ export const ModalCapital = ({
     setServiceArea([]);
     setCounty([]);
     setjurisdiction([]);
+    setStreamsList([]);
     setIsDrawCapital(!isDrawStateCapital);
     setIsDraw(false);
   }

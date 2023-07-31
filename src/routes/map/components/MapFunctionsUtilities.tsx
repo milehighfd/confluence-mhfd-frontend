@@ -38,6 +38,7 @@ export const flytoBoundsCoor = (
     map.fitBounds(coorBounds);
   }
   if (userInformation.isSelect != 'isSelect') {
+    map.setZoom(9)
     setTimeout(() => {
       const zoomareaSelected = groupOrganization
         .filter((x: any) => x.name === userInformation.zoomarea)
