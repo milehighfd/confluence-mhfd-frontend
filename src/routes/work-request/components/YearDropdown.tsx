@@ -14,19 +14,22 @@ const YearDropdown = () => {
     <Select
       defaultValue={year}
       value={`Year ${year}`}
-      suffixIcon={openYearDropdown ? < DownOutlined /> : <UpOutlined />}
+      showArrow={false}
+      //suffixIcon={openYearDropdown ? < DownOutlined /> : <UpOutlined />}
       listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
       onClick={() => (setOpenYearDropdown(!openYearDropdown))}
       onChange={(y: any) => {
         setYear(y);
         setPrioritySelected(['1', '2', '3', 'Over 3', 'Work Plan']);
       }}
-      className={'ant-select-2'} >
+      className={'ant-select-2'}>
       {
         yearList.map((y: number, i: number) => (
-          <Option key={i} value={y} >Year {y}</Option>
+          <Select.Option key={i} value={y} className="custom-option-background">
+          {y}
+        </Select.Option>
         ))
-      }
+      }      
     </Select>
   )
 };
