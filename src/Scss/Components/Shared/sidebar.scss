@@ -258,12 +258,15 @@
 }
 
 .option-layout {
-  padding: 8px 4px !important;
+  padding: 0px 4px !important;
   display: flex;
   align-items: center;
+  border-radius: 4px;
   margin: 0px !important;
   span{
     margin-left: 12px;
+    display: flex;
+    align-items: center;
   }
 }
 
