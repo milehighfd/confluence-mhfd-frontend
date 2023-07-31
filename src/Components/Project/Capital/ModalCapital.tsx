@@ -415,6 +415,9 @@ export const ModalCapital = ({
       serviceAreaIds = serviceAreaList.filter((service: any) => serviceA.includes(service.name)).map((service: any) => service.id);
       countyIds = countyList.filter((countys: any) => countyA.includes(countys.name)).map((countyl: any) => countyl.id);
       jurisdictionIds = jurisdictionList.filter((juris: any) => jurisdiction.includes(juris.name)).map((juris: any) => juris.id);
+      let sponsorList = [...serviceAreaList, ...countyList, ...jurisdictionList];
+      let matchedSponsor = sponsorList.find((item: any) => sponsor.toLowerCase() === item.name.toLowerCase());
+      let sponsorId = matchedSponsor ? matchedSponsor.id : null;
       const params = new URLSearchParams(history.location.search)
       const _year = params.get('year');
       const _locality = params.get('locality');
@@ -435,6 +438,7 @@ export const ModalCapital = ({
       capital.county = countyIds;
       capital.jurisdiction = jurisdictionIds;
       capital.sponsor = sponsor === 'Select a Sponsor' ? '' : sponsor;
+      capital.sponsorId = sponsorId;
       capital.cosponsor = csponsor;
       capital.projectname = nameProject;
       capital.description = description;      
@@ -967,11 +971,12 @@ export const ModalCapital = ({
       jurisdictions={jurisdiction}
       counties={county}
       serviceareas={null}
-      type="Capital"
+      type={selectedTypeProject}
       isEdit={swSave}
       sendToWr={sendToWR}
       setsendToWR={setsendToWR}
       locality={[locality.replace(' Work Plan', '')]}
+      sponsor = {sponsor}
     />}
      <Modal
        centered
