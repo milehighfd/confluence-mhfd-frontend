@@ -392,13 +392,13 @@ const RequestView = ({ type, isFirstRendering }: {
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 12 }}
                   style={{ textAlign: 'right' }}>
-                  <div className='buttons-sidebar'>
+                  <div className='button-header-tab'>
                     <YearDropdown />
                     <Button type='text' id='list' onClick={() => { setListWork(false) }}>
-                      <img src='/Icons/ic-list.svg' alt="" style={{marginRight:'5px'}}/>List
+                      <img src='/Icons/ic-list.svg' alt="" style={{marginRight:'5px'}}/> <span> List</span>
                     </Button>
-                    <Button type='text' id='card' onClick={() => { setListWork(true) }} >
-                      <img src='/Icons/ic-card.png' width={"20px"} height={"20px"} alt="" style={{marginRight:'5px'}}/>Card
+                    <Button type='text' id='card' onClick={() => { setListWork(true) }} >                      
+                      <img src="Icons/ic-card.png" alt="ic-card"  style={{marginRight:'5px'}}></img> <span> Card</span>
                     </Button>
                   </div>        
                 </Col>
