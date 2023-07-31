@@ -626,7 +626,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
       touchZoomRotate: true,
       style: dropdownItems.items[dropdownItems.default].style,
       center: [userInformation.coordinates.longitude, userInformation.coordinates.latitude],
-      zoom: 8,
+      zoom: 9,
       attributionControl: false,
     });
     mapService.map = map;
