@@ -258,15 +258,25 @@
 }
 
 .option-layout {
-  padding: 8px 4px !important;
+  padding: 0px 4px !important;
   display: flex;
   align-items: center;
-  margin: 0px !important;
   span{
     margin-left: 12px;
   }
 }
 
+.option-layout-central{
+  margin: 0px !important;
+}
+.option-layout-top {
+  margin-top: 8px !important;
+  margin-bottom: 0px !important;
+}
+.option-layout-bottom {
+  margin-top: 0px !important;
+  margin-bottom: 8px !important;
+}
 .option-layout:hover {
   background-color: $menu-background;
   background-clip: content-box;
