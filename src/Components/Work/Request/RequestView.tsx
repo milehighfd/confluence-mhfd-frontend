@@ -23,6 +23,7 @@ import AutoCompleteDropdown from 'routes/work-request/components/AutoCompleteDro
 
 import '../../../index.scss';
 import { useMapDispatch } from 'hook/mapHook';
+import TableListView from './Toolbar/TableListView';
 
 const { TabPane } = Tabs;
 
@@ -360,6 +361,8 @@ const RequestView = ({ type, isFirstRendering }: {
     }
   }
 
+  const [ListWork, setListWork] = useState(false);
+
   return (
     <Layout className="work">
       {(fakeLoading) && <LoadingViewOverall />}
@@ -385,43 +388,58 @@ const RequestView = ({ type, isFirstRendering }: {
             <div className="work-head" >
               <Row>
                 <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                  <AutoCompleteDropdown type={type} />
+                  <AutoCompleteDropdown type={''} />
                 </Col>
-                <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{ textAlign: 'right' }}>
-                  <YearDropdown />
-                  <Toolbar type={type} />
+                <Col xs={{ span: 24 }} lg={{ span: 12 }}
+                  style={{ textAlign: 'right' }}>
+                  <div className='button-header-tab'>
+                    <YearDropdown />
+                    <Button type='text' id='list' onClick={() => { setListWork(false) }}>
+                      <img src='/Icons/ic-list.svg' alt="" style={{marginRight:'5px'}}/> <span> List</span>
+                    </Button>
+                    <Button type='text' id='card' onClick={() => { setListWork(true) }} >                      
+                      <img src="Icons/ic-card.png" alt="ic-card"  style={{marginRight:'5px'}}></img> <span> Card</span>
+                    </Button>
+                  </div>        
                 </Col>
               </Row>
             </div>
             <div className="work-body">
-              {type === 'WORK_PLAN' &&
-                <Button className="btn-filter-d" onClick={() => setShowFilters(true)}>
-                  <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center" }} src="" />
-                </Button>
-              }
-              <Tabs destroyInactiveTabPane={true} defaultActiveKey={displayedTabKey[0]}
+              <div className='btn-filter-d'>
+                <Toolbar type={''} />
+              </div>
+              <Tabs destroyInactiveTabPane={true}
+                defaultActiveKey={displayedTabKey[0]}
                 activeKey={tabKey}
                 onChange={(key) => {
                   setTabKey(key);
-                  setPrioritySelected([]);
-                  setJurisdictionSelected([]);
-                }} className="tabs-work">
+                  setPrioritySelected(['1', '2', '3', 'Over 3', 'Work Plan']);
+                }} className="tabs-map">
                 {
                   displayedTabKey.map((tk: string) => (
-                    <TabPane tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style">{tk} </Popover> </span>} key={tk}>
-                      <div className="work-table" ref={wrtRef}>
-                        <ColumsTrelloCard
-                          type={type}
-                          flagforScroll={flagforScroll}
-                        />
+                    <TabPane tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]}
+                      placement="topLeft"
+                      overlayClassName="tabs-style">{tk} </Popover> </span>}
+                      key={tk}>
+                      <div>
+                        {ListWork &&
+                          <div className="work-table"
+                            ref={wrtRef}>
+                            <ColumsTrelloCard
+                              // deleteProject={deleteProject}
+                              // notIsFiltered={notIsFiltered}
+                              flagforScroll={flagforScroll} type={''}                            />
+                          </div>
+                        }{!ListWork && <TableListView />}
                       </div>
-                      <RequestCostRows type={type} />
+                      <RequestCostRows type={''} />
                     </TabPane>
                   ))
                 }
               </Tabs>
             </div>
-            <Button className="btn-scroll" onClick={() => scrollToRight()}>
+            <Button className="btn-scroll"
+              onClick={() => scrollToRight()}>
               <RightOutlined />
             </Button>
           </Col>

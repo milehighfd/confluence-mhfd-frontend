@@ -150,6 +150,7 @@ const MapView = () => {
   const purple = '#11093c';
   const [backgroundStyle, setBackgroundStyle] = useState<string>(gray);
   const [textStyle, setTextStyle] = useState<string>(purple);
+  const [selectView, setSelectView] = useState<string>('list');
   const [groupsLabels, setGroupsLabels] = useState<any>({
     projecttype: [],
     totalcost: [],
@@ -1048,7 +1049,7 @@ const MapView = () => {
         </p>
       </div>
       <div className="count">
-        {groupOrganization && <MapAutoComplete onAutoCompleteSelected={onSelect} />}
+        {groupOrganization && <MapAutoComplete onAutoCompleteSelected={onSelect} setSelectView={setSelectView} selectView={selectView}/>}
         <div className="head-filter mobile-display">
           <Row justify="space-around" align="middle">
             <Col span={11} style={{ textAlign: 'initial' }}>

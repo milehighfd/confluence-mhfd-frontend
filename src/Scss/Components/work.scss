@@ -109,12 +109,24 @@
     min-width: 110px !important;
   }
   .ant-select:not(.ant-select-customize-input) .ant-select-selector {
-    color: $opacity;
-    position: relative;
-    background-color: $white;
-    border: 0;
+    width: 100px;
+    display: flex;
+height: 36px;
+padding: 9px 8px;
+justify-content: center;
+align-items: center;
+gap: 10px;
+    border-radius: 4px;
+    background-color: rgba(245, 247, 255, 0.80);
     transition: all .3s cubic-bezier(.645,.045,.355,1);
     box-shadow: none !important;
+    color: $purple;
+    border: none;
+    font-size: 14px;
+font-style: normal;
+font-weight: bold;
+line-height: normal;
+letter-spacing: 0.2px;
   }
   .ant-select-single.ant-select-show-arrow .ant-select-selection-item, .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
     margin-right: 8px !important;
@@ -716,12 +728,49 @@
 
 // Utilities
 .work-utilities{
+  .title-drawer{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+  } 
   h5{
     font-size: 16px;
     color: $purple00;
     text-transform: uppercase;
     margin-bottom: 0px;
+    padding-top: 8px;
   }
+  .subtitle-requests{
+    width: 100%;
+    background-color: $light-purple;
+    padding-left: 12px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid $opacity01;
+    border-radius: 4px 4px 0px 0px;
+    font-weight: bold;
+  }
+  .graph{
+    width: 100%;
+    height: 200px;
+  }
+  .title-utilities{
+    font-size: 14px;
+    color: $purple00;
+    font-weight: bold;   
+  }
+  .icons-drawers{
+    margin-left: 0px;
+    margin-right: 10px;
+    padding-bottom: 3px;
+  }
+
+  .ant-drawer-close{
+  
+    padding-left: 0px;
+  }
+
   .ant-drawer-header {
     padding: 15px 15px 15px;
     border-bottom: none;
@@ -750,6 +799,7 @@
   .ant-drawer-body {
     padding: 15px;
     padding-top: 0px;
+    overflow-x: hidden;
   }
   .ant-drawer-body::-webkit-scrollbar {
     width: 5px;
@@ -822,7 +872,7 @@
     }
   }
   .graph{
-    height: 240px;
+    height: 320px;
     margin-bottom: 15px;
   }
   .graph-title {
@@ -868,6 +918,60 @@
       }
     }
   }
+  .body-f-p-filter{
+    padding: 16px 0px;
+    height: 230px;
+    overflow-y: auto;
+    padding-top: 0px !important;
+
+
+    .check-filter {
+        padding-top: 16px;
+    
+        .ant-checkbox-checked .ant-checkbox-inner {
+          background-color: $blue-opacity !important;
+          /* Cambia el color de fondo del checkbox cuando está seleccionado */
+          border-color: $blue-opacity !important;
+          /* Cambia el color del borde del checkbox cuando está seleccionado */
+        }
+      }
+      .check-filter1 {
+       
+        .ant-checkbox-checked .ant-checkbox-inner {
+          background-color: $blue-opacity !important;
+          /* Cambia el color de fondo del checkbox cuando está seleccionado */
+          border-color: $blue-opacity !important;
+          /* Cambia el color del borde del checkbox cuando está seleccionado */
+        }
+      }
+
+    p{
+      font-size: 12px !important;
+      line-height: 14px;
+      //margin-bottom: 20px;
+      //padding-top: 0px;
+
+      span{
+        float: right;
+      }
+    }
+  }
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 12px;
+    flex-shrink: 0;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    height: 12px;
+  }
+   
+  ::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: $purple00;
+  }
   .ant-select:not(.ant-select-customize-input) .ant-select-selector {
     color: $opacity;
     position: relative;
@@ -876,6 +980,15 @@
     transition: all .3s cubic-bezier(.645,.045,.355,1);
     box-shadow: none !important;
   }
+  .buttons-filters{
+    .btn-borde{
+      width: 127px;
+      margin-right: 10px;
+    }
+    .btn-purple{
+      width: 127px;
+    }
+  } 
 }
 .status-dd-option {
   line-height: 14px !important;
@@ -1308,6 +1421,9 @@
       }
     }
   }
+
+  
+
   // Utilities
   .work-utilities{
     h5{
@@ -2169,3 +2285,34 @@
     padding: 75px 6px 20px 6px !important;
   }
 }
+
+.work-header-buttons{
+  border: none;
+  .buttons-header:hover{
+    .icon-bt{
+    background-color: $purple;
+  }
+    #share{
+      color: $purple;
+    }
+  }
+  .icon-bt{
+    background-color: $opacity;
+    margin-left: -16px;
+   
+  }
+  #share{
+   width: 22px;
+    height: 22px;
+    margin-left: -18px;
+    margin-right: -4px;
+
+  }
+ 
+}
+.popover-work-header {
+  .ant-popover-arrow{
+  display: none !important;
+}
+}
+

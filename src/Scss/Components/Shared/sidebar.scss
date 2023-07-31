@@ -261,8 +261,11 @@
   padding: 0px 4px !important;
   display: flex;
   align-items: center;
+  border-radius: 4px;
   span{
     margin-left: 12px;
+    display: flex;
+    align-items: center;
   }
 }
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Drawer, Button } from 'antd';
+import { Drawer, Button, Checkbox } from 'antd';
 import { useRequestDispatch, useRequestState } from "hook/requestHook";
 import FilterGroup from "./FilterGroup";
 
@@ -59,25 +59,63 @@ const Filter = () => {
   return (
     <Drawer
       title={
-        <h5><img src="/Icons/work/chat.svg" alt="" className="menu-wr" /> FILTER</h5>
+        <h5 className='title-drawer'>
+          <span><img src="/Icons/icon-73.svg" alt="" style={{width:'18px'}} className="icons-drawers" /> FILTER</span>
+          <img src="/Icons/ic_close.svg" alt="" style={{ alignItems: 'flex-end', cursor: 'pointer' }} onClick={() => setShowFilters(false)} />
+        </h5>
       }
       placement="right"
-      closable={true}
+      closable={false}
       onClose={() => setShowFilters(false)}
       visible={showFilters}
       className="work-utilities"
       mask={false}
     >
-
-      <FilterGroup
+      <div>
+        <div style={{paddingBottom:'10px'}}>
+        <span style={{fontSize:'16px', fontWeight:'bold', lineHeight:'19.2px', marginRight:'4px'}}>County</span><img src="/Icons/icon-19.svg" alt="" /> 
+        </div>
+        <div className="body-f-p-filter">
+        <Checkbox className="check-filter1">Lonetree</Checkbox><br/>
+        <Checkbox className="check-filter">Parker</Checkbox><br/>
+        <Checkbox className="check-filter">SEMSWA</Checkbox><br/>
+        <Checkbox className="check-filter">Adams</Checkbox><br/>
+        <Checkbox className="check-filter">Cherry Creek</Checkbox><br/>
+        <Checkbox className="check-filter">Unincorporated Arapahoe C...</Checkbox><br/>
+        <Checkbox className="check-filter">Lonetree</Checkbox><br/>
+        <Checkbox className="check-filter">Parker</Checkbox><br/>
+        <Checkbox className="check-filter">SEMSWA</Checkbox><br/>
+        <Checkbox className="check-filter">Adams</Checkbox><br/>
+        <Checkbox className="check-filter">Cherry Creek</Checkbox>
+        </div>
+      </div>
+      <div style={{marginTop:'32px'}}>
+      <div style={{paddingBottom:'10px'}}>
+        <span style={{fontSize:'16px', fontWeight:'bold', lineHeight:'19.2px', marginRight:'4px'}}>Project Status</span><img src="/Icons/icon-19.svg" alt="" /> 
+        </div>
+        <div className="body-f-p-filter">
+        <Checkbox className="check-filter1">Lonetree</Checkbox><br/>
+        <Checkbox className="check-filter">Parker</Checkbox><br/>
+        <Checkbox className="check-filter">SEMSWA</Checkbox><br/>
+        <Checkbox className="check-filter">Adams</Checkbox><br/>
+        <Checkbox className="check-filter">Cherry Creek</Checkbox><br/>
+        <Checkbox className="check-filter">Unincorporated Arapahoe C...</Checkbox><br/>
+        <Checkbox className="check-filter">Lonetree</Checkbox><br/>
+        <Checkbox className="check-filter">Parker</Checkbox><br/>
+        <Checkbox className="check-filter">SEMSWA</Checkbox><br/>
+        <Checkbox className="check-filter">Adams</Checkbox><br/>
+        <Checkbox className="check-filter">Cherry Creek</Checkbox>
+        </div>
+      </div>
+      {/* <FilterGroup
         label="WORK REQUEST PRIORITY"
         filterList={priorityFilterList}
         selected={prioritySelected}
         setter={setPrioritySelected}
         labelKey="label"
         valueKey="value"
-      />
-      <FilterGroup
+      /> */}
+      {/* <FilterGroup
         label="JURISDICTION"
         filterList={jurisdictionFilterList}
         selected={jurisdictionSelected}
@@ -106,14 +144,14 @@ const Filter = () => {
           labelKey="service_area_name"
           valueKey="code_service_area_id"
         />
-      }
+      } */}
 
       <div className="footer-drawer" style={{ position: 'fixed', bottom: '50px', right: '19px', backgroundColor: 'white', 'width': '277px' }}>
-        <div>
-          <h4 className="resetFilter" style={{ float: 'left', marginTop: '0.8rem' }} onClick={() => reset(true)}>Reset</h4>
-          <h4 style={{ float: 'left', marginTop: '0.75rem', marginLeft: '4px' }}>|</h4>
-          <h4 className="resetFilter" style={{ float: 'left', marginTop: '0.8rem', marginLeft: '4px' }} onClick={() => reset(false)}>Clear all</h4>
-          <Button className="btn-purple" onClick={applyFilters}>
+        <div className="buttons-filters" style={{display:'flex'}}>
+          <Button className="btn-borde" onClick={()=> reset(true)}>
+            Reset
+          </Button>
+          <Button className="btn-purple" style={{marginLeft:'10px'}} onClick={applyFilters}>
             Apply
           </Button>
         </div>
