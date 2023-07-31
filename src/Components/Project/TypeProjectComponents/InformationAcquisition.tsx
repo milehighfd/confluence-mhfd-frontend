@@ -47,7 +47,7 @@ export const InformationAcquisition = ({
         })}
       </Select></div>
     </Col>
-    <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+    <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{marginTop:'10px'}}>
       <label className="sub-title">Anticipated Purchase Date <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
       <div id="antid">
         <Select
