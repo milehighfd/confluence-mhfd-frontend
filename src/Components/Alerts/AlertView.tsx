@@ -151,7 +151,7 @@ export const AlertView = ({
                   lg={{ span: 12 }}
                   style={{
                     color: '#11093c',
-                    opacity: isUnderReview ? 1 : 0.5,
+                    opacity: isWorkPlan ? (isUnderReview ? 1 : 0.5) : 1,
                   }}
                 >
                   <p className="title">
@@ -170,7 +170,7 @@ export const AlertView = ({
                     Work Plan ({type} Project)
                   </p>
                   <p className={`information ${!showCheckBox ? 'disabled': ''}`}>
-                    {workPlanString}
+                    {isWorkPlan?workPlanString:'--'}
                   </p>
                 </Col>
               }
