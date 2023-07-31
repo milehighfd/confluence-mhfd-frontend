@@ -36,6 +36,21 @@ export const ProposedActions = (props: ProposedActionsProps) => {
 
   const [groupParsed, setGroupParsed] = useState<any[]>([]);
 
+  const replaceUnderscoresAndCapitalize = (inputString:string) => {
+    const stringWithSpaces = inputString.replace(/_/g, ' ');
+    const capitalizedWords = stringWithSpaces
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+    return capitalizedWords;
+  }
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2
+  });
+
   useEffect(() => {
     if (Array.isArray(groups)) {
       const output = groups.flatMap((x: any) =>
@@ -68,7 +83,7 @@ export const ProposedActions = (props: ProposedActionsProps) => {
             </span>
           );
         }
-        return (text);
+        return (replaceUnderscoresAndCapitalize(text));
       }
     },
     {
@@ -77,6 +92,9 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       key: 'cost',
       sorter: (a:any, b:any) => a.age - b.age,
       width: '15%',
+      render: (cost: any) => {
+        return (formatter.format(cost));
+      }
     },
     {
       title: 'Status',
@@ -143,8 +161,8 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       sorter: (a:any, b:any) => a.age - b.age,
       render: (text:any,record:any) => (
         <input
-          value={record.cost}
-          onChange={(e) => changeValueIndComp(e, 'name', record)}
+          value={formatter.format(record.cost)}
+          onChange={(e) => changeValueIndComp(e, 'cost', record)}
           className='input-independent'
           placeholder='Proposed Actions'
         />
@@ -174,6 +192,9 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       key: 'problem',
       sorter: (a:any, b:any) => a.age - b.age,
       width: '34%',
+      render: () => {
+      return ('-')
+      }
     },
     {
       title: '',

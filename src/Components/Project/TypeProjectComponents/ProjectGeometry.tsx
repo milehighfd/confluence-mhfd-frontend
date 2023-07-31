@@ -39,6 +39,21 @@ export const ProjectGeometry = ({
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   });
+
+  useEffect(() => {
+    console.log('listStreams', listStreams);
+  },[listStreams]);
+
+  useEffect(() => {
+    console.log('showDraw', showDraw);
+  },[showDraw]);
+
+  const formatNumberToFeet = (number:number) => {
+    const roundedNumber = Math.round(number);
+    const formattedNumber = formatter.format(roundedNumber);
+    return formattedNumber + ' feet';
+  }
+
   const formatListStreams = (thislistStreams: any) => {
     const myset = new Set(keys);
       Object.keys(thislistStreams).forEach((key: any, id: any) => {
@@ -67,7 +82,7 @@ export const ProjectGeometry = ({
           } 
           const rowTemplate = {
             key: `${id}_${index}`,
-            reach: substream.str_name,
+            reach: substream.jurisdiction,
             code: substream.mhfd_code,
             tributary:'XXXX acres',
             length:`${formatedNumber} ft`,
@@ -124,7 +139,14 @@ export const ProjectGeometry = ({
       title: 'Reach Length',
       dataIndex: 'length',
       key: 'length',
-      width: '20%'
+      width: '20%',
+      render: (text: any) => {
+        if (text === undefined) {
+          return ('');
+        }else{
+          return formatNumberToFeet(text);
+        }
+      }
     },
     {
       title: '',
