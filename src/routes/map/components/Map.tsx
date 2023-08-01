@@ -1607,21 +1607,16 @@ const Map = ({ leftWidth }: MapProps) => {
         label: (
           <div className="global-search-item">
             <h6 style={{ whiteSpace: 'normal' }}>{item.text}</h6>
-            <h5 className="wraptext" style={{ whiteSpace: 'normal' }}>Stream</h5>
           </div>
         ),
       };
     }else{
-      const firstText = item.place_name.split(',')[0];
-      const secondText = item.place_name.split(',');
-      secondText.splice(0,1);
       return {
         key: `${item.text}|${item.place_name}|${item.center[0]}|${item.center[1]}`,
         value: `${item.center[0]},${item.center[1]}?${item.text}|${item.place_name}`,
         label: (
           <div className="global-search-item">
-            <h6 style={{ whiteSpace: 'normal' }}>{firstText}</h6>
-            <h5 className="wraptext" style={{ whiteSpace: 'normal' }}>{secondText.join(',')}</h5>
+            <h6 style={{ whiteSpace: 'normal' }}>{item.place_name}</h6>
           </div>
         ),
       };
@@ -1865,7 +1860,7 @@ const Map = ({ leftWidth }: MapProps) => {
           <AutoComplete
             dropdownMatchSelectWidth={true}
             className='autocomplete-map'
-            options={mapSearch.length > 0 ? [...mapSearch.map(renderOption), {}] : mapSearch.map(renderOption)}
+            options={mapSearch.map(renderOption)}
             onSelect={onSelect}
             onSearch={handleSearch}
             value={keyword}
