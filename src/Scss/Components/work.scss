@@ -1096,6 +1096,8 @@
     padding: 1px;
     .ant-switch-handle {
       left: calc(100% - 44px);
+      height: 20px;
+      top: 1px;
     }
     .ant-switch-handle:before {   
       content: "No";
