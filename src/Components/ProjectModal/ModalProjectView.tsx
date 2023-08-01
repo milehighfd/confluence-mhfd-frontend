@@ -164,7 +164,8 @@ const ModalProjectView = ({
         const currentProjectType = getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id;
         if(allowedProjectTypeIds.includes(currentProjectType)){
           getStreamsByProjectId(data.project_id);
-        } else if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 5) {
+        }
+        if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 5) {
           getIndependentComponentsByProjectId(data.project_id);
           getComponentsByProjectId(data.project_id);
         }
