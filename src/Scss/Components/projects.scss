@@ -25,6 +25,7 @@
       margin-bottom: 0px;
       color: $purple00;
       margin-top: 0px;
+      line-height: 14px;
     }
     .project-title{
       width: -webkit-fill-available;
@@ -32,7 +33,7 @@
       .project-name-icons{
         display: flex;
         margin-bottom: 7px;
-        margin-right: 40px;
+        // margin-right: 40px;
         .ico-title{
           display: flex;
           color: #b3aec9;
@@ -96,6 +97,8 @@
       height: min-content;
       align-items: center;
       height: min-content;
+      height: 29px;
+      align-items: center;
       .hh-img{
         margin-left: 8px;
         opacity: 0.34;
