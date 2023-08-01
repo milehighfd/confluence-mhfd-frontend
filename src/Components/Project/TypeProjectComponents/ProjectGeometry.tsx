@@ -55,6 +55,7 @@ export const ProjectGeometry = ({
   }
 
   const formatListStreams = (thislistStreams: any) => {
+    console.log('qqqqq',listStreams)
     const myset = new Set(keys);
       Object.keys(thislistStreams).forEach((key: any, id: any) => {
         if (!streamListdata[key]) {
@@ -155,25 +156,23 @@ export const ProjectGeometry = ({
       width: '1%',
       render: (text:any, record:any, index:any) => {
         if(text && text === true){
-          return ('');
-        }else{
           return (
             <div>
-              <DeleteOutlined className='ico-delete' onClick={() => removeStream(record)} />
+              <DeleteOutlined className='ico-delete' onClick={() => removeStreamByName(record)} />
             </div>
-          );
+          ); 
+        }else{
+          return ('');
         }
       }
     },
   ];
 
-  const removeStream = (stream: any) => {
-    console.log('Stream to remove', stream);
-    let mhfd_codeIdToRemove = stream?.mhfd_code;
+  const removeStreamByName = (stream: any) => {
+    let mhfd_NameToRemove = stream?.reach;
     let copyList = { ...currentListStreams.current };
-    console.log('Current list', currentListStreams.current, mhfd_codeIdToRemove);
     for (let jurisdiction in copyList) {
-      let newArray = [...copyList[jurisdiction]].filter((st: any) => st.mhfd_code != mhfd_codeIdToRemove);
+      let newArray = [...copyList[jurisdiction]].filter((st: any) => st.str_name !== mhfd_NameToRemove);
       copyList[jurisdiction] = newArray;
     }
     let newCopyList: any = {};
@@ -186,18 +185,13 @@ export const ProjectGeometry = ({
     setStreamsList(newCopyList);
     if (currentStreamsIds.current.length > 0) {
       let newIds = [...currentStreamsIds.current].filter((id: any) => {
-        const arrayValues = mhfd_codeIdToRemove.split('.');
-        // arrayValues.shift();
-        console.log('THIS IS TRHUE', id.mhfd_code,  arrayValues.join('.'), id.mhfd_code == arrayValues.join('.'));
-        return id.mhfd_code !== arrayValues.join('.');
+        const arrayValues = mhfd_NameToRemove.split('.');
+        return id.str_name !== arrayValues.join('.');
       });
-      
-      
-      console.log('Ids before', currentStreamsIds.current, 'After', newIds);
       setStreamsIds(newIds);
     }
-
   }
+
   const [columnsGeometry, setColumnsGeometry] = useState(columnsGeometryDefault);
   useEffect(() => {
     if (type !== 'STUDY') {
