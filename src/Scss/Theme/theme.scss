@@ -28,27 +28,6 @@ body {
   }
 }
 
-.tag-filters {
-  margin-top: -16px !important;
-
-  .ant-popover-placement-bottomRight .ant-popover-arrow {
-    display: none !important;
-  }
-
-  .ant-popover-arrow {
-    display: none !important;
-  }
-
-  .ant-popover-placement-bottom .ant-popover-arrow,
-  .ant-popover-placement-bottomLeft .ant-popover-arrow,
-  .ant-popover-placement-bottomRight .ant-popover-arrow {
-    display: none !important;
-  }
-
-  .ant-arrow {
-    display: none !important;
-  }
-}
 .arrow-popover-delete {
   .ant-popover-placement-bottomRight .ant-popover-arrow {
     display: none !important;

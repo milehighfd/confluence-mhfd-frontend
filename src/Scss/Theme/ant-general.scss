@@ -135,9 +135,12 @@
     background-color: #fff !important;
     outline: solid 1px #e3e5e5 !important;
     outline-offset: -1px !important;
-    border-radius: 4px !important ;
+    border-radius: 5px !important ;
     color: $purple00 !important;
     padding: 4px 0px;
+    min-width: 117px !important;
+    display: flex;
+    flex-direction: column;
     .ant-menu-item {
       height: fit-content !important;
     }

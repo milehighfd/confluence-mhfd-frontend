@@ -59,7 +59,15 @@ export const Header = ({
               style={{
                 height: lengthName > 259 ? 'unset' : '34px'
               }}
-              cols={lengthName> 25 ? 25: lengthName} 
+              cols={
+                isEdit
+                ? (lengthName> 33 ? 33 : lengthName )
+                : (
+                  selectedType === CAPITAL_POPUP || selectedType === R_D_POPUP || selectedType === STUDY_POPUP || selectedType === ACQUISITION_POPUP 
+                  ? (lengthName> 27 ? 27: lengthName)
+                  :(lengthName> 22 ? 22: lengthName)
+                )
+              } 
             />
             <div className='ico-title'>
               <Button className={favorite ? "btn-transparent" : "btn-transparent"} onClick={() => { setFavorite(!favorite) }}>

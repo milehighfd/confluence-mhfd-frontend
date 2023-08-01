@@ -50,6 +50,7 @@ const RequestView = ({ type, isFirstRendering }: {
     reqManager,
     isOnSelected,
   } = useRequestState();
+  
   const {
     setShowModalProject,
     setCompleteProjectData,
@@ -95,6 +96,8 @@ const RequestView = ({ type, isFirstRendering }: {
   const { saveBoardProjecttype } = useProfileDispatch();
   const users = useMyUser();
   const fakeLoading = useFakeLoadingHook(tabKey);
+  const [ListWork, setListWork] = useState(false);
+
   const resetOnClose = () => {
     setStreamIntersected([]);
     setComponentIntersected([]);
@@ -367,7 +370,7 @@ const RequestView = ({ type, isFirstRendering }: {
     }
   }
   loadTabkeysDisplayed();
-  const [ListWork, setListWork] = useState(false);
+
   return (
     <Layout className="work">
       {(fakeLoading) && <LoadingViewOverall />}
@@ -399,13 +402,13 @@ const RequestView = ({ type, isFirstRendering }: {
                   style={{ textAlign: 'right' }}>
                   <div className='button-header-tab'>
                     <YearDropdown />
-                    <Button type='text' id='list' onClick={() => { setListWork(true) }}>
-                      <img src='/Icons/ic-list.svg' alt="" style={{marginRight:'5px'}}/> <span> List</span>
+                    <Button className='buttons-header' type='text' id='list' onClick={() => { setListWork(true) }} >
+                      <img src='/Icons/ic-list.svg' alt="" style={{ marginRight: '5px', color:'red' }} /> <span> List</span>
                     </Button>
-                    <Button type='text' id='card' onClick={() => { setListWork(false) }} >                      
-                      <img src="Icons/ic-card.png" alt="ic-card"  style={{marginRight:'5px'}}></img> <span> Card</span>
+                    <Button className='buttons-header' type='text' id='card' onClick={() => { setListWork(false) }} >
+                      <img src="Icons/ic-card.svg" alt="ic-card" style={{ marginRight: '5px' }} /> <span> Card</span>
                     </Button>
-                  </div>        
+                  </div>
                 </Col>
               </Row>
             </div>
@@ -442,7 +445,8 @@ const RequestView = ({ type, isFirstRendering }: {
                 }
               </Tabs>
             </div>
-            <Button className="btn-scroll" onClick={() => scrollToRight()}>
+            <Button className="btn-scroll"
+              onClick={() => scrollToRight()}>
               <RightOutlined />
             </Button>
           </Col>

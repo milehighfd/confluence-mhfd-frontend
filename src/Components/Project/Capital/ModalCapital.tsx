@@ -255,7 +255,7 @@ export const ModalCapital = ({
       }
     }       
   }, [userInformation]);
-  
+
   //Load Data if is Edit
   useEffect(() => {
     console.log(typeProject)
@@ -272,7 +272,7 @@ export const ModalCapital = ({
       setProjectId(data.project_id);
       setIsCountyWide(data.is_county_wide);
       setIsSouthPlate(data.is_located_on_south_plate_river);
-      if(isCountyWide){
+      if(data.is_county_wide){
         setShowCounty(true);
         setShowDraw(false);
       }else{
