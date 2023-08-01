@@ -233,9 +233,9 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
                     {
                       (type === 'WORK_REQUEST' || locality === 'MHFD District Work Plan') &&
                       // <Checkbox checked={item.checked === 'Approved'} onClick={() => onCheck(item.locality)} />
-                      <Space direction="vertical" style={{paddingRight:'50px'}}>
-                      <Switch checkedChildren="Yes" unCheckedChildren="No" defaultChecked style={{backgroundColor:'#29C499'}}/>
-                      
+                      <Space direction="vertical" style={{paddingRight:'25px'}}>                        
+                      <Switch checkedChildren="Yes" unCheckedChildren="No" defaultChecked 
+                      className="switch-status"/>                      
                     </Space>
                     }
                   </List.Item>

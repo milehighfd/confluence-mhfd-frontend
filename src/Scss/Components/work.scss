@@ -109,13 +109,13 @@
     min-width: 110px !important;
   }
   .ant-select:not(.ant-select-customize-input) .ant-select-selector {
-    width: 100px;
+    width: 93px;
     display: flex;
-height: 36px;
-padding: 9px 8px;
-justify-content: center;
-align-items: center;
-gap: 10px;
+    height: 38px;
+    padding: 9.6px 8.53px;
+    justify-content: center;
+    align-items: center;
+    gap: 10.667px;
     border-radius: 4px;
     background-color: rgba(245, 247, 255, 0.80);
     transition: all .3s cubic-bezier(.645,.045,.355,1);
@@ -123,10 +123,10 @@ gap: 10px;
     color: $purple;
     border: none;
     font-size: 14px;
-font-style: normal;
-font-weight: bold;
-line-height: normal;
-letter-spacing: 0.2px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0.213px;
   }
   .ant-select-single.ant-select-show-arrow .ant-select-selection-item, .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
     margin-right: 8px !important;
@@ -157,6 +157,25 @@ letter-spacing: 0.2px;
   }
   .ant-input-affix-wrapper .ant-input-suffix {
     right: 0px;
+  }
+  .button-header-tab{
+    display: flex;
+    justify-content: flex-end;
+    justify-items: center;
+    .buttons-header{
+      width: 68px;
+      height: 38px;
+      padding: 9px 8px;
+      gap: 8;
+      border-radius: 4px;
+     align-items: center;
+    }
+    .ant-btn:hover{
+      background: rgba(245, 247, 255, 0.80);
+      width: 68px;
+      height: 38px;
+      
+    }
   }
 }
 
@@ -594,6 +613,11 @@ letter-spacing: 0.2px;
   .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow{
     display: none;
   }
+  .ant-timeline-item-head-blue{
+    color: $purple !important;
+    background-color: $purple !important;
+    border-color: $purple !important;
+  }
 }
 .work-footer{
   text-align: right;
@@ -1021,6 +1045,45 @@ letter-spacing: 0.2px;
   .ant-dropdown-menu-item-active{
     background: rgb(217, 242, 247) !important;
   }
+  .switch-status{
+    background-color: white;   
+    height: 21px;
+    width: 96px;
+    color: #29C499;
+    border: 1px solid rgba(37, 24, 99, 0.15);
+    border-radius: 3px !important;
+    background-image: none;
+  }
+  .ant-switch-handle {
+    left: calc(100% - 44px);
+  }
+  .ant-switch-handle:before {   
+    content: 'No';
+    width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #29C499;
+    border-radius: 3px;
+    box-shadow: none;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    background: transparent;
+  }
+  .ant-switch-inner {
+      width: 44px;
+      color: white;
+      background: #29C499;
+      margin: 0px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 3px;
+  
+  }
+
 }
 .chat-r{
   h5{
@@ -2288,26 +2351,42 @@ letter-spacing: 0.2px;
 
 .work-header-buttons{
   border: none;
+  display: flex;
+  
   .buttons-header:hover{
     .icon-bt{
     background-color: $purple;
   }
-    #share{
-      color: $purple;
-    }
+    
   }
   .icon-bt{
     background-color: $opacity;
-    margin-left: -16px;
-   
+    margin-left: -16px;   
   }
-  #share{
-   width: 22px;
-    height: 22px;
-    margin-left: -18px;
-    margin-right: -4px;
-
+  .buttons{
+    border:'none';
+    padding-right: 0px;
+    padding-top: 0px;
+    width: 36px;
+    height: 38px;
+    border-radius: 4px;
   }
+  .buttons:hover{
+    background: rgba(245, 247, 255, 0.80);
+  }
+//  .buttons1{
+//   border:'none';
+//   outline: none;
+//   box-shadow: none;
+//   padding-right: 0px;
+//   padding-top: 0px;
+//   width: 36px;
+//   height: 38px;
+//   border-radius: 4px;
+//  }
+//  .buttons1:hover{
+//   width: 100px;
+//  }
  
 }
 .popover-work-header {

@@ -48,67 +48,72 @@ const Toolbar = ({
   return (
     <Fragment>
       <div className='work-header-buttons'>
-      <Button
-      className='buttons-header' 
-      type='link' style={{border:'none', backgroundColor:'transparent', outline:'none', boxShadow:'none'}}>
-          <div style={{ display: showSearch ? 'inline-block' : 'none' }}>
-            <Input
-              onBlur={handleBlur}
-              className='search-input'
-              style={{display:'inline-block', width:'80%',height:'22px'}}
-            />
-          </div>
-          <div style={{ display: 'inline-block' }} onClick={handleIconClick}>
-            <img className="icon-bt"
-              style={{ WebkitMask: "url('/Icons/ic-search.svg') no-repeat center" }}
-              alt="" />
-          </div>
-          </Button>
-        {/* {
-          (locality === 'Mile High Flood District' || type === 'WORK_REQUEST') && */}
-          <Popover content={<span>Export:<br/>Download a CSV of the board below.</span>} placement='bottom' overlayClassName='popover-work-header' >
+        <Popover className='buttons-header' content={<span>Search:<br />Filter projects below by querying a name.</span>} placement='bottom' overlayClassName='popover-work-header' >
           <Button
+            className='buttons1'
+            type='link' style={{ border: 'none', backgroundColor: 'transparent', outline: 'none', boxShadow: 'none', padding:'0px' }}>
+            <div style={{ display: showSearch ? 'inline-block' : 'none' }}>
+              <Input
+                onBlur={handleBlur}
+                className='search-input'
+                style={{ display: 'inline-block', width: '80%', height: '22px' }}
+              />
+            </div>
+            <div style={{ display: 'inline-block' }} onClick={handleIconClick}>
+              <img className="icon-bt"
+                style={{ WebkitMask: "url('/Icons/ic-search.svg') no-repeat center" }}
+                alt="" />
+            </div>
+          </Button>
+        </Popover>
+        {
+          (locality === 'Mile High Flood District' || type === 'WORK_REQUEST') &&
+          <Popover className='buttons-header' content={<span>Status:<br />Submit the board for Mile High's review.</span>} placement='bottom' overlayClassName='popover-work-header' >
+            <Button
+              className='buttons'
+              type='link'
+              style={{ border: 'none' }}
+              onClick={() => setShowBoardStatus(true)}
+            >
+              <img
+                className="icon-bt"
+                style={{ WebkitMask: "url('/Icons/icon-88.svg') no-repeat center" }}
+                alt=""
+              />
+            </Button>
+          </Popover>
+        }
+        <Popover
           className='buttons-header'
-           type='link'
-          style={{border:'none'}}
-            onClick={() => setShowBoardStatus(true)}
+          content={<span>Analytics:<br />Display project counts and estimates per year and either by county or service area.</span>} placement='bottom' overlayClassName='popover-work-header' >
+          <Button
+           className='buttons' 
+          type='link'
+            
+            onClick={() => setShowAnalytics(true)}
           >
             <img
               className="icon-bt"
-              style={{ WebkitMask: "url('/Icons/icon-88.svg') no-repeat center" }}
+              style={{ WebkitMask: "url('/Icons/icon-89.svg') no-repeat center" }}
               alt=""
             />
           </Button>
-          </Popover>
-        {/* }         */}
-        <Popover
-        className='buttons-header'
-        content={<span>Export:<br/>Download a CSV of the board below.</span>} placement='bottom' overlayClassName='popover-work-header' >
-        <Button type='link'
-        style={{border:'none'}}         
-          onClick={() => setShowAnalytics(true)}
-        >
-          <img
-            className="icon-bt"
-            style={{ WebkitMask: "url('/Icons/icon-89.svg') no-repeat center" }}
-            alt=""
-          />
-        </Button>
         </Popover>
-        <Popover 
-        className='buttons-header'
-        content={<span>Export:<br/>Download a CSV of the board below.</span>} placement='bottom' overlayClassName='popover-work-header' >
-        <Button type='link'
-        style={{border:'none'}}
-          onClick={() => setShowFilters(true)}>
-          <img
-            className="icon-bt"
-            style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center" }}
-            alt="" />
-        </Button>    
+        <Popover
+          className='buttons-header'
+          content={<span>Filter:<br />Display projects by conditions such as project status and location.</span>} placement='bottom' overlayClassName='popover-work-header' >
+          <Button
+          className='buttons'
+          type='link'           
+            onClick={() => setShowFilters(true)}>
+            <img
+              className="icon-bt"
+              style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center" }}
+              alt="" />
+          </Button>
         </Popover>
         <DownloadCSV
-          type={type === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN'}
+          type={type === 'WORK_REQUEST' ? 'WORK_REQUEST' : 'WORK_PLAN'}
           localities={localities}
           columns={columns}
           locality={locality}
@@ -119,7 +124,7 @@ const Toolbar = ({
           reqManager={reqManager}
           diff={diff}
         />
-        <ShareURL />                        
+        <ShareURL />
       </div>
     </Fragment>
   )

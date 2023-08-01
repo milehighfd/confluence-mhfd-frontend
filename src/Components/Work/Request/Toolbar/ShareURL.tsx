@@ -10,11 +10,10 @@ const ShareURL = () => {
   };
 
   return (
-    <Popover content={<span>Export:<br/>Download a CSV of the board below.</span>} placement='bottom' overlayClassName='popover-work-header' >
+    <Popover className='buttons-header' content={<span>Share URL: <br/>Board link is copied and shareable with users who also have access to this board.</span>} placement='bottom' overlayClassName='popover-work-header' >
     <Button 
-    className='buttons-header'
-    type='link'
-    style={{border:'none'}}
+    className='buttons'
+    type='link'   
      onClick={
       () => {
         navigator.clipboard.writeText(window.location.href);
@@ -22,9 +21,8 @@ const ShareURL = () => {
       }
     }>
       <img
-        id='share'
-        src='/Icons/ic-list.png'
-      
+        className='icon-bt'       
+        style={{ WebkitMask: "url('/Icons/ic-link.svg') no-repeat center" }}
         alt=""
       />
     </Button>
