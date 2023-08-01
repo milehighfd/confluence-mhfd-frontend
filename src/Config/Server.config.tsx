@@ -288,6 +288,7 @@ export const SERVER = (function () {
         GET_COUNT_FOR_PROBLEM: (problemid: string) => `${URL_BASE.BASE}/${GALLERY}/${GET_COUNT_FOR_PROBLEM}/${problemid}`,
         GET_LIST_PMTOOLS_PAGE: (groupname: string, group : number) => `${URL_BASE.BASE}/${PMTOOLS}/groupsFilter/${groupname}/${group}`,
         GET_COUNT_PMTOOLS_PAGE: (groupname: string, group : number) => `${URL_BASE.BASE}/${PMTOOLS}/groupsFilter/${COUNT}/${groupname}/${group}`,
+        GET_CREATE_DATA: (projectId: number) => `${URL_BASE.BASE}/${CREATE}/${CREATE_PROJECT_GENERAL}/createdata?project_id=${projectId}`,
         GET_LIST_GROUPS: (groupname: string) => `${URL_BASE.BASE}/${PMTOOLS}/groups/${groupname}`,
         UPDATE_BUDGET: (id: any) => `${URL_BASE.BASE}/${BOARD}/update-budget/${id}`,
         GET_CONFIGURATIONS: (key: string) => {

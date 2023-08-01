@@ -79,7 +79,6 @@ export const DropPin = ({
     setGeom(location);
   },[location]);
   useEffect(()=>{
-    console.log('nnnnnnnnnnn', isAddLocation)
     if(isAddLocation === true ){
       setIsEditingPosition(true);
     } else {
@@ -96,7 +95,6 @@ export const DropPin = ({
   },[]);
 
   useEffect(()=> {
-    console.log('latitude',latitude, latitude === '--', isAddLocation === false)
     if(latitude === '--' && isAddLocation === false){
       setIsEditingPosition(true);
     }else {

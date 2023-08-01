@@ -1406,6 +1406,7 @@ export const ModalCapital = ({
                 cosponsor = {cosponsor}
                 setCoSponsor = {setCosponsor}                
                 originModal={selectedTypeProject}
+                projectId = {projectid}
               />
               {selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Capital.toLowerCase() &&
                 <FinancialInformation

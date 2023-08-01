@@ -6,7 +6,7 @@ import store from '../../../store';
 import { JURISDICTION, PROJECT_INFORMATION, SERVICE_AREA, GOVERNMENT_STAFF } from "../../../constants/constants";
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
-import { useProjectDispatch } from '../../../hook/projectHook';
+import { useProjectDispatch, useProjectState } from '../../../hook/projectHook';
 
 interface Props {
   index: number;
@@ -15,6 +15,7 @@ interface Props {
   cosponsor: string[];
   setCoSponsor: any;  
   originModal: string;
+  projectId?: number;
 }
 const { Option } = Select;
 
@@ -24,9 +25,16 @@ export const RequestorInformation = ({
   setSponsor,
   cosponsor,
   setCoSponsor,
-  originModal
+  originModal,
+  projectId = 0,
 }: Props) => {  
   const [localities, setLocalities] = useState([]);
+  const [name, setName] = useState('');
+  const [createdDate, setCreatedDate] = useState('');
+  const [businessName, setBusinessName] = useState('');
+  const {
+    isEdit
+  } = useProjectState();
   const { setServiceAreaCounty } = useProjectDispatch();
   const user = store.getState().profile.userInformation;
   const isMaintenance = originModal === 'Maintenance';
@@ -67,6 +75,25 @@ export const RequestorInformation = ({
       setServiceAreaCounty({});
     }
   }, []);
+
+  useEffect(() => {
+    if (isEdit && projectId > 0) {
+      datasets.getData(SERVER.GET_CREATE_DATA(projectId), datasets.getToken())
+        .then((rows) => {
+          setName(rows?.user?.name ? rows.user.name : '---');
+        const date = new Date(rows?.created_date);
+        const formattedDate = date.toLocaleDateString('en-US');
+        setCreatedDate(formattedDate ? formattedDate : '---');
+        const businessName = rows?.user?.business_associate_contact?.business_address?.business_associate?.business_name;
+        setBusinessName(businessName ? businessName : '---');
+        }).catch((e) => {
+          console.log(e);
+        })
+      return () => {
+        setServiceAreaCounty({});
+      }
+    }
+  }, [projectId]);
 
   return (
     <div>
@@ -114,7 +141,7 @@ export const RequestorInformation = ({
             </Select>
           </div>
         </Col>
-        <label className="sub-title-footer" style={{paddingLeft:'10px'}}>This project was created by Jon Villines (MHFD) on 2/10/23.</label>
+        {isEdit && <label className="sub-title-footer" style={{paddingLeft:'10px'}}>{`This project was created by ${name} (${businessName}) on ${createdDate}.`}</label>}
       </Row>
     </div>
   );
