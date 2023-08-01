@@ -224,10 +224,9 @@ const RequestView = ({ type, isFirstRendering }: {
       }
 
       setBoard(board);
-      loadColumns(board.board_id);
-      if (type === "WORK_PLAN") {
-        loadFilters(board.board_id);
-      }
+      loadColumns(board.board_id);     
+      loadFilters(board.board_id);
+      
       /* TODO: this should be replaced */
       console.log('Sub status', board.substatus);
       setBoardStatus(board.status);
