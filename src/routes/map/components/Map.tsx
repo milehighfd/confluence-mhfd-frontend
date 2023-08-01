@@ -387,8 +387,8 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
           topLatitude = element[1];
         }
       }
-      bottomLongitude -= 0.125;
-      topLongitude += 0.125;
+      bottomLongitude -= 0.015;
+      topLongitude += 0.015;
       coorBounds.push([bottomLongitude, bottomLatitude]);
       coorBounds.push([topLongitude, topLatitude]);
     }
