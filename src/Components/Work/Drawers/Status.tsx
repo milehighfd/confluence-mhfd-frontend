@@ -78,7 +78,7 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
   }
 
   useEffect(() => {
-    if (type === 'WORK_REQUEST') {
+    if (type === 'WORK_PLAN') {
       let list = substatus ? substatus.split(',') : [];
       let ls = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'R&D']
       setBoardsData(ls.map((l) => {
@@ -232,7 +232,7 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
                       }
                     />
                     {
-                      (type === 'WORK_REQUEST' || locality === 'MHFD District Work Plan') &&
+                      (type === 'WORK_PLAN' || locality === 'Mile High Flood District') &&
                       // <Checkbox checked={item.checked === 'Approved'} onClick={() => onCheck(item.locality)} />
                       <Space direction="vertical" style={{paddingRight:'25px'}}>                        
                       <Switch checkedChildren={arrayStateSwitch[index] ? "Yes":'No'} unCheckedChildren={arrayStateSwitch[index] ? "No":'Yes'} defaultChecked 
