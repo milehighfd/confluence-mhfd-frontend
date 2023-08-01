@@ -94,13 +94,13 @@ export const DropPin = ({
     changeAddLocationState(false);
   },[]);
 
-  useEffect(()=> {
-    if(latitude === '--' && isAddLocation === false){
-      setIsEditingPosition(true);
-    }else {
-      setIsEditingPosition(false);
-    }
-  }, [latitude])
+  // useEffect(()=> {
+  //   if(latitude === '--' && isAddLocation === false){
+  //     setIsEditingPosition(true);
+  //   }else {
+  //     setIsEditingPosition(false);
+  //   }
+  // }, [latitude])
   return(
     <>    
       {showDraw && <Row gutter={[16, 16]}>
