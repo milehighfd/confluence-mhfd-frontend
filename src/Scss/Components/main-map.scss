@@ -216,7 +216,7 @@
   .ant-input-affix-wrapper {
     color: $purple;
     height: 35px;
-    border-radius: 3px;
+    border-radius: 3px !important;
     background-color: $white;
     box-shadow: none;
   }
@@ -495,7 +495,8 @@
 // NEW TAG Filter
 .tag-filters {
   width: auto;
-
+  margin-top: -8px ;
+  padding: 8px 4px;
   .tag-body {
     max-height: calc(100vh - 260px);
     height: auto;
@@ -508,12 +509,14 @@
   }
 
   .head {
-    background: $opacity00;
+    background: transparent;
     padding: 5px 10px;
-    color: $purple00;
-    font-size: 13px;
-    text-transform: capitalize;
-
+    color: #11093c;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 2px;
+    margin-top: 2px;
     img {
       margin-top: -1px;
     }
@@ -521,15 +524,15 @@
 
   p {
     margin-bottom: 0px;
-    border-top: 1px solid rgba(61, 46, 138, 0.07);
     margin: 0px 5px;
-    padding: 10px 5px;
-    font-size: 13px;
+    padding: 6px 5px;
+    font-size: 14px;
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
+    color: $opacity06;
 
     button {
       height: auto;
@@ -538,6 +541,39 @@
       margin: 0px;
       float: right;
       margin-left: 6px;
+    }
+  }
+  .ant-popover-placement-bottomRight .ant-popover-arrow {
+    display: none !important;
+  }
+
+  .ant-popover-arrow {
+    display: none !important;
+  }
+
+  .ant-popover-placement-bottom .ant-popover-arrow,
+  .ant-popover-placement-bottomLeft .ant-popover-arrow,
+  .ant-popover-placement-bottomRight .ant-popover-arrow {
+    display: none !important;
+  }
+
+  .ant-arrow {
+    display: none !important;
+  }
+  .btn-footer-02 {
+    margin: 5px 0px 0px 0px;
+    text-align: right;
+  
+    .btn-borde {
+      margin-right: 0px;
+      border: none !important;
+      font-size: 12px;
+      color: $opacity06 !important;
+      font-weight: 500;
+    }
+  
+    .ant-btn>span {
+      margin-right: -4px;
     }
   }
 }
@@ -552,7 +588,7 @@
   position: relative;
 
   button {
-    background-color: $dark;
+    background-color: $purple00;
     color: $white;
     font-size: 12px;
     border: none;
@@ -563,8 +599,8 @@
 
   button:hover,
   button:focus {
-    background-color: $dark;
-    color: $green;
+    background-color: $purple00;
+    color: $white;
   }
 
   img {

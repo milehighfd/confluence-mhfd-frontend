@@ -394,10 +394,10 @@ const RequestView = ({ type, isFirstRendering }: {
                   style={{ textAlign: 'right' }}>
                   <div className='button-header-tab'>
                     <YearDropdown />
-                    <Button type='text' id='list' onClick={() => { setListWork(false) }}>
+                    <Button type='text' id='list' onClick={() => { setListWork(true) }}>
                       <img src='/Icons/ic-list.svg' alt="" style={{marginRight:'5px'}}/> <span> List</span>
                     </Button>
-                    <Button type='text' id='card' onClick={() => { setListWork(true) }} >                      
+                    <Button type='text' id='card' onClick={() => { setListWork(false) }} >                      
                       <img src="Icons/ic-card.png" alt="ic-card"  style={{marginRight:'5px'}}></img> <span> Card</span>
                     </Button>
                   </div>        
@@ -423,16 +423,17 @@ const RequestView = ({ type, isFirstRendering }: {
                       key={tk}>
                       <div>
                         {ListWork &&
-                          <div className="work-table"
-                            ref={wrtRef}>
-                            <ColumsTrelloCard
-                              // deleteProject={deleteProject}
-                              // notIsFiltered={notIsFiltered}
-                              flagforScroll={flagforScroll} type={''}                            />
-                          </div>
-                        }{!ListWork && <TableListView />}
+                        <TableListView />
+                          
+                        }{!ListWork && <div className="work-table"
+                        ref={wrtRef}>
+                        <ColumsTrelloCard
+                          // deleteProject={deleteProject}
+                          // notIsFiltered={notIsFiltered}
+                          flagforScroll={flagforScroll} type={''}                            />
+                      </div> }
                       </div>
-                      <RequestCostRows type={''} />
+                      <RequestCostRows type={''}/>
                     </TabPane>
                   ))
                 }

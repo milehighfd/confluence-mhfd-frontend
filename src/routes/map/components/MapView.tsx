@@ -421,7 +421,7 @@ const MapView = () => {
         <div className="btn-footer-02">
           {labelsProblems.filter(x => x.detail.length > 0).length > 0 ? (
             <Button className="btn-borde" onClick={() => resetFilterComponents()}>
-              Clear
+              Clear All
             </Button>
           ) : (
             <p style={{ textAlign: 'right' }}>No filters are applied</p>
@@ -533,7 +533,7 @@ const MapView = () => {
         <div className="btn-footer-02">
           {labelsProblems.filter(x => x.detail.length > 0).length > 0 ? (
             <Button className="btn-borde" onClick={() => resetFilterProblems()}>
-              Clear
+              Clear All
             </Button>
           ) : (
             <p style={{ textAlign: 'right' }}>No filters are applied</p>
@@ -604,7 +604,7 @@ const MapView = () => {
         <div className="btn-footer-02">
           {mappedLabelsFiltersProjects.length > 0 ? (
             <Button className="btn-borde" onClick={() => resetFilterProjects(false)}>
-              Clear
+              Clear All
             </Button>
           ) : (
             <p style={{ textAlign: 'right' }}>No filters are applied</p>
@@ -627,7 +627,7 @@ const MapView = () => {
                   :toCamelCase(element.display)
                 )
               )
-            } &nbsp;&nbsp;&nbsp;
+            } &nbsp;
             <Popover
               content={toCamelCase(element.display) === 'project type' ? content4
                 : toCamelCase(element.display) === 'watershed service area' ? content
