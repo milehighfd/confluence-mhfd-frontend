@@ -40,6 +40,7 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
   const [boardsLength, setBoardsLength] = useState<number>(0);
   const [loading, setLoading] = useState(false);
   const [pending, setpending] = useState(false);
+  const [arrayStateSwitch, setarrayStateSwitch] = useState(new Array(100).fill(true));
 
   const save = () => {
     putData(UPDATE_BOARD_BY_ID(boardId), {
@@ -77,7 +78,7 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
   }
 
   useEffect(() => {
-    if (type === 'WORK_REQUEST') {
+    if (type === 'WORK_PLAN') {
       let list = substatus ? substatus.split(',') : [];
       let ls = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'R&D']
       setBoardsData(ls.map((l) => {
@@ -219,7 +220,7 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
               <List
                 itemLayout="horizontal"
                 dataSource={boardsData}
-                renderItem={item => (
+                renderItem={(item, index )=> (
                   <List.Item className="menu-utilities">
                     <List.Item.Meta
                       title={
@@ -231,11 +232,14 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
                       }
                     />
                     {
-                      (type === 'WORK_REQUEST' || locality === 'MHFD District Work Plan') &&
+                      (type === 'WORK_PLAN' || locality === 'Mile High Flood District') &&
                       // <Checkbox checked={item.checked === 'Approved'} onClick={() => onCheck(item.locality)} />
                       <Space direction="vertical" style={{paddingRight:'25px'}}>                        
-                      <Switch checkedChildren="Yes" unCheckedChildren="No" defaultChecked 
-                      className="switch-status"/>                      
+                      <Switch checkedChildren={arrayStateSwitch[index] ? "Yes":'No'} unCheckedChildren={arrayStateSwitch[index] ? "No":'Yes'} defaultChecked 
+                      className={arrayStateSwitch[index] ?"switch-status":'switch-status-no'}
+                      onClick={()=>{const newArray = [...arrayStateSwitch];
+                      newArray[index] = !arrayStateSwitch[index];
+                      setarrayStateSwitch(newArray);}}/>                      
                     </Space>
                     }
                   </List.Item>

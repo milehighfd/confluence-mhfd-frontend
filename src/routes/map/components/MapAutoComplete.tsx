@@ -91,7 +91,7 @@ const MapAutoComplete = ({
               List
             </Button>
             <Button className={selectView === 'card' ? 'ico-header-tab-active' :'ico-header-tab'} onClick={() =>{setSelectView('card')}}>
-              {selectView === 'card' ?<img src='Icons/ic-card-purple.png' alt='ic-card-purple'/>:<img src='Icons/ic-card.png' alt='ic-card'/>}
+              {selectView === 'card' ?<img src='Icons/ic-card-purple.svg' alt='ic-card-purple'/>:<img src='Icons/ic-card.svg' alt='ic-card'/>}
               Card
             </Button>
           </div>

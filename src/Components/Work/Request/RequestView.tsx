@@ -224,10 +224,9 @@ const RequestView = ({ type, isFirstRendering }: {
       }
 
       setBoard(board);
-      if (type === "WORK_PLAN") {
-        loadFilters(board.board_id);
-      }
-      loadColumns(board.board_id);
+      loadColumns(board.board_id);     
+      loadFilters(board.board_id);
+      
       /* TODO: this should be replaced */
       console.log('Sub status', board.substatus);
       setBoardStatus(board.status);
@@ -370,6 +369,8 @@ const RequestView = ({ type, isFirstRendering }: {
     }
   }
   loadTabkeysDisplayed();
+
+
 
   return (
     <Layout className="work">
