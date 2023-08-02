@@ -422,7 +422,7 @@ const RequestView = ({ type, isFirstRendering }: {
             </div>
             <div className="work-body">
               <div className='btn-filter-d'>
-                <Toolbar type={''} />
+                <Toolbar type={type} />
               </div>  
               <Tabs destroyInactiveTabPane={true} defaultActiveKey={displayedTabKey[0]}
                 activeKey={tabKey}
