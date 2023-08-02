@@ -21,7 +21,8 @@ export const AlertView = ({
   isEdit,
   sendToWr,
   setsendToWR,
-  locality
+  locality,
+  sponsor
 }: {
   isWorkPlan: boolean,
   visibleAlert : boolean,
@@ -34,7 +35,8 @@ export const AlertView = ({
   isEdit: boolean,
   sendToWr: boolean,
   setsendToWR: Function,
-  locality: any
+  locality: any,
+  sponsor?: any
 }) => {
   const [state, setState] = useState(stateValue);
   const [isUnderReview, setIsUnderReview] = useState(false);
@@ -74,21 +76,21 @@ export const AlertView = ({
 
   useEffect(() => {
     const checkStatus = async () => {
-      const promises = jurisdictions.map(async (jurisdiction: any) => {
-        return getBoardData3({
-          type: 'WORK_REQUEST',
-          year: `${year}`,
-          locality: jurisdiction,
-          projecttype: type,
-        });
-      });
-      const boards = await Promise.all(promises);
-      const statuses: string[] = boards.map((board: any) => board.status);
-      const anyUnderReview = statuses.some((status: string) => status === 'Under Review');
-      setIsUnderReview(anyUnderReview);
+      const str = type;
+      const capitalizedType = str.charAt(0).toUpperCase() + str.slice(1);
+      const boards = await getBoardData3({
+        type: 'WORK_REQUEST',
+        year: `${year}`,
+        locality: sponsor,
+        projecttype: capitalizedType,
+      });   
+      console.log('BOARDS', boards)
+      const statuses = boards.status;
+      const isUnderReview = statuses === 'Under Review';
+      setIsUnderReview(isUnderReview);
     };
     checkStatus();
-  }, [jurisdictions]);
+  }, [sponsor]);
 
   return (
     <div>
@@ -149,14 +151,15 @@ export const AlertView = ({
                   lg={{ span: 12 }}
                   style={{
                     color: '#11093c',
-                    opacity: isUnderReview ? 1 : 0.5,
+                    opacity: isWorkPlan ? (isUnderReview ? 1 : 0.5) : 1,
                   }}
                 >
                   <p className="title">
                     Work Request
                   </p>
-                  <p className={`information ${(isWorkPlan && !sendToWr && showCheckBox) ? 'disabled' : ''}`}>
-                    {jurisdictions.join(', ')}
+                  <p className={`information ${(isWorkPlan && !sendToWr && showCheckBox && isUnderReview) ? 'disabled' : ''}`}>
+                    {/* {jurisdictions.join(', ')} */}
+                    {sponsor}
                   </p>
                 </Col>
               }
@@ -167,12 +170,12 @@ export const AlertView = ({
                     Work Plan ({type} Project)
                   </p>
                   <p className={`information ${!showCheckBox ? 'disabled': ''}`}>
-                    {workPlanString}
+                    {isWorkPlan?workPlanString:'--'}
                   </p>
                 </Col>
               }
               {
-                (isWorkPlan && showCheckBox && !isEdit) &&
+                (isWorkPlan && showCheckBox && !isEdit && isUnderReview) &&
                 <Col
                   xs={{ span: 48 }}
                   lg={{ span: 24 }}

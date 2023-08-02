@@ -142,10 +142,10 @@ const SidebarMenuDown = ({
         title={optionsLabel}
         popupOffset={[15, -100]}
       >
-        <Menu.Item className="option-layout" onClick={() => setVisibleIntroduction(true)} key="2">
+        <Menu.Item className="option-layout option-layout-top" onClick={() => setVisibleIntroduction(true)} key="2">
           Introduction
         </Menu.Item>
-        <Menu.Item className="option-layout" onClick={() => setVisibleTutorial(true)} key="3">
+        <Menu.Item className="option-layout option-layout-central" onClick={() => setVisibleTutorial(true)} key="3">
           Tutorial
         </Menu.Item>
         <div className="option-line" key="4">

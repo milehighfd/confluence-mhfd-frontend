@@ -720,6 +720,7 @@ export const mapSearchQuery = (query: string) => {
       return;
     }
     datasets.getData(SERVER.MAP_SEARCH + '/' + query, datasets.getToken()).then(search => {
+      search = search.sort((a:any, b:any) => b.relevance - a.relevance);
       dispatch({ type: types.MAP_SEARCH_QUERY, search });
     });
   };

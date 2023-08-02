@@ -4,6 +4,7 @@ import { useProfileState } from 'hook/profileHook';
 import { AutoComplete, Input } from 'antd';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
+import { YEAR_LOGIC_2024, YEAR_LOGIC_2022, MMFD_LOCALITY, MMFD_LOCALITY_TYPE, WORK_PLAN_TAB } from 'constants/constants';
 
 const windowWidth: any = window.innerWidth;
 
@@ -42,7 +43,7 @@ const AutoCompleteDropdown = (
     loadColumns,
   } = useRequestDispatch();
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
-  const [dropdownSelected, setDropdownSelected] = useState();
+  const [dropdownSelected, setDropdownSelected] = useState('');
   const renderOption = (item: string) => {
     return {
       key: `${item}|${item}`,
@@ -51,41 +52,72 @@ const AutoCompleteDropdown = (
     };
   };
   useEffect(() => {
-    updateFilterSelected(dropdownSelected);
-  }, [filterMap])
+    if (type === WORK_PLAN_TAB) {
+      if (year >= YEAR_LOGIC_2024) {
+        setLocality(MMFD_LOCALITY);
+        setDropdownSelected(MMFD_LOCALITY)
+        setLocalityFilter(MMFD_LOCALITY);
+        setLocalityType(MMFD_LOCALITY_TYPE);
+        setTabKey(tabKeys[0]);
+      } else {
+        if (dropdownSelected) {
+          setLocality(dropdownSelected);
+        }
+      }
+      if (filterMap && filterMap?.project_counties?.length > 0) {
+        setCountiesSelected(filterMap?.project_counties?.map((_: any) => true));
+      }
+      if (filterMap && filterMap?.project_service_areas?.length > 0) {
+        setServiceAreasSelected(filterMap?.project_service_areas?.map((_: any) => true))
+      }
+    }
+  }, [year]);
+
+  useEffect(() => {
+    if (type === WORK_PLAN_TAB) {
+      if (filterMap?.project_local_governments?.length > 0) {
+        setJurisdictionSelected(filterMap?.project_local_governments?.map((_: any) => true));
+      }
+    }
+  }, [filterMap, dropdownSelected])
 
   const updateFilterSelected = (value: any) => {
     if (filterMap && value) {
-      const jurisdictionFilterList = [true];
-      filterMap?.project_local_governments.map((r: any, index: any) => {
-        jurisdictionFilterList[index] = true
-      });
       const priorityFilterList = [true, true, true, true, true];
-      setJurisdictionSelected(jurisdictionFilterList);
       setPrioritySelected(priorityFilterList);
-      if (value && value.includes('County')) {
-        const valueName = value.replace('County', '').trim();
-        let filterSelected = [false];
-        filterMap?.project_counties.map((p: any, index: number) => {
-          if (p.county_name === valueName) {
-            filterSelected[index] = true;
-          } else {
-            filterSelected[index] = false;
-          }
+      let filterSelected = [false];
+      if (value === 'MHFD District Work Plan' || value === MMFD_LOCALITY) {
+        filterMap?.project_service_areas?.map((p: any, index: number) => {
+          filterSelected[index] = true;
+        })
+        filterMap?.project_counties?.map((p: any, index: number) => {
+          filterSelected[index] = true;
         })
         setCountiesSelected(filterSelected);
-      }
-      if (value && value.includes('Service Area')) {
-        const valueName = value.replace('Service Area', '').trim();
-        let filterSelected = [false];
-        filterMap?.project_service_areas.map((p: any, index: number) => {
-          if (p.service_area_name === valueName) {
-            filterSelected[index] = true;
-          } else {
-            filterSelected[index] = false;
-          }
-        })
         setServiceAreasSelected(filterSelected)
+      } else {
+        if (value.includes('County')) {
+          const valueName = value.replace('County', '').trim();
+          filterMap?.project_counties.map((p: any, index: number) => {
+            if (p.county_name === valueName) {
+              filterSelected[index] = true;
+            } else {
+              filterSelected[index] = false;
+            }
+          })
+          setCountiesSelected(filterSelected);
+        }
+        if (value.includes('Service Area')) {
+          const valueName = value.replace('Service Area', '').trim();
+          filterMap?.project_service_areas.map((p: any, index: number) => {
+            if (p.service_area_name === valueName) {
+              filterSelected[index] = true;
+            } else {
+              filterSelected[index] = false;
+            }
+          })
+          setServiceAreasSelected(filterSelected)
+        }
       }
       loadColumns(namespaceId)
     }
@@ -96,13 +128,20 @@ const AutoCompleteDropdown = (
     setShowAnalytics(false);
     setShowBoardStatus(false);
     setIsOnSelected(true);
-    setLocality(value);
     setLocalityFilter(value);
     setPrioritySelected([]);
     setJurisdictionSelected([]);
     setCountiesSelected([]);
     setServiceAreasSelected([]);
-    updateFilterSelected(value);
+    if (type === WORK_PLAN_TAB) {
+      if (year < YEAR_LOGIC_2024) {
+        setLocality(value);
+      } else {
+        updateFilterSelected(value);
+      }
+    } else {
+      setLocality(value);
+    }
     let l = localities.find((p: any) => {
       return p.name === value;
     })
@@ -111,7 +150,7 @@ const AutoCompleteDropdown = (
       setLocalityType(l.table);
       if (type === 'WORK_PLAN') {
         let displayedTabKey: string[] = [];
-        if (year < 2022) {
+        if (year < YEAR_LOGIC_2022) {
           if (l.table === 'CODE_STATE_COUNTY') {
             displayedTabKey = ['Capital', 'Maintenance']
           } else if (l.table === 'CODE_SERVICE_AREA') {
