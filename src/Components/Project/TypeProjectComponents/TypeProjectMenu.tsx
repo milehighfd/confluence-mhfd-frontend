@@ -37,7 +37,7 @@ export const TypeProjectsMenu: React.FC<Props> = ({ setTypeAndSubType }) => {
             },
             {
               key: 'General Maintenance',
-              label: 'General Maintenance',
+              label: 'Minor Repairs',
               onClick: () => {setTypeAndSubType('maintenance','Minor Repairs','General Maintenance')},
             },
             {
