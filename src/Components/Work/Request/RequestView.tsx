@@ -22,7 +22,7 @@ import RequestCostRows from 'routes/work-request/components/RequestCostRows';
 import AutoCompleteDropdown from 'routes/work-request/components/AutoCompleteDropdown';
 
 import '../../../index.scss';
-import { useMapDispatch } from 'hook/mapHook';
+import { useMapDispatch, useMapState } from 'hook/mapHook';
 import TableListView from './Toolbar/TableListView';
 
 const { TabPane } = Tabs;
@@ -97,6 +97,11 @@ const RequestView = ({ type, isFirstRendering }: {
   const users = useMyUser();
   const fakeLoading = useFakeLoadingHook(tabKey);
   const [ListWork, setListWork] = useState(false);
+  const [selectView, setSelectView] = useState('card');
+
+  const {  
+    tabActiveNavbar
+  } = useMapState();
 
   const resetOnClose = () => {
     setStreamIntersected([]);
@@ -370,9 +375,14 @@ const RequestView = ({ type, isFirstRendering }: {
   }
   loadTabkeysDisplayed();
 
+const selectCard = (card: any, show:boolean) => {
+  setSelectView(card);
+setListWork(show)
+}
 
+console.log(tabActiveNavbar);
 
-  return (
+return (
     <Layout className="work">
       {(fakeLoading) && <LoadingViewOverall />}
       {
@@ -397,27 +407,32 @@ const RequestView = ({ type, isFirstRendering }: {
             <div className="work-head" >
               <Row>
                 <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                  <AutoCompleteDropdown type={''} />
+                  <AutoCompleteDropdown type={type} />
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 12 }}
                   style={{ textAlign: 'right' }}>
-                  <div className='button-header-tab'>
-                    <YearDropdown />
-                    <Button className='buttons-header' type='text' id='list' onClick={() => { setListWork(true) }} >
-                      <img src='/Icons/ic-list.svg' alt="" style={{ marginRight: '5px', color:'red' }} /> <span> List</span>
+                <div className='button-header-tab'>
+                  <YearDropdown />
+                  <div className='button-header'>
+                    <Button id='buttons-header' className={selectView === 'list' ? 'ico-header-tab-active' : 'ico-header-tab'} onClick={() => { selectCard('list', true) }}>
+                      {selectView === 'list' ? <img src='Icons/ic-list-purple.svg' alt='ic-list-purple' /> : <img src='Icons/ic-list.svg' alt='ic-list' />}
+                      List
                     </Button>
-                    <Button className='buttons-header' type='text' id='card' onClick={() => { setListWork(false) }} >
-                      <img src="Icons/ic-card.svg" alt="ic-card" style={{ marginRight: '5px' }} /> <span> Card</span>
+                    <Button id='buttons-header' className={selectView === 'card' ? 'ico-header-tab-active' : 'ico-header-tab'} onClick={() => { selectCard('card', false) }}>
+                      {selectView === 'card' ? <img src='Icons/ic-card-purple.svg' alt='ic-card-purple' /> : <img src='Icons/ic-card.svg' alt='ic-card' />}
+                      Card
                     </Button>
                   </div>
+                </div>
                 </Col>
               </Row>
             </div>
             <div className="work-body">
               <div className='btn-filter-d'>
-                <Toolbar type={''} />
-              </div>  
-              <Tabs destroyInactiveTabPane={true} defaultActiveKey={displayedTabKey[0]}
+                {tabActiveNavbar !== 'MAP' && <Toolbar type={type} />}
+              </div>
+              <Tabs destroyInactiveTabPane={true}
+                defaultActiveKey={displayedTabKey[0]}
                 activeKey={tabKey}
                 onChange={(key) => {
                   setTabKey(key);
@@ -432,15 +447,14 @@ const RequestView = ({ type, isFirstRendering }: {
                   displayedTabKey.map((tk: string) => (
                     <TabPane tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style">{tk} </Popover> </span>} key={tk}>
                         {ListWork &&
-                        <TableListView />
+                        <TableListView />                          
                         }{!ListWork && <div className="work-table"
                         ref={wrtRef}>
-                        <ColumsTrelloCard
-                          // deleteProject={deleteProject}
-                          // notIsFiltered={notIsFiltered}
-                          flagforScroll={flagforScroll} type={''}                            />
-                      </div> }
-                      <RequestCostRows type={type} />
+                        <ColumsTrelloCard                         
+                          flagforScroll={flagforScroll} 
+                          type={type}/>
+                      </div> }                      
+                      <RequestCostRows type={''}/>
                     </TabPane>
                   ))
                 }

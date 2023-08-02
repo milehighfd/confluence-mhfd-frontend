@@ -10,7 +10,7 @@ const ShareURL = () => {
   };
 
   return (
-    <Popover className='buttons-header' content={<span>Share URL: <br/>Board link is copied and shareable with users who also have access to this board.</span>} placement='bottom' overlayClassName='popover-work-header' >
+    <Popover className='buttons-header' content={<div className='popover-text'>Share URL: <br/>Board link is copied and shareable with users who also have access to this board.</div>} placement="bottomLeft" overlayClassName='popover-work-header' >
     <Button 
     className='buttons'
     type='link'   

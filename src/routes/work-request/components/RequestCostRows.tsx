@@ -45,13 +45,13 @@ const RequestCostRows = ({
       >
         <Panel
           header={
-            <div style={{position:'absolute', width: '99%', display: 'flex', justifyContent: 'space-between'}}>
+            <div style={{position:'absolute', width: '99%', display: 'flex', justifyContent:'space-between'}}>
               <span style={{ paddingLeft: '24px', fontSize: '18px' }}>Total Cost</span>
-              <img src="Icons/ic_accordion_close.svg" alt="" style={{ paddingRight: '24px' }} />
+              <img src="Icons/ic_accordion-close.svg" alt="" style={{ paddingRight: '24px' }} />
             </div>
           }
           key={'1'}
-          style={{ backgroundColor: '#F5F7FF',paddingLeft: '21px', borderRadius:'8px', width:'99%'}}
+          style={{ backgroundColor: '#F5F7FF',paddingLeft: '21px', borderRadius:'8px', width:'876px', boxShadow:'4px 4px 12px 0px rgba(0, 0, 0, 0.10)', border:'none', marginBottom:'12px' }}
           children={
             <div style={{fontSize:'12px', backgroundColor: '#F5F7FF'}}>
               <div style={{fontWeight:'bold', marginBottom:'12px', letterSpacing:' 0.171429px', paddingLeft:'38px'}}>
