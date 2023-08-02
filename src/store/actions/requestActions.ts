@@ -137,6 +137,11 @@ export const setServiceAreasSelected = (payload: any) => ({
   payload
 });
 
+export const setProjectStatusesSelected = (payload: any) => ({
+  type: types.REQUEST_SET_PROJECT_STATUSES_SELECTED,
+  payload
+});
+
 export const setCsaSelected = (payload: any) => ({
   type: types.REQUEST_SET_CSA_SELECTED,
   payload
@@ -179,10 +184,11 @@ export const setDiff = (payload: any) => ({
 
 export const loadOneColumn = (board_id: any, position: any) => {
   return (dispatch: any, getState: Function) => {
-    const { request: { tabKey, year, filterMap, countiesSelected, jurisdictionSelected, serviceAreasSelected, prioritySelected }, router: { location } } = getState();
+    const { request: { tabKey, year, filterMap, countiesSelected, jurisdictionSelected, serviceAreasSelected, prioritySelected, projectStatusesSelected }, router: { location } } = getState();
     const jurisdictionFilterList: any[] = filterMap['project_local_governments'];
     const countiesFilterList: any[] = filterMap['project_counties'];
     const serviceAreasFilterList: any[] = filterMap['project_service_areas'];
+    const projectStatusesFilterList: any[] = filterMap['project_statuses'];
     const priorityFilterList = [
       { label: '1', value: 0 },
       { label: '2', value: 1 },
@@ -203,6 +209,9 @@ export const loadOneColumn = (board_id: any, position: any) => {
       project_priorities: prioritySelected.every((r: any) => r) ? undefined : priorityFilterList.filter((_: any, index: number) => {
         return prioritySelected[index];
       }).map((r: any) => r.value),
+      project_statuses: projectStatusesSelected.every((r: any) => r) ? undefined : projectStatusesFilterList?.filter((_: any, index: number) => {
+        return projectStatusesSelected[index];
+      })?.map((r: any) => r?.code_status_type_id),
     };
     dispatch({
       type: types.REQUEST_START_LOADING_COLUMNS_2
@@ -230,10 +239,11 @@ export const loadOneColumn = (board_id: any, position: any) => {
 
 export const loadColumns = (board_id: any) => {
   return (dispatch: any, getState: Function) => {
-    const { map: { tabActiveNavbar }, request: { tabKey, year, filterMap, countiesSelected, jurisdictionSelected, serviceAreasSelected, prioritySelected }, router: { location } } = getState();
+    const { map: { tabActiveNavbar }, request: { tabKey, year, filterMap, countiesSelected, jurisdictionSelected, serviceAreasSelected, prioritySelected, projectStatusesSelected }, router: { location } } = getState();
     const jurisdictionFilterList: any[] = filterMap['project_local_governments'];
     const countiesFilterList: any[] = filterMap['project_counties'];
     const serviceAreasFilterList: any[] = filterMap['project_service_areas'];
+    const projectStatusesFilterList: any[] = filterMap['project_statuses'];
     const priorityFilterList = [
       { label: '1', value: 0 },
       { label: '2', value: 1 },
@@ -254,6 +264,9 @@ export const loadColumns = (board_id: any) => {
       project_priorities: prioritySelected.every((r: any) => r) ? undefined : priorityFilterList?.filter((_: any, index: number) => {
         return prioritySelected[index];
       }).map((r: any) => r.value),
+      project_statuses: projectStatusesSelected.every((r: any) => r) ? undefined : projectStatusesFilterList?.filter((_: any, index: number) => {
+        return projectStatusesSelected[index];
+      })?.map((r: any) => r?.code_status_type_id),
     };
     dispatch({
       type: types.REQUEST_START_LOADING_COLUMNS_2

@@ -13,13 +13,15 @@ const Filter = () => {
     prioritySelected,
     jurisdictionSelected,
     countiesSelected,
-    serviceAreasSelected
+    serviceAreasSelected,
+    projectStatusesSelected,
   } = useRequestState();
-  const { setShowFilters, loadColumns, setPrioritySelected, setJurisdictionSelected, setCountiesSelected, setServiceAreasSelected } = useRequestDispatch();
+  const { setShowFilters, loadColumns, setPrioritySelected, setJurisdictionSelected, setCountiesSelected, setServiceAreasSelected, setProjectStatusesSelected } = useRequestDispatch();
 
   const jurisdictionFilterList: any[] = filterMap['project_local_governments'];
   const countiesFilterList: any[] = filterMap['project_counties'];
   const serviceAreasFilterList: any[] = filterMap['project_service_areas'];
+  const projectStatusFilterList: any[] = filterMap['project_statuses'];
   const priorityFilterList = useMemo(() => [
     { label: '1', value: 0 },
     { label: '2', value: 1 },
@@ -34,16 +36,17 @@ const Filter = () => {
   // const [prioritySelected, setPrioritySelected] = useState<any[]>([]);
 
   useEffect(() => {
-    console.log('entraaaaa', jurisdictionFilterList, countiesFilterList, priorityFilterList, serviceAreasFilterList);
+    console.log('entraaaaa', jurisdictionFilterList, countiesFilterList, priorityFilterList, serviceAreasFilterList, projectStatusFilterList);
     if (prioritySelected.length === 0) {
       setJurisdictionSelected(jurisdictionFilterList.map((r: any) => true));
       setPrioritySelected(priorityFilterList.map((r: any) => true));
+      setProjectStatusesSelected(projectStatusFilterList.map((r: any) => true));
       if(year < 2024){
         setCountiesSelected(countiesFilterList.map((r: any) => true));
-        setServiceAreasSelected(serviceAreasFilterList.map((r: any) => true)); 
+        setServiceAreasSelected(serviceAreasFilterList.map((r: any) => true));
       }
     }
-  }, [jurisdictionFilterList, countiesFilterList, priorityFilterList, serviceAreasFilterList]);
+  }, [jurisdictionFilterList, countiesFilterList, priorityFilterList, serviceAreasFilterList, projectStatusFilterList]);
 
   const applyFilters = () => {
     loadColumns(namespaceId);
@@ -53,9 +56,10 @@ const Filter = () => {
     setCountiesSelected(countiesSelected.map((_: any) => value));
     setPrioritySelected(prioritySelected.map((_: any) => value));
     setServiceAreasSelected(serviceAreasSelected.map((_: any) => value));
+    setProjectStatusesSelected(projectStatusesSelected.map((r: any) => value));
   }
   let label;
-  if (l === 'CODE_STATE_COUNTY') {
+  if (l === 'CODE_STATE_COUNTY' || l === 'CODE_LOCAL_GOVERNMENT') {
     label = 'COUNTY';
   } else if (l === 'CODE_SERVICE_AREA' || l === 'MHFD_BOUNDARY') {
     label = 'SERVICE AREA';
@@ -76,58 +80,6 @@ const Filter = () => {
       className="work-utilities"
       mask={false}
     >
-      <div>
-        <div style={{paddingBottom:'10px'}}>
-        <span style={{fontSize:'16px', fontWeight:'bold', lineHeight:'19.2px', marginRight:'4px'}}>County</span><img src="/Icons/icon-19.svg" alt="" /> 
-        </div>
-        <div className="body-f-p-filter">
-        <Checkbox className="check-filter1">Lonetree</Checkbox><br/>
-        <Checkbox className="check-filter">Parker</Checkbox><br/>
-        <Checkbox className="check-filter">SEMSWA</Checkbox><br/>
-        <Checkbox className="check-filter">Adams</Checkbox><br/>
-        <Checkbox className="check-filter">Cherry Creek</Checkbox><br/>
-        <Checkbox className="check-filter">Unincorporated Arapahoe C...</Checkbox><br/>
-        <Checkbox className="check-filter">Lonetree</Checkbox><br/>
-        <Checkbox className="check-filter">Parker</Checkbox><br/>
-        <Checkbox className="check-filter">SEMSWA</Checkbox><br/>
-        <Checkbox className="check-filter">Adams</Checkbox><br/>
-        <Checkbox className="check-filter">Cherry Creek</Checkbox>
-        </div>
-      </div>
-      <div style={{marginTop:'32px'}}>
-      <div style={{paddingBottom:'10px'}}>
-        <span style={{fontSize:'16px', fontWeight:'bold', lineHeight:'19.2px', marginRight:'4px'}}>Project Status</span><img src="/Icons/icon-19.svg" alt="" /> 
-        </div>
-        <div className="body-f-p-filter">
-        <Checkbox className="check-filter1">Lonetree</Checkbox><br/>
-        <Checkbox className="check-filter">Parker</Checkbox><br/>
-        <Checkbox className="check-filter">SEMSWA</Checkbox><br/>
-        <Checkbox className="check-filter">Adams</Checkbox><br/>
-        <Checkbox className="check-filter">Cherry Creek</Checkbox><br/>
-        <Checkbox className="check-filter">Unincorporated Arapahoe C...</Checkbox><br/>
-        <Checkbox className="check-filter">Lonetree</Checkbox><br/>
-        <Checkbox className="check-filter">Parker</Checkbox><br/>
-        <Checkbox className="check-filter">SEMSWA</Checkbox><br/>
-        <Checkbox className="check-filter">Adams</Checkbox><br/>
-        <Checkbox className="check-filter">Cherry Creek</Checkbox>
-        </div>
-      </div>
-      {/* <FilterGroup
-        label="WORK REQUEST PRIORITY"
-        filterList={priorityFilterList}
-        selected={prioritySelected}
-        setter={setPrioritySelected}
-        labelKey="label"
-        valueKey="value"
-      /> */}
-      {/* <FilterGroup
-        label="JURISDICTION"
-        filterList={jurisdictionFilterList}
-        selected={jurisdictionSelected}
-        setter={setJurisdictionSelected}
-        labelKey="local_government_name"
-        valueKey="code_local_government_id"
-      />
       {
         label === 'COUNTY' &&
         <FilterGroup
@@ -149,7 +101,18 @@ const Filter = () => {
           labelKey="service_area_name"
           valueKey="code_service_area_id"
         />
-      } */}
+
+      }
+      {
+        <FilterGroup
+          label="Project Status"
+          filterList={projectStatusFilterList}
+          selected={projectStatusesSelected}
+          setter={setProjectStatusesSelected}
+          labelKey="status_name"
+          valueKey="code_status_type_id"
+        />
+      }
 
       <div className="footer-drawer" style={{ position: 'fixed', bottom: '50px', right: '19px', backgroundColor: 'white', 'width': '277px' }}>
         <div className="buttons-filters" style={{display:'flex'}}>

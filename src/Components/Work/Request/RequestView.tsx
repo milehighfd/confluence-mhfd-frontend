@@ -67,6 +67,7 @@ const RequestView = ({ type, isFirstRendering }: {
     setJurisdictionSelected,
     setCountiesSelected,
     setServiceAreasSelected,
+    setProjectStatusesSelected,
     setLocalityType,
     setLocalities,
     setColumns,
@@ -215,6 +216,7 @@ const RequestView = ({ type, isFirstRendering }: {
     const loadProjects = async () => {
       setColumns(defaultColumns);
       let board;
+      console.log(type, year, locality, tabKey)
       try {
         board = await getBoardData3({
           type,
@@ -404,7 +406,7 @@ const RequestView = ({ type, isFirstRendering }: {
             <div className="work-head" >
               <Row>
                 <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                  <AutoCompleteDropdown type={''} />
+                <AutoCompleteDropdown type={''} />
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 12 }}
                   style={{ textAlign: 'right' }}>
@@ -430,6 +432,7 @@ const RequestView = ({ type, isFirstRendering }: {
                   setTabKey(key);
                   setPrioritySelected([]);
                   setJurisdictionSelected([]);
+                  setProjectStatusesSelected([]);
                   if (year < 2024) {
                     setCountiesSelected([]);
                     setServiceAreasSelected([]);
@@ -445,7 +448,7 @@ const RequestView = ({ type, isFirstRendering }: {
                         <ColumsTrelloCard
                           // deleteProject={deleteProject}
                           // notIsFiltered={notIsFiltered}
-                          flagforScroll={flagforScroll} type={''}                            />
+                          flagforScroll={flagforScroll} type={type}                            />
                       </div> }
                       <RequestCostRows type={type} />
                     </TabPane>
