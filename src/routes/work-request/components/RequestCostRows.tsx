@@ -42,6 +42,7 @@ const RequestCostRows = ({
     <div className="cost-wr">
       <Collapse
         collapsible="header"
+        className='cost-collapse'
       >
         <Panel
           header={
@@ -51,9 +52,9 @@ const RequestCostRows = ({
             </div>
           }
           key={'1'}
-          style={{ backgroundColor: '#F5F7FF',paddingLeft: '21px', borderRadius:'8px', width:'876px', boxShadow:'4px 4px 12px 0px rgba(0, 0, 0, 0.10)', border:'none', marginBottom:'12px' }}
+          style={{ backgroundColor: '#F5F7FF',paddingLeft: '21px', borderRadius:'8px', width:'876px', border:'none', marginBottom:'12px' }}
           children={
-            <div style={{fontSize:'12px', backgroundColor: '#F5F7FF'}}>
+            <div style={{fontSize:'12px', paddingBottom:'20px', height:'298px' }}>
               <div style={{fontWeight:'bold', marginBottom:'12px', letterSpacing:' 0.171429px', paddingLeft:'38px'}}>
                 <Row>
                   <Col span={4} ></Col>
