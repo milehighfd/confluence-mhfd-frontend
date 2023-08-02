@@ -252,7 +252,7 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
             )
           }
       <br />
-      <p>Notes <Popover content={content02}>  <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></p>
+      <p className="note-text">Notes <Popover content={content02}>  <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></p>
       <textarea className="note" rows={8} value={boardComment} onChange={e => {
         setBoardComment(e.target.value)
       }} style={{width:'100%'}}>

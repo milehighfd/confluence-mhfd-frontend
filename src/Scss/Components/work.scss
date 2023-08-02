@@ -866,6 +866,9 @@
     color: $opacity;
     margin-bottom: 5px;
   }
+  .note-text{
+    color: $purple00;
+  }
   .ant-dropdown-link, .ant-dropdown-link:hover, .ant-dropdown-link:focus{
     background: transparent;
     border: none;
@@ -897,10 +900,10 @@
     }
   }
   .note{
-    color: $opacity;
+    color: $purple00;
     font-size: 12px;
     border-radius: 4px;
-    border: 1px solid $opacity01;
+    border: 1px solid $purple00;
     padding: 15px;
     height: 100px;
   }
@@ -914,7 +917,7 @@
     }
   }
   .graph{
-    height: 320px;
+    height: auto;
     margin-bottom: 15px;
   }
   .graph-title {

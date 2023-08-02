@@ -272,7 +272,7 @@ const CreateProjectMap = (type: any) => {
       setUserPolygon([]);
       setEditLocation([]);
       marker.remove();
-      setZoomGeom(undefined);
+      // setZoomGeom(undefined);
     };
   }, [type.type]);
   useEffect(() => {
@@ -315,6 +315,7 @@ const CreateProjectMap = (type: any) => {
     }
   }, [listStreams]);
   useEffect(() => {
+    console.log('zoomGeom', zoomGeom, map);
     if (zoomGeom && map) {
       map.map.once('load', () => {
         map.map.fitBounds(zoomGeom);
