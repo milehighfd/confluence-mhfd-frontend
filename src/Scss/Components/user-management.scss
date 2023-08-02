@@ -815,6 +815,12 @@
     color: white;
   }
 }
+.expandable-row{
+  .ant-table-expanded-row > td{
+    padding: 0px !important;
+  }
+}
+
 @media (min-width: 1900px) and (max-width: 2549px){
   .profile-myprofile{
     img{

@@ -19,7 +19,7 @@ import { formatPhoneNumber } from 'utils/utils';
 import { useAppUserDispatch } from "../../../hook/useAppUser";
 import ConfirmationSave from './ConfirmationSave';
 
-const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function }) => {
+const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveUser: Function, setExpandedRow: React.Dispatch<React.SetStateAction<boolean>> }) => {
   const [organization, setOrganization] = useState('');
   const [zoomarea, setZoomArea] = useState('');
   const [serviceArea, setServiceArea] = useState('');
@@ -585,7 +585,6 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
   }
   const message = 'Are you sure you want to update the record ' + values.firstName + ' ' + values.lastName + '?';
 
-  
 
   return (
     <>
@@ -903,7 +902,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
         </Row>
         <br />
         <div style={{ textAlign: 'end' }}>
-          <Button className="btn-profile-list" style={{ marginRight: '20px', borderColor: 'transparent' }}>
+          <Button onClick={()=>setExpandedRow(false)} className="btn-profile-list" style={{ marginRight: '20px', borderColor: 'transparent' }}>
             Cancel
           </Button>
           <Button onClick={()=>{setSaveAlert(true)}} className="btn-purple btn-profile-list">Save</Button>
