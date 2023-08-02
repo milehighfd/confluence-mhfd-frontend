@@ -447,16 +447,13 @@ return (
                   displayedTabKey.map((tk: string) => (
                     <TabPane tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style">{tk} </Popover> </span>} key={tk}>
                         {ListWork &&
-                        <TableListView />
-                          
+                        <TableListView />                          
                         }{!ListWork && <div className="work-table"
                         ref={wrtRef}>
-                        <ColumsTrelloCard
-                          // deleteProject={deleteProject}
-                          // notIsFiltered={notIsFiltered}
-                          flagforScroll={flagforScroll} type={''}                            />
-                      </div> }
-                      </div>
+                        <ColumsTrelloCard                         
+                          flagforScroll={flagforScroll} 
+                          type={type}/>
+                      </div> }                      
                       <RequestCostRows type={''}/>
                     </TabPane>
                   ))
