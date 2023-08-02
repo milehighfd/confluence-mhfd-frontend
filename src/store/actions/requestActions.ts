@@ -285,7 +285,7 @@ export const loadColumns = (board_id: any) => {
     Promise.all(promises).then((dataArray) => {
       console.log('Data array ', dataArray);
       const sums: any[] = [];
-      const totals: any[] = [];
+      const totals: any[] = [];      
       dataArray.forEach(([sumByGroupMap, groupTotal]: any[], columnId: number) => {
         if (columnId === 0) return;
         sums.push(sumByGroupMap);
@@ -294,17 +294,24 @@ export const loadColumns = (board_id: any) => {
 
       const sumByGroupMapTotal = mergeSumByGroupMaps(sums);
       const totalByGroupMap = mergeTotalByGroupMaps(totals);
-
-      const allProjects = dataArray.map(r => r[2]).flat();
-      dispatch(groupProjects(allProjects));    
-      
-      const mainKey = tabActiveNavbar === WORK_PLAN_TAB ? (tabKey === 'Study' ? 'project_service_areas' : 'project_counties') : 'project_counties' ;
-      dispatch({
-        type: types.REQUEST_SET_SUM_BY_COUNTY,
-        payload: Object.keys(sumByGroupMapTotal[mainKey] || {}).map(
-          (key: any) => sumByGroupMapTotal[mainKey][key]
-        )
-      });
+      const allProjects = dataArray.map(r => r[2]).flat();      
+      dispatch(groupProjects(allProjects));        
+      const mainKey = tabActiveNavbar === WORK_PLAN_TAB ? (tabKey === 'Study' ? 'project_service_areas' : 'project_counties') : 'project_counties' ;     
+      // dispatch({
+      //   type: types.REQUEST_SET_SUM_BY_COUNTY,
+      //   payload: Object.keys(sumByGroupMapTotal['project_counties'] || {}).map(
+      //     (key: any) => sumByGroupMapTotal['project_counties'][key]
+      //   )
+      // });
+      function dispatchSumByGroup(type: string, key: string) {
+        dispatch({
+          type,
+          payload: Object.keys(sumByGroupMapTotal[key] || {}).map((k: any) => sumByGroupMapTotal[key][k])
+        });
+      }      
+      dispatchSumByGroup(types.REQUEST_SET_SUM_BY_COUNTY, 'project_counties');
+      dispatchSumByGroup(types.REQUEST_SET_SUM_BY_SA, 'project_service_areas');
+      dispatchSumByGroup(types.REQUEST_SET_SUM_BY_LG, 'project_local_governments');
       dispatch({
         type: types.REQUEST_SET_SUM_TOTAL,
         payload: totalByGroupMap
@@ -535,8 +542,20 @@ export const recalculateTotals = () => {
     console.log('window.location.pathname', window.location.pathname);
     dispatch({
       type: types.REQUEST_SET_SUM_BY_COUNTY,
-      payload: Object.keys(sumByGroupMapTotal[mainKey] || {}).map(
-        (key: any) => sumByGroupMapTotal[mainKey][key]
+      payload: Object.keys(sumByGroupMapTotal['project_counties'] || {}).map(
+        (key: any) => sumByGroupMapTotal['project_counties'][key]
+      )
+    });
+    dispatch({
+      type: types.REQUEST_SET_SUM_BY_SA,
+      payload: Object.keys(sumByGroupMapTotal['project_service_areas'] || {}).map(
+        (key: any) => sumByGroupMapTotal['project_service_areas'][key]
+      )
+    });
+    dispatch({
+      type: types.REQUEST_SET_SUM_BY_LG,
+      payload: Object.keys(sumByGroupMapTotal['project_local_governments'] || {}).map(
+        (key: any) => sumByGroupMapTotal['project_local_governments'][key]
       )
     });
     dispatch({

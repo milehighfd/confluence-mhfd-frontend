@@ -18,7 +18,9 @@ const Analytics = ({
   type: boardType
 }) => {
   const {
-    sumByCounty: data,
+    sumByCounty: dataByCounty,
+    sumByServiceArea: dataBySA,
+    sumByLocalGov: dataByLocalGovernment,
     year: initialYear,
     tabKey,
     namespaceId: boardId,
@@ -27,9 +29,18 @@ const Analytics = ({
     totalCountyBudget,
   } = useRequestState();
   const { setShowAnalytics } = useRequestDispatch();
+  const { showAnalytics } = useRequestState();
   const [totalSum, setTotalSum] = useState(0);
   const [tcb, setTcb] = useState(totalCountyBudget);
   const [year, setYear] = useState(tabKey === 'Maintenance' ? 2000 : +initialYear);
+  const [dataByLocality, setDataByLocality] = useState(dataByCounty);
+  const [localityType, setLocalityType] = useState('County');
+  const [maxiQ, setMaxiQ] = useState(0);
+  const [quantityData, setQuantityData] = useState([]);
+  const [maxiA, setMaxiA] = useState(0);
+  const [amountData, setAmountData] = useState([]);
+  const [countiesNames, setCountiesNames] = useState('');
+
   const getLabel = () => {
     if (tabKey === 'Capital' || tabKey === 'Maintenance') {
       return "County"
@@ -69,82 +80,103 @@ const Analytics = ({
     }
     setTotalSum(sum);
   }, [totals]);
+  let barsColor = '#5e63e4';
+
+  useEffect(() => {
+    let maxiQ = 0;
+    let quantityData;
+    let maxiA = 0;
+    let amountData;
+    setCountiesNames(dataByLocality.map((d: any) => d.locality).join(','));
+    let groupingType = null;
+    if (type === 'WORK_REQUEST') {
+      groupingType = 'Local Government'
+    } else {
+      groupingType = ['Study'].includes(tabKey) ? 'Service Area' : 'County';
+    }
+    // 2000 is default value for all subtypes in maintenance
+    if (year === 2000) {
+      quantityData = dataByLocality.map((d: any) => {
+        let totalCounter = 0;
+        for (let i = 0; i < years.length; ++i) {
+          const currYear = +years[i];
+          let counter = d[`cnt${currYear - initialYear + 1}`] || 0;
+          if (counter !== 0) counter = +counter;
+          totalCounter += counter;
+          maxiQ = Math.max(maxiQ, counter);
+          setMaxiQ(maxiQ);
+        }
+        return {
+          value: d.locality,
+          counter: totalCounter,
+          selected: true
+        }
+      });
+      setQuantityData(quantityData);
+      amountData = dataByLocality.map((d: any) => {
+        let totalCounter = 0;
+        for (let i = 0; i < years.length; ++i) {
+          const currYear = +years[i];
+          let amount = d[`req${currYear - initialYear + 1}`] || 0;
+          if (amount !== 0) amount = +amount;
+          totalCounter += amount;
+          maxiA = Math.max(maxiA, amount);
+          setMaxiA(maxiA);
+        }
+        return {
+          value: d.locality,
+          counter: totalCounter,
+          selected: true
+        }
+      });
+      setAmountData(amountData);
+    } else {
+      const cntColumnName = `cnt${year - initialYear + 1}`;
+      const reqColumnName = `req${year - initialYear + 1}`;
+      quantityData = dataByLocality.map((d: any) => {
+        maxiQ = Math.max(maxiQ, d[cntColumnName] || 0);
+        setMaxiQ(maxiQ);
+        return {
+          value: d.locality,
+          counter: d[cntColumnName] || 0,
+          selected: true
+        }
+      });
+      setQuantityData(quantityData);
+      amountData = dataByLocality.map((d: any) => {
+        maxiA = Math.max(maxiA, d[reqColumnName] || 0);
+        setMaxiA(maxiA);
+        return {
+          value: d.locality,
+          counter: d[reqColumnName] || 0,
+          selected: true
+        }
+      })
+      setAmountData(amountData);
+    }
+  }, [dataByLocality,year]);
 
   useEffect(() => {
     setYear(tabKey === 'Maintenance' ? 2000 : +initialYear);
   }, [initialYear, tabKey]);
 
+  useEffect(() => {
+    if (localityType === 'Local Government') {
+      setDataByLocality(dataByLocalGovernment);
+    } else if (localityType === 'County') {
+      setDataByLocality(dataByCounty);
+    } else {
+      setDataByLocality(dataBySA);
+    }
+  }, [localityType,showAnalytics,year]);
+
   const years: any[] = [];
   for (var i = 0; i < 5; i++) {
     years.push(+initialYear + i);
-  }
-  let maxiQ = 0;
-  let quantityData;
-  let maxiA = 0;
-  let amountData;
-  let countiesNames = data.map((d: any) => d.locality).join(',');
-  let barsColor = '#261964';
-  let groupingType = null;
-  if (type === 'WORK_REQUEST') {
-    groupingType = 'Local Government'
-  } else {
-    groupingType = ['Study'].includes(tabKey) ? 'Service Area': 'County';
-  }
-  // 2000 is default value for all subtypes in maintenance
-  if (year === 2000) {
-    quantityData = data.map((d: any) => {
-      let totalCounter = 0;
-      for (let i = 0; i < years.length; ++i) {
-        const currYear = +years[i];
-        let counter = d[`cnt${currYear - initialYear + 1}`] || 0;
-        if (counter !== 0) counter = +counter;
-        totalCounter += counter;
-        maxiQ = Math.max(maxiQ, counter);
-      }
-      return {
-        value: d.locality,
-        counter: totalCounter,
-        selected: true
-      }
-    });
-    amountData = data.map((d: any) => {
-      let totalCounter = 0;
-      for (let i = 0; i < years.length; ++i) {
-        const currYear = +years[i];
-        let amount = d[`req${currYear - initialYear + 1}`] || 0;
-        if (amount !== 0) amount = +amount;
-        totalCounter += amount;
-        maxiA = Math.max(maxiA, amount);
-      }
-      return {
-        value: d.locality,
-        counter: totalCounter,
-        selected: true
-      }
-    });
-  } else {
-    const cntColumnName = `cnt${year - initialYear + 1}`;
-    const reqColumnName = `req${year - initialYear + 1}`;
-    quantityData = data.map((d: any) => {
-      maxiQ = Math.max(maxiQ, d[cntColumnName] || 0);
-      return {
-        value: d.locality,
-        counter: d[cntColumnName] || 0,
-        selected: true
-      }
-    });
-    amountData = data.map((d: any) => {
-      maxiA = Math.max(maxiA, d[reqColumnName] || 0);
-      return {
-        value: d.locality,
-        counter: d[reqColumnName] || 0,
-        selected: true
-      }
-    })
-  }
+  }  
 
   const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
+    setLocalityType(value);
   };
   return (
     <Drawer
@@ -261,10 +293,10 @@ const Analytics = ({
         }
       </div>
       <div className='subtitle-requests'>
-        <h6 style={{ marginTop: '10px', textTransform: 'uppercase' }}>Requests by County <Popover content={contentCounty} placement="top" > <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
+        <h6 style={{ marginTop: '10px', textTransform: 'uppercase' }}>{`Requests by ${localityType}`}<Popover content={contentCounty} placement="top" > <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
       </div>
       <div className="graph" >
-        {/* {maxiQ > 0 &&
+        {maxiQ > 0 &&
           <HorizontalBarChartAnalytics
             data={quantityData}
             selected={countiesNames}
@@ -283,14 +315,14 @@ const Analytics = ({
             labelOverflowRight={true}
             minBarSize={0}
           />
-        } */}
-        <img src="gallery/requests1.png" alt="" style={{ width: '100%' }} />
+        }
+        {/* <img src="gallery/requests1.png" alt="" style={{ width: '100%' }} /> */}
       </div>
       <div className="subtitle-requests" style={{ marginTop: '30px' }}>
-        <h6 style={{ marginTop: '10px', textTransform: 'uppercase' }}>Dollars Requested by County <Popover content={contentDollars} placement="topRight" arrowPointAtCenter> <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
+        <h6 style={{ marginTop: '10px', textTransform: 'uppercase' }}>{`Dollars Requested by ${localityType}`}<Popover content={contentDollars} placement="topRight" arrowPointAtCenter> <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
       </div>
       <div className="graph" >
-        {/* {maxiA > 0 &&
+        {maxiA > 0 &&
           <HorizontalBarChartAnalytics
             data={amountData}
             selected={countiesNames}
@@ -312,8 +344,8 @@ const Analytics = ({
             labelOverflowRight={true}
             minBarSize={0}
           />
-        } */}
-        <img src="gallery/requests1.png" alt="" style={{ width: '100%' }} />
+        }
+        {/* <img src="gallery/requests1.png" alt="" style={{ width: '100%' }} /> */}
       </div>
     </Drawer>
   )
