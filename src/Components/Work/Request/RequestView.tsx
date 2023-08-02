@@ -88,6 +88,7 @@ const RequestView = ({ type, isFirstRendering }: {
     setBBOXComponents
   } = useMapDispatch();
   const [flagforScroll, setFlagforScroll] = useState(0);
+  const [isInitMap, setIsInitMap] = useState(true);
   const [showCreateProject, setShowCreateProject] = useState(false);
   const history = useHistory();
   const { setZoomProject, setComponentsFromMap, setStreamIntersected, setComponentIntersected } = useProjectDispatch();
@@ -120,6 +121,7 @@ const RequestView = ({ type, isFirstRendering }: {
   }, [locality, tabKey, year]);
 
   useEffect(() => {
+    console.log('is going to set init map true');
     saveBoardProjecttype(tabKey);
   }, [tabKey]);
 
@@ -147,6 +149,7 @@ const RequestView = ({ type, isFirstRendering }: {
         _locality = r.localities[0].name;
       }
       if (_locality) {
+        setIsInitMap(true);
         setLocality(_locality)
         setIsOnSelected(false);
         setLocalityFilter(_locality)
@@ -282,7 +285,9 @@ const RequestView = ({ type, isFirstRendering }: {
 
   useEffect(() => {
     if (locality) {
-      onSelect(locality);
+      console.trace('Is Init map', isInitMap);
+      // reach on initLoading
+      onSelect(locality, isInitMap ? 'isinit' : undefined);
     }
   }, [locality]);
 
@@ -298,7 +303,8 @@ const RequestView = ({ type, isFirstRendering }: {
         };
       });
     if (zoomareaSelected[0]) {
-      changeCenter(value, zoomareaSelected[0].coordinates, isSelect == 'noselect' ? undefined : 'isSelect');
+      changeCenter(value, zoomareaSelected[0].coordinates, isSelect ?? 'isSelect');
+      setIsInitMap(false);
     }
     setBBOXComponents({ bbox: [], centroids: [] });
   };
@@ -307,6 +313,7 @@ const RequestView = ({ type, isFirstRendering }: {
     const user = userInformation;
     user.polygon = coordinates;
     user.isSelect = isSelect;
+    console.trace('ASDF ', coordinates);
     //saveUserInformation(user);
     setNameZoomArea(name);
     const zoomareaSelected = groupOrganization
