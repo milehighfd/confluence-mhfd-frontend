@@ -275,7 +275,7 @@ export const loadColumns = (board_id: any) => {
     for (let position = 0; position <= 5; position++) {
       const promise = datasets.postData(
         BOARD_FOR_POSITIONS,
-        { board_id, position, filters }
+        { board_id, position, filters, year }
       ).then((projects) => {
         let sumByGroupMap = {}, groupTotal = {};
         if (position !== 0) {

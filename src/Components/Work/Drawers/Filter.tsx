@@ -103,7 +103,7 @@ const Filter = () => {
         />
 
       }
-      {
+      {year >= 2024 &&
         <FilterGroup
           label="Project Status"
           filterList={projectStatusFilterList}
