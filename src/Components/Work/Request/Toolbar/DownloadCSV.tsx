@@ -30,7 +30,7 @@ const DownloadCSV = ({
   const [csvData, setCsvData] = useState<string[][]>([[]]);
   const [csvFileName, setCsvFileName] = useState<string>('');
   return (
-    <Popover className='buttons-header' content={<span>Export:<br/>Download board to CSV.</span>} placement='bottom' overlayClassName='popover-work-header' >
+    <Popover className='buttons-header' content={<div className='popover-text'>Export:<br/>Download board to CSV.</div>} placement="bottomLeft" overlayClassName='popover-work-header' >
     <Button 
     className='buttons'
     type='link'>
