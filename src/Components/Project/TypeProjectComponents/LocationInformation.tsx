@@ -11,7 +11,7 @@ import store from '../../../store';
 const { Option } = Select;
 export const LocationInformation = ({
   setServiceArea, setCounty, setjurisdiction, serviceArea, county, editable, jUrisdiction, setCoSponsor, setSponsor, cosponsor, sponsor, isEdit, isCapital, originModal,
-  isWorkPlan
+  isWorkPlan, index
 }: {
   setServiceArea: Function,
   setCounty: Function,
@@ -28,7 +28,7 @@ export const LocationInformation = ({
   isCapital?: boolean,
   originModal?: string,
   isWorkPlan?: boolean
-
+  index?: number
 }) => {
   const isMaintenance = originModal === 'Maintenance';
   const isStudy = originModal === 'Study';
@@ -192,12 +192,15 @@ export const LocationInformation = ({
   }
   return (
     <>
-      <h5>{isCapital ? '5.' : '3.'} Location Information <Popover content={contentLocInf}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
+    <div className="location-information">
+      <div className="sub-title-project">
+        <h5 className="location">{index}. LOCATION <Popover content={contentLocInf}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
+      </div>
       <Row gutter={[16, 16]}>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
           <label className="sub-title">Service Area <Popover content={contentSerAre}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
           {(isMaintenance || isStudy) && !isWorkPlan && <>
-            <span style={{ color: '#df3232' }} className="requiered">&nbsp;*&nbsp;</span>
+            <span id="required-location" className="requiered">&nbsp;*&nbsp;</span>
             </>}
           <div className="sponsor-select" id="serviceid">
             <Select
@@ -240,12 +243,12 @@ export const LocationInformation = ({
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
           <label className="sub-title">Local Government <Popover content={contentJuris}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
           {(isMaintenance || isStudy) && !isWorkPlan && <>
-            <span style={{ color: '#df3232' }} className="requiered">&nbsp;*&nbsp;</span>
+            <span id="required-location" className="requiered">&nbsp;*&nbsp;</span>
             </>}
           <div className="sponsor-select" id="jurisdictionid">
             <Select
               mode="multiple"
-              placeholder={jUrisdiction?.length != 0 ? jUrisdiction : "Select a Local Government"}
+              placeholder={jUrisdiction?.length != 0 ? jUrisdiction : "Select a Jurisdiction"}
               style={{ width: '100%' }}
               listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
               value={jUrisdiction}
@@ -257,49 +260,8 @@ export const LocationInformation = ({
             </Select>
           </div>
         </Col>
-      </Row>
-      <Row gutter={[16, 16]} style={{marginTop:'10px'}}>
-        <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-          <label className="sub-title">Sponsor <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-          <div id="sponsorid">
-            <Select
-              style={{ width: '100%' }}
-              placeholder={'Select a Sponsor'}
-              value={sponsor === "" ? undefined : sponsor}
-              listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-              disabled={isLocalGovernment}
-              onChange={setSponsor}
-              getPopupContainer={() => (document.getElementById("sponsorid") as HTMLElement)}>
-              {
-                isLocalGovernment ? (
-                  <Option value={sponsor + ""}>{sponsor + ""}</Option>
-                ) : (
-                  localities.map((element: string) => {
-                    return <Option key={element} value={element}>{element}</Option>
-                  })
-                )
-              }
-            </Select>
-          </div>
-        </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-          <label className="sub-title">Potential Co-Sponsor <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-          <div className="sponsor-select" id="cosponsorid">
-            <Select
-              mode="multiple"
-              placeholder={cosponsor?.length != 0 ? cosponsor : "Select a Co-Sponsor"}
-              style={{ width: '100%' }}
-              listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-              onChange={(coSponsor: any) => setCoSponsor(coSponsor)}
-              value={cosponsor}
-              getPopupContainer={() => (document.getElementById("cosponsorid") as HTMLElement)}>
-              {localities.map((element: string) => {
-                return <Option key={element} value={element}>{element}</Option>
-              })}
-            </Select>
-          </div>
-        </Col>
-      </Row>
+      </Row>      
+      </div>
     </>
   );
 }

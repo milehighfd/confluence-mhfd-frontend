@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Drawer, Button,  List, Row, Col, Checkbox, Popover, Select } from 'antd';
+import { Drawer, Button,  List, Row, Col, Checkbox, Popover, Select, Switch, Space } from 'antd';
 import { getData, getToken, putData } from "../../../Config/datasets";
 import { SubmitModal } from "../Request/SubmitModal";
 import { boardType } from "../Request/RequestTypes";
 import { GET_BOARD_DEPENDENCIES, UPDATE_BOARD_BY_ID } from "Config/endpoints/board";
 import { useRequestDispatch } from "hook/requestHook";
 import { WINDOW_WIDTH } from "constants/constants";
+import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
+import { WrongModal } from "../Request/WrongModal";
 
 const content00 = (<div className="popver-info">When Work Request Status is changed to "Approved" and saved, the Work Request is sent to MHFD for review and the Work Request is locked. All Project Types must be checked as "Reviewed" in the list below and saved prior to changing Work Request Status.</div>);
 const content01 = (<div className="popver-info">This is an internal QA/QC workspace for Local Governments. All Project Types on the Work Request must be checked as "Reviewed" and saved before the overall Work Request Status can be changed to "Approved."</div>);
@@ -35,10 +37,12 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
   const [boardComment, setBoardComment] = useState(comment || '');
   const [boardSubstatus, setBoardSubstatus] = useState(substatus);
   const [visibleAlert, setVisibleAlert] = useState(false);
+  const [visibleWrongModal, setVisibleWrongModal] = useState(false);
   const [boardsData, setBoardsData] = useState<any[]>([]);
   const [boardsLength, setBoardsLength] = useState<number>(0);
   const [loading, setLoading] = useState(false);
   const [pending, setpending] = useState(false);
+  const [arrayStateSwitch, setarrayStateSwitch] = useState(new Array(100).fill(true));
 
   const save = () => {
     putData(UPDATE_BOARD_BY_ID(boardId), {
@@ -76,7 +80,7 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
   }
 
   useEffect(() => {
-    if (type === 'WORK_REQUEST') {
+    if (type === 'WORK_PLAN') {
       let list = substatus ? substatus.split(',') : [];
       let ls = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'R&D']
       setBoardsData(ls.map((l) => {
@@ -145,6 +149,10 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
     )
   }
 
+  function apllyOwnership(ownership: boolean): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <>
     { visibleAlert && <SubmitModal
@@ -158,21 +166,26 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
       currentStatus={status}
       pending = {pending}
      />
+    }{
+      <WrongModal visible={visibleWrongModal} setVisible={setVisibleWrongModal} />
     }
     <Drawer
-      title={<h5>
-        <img src="/Icons/work/chat.svg" alt="" className="menu-wr" /> STATUS</h5>
+      title={<h5 className='title-drawer'>
+        <span> <img src="/Icons/icon-88.svg" alt="" className="icons-drawers"/> STATUS</span>
+        <img src="/Icons/ic_close.svg" alt="" style={{ alignItems: 'flex-end', cursor: 'pointer' }} onClick={() => setVisible(false)} />
+        </h5>
+        
       }
       placement="right"
-      closable={true}
+      closable={false}
       onClose={() => setVisible(false)}
       visible={visible}
       className="work-utilities"
       mask={false}
     >
       <h6>Status Management</h6>
-      <p>{type === 'WORK_REQUEST'? 'Work Request Status': 'Work Plan Status'} <Popover content={type === 'WORK_PLAN' ? content00WP :content00}><img src="/Icons/icon-19.svg" alt="" height="10px" />  </Popover></p>
-      <Select
+      <p style={{fontSize:'12px', lineHeight:'13.79px', color:'$purple00'}}>As part of the MHFD Work Request approval process, confirm that all project types are ready and click save. Once saved, the board is locked and cannot be edited.</p>
+      {/* <Select
         value={boardStatus ? boardStatus : '- Select -'}
         className="ant-dropdown-link"
         listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
@@ -195,38 +208,43 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
             <p style={{marginBottom:'0px'}}>{`${type === 'WORK_PLAN' ? 'MHFD' : 'Local Government'} Staff are developing ${type === 'WORK_PLAN' ? 'or reviewing' : ''} the Work Request.`}</p>
           </div>
         </Select.Option>
-      </Select>
-          <Row>
+      </Select> */}
+          <Row style={{marginTop:'20px', border:'1px solid #E6E9EA', borderRadius:'8px', display:'flex', alignItems:'center', padding:'11px 16px', backgroundColor:'#f5f7ff'}}>
             <Col lg={{ span: 12 }}>
-              <p>{type === 'WORK_REQUEST' ? 'Project Type' : 'Work Plan'}
-                &nbsp;&nbsp;
-                <Popover content={type === 'WORK_REQUEST' ? content01 : content01WP}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover>
+              <p style={{fontSize:'10px', color:'#11093C'}}>Project Type                
               </p>
+            </Col>           
+            <Col lg={{ span: 12 }}>
+              <p style={{textAlign:'center', fontSize:'10px', color:'#11093C', lineHeight:'11.49px'}}>Is this Board <br/>Ready for Review?</p>
             </Col>
-            {
-              (type === 'WORK_REQUEST' || locality === 'MHFD District Work Plan') &&
-              <Col lg={{ span: 12 }}><p style={{textAlign:'right', paddingRight: 8}}>Reviewed</p></Col>
-            }
+            
           </Row>
           {
             loading ? (<div>Loading...</div>) : (
               <List
                 itemLayout="horizontal"
                 dataSource={boardsData}
-                renderItem={item => (
+                renderItem={(item, index )=> (
                   <List.Item className="menu-utilities">
                     <List.Item.Meta
                       title={
-                        <h6>
-                          <i className="mdi mdi-circle" style={{color: item.status === 'Approved' ? '#29C499' : '#ffdd00' , background:'transparent'}}>
-                          </i>
+                        <h6 style={{paddingLeft:'10px', fontSize:'15px'}}>
+                          {/* <i className="mdi mdi-circle" style={{color: item.status === 'Approved' ? '#29C499' : '#ffdd00' , background:'transparent'}}>
+                          </i> */}
                           &nbsp; {item.locality}
                         </h6>
                       }
                     />
                     {
-                      (type === 'WORK_REQUEST' || locality === 'MHFD District Work Plan') &&
-                      <Checkbox checked={item.checked === 'Approved'} onClick={() => onCheck(item.locality)} />
+                      (type === 'WORK_PLAN' || locality === 'Mile High Flood District') &&
+                      // <Checkbox checked={item.checked === 'Approved'} onClick={() => onCheck(item.locality)} />
+                      <Space direction="vertical" style={{paddingRight:'25px'}}>                        
+                      <Switch checkedChildren={arrayStateSwitch[index] ? "Yes":'No'} unCheckedChildren={arrayStateSwitch[index] ? "No":'Yes'} defaultChecked 
+                      className={arrayStateSwitch[index] ?"switch-status":'switch-status-no'}
+                      onClick={()=>{const newArray = [...arrayStateSwitch];
+                      newArray[index] = !arrayStateSwitch[index];
+                      setarrayStateSwitch(newArray);}}/>                      
+                    </Space>
                     }
                   </List.Item>
                 )}
@@ -234,7 +252,7 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
             )
           }
       <br />
-      <p>Notes <Popover content={content02}>  <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></p>
+      <p className="note-text">Notes <Popover content={content02}>  <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></p>
       <textarea className="note" rows={8} value={boardComment} onChange={e => {
         setBoardComment(e.target.value)
       }} style={{width:'100%'}}>
@@ -244,6 +262,7 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
         <Button className="btn-purple" onClick={() => {
           if (boardStatus === 'Approved') {
             setVisibleAlert(true)
+            setVisibleWrongModal(true)
           } else {
             save();
           }        

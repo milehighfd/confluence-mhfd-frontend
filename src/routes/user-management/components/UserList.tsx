@@ -129,6 +129,7 @@ const UserList = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const [messageError, setMessageError] = useState({ message: '', color: '#28C499' });
+  const [expandableRow, setExpandableRow] = useState(true)
 
   const [optionUserActivated, setOptionUserActivated] = useState<OptionsFiltersUser>(PAGE_USER);
   const [optionUserPending, setOptionUserPending] = useState<OptionsFiltersUser>(PAGE_USER);
@@ -189,8 +190,12 @@ const UserList = () => {
       onClick={({ key }) => {
         switch(key) {
           case 'edit-user':            
-            setUserSelected(record);
-            onExpand(record, key)
+            setUserSelected(record);       
+            if(!expandableRow){
+              onExpand(record, key);
+            }
+            setExpandableRow(true);
+            onExpand(record, key);
             break;
           case 'delete-user':
             deleted(record.user_id)
@@ -330,23 +335,28 @@ const UserList = () => {
         <Table
           pagination={{ pageSize: 20 }}
           columns={columns}
+          className={!expandableRow?'expandable-row':''}
           expandable={{
-            expandedRowRender: record => {
-            if(userSelected !== undefined){
-            if(userSelected.user_id === record.user_id){
+            expandedRowRender: (record)=> {
+            if(userSelected !== undefined && 
+              userSelected.user_id === record.user_id &&
+              expandableRow
+              ){
               return (
-                <ProfileUser record={record} saveUser={getAllUser} />
+                <ProfileUser record={record} saveUser={getAllUser} setExpandedRow={setExpandableRow}/>
               )
-            }}
+              }
             },
-            expandIcon: ({ expanded, onExpand, record }) =>
-              expanded && userSelected.user_id === record.user_id? (
-                <DownOutlined onClick={(e:any) => onExpand(record, e)} />
-              ) : (
-                <Dropdown overlay={menu(record, onExpand)} placement="bottomRight" >
-                  <MoreOutlined />
-                </Dropdown>
-              )
+            expandIcon: ({ expanded, onExpand, record }) =>{
+              if(expandableRow && expanded && userSelected.user_id === record.user_id){
+                return(<DownOutlined onClick={(e:any) => onExpand(record, e)}/>)
+              }
+              else{
+                return(<Dropdown overlay={menu(record, onExpand)} placement="bottomRight" >
+                <MoreOutlined />
+              </Dropdown>)
+              }
+            }
           }}
           dataSource={optionSelect === 'Approved Users' ? userActivatedState:(optionSelect === 'Pending User Requests'? userPendingState:userDeleted )}
           sticky

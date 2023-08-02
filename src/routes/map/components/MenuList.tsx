@@ -135,6 +135,12 @@ export const MenuList = ({menu, popups, index, showPopup, ids} : {menu: any, pop
     case menu.includes('Stream Improvement Measure') && popup.type === 'Stream Improvement - Bank Stabilization':
       iconLocation = '/Icons/ic-stream-bank.png';
       break;
+    case menu === 'Vegetation Management' || menu === 'Debris Management' || menu === 'Sensitive Area':
+      iconLocation = '/Icons/layer-routine-maintenance.png';
+      break;
+    case menu === 'Alert Station':
+    iconLocation = '/Icons/layer-alert-station.png';
+    break;
     case menu.includes('Stream Improvement Measure'):
       iconLocation = '/Icons/icon_streamimprovmentmeasure.png';
     default:

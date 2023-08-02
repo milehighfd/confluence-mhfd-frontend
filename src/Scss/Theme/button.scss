@@ -7,7 +7,7 @@
 .btn-purple, .btn-purple:hover, .btn-purple:focus, .btn-purple:active, .btn-purple.active{
   background-color: $purple !important;
   color: $white !important;
-  border-radius: 7px !important;
+  border-radius: 3px !important;
   border: none !important;
   box-shadow: none !important;
 }
@@ -15,7 +15,7 @@
 .btn-green, .btn-green:hover, .btn-green:focus, .btn-green:active, .btn-green.active{
   background-color: $green !important;
   color: $white !important;
-  border-radius: 7px !important;
+  border-radius: 3px !important;
   border: none !important;
   box-shadow: none !important;
 }
@@ -23,9 +23,10 @@
 .ant-input:hover {
   border-color: #251863 !important;
   border-right-width: 1px;
+  color: $purple00;
 }
 .btn-borde{
-  border-radius: 7px !important;
+  border-radius: 3px !important;
   border: solid 1.3px rgba(37, 24, 99, 0.1) !important;
   background-color: #ffffff !important;
   color: $opacity !important;
@@ -41,7 +42,7 @@
   text-align: left;
   width: 100%;
   min-height: 36px !important;
-  border-radius: 7px !important;
+  border-radius: 3px !important;
   background-color: #ffffff !important;
   color: $opacity !important;
   box-shadow: none !important;
@@ -143,22 +144,7 @@
   width: 69px !important;
   border: none;
 }
-.btn-coll{
-  border: none !important;
-  background: white;
-  box-shadow: none !important;
-  position: absolute !important;
-  top: calc(50% - 27px);
-  right: 0px;
-  padding: 0px !important;
-  width: 50px;
-  height: 55px !important;
-  border-radius: 10px 0px 0px 10px !important;
-  z-index: 1000;
-}
-.btn-coll:hover > img {
-  margin-right: -2px !important;
-}
+
 // CHECKBOXES
 .ant-checkbox-group{
   width: 100%;
@@ -182,10 +168,10 @@
 }
 .ant-table-thead {
   height: 45px;
-  border-radius: 7px 7px 0px 0px;
+  border-radius: 3px 3px 0px 0px;
 }
 .ant-table-tbody {
-  border-radius: 0px 0px 7px 7px;
+  border-radius: 0px 0px 3px 3px;
 }
 .ant-table-container, .ant-table-container table>thead>tr:first-child th:first-child {
   border-top-left-radius: 5px;

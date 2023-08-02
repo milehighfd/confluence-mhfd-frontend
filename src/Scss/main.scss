@@ -7,14 +7,17 @@
   '../Scss/Components/comment',
   '../Scss/Components/login',
   '../Scss/Components/map',
-  '../Scss/Components/navbar',
+  '../Scss/Components/Shared/navbar.scss',
+  '../Scss/Components/Shared/card-project-problem.scss',
+  '../Scss/Components/Shared/modal.scss',
+  '../Scss/Components/Shared/notification.scss',
   '../Scss/Components/new-project',
   '../Scss/Components/profile',
   '../Scss/Components/projects',
-  '../Scss/Components/sidebar',
+  '../Scss/Components/Shared/sidebar.scss',
   '../Scss/Components/user',
   '../Scss/Components/work',
-  
+  '../Scss/Components/main-map.scss',
   '../Scss/Components/portfolio.scss';
 
 // LAYOUT
@@ -24,6 +27,7 @@
 
 // THEME
 @import
+  '../Scss/Theme/ant-general.scss',
   '../Scss/Theme/button',
   '../Scss/Theme/loader',
   '../Scss/Theme/scroll',

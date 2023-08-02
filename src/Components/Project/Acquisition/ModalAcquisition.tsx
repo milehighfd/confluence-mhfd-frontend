@@ -1,21 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { Modal, Button, Row, Col, Popover, Select, Checkbox } from 'antd';
-import { SERVER } from "../../../Config/Server.config";
-import { AlertView } from "../../Alerts/AlertView";
-import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
-import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
-import { DropPin } from "../TypeProjectComponents/DropPin";
-import { PROJECT_INFORMATION, PROGRESS_ACQUISITION, WINDOW_WIDTH } from "../../../constants/constants";
-import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
-import { getData, getToken } from "../../../Config/datasets";
-import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
-import { Project } from "../../../Classes/Project";
-import { useProfileState } from "../../../hook/profileHook";
-import { JURISDICTION, ADMIN, STAFF } from "../../../constants/constants";
-import { useAttachmentDispatch } from "../../../hook/attachmentHook";
-import { useHistory, useLocation } from "react-router-dom";
-import { UploadImagesDocuments } from "../TypeProjectComponents/UploadImagesDocuments";
-import store from "../../../store";
+import React, { useState, useEffect } from 'react';
+import { Modal, Button, Row, Col, Popover, Select, Checkbox, Dropdown } from 'antd';
+import { SERVER } from 'Config/Server.config';
+import { AlertView } from 'Components/Alerts/AlertView';
+import CreateProjectMap from 'Components/CreateProjectMap/CreateProjectMap';
+import { ProjectInformation } from 'Components/Project/TypeProjectComponents/ProjectInformation';
+import { DropPin } from 'Components/Project/TypeProjectComponents/DropPin';
+import { WORK_PLAN_TAB, PROGRESS_ACQUISITION, WINDOW_WIDTH, ADMIN, STAFF } from 'constants/constants';
+import { LocationInformation } from 'Components/Project/TypeProjectComponents/LocationInformation';
+import { getData, getToken } from 'Config/datasets';
+import { useProjectState, useProjectDispatch } from 'hook/projectHook';
+import { Project } from 'Classes/Project';
+import { useProfileState } from 'hook/profileHook';
+import { useAttachmentDispatch } from 'hook/attachmentHook';
+import { useHistory } from 'react-router-dom';
+import { UploadImagesDocuments } from 'Components/Project/TypeProjectComponents/UploadImagesDocuments';
+import store from 'store';
+import { useMapState } from 'hook/mapHook';
+import { DownOutlined, HeartFilled, HeartOutlined, UpOutlined } from '@ant-design/icons';
+import TypeProjectsFilter from 'Components/FiltersProject/TypeProjectsFilter/TypeProjectsFilter';
 
 const { Option } = Select;
 const content = (<div className="popver-info">The purchase of property that is shown to have high flood risk or is needed to implement master plan improvements.</div>);
@@ -52,9 +54,8 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
     setServiceAreaCounty, 
     setJurisdictionSponsor,
     setIsEdit,
-    setDeleteAttachmentsIds,
   } = useProjectDispatch();
-  const { organization, groupOrganization } = useProfileState();
+  const { groupOrganization } = useProfileState();
   const { deleteAttachmentsIds } = useProjectState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -74,7 +75,6 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
   const [jurisdiction, setjurisdiction] = useState<any>([]);
   var date = new Date();
   const history = useHistory();
-  const location = useLocation();
   var year = date.getFullYear();
   const [currentYear, setCurrentYear] = useState(2023);
   const [lengthName, setlengthName] = useState(0);
@@ -83,18 +83,21 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
   const { toggleAttachmentCover, removeAttachment } = useAttachmentDispatch();
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
   const pageWidth  = document.documentElement.scrollWidth;
-  const isWorkPlan = location.pathname.includes('work-plan');
+  const { tabActiveNavbar } = useMapState();
+  const isWorkPlan = tabActiveNavbar === WORK_PLAN_TAB;
   const { userInformation } = useProfileState();
   const [isEditingPosition,setIsEditingPosition ]= useState(false)
+  const [openDropdownTypeProject, setOpenDropdownTypeProject] = useState(false);
+  const [activeTabBodyProject, setActiveTabBodyProject] = useState('Details');
+  const [favorite, setFavorite] = useState(false);
+   //list Menu TypeProjects
+   const menuTypeProjects = <TypeProjectsFilter />;
 
   useEffect(() => {
     setServiceAreaCounty({});
     setJurisdictionSponsor(undefined);
     setStreamIntersected({ geom: null });
     setStreamsIds([]);
-    // return () => {
-    //   setGeom('');
-    // }
   }, []);
 
   useEffect(() => {
@@ -317,11 +320,26 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
     setVisible(false);    
   };
 
+  const getServiceAreaAndCountyString = (serviceArea: string[], county: string[]): string => {
+    const serviceAreaWithoutLabel = serviceArea?.map(area => area.replace(' Service Area', ''));
+    const countyWithoutLabel = county?.map(county => county.replace(' County', ''));
+    let result = '';
+    if (serviceAreaWithoutLabel?.length > 0) {
+      result += serviceAreaWithoutLabel.length > 1 ? 'Multiple Service Areas' : `${serviceAreaWithoutLabel[0]} Service Area`;
+    }
+    if (serviceAreaWithoutLabel?.length > 0 && countyWithoutLabel?.length > 0) {
+      result += ' · ';
+    }
+    if (countyWithoutLabel?.length > 0) {
+      result += countyWithoutLabel.length > 1 ? 'Multiple Counties' : `${countyWithoutLabel[0]} County`;
+    }
+    return result;
+  };
+
   return (
     <>
       {visibleAlert && <AlertView
         isWorkPlan={isWorkPlan}
-        sponsor={sponsor}
         visibleAlert={visibleAlert}
         setVisibleAlert={setVisibleAlert}
         setSave={setSave}
@@ -341,40 +359,50 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
         onOk={handleOk}
         onCancel={handleCancel}
         className="projects"
-        width={pageWidth >3000 ? "2000px" : "1100px"}
+        width={pageWidth >3000 ? "2000px" : "90.5%"}
       >
         <Row>
-          <Col xs={{ span: 24 }} lg={{ span: 10 }}>
+          <Col xs={{ span: 24 }} lg={{ span: 12 }}>
             <CreateProjectMap type="ACQUISITION" locality={locality} projectid={editprojectid} isEdit={swSave}></CreateProjectMap>
           </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 14 }}>
-            <div className="head-project">
-              <Row>
-                <Col xs={{ span: 24 }} lg={{ span: 17 }}>
-                  <label data-value={nameProject} style={{ width: '100%' }}>
-                    <textarea className="project-name" value={nameProject} onChange={(e) => onChange(e)} style={{
-                      border: 'none',
-                      width: '100%',
-                      fontSize: '24px',
-                      color: '#11093c',
-                      wordWrap: 'break-word',
-                      resize: 'none',
-                      lineHeight: '27px',
-                      height: lengthName > 271 ? 'unset' : '34px'
-                    }} />
-                  </label>
-
-                  <p>{serviceArea ? (serviceArea.length > 1 ? 'Multiple Service Area' : (serviceArea[0])) : ''} {(serviceArea.length > 0 && county.length > 0) ? '·' : ''} {county ? (county.length > 1 ? 'Multiple Counties' : (county[0])) : ''} </p>
-                </Col>
-                <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{ textAlign: 'right' }}>
-                  <label className="tag-name" style={{ padding: '10px' }}>Acquisition</label>
-                  <Popover content={content}>
-                    <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" />
-                  </Popover>
-                </Col>
-              </Row>
+          <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+          <div className="head-project">
+            <div className='project-title'>
+              <label data-value={nameProject} style={{width: '100%'}}>
+                <div className='project-name-icons'>
+                  <textarea className="project-name" value={nameProject} onChange={(e) => onChange(e)} style={{                  
+                    height: lengthName > 259 ? 'unset' :'34px'
+                  }} />
+                  <div className='ico-title'>
+                  <Button className={favorite ? "btn-transparent":"btn-transparent" } onClick={()=>{setFavorite(!favorite)}}>
+                  {favorite? <HeartFilled className='heart'/>:<HeartOutlined className='ico-heart'/>}
+                  </Button>
+                    <img src="/Icons/ic_send_purple.svg" alt="" height="16px"></img>
+                  </div>
+                </div>
+                <p className='project-sub-name'>Aurora · Northeast Service Area · Adams County</p>
+              </label>
             </div>
-
+            <div className='project-type'>
+              <Dropdown overlay={menuTypeProjects} trigger={['click']} overlayClassName="drop-menu-type-project" placement="bottomRight" onVisibleChange={()=>{setOpenDropdownTypeProject(!openDropdownTypeProject)}}>
+                <div className="drop-espace">
+                  <a onClick={e => e.preventDefault()} style={{marginLeft:'2%', display:'flex', alignItems:'center'}}>
+                    {<p>Acquisition</p>} &nbsp;
+                    {openDropdownTypeProject ? <UpOutlined style={{color:'#251863',fontSize:'14px'}} /> : < DownOutlined style={{color:'#251863',fontSize:'14px'}} />}
+                  </a>
+                </div>
+              </Dropdown>
+              <Popover content={content} overlayClassName='popover-project'>
+                <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" style={{opacity:0.4}}/>
+              </Popover>
+            </div>
+          </div>
+          <div className='header-tab'>
+            <p className={activeTabBodyProject ===  'Details'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Details')}}>Details</p>
+            <p className={activeTabBodyProject ===  'Discussion'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Discussion')}}>Discussion</p>
+            <p className={activeTabBodyProject ===  'Activity'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Activity')}}>Activity</p>
+          </div>
+          {activeTabBodyProject === 'Details' ?
             <div className="body-project">
               {
                 (isWorkPlan && showCheckBox && !swSave) && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
@@ -387,7 +415,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
                 description={description}
                 setDescription={setDescription}
               />
-              <Row gutter={[16, 16]}>
+              <Row gutter={[16, 16]} className='acquisition-progress'>
                 <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                   <label className="sub-title">Progress <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
                   <div id="progreid">
@@ -418,7 +446,6 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
                   </div>
                 </Col>
               </Row>
-              <br />
 
               <DropPin
                 typeProject={typeProject}
@@ -442,13 +469,12 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
                 isEdit={swSave}
                 originModal="Acquisition"
               />
-              <br />
 
               <UploadImagesDocuments
               isCapital={false}
               setFiles={setFiles}
             />
-            </div>
+            </div>:<></>}
             <div className="footer-project">
               <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>
               <Button key="submit" className="btn-purple" disabled={disable} onClick={handleOk}><span className="text-color-disable">Save Draft Project</span></Button>

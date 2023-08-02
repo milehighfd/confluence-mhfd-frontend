@@ -22,6 +22,8 @@ import RequestCostRows from 'routes/work-request/components/RequestCostRows';
 import AutoCompleteDropdown from 'routes/work-request/components/AutoCompleteDropdown';
 
 import '../../../index.scss';
+import { useMapDispatch, useMapState } from 'hook/mapHook';
+import TableListView from './Toolbar/TableListView';
 
 const { TabPane } = Tabs;
 
@@ -30,7 +32,7 @@ const popovers: any = [
   <div className="popoveer-00"><b>Study:</b> Master plans that identify problems and recommend improvements.</div>,
   <div className="popoveer-00"><b>Maintenance:</b> Restore existing infrastructure eligible for MHFD participation.</div>,
   <div className="popoveer-00"><b>Acquisition:</b> Property with high flood risk or needed for improvements.</div>,
-  <div className="popoveer-00"><b>R&D:</b> Any other effort for which MHFD funds or staff time is requested.</div>
+  <div className="popoveer-00"><b>R&D:</b> Research and Development projects include new stream/rain gages, research, data development, new education and outreach programming, and criteria or guidance development.</div>
 ]
 const RequestView = ({ type, isFirstRendering }: {
   type: boardType,
@@ -48,6 +50,7 @@ const RequestView = ({ type, isFirstRendering }: {
     reqManager,
     isOnSelected,
   } = useRequestState();
+  
   const {
     setShowModalProject,
     setCompleteProjectData,
@@ -77,15 +80,29 @@ const RequestView = ({ type, isFirstRendering }: {
     loadFilters,
     setTotalCountyBudget
   } = useRequestDispatch();
+  const {
+    setOpacityLayer,
+    setCoordinatesJurisdiction,
+    setNameZoomArea,
+    setAutocomplete,
+    setBBOXComponents
+  } = useMapDispatch();
   const [flagforScroll, setFlagforScroll] = useState(0);
+  const [isInitMap, setIsInitMap] = useState(true);
   const [showCreateProject, setShowCreateProject] = useState(false);
   const history = useHistory();
   const { setZoomProject, setComponentsFromMap, setStreamIntersected, setComponentIntersected } = useProjectDispatch();
   const wrtRef = useRef(null);
-  const { userInformation } = useProfileState();
+  const { userInformation, groupOrganization } = useProfileState();
   const { saveBoardProjecttype } = useProfileDispatch();
   const users = useMyUser();
   const fakeLoading = useFakeLoadingHook(tabKey);
+  const [ListWork, setListWork] = useState(false);
+  const [selectView, setSelectView] = useState('card');
+
+  const {  
+    tabActiveNavbar
+  } = useMapState();
 
   const resetOnClose = () => {
     setStreamIntersected([]);
@@ -109,6 +126,7 @@ const RequestView = ({ type, isFirstRendering }: {
   }, [locality, tabKey, year]);
 
   useEffect(() => {
+    console.log('is going to set init map true');
     saveBoardProjecttype(tabKey);
   }, [tabKey]);
 
@@ -116,7 +134,7 @@ const RequestView = ({ type, isFirstRendering }: {
     const initLoading = async () => {
       let params = new URLSearchParams(history.location.search)
       let _year = params.get('year');
-      let _locality = params.get('locality');
+      let _locality: any; //= params.get('locality'); commented to avoid preserve the same locality for wr and wp
       let _tabKey = params.get('tabKey') || users.projecttype;
       if (_locality !== userInformation.organization && userInformation.designation === GOVERNMENT_STAFF) {
         _locality = userInformation.organization;
@@ -136,6 +154,7 @@ const RequestView = ({ type, isFirstRendering }: {
         _locality = r.localities[0].name;
       }
       if (_locality) {
+        setIsInitMap(true);
         setLocality(_locality)
         setIsOnSelected(false);
         setLocalityFilter(_locality)
@@ -213,10 +232,9 @@ const RequestView = ({ type, isFirstRendering }: {
       }
 
       setBoard(board);
-      loadColumns(board.board_id);
-      if (type === "WORK_PLAN") {
-        loadFilters(board.board_id);
-      }
+      loadColumns(board.board_id);     
+      loadFilters(board.board_id);
+      
       /* TODO: this should be replaced */
       console.log('Sub status', board.substatus);
       setBoardStatus(board.status);
@@ -236,10 +254,11 @@ const RequestView = ({ type, isFirstRendering }: {
       ['tabKey', encodeURIComponent(tabKey)]
     ]
     history.push({
-      pathname: type === "WORK_REQUEST" ? '/work-request' : '/work-plan',
+      // pathname: type === "WORK_REQUEST" ? '/work-request' : '/work-plan',
+      pathname: type === "WORK_REQUEST" ? '/map' : '/map',
       search: `?${params.map(p => p.join('=')).join('&')}`
     })
-  }, [year, locality, tabKey]);
+  }, [year, locality, tabKey, type]);
 
 
   useEffect(() => {
@@ -269,32 +288,113 @@ const RequestView = ({ type, isFirstRendering }: {
     parent.scroll(parent.scrollWidth, 0);
   }
 
-  let displayedTabKey = tabKeys;
-  if (type === "WORK_PLAN") {
-    if (year < 2022) {
-      if (localityType === 'CODE_STATE_COUNTY') {
-        displayedTabKey = ['Capital', 'Maintenance']
-      } else if (localityType === 'CODE_SERVICE_AREA') {
-        displayedTabKey = ['Study', 'Acquisition', 'R&D'];
-      }
-    } else {
-      if (localityType === 'CODE_STATE_COUNTY') {
-        displayedTabKey = ['Capital', 'Maintenance', 'Acquisition', 'R&D']
-      } else if (localityType === 'CODE_SERVICE_AREA') {
-        displayedTabKey = ['Study'];
+  useEffect(() => {
+    if (locality) {
+      console.trace('Is Init map', isInitMap);
+      // reach on initLoading
+      onSelect(locality, isInitMap ? 'isinit' : undefined);
+    }
+  }, [locality]);
+
+  const onSelect = (value: any, isSelect?: any) => {
+    setAutocomplete(value);
+    const zoomareaSelected = groupOrganization
+      .filter((x: any) => x.name === value)
+      .map((element: any) => {
+        return {
+          aoi: element.name,
+          filter: element.table,
+          coordinates: element.coordinates.coordinates,
+        };
+      });
+    if (zoomareaSelected[0]) {
+      changeCenter(value, zoomareaSelected[0].coordinates, isSelect ?? 'isSelect');
+      setIsInitMap(false);
+    }
+    setBBOXComponents({ bbox: [], centroids: [] });
+  };
+
+  const changeCenter = (name: string, coordinates: any, isSelect?: any) => {
+    const user = userInformation;
+    user.polygon = coordinates;
+    user.isSelect = isSelect;
+    console.trace('ASDF ', coordinates);
+    //saveUserInformation(user);
+    setNameZoomArea(name);
+    const zoomareaSelected = groupOrganization
+      .filter((x: any) => x.name === name)
+      .map((element: any) => {
+        return {
+          aoi: element.name,
+          filter: element.table,
+          coordinates: element.coordinates.coordinates,
+        };
+      });
+    if (zoomareaSelected.length > 0) {
+      switch (zoomareaSelected[0].filter) {
+        case 'County':
+        case 'CODE_STATE_COUNTY':
+          setOpacityLayer(true);
+          setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
+          break;
+        case 'Jurisdiction':
+        case 'CODE_LOCAL_GOVERNMENT':
+          setOpacityLayer(true);
+          setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
+          break;
+        case 'Service Area':
+        case 'CODE_SERVICE_AREA':
+          setOpacityLayer(true);
+          setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
+          break;
+        default:
+          setOpacityLayer(true);
+          setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
       }
     }
-    if (locality === 'MHFD District Work Plan' || locality === 'Mile High Flood District') {
-      displayedTabKey = tabKeys;
+  };
+
+  let displayedTabKey = tabKeys;
+
+  useEffect(() => {
+    loadTabkeysDisplayed();
+  }, [localityType]);
+
+  const loadTabkeysDisplayed = () => {
+    if (type === "WORK_PLAN") {
+      if (year < 2022) {
+        if (localityType === 'CODE_STATE_COUNTY') {
+          displayedTabKey = ['Capital', 'Maintenance']
+        } else if (localityType === 'CODE_SERVICE_AREA') {
+          displayedTabKey = ['Study', 'Acquisition', 'R&D'];
+        }
+      } else {
+        if (localityType === 'CODE_STATE_COUNTY') {
+          displayedTabKey = ['Capital', 'Maintenance', 'Acquisition', 'R&D']
+        } else if (localityType === 'CODE_SERVICE_AREA') {
+          displayedTabKey = ['Study'];
+        }
+      }
+      if (locality.name === 'MHFD District Work Plan' || locality.name === 'Mile High Flood District') {
+        displayedTabKey = tabKeys;
+      }
     }
   }
+  loadTabkeysDisplayed();
 
-  return (
+const selectCard = (card: any, show:boolean) => {
+  setSelectView(card);
+setListWork(show)
+}
+
+console.log(tabActiveNavbar);
+
+return (
     <Layout className="work">
       {(fakeLoading) && <LoadingViewOverall />}
       {
         <Row>
-          <Col xs={{ span: 24 }}
+          {/* <Col xs={{ span: 24 }}
             className={"height-mobile"}
             lg={{ span: leftWidth }}
             style={{ transition: 'all 0.7s ease' }}>
@@ -308,50 +408,67 @@ const RequestView = ({ type, isFirstRendering }: {
               currentTab={tabKey}
             />
             <ResizableButton />
-          </Col>
-
-          <Col xs={{ span: 24 }} lg={{ span: 24 - leftWidth }}>
+          </Col> */}
+          {/* <Col xs={{ span: 24 }} lg={{ span: 24 - leftWidth }}></Col> */}
+          <Col xs={{ span: 24 }} lg={{ span: 24 }}>
             <div className="work-head" >
               <Row>
                 <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                  <AutoCompleteDropdown />
+                  <AutoCompleteDropdown type={type} />
                 </Col>
-                <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{ textAlign: 'right' }}>
+                <Col xs={{ span: 24 }} lg={{ span: 12 }}
+                  style={{ textAlign: 'right' }}>
+                <div className='button-header-tab'>
                   <YearDropdown />
-                  <Toolbar />
+                  <div className='button-header'>
+                    <Button id='buttons-header' className={selectView === 'list' ? 'ico-header-tab-active' : 'ico-header-tab'} onClick={() => { selectCard('list', true) }}>
+                      {selectView === 'list' ? <img src='Icons/ic-list-purple.svg' alt='ic-list-purple' /> : <img src='Icons/ic-list.svg' alt='ic-list' />}
+                      List
+                    </Button>
+                    <Button id='buttons-header' className={selectView === 'card' ? 'ico-header-tab-active' : 'ico-header-tab'} onClick={() => { selectCard('card', false) }}>
+                      {selectView === 'card' ? <img src='Icons/ic-card-purple.svg' alt='ic-card-purple' /> : <img src='Icons/ic-card.svg' alt='ic-card' />}
+                      Card
+                    </Button>
+                  </div>
+                </div>
                 </Col>
               </Row>
             </div>
             <div className="work-body">
-              {type === 'WORK_PLAN' &&
-                <Button className="btn-filter-d" onClick={() => setShowFilters(true)}>
-                  <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center" }} src="" />
-                </Button>
-              }
-              <Tabs destroyInactiveTabPane={true} defaultActiveKey={displayedTabKey[0]}
+              <div className='btn-filter-d'>
+                {tabActiveNavbar !== 'MAP' && <Toolbar type={type} />}
+              </div>
+              <Tabs destroyInactiveTabPane={true}
+                defaultActiveKey={displayedTabKey[0]}
                 activeKey={tabKey}
                 onChange={(key) => {
                   setTabKey(key);
                   setPrioritySelected([]);
                   setJurisdictionSelected([]);
-                  setCountiesSelected([]);
-                  setServiceAreasSelected([]);
-                }} className="tabs-map">
+                  if (year < 2024) {
+                    setCountiesSelected([]);
+                    setServiceAreasSelected([]);
+                  }
+                }} className="tabs-work">
                 {
                   displayedTabKey.map((tk: string) => (
                     <TabPane tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style">{tk} </Popover> </span>} key={tk}>
-                      <div className="work-table" ref={wrtRef}>
-                        <ColumsTrelloCard
-                          flagforScroll={flagforScroll}
-                        />
-                      </div>
-                      <RequestCostRows />
+                        {ListWork &&
+                        <TableListView />                          
+                        }{!ListWork && <div className="work-table"
+                        ref={wrtRef}>
+                        <ColumsTrelloCard                         
+                          flagforScroll={flagforScroll} 
+                          type={type}/>
+                      </div> }                      
+                      <RequestCostRows type={''}/>
                     </TabPane>
                   ))
                 }
               </Tabs>
             </div>
-            <Button className="btn-scroll" onClick={() => scrollToRight()}>
+            <Button className="btn-scroll"
+              onClick={() => scrollToRight()}>
               <RightOutlined />
             </Button>
           </Col>

@@ -254,9 +254,9 @@ const SideBarComment = ({
         <span className="title">Feature Layers</span>
         <span className="filterCounter">{counterFilters > 0 ? "(" + counterFilters + ")" : ''}</span>
         <Dropdown overlay={createOptions} trigger={['click']}>
-          <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-            <span className="op-plus">+</span>
-          </a>
+          <div className='dropdown-ico-plus'>
+            +
+          </div>
         </Dropdown>
       </div>
       <Tree

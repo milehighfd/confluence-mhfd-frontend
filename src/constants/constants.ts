@@ -9,6 +9,10 @@ export const MEDIUM_SCREEN_RIGHT = 9;
 
 export const WINDOW_WIDTH: any = window.innerWidth;
 
+export const MAP= 'MAP';
+export const WORK_REQUEST='WORK_REQUEST';
+export const WORK_PLAN='WORK_PLAN';
+
 export const MAPBOX_TOKEN = 'pk.eyJ1IjoibWlsZWhpZ2hmZCIsImEiOiJjazRqZjg1YWQwZTN2M2RudmhuNXZtdWFyIn0.oU_jVFAr808WPbcVOFnzbg';
 export const NEARMAP_TOKEN = 'NzA3ZjlkODYtMTNiMC00Y2E3LWE1MzAtYzU3NWUzMmJjMGUw';
 export const MAP_DROPDOWN_ITEMS = [
@@ -82,6 +86,14 @@ export const FLOODPLAINS_FEMA_FILTERS = 'floodplains_fema_sfha';
 export const FLOODPLAINS_NON_FEMA_FILTERS = 'floodplains_non_fema';
 export const ACTIVE_LOMS = 'active_lomcs';
 export const EFFECTIVE_REACHES = 'effective_reaches';
+export const EFFECTIVE_REACHES_ENDPOINTS = 'effective_reaches_endpoints';
+export const EFFECTIVE_REACHES_LAYERS = {
+  name: EFFECTIVE_REACHES,
+  tiles: [
+    EFFECTIVE_REACHES,
+    EFFECTIVE_REACHES_ENDPOINTS
+  ]
+} 
 export const FEMA_FLOOD_HAZARD = 'fema_flood_hazard_zones';
 export const WATERSHED_FILTERS = 'mhfd_catchments_simple_v1';
 export const STREAMS_FILTERS = 'streams';
@@ -335,9 +347,9 @@ export const SERVICE_AREA_LAYERS = {
   ]
 };
 export const MEP_PROJECTS_TEMP_LOCATIONS = 'mep_projects_temp_locations';
-export const MEP_PROJECTS_DETENTION_BASINS = 'mep_detentionbasins';
-export const MEP_PROJECTS_CHANNELS = 'mep_channels';
-export const MEP_PROJECTS_STORM_OUTFALLS = 'mep_outfalls';
+export const MEP_PROJECTS_DETENTION_BASINS = 'mep_detentionbasins_1';
+export const MEP_PROJECTS_CHANNELS = 'mep_channels_1';
+export const MEP_PROJECTS_STORM_OUTFALLS = 'mep_outfalls_1';
 
 export const MEP_PROJECTS = {
   name: 'mep_projects',
@@ -352,14 +364,16 @@ export const ROUTINE_NATURAL_AREAS = 'routine_natural_area';
 export const ROUTINE_WEED_CONTROL = 'routine_weed_control';
 export const ROUTINE_DEBRIS_AREA = 'routine_debris_area';
 export const ROUTINE_DEBRIS_LINEAR = 'routine_debris_linear';
+export const ROUTINE_MAINTENANCES = 'routine_maintenance';
 
 export const ROUTINE_MAINTENANCE = {
   name: 'routine_maintenance',
   tiles: [
-    ROUTINE_DEBRIS_LINEAR,
-    ROUTINE_DEBRIS_AREA,
-    ROUTINE_WEED_CONTROL,
-    ROUTINE_NATURAL_AREAS
+    // ROUTINE_DEBRIS_LINEAR,
+    // ROUTINE_DEBRIS_AREA,
+    // ROUTINE_WEED_CONTROL,
+    // ROUTINE_NATURAL_AREAS
+    ROUTINE_MAINTENANCES
   ]
 };
 
@@ -387,6 +401,7 @@ export const PROJECTS_DRAFT_MAP_STYLES = {
   ]
 }
 export const NRCS_SOILS = 'usda_nrcs_soils';
+export const ALERT_STATION = 'alert_stations';
 export const DWR_DAM_SAFETY = 'dwr_dam_safety';
 export const STREAM_MANAGEMENT_CORRIDORS = 'mhfd_smcs';
 export const BCZ_PREBLE_MEADOW_JUMPING =
@@ -409,6 +424,7 @@ export const SELECT_ALL_FILTERS = [
   FLOOD_HAZARDS,
   MHFD_BOUNDARY_FILTERS,
   NRCS_SOILS,
+  ALERT_STATION,
   WATERSHED_FILTERS,
   SERVICE_AREA_LAYERS,
   SEMSWA_SERVICE_AREA,
@@ -416,7 +432,7 @@ export const SELECT_ALL_FILTERS = [
   MUNICIPALITIES,
   FEMA_FLOOD_HAZARD,
   ACTIVE_LOMS,
-  EFFECTIVE_REACHES,
+  EFFECTIVE_REACHES_LAYERS,
   FLOODPLAINS,
   STREAM_MANAGEMENT_CORRIDORS,
   DWR_DAM_SAFETY,
@@ -447,12 +463,13 @@ export const SWITCHES_MAP = [
   WATERSHED_FILTERS,
   FLOODPLAINS,
   FEMA_FLOOD_HAZARD,
-  EFFECTIVE_REACHES,
+  EFFECTIVE_REACHES_LAYERS,
   ACTIVE_LOMS,
   SERVICE_AREA_LAYERS,
   COUNTIES_LAYERS,
   MUNICIPALITIES,
   NRCS_SOILS,
+  ALERT_STATION,
   DWR_DAM_SAFETY,
   USE_LAND_COVER,
   STREAM_MANAGEMENT_CORRIDORS,
@@ -1168,7 +1185,8 @@ export const popUps = {
   borders: 'A thin border surrounding the selected work request or work plan area.',
   area_based_mask: 'An opacity mask surrounding the selected work request or work plan area.',
   active_lomcs: 'A Letter of Map Change (LOMC) is issued when FEMA is requested to revise its effective flood map to reflect changed flooding conditions. reflects an official change to an effective Flood Insurance Rate Map (FIRM).',
-  effective_reaches: 'The Effective Model Reaches catalogue and track the hydraulic model information used to create the effective Flood Insurance Rate Maps (FIRMs) available from the Federal Emergency Management Agency (FEMA).'
+  effective_reaches: 'The Effective Model Reaches catalogue and track the hydraulic model information used to create the effective Flood Insurance Rate Maps (FIRMs) available from the Federal Emergency Management Agency (FEMA).',
+  alert_station: ' Alert Stations show the locations of MHFD real-time rainfall and stream flow sensors',
 }
 
 export const MENU_OPTIONS =
@@ -1188,6 +1206,7 @@ export const MENU_OPTIONS =
   ROUTINE_MAINTENANCE: 'ROUTINE MAINTENANCE',
   DEBRIS_MANAGEMENT_LINEAR: 'Debris Management Linear',
   NCRS_SOILS: 'NCRS Soils',
+  ALERT_STATION: 'Alert Station',
   DWR_DAM_SAFETY: 'DWR Dam Safety',
   STREAM_MANAGEMENT_CORRIDORS: 'Stream Management Corridors',
   BCZ_PREBLES_MEADOW_JUMPING_MOUSE: 'BCZ - Preble’s Meadow Jumping Mouse',
@@ -1401,3 +1420,12 @@ export const notComponentOptions: any[] = [
   MENU_OPTIONS.CLIMB_TO_SAFETY_SIGNS,
   MENU_OPTIONS.MEASURES,
 ];
+
+export const MAP_TAB = 'MAP';
+export const WORK_REQUEST_TAB = 'WORK_REQUEST';
+export const WORK_PLAN_TAB = 'WORK_PLAN';
+
+export const YEAR_LOGIC_2024 = 2024;
+export const YEAR_LOGIC_2022 = 2022;
+export const MMFD_LOCALITY = 'Mile High Flood District'
+export const MMFD_LOCALITY_TYPE = 'MHFD_BOUNDARY'

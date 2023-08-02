@@ -5,6 +5,7 @@ import { DragAndDropCards } from 'store/types/requestTypes';
 import * as datasets from 'Config/datasets';
 import { buildGeojsonForLabelsProjectsInBoards, getColumnSumAndTotals, getColumnTitle, mergeSumByGroupMaps, mergeTotalByGroupMaps, splitProjectsIdsByStatuses } from 'Components/Work/Request/RequestViewUtil';
 import { BOARD_FOR_POSITIONS, GET_FILTER } from 'Config/endpoints/board';
+import { WORK_PLAN_TAB } from 'constants/constants';
 
 export const setShowModalProject = (payload: boolean) => ({
   type: types.REQUEST_SHOW_MODAL_PROJECT,
@@ -229,7 +230,7 @@ export const loadOneColumn = (board_id: any, position: any) => {
 
 export const loadColumns = (board_id: any) => {
   return (dispatch: any, getState: Function) => {
-    const { request: { tabKey, year, filterMap, countiesSelected, jurisdictionSelected, serviceAreasSelected, prioritySelected }, router: { location } } = getState();
+    const { map: { tabActiveNavbar }, request: { tabKey, year, filterMap, countiesSelected, jurisdictionSelected, serviceAreasSelected, prioritySelected }, router: { location } } = getState();
     const jurisdictionFilterList: any[] = filterMap['project_local_governments'];
     const countiesFilterList: any[] = filterMap['project_counties'];
     const serviceAreasFilterList: any[] = filterMap['project_service_areas'];
@@ -241,16 +242,16 @@ export const loadColumns = (board_id: any) => {
       { label: 'Work Plan', value: 4 }
     ];
     const filters = {
-      project_counties: countiesSelected.every((r: any) => r) ? undefined : countiesFilterList.filter((_: any, index: number) => {
+      project_counties: countiesSelected.every((r: any) => r) ? undefined : countiesFilterList?.filter((_: any, index: number) => {
         return countiesSelected[index];
       }).map((r: any) => r.state_county_id),
-      project_local_governments: jurisdictionSelected.every((r: any) => r) ? undefined : jurisdictionFilterList.filter((_: any, index: number) => {
+      project_local_governments: jurisdictionSelected.every((r: any) => r) ? undefined : jurisdictionFilterList?.filter((_: any, index: number) => {
         return jurisdictionSelected[index];
       }).map((r: any) => r.code_local_government_id),
-      project_service_areas: serviceAreasSelected.every((r: any) => r) ? undefined :  serviceAreasFilterList.filter((_: any, index: number) => {
+      project_service_areas: serviceAreasSelected.every((r: any) => r) ? undefined :  serviceAreasFilterList?.filter((_: any, index: number) => {
         return serviceAreasSelected[index];
       }).map((r: any) => r.code_service_area_id),
-      project_priorities: prioritySelected.every((r: any) => r) ? undefined : priorityFilterList.filter((_: any, index: number) => {
+      project_priorities: prioritySelected.every((r: any) => r) ? undefined : priorityFilterList?.filter((_: any, index: number) => {
         return prioritySelected[index];
       }).map((r: any) => r.value),
     };
@@ -284,7 +285,7 @@ export const loadColumns = (board_id: any) => {
     Promise.all(promises).then((dataArray) => {
       console.log('Data array ', dataArray);
       const sums: any[] = [];
-      const totals: any[] = [];
+      const totals: any[] = [];      
       dataArray.forEach(([sumByGroupMap, groupTotal]: any[], columnId: number) => {
         if (columnId === 0) return;
         sums.push(sumByGroupMap);
@@ -293,17 +294,24 @@ export const loadColumns = (board_id: any) => {
 
       const sumByGroupMapTotal = mergeSumByGroupMaps(sums);
       const totalByGroupMap = mergeTotalByGroupMaps(totals);
-
-      const allProjects = dataArray.map(r => r[2]).flat();
-      dispatch(groupProjects(allProjects));    
-      
-      const mainKey = location.pathname.includes('work-plan') ? (tabKey === 'Study' ? 'project_service_areas' : 'project_counties') : 'project_local_governments' ;
-      dispatch({
-        type: types.REQUEST_SET_SUM_BY_COUNTY,
-        payload: Object.keys(sumByGroupMapTotal[mainKey] || {}).map(
-          (key: any) => sumByGroupMapTotal[mainKey][key]
-        )
-      });
+      const allProjects = dataArray.map(r => r[2]).flat();      
+      dispatch(groupProjects(allProjects));        
+      const mainKey = tabActiveNavbar === WORK_PLAN_TAB ? (tabKey === 'Study' ? 'project_service_areas' : 'project_counties') : 'project_counties' ;     
+      // dispatch({
+      //   type: types.REQUEST_SET_SUM_BY_COUNTY,
+      //   payload: Object.keys(sumByGroupMapTotal['project_counties'] || {}).map(
+      //     (key: any) => sumByGroupMapTotal['project_counties'][key]
+      //   )
+      // });
+      function dispatchSumByGroup(type: string, key: string) {
+        dispatch({
+          type,
+          payload: Object.keys(sumByGroupMapTotal[key] || {}).map((k: any) => sumByGroupMapTotal[key][k])
+        });
+      }      
+      dispatchSumByGroup(types.REQUEST_SET_SUM_BY_COUNTY, 'project_counties');
+      dispatchSumByGroup(types.REQUEST_SET_SUM_BY_SA, 'project_service_areas');
+      dispatchSumByGroup(types.REQUEST_SET_SUM_BY_LG, 'project_local_governments');
       dispatch({
         type: types.REQUEST_SET_SUM_TOTAL,
         payload: totalByGroupMap
@@ -534,8 +542,20 @@ export const recalculateTotals = () => {
     console.log('window.location.pathname', window.location.pathname);
     dispatch({
       type: types.REQUEST_SET_SUM_BY_COUNTY,
-      payload: Object.keys(sumByGroupMapTotal[mainKey] || {}).map(
-        (key: any) => sumByGroupMapTotal[mainKey][key]
+      payload: Object.keys(sumByGroupMapTotal['project_counties'] || {}).map(
+        (key: any) => sumByGroupMapTotal['project_counties'][key]
+      )
+    });
+    dispatch({
+      type: types.REQUEST_SET_SUM_BY_SA,
+      payload: Object.keys(sumByGroupMapTotal['project_service_areas'] || {}).map(
+        (key: any) => sumByGroupMapTotal['project_service_areas'][key]
+      )
+    });
+    dispatch({
+      type: types.REQUEST_SET_SUM_BY_LG,
+      payload: Object.keys(sumByGroupMapTotal['project_local_governments'] || {}).map(
+        (key: any) => sumByGroupMapTotal['project_local_governments'][key]
       )
     });
     dispatch({

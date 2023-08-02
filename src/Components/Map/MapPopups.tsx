@@ -96,10 +96,10 @@ export const MainPopup = ({id, item, eventFunctions, sw, ep, detailPage, mapType
             >Create Project</Button>}
             <Button id={"buttonPopup-" + id} style={{ width: sw? '100%' : '50%', color: '#28C499' }} onClick={() => eventFunctions['getDetailPage'](item)} className="btn-borde">See Details</Button>
         </div>} 
-        { (ep && mapType === MAPTYPES.MAINMAP) && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
+        { (ep && mapType === MAPTYPES.MAINMAP && item.type !== 'projectDraft') && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
             <Button id={"buttonEdit-" + id} style={{ width: sw? '100%' : '50%', color: '#28C499'}} onClick={() => eventFunctions['getDetailPage'](item)} className="btn-borde">See Details</Button>
         </div>}
-        { (ep && (mapType === MAPTYPES.WORKPLAN || (mapType === MAPTYPES.WORKREQUEST)) && item.isEditPopup) && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
+        { (ep && mapType === MAPTYPES.MAINMAP && item.type === 'projectDraft') && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
             <Button id={"buttonEdit-" + id} style={{ width: sw? '100%' : '100%', color: '#28C499'}} onClick={() => eventFunctions['openEdit'](item)} className="btn-borde">Edit Project</Button>
         </div>}
       </Card>
@@ -247,6 +247,12 @@ export const ComponentPopup = ({ id, item, isComponent, maptype, eventFunctions 
   else if (item.layer.includes('LAND USE LAND COVER')) {
     isComponent = false;
   }
+  else if (item.layer.includes('Alert Station')) {
+    isComponent = false;
+  }
+  else if (item.source && item.source.includes('routine_maintenance')) {
+    isComponent = false;
+  }
     return <div id={'popup-' + id} className="map-pop-01">
         <Card hoverable
         >
@@ -264,13 +270,10 @@ export const ComponentPopup = ({ id, item, isComponent, maptype, eventFunctions 
             {item.studyname && !item.layer.includes('LOMC') && !item.layer.includes('Effective') ? <p><i>Study Name:</i>  {item.studyname}</p> : ''}
             {item.jurisdiction ? <p><i>Jurisdiction:</i>  {item.jurisdiction}</p> : ''}
             {item.description ? <p><i>Description:</i>  {item.description}</p> : ''}
-            {item.contract ? <p><i>Contract:</i>  {item.contract}</p> : ''}
-            {item.contractor ? <p><i>Contractor:</i>  {item.contractor}</p> : ''}
             {item.local_gov ? <p><i>Local Government:</i>  {item.local_gov}</p> : ''}
             {item.problem ? <p><i>Problem:</i>  <a href="#" id={"problemdetail"+id} onClick={() => eventFunctions['seeDetails'](item, item)}>{item.problem}</a></p> : ''}
             {item.mow_frequency ? <p><i>Frequency:</i>  {item.mow_frequency}</p> : ''}
             {item.debris_frequency ? <p><i>Frequency:</i>  {item.debris_frequency}</p> : ''}
-            {item.acreage ? <p><i>Acreage:</i>  {item.acreage}</p> : ''}
             {item.length ? <p><i>Length:</i>  {item.length}</p> : ''}
             {item.problem_part_category ? <p><i>Problem Part Category:</i>  {item.problem_part_category}</p> : ''}
             {item.problem_part_subcategory ? <p><i>Problem Part Subcategory:</i>  {item.problem_part_subcategory}</p> : ''}
@@ -279,8 +282,13 @@ export const ComponentPopup = ({ id, item, isComponent, maptype, eventFunctions 
             {item.source_name ? <p><i>Source Name:</i>  {item.source_name}</p> : ''}
             {item.source_complete_year ? <p><i>Source Completion Year:</i>  {item.source_complete_year}</p> : ''}
             {item.stream_name ? <p><i>Stream Name:</i>  {item.stream_name}</p> : ''}
+            {item.work_item_description ? <p><i>Work Item Description:</i>  {item.work_item_description}</p> : ''}
+            {item.contract ? <p><i>Contract:</i>  {item.contract}</p> : ''}
+            {item.contractor ? <p><i>Contractor:</i>  {item.contractor}</p> : ''}
             {item.local_government ? <p><i>Local Government:</i>  {item.local_government}</p> : ''}
-
+            {item.frequency ? <p><i>Frequency:</i>  {item.frequency}</p> : ''}
+            {item.acreage ? <p><i>Acreage:</i>  {item.acreage}</p> : ''}
+            {item.schedule ? <p><i>Schedule:</i>  {item.schedule}</p> : ''}
             {item.hydgrpdcd ? <p><i>Hydrologic Group:</i> {item.hydgrpdcd}</p> : ''}
             {item.muname ? <p><i>Mapunit Name:</i> {item.muname}</p> : ''}
             {item.aws0150wta ? <p><i>Available Water Storage 0-150 cm:</i> {item.aws0150wta}</p> : ''}
@@ -299,6 +307,14 @@ export const ComponentPopup = ({ id, item, isComponent, maptype, eventFunctions 
             {item.letter ? <p className="text-popup"><i>Letter:</i>  <a href={item.letter} target="_blank">See letter here</a></p> : ''}
             {item.map ? <p className="text-popup"><i>Map:</i>  <a href={item.map} target="_blank">See map here</a></p> : ''}
 
+            {item.station_name ? <p><i> Station Name: </i> {item.station_name}</p> : ''}
+            {item.station_type ? <p><i> Station Type: </i> {item.station_type}</p> : ''}
+            {item.station_id ? <p><i> Station ID: </i> {item.station_id}</p> : ''}
+            {item.shefid ? <p><i> SHEF ID: </i> {item.shefid}</p> : ''}
+            {item.install_year ? <p><i> Install Year: </i> {item.install_year}</p> : ''}
+            {item.station_status ? <p><i> Station Status: </i> {item.station_status}</p> : ''}
+            {item.websiteAlert ? <p className="text-popup"><i></i>  <a style={{whiteSpace: 'break-spaces'}} href={item.websiteAlert} target="_blank">Click here to view a map of real-time radar and rainfall amounts</a></p> : ''}
+
             {item.sitename ? <p><i> Site Name:</i> {item.sitename}</p> : ''}
             {item.sitetype ? <p><i> Site Type:</i> {item.sitetype}</p> : ''}
             {item.bmptype ? <p><i> BMP Type:</i> {item.bmptype}</p> : ''}
@@ -306,9 +322,16 @@ export const ComponentPopup = ({ id, item, isComponent, maptype, eventFunctions 
             {item.str_name ? <p><i>Stream Name:</i> {item.str_name}</p> : ''}
             {item.typeLand ? <p><i>Type: </i> {item.typeLand}</p> : ''}
             
-            {item.pondname? <p><i>Pond Name:</i>  {item.pondname}</p> : ''}
+            {item.pondname? <p><i>Pond Name: </i>  {item.pondname}</p> : ''}
+            {item.onbaseId ? <p><i>Onbase Project Number: </i> {item.onbaseId}</p> : ''}
+            {item.mhfd_projectstatus ? <p><i>MEP Status: </i> {item.mhfd_projectstatus}</p> : ''}
+            {item.designApprovalDate ? <p><i>Design Approval Date: </i> {item.designApprovalDate}</p> : ''}
+            {item.constructionApprovalDate ? <p><i>Construction Approval Date: </i> {item.constructionApprovalDate}</p> : ''}
+            {item.finalacceptancedate ? <p><i>Final Acceptance Date: </i> {item.finalacceptancedate}</p> : ''}
+            {item.mhfd_ineligibledate ? <p><i>Ineligible Date: </i> {item.mhfd_ineligibledate}</p> : ''}
             {item.projectno ? <p><i>Project Number:</i>  {item.projectno}</p> : ''}
             {item.mep_eligibilitystatus ? <p><i>MEP Status:</i>  {item.mep_eligibilitystatus}</p> : ''}
+            {item.mhfd_servicearea ? <p><i>Service Area:</i>  {item.mhfd_servicearea}</p> : ''}
             
             {item.area?<p><i>Area:</i> {item.area} Acre</p>:''}
             {(item.perimeterFeet && item.perimeterMi) ?<p><i>Distance:</i> {item.perimeterFeet} Feet ( {item.perimeterMi} Miles)</p>:''}
@@ -391,12 +414,14 @@ export const ComponentPopupCreate = ({ id, item, isComponent, isWR, eventFunctio
           {item.jurisdiction ? <p><i>Jurisdiction:</i>  {item.jurisdiction}</p> : ''}
           {item.description ? <p><i>Description:</i>  {item.description}</p> : ''}
 
+          {item.work_item_description ? <p><i>Work Item Description:</i>  {item.work_item_description}</p> : ''}
           {item.contract ? <p><i>Contract:</i>  {item.contract}</p> : ''}
           {item.contractor ? <p><i>Contractor:</i>  {item.contractor}</p> : ''}
-          {item.local_gov ? <p><i>Local Government:</i>  {item.local_gov}</p> : ''}
+          {item.local_government ? <p><i>Local Government:</i>  {item.local_government}</p> : ''}
           {item.mow_frequency ? <p><i>Frequency:</i>  {item.mow_frequency}</p> : ''}
           {item.debris_frequency ? <p><i>Frequency:</i>  {item.debris_frequency}</p> : ''}
           {item.acreage ? <p><i>Acreage:</i>  {item.acreage}</p> : ''}
+          {item.schedule ? <p><i>Schedule:</i>  {item.schedule}</p> : ''}
           {item.length ? <p><i>Length:</i>  {item.length}</p> : ''}
           {item.problem ? <p><i>Problem:</i>  {item.problem}</p> : ''}
 

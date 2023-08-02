@@ -469,7 +469,8 @@ const initState = {
     currentPopup: -1,
     favoritesLoader: 0,
     showComponents: [],
-    places: []
+    places: [],
+    tabActiveNavbar: 'MAP'
 }
 
 const mapReducer = (state = initState, action: any) => {
@@ -510,6 +511,7 @@ const mapReducer = (state = initState, action: any) => {
             }
         }
         case types.SELECTED_LAYERS: {
+          console.trace('SELECTED ', action.selectedLayer);
             return {
                 ...state,
                 selectedLayers: action.selectedLayer
@@ -868,6 +870,12 @@ const mapReducer = (state = initState, action: any) => {
             return {
                 ...state,
                 showComponents: action.showComponents
+            }
+        }
+        case types.SET_TAB_ACTIVE_NAVBAR: {
+            return {
+                ...state,
+                tabActiveNavbar: action.tabActiveNavbar
             }
         }
         default:

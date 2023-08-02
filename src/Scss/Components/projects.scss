@@ -2,6 +2,10 @@
 @import "../Theme/styles.scss";
 // CAPITAL
 .projects {
+  color: #11093c;
+  .text-default{
+    // opacity: 0.34;
+  }
   .ant-modal-body{
     padding: 0px;
   }
@@ -14,7 +18,115 @@
   .head-project {
     padding: 0px 20px;
     padding-top: 10px;
-
+    display: flex;
+    justify-content: space-between;
+    p{
+      font-size: 14px;
+      margin-bottom: 0px;
+      color: $purple00;
+      margin-top: 0px;
+      line-height: 14px;
+      min-width: 35px;
+    }
+    .project-title{
+      width: -webkit-fill-available;
+      padding-right: 10px;
+      .project-name-icons{
+        display: flex;
+        margin-bottom: 7px;
+        // margin-right: 40px;
+        .ico-title{
+          display: flex;
+          color: #b3aec9;
+          font-size: 24px;
+          align-items: center;
+          margin-top: -3px;
+          img{
+            opacity: 0.34;
+            height: 19px;
+            margin-left: 10px;
+          }
+          img:active, img:hover, img:focus{
+            opacity: 1;
+          }
+          .heart, .heart:hover, .heart:active{
+            color:#f5575c;
+          }
+          .btn-transparent{
+            padding: 0px;
+            height: auto;
+            color: $purple00 !important;
+            font-size: 21px;
+            .ico-heart{
+              opacity: 0.34;
+            }
+          }
+          .btn-transparent:hover, .btn-transparent:active, .btn-transparent:focus{
+            opacity: 1;
+            .ico-heart{
+              opacity: 1;
+            }
+          }
+          
+          // .ico-heart:hover .ico-heart:active .ico-heart:focus{
+          //   opacity: 1;
+          // }
+        }
+      }
+    }
+    .project-name{
+      border: none;
+      width: auto;
+      font-size: 24px;
+      color: #11093C;
+      word-wrap: break-word;
+      resize: none;
+      line-height: 27px;
+      font-weight: 500;
+      p{
+        margin-top: 4px;
+      }
+    }
+    .project-sub-name{
+      margin-top: -7px;
+      margin-left: 4px;
+    }
+    .project-type{
+      text-align: right;
+      display: flex;
+      justify-content: right;
+      height: min-content;
+      align-items: center;
+      height: min-content;
+      height: 29px;
+      align-items: center;
+      .hh-img{
+        margin-left: 8px;
+        opacity: 0.34;
+        height: 21px;
+      }
+      .hh-img:hover, .hh-img:active{
+        opacity: 1;
+      }
+      .drop-espace{
+        min-width: 115px;
+        border: 1px solid #eae8f0;
+        border-radius: 5px;
+        padding: 3px 12px;
+        font-size: 12px;
+        width: max-content;
+        a{
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin: 0px;
+          margin-left: 0px !important;
+          p{
+            padding-right: 8px;
+          }
+        }
+      }
+    }
     ::placeholder {
       color: $purple00;
       opacity: 1;
@@ -69,38 +181,34 @@
         }
       }
     }
-    p{
-      font-size: 14px;
-      margin-bottom: 0px;
-      color: $opacity;
-      margin-top: 4px;
-    }
     .btn-transparent{
       height:25px;
     }
-    .tag-name{
-      background: $light-purple;
-      border-radius: 20px;
-      text-align: center;
+  }
+  .header-tab{
+    display: flex;
+    margin: 0px 23px;
+    border-bottom: 1px solid #eae8f0;
+    margin-top: 22px;
+    .tab{
+      color: $purple00;
+      margin: 0px;
+      padding-bottom: 10px;
+      font-weight: 400;
+      margin-right: 28px;
+      opacity: 0.6;
       font-size: 12px;
-      color: $purple;
-      min-width: 105px;
-      width: 105px;
-      padding: 10px 5px;
-      margin-right: 5px;
-      position: relative;
-      top: 6px;
-      letter-spacing: -0.8px;
     }
-    .hh-img{
-      margin-top: 8px;
+    .active-tab{
+      border-bottom: 3px solid $purple00;
+      font-weight: 500;
+      opacity: 1;
     }
   }
   .body-project{
     padding: 10px 20px;
-    height: calc(100vh - 200px);
+    height: calc(100vh - 214px);
     overflow-y: auto;
-
     h5{
       font-size: 13px;
       text-transform: uppercase;
@@ -116,6 +224,81 @@
         padding: 0px 3px;
       }
     }
+    .sub-title-project{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      h5, p{
+        margin: 0px
+      }
+      .requestor-information{
+        margin-top: 32px;
+      }
+      .location{
+        margin-top: 12px;
+        margin-bottom: 6px;
+      }
+      .geometry{
+        margin-top: 27px;
+      }
+      .delete-upload{
+        color: red;
+      }
+      .bottomn-heder {
+        color: #000000;
+        margin-left: 10px;
+        transition: all .0s cubic-bezier(.645, .045, .355, 1);
+      
+        .ic-document {
+          transition: all .3s cubic-bezier(.645, .045, .355, 1);
+          margin-right: 5px;
+          content: url("../../../public/Icons/ic-document.svg");
+        }
+      }
+      .bottomn-heder:hover,
+      .bottomn-heder:active,
+      .bottomn-heder:focus-visible,
+      .bottomn-heder:visited {
+        color: #29c499 !important;
+        border-color: #29c499;
+        transition: all .0s cubic-bezier(.645, .045, .355, 1);
+
+        .ic-document {
+          transition: all .3s cubic-bezier(.645, .045, .355, 1);
+          margin-right: 5px;
+          content: url("../../../public/Icons/ic-document-active.svg") !important;
+        }
+      }
+    }
+    .sub-title-project-upload{
+      align-items: baseline;
+      .group-btn{
+        // margin-top: 24px;
+        margin-bottom: 16px;
+      }
+    }
+    .span-project-text{
+      padding-bottom: 15px;
+    }
+    .checkbox-body-project{ 
+      padding-right: 10px;
+      padding-top: 10px;
+    }
+   
+    .title-actions{
+      margin-top: 15px;
+    }
+    .icon-actions{
+      margin-bottom: 2px;
+    }
+    .create-information{
+      margin-bottom: -25px;
+    }
+    .create-required{
+      margin-bottom: -25px;
+      padding-top: 5px;
+    }
     .requiered-text {
       text-align: end;
       font-size: 12px;
@@ -124,18 +307,211 @@
         color: #df3232;
       }
     }
+    .information-description{
+      margin-bottom: 6px;
+    }
+    .title-geometry{
+      margin-top: 10px;
+    }
+    .title-financial{
+      margin-top: 20px;
+    }    
+    .sub-project{
+      .title-sub-project{
+        font-weight: 600;     
+      }
+    }
+    .location-information{
+      #required-location{
+        color: #df3232;
+      }
+    }
+    .acquisition-progress{
+      margin-top: 10px;
+    }
+    .upload-sections{
+      .upload-documents{
+        .title-upload{
+          margin-top: 5px;
+          .text-upload{
+            margin-bottom: -25px;
+            align-self: center;
+          }
+          .icon-upload{
+            margin-left: 5px;
+          }
+          .add-upload{
+            margin-bottom: -25px;
+            text-align: end;
+            .delete-upload{
+              color: red;
+            }
+          }
+        }
+        .subtitle-upload{
+          padding: 8px;
+          margin-top: 25px;
+          .subtext-upload{
+            margin-bottom: -25px;
+            .uploaded-span{
+              color: #11093C;
+            }
+          }
+        }
+        .table-upload-documents{
+          padding: 8px;
+          margin-top: 40px;
+          margin-left: 0px;
+          padding-left: 0px;
+        }
+      }
+
+    }
     .sub-title{
       font-size: 10px;
-      color: $opacity;
+      color: $purple00;
 
       img{
         margin: -2px 0px 0px 2px;
       }
     }
+    .sub-title-footer{
+      font-size: 12px;
+      color: $purple00;
+    }
+    .icon-cost{
+      margin-bottom: 2px;
+    }
     textarea.ant-input{
-      margin-bottom: 20px;
+      // margin-bottom: 6px;
       min-height: 36px;
       padding: 6px 11px;
+      color: $purple00;
+    }
+    .section-gemetry{
+      margin-left: 16px;
+      p{
+        margin-bottom: 12px;
+      }
+      .section-county{
+        width: 50%;
+        margin-bottom: 10px;
+      }
+      .text-radio-btn{
+        font-size: 12px;
+        color:$purple00;
+      }
+      .sub-sub-title-projects{
+        margin-top: 10px;
+        margin-bottom: 16px;
+      }
+      .ant-radio-group{
+        margin-bottom: 6px;
+      }
+    }
+    .center-droppin{
+      display: flex;
+      align-items: center;
+    }
+    .table-project{
+      margin-bottom: 20px;
+      .ant-table-column-sorters {
+        display: inline-flex ;
+      }
+      .tag-active{
+        background: rgba(41, 196, 153, 0.20);
+        border-radius: 19px;
+        padding: 2px 11px;
+        display: flex;
+        justify-content: center;
+        color: #29C499;
+      }
+      .ico-delete{
+        color: #cfced8;
+      }
+      .ico-delete:hover{
+        color: #11093C;
+      }
+      .total-cost{
+        font-weight: 700;
+      }
+      .input-independent{
+        border: none;
+        background: transparent;
+        color: $purple00;
+        border: none;
+        padding: 0px;
+        margin: 0px;
+        width: 100%;
+      }
+      .input-independent:focus{
+        border-bottom: 1.5px solid $green;
+        border-radius: 0px;
+      }
+      .row-geometry-total{
+        td{
+          padding-left: 20px !important;
+        }
+      }
+      .row-geometry-body{
+        background: #f5f7ff;
+        td{
+          padding-left: 20px !important;
+        }
+      }
+      .row-geometry-body:hover{
+        background: #f5f7ff;
+      }
+      .row-geometry-title{
+        td {
+          padding: 11px 4px !important;
+        }
+      }
+      .row-geometry-title:hover{
+        background: transparent;
+      }
+      .ant-pagination{
+        display: none;
+      }
+      .ant-table {
+        border-radius: 5px;
+        border: 1px solid #d9d9d9;
+      }
+      .ant-table-thead>tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan]):before{
+        background-color: transparent;
+      }
+      .ant-table-thead > tr > th {
+        color: #11093C;
+        font-weight: 700;
+        background: #ffffff;
+        font-size: 12px;
+        padding: 3px 8px;
+        border-bottom: 1px solid #d9d9d9;
+      }
+      .ant-table-column-sorter {
+        color: #11093C;
+        margin-left: 8px;
+      }
+      .ant-table-tbody>tr>td {
+        border-bottom: 1px solid #f0f0f0;
+        color: #11093C;
+        font-family: Ubuntu;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 18px;
+        border: none;
+        padding: 11px 8px;
+      }
+    }
+    .table-geometry{
+      margin-top: 10px;
+      .ant-table-thead > tr > th {
+        padding-left: 20px !important;
+      }
+    }
+    .table-dropin{
+      margin-bottom: 0px;
     }
     .ant-input{
       border: solid 1px $opacity04;
@@ -177,21 +553,22 @@
     .draw{
       height: 80px;
       text-align: center;
-      border: 1px dashed $opacity04;
+      border: 1px dashed $purple00;
       margin: 10px 0px 25px 0px;
       padding: 18px 0px;
-      color: $opacity;
+      color: $purple00;
       display: block;
 
       p{
         font-size: 13px;
         margin-bottom: 0px;
+        color: $purple00;
       }
       .icon-draw{
         margin-bottom: 2px;
         height: 0px;
         width: 0px;
-        background: $purple;
+        background: $purple00;
         transition: width 2s;
         padding: 9px;
       }
@@ -206,6 +583,9 @@
     .draw:hover, .draw:focus, .draw:active, .draw.active{
       border: 1px dashed $green;
       color: $green;
+      p{
+        color: $green;
+      }
     }
     .draw:hover > .icon-draw, .draw:focus > .icon-draw, .draw:active > .icon-draw, .draw.active > .icon-draw{
       background: $green;
@@ -252,6 +632,7 @@
         border: none;
         padding: 4px 0px;
         font-size: 12px;
+        color: $purple00;
       }
       .ant-input:focus{
         border-bottom: 1.5px solid $green;
@@ -487,9 +868,7 @@
       border: none;
       color: $green;
       padding: 0px;
-      margin-bottom: 15px;
       box-shadow: none;
-      font-size: 12px;
 
       .anticon{
         font-size: 18px;
@@ -511,42 +890,31 @@
     }
 
     // ACQUISITION AND SPECIAL
-    .ant-table {
-      border-radius: 5px;
-      border: 1px solid #d9d9d9;
-    }
-    .ant-table-thead > tr > th {
-      color: $opacity;
-      font-weight: 400;
-      background: $light-purple;
-      font-size: 12px;
-      padding: 3px 16px;
-      // border-bottom: none;
-      border-bottom: 1px solid #d9d9d9;
-    }
-    .ant-pagination{
-      display: none;
-    }
-    .ant-table-bordered .ant-table-tbody > tr > td{
-      font-size: 12px;
-      color: $purple;
-      padding: 8px 16px;
-    }
-    .btn-location,.btn-location:hover{
-      border: 1px solid $green;
-      color: $green;
+    .btn-location{
+      border: 1px solid #eae8f0;
+      color: #706b8a;
       height: 30px;
-      // width: 115px;
       font-size: 12px;
       margin-top: 27px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
     }
-  }
-  .ant-table-thead>tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan]):before{
-    background-color: transparent;
+    .btn-location:hover{
+      border:1px solid $green;
+      color: $green;
+    }
+
+    //DISCUTIOM
+
+    .discution-body{
+      height: calc(100% - 50px);
+      overflow: auto;
+    }
   }
   .switch-option{
     font-size: 10px;
-    color: $opacity;
+    color: $purple00;
     line-height: 24px;
 
     span{
@@ -573,6 +941,7 @@
   }
   #map3{
     height: 100% !important;
+    width: 100% !important;
     border-radius: 10px;
   }
   .map{
@@ -599,8 +968,16 @@
     }
   }
 }
-.menu-large{
-  width: 200px !important;
+// .menu-large{
+//   width: 200px !important;
+// }
+.popover-project{
+  .ant-popover-arrow{
+    display: none;
+  }
+  .ant-popover-content{
+    margin-top: -10px;
+  }
 }
 .menu-medium{
   width: 100px !important;
@@ -690,9 +1067,6 @@
       }
       p{
         font-size: 18px !important;
-      }
-      .tag-name{
-        font-size: 16px !important;
       }
       .btn-transparent{
         height: 35px;
@@ -937,11 +1311,6 @@
       }
       p{
         font-size: 24px !important;
-      }
-      .tag-name{
-        font-size: 21px !important;
-        padding: 14px 20px !important;
-        margin-right: 15px;
       }
       .hh-img {
        margin-top: 8px;
@@ -1252,9 +1621,6 @@
   border-radius: 0px;
 }
 
-.ant-select-arrow {
-  align-items: right;
-}
 
 @media (min-width: 2500px) and (max-width: 2999px){
   .ant-modal .new-project {
@@ -1289,11 +1655,6 @@
       }
       p{
         font-size: 24px !important;
-      }
-      .tag-name{
-        font-size: 25px !important;
-        padding: 14px 20px !important;
-        margin-right: 15px;
       }
       .hh-img {
        margin-top: 8px;
@@ -1604,8 +1965,4 @@
 .project-name:focus{
   border-bottom: 1.6px solid $green !important;
   border-radius: 0px;
-}
-
-.ant-select-arrow {
-  align-items: right;
 }

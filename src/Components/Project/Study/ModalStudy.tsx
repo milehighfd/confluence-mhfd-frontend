@@ -1,18 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Modal, Button, Row, Col, Popover, Collapse, Timeline, Checkbox } from 'antd';
-import { AlertView } from "../../Alerts/AlertView";
-import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
-import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
-import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
-import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
-import { Project } from "../../../Classes/Project";
-import { JURISDICTION, NEW_PROJECT_TYPES, ADMIN, STAFF } from "../../../constants/constants";
-import store from "../../../store";
-import { useProfileState } from "../../../hook/profileHook";
-import { useHistory, useLocation } from "react-router-dom";
-import { UploadImagesDocuments } from "../TypeProjectComponents/UploadImagesDocuments";
-import { useAttachmentDispatch } from "../../../hook/attachmentHook";
+import { Modal, Button, Row, Col, Popover, Collapse, Timeline, Checkbox, Dropdown, Radio, Select, Table } from 'antd';
+import { AlertView } from 'Components/Alerts/AlertView';
+import { ProjectInformation } from 'Components/Project/TypeProjectComponents/ProjectInformation';
+import { LocationInformation } from 'Components/Project/TypeProjectComponents/LocationInformation';
+import { useProjectState, useProjectDispatch } from 'hook/projectHook';
+import CreateProjectMap from 'Components/CreateProjectMap/CreateProjectMap';
+import { Project } from 'Classes/Project';
+import { NEW_PROJECT_TYPES, ADMIN, STAFF, WORK_PLAN_TAB, WINDOW_WIDTH } from 'constants/constants';
+import store from 'store';
+import { useProfileState } from 'hook/profileHook';
+import { useHistory } from 'react-router-dom';
+import { UploadImagesDocuments } from 'Components/Project/TypeProjectComponents/UploadImagesDocuments';
+import { useAttachmentDispatch } from 'hook/attachmentHook';
+import { useMapState } from 'hook/mapHook';
+import { DownOutlined, HeartFilled, HeartOutlined, UpOutlined } from '@ant-design/icons';
+import TypeProjectsFilter from 'Components/FiltersProject/TypeProjectsFilter/TypeProjectsFilter';
+import { Option } from 'antd/lib/mentions';
+import { COLUMNS_GEOMEOTRY, DATA_SOURCE_GEOMEOTRY } from '../Constants/Constants';
 const { Panel } = Collapse;
 const content = (<div className="popver-info">Master plans that set goals for the watershed and stream corridor, identify problems, and recommend improvements.</div>);
 
@@ -48,10 +53,9 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
     setHighlightedStream, 
     setHighlightedStreams, 
     setIsEdit,
-    setDeleteAttachmentsIds,
   } = useProjectDispatch();
   const { streamsIntersectedIds, isDraw , deleteAttachmentsIds} = useProjectState();
-  const { organization, groupOrganization } = useProfileState();
+  const { groupOrganization } = useProfileState();
   const { listStreams } = useProjectState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -77,14 +81,21 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   const [lengthName, setlengthName] = useState(0);
   const [studyreason, setStudyReason] = useState<any>();
   const history = useHistory();
-  const location = useLocation();
   const { toggleAttachmentCover,removeAttachment} = useAttachmentDispatch();
   const appUser = store.getState().appUser;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
   const pageWidth  = document.documentElement.scrollWidth;
-  const isWorkPlan = location.pathname.includes('work-plan');
+  const { tabActiveNavbar } = useMapState();
+  const isWorkPlan = tabActiveNavbar === WORK_PLAN_TAB;
   const { userInformation } = useProfileState();
+  const [favorite, setFavorite] = useState(false);
+  const [activeTabBodyProject, setActiveTabBodyProject] = useState('Details');
+  const [openDropdownTypeProject, setOpenDropdownTypeProject] = useState(false);
+
+  //list Menu TypeProjects
+  const menuTypeProjects = <TypeProjectsFilter />;
+
 
   useEffect(() => {
     setServiceAreaCounty({});
@@ -111,11 +122,13 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   useEffect(() => {
     setIsEdit(false);
     if (data !== 'no data') {
+      const counties = data.project_counties.map(( e :any ) => e?.CODE_STATE_COUNTY?.county_name);
+      const serviceAreas = data.project_service_areas.map((e: any) => e?.CODE_SERVICE_AREA?.service_area_name);
       setIsEdit(true);
       setSwSave(true);
       setDescription(data.description);
-      setCounty(parseCountiesToArray(data.project_counties));
-      setServiceArea(parseServiceAreaToArray(data.project_service_areas));
+      setCounty(counties);
+      setServiceArea(serviceAreas);
       setjurisdiction(parseJurisdictionToArray(data.project_local_governments));
       setCosponsor(parseSponsorCosponsorToArray(data.project_partners, 'cosponsor'));
       setSponsor(parseSponsorCosponsorToArray(data.project_partners, 'sponsor'));
@@ -382,47 +395,31 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
     maximumFractionDigits: 1
   });
 
-  const removeStream = (stream: any) => {
-    console.log('Stream to remove', stream);
-    let mhfd_codeIdToRemove = stream?.mhfd_code;
-    let copyList = { ...streamsList };
-    console.log('Current list', streamsList, mhfd_codeIdToRemove);
-    for (let jurisdiction in copyList) {
-      let newArray = [...copyList[jurisdiction]].filter((st: any) => st.mhfd_code != mhfd_codeIdToRemove);
-      copyList[jurisdiction] = newArray;
-    }
-    let newCopyList: any = {};
-    for (let jurisdiction in copyList) {
-      if (copyList[jurisdiction].length > 0) {
-        newCopyList[jurisdiction] = copyList[jurisdiction];
-      }
-    }
-
-    setStreamsList(newCopyList);
-    if (ids.length > 0) {
-      let newIds = [...ids].filter((id: any) => {
-        const arrayValues = mhfd_codeIdToRemove.split('.');
-        arrayValues.shift();
-        console.log('THIS IS TRHUE', id.mhfd_code,  arrayValues.join('.'), id.mhfd_code == arrayValues.join('.'));
-        return id.mhfd_code !== arrayValues.join('.');
-      });
-      
-      
-      console.log('Ids before', ids, 'After', newIds);
-      setStreamsIds(newIds);
-    }
-
-  }
   
   useEffect(() => {
     changeDrawState(isDrawState);
   }, [isDrawState]);
 
+  const getServiceAreaAndCountyString = (serviceArea: string[], county: string[]): string => {
+    const serviceAreaWithoutLabel = serviceArea?.map(area => area.replace(' Service Area', ''));
+    const countyWithoutLabel = county?.map(county => county.replace(' County', ''));
+    let result = '';
+    if (serviceAreaWithoutLabel?.length > 0) {
+      result += serviceAreaWithoutLabel.length > 1 ? 'Multiple Service Areas' : `${serviceAreaWithoutLabel[0]} Service Area`;
+    }
+    if (serviceAreaWithoutLabel?.length > 0 && countyWithoutLabel?.length > 0) {
+      result += ' · ';
+    }
+    if (countyWithoutLabel?.length > 0) {
+      result += countyWithoutLabel.length > 1 ? 'Multiple Counties' : `${countyWithoutLabel[0]} County`;
+    }
+    return result;
+  };
+
   return (
     <>
       {visibleAlert && <AlertView
         isWorkPlan={isWorkPlan}
-        sponsor={sponsor}
         visibleAlert={visibleAlert}
         setVisibleAlert={setVisibleAlert}
         setSave={setSave}
@@ -442,39 +439,50 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
         onOk={handleOk}
         onCancel={handleCancel}
         className="projects"
-        width={pageWidth >3000 ? "2000px" : "1100px"}
+        width={pageWidth >3000 ? "2000px" : "90.5%"}
       >
         <Row>
-          <Col xs={{ span: 24 }} lg={{ span: 10 }}>
+          <Col xs={{ span: 24 }} lg={{ span: 12 }}>
             <CreateProjectMap type="STUDY" setGeom={setGeom} locality={locality} projectid={projectid} isEdit={swSave}></CreateProjectMap>
           </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 14 }}>
+          <Col xs={{ span: 24 }} lg={{ span: 12 }}>
             <div className="head-project">
-              <Row>
-                <Col xs={{ span: 24 }} lg={{ span: 17 }}>
-                  <label data-value={nameProject} style={{ width: '100%' }}>
-                    <textarea className="project-name" value={nameProject} onChange={(e) => onChange(e)} style={{
-                      border: 'none',
-                      width: '100%',
-                      fontSize: '24px',
-                      color: '#11093c',
-                      wordWrap: 'break-word',
-                      resize: 'none',
-                      lineHeight: '27px',
-                      height: lengthName > 280 ? 'unset' : '34px'
-                    }} />
-                  </label>
-                  <p>{serviceArea ? (serviceArea.length > 1 ? 'Multiple Service Area' : (serviceArea[0])) : ''} {(serviceArea.length > 0 && county.length > 0) ? '·' : ''} {county ? (county.length > 1 ? 'Multiple Counties' : (county[0])) : ''} </p>
-                </Col>
-                <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{ textAlign: 'right' }}>
-                  <label className="tag-name" style={{ padding: '10px' }}>Study</label>
-                  <Popover content={content}>
-                    <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" />
-                  </Popover>
-                </Col>
-              </Row>
+            <div className='project-title'>
+              <label data-value={nameProject} style={{width: '100%'}}>
+                <div className='project-name-icons'>
+                  <textarea className="project-name" value={nameProject} onChange={(e) => onChange(e)} style={{                  
+                    height: lengthName > 259 ? 'unset' :'34px'
+                  }} />
+                  <div className='ico-title'>
+                  <Button className={favorite ? "btn-transparent":"btn-transparent" } onClick={()=>{setFavorite(!favorite)}}>
+                  {favorite? <HeartFilled className='heart'/>:<HeartOutlined className='ico-heart'/>}
+                  </Button>
+                    <img src="/Icons/ic_send_purple.svg" alt="" height="16px"></img>
+                  </div>
+                </div>
+                <p className='project-sub-name'>Aurora · Northeast Service Area · Adams County</p>
+              </label>
             </div>
-
+            <div className='project-type'>
+              <Dropdown overlay={menuTypeProjects} trigger={['click']} overlayClassName="drop-menu-type-project" placement="bottomRight" onVisibleChange={()=>{setOpenDropdownTypeProject(!openDropdownTypeProject)}}>
+                <div className="drop-espace">
+                  <a onClick={e => e.preventDefault()} style={{marginLeft:'2%', display:'flex', alignItems:'center'}}>
+                    {<p>Study</p>} &nbsp;
+                    {openDropdownTypeProject ? <UpOutlined style={{color:'#251863',fontSize:'14px'}} /> : < DownOutlined style={{color:'#251863',fontSize:'14px'}} />}
+                  </a>
+                </div>
+              </Dropdown>
+              <Popover content={content} className='popover-project' placement="bottomRight">
+                <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px"/>
+              </Popover>
+            </div>
+          </div>
+          <div className='header-tab'>
+            <p className={activeTabBodyProject ===  'Details'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Details')}}>Details</p>
+            <p className={activeTabBodyProject ===  'Discussion'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Discussion')}}>Discussion</p>
+            <p className={activeTabBodyProject ===  'Activity'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Activity')}}>Activity</p>
+          </div>
+          {activeTabBodyProject === 'Details' ?
             <div className="body-project">
               {
                 (isWorkPlan && showCheckBox && !swSave) && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
@@ -493,7 +501,56 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
                 setOtherReason={setOtherReason}
               />
               <br />
-              <h5 style={{marginTop:'5px'}}>
+              <div className="sub-title-project">
+                <h5 className="requestor-information">2. PROJECT GEOMETRY *</h5>
+              </div>
+              <p className='text-default'>Projects are spatially defined by stream reaches.  Select the option below that best allows you to define the project.</p>
+              <div className='section-gemetry'>
+                <p>i. Is this a countywide project?</p>
+                <Radio.Group>
+                  <Radio value="Yes"><span className='text-radio-btn'>Yes</span></Radio>
+                  <Radio value="No"><span className='text-radio-btn'>No</span></Radio>
+                </Radio.Group>
+                <div className='section-county'>
+                  <label className="sub-title">Select one or multiple counties </label>
+                  <Select
+                    mode="multiple"
+                    placeholder={serviceArea?.length !== 0 ? serviceArea : "Select a County"}
+                    style={{ width: '100%' }}
+                    listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+                    onChange={(serviceArea: any) => setServiceArea(serviceArea)}
+                    value={serviceArea}>
+                    <Option key='Adams' value='Adams'>Adams</Option>
+                  </Select>
+                </div>
+                <p>ii. Is this project located on the South Platte River?</p>
+                <Radio.Group>
+                  <Radio value="Yes"><span className='text-radio-btn'>Yes</span></Radio>
+                  <Radio value="No"><span className='text-radio-btn'>No</span></Radio>
+                </Radio.Group>
+                <p className='sub-sub-title-projects'>iii. Draw your project geometry</p>
+              </div>
+              <div className={"draw " + (isDraw ? 'active' : '')} onClick={onClickDraw}>
+                <img src="" className="icon-draw active" style={{ WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat' }} />
+                <p>Click on the icon above and draw a polygon to define the project feature</p>
+              </div>
+              <Table
+                dataSource={DATA_SOURCE_GEOMEOTRY }
+                columns={COLUMNS_GEOMEOTRY }
+                className='table-project table-geometry'
+                rowClassName={(record, index) => {
+                  console.log(record, index, 'RECORD');
+                  if(record.key.includes('total')){
+                    return ('row-geometry-total')
+                  }
+                  if (record.key.includes('title') || record.key.includes('total')) {
+                    return('row-geometry-title')
+                  }else{
+                    return ('row-geometry-body')
+                  }
+                }}
+              />  
+              {/* <h5 style={{marginTop:'5px'}}>
                 2. SELECT STREAMS
             </h5>
               <div className={"draw " + (isDrawState ? 'active' : '')} onClick={onClickDraw}>
@@ -528,10 +585,20 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
                                     return (
                                       <Timeline.Item color="green" key={index}>
                                         <Row style={{ marginLeft: '-18px' }}>
-                                          <Col className="first" xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}><label>{stream?.code_local_goverment.length > 0 ? stream.code_local_goverment[0].local_government_name: ''}</label></Col>
-                                          <Col className="second" style={{textAlign:'center'}} xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{swSave ? stream.length : formatterDec.format(stream.length * 0.000621371)}</Col>
-                                          <Col className="third" style={{textAlign:'center',paddingLeft: '0px'}} xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7 }}>{swSave ? stream.drainage : formatterDec.format(stream.drainage)}</Col>
-                                          <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent" onClick={() => removeStream(stream)} ><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
+                                          <Col className="first" xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}>
+                                            <label>{stream?.code_local_goverment.length > 0 ? stream.code_local_goverment[0].local_government_name : ''}</label>
+                                          </Col>  
+                                          <Col className="second" style={{ textAlign: 'center' }} xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>
+                                          {swSave ? stream.length.toFixed(3) : (Math.round(stream.length * 1000) / 1000).toFixed(3)}
+                                          </Col>
+                                          <Col className="third" style={{ textAlign: 'center', paddingLeft: '0px' }} xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7 }}>
+                                            {swSave ? stream.drainage.toFixed(2) : (Math.round(stream.drainage * 100) / 100).toFixed(2)}
+                                          </Col>
+                                          <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}>
+                                            <Button className="btn-transparent" onClick={() => removeStream(stream)}>
+                                              <img src="/Icons/icon-16.svg" alt="" height="15px" />
+                                            </Button>
+                                          </Col>
                                         </Row>
                                       </Timeline.Item>
                                     );
@@ -552,8 +619,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
                 <Col xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}>TOTAL</Col>
                 <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }} style={{textAlign:'center'}}><b>{getTotalLength()} mi</b></Col>
                 <Col xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7 }} style={{textAlign:'center'}}><b>{getTotalDreinage()} sq mi</b></Col>
-              </Row>
-              <br></br>
+              </Row> */}
               <LocationInformation
                 setServiceArea={setServiceArea}
                 serviceArea={serviceArea}
@@ -570,12 +636,11 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
                 originModal="Study"
               />
 
-              <br />
               <UploadImagesDocuments
               isCapital={false}
               setFiles={setFiles}
             />
-            </div>
+            </div>:<></>}
             <div className="footer-project">
               <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>
               <Button className="btn-purple" onClick={handleOk} disabled={disable}><span className="text-color-disable">Save Draft Project</span></Button>

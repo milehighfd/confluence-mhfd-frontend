@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GOVERNMENT_STAFF } from 'constants/constants';
 import { useProfileState } from 'hook/profileHook';
 import { AutoComplete, Input } from 'antd';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
-import { useLocation } from 'react-router-dom';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
+import { YEAR_LOGIC_2024, YEAR_LOGIC_2022, MMFD_LOCALITY, MMFD_LOCALITY_TYPE, WORK_PLAN_TAB } from 'constants/constants';
 
 const windowWidth: any = window.innerWidth;
 
-const AutoCompleteDropdown = () => {
-  const location = useLocation();
-  const type = location.pathname === '/work-request' ? 'WORK_REQUEST' : 'WORK_PLAN';
+const AutoCompleteDropdown = (
+  {
+    type,
+  }: {
+    type: string,
+  }
+) => {
   const { userInformation } = useProfileState();
   const {
     dataAutocomplete,
@@ -21,6 +25,8 @@ const AutoCompleteDropdown = () => {
     tabKey,
     locality,
     boardStatus,
+    filterMap,
+    namespaceId,
   } = useRequestState();
   const {
     setShowAnalytics,
@@ -34,9 +40,10 @@ const AutoCompleteDropdown = () => {
     setLocalityType,
     setTabKey,
     setIsOnSelected,
+    loadColumns,
   } = useRequestDispatch();
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
-
+  const [dropdownSelected, setDropdownSelected] = useState('');
   const renderOption = (item: string) => {
     return {
       key: `${item}|${item}`,
@@ -44,17 +51,97 @@ const AutoCompleteDropdown = () => {
       label: item
     };
   };
+  useEffect(() => {
+    if (type === WORK_PLAN_TAB) {
+      if (year >= YEAR_LOGIC_2024) {
+        setLocality(MMFD_LOCALITY);
+        setDropdownSelected(MMFD_LOCALITY)
+        setLocalityFilter(MMFD_LOCALITY);
+        setLocalityType(MMFD_LOCALITY_TYPE);
+        setTabKey(tabKeys[0]);
+      } else {
+        if (dropdownSelected) {
+          setLocality(dropdownSelected);
+        }
+      }
+      if (filterMap && filterMap?.project_counties?.length > 0) {
+        setCountiesSelected(filterMap?.project_counties?.map((_: any) => true));
+      }
+      if (filterMap && filterMap?.project_service_areas?.length > 0) {
+        setServiceAreasSelected(filterMap?.project_service_areas?.map((_: any) => true))
+      }
+    }
+  }, [year]);
 
-  const onSelect = (value: any) => {
+  useEffect(() => {
+    if (type === WORK_PLAN_TAB) {
+      if (filterMap?.project_local_governments?.length > 0) {
+        setJurisdictionSelected(filterMap?.project_local_governments?.map((_: any) => true));
+      }
+    }
+  }, [filterMap, dropdownSelected])
+
+  const updateFilterSelected = (value: any) => {
+    if (filterMap && value) {
+      const priorityFilterList = [true, true, true, true, true];
+      setPrioritySelected(priorityFilterList);
+      let filterSelected = [false];
+      if (value === 'MHFD District Work Plan' || value === MMFD_LOCALITY) {
+        filterMap?.project_service_areas?.map((p: any, index: number) => {
+          filterSelected[index] = true;
+        })
+        filterMap?.project_counties?.map((p: any, index: number) => {
+          filterSelected[index] = true;
+        })
+        setCountiesSelected(filterSelected);
+        setServiceAreasSelected(filterSelected)
+      } else {
+        if (value.includes('County')) {
+          const valueName = value.replace('County', '').trim();
+          filterMap?.project_counties.map((p: any, index: number) => {
+            if (p.county_name === valueName) {
+              filterSelected[index] = true;
+            } else {
+              filterSelected[index] = false;
+            }
+          })
+          setCountiesSelected(filterSelected);
+        }
+        if (value.includes('Service Area')) {
+          const valueName = value.replace('Service Area', '').trim();
+          filterMap?.project_service_areas.map((p: any, index: number) => {
+            if (p.service_area_name === valueName) {
+              filterSelected[index] = true;
+            } else {
+              filterSelected[index] = false;
+            }
+          })
+          setServiceAreasSelected(filterSelected)
+        }
+      }
+      loadColumns(namespaceId)
+    }
+  }
+
+  const onSelect = async (value: any) => {
+    setDropdownSelected(value);
     setShowAnalytics(false);
     setShowBoardStatus(false);
-    setLocality(value);
     setIsOnSelected(true);
     setLocalityFilter(value);
     setPrioritySelected([]);
     setJurisdictionSelected([]);
     setCountiesSelected([]);
     setServiceAreasSelected([]);
+    if (type === WORK_PLAN_TAB) {
+      if (year < YEAR_LOGIC_2024) {
+        setLocality(value);
+      } else {
+        updateFilterSelected(value);
+      }
+    } else {
+      setLocality(value);
+    }
     let l = localities.find((p: any) => {
       return p.name === value;
     })
@@ -63,8 +150,7 @@ const AutoCompleteDropdown = () => {
       setLocalityType(l.table);
       if (type === 'WORK_PLAN') {
         let displayedTabKey: string[] = [];
-
-        if (year < 2022) {
+        if (year < YEAR_LOGIC_2022) {
           if (l.table === 'CODE_STATE_COUNTY') {
             displayedTabKey = ['Capital', 'Maintenance']
           } else if (l.table === 'CODE_SERVICE_AREA') {
@@ -104,7 +190,7 @@ const AutoCompleteDropdown = () => {
         userInformation.designation !== GOVERNMENT_STAFF ? (
           <AutoComplete
             className={'ant-select-1'}
-            options={renderOption.length > 0 ? [...dataAutocomplete.map(renderOption), {}]: dataAutocomplete.map(renderOption)}
+            options={renderOption.length > 0 ? [...dataAutocomplete.map(renderOption), {}] : dataAutocomplete.map(renderOption)}
             placeholder={localityFilter}
             filterOption={(inputValue, option: any) => {
               if (dataAutocomplete.includes(inputValue)) {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal } from 'antd';
-import '../../../Scss/Components/sidebar.scss';
+import '../../../Scss/Components/Shared/sidebar.scss';
 import { stateValue } from "./constants/layout.constants";
 
 
@@ -29,7 +29,6 @@ const SidebarModal = () => {
     onCancel={handleCancel}
     className="tutorial-mobile"
     width="100vw"
-    style={{height:'100%', top:'0px'}}
   >
     <div className="tuto-01">
       <div className="tuto-17">

@@ -17,9 +17,9 @@ export const PROJECTS_POLYGONS = 'projects_polygon_';
 export const PROJECTS_DRAFT = 'mhfd_projects' + process.env.REACT_APP_NODE_ENV ? ('_' + ((process.env.REACT_APP_NODE_ENV === 'production' || process.env.REACT_APP_NODE_ENV === 'prod' ) ? 'prod' :  process.env.REACT_APP_NODE_ENV)) : '_dev';
 
 export const MEP_PROJECTS_TEMP_LOCATIONS = 'mep_projects_temp_locations';
-export const MEP_PROJECTS_DETENTION_BASINS = 'mep_detentionbasins';
-export const MEP_PROJECTS_CHANNELS = 'mep_channels'; 
-export const MEP_PROJECTS_STORM_OUTFALLS = 'mep_outfalls'; 
+export const MEP_PROJECTS_DETENTION_BASINS = 'mep_detentionbasins_1';
+export const MEP_PROJECTS_CHANNELS = 'mep_channels_1'; 
+export const MEP_PROJECTS_STORM_OUTFALLS = 'mep_outfalls_1'; 
 
 export const ROUTINE_NATURAL_AREAS = 'routine_natural_area';
 export const ROUTINE_WEED_CONTROL = 'routine_weed_control';

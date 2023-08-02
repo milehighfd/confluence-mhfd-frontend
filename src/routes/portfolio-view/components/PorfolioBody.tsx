@@ -21,24 +21,20 @@ let isInit = true;
 const tabKeys = ['All','CIP', 'Restoration', 'Study', 'DIP', 'R&D', 'Acquisition'];
 const tabKeysIds = [0, 5, 7, 1, 6, 15, 13];
 
-const PortafolioBody = ({
-  optionSelect,
-  setOptionSelect
-}: {
-  optionSelect: string,
-  setOptionSelect: React.Dispatch<React.SetStateAction<string>>
-}) => {
+const PortafolioBody = () => {
   const {
     setFilterProjectOptions,
     resetFiltercomponentOptions,
     getParamFilterProjectsNoBounds,
     setBoundMap,
     resetFilterProjectOptionsEmpty,
+    setTabActiveNavbar
   } = useMapDispatch();
 
   const {
     filterProjectOptions,
-    filterProjectOptionsNoFilter
+    filterProjectOptionsNoFilter,
+    tabActiveNavbar
   } = useMapState();
   const {
     searchWord, graphicOpen
@@ -61,6 +57,7 @@ const PortafolioBody = ({
   const [updateFilter, setUpdateFilter] = useState([]);
 
   useEffect(() => {
+    setTabActiveNavbar('List')
     getParamFilterProjectsNoBounds();
     if (searchWord) {
       let currentNewData = [...newData].filter((d: any) => d.id.includes('Title') || d.rowLabel.toLowerCase().includes(searchWord.toLowerCase()));
@@ -234,13 +231,13 @@ const PortafolioBody = ({
     if(tabKey === 'All'){
       setTabKey('CIP');
     }
-    setOptionSelect('Phase');    
+    setTabActiveNavbar('Phase');    
   }  
   function enterSchedule() {   
-    setOptionSelect('Schedule')       
+    setTabActiveNavbar('Schedule')       
   }
   function enterList (){
-    setOptionSelect('List')
+    setTabActiveNavbar('List')
   }
   function changeTabkey (key : any){   
     setTabKey(key)
@@ -269,13 +266,13 @@ const PortafolioBody = ({
             </h2>
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{textAlign:'center'}}>
-            <Button className={optionSelect=== 'List' ? "btn-view btn-view-active": "btn-view"} onClick={()=>{enterList()}}>
+            <Button className={tabActiveNavbar=== 'List' ? "btn-view btn-view-active": "btn-view"} onClick={()=>{enterList()}}>
               List
             </Button>
-            <Button className={optionSelect=== 'Phase' ? "btn-view btn-view-active": "btn-view"}  onClick={()=>{enterPhase()}}>
+            <Button className={tabActiveNavbar=== 'Phase' ? "btn-view btn-view-active": "btn-view"}  onClick={()=>{enterPhase()}}>
               Phase
             </Button>
-            <Button className={optionSelect=== 'Schedule' ? "btn-view btn-view-active": "btn-view"}  onClick={()=>{enterSchedule()}}>
+            <Button className={tabActiveNavbar=== 'Schedule' ? "btn-view btn-view-active": "btn-view"}  onClick={()=>{enterSchedule()}}>
               Schedule
             </Button>
 
@@ -295,7 +292,7 @@ const PortafolioBody = ({
       </div>
       <div className="work-body portafolio">
         <div className="legends-porfolio">
-          {(optionSelect === 'Phase' || optionSelect === 'Schedule') && <div>
+          {(tabActiveNavbar === 'Phase' || tabActiveNavbar === 'Schedule') && <div>
                 <span className="span-dots-heder">
                   <div className="circulo" style={{backgroundColor:'#5E5FE2'}}/>
                   <span style={{marginLeft:'1px', marginRight:'12px'}}>Done</span>
@@ -321,21 +318,21 @@ const PortafolioBody = ({
           {
             displayedTabKey.map((tk: string, idx: number) => {
               return (
-                <TabPane style={{ marginBottom: '0px', zIndex: 1 }} tab={<span>{tk}</span>} key={tk} disabled={(optionSelect === 'Phase') && tk === 'All' ? true : false}>
+                <TabPane style={{ marginBottom: '0px', zIndex: 1 }} tab={<span>{tk}</span>} key={tk} disabled={(tabActiveNavbar === 'Phase') && tk === 'All' ? true : false}>
                   <div className="protafolio-body">
                     {openFilters && <Filters filtersObject={{ filterby, filterValue, tabKey }} />}
-                    {optionSelect === 'List' && <TablePortafolio
+                    {tabActiveNavbar === 'List' && <TablePortafolio
                       tabKey={tabKey}
                       tabKeyId={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
                       setSortValue={setSortValue}
                     />
                     }
-                    {optionSelect === 'Phase' &&
+                    {tabActiveNavbar === 'Phase' &&
                       <PhaseViewPag
                         tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
                       />
                     }
-                    {optionSelect === 'Schedule' &&
+                    {tabActiveNavbar === 'Schedule' &&
                       <CalendarViewPag
                         tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
                       />

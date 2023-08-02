@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import * as mapboxgl from 'mapbox-gl';
 import { MapService } from '../../utils/MapService';
 import { InfoCircleOutlined } from '@ant-design/icons';
@@ -90,6 +90,7 @@ const CreateProjectMap = (type: any) => {
   let html = document.getElementById('map3');
   let popup = new mapboxgl.Popup({ closeButton: true });
   const user = store.getState().profile.userInformation;
+  const typeRef = useRef(type.type);
   const {
     layers,
     mapSearch,
@@ -130,6 +131,7 @@ const CreateProjectMap = (type: any) => {
     setComponentIntersected,
     setComponentGeom,
     setEditLocation,
+    setStreamsList
   } = useProjectDispatch();
   const {
     userPolygon,
@@ -208,6 +210,10 @@ const CreateProjectMap = (type: any) => {
   useEffect(() => {
     magicAddingVariable = isAddLocation;
   }, [isAddLocation]);
+
+  useEffect(() => {
+    map = undefined;
+  }, []);
   useEffect(() => {
     setLoading(true);
     const waiting = () => {
@@ -226,17 +232,18 @@ const CreateProjectMap = (type: any) => {
           map.dragEnd(() => {
             setDragEndCounter(__++);
           });
-          setLayersSelectedOnInit();
+          
         }
       }
     };
-    map = undefined;
+    // map = undefined;
     waiting();
     EventService.setRef('click', eventClick);
     EventService.setRef('move', eventMove);
     EventService.setRef('addmarker', addMarker);
     EventService.setRef('oncreatedraw', onCreateDraw);
     changeAddLocationState(false);
+    setLayersSelectedOnInit();
     componentsList = [];
     getData(`${SERVER.URL_BASE}/locality/`, getToken()).then(
       (r: any) => {
@@ -248,8 +255,16 @@ const CreateProjectMap = (type: any) => {
         console.log('e', e);
       },
     );
-    return () => {
+    typeRef.current = type.type
+    if((type.type === 'STUDY' && type.projectid === -1) 
+    || ((type.type !== 'CAPITAL' && type.type !== 'MAINTENANCE') && (type.lastValue === 'capital' || type.lastValue === 'maintenance'))
+    || (type.type !== 'STUDY' && type.lastValue === 'study')
+     ){
       setStreamIntersected([]);
+      setStreamsList([]);
+    }
+    return () => {
+      setStreamsList([]);
       setStreamsIds([]);
       setComponentIntersected([]);
       setComponentGeom(undefined);
@@ -257,7 +272,12 @@ const CreateProjectMap = (type: any) => {
       setUserPolygon([]);
       setEditLocation([]);
       marker.remove();
-      setZoomGeom(undefined);
+      // setZoomGeom(undefined);
+    };
+  }, [type.type]);
+  useEffect(() => {
+    return () => {
+      setStreamIntersected([]);
     };
   }, []);
   useEffect(() => {
@@ -295,7 +315,7 @@ const CreateProjectMap = (type: any) => {
     }
   }, [listStreams]);
   useEffect(() => {
-    console.log('ZOOM GEOM', zoomGeom);
+    console.log('zoomGeom', zoomGeom, map);
     if (zoomGeom && map) {
       map.map.once('load', () => {
         map.map.fitBounds(zoomGeom);
@@ -446,7 +466,6 @@ const CreateProjectMap = (type: any) => {
     }, 500);
   }, [groupOrganization, type.locality, localAOI]);
   useEffect(() => {
-    console.log('List Components', listComponents);
     if (listComponents && listComponents.result && listComponents.result.length > 0) {
       let componentsHovers: any = {};
       for (let i of listComponents.result) {
@@ -467,8 +486,8 @@ const CreateProjectMap = (type: any) => {
 
       componentsList = listComponents.result;
     } else {
-      setStreamIntersected({ geom: null });
-      setStreamsIds([]);
+      // setStreamIntersected({ geom: null }); // TODO entender porque se borraba la intersection cuando no habia listcompoennts
+      // setStreamsIds([]);
       if (!flagInit) {
         setLoading(false);
       }
@@ -489,6 +508,7 @@ const CreateProjectMap = (type: any) => {
 
       let eventToAddMarker = EventService.getRef('addmarker');
       map.map.on('click', eventToAddMarker);
+      
     } else {
       let eventToMove = EventService.getRef('move');
       map.map.off('mousemove', eventToMove);
@@ -534,7 +554,7 @@ const CreateProjectMap = (type: any) => {
     if (isDraw || isDrawCapital) {
       isDrawingCurrently = true;
       currentDraw = isDraw ? 'polygon' : isDrawCapital ? 'capitalpolygon' : 'polygon';
-      if (isDrawCapital) {
+      if (isDrawCapital && type.type === 'CAPITAL') {
         showHoverComponents();
         if (userPolygon.length !== 0 || Object.keys(userPolygon).length !== 0) {
           let bboxBounds = turf.bbox(userPolygon);
@@ -599,7 +619,7 @@ const CreateProjectMap = (type: any) => {
       }
       if (type.type === 'CAPITAL' || type.type === 'MAINTENANCE') {
         getServiceAreaPolygonofStreams(thisStreamIntersected.geom);
-        setLoading(false);
+        // setLoading(false);
       }
 
       if (type.problemId && geom.coordinates.length > 0) {
@@ -670,6 +690,7 @@ const CreateProjectMap = (type: any) => {
     }
   }, [streamIntersected]);
   useEffect(() => {
+    console.log('Stream intersected ids', streamsIntersectedIds);
     if (streamsIntersectedIds.length > 0) {
       let streamsCodes: any = streamsIntersectedIds
         .filter((fstr: any) => fstr.mhfd_code)
@@ -744,7 +765,7 @@ const CreateProjectMap = (type: any) => {
       waiting();
     }
     EventService.setRef('oncreatedraw', onCreateDraw);
-    EventService.setRef('addmarker', addMarker);
+    // EventService.setRef('addmarker', addMarker);
   }, [selectedLayersCP]);
 
   const setLayersSelectedOnInit = () => {
@@ -798,21 +819,24 @@ const CreateProjectMap = (type: any) => {
     if (firstCallDraw) {
       return;
     }
+    const currentType = typeRef.current;
     firstCallDraw = true;
     removeProjectLayer();
     setLoading(true);
     const userPolygon = event.features[0];
-    if (type.type === 'CAPITAL') {
+    if (currentType === 'CAPITAL') {
       if (currentDraw == 'polygon') {
         getListComponentsByComponentsAndPolygon(componentsList, userPolygon.geometry);
       } else {
         hideHighlighted();
         getStreamIntersectionPolygon(userPolygon.geometry);
       }
-    } else if (type.type === 'MAINTENANCE') {
+      getStreamsList(userPolygon.geometry);
+    } else if (currentType === 'MAINTENANCE') {
       getStreamIntersectionPolygon(userPolygon.geometry);
-    } else if (type.type === 'STUDY') {
-      type.setGeom(userPolygon.geometry);
+      getStreamsList(userPolygon.geometry);
+    } else if (currentType === 'STUDY') {
+      // type.setGeom(userPolygon.geometry); TODO verify if this is needed
       getStreamsIntersectedPolygon(userPolygon.geometry);
       getStreamsList(userPolygon.geometry);
       getServiceAreaStreams(userPolygon.geometry);
@@ -1555,13 +1579,13 @@ const CreateProjectMap = (type: any) => {
         popup,
         map.map,
         showPopup,
-        () => { },
-        () => { },
-        () => { },
+        () => {},
+        () => {},
+        () => {},
         e,
         ids,
         addRemoveComponent,
-        () => { },
+        () => {},
         false,
         getComponentsFromProjProb,
       );
@@ -1655,11 +1679,10 @@ const CreateProjectMap = (type: any) => {
     <>
       {showIntersectionError && (
         <Modal
+          className="detailed-version detailed-upload-save"
           centered
           visible={showIntersectionError}
           onCancel={() => setShowIntersectionError(false)}
-          className="modal-confirm"
-          width="400px"
         >
           <div className="detailed">
             <Row className="detailed-h" gutter={[16, 8]}>
@@ -1679,7 +1702,11 @@ const CreateProjectMap = (type: any) => {
                 does not exist in your project area.
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 12, offset: 12 }} style={{ color: '#11093c', textAlign: 'end' }}>
-                <button className="btn-purple" style={{ width: '95%' }} onClick={() => setShowIntersectionError(false)}>
+                <button
+                  className="btn-purple"
+                  style={{ width: '95%', height: 'auto', padding: '10px' }}
+                  onClick={() => setShowIntersectionError(false)}
+                >
                   Review your geometry
                 </button>
               </Col>
@@ -1695,24 +1722,24 @@ const CreateProjectMap = (type: any) => {
               <Popover
                 content={
                   <div className="popoveer-00">
-                    <p style={{ fontWeight: '600' }}>Problem Types</p>
+                    <p className="dark-text">Problem Types</p>
                     <p>
-                      <span style={{ fontWeight: '600' }}>Flood Hazard </span> Problems related to existing flood or
-                      fluvial hazard to life and property.
+                      <span className="dark-text">Flood Hazard </span> Problems related to existing flood or fluvial
+                      hazard to life and property.
                     </p>
                     <p>
-                      <span style={{ fontWeight: '600' }}>Stream Condition </span> Problems related to the physical,
+                      <span className="dark-text">Stream Condition </span> Problems related to the physical,
                       environmental, and social function or condition of the stream in an urban context.
                     </p>
                     <p>
-                      <span style={{ fontWeight: '600' }}>Watershed Change </span> Problems related to flood waters that
-                      may pose safety or functional concerns related to people, property, and the environment due to
+                      <span className="dark-text">Watershed Change </span> Problems related to flood waters that may
+                      pose safety or functional concerns related to people, property, and the environment due to
                       changing watershed conditions (land use, topography, regional detention, etc).
                     </p>
                   </div>
                 }
               >
-                <InfoCircleOutlined style={{ marginLeft: '35px', color: '#bfbfbf' }} />
+                <InfoCircleOutlined className="iconinfocircle" />
               </Popover>{' '}
             </h5>
             <div className="legendprob">
@@ -1731,7 +1758,7 @@ const CreateProjectMap = (type: any) => {
         ) : (
           ''
         )}
-        <div id="map3" style={{ height: '100%', width: '100%' }}></div>
+        <div id="map3"></div>
         <div className="m-head">
           <MapDropdownLayers
             selectCheckboxes={selectCheckboxes}
@@ -1741,7 +1768,7 @@ const CreateProjectMap = (type: any) => {
           />
           <AutoComplete
             dropdownMatchSelectWidth={true}
-            style={{ width: 200, backgroundColor: '#fafafa', borderRadius: '5px', height: '36px' }}
+            className="autocomplete-mhead"
             options={mapSearch.length > 0 ? [...mapSearch.map(renderOption), {}] : mapSearch.map(renderOption)}
             onSelect={onSelect}
             onSearch={handleSearch}

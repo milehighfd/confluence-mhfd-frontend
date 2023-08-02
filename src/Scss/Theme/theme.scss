@@ -28,27 +28,6 @@ body {
   }
 }
 
-.tag-filters {
-  margin-top: -16px !important;
-
-  .ant-popover-placement-bottomRight .ant-popover-arrow {
-    display: none !important;
-  }
-
-  .ant-popover-arrow {
-    display: none !important;
-  }
-
-  .ant-popover-placement-bottom .ant-popover-arrow,
-  .ant-popover-placement-bottomLeft .ant-popover-arrow,
-  .ant-popover-placement-bottomRight .ant-popover-arrow {
-    display: none !important;
-  }
-
-  .ant-arrow {
-    display: none !important;
-  }
-}
 .arrow-popover-delete {
   .ant-popover-placement-bottomRight .ant-popover-arrow {
     display: none !important;
@@ -293,8 +272,8 @@ body {
   .ant-dropdown-menu-item,
   .ant-dropdown-menu-submenu-title {
     background-color: #ffffff !important;
-    color: #11093C;
-    opacity: 0.6;
+    color: $purple00;
+    // opacity: 0.6;
     margin: 0px 5px;
     padding-left: 7px;
     border-radius: 5px;
@@ -1502,6 +1481,57 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
   .infomation {
     font-size: 12px !important;
   }
+
+  .detailed {
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    box-shadow: $shadow;
+    background-color: $white;
+    overflow-y: auto;
+
+    .ant-carousel .slick-list {
+      height: auto;
+    }
+
+    .ant-carousel .slick-dots {
+      display: none !important;
+      padding-bottom: 50px !important;
+    }
+
+    .header-body-modal {
+      color: #11093C;
+      opacity: 0.6;
+      margin: 15px 13px;    
+      font-size: 20px !important;    
+    }
+
+    .header-body-modal-active {
+      color: #11093C;
+      opacity: 1;
+      border-bottom: 2px solid #11093C;
+      padding-bottom: 8px;
+      margin-bottom: 1px;
+    }
+
+    .ant-tabs-bottom>.ant-tabs-nav,
+    .ant-tabs-bottom>div>.ant-tabs-nav,
+    .ant-tabs-top>.ant-tabs-nav,
+    .ant-tabs-top>div>.ant-tabs-nav {
+      margin: 0;
+      box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
+      z-index: 10000;
+    }
+
+    .ant-tabs>.ant-tabs-nav .ant-tabs-nav-list,
+    .ant-tabs>div>.ant-tabs-nav .ant-tabs-nav-list {
+      margin-left: 41px;
+    }
+
+    .tabs-map .ant-tabs-nav .ant-tabs-tab {
+      font-size: 14px;
+    }
+  }
 }
 
 // END ALERTS AND MODALS
@@ -2161,53 +2191,7 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
   padding-left: 8px;
 }
 
-.bottomn-heder {
-  color: #000000;
-  margin-left: 10px;
-  transition: all .0s cubic-bezier(.645, .045, .355, 1);
 
-  .ant-btn:focus,
-  .ant-btn:hover {
-    color: #29c499;
-    transition: all .0s cubic-bezier(.645, .045, .355, 1);
-    border-color: #29c499;
-  }
-
-  .ic-document {
-    transition: all .3s cubic-bezier(.645, .045, .355, 1);
-    margin-right: 5px;
-    content: url("../../../public/Icons/ic-document.svg");
-  }
-}
-
-.bottomn-heder:hover,
-.bottomn-heder:active,
-.bottomn-heder:focus-visible,
-.bottomn-heder:visited {
-  color: #29c499;
-  border-color: #29c499;
-  transition: all .0s cubic-bezier(.645, .045, .355, 1);
-
-  .ic-document {
-    transition: all .3s cubic-bezier(.645, .045, .355, 1);
-    margin-right: 5px;
-    content: url("../../../public/Icons/ic-document-active.svg") !important;
-  }
-}
-
-.bottomn-heder:focus,
-.bottomn-heder::before,
-.bottomn-heder:focus-visible {
-  color: #29c499;
-  border-color: #29c499;
-  transition: all .0s cubic-bezier(.645, .045, .355, 1);
-
-  .ic-document {
-    transition: all .3s cubic-bezier(.645, .045, .355, 1);
-    margin-right: 5px;
-    content: url("../../../public/Icons/ic-document-active.svg") !important;
-  }
-}
 
 // DETAILED PROBLEM
 .upload {
@@ -2285,38 +2269,6 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
 
   hr {
     border: 1px dashed $opacity04;
-  }
-}
-
-.detailed {
-  width: 100%;
-  height: 100%;
-  border-radius: 4px;
-  box-shadow: $shadow;
-  background-color: $white;
-  overflow-y: auto;
-
-  .ant-carousel .slick-list {
-    height: auto;
-  }
-
-  .ant-carousel .slick-dots {
-    display: none !important;
-    padding-bottom: 50px !important;
-  }
-
-  .header-body-modal {
-    color: #11093C;
-    opacity: 0.6;
-    margin: 15px 13px;
-  }
-
-  .header-body-modal-active {
-    color: #11093C;
-    opacity: 1;
-    border-bottom: 2px solid #11093C;
-    padding-bottom: 8px;
-    margin-bottom: 1px;
   }
 }
 
@@ -2405,17 +2357,68 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
 .detailed {
   width: 100%;
   height: 100%;
-  border-radius: 10px;
+  border-radius: 4px;
   box-shadow: $shadow;
   background-color: $white;
   overflow-y: auto;
+
+  .detailed-h-head{
+    h1{
+      margin-top: 15px !important;
+    }
+    .col-h-head{
+      text-align: end;
+    }
+  }
+
+  .detailed-h-body{
+    background-color: white;
+    .col-h-body{
+      color: #11093c;
+    }
+
+    .col-body-1{
+      color: #11093c;
+      text-align: end;
+    }
+  }
 
   .ant-carousel .slick-list {
     height: auto;
   }
 
   .ant-carousel .slick-dots {
+    display: none !important;
     padding-bottom: 50px !important;
+  }
+
+  .header-body-modal {
+    color: #11093C;
+    opacity: 0.6;
+    margin: 15px 13px;    
+    font-size: 20px !important;    
+  }
+
+  .header-tab-modal-detail{
+    color: #11093C;
+    opacity: 0.6;
+    margin: 15px 13px;
+    font-size: 16px ;
+  }
+  .header-tab-modal-detail-active {
+    color: #11093C;
+    opacity: 1;
+    border-bottom: 2px solid #11093C;
+    padding-bottom: 8px;
+    margin-bottom: 1px;
+  }
+
+  .header-body-modal-active {
+    color: #11093C;
+    opacity: 1;
+    border-bottom: 2px solid #11093C;
+    padding-bottom: 8px;
+    margin-bottom: 1px;
   }
 
   .ant-tabs-bottom>.ant-tabs-nav,
@@ -2642,7 +2645,7 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
 
   p {
     font-size: 14px;
-    color: $opacity;
+    color: $purple00;
     margin-bottom: 0px;
   }
 
@@ -4399,12 +4402,6 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
     ;
   }
 
-  .detailed {
-    .header-body-modal {
-      font-size: 20px !important;
-    }
-  }
-
   .placeholder-carousel {
     height: 381px !important;
   }
@@ -4424,6 +4421,9 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
 
   .detailed-modal {
     width: 1850px !important;
+    .header-tab-modal-detail {
+      font-size: 20 px !important;
+    }
   }
 
   .detailed-mmm {
@@ -5028,6 +5028,9 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
 
   .detailed {
     .header-body-modal {
+      font-size: 24px !important;
+    }
+    .header-tab-modal-detail {
       font-size: 24px !important;
     }
   }

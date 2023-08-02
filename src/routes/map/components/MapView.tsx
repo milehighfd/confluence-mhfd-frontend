@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment, useCallback } from 'react';
-import { Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover, MenuProps } from 'antd';
+import { Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover, MenuProps, List } from 'antd';
 import { useLocation } from 'react-router-dom';
 import { getGroupListWithAbortController } from 'routes/portfolio-view/components/ListUtils';
 import GenericTabView from 'Components/Shared/GenericTab/GenericTabView';
@@ -22,6 +22,7 @@ import { useProjectDispatch } from 'hook/projectHook';
 import { SERVER } from 'Config/Server.config';
 import ApplyMapViewFilter from './ApplyMapViewFilter';
 import { useFilterContext } from 'utils/filterContext';
+import ListViewMap from './ListViewMap';
 
 const MapAutoComplete = React.lazy(() => import('routes/map/components/MapAutoComplete'));
 const FiltersProjectView = React.lazy(() => import('Components/FiltersProject/FiltersProjectView'));
@@ -150,6 +151,7 @@ const MapView = () => {
   const purple = '#11093c';
   const [backgroundStyle, setBackgroundStyle] = useState<string>(gray);
   const [textStyle, setTextStyle] = useState<string>(purple);
+  const [selectView, setSelectView] = useState<string>('card');
   const [groupsLabels, setGroupsLabels] = useState<any>({
     projecttype: [],
     totalcost: [],
@@ -420,7 +422,7 @@ const MapView = () => {
         <div className="btn-footer-02">
           {labelsProblems.filter(x => x.detail.length > 0).length > 0 ? (
             <Button className="btn-borde" onClick={() => resetFilterComponents()}>
-              Clear
+              Clear All
             </Button>
           ) : (
             <p style={{ textAlign: 'right' }}>No filters are applied</p>
@@ -532,7 +534,7 @@ const MapView = () => {
         <div className="btn-footer-02">
           {labelsProblems.filter(x => x.detail.length > 0).length > 0 ? (
             <Button className="btn-borde" onClick={() => resetFilterProblems()}>
-              Clear
+              Clear All
             </Button>
           ) : (
             <p style={{ textAlign: 'right' }}>No filters are applied</p>
@@ -603,7 +605,7 @@ const MapView = () => {
         <div className="btn-footer-02">
           {mappedLabelsFiltersProjects.length > 0 ? (
             <Button className="btn-borde" onClick={() => resetFilterProjects(false)}>
-              Clear
+              Clear All
             </Button>
           ) : (
             <p style={{ textAlign: 'right' }}>No filters are applied</p>
@@ -626,7 +628,7 @@ const MapView = () => {
                   :toCamelCase(element.display)
                 )
               )
-            } &nbsp;&nbsp;&nbsp;
+            } &nbsp;
             <Popover
               content={toCamelCase(element.display) === 'project type' ? content4
                 : toCamelCase(element.display) === 'watershed service area' ? content
@@ -726,25 +728,27 @@ const MapView = () => {
     const filterProjects = { ...filterProjectOptions } as any;
     for (const key in filterProjectOptions) {
       const tag = filterProjects[key];
-      if (key !== 'keyword' && key !== 'column' && key !== 'order' && key !== 'name' && key !== 'totalcost') {
-        for (let index = 0; index < tag.length; index++) {
-          const element = tag[index];
-          if (element) {
-            countTagProjets += 1;
+      if (tag !== undefined) {	
+        if (key !== 'keyword' && key !== 'column' && key !== 'order' && key !== 'name' && key !== 'totalcost') {
+          for (let index = 0; index < tag.length; index++) {
+            const element = tag[index];
+            if (element) {
+              countTagProjets += 1;
+            }
           }
+        } else if (key === 'totalcost' && tag.length) {
+          countTagProjets += 1;
         }
-      } else if (key === 'totalcost' && tag.length) {
-        countTagProjets += 1;
-      }
-      const position = labelsFiltersProjects.findIndex((x: any) => x.name === key);
-      if (position >= 0) {
-        const tag = filterProjects[key];
-        const elements = [];
-        for (let index = 0; index < tag.length; index++) {
-          elements.push(tag[index]);
-        }
-        if (elements.length > 0) {
-          labelsFiltersProjects[position]['detail'] = elements as any;
+        const position = labelsFiltersProjects.findIndex((x: any) => x.name === key);
+        if (position >= 0) {
+          const tag = filterProjects[key];
+          const elements = [];
+          for (let index = 0; index < tag.length; index++) {
+            elements.push(tag[index]);
+          }
+          if (elements.length > 0) {
+            labelsFiltersProjects[position]['detail'] = elements as any;
+          }
         }
       }
     }
@@ -1045,8 +1049,8 @@ const MapView = () => {
           ground up to meet the unique data needs of a regional flood control and stream management district.
         </p>
       </div>
-      <div className="count" style={{ paddingBottom: '0px', marginTop: '1px' }}>
-        {groupOrganization && <MapAutoComplete onAutoCompleteSelected={onSelect} />}
+      <div className="count">
+        {groupOrganization && <MapAutoComplete onAutoCompleteSelected={onSelect} setSelectView={setSelectView} selectView={selectView}/>}
         <div className="head-filter mobile-display">
           <Row justify="space-around" align="middle">
             <Col span={11} style={{ textAlign: 'initial' }}>
@@ -1262,11 +1266,14 @@ const MapView = () => {
                     }
                     key={index}
                   >
-                    <GenericTabView
-                      type={value}
-                      totalElements={totalElements}
-                      cardInformation={cardInformation}
-                    />
+                    {selectView === 'list' ?
+                      <ListViewMap />:
+                      <GenericTabView
+                        type={value}
+                        totalElements={totalElements}
+                        cardInformation={cardInformation}
+                      />
+                    }
                   </TabPane>
                 );
               })}
