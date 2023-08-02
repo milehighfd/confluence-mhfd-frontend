@@ -15,7 +15,7 @@ interface Props {
   cosponsor: string[];
   setCoSponsor: any;  
   originModal: string;
-  projectId?: number;
+  projectId: number;
 }
 const { Option } = Select;
 
@@ -26,12 +26,13 @@ export const RequestorInformation = ({
   cosponsor,
   setCoSponsor,
   originModal,
-  projectId = 0,
+  projectId = 0
 }: Props) => {  
   const [localities, setLocalities] = useState([]);
   const [name, setName] = useState('');
   const [createdDate, setCreatedDate] = useState('');
   const [businessName, setBusinessName] = useState('');
+  const [isLocalGovernment, setIsLocalGovernment] = useState(false);
   const {
     isEdit
   } = useProjectState();
@@ -39,7 +40,15 @@ export const RequestorInformation = ({
   const user = store.getState().profile.userInformation;
   const isMaintenance = originModal === 'Maintenance';
   const isStudy = originModal === 'Study';
-  let isLocalGovernment = user.designation === GOVERNMENT_STAFF;
+  useEffect(() => {
+    const CODE_LOCAL_GOVERNMENT = 3;
+    if (user?.business_associate_contact?.business_address?.business_associate?.code_business_associates_type_id === CODE_LOCAL_GOVERNMENT) {
+      if (user?.business_associate_contact?.business_address?.business_associate?.business_name) {
+        setIsLocalGovernment(true);
+      }
+    }
+  }, []);
+
   const getLabel = () => {
     if (originModal == 'Study') {
       return 'Study'
