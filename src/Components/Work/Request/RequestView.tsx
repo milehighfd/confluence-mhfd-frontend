@@ -310,7 +310,6 @@ const RequestView = ({ type, isFirstRendering }: {
     const user = userInformation;
     user.polygon = coordinates;
     user.isSelect = isSelect;
-    console.trace('ASDF ', coordinates);
     //saveUserInformation(user);
     setNameZoomArea(name);
     const zoomareaSelected = groupOrganization

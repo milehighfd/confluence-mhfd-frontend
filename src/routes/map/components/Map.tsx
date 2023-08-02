@@ -631,15 +631,17 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     });
     mapService.map = map;
     mapService.loadImages();
-    flytoBoundsCoor(
-      getCurrent,
-      userInformation,
-      globalMapId,
-      coorBounds,
-      map,
-      groupOrganization,
-      setCoordinatesJurisdiction,
-    );
+    map.once('load', () => {
+      flytoBoundsCoor(
+        getCurrent,
+        userInformation,
+        globalMapId,
+        coorBounds,
+        map,
+        groupOrganization,
+        setCoordinatesJurisdiction,
+      );
+    });
 
     map.addControl(
       new mapboxgl.ScaleControl({

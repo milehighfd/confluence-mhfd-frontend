@@ -36,9 +36,7 @@ export const flytoBoundsCoor = (
         [historicBounds.bbox[2], historicBounds.bbox[3]],
       ]);
     } else if (coorBounds[0] && coorBounds[1]) {
-      map.once('load', () => {
         map.fitBounds(coorBounds);
-      });
     }
     if (userInformation.isSelect != 'isSelect') {
       // map.setZoom(9)
