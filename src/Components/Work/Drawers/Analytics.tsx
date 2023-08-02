@@ -18,7 +18,9 @@ const Analytics = ({
   type: boardType
 }) => {
   const {
-    sumByCounty: data,
+    sumByCounty: dataByCounty,
+    sumByServiceArea: dataBySA,
+    sumByLocalGov: dataByLocalGovernment,
     year: initialYear,
     tabKey,
     namespaceId: boardId,
@@ -30,6 +32,7 @@ const Analytics = ({
   const [totalSum, setTotalSum] = useState(0);
   const [tcb, setTcb] = useState(totalCountyBudget);
   const [year, setYear] = useState(tabKey === 'Maintenance' ? 2000 : +initialYear);
+  const [dataByLocality, setDataByLocality] = useState(dataByCounty);
   const getLabel = () => {
     if (tabKey === 'Capital' || tabKey === 'Maintenance') {
       return "County"
@@ -82,7 +85,7 @@ const Analytics = ({
   let quantityData;
   let maxiA = 0;
   let amountData;
-  let countiesNames = data.map((d: any) => d.locality).join(',');
+  let countiesNames = dataByLocality.map((d: any) => d.locality).join(',');
   let barsColor = '#261964';
   let groupingType = null;
   if (type === 'WORK_REQUEST') {
@@ -92,7 +95,7 @@ const Analytics = ({
   }
   // 2000 is default value for all subtypes in maintenance
   if (year === 2000) {
-    quantityData = data.map((d: any) => {
+    quantityData = dataByLocality.map((d: any) => {
       let totalCounter = 0;
       for (let i = 0; i < years.length; ++i) {
         const currYear = +years[i];
@@ -107,7 +110,7 @@ const Analytics = ({
         selected: true
       }
     });
-    amountData = data.map((d: any) => {
+    amountData = dataByLocality.map((d: any) => {
       let totalCounter = 0;
       for (let i = 0; i < years.length; ++i) {
         const currYear = +years[i];
@@ -125,7 +128,7 @@ const Analytics = ({
   } else {
     const cntColumnName = `cnt${year - initialYear + 1}`;
     const reqColumnName = `req${year - initialYear + 1}`;
-    quantityData = data.map((d: any) => {
+    quantityData = dataByLocality.map((d: any) => {
       maxiQ = Math.max(maxiQ, d[cntColumnName] || 0);
       return {
         value: d.locality,
@@ -133,7 +136,7 @@ const Analytics = ({
         selected: true
       }
     });
-    amountData = data.map((d: any) => {
+    amountData = dataByLocality.map((d: any) => {
       maxiA = Math.max(maxiA, d[reqColumnName] || 0);
       return {
         value: d.locality,
@@ -145,6 +148,13 @@ const Analytics = ({
 
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
+    if (value === 'Local Government') {
+      setDataByLocality(dataByLocalGovernment);
+    } else if (value === 'County') {
+      setDataByLocality(dataByCounty);
+    } else {
+      setDataByLocality(dataBySA);
+    }
   };
   return (
     <Drawer
@@ -264,7 +274,7 @@ const Analytics = ({
         <h6 style={{ marginTop: '10px', textTransform: 'uppercase' }}>Requests by County <Popover content={contentCounty} placement="top" > <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
       </div>
       <div className="graph" >
-        {/* {maxiQ > 0 &&
+        {maxiQ > 0 &&
           <HorizontalBarChartAnalytics
             data={quantityData}
             selected={countiesNames}
@@ -283,7 +293,7 @@ const Analytics = ({
             labelOverflowRight={true}
             minBarSize={0}
           />
-        } */}
+        }
         <img src="gallery/requests1.png" alt="" style={{ width: '100%' }} />
       </div>
       <div className="subtitle-requests" style={{ marginTop: '30px' }}>
