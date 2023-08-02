@@ -14,6 +14,7 @@ import {
   MEP_PROJECTS_CHANNELS,
   MEP_PROJECTS_STORM_OUTFALLS,
   NRCS_SOILS,
+  ALERT_STATION,
   DWR_DAM_SAFETY,
   STREAM_MANAGEMENT_CORRIDORS,
   BLOCK_CLEARANCE_ZONES_LAYERS,
@@ -834,6 +835,27 @@ export const addPopupsOnClick = async (
         layer: item.layer,
         hydgrpdcd: item.hydgrpdcd,
         muname: item.muname,
+      });
+      mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
+      ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
+    }
+    if (feature.source === ALERT_STATION) {
+      console.log('feature', feature);
+      const item = {
+        layer: MENU_OPTIONS.ALERT_STATION,
+        station_name: feature.properties.station_name ? feature.properties.station_name : '-',
+        station_type: feature.properties.station_type ? feature.properties.station_type : '-',
+        station_id: feature.properties.station_id ? feature.properties.station_id : '-',
+        shefid: feature.properties.shefid ? feature.properties.shefid : '-',
+        install_year: feature.properties.install_year ? feature.properties.install_year : '-',
+        station_status: feature.properties.station_status ? feature.properties.station_status : '-',
+        websiteAlert: 'http://alert5.udfcd.org/LDAD/gmapV3.html'
+      };
+      menuOptions.push(MENU_OPTIONS.ALERT_STATION);
+      popups.push(item);
+      mobile.push({
+        layer: item.layer,
+        station_name: item.station_name,
       });
       mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
       ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });

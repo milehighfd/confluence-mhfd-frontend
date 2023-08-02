@@ -852,3 +852,51 @@ hr.filters-line {
     color: $purple00;
   }
 }
+//table-style-map
+.table-list-map{
+  .ant-table{
+    color: $purple00;
+    font-size: 12px;
+  }
+  .ant-table-body{
+    height: calc(100vh - 306px) !important;
+    max-height: calc(100vh - 306px) !important;
+  }
+  .ant-table-thead{
+    tr:first-child th:first-child {
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+    }
+    tr>th {
+      padding: 10px 16px;
+      color: $purple00;
+      font-family: Ubuntu;
+      font-size: 12px;
+      line-height: 18px;
+      border: 0px solid #E6E9EA;
+      background: #F5F7FF;
+    }
+    tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan]):before {
+      display: none;
+    }
+  }
+  .ant-table-column-sorter {
+    color: $purple00;
+    margin-left: 10px;
+  }
+  .ant-table-column-sorters {
+    display: inline-flex;
+  }
+  
+  .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
+    padding: 11px 16px;
+    padding-right: 8px;
+  }
+  .project-name{
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 19px;
+    margin: 0px;
+    color: $purple00;
+  }
+}

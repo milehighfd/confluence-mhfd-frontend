@@ -32,7 +32,7 @@ const popovers: any = [
   <div className="popoveer-00"><b>Study:</b> Master plans that identify problems and recommend improvements.</div>,
   <div className="popoveer-00"><b>Maintenance:</b> Restore existing infrastructure eligible for MHFD participation.</div>,
   <div className="popoveer-00"><b>Acquisition:</b> Property with high flood risk or needed for improvements.</div>,
-  <div className="popoveer-00"><b>R&D:</b> Any other effort for which MHFD funds or staff time is requested.</div>
+  <div className="popoveer-00"><b>R&D:</b> Research and Development projects include new stream/rain gages, research, data development, new education and outreach programming, and criteria or guidance development.</div>
 ]
 const RequestView = ({ type, isFirstRendering }: {
   type: boardType,
@@ -250,7 +250,7 @@ const RequestView = ({ type, isFirstRendering }: {
       pathname: type === "WORK_REQUEST" ? '/map' : '/map',
       search: `?${params.map(p => p.join('=')).join('&')}`
     })
-  }, [year, locality, tabKey]);
+  }, [year, locality, tabKey, type]);
 
 
   useEffect(() => {
@@ -343,24 +343,32 @@ const RequestView = ({ type, isFirstRendering }: {
   };
 
   let displayedTabKey = tabKeys;
-  if (type === "WORK_PLAN") {
-    if (year < 2022) {
-      if (localityType === 'CODE_STATE_COUNTY') {
-        displayedTabKey = ['Capital', 'Maintenance']
-      } else if (localityType === 'CODE_SERVICE_AREA') {
-        displayedTabKey = ['Study', 'Acquisition', 'R&D'];
+
+  useEffect(() => {
+    loadTabkeysDisplayed();
+  }, [localityType]);
+
+  const loadTabkeysDisplayed = () => {
+    if (type === "WORK_PLAN") {
+      if (year < 2022) {
+        if (localityType === 'CODE_STATE_COUNTY') {
+          displayedTabKey = ['Capital', 'Maintenance']
+        } else if (localityType === 'CODE_SERVICE_AREA') {
+          displayedTabKey = ['Study', 'Acquisition', 'R&D'];
+        }
+      } else {
+        if (localityType === 'CODE_STATE_COUNTY') {
+          displayedTabKey = ['Capital', 'Maintenance', 'Acquisition', 'R&D']
+        } else if (localityType === 'CODE_SERVICE_AREA') {
+          displayedTabKey = ['Study'];
+        }
       }
-    } else {
-      if (localityType === 'CODE_STATE_COUNTY') {
-        displayedTabKey = ['Capital', 'Maintenance', 'Acquisition', 'R&D']
-      } else if (localityType === 'CODE_SERVICE_AREA') {
-        displayedTabKey = ['Study'];
+      if (locality.name === 'MHFD District Work Plan' || locality.name === 'Mile High Flood District') {
+        displayedTabKey = tabKeys;
       }
-    }
-    if (locality.name === 'MHFD District Work Plan' || locality.name === 'Mile High Flood District') {
-      displayedTabKey = tabKeys;
     }
   }
+  loadTabkeysDisplayed();
 
 
 
@@ -408,24 +416,23 @@ const RequestView = ({ type, isFirstRendering }: {
             <div className="work-body">
               <div className='btn-filter-d'>
                 <Toolbar type={''} />
-              </div>
-              <Tabs destroyInactiveTabPane={true}
-                defaultActiveKey={displayedTabKey[0]}
+              </div>  
+              <Tabs destroyInactiveTabPane={true} defaultActiveKey={displayedTabKey[0]}
                 activeKey={tabKey}
                 onChange={(key) => {
                   setTabKey(key);
-                  setPrioritySelected(['1', '2', '3', 'Over 3', 'Work Plan']);
-                }} className="tabs-map">
+                  setPrioritySelected([]);
+                  setJurisdictionSelected([]);
+                  if (year < 2024) {
+                    setCountiesSelected([]);
+                    setServiceAreasSelected([]);
+                  }
+                }} className="tabs-work">
                 {
                   displayedTabKey.map((tk: string) => (
-                    <TabPane tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]}
-                      placement="topLeft"
-                      overlayClassName="tabs-style">{tk} </Popover> </span>}
-                      key={tk}>
-                      <div>
+                    <TabPane tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style">{tk} </Popover> </span>} key={tk}>
                         {ListWork &&
                         <TableListView />
-                          
                         }{!ListWork && <div className="work-table"
                         ref={wrtRef}>
                         <ColumsTrelloCard
@@ -433,8 +440,7 @@ const RequestView = ({ type, isFirstRendering }: {
                           // notIsFiltered={notIsFiltered}
                           flagforScroll={flagforScroll} type={''}                            />
                       </div> }
-                      </div>
-                      <RequestCostRows type={''}/>
+                      <RequestCostRows type={type} />
                     </TabPane>
                   ))
                 }

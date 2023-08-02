@@ -247,6 +247,9 @@ export const ComponentPopup = ({ id, item, isComponent, maptype, eventFunctions 
   else if (item.layer.includes('LAND USE LAND COVER')) {
     isComponent = false;
   }
+  else if (item.layer.includes('Alert Station')) {
+    isComponent = false;
+  }
   else if (item.source && item.source.includes('routine_maintenance')) {
     isComponent = false;
   }
@@ -303,6 +306,14 @@ export const ComponentPopup = ({ id, item, isComponent, maptype, eventFunctions 
             {item.website ? <p className="text-popup"><i>Website:</i>  <a href={item.website} target="_blank">See website here</a></p> : ''}
             {item.letter ? <p className="text-popup"><i>Letter:</i>  <a href={item.letter} target="_blank">See letter here</a></p> : ''}
             {item.map ? <p className="text-popup"><i>Map:</i>  <a href={item.map} target="_blank">See map here</a></p> : ''}
+
+            {item.station_name ? <p><i> Station Name: </i> {item.station_name}</p> : ''}
+            {item.station_type ? <p><i> Station Type: </i> {item.station_type}</p> : ''}
+            {item.station_id ? <p><i> Station ID: </i> {item.station_id}</p> : ''}
+            {item.shefid ? <p><i> SHEF ID: </i> {item.shefid}</p> : ''}
+            {item.install_year ? <p><i> Install Year: </i> {item.install_year}</p> : ''}
+            {item.station_status ? <p><i> Station Status: </i> {item.station_status}</p> : ''}
+            {item.websiteAlert ? <p className="text-popup"><i></i>  <a style={{whiteSpace: 'break-spaces'}} href={item.websiteAlert} target="_blank">Click here to view a map of real-time radar and rainfall amounts</a></p> : ''}
 
             {item.sitename ? <p><i> Site Name:</i> {item.sitename}</p> : ''}
             {item.sitetype ? <p><i> Site Type:</i> {item.sitetype}</p> : ''}
