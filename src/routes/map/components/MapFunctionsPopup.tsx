@@ -899,14 +899,13 @@ export const addPopupsOnClick = async (
       feature.properties.species_name === 'Prebles meadow jumping mouse'
     ) {
       const item = {
-        layer: MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE,
-        expirationdate: epochTransform(feature.properties.expiration_date),
+        layer: `Block Clearance Zones Species: ${feature.properties.species_name}`,
+        description: feature.properties.description ? feature.properties.description : '-',
+        effective_dates: '2/3/2023 - 2/3/2028',
         bcz_specname: feature.properties.species_name,
         bcz_expdate: feature.properties.bcz_expdate,
-        website: 'https://www.fws.gov/mountain-prairie/es/preblesMeadowJumpingMouse.php',
-        letter:
-          'https://www.fws.gov/mountain-prairie/es/Library/2020-TA-0030_PMJM_Denver_Block_Clearance_extension_accessible_signed.pdf',
-        map: `https://www.fws.gov/mountain-prairie/es/species/mammals/preble/9-2016_USFWS_Preble's_map_Denver_Metro_Area.pdf`,
+        letter: feature.properties.letter ? feature.properties.letter : '-',
+        website: feature.properties.website ? feature.properties.website : '-',
       };
       menuOptions.push(MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE);
       popups.push(item);
@@ -923,14 +922,13 @@ export const addPopupsOnClick = async (
       feature.properties.species_name !== 'Prebles meadow jumping mouse'
     ) {
       const item = {
-        layer: MENU_OPTIONS.BCZ_UTE_LADIES_TRESSES_ORCHID,
+        layer: `Block Clearance Zones Species: ${feature.properties.species_name}`,
+        description: feature.properties.description ? feature.properties.description : '-',
+        effective_dates: '2/3/2023 - 2/3/2028',
         bcz_specname: feature.properties.species_name,
         bcz_expdate: feature.properties.bcz_expdate,
-        expirationdate: parseDateZ(feature.properties.expiration_date),
-        website: 'https://www.fws.gov/mountain-prairie/es/uteLadiestress.php',
-        letter:
-          'https://www.fws.gov/mountain-prairie/es/Library/2020-TA-0031_ULTO_Denver_Block_Clearance_extension_accessible_signed.pdf',
-        map: 'https://www.fws.gov/mountain-prairie/es/species/plants/uteladiestress/BlockClearanceMap2008.pdf',
+        letter: feature.properties.letter ? feature.properties.letter : '-',
+        website: feature.properties.website ? feature.properties.website : '-',
       };
       mobile.push({
         layer: MENU_OPTIONS.BLOCK_CLEARANCE_ZONE,

@@ -302,9 +302,10 @@ export const ComponentPopup = ({ id, item, isComponent, maptype, eventFunctions 
             {item.more_information ? <p><i>DWR Website:</i> <a href={item.more_information} target="_blank">Link</a></p> : ''}
             {item.scale ? <p><i>Scale:</i> {item.scale}</p> : ''}
             {item.date_created ? <p><i>Date created:</i> {item.date_created}</p> : ''}
+            {item.effective_dates ? <p><i>Effective Dates:</i> {item.effective_dates}</p> : ''}
             {item.expirationdate ? <p><i>Expiration Date:</i> {item.expirationdate}</p>: ''}
-            {item.website ? <p className="text-popup"><i>Website:</i>  <a href={item.website} target="_blank">See website here</a></p> : ''}
             {item.letter ? <p className="text-popup"><i>Letter:</i>  <a href={item.letter} target="_blank">See letter here</a></p> : ''}
+            {item.website ? <p className="text-popup"><i>Website:</i>  <a href={item.website} target="_blank">See website here</a></p> : ''}
             {item.map ? <p className="text-popup"><i>Map:</i>  <a href={item.map} target="_blank">See map here</a></p> : ''}
 
             {item.station_name ? <p><i> Station Name: </i> {item.station_name}</p> : ''}
