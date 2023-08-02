@@ -6,7 +6,6 @@ export const WrongModal = ({ visible, setVisible }: {
   setVisible: React.Dispatch<React.SetStateAction<boolean>>,
 }) => {
 
-  
   return (
     <div>
       <div >

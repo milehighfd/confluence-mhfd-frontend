@@ -88,12 +88,6 @@ const Analytics = ({
     let maxiA = 0;
     let amountData;
     setCountiesNames(dataByLocality.map((d: any) => d.locality).join(','));
-    let groupingType = null;
-    if (type === 'WORK_REQUEST') {
-      groupingType = 'Local Government'
-    } else {
-      groupingType = ['Study'].includes(tabKey) ? 'Service Area' : 'County';
-    }
     // 2000 is default value for all subtypes in maintenance
     if (year === 2000) {
       quantityData = dataByLocality.map((d: any) => {
@@ -154,7 +148,7 @@ const Analytics = ({
       })
       setAmountData(amountData);
     }
-  }, [dataByLocality,year]);
+  }, [dataByLocality,year,tabKey]);
 
   useEffect(() => {
     setYear(tabKey === 'Maintenance' ? 2000 : +initialYear);
@@ -168,7 +162,7 @@ const Analytics = ({
     } else {
       setDataByLocality(dataBySA);
     }
-  }, [localityType,showAnalytics,year]);
+  }, [localityType,showAnalytics,dataByLocalGovernment,dataByCounty,dataBySA]);
 
   const years: any[] = [];
   for (var i = 0; i < 5; i++) {

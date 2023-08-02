@@ -17,25 +17,26 @@ const FilterGroup = ({
   valueKey: string;
 }) => {
   return (
-    <div className="filter-plan">
-      <div className="head-f-p">{label}</div>
-      <div className="body-f-p">
+    <div style={{ marginTop: '32px' }}>
+      <div style={{ paddingBottom: '10px' }}>
+        <span style={{ fontSize: '16px', fontWeight: 'bold', lineHeight: '19.2px', marginRight: '4px' }}>{label}</span><img src="/Icons/icon-19.svg" alt="" />
+      </div>
+      <div className="body-f-p-filter">
         {
-          filterList.map((cn: any, index: number) => (
-            <p key={`filter-ps${index}`}>
-              {cn[labelKey]}
-              <span>
-                <Checkbox checked={selected[index]} onChange={e => {
-                  let v = e.target.checked;
-                  setter(selected.map((w, i) => {
-                    if (i === index) {
-                      return v;
-                    }
-                    return w;
-                  }))
-                }} />
-              </span>
-            </p>
+          filterList?.map((cn: any, index: number) => (
+            <div key={`filter-ps${index}`}>
+              <Checkbox className='check-filter' checked={selected[index]} onChange={e => {
+                let v = e.target.checked;
+                setter(selected.map((w, i) => {
+                  if (i === index) {
+                    return v;
+                  }
+                  return w;
+                }))
+              }} />
+              &nbsp;&nbsp;&nbsp;{cn[labelKey]}
+              <br />
+            </div>
           ))
         }
       </div>

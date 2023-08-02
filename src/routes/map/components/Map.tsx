@@ -631,15 +631,17 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     });
     mapService.map = map;
     mapService.loadImages();
-    flytoBoundsCoor(
-      getCurrent,
-      userInformation,
-      globalMapId,
-      coorBounds,
-      map,
-      groupOrganization,
-      setCoordinatesJurisdiction,
-    );
+    map.once('load', () => {
+      flytoBoundsCoor(
+        getCurrent,
+        userInformation,
+        globalMapId,
+        coorBounds,
+        map,
+        groupOrganization,
+        setCoordinatesJurisdiction,
+      );
+    });
 
     map.addControl(
       new mapboxgl.ScaleControl({
@@ -912,7 +914,6 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
   };
 
   useEffect(() => {
-    console.log('selectedLayers', selectedLayers);
     const [intervalId, promise] = waitingInterval(map);
     promise.then(() => {
       applySkyMapLayer();

@@ -67,6 +67,7 @@ const RequestView = ({ type, isFirstRendering }: {
     setJurisdictionSelected,
     setCountiesSelected,
     setServiceAreasSelected,
+    setProjectStatusesSelected,
     setLocalityType,
     setLocalities,
     setColumns,
@@ -220,6 +221,7 @@ const RequestView = ({ type, isFirstRendering }: {
     const loadProjects = async () => {
       setColumns(defaultColumns);
       let board;
+      console.log(type, year, locality, tabKey)
       try {
         board = await getBoardData3({
           type,
@@ -318,7 +320,6 @@ const RequestView = ({ type, isFirstRendering }: {
     const user = userInformation;
     user.polygon = coordinates;
     user.isSelect = isSelect;
-    console.trace('ASDF ', coordinates);
     //saveUserInformation(user);
     setNameZoomArea(name);
     const zoomareaSelected = groupOrganization
@@ -445,6 +446,7 @@ return (
                   setTabKey(key);
                   setPrioritySelected([]);
                   setJurisdictionSelected([]);
+                  setProjectStatusesSelected([]);
                   if (year < 2024) {
                     setCountiesSelected([]);
                     setServiceAreasSelected([]);

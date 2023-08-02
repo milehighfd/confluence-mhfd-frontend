@@ -3,16 +3,13 @@ import { Button, Input, Popover, Space } from 'antd';
 import DownloadCSV from 'Components/Work/Request/Toolbar/DownloadCSV';
 import ShareURL from 'Components/Work/Request/Toolbar/ShareURL';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
-import { MEDIUM_SCREEN_RIGHT } from 'constants/constants';
+import { boardType } from 'Components/Work/Request/RequestTypes';
 import { SearchOutlined } from '@ant-design/icons';
-import { useMapState } from 'hook/mapHook';
-
-const ButtonGroup = Button.Group;
 
 const Toolbar = ({
   type,
 }:{
-  type: string,
+  type: boardType,
 }) => {
   const {
     locality,
@@ -20,7 +17,6 @@ const Toolbar = ({
     tabKey,
     sumTotal,
     sumByCounty,
-    leftWidth,
     localities,
     columns2: columns,
     diff,
@@ -31,11 +27,7 @@ const Toolbar = ({
     setShowAnalytics,
     setShowFilters,
   } = useRequestDispatch();
-  // function setShowFilters(arg0: boolean): void {
-  //   throw new Error('Function not implemented.');
-  // }
 
-  
   const [showSearch, setShowSearch] = useState(false);
 
   const handleIconClick = () => {
@@ -115,7 +107,7 @@ const Toolbar = ({
           </Button>
         </Popover>
         <DownloadCSV
-          type={type === 'WORK_REQUEST' ? 'WORK_REQUEST' : 'WORK_PLAN'}
+          type={type}
           localities={localities}
           columns={columns}
           locality={locality}

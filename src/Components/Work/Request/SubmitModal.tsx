@@ -89,7 +89,7 @@ export const SubmitModal = ({ locality, boardsLength, boardSubstatus, type, visi
               )
             } */}
             <button className="btn-borde" onClick={handleCancel}  style={{width:'47%'}}>Cancel</button>
-            <button className="btn-purple" onClick={handleCancel} style={{width:'47%'}}>
+            <button className="btn-purple" onClick={handleOk} style={{width:'47%'}}>
               Submit
             </button>
           </Col>
