@@ -203,7 +203,7 @@ const Analytics = ({
       mask={false}>
       <div style={{ position: 'sticky', top: '0', backgroundColor: 'white' }}>
         <Row style={{ width: '100%' }}>
-          <Col span={12} className='title-utilities'>FOR
+          <Col span={tabKey === 'Maintenance' ? 24:12} className='title-utilities'>FOR
             <Select
               style={{ marginLeft: '11px', border: '1px solid #D9D9D9', borderRadius: '4px' }}
               listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
@@ -218,7 +218,8 @@ const Analytics = ({
                 ))
               }
             </Select></Col>
-          <Col span={12} className='title-utilities'>BY
+            {tabKey === 'Maintenance' ? <><br/><br/></>:''}
+          <Col span={tabKey === 'Maintenance' ? 24:12} className='title-utilities'>BY
             <Select
               defaultValue="County"
               style={{ marginLeft: '11px', border: '1px solid #D9D9D9', borderRadius: '4px', width: '70%' }}

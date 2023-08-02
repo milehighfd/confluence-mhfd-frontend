@@ -457,13 +457,14 @@ return (
                     <TabPane tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style">{tk} </Popover> </span>} key={tk}>
                         {ListWork &&
                         <TableListView />                          
-                        }{!ListWork && <div className="work-table"
+                        }{!ListWork && <div><div className="work-table"
                         ref={wrtRef}>
                         <ColumsTrelloCard                         
                           flagforScroll={flagforScroll} 
-                          type={type}/>
-                      </div> }                      
-                      <RequestCostRows type={''}/>
+                          type={type}/>                          
+                      </div>
+                      <RequestCostRows type={type}/>
+                      </div>}                     
                     </TabPane>
                   ))
                 }
