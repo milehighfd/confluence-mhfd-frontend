@@ -7,6 +7,7 @@ import { GET_BOARD_DEPENDENCIES, UPDATE_BOARD_BY_ID } from "Config/endpoints/boa
 import { useRequestDispatch } from "hook/requestHook";
 import { WINDOW_WIDTH } from "constants/constants";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
+import { WrongModal } from "../Request/WrongModal";
 
 const content00 = (<div className="popver-info">When Work Request Status is changed to "Approved" and saved, the Work Request is sent to MHFD for review and the Work Request is locked. All Project Types must be checked as "Reviewed" in the list below and saved prior to changing Work Request Status.</div>);
 const content01 = (<div className="popver-info">This is an internal QA/QC workspace for Local Governments. All Project Types on the Work Request must be checked as "Reviewed" and saved before the overall Work Request Status can be changed to "Approved."</div>);
@@ -36,6 +37,7 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
   const [boardComment, setBoardComment] = useState(comment || '');
   const [boardSubstatus, setBoardSubstatus] = useState(substatus);
   const [visibleAlert, setVisibleAlert] = useState(false);
+  const [visibleWrongModal, setVisibleWrongModal] = useState(false);
   const [boardsData, setBoardsData] = useState<any[]>([]);
   const [boardsLength, setBoardsLength] = useState<number>(0);
   const [loading, setLoading] = useState(false);
@@ -164,6 +166,8 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
       currentStatus={status}
       pending = {pending}
      />
+    }{
+      <WrongModal visible={visibleWrongModal} setVisible={setVisibleWrongModal} />
     }
     <Drawer
       title={<h5 className='title-drawer'>
@@ -258,6 +262,7 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
         <Button className="btn-purple" onClick={() => {
           if (boardStatus === 'Approved') {
             setVisibleAlert(true)
+            setVisibleWrongModal(true)
           } else {
             save();
           }        
