@@ -899,4 +899,15 @@ hr.filters-line {
     margin: 0px;
     color: $purple00;
   }
+  .status-projects{
+    color: #29C499;
+    font-weight: 400;
+    border-radius: 19px;
+    background: rgba(41, 196, 153, 0.20);
+    width: 68px;
+    height: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

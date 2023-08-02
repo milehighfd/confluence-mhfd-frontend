@@ -26,6 +26,7 @@ const ListViewMap = () => {
       key: 'status',
       width: '96px',
       sorter: (a, b) => a.status - b.status,
+      render: (text: any) => <span className="status-projects">{text}</span>,
     },
     {
       title: 'Phase',
