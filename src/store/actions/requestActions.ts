@@ -542,8 +542,20 @@ export const recalculateTotals = () => {
     console.log('window.location.pathname', window.location.pathname);
     dispatch({
       type: types.REQUEST_SET_SUM_BY_COUNTY,
-      payload: Object.keys(sumByGroupMapTotal[mainKey] || {}).map(
-        (key: any) => sumByGroupMapTotal[mainKey][key]
+      payload: Object.keys(sumByGroupMapTotal['project_counties'] || {}).map(
+        (key: any) => sumByGroupMapTotal['project_counties'][key]
+      )
+    });
+    dispatch({
+      type: types.REQUEST_SET_SUM_BY_SA,
+      payload: Object.keys(sumByGroupMapTotal['project_service_areas'] || {}).map(
+        (key: any) => sumByGroupMapTotal['project_service_areas'][key]
+      )
+    });
+    dispatch({
+      type: types.REQUEST_SET_SUM_BY_LG,
+      payload: Object.keys(sumByGroupMapTotal['project_local_governments'] || {}).map(
+        (key: any) => sumByGroupMapTotal['project_local_governments'][key]
       )
     });
     dispatch({
