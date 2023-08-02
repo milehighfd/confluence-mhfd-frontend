@@ -190,8 +190,8 @@ export const ModalCapital = ({
   const [activeTabBodyProject, setActiveTabBodyProject] = useState('Details');
   const [favorite, setFavorite] = useState(false);
   const [groupParsed, setGroupParsed] = useState<any>([]);
-  const [selectedTypeProject, setSelectedTypeProject] = useState(typeProject.toLowerCase() === 'r&d' ? 'special' : typeProject.toLowerCase());
-  const [selectedLabelProject, setSelectedLabelProject] = useState(subTypeInit === '' ? (typeProject) : subTypeInit);
+  const [selectedTypeProject, setSelectedTypeProject] = useState((typeProject.toLowerCase() === 'r&d' ? 'special' : typeProject.toLowerCase()) || 'capital');
+  const [selectedLabelProject, setSelectedLabelProject] = useState((subTypeInit === '' ? (typeProject) : subTypeInit) || 'Capital');
   const [lastValue, setLastValue] = useState('');
   const [showDraw, setShowDraw] = useState(true);
   const [showCounty, setShowCounty] = useState(false);
