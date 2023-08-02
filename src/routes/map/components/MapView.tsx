@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment, useCallback } from 'react';
-import { Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover, MenuProps } from 'antd';
+import { Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover, MenuProps, List } from 'antd';
 import { useLocation } from 'react-router-dom';
 import { getGroupListWithAbortController } from 'routes/portfolio-view/components/ListUtils';
 import GenericTabView from 'Components/Shared/GenericTab/GenericTabView';
@@ -22,6 +22,7 @@ import { useProjectDispatch } from 'hook/projectHook';
 import { SERVER } from 'Config/Server.config';
 import ApplyMapViewFilter from './ApplyMapViewFilter';
 import { useFilterContext } from 'utils/filterContext';
+import ListViewMap from './ListViewMap';
 
 const MapAutoComplete = React.lazy(() => import('routes/map/components/MapAutoComplete'));
 const FiltersProjectView = React.lazy(() => import('Components/FiltersProject/FiltersProjectView'));
@@ -150,7 +151,7 @@ const MapView = () => {
   const purple = '#11093c';
   const [backgroundStyle, setBackgroundStyle] = useState<string>(gray);
   const [textStyle, setTextStyle] = useState<string>(purple);
-  const [selectView, setSelectView] = useState<string>('list');
+  const [selectView, setSelectView] = useState<string>('card');
   const [groupsLabels, setGroupsLabels] = useState<any>({
     projecttype: [],
     totalcost: [],
@@ -1265,11 +1266,14 @@ const MapView = () => {
                     }
                     key={index}
                   >
-                    <GenericTabView
-                      type={value}
-                      totalElements={totalElements}
-                      cardInformation={cardInformation}
-                    />
+                    {selectView === 'list' ?
+                      <ListViewMap />:
+                      <GenericTabView
+                        type={value}
+                        totalElements={totalElements}
+                        cardInformation={cardInformation}
+                      />
+                    }
                   </TabPane>
                 );
               })}

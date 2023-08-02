@@ -506,3 +506,16 @@
 .dropdown-special-bottomLeft {
     top: 42px !important;
   }
+
+//MODAL-CONFIRM - STYLE -div
+.modal-confirm{
+  .img-wrong{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 10px 0px 18px 0px;
+    img{
+      width: 120px;
+    }
+  }
+}
