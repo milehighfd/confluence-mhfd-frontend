@@ -231,7 +231,7 @@ const MapFilterView = ({
     return (
       <div className="filter-coll-header" key="o0J90xA0GWXI">
 
-         <div key="Iwo7J4ogHFZQ" style={(switches[WATERSHED_FILTERS] || switches[NRCS_SOILS] || switches[ALERT_STATION]) ? weightStyle : emptyStyle }>{/*<img key="xwQ2RQ0DRJKR" src="/Icons/icon-77.svg" alt="" />*/} HYDROLOGIC </div>
+         <div key="Iwo7J4ogHFZQ" style={(switches[WATERSHED_FILTERS] || switches[NRCS_SOILS] || switches[ALERT_STATION]) ? weightStyle : emptyStyle }>{/*<img key="xwQ2RQ0DRJKR" src="/Icons/icon-77.svg" alt="" />*/} HYDROLOGY </div>
         <Switch key="ETPVzxlFrXL8" checked={groups['hydrologic']} size="small" onClick={(value, event) => {
          event.stopPropagation();
          changeGroup(value, [STREAMS_FILTERS, WATERSHED_FILTERS, NRCS_SOILS, ALERT_STATION
