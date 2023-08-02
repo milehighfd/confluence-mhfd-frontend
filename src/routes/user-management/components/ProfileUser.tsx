@@ -18,6 +18,9 @@ import RadioDesignation from 'routes/user-management/components/RadioDesignation
 import { formatPhoneNumber } from 'utils/utils';
 import { useAppUserDispatch } from "../../../hook/useAppUser";
 import ConfirmationSave from './ConfirmationSave';
+import { notification } from 'antd';
+import Notification from 'Components/Shared/Notifications/Notification';
+import { NotificationType } from 'Components/Shared/Notifications/NotificationsTypes';
 
 const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveUser: Function, setExpandedRow: React.Dispatch<React.SetStateAction<boolean>> }) => {
   const [organization, setOrganization] = useState('');
@@ -63,6 +66,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
   const [createAssociate, setCreateAssociate] = useState<any>(false);
   const [createAssociateName, setCreateAssociateName] = useState<any>('');
   const [createPhone, setCreatePhone] = useState<any>('');
+  const [api, contextHolder] = notification.useNotification();
 
   interface Contact {
     full_address: string;
@@ -70,6 +74,13 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
     state: string;
     zip: string;
   }
+
+  const openNotificationWithIcon = (type: NotificationType) => {
+    api[type]({
+      message: 'Success! Your user update was saved!',
+      className: 'test-diego'
+    });
+  };
 
   const {
     replaceAppUser,
@@ -557,6 +568,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
             setUpdate(!update);
             getUserInformation();
             setConfirmation(true);
+            openNotificationWithIcon('success');
             setTimeout(() => {
               setConfirmation(false);
             }, 3000);
@@ -588,7 +600,8 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
 
   return (
     <>
-    <ConfirmationSave visible={confirmation} setVisible={setConfirmation} />
+    {/* <ConfirmationSave visible={confirmation} setVisible={setConfirmation} /> */}
+    {contextHolder}
     <Alert save={result} visible={{visible:saveAlert}} setVisible={setSaveAlert} message={message}/>
       <div className="profile-user">
         <Row>
@@ -902,7 +915,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
         </Row>
         <br />
         <div style={{ textAlign: 'end' }}>
-          <Button onClick={()=>setExpandedRow(false)} className="btn-profile-list" style={{ marginRight: '20px', borderColor: 'transparent' }}>
+          <Button onClick={()=>setExpandedRow(false)} className="btn-profile-list-transparent">
             Cancel
           </Button>
           <Button onClick={()=>{setSaveAlert(true)}} className="btn-purple btn-profile-list">Save</Button>
