@@ -899,11 +899,33 @@ hr.filters-line {
     margin: 0px;
     color: $purple00;
   }
-  .status-projects{
-    color: #29C499;
+  .status-projects-active{
+    color: $green;
     font-weight: 400;
     border-radius: 19px;
     background: rgba(41, 196, 153, 0.20);
+    width: 68px;
+    height: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .status-projects-submitted{
+    color: #FF8938;
+    font-weight: 400;
+    border-radius: 19px;
+    background: rgba(255, 221, 0, 0.20);
+    width: 68px;
+    height: 16px;
+    display: flex;
+    justify-content: center;
+    // align-items: center;
+  }
+  .status-projects-requested{
+    color: #871DE1;
+    font-weight: 400;
+    border-radius: 19px;
+    background: rgba(135, 29, 225, 0.20);
     width: 68px;
     height: 16px;
     display: flex;
