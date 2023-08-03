@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Drawer, Button,  List, Row, Col, Checkbox, Popover, Select, Switch, Space } from 'antd';
-import { getData, getToken, putData } from "../../../Config/datasets";
+import { Drawer, Button,  List, Row, Col, Popover, Switch, Space } from 'antd';
+import { getToken, putData } from "../../../Config/datasets";
 import { SubmitModal } from "../Request/SubmitModal";
 import { boardType } from "../Request/RequestTypes";
-import { GET_BOARD_DEPENDENCIES, UPDATE_BOARD_BY_ID } from "Config/endpoints/board";
+import { UPDATE_BOARD_BY_ID } from "Config/endpoints/board";
 import { useRequestDispatch } from "hook/requestHook";
-import { WINDOW_WIDTH } from "constants/constants";
-import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
+import { WrongModal } from "../Request/WrongModal";
 
-const content00 = (<div className="popver-info">When Work Request Status is changed to "Approved" and saved, the Work Request is sent to MHFD for review and the Work Request is locked. All Project Types must be checked as "Reviewed" in the list below and saved prior to changing Work Request Status.</div>);
-const content01 = (<div className="popver-info">This is an internal QA/QC workspace for Local Governments. All Project Types on the Work Request must be checked as "Reviewed" and saved before the overall Work Request Status can be changed to "Approved."</div>);
 const content02 = (<div className="popver-info">This is a place to add notes on a Local Government work request. Notes will be visible to any user from the same Local Government as well as MHFD staff.</div>);
-const content00WP = (<div className="popver-info">This field indicates the status of the Work Plan shown. Changing the status to Approved will finalize the Work Plan for approval by the MHFD Board.</div>);
-const content01WP = (<div className="popver-info">This section indicates all of the applicable jurisdictions within this Work Plan, and whether they have submitted their finalized Work Requests (green dot) or not (yellow dot). All jurisdictions must be green before the Work Plan can be approved.</div>);
 const Status = ({ locality, boardId, visible, setVisible, status, comment, type, substatus, setAlertStatus, setShowAlert, onUpdateHandler}: {
   locality: string,
   boardId: any,
@@ -36,6 +31,7 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
   const [boardComment, setBoardComment] = useState(comment || '');
   const [boardSubstatus, setBoardSubstatus] = useState(substatus);
   const [visibleAlert, setVisibleAlert] = useState(false);
+  const [visibleWrongModal, setVisibleWrongModal] = useState(false);
   const [boardsData, setBoardsData] = useState<any[]>([]);
   const [boardsLength, setBoardsLength] = useState<number>(0);
   const [loading, setLoading] = useState(false);
@@ -78,54 +74,16 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
   }
 
   useEffect(() => {
-    if (type === 'WORK_PLAN') {
-      let list = substatus ? substatus.split(',') : [];
-      let ls = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'R&D']
-      setBoardsData(ls.map((l) => {
-        return {
-          locality: l,
-          status: list.includes(l) ? 'Approved' : 'Under Review',
-          checked: list.includes(l) ? 'Approved' : 'Under Review'
-        }
-      }))
-      setBoardsLength(ls.length);
-    } else {
-      setLoading(true);
-      getData(GET_BOARD_DEPENDENCIES(boardId), getToken())
-        .then((r) => {
-          let list = substatus ? substatus.split(',') : [];
-          let newBoardsSorted = [...r.boards];
-          newBoardsSorted.sort(function(a, b) {
-            if (locality !== 'MHFD District Work Plan') {
-              return a.locality.localeCompare(b.locality);
-            } else {
-              if (a.locality.includes('County') && b.locality.includes('County')) {
-                return a.locality.localeCompare(b.locality);
-              } else if (a.locality.includes('Service Area') && b.locality.includes('Service Area')) {
-                return a.locality.localeCompare(b.locality);
-              } else if (a.locality.includes('County')) {
-                return -1;
-              } else {
-                return 1;
-              }
-            }
-         });
-          setBoardsData(newBoardsSorted.map((b: any) => {
-            return {
-              ...b,
-              status: b.status === 'Approved' ? 'Approved' : 'Under Review',
-              checked: list.includes(b.locality) ? 'Approved' : 'Under Review'
-            }
-          }));
-          setBoardsLength(newBoardsSorted.length)
-        })
-        .catch((e) => {
-          console.log('e', e)
-        })
-        .finally(() => {
-          setLoading(false);
-        })
-    }
+    let list = substatus ? substatus.split(',') : [];
+    let ls = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'R&D']
+    setBoardsData(ls.map((l) => {
+      return {
+        locality: l,
+        status: list.includes(l) ? 'Approved' : 'Under Review',
+        checked: list.includes(l)
+      }
+    }))
+    setBoardsLength(ls.length);
   }, [substatus])
 
   const onCheck = (val: string) => {
@@ -136,19 +94,14 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
     } else {
       ls.splice(index, 1);
     }
-    setBoardSubstatus(ls.join(','))
-    setBoardsData(
-      boardsData.map((bd) => {
-        return {
-          ...bd,
-          checked: ls.includes(bd.locality) ? 'Approved' : 'Under Review'
-        }
-      })
-    )
-  }
-
-  function apllyOwnership(ownership: boolean): void {
-    throw new Error("Function not implemented.");
+    setBoardSubstatus(ls.join(','));
+    const newBoardsData = boardsData.map((bd) => {
+      return {
+        ...bd,
+        checked: ls.includes(bd.locality)
+      }
+    });
+    setBoardsData(newBoardsData);
   }
 
   return (
@@ -164,6 +117,9 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
       currentStatus={status}
       pending = {pending}
      />
+    }
+    {
+      <WrongModal visible={visibleWrongModal} setVisible={setVisibleWrongModal} />
     }
     <Drawer
       title={<h5 className='title-drawer'>
@@ -231,37 +187,43 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
                         </h6>
                       }
                     />
-                    {
-                      (type === 'WORK_PLAN' || locality === 'Mile High Flood District') &&
-                      // <Checkbox checked={item.checked === 'Approved'} onClick={() => onCheck(item.locality)} />
-                      <Space direction="vertical" style={{paddingRight:'25px'}}>                        
-                      <Switch checkedChildren={arrayStateSwitch[index] ? "Yes":'No'} unCheckedChildren={arrayStateSwitch[index] ? "No":'Yes'} defaultChecked 
-                      className={arrayStateSwitch[index] ?"switch-status":'switch-status-no'}
-                      onClick={()=>{const newArray = [...arrayStateSwitch];
-                      newArray[index] = !arrayStateSwitch[index];
-                      setarrayStateSwitch(newArray);}}/>                      
-                    </Space>
-                    }
+                      <Space
+                        direction="vertical"
+                        style={{paddingRight:'26px'}}
+                      >
+                        <Switch
+                          checkedChildren={item.checked ? "Yes" : 'No'}
+                          unCheckedChildren={item.checked ? "No": 'Yes'}
+                          checked={item.checked}
+                          className={item.checked ? "switch-status" : 'switch-status-no'}
+                          onClick={() => onCheck(item.locality)}
+                        />
+                      </Space>
                   </List.Item>
                 )}
               />
             )
           }
       <br />
-      <p>Notes <Popover content={content02}>  <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></p>
+      <p className="note-text">Notes <Popover content={content02}>  <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></p>
       <textarea className="note" rows={8} value={boardComment} onChange={e => {
         setBoardComment(e.target.value)
       }} style={{width:'100%'}}>
       </textarea>
 
       <div className="footer-drawer">
-        <Button className="btn-purple" onClick={() => {
-          if (boardStatus === 'Approved') {
-            setVisibleAlert(true)
-          } else {
+        <Button
+          className="btn-purple"
+          onClick={() => {
+            const canBeApproved = boardsData.every(r => r.checked);
+            if (canBeApproved) {
+              setVisibleAlert(true)
+            } else {
+              setVisibleWrongModal(true);
+            }
             save();
-          }        
-        }}>
+          }}
+        >
           Save
         </Button>
       </div>

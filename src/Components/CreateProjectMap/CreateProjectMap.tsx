@@ -272,7 +272,7 @@ const CreateProjectMap = (type: any) => {
       setUserPolygon([]);
       setEditLocation([]);
       marker.remove();
-      setZoomGeom(undefined);
+      // setZoomGeom(undefined);
     };
   }, [type.type]);
   useEffect(() => {
@@ -315,6 +315,7 @@ const CreateProjectMap = (type: any) => {
     }
   }, [listStreams]);
   useEffect(() => {
+    console.log('zoomGeom', zoomGeom, map);
     if (zoomGeom && map) {
       map.map.once('load', () => {
         map.map.fitBounds(zoomGeom);
@@ -830,14 +831,14 @@ const CreateProjectMap = (type: any) => {
         hideHighlighted();
         getStreamIntersectionPolygon(userPolygon.geometry);
       }
-      getStreamsList(userPolygon.geometry);
+      getStreamsList(userPolygon.geometry, currentType);
     } else if (currentType === 'MAINTENANCE') {
       getStreamIntersectionPolygon(userPolygon.geometry);
-      getStreamsList(userPolygon.geometry);
+      getStreamsList(userPolygon.geometry, currentType);
     } else if (currentType === 'STUDY') {
       // type.setGeom(userPolygon.geometry); TODO verify if this is needed
       getStreamsIntersectedPolygon(userPolygon.geometry);
-      getStreamsList(userPolygon.geometry);
+      getStreamsList(userPolygon.geometry, currentType);
       getServiceAreaStreams(userPolygon.geometry);
     }
 

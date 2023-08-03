@@ -27,32 +27,34 @@ export const flytoBoundsCoor = (
   groupOrganization: any,
   setCoordinatesJurisdiction: any,
 ) => {
-  let historicBounds = getCurrent();
-  if (historicBounds && historicBounds.bbox && userInformation.isSelect != 'isSelect') {
-    globalMapId = historicBounds.id;
-    map.fitBounds([
-      [historicBounds.bbox[0], historicBounds.bbox[1]],
-      [historicBounds.bbox[2], historicBounds.bbox[3]],
-    ]);
-  } else if (coorBounds[0] && coorBounds[1]) {
-    map.fitBounds(coorBounds);
-  }
-  if (userInformation.isSelect != 'isSelect') {
-    // map.setZoom(9)
-    setTimeout(() => {
-      const zoomareaSelected = groupOrganization
-        .filter((x: any) => x.name === userInformation.zoomarea)
-        .map((element: any) => {
-          return {
-            aoi: element.name,
-            filter: element?.filter,
-            coordinates: element?.coordinates?.coordinates,
-          };
-        });
-      if (zoomareaSelected[0]) {
-        setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
-      }
-    }, 5000);
+  if (userInformation.isSelect !== 'isinit') {
+    let historicBounds = getCurrent();
+    if (historicBounds && historicBounds.bbox && userInformation.isSelect != 'isSelect') {
+      globalMapId = historicBounds.id;
+      map.fitBounds([
+        [historicBounds.bbox[0], historicBounds.bbox[1]],
+        [historicBounds.bbox[2], historicBounds.bbox[3]],
+      ]);
+    } else if (coorBounds[0] && coorBounds[1]) {
+        map.fitBounds(coorBounds);
+    }
+    if (userInformation.isSelect != 'isSelect') {
+      // map.setZoom(9)
+      setTimeout(() => {
+        const zoomareaSelected = groupOrganization
+          .filter((x: any) => x.name === userInformation.zoomarea)
+          .map((element: any) => {
+            return {
+              aoi: element.name,
+              filter: element?.filter,
+              coordinates: element?.coordinates?.coordinates,
+            };
+          });
+        if (zoomareaSelected[0]) {
+          setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
+        }
+      }, 5000);
+    }
   }
 };
 
@@ -94,7 +96,6 @@ export const getTitleOfProblemsPart = (feature: any) => {
   if (feature.source.includes('development_line')) {
     title = 'Watershed Change Line';
   }
-  console.log('Hello ', feature, title);
   return title;
 };
 export const getTitleOfLandUse = (feature: any) => {

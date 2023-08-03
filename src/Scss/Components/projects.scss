@@ -26,6 +26,7 @@
       color: $purple00;
       margin-top: 0px;
       line-height: 14px;
+      min-width: 35px;
     }
     .project-title{
       width: -webkit-fill-available;
@@ -965,6 +966,13 @@
       border-radius: 4px;
       background: rgba(255, 255, 255, 0.8);
     }
+  }
+}
+//menu -header
+.menu-drop-type{
+  .ant-dropdown-menu-item .ant-dropdown-menu-submenu-expand-icon .ant-dropdown-menu-submenu-arrow-icon,
+  .ant-dropdown-menu-submenu-title .ant-dropdown-menu-submenu-expand-icon .ant-dropdown-menu-submenu-arrow-icon {
+    color: $purple00 !important;
   }
 }
 // .menu-large{

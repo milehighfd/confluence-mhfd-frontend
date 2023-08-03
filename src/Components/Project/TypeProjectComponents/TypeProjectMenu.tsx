@@ -9,7 +9,7 @@ type Props = {
 export const TypeProjectsMenu: React.FC<Props> = ({ setTypeAndSubType }) => {
   return (
     <Menu
-      className="menu-drop"
+      className="menu-drop menu-drop-type"
       items={[
         {
           key: 'Capital',
@@ -37,7 +37,7 @@ export const TypeProjectsMenu: React.FC<Props> = ({ setTypeAndSubType }) => {
             },
             {
               key: 'General Maintenance',
-              label: 'General Maintenance',
+              label: 'Minor Repairs',
               onClick: () => {setTypeAndSubType('maintenance','Minor Repairs','General Maintenance')},
             },
             {

@@ -27,6 +27,8 @@ import {
   setJurisdictionSelected,
   setCountiesSelected,
   setServiceAreasSelected,
+  setProjectStatusesSelected,
+  setIsLocatedInSouthPlateRiverSelected,
   setCsaSelected,
   setLocalityType,
   setVisibleCreateProject,
@@ -132,6 +134,12 @@ export const useRequestDispatch = () => {
   const _setServiceAreasSelected = useCallback((serviceAreasSelected: any) => {
     dispatch(setServiceAreasSelected(serviceAreasSelected));
   }, [dispatch]);
+  const _setProjectStatusesSelected = useCallback((projectStatusesSelected: any) => {
+    dispatch(setProjectStatusesSelected(projectStatusesSelected));
+  }, [dispatch]);
+    const _setIsLocatedInSouthPlateRiverSelected = useCallback((isLocatedInSouthPlateRiverSelected: any) => {
+    dispatch(setIsLocatedInSouthPlateRiverSelected(isLocatedInSouthPlateRiverSelected));
+  }, [dispatch]);
   const _setCsaSelected = useCallback((csaSelected: any) => {
     dispatch(setCsaSelected(csaSelected));
   }, [dispatch]);
@@ -217,6 +225,8 @@ export const useRequestDispatch = () => {
     setJurisdictionSelected: _setJurisdictionSelected,
     setCountiesSelected: _setCountiesSelected,
     setServiceAreasSelected: _setServiceAreasSelected,
+    setProjectStatusesSelected :_setProjectStatusesSelected,
+    setIsLocatedInSouthPlateRiverSelected :_setIsLocatedInSouthPlateRiverSelected,
     setCsaSelected: _setCsaSelected,
     setLocalityType: _setLocalityType,
     setVisibleCreateProject: _setVisibleCreateProject,

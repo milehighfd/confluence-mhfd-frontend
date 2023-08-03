@@ -24,16 +24,27 @@ const initProfile = {
   countProjects: [],
   spin: false,
   groupOrganization: [],
-  allUserProjects: []
+  allUserProjects: [],
+  isLocalGovernment: false
 }
 
 const profile = (state = initProfile, action: any) => {
   switch (action.type) {
     case types.GET_USER_INFORMATION:
+      let isLocalGovernment = false;
+      const CODE_LOCAL_GOVERNMENT = 3;
+      if (action.user) {
+        if (action.user?.business_associate_contact?.business_address?.business_associate?.code_business_associates_type_id === CODE_LOCAL_GOVERNMENT) {
+          if (action.user?.business_associate_contact?.business_address?.business_associate?.business_name) {
+            isLocalGovernment = true;
+          }
+        }
+      }
       return {
         ...state,
         userInformation: action.user,
-        spin: false
+        spin: false,
+        isLocalGovernment: isLocalGovernment
       }
     case types.UPLOAD_PHOTO:
       return {

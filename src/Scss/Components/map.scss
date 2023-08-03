@@ -360,7 +360,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
-
+     
+       
   p {
     font-size: 14px;
     margin-bottom: 0px;
@@ -2606,53 +2607,6 @@ hr.filters-line {
     margin-top: 33px !important;
   }
 
-  .popoveer-00 {
-    font-size: 20px;
-
-    .notification-header {
-      a {
-        font-size: 23px !important;
-        margin-top: 10px;
-      }
-
-      h2 {
-        font-size: 32px;
-        margin-left: 14px;
-        margin-top: 10px;
-      }
-    }
-
-    .notification-body {
-      padding: 17.5px 16px !important;
-
-      img {
-        height: 45px !important;
-        margin-right: 10px !important;
-      }
-
-      .text-notification {
-        p {
-          font-size: 25.5px !important;
-          line-height: 25px !important;
-          width: 628px !important;
-        }
-
-        .date {
-          font-size: 24px !important;
-        }
-      }
-    }
-  }
 }
 
-.map-view-detail{
-  height: 100%;
-  width: 100%;
-  border-radius: 15px;
-  padding-bottom: 20px;
-  #map3{
-    height: 100% !important;
-    width: 100% !important;
-    border-radius: 10px;
-  }
-}
+

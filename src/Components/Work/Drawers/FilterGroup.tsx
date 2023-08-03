@@ -1,5 +1,7 @@
+import { InfoCircleOutlined } from '@ant-design/icons';
 import { Checkbox } from 'antd';
 import React from 'react';
+import { capitalLetter, capitalizeWords } from 'utils/utils';
 
 const FilterGroup = ({
   label,
@@ -17,25 +19,26 @@ const FilterGroup = ({
   valueKey: string;
 }) => {
   return (
-    <div className="filter-plan">
-      <div className="head-f-p">{label}</div>
-      <div className="body-f-p">
+    <div style={{ marginTop: '10px' }}>
+      <div style={{ paddingBottom: '10px' }}>
+        <span className='sub-title-filter'>{capitalizeWords(label)} </span><InfoCircleOutlined style={{opacity:0.3}} />
+      </div>
+      <div className={label === 'Located in the South Platte River'? "body-f-p-filter-river" : "body-f-p-filter"}>
         {
-          filterList.map((cn: any, index: number) => (
-            <p key={`filter-ps${index}`}>
-              {cn[labelKey]}
-              <span>
-                <Checkbox checked={selected[index]} onChange={e => {
-                  let v = e.target.checked;
-                  setter(selected.map((w, i) => {
-                    if (i === index) {
-                      return v;
-                    }
-                    return w;
-                  }))
-                }} />
-              </span>
-            </p>
+          filterList?.map((cn: any, index: number) => (
+            <div key={`filter-ps${index}`}>
+              <Checkbox className='check-filter' checked={selected[index]} onChange={e => {
+                let v = e.target.checked;
+                setter(selected.map((w, i) => {
+                  if (i === index) {
+                    return v;
+                  }
+                  return w;
+                }))
+              }} />
+              &nbsp;&nbsp;&nbsp;{cn[labelKey]}
+              <br />
+            </div>
           ))
         }
       </div>

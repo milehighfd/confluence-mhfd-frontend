@@ -1,51 +1,45 @@
 import { LockOutlined, MoreOutlined } from '@ant-design/icons';
-import { Button, Col, DatePicker, InputNumber, Row, Menu,Dropdown } from 'antd';
+import { Button, Col, DatePicker, InputNumber, Row, Menu, Dropdown } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
-import * as datasets from "../../../Config/datasets";
+import * as datasets from '../../../Config/datasets';
 import { SERVER } from '../../../Config/Server.config';
-import {  FILTER_PROJECTS_TRIGGER } from "constants/constants";
+import { FILTER_PROJECTS_TRIGGER } from 'constants/constants';
 import { OverlappingDatesAlert } from '../../../Components/Alerts/OverlappingAlert';
 import { usePortflioState, usePortfolioDispatch } from 'hook/portfolioHook';
 import { useMapDispatch } from 'hook/mapHook';
 
 const DetailModal = React.lazy(() => import('routes/detail-page/components/DetailModal'));
 
-const { RangePicker }:any = DatePicker;
+const { RangePicker }: any = DatePicker;
 
-const ModalTollgate = ({
-  saveCB,
-  setOpenPiney,  
-}: {
-  saveCB?: any,
-  setOpenPiney?: any,
-}) => {
-  const { getDetailedPageProject } = useMapDispatch()
+const ModalTollgate = ({ saveCB, setOpenPiney }: { saveCB?: any; setOpenPiney?: any }) => {
+  const { getDetailedPageProject } = useMapDispatch();
   const { openModalTollgate: visible, isFromDetailPage, datesData } = usePortflioState();
-  const { setOpenModalTollgate: setVisible, setUpdateGroup, setDatesData } = usePortfolioDispatch();  
+  const { setOpenModalTollgate: setVisible, setUpdateGroup, setDatesData } = usePortfolioDispatch();
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
   const [dateValue, setDateValue] = useState<any[]>([]);
-  const [codePhaseTypeId,setCodePhaseTypeId] =useState(-1);
-  const [calendarValue,setCalendarValue] =useState('');
-  const [calendarPhase,setCalendarPhase] =useState(0);
-  const [phasesData,setPhasesData] =useState([]);
+  const [codePhaseTypeId, setCodePhaseTypeId] = useState(-1);
+  const [calendarValue, setCalendarValue] = useState('');
+  const [calendarPhase, setCalendarPhase] = useState(0);
+  const [phasesData, setPhasesData] = useState([]);
   const [phaseIsSet, setPhaseIsSet] = useState(false);
   const [invalidDateIndex, setInvalidDateIndex] = useState(-1);
-  const [detailOpen, setDetailOpen] = useState(false);  
+  const [detailOpen, setDetailOpen] = useState(false);
   const colorScale: any = {
     Done: '#5E5FE2',
     Active: '#047CD7',
     NotStarted: '#D4D2D9',
     Current: '#047CD7',
-    Overdue:'#F5575C',
+    Overdue: '#F5575C',
   };
   const [dates, setDates]: any[] = useState([]);
   const [viewOverlappingAlert, setViewOverlappingAlert] = useState(false);
   const [overlapping, setOverlapping] = useState(false);
   const [originPhase, setOriginPhase] = useState(null);
-  
-  const parseDuration = (duration: string) => { 
+
+  const parseDuration = (duration: string) => {
     const type = duration.trim()[0];
     return type;
   };
@@ -76,10 +70,10 @@ const ModalTollgate = ({
       }
     });
     setDates(newDates);
-  }
+  };
 
   useEffect(() => {
-    if(visible){
+    if (visible) {
       setInvalidDateIndex(-1);
       let isOverlap = true;
       dates?.forEach((x: any, i: number) => {
@@ -92,13 +86,13 @@ const ModalTollgate = ({
               isOverlap = false;
             } else {
               if (isOverlap) {
-                setOverlapping(false);              
+                setOverlapping(false);
               }
             }
           }
         }
       });
-    }    
+    }
   }, [dates]);
 
   const updateDate = (index: number, date: any) => {
@@ -107,8 +101,7 @@ const ModalTollgate = ({
     let type = '';
     if (newDates[index].duration_type.trim() === 'MONTH') {
       type = 'M';
-    }
-    else if (newDates[index].duration_type.trim() === 'YEAR') {
+    } else if (newDates[index].duration_type.trim() === 'YEAR') {
       type = 'Y';
     }
     newDates[index].to = date.clone().add(newDates[index].duration, type);
@@ -122,23 +115,22 @@ const ModalTollgate = ({
     let type = '';
     if (newDates[index].duration_type.trim() === 'MONTH') {
       type = 'M';
-    }
-    else if (newDates[index].duration_type.trim() === 'YEAR') {
+    } else if (newDates[index].duration_type.trim() === 'YEAR') {
       type = 'Y';
     }
     newDates[index].duration = Math.round(date.diff(newDates[index].from, type));
     propagateDates(newDates, index);
-  }
+  };
 
   const setCurrent = (index: number) => {
     const newDates = [...dates];
-    newDates.forEach((x: any) => x.current = false);
+    newDates.forEach((x: any) => (x.current = false));
     newDates[index].current = true;
     if (newDates[index].from && newDates[index].to && newDates[index].from.isValid() && newDates[index].to.isValid()) {
       newDates[index].locked = true;
     }
     setDates(newDates);
-  }
+  };
 
   const updateDuration = (index: number, duration: any) => {
     const newDates = [...dates];
@@ -151,8 +143,8 @@ const ModalTollgate = ({
   const paintCircle = (index: number) => {
     const currentIndex = dates.findIndex((x: any) => x.current);
     const dateDiff = dates.find((x: any) => x.current)?.to;
-    let today = moment()
-    const diffDates = ((moment(dateDiff).diff(today, 'M', true)))
+    let today = moment();
+    const diffDates = moment(dateDiff).diff(today, 'M', true);
     if (currentIndex === -1) {
       return 'NotStarted';
     }
@@ -170,56 +162,63 @@ const ModalTollgate = ({
   };
   useEffect(() => {
     const currentId = datesData?.d?.phaseId;
-    const currentStatus = datesData?.scheduleList?.find((x: any) => x.phase_id === currentId)?.code_status_type_id || null;
+    const currentStatus =
+      datesData?.scheduleList?.find((x: any) => x.phase_id === currentId)?.code_status_type_id || null;
     setOriginPhase(currentStatus);
-    setDates(datesData?.scheduleList?.map((x:any)=>{
-      const date = datesData?.d?.schedule?.find((z:any) => z.phaseId === x.phase_id);   
-      let duration = 0;
-      if (date?.from && moment(date?.from).isValid() && date?.to && moment(date?.to).isValid()){
-        duration =  Math.round(Math.abs(moment(date?.from).diff(moment(date?.to), 'M')));
-      }else{
-        duration = x.duration
-      }
-      return {
-        from: date?.from && moment(date?.from).isValid() ? moment(date?.from) : undefined,
-        to: date?.to && moment(date?.to).isValid() ? moment(date?.to) : undefined,
-        name: date?.name ?? x.name,
-        duration: duration,
-        duration_type: x.duration_type,
-        phase_id: date?.phase_id ?? x.phase_id,
-        current: date?.current ?? false,
-        locked : date?.current && date?.from && moment(date?.from).isValid() 
-         && date?.to && moment(date?.to).isValid() ? true : (date?.isLocked ?? false)
-      };
-    }));    
-  }, [visible,datesData]);
+    setDates(
+      datesData?.scheduleList?.map((x: any) => {
+        const date = datesData?.d?.schedule?.find((z: any) => z.phaseId === x.phase_id);
+        let duration = 0;
+        if (date?.from && moment(date?.from).isValid() && date?.to && moment(date?.to).isValid()) {
+          duration = Math.round(Math.abs(moment(date?.from).diff(moment(date?.to), 'M')));
+        } else {
+          duration = x.duration;
+        }
+        return {
+          from: date?.from && moment(date?.from).isValid() ? moment(date?.from) : undefined,
+          to: date?.to && moment(date?.to).isValid() ? moment(date?.to) : undefined,
+          name: date?.name ?? x.name,
+          duration: duration,
+          duration_type: x.duration_type,
+          phase_id: date?.phase_id ?? x.phase_id,
+          current: date?.current ?? false,
+          locked:
+            date?.current && date?.from && moment(date?.from).isValid() && date?.to && moment(date?.to).isValid()
+              ? true
+              : date?.isLocked ?? false,
+        };
+      }),
+    );
+  }, [visible, datesData]);
   useEffect(() => {
     if (Object.keys(phasesData).length > 0) {
-      const indexPhase = (phasesData?.findIndex((x: any) => x.phase_id === codePhaseTypeId));
-      const phaseDatas: any = (phasesData.map((x: any, index: number) => {
+      const indexPhase = phasesData?.findIndex((x: any) => x.phase_id === codePhaseTypeId);
+      const phaseDatas: any = phasesData.map((x: any, index: number) => {
         if (index === indexPhase) {
           return {
-            ...x, current: 'Current',
+            ...x,
+            current: 'Current',
             locked: true,
           };
-        }
-        else if (index < indexPhase) {
+        } else if (index < indexPhase) {
           return {
-            ...x, current: 'Done'
+            ...x,
+            current: 'Done',
           };
         } else {
           return {
-            ...x, current: 'NotStarted'
+            ...x,
+            current: 'NotStarted',
           };
         }
-      }))
-      setPhasesData(phaseDatas)
+      });
+      setPhasesData(phaseDatas);
     }
-    if(phaseIsSet){
-      setPhaseIsSet(false)
+    if (phaseIsSet) {
+      setPhaseIsSet(false);
     }
-  }, [codePhaseTypeId])
- 
+  }, [codePhaseTypeId]);
+
   useEffect(() => {
     let lockedUp = false;
     let lockedDown = false;
@@ -228,9 +227,9 @@ const ModalTollgate = ({
         if (Object.keys(datesData).length > 0) {
           const current = moment(calendarValue);
           const currentPast = moment(calendarValue);
-          const indexPhase = (phasesData?.findIndex((x: any) => x.phase_id === codePhaseTypeId));
-          const reverseData = ([].concat(phasesData?.slice(0, indexPhase).reverse(), phasesData?.slice(indexPhase)))
-          const dateValues: any = (reverseData.map((x: any, index: number) => {
+          const indexPhase = phasesData?.findIndex((x: any) => x.phase_id === codePhaseTypeId);
+          const reverseData = [].concat(phasesData?.slice(0, indexPhase).reverse(), phasesData?.slice(indexPhase));
+          const dateValues: any = reverseData.map((x: any, index: number) => {
             if (index >= indexPhase) {
               const now = moment(current);
               current.add(x.duration, 'M');
@@ -243,8 +242,8 @@ const ModalTollgate = ({
                 code_phase_type_id: x.phase_id,
                 startDate: now.clone(),
                 duration: x.duration,
-                endDate: index !== reverseData.length - 1 ? moment(current).subtract(1, 'd') : moment(current),     
-                locked: index === indexPhase ? true : false,           
+                endDate: index !== reverseData.length - 1 ? moment(current).subtract(1, 'd') : moment(current),
+                locked: index === indexPhase ? true : false,
               };
             } else {
               const now1 = moment(currentPast);
@@ -261,39 +260,40 @@ const ModalTollgate = ({
                 locked: index === indexPhase ? true : false,
               };
             }
-          }));
-          setDateValue(([].concat(dateValues.slice(0, indexPhase).reverse(), dateValues.slice(indexPhase))))
+          });
+          setDateValue([].concat(dateValues.slice(0, indexPhase).reverse(), dateValues.slice(indexPhase)));
         }
         if (Object.keys(phasesData).length > 0) {
-          const indexPhase = (phasesData?.findIndex((x: any) => x.phase_id === codePhaseTypeId));
-          const phaseDatas: any = (phasesData.map((x: any, index: number) => {
+          const indexPhase = phasesData?.findIndex((x: any) => x.phase_id === codePhaseTypeId);
+          const phaseDatas: any = phasesData.map((x: any, index: number) => {
             if (index === indexPhase) {
               return {
-                ...x, locked: true
+                ...x,
+                locked: true,
               };
             } else {
               return {
-                ...x
-              }
+                ...x,
+              };
             }
-          }))
-          setPhasesData(phaseDatas)
-          setPhaseIsSet(true)
+          });
+          setPhasesData(phaseDatas);
+          setPhaseIsSet(true);
         }
       }
-    }else{
-      if (Object.keys(dateValue).length > 0) {      
+    } else {
+      if (Object.keys(dateValue).length > 0) {
         const current = moment(calendarValue);
         const currentPast = moment(calendarValue);
-        const currentDates: any = dateValue;       
-        const indexPhase = (currentDates?.findIndex((x: any) => x.code_phase_type_id === calendarPhase));
-        const reverseData = ([].concat(currentDates?.slice(0, indexPhase).reverse(), currentDates?.slice(indexPhase)))
-        const dateValues: any = (reverseData.map((x: any, index: number) => {
+        const currentDates: any = dateValue;
+        const indexPhase = currentDates?.findIndex((x: any) => x.code_phase_type_id === calendarPhase);
+        const reverseData = [].concat(currentDates?.slice(0, indexPhase).reverse(), currentDates?.slice(indexPhase));
+        const dateValues: any = reverseData.map((x: any, index: number) => {
           if (index >= indexPhase) {
             if (x.locked) {
-              lockedDown = true;          
+              lockedDown = true;
             }
-            if (!lockedDown){            
+            if (!lockedDown) {
               const now = moment(current);
               current.add(x.duration, 'M');
               return {
@@ -308,17 +308,16 @@ const ModalTollgate = ({
                 endDate: index !== reverseData.length - 1 ? moment(current).subtract(1, 'd') : moment(current),
                 locked: x.locked,
               };
-            }else{
+            } else {
               return {
-                ...x
+                ...x,
               };
-            }           
-          } 
-          else {
-            if (x.locked) {
-              lockedUp = true;              
             }
-            if (!lockedUp){
+          } else {
+            if (x.locked) {
+              lockedUp = true;
+            }
+            if (!lockedUp) {
               const now1 = moment(currentPast);
               currentPast.subtract(x.duration, 'M');
               return {
@@ -332,64 +331,63 @@ const ModalTollgate = ({
                 startDate: moment(currentPast),
                 locked: x.locked,
               };
-            }else{
+            } else {
               return {
-                ...x
-              }
-            }            
-          }        
-        }
-        ));
-        setDateValue(([].concat(dateValues.slice(0, indexPhase).reverse(), dateValues.slice(indexPhase))))
+                ...x,
+              };
+            }
+          }
+        });
+        setDateValue([].concat(dateValues.slice(0, indexPhase).reverse(), dateValues.slice(indexPhase)));
       }
     }
-
   }, [calendarPhase]);
-let items = [
-  { key: 'current-phase', label: 'Set Current Phase' },
-  { key: 'lock-phase', label: 'Lock Phase' },
-];
+  let items = [
+    { key: 'current-phase', label: 'Set Current Phase' },
+    { key: 'lock-phase', label: 'Lock Phase' },
+  ];
   const menu = (element: any, index: number) => {
     items = [
       { key: 'current-phase', label: 'Set Current Phase' },
       { key: 'lock-phase', label: element.locked ? 'Unlock Phase' : 'Lock Phase' },
     ];
-    return <Menu
-      className="menu-login-dropdown"
-      style={{ marginTop: '12px' }}
-      items={items}
-      onClick={({ key }) => {
-        switch (key) {
-          case 'lock-phase':
-            lockData(index)
-            break;
+    return (
+      <Menu
+        className="tollgate-modal-menu"
+        items={items}
+        onClick={({ key }) => {
+          switch (key) {
+            case 'lock-phase':
+              lockData(index);
+              break;
             case 'current-phase':
-            setCurrent(index)
-            break;         
-        }
-      }}
-    />
+              setCurrent(index);
+              break;
+          }
+        }}
+      />
+    );
   };
 
   function resetData() {
     const copy = dates?.map((x: any) => {
       if (x.locked) {
         return {
-          ...x
-        }
+          ...x,
+        };
       }
       return {
         ...x,
         from: undefined,
         to: undefined,
-      }
+      };
     });
     setDates(copy);
 
-    setDateValue([])
-    setCodePhaseTypeId(-1)
-    setCalendarValue('')
-    setCalendarPhase(0)
+    setDateValue([]);
+    setCodePhaseTypeId(-1);
+    setCalendarValue('');
+    setCalendarPhase(0);
   }
   function sendData() {
     const newDates = datesData.d.schedule?.map((x: any) => {
@@ -398,28 +396,34 @@ let items = [
         ...x,
         from: date?.from,
         to: date?.to,
-      }
+      };
     });
     const newDataProject = {
       ...datesData,
       d: {
         ...datesData.d,
-        schedule: newDates
-      }
-    }
+        schedule: newDates,
+      },
+    };
     const currentId = dates?.find((x: any) => x.current)?.phase_id;
-    const currentStatus = datesData.scheduleList?.find((x: any) => x.phase_id === currentId)?.code_status_type_id || null;  
-    datasets.postData(SERVER.CREATE_STATUS_GROUP, 
-      {
-        project_id: datesData.d.project_id,
-        phases: dates
-      }, datasets.getToken()).then(async res => {
+    const currentStatus =
+      datesData.scheduleList?.find((x: any) => x.phase_id === currentId)?.code_status_type_id || null;
+    datasets
+      .postData(
+        SERVER.CREATE_STATUS_GROUP,
+        {
+          project_id: datesData.d.project_id,
+          phases: dates,
+        },
+        datasets.getToken(),
+      )
+      .then(async res => {
         saveCB && saveCB();
         setVisible(false);
-        setOpenPiney && setOpenPiney(false); 
-        setUpdateGroup({id1: originPhase, id2: currentStatus});
-        getDetailedPageProject(datesData.d.project_id)
-        setDatesData(newDataProject)
+        setOpenPiney && setOpenPiney(false);
+        setUpdateGroup({ id1: originPhase, id2: currentStatus });
+        getDetailedPageProject(datesData.d.project_id);
+        setDatesData(newDataProject);
       });
   }
 
@@ -430,83 +434,90 @@ let items = [
   }
   return (
     <>
-      {detailOpen && <DetailModal
-        visible={detailOpen}
-        setVisible={setDetailOpen}
-        data={datesData?.d}
-        type={FILTER_PROJECTS_TRIGGER}
-      />}
-      {
-        viewOverlappingAlert && (
-          <OverlappingDatesAlert
-            visibleAlert={viewOverlappingAlert}
-            setVisibleAlert={setViewOverlappingAlert}
-          />
-          )
-      }
+      {detailOpen && (
+        <DetailModal
+          visible={detailOpen}
+          setVisible={setDetailOpen}
+          data={datesData?.d}
+          type={FILTER_PROJECTS_TRIGGER}
+        />
+      )}
+      {viewOverlappingAlert && (
+        <OverlappingDatesAlert visibleAlert={viewOverlappingAlert} setVisibleAlert={setViewOverlappingAlert} />
+      )}
       <Modal
-        className="detailed-version modal-tollgate"
-        style={{ top: 123, width: '322px', height:'551px' }}
+        className="modal-tollgate"
+        style={{ top: 123, width: '322px', height: '551px' }}
         visible={visible}
         onCancel={() => setVisible(false)}
         forceRender={false}
-        destroyOnClose>
-        <div className="detailed">
-          <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor:'white', paddingBottom:'10px', paddingTop:'10px'}}>
+        destroyOnClose
+      >
+        <div className="tollgate-layout">
+          <Row className="tollgate-header" gutter={[16, 8]}>
             <Col xs={{ span: 12 }} lg={{ span: 20 }}>
-              <p style={{marginTop: '15px',color: '#11093C', fontWeight: '500'}}>{`${(datesData?.d?.project_type==='Study'?'Study':datesData?.d?.project_type + ' Project')}` || 'N/A'}</p>
-              <h1>{datesData?.d?.rowLabel||'Tollgate Creek'}</h1>
+              <p className="tollgate-over-title ">
+                {`${datesData?.d?.project_type === 'Study' ? 'Study' : datesData?.d?.project_type + ' Project'}` ||
+                  'N/A'}
+              </p>
+              <h1>{datesData?.d?.rowLabel || 'Tollgate Creek'}</h1>
               <p>Define the time period for each phase.</p>
-              <div style={{display:'flex', paddingTop:'10px'}}>
-                <span className="span-dots-heder">
-                    <div className="circulo" style={{backgroundColor:'#5E5FE2'}}/>
-                    <span style={{marginLeft:'1px', marginRight:'15px'}}>Done</span>
-                  </span>
-                  <span className="span-dots-heder">
-                    <div className="circulo" style={{backgroundColor:'#047CD7'}}/>
-                    <span style={{marginLeft:'1px', marginRight:'15px'}}>Current</span>
-                  </span>
-                  <span className="span-dots-heder">
-                    <div className="circulo" style={{backgroundColor:'#D4D2D9'}}/>
-                    <span style={{marginLeft:'1px', marginRight:'15px'}}>Not Started</span>
-                  </span>
-                  <span className="span-dots-heder">
-                    <div className="circulo" style={{backgroundColor:'#F5575C'}}/>
-                    <span style={{marginLeft:'1px', marginRight:'15px'}}>Overdue</span>
-                  </span>
+              <div className="tollgate-header-leyend">
+                <span className="span-dots-tollgate">
+                  <div className="toolgate-circle tollgate-circle-done"/>
+                  <span className='tollgate-circle-leyend'>Done</span>
+                </span>
+                <span className="span-dots-tollgate">
+                  <div className="toolgate-circle tollgate-circle-current" />
+                  <span className='tollgate-circle-leyend'>Current</span>
+                </span>
+                <span className="span-dots-tollgate">
+                  <div className="toolgate-circle tollgate-circle-not-started"/>
+                  <span className='tollgate-circle-leyend'>Not Started</span>
+                </span>
+                <span className="span-dots-tollgate">
+                  <div className="toolgate-circle tollgate-circle-overdue"/>
+                  <span className='tollgate-circle-leyend'>Overdue</span>
+                </span>
               </div>
             </Col>
-            <Col xs={{ span: 12 }} lg={{ span: 4 }} style={{textAlign: 'end'}}>
-              {!isFromDetailPage && <Button className="btn-transparent" onClick={() => setDetailOpen(true)} style={{padding: '0px 8px'}}><img src="/Icons/send.svg" alt="" height="15px" /></Button>}
-              <Button className="btn-transparent" onClick={() => setVisible(false)} style={{padding: '0px 8px'}}><img src="/Icons/ic_close.svg" alt="" height="15px" /></Button>
+            <Col xs={{ span: 12 }} lg={{ span: 4 }} style={{ textAlign: 'end' }}>
+              {!isFromDetailPage && (
+                <Button className="tollgate-btn-transparent" onClick={() => setDetailOpen(true)} >
+                  <img src="/Icons/send.svg" alt="" height="15px" />
+                </Button>
+              )}
+              <Button className="tollgate-btn-transparent" onClick={() => setVisible(false)} >
+                <img src="/Icons/ic_close.svg" alt="" height="15px" />
+              </Button>
             </Col>
           </Row>
-          <Row className="detailed-h detailed-hh" gutter={[16, 16]} style={{backgroundColor: 'white', paddingTop:'0px', paddingBottom:'0px'}}>
-            <Col xs={{ span: 12 }} lg={{ span: 24}}>
-              <Row style={{height:'30px',overflowY: 'auto'}} className="row-modal-list-view">
-                <Col xs={{ span: 12 }} lg={{ span: 9}}>
-                  <Row style={{height: '30px'}} >
-                    <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    </Col>
-                    <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    </Col>
+          <Row
+            className="tollgate-header tollgate-header-head"
+            gutter={[16, 16]}
+          >
+            <Col xs={{ span: 12 }} lg={{ span: 24 }}>
+              <Row className="tollgate-row-list-view">
+                <Col xs={{ span: 12 }} lg={{ span: 9 }}>
+                  <Row style={{ height: '30px' }}>
+                    <Col xs={{ span: 12 }} lg={{ span: 11 }}></Col>
+                    <Col xs={{ span: 12 }} lg={{ span: 11 }}></Col>
                   </Row>
                 </Col>
-                <Col xs={{ span: 12 }} lg={{ span: 10}}>
-                  <Row style={{height: '30px'}}>
-                    <Col xs={{ span: 12 }} lg={{ span: 10}} style={{textAlign:'center'}}>
+                <Col xs={{ span: 12 }} lg={{ span: 10 }}>
+                  <Row style={{ height: '30px' }}>
+                    <Col xs={{ span: 12 }} lg={{ span: 10 }} style={{ textAlign: 'center' }}>
                       <h5>Start Date</h5>
                     </Col>
-                    <Col xs={{ span: 12 }} lg={{ span: 11}} style={{textAlign:'center'}}>
+                    <Col xs={{ span: 12 }} lg={{ span: 11 }} style={{ textAlign: 'center' }}>
                       <h5>End Date</h5>
                     </Col>
-                    <Col xs={{ span: 12 }} lg={{ span: 3}} style={{textAlign:'center'}}>
-                    </Col>
+                    <Col xs={{ span: 12 }} lg={{ span: 3 }} style={{ textAlign: 'center' }}></Col>
                   </Row>
                 </Col>
-                <Col xs={{ span: 12 }} lg={{ span: 5}}>
-                  <Row style={{height: '30px'}}>
-                    <Col xs={{ span: 12 }} lg={{ span: 24}} style={{textAlign:'center'}}>
+                <Col xs={{ span: 12 }} lg={{ span: 5 }}>
+                  <Row style={{ height: '30px' }}>
+                    <Col xs={{ span: 12 }} lg={{ span: 24 }} style={{ textAlign: 'center' }}>
                       <h5>Duration (Months)</h5>
                     </Col>
                   </Row>
@@ -514,82 +525,102 @@ let items = [
               </Row>
             </Col>
           </Row>
-          <Row className="detailed-h list-tollgate" gutter={[16, 16]} style={{backgroundColor: 'white', paddingTop:'0px'}}>
-            <Col xs={{ span: 12 }} lg={{ span: 24}}>
-              <Row style={{height: '357px', overflowY: 'auto'}} className="row-modal-list-view tollgate-body">
-                <Col xs={{ span: 12 }} lg={{ span: 9}} style={{paddingRight:'10px'}} className='left-tollgate'>
-                  {dates?.map((x:any, index: number) => {
+          <Row
+            className="tollgate-header"
+            gutter={[16, 16]}
+            style={{paddingTop: '0px', paddingBottom: '20px' }}
+          >
+            <Col xs={{ span: 12 }} lg={{ span: 24 }}>
+              <Row className="tollgate-row-list-view  tollgate-body">
+                <Col xs={{ span: 12 }} lg={{ span: 9 }} className="left-tollgate">
+                  {dates?.map((x: any, index: number) => {
                     return (
-                      <div key={x.phase_id} className='text-tollgate-title'>
-                        <span style={{marginBottom:'25px', color: invalidDateIndex === index ? 'red' : undefined }}>
-                          <span className="span-dots-heder">
-                            <div className="circulo" style={{backgroundColor: colorScale[paintCircle(index)] }}/>
+                      <div key={x.phase_id} className="text-tollgate-title">
+                        <span style={{ marginBottom: '25px', color: invalidDateIndex === index ? 'red' : undefined }}>
+                          <span className="span-dots-tollgate">
+                            <div className="toolgate-circle" style={{ backgroundColor: colorScale[paintCircle(index)] }} />
                           </span>
                           {x.name}
                         </span>
                         <span>
-                          { x.locked && <LockOutlined /> }
-                          <Dropdown overlay={menu(x, index)} placement="bottomRight" >
+                          {x.locked && <LockOutlined />}
+                          <Dropdown overlay={menu(x, index)} placement="bottomRight">
                             <MoreOutlined />
                           </Dropdown>
                         </span>
                       </div>
-                  )
+                    );
                   })}
                 </Col>
-                <Col xs={{ span: 12 }} lg={{ span: 10}}>
-                {dates?.map((x: any, index: number) => {         
-                  return (
-                    <div className='calendar-toollgate' key={x.phase_id}>
-                      <RangePicker
-                        bordered={false}
-                        
-                        onCalendarChange={(e:any)=>{
-                          if (!x?.from || e[0].format('DD/MM/YYYY') !== x.from?.format('DD/MM/YYYY')) {
-                            if(!e[0] && e[1]){
-                              updateDate(index, e[1]);
-                            }
-                            updateDate(index, e[0]);
-                          }
-                          if (e[1]) {
-                            updateEndDate(index, e[1]);
-                          }
-                          if (x.current) {
-                            x.locked = true;
-                          }
-                          setCalendarValue(e[0]);
-                          setCalendarPhase(x.phase_id)
-                        }}
-                        format={dateFormatList}
-                        value={[ x.from, x.to ]}
-                      />
-                    </div>
-                  )
-                  })}
-                </Col>
-                <Col xs={{ span: 12 }} lg={{ span: 5}} style={{paddingLeft:'10px'}}>
+                <Col xs={{ span: 12 }} lg={{ span: 10 }}>
                   {dates?.map((x: any, index: number) => {
-                    return <Row key={x.phase_id}>
-                      <Col xs={{ span: 12 }} lg={{ span: 24 }}>
-                        <InputNumber 
-                          className='duration-toollgate duration-toollgate-l'
-                          min={1}
-                          max={48}
-                          defaultValue={x.duration}
-                          value={x.duration}
-                          onChange={(e) => { updateDuration(index, e) }} 
+                    return (
+                      <div className="calendar-toollgate" key={x.phase_id}>
+                        <RangePicker
+                          bordered={false}
+                          onCalendarChange={(e: any) => {
+                            if (!x?.from || e[0].format('DD/MM/YYYY') !== x.from?.format('DD/MM/YYYY')) {
+                              if (!e[0] && e[1]) {
+                                updateDate(index, e[1]);
+                              }
+                              updateDate(index, e[0]);
+                            }
+                            if (e[1]) {
+                              updateEndDate(index, e[1]);
+                            }
+                            if (x.current) {
+                              x.locked = true;
+                            }
+                            setCalendarValue(e[0]);
+                            setCalendarPhase(x.phase_id);
+                          }}
+                          format={dateFormatList}
+                          value={[x.from, x.to]}
                         />
-                      </Col>
-                    </Row>
+                      </div>
+                    );
+                  })}
+                </Col>
+                <Col xs={{ span: 12 }} lg={{ span: 5 }} style={{ paddingLeft: '10px' }}>
+                  {dates?.map((x: any, index: number) => {
+                    return (
+                      <Row key={x.phase_id}>
+                        <Col xs={{ span: 12 }} lg={{ span: 24 }}>
+                          <InputNumber
+                            className="duration-toollgate duration-toollgate-l"
+                            min={1}
+                            max={48}
+                            defaultValue={x.duration}
+                            value={x.duration}
+                            onChange={e => {
+                              updateDuration(index, e);
+                            }}
+                          />
+                        </Col>
+                      </Row>
+                    );
                   })}
                 </Col>
               </Row>
               <Row>
-                <Col xs={{ span: 12 }} lg={{ span: 12}}>
-                </Col>
-                <Col xs={{ span: 12 }} lg={{ span: 12}} style={{textAlign:'end', marginTop:'10px'}}>
-                  <Button style={{width:'49%', fontSize:'17.5px', opacity:'0.6', mixBlendMode: 'normal',padding:'10px', height:'auto'}} className="btn-transparent btn-tollgate" onClick={()=>resetData()}>Clear</Button>
-                  <Button style={{width:'49%', height:'auto',fontSize:'17.5px' ,padding:'10px'}} className='btn-purple btn-tollgate' onClick={overlapping?()=>setViewOverlappingAlert(true):()=>sendData()}>Save</Button>
+                <Col xs={{ span: 12 }} lg={{ span: 12 }}></Col>
+                <Col xs={{ span: 12 }} lg={{ span: 12 }} className='tollgate-buttons-placeholder'>
+                  <Button
+                    style={{
+                      opacity: '0.6',
+                      mixBlendMode: 'normal',
+                    }}
+                    className="btn-tollgate btn-tollgate-trasparent"
+                    onClick={() => resetData()}
+                  >
+                    Clear
+                  </Button>
+                  <Button
+                    className="btn-tollgate btn-tollgate-purple"
+                    onClick={overlapping ? () => setViewOverlappingAlert(true) : () => sendData()}
+                  >
+                    Save
+                  </Button>
                 </Col>
               </Row>
             </Col>
@@ -597,7 +628,7 @@ let items = [
         </div>
       </Modal>
     </>
-  )
+  );
 };
 
 export default ModalTollgate;

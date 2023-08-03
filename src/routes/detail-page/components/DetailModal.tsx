@@ -1,4 +1,5 @@
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import '../../../Scss/Theme/scroll.scss';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 import ImageModal from 'Components/Shared/Modals/ImageModal';
 import { SERVER } from 'Config/Server.config';
@@ -489,18 +490,17 @@ const DetailModal = ({
         addFavorite={addFavorite}
       />
       <Modal
-        className="detailed-modal modal-detailed-modal"
-        style={{ top: 30 }}
+        className="detailed-modal"
         visible={visible || !!query.get('type')}
         onCancel={() => setVisible(false)}
         forceRender={false}
         destroyOnClose
       >
-        <div className="detailed" style={{ overflowY: 'clip', maxHeight: 'calc(100vh - 8vh)' }}>
+        <div className="detailed-layout">
           {isLoading && <LoadingViewOverall />}
-          <Row className="detailed-h" gutter={[16, 8]} style={{ background: '#f8f8fa' }}>
+          <Row className="detailed-header" gutter={[16, 8]}>
             <Col xs={{ span: 24 }} lg={typeS === FILTER_PROBLEMS_TRIGGER ? { span: 13 } : { span: 18 }}>
-              <div className="header-detail" style={{ alignItems: 'normal' }}>
+              <div className="detail-header-info">
                 <div style={detailed?.problemtype ? { width: '100%' } : { width: '76%' }}>
                   <h1>{detailed?.problemname ? detailed?.problemname : detailed?.project_name}</h1>
                   <p>
@@ -510,21 +510,21 @@ const DetailModal = ({
                         : detailed?.code_project_type?.project_type_name + ' Project'}
                     </span>
                     &nbsp;&nbsp;•&nbsp;&nbsp;
-                    <span style={{ textTransform: 'capitalize' }}>
+                    <span className="capitalize">
                       {' '}
                       {detailed?.problemtype
                         ? toCamelCase(detailed?.jurisdiction + ', CO')
                         : getJurisdictions(detailed?.project_local_governments || []) || 'N/A'}{' '}
                     </span>
                     &nbsp;&nbsp;•&nbsp;&nbsp;
-                    <span style={{ textTransform: 'capitalize' }}>
+                    <span className="capitalize">
                       {' '}
                       {detailed?.problemtype
                         ? toCamelCase(detailed?.county + ' County')
                         : toCamelCase(getCounties(detailed?.project_counties || []) || 'N/A')}
                     </span>
                     &nbsp;&nbsp;•&nbsp;&nbsp;
-                    <span style={{ textTransform: 'capitalize' }}>
+                    <span className="capitalize">
                       {' '}
                       {detailed?.problemtype
                         ? toCamelCase(detailed?.servicearea + ' Service Area')
@@ -553,18 +553,20 @@ const DetailModal = ({
               </div>
             </Col>
             <Col xs={{ span: 10 }} lg={typeS === FILTER_PROBLEMS_TRIGGER ? { span: 10 } : { span: 5 }}>
-              <div className="header-button">
+              <div className="detailed-header-button-layout">
                 {detailed?.problemtype ? (
                   <>
-                    <div className="progress">
-                      <div className="text-progress">
+                    <div className="detailed-header-button-progress">
+                      <div className="detailed-header-button-progress-text">
                         <p>Solution Status</p>
-                        <p className="value">{detailed?.solutionstatus ? detailed.solutionstatus : 0}%</p>
+                        <p className="detailed-header-button-progress-text-value">
+                          {detailed?.solutionstatus ? detailed.solutionstatus : 0}%
+                        </p>
                       </div>
                       <Progress percent={detailed?.solutionstatus ? detailed.solutionstatus : 0} />
                     </div>
-                    <div className="detailed-mmm">
-                      <p style={{ marginTop: '-10px' }}>Cost</p>
+                    <div className="detailed-header-button-margin">
+                      <p className="fix-margin-top">Cost</p>
                       <b>
                         {detailed?.component_cost != null
                           ? '$' +
@@ -576,8 +578,8 @@ const DetailModal = ({
                     </div>
                   </>
                 ) : (
-                  <div className="detailed-mmm">
-                    <p style={{ marginTop: '-10px' }}>Estimated Cost</p>
+                  <div className="detailed-header-button-margin">
+                    <p className="fix-margin-top">Estimated Cost</p>
                     <b>
                       {getTotalEstimatedCost(detailed?.project_costs || []) != null
                         ? '$' +
@@ -588,38 +590,29 @@ const DetailModal = ({
                     </b>
                   </div>
                 )}
-                <Button className="btn-circle" onClick={downloadPdf}>
+                <Button className="detailed-header-button-circle" onClick={downloadPdf}>
                   <img src="/Icons/icon-01.svg" alt="" style={{ margin: '1px -10px', height: '17px' }} />
                 </Button>
-                <Button style={{ marginLeft: '10px' }} className="btn-circle" onClick={copyUrl}>
+                <Button className="detailed-header-button-circle fix-margin-left" onClick={copyUrl}>
                   <img src="/Icons/icon-06.svg" alt="" />
                 </Button>
               </div>
             </Col>
             <Col xs={{ span: 4 }} lg={{ span: 1 }} style={{ textAlign: 'right' }}>
               <Tooltip title="Close Window">
-                <Button className="btn-transparent mobile-display" onClick={() => setVisible(false)}>
+                <Button className="detailed-header-button-transparent" onClick={() => setVisible(false)}>
                   <img src="/Icons/icon-62.svg" alt="" height="15px" />
                 </Button>
               </Tooltip>
             </Col>
           </Row>
           {!detailed?.problemtype && (
-            <div
-              style={{
-                display: 'flex',
-                boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.15)',
-                zIndex: '10000',
-                paddingLeft: '20px',
-                scrollBehavior: 'smooth',
-                marginBottom: '1.5px',
-              }}
-            >
+            <div className="detailed-tabs-layout">
               <p
                 onClick={() => {
                   activeTab(0, '#project-basics');
                 }}
-                className={openSecction === 0 ? 'header-tab-modal-detail header-tab-modal-detail-active' : 'header-tab-modal-detail'}
+                className={openSecction === 0 ? 'detailed-tab detailed-tab-active' : 'detailed-tab'}
                 style={!activeScroll ? { cursor: 'default' } : { cursor: 'pointer' }}
               >
                 Project Basics
@@ -628,7 +621,7 @@ const DetailModal = ({
                 onClick={() => {
                   activeTab(1, '#problem');
                 }}
-                className={openSecction === 1 ? 'header-tab-modal-detail header-tab-modal-detail-active' : 'header-tab-modal-detail'}
+                className={openSecction === 1 ? 'detailed-tab detailed-tab-active' : 'detailed-tab'}
                 style={!activeScroll ? { cursor: 'default' } : { cursor: 'pointer' }}
               >
                 Problem
@@ -637,7 +630,7 @@ const DetailModal = ({
                 onClick={() => {
                   activeTab(2, '#vendors');
                 }}
-                className={openSecction === 2 ? 'header-tab-modal-detail header-tab-modal-detail-active' : 'header-tab-modal-detail'}
+                className={openSecction === 2 ? 'detailed-tab detailed-tab-active' : 'detailed-tab'}
                 style={!activeScroll ? { cursor: 'default' } : { cursor: 'pointer' }}
               >
                 Vendors
@@ -646,7 +639,7 @@ const DetailModal = ({
                 onClick={() => {
                   activeTab(3, '#proposed-actions');
                 }}
-                className={openSecction === 3 ? 'header-tab-modal-detail header-tab-modal-detail-active' : 'header-tab-modal-detail'}
+                className={openSecction === 3 ? 'detailed-tab detailed-tab-active' : 'detailed-tab'}
                 style={!activeScroll ? { cursor: 'default' } : { cursor: 'pointer' }}
               >
                 Proposed Actions
@@ -655,29 +648,29 @@ const DetailModal = ({
                 onClick={() => {
                   activeTab(4, '#project-roadmap');
                 }}
-                className={openSecction === 4 ? 'header-tab-modal-detail header-tab-modal-detail-active' : 'header-tab-modal-detail'}
+                className={openSecction === 4 ? 'detailed-tab detailed-tab-active' : 'detailed-tab'}
                 style={!activeScroll ? { cursor: 'default' } : { cursor: 'pointer' }}
               >
                 Project Roadmap
               </p>
-              {/* <p style={{opacity:'0.25'}} className={openSecction === 5 ? "header-tab-modal-detail header-tab-modal-detail-active" : "header-tab-modal-detail"} >Graph</p> */}
+              {/* <p style={{opacity:'0.25'}} className={openSecction === 5 ? "detailed-tab detailed-tab-active" : "detailed-tab"} >Graph</p> */}
               {appUser && appUser.designation && (appUser.designation === ADMIN || appUser.designation === STAFF) && (
                 <p
                   onClick={() => {
                     activeTab(6, '#project-financials');
                   }}
-                  className={openSecction === 6 ? 'header-tab-modal-detail header-tab-modal-detail-active' : 'header-tab-modal-detail'}
+                  className={openSecction === 6 ? 'detailed-tab detailed-tab-active' : 'detailed-tab'}
                   style={!activeScroll ? { cursor: 'default' } : { cursor: 'pointer' }}
                 >
                   Project Financials
                 </p>
               )}
-              {/* <p style={{opacity:'0.25'}} className={openSecction === 7 ? "header-tab-modal-detail header-tab-modal-detail-active" : "header-tab-modal-detail"} >Project Management</p> */}
+              {/* <p style={{opacity:'0.25'}} className={openSecction === 7 ? "detailed-tab detailed-tab-active" : "detailed-tab"} >Project Management</p> */}
               <p
                 onClick={() => {
                   activeTab(8, '#maps');
                 }}
-                className={openSecction === 8 ? 'header-tab-modal-detail header-tab-modal-detail-active' : 'header-tab-modal-detail'}
+                className={openSecction === 8 ? 'detailed-tab detailed-tab-active' : 'detailed-tab'}
                 style={!activeScroll ? { cursor: 'default' } : { cursor: 'pointer' }}
               >
                 Maps
@@ -686,7 +679,7 @@ const DetailModal = ({
                 onClick={() => {
                   activeTab(9, '#gallery');
                 }}
-                className={openSecction === 9 ? 'header-tab-modal-detail header-tab-modal-detail-active' : 'header-tab-modal-detail'}
+                className={openSecction === 9 ? 'detailed-tab detailed-tab-active' : 'detailed-tab'}
                 style={!activeScroll ? { cursor: 'default' } : { cursor: 'pointer' }}
               >
                 Gallery
@@ -695,7 +688,7 @@ const DetailModal = ({
                 onClick={() => {
                   activeTab(10, '#attachments');
                 }}
-                className={openSecction === 10 ? 'header-tab-modal-detail header-tab-modal-detail-active' : 'header-tab-modal-detail'}
+                className={openSecction === 10 ? 'detailed-tab detailed-tab-active' : 'detailed-tab'}
                 style={!activeScroll ? { cursor: 'default' } : { cursor: 'pointer' }}
               >
                 Attachments
@@ -706,33 +699,22 @@ const DetailModal = ({
                     activeTab(11, '#history');
                   }
                 }}
-                className={openSecction === 11 ? 'header-tab-modal-detail header-tab-modal-detail-active' : 'header-tab-modal-detail'}
+                className={openSecction === 11 ? 'detailed-tab detailed-tab-active' : 'detailed-tab'}
                 style={!activeScroll ? { cursor: 'default' } : { cursor: 'pointer' }}
               >
                 History
               </p>
             </div>
           )}
-          <Row className="detailed-b">
+          <Row className="detailed-body">
             <Col
               xs={{ span: 24 }}
               lg={{ span: 17 }}
-              style={
+              className={
                 detailed?.problemtype
-                  ? {
-                      borderRight: '1.5px solid rgba(61, 46, 138, 0.07)',
-                      height: 'calc(100vh - 138px)',
-                      overflowY: 'auto',
-                      scrollBehavior: 'smooth',
-                    }
-                  : {
-                      borderRight: '1.5px solid rgba(61, 46, 138, 0.07)',
-                      height: 'calc(100vh - 200px)',
-                      overflowY: 'auto',
-                      scrollBehavior: 'smooth',
-                    }
+                  ? 'detail-body-carousel detail-body-carousel-problems'
+                  : 'detail-body-carousel detail-body-carousel-proyects'
               }
-              className="carouse-detail body-detail-modal"
               onScrollCapture={e => {
                 if (activeScroll) {
                   const projectDiv = document.getElementById('project-basics');
@@ -849,23 +831,12 @@ const DetailModal = ({
               }}
               ref={divRef}
             >
-              <div className="placeholder-carousel"></div>
-              <div
-                style={{
-                  background: '#f5f7ff',
-                  zIndex: '1',
-                  height: '266px',
-                  width: '100%',
-                  position: 'absolute',
-                  top: '0',
-                }}
-                className="placeholder-carousel"
-              >
-                {/* <div className="detailed-c"></div> */}
+              <div className="placeholder-carousel-background"></div>
+              <div className="placeholder-carousel placeholder-carousel-background">
               </div>
-              <Carousel className="detail-carousel" ref={carouselRef} style={{ zIndex: '3', height: '266px' }}>
+              <Carousel className="detail-carousel-image-layout" ref={carouselRef}>
                 {detailed?.problemid ? (
-                  <div className="detailed-c">
+                  <div className="detail-carousel-image-placeholder">
                     {' '}
                     <img
                       src={
@@ -880,7 +851,7 @@ const DetailModal = ({
                     return (
                       <div
                         key={index}
-                        className="detailed-c"
+                        className="detail-carousel-image-placeholder"
                         onClick={() => {
                           setOpenImage(true);
                           setActive(0);
@@ -892,7 +863,7 @@ const DetailModal = ({
                   })
                 ) : projectType ? (
                   <div
-                    className="detailed-c"
+                    className="detail-carousel-image-placeholder"
                     onClick={() => {
                       setOpenImage(true);
                       setActive(0);
@@ -901,7 +872,7 @@ const DetailModal = ({
                     {' '}
                     <img
                       alt=""
-                      className="img-carousel-backgraund"
+                      className="detailed-img-carousel-backgraund"
                       src={
                         coverImage !== ''
                           ? coverImage
@@ -946,7 +917,7 @@ const DetailModal = ({
                   </div>
                   <div className="detail-left">
                     <LeftOutlined
-                      className="button-next"
+                      className="detailed-button-next"
                       onClick={() => {
                         carouselRef.current.prev();
                       }}
@@ -954,7 +925,7 @@ const DetailModal = ({
                   </div>
                   <div className="detail-right">
                     <RightOutlined
-                      className="button-next"
+                      className="detailed-button-next"
                       onClick={() => {
                         carouselRef.current.next();
                       }}
@@ -962,7 +933,7 @@ const DetailModal = ({
                   </div>
                 </>
               )}
-              <div className="detailed-info">
+              <div className="detailed-body-info">
                 {typeS === 'Problems' ? (
                   <>
                     <DetailInformationProblem />
@@ -1008,7 +979,7 @@ const DetailModal = ({
             </Col>
             <Col
               span={7}
-              className="mobile-display"
+              className="pm-sidebar-graphics-display"
               style={{ height: 'calc(100vh - 183px)', overflowY: 'auto', scrollBehavior: 'smooth' }}
             >
               {appUser.firstName === '' || appUser.firstName === 'guest' ? (

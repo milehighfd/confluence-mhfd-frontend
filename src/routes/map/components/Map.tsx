@@ -631,15 +631,17 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     });
     mapService.map = map;
     mapService.loadImages();
-    flytoBoundsCoor(
-      getCurrent,
-      userInformation,
-      globalMapId,
-      coorBounds,
-      map,
-      groupOrganization,
-      setCoordinatesJurisdiction,
-    );
+    map.once('load', () => {
+      flytoBoundsCoor(
+        getCurrent,
+        userInformation,
+        globalMapId,
+        coorBounds,
+        map,
+        groupOrganization,
+        setCoordinatesJurisdiction,
+      );
+    });
 
     map.addControl(
       new mapboxgl.ScaleControl({
@@ -839,7 +841,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
           let allFilters: any = ['in', ['get', 'projectid'], ['literal', []]];
           const statusLayer = currentLayer?.metadata?.project_status;
           const typeLayer = currentLayer?.metadata?.project_type || currentLayer?.metadata?.projecttype;
-          let verifiedStatus;
+          let verifiedStatus= 5;
           typeLayer?.forEach((type: any) => {
             if (statusLayer.length > 0) {
               statusLayer.forEach((currentStatus: any) => {
@@ -867,7 +869,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
             }
           });
           const undefinedValues = groupedIdsBoardProjects?.undefined?.undefined ?? [];
-          const newValues = [...(groupedIdsBoardProjects ? groupedIdsBoardProjects[1]?.[1] ?? []: []), ...undefinedValues];
+          const newValues = [...(groupedIdsBoardProjects ? groupedIdsBoardProjects[1]?.[verifiedStatus] ?? []: []), ...undefinedValues];
           const result = {
             ...groupedIdsBoardProjects,
             1: {
@@ -912,7 +914,6 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
   };
 
   useEffect(() => {
-    console.log('selectedLayers', selectedLayers);
     const [intervalId, promise] = waitingInterval(map);
     promise.then(() => {
       applySkyMapLayer();

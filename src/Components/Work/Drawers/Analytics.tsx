@@ -8,7 +8,7 @@ import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { WINDOW_WIDTH } from 'constants/constants';
-import { CloseOutlined } from '@ant-design/icons';
+import { CloseOutlined, InfoCircleOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 
@@ -32,7 +32,7 @@ const Analytics = ({
   const { showAnalytics } = useRequestState();
   const [totalSum, setTotalSum] = useState(0);
   const [tcb, setTcb] = useState(totalCountyBudget);
-  const [year, setYear] = useState(tabKey === 'Maintenance' ? 2000 : +initialYear);
+  const [year, setYear] = useState<any>(tabKey === 'Maintenance' ? 2000 : +initialYear);
   const [dataByLocality, setDataByLocality] = useState(dataByCounty);
   const [localityType, setLocalityType] = useState('County');
   const [maxiQ, setMaxiQ] = useState(0);
@@ -151,7 +151,7 @@ const Analytics = ({
   }, [dataByLocality,year,tabKey]);
 
   useEffect(() => {
-    setYear(tabKey === 'Maintenance' ? 2000 : +initialYear);
+    setYear(+initialYear);
   }, [initialYear, tabKey]);
 
   useEffect(() => {
@@ -203,7 +203,7 @@ const Analytics = ({
       mask={false}>
       <div style={{ position: 'sticky', top: '0', backgroundColor: 'white' }}>
         <Row style={{ width: '100%' }}>
-          <Col span={12} className='title-utilities'>FOR
+          <Col span={tabKey === 'Maintenance' ? 24:12} className='title-utilities'>FOR
             <Select
               style={{ marginLeft: '11px', border: '1px solid #D9D9D9', borderRadius: '4px' }}
               listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
@@ -218,7 +218,12 @@ const Analytics = ({
                 ))
               }
             </Select></Col>
-          <Col span={12} className='title-utilities'>BY
+          <Col
+            span={tabKey === 'Maintenance' ? 24:12}
+            className='title-utilities'
+            style={tabKey === 'Maintenance' ? {marginTop:'12px'}:{}}
+            >
+              <span style={tabKey === 'Maintenance' ? {width: '28px', display: 'inline-block'}:{}}>BY</span>
             <Select
               defaultValue="County"
               style={{ marginLeft: '11px', border: '1px solid #D9D9D9', borderRadius: '4px', width: '70%' }}
@@ -267,7 +272,7 @@ const Analytics = ({
           </div>
         }
         <div className="line-01" style={{ marginLeft: '0px' }}></div>
-        {tabKey === 'Maintenance' &&
+        {/* {tabKey === 'Maintenance' &&
           <Select
             dropdownClassName='dropdown-menu'
             style={{ marginLeft: '-9px' }}
@@ -284,10 +289,10 @@ const Analytics = ({
               ))
             }
           </Select>
-        }
+        } */}
       </div>
       <div className='subtitle-requests'>
-        <h6 style={{ marginTop: '10px', textTransform: 'uppercase' }}>{`Requests by ${localityType}`}<Popover content={contentCounty} placement="top" > <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
+        <h6 style={{ marginTop: '10px', textTransform: 'uppercase' }}>{`Requests by ${localityType}`}<Popover content={contentCounty} placement="top" > <InfoCircleOutlined style={{opacity:'0.3'}} /> </Popover></h6>
       </div>
       <div className="graph" >
         {maxiQ > 0 &&
@@ -313,7 +318,7 @@ const Analytics = ({
         {/* <img src="gallery/requests1.png" alt="" style={{ width: '100%' }} /> */}
       </div>
       <div className="subtitle-requests" style={{ marginTop: '30px' }}>
-        <h6 style={{ marginTop: '10px', textTransform: 'uppercase' }}>{`Dollars Requested by ${localityType}`}<Popover content={contentDollars} placement="topRight" arrowPointAtCenter> <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
+        <h6 style={{ marginTop: '10px', textTransform: 'uppercase' }}>{`Dollars Requested by ${localityType}`}<Popover content={contentDollars} placement="topRight" arrowPointAtCenter> <InfoCircleOutlined style={{opacity:'0.3'}} /> </Popover></h6>
       </div>
       <div className="graph" >
         {maxiA > 0 &&

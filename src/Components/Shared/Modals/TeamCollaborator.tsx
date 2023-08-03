@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Row, Col } from 'antd';
 import TeamModal from './TeamModal';
-import { PlusOutlined } from '@ant-design/icons';
 import CommentsModal from './CommentsModal';
 
 const TeamCollaborator = () => {

@@ -24,6 +24,14 @@ export const numberWithCommas = (x: number) => {
   return x ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0;
 }
 
+export const capitalizeWords = (text: string) => {
+  return text
+    .toLowerCase()
+    .split(' ') 
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' '); 
+}
+
 export const getStatus = (value: any) => {
   let percentStatus = '';
   switch (value) {

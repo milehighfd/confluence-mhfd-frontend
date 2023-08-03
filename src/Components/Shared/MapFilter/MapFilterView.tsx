@@ -231,7 +231,7 @@ const MapFilterView = ({
     return (
       <div className="filter-coll-header" key="o0J90xA0GWXI">
 
-         <div key="Iwo7J4ogHFZQ" style={(switches[WATERSHED_FILTERS] || switches[NRCS_SOILS] || switches[ALERT_STATION]) ? weightStyle : emptyStyle }>{/*<img key="xwQ2RQ0DRJKR" src="/Icons/icon-77.svg" alt="" />*/} HYDROLOGIC </div>
+         <div key="Iwo7J4ogHFZQ" style={(switches[WATERSHED_FILTERS] || switches[NRCS_SOILS] || switches[ALERT_STATION]) ? weightStyle : emptyStyle }>{/*<img key="xwQ2RQ0DRJKR" src="/Icons/icon-77.svg" alt="" />*/} HYDROLOGY </div>
         <Switch key="ETPVzxlFrXL8" checked={groups['hydrologic']} size="small" onClick={(value, event) => {
          event.stopPropagation();
          changeGroup(value, [STREAMS_FILTERS, WATERSHED_FILTERS, NRCS_SOILS, ALERT_STATION
@@ -510,7 +510,7 @@ const MapFilterView = ({
 
             <p>
               <img key="ekLYh8KbLIjE" src="/Icons/Filters/layer-alert-station.png" width="18px" alt="" />
-                  Alert Station
+                  Alert Stations
                   <Popover key="ihK408aNAXrw" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.alert_station)}>
                 <img key="koY1HwMtgfSL" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
