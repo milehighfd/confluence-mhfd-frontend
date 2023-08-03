@@ -151,10 +151,7 @@ const Analytics = ({
   }, [dataByLocality,year,tabKey]);
 
   useEffect(() => {
-    setYear(tabKey === 'Maintenance' ? 2000 : +initialYear);
-    if(tabKey === 'Maintenance'){
-      setYear(MaintenanceTypes[0])
-    }
+    setYear(+initialYear);
   }, [initialYear, tabKey]);
 
   useEffect(() => {
