@@ -304,11 +304,12 @@ const Analytics = ({
         {maxiQ > 0 &&
           <HorizontalBarChartAnalytics
             data={quantityData}
+            type={'requests'}
             selected={countiesNames}
             onSelect={() => { }}
             defaultValue={[]}
             color={barsColor}
-            axisLabel={''}
+            axisLabel={'Number of Projects'}
             scrollClass={'svg-scroll-analytics'}
             showControls={false}
             withClickEvent={false}
@@ -330,11 +331,12 @@ const Analytics = ({
         {maxiA > 0 &&
           <HorizontalBarChartAnalytics
             data={amountData}
+            type={'amounts'}
             selected={countiesNames}
             onSelect={() => { }}
             defaultValue={[]}
             color={barsColor}
-            axisLabel={''}
+            axisLabel={'Thousands of Dollars'}
             scrollClass={'svg-scroll-analytics'}
             showControls={false}
             withClickEvent={false}

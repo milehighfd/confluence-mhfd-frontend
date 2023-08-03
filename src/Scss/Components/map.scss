@@ -1726,8 +1726,15 @@ hr.filters-line {
 }
 
 .horizontal-axis-label {
-  font-size: 12px;
+  color: #11093C;
   text-align: center;
+  font-family: Ubuntu;
+  font-size: 12px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: normal;
+  opacity: 0.6;
+  background-color: #F5F7FF;
 }
 
 @media only screen and (min-width: 1900px) {
@@ -1868,6 +1875,22 @@ hr.filters-line {
   font-size: 12px;
 }
 
+.xAxisAnalytics text {
+  color: #11093C;
+  text-align: center;
+  font-family: Ubuntu;
+  font-size: 10.667px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  opacity: 0.6;
+}
+.xAxisAnalytics line {
+  visibility: hidden;
+}
+.xAxisAnalytics path {
+  visibility: hidden;
+}
 .rheostat-input {
   width: 80% !important;
   max-width: 150px;
