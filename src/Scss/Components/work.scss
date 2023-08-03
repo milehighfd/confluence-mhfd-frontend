@@ -247,7 +247,7 @@
   
     .ant-collapse>.ant-collapse-item:last-child,
     .ant-collapse>.ant-collapse-item:last-child>.ant-collapse-header {
-      border-radius: 0 0 0px 0px;
+      border-radius: 0 0 0px 0px;      
     }
   
     .ant-collapse-content>.ant-collapse-content-box {
@@ -433,7 +433,7 @@
   border-radius: 8px;
   background-color: #F5F7FF !important;
   box-shadow: 4px 4px 12px 0px rgba(0, 0, 0, 0.10) !important;
-  width: 876px;
+  width: 880px;
   flex-shrink: 0;
   position: absolute;
   bottom: 0px;
@@ -497,7 +497,7 @@
   }
   .cost-collapse{
    .cost-header{
-    width: 99%;
+    width: 100%;
     height: 28px !important;
     display: flex;
     justify-content: space-between;
