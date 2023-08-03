@@ -193,7 +193,7 @@ const Analytics = ({
                 ))
               }
             </Select>} */}
-          <img src="/Icons/ic_close.svg" alt="" style={{ alignItems: 'flex-end', cursor: 'pointer' }} onClick={() => setShowAnalytics(false)} />
+          <img src="/Icons/ic_close.svg" alt=""  className='close-style-drawer' onClick={() => setShowAnalytics(false)} />
         </h5>
       }
       placement="right"
@@ -201,7 +201,7 @@ const Analytics = ({
       visible={visible}
       className="work-utilities"
       mask={false}>
-      <div style={{ position: 'sticky', top: '0', backgroundColor: 'white' }}>
+      <div style={{ position: 'sticky', top: '0', backgroundColor: 'white', zIndex:1 }}>
         <Row style={{ width: '100%' }}>
           <Col span={tabKey === 'Maintenance' ? 24:12} className='title-utilities'>FOR
             <Select
@@ -239,7 +239,7 @@ const Analytics = ({
         </Row>
 
         {type === 'WORK_PLAN' && tabKey === 'Maintenance' &&
-          <div>
+          <div style={{paddingTop:'16px'}}>
             <h6>Total County Budget</h6>
             <InputNumber className="rheostat-input" size='large' min={0}
               formatter={priceFormatter}

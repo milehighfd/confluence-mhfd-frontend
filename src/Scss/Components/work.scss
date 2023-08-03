@@ -859,8 +859,13 @@
     align-items: center;
     justify-content: space-between;
     img{
+      height: 21px;
+    }
+    .close-style-drawer{
       height: 16px;
       opacity: 0.6;
+      align-items: flex-end;
+      cursor: pointer;
     }
   } 
   h5{
@@ -1093,20 +1098,36 @@
     }
   }
   .body-f-p-filter{
-    padding: 16px 0px;
+    padding: 16px;
     height: 230px;
     overflow-y: auto;
     padding-top: 0px !important;
-
-
+    background: #f5f7ff;
+    border-radius: 5px;
+    color: var(--black, #131436);
+    font-family: Ubuntu;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    margin-bottom: 16px;
+    .filter-00{
+      padding-top: 16px;
+    }
     .check-filter {
-        padding-top: 16px;
-    
+        .ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover .ant-checkbox-inner, .ant-checkbox-input:focus + .ant-checkbox-inner {
+          border: 1px solid #ababb7 !important;
+          border-radius: 4px;
+          height: 18px;
+          width: 18px;
+        }
         .ant-checkbox-checked .ant-checkbox-inner {
           background-color: $blue-opacity !important;
           /* Cambia el color de fondo del checkbox cuando está seleccionado */
           border-color: $blue-opacity !important;
           /* Cambia el color del borde del checkbox cuando está seleccionado */
+          height: 18px;
+          width: 18px;
+          border-radius: 4px;
         }
       }
       .check-filter1 {
@@ -1164,11 +1185,45 @@
     }
   } 
 }
+.title-status-list{
+  display: flex;
+  align-items: center;
+  border-radius: 8px 8px 8px 8px;
+  border: 0px solid #E6E9EA;
+  background: #F5F7FF;
+  color: #11093C;
+  font-family: Ubuntu;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  padding: 11px 8px 11px 16px;
+  margin-top: 27px;
+  margin-bottom: 5px;
+  .title-left{
+    width: 50%;
+  }
+  .title-right{
+    width: 50%;
+    text-align: center;
+  }
+}
 .menu-utilities{
   h6{
-    font-size: 14px;
+    font-size: 15px;
     color: $purple00;
-    margin-bottom: -5px;
+    width: 100%;
+    display: flex;
+    padding: 0px 8px 0px 16px;
+    font-weight: 500;
+    margin-bottom: 0px;
+    .name-locality{
+      width: 50%;
+    }
+    .swith-locality{
+      width: 50%;
+      text-align: center;
+    }
   }
   p{
     font-size: 9px;
@@ -1273,7 +1328,9 @@
       border-radius: 3px;
     }
   }
-  
+  .ant-list-item-meta-title {
+    margin: 0px;
+  }
 
 }
 .chat-r{
@@ -1677,7 +1734,11 @@
   }
 
   
-
+  .drawer-filter{
+    .ant-drawer-body{
+      padding-bottom: 76px
+    }
+  }
   // Utilities
   .work-utilities{
     h5{

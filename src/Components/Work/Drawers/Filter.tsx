@@ -76,14 +76,14 @@ const Filter = () => {
       title={
         <h5 className='title-drawer'>
           <span><img src="/Icons/icon-73.svg" alt="" style={{ width: '18px' }} className="icons-drawers" /> FILTER</span>
-          <img src="/Icons/ic_close.svg" alt="" style={{ alignItems: 'flex-end', cursor: 'pointer' }} onClick={() => setShowFilters(false)} />
+          <img src="/Icons/ic_close.svg" alt=""  className='close-style-drawer' onClick={() => setShowFilters(false)} />
         </h5>
       }
       placement="right"
       closable={false}
       onClose={() => setShowFilters(false)}
       visible={showFilters}
-      className="work-utilities"
+      className="work-utilities drawer-filter"
       mask={false}
     >
       {
