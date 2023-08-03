@@ -21,14 +21,14 @@ export const TypeProjectsMenu: React.FC<Props> = ({ setTypeAndSubType }) => {
           label: 'Maintenance',
           children: [
             {
-              key: 'Maintenance Restoration',
-              label: 'Maintenance Restoration',
-              onClick: () => {setTypeAndSubType('maintenance','Restoration','Maintenance Restoration')},
+              key: 'Routine Trash & Debris',
+              label: 'Routine Trash and Debris',
+              onClick: () => {setTypeAndSubType('maintenance','Routine Trash and Debris','Routine Trash and Debris')},
             },
             {
-              key: 'Routine Trash & Debris',
-              label: 'Routine Trash & Debris',
-              onClick: () => {setTypeAndSubType('maintenance','Routine Trash and Debris','Routine Trash & Debris')},
+              key: 'Vegetation Management',
+              label: 'Vegetation Management',
+              onClick: () => {setTypeAndSubType('maintenance','Vegetation Management','Vegetation Management')},
             },
             {
               key: 'Sediment Removal',
@@ -37,13 +37,13 @@ export const TypeProjectsMenu: React.FC<Props> = ({ setTypeAndSubType }) => {
             },
             {
               key: 'General Maintenance',
-              label: 'Minor Repairs',
-              onClick: () => {setTypeAndSubType('maintenance','Minor Repairs','General Maintenance')},
+              label: 'Minor Repair',
+              onClick: () => {setTypeAndSubType('maintenance','Minor Repair','Minor Repair')},
             },
             {
-              key: 'Vegetation Management',
-              label: 'Vegetation Management',
-              onClick: () => {setTypeAndSubType('maintenance','Vegetation Management','Vegetation Management')},
+              key: 'Maintenance Restoration',
+              label: 'Restoration',
+              onClick: () => {setTypeAndSubType('maintenance','Restoration','Restoration')},
             },
           ],
         },
