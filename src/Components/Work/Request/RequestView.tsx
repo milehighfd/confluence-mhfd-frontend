@@ -96,7 +96,7 @@ const RequestView = ({ type, isFirstRendering }: {
   const history = useHistory();
   const { setZoomProject, setComponentsFromMap, setStreamIntersected, setComponentIntersected } = useProjectDispatch();
   const wrtRef = useRef(null);
-  const { userInformation, groupOrganization } = useProfileState();
+  const { userInformation, groupOrganization, isLocalGovernment, locality: profileLocality } = useProfileState();
   const { saveBoardProjecttype } = useProfileDispatch();
   const users = useMyUser();
   const fakeLoading = useFakeLoadingHook(tabKey);
@@ -139,8 +139,8 @@ const RequestView = ({ type, isFirstRendering }: {
       let _year = params.get('year');
       let _locality: any; //= params.get('locality'); commented to avoid preserve the same locality for wr and wp
       let _tabKey = params.get('tabKey') || users.projecttype;
-      if (_locality !== userInformation.organization && userInformation.designation === GOVERNMENT_STAFF) {
-        _locality = userInformation.organization;
+      if (type === 'WORK_REQUEST' && isLocalGovernment && _locality !== profileLocality) {
+        _locality = profileLocality;
       }
       let r;
       try {
