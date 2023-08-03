@@ -511,7 +511,6 @@ const mapReducer = (state = initState, action: any) => {
             }
         }
         case types.SELECTED_LAYERS: {
-          console.trace('SELECTED ', action.selectedLayer);
             return {
                 ...state,
                 selectedLayers: action.selectedLayer

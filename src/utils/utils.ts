@@ -166,3 +166,34 @@ export const deletefirstnumbersmhfdcode = (value: any) => {
   arrayValues.shift();
   return arrayValues.join('.');
 }
+export const getAlertNameAndIcon = (menu: any, popup: any) => {
+  const alert_type = popup.station_type ?? '';
+  let newMenuLabel = menu;
+  let alertIconLocation;
+  switch (alert_type) {
+    case 'Precipitation':
+      newMenuLabel = 'Alert Station - Precip';
+      alertIconLocation = 'Icons/layer-alert-station-precip.png ';
+      break;
+    case 'Precipitation, Stage':
+      newMenuLabel = 'Alert Station - Precip Stage';
+      alertIconLocation = 'Icons/layer-alert-station-precip-stage.png ';
+      break;
+    case 'Stage':
+      newMenuLabel = 'Alert Station - Stage';
+      alertIconLocation = 'Icons/layer-alert-station-stage.png ';
+      break;
+    case 'Weather':
+      newMenuLabel = 'Alert Station - Weather';
+      alertIconLocation = 'Icons/layer-alert-station-weather.png ';
+      break;
+    case 'Weather, Stage':
+      newMenuLabel = 'Alert Station - Weather Stage'; 
+      alertIconLocation = 'Icons/layer-alert-station-weather-stage.png ';
+      break;
+    default:
+      alertIconLocation = '';
+      break;
+  }
+  return {newMenuLabel, alertIconLocation};
+};

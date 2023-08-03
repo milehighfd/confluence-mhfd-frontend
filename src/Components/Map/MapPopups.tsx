@@ -65,7 +65,7 @@ export const MainPopup = ({id, item, eventFunctions, sw, ep, detailPage, mapType
     return <div id={"popup-" + id} className="map-pop-00">
       <Card hoverable>
         <div className="headmap">
-            {capitalize(item.title)}
+            {capitalize(item.title)} popups
         </div>
         <div className="bodymap">
           <h4>{item.name}</h4>
@@ -257,7 +257,7 @@ export const ComponentPopup = ({ id, item, isComponent, maptype, eventFunctions 
         <Card hoverable
         >
         <div className="headmap">
-            {item.layer === 'Components' ? 'Actions': item.layer}
+            {item.layer === 'Components' ? 'Actions': ( item.title ?? item.layer)}
         </div>
         <div className={!(item?.layer?.includes('Effective') || item?.layer?.includes('LOMC')) ? "bodymap" : 'bodymap listofelements'}>
             {item.type ? <h4>{item.type} </h4> : ''}

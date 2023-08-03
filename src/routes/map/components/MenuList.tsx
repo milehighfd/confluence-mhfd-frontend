@@ -6,6 +6,9 @@ import {
   NEW_PROJECT_TYPES,
   MENU_OPTIONS
 } from "constants/constants";
+import { getAlertNameAndIcon } from "utils/utils";
+
+
 
 export const MenuList = ({menu, popups, index, showPopup, ids} : {menu: any, popups: any, index: any, showPopup: any, ids: any}) => {
   const popup = popups[index];
@@ -139,7 +142,9 @@ export const MenuList = ({menu, popups, index, showPopup, ids} : {menu: any, pop
       iconLocation = '/Icons/layer-routine-maintenance.png';
       break;
     case menu === 'Alert Station':
-    iconLocation = '/Icons/layer-alert-station.png';
+      const {newMenuLabel, alertIconLocation} = getAlertNameAndIcon(menu, popup);
+      menu = newMenuLabel;
+      iconLocation = alertIconLocation;
     break;
     case menu.includes('Stream Improvement Measure'):
       iconLocation = '/Icons/icon_streamimprovmentmeasure.png';

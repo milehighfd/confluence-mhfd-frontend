@@ -1,21 +1,4 @@
 import React from "react";
-import {
-  MENU_OPTIONS,
-  notComponentOptions,
-  ADMIN,
-  STAFF,
-  GOVERNMENT_ADMIN,
-  GOVERNMENT_STAFF,
-  MAPTYPES
-} from "constants/constants";
-import {
-  ComponentPopup,
-  MainPopup,
-  MeasurePopup,
-  MainPopupCreateMap,
-  ComponentPopupCreate,
-  StreamPopupFull
-} from '../../../Components/Map/MapPopups';
 import { MenuList } from "./MenuList";
 import MenuItem from "./MenuItem";
 

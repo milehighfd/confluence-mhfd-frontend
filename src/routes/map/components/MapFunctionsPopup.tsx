@@ -39,7 +39,7 @@ import {
   getTitleOfStreamImprovements,
   getTitleOfLandUse,
 } from './MapFunctionsUtilities';
-import { numberWithCommas } from '../../../utils/utils';
+import { getAlertNameAndIcon, numberWithCommas } from '../../../utils/utils';
 import { SERVER } from '../../../Config/Server.config';
 import { SPONSOR_ID } from '../../../constants/databaseConstants';
 import { getCurrentProjectStatus, getJurisdictions } from '../../../utils/parsers';
@@ -840,7 +840,7 @@ export const addPopupsOnClick = async (
       ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
     }
     if (feature.source === ALERT_STATION) {
-      console.log('feature', feature);
+      const {newMenuLabel} = getAlertNameAndIcon(MENU_OPTIONS.ALERT_STATION, { station_type: feature.properties.station_type});
       const item = {
         layer: MENU_OPTIONS.ALERT_STATION,
         station_name: feature.properties.station_name ? feature.properties.station_name : '-',
@@ -849,7 +849,8 @@ export const addPopupsOnClick = async (
         shefid: feature.properties.shefid ? feature.properties.shefid : '-',
         install_year: feature.properties.install_year ? feature.properties.install_year : '-',
         station_status: feature.properties.station_status ? feature.properties.station_status : '-',
-        websiteAlert: 'http://alert5.udfcd.org/LDAD/gmapV3.html'
+        websiteAlert: 'http://alert5.udfcd.org/LDAD/gmapV3.html',
+        title: newMenuLabel
       };
       menuOptions.push(MENU_OPTIONS.ALERT_STATION);
       popups.push(item);
