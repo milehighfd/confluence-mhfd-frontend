@@ -507,9 +507,9 @@ export const setJurisdictionSponsor = (jurisdiction: any) => {
   }
 }
 
-export const getStreamsList = (geom: any) => {
+export const getStreamsList = (geom: any, projecttype: any) => {
   return (dispatch: Function) => {
-    datasets.postData(SERVER.GET_LIST_STREAMS, {geom:geom}, datasets.getToken()).then(dataStreams => {
+    datasets.postData(SERVER.GET_LIST_STREAMS, {geom:geom, projecttype}, datasets.getToken()).then(dataStreams => {
       let keysSorted = Object.keys(dataStreams).sort(function(a:any,b:any){return  a.toLowerCase().localeCompare(b.toLowerCase());})
       let listStreams: any = {}; 
       for(let k of keysSorted) {
