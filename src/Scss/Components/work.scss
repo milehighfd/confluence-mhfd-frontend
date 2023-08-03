@@ -433,7 +433,7 @@
   border-radius: 8px;
   background-color: #F5F7FF !important;
   box-shadow: 4px 4px 12px 0px rgba(0, 0, 0, 0.10) !important;
-  width: 880px;
+  width: calc(100% - 30px);
   flex-shrink: 0;
   position: absolute;
   bottom: 0px;
@@ -445,7 +445,7 @@
     padding-left: 21px !important;
     border-radius: 8px !important;
     padding-bottom: 0px !important;
-    width: 876px !important;
+    width: calc(100% - 200px) !important;
     border: none !important;
     margin-bottom: 12px !important;
     .cost-body{
@@ -496,22 +496,23 @@
     }    
   }
   .cost-collapse{
-   .cost-header{
-    width: 100%;
-    height: 28px !important;
-    display: flex;
-    justify-content: space-between;
-    position: absolute;
-    padding: 0px !important;
-    span{
-      padding-left: 24px;
-      padding-bottom: 0px !important;
-      font-size: 18px;
+    width: 120% !important;
+  .cost-header {
+      width: 100%;
+      height: 28px !important;
+      display: flex;
+      justify-content: space-between;
+      position: absolute;
+      padding: 0px !important;  
+      .rotate-img {
+        transform: rotate(180deg);  
+      }  
+      span {
+        padding-left: 24px;
+        padding-bottom: 0px !important;
+        font-size: 18px;
+      }
     }
-    img{
-      padding-right: 24px;
-    }
-   }      
   }
   
   h5{
