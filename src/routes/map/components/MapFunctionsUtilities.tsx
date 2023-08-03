@@ -29,17 +29,14 @@ export const flytoBoundsCoor = (
 ) => {
   if (userInformation.isSelect !== 'isinit') {
     let historicBounds = getCurrent();
-    console.log('userInformation', userInformation.isSelect, userInformation);
     if (historicBounds && historicBounds.bbox && userInformation.isSelect != 'isSelect') {
       globalMapId = historicBounds.id;
-      console.log('Historit fit bounuds', userInformation);
       map.fitBounds([
         [historicBounds.bbox[0], historicBounds.bbox[1]],
         [historicBounds.bbox[2], historicBounds.bbox[3]],
       ]);
     } else if (coorBounds[0] && coorBounds[1]) {
-      console.log('Fit bounds', coorBounds);
-      map.fitBounds(coorBounds);
+        map.fitBounds(coorBounds);
     }
     if (userInformation.isSelect != 'isSelect') {
       // map.setZoom(9)
@@ -99,7 +96,6 @@ export const getTitleOfProblemsPart = (feature: any) => {
   if (feature.source.includes('development_line')) {
     title = 'Watershed Change Line';
   }
-  console.log('Hello ', feature, title);
   return title;
 };
 export const getTitleOfLandUse = (feature: any) => {
