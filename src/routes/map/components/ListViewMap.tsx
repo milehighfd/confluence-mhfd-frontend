@@ -6,7 +6,7 @@ const ListViewMap = () => {
   const columns: ColumnsType<any>  = [
     {
       title: 'Project Name',
-      width: '275px',
+      width: '220px',
       dataIndex: 'name',
       key: 'name',
       fixed: 'left',
@@ -15,7 +15,7 @@ const ListViewMap = () => {
     },
     {
       title: 'Type',
-      width: '157px',
+      width: '147px',
       dataIndex: 'type',
       key: 'type',
       sorter: (a, b) => a.type - b.type,
@@ -24,7 +24,7 @@ const ListViewMap = () => {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
-      width: '96px',
+      width: '86px',
       sorter: (a, b) => a.status - b.status,
       render: (text: any) => <span className={"status-projects-"+ (text.toLowerCase())}>{text}</span>,
     },
@@ -32,7 +32,7 @@ const ListViewMap = () => {
       title: 'Phase',
       dataIndex: 'phase',
       key: 'phase',
-      width: '110px',
+      width: '100px',
       sorter: (a, b) => a.phase - b.phase,
     },
     {
@@ -177,7 +177,7 @@ const ListViewMap = () => {
     },
   ]
   return (
-    <Table columns={columns} dataSource={data} scroll={{ x: 1081, y: 'calc(100vh - 315px)' }} pagination={false} className="table-list-map"/>
+    <Table columns={columns} dataSource={data} scroll={{ x: 996, y: 'calc(100vh - 315px)' }} pagination={false} className="table-list-map"/>
   )
 };
 

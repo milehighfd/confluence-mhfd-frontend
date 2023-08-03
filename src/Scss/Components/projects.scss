@@ -968,6 +968,13 @@
     }
   }
 }
+//menu -header
+.menu-drop-type{
+  .ant-dropdown-menu-item .ant-dropdown-menu-submenu-expand-icon .ant-dropdown-menu-submenu-arrow-icon,
+  .ant-dropdown-menu-submenu-title .ant-dropdown-menu-submenu-expand-icon .ant-dropdown-menu-submenu-arrow-icon {
+    color: $purple00 !important;
+  }
+}
 // .menu-large{
 //   width: 200px !important;
 // }

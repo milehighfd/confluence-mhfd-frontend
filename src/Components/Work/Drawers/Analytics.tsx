@@ -32,7 +32,7 @@ const Analytics = ({
   const { showAnalytics } = useRequestState();
   const [totalSum, setTotalSum] = useState(0);
   const [tcb, setTcb] = useState(totalCountyBudget);
-  const [year, setYear] = useState(tabKey === 'Maintenance' ? 2000 : +initialYear);
+  const [year, setYear] = useState<any>(tabKey === 'Maintenance' ? 2000 : +initialYear);
   const [dataByLocality, setDataByLocality] = useState(dataByCounty);
   const [localityType, setLocalityType] = useState('County');
   const [maxiQ, setMaxiQ] = useState(0);
@@ -152,6 +152,9 @@ const Analytics = ({
 
   useEffect(() => {
     setYear(tabKey === 'Maintenance' ? 2000 : +initialYear);
+    if(tabKey === 'Maintenance'){
+      setYear(MaintenanceTypes[0])
+    }
   }, [initialYear, tabKey]);
 
   useEffect(() => {
@@ -268,7 +271,7 @@ const Analytics = ({
           </div>
         }
         <div className="line-01" style={{ marginLeft: '0px' }}></div>
-        {tabKey === 'Maintenance' &&
+        {/* {tabKey === 'Maintenance' &&
           <Select
             dropdownClassName='dropdown-menu'
             style={{ marginLeft: '-9px' }}
@@ -285,7 +288,7 @@ const Analytics = ({
               ))
             }
           </Select>
-        }
+        } */}
       </div>
       <div className='subtitle-requests'>
         <h6 style={{ marginTop: '10px', textTransform: 'uppercase' }}>{`Requests by ${localityType}`}<Popover content={contentCounty} placement="top" > <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
