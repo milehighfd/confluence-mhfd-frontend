@@ -124,7 +124,7 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
     <Drawer
       title={<h5 className='title-drawer'>
         <span> <img src="/Icons/icon-88.svg" alt="" className="icons-drawers"/> STATUS</span>
-        <img src="/Icons/ic_close.svg" alt="" style={{ alignItems: 'flex-end', cursor: 'pointer' }} onClick={() => setVisible(false)} />
+        <img src="/Icons/ic_close.svg" alt="" className='close-style-drawer' onClick={() => setVisible(false)} />
         </h5>
         
       }
@@ -161,7 +161,7 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
           </div>
         </Select.Option>
       </Select> */}
-          <Row style={{marginTop:'20px', border:'1px solid #E6E9EA', borderRadius:'8px', display:'flex', alignItems:'center', padding:'11px 16px', backgroundColor:'#f5f7ff'}}>
+          {/* <Row style={{marginTop:'20px', border:'1px solid #E6E9EA', borderRadius:'8px', display:'flex', alignItems:'center', padding:'11px 16px', backgroundColor:'#f5f7ff'}}>
             <Col lg={{ span: 12 }}>
               <p style={{fontSize:'10px', color:'#11093C'}}>Project Type                
               </p>
@@ -170,7 +170,15 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
               <p style={{textAlign:'center', fontSize:'10px', color:'#11093C', lineHeight:'11.49px'}}>Is this Board <br/>Ready for Review?</p>
             </Col>
             
-          </Row>
+          </Row> */}
+          <div className="title-status-list">
+            <div className="title-left">
+              Project Type
+            </div>
+            <div className="title-right">
+              Is this Board <br/>Ready for Review?
+            </div>
+          </div>
           {
             loading ? (<div>Loading...</div>) : (
               <List
@@ -180,25 +188,24 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
                   <List.Item className="menu-utilities">
                     <List.Item.Meta
                       title={
-                        <h6 style={{paddingLeft:'10px', fontSize:'15px'}}>
+                        <h6 className="content-locality">
                           {/* <i className="mdi mdi-circle" style={{color: item.status === 'Approved' ? '#29C499' : '#ffdd00' , background:'transparent'}}>
                           </i> */}
-                          &nbsp; {item.locality}
+                          <div className="name-locality">{item.locality}</div>
+                          <div className="swith-locality">
+                            <Switch
+                              checkedChildren={item.checked ? "Yes" : 'No'}
+                              unCheckedChildren={item.checked ? "No": 'Yes'}
+                              checked={item.checked}
+                              className={item.checked ? "switch-status" : 'switch-status-no'}
+                              onClick={() => onCheck(item.locality)}
+                            />
+                          </div>
+                          
                         </h6>
                       }
                     />
-                      <Space
-                        direction="vertical"
-                        style={{paddingRight:'26px'}}
-                      >
-                        <Switch
-                          checkedChildren={item.checked ? "Yes" : 'No'}
-                          unCheckedChildren={item.checked ? "No": 'Yes'}
-                          checked={item.checked}
-                          className={item.checked ? "switch-status" : 'switch-status-no'}
-                          onClick={() => onCheck(item.locality)}
-                        />
-                      </Space>
+                      
                   </List.Item>
                 )}
               />

@@ -26,7 +26,7 @@ const FilterGroup = ({
       <div className={label === 'Located in the South Platte River'? "body-f-p-filter-river" : "body-f-p-filter"}>
         {
           filterList?.map((cn: any, index: number) => (
-            <div key={`filter-ps${index}`}>
+            <div key={`filter-ps${index}`} className='filter-00'>
               <Checkbox className='check-filter' checked={selected[index]} onChange={e => {
                 let v = e.target.checked;
                 setter(selected.map((w, i) => {
