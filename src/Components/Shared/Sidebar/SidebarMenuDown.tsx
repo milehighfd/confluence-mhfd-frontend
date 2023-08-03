@@ -98,7 +98,7 @@ const SidebarMenuDown = ({
   const optionsLabel = (
     <div className="menu-back-layout">
       {user.photo ? (
-        <img src={user.photo} className={'ll-img anticon' + (collapsed ? ' img-collapsed' : '')} alt="profile" />
+        <img src={user.photo} className={'ll-img anticon' + (collapsed ? ' img-profile-collapsed' : '')} alt="profile" />
       ) : (
         <label className="ll-00">{initialName}</label>
       )}
@@ -140,15 +140,17 @@ const SidebarMenuDown = ({
         key="sub4"
         theme="light"
         title={optionsLabel}
-        popupOffset={[15, -80]}
+        popupOffset={[15, -100]}
       >
-        <Menu.Item className="option-layout" onClick={() => setVisibleIntroduction(true)} key="2">
+        <Menu.Item className="option-layout option-layout-top" onClick={() => setVisibleIntroduction(true)} key="2">
           Introduction
         </Menu.Item>
-        <Menu.Item className="option-layout" onClick={() => setVisibleTutorial(true)} key="3">
+        <Menu.Item className="option-layout option-layout-central" onClick={() => setVisibleTutorial(true)} key="3">
           Tutorial
         </Menu.Item>
-        <Menu.Item className="option-layout" onClick={logout} key="4">
+        <div className="option-line" key="4">
+        </div>
+        <Menu.Item className="option-layout" onClick={logout} key="5">
           {localStorage.getItem('mfx-token') == 'GUEST' ? 'Sign In' : 'Logout'}
         </Menu.Item>
       </SubMenu>

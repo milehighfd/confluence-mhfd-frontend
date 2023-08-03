@@ -14,6 +14,8 @@ const initialState = {
   problemId: null,
   showAnalytics: false,
   sumByCounty: [],
+  sumByLocalGov: [],
+  sumByServiceArea: [],
   sumTotal: {},
   totalCountyBudget: 0,
   namespaceId: '',
@@ -32,6 +34,7 @@ const initialState = {
   countiesSelected: [],
   serviceAreasSelected: [],
   prioritySelected: [],
+  projectStatusesSelected: [],
   csaSelected: [],
   localityType: '',
   visibleCreateProject: false,
@@ -101,6 +104,16 @@ const requestReducer = (state = initialState, action: any) => {
       return {
         ...state,
         sumByCounty: action.payload
+      };
+    case types.REQUEST_SET_SUM_BY_SA:
+      return {
+        ...state,
+        sumByServiceArea: action.payload
+      };
+    case types.REQUEST_SET_SUM_BY_LG:
+      return {
+        ...state,
+        sumByLocalGov: action.payload
       };
     case types.REQUEST_SET_SUM_TOTAL:
       return {
@@ -182,6 +195,11 @@ const requestReducer = (state = initialState, action: any) => {
         ...state,
         serviceAreasSelected: action.payload
       };
+      case types.REQUEST_SET_PROJECT_STATUSES_SELECTED:
+        return {
+          ...state,
+          projectStatusesSelected: action.payload
+        };
     case types.REQUEST_SET_CSA_SELECTED:
       return {
         ...state,

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { AutoComplete, Col, Input, Row } from 'antd';
+import { AutoComplete, Button, Col, Input, Row } from 'antd';
 import { useProfileState } from '../../../hook/profileHook';
 import { useMapState } from '../../../hook/mapHook';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
@@ -7,9 +7,13 @@ import { DownOutlined, UpOutlined } from '@ant-design/icons';
 const windowWidth: any = window.innerWidth;
 
 const MapAutoComplete = ({
-  onAutoCompleteSelected
+  onAutoCompleteSelected,
+  selectView,
+  setSelectView,
 }: {
-  onAutoCompleteSelected: Function
+  onAutoCompleteSelected: Function,
+  selectView: string,
+  setSelectView: React.Dispatch<React.SetStateAction<string>>,
 }) => {
   const { nameZoomArea } = useMapState();
   const { groupOrganization } = useProfileState();
@@ -17,7 +21,7 @@ const MapAutoComplete = ({
   const [valueA, setvalueA] = useState('');
   const ref = useRef<any>(null);
   const [dataAutocomplete, setDataAutocomplete] = useState(groupOrganization.map((item: any) => {
-    return { key: item.id, value: item.name, label: item.name }
+    return { key: item.id + item.name, value: item.name, label: item.name }
   }));
 
   const onSelect = (value: any, isSelect?: any) => {
@@ -26,7 +30,7 @@ const MapAutoComplete = ({
   };
   useEffect(() => {
     setDataAutocomplete(groupOrganization.map((item: any) => {
-      return { key: item.name, value: item.name, label: item.name }
+      return { key: item.id + item.name, value: item.name, label: item.name }
     }));
   }, [groupOrganization]);
 
@@ -81,6 +85,16 @@ const MapAutoComplete = ({
               }
             />
           </AutoComplete>
+          <div className='button-header-tab'>
+            <Button className={selectView === 'list' ? 'ico-header-tab-active' :'ico-header-tab'} onClick={() =>{setSelectView('list')}}>
+              {selectView === 'list' ?<img src='Icons/ic-list-purple.svg' alt='ic-list-purple'/>:<img src='Icons/ic-list.svg' alt='ic-list'/>}
+              List
+            </Button>
+            <Button className={selectView === 'card' ? 'ico-header-tab-active' :'ico-header-tab'} onClick={() =>{setSelectView('card')}}>
+              {selectView === 'card' ?<img src='Icons/ic-card-purple.svg' alt='ic-card-purple'/>:<img src='Icons/ic-card.svg' alt='ic-card'/>}
+              Card
+            </Button>
+          </div>
         </div>
       </Col>
     </Row>

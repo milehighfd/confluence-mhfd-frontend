@@ -152,3 +152,9 @@ export const onRender = (id: any, phase: any, actualDuration: any, baseDuration:
   console.log('startTime', startTime);
   console.log('commitTime', commitTime);
 };
+
+export const deletefirstnumbersmhfdcode = (value: any) => {
+  const arrayValues = value.stream.stream.MHFD_Code.split('.');
+  arrayValues.shift();
+  return arrayValues.join('.');
+}

@@ -387,8 +387,8 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
           topLatitude = element[1];
         }
       }
-      bottomLongitude -= 0.125;
-      topLongitude += 0.125;
+      bottomLongitude -= 0.015;
+      topLongitude += 0.015;
       coorBounds.push([bottomLongitude, bottomLatitude]);
       coorBounds.push([topLongitude, topLatitude]);
     }
@@ -626,20 +626,22 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
       touchZoomRotate: true,
       style: dropdownItems.items[dropdownItems.default].style,
       center: [userInformation.coordinates.longitude, userInformation.coordinates.latitude],
-      zoom: 8,
+      zoom: 9,
       attributionControl: false,
     });
     mapService.map = map;
     mapService.loadImages();
-    flytoBoundsCoor(
-      getCurrent,
-      userInformation,
-      globalMapId,
-      coorBounds,
-      map,
-      groupOrganization,
-      setCoordinatesJurisdiction,
-    );
+    map.once('load', () => {
+      flytoBoundsCoor(
+        getCurrent,
+        userInformation,
+        globalMapId,
+        coorBounds,
+        map,
+        groupOrganization,
+        setCoordinatesJurisdiction,
+      );
+    });
 
     map.addControl(
       new mapboxgl.ScaleControl({
@@ -912,7 +914,6 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
   };
 
   useEffect(() => {
-    console.log('selectedLayers', selectedLayers);
     const [intervalId, promise] = waitingInterval(map);
     promise.then(() => {
       applySkyMapLayer();

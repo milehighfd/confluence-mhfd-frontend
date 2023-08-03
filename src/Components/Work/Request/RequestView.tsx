@@ -22,7 +22,8 @@ import RequestCostRows from 'routes/work-request/components/RequestCostRows';
 import AutoCompleteDropdown from 'routes/work-request/components/AutoCompleteDropdown';
 
 import '../../../index.scss';
-import { useMapDispatch } from 'hook/mapHook';
+import { useMapDispatch, useMapState } from 'hook/mapHook';
+import TableListView from './Toolbar/TableListView';
 
 const { TabPane } = Tabs;
 
@@ -31,7 +32,7 @@ const popovers: any = [
   <div className="popoveer-00"><b>Study:</b> Master plans that identify problems and recommend improvements.</div>,
   <div className="popoveer-00"><b>Maintenance:</b> Restore existing infrastructure eligible for MHFD participation.</div>,
   <div className="popoveer-00"><b>Acquisition:</b> Property with high flood risk or needed for improvements.</div>,
-  <div className="popoveer-00"><b>R&D:</b> Any other effort for which MHFD funds or staff time is requested.</div>
+  <div className="popoveer-00"><b>R&D:</b> Research and Development projects include new stream/rain gages, research, data development, new education and outreach programming, and criteria or guidance development.</div>
 ]
 const RequestView = ({ type, isFirstRendering }: {
   type: boardType,
@@ -49,6 +50,7 @@ const RequestView = ({ type, isFirstRendering }: {
     reqManager,
     isOnSelected,
   } = useRequestState();
+  
   const {
     setShowModalProject,
     setCompleteProjectData,
@@ -65,6 +67,7 @@ const RequestView = ({ type, isFirstRendering }: {
     setJurisdictionSelected,
     setCountiesSelected,
     setServiceAreasSelected,
+    setProjectStatusesSelected,
     setLocalityType,
     setLocalities,
     setColumns,
@@ -86,6 +89,7 @@ const RequestView = ({ type, isFirstRendering }: {
     setBBOXComponents
   } = useMapDispatch();
   const [flagforScroll, setFlagforScroll] = useState(0);
+  const [isInitMap, setIsInitMap] = useState(true);
   const [showCreateProject, setShowCreateProject] = useState(false);
   const history = useHistory();
   const { setZoomProject, setComponentsFromMap, setStreamIntersected, setComponentIntersected } = useProjectDispatch();
@@ -94,6 +98,13 @@ const RequestView = ({ type, isFirstRendering }: {
   const { saveBoardProjecttype } = useProfileDispatch();
   const users = useMyUser();
   const fakeLoading = useFakeLoadingHook(tabKey);
+  const [ListWork, setListWork] = useState(false);
+  const [selectView, setSelectView] = useState('card');
+
+  const {  
+    tabActiveNavbar
+  } = useMapState();
+
   const resetOnClose = () => {
     setStreamIntersected([]);
     setComponentIntersected([]);
@@ -116,6 +127,7 @@ const RequestView = ({ type, isFirstRendering }: {
   }, [locality, tabKey, year]);
 
   useEffect(() => {
+    console.log('is going to set init map true');
     saveBoardProjecttype(tabKey);
   }, [tabKey]);
 
@@ -143,6 +155,7 @@ const RequestView = ({ type, isFirstRendering }: {
         _locality = r.localities[0].name;
       }
       if (_locality) {
+        setIsInitMap(true);
         setLocality(_locality)
         setIsOnSelected(false);
         setLocalityFilter(_locality)
@@ -208,6 +221,7 @@ const RequestView = ({ type, isFirstRendering }: {
     const loadProjects = async () => {
       setColumns(defaultColumns);
       let board;
+      console.log(type, year, locality, tabKey)
       try {
         board = await getBoardData3({
           type,
@@ -220,10 +234,9 @@ const RequestView = ({ type, isFirstRendering }: {
       }
 
       setBoard(board);
-      if (type === "WORK_PLAN") {
-        loadFilters(board.board_id);
-      }
-      loadColumns(board.board_id);
+      loadColumns(board.board_id);     
+      loadFilters(board.board_id);
+      
       /* TODO: this should be replaced */
       console.log('Sub status', board.substatus);
       setBoardStatus(board.status);
@@ -279,7 +292,9 @@ const RequestView = ({ type, isFirstRendering }: {
 
   useEffect(() => {
     if (locality) {
-      onSelect(locality);
+      console.trace('Is Init map', isInitMap);
+      // reach on initLoading
+      onSelect(locality, isInitMap ? 'isinit' : undefined);
     }
   }, [locality]);
 
@@ -295,7 +310,8 @@ const RequestView = ({ type, isFirstRendering }: {
         };
       });
     if (zoomareaSelected[0]) {
-      changeCenter(value, zoomareaSelected[0].coordinates, isSelect == 'noselect' ? undefined : 'isSelect');
+      changeCenter(value, zoomareaSelected[0].coordinates, isSelect ?? 'isSelect');
+      setIsInitMap(false);
     }
     setBBOXComponents({ bbox: [], centroids: [] });
   };
@@ -366,7 +382,15 @@ const RequestView = ({ type, isFirstRendering }: {
     }
   }
   loadTabkeysDisplayed();
-  return (
+
+const selectCard = (card: any, show:boolean) => {
+  setSelectView(card);
+setListWork(show)
+}
+
+console.log(tabActiveNavbar);
+
+return (
     <Layout className="work">
       {(fakeLoading) && <LoadingViewOverall />}
       {
@@ -393,24 +417,36 @@ const RequestView = ({ type, isFirstRendering }: {
                 <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                   <AutoCompleteDropdown type={type} />
                 </Col>
-                <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{ textAlign: 'right' }}>
+                <Col xs={{ span: 24 }} lg={{ span: 12 }}
+                  style={{ textAlign: 'right' }}>
+                <div className='button-header-tab'>
                   <YearDropdown />
-                  <Toolbar type={type} />
+                  <div className='button-header'>
+                    <Button id='buttons-header' className={selectView === 'list' ? 'ico-header-tab-active' : 'ico-header-tab'} onClick={() => { selectCard('list', true) }}>
+                      {selectView === 'list' ? <img src='Icons/ic-list-purple.svg' alt='ic-list-purple' /> : <img src='Icons/ic-list.svg' alt='ic-list' />}
+                      List
+                    </Button>
+                    <Button id='buttons-header' className={selectView === 'card' ? 'ico-header-tab-active' : 'ico-header-tab'} onClick={() => { selectCard('card', false) }}>
+                      {selectView === 'card' ? <img src='Icons/ic-card-purple.svg' alt='ic-card-purple' /> : <img src='Icons/ic-card.svg' alt='ic-card' />}
+                      Card
+                    </Button>
+                  </div>
+                </div>
                 </Col>
               </Row>
             </div>
             <div className="work-body">
-              {type === 'WORK_PLAN' &&
-                <Button className="btn-filter-d" onClick={() => setShowFilters(true)}>
-                  <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center" }} src="" />
-                </Button>
-              }
-              <Tabs destroyInactiveTabPane={true} defaultActiveKey={displayedTabKey[0]}
+              <div className='btn-filter-d'>
+                {tabActiveNavbar !== 'MAP' && <Toolbar type={type} />}
+              </div>
+              <Tabs destroyInactiveTabPane={true}
+                defaultActiveKey={displayedTabKey[0]}
                 activeKey={tabKey}
                 onChange={(key) => {
                   setTabKey(key);
                   setPrioritySelected([]);
                   setJurisdictionSelected([]);
+                  setProjectStatusesSelected([]);
                   if (year < 2024) {
                     setCountiesSelected([]);
                     setServiceAreasSelected([]);
@@ -419,19 +455,23 @@ const RequestView = ({ type, isFirstRendering }: {
                 {
                   displayedTabKey.map((tk: string) => (
                     <TabPane tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style">{tk} </Popover> </span>} key={tk}>
-                      <div className="work-table" ref={wrtRef}>
-                        <ColumsTrelloCard
-                          type={type}
-                          flagforScroll={flagforScroll}
-                        />
+                        {ListWork &&
+                        <TableListView />                          
+                        }{!ListWork && <div><div className="work-table"
+                        ref={wrtRef}>
+                        <ColumsTrelloCard                         
+                          flagforScroll={flagforScroll} 
+                          type={type}/>                          
                       </div>
-                      <RequestCostRows type={type} />
+                      <RequestCostRows type={type}/>
+                      </div>}                     
                     </TabPane>
                   ))
                 }
               </Tabs>
             </div>
-            <Button className="btn-scroll" onClick={() => scrollToRight()}>
+            <Button className="btn-scroll"
+              onClick={() => scrollToRight()}>
               <RightOutlined />
             </Button>
           </Col>

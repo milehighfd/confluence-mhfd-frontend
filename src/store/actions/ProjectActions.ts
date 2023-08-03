@@ -80,8 +80,15 @@ export const saveCapital = (data: any) => {
     let covername = '';
     console.log(Object.keys(data));
     Object.keys(data).forEach((key: string) => {
-      if (key === 'geom') {
+      if (key === 'geom' && (data.type === 'capital' || data.type === 'maintenance')) {
         formData.append(key, data[key]);
+      }else if (key === 'geom' && (data.type === 'acquisition' || data.type === 'special')) {
+        formData.append(key, JSON.stringify(data[key]));
+      }
+      else if (key === 'geom' && data.type === 'study') {
+        formData.append(key, JSON.stringify(data[key]));
+      }else if (key === 'ids' || key === 'streams'){
+        formData.append(key, JSON.stringify(data[key]));
       } else if (key === 'files') {
         data[key].forEach((o: any, i: number) => {  
           console.log(o, 'O')        
@@ -334,8 +341,15 @@ export const editCapital = (data: any) => {
     const formData = new FormData();
     let covername = '';
     Object.keys(data).forEach((key: string) => {
-      if (key === 'geom') {
+      if (key === 'geom' && (data.type === 'capital' || data.type === 'maintenance')) {
         formData.append(key, data[key]);
+      }else if (key === 'geom' && (data.type === 'acquisition' || data.type === 'special')) {
+        formData.append(key, JSON.stringify(data[key]));
+      }
+      else if (key === 'geom' && data.type === 'study') {
+        formData.append(key, JSON.stringify(data[key]));
+      }else if (key === 'ids' || key === 'streams'){
+        formData.append(key, JSON.stringify(data[key]));
       } else if (key === 'files') {
         data[key].forEach((o: any, i: number) => {          
           console.log(o, 'O')                
@@ -514,6 +528,7 @@ export const getStreamsList = (geom: any) => {
 
 export const setStreamsList = (listStreams: any) => {
   return ( dispatch: Function) => {
+    console.log('Should reset', listStreams);
     dispatch({type: types.SET_LIST_STREAMS, listStreams});
   }
 } 

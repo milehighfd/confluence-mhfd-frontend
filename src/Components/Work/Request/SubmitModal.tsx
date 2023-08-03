@@ -52,7 +52,7 @@ export const SubmitModal = ({ locality, boardsLength, boardSubstatus, type, visi
         <div className="detailed">
           <Row className="detailed-h" gutter={[16, 8]}>
             <Col xs={{ span: 20 }} lg={{ span: 20 }}>
-              <h1 style={{marginTop: '15px'}}>Work Request Submission
+              <h1 style={{marginTop: '15px'}}>Confirm Project Submission
               </h1>
             </Col>
             <Col xs={{ span: 4 }} lg={{ span: 4 }} style={{textAlign: 'end'}}>
@@ -60,7 +60,7 @@ export const SubmitModal = ({ locality, boardsLength, boardSubstatus, type, visi
             </Col>
           </Row>
           <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
-          <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
+          {/* <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
             {
               (!isPending) && <h2>{ currentApproved ? 'Only notes will be updated.' : <div style={{fontSize:'16px !important'}}>
                 By Approving, you are submitting your jurisdiction's {type === 'WORK_REQUEST' ? 'Work Request' : 'Work Plan'} to MHFD for review. You will no longer be able to edit.
@@ -69,20 +69,29 @@ export const SubmitModal = ({ locality, boardsLength, boardSubstatus, type, visi
             {
               (isPending) && <p style={{color: '#11093c'}}>{ hasChecks ? hasChecksAlertText : notChecksAlertText }</p> 
             }
+          </Col> */}
+          <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
+            <p>
+              Please confirm that Arvada’s Work Request will be submitted to the Mile High Flood District for review. Once submitted, it cannot be returned.
+            </p>
           </Col>
-          <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c', textAlign:'center'}}>
-            { !isPending && <button className="btn-borde" onClick={handleCancel}>Cancel</button>}
+          <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{display: 'flex', justifyContent: 'space-between'}}>
+            {/* { !isPending && <button className="btn-borde" onClick={handleCancel}  style={{width:'47%'}}>Cancel</button>}
             {
               isPending ? (
-                <button className="btn-purple" onClick={handleCancel}>
-                  OK
+                <button className="btn-purple" onClick={handleCancel} style={{width:'47%'}}>
+                  Submit
                 </button>
               ) : (
-                <button className="btn-purple" onClick={handleOk}>
+                <button className="btn-purple" onClick={handleOk} style={{width:'47%'}}>
                   { (currentApproved) ? 'OK' : 'Approve' }
                 </button>
               )
-            }
+            } */}
+            <button className="btn-borde" onClick={handleCancel}  style={{width:'47%'}}>Cancel</button>
+            <button className="btn-purple" onClick={handleOk} style={{width:'47%'}}>
+              Submit
+            </button>
           </Col>
         </Row>
         </div>

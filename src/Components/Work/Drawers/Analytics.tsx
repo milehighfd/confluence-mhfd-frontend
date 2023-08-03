@@ -8,6 +8,7 @@ import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { WINDOW_WIDTH } from 'constants/constants';
+import { CloseOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 
@@ -17,7 +18,9 @@ const Analytics = ({
   type: boardType
 }) => {
   const {
-    sumByCounty: data,
+    sumByCounty: dataByCounty,
+    sumByServiceArea: dataBySA,
+    sumByLocalGov: dataByLocalGovernment,
     year: initialYear,
     tabKey,
     namespaceId: boardId,
@@ -26,9 +29,18 @@ const Analytics = ({
     totalCountyBudget,
   } = useRequestState();
   const { setShowAnalytics } = useRequestDispatch();
+  const { showAnalytics } = useRequestState();
   const [totalSum, setTotalSum] = useState(0);
   const [tcb, setTcb] = useState(totalCountyBudget);
   const [year, setYear] = useState(tabKey === 'Maintenance' ? 2000 : +initialYear);
+  const [dataByLocality, setDataByLocality] = useState(dataByCounty);
+  const [localityType, setLocalityType] = useState('County');
+  const [maxiQ, setMaxiQ] = useState(0);
+  const [quantityData, setQuantityData] = useState([]);
+  const [maxiA, setMaxiA] = useState(0);
+  const [amountData, setAmountData] = useState([]);
+  const [countiesNames, setCountiesNames] = useState('');
+
   const getLabel = () => {
     if (tabKey === 'Capital' || tabKey === 'Maintenance') {
       return "County"
@@ -68,162 +80,216 @@ const Analytics = ({
     }
     setTotalSum(sum);
   }, [totals]);
+  let barsColor = '#5e63e4';
+
+  useEffect(() => {
+    let maxiQ = 0;
+    let quantityData;
+    let maxiA = 0;
+    let amountData;
+    setCountiesNames(dataByLocality.map((d: any) => d.locality).join(','));
+    // 2000 is default value for all subtypes in maintenance
+    if (year === 2000) {
+      quantityData = dataByLocality.map((d: any) => {
+        let totalCounter = 0;
+        for (let i = 0; i < years.length; ++i) {
+          const currYear = +years[i];
+          let counter = d[`cnt${currYear - initialYear + 1}`] || 0;
+          if (counter !== 0) counter = +counter;
+          totalCounter += counter;
+          maxiQ = Math.max(maxiQ, counter);
+          setMaxiQ(maxiQ);
+        }
+        return {
+          value: d.locality,
+          counter: totalCounter,
+          selected: true
+        }
+      });
+      setQuantityData(quantityData);
+      amountData = dataByLocality.map((d: any) => {
+        let totalCounter = 0;
+        for (let i = 0; i < years.length; ++i) {
+          const currYear = +years[i];
+          let amount = d[`req${currYear - initialYear + 1}`] || 0;
+          if (amount !== 0) amount = +amount;
+          totalCounter += amount;
+          maxiA = Math.max(maxiA, amount);
+          setMaxiA(maxiA);
+        }
+        return {
+          value: d.locality,
+          counter: totalCounter,
+          selected: true
+        }
+      });
+      setAmountData(amountData);
+    } else {
+      const cntColumnName = `cnt${year - initialYear + 1}`;
+      const reqColumnName = `req${year - initialYear + 1}`;
+      quantityData = dataByLocality.map((d: any) => {
+        maxiQ = Math.max(maxiQ, d[cntColumnName] || 0);
+        setMaxiQ(maxiQ);
+        return {
+          value: d.locality,
+          counter: d[cntColumnName] || 0,
+          selected: true
+        }
+      });
+      setQuantityData(quantityData);
+      amountData = dataByLocality.map((d: any) => {
+        maxiA = Math.max(maxiA, d[reqColumnName] || 0);
+        setMaxiA(maxiA);
+        return {
+          value: d.locality,
+          counter: d[reqColumnName] || 0,
+          selected: true
+        }
+      })
+      setAmountData(amountData);
+    }
+  }, [dataByLocality,year,tabKey]);
 
   useEffect(() => {
     setYear(tabKey === 'Maintenance' ? 2000 : +initialYear);
   }, [initialYear, tabKey]);
 
+  useEffect(() => {
+    if (localityType === 'Local Government') {
+      setDataByLocality(dataByLocalGovernment);
+    } else if (localityType === 'County') {
+      setDataByLocality(dataByCounty);
+    } else {
+      setDataByLocality(dataBySA);
+    }
+  }, [localityType,showAnalytics,dataByLocalGovernment,dataByCounty,dataBySA]);
+
   const years: any[] = [];
   for (var i = 0; i < 5; i++) {
     years.push(+initialYear + i);
-  }
-  let maxiQ = 0;
-  let quantityData;
-  let maxiA = 0;
-  let amountData;
-  let countiesNames = data.map((d: any) => d.locality).join(',');
-  let barsColor = '#261964';
-  let groupingType = null;
-  if (type === 'WORK_REQUEST') {
-    groupingType = 'Local Government'
-  } else {
-    groupingType = ['Study'].includes(tabKey) ? 'Service Area': 'County';
-  }
-  // 2000 is default value for all subtypes in maintenance
-  if (year === 2000) {
-    quantityData = data.map((d: any) => {
-      let totalCounter = 0;
-      for (let i = 0; i < years.length; ++i) {
-        const currYear = +years[i];
-        let counter = d[`cnt${currYear - initialYear + 1}`] || 0;
-        if (counter !== 0) counter = +counter;
-        totalCounter += counter;
-        maxiQ = Math.max(maxiQ, counter);
-      }
-      return {
-        value: d.locality,
-        counter: totalCounter,
-        selected: true
-      }
-    });
-    amountData = data.map((d: any) => {
-      let totalCounter = 0;
-      for (let i = 0; i < years.length; ++i) {
-        const currYear = +years[i];
-        let amount = d[`req${currYear - initialYear + 1}`] || 0;
-        if (amount !== 0) amount = +amount;
-        totalCounter += amount;
-        maxiA = Math.max(maxiA, amount);
-      }
-      return {
-        value: d.locality,
-        counter: totalCounter,
-        selected: true
-      }
-    });
-  } else {
-    const cntColumnName = `cnt${year - initialYear + 1}`;
-    const reqColumnName = `req${year - initialYear + 1}`;
-    quantityData = data.map((d: any) => {
-      maxiQ = Math.max(maxiQ, d[cntColumnName] || 0);
-      return {
-        value: d.locality,
-        counter: d[cntColumnName] || 0,
-        selected: true
-      }
-    });
-    amountData = data.map((d: any) => {
-      maxiA = Math.max(maxiA, d[reqColumnName] || 0);
-      return {
-        value: d.locality,
-        counter: d[reqColumnName] || 0,
-        selected: true
-      }
-    })
-  }
+  }  
+
+  const handleChange = (value: string) => {
+    setLocalityType(value);
+  };
   return (
     <Drawer
       title={
-        <h5>
-          <img src="/Icons/work/chat.svg" alt="" className="menu-wr" /> Analytics
-          {tabKey !== 'Maintenance' &&
+        <h5 className='title-drawer'>
+          <span style={{}}><img src="/Icons/icon-89.svg" alt="" className="icons-drawers" />Analytics</span>
+          {/* {tabKey !== 'Maintenance' &&
+            <Select
+              dropdownClassName='dropdown-menu'
+              style={{ marginLeft: '11px' }}
+              listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+              defaultValue={year}
+              value={year}
+              onChange={setYear}>
+              {
+                years.map((y, i) => (
+                  <Option key={i} value={y}>{
+                    tabKey !== 'Maintenance' ? y : MaintenanceTypes[i]
+                  }</Option>
+                ))
+              }
+            </Select>} */}
+          <img src="/Icons/ic_close.svg" alt="" style={{ alignItems: 'flex-end', cursor: 'pointer' }} onClick={() => setShowAnalytics(false)} />
+        </h5>
+      }
+      placement="right"
+      closable={false}
+      visible={visible}
+      className="work-utilities"
+      mask={false}>
+      <div style={{ position: 'sticky', top: '0', backgroundColor: 'white' }}>
+        <Row style={{ width: '100%' }}>
+          <Col span={tabKey === 'Maintenance' ? 24:12} className='title-utilities'>FOR
+            <Select
+              style={{ marginLeft: '11px', border: '1px solid #D9D9D9', borderRadius: '4px' }}
+              listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+              defaultValue={year}
+              value={year}
+              onChange={setYear}>
+              {
+                years.map((y, i) => (
+                  <Option key={i} value={y}>{
+                    tabKey !== 'Maintenance' ? y : MaintenanceTypes[i]
+                  }</Option>
+                ))
+              }
+            </Select></Col>
+            {tabKey === 'Maintenance' ? <><br/><br/></>:''}
+          <Col span={tabKey === 'Maintenance' ? 24:12} className='title-utilities'>BY
+            <Select
+              defaultValue="County"
+              style={{ marginLeft: '11px', border: '1px solid #D9D9D9', borderRadius: '4px', width: '70%' }}
+              dropdownMatchSelectWidth={false}
+              onChange={handleChange}
+              options={[
+                { value: 'Local Government', label: 'Local Government' },
+                { value: 'County', label: 'County' },
+                { value: 'Service Area', label: 'Service Area' },
+              ]}
+            />
+          </Col>
+        </Row>
+
+        {type === 'WORK_PLAN' && tabKey === 'Maintenance' &&
+          <div>
+            <h6>Total County Budget</h6>
+            <InputNumber className="rheostat-input" size='large' min={0}
+              formatter={priceFormatter}
+              parser={priceParser}
+              value={tcb} onChange={(e: any) => {
+                setTcb(e);
+              }}
+            />
+            <Row style={{ marginTop: '10px' }}>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                <h6 style={{ marginBottom: '0px' }}>Requests</h6>
+                <label style={{ fontSize: '16px' }}>{priceFormatter(totalSum)}</label>
+              </Col>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                <h6 style={{ marginBottom: '0px' }}>Contingency</h6>
+                <label style={{
+                  color: tcb - totalSum < 0 ? 'red' : 'black', fontSize: '16px'
+                }}>{priceFormatter(tcb - totalSum)}</label>
+              </Col>
+            </Row>
+            <div style={{ textAlign: 'end' }}>
+              <Button
+                className="btn-purple"
+                style={{ marginTop: '10px', marginBottom: '10px' }}
+                onClick={clickUpdate}
+              >
+                Save Total County Budget
+              </Button>
+            </div>
+          </div>
+        }
+        <div className="line-01" style={{ marginLeft: '0px' }}></div>
+        {tabKey === 'Maintenance' &&
           <Select
             dropdownClassName='dropdown-menu'
-            style={{ marginLeft: '11px' }}
+            style={{ marginLeft: '-9px' }}
             listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
             defaultValue={year}
             value={year}
             onChange={setYear}>
             {
+              <Option key={2000} value={2000}> All Subtypes</Option>
+            }
+            {
               years.map((y, i) => (
-                <Option key={i} value={y}>{
-                  tabKey !== 'Maintenance' ? y : MaintenanceTypes[i]
-                }</Option>
+                <Option key={i} value={y}>{MaintenanceTypes[i]}</Option>
               ))
             }
-          </Select>}
-        </h5>
-      }
-      placement="right"
-      closable={true}
-      onClose={() => setShowAnalytics(false)}
-      visible={visible}
-      className="work-utilities"
-      mask={false}
-    >
-      {type === 'WORK_PLAN' && tabKey === 'Maintenance' &&
-        <div>
-          <h6>Total County Budget</h6>
-          <InputNumber className="rheostat-input" size='large' min={0}
-            formatter={priceFormatter}
-            parser={priceParser}
-            value={tcb} onChange={(e: any) => {
-              setTcb(e);
-            }}
-          />
-          <Row style={{ marginTop: '10px' }}>
-            <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-              <h6 style={{ marginBottom: '0px' }}>Requests</h6>
-              <label style={{ fontSize: '16px' }}>{priceFormatter(totalSum)}</label>
-            </Col>
-            <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-              <h6 style={{ marginBottom: '0px' }}>Contingency</h6>
-              <label style={{
-                color: tcb - totalSum < 0 ? 'red' : 'black', fontSize: '16px'
-              }}>{priceFormatter(tcb - totalSum)}</label>
-            </Col>
-          </Row>
-          <div style={{ textAlign: 'end' }}>
-            <Button
-              className="btn-purple"
-              style={{ marginTop: '10px', marginBottom: '10px' }}
-              onClick={clickUpdate}
-            >
-              Save Total County Budget
-            </Button>
-          </div>
-        </div>
-      }
-      <div className="line-01" style={{ marginLeft: '0px'}}></div>
-      {tabKey === 'Maintenance' &&
-        <Select
-          dropdownClassName='dropdown-menu'
-          style={{ marginLeft: '-9px'}}
-          listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-          defaultValue={year}
-          value={year}
-          onChange={setYear}>
-          {
-            <Option key={2000} value={2000}> All Subtypes</Option>
-          }
-          {
-            years.map((y, i) => (
-              <Option key={i} value={y}>{MaintenanceTypes[i]}</Option>
-            ))
-          }
-        </Select>
-      }
-      <h6 style={{ marginTop: '10px' }}>Requests by {groupingType} <Popover content={contentCounty} placement="top" > <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
+          </Select>
+        }
+      </div>
+      <div className='subtitle-requests'>
+        <h6 style={{ marginTop: '10px', textTransform: 'uppercase' }}>{`Requests by ${localityType}`}<Popover content={contentCounty} placement="top" > <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
+      </div>
       <div className="graph" >
         {maxiQ > 0 &&
           <HorizontalBarChartAnalytics
@@ -245,8 +311,11 @@ const Analytics = ({
             minBarSize={0}
           />
         }
+        {/* <img src="gallery/requests1.png" alt="" style={{ width: '100%' }} /> */}
       </div>
-      <h6 className="graph-title">Dollars Requested by {groupingType} <Popover content={contentDollars} placement="topRight" arrowPointAtCenter> <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
+      <div className="subtitle-requests" style={{ marginTop: '30px' }}>
+        <h6 style={{ marginTop: '10px', textTransform: 'uppercase' }}>{`Dollars Requested by ${localityType}`}<Popover content={contentDollars} placement="topRight" arrowPointAtCenter> <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
+      </div>
       <div className="graph" >
         {maxiA > 0 &&
           <HorizontalBarChartAnalytics
@@ -271,6 +340,7 @@ const Analytics = ({
             minBarSize={0}
           />
         }
+        {/* <img src="gallery/requests1.png" alt="" style={{ width: '100%' }} /> */}
       </div>
     </Drawer>
   )

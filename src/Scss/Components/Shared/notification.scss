@@ -1,0 +1,22 @@
+.test-diego {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 448px;
+  height: 77px;
+  background-color: white;
+  border-radius: 4px;
+  border: 0px !important;
+  box-shadow: 0px 7.466899871826172px 12.800399780273438px 0px rgba(0, 0, 0, 0.1);
+  .ant-notification-notice-message {
+    color: #29c499 !important;
+    font-family: Ubuntu;
+    font-size: 17.067px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+  }
+  .ant-notification-notice-icon-success{
+    color: #29c499 !important;
+  }
+}

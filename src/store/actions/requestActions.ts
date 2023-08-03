@@ -137,6 +137,11 @@ export const setServiceAreasSelected = (payload: any) => ({
   payload
 });
 
+export const setProjectStatusesSelected = (payload: any) => ({
+  type: types.REQUEST_SET_PROJECT_STATUSES_SELECTED,
+  payload
+});
+
 export const setCsaSelected = (payload: any) => ({
   type: types.REQUEST_SET_CSA_SELECTED,
   payload
@@ -179,10 +184,11 @@ export const setDiff = (payload: any) => ({
 
 export const loadOneColumn = (board_id: any, position: any) => {
   return (dispatch: any, getState: Function) => {
-    const { request: { tabKey, year, filterMap, countiesSelected, jurisdictionSelected, serviceAreasSelected, prioritySelected }, router: { location } } = getState();
+    const { request: { tabKey, year, filterMap, countiesSelected, jurisdictionSelected, serviceAreasSelected, prioritySelected, projectStatusesSelected }, router: { location } } = getState();
     const jurisdictionFilterList: any[] = filterMap['project_local_governments'];
     const countiesFilterList: any[] = filterMap['project_counties'];
     const serviceAreasFilterList: any[] = filterMap['project_service_areas'];
+    const projectStatusesFilterList: any[] = filterMap['project_statuses'];
     const priorityFilterList = [
       { label: '1', value: 0 },
       { label: '2', value: 1 },
@@ -203,6 +209,9 @@ export const loadOneColumn = (board_id: any, position: any) => {
       project_priorities: prioritySelected.every((r: any) => r) ? undefined : priorityFilterList.filter((_: any, index: number) => {
         return prioritySelected[index];
       }).map((r: any) => r.value),
+      project_statuses: projectStatusesSelected.every((r: any) => r) ? undefined : projectStatusesFilterList?.filter((_: any, index: number) => {
+        return projectStatusesSelected[index];
+      })?.map((r: any) => r?.code_status_type_id),
     };
     dispatch({
       type: types.REQUEST_START_LOADING_COLUMNS_2
@@ -230,10 +239,11 @@ export const loadOneColumn = (board_id: any, position: any) => {
 
 export const loadColumns = (board_id: any) => {
   return (dispatch: any, getState: Function) => {
-    const { map: { tabActiveNavbar }, request: { tabKey, year, filterMap, countiesSelected, jurisdictionSelected, serviceAreasSelected, prioritySelected }, router: { location } } = getState();
+    const { map: { tabActiveNavbar }, request: { tabKey, year, filterMap, countiesSelected, jurisdictionSelected, serviceAreasSelected, prioritySelected, projectStatusesSelected }, router: { location } } = getState();
     const jurisdictionFilterList: any[] = filterMap['project_local_governments'];
     const countiesFilterList: any[] = filterMap['project_counties'];
     const serviceAreasFilterList: any[] = filterMap['project_service_areas'];
+    const projectStatusesFilterList: any[] = filterMap['project_statuses'];
     const priorityFilterList = [
       { label: '1', value: 0 },
       { label: '2', value: 1 },
@@ -254,6 +264,9 @@ export const loadColumns = (board_id: any) => {
       project_priorities: prioritySelected.every((r: any) => r) ? undefined : priorityFilterList?.filter((_: any, index: number) => {
         return prioritySelected[index];
       }).map((r: any) => r.value),
+      project_statuses: projectStatusesSelected.every((r: any) => r) ? undefined : projectStatusesFilterList?.filter((_: any, index: number) => {
+        return projectStatusesSelected[index];
+      })?.map((r: any) => r?.code_status_type_id),
     };
     dispatch({
       type: types.REQUEST_START_LOADING_COLUMNS_2
@@ -262,7 +275,7 @@ export const loadColumns = (board_id: any) => {
     for (let position = 0; position <= 5; position++) {
       const promise = datasets.postData(
         BOARD_FOR_POSITIONS,
-        { board_id, position, filters }
+        { board_id, position, filters, year }
       ).then((projects) => {
         let sumByGroupMap = {}, groupTotal = {};
         if (position !== 0) {
@@ -285,7 +298,7 @@ export const loadColumns = (board_id: any) => {
     Promise.all(promises).then((dataArray) => {
       console.log('Data array ', dataArray);
       const sums: any[] = [];
-      const totals: any[] = [];
+      const totals: any[] = [];      
       dataArray.forEach(([sumByGroupMap, groupTotal]: any[], columnId: number) => {
         if (columnId === 0) return;
         sums.push(sumByGroupMap);
@@ -294,17 +307,24 @@ export const loadColumns = (board_id: any) => {
 
       const sumByGroupMapTotal = mergeSumByGroupMaps(sums);
       const totalByGroupMap = mergeTotalByGroupMaps(totals);
-
-      const allProjects = dataArray.map(r => r[2]).flat();
-      dispatch(groupProjects(allProjects));    
-      
-      const mainKey = tabActiveNavbar === WORK_PLAN_TAB ? (tabKey === 'Study' ? 'project_service_areas' : 'project_counties') : 'project_counties' ;
-      dispatch({
-        type: types.REQUEST_SET_SUM_BY_COUNTY,
-        payload: Object.keys(sumByGroupMapTotal[mainKey] || {}).map(
-          (key: any) => sumByGroupMapTotal[mainKey][key]
-        )
-      });
+      const allProjects = dataArray.map(r => r[2]).flat();      
+      dispatch(groupProjects(allProjects));        
+      const mainKey = tabActiveNavbar === WORK_PLAN_TAB ? (tabKey === 'Study' ? 'project_service_areas' : 'project_counties') : 'project_counties' ;     
+      // dispatch({
+      //   type: types.REQUEST_SET_SUM_BY_COUNTY,
+      //   payload: Object.keys(sumByGroupMapTotal['project_counties'] || {}).map(
+      //     (key: any) => sumByGroupMapTotal['project_counties'][key]
+      //   )
+      // });
+      function dispatchSumByGroup(type: string, key: string) {
+        dispatch({
+          type,
+          payload: Object.keys(sumByGroupMapTotal[key] || {}).map((k: any) => sumByGroupMapTotal[key][k])
+        });
+      }      
+      dispatchSumByGroup(types.REQUEST_SET_SUM_BY_COUNTY, 'project_counties');
+      dispatchSumByGroup(types.REQUEST_SET_SUM_BY_SA, 'project_service_areas');
+      dispatchSumByGroup(types.REQUEST_SET_SUM_BY_LG, 'project_local_governments');
       dispatch({
         type: types.REQUEST_SET_SUM_TOTAL,
         payload: totalByGroupMap
@@ -535,8 +555,20 @@ export const recalculateTotals = () => {
     console.log('window.location.pathname', window.location.pathname);
     dispatch({
       type: types.REQUEST_SET_SUM_BY_COUNTY,
-      payload: Object.keys(sumByGroupMapTotal[mainKey] || {}).map(
-        (key: any) => sumByGroupMapTotal[mainKey][key]
+      payload: Object.keys(sumByGroupMapTotal['project_counties'] || {}).map(
+        (key: any) => sumByGroupMapTotal['project_counties'][key]
+      )
+    });
+    dispatch({
+      type: types.REQUEST_SET_SUM_BY_SA,
+      payload: Object.keys(sumByGroupMapTotal['project_service_areas'] || {}).map(
+        (key: any) => sumByGroupMapTotal['project_service_areas'][key]
+      )
+    });
+    dispatch({
+      type: types.REQUEST_SET_SUM_BY_LG,
+      payload: Object.keys(sumByGroupMapTotal['project_local_governments'] || {}).map(
+        (key: any) => sumByGroupMapTotal['project_local_governments'][key]
       )
     });
     dispatch({

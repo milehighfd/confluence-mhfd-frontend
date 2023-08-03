@@ -66,6 +66,14 @@
   }
 }
 .user-management-body{
+  .btn-profile-list-transparent{
+    background: transparent;
+    border-color: transparent;
+    margin-right: 20px;
+    opacity: 0.6;
+    color: $purple00;
+    font-size: 19px;
+  }
   .ant-table-column-sorter {
     margin-left: 4px;
     color: #1d1646;
@@ -171,6 +179,10 @@
   }
   .ant-btn:focus, .ant-btn:hover {
     border-color: $purple !important;
+  }
+  .btn-profile-list-transparent:focus, .btn-profile-list-transparent:hover{
+    border-color: transparent !important;
+    opacity: 1;
   }
   .head-list{
     box-sizing: border-box;
@@ -815,6 +827,12 @@
     color: white;
   }
 }
+.expandable-row{
+  .ant-table-expanded-row > td{
+    padding: 0px !important;
+  }
+}
+
 @media (min-width: 1900px) and (max-width: 2549px){
   .profile-myprofile{
     img{
