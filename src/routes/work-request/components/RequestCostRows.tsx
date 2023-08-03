@@ -38,15 +38,25 @@ const RequestCostRows = ({
       updateTargetCost(board.board_id, formattedTargetCosts);
     }
   }, [targetCosts], 1000);
+
+  const [isCollapseOpen, setIsCollapseOpen] = useState(false);
+  const handleCollapseChange = (key: string | string[]) => {
+    setIsCollapseOpen(!isCollapseOpen);
+  };
   return (
     <div className="cost-wr">
       <Collapse collapsible="header"
+      onChange={handleCollapseChange}
         className='cost-collapse'>
           <Panel className='cost-panel'
             header={
               <div className='cost-header'>
                 <span>Total Cost</span>
-                <img src="Icons/ic_accordion-close.svg" alt="" />
+                <img
+                  className={isCollapseOpen ? "rotate-img" : ""}
+                  src="Icons/ic_accordion-close.svg"
+                  alt=""
+                />
               </div>
             }
             key={'1'}         
