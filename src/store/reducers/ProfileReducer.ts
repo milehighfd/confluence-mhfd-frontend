@@ -40,12 +40,16 @@ const profile = (state = initProfile, action: any) => {
           }
         }
       }
-      return {
+      const newState: any = {
         ...state,
         userInformation: action.user,
         spin: false,
         isLocalGovernment: isLocalGovernment
+      };
+      if (isLocalGovernment) {
+        newState['locality'] = action.user?.business_associate_contact?.business_address?.business_associate?.business_name;
       }
+      return newState;
     case types.UPLOAD_PHOTO:
       return {
         ...state,

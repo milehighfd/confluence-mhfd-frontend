@@ -282,11 +282,10 @@ export const loadColumns = (board_id: any) => {
       project_statuses: projectStatusesSelected.every((r: any) => r) ? undefined : projectStatusesFilterList?.filter((_: any, index: number) => {
         return projectStatusesSelected[index];
       })?.map((r: any) => r?.code_status_type_id),
-      isSouthPlatteRiver: isLocatedInSouthPlateRiverSelected.every((r: any) => r) ? undefined : isLocatedInSouthPlateRiverFilter?.filter((_: any, index: number) => {
+      isSouthPlatteRiver: isLocatedInSouthPlateRiverFilter?.filter((_: any, index: number) => {
         return isLocatedInSouthPlateRiverSelected[index];
       })?.map((r: any) => r?.value),
     };
-
 
     dispatch({
       type: types.REQUEST_START_LOADING_COLUMNS_2
