@@ -40,145 +40,146 @@ const RequestCostRows = ({
   }, [targetCosts], 1000);
   return (
     <div className="cost-wr">
-      <Collapse
-        collapsible="header"
-        className='cost-collapse'
-      >
-        <Panel
-          header={
-            <div style={{position:'absolute', width: '99%', display: 'flex', justifyContent:'space-between'}}>
-              <span style={{ paddingLeft: '24px', fontSize: '18px' }}>Total Cost</span>
-              <img src="Icons/ic_accordion-close.svg" alt="" style={{ paddingRight: '24px' }} />
-            </div>
-          }
-          key={'1'}
-          style={{ backgroundColor: '#F5F7FF',paddingLeft: '21px', borderRadius:'8px', width:'876px', border:'none', marginBottom:'12px' }}
-          children={
-            <div style={{fontSize:'12px', paddingBottom:'20px', height:'298px' }}>
-              <div style={{fontWeight:'bold', marginBottom:'12px', letterSpacing:' 0.171429px', paddingLeft:'38px'}}>
-                <Row>
-                  <Col span={4} ></Col>
-                  <Col span={4} >2017</Col>
-                  <Col span={4} >2018</Col>
-                  <Col span={4} >2019</Col>
-                  <Col span={4} >2020</Col>
-                  <Col span={4} >2021</Col>
-                </Row>
+      <Collapse collapsible="header"
+        className='cost-collapse'>
+          <Panel className='cost-panel'
+            header={
+              <div className='cost-header'>
+                <span>Total Cost</span>
+                <img src="Icons/ic_accordion-close.svg" alt="" />
               </div>
-              <div style={{paddingLeft:'38px'}}>
-                <Row>
-                  <Col span={4} style={{textAlign:'left', paddingLeft:'8px' }}><span> Total Cost</span></Col>
-                  <Col span={4} >$1,000,000</Col>
-                  <Col span={4} >$1,000,000</Col>
-                  <Col span={4} >$1,000,000</Col>
-                  <Col span={4} >$1,000,000</Col>
-                  <Col span={4} >$1,000,000</Col>
-                </Row>
-              </div>
-              <div style={{ marginTop: '23px', backgroundColor: '#F5F7FF', paddingLeft:'21px'}}>
-                <Row style={{display:'flex', alignItems:'ceneter'}}>
-                  <Col span={4} >
-                    <Timeline className='timeline-collapse'>
-                      {[
-                        {                      
-                          children: (<span>Boulder</span>),
-                          date: '2015-09-01',
-                          key: Math.random(),
-                        },
-                        {
-                          children: (<span>Lousville</span>),
-                          date: '2015-09-01',
-                          key: Math.random(),
-                        },
-                        {
-                          children: (<span>Superior</span>),
-                          date: '2015-09-01',
-                          key: Math.random(),
-                        },
-                      ].map(item => (
-                        <Timeline.Item key={Math.random()}>
-                          {item.children}
-                        </Timeline.Item>
-                      ))}
-                    </Timeline>
-                  </Col>
-                  <Col span={4} style={{paddingLeft:'14px'}}>
-                    <div style={{paddingBottom:'10px'}}>$170,000</div>
-                    <div style={{paddingBottom:'10px'}}>$100,000</div>
-                    <div>$730,000</div>
-                  </Col>
-                  <Col span={4} style={{paddingLeft:'11px'}}>
-                    <div style={{paddingBottom:'10px'}}>$170,000</div>
-                    <div style={{paddingBottom:'10px'}}>$100,000</div>
-                    <div>$730,000</div>
-                  </Col>
-                  <Col span={4} style={{paddingLeft:'8px'}}>
-                    <div style={{paddingBottom:'10px'}}>$170,000</div>
-                    <div style={{paddingBottom:'10px'}}>$100,000</div>
-                    <div>$730,000</div>
-                  </Col>
-                  <Col span={4} style={{paddingLeft:'6px'}}>
-                    <div style={{paddingBottom:'10px'}}>$170,000</div>
-                    <div style={{paddingBottom:'10px'}}>$100,000</div>
-                    <div>$730,000</div>
-                  </Col>
-                  <Col span={4} style={{paddingLeft:'4px'}}>
-                    <div style={{paddingBottom:'10px'}}>$170,000</div>
-                    <div style={{paddingBottom:'10px'}}>$100,000</div>
-                    <div>$730,000</div>
-                  </Col>
-                </Row>
-              </div>
-              <div style={{marginTop:'15px', paddingLeft:'38px'}}>
-                <Row>
-                  <Col span={4} style={{paddingLeft:'8px'}}>Budget</Col>
-                  <Col span={4} style={{ paddingRight: '20px' }}>
-                    <InputNumber placeholder="Enter target cost"
+            }
+            key={'1'}         
+            children={
+              <div className='cost-body'>
+                <div className='body-1'>
+                  <Row>
+                    <Col span={4} ></Col>
+                    <Col span={4} >2017</Col>
+                    <Col span={4} >2018</Col>
+                    <Col span={4} >2019</Col>
+                    <Col span={4} >2020</Col>
+                    <Col span={4} >2021</Col>
+                  </Row>
+                </div>
+                <div className='body-2'>
+                  <Row>
+                    <Col span={4} className='body-2-col'><span> Total Cost</span></Col>
+                    <Col span={4} >$1,000,000</Col>
+                    <Col span={4} >$1,000,000</Col>
+                    <Col span={4} >$1,000,000</Col>
+                    <Col span={4} >$1,000,000</Col>
+                    <Col span={4} >$1,000,000</Col>
+                  </Row>
+                </div>
+                <div className='body-3'>
+                  <Row className='cost-row'>
+                    <Col span={4} >
+                      <Timeline>
+                        {[
+                          {                      
+                            children: (<span>Boulder</span>),
+                            date: '2015-09-01',
+                            key: Math.random(),
+                          },
+                          {
+                            children: (<span>Lousville</span>),
+                            date: '2015-09-01',
+                            key: Math.random(),
+                          },
+                          {
+                            children: (<span>Superior</span>),
+                            date: '2015-09-01',
+                            key: Math.random(),
+                          },
+                        ].map(item => (
+                          <Timeline.Item key={Math.random()}>
+                            {item.children}
+                          </Timeline.Item>
+                        ))}
+                      </Timeline>
+                    </Col>
+                    <Col span={4} className='row-col-3' style={{paddingLeft:'14px'}}>
+                      <div className='row-col-1'>$170,000</div>
+                      <div className='row-col-1'>$100,000</div>
+                      <div>$730,000</div>
+                    </Col>
+                    <Col span={4} className='row-col-3' style={{paddingLeft:'11px'}}>
+                      <div className='row-col-1'>$170,000</div>
+                      <div className='row-col-1'>$100,000</div>
+                      <div>$730,000</div>
+                    </Col>
+                    <Col span={4} className='row-col-3' style={{paddingLeft:'8px'}}>
+                      <div className='row-col-1'>$170,000</div>
+                      <div className='row-col-1'>$100,000</div>
+                      <div>$730,000</div>
+                    </Col>
+                    <Col span={4} className='row-col-3' style={{paddingLeft:'6px'}}>
+                      <div className='row-col-1'>$170,000</div>
+                      <div className='row-col-1'>$100,000</div>
+                      <div>$730,000</div>
+                    </Col>
+                    <Col span={4} className='row-col-3' style={{paddingLeft:'4px'}}>
+                      <div className='row-col-1'>$170,000</div>
+                      <div className='row-col-1'>$100,000</div>
+                      <div>$730,000</div>
+                    </Col>
+                  </Row>
+                </div>
+                <div className='body-4'>
+                  <Row>
+                    <Col span={4} style={{paddingLeft:'8px'}}>Budget</Col>
+                    <Col span={4} className='row-col-4'>
+                      <InputNumber placeholder="Enter target cost"
+                        readOnly={!isFiltered}
+                        formatter={priceFormatter}
+                        parser={priceParser}
+                        value={'0'}
+                      /></Col>
+                    <Col span={4} className='row-col-4'>
+                      <InputNumber placeholder="Enter target cost"
                       readOnly={!isFiltered}
                       formatter={priceFormatter}
                       parser={priceParser}
                       value={'0'}
                     /></Col>
-                  <Col span={4} style={{ paddingRight: '20px' }}><InputNumber placeholder="Enter target cost"
-                    readOnly={!isFiltered}
-                    formatter={priceFormatter}
-                    parser={priceParser}
-                    value={'0'}
-                  /></Col>
-                  <Col span={4} style={{ paddingRight: '20px' }}><InputNumber placeholder="Enter target cost"
-                    readOnly={!isFiltered}
-                    formatter={priceFormatter}
-                    parser={priceParser}
-                    value={'0'}
-                  /></Col>
-                  <Col span={4} style={{ paddingRight: '20px' }}><InputNumber placeholder="Enter target cost"
-                    readOnly={!isFiltered}
-                    formatter={priceFormatter}
-                    parser={priceParser}
-                    value={'0'}
-                  /></Col>
-                  <Col span={4} style={{ paddingRight: '20px' }}><InputNumber placeholder="Enter target cost"
-                    readOnly={!isFiltered}
-                    formatter={priceFormatter}
-                    parser={priceParser}
-                    value={'0'}
-                  /></Col>
-                </Row>
-              </div>
-              <div style={{marginTop:'15px', paddingLeft:'38px'}}>
-                <Row>
-                  <Col span={4} style={{paddingLeft:'8px'}}>Differential</Col>
-                  <Col span={4} style={{color:'red'}}>$241,800</Col>
-                  <Col span={4} style={{color:'red'}}>$241,800</Col>
-                  <Col span={4} style={{color:'red'}}>$241,800</Col>
-                  <Col span={4} style={{color:'red'}}>$241,800</Col>
-                  <Col span={4} style={{color:'red'}}>$241,800</Col>
-                </Row>
-              </div>
+                    <Col span={4} className='row-col-4'>
+                      <InputNumber placeholder="Enter target cost"
+                      readOnly={!isFiltered}
+                      formatter={priceFormatter}
+                      parser={priceParser}
+                      value={'0'}
+                    /></Col>
+                    <Col span={4} className='row-col-4'>
+                      <InputNumber placeholder="Enter target cost"
+                      readOnly={!isFiltered}
+                      formatter={priceFormatter}
+                      parser={priceParser}
+                      value={'0'}
+                    /></Col>
+                    <Col span={4} className='row-col-4'>
+                      <InputNumber placeholder="Enter target cost"
+                      readOnly={!isFiltered}
+                      formatter={priceFormatter}
+                      parser={priceParser}
+                      value={'0'}
+                    /></Col>
+                  </Row>
+                </div>
+                <div className='body-5'>
+                  <Row>
+                    <Col span={4} style={{paddingLeft:'8px'}}>Differential</Col>
+                    <Col span={4} className='row-col-5'>$241,800</Col>
+                    <Col span={4} className='row-col-5'>$241,800</Col>
+                    <Col span={4} className='row-col-5'>$241,800</Col>
+                    <Col span={4} className='row-col-5'>$241,800</Col>
+                    <Col span={4} className='row-col-5'>$241,800</Col>
+                  </Row>
+                </div>
 
-            </div>
-          }
-        />
+              </div>
+            }
+          />
       </Collapse>
       <Collapse
         collapsible="header" style={{ display: 'none' }}
