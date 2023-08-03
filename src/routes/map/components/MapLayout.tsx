@@ -28,6 +28,7 @@ import Status from 'Components/Work/Drawers/Status';
 import Filter from 'Components/Work/Drawers/Filter';
 import NavbarView from 'Components/Shared/Navbar/NavbarView';
 import RequestView from 'Components/Work/Request/RequestView';
+import { setBoardStatus } from 'store/actions/requestActions';
 
 const Map = React.lazy(() => import('routes/map/components/Map'));
 const MapView = React.lazy(() => import('routes/map/components/MapView'));
@@ -96,6 +97,7 @@ const MapLayout = () => {
     setVisibleCreateProject,
     setYearList,
     setLeftWidth,
+    setShowFilters,
   } = useRequestDispatch();
   const currentDataForBoard: BoardDataRequest = {
     type: tabActiveNavbar === WORK_REQUEST ? WORK_REQUEST: WORK_PLAN,
@@ -264,6 +266,8 @@ const MapLayout = () => {
       setLeftWidth(MEDIUM_SCREEN_LEFT);
       setRotationStyle({ transform: 'rotate(180deg)', marginRight: '-4px', right: '4px', position: 'relative' });
     }
+    setBoardStatus(false)
+    setShowFilters(false)
   },[tabActiveNavbar])
   return (
     <>
@@ -366,10 +370,12 @@ const MapLayout = () => {
                    {tabActiveNavbar === WORK_REQUEST && <RequestView
                       type={tabActiveNavbar}
                       isFirstRendering={true}
+                      widthMap={leftWidth}
                     />}
                    {tabActiveNavbar === WORK_PLAN && <RequestView
                       type={tabActiveNavbar}
                       isFirstRendering={true}
+                      widthMap={leftWidth}
                     />}
                   </Col>
                 </Row>
