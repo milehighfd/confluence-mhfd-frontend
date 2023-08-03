@@ -510,7 +510,7 @@ const MapFilterView = ({
 
             <p>
               <img key="ekLYh8KbLIjE" src="/Icons/Filters/layer-alert-station.png" width="18px" alt="" />
-                  Alert Station
+                  Alert Stations
                   <Popover key="ihK408aNAXrw" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.alert_station)}>
                 <img key="koY1HwMtgfSL" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>

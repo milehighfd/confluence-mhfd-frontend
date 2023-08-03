@@ -2872,7 +2872,7 @@ export const PROJECTS_STYLES_WR = {
       maxzoom: 13,
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#c76d00',
+        'line-color': '#fdc43f',
         'line-width': 2.5,
         'line-offset': -4.8,
       },
@@ -2889,7 +2889,7 @@ export const PROJECTS_STYLES_WR = {
       maxzoom: 13,
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#c76d00',
+        'line-color': '#fdc43f',
         'line-width': 2.5,
         'line-offset': 4.8,
       },
@@ -2902,7 +2902,7 @@ export const PROJECTS_STYLES_WR = {
       minzoom: 13,
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#c76d00',
+        'line-color': '#fdc43f',
         'line-width': 2.5,
         'line-offset': -4.8,
       },
@@ -2915,7 +2915,7 @@ export const PROJECTS_STYLES_WR = {
       minzoom: 13,
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#c76d00',
+        'line-color': '#fdc43f',
         'line-width': 2.5,
         'line-offset': 4.8,
       },
@@ -2928,7 +2928,7 @@ export const PROJECTS_STYLES_WR = {
       minzoom: 13,
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#c76d00',
+        'line-color': '#fdc43f',
         'line-width': 2.5,
         'line-offset': -14,
         'line-dasharray': [1, 2],
@@ -2942,7 +2942,7 @@ export const PROJECTS_STYLES_WR = {
       minzoom: 13,
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#c76d00',
+        'line-color': '#fdc43f',
         'line-width': 2.5,
         'line-offset': 14,
         'line-dasharray': [1, 2],
@@ -3018,7 +3018,7 @@ export const PROJECTS_STYLES_WR = {
       minzoom: 13,
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#c76d00',
+        'line-color': '#fdc43f',
         'line-width': 2.5,
         'line-offset': -18,
       },
@@ -3031,7 +3031,7 @@ export const PROJECTS_STYLES_WR = {
       minzoom: 13,
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#c76d00',
+        'line-color': '#fdc43f',
         'line-width': 2.5,
         'line-offset': 18,
       },
@@ -3044,7 +3044,7 @@ export const PROJECTS_STYLES_WR = {
       minzoom: 13,
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#c76d00',
+        'line-color': '#fdc43f',
         'line-width': 2.5,
         'line-offset': -14,
         'line-dasharray': [1, 2],
@@ -3058,7 +3058,7 @@ export const PROJECTS_STYLES_WR = {
       minzoom: 13,
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#c76d00',
+        'line-color': '#fdc43f',
         'line-width': 2.5,
         'line-offset': 14,
         'line-dasharray': [1, 2],
@@ -3129,12 +3129,12 @@ export const PROJECTS_STYLES_WR = {
     {
       // "id": "z13_allstudy_neg_DRAFT_test",
       type: 'line',
-      metadata: { 'mapbox:group': 'cf08e6682ac5c524c0eb9c365153091e' },
+      metadata: { 'mapbox:group': 'cf08e6682ac5c524c0eb9c365153091e', project_status: [1], project_type: [1, 18]  },
       'source-layer': 'pluto15v1',
       maxzoom: 13,
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#c76d00',
+        'line-color': '#fdc43f',
         'line-width': 2.5,
         'line-offset': -4.8,
       },
@@ -3142,12 +3142,12 @@ export const PROJECTS_STYLES_WR = {
     {
       // "id": "z13_allstudy_pos_DRAFT_test",
       type: 'line',
-      metadata: { 'mapbox:group': 'cf08e6682ac5c524c0eb9c365153091e' },
+      metadata: { 'mapbox:group': 'cf08e6682ac5c524c0eb9c365153091e', project_status: [1], project_type: [1, 18] },
       'source-layer': 'pluto15v1',
       maxzoom: 13,
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#c76d00',
+        'line-color': '#fdc43f',
         'line-width': 2.5,
         'line-offset': 4.8,
       },
@@ -3306,7 +3306,7 @@ export const PROJECTS_STYLES_WR = {
     {
       // "id": "z13_allstudy_neg_CLSD",
       type: 'line',
-      metadata: { 'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f' },
+      metadata: { 'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f', project_status: [9, 10], project_type: [1,18] },
       'source-layer': 'pluto15v1',
       maxzoom: 13,
       layout: { 'line-cap': 'round' },
@@ -3319,7 +3319,7 @@ export const PROJECTS_STYLES_WR = {
     {
       // "id": "z13_allstudy_pos_CLSD",
       type: 'line',
-      metadata: { 'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f' },
+      metadata: { 'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f', project_status: [9, 10], project_type: [1, 18] },
       'source-layer': 'pluto15v1',
       maxzoom: 13,
       layout: { 'line-cap': 'round' },
@@ -3335,7 +3335,7 @@ export const PROJECTS_STYLES_WR = {
       metadata: {
         'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f',
         project_status: [9, 10],
-        project_type: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 17, 12, 14, 16, 17],
+        project_type: [1,18,2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 17, 12, 14, 16, 17],
       },
       'source-layer': 'pluto15v1',
       maxzoom: 13,
@@ -3352,7 +3352,7 @@ export const PROJECTS_STYLES_WR = {
       metadata: {
         'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f',
         project_status: [9, 10],
-        project_type: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 17, 12, 14, 16, 17],
+        project_type: [1,18,2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 17, 12, 14, 16, 17],
       },
       'source-layer': 'pluto15v1',
       maxzoom: 13,
@@ -3482,7 +3482,7 @@ export const PROJECTS_STYLES_WR = {
     {
       // "id": "z13_allstudy_neg_CNCL",
       type: 'line',
-      metadata: { 'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda' },
+      metadata: { 'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda', project_status: [8], project_type: [1,18] },
       'source-layer': 'pluto15v1',
       maxzoom: 13,
       layout: { 'line-cap': 'round' },
@@ -3495,7 +3495,7 @@ export const PROJECTS_STYLES_WR = {
     {
       // "id": "z13_allstudy_pos_CNCL",
       type: 'line',
-      metadata: { 'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda' },
+      metadata: { 'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda', project_status: [8], project_type: [1, 18] },
       'source-layer': 'pluto15v1',
       maxzoom: 13,
       layout: { 'line-cap': 'round' },
@@ -3658,7 +3658,7 @@ export const PROJECTS_STYLES_WR = {
     {
       // "id": "z13_allstudy_neg_ACTV",
       type: 'line',
-      metadata: { 'mapbox:group': 'ad742fba24a74c724837d82e41ee6880' },
+      metadata: { 'mapbox:group': 'ad742fba24a74c724837d82e41ee6880', project_status: [5], project_type: [1] },
       'source-layer': 'pluto15v1',
       maxzoom: 13,
       layout: { 'line-cap': 'round' },
@@ -3671,7 +3671,7 @@ export const PROJECTS_STYLES_WR = {
     {
       // "id": "z13_allstudy_pos_ACTV",
       type: 'line',
-      metadata: { 'mapbox:group': 'ad742fba24a74c724837d82e41ee6880' },
+      metadata: { 'mapbox:group': 'ad742fba24a74c724837d82e41ee6880' , project_status: [5], project_type: [1]},
       'source-layer': 'pluto15v1',
       maxzoom: 13,
       layout: { 'line-cap': 'round' },

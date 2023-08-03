@@ -155,7 +155,7 @@ export const ModalCapital = ({
   const [serviceArea, setServiceArea] = useState<any>([]);
   const [isDrawState, setIsDraw] = useState(false);
   const [isDrawStateCapital, setIsDrawCapital] = useState(false);
-  const {changeDrawState, changeDrawStateCapital, setEditLocation,setComponentsFromMap } = useProjectDispatch();
+  const {changeDrawState, changeDrawStateCapital, setEditLocation,setComponentsFromMap, changeAddLocationState } = useProjectDispatch();
   const [sponsor, setSponsor] = useState("");
   const [cosponsor, setCosponsor] = useState<any>([]);
   const [county, setCounty] = useState<any>([]);
@@ -452,6 +452,7 @@ export const ModalCapital = ({
       capital.type = selectedTypeProject;
       capital.isCountyWide = isCountyWide ? isCountyWide : false;
       capital.isSouthPlate = isSouthPlate ? isSouthPlate : false;
+      changeAddLocationState(false);
       //capital 
       if (selectedTypeProject === 'capital') {
         capital.geom = streamIntersected.geom;
