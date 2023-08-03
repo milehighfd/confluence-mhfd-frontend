@@ -79,7 +79,8 @@ export const Header = ({
         <p className='project-sub-name'>{locationData}</p>
       </div>
       <div className='project-type'>
-        {isEdit?<p>{selectedType}</p>:<Dropdown overlay={menuTypeProjects} trigger={['click']} overlayClassName="drop-menu-type-project" placement="bottomRight" onVisibleChange={() => { setOpenDropdownTypeProject(!openDropdownTypeProject) }}>
+        {isEdit?<p>{selectedType === 'Special'? 'R&D':selectedType }</p>
+        :<Dropdown overlay={menuTypeProjects} trigger={['click']} overlayClassName="drop-menu-type-project" placement="bottomRight" onVisibleChange={() => { setOpenDropdownTypeProject(!openDropdownTypeProject) }}>
           <div className="drop-espace">
             <a onClick={e => e.preventDefault()} style={{ marginLeft: '2%', display: 'flex', alignItems: 'center' }}>
               {<p>{selectedType}</p>} &nbsp;

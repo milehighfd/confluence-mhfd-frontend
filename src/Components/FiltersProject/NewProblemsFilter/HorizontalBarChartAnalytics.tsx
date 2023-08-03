@@ -165,6 +165,13 @@ const HorizontalBarChart = ({
     const svg = d3.select(svgRef.current)
       .attr("viewBox", `0 0 ${width} ${height}`)
 
+    //TO DO: Cesar Add x axis at the bottom of the chart outside the svg
+    // svg
+    //   .append("g")
+    //   .attr("transform", "translate(0," + (height-10) + ")")
+    //   .style('visibility', 'hidden')
+    //   .call(d3.axisBottom(x));
+
     let lines = svg
       .selectAll('.hlines')
       .data(partitionData)

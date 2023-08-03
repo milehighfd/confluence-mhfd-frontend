@@ -162,13 +162,14 @@
     display: flex;
     justify-content: flex-end;
     justify-items: center;
-    .buttons-header{
+    #buttons-header{
       width: 68px;
       height: 38px;
       padding: 9px 8px;
       gap: 8;
       border-radius: 4px;
      align-items: center;
+     border: none;
     }
     .ant-btn:hover{
       background: rgba(245, 247, 255, 0.80);
@@ -215,12 +216,12 @@
     }
   
     .ant-collapse>.ant-collapse-item>.ant-collapse-header {
-      padding: 12px 10px;
-      padding-left: 10px;
+     padding-top: 15px;
+     padding-left: 24px;
       color: $black !important;
       line-height: 30px;
       height: 54px;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15) !important;
+      width: 100%;
     }
   
     .ant-collapse>.ant-collapse-item {
@@ -428,10 +429,21 @@
   }
 }
 .cost-wr{
-  margin-top: 15px;
-  color: $red;
-  font-size: 12px;
-
+  margin-left: 16px;
+  border-radius: 8px;
+  background: #F5F7FF;
+  box-shadow: 4px 4px 12px 0px rgba(0, 0, 0, 0.10);
+  width: 876px;
+  flex-shrink: 0;
+  position: absolute;
+  bottom: 0px;
+  padding-bottom: 0px !important;
+ margin-bottom: 20px;
+ margin-right: 15px;
+  .cost-collapse{
+   // display: flex;        
+  }
+  
   h5{
     font-size: 12px;
     color: $purple;
@@ -618,7 +630,26 @@
     background-color: $purple !important;
     border-color: $purple !important;
   }
+  .ant-collapse-header {
+    box-shadow: none !important;
+    padding: 0px !important;
+    padding-top: 15px !important;
+    padding-right: 24px !important;
+    color: #11093C;
+    font-family: Ubuntu;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    /* 100% */
+    letter-spacing: 0.171px;
+  }
+  .ant-collapse-content-box{
+    padding: 0px !important;
+  }
+ 
 }
+
 .work-footer{
   text-align: right;
   background: $white;
@@ -848,6 +879,9 @@
     color: $opacity;
     margin-bottom: 5px;
   }
+  .note-text{
+    color: $purple00;
+  }
   .ant-dropdown-link, .ant-dropdown-link:hover, .ant-dropdown-link:focus{
     background: transparent;
     border: none;
@@ -879,10 +913,10 @@
     }
   }
   .note{
-    color: $opacity;
+    color: $purple00;
     font-size: 12px;
     border-radius: 4px;
-    border: 1px solid $opacity01;
+    border: 1px solid $purple00;
     padding: 15px;
     height: 100px;
   }
@@ -896,7 +930,7 @@
     }
   }
   .graph{
-    height: 320px;
+    height: auto;
     margin-bottom: 15px;
   }
   .graph-title {
@@ -2415,25 +2449,51 @@
   .buttons:hover{
     background: rgba(245, 247, 255, 0.80);
   }
-//  .buttons1{
-//   border:'none';
-//   outline: none;
-//   box-shadow: none;
-//   padding-right: 0px;
-//   padding-top: 0px;
-//   width: 36px;
-//   height: 38px;
-//   border-radius: 4px;
-//  }
-//  .buttons1:hover{
-//   width: 100px;
-//  }
- 
+  .buttons1{
+    .ant-input{
+      border-left: none !important;
+      padding-left: 0px;
+    }
+    .ant-input-group-addon {
+      position: relative;
+      padding: 0px 8px;
+      color: rgba(0,0,0,.85);
+      font-weight: 400;
+      font-size: 14px;
+      text-align: center;      
+      border: 1px solid #d9d9d9;
+      border-radius: 4px 0px 0px 4px;
+      transition: all .3s;
+      border-right: none;
+      background-color: white !important;
+    }
+    .ant-input:hover{
+      border-color: none;
+      
+    }
+  }
+  
 }
+.popover-text {
+  color: #11093C;
+  font-family: Ubuntu;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+  opacity: 0.6000000238418579;
+}
+
+.ant-popover{
+  margin-top: 0px !important;
+  padding-top: 0px;
+  max-width: 255px;
+}
+
 .popover-work-header {
-  .ant-popover-arrow{
-  display: none !important;
-}
+  .ant-popover-arrow {
+    display: none !important;
+  }
 }
 
 cost-wr1{
@@ -2622,4 +2682,127 @@ cost-wr1{
   .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow{
     display: none;
   }
+}
+//CSS for TableListView
+.table-map-list {
+  width: auto;
+  height: calc(100vh - 206px);
+  overflow: auto; 
+  border-left: 1px solid #E6E9EA;
+  border-bottom: 1px solid #E6E9EA;
+  border-top-left-radius: 10px;
+  top: 0;
+
+  .ant-table-thead>tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan]):before {
+    display: none;
+  }
+
+  .ant-table-container {
+    width: auto; 
+  }
+  
+
+  .ant-table-header {
+    overflow: auto;
+    width: fit-content;
+    position: sticky;
+    }
+
+  .ant-table-body {
+    overflow: hidden !important;
+    width: max-content;
+    height: auto !important;
+    max-height: max-content !important;
+    color: #11093C;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 19px;
+  }
+
+  .ant-table-thead .ant-table-cell {
+    background-color: #F5F7FF !important;
+    color: #11093C;
+    background: #F5F7FF;
+    border-width: 1px 1px 1px 0px;
+    border-style: solid;
+    border-color: #E6E9EA;
+    font-size: 12px;
+    font-weight: bold;
+    
+  }
+
+  .ant-table-thead {
+    height: 39px;
+    border-radius: 7px 7px 0px 0px;
+  }
+
+  .span-submitted {
+    background: rgba(255, 221, 0, 0.2);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 2px 11px;
+    gap: 10px;
+    mix-blend-mode: normal;
+    width: 68px;
+    height: 18px;
+    border-radius: 19px;
+    color: #FF8938;
+  }
+
+  .span-active {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 2px 11px;
+    gap: 10px;
+    width: 68px;
+    height: 18px;
+    background: rgba(41, 196, 153, 0.2);
+    border-radius: 19px;
+    color: #29C499;
+    mix-blend-mode: normal;
+  }
+
+  .span-requested {
+    background: rgba(135, 29, 225, 0.2);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 2px 11px;
+    gap: 10px;
+    mix-blend-mode: normal;
+    width: 68px;
+    height: 18px;
+    border-radius: 19px;
+    color: #871DE1;
+  }
+
+  .ant-table-column-sorter-up,
+  .ant-table-column-sorter-down {
+    color: #251863;
+  }
+
+}
+
+.table-map-list::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  border-left: 1px solid #E6E9EA;  
+}
+
+/* Track */
+.table-map-list::-webkit-scrollbar-track {
+  border-radius: none;
+}
+
+/* Handle */
+.table-map-list::-webkit-scrollbar-thumb {
+  background: $purple00;
+  border-radius: 10px;
 }

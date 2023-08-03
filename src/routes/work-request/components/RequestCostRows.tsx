@@ -42,18 +42,19 @@ const RequestCostRows = ({
     <div className="cost-wr">
       <Collapse
         collapsible="header"
+        className='cost-collapse'
       >
         <Panel
           header={
-            <div style={{position:'absolute', width: '99%', display: 'flex', justifyContent: 'space-between'}}>
+            <div style={{position:'absolute', width: '99%', display: 'flex', justifyContent:'space-between'}}>
               <span style={{ paddingLeft: '24px', fontSize: '18px' }}>Total Cost</span>
-              <img src="Icons/ic_accordion_close.svg" alt="" style={{ paddingRight: '24px' }} />
+              <img src="Icons/ic_accordion-close.svg" alt="" style={{ paddingRight: '24px' }} />
             </div>
           }
           key={'1'}
-          style={{ backgroundColor: '#F5F7FF',paddingLeft: '21px', borderRadius:'8px', width:'99%'}}
+          style={{ backgroundColor: '#F5F7FF',paddingLeft: '21px', borderRadius:'8px', width:'876px', border:'none', marginBottom:'12px' }}
           children={
-            <div style={{fontSize:'12px', backgroundColor: '#F5F7FF'}}>
+            <div style={{fontSize:'12px', paddingBottom:'20px', height:'298px' }}>
               <div style={{fontWeight:'bold', marginBottom:'12px', letterSpacing:' 0.171429px', paddingLeft:'38px'}}>
                 <Row>
                   <Col span={4} ></Col>
