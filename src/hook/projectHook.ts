@@ -135,8 +135,8 @@ export const useProjectDispatch = () => {
     getServiceAreaStreams: (geom: any) => {
       dispatch(getServiceAreaStreams(geom));
     },
-    getStreamsList: (geom: any) => {
-      dispatch(getStreamsList(geom));
+    getStreamsList: (geom: any, projecttype: any) => {
+      dispatch(getStreamsList(geom, projecttype));
     },
     setStreamsList: (listStreams: any) => {
       dispatch(setStreamsList(listStreams));

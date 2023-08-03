@@ -831,14 +831,14 @@ const CreateProjectMap = (type: any) => {
         hideHighlighted();
         getStreamIntersectionPolygon(userPolygon.geometry);
       }
-      getStreamsList(userPolygon.geometry);
+      getStreamsList(userPolygon.geometry, currentType);
     } else if (currentType === 'MAINTENANCE') {
       getStreamIntersectionPolygon(userPolygon.geometry);
-      getStreamsList(userPolygon.geometry);
+      getStreamsList(userPolygon.geometry, currentType);
     } else if (currentType === 'STUDY') {
       // type.setGeom(userPolygon.geometry); TODO verify if this is needed
       getStreamsIntersectedPolygon(userPolygon.geometry);
-      getStreamsList(userPolygon.geometry);
+      getStreamsList(userPolygon.geometry, currentType);
       getServiceAreaStreams(userPolygon.geometry);
     }
 
