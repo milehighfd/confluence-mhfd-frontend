@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import moment from 'moment';
 import { Button, Col, Dropdown, Input, Menu, MenuProps, Radio, Row } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import { CheckCircleFilled, DownOutlined } from '@ant-design/icons';
 import * as datasets from 'Config/datasets';
 import { COUNTIES, RADIO_ITEMS, STATES_NAME } from 'constants/constants';
 import { VALIDATION_USER } from 'constants/validation';
@@ -19,7 +19,6 @@ import { formatPhoneNumber } from 'utils/utils';
 import { useAppUserDispatch } from "../../../hook/useAppUser";
 import ConfirmationSave from './ConfirmationSave';
 import { notification } from 'antd';
-import Notification from 'Components/Shared/Notifications/Notification';
 import { NotificationType } from 'Components/Shared/Notifications/NotificationsTypes';
 
 const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveUser: Function, setExpandedRow: React.Dispatch<React.SetStateAction<boolean>> }) => {
@@ -78,7 +77,9 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
   const openNotificationWithIcon = (type: NotificationType) => {
     api[type]({
       message: 'Success! Your user update was saved!',
-      className: 'test-diego'
+      className: 'notification-layout',
+      icon: <CheckCircleFilled className='notification-icon-success'/>,
+      duration: 3
     });
   };
 
