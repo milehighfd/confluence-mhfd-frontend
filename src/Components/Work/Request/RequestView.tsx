@@ -38,7 +38,7 @@ const popovers: any = [
 const RequestView = ({ type, isFirstRendering, widthMap }: {
   type: boardType,
   isFirstRendering: boolean
-  widthMap:any
+  widthMap?:any
 }) => {
   const {
     showModalProject,

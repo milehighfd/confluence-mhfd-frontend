@@ -2627,7 +2627,12 @@
     padding: 75px 6px 20px 6px !important;
   }
 }
-
+.icon-search-size {
+  position: relative;
+  top: 3px;
+  -webkit-mask-size: 22px !important;
+  margin-right: 7px;
+}
 .work-header-buttons{
   border: none;
   display: flex;

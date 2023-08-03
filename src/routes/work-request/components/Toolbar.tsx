@@ -53,7 +53,7 @@ const Toolbar = ({
               </Space>
             </div>
             {!showSearch && <div style={{ display: 'inline-block' }} onClick={handleIconClick}>
-              <img className="icon-bt"
+              <img className="icon-bt icon-search-size"
                 style={{ WebkitMask: "url('/Icons/ic-search.svg') no-repeat center" }}
                 alt="" />
             </div>}
