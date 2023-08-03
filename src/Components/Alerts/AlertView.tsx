@@ -69,8 +69,8 @@ export const AlertView = ({
   };
 
   const labels = {
-    title: isEdit ? 'Save your project' : 'Confirm your project',
-    confirmationText: isEdit ? 'Please confirm your project edits below.' : 'This project will be routed to the following boards:',
+    title: isEdit ? 'Confirm your project' : 'Confirm your project',
+    confirmationText: isEdit ? 'Save changes to Project?' : 'This project will be routed to the following boards:',
     actionText: isEdit ? 'Save Project':'Submit Project'
   };
 
