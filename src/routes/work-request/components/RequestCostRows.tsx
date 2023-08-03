@@ -41,6 +41,7 @@ const RequestCostRows = () => {
     <div className="cost-wr">
       <Collapse
         collapsible="header"
+        onChange={handleCollapseChange}
         className='cost-collapse'
       >
         <Panel
@@ -48,7 +49,11 @@ const RequestCostRows = () => {
           header={
             <div className='cost-header'>
               <span>Total Cost</span>
-              <img src="Icons/ic_accordion-close.svg" alt="" />
+              <img
+                  className={isCollapseOpen ? "rotate-img" : ""}
+                  src="Icons/ic_accordion-close.svg"
+                  alt=""
+                />
             </div>
           }
           key="1"
