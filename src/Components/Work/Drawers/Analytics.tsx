@@ -8,7 +8,7 @@ import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { WINDOW_WIDTH } from 'constants/constants';
-import { CloseOutlined } from '@ant-design/icons';
+import { CloseOutlined, InfoCircleOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 
@@ -218,8 +218,12 @@ const Analytics = ({
                 ))
               }
             </Select></Col>
-            {tabKey === 'Maintenance' ? <><br/><br/></>:''}
-          <Col span={tabKey === 'Maintenance' ? 24:12} className='title-utilities'>BY
+          <Col
+            span={tabKey === 'Maintenance' ? 24:12}
+            className='title-utilities'
+            style={tabKey === 'Maintenance' ? {marginTop:'12px'}:{}}
+            >
+              <span style={tabKey === 'Maintenance' ? {width: '28px', display: 'inline-block'}:{}}>BY</span>
             <Select
               defaultValue="County"
               style={{ marginLeft: '11px', border: '1px solid #D9D9D9', borderRadius: '4px', width: '70%' }}
@@ -288,7 +292,7 @@ const Analytics = ({
         } */}
       </div>
       <div className='subtitle-requests'>
-        <h6 style={{ marginTop: '10px', textTransform: 'uppercase' }}>{`Requests by ${localityType}`}<Popover content={contentCounty} placement="top" > <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
+        <h6 style={{ marginTop: '10px', textTransform: 'uppercase' }}>{`Requests by ${localityType}`}<Popover content={contentCounty} placement="top" > <InfoCircleOutlined style={{opacity:'0.3'}} /> </Popover></h6>
       </div>
       <div className="graph" >
         {maxiQ > 0 &&
@@ -314,7 +318,7 @@ const Analytics = ({
         {/* <img src="gallery/requests1.png" alt="" style={{ width: '100%' }} /> */}
       </div>
       <div className="subtitle-requests" style={{ marginTop: '30px' }}>
-        <h6 style={{ marginTop: '10px', textTransform: 'uppercase' }}>{`Dollars Requested by ${localityType}`}<Popover content={contentDollars} placement="topRight" arrowPointAtCenter> <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
+        <h6 style={{ marginTop: '10px', textTransform: 'uppercase' }}>{`Dollars Requested by ${localityType}`}<Popover content={contentDollars} placement="topRight" arrowPointAtCenter> <InfoCircleOutlined style={{opacity:'0.3'}} /> </Popover></h6>
       </div>
       <div className="graph" >
         {maxiA > 0 &&

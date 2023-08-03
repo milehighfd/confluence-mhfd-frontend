@@ -859,6 +859,10 @@
     width: 100%;
     align-items: center;
     justify-content: space-between;
+    img{
+      height: 16px;
+      opacity: 0.6;
+    }
   } 
   h5{
     font-size: 16px;
@@ -898,7 +902,7 @@
   }
 
   .ant-drawer-header {
-    padding: 15px 15px 15px;
+    padding: 20px 16px 15px;
     border-bottom: none;
 
     .btn-transparent{
@@ -923,9 +927,14 @@
     }
   }
   .ant-drawer-body {
-    padding: 15px;
+    padding: 15px 20px;
     padding-top: 0px;
     overflow-x: hidden;
+    .sub-title-filter{
+      font-size: 16px;
+      color: $purple00;
+      font-weight: 500;
+    }
   }
   .ant-drawer-body::-webkit-scrollbar {
     width: 5px;

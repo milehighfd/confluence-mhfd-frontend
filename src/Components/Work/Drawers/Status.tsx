@@ -189,7 +189,7 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
                     />
                       <Space
                         direction="vertical"
-                        style={{paddingRight:'25px'}}
+                        style={{paddingRight:'26px'}}
                       >
                         <Switch
                           checkedChildren={item.checked ? "Yes" : 'No'}

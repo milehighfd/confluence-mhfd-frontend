@@ -1,5 +1,7 @@
+import { InfoCircleOutlined } from '@ant-design/icons';
 import { Checkbox } from 'antd';
 import React from 'react';
+import { capitalLetter, capitalizeWords } from 'utils/utils';
 
 const FilterGroup = ({
   label,
@@ -17,9 +19,9 @@ const FilterGroup = ({
   valueKey: string;
 }) => {
   return (
-    <div style={{ marginTop: '32px' }}>
+    <div style={{ marginTop: '10px' }}>
       <div style={{ paddingBottom: '10px' }}>
-        <span style={{ fontSize: '16px', fontWeight: 'bold', lineHeight: '19.2px', marginRight: '4px' }}>{label}</span><img src="/Icons/icon-19.svg" alt="" />
+        <span className='sub-title-filter'>{capitalizeWords(label)} </span><InfoCircleOutlined style={{opacity:0.3}} />
       </div>
       <div className="body-f-p-filter">
         {
