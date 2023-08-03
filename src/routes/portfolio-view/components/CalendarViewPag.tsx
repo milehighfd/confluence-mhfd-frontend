@@ -9,6 +9,7 @@ import PineyView from 'routes/portfolio-view/components/PineyView';
 import SearchDropdown from 'routes/portfolio-view/components//SearchDropdown';
 import { handleAbortError } from 'store/actions/mapActions';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
+import store from 'store/index';
 
 const CalendarViewPag = ({
   tabKey,
@@ -27,7 +28,7 @@ const CalendarViewPag = ({
   const heightSearchtest = document.getElementById('tabsPM')?.offsetHeight
   const heightSearch = (heightSearchtest && heightSearchHeader) && heightSearchtest - heightSearchHeader
   const marginReducerHeaderAxis = windowWidth >= 3001 && windowWidth <= 3999 ? '-5.3px' : '-5.9px';
-
+  const appUser = store.getState().profile;
   useEffect(() => {
     getActionsDone();
   }, [tabKey, updateAction])
@@ -92,7 +93,7 @@ const CalendarViewPag = ({
             <Col xs={{ span: 10 }} lg={{ span: 12 }} style={openPiney ? (pageWidth > 1900 ? (pageWidth > 2550 ? ((pageWidth > 3800 ? { textAlign: 'end', paddingRight: '638px' } : { textAlign: 'end', paddingRight: '465px' })) : { textAlign: 'end', paddingRight: '396px' }) : { textAlign: 'end', paddingRight: '305px' }) : { textAlign: 'end', paddingRight: '15px' }} className='header-zoom'>
               <div>
                 {
-                  openPiney &&
+                  (openPiney && !appUser?.isLocalGovernment) &&
                   <>
                     <Button style={{ border: '1px solid transparent', background: 'none', color: '#11093C', opacity: '0.6', paddingRight: '10px', paddingTop: '0px', paddingBottom: '0px' }} onClick={() => { setDatesData(editData); setOpenModalTollgate(true); }}>
                       <CalendarOutlined /> Edit Dates
