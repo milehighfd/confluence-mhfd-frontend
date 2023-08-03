@@ -158,7 +158,7 @@ const ModalProjectView = ({
     if(showDefaultTab) {
       if(data === "no data"){
         setVisibleCapital(true);
-        setNameProject('Ex: Stream Name @ Location 202X');
+        setNameProject('Add Project Name');
       } else {
         const allowedProjectTypeIds = [1,5, 7, 8, 9, 10, 11];
         const currentProjectType = getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id;
