@@ -15,6 +15,7 @@ const RequestCostRows = () => {
     board,
     showFilters: isFiltered,
     sumTotal,
+    year,
   } = useRequestState();
   const { setReqManager, updateTargetCost } = useRequestDispatch();
   const [ targetCosts, setTargetCosts ] = useState([]);
@@ -62,11 +63,11 @@ const RequestCostRows = () => {
             <div className='body-1'>
               <Row>
                 <Col span={4} ></Col>
-                <Col span={4} >2017</Col>
-                <Col span={4} >2018</Col>
-                <Col span={4} >2019</Col>
-                <Col span={4} >2020</Col>
-                <Col span={4} >2021</Col>
+                {
+                  [0,1,2,3,4].map(y => (
+                    <Col span={4} key={y}>{year+y}</Col>
+                  ))
+                }
               </Row>
             </div>
             <div className='body-2'>
