@@ -1,0 +1,763 @@
+.tollgate-modal-menu {
+  //border-radius: 9px !important;
+  background: $white;
+  border-radius: 0px !important;
+  padding: 6px 0px;
+  margin-top: 12px;
+}
+.modal-tollgate {
+  width: 750px !important;
+  top: 33px !important;
+  //width: 800px !important;
+  /* Default close button */
+  .ant-modal-close {
+    display: none;
+  }
+
+  /* Body of the Modal */
+  .ant-modal-body {
+    padding: 0;
+  }
+
+  /* Moldal's Footer */
+  .ant-modal-footer {
+    display: none;
+  }
+  .menu-login-dropdown {
+    border-radius: 9px !important;
+  }
+
+  .ant-dropdown-menu-item {
+    opacity: 0.6 !important;
+  }
+
+  .ant-picker-range .ant-picker-active-bar {
+    background: #11093c;
+  }
+
+  .ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner:before {
+    border: 1px solid #11093c;
+  }
+
+  .ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner,
+  .ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner,
+  .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner {
+    background: #11093c;
+  }
+
+  .ant-picker-cell-in-view.ant-picker-cell-in-range:before {
+    background: #11093c1a;
+  }
+
+  .ant-picker-date-panel
+    .ant-picker-cell-in-view.ant-picker-cell-in-range.ant-picker-cell-range-hover-end
+    .ant-picker-cell-inner:after,
+  .ant-picker-date-panel
+    .ant-picker-cell-in-view.ant-picker-cell-in-range.ant-picker-cell-range-hover-start
+    .ant-picker-cell-inner:after {
+    background: #11093c1a;
+  }
+}
+.tollgate-layout {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  box-shadow: $shadow;
+  background-color: $white;
+  overflow-y: auto;
+
+  .tollgate-header-head {
+    h1 {
+      margin-top: 15px !important;
+    }
+    .col-h-head {
+      text-align: end;
+    }
+  }
+
+  .tollgate-header-body {
+    background-color: white;
+    .col-h-body {
+      color: #11093c;
+    }
+
+    .col-body-1 {
+      color: #11093c;
+      text-align: end;
+    }
+  }
+
+  .ant-carousel .slick-list {
+    height: auto;
+  }
+
+  .ant-carousel .slick-dots {
+    display: none !important;
+    padding-bottom: 50px !important;
+  }
+
+  .header-body-modal {
+    color: #11093c;
+    opacity: 0.6;
+    margin: 15px 13px;
+    font-size: 20px !important;
+  }
+
+  .header-tab-modal-detail {
+    color: #11093c;
+    opacity: 0.6;
+    margin: 15px 13px;
+    font-size: 16px;
+  }
+  .header-tab-modal-detail-active {
+    color: #11093c;
+    opacity: 1;
+    border-bottom: 2px solid #11093c;
+    padding-bottom: 8px;
+    margin-bottom: 1px;
+  }
+
+  .header-body-modal-active {
+    color: #11093c;
+    opacity: 1;
+    border-bottom: 2px solid #11093c;
+    padding-bottom: 8px;
+    margin-bottom: 1px;
+  }
+
+  .ant-tabs-bottom > .ant-tabs-nav,
+  .ant-tabs-bottom > div > .ant-tabs-nav,
+  .ant-tabs-top > .ant-tabs-nav,
+  .ant-tabs-top > div > .ant-tabs-nav {
+    margin: 0;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
+    z-index: 10000;
+  }
+
+  .ant-tabs > .ant-tabs-nav .ant-tabs-nav-list,
+  .ant-tabs > div > .ant-tabs-nav .ant-tabs-nav-list {
+    margin-left: 41px;
+  }
+
+  .tabs-map .ant-tabs-nav .ant-tabs-tab {
+    font-size: 14px;
+  }
+}
+.tollgate-header {
+  min-height: 30px;
+  background: #f5f7ff;
+  padding: 20px 20px;
+  margin: 0px !important;
+  background-color: white;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  .mapboxgl-popup-close-button:hover {
+    background-color: rgb(0 0 0 / 0%);
+  }
+  .dates-title {
+    margin-left: -24px;
+  }
+
+  .yellow-input {
+    .ant-input-affix-wrapper {
+      background-color: #fff4df;
+      border: 1px solid #fbcc69;
+    }
+  }
+
+  .header-detail {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+  }
+
+  .header-button {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    width: 100%;
+    align-items: center;
+
+    .text-progress {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+
+      .value {
+        color: rgb(17 9 60);
+        font-weight: 600;
+      }
+    }
+
+    .progress {
+      width: 46%;
+
+      .ant-progress-text {
+        display: none;
+      }
+
+      .ant-progress-show-info .ant-progress-outer {
+        padding-right: 0px;
+      }
+
+      .ant-progress-inner {
+        background-color: #e8e9f7;
+      }
+
+      .ant-progress-bg,
+      .ant-progress-success-bg {
+        background-color: #11093c;
+      }
+    }
+  }
+
+  h1 {
+    font-size: 21px;
+    color: $purple00;
+    margin-bottom: -5px;
+    line-height: 22px;
+    margin-bottom: 7px;
+  }
+
+  h4 {
+    color: $purple00;
+    opacity: 0.5;
+  }
+
+  .title {
+    color: $purple00;
+    opacity: 0.5;
+    font-size: 16px;
+    padding-bottom: 12px;
+    margin-right: 30px;
+  }
+
+  .active {
+    border-bottom: 2px solid #11093c;
+    color: $purple00;
+    opacity: 1;
+
+    h4 {
+      color: $purple00;
+      opacity: 1;
+    }
+  }
+  p {
+    font-size: 14px;
+    color: $purple00;
+    margin-bottom: 0px;
+  }
+
+  .information {
+    color: #11093c !important;
+    font-weight: 700 !important;
+  }
+
+  .disabled {
+    opacity: 0.5 !important;
+  }
+
+  .btn-transparent {
+    padding: 0px 12px;
+    margin: 8px 0px;
+  }
+
+  .btn-opacity,
+  .btn-opacity:hover,
+  .btn-opacity:focus {
+    height: 40px;
+    font-size: 13px;
+    border-radius: 2px;
+    text-align: center;
+    padding: 11px 0px;
+    margin-top: 6px;
+    width: 120px;
+    min-width: 120px;
+    float: right;
+    background: $white !important;
+  }
+
+  .tollgate-row-list-view {
+    overflow-y: auto;
+    margin-right: -10px;
+    padding-right: 10px;
+    height: 30px;
+    h5 {
+      color: #11093c;
+      font-size: 12px;
+    }
+
+    h3 {
+      color: #11093c !important;
+    }
+  }
+
+  .tollgate-body {
+    height: calc(100vh - 319px);
+    padding-top: 2px;
+
+    .menu-login-dropdown {
+      border-radius: 9px !important;
+    }
+
+    .text-tollgate-title {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+}
+.tollgate-over-title {
+  margin-top: 15px;
+  color: #11093c;
+  font-weight: 500;
+}
+.tollgate-header-leyend {
+  display: flex;
+  padding-top: 10px;
+}
+.span-dots-tollgate {
+  display: inline-flex;
+  font-family: Ubuntu;
+  font-style: normal;
+  color: #858f94;
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  .toolgate-circle {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    margin-right: 3px;
+  }
+}
+.tollgate-circle-done {
+  background: #5e5fe2;
+}
+.tollgate-circle-current {
+  background: #047cd7;
+}
+.tollgate-circle-not-started {
+  background: #d4d2d9;
+}
+.tollgate-circle-overdue {
+  background: #f5575c;
+}
+.tollgate-circle-leyend {
+  margin-left: 1px;
+  margin-right: 15px;
+}
+.tollgate-btn-transparent {
+  margin: 8px 0;
+  padding: 0px 8px;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #11093c !important;
+}
+.tollgate-header-head {
+  background-color: white;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.calendar-toollgate {
+  margin-bottom: 14px !important;
+  background-color: #fbfbfc;
+  padding: 0px;
+  border-radius: 5px;
+  color: #11093c !important;
+}
+.duration-toollgate {
+  margin-bottom: 14px !important;
+  background-color: #fbfbfc;
+  padding: 0px;
+  border-radius: 2px;
+  color: #11093c !important;
+  height: 32px;
+  text-align: center;
+}
+.duration-toollgate-l {
+  border-radius: 5px 5px 5px 5px;
+  width: 100%;
+  border: none;
+  padding-right: 4px;
+  padding-left: 4px;
+
+  .ant-input-number-input {
+    padding-right: 15px;
+    text-align: center;
+  }
+
+  .ant-input-number-handler-wrap {
+    opacity: 1;
+  }
+
+  .ant-input-number-handler {
+    background: #fbfbfc;
+  }
+
+  .ant-input-number-handler-down-inner,
+  .ant-input-number-handler-up-inner {
+    color: #251863;
+  }
+
+  .ant-input-number-handler-wrap .ant-input-number-handler .ant-input-number-handler-down-inner,
+  .ant-input-number-handler-wrap .ant-input-number-handler .ant-input-number-handler-up-inner {
+    font-size: 7px;
+  }
+}
+.duration-toollgate-l:focus {
+  box-shadow: 0 0 0 2px rgb(24 144 255 / 20%);
+  margin-left: -2px !important;
+}
+.tollgate-buttons-placeholder{
+    text-align: end;
+    margin-top: 10px 
+}
+.btn-tollgate{
+    padding: 10px;
+    height: auto;
+    width: 49%;
+    font-size: 17.5px;
+}
+.btn-tollgate-purple{
+    color: #fff!important;
+    background-color: #251863!important;
+    border: none!important;
+    border-radius: 3px!important;
+    box-shadow: none!important;
+}
+.btn-tollgate-trasparent{
+    opacity: 0.6;
+    mix-blend-mode: normal;
+    margin: 8px 0;
+    background-color: transparent!important;
+    border: none!important;
+    box-shadow: none!important;
+    color: #11093c!important;
+}
+.btn.tollgate-trasparent:hover{
+    color: #251863 !important
+}
+.left-tollgate {
+  padding-right: 10px;
+}
+@media (min-width: 1900px) and (max-width: 2550px) {
+  .modal-tollgate {
+    top: 115px !important;
+    width: 830px !important;
+  }
+  .tollgate-header {
+    .dates-title {
+      margin-left: -44px;
+    }
+
+    .ant-input {
+      padding: 6px 11px;
+      font-size: 20px;
+    }
+
+    h1 {
+      font-size: 26px;
+      line-height: 26px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+
+    .duration-toollgate {
+      margin-bottom: 14px !important;
+      height: 35.14px !important;
+    }
+
+    .duration-toollgate-l {
+      .ant-input-number-handler-wrap .ant-input-number-handler .ant-input-number-handler-down-inner,
+      .ant-input-number-handler-wrap .ant-input-number-handler .ant-input-number-handler-up-inner {
+        font-size: 9px;
+      }
+
+      .ant-input-number-input {
+        padding: 10px 0px;
+        padding-right: 15px;
+        text-align: center;
+        font-size: 16px;
+        height: 35px;
+      }
+    }
+
+    .tollgate-body {
+      height: calc(100vh - 565px) !important;
+    }
+    .tollgate-row-list-view {
+      h5 {
+        font-size: 14px;
+      }
+    }
+
+    .title {
+      font-size: 18px;
+      padding-bottom: 8px;
+    }
+
+    .active {
+      border-bottom: 3px solid #11093c;
+      color: $purple00;
+      opacity: 1;
+
+      h4 {
+        color: $purple00;
+        opacity: 1;
+      }
+    }
+  }
+  .span-dots-tollgate {
+    font-size: 16px;
+    .toolgate-circle {
+      width: 14px;
+      height: 14px;
+    }
+  }
+}
+@media (min-width: 2550px) and (max-width: 3799px) {
+  .modal-tollgate {
+    top: 115px !important;
+    width: 1065px !important;
+    font-size: 18px !important;
+    top: 159px !important;
+
+    .ant-picker-input > input {
+      font-size: 20px !important;
+    }
+
+    h3 {
+      font-size: 22px !important;
+    }
+  }
+  .tollgate-header {
+    .dates-title {
+      margin-left: -24px;
+    }
+
+    .dates-title {
+      margin-left: -59px;
+    }
+
+    .duration-toollgate {
+      margin-bottom: 14px !important;
+      height: 42px !important;
+    }
+
+    .duration-toollgate-l {
+      .ant-input-number-handler-wrap .ant-input-number-handler .ant-input-number-handler-down-inner,
+      .ant-input-number-handler-wrap .ant-input-number-handler .ant-input-number-handler-up-inner {
+        font-size: 10px;
+      }
+
+      .ant-input-number-input {
+        font-size: 20px;
+        height: 42px;
+      }
+    }
+    .tollgate-body {
+      height: 269px !important;
+    }
+
+    .tollgate-row-list-view {
+      height: 608px !important;
+
+      h5 {
+        font-size: 20px;
+      }
+
+      h3 {
+        font-size: 33px;
+      }
+    }
+
+    h1 {
+      font-size: 32px;
+      line-height: 34px;
+    }
+
+    p {
+      font-size: 20px;
+    }
+    .title {
+      font-size: 21px !important;
+      padding-bottom: 8px;
+    }
+
+    .active {
+      border-bottom: 3px solid #11093c;
+      color: $purple00;
+      opacity: 1;
+
+      h4 {
+        color: $purple00;
+        opacity: 1;
+      }
+    }
+  }
+  .tollgate-header-head {
+    height: 89px;
+  }
+  .span-dots-tollgate {
+    font-size: 21px;
+    margin-left: 15px !important;
+    span {
+      margin-left: 6px !important;
+    }
+    .toolgate-circle {
+      width: 18px;
+      height: 18px;
+      // margin-top: 7px !important;
+    }
+  }
+  .calendar-toollgate {
+    span {
+      font-size: 18px !important;
+    }
+  }
+}
+@media (min-width: 3800px) and (max-width: 5999px) {
+  .modal-tollgate {
+    top: 115px !important;
+    width: 1370px !important;
+    font-size: 18px !important;
+    top: 260px !important;
+
+    .ant-picker-input > input {
+      font-size: 26px !important;
+    }
+  }
+  .tollgate-layout {
+    .map {
+      height: 1000px !important;
+    }
+  }
+  .tollgate-header {
+    padding: 20px 30px!important;
+    .dates-title {
+      margin-left: -24px;
+    }
+
+    .duration-toollgate {
+      margin-bottom: 15px !important;
+      height: 52.84px !important;
+      padding: 10px 0px;
+    }
+
+    .duration-toollgate-l .ant-input-number-handler-wrap .ant-input-number-handler .ant-input-number-handler-down-inner,
+    .duration-toollgate-l .ant-input-number-handler-wrap .ant-input-number-handler .ant-input-number-handler-up-inner {
+      font-size: 17px;
+    }
+
+    .duration-toollgate-l .ant-input-number-handler-wrap {
+      opacity: 1;
+      width: 35px;
+      padding-right: 3px;
+    }
+    .btn-tollgate {
+      font-size: 27px !important;
+      height: auto !important;
+      margin-top: 17px !important;
+    }
+
+    .tollgate-body {
+      height: 269px !important;
+    }
+
+    .tollgate-row-list-view {
+      height: 731px !important;
+
+      h5 {
+        font-size: 24px;
+      }
+
+      h3 {
+        font-size: 30px !important;
+      }
+
+      .left-tollgate {
+        p {
+          margin-bottom: 27px !important;
+        }
+      }
+
+      input {
+        font-size: 26px !important;
+      }
+    }
+
+    h1 {
+      font-size: 32px;
+      line-height: 42px!important
+    }
+
+    h3 {
+      font-size: 30px !important;
+    }
+
+    p {
+      font-size: 26px !important;
+    }
+
+    .calendar-toollgate {
+      margin-bottom: 15px !important;
+    }
+    .title {
+      font-size: 26px !important;
+      padding-bottom: 8px;
+    }
+
+    .active {
+      border-bottom: 3px solid #11093c;
+      color: $purple00;
+      opacity: 1;
+
+      h4 {
+        color: $purple00;
+        opacity: 1;
+      }
+    }
+  }
+  .tollgate-header-head {
+    height: 108px;
+  }
+
+  .span-dots-tollgate {
+    font-size: 28px;
+    .toolgate-circle {
+      width: 23px;
+      height: 23px;
+      margin-right: 8px;
+      margin-left: 16px;
+      // margin-top: 9px;
+    }
+  }
+  .calendar-toollgate {
+    span {
+      font-size: 18px !important;
+    }
+  }
+  .btn-tollgate {
+    font-size: 27px!important;
+    margin-top: 17px!important;
+  }
+  .tollgate-btn-transparent{
+    margin: 2px 5px!important;
+    padding: 0 12px!important;
+    img{
+      height: 19px;
+    }
+  }
+}

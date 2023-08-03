@@ -1,29 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { Button, Carousel, Col, Modal, Progress, Row, Table, Tooltip } from "antd";
-import TeamCollaborator from "../../../Components/Shared/Modals/TeamCollaborator";
-import { DATA_FINANCIALS, DATA_SOLUTIONS } from "../constants";
-import { ArrowDownOutlined, FileOutlined, PlusOutlined } from "@ant-design/icons";
-import { useAttachmentState } from "hook/attachmentHook";
+import React, { useEffect, useState } from 'react';
+import { Col, Row } from 'antd';
+import { FileOutlined } from '@ant-design/icons';
+import { useAttachmentState } from 'hook/attachmentHook';
 import { saveAs } from 'file-saver';
 
-
 const Documents = () => {
-  const [docs, setDocs] = useState<any[]>([]); 
+  const [docs, setDocs] = useState<any[]>([]);
   const { attachments } = useAttachmentState();
-  useEffect(()=>{
-    if (attachments.data){
-      const docs = attachments?.data?.filter(
-        (_: any) => !(_.mime_type?.includes('png') || _.mime_type?.includes('jpeg') || _.mime_type?.includes('jpg'))
-      ).map((file: any) => {
-        return {
-          key: file.project_attachment_id,         
-          name: file.file_name,
-          url: file.attachment_url
-        }
-      });
-      setDocs(docs)
-    }   
-  },[attachments])
+  useEffect(() => {
+    if (attachments.data) {
+      const docs = attachments?.data
+        ?.filter(
+          (_: any) => !(_.mime_type?.includes('png') || _.mime_type?.includes('jpeg') || _.mime_type?.includes('jpg')),
+        )
+        .map((file: any) => {
+          return {
+            key: file.project_attachment_id,
+            name: file.file_name,
+            url: file.attachment_url,
+          };
+        });
+      setDocs(docs);
+    }
+  }, [attachments]);
 
   function downloadAttachment(attachment: any) {
     saveAs(attachment.url, attachment.name);
@@ -32,13 +31,15 @@ const Documents = () => {
   return (
     <>
       <Row>
-        <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{display:'flex', alignItems:'center'}} className='subtitle-detail'>
-          <h3 style={{paddingBottom:'15px', paddingTop:'20px', marginRight:'35px'}} id="attachments">ATTACHMENTS</h3>
-          <div className="line-01" style={{marginBottom:'15px', marginTop:'20px'}}></div>
+        <Col xs={{ span: 24 }} lg={{ span: 24 }} className="detail-problems-component-header">
+          <h3 className="detail-problems-component-title-header" id="attachments">
+            ATTACHMENTS
+          </h3>
+          <div className="detail-problems-component-header-right"></div>
         </Col>
       </Row>
-      <Row style={{marginBottom:'40px'}}>
-        <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-financials-modal">
+      <Row style={{ marginBottom: '40px' }}>
+        <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-detail-financials-modal">
           {docs.map((doc: any) => {
             return (
               <a onClick={() => downloadAttachment(doc)}>
@@ -46,12 +47,12 @@ const Documents = () => {
                   <FileOutlined style={{ opacity: '0.35' }} /> {doc.name}
                 </p>
               </a>
-            )
+            );
           })}
         </Col>
       </Row>
     </>
-  )
-}
+  );
+};
 
 export default Documents;

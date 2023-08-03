@@ -1,13 +1,5 @@
 import React from "react";
-import { Avatar, Badge, Button, Carousel, Checkbox, Col, Dropdown, Menu, Modal, Progress, Row, Tooltip } from "antd";
-import TeamCollaborator from "../../../Components/Shared/Modals/TeamCollaborator";
-import DetailInformationProject from "./DetailInformationProject";
-import ComponentSolucions from "./ComponentSolucions";
-import Roadmap from "./Roadmap";
-import Financials from "./Financials";
-import Management from "./Management";
-import Map from "./Map";
-import Documents from "./Documents";
+import { Avatar, Badge, Button, Checkbox, Col, Dropdown, Menu, Modal, Progress, Row, Tooltip } from "antd";
 import { BarsOutlined, CheckOutlined, CheckSquareOutlined, ClockCircleOutlined, FlagOutlined, MenuOutlined, PlusOutlined, TagOutlined, TeamOutlined } from "@ant-design/icons";
 import TextArea from "antd/lib/input/TextArea";
 

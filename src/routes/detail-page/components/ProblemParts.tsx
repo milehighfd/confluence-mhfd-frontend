@@ -1,7 +1,6 @@
 import React from "react";
-import { Button, Carousel, Col, Modal, Progress, Row, Table, Tooltip } from "antd";
-import TeamCollaborator from "../../../Components/Shared/Modals/TeamCollaborator";
-import { useDetailedState } from "hook/detailedHook";
+import {Col, Row, Table } from "antd";
+
 
 const ProblemParts = ({problemParts}:{problemParts:any}) => {
   const problemPartsData = problemParts ? problemParts.map((data:any)=> {
@@ -35,13 +34,13 @@ const ProblemParts = ({problemParts}:{problemParts:any}) => {
   return (
     <>
       <Row>
-        <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{display:'flex', alignItems:'center', paddingRight: '8px'}} className='subtitle-detail'>
-          <h3 style={{marginBottom:'15px', marginTop:'20px', marginRight:'35px'}}>PROBLEM PARTS</h3>
-          <div className="line-01" style={{marginBottom:'15px', marginTop:'20px', width:'78%'}}></div>
+        <Col xs={{ span: 24 }} lg={{ span: 24 }} className='detail-problems-component-header'>
+          <h3 className="detail-problems-component-title-header">PROBLEM PARTS</h3>
+          <div className="detail-problems-component-header-right" ></div>
         </Col>
       </Row>
       <Row>
-        <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-detail-modal" style={{paddingRight: '8px'}}>
+        <Col xs={{ span: 24 }} lg={{ span: 24 }} className="detail-problems-component-table">
           <Table dataSource={problemParts ?  problemPartsData : {}} columns={columns} pagination={false}/>
         </Col>
       </Row>
