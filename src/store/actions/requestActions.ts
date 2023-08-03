@@ -287,7 +287,6 @@ export const loadColumns = (board_id: any) => {
       })?.map((r: any) => r?.value),
     };
 
-    console.log('filters', filters);
 
     dispatch({
       type: types.REQUEST_START_LOADING_COLUMNS_2
@@ -296,7 +295,7 @@ export const loadColumns = (board_id: any) => {
     for (let position = 0; position <= 5; position++) {
       const promise = datasets.postData(
         BOARD_FOR_POSITIONS,
-        { board_id, position, filters, year }
+        { board_id, position, filters, year, tabActiveNavbar }
       ).then((projects) => {
         let sumByGroupMap = {}, groupTotal = {};
         if (position !== 0) {
