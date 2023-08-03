@@ -267,22 +267,22 @@ export const loadColumns = (board_id: any) => {
       { label: 'Yes', value: 1 }
     ];
     const filters = {
-      project_counties: countiesFilterList?.filter((_: any, index: number) => {
+      project_counties: countiesSelected.every((r: any) => r) ? undefined : countiesFilterList?.filter((_: any, index: number) => {
         return countiesSelected[index];
       }).map((r: any) => r.state_county_id),
-      project_local_governments: jurisdictionFilterList?.filter((_: any, index: number) => {
+      project_local_governments: jurisdictionSelected.every((r: any) => r) ? undefined : jurisdictionFilterList?.filter((_: any, index: number) => {
         return jurisdictionSelected[index];
       }).map((r: any) => r.code_local_government_id),
-      project_service_areas: serviceAreasFilterList?.filter((_: any, index: number) => {
+      project_service_areas: serviceAreasSelected.every((r: any) => r) ? undefined :  serviceAreasFilterList?.filter((_: any, index: number) => {
         return serviceAreasSelected[index];
       }).map((r: any) => r.code_service_area_id),
-      project_priorities: priorityFilterList?.filter((_: any, index: number) => {
+      project_priorities: prioritySelected.every((r: any) => r) ? undefined : priorityFilterList?.filter((_: any, index: number) => {
         return prioritySelected[index];
       }).map((r: any) => r.value),
-      project_statuses: projectStatusesFilterList?.filter((_: any, index: number) => {
+      project_statuses: projectStatusesSelected.every((r: any) => r) ? undefined : projectStatusesFilterList?.filter((_: any, index: number) => {
         return projectStatusesSelected[index];
       })?.map((r: any) => r?.code_status_type_id),
-      isSouthPlatteRiver: isLocatedInSouthPlateRiverFilter?.filter((_: any, index: number) => {
+      isSouthPlatteRiver: isLocatedInSouthPlateRiverSelected.every((r: any) => r) ? undefined : isLocatedInSouthPlateRiverFilter?.filter((_: any, index: number) => {
         return isLocatedInSouthPlateRiverSelected[index];
       })?.map((r: any) => r?.value),
     };
