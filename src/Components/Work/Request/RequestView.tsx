@@ -35,9 +35,10 @@ const popovers: any = [
   <div className="popoveer-00"><b>Acquisition:</b> Property with high flood risk or needed for improvements.</div>,
   <div className="popoveer-00"><b>R&D:</b> Research and Development projects include new stream/rain gages, research, data development, new education and outreach programming, and criteria or guidance development.</div>
 ]
-const RequestView = ({ type, isFirstRendering }: {
+const RequestView = ({ type, isFirstRendering, widthMap }: {
   type: boardType,
   isFirstRendering: boolean
+  widthMap:any
 }) => {
   const {
     showModalProject,
@@ -422,11 +423,11 @@ return (
                 <div className='button-header-tab'>
                   <YearDropdown />
                   <div className='button-header'>
-                    <Button id='buttons-header' className={selectView === 'list' ? 'ico-header-tab-active' : 'ico-header-tab'} onClick={() => { selectCard('list', true) }}>
+                    <Button id='buttons-header' style={selectView === 'card' && widthMap === 15 ? {display:'none'}:{}} className={selectView === 'list' ? 'ico-header-tab-active' : 'ico-header-tab'} onClick={() => { selectCard('list', true) }}>
                       {selectView === 'list' ? <img src='Icons/ic-list-purple.svg' alt='ic-list-purple' /> : <img src='Icons/ic-list.svg' alt='ic-list' />}
                       List
                     </Button>
-                    <Button id='buttons-header' className={selectView === 'card' ? 'ico-header-tab-active' : 'ico-header-tab'} onClick={() => { selectCard('card', false) }}>
+                    <Button id='buttons-header'  style={selectView === 'list' && widthMap === 15 ? {display:'none'}:{}} className={selectView === 'card' ? 'ico-header-tab-active' : 'ico-header-tab'} onClick={() => { selectCard('card', false) }}>
                       {selectView === 'card' ? <img src='Icons/ic-card-purple.svg' alt='ic-card-purple' /> : <img src='Icons/ic-card.svg' alt='ic-card' />}
                       Card
                     </Button>
@@ -437,7 +438,7 @@ return (
             </div>
             <div className="work-body">
               <div className='btn-filter-d'>
-                {tabActiveNavbar !== 'MAP' && <Toolbar type={type} />}
+                {tabActiveNavbar !== 'MAP' && widthMap !== 15 && <Toolbar type={type} />}
               </div>
               <Tabs destroyInactiveTabPane={true}
                 defaultActiveKey={displayedTabKey[0]}

@@ -9,6 +9,8 @@ import { SERVER } from 'Config/Server.config';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { WINDOW_WIDTH } from 'constants/constants';
 import { CloseOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { setTabActiveNavbar } from 'store/actions/mapActions';
+import { useMapDispatch, useMapState } from 'hook/mapHook';
 
 const { Option } = Select;
 
@@ -40,6 +42,7 @@ const Analytics = ({
   const [maxiA, setMaxiA] = useState(0);
   const [amountData, setAmountData] = useState([]);
   const [countiesNames, setCountiesNames] = useState('');
+  const {tabActiveNavbar} = useMapState();
 
   const getLabel = () => {
     if (tabKey === 'Capital' || tabKey === 'Maintenance') {
@@ -172,6 +175,9 @@ const Analytics = ({
   const handleChange = (value: string) => {
     setLocalityType(value);
   };
+  useEffect(() =>{
+    setShowAnalytics(false)
+  },[tabActiveNavbar])
   return (
     <Drawer
       title={
