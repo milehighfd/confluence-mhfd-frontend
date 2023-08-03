@@ -853,6 +853,13 @@
 
 // Utilities
 .work-utilities{
+  .svg-axis-analytics {
+    margin-right: 0px;
+    padding-top: 6px;
+    padding-left: 6px;
+    background-color: #F5F7FF;
+    border-radius: 4px;
+  }
   .title-drawer{
     display: flex;
     width: 100%;
@@ -1022,7 +1029,14 @@
   .svg-scroll-analytics {
     height: 240px;
     overflow-y: auto;
-    margin-right: 20px;
+    margin-right: 0px;
+    padding-top: 6px;
+    padding-left: 6px;
+    background-color: #F5F7FF;
+    border-radius: 4px;
+  }
+  .svg-axis-analytics {
+    margin-right: 0px;
     padding-top: 6px;
     padding-left: 6px;
     background-color: #F5F7FF;

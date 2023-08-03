@@ -39,8 +39,16 @@ const HorizontalBarChart = ({
   minHeight=140
 }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
+  const svgAxisRef = useRef<SVGSVGElement>(null);
   const [selectedData, setSelectedData] = useState<string[]>([]);
   const transitionDuration = withAnimation ? 2000 : 0;
+  const removeAllChildNodes = (parent: any) => {
+    if (parent !== null && parent.firstChild) {
+      parent.removeChild(parent.firstChild);
+    }
+  };
+  const idContainer = `chart-${type}`;
+  const idContainerAxis = `chart-axis-${type}`;
   useEffect(() => {
     let temporal = selected.split(',')
     .filter((r: any) => r !== '')
@@ -55,6 +63,8 @@ const HorizontalBarChart = ({
   }, [selected])
 
   useEffect(() => {
+    removeAllChildNodes(document.getElementById(idContainer));
+    removeAllChildNodes(document.getElementById(idContainerAxis));
     if (type === solutionstatus) {
       data = data.map((r: any) => {
         return {
@@ -163,14 +173,29 @@ const HorizontalBarChart = ({
     }
 
     const svg = d3.select(svgRef.current)
-      .attr("viewBox", `0 0 ${width} ${height}`)
+      .attr("viewBox", `-5 0 ${width} ${height}`)
+      .append("g")
 
     //TO DO: Cesar Add x axis at the bottom of the chart outside the svg
-    // svg
-    //   .append("g")
-    //   .attr("transform", "translate(0," + (height-10) + ")")
-    //   .style('visibility', 'hidden')
-    //   .call(d3.axisBottom(x));
+    let axis = d3.select(svgAxisRef.current)
+    .attr("viewBox", `-5 8 ${width} ${15}`)
+    .append("g")
+    // .attr("transform", "translate(" + 10 + ", 0)");
+    axis
+    .append("g")
+    // .attr("transform", "translate(0," + (height-10) + ")")
+    // .style('visibility', 'hidden')
+    .attr('class', 'xAxisAnalytics')
+    if(type === 'requests'){
+      axis.append("g")
+    .attr('class', 'xAxisAnalytics')
+    .call(d3.axisBottom(x).ticks(5));
+    }else{
+      axis.append("g")
+      .attr('class', 'xAxisAnalytics')
+      .call(d3.axisBottom(x).ticks(5).tickFormat(d3.format("~s")));
+    }
+
 
     let lines = svg
       .selectAll('.hlines')
@@ -367,7 +392,10 @@ const HorizontalBarChart = ({
         )
       }
       <div className={(scrollClass ? scrollClass : '') + ' svg-top-pad'}>
-        <svg ref={svgRef} className="horizontal-text" />
+        <svg id={idContainer} ref={svgRef} className="horizontal-text" />
+      </div>
+      <div className='svg-axis-analytics'>
+        <svg id={idContainerAxis} ref={svgAxisRef} className="horizontal-text" />
       </div>
       <div className="horizontal-axis-label">
         <i>{axisLabel}</i>
