@@ -247,7 +247,7 @@
   
     .ant-collapse>.ant-collapse-item:last-child,
     .ant-collapse>.ant-collapse-item:last-child>.ant-collapse-header {
-      border-radius: 0 0 0px 0px;
+      border-radius: 0 0 0px 0px;      
     }
   
     .ant-collapse-content>.ant-collapse-content-box {
@@ -431,17 +431,87 @@
 .cost-wr{
   margin-left: 16px;
   border-radius: 8px;
-  background: #F5F7FF;
-  box-shadow: 4px 4px 12px 0px rgba(0, 0, 0, 0.10);
-  width: 876px;
+  background-color: #F5F7FF !important;
+  box-shadow: 4px 4px 12px 0px rgba(0, 0, 0, 0.10) !important;
+  width: 880px;
   flex-shrink: 0;
   position: absolute;
   bottom: 0px;
   padding-bottom: 0px !important;
- margin-bottom: 20px;
- margin-right: 15px;
+  margin-bottom: 20px;
+  margin-right: 15px;  
+  .cost-panel{
+    background-color: #F5F7FF !important;
+    padding-left: 21px !important;
+    border-radius: 8px !important;
+    padding-bottom: 0px !important;
+    width: 876px !important;
+    border: none !important;
+    margin-bottom: 12px !important;
+    .cost-body{
+      font-size: 12px;
+      height: 240px;
+      background-color: #F5F7FF !important;; 
+      .body-1{
+        padding-top: 13px;
+        font-weight: bold;
+        margin-bottom: 12px;
+        padding-left: 38px;
+        letter-spacing: 0.171429px;
+      }
+      .body-2{
+        padding-left: 38px;
+      }
+      .body-2-col{
+        text-align: left;
+        padding-left: 8px;
+      }
+      .body-3{
+        margin-top: 23px;
+        background-color: #F5F7FF;
+        padding-left: 21px;
+        .cost-row{
+          .row-col-1{
+            padding-bottom: 10px;
+          }
+        }
+        .row-col-3{
+          margin-top: -4px;
+        }
+      }
+      .body-4{
+        margin-top: 15px;
+        padding-left: 38px;
+        .row-col-4{
+          padding-right: 20px;
+        }
+      }
+      .body-5{
+        margin-top: 15px;
+        padding-left: 38px;
+        .row-col-5{
+          color: red;
+        }
+      }
+    }    
+  }
   .cost-collapse{
-   // display: flex;        
+   .cost-header{
+    width: 100%;
+    height: 28px !important;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    padding: 0px !important;
+    span{
+      padding-left: 24px;
+      padding-bottom: 0px !important;
+      font-size: 18px;
+    }
+    img{
+      padding-right: 24px;
+    }
+   }      
   }
   
   h5{

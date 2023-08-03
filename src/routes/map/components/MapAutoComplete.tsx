@@ -21,7 +21,7 @@ const MapAutoComplete = ({
   const [valueA, setvalueA] = useState('');
   const ref = useRef<any>(null);
   const [dataAutocomplete, setDataAutocomplete] = useState(groupOrganization.map((item: any) => {
-    return { key: item.id, value: item.name, label: item.name }
+    return { key: item.id + item.name, value: item.name, label: item.name }
   }));
 
   const onSelect = (value: any, isSelect?: any) => {
@@ -30,7 +30,7 @@ const MapAutoComplete = ({
   };
   useEffect(() => {
     setDataAutocomplete(groupOrganization.map((item: any) => {
-      return { key: item.name, value: item.name, label: item.name }
+      return { key: item.id + item.name, value: item.name, label: item.name }
     }));
   }, [groupOrganization]);
 

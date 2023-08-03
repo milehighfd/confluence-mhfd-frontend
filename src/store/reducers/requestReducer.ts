@@ -34,6 +34,7 @@ const initialState = {
   countiesSelected: [],
   serviceAreasSelected: [],
   prioritySelected: [],
+  projectStatusesSelected: [],
   csaSelected: [],
   localityType: '',
   visibleCreateProject: false,
@@ -194,6 +195,11 @@ const requestReducer = (state = initialState, action: any) => {
         ...state,
         serviceAreasSelected: action.payload
       };
+      case types.REQUEST_SET_PROJECT_STATUSES_SELECTED:
+        return {
+          ...state,
+          projectStatusesSelected: action.payload
+        };
     case types.REQUEST_SET_CSA_SELECTED:
       return {
         ...state,
