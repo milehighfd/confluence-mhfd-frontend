@@ -77,7 +77,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
   const openNotificationWithIcon = (type: NotificationType) => {
     api[type]({
       message: 'Success! Your user update was saved!',
-      className: 'notification-layout',
+      className: 'notification-alert-layout',
       icon: <CheckCircleFilled className='notification-icon-success'/>,
       duration: 2
     });
