@@ -466,7 +466,7 @@ return (
                           flagforScroll={flagforScroll} 
                           type={type}/>                          
                       </div>
-                      <RequestCostRows type={type} />
+                      <RequestCostRows />
                       </div>}                     
                     </TabPane>
                   ))
