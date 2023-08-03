@@ -388,8 +388,6 @@ const selectCard = (card: any, show:boolean) => {
 setListWork(show)
 }
 
-console.log(tabActiveNavbar);
-
 return (
     <Layout className="work">
       {(fakeLoading) && <LoadingViewOverall />}
@@ -463,7 +461,7 @@ return (
                           flagforScroll={flagforScroll} 
                           type={type}/>                          
                       </div>
-                      <RequestCostRows type={type}/>
+                      <RequestCostRows type={type} />
                       </div>}                     
                     </TabPane>
                   ))
