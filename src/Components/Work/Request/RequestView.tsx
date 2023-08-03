@@ -25,6 +25,7 @@ import '../../../index.scss';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
 import TableListView from './Toolbar/TableListView';
 
+import { YEAR_LOGIC_2024, WORK_PLAN } from 'constants/constants';
 const { TabPane } = Tabs;
 
 const popovers: any = [
@@ -68,6 +69,7 @@ const RequestView = ({ type, isFirstRendering }: {
     setCountiesSelected,
     setServiceAreasSelected,
     setProjectStatusesSelected,
+    setIsLocatedInSouthPlateRiverSelected,
     setLocalityType,
     setLocalities,
     setColumns,
@@ -442,10 +444,13 @@ return (
                 activeKey={tabKey}
                 onChange={(key) => {
                   setTabKey(key);
-                  setPrioritySelected([]);
-                  setJurisdictionSelected([]);
-                  setProjectStatusesSelected([]);
-                  if (year < 2024) {
+                  if(type === WORK_PLAN){
+                    setPrioritySelected([]);
+                    setJurisdictionSelected([]);
+                    setProjectStatusesSelected([]);
+                  }
+                  setIsLocatedInSouthPlateRiverSelected([])
+                  if (year < YEAR_LOGIC_2024) {
                     setCountiesSelected([]);
                     setServiceAreasSelected([]);
                   }

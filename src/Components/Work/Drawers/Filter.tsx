@@ -2,7 +2,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Drawer, Button, Checkbox } from 'antd';
 import { useRequestDispatch, useRequestState } from "hook/requestHook";
 import FilterGroup from "./FilterGroup";
-
+import { useMapState } from "hook/mapHook";
+import { YEAR_LOGIC_2024, WORK_REQUEST, WORK_PLAN } from 'constants/constants';
 const Filter = () => {
   const {
     showFilters,
@@ -15,8 +16,12 @@ const Filter = () => {
     countiesSelected,
     serviceAreasSelected,
     projectStatusesSelected,
+    isLocatedInSouthPlateRiverSelected,
   } = useRequestState();
-  const { setShowFilters, loadColumns, setPrioritySelected, setJurisdictionSelected, setCountiesSelected, setServiceAreasSelected, setProjectStatusesSelected } = useRequestDispatch();
+  const {
+    tabActiveNavbar
+  } = useMapState();
+  const { setShowFilters, loadColumns, setPrioritySelected, setJurisdictionSelected, setCountiesSelected, setServiceAreasSelected, setProjectStatusesSelected, setIsLocatedInSouthPlateRiverSelected } = useRequestDispatch();
 
   const jurisdictionFilterList: any[] = filterMap['project_local_governments'];
   const countiesFilterList: any[] = filterMap['project_counties'];
@@ -29,24 +34,23 @@ const Filter = () => {
     { label: 'Over 3', value: 3 },
     { label: 'Work Plan', value: 4 }
   ], []);
-
-  // const [jurisdictionSelected, setJurisdictionSelected] = useState<any[]>([]);
-  // const [countiesSelected, setCountiesSelected] = useState<any[]>([]);
-  // const [serviceAreasSelected, setServiceAreasSelected] = useState<any[]>([]);
-  // const [prioritySelected, setPrioritySelected] = useState<any[]>([]);
+  const isLocatedInSouthPlateRiverFilter = useMemo(() => [
+    { label: 'Yes', value: 1 }
+  ], []);
 
   useEffect(() => {
-    console.log('entraaaaa', jurisdictionFilterList, countiesFilterList, priorityFilterList, serviceAreasFilterList, projectStatusFilterList);
+    console.log('entraaaaa', jurisdictionFilterList, countiesFilterList, priorityFilterList, serviceAreasFilterList, projectStatusFilterList, isLocatedInSouthPlateRiverFilter);
     if (prioritySelected.length === 0) {
       setJurisdictionSelected(jurisdictionFilterList.map((r: any) => true));
       setPrioritySelected(priorityFilterList.map((r: any) => true));
       setProjectStatusesSelected(projectStatusFilterList.map((r: any) => true));
-      if(year < 2024){
+      setIsLocatedInSouthPlateRiverSelected(isLocatedInSouthPlateRiverFilter.map((r: any) => false));
+      if (year < YEAR_LOGIC_2024) {
         setCountiesSelected(countiesFilterList.map((r: any) => true));
         setServiceAreasSelected(serviceAreasFilterList.map((r: any) => true));
       }
     }
-  }, [jurisdictionFilterList, countiesFilterList, priorityFilterList, serviceAreasFilterList, projectStatusFilterList]);
+  }, [jurisdictionFilterList, countiesFilterList, priorityFilterList, serviceAreasFilterList, projectStatusFilterList, isLocatedInSouthPlateRiverFilter]);
 
   const applyFilters = () => {
     loadColumns(namespaceId);
@@ -56,7 +60,9 @@ const Filter = () => {
     setCountiesSelected(countiesSelected.map((_: any) => value));
     setPrioritySelected(prioritySelected.map((_: any) => value));
     setServiceAreasSelected(serviceAreasSelected.map((_: any) => value));
-    setProjectStatusesSelected(projectStatusesSelected.map((r: any) => value));
+    setProjectStatusesSelected(projectStatusesSelected.map((_: any) => value));
+    setIsLocatedInSouthPlateRiverSelected(isLocatedInSouthPlateRiverFilter.map((_: any) => false));
+
   }
   let label;
   if (l === 'CODE_STATE_COUNTY' || l === 'CODE_LOCAL_GOVERNMENT') {
@@ -69,7 +75,7 @@ const Filter = () => {
     <Drawer
       title={
         <h5 className='title-drawer'>
-          <span><img src="/Icons/icon-73.svg" alt="" style={{width:'18px'}} className="icons-drawers" /> FILTER</span>
+          <span><img src="/Icons/icon-73.svg" alt="" style={{ width: '18px' }} className="icons-drawers" /> FILTER</span>
           <img src="/Icons/ic_close.svg" alt="" style={{ alignItems: 'flex-end', cursor: 'pointer' }} onClick={() => setShowFilters(false)} />
         </h5>
       }
@@ -81,9 +87,42 @@ const Filter = () => {
       mask={false}
     >
       {
+        tabActiveNavbar === WORK_PLAN && year >= YEAR_LOGIC_2024 &&
+        <FilterGroup
+          label="Located in the South Platte River"
+          filterList={isLocatedInSouthPlateRiverFilter}
+          selected={isLocatedInSouthPlateRiverSelected}
+          setter={setIsLocatedInSouthPlateRiverSelected}
+          labelKey="label"
+          valueKey="value"
+        />
+      }
+      {
+        tabActiveNavbar === WORK_PLAN &&
+        <FilterGroup
+          label="Work Request Priority"
+          filterList={priorityFilterList}
+          selected={prioritySelected}
+          setter={setPrioritySelected}
+          labelKey="label"
+          valueKey="value"
+        />
+      }
+      {
+        tabActiveNavbar === WORK_PLAN &&
+        <FilterGroup
+          label="Local Government"
+          filterList={jurisdictionFilterList}
+          selected={jurisdictionSelected}
+          setter={setJurisdictionSelected}
+          labelKey="local_government_name"
+          valueKey="code_local_government_id"
+        />
+      }
+      {
         label === 'COUNTY' &&
         <FilterGroup
-          label="COUNTY"
+          label="County"
           filterList={countiesFilterList}
           selected={countiesSelected}
           setter={setCountiesSelected}
@@ -94,7 +133,7 @@ const Filter = () => {
       {
         label === 'SERVICE AREA' &&
         <FilterGroup
-          label="SERVICE AREA"
+          label="Service Area"
           filterList={serviceAreasFilterList}
           selected={serviceAreasSelected}
           setter={setServiceAreasSelected}
@@ -103,7 +142,8 @@ const Filter = () => {
         />
 
       }
-      {year >= 2024 &&
+      {
+        year >= YEAR_LOGIC_2024 &&
         <FilterGroup
           label="Project Status"
           filterList={projectStatusFilterList}
@@ -115,11 +155,11 @@ const Filter = () => {
       }
 
       <div className="footer-drawer" style={{ position: 'fixed', bottom: '50px', right: '19px', backgroundColor: 'white', 'width': '277px' }}>
-        <div className="buttons-filters" style={{display:'flex'}}>
-          <Button className="btn-borde" onClick={()=> reset(true)}>
+        <div className="buttons-filters" style={{ display: 'flex' }}>
+          <Button className="btn-borde" onClick={() => reset(true)}>
             Reset
           </Button>
-          <Button className="btn-purple" style={{marginLeft:'10px'}} onClick={applyFilters}>
+          <Button className="btn-purple" style={{ marginLeft: '10px' }} onClick={applyFilters}>
             Apply
           </Button>
         </div>

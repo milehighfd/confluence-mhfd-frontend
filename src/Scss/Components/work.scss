@@ -1055,6 +1055,44 @@
       }
     }
   }
+  .body-f-p-filter-river{
+    padding: 16px 0px;
+    height: 40px;
+    overflow-y: auto;
+    padding-top: 0px !important;
+
+
+    .check-filter {
+        padding-top: 16px;
+    
+        .ant-checkbox-checked .ant-checkbox-inner {
+          background-color: $blue-opacity !important;
+          /* Cambia el color de fondo del checkbox cuando está seleccionado */
+          border-color: $blue-opacity !important;
+          /* Cambia el color del borde del checkbox cuando está seleccionado */
+        }
+      }
+      .check-filter1 {
+       
+        .ant-checkbox-checked .ant-checkbox-inner {
+          background-color: $blue-opacity !important;
+          /* Cambia el color de fondo del checkbox cuando está seleccionado */
+          border-color: $blue-opacity !important;
+          /* Cambia el color del borde del checkbox cuando está seleccionado */
+        }
+      }
+
+    p{
+      font-size: 12px !important;
+      line-height: 14px;
+      //margin-bottom: 20px;
+      //padding-top: 0px;
+
+      span{
+        float: right;
+      }
+    }
+  }
   .body-f-p-filter{
     padding: 16px 0px;
     height: 230px;

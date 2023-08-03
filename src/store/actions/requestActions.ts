@@ -142,6 +142,11 @@ export const setProjectStatusesSelected = (payload: any) => ({
   payload
 });
 
+export const setIsLocatedInSouthPlateRiverSelected = (payload: any) => ({
+  type: types.REQUEST_SET_IS_SOUTH_PLATTE_RIVER_SELECTED,
+  payload
+});
+
 export const setCsaSelected = (payload: any) => ({
   type: types.REQUEST_SET_CSA_SELECTED,
   payload
@@ -184,7 +189,7 @@ export const setDiff = (payload: any) => ({
 
 export const loadOneColumn = (board_id: any, position: any) => {
   return (dispatch: any, getState: Function) => {
-    const { request: { tabKey, year, filterMap, countiesSelected, jurisdictionSelected, serviceAreasSelected, prioritySelected, projectStatusesSelected }, router: { location } } = getState();
+    const { request: { tabKey, year, filterMap, countiesSelected, jurisdictionSelected, serviceAreasSelected, prioritySelected, projectStatusesSelected, isLocatedInSouthPlateRiverSelected, }, router: { location } } = getState();
     const jurisdictionFilterList: any[] = filterMap['project_local_governments'];
     const countiesFilterList: any[] = filterMap['project_counties'];
     const serviceAreasFilterList: any[] = filterMap['project_service_areas'];
@@ -196,23 +201,30 @@ export const loadOneColumn = (board_id: any, position: any) => {
       { label: 'Over 3', value: 3 },
       { label: 'Work Plan', value: 4 }
     ];
+    const isLocatedInSouthPlateRiverFilter = [
+      { label: 'Yes', value: 1 }
+    ];
     const filters = {
-      project_counties: countiesSelected.every((r: any) => r) ? undefined : countiesFilterList.filter((_: any, index: number) => {
+      project_counties: countiesFilterList.filter((_: any, index: number) => {
         return countiesSelected[index];
       }).map((r: any) => r.state_county_id),
-      project_local_governments: jurisdictionSelected.every((r: any) => r) ? undefined : jurisdictionFilterList.filter((_: any, index: number) => {
+      project_local_governments: jurisdictionFilterList.filter((_: any, index: number) => {
         return jurisdictionSelected[index];
       }).map((r: any) => r.code_local_government_id),
-      project_service_areas: serviceAreasSelected.every((r: any) => r) ? undefined :  serviceAreasFilterList.filter((_: any, index: number) => {
+      project_service_areas: serviceAreasFilterList.filter((_: any, index: number) => {
         return serviceAreasSelected[index];
       }).map((r: any) => r.code_service_area_id),
-      project_priorities: prioritySelected.every((r: any) => r) ? undefined : priorityFilterList.filter((_: any, index: number) => {
+      project_priorities: priorityFilterList.filter((_: any, index: number) => {
         return prioritySelected[index];
       }).map((r: any) => r.value),
-      project_statuses: projectStatusesSelected.every((r: any) => r) ? undefined : projectStatusesFilterList?.filter((_: any, index: number) => {
+      project_statuses: projectStatusesFilterList?.filter((_: any, index: number) => {
         return projectStatusesSelected[index];
       })?.map((r: any) => r?.code_status_type_id),
+      isSouthPlatteRiver: isLocatedInSouthPlateRiverFilter?.filter((_: any, index: number) => {
+        return isLocatedInSouthPlateRiverSelected[index];
+      })?.map((r: any) => r?.value),
     };
+    
     dispatch({
       type: types.REQUEST_START_LOADING_COLUMNS_2
     });
@@ -239,7 +251,7 @@ export const loadOneColumn = (board_id: any, position: any) => {
 
 export const loadColumns = (board_id: any) => {
   return (dispatch: any, getState: Function) => {
-    const { map: { tabActiveNavbar }, request: { tabKey, year, filterMap, countiesSelected, jurisdictionSelected, serviceAreasSelected, prioritySelected, projectStatusesSelected }, router: { location } } = getState();
+    const { map: { tabActiveNavbar }, request: { tabKey, year, filterMap, countiesSelected, jurisdictionSelected, serviceAreasSelected, prioritySelected, projectStatusesSelected, isLocatedInSouthPlateRiverSelected }, router: { location } } = getState();
     const jurisdictionFilterList: any[] = filterMap['project_local_governments'];
     const countiesFilterList: any[] = filterMap['project_counties'];
     const serviceAreasFilterList: any[] = filterMap['project_service_areas'];
@@ -251,23 +263,32 @@ export const loadColumns = (board_id: any) => {
       { label: 'Over 3', value: 3 },
       { label: 'Work Plan', value: 4 }
     ];
+    const isLocatedInSouthPlateRiverFilter = [
+      { label: 'Yes', value: 1 }
+    ];
     const filters = {
-      project_counties: countiesSelected.every((r: any) => r) ? undefined : countiesFilterList?.filter((_: any, index: number) => {
+      project_counties: countiesFilterList?.filter((_: any, index: number) => {
         return countiesSelected[index];
       }).map((r: any) => r.state_county_id),
-      project_local_governments: jurisdictionSelected.every((r: any) => r) ? undefined : jurisdictionFilterList?.filter((_: any, index: number) => {
+      project_local_governments: jurisdictionFilterList?.filter((_: any, index: number) => {
         return jurisdictionSelected[index];
       }).map((r: any) => r.code_local_government_id),
-      project_service_areas: serviceAreasSelected.every((r: any) => r) ? undefined :  serviceAreasFilterList?.filter((_: any, index: number) => {
+      project_service_areas: serviceAreasFilterList?.filter((_: any, index: number) => {
         return serviceAreasSelected[index];
       }).map((r: any) => r.code_service_area_id),
-      project_priorities: prioritySelected.every((r: any) => r) ? undefined : priorityFilterList?.filter((_: any, index: number) => {
+      project_priorities: priorityFilterList?.filter((_: any, index: number) => {
         return prioritySelected[index];
       }).map((r: any) => r.value),
-      project_statuses: projectStatusesSelected.every((r: any) => r) ? undefined : projectStatusesFilterList?.filter((_: any, index: number) => {
+      project_statuses: projectStatusesFilterList?.filter((_: any, index: number) => {
         return projectStatusesSelected[index];
       })?.map((r: any) => r?.code_status_type_id),
+      isSouthPlatteRiver: isLocatedInSouthPlateRiverFilter?.filter((_: any, index: number) => {
+        return isLocatedInSouthPlateRiverSelected[index];
+      })?.map((r: any) => r?.value),
     };
+
+    console.log('filters', filters);
+
     dispatch({
       type: types.REQUEST_START_LOADING_COLUMNS_2
     });

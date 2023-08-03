@@ -38,6 +38,7 @@ const AutoCompleteDropdown = (
     setCountiesSelected,
     setServiceAreasSelected,
     setProjectStatusesSelected,
+    setIsLocatedInSouthPlateRiverSelected,
     setLocalityType,
     setTabKey,
     setIsOnSelected,
@@ -74,9 +75,13 @@ const AutoCompleteDropdown = (
     }
   }, [year]);
 
+
   useEffect(() => {
-      if (filterMap?.project_local_governments?.length > 0) {
-        setJurisdictionSelected(filterMap?.project_local_governments?.map((_: any) => true));
+    if (filterMap && filterMap?.project_service_areas?.length > 0) {
+      setServiceAreasSelected(filterMap?.project_service_areas?.map((_: any) => true))
+    }
+    if (filterMap?.project_local_governments?.length > 0) {
+      setJurisdictionSelected(filterMap?.project_local_governments?.map((_: any) => true));
       if (filterMap && filterMap?.project_statuses?.length > 0) {
         setProjectStatusesSelected(filterMap?.project_statuses?.map((_: any) => true))
       }
@@ -139,6 +144,7 @@ const AutoCompleteDropdown = (
     setCountiesSelected([]);
     setServiceAreasSelected([]);
     setProjectStatusesSelected([])
+    setIsLocatedInSouthPlateRiverSelected([]);
     if (type === WORK_PLAN_TAB) {
       if (year < YEAR_LOGIC_2024) {
         setLocality(value);

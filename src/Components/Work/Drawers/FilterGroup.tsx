@@ -23,7 +23,7 @@ const FilterGroup = ({
       <div style={{ paddingBottom: '10px' }}>
         <span className='sub-title-filter'>{capitalizeWords(label)} </span><InfoCircleOutlined style={{opacity:0.3}} />
       </div>
-      <div className="body-f-p-filter">
+      <div className={label === 'Located in the South Platte River'? "body-f-p-filter-river" : "body-f-p-filter"}>
         {
           filterList?.map((cn: any, index: number) => (
             <div key={`filter-ps${index}`}>

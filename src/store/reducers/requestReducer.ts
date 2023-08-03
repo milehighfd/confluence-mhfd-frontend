@@ -35,6 +35,7 @@ const initialState = {
   serviceAreasSelected: [],
   prioritySelected: [],
   projectStatusesSelected: [],
+  isLocatedInSouthPlateRiverSelected: [],
   csaSelected: [],
   localityType: '',
   visibleCreateProject: false,
@@ -195,11 +196,16 @@ const requestReducer = (state = initialState, action: any) => {
         ...state,
         serviceAreasSelected: action.payload
       };
-      case types.REQUEST_SET_PROJECT_STATUSES_SELECTED:
-        return {
-          ...state,
-          projectStatusesSelected: action.payload
-        };
+    case types.REQUEST_SET_PROJECT_STATUSES_SELECTED:
+      return {
+        ...state,
+        projectStatusesSelected: action.payload
+      };
+    case types.REQUEST_SET_IS_SOUTH_PLATTE_RIVER_SELECTED:
+      return {
+        ...state,
+        isLocatedInSouthPlateRiverSelected: action.payload
+      };  
     case types.REQUEST_SET_CSA_SELECTED:
       return {
         ...state,
