@@ -79,7 +79,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
       message: 'Success! Your user update was saved!',
       className: 'notification-layout',
       icon: <CheckCircleFilled className='notification-icon-success'/>,
-      duration: 3
+      duration: 2
     });
   };
 
