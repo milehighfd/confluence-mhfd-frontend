@@ -488,6 +488,7 @@ const CreateProjectMap = (type: any) => {
 
       componentsList = listComponents.result;
     } else {
+      hideHighlighted();
       // setStreamIntersected({ geom: null }); // TODO entender porque se borraba la intersection cuando no habia listcompoennts
       // setStreamsIds([]);
       if (!flagInit) {
@@ -498,6 +499,7 @@ const CreateProjectMap = (type: any) => {
 
   useEffect(() => {
     if (flagtoDraw && listComponents && listComponents.result && listComponents.result.length > 0) {
+      hideHighlighted();
       showHoverComponents();
     }
   }, [componentsHover, flagtoDraw]);
