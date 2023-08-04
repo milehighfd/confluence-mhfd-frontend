@@ -57,14 +57,13 @@ export const ProposedActions = (props: ProposedActionsProps) => {
   });
 
   useEffect(() => {
-    console.log('groups', groups);
     if (Array.isArray(groups)) {
       const output = groups.flatMap((x: any) =>
         x?.components?.map((y: any) => ({
           key: y.object_id,
           action: y,
           cost: y.original_cost,
-          status: 'Active',
+          status: y.status,
           problem: x.problemname,
           cartodb_id: y.cartodb_id,
           table: y.table,
