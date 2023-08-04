@@ -533,17 +533,11 @@ export const ModalCapital = ({
   //Check if required fields are filled to enable save button
   useEffect(()=>{
     let streamValidation = streamIntersected.geom ? JSON.parse(streamIntersected.geom): undefined;
-    if (selectedTypeProject === 'capital' && (geom || isCountyWide)  && description !== '' && county.length !== 0 && serviceArea.length !== 0 && nameProject !== '' && streamValidation != undefined && streamValidation.coordinates.length > 0 && jurisdiction.length > 0 && componentsToSave.length > 0) {
+    if ((geom || isCountyWide) && description && county.length && serviceArea.length && jurisdiction.length && nameProject && sponsor) {
       setDisable(false);
-    } else if (selectedTypeProject === 'maintenance' && (geom || isCountyWide) && description != '' && county.length && serviceArea.length && jurisdiction.length && nameProject !== '') {
+    }else if (selectedTypeProject === 'capital' && !streamValidation && streamValidation.coordinates.length && componentsToSave.length) {
       setDisable(false);
-    } else if (selectedTypeProject === 'acquisition' && nameProject !== '' && (geom || isCountyWide) && description != '' && county.length && serviceArea.length && jurisdiction.length) {      
-      setDisable(false);
-    } else if (selectedTypeProject === 'study' && (geom || isCountyWide) && description !== '' && county.length !== 0 && serviceArea.length !== 0 && jurisdiction.length !== 0) {
-      setDisable(false);
-    } else if (selectedTypeProject === 'special' && (geom || isCountyWide)  && description != '' && county.length !== 0 && serviceArea.length !== 0 && jurisdiction.length !== 0 ) {
-      setDisable(false);
-    }
+    } 
     else {
       setDisable(true);
     }
@@ -1137,31 +1131,6 @@ export const ModalCapital = ({
     }
     return result;
   };
-
-  useEffect(() => {
-    if (showCounty) {
-      if(county.length > 0) {
-        const countyList: any = [];
-        groupOrganization.forEach((item: any) => {
-          if (item.table === 'CODE_STATE_COUNTY') {
-            item.name = item.name.replace(' County', '');
-            countyList.push(item);
-          }
-        });
-        let countyA = county.map((element: any) => element.replace(' County', ''));
-        let countyIds = countyList.filter((countys: any) => countyA.includes(countys.name)).map((countyl: any) => countyl.id);
-        datasets.postData(SERVER.GET_COUNTY_DATA_CREATE, { state: countyIds }, datasets.getToken()).then(data => {
-          const serviceAreaNames = data.serviceArea.map((item: any) => item.service_area_name);
-          const localGovernmentNames = data.localGovernment.map((item: any) => item.local_government_name);
-          setServiceArea(serviceAreaNames);
-          setjurisdiction(localGovernmentNames);
-        })
-      }else{
-        setServiceArea([]);
-        setjurisdiction([]);
-      }      
-    }
-  }, [county]);
 
   const RestartLocation = () => {
     setGeom(undefined);
