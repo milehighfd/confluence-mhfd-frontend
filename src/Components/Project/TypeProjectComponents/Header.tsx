@@ -69,12 +69,13 @@ export const Header = ({
                 )
               } 
             />
-            <div className='ico-title'>
+            {/* {Icons Favorite and Send } */}
+            {/* <div className='ico-title'>
               <Button className={favorite ? "btn-transparent" : "btn-transparent"} onClick={() => { setFavorite(!favorite) }}>
                 {favorite ? <HeartFilled className='heart'/>:<HeartOutlined className='ico-heart'/>}
               </Button>
               <img src="/Icons/ic_send_purple.svg" alt="" height="16px"></img>
-            </div>
+            </div> */}
         </div>
         <p className='project-sub-name'>{locationData}</p>
       </div>

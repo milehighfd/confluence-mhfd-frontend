@@ -113,12 +113,19 @@ export const ProjectGeometry = ({
       dataIndex: 'reach',
       key: 'reach',
       width: '39%',
-      render: (text: any) => {
+      render: (text: any, record:any) => {
         if(text === 'Total'){
           return (
             <span className='total-cost'>
               {text}
             </span>
+          );
+        }
+        if(record.key.includes('title')){
+          return (
+            <>
+              {text}&nbsp;&nbsp;&nbsp;<DeleteOutlined className='ico-delete' onClick={() => removeStreamByName(record)} />
+            </>
           );
         }
         return (text);
@@ -149,23 +156,23 @@ export const ProjectGeometry = ({
         }
       }
     },
-    {
-      title: '',
-      dataIndex: 'delete',
-      key: 'delete',
-      width: '1%',
-      render: (text:any, record:any, index:any) => {
-        if(text && text === true){
-          return (
-            <div>
-              <DeleteOutlined className='ico-delete' onClick={() => removeStreamByName(record)} />
-            </div>
-          ); 
-        }else{
-          return ('');
-        }
-      }
-    },
+    // {
+    //   title: '',
+    //   dataIndex: 'delete',
+    //   key: 'delete',
+    //   width: '1%',
+    //   render: (text:any, record:any, index:any) => {
+    //     if(text && text === true){
+    //       return (
+    //         <div>
+    //           <DeleteOutlined className='ico-delete' onClick={() => removeStreamByName(record)} />
+    //         </div>
+    //       ); 
+    //     }else{
+    //       return ('');
+    //     }
+    //   }
+    // },
   ];
 
   const removeStreamByName = (stream: any) => {

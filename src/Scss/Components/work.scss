@@ -184,8 +184,6 @@
     }
     .ant-btn:hover{
       background: rgba(245, 247, 255, 0.80);
-      width: 68px;
-      height: 38px;
     }
   }
 }
@@ -2919,7 +2917,7 @@ cost-wr1{
 //CSS for TableListView
 .table-map-list {
   width: auto;
-  height: calc(100vh - 206px);
+  height: calc(100vh - 183px);
   overflow: auto; 
   border-left: 1px solid #E6E9EA;
   border-bottom: 1px solid #E6E9EA;
