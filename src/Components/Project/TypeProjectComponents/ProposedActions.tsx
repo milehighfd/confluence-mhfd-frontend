@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Table, Button, Popover } from 'antd';
 import { DeleteOutlined, PlusCircleFilled } from '@ant-design/icons';
+import { useProjectDispatch } from "hook/projectHook";
 
 interface ProposedActionsProps {
   keys: any;
@@ -34,6 +35,10 @@ export const ProposedActions = (props: ProposedActionsProps) => {
     index
   } = props;
 
+  const {
+    setHighlightedComponent, 
+    getZoomGeomComp
+  } = useProjectDispatch();
   const [groupParsed, setGroupParsed] = useState<any[]>([]);
 
   const replaceUnderscoresAndCapitalize = (inputString:string) => {
@@ -52,11 +57,12 @@ export const ProposedActions = (props: ProposedActionsProps) => {
   });
 
   useEffect(() => {
+    console.log('groups', groups);
     if (Array.isArray(groups)) {
       const output = groups.flatMap((x: any) =>
         x?.components?.map((y: any) => ({
           key: y.object_id,
-          action: y.table,
+          action: y,
           cost: y.original_cost,
           status: 'Active',
           problem: x.problemname,
@@ -67,6 +73,12 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       setGroupParsed(output);
     }
   }, [groups]);
+
+  const onClickActions = (action:any) => {
+    console.log('click', action);
+    setHighlightedComponent(action);
+    getZoomGeomComp(action.table, action.objectid);
+  }
 
   const columns = [
     {
@@ -83,7 +95,11 @@ export const ProposedActions = (props: ProposedActionsProps) => {
             </span>
           );
         }
-        return (replaceUnderscoresAndCapitalize(text));
+        return (
+          <div style={{width:'100%', height: '100%'}} onClick={() => onClickActions(text)}>
+            {replaceUnderscoresAndCapitalize(text.table)}
+          </div>
+          );
       }
     },
     {
