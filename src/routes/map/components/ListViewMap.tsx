@@ -247,7 +247,6 @@ const ListViewMap = ({
           );
         }
         auxState.hasMore = false;
-        console.log(auxState)
         setState(auxState);
         return;
       }
@@ -255,7 +254,6 @@ const ListViewMap = ({
         const auxState = { ...state };
         const newItems = Array.from({ length: size }).map((_, index) => cardInformation[state.items.length + index]);
         auxState.items = state.items.concat(newItems);
-        console.log(newItems)
         setShowData2([...showData2, ...newItems]);
         setState(auxState);
       }, 500);
@@ -306,7 +304,6 @@ const ListViewMap = ({
         <Table onRow={(record, rowIndex) => {
           return {
             onClick: (event) => {
-              console.log(record)
               changeCenter(record.project_id, '');
             },
           };
@@ -319,7 +316,6 @@ const ListViewMap = ({
         <Table onRow={(record, rowIndex) => {
           return {
             onClick: (event) => {
-              console.log(record)
               changeCenter('', record.coordinates)
             },
           };
