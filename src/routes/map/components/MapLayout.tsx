@@ -292,19 +292,7 @@ const MapLayout = () => {
       }
       { <Analytics /> }
       {
-        showBoardStatus &&
-        <Status
-          locality={locality}
-          boardId={namespaceId}
-          visible={showBoardStatus}
-          setVisible={setShowBoardStatus}
-          status={boardStatus}
-          substatus={boardSubstatus}
-          comment={boardComment}
-          type={tabActiveNavbar === WORK_REQUEST ? WORK_REQUEST: WORK_PLAN}
-          setAlertStatus={setAlertStatus}
-          setShowAlert={setShowAlert}
-        />
+        showBoardStatus && <Status />
       }
       {
         showFilters && <Filter/>

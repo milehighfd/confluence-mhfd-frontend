@@ -8,6 +8,7 @@ import { SERVER } from 'Config/Server.config';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { WINDOW_WIDTH, WORK_PLAN } from 'constants/constants';
 import { useMapState } from 'hook/mapHook';
+import { setShowBoardStatus } from 'store/actions/requestActions';
 
 const { Option } = Select;
 
@@ -131,6 +132,7 @@ const Analytics = () => {
 
   useEffect(() => {
     setYear(+initialYear);
+    setShowBoardStatus(false);
   }, [initialYear, tabKey]);
 
   useEffect(() => {
@@ -152,7 +154,7 @@ const Analytics = () => {
     setLocalityType(value);
   };
   useEffect(() =>{
-    setShowAnalytics(false)
+    setShowAnalytics(false);
   },[tabActiveNavbar])
   return (
     <Drawer
