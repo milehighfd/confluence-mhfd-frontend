@@ -23,6 +23,16 @@ const VersionNumber = ({visible, setVisible}: {visible: boolean, setVisible: Rea
         </Row>
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
           <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c', overflowY: 'scroll', height: '400px'}} className='scroll-version'>
+            <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>v2.1 - August 4, 2023</p>
+            <ul>
+                <li>Refreshed user interface with a new integrated map view that preserves the map state when transitioning between the main map, work request and work plan</li>
+                <li>New table view in the Main Map</li>
+                <li>Mapping performance enhancements and bug fixes</li>
+                <li>Wider 'Create Project' module for easier navigation</li>
+                <li>Interchangeable 'Create Project' worflows across all project types</li>
+                <li>New 'Create Project' attributes that allow for assiging a project to a County (rather than outlining a geometry) or to the South Platte River</li>
+                <li>General UI enhancements across all views</li>
+            </ul>
             <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>v2.0 - June 14, 2023</p>
             <ul>
                 <li>First beta release with the following views sourced from the new Confluence Data Hub: Sign-Up, Main Map, My Confluence, User Settings, Project Detail Page, Problem Detail Page, Create Project (Capital, Maintenance, Studies, Acquisition, R&D), Work Request, Work Plan and List View (PM Tools)</li>
