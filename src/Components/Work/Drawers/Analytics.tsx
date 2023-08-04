@@ -208,6 +208,43 @@ const Analytics = ({
       className="work-utilities"
       mask={false}>
       <div style={{ position: 'sticky', top: '0', backgroundColor: 'white', zIndex:1 }}>
+      {type === 'WORK_PLAN' && tabKey === 'Maintenance' &&
+        <>
+          <div>
+            <h6>Total County Budget</h6>
+            <InputNumber className="rheostat-input" size='large' min={0}
+              formatter={priceFormatter}
+              parser={priceParser}
+              value={tcb} onChange={(e: any) => {
+                setTcb(e);
+              }}
+            />
+            <Row style={{ marginTop: '10px' }}>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                <h6 style={{ marginBottom: '0px' }}>Requests</h6>
+                <label style={{ fontSize: '16px' }}>{priceFormatter(totalSum)}</label>
+              </Col>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                <h6 style={{ marginBottom: '0px' }}>Contingency</h6>
+                <label style={{
+                  color: tcb - totalSum < 0 ? 'red' : 'black', fontSize: '16px'
+                }}>{priceFormatter(tcb - totalSum)}</label>
+              </Col>
+            </Row>
+            <div style={{ textAlign: 'end' }}>
+              <Button
+                className="btn-purple"
+                style={{ marginTop: '10px'}}
+                onClick={clickUpdate}
+              >
+                Save Total County Budget
+              </Button>
+            </div>
+          </div>
+          <div className="line-01" style={{ marginLeft: '0px' }}></div>
+        </>
+          }
+        {/* <div className="line-01" style={{ marginLeft: '0px' }}></div> */}
         <Row style={{ width: '100%' }}>
           <Col span={tabKey === 'Maintenance' ? 24:12} className='title-utilities'>FOR
             <Select
@@ -243,41 +280,8 @@ const Analytics = ({
             />
           </Col>
         </Row>
-
-        {type === 'WORK_PLAN' && tabKey === 'Maintenance' &&
-          <div style={{paddingTop:'16px'}}>
-            <h6>Total County Budget</h6>
-            <InputNumber className="rheostat-input" size='large' min={0}
-              formatter={priceFormatter}
-              parser={priceParser}
-              value={tcb} onChange={(e: any) => {
-                setTcb(e);
-              }}
-            />
-            <Row style={{ marginTop: '10px' }}>
-              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                <h6 style={{ marginBottom: '0px' }}>Requests</h6>
-                <label style={{ fontSize: '16px' }}>{priceFormatter(totalSum)}</label>
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                <h6 style={{ marginBottom: '0px' }}>Contingency</h6>
-                <label style={{
-                  color: tcb - totalSum < 0 ? 'red' : 'black', fontSize: '16px'
-                }}>{priceFormatter(tcb - totalSum)}</label>
-              </Col>
-            </Row>
-            <div style={{ textAlign: 'end' }}>
-              <Button
-                className="btn-purple"
-                style={{ marginTop: '10px', marginBottom: '10px' }}
-                onClick={clickUpdate}
-              >
-                Save Total County Budget
-              </Button>
-            </div>
-          </div>
-        }
         <div className="line-01" style={{ marginLeft: '0px' }}></div>
+
         {/* {tabKey === 'Maintenance' &&
           <Select
             dropdownClassName='dropdown-menu'
@@ -298,7 +302,9 @@ const Analytics = ({
         } */}
       </div>
       <div className='subtitle-requests'>
-        <h6 style={{ marginTop: '10px', textTransform: 'uppercase' }}>{`Requests by ${localityType}`}<Popover content={contentCounty} placement="top" > <InfoCircleOutlined style={{opacity:'0.3'}} /> </Popover></h6>
+        <h6 style={{ marginTop: '10px', textTransform: 'uppercase' }}>{`Requests by ${localityType}`}
+        {/* <Popover content={contentCounty} placement="top" > <InfoCircleOutlined style={{opacity:'0.3'}} /> </Popover> */}
+        </h6>
       </div>
       <div className="graph" >
         {maxiQ > 0 &&
@@ -325,7 +331,9 @@ const Analytics = ({
         {/* <img src="gallery/requests1.png" alt="" style={{ width: '100%' }} /> */}
       </div>
       <div className="subtitle-requests" style={{ marginTop: '30px' }}>
-        <h6 style={{ marginTop: '10px', textTransform: 'uppercase' }}>{`Dollars Requested by ${localityType}`}<Popover content={contentDollars} placement="topRight" arrowPointAtCenter> <InfoCircleOutlined style={{opacity:'0.3'}} /> </Popover></h6>
+        <h6 style={{ marginTop: '10px', textTransform: 'uppercase' }}>{`Dollars Requested by ${localityType}`}
+        {/* <Popover content={contentDollars} placement="topRight" arrowPointAtCenter> <InfoCircleOutlined style={{opacity:'0.3'}} /> </Popover> */}
+        </h6>
       </div>
       <div className="graph" >
         {maxiA > 0 &&

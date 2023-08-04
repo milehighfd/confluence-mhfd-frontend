@@ -1733,8 +1733,12 @@ hr.filters-line {
   font-style: italic;
   font-weight: 400;
   line-height: normal;
-  opacity: 0.6;
   background-color: #F5F7FF;
+  padding-bottom: 12px;
+  border-radius: 0px 0px 4px 4px;
+  i{
+    opacity: 0.6;
+  }
 }
 
 @media only screen and (min-width: 1900px) {

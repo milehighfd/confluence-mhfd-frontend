@@ -391,7 +391,8 @@ const HorizontalBarChart = ({
           </Button>
         </>
         ) : (
-          <div style={{marginBottom: 10}}></div>
+          <></>
+          // <div style={{marginBottom: 10}}></div>
         )
       }
       <div className={(scrollClass ? scrollClass : '') + ' svg-top-pad'}>
