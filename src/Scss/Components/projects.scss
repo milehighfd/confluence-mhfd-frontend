@@ -31,6 +31,7 @@
     .project-title{
       width: -webkit-fill-available;
       padding-right: 10px;
+      margin-bottom: 16px; // delete for tabs in create and edit project
       .project-name-icons{
         display: flex;
         margin-bottom: 7px;
@@ -207,7 +208,8 @@
   }
   .body-project{
     padding: 10px 20px;
-    height: calc(100vh - 214px);
+    // height: calc(100vh - 214px); for tabs in create and edit project
+    height: calc(100vh - 170px);
     overflow-y: auto;
     h5{
       font-size: 13px;
@@ -600,7 +602,7 @@
     .cost-project{
       color: $opacity;
       font-size: 12px;
-
+      margin-top: 12px;
       b{
         color: $purple00;
       }

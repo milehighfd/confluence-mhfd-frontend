@@ -177,8 +177,11 @@ const HorizontalBarChart = ({
       .append("g")
 
     //TO DO: Cesar Add x axis at the bottom of the chart outside the svg
+    const customTickThousandsOfDollars = (d:any) => {
+      return (d / 1000).toFixed(0);
+    }
     let axis = d3.select(svgAxisRef.current)
-    .attr("viewBox", `-5 8 ${width} ${15}`)
+    .attr("viewBox", `-5 8 ${width+10} ${15}`)
     .append("g")
     // .attr("transform", "translate(" + 10 + ", 0)");
     axis
@@ -189,42 +192,42 @@ const HorizontalBarChart = ({
     if(type === 'requests'){
       axis.append("g")
     .attr('class', 'xAxisAnalytics')
-    .call(d3.axisBottom(x).ticks(5));
+    .call(d3.axisBottom(x).ticks(maxi>4 ? 5: maxi));
     }else{
       axis.append("g")
       .attr('class', 'xAxisAnalytics')
-      .call(d3.axisBottom(x).ticks(5).tickFormat(d3.format("~s")));
+      .call(d3.axisBottom(x).ticks(5).tickFormat(customTickThousandsOfDollars));
     }
 
 
-    let lines = svg
-      .selectAll('.hlines')
-      .data(partitionData)
+    // let lines = svg
+    //   .selectAll('.hlines')
+    //   .data(partitionData)
     
-    lines
-      .attr("x1", (d: any) => (d / (partitionData.length-1)) * width)
-      .attr("x2", (d: any) => (d / (partitionData.length-1)) * width)
-      .attr("y1", 0)
-      .attr("y2", height)
-      .attr('stroke-width', '0.1%')
-      .style("stroke-dasharray","2,2")
-      .style("stroke", 'black')
-      .style('opacity', 0.4);
+    // lines
+    //   .attr("x1", (d: any) => (d / (partitionData.length-1)) * width)
+    //   .attr("x2", (d: any) => (d / (partitionData.length-1)) * width)
+    //   .attr("y1", 0)
+    //   .attr("y2", height)
+    //   .attr('stroke-width', '0.1%')
+    //   .style("stroke-dasharray","2,2")
+    //   .style("stroke", 'black')
+    //   .style('opacity', 0.4);
 
-    lines
-      .enter()
-      .append("line").lower()
-      .attr('class', 'hlines')
-      .attr("x1", (d: any) => (d / (partitionData.length-1)) * width)
-      .attr("x2", (d: any) => (d / (partitionData.length-1)) * width)
-      .attr("y1", 0)
-      .attr("y2", height)
-      .attr('stroke-width', '0.1%')
-      .style("stroke-dasharray","2,2")
-      .style("stroke", 'black')
-      .style('opacity', 0.4);
+    // lines
+    //   .enter()
+    //   .append("line").lower()
+    //   .attr('class', 'hlines')
+    //   .attr("x1", (d: any) => (d / (partitionData.length-1)) * width)
+    //   .attr("x2", (d: any) => (d / (partitionData.length-1)) * width)
+    //   .attr("y1", 0)
+    //   .attr("y2", height)
+    //   .attr('stroke-width', '0.1%')
+    //   .style("stroke-dasharray","2,2")
+    //   .style("stroke", 'black')
+    //   .style('opacity', 0.4);
 
-    lines.exit().remove();
+    // lines.exit().remove();
 
     let rects = svg
       .selectAll(".hrect")

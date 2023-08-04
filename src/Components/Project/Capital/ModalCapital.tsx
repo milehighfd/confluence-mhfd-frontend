@@ -1282,12 +1282,13 @@ export const ModalCapital = ({
             selectedType={selectedLabelProject}
             isEdit = {swSave}
           />          
-          <div className='header-tab'>
+          {/* { tabs- options } */}
+          {/* <div className='header-tab'>
             <p className={activeTabBodyProject ===  'Details'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Details')}}>Details</p>
             <p className={activeTabBodyProject ===  'Discussion'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Discussion')}}>Discussion</p>
             <p className={activeTabBodyProject ===  'Activity'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Activity')}}>Activity</p>
           </div>
-          {activeTabBodyProject === 'Details' ?
+          {activeTabBodyProject === 'Details' ? */}
             <div className="body-project">
               {
                 (isWorkPlan && showCheckBox && !swSave) &&  
@@ -1435,7 +1436,7 @@ export const ModalCapital = ({
                 index={indexForm++}
               />
             </div>
-          :<>
+          {/* :<>
           <div className="body-project">
             <div className='discution-body'>
               <div className='discution-other-user'>
@@ -1462,8 +1463,8 @@ export const ModalCapital = ({
                 </img>
               </Button>
             </div>
-          </div>
-          </>}
+          </div> */}
+          {/* </>} */}
           <div className="footer-project">
             <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>
             <Button className="btn-purple" onClick={handleOk} disabled={disable}><span className="text-color-disable">Save Draft Project</span></Button>

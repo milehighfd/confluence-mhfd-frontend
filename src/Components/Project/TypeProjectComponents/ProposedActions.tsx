@@ -91,7 +91,7 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       dataIndex: 'cost',
       key: 'cost',
       sorter: (a:any, b:any) => a.age - b.age,
-      width: '15%',
+      width: '10%',
       render: (cost: any) => {
         return (formatter.format(cost));
       }
@@ -118,7 +118,7 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       dataIndex: 'problem',
       key: 'problem',
       sorter: (a:any, b:any) => a.age - b.age,
-      width: '34%',
+      width: '39%',
     },
     {
       title: '',
