@@ -121,7 +121,7 @@
 .menu-back-layout {
   display: flex;
   align-items: center;
-  height: 36px;
+  height: 31px;
   padding-top: 5px;
 }
 
@@ -141,6 +141,7 @@
   }
   .ant-menu-submenu-title {
     padding-left: 10px !important;
+    height: 35px !important;
   }
 }
 .submenu-sidebar-porfile {
