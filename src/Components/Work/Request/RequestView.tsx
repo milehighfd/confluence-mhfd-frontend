@@ -293,7 +293,7 @@ const RequestView = ({ type, widthMap }: {
         return {
           aoi: element.name,
           filter: element.table,
-          coordinates: element.coordinates.coordinates,
+          coordinates: element.coordinates?.coordinates,
         };
       });
     if (zoomareaSelected[0]) {
@@ -315,7 +315,7 @@ const RequestView = ({ type, widthMap }: {
         return {
           aoi: element.name,
           filter: element.table,
-          coordinates: element.coordinates.coordinates,
+          coordinates: element.coordinates?.coordinates,
         };
       });
     if (zoomareaSelected.length > 0) {

@@ -345,7 +345,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
 
   useEffect(() => {
     const user = userInformation;
-    if (user?.polygon[0]) {
+    if (user?.polygon && user?.polygon[0]) {
       let myPolygon: any = [];
       const depthPolygon = depth(userInformation.polygon);
       if (depthPolygon === 4) {
