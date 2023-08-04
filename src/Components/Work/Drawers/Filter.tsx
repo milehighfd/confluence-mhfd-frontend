@@ -63,13 +63,14 @@ const Filter = () => {
   ], []);
 
   useEffect(() => {
-    if (prioritySelected.length === 0) {
+    if (year < 2024) {
       setJurisdictionSelected(jurisdictionFilterList?.map((r: any) => true));
       setPrioritySelected(priorityFilterList?.map((r: any) => true));
       setProjectStatusesSelected(projectStatusFilterList?.map((r: any) => true));
       setIsLocatedInSouthPlateRiverSelected(isLocatedInSouthPlateRiverFilter?.map((r: any) => false));
       setCountiesSelected(countiesFilterList?.map((r: any) => true));
       setServiceAreasSelected(serviceAreasFilterList?.map((r: any) => true));
+      loadColumns(namespaceId);
     }
   }, [jurisdictionFilterList, countiesFilterList, priorityFilterList, serviceAreasFilterList, projectStatusFilterList, isLocatedInSouthPlateRiverFilter]);
 

@@ -62,7 +62,6 @@ const AutoCompleteDropdown = (
         setDropdownSelected(MMFD_LOCALITY)
         setLocalityFilter(MMFD_LOCALITY);
         setLocalityType(MMFD_LOCALITY_TYPE);
-        console.log('tabkey for workplantab', tabKeys[0])
         setTabKey(tabKeys[0]);
       } else {
         if (dropdownSelected) {
@@ -91,7 +90,7 @@ const AutoCompleteDropdown = (
       setProjectStatusesSelected(filterMap?.project_statuses?.map((_: any) => true))
     }
     updateFilterSelected(dropdownSelected)
-  }, [filterMap, dropdownSelected])
+  }, [filterMap, dropdownSelected, type])
 
   const updateFilterSelected = (value: any) => {
     if(type === WORK_PLAN_TAB && year >= YEAR_LOGIC_2024){

@@ -111,11 +111,6 @@ const RequestView = ({ type, widthMap }: {
     }
   }, [showCreateProject]);
 
-  const [changes, setChanges] = useState(0);
-  useEffect(() => {
-    setChanges(Math.random());
-  }, [locality, tabKey, year]);
-
   useEffect(() => {
     saveBoardProjecttype(tabKey);
   }, [tabKey]);
@@ -129,7 +124,6 @@ const RequestView = ({ type, widthMap }: {
       if(year < YEAR_LOGIC_2024){
         _tabKey = params.get('tabKey') || users.projecttype
       }
-      console.log(_tabKey, 'tabKey')
       if (type === 'WORK_REQUEST' && isLocalGovernment && _locality !== profileLocality) {
         _locality = profileLocality;
       }
@@ -175,6 +169,8 @@ const RequestView = ({ type, widthMap }: {
                 displayedTabKey = tabKeys;
               }
             }
+          }else{
+            displayedTabKey = tabKeys;
           }
         }
         if (displayedTabKey.includes(_tabKey)) {
@@ -216,7 +212,6 @@ const RequestView = ({ type, widthMap }: {
     const loadProjects = async () => {
       setColumns(defaultColumns);
       let board;
-      console.log(type, year, locality, tabKey)
       try {
         board = await getBoardData3({
           type,
