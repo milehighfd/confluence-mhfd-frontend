@@ -249,6 +249,7 @@ const MapLayout = () => {
   }, [commentVisible]);
 
   useEffect(() => {
+    console.log('TABActiveNavbar', tabActiveNavbar)
     setLeftWidthMap(MEDIUM_SCREEN_LEFT);
     setLeftWidth(MEDIUM_SCREEN_RIGHT - 1);
     setRotationStyle(emptyStyle);
@@ -256,8 +257,8 @@ const MapLayout = () => {
       setLeftWidth(MEDIUM_SCREEN_LEFT);
       setRotationStyle({ transform: 'rotate(180deg)', marginRight: '-4px', right: '4px', position: 'relative' });
     }
-    setBoardStatus(false)
-    setShowFilters(false)
+    setShowBoardStatus(false);
+    setShowFilters(false);
   },[tabActiveNavbar])
   return (
     <>
