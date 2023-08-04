@@ -359,12 +359,10 @@ const MapLayout = () => {
                    {tabActiveNavbar === MAP && <MapView />}
                    {tabActiveNavbar === WORK_REQUEST && <RequestView
                       type={tabActiveNavbar}
-                      isFirstRendering={true}
                       widthMap={leftWidth}
                     />}
                    {tabActiveNavbar === WORK_PLAN && <RequestView
                       type={tabActiveNavbar}
-                      isFirstRendering={true}
                       widthMap={leftWidth}
                     />}
                   </Col>
