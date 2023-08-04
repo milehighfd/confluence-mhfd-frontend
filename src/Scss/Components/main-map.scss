@@ -874,6 +874,9 @@ hr.filters-line {
     height: calc(100vh - 306px) !important;
     max-height: calc(100vh - 306px) !important;
   }
+  .ant-table-thead th.ant-table-column-has-sorters:hover {
+    background: #F5F7FF;
+  }
   .ant-table-thead{
     tr:first-child th:first-child {
       border-top-left-radius: 8px;
