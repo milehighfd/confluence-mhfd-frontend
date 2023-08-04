@@ -265,7 +265,6 @@ const CreateProjectMap = (type: any) => {
       setStreamsList([]);
     }
     return () => {
-      setStreamsList([]);
       setStreamsIds([]);
       setComponentIntersected([]);
       setComponentGeom(undefined);
