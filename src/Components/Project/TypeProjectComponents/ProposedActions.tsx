@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Table, Button, Popover } from 'antd';
 import { DeleteOutlined, PlusCircleFilled } from '@ant-design/icons';
+import { useProjectDispatch } from "hook/projectHook";
 
 interface ProposedActionsProps {
   keys: any;
@@ -34,6 +35,10 @@ export const ProposedActions = (props: ProposedActionsProps) => {
     index
   } = props;
 
+  const {
+    setHighlightedComponent, 
+    getZoomGeomComp
+  } = useProjectDispatch();
   const [groupParsed, setGroupParsed] = useState<any[]>([]);
 
   const replaceUnderscoresAndCapitalize = (inputString:string) => {
@@ -55,10 +60,10 @@ export const ProposedActions = (props: ProposedActionsProps) => {
     if (Array.isArray(groups)) {
       const output = groups.flatMap((x: any) =>
         x?.components?.map((y: any) => ({
-          key: y.object_id,
-          action: y.table,
+          key: y.object_id + y.cartodb_id,
+          action: y,
           cost: y.original_cost,
-          status: 'Active',
+          status: y.status,
           problem: x.problemname,
           cartodb_id: y.cartodb_id,
           table: y.table,
@@ -67,6 +72,12 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       setGroupParsed(output);
     }
   }, [groups]);
+
+  const onClickActions = (action:any) => {
+    console.log('click', action);
+    setHighlightedComponent(action);
+    getZoomGeomComp(action.table, action.objectid);
+  }
 
   const columns = [
     {
@@ -83,7 +94,11 @@ export const ProposedActions = (props: ProposedActionsProps) => {
             </span>
           );
         }
-        return (replaceUnderscoresAndCapitalize(text));
+        return (
+          <div style={{width:'100%', height: '100%'}} onClick={() => onClickActions(text)}>
+            {replaceUnderscoresAndCapitalize(text.table)}
+          </div>
+          );
       }
     },
     {
@@ -226,7 +241,7 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       </div>
       {((keys && keys !== 0 && keys.length && groups && Object.keys(groups).length > 0)) &&
         <>
-          <Table dataSource={groupParsed} columns={columns} className='table-project' />
+          <Table pagination={false} dataSource={groupParsed} columns={columns} className='table-project' />
         </>
       }
       {visibleUnnamedComponent && <Table dataSource={thisIndependentComponents} columns={columnsIndependent} className='table-project' />}

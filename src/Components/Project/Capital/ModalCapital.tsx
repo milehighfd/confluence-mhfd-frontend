@@ -533,17 +533,11 @@ export const ModalCapital = ({
   //Check if required fields are filled to enable save button
   useEffect(()=>{
     let streamValidation = streamIntersected.geom ? JSON.parse(streamIntersected.geom): undefined;
-    if (selectedTypeProject === 'capital' && (geom || isCountyWide)  && description !== '' && county.length !== 0 && serviceArea.length !== 0 && nameProject !== '' && streamValidation != undefined && streamValidation.coordinates.length > 0 && jurisdiction.length > 0 && componentsToSave.length > 0) {
+    if ((geom || isCountyWide) && description && county.length && serviceArea.length && jurisdiction.length && nameProject && sponsor) {
       setDisable(false);
-    } else if (selectedTypeProject === 'maintenance' && (geom || isCountyWide) && description != '' && county.length && serviceArea.length && jurisdiction.length && nameProject !== '') {
+    }else if (selectedTypeProject === 'capital' && !streamValidation && streamValidation?.coordinates?.length && componentsToSave?.length) {
       setDisable(false);
-    } else if (selectedTypeProject === 'acquisition' && nameProject !== '' && (geom || isCountyWide) && description != '' && county.length && serviceArea.length && jurisdiction.length) {      
-      setDisable(false);
-    } else if (selectedTypeProject === 'study' && (geom || isCountyWide) && description !== '' && county.length !== 0 && serviceArea.length !== 0 && jurisdiction.length !== 0) {
-      setDisable(false);
-    } else if (selectedTypeProject === 'special' && (geom || isCountyWide)  && description != '' && county.length !== 0 && serviceArea.length !== 0 && jurisdiction.length !== 0 ) {
-      setDisable(false);
-    }
+    } 
     else {
       setDisable(true);
     }
@@ -665,7 +659,9 @@ export const ModalCapital = ({
     setServiceArea([]);
     setCounty([]);
     setjurisdiction([]);
-    setStreamsList([]);
+    if ( selectedTypeProject !== 'study') {
+      setStreamsList([]);
+    }
     setIsDrawCapital(!isDrawStateCapital);
     setIsDraw(false);
   }
@@ -817,282 +813,6 @@ export const ModalCapital = ({
     let n = getSubTotalCost() + additionalCost + getOverheadCost();
     return(n);
   }
-  const setValuesComp = (comp: any) => {
-    if(comp.source_table_name === "stream_improvement_measure"){
-      comp.source_table_name = 'stream_improvement_measure_copy'
-      comp.table = 'stream_improvement_measure_copy'
-    }
-    setHighlightedComponent(comp);
-  }
-  const setValueZoomComp = (comp: any) => {
-    if(comp.table && comp.objectid) {
-      getZoomGeomComp(comp.table, comp.objectid);
-    }
-  }
-  const setValuesProblem = (problemid:any, problemname:any) => {
-    setHighlightedProblem(problemid);
-  }
-  const setValueZoomProb = (problemid: any) => {
-    getZoomGeomProblem(problemid);
-  }
-  const setKeyOpenClose = (groupid: any) => {
-  }
-  //table information action
-  const dataSource = [
-    {
-      key: '1',
-      action: 'Alpha St culvert',
-      cost: '$500,000',
-      status: 'Active',
-      problem:'Increased Conveyance - Crossing'
-    },
-    {
-      key: '2',
-      action: 'Beta Ave culvert',
-      cost: '$1,200,000',
-      status: 'Active',
-      problem:'Increased Conveyance - Crossing'
-    },
-    {
-      key: '3',
-      action: 'Beta Ave culvert',
-      cost: '$600,000',
-      status: 'Active',
-      problem:'Increased Conveyance - Crossing'
-    },
-    {
-      key: '4',
-      action: 'Beta Ave culvert',
-      cost: '$250,000',
-      status: 'Active',
-      problem:'Increased Conveyance - Crossing'
-    },
-    {
-      key: '5',
-      action: 'Beta Ave culvert',
-      cost: '$2,650,000',
-      status: 'Active',
-      problem:'Increased Conveyance - Crossing'
-    },
-    {
-      key: '6',
-      action: 'Total Proposed Cost',
-      cost: '$2,650,000',
-      delete: true,
-    },
-  ];
-  
-  const columns = [
-    {
-      title: 'Action',
-      dataIndex: 'action',
-      key: 'action',
-      sorter: (a:any, b:any) => a.age - b.age,
-      width: '35%',
-      render: (text: any) => {
-        if(text === 'Total Proposed Cost'){
-          return (
-            <span className='total-cost'>
-              {text}
-            </span>
-          );
-        }
-        return (text);
-      }
-    },
-    {
-      title: 'Cost',
-      dataIndex: 'cost',
-      key: 'cost',
-      sorter: (a:any, b:any) => a.age - b.age,
-      width: '15%',
-    },
-    {
-      title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
-      sorter: (a:any, b:any) => a.age - b.age,
-      width: '15%',
-      render: (text: any) => {
-        if(text && text.length > 0){
-          return (
-            <span className='tag-active'>
-              {text}
-            </span>
-          );
-        }
-        return ('');
-      }
-    },
-    {
-      title: 'Problem',
-      dataIndex: 'problem',
-      key: 'problem',
-      sorter: (a:any, b:any) => a.age - b.age,
-      width: '34%',
-    },
-    {
-      title: '',
-      dataIndex: 'delete',
-      key: 'delete',
-      width: '1%',
-      render: (text:any) => {
-        console.log(text, 'STATE')
-        if(text && text === true){
-          return ('');
-        }else{
-          return (
-            <div>
-              <DeleteOutlined className='ico-delete' onClick={() => console.log('delete')} />
-            </div>
-          );
-        }
-      }
-    },
-  ];
-  //table independent action
-  const dataSourceIndependent = [
-    {
-      key: '1',
-      status: 'Proposed',
-      problem:'None'
-    },
-    {
-      key: '2',
-      status: 'Proposed',
-      problem:'None'
-    },
-    {
-      key: '3',
-      status: 'Proposed',
-      problem:'None'
-    },
-    {
-      key: '4',
-      status: 'Proposed',
-      problem:'None'
-    },
-    {
-      key: '5',
-      status: 'Proposed',
-      problem:'None'
-    },
-  ];
-  
-  const columnsIndependent  = [
-    {
-      title: 'Independent Actions',
-      dataIndex: 'action',
-      key: 'action',
-      width: '35%',
-      sorter: (a:any, b:any) => a.age - b.age,
-      render: () => (
-        <input className='input-independent' placeholder='Proposed Actions'/>
-      )
-    },
-    {
-      title: 'Cost',
-      dataIndex: 'cost',
-      key: 'cost',
-      sorter: (a:any, b:any) => a.age - b.age,
-      render: () => (
-        <input className='input-independent' placeholder='$0'/>
-      ),
-      width: '15%',
-    },
-    {
-      title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
-      sorter: (a:any, b:any) => a.age - b.age,
-      width: '15%',
-      render: (text: any) => {
-        if(text && text.length > 0){
-          return (
-            <span className='tag-active'>
-              {text}
-            </span>
-          );
-        }
-        return ('');
-      }
-    },
-    {
-      title: 'Problem',
-      dataIndex: 'problem',
-      key: 'problem',
-      sorter: (a:any, b:any) => a.age - b.age,
-      width: '34%',
-    },
-    {
-      title: '',
-      dataIndex: 'delete',
-      key: 'delete',
-      width: '1%',
-      render: (text:any) => {
-        console.log(text, 'STATE')
-        if(text && text === true){
-          return ('');
-        }else{
-          return (
-            <div>
-              <DeleteOutlined className='ico-delete' onClick={() => console.log('delete')} />
-            </div>
-          );
-        }
-      }
-    },
-  ];
-    //table geomeotry
-    const dataSourceGeomeotry = [
-      {
-        key: 'title-1',
-        reach: 'Clear Creek',
-      },
-      {
-        key: '2',
-        reach: 'Alpha St culvert',
-        code:'6.3600.2',
-        tributary:'2302 acres',
-        length:'1861 ft',
-        delete: true,
-      },
-      {
-        key: '3',
-        reach: 'Beta Ave culvert',
-        code:'6.3600.2',
-        tributary:'2302 acres',
-        length:'1861 ft',
-        delete: true,
-      },
-      {
-        key: '4',
-        reach: 'Beta Ave culvert',
-        code:'6.3600.2',
-        tributary:'2302 acres',
-        length:'1861 ft',
-        delete: true,
-      },
-      {
-        key: 'title-2',
-        reach: 'Big Bear Branch',
-      },
-      {
-        key: '5',
-        reach: 'Beta Ave culvert',
-        code:'6.3600.2',
-        tributary:'2302 acres',
-        length:'1861 ft',
-        delete: true,
-      },
-      {
-        key: 'total',
-        reach: 'Total',
-        tributary:'2302 acres',
-        length:'1861 ft',
-        delete: true,
-      },
-    ];
     
   const getTextWidth = (text: any) => {
     const canvas = document.createElement('canvas');
@@ -1135,31 +855,6 @@ export const ModalCapital = ({
     }
     return result;
   };
-
-  useEffect(() => {
-    if (showCounty) {
-      if(county.length > 0) {
-        const countyList: any = [];
-        groupOrganization.forEach((item: any) => {
-          if (item.table === 'CODE_STATE_COUNTY') {
-            item.name = item.name.replace(' County', '');
-            countyList.push(item);
-          }
-        });
-        let countyA = county.map((element: any) => element.replace(' County', ''));
-        let countyIds = countyList.filter((countys: any) => countyA.includes(countys.name)).map((countyl: any) => countyl.id);
-        datasets.postData(SERVER.GET_COUNTY_DATA_CREATE, { state: countyIds }, datasets.getToken()).then(data => {
-          const serviceAreaNames = data.serviceArea.map((item: any) => item.service_area_name);
-          const localGovernmentNames = data.localGovernment.map((item: any) => item.local_government_name);
-          setServiceArea(serviceAreaNames);
-          setjurisdiction(localGovernmentNames);
-        })
-      }else{
-        setServiceArea([]);
-        setjurisdiction([]);
-      }      
-    }
-  }, [county]);
 
   const RestartLocation = () => {
     setGeom(undefined);

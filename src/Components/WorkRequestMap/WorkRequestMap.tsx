@@ -73,10 +73,9 @@ import { GlobalMapHook } from 'utils/globalMapHook';
 import useMapResize from 'hook/custom/useMapResize';
 import ModalProjectView from 'Components/ProjectModal/ModalProjectView';
 import MapDropdownLayers from 'routes/map/components/MapDropdownLayers';
+import DetailModal from 'routes/detail-page/components/DetailModal';
 
 const windowWidth: any = window.innerWidth;
-
-const DetailModal = React.lazy(() => import('routes/detail-page/components/DetailModal'));
 
 let mapid = 'map4';
 let map: any;

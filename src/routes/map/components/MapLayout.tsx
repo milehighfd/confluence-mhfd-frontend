@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, Row, Col, Button } from 'antd';
-import Navbar from 'Components/Shared/Navbar/NavbarContainer';
 import SidebarView from 'Components/Shared/Sidebar/SidebarView';
 import LoadingView from 'Components/Loading/LoadingView';
 import {
@@ -29,16 +28,14 @@ import Filter from 'Components/Work/Drawers/Filter';
 import NavbarView from 'Components/Shared/Navbar/NavbarView';
 import RequestView from 'Components/Work/Request/RequestView';
 import { setBoardStatus } from 'store/actions/requestActions';
-
-const Map = React.lazy(() => import('routes/map/components/Map'));
-const MapView = React.lazy(() => import('routes/map/components/MapView'));
+import Map from 'routes/map/components/Map';
+import MapView from 'routes/map/components/MapView';
 
 const MapLayout = () => {
   const {
     updateSelectedLayers,
     getMapWithSublayers,
     getMapLayers,
-    setTabActiveNavbar
   } = useMapDispatch();
 
   const {
@@ -63,11 +60,10 @@ const MapLayout = () => {
   const { tutorialStatus } = useMapState();
   const { status } = useProjectState();
   const { open } = useNotesState();
-  // const [tabMapActive, setOptionSelect] = useState(MAP);
   const { setSave } = useProjectDispatch();
   const { getUserInformation } = useAppUserDispatch();
   const [safeLoading, setSafeLoading] = useState(false);
-//WORK REQUEST-WORK-PLAN
+
   const {
     showModalProject,
     completeProjectData,
@@ -85,8 +81,6 @@ const MapLayout = () => {
     leftWidth,
     showFilters,
     visibleCreateProject,
-    showAlert,
-    alertStatus,
   } = useRequestState();
   const {
     setShowModalProject,
@@ -106,10 +100,6 @@ const MapLayout = () => {
     projecttype: tabKey ? tabKey : tabKeys[0],
     position: ''
   };
-
-  const onUpdateBoard = () => {
-    //This fn is intented to be used to reload getBoardData2
-  }
 
   useEffect(() => {
     const initLoading = async () => {
@@ -259,6 +249,7 @@ const MapLayout = () => {
   }, [commentVisible]);
 
   useEffect(() => {
+    console.log('TABActiveNavbar', tabActiveNavbar)
     setLeftWidthMap(MEDIUM_SCREEN_LEFT);
     setLeftWidth(MEDIUM_SCREEN_RIGHT - 1);
     setRotationStyle(emptyStyle);
@@ -266,8 +257,8 @@ const MapLayout = () => {
       setLeftWidth(MEDIUM_SCREEN_LEFT);
       setRotationStyle({ transform: 'rotate(180deg)', marginRight: '-4px', right: '4px', position: 'relative' });
     }
-    setBoardStatus(false)
-    setShowFilters(false)
+    setShowBoardStatus(false);
+    setShowFilters(false);
   },[tabActiveNavbar])
   return (
     <>
@@ -299,26 +290,9 @@ const MapLayout = () => {
           year={year}
         />
       }
+      { <Analytics /> }
       {
-        <Analytics
-          type={tabActiveNavbar === WORK_REQUEST ? WORK_REQUEST: WORK_PLAN}
-        />
-      }
-      {
-        showBoardStatus &&
-        <Status
-          locality={locality}
-          boardId={namespaceId}
-          visible={showBoardStatus}
-          setVisible={setShowBoardStatus}
-          status={boardStatus}
-          substatus={boardSubstatus}
-          comment={boardComment}
-          type={tabActiveNavbar === WORK_REQUEST ? WORK_REQUEST: WORK_PLAN}
-          setAlertStatus={setAlertStatus}
-          setShowAlert={setShowAlert}
-          onUpdateHandler={onUpdateBoard}
-        />
+        showBoardStatus && <Status />
       }
       {
         showFilters && <Filter/>
@@ -369,12 +343,10 @@ const MapLayout = () => {
                    {tabActiveNavbar === MAP && <MapView />}
                    {tabActiveNavbar === WORK_REQUEST && <RequestView
                       type={tabActiveNavbar}
-                      isFirstRendering={true}
                       widthMap={leftWidth}
                     />}
                    {tabActiveNavbar === WORK_PLAN && <RequestView
                       type={tabActiveNavbar}
-                      isFirstRendering={true}
                       widthMap={leftWidth}
                     />}
                   </Col>

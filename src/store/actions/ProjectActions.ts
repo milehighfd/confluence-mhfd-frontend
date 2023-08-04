@@ -528,7 +528,6 @@ export const getStreamsList = (geom: any, projecttype: any) => {
 
 export const setStreamsList = (listStreams: any) => {
   return ( dispatch: Function) => {
-    console.log('Should reset', listStreams);
     dispatch({type: types.SET_LIST_STREAMS, listStreams});
   }
 } 
@@ -734,7 +733,6 @@ export const setIndComponents = (independentComponents: any) => {
         status: component.action_status,
       }
     })
-    console.log(componentsParsed,'component')
     dispatch({type: types.SET_IND_COMPONENTS, componentsParsed})
   }
 }

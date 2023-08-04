@@ -255,6 +255,7 @@ const CreateProjectMap = (type: any) => {
         console.log('e', e);
       },
     );
+    hideHighlighted();
     typeRef.current = type.type
     if((type.type === 'STUDY' && type.projectid === -1) 
     || ((type.type !== 'CAPITAL' && type.type !== 'MAINTENANCE') && (type.lastValue === 'capital' || type.lastValue === 'maintenance'))
@@ -264,7 +265,6 @@ const CreateProjectMap = (type: any) => {
       setStreamsList([]);
     }
     return () => {
-      setStreamsList([]);
       setStreamsIds([]);
       setComponentIntersected([]);
       setComponentGeom(undefined);
@@ -315,9 +315,10 @@ const CreateProjectMap = (type: any) => {
     }
   }, [listStreams]);
   useEffect(() => {
-    console.log('zoomGeom', zoomGeom, map);
     if (zoomGeom && map) {
+      map.map.fitBounds(zoomGeom);
       map.map.once('load', () => {
+        console.log('entra');
         map.map.fitBounds(zoomGeom);
       });
     }
@@ -486,6 +487,7 @@ const CreateProjectMap = (type: any) => {
 
       componentsList = listComponents.result;
     } else {
+      hideHighlighted();
       // setStreamIntersected({ geom: null }); // TODO entender porque se borraba la intersection cuando no habia listcompoennts
       // setStreamsIds([]);
       if (!flagInit) {
@@ -496,6 +498,7 @@ const CreateProjectMap = (type: any) => {
 
   useEffect(() => {
     if (flagtoDraw && listComponents && listComponents.result && listComponents.result.length > 0) {
+      hideHighlighted();
       showHoverComponents();
     }
   }, [componentsHover, flagtoDraw]);
@@ -690,7 +693,6 @@ const CreateProjectMap = (type: any) => {
     }
   }, [streamIntersected]);
   useEffect(() => {
-    console.log('Stream intersected ids', streamsIntersectedIds);
     if (streamsIntersectedIds.length > 0) {
       let streamsCodes: any = streamsIntersectedIds
         .filter((fstr: any) => fstr.mhfd_code)

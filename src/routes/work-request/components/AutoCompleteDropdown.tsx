@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { GOVERNMENT_STAFF } from 'constants/constants';
+import { GOVERNMENT_STAFF, WORK_PLAN, WORK_REQUEST } from 'constants/constants';
 import { useProfileState } from 'hook/profileHook';
 import { AutoComplete, Input } from 'antd';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
@@ -69,68 +69,78 @@ const AutoCompleteDropdown = (
       if (filterMap && filterMap?.project_service_areas?.length > 0) {
         setServiceAreasSelected(filterMap?.project_service_areas?.map((_: any) => true))
       }
-      if (filterMap && filterMap?.project_statuses?.length > 0) {
-        setProjectStatusesSelected(filterMap?.project_statuses?.map((_: any) => true))
+      if (filterMap && filterMap?.currentId?.length > 0) {
+        setProjectStatusesSelected(filterMap?.currentId?.map((_: any) => true))
       }
     }
   }, [year]);
 
-
   useEffect(() => {
-    if (filterMap && filterMap?.project_service_areas?.length > 0) {
-      setServiceAreasSelected(filterMap?.project_service_areas?.map((_: any) => true))
-    }
-    if (filterMap?.project_local_governments?.length > 0) {
-      setJurisdictionSelected(filterMap?.project_local_governments?.map((_: any) => true));
-      if (filterMap && filterMap?.project_statuses?.length > 0) {
-        setProjectStatusesSelected(filterMap?.project_statuses?.map((_: any) => true))
-      }
+    if (type === WORK_REQUEST) {
       if (filterMap && filterMap?.project_counties?.length > 0) {
         setCountiesSelected(filterMap?.project_counties?.map((_: any) => true));
       }
+      if (filterMap && filterMap?.project_service_areas?.length > 0) {
+        setServiceAreasSelected(filterMap?.project_service_areas?.map((_: any) => true))
+      }
     }
-  }, [filterMap, dropdownSelected])
+    if (filterMap && filterMap?.currentId?.length > 0) {
+      setProjectStatusesSelected(filterMap?.currentId?.map((_: any) => true))
+    }
+    updateFilterSelected(dropdownSelected)
+  }, [filterMap, dropdownSelected, type])
 
   const updateFilterSelected = (value: any) => {
-    if (filterMap && value) {
-      const priorityFilterList = [true, true, true, true, true];
-      setPrioritySelected(priorityFilterList);
-      let filterSelected = [false];
-      if (value === 'MHFD District Work Plan' || value === MMFD_LOCALITY) {
-        filterMap?.project_service_areas?.map((p: any, index: number) => {
-          filterSelected[index] = true;
-        })
-        filterMap?.project_counties?.map((p: any, index: number) => {
-          filterSelected[index] = true;
-        })
-        setCountiesSelected(filterSelected);
-        setServiceAreasSelected(filterSelected)
-      } else {
-        if (value.includes('County')) {
-          const valueName = value.replace('County', '').trim();
-          filterMap?.project_counties.map((p: any, index: number) => {
-            if (p.county_name === valueName) {
-              filterSelected[index] = true;
-            } else {
-              filterSelected[index] = false;
-            }
-          })
-          setCountiesSelected(filterSelected);
+    if(type === WORK_PLAN_TAB && year >= YEAR_LOGIC_2024){
+      if (filterMap && value) {
+        const priorityFilterList = [true, true, true, true, true];
+        setPrioritySelected(priorityFilterList);
+        setIsLocatedInSouthPlateRiverSelected([false]);
+        let filterSelected = [false];
+        if (filterMap?.project_local_governments?.length > 0) {
+          setJurisdictionSelected(filterMap?.project_local_governments?.map((_: any) => true));
         }
-        if (value.includes('Service Area')) {
-          const valueName = value.replace('Service Area', '').trim();
-          filterMap?.project_service_areas.map((p: any, index: number) => {
-            if (p.service_area_name === valueName) {
-              filterSelected[index] = true;
-            } else {
-              filterSelected[index] = false;
-            }
+        if (value === 'MHFD District Work Plan' || value === MMFD_LOCALITY) {
+          filterMap?.project_service_areas?.forEach((p: any, index: number) => {
+            filterSelected[index] = true;
           })
+          filterMap?.project_counties?.forEach((p: any, index: number) => {
+            filterSelected[index] = true;
+          })
+          filterMap?.currentId?.forEach((p: any, index: number) => {
+            filterSelected[index] = true;
+          })
+          setProjectStatusesSelected(filterSelected);
+          setCountiesSelected(filterSelected);
           setServiceAreasSelected(filterSelected)
+        } else {
+          if (value.includes('County')) {
+            const valueName = value.replace('County', '').trim();
+            filterMap?.project_counties.forEach((p: any, index: number) => {
+              if (p.county_name === valueName) {
+  
+                filterSelected[index] = true;
+              } else {
+                filterSelected[index] = false;
+              }
+            })
+            setCountiesSelected(filterSelected);
+          }
+          if (value.includes('Service Area')) {
+            const valueName = value.replace('Service Area', '').trim();
+            filterMap?.project_service_areas.forEach((p: any, index: number) => {
+              if (p.service_area_name === valueName) {
+                filterSelected[index] = true;
+              } else {
+                filterSelected[index] = false;
+              }
+            })
+            setServiceAreasSelected(filterSelected)
+          }
         }
       }
-      loadColumns(namespaceId)
     }
+    loadColumns(namespaceId)
   }
 
   const onSelect = async (value: any) => {
@@ -169,22 +179,25 @@ const AutoCompleteDropdown = (
             displayedTabKey = ['Study', 'Acquisition', 'R&D'];
           }
         } else {
-          if (l.table === 'CODE_STATE_COUNTY') {
-            displayedTabKey = ['Capital', 'Maintenance', 'Acquisition', 'R&D']
-          } else if (l.table === 'CODE_SERVICE_AREA') {
-            displayedTabKey = ['Study'];
+          if(year < YEAR_LOGIC_2024){
+            if (l.table === 'CODE_STATE_COUNTY') {
+              displayedTabKey = ['Capital', 'Maintenance', 'Acquisition', 'R&D']
+            } else if (l.table === 'CODE_SERVICE_AREA') {
+              displayedTabKey = ['Study'];
+            }
           }
         }
         if (l.name === 'MHFD District Work Plan' || l.name === 'Mile High Flood District') {
           displayedTabKey = tabKeys;
         }
-        if (l.name.includes('South Platte River County')) {
-          displayedTabKey = tabKeys;
-          setTabKey(displayedTabKey[0]);
-        }
-
-        if (!displayedTabKey.includes(tabKey)) {
-          setTabKey(displayedTabKey[0]);
+        if(year >= YEAR_LOGIC_2024){
+          if (l.name.includes('South Platte River County')) {
+            displayedTabKey = tabKeys;
+            setTabKey(displayedTabKey[0]);
+          }
+          if (!displayedTabKey.includes(tabKey)) {
+            setTabKey(displayedTabKey[0]);
+          }
         }
       } else {
         if (!tabKeys.includes(tabKey)) {

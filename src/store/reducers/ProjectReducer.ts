@@ -195,7 +195,6 @@ const projectReducer = (state = initState, action: any) => {
           }
           
         })
-        
         return {
           ...state, 
           listStreams: newStreams

@@ -75,9 +75,9 @@ import { useFilterContext } from 'utils/filterContext';
 import { getToken, postDataAsyn } from 'Config/datasets';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import SideBarComment from 'Components/Map/SideBarComment';
-const ModalProjectView = React.lazy(() => import('Components/ProjectModal/ModalProjectView'));
-const DetailModal = React.lazy(() => import('routes/detail-page/components/DetailModal'));
-const MobilePopup = React.lazy(() => import('Components/MobilePopup/MobilePopup'));
+import ModalProjectView from 'Components/ProjectModal/ModalProjectView';
+import DetailModal from 'routes/detail-page/components/DetailModal';
+import MobilePopup from 'Components/MobilePopup/MobilePopup';
 
 let map: any = null;
 let searchMarker = new mapboxgl.Marker({ color: '#F4C754', scale: 0.7 });
@@ -345,7 +345,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
 
   useEffect(() => {
     const user = userInformation;
-    if (user?.polygon[0]) {
+    if (user?.polygon && user?.polygon[0]) {
       let myPolygon: any = [];
       const depthPolygon = depth(userInformation.polygon);
       if (depthPolygon === 4) {

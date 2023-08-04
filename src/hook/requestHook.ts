@@ -48,6 +48,7 @@ import {
   handleMoveFromColumnToColumn,
   loadFilters,
   updateTargetCost,
+  emptyBoard,
 } from 'store/actions/requestActions';
 import { DragAndDropCards } from 'store/types/requestTypes';
 
@@ -197,7 +198,9 @@ export const useRequestDispatch = () => {
   const _updateTargetCost = useCallback((board_id: any, targetCosts: any) => {
     dispatch(updateTargetCost(board_id, targetCosts));
   }, [dispatch]);
-
+  const _emptyBoard = useCallback(() => {
+    dispatch(emptyBoard());
+  }, [dispatch]);
   return {
     setShowModalProject: _setShowModalProject,
     setCompleteProjectData: _setCompleteProjectData,
@@ -245,6 +248,7 @@ export const useRequestDispatch = () => {
     moveProjectsManual: _moveProjectsManual,
     handleMoveFromColumnToColumn: _handleMoveFromColumnToColumn,
     loadFilters: _loadFilters,
-    updateTargetCost: _updateTargetCost
+    updateTargetCost: _updateTargetCost,
+    emptyBoard: _emptyBoard,
   };
 };
