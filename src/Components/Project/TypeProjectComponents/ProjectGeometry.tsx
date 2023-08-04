@@ -35,16 +35,22 @@ export const ProjectGeometry = ({
     setStreamsIds,
     setStreamsList
   } = useProjectDispatch();
-  const formatter = new Intl.NumberFormat('en-US', {
+  const formatterIntegers = new Intl.NumberFormat('en-US', {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
+  });
+  const formatterDecimals = new Intl.NumberFormat('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
   });
 
 
   const formatNumberToFeet = (number:number) => {
     const roundedNumber = Math.round(number);
-    const formattedNumber = formatter.format(roundedNumber);
-    return formattedNumber + ' feet';
+    const formattedNumber = formatterIntegers.format(roundedNumber);
+    const miles = number * 0.000189394;
+    const formattedMiles = formatterDecimals.format(miles);
+    return formattedNumber + ' feet '+ '(' + formattedMiles + ' miles)';
   }
 
   const formatListStreams = (thislistStreams: any) => {
@@ -68,7 +74,7 @@ export const ProjectGeometry = ({
         dataFormated.push(titleTemplate);
         const substreams = thislistStreams[key];
         substreams.forEach((substream: any, index: any) => {
-          let formatedNumber = formatter.format(substream.length);
+          let formatedNumber = formatterIntegers.format(substream.length);
           if (formatedNumber.length === 5) {
             formatedNumber = formatedNumber.replace(',', '');
           } 
