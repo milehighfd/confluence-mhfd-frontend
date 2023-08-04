@@ -60,7 +60,7 @@ export const ProposedActions = (props: ProposedActionsProps) => {
     if (Array.isArray(groups)) {
       const output = groups.flatMap((x: any) =>
         x?.components?.map((y: any) => ({
-          key: y.object_id,
+          key: y.object_id + y.cartodb_id,
           action: y,
           cost: y.original_cost,
           status: y.status,
@@ -241,7 +241,7 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       </div>
       {((keys && keys !== 0 && keys.length && groups && Object.keys(groups).length > 0)) &&
         <>
-          <Table dataSource={groupParsed} columns={columns} className='table-project' />
+          <Table pagination={false} dataSource={groupParsed} columns={columns} className='table-project' />
         </>
       }
       {visibleUnnamedComponent && <Table dataSource={thisIndependentComponents} columns={columnsIndependent} className='table-project' />}
