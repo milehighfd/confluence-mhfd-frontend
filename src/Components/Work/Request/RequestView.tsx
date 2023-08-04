@@ -295,7 +295,6 @@ const RequestView = ({ type, isFirstRendering, widthMap }: {
 
   useEffect(() => {
     if (locality) {
-      console.trace('Is Init map', isInitMap);
       // reach on initLoading
       onSelect(locality, isInitMap ? 'isinit' : undefined);
     }

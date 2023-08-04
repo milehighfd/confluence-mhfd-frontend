@@ -40,13 +40,6 @@ export const ProjectGeometry = ({
     maximumFractionDigits: 0,
   });
 
-  useEffect(() => {
-    console.log('listStreams', listStreams);
-  },[listStreams]);
-
-  useEffect(() => {
-    console.log('showDraw', showDraw);
-  },[showDraw]);
 
   const formatNumberToFeet = (number:number) => {
     const roundedNumber = Math.round(number);
@@ -55,7 +48,6 @@ export const ProjectGeometry = ({
   }
 
   const formatListStreams = (thislistStreams: any) => {
-    console.log('qqqqq',listStreams)
     const myset = new Set(keys);
       Object.keys(thislistStreams).forEach((key: any, id: any) => {
         if (!streamListdata[key]) {
@@ -66,16 +58,15 @@ export const ProjectGeometry = ({
       });
       setKeys(Array.from(myset));
       const dataFormated: any = [];
-      console.log('Parsing, thislistStreams', thislistStreams);
       Object.keys(thislistStreams).forEach((key: any, id: any) => {
         const titleTemplate = {
           key: `title-${id}`,
           reach: key,
           delete: true,
+          mhfd_code: thislistStreams[key][0].mhfd_code,
         };
         dataFormated.push(titleTemplate);
         const substreams = thislistStreams[key];
-        console.log('substreams', substreams, 'of main ', key);
         substreams.forEach((substream: any, index: any) => {
           let formatedNumber = formatter.format(substream.length);
           if (formatedNumber.length === 5) {
@@ -92,7 +83,6 @@ export const ProjectGeometry = ({
           dataFormated.push(rowTemplate);
         });
       });
-      console.log('Data ormated', dataFormated);
       setStreamListData(dataFormated);
   }
   useEffect(() => {
@@ -170,6 +160,7 @@ export const ProjectGeometry = ({
 
   const removeStreamByName = (stream: any) => {
     let mhfd_NameToRemove = stream?.reach;
+    let mhfd_codeToRemove = stream?.mhfd_code;
     let copyList = { ...currentListStreams.current };
     for (let jurisdiction in copyList) {
       let newArray = [...copyList[jurisdiction]].filter((st: any) => st.str_name !== mhfd_NameToRemove);
@@ -185,8 +176,11 @@ export const ProjectGeometry = ({
     setStreamsList(newCopyList);
     if (currentStreamsIds.current.length > 0) {
       let newIds = [...currentStreamsIds.current].filter((id: any) => {
-        const arrayValues = mhfd_NameToRemove.split('.');
-        return id.str_name !== arrayValues.join('.');
+        if (mhfd_NameToRemove === 'Unnamed Streams') {
+          return id.str_name;
+        } else {
+          return id.mhfd_code !== mhfd_codeToRemove;
+        }
       });
       setStreamsIds(newIds);
     }
@@ -238,7 +232,6 @@ export const ProjectGeometry = ({
                     } else {
                       const streamData = listStreams[key];
                       const valueHighlight = !(streamData[0].mhfd_code) ? deletefirstnumbersmhfdcode(streamData[0]) : streamData[0].mhfd_code;
-                      console.log('valueHighlight', valueHighlight, streamData[0].mhfd_code, 'streamData[0]', streamData[0]);
                       setHighlightedStream(valueHighlight);
                     }
                   },
