@@ -7,7 +7,8 @@ import { useMapDispatch, useMapState } from "hook/mapHook";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import LoadingView from "Components/Loading/LoadingView";
 import { useProfileState } from "hook/profileHook";
-
+import * as datasets from 'Config/datasets';
+import { SERVER } from 'Config/Server.config';
 
 const ListViewMap = ({
   totalElements,
@@ -39,7 +40,8 @@ const ListViewMap = ({
   const {
     favoriteList,
     getExtraProjects,
-    setFilterTabNumber
+    setFilterTabNumber,
+    setZoomProjectOrProblem
   } = useMapDispatch();
 
   useEffect(() => {
@@ -88,7 +90,8 @@ const ListViewMap = ({
         phase: ci?.phase,
         stream: streamsNames,
         sponsor: ci?.sponsor,
-        cost: totalCost
+        cost: totalCost,
+        project_id: ci?.project_id,
       };
       return output;
     });
@@ -96,7 +99,7 @@ const ListViewMap = ({
   }, [cardInformation]);
 
   useEffect(() => {    
-    const z1 = cardInformation.slice(0, size).map((ci: any) => {
+    const z1 = cardInformation?.slice(0, size).map((ci: any) => {
       let output = {
         requestName: ci?.requestName,
         type: ci?.type,
@@ -104,7 +107,9 @@ const ListViewMap = ({
         cost: ci?.estimatedCost,
         local_government: ci?.jurisdiction,
         actions: ci?.count,
-        percentaje: ci?.percentage
+        percentaje: ci?.percentage,
+        problemid: ci?.problemid,
+        coordinates: ci?.coordinates,
       };
       return output;
     });
@@ -272,6 +277,19 @@ const ListViewMap = ({
       fetchMoreData();
     }
   };
+  const changeCenter = (id:any, coordinateP:any) => {
+    if(setZoomProjectOrProblem){
+    if (id) {      
+      datasets.getData(SERVER.GET_BBOX_BY_PROJECT_ID(id)).then((coordinates: any) => {
+        if( coordinates.length ) {
+          setZoomProjectOrProblem(coordinates);
+        }
+      });
+    } else {
+      setZoomProjectOrProblem(coordinateP);
+    }}
+    
+  }
   return (<>
     {isLoading && <LoadingView />}
     <div className="table-scroll-map-list" onScroll={handleScroll}>
@@ -285,8 +303,32 @@ const ListViewMap = ({
         loader={<></>}
       >
         {type !== FILTER_PROBLEMS_TRIGGER ?
-        <Table className="table-list-map" columns={columns} dataSource={showData} pagination={false} scroll={{ x: 996, y: 'calc(100vh - 315px)' }}/>:
-        <Table className="table-list-map" columns={columnsProblem} dataSource={showData2} pagination={false} scroll={{ x: 996, y: 'calc(100vh - 315px)' }}/>}
+        <Table onRow={(record, rowIndex) => {
+          return {
+            onClick: (event) => {
+              console.log(record)
+              changeCenter(record.project_id, '');
+            },
+          };
+        }} 
+        className="table-list-map" 
+        columns={columns} 
+        dataSource={showData} 
+        pagination={false} 
+        scroll={{ x: 996, y: 'calc(100vh - 315px)' }}/>:
+        <Table onRow={(record, rowIndex) => {
+          return {
+            onClick: (event) => {
+              console.log(record)
+              changeCenter('', record.coordinates)
+            },
+          };
+        }} 
+        className="table-list-map" 
+        columns={columnsProblem} 
+        dataSource={showData2} 
+        pagination={false} 
+        scroll={{ x: 996, y: 'calc(100vh - 315px)' }}/>}
       </InfiniteScroll>
     </div>
     </>
