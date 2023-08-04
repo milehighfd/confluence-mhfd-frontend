@@ -316,7 +316,9 @@ const CreateProjectMap = (type: any) => {
   }, [listStreams]);
   useEffect(() => {
     if (zoomGeom && map) {
+      map.map.fitBounds(zoomGeom);
       map.map.once('load', () => {
+        console.log('entra');
         map.map.fitBounds(zoomGeom);
       });
     }
