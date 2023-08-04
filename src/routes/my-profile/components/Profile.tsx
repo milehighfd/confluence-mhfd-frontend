@@ -1,6 +1,6 @@
 import { Button, Col, Dropdown, message, Row, Select, Upload } from "antd";
 import { DebounceInput } from "react-debounce-input";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useProfileState, useProfileDispatch } from "hook/profileHook";
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
@@ -129,33 +129,46 @@ const Profile = ({
       return (text)
     }
   } 
-
-  const handleClick = () => {
-    datasets.putData(SERVER.USER_UPDATE, {
-      email,
-      phone,
-      organization,
-      city,
-      county,
-      serviceArea,
-      zoomarea,
-      firstName,
-      lastName
-    }, datasets.getToken()).then((data) => {
-      //console.log(data);
-    }).then(() => {
-      //setsave(!save)
-      setIsFromSave(true);
-      getMe();
-    })
-      .catch((e) => {
-        console.log(e);
-      });
+  const debounce = (func: any, delay: number) => {
+    let timeoutId: any;
+    return (...args: any) => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      timeoutId = setTimeout(() => {
+        func(...args);
+      }, delay);
+    };
   };
   
+
+  const debouncedHandleClick = useCallback(
+    debounce(() => {
+      datasets.putData(SERVER.USER_UPDATE, {
+        email,
+        phone,
+        organization,
+        city,
+        county,
+        serviceArea,
+        zoomarea,
+        firstName,
+        lastName
+      }, datasets.getToken())
+        .then(() => {
+          setIsFromSave(true);
+          getMe();
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }, 1000),
+    [email, phone, organization, city, county, serviceArea, zoomarea, firstName, lastName]
+  );
+  
   useEffect(() => {
-    handleClick();
-  }, [serviceArea, zoomarea, county, city, organization, email, phone, firstName, lastName]);
+    debouncedHandleClick();
+  }, [debouncedHandleClick]);
 
   const uploadImage = (files: Array<any>) => {
     console.log(files)
