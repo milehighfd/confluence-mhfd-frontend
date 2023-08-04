@@ -8,7 +8,7 @@ import { useRequestDispatch } from "hook/requestHook";
 import { WrongModal } from "../Request/WrongModal";
 
 const content02 = (<div className="popver-info">This is a place to add notes on a Local Government work request. Notes will be visible to any user from the same Local Government as well as MHFD staff.</div>);
-const Status = ({ locality, boardId, visible, setVisible, status, comment, type, substatus, setAlertStatus, setShowAlert, onUpdateHandler}: {
+const Status = ({ locality, boardId, visible, setVisible, status, comment, type, substatus, setAlertStatus, setShowAlert}: {
   locality: string,
   boardId: any,
   visible: boolean,
@@ -19,7 +19,6 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
   substatus: any,
   setAlertStatus: Function,
   setShowAlert: Function,
-  onUpdateHandler: Function
 }) => {
   const {
     setBoardComment: _setBoardComment,
@@ -64,7 +63,6 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
           setShowAlert(true);
           setTimeout(() => {
             setShowAlert(false);
-            onUpdateHandler();
             loadColumns(boardId);
           }, 4000);
         })

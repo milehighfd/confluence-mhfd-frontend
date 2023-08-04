@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, Row, Col, Button } from 'antd';
-import Navbar from 'Components/Shared/Navbar/NavbarContainer';
 import SidebarView from 'Components/Shared/Sidebar/SidebarView';
 import LoadingView from 'Components/Loading/LoadingView';
 import {
@@ -38,7 +37,6 @@ const MapLayout = () => {
     updateSelectedLayers,
     getMapWithSublayers,
     getMapLayers,
-    setTabActiveNavbar
   } = useMapDispatch();
 
   const {
@@ -63,11 +61,10 @@ const MapLayout = () => {
   const { tutorialStatus } = useMapState();
   const { status } = useProjectState();
   const { open } = useNotesState();
-  // const [tabMapActive, setOptionSelect] = useState(MAP);
   const { setSave } = useProjectDispatch();
   const { getUserInformation } = useAppUserDispatch();
   const [safeLoading, setSafeLoading] = useState(false);
-//WORK REQUEST-WORK-PLAN
+
   const {
     showModalProject,
     completeProjectData,
@@ -85,8 +82,6 @@ const MapLayout = () => {
     leftWidth,
     showFilters,
     visibleCreateProject,
-    showAlert,
-    alertStatus,
   } = useRequestState();
   const {
     setShowModalProject,
@@ -106,10 +101,6 @@ const MapLayout = () => {
     projecttype: tabKey ? tabKey : tabKeys[0],
     position: ''
   };
-
-  const onUpdateBoard = () => {
-    //This fn is intented to be used to reload getBoardData2
-  }
 
   useEffect(() => {
     const initLoading = async () => {
@@ -317,7 +308,6 @@ const MapLayout = () => {
           type={tabActiveNavbar === WORK_REQUEST ? WORK_REQUEST: WORK_PLAN}
           setAlertStatus={setAlertStatus}
           setShowAlert={setShowAlert}
-          onUpdateHandler={onUpdateBoard}
         />
       }
       {
