@@ -346,6 +346,7 @@ const RequestView = ({ type, widthMap }: {
 
   useEffect(() => {
     loadTabkeysDisplayed();
+    setTabKey(displayedTabKey[0])
   }, [localityType]);
 
   const loadTabkeysDisplayed = () => {

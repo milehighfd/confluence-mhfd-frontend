@@ -5,7 +5,6 @@ import { AutoComplete, Input } from 'antd';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import { YEAR_LOGIC_2024, YEAR_LOGIC_2022, MMFD_LOCALITY, MMFD_LOCALITY_TYPE, WORK_PLAN_TAB } from 'constants/constants';
-import { emptyBoard } from 'store/actions/requestActions';
 
 const windowWidth: any = window.innerWidth;
 
@@ -44,7 +43,6 @@ const AutoCompleteDropdown = (
     setTabKey,
     setIsOnSelected,
     loadColumns,
-    loadFilters,
   } = useRequestDispatch();
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const [dropdownSelected, setDropdownSelected] = useState('');
@@ -71,8 +69,8 @@ const AutoCompleteDropdown = (
       if (filterMap && filterMap?.project_service_areas?.length > 0) {
         setServiceAreasSelected(filterMap?.project_service_areas?.map((_: any) => true))
       }
-      if (filterMap && filterMap?.project_statuses?.length > 0) {
-        setProjectStatusesSelected(filterMap?.project_statuses?.map((_: any) => true))
+      if (filterMap && filterMap?.currentId?.length > 0) {
+        setProjectStatusesSelected(filterMap?.currentId?.map((_: any) => true))
       }
     }
   }, [year]);
@@ -86,8 +84,8 @@ const AutoCompleteDropdown = (
         setServiceAreasSelected(filterMap?.project_service_areas?.map((_: any) => true))
       }
     }
-    if (filterMap && filterMap?.project_statuses?.length > 0) {
-      setProjectStatusesSelected(filterMap?.project_statuses?.map((_: any) => true))
+    if (filterMap && filterMap?.currentId?.length > 0) {
+      setProjectStatusesSelected(filterMap?.currentId?.map((_: any) => true))
     }
     updateFilterSelected(dropdownSelected)
   }, [filterMap, dropdownSelected, type])
@@ -102,9 +100,6 @@ const AutoCompleteDropdown = (
         if (filterMap?.project_local_governments?.length > 0) {
           setJurisdictionSelected(filterMap?.project_local_governments?.map((_: any) => true));
         }
-        if (filterMap && filterMap?.project_statuses?.length > 0) {
-          setProjectStatusesSelected(filterMap?.project_statuses?.map((_: any) => true))
-        }
         if (value === 'MHFD District Work Plan' || value === MMFD_LOCALITY) {
           filterMap?.project_service_areas?.forEach((p: any, index: number) => {
             filterSelected[index] = true;
@@ -112,6 +107,10 @@ const AutoCompleteDropdown = (
           filterMap?.project_counties?.forEach((p: any, index: number) => {
             filterSelected[index] = true;
           })
+          filterMap?.currentId?.forEach((p: any, index: number) => {
+            filterSelected[index] = true;
+          })
+          setProjectStatusesSelected(filterSelected);
           setCountiesSelected(filterSelected);
           setServiceAreasSelected(filterSelected)
         } else {
