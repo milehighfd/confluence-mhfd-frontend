@@ -10,7 +10,7 @@ import { FILTER_PROJECTS_TRIGGER } from "constants/constants";
 import { UseDebouncedEffect } from "routes/Utils/useDebouncedEffect";
 import store from 'store';
 import { usePortflioState, usePortfolioDispatch } from "hook/portfolioHook";
-const DetailModal = React.lazy(() => import('routes/detail-page/components/DetailModal'));
+import DetailModal from 'routes/detail-page/components/DetailModal';
 
 const { Step } = Steps;
 const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }: 

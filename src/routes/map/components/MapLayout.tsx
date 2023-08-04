@@ -28,9 +28,8 @@ import Filter from 'Components/Work/Drawers/Filter';
 import NavbarView from 'Components/Shared/Navbar/NavbarView';
 import RequestView from 'Components/Work/Request/RequestView';
 import { setBoardStatus } from 'store/actions/requestActions';
-
-const Map = React.lazy(() => import('routes/map/components/Map'));
-const MapView = React.lazy(() => import('routes/map/components/MapView'));
+import Map from 'routes/map/components/Map';
+import MapView from 'routes/map/components/MapView';
 
 const MapLayout = () => {
   const {

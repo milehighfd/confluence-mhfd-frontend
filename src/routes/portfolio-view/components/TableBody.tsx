@@ -10,8 +10,7 @@ import { AllValueTable, CIPValueTable, DIPValueTable, PlanningValueTable, Proper
 import { usePortflioState, usePortfolioDispatch } from '../../../hook/portfolioHook';
 import { useMapState } from 'hook/mapHook';
 import { handleAbortError } from 'store/actions/mapActions';
-
-const DetailModal = React.lazy(() => import('routes/detail-page/components/DetailModal'));
+import DetailModal from 'routes/detail-page/components/DetailModal';
 
 const TableBody = ({
   dataId,

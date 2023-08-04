@@ -4,8 +4,7 @@ import { FILTER_PROJECTS_TRIGGER } from "constants/constants";
 import { useMapDispatch } from "hook/mapHook";
 import { usePortfolioDispatch } from "hook/portfolioHook";
 import React, { useState } from "react";
-
-const DetailModal = React.lazy(() => import('routes/detail-page/components/DetailModal'));
+import DetailModal from 'routes/detail-page/components/DetailModal';
 
 const { Panel } = Collapse;
 

@@ -23,9 +23,8 @@ import { SERVER } from 'Config/Server.config';
 import ApplyMapViewFilter from './ApplyMapViewFilter';
 import { useFilterContext } from 'utils/filterContext';
 import ListViewMap from './ListViewMap';
-
-const MapAutoComplete = React.lazy(() => import('routes/map/components/MapAutoComplete'));
-const FiltersProjectView = React.lazy(() => import('Components/FiltersProject/FiltersProjectView'));
+import MapAutoComplete from 'routes/map/components/MapAutoComplete';
+import FiltersProjectView from 'Components/FiltersProject/FiltersProjectView';
 
 const STATUS = 'status',
   JURISDICTION = 'jurisdiction',

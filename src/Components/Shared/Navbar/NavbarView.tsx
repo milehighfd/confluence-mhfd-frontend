@@ -14,8 +14,7 @@ import { useAppUserDispatch, useAppUserState } from 'hook/useAppUser';
 import moment from 'moment';
 import { SERVER } from 'Config/Server.config';
 import ModalTutorial from '../Sidebar/ModalTutorial';
-
-const DetailModal = React.lazy(() => import('routes/detail-page/components/DetailModal'));
+import DetailModal from 'routes/detail-page/components/DetailModal';
 
 const { TabPane } = Tabs;
 const { Header } = Layout;
