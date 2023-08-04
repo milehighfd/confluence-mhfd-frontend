@@ -120,7 +120,7 @@ export const ProjectGeometry = ({
         if(record.key.includes('title')){
           return (
             <>
-              {text}&nbsp;&nbsp;&nbsp;<DeleteOutlined className='ico-delete' onClick={() => removeStreamByName(record)} />
+              {text}&nbsp;&nbsp;&nbsp; { (type === 'STUDY') && <DeleteOutlined className='ico-delete' onClick={() => removeStreamByName(record)} />}
             </>
           );
         }
