@@ -290,11 +290,7 @@ const MapLayout = () => {
           year={year}
         />
       }
-      {
-        <Analytics
-          type={tabActiveNavbar === WORK_REQUEST ? WORK_REQUEST: WORK_PLAN}
-        />
-      }
+      { <Analytics /> }
       {
         showBoardStatus &&
         <Status

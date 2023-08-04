@@ -1,24 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Drawer, Select, Popover, InputNumber, Button, Col, Row } from 'antd';
+import { Drawer, Select, InputNumber, Button, Col, Row } from 'antd';
 import HorizontalBarChartAnalytics from 'Components/FiltersProject/NewProblemsFilter/HorizontalBarChartAnalytics';
 import { formatter, MaintenanceTypes, priceFormatter, priceParser } from 'Components/Work/Request/RequestViewUtil';
 import { CHART_CONSTANTS } from 'Components/FiltersProject/NewProblemsFilter/Charts.constants';
-import { boardType } from 'Components/Work/Request/RequestTypes';
 import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
-import { WINDOW_WIDTH } from 'constants/constants';
-import { CloseOutlined, InfoCircleOutlined } from '@ant-design/icons';
-import { setTabActiveNavbar } from 'store/actions/mapActions';
-import { useMapDispatch, useMapState } from 'hook/mapHook';
+import { WINDOW_WIDTH, WORK_PLAN } from 'constants/constants';
+import { useMapState } from 'hook/mapHook';
 
 const { Option } = Select;
 
-const Analytics = ({
-  type
-}: {
-  type: boardType
-}) => {
+const Analytics = () => {
   const {
     sumByCounty: dataByCounty,
     sumByServiceArea: dataBySA,
@@ -44,13 +37,6 @@ const Analytics = ({
   const [countiesNames, setCountiesNames] = useState('');
   const {tabActiveNavbar} = useMapState();
 
-  const getLabel = () => {
-    if (tabKey === 'Capital' || tabKey === 'Maintenance') {
-      return "County"
-    } else {
-      return "Service Area"
-    }
-  }
   const clickUpdate = () => {
     datasets.putData(SERVER.UPDATE_BUDGET(boardId), {
       budget: tcb
@@ -61,16 +47,6 @@ const Analytics = ({
         console.log(e);
       });
   };
-  const contentCounty = (
-    <div className="popver-info">
-      This graphic indicates the number of requests within each Jurisdiction {type === 'WORK_REQUEST' ? `broken out by ${getLabel()}` : ''}.
-    </div>
-  );
-  const contentDollars = (
-    <div className="popver-info">
-      This graphic indicates the dollar amount of requests within each Jurisdiction {type === 'WORK_REQUEST' ? `broken out by ${getLabel()}` : ''}.
-    </div>
-  );
 
   useEffect(() => {
     setTcb(totalCountyBudget);
@@ -183,22 +159,6 @@ const Analytics = ({
       title={
         <h5 className='title-drawer'>
           <span style={{}}><img src="/Icons/icon-89.svg" alt="" className="icons-drawers" />Analytics</span>
-          {/* {tabKey !== 'Maintenance' &&
-            <Select
-              dropdownClassName='dropdown-menu'
-              style={{ marginLeft: '11px' }}
-              listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-              defaultValue={year}
-              value={year}
-              onChange={setYear}>
-              {
-                years.map((y, i) => (
-                  <Option key={i} value={y}>{
-                    tabKey !== 'Maintenance' ? y : MaintenanceTypes[i]
-                  }</Option>
-                ))
-              }
-            </Select>} */}
           <img src="/Icons/ic_close.svg" alt=""  className='close-style-drawer' onClick={() => setShowAnalytics(false)} />
         </h5>
       }
@@ -208,7 +168,7 @@ const Analytics = ({
       className="work-utilities"
       mask={false}>
       <div style={{ position: 'sticky', top: '0', backgroundColor: 'white', zIndex:1 }}>
-      {type === 'WORK_PLAN' && tabKey === 'Maintenance' &&
+      {tabActiveNavbar === WORK_PLAN && tabKey === 'Maintenance' &&
         <>
           <div>
             <h6>Total County Budget</h6>
@@ -244,7 +204,6 @@ const Analytics = ({
           <div className="line-01" style={{ marginLeft: '0px' }}></div>
         </>
           }
-        {/* <div className="line-01" style={{ marginLeft: '0px' }}></div> */}
         <Row style={{ width: '100%' }}>
           <Col span={tabKey === 'Maintenance' ? 24:12} className='title-utilities'>FOR
             <Select
@@ -281,29 +240,9 @@ const Analytics = ({
           </Col>
         </Row>
         <div className="line-01" style={{ marginLeft: '0px' }}></div>
-
-        {/* {tabKey === 'Maintenance' &&
-          <Select
-            dropdownClassName='dropdown-menu'
-            style={{ marginLeft: '-9px' }}
-            listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-            defaultValue={year}
-            value={year}
-            onChange={setYear}>
-            {
-              <Option key={2000} value={2000}> All Subtypes</Option>
-            }
-            {
-              years.map((y, i) => (
-                <Option key={i} value={y}>{MaintenanceTypes[i]}</Option>
-              ))
-            }
-          </Select>
-        } */}
       </div>
       <div className='subtitle-requests'>
         <h6 style={{ marginTop: '10px', textTransform: 'uppercase' }}>{`Requests by ${localityType}`}
-        {/* <Popover content={contentCounty} placement="top" > <InfoCircleOutlined style={{opacity:'0.3'}} /> </Popover> */}
         </h6>
       </div>
       <div className="graph" >
@@ -328,11 +267,9 @@ const Analytics = ({
             minBarSize={0}
           />
         }
-        {/* <img src="gallery/requests1.png" alt="" style={{ width: '100%' }} /> */}
       </div>
       <div className="subtitle-requests" style={{ marginTop: '30px' }}>
         <h6 style={{ marginTop: '10px', textTransform: 'uppercase' }}>{`Dollars Requested by ${localityType}`}
-        {/* <Popover content={contentDollars} placement="topRight" arrowPointAtCenter> <InfoCircleOutlined style={{opacity:'0.3'}} /> </Popover> */}
         </h6>
       </div>
       <div className="graph" >
@@ -360,7 +297,6 @@ const Analytics = ({
             minBarSize={0}
           />
         }
-        {/* <img src="gallery/requests1.png" alt="" style={{ width: '100%' }} /> */}
       </div>
     </Drawer>
   )
