@@ -138,7 +138,11 @@ const RequestView = ({ type, isFirstRendering, widthMap }: {
       let params = new URLSearchParams(history.location.search)
       let _year = params.get('year');
       let _locality: any; //= params.get('locality'); commented to avoid preserve the same locality for wr and wp
-      let _tabKey = params.get('tabKey') || users.projecttype;
+      let _tabKey = 'Capital';
+      if(year < YEAR_LOGIC_2024){
+        _tabKey = params.get('tabKey') || users.projecttype
+      }
+      console.log(_tabKey, 'tabKey')
       if (type === 'WORK_REQUEST' && isLocalGovernment && _locality !== profileLocality) {
         _locality = profileLocality;
       }
@@ -173,14 +177,16 @@ const RequestView = ({ type, isFirstRendering, widthMap }: {
         if (type === "WORK_REQUEST") {
           displayedTabKey = tabKeys;
         } else {
-          if (l) {
-            if (l.table === 'CODE_STATE_COUNTY') {
-              displayedTabKey = ['Capital', 'Maintenance']
-            } else if (l.table === 'CODE_SERVICE_AREA') {
-              displayedTabKey = ['Study', 'Acquisition', 'R&D'];
-            }
-            if (l.name === 'MHFD District Work Plan' || l.name === 'Mile High Flood District') {
-              displayedTabKey = tabKeys;
+          if(year < YEAR_LOGIC_2024){
+            if (l) {
+              if (l.table === 'CODE_STATE_COUNTY') {
+                displayedTabKey = ['Capital', 'Maintenance']
+              } else if (l.table === 'CODE_SERVICE_AREA') {
+                displayedTabKey = ['Study', 'Acquisition', 'R&D'];
+              }
+              if (l.name === 'MHFD District Work Plan' || l.name === 'Mile High Flood District') {
+                displayedTabKey = tabKeys;
+              }
             }
           }
         }
@@ -363,7 +369,6 @@ const RequestView = ({ type, isFirstRendering, widthMap }: {
   }, [localityType]);
 
   const loadTabkeysDisplayed = () => {
-    if (type === "WORK_PLAN") {
       if (year < 2022) {
         if (localityType === 'CODE_STATE_COUNTY') {
           displayedTabKey = ['Capital', 'Maintenance']
@@ -380,7 +385,6 @@ const RequestView = ({ type, isFirstRendering, widthMap }: {
       if (locality.name === 'MHFD District Work Plan' || locality.name === 'Mile High Flood District' || year >= 2024) {
         displayedTabKey = tabKeys;
       }
-    }
   }
   loadTabkeysDisplayed();
 
@@ -444,14 +448,14 @@ return (
                 onChange={(key) => {
                   setTabKey(key);
                   if(type === WORK_PLAN){
-                    setPrioritySelected([]);
-                    setJurisdictionSelected([]);
-                    setProjectStatusesSelected([]);
+                    // setPrioritySelected([]);
+                    // setJurisdictionSelected([]);
+                    // setProjectStatusesSelected([]);
                   }
                   setIsLocatedInSouthPlateRiverSelected([])
                   if (year < YEAR_LOGIC_2024) {
-                    setCountiesSelected([]);
-                    setServiceAreasSelected([]);
+                    // setCountiesSelected([]);
+                    // setServiceAreasSelected([]);
                   }
                 }} className="tabs-work">
                 {

@@ -4,6 +4,7 @@ import DownOutlined from '@ant-design/icons/lib/icons/DownOutlined';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import UpOutlined from '@ant-design/icons/lib/icons/UpOutlined';
 import { WINDOW_WIDTH } from 'constants/constants';
+import { setIsLocatedInSouthPlateRiverSelected } from 'store/actions/requestActions';
 const { Option } = Select;
 
 const YearDropdown = () => {
@@ -21,6 +22,7 @@ const YearDropdown = () => {
       onChange={(y: any) => {
         setYear(y);
         setPrioritySelected(['1', '2', '3', 'Over 3', 'Work Plan']);
+        setIsLocatedInSouthPlateRiverSelected([false]);
       }}
       className={'ant-select-2'}>
       {

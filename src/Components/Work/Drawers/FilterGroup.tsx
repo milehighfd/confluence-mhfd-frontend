@@ -4,6 +4,7 @@ import React from 'react';
 import { capitalLetter, capitalizeWords } from 'utils/utils';
 
 const FilterGroup = ({
+  notFoundProjects,
   label,
   filterList,
   selected,
@@ -11,6 +12,7 @@ const FilterGroup = ({
   labelKey,
   valueKey
 }: {
+  notFoundProjects: boolean;
   label: string;
   filterList: any[];
   selected: boolean[];
@@ -24,7 +26,7 @@ const FilterGroup = ({
         <span className='sub-title-filter'>{capitalizeWords(label)} </span>
         {/* <InfoCircleOutlined style={{opacity:0.3}} /> */}
       </div>
-      <div className={label === 'Located in the South Platte River'? "body-f-p-filter-river" : "body-f-p-filter"}>
+      <div className={label === 'Located in South Platte River'? "body-f-p-filter-river" : "body-f-p-filter"}>
         {
           filterList?.map((cn: any, index: number) => (
             <div key={`filter-ps${index}`} className='filter-00'>
