@@ -166,22 +166,34 @@ const ListViewMap = ({
       setInfiniteScrollHasMoreItems(true);
     }
   };  
-
+  const handleScroll = (e:any) => {
+    const { scrollTop, clientHeight, scrollHeight } = e.target;
+    if (scrollHeight - scrollTop === clientHeight) {
+      fetchMoreData();
+    }
+  };
   return (<>
     {isLoading && <LoadingView />}
-    <Row id='table-list-map' gutter={[16, 16]} style={{ overflowY: 'scroll', height: '600px' }}>
+    <div className="table-scroll-map-list" onScroll={handleScroll}>
       <InfiniteScroll
         dataLength={type !== FILTER_PROBLEMS_TRIGGER ? totalElement : state.items.length}
         next={fetchMoreData}
         hasMore={type !== FILTER_PROBLEMS_TRIGGER ? infiniteScrollHasMoreItems : state.hasMore}
         className="scroll-infinite-mobile"
         endMessage={''}
-        scrollableTarget="table-list-map"
+        scrollableTarget="table-list-map-infinite-scroll"  
         loader={<></>}
       >
-        <Table className="table-list-map" columns={columns} dataSource={showData} pagination={false} />
+        <Table
+          className="table-list-map"
+          columns={columns}
+          dataSource={showData}
+          pagination={false}
+          scroll={{ x: 996, y: 'calc(100vh - 315px)' }}
+        />
       </InfiniteScroll>
-    </Row></>
+    </div>
+    </>
   )
 };
 

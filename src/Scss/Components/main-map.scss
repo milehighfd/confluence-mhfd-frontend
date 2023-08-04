@@ -852,7 +852,19 @@ hr.filters-line {
     color: $purple00;
   }
 }
+//table scroll
+.table-scroll-map-list{
+  overflow-y: scroll;
+  height: calc(100vh - 262px);
+  margin-right: -11px;
+}
+.table-scroll-map-list::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 10px;
+}
+
 //table-style-map
+
 .table-list-map{
   .ant-table{
     color: $purple00;
