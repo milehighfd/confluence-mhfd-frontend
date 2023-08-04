@@ -255,6 +255,7 @@ const CreateProjectMap = (type: any) => {
         console.log('e', e);
       },
     );
+    hideHighlighted();
     typeRef.current = type.type
     if((type.type === 'STUDY' && type.projectid === -1) 
     || ((type.type !== 'CAPITAL' && type.type !== 'MAINTENANCE') && (type.lastValue === 'capital' || type.lastValue === 'maintenance'))
