@@ -50,6 +50,7 @@ const RequestCostRows = () => {
           header={
             <div className='cost-header'>
               <span>Total Cost</span>
+              <div style={{flex:1}}></div>
               <img
                   className={isCollapseOpen ? "rotate-img" : ""}
                   src="Icons/ic_accordion-close.svg"

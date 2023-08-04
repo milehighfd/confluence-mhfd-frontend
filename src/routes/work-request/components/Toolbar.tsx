@@ -52,11 +52,12 @@ const Toolbar = ({
                   style={{ maxWidth: '254', height: '34px', borderRadius:'4px' }} addonBefore={<SearchOutlined />} placeholder="Search" />
               </Space>
             </div>
+            {/* LUPA WR
             {!showSearch && <div style={{ display: 'inline-block' }} onClick={handleIconClick}>
               <img className="icon-bt icon-search-size"
                 style={{ WebkitMask: "url('/Icons/ic-search.svg') no-repeat center" }}
                 alt="" />
-            </div>}
+            </div>} */}
           </Button>
           
         </Popover>

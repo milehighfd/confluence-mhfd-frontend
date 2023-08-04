@@ -21,7 +21,8 @@ const FilterGroup = ({
   return (
     <div style={{ marginTop: '10px' }}>
       <div style={{ paddingBottom: '10px' }}>
-        <span className='sub-title-filter'>{capitalizeWords(label)} </span><InfoCircleOutlined style={{opacity:0.3}} />
+        <span className='sub-title-filter'>{capitalizeWords(label)} </span>
+        {/* <InfoCircleOutlined style={{opacity:0.3}} /> */}
       </div>
       <div className={label === 'Located in the South Platte River'? "body-f-p-filter-river" : "body-f-p-filter"}>
         {

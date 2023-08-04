@@ -184,8 +184,6 @@
     }
     .ant-btn:hover{
       background: rgba(245, 247, 255, 0.80);
-      width: 68px;
-      height: 38px;
     }
   }
 }
@@ -452,11 +450,12 @@
   margin-right: 15px;  
   .cost-panel{
     background-color: #F5F7FF !important;
-    padding-left: 21px !important;
+    //padding-left: 21px !important;
     border-radius: 8px !important;
     padding-bottom: 0px !important;
     width: calc(100% - 200px) !important;
     border: none !important;
+    min-width: 470px;
     margin-bottom: 12px !important;
     .cost-body{
       font-size: 12px;
@@ -654,7 +653,7 @@
     padding: 15px 15px;
     // height: 40px;
     background-color: #f9faff;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
   }
   .ant-collapse-header .ant-collapse-header-collapsible-only {
@@ -899,7 +898,7 @@
     padding-left: 12px;
     padding-top: 4px;
     padding-bottom: 4px;
-    border-bottom: 1px solid $opacity01;
+    border-bottom: 1px solid rgb(227 228 242);
     border-radius: 4px 4px 0px 0px;
     font-weight: bold;
   }
@@ -1033,6 +1032,7 @@
   .graph{
     height: auto;
     margin-bottom: 15px;
+    margin-top: 5px;
   }
   .graph-title {
     margin-top: 30px;
@@ -1044,14 +1044,14 @@
     padding-top: 6px;
     padding-left: 6px;
     background-color: #F5F7FF;
-    border-radius: 4px;
+    border-radius: 0px;
   }
   .svg-axis-analytics {
     margin-right: 0px;
     padding-top: 6px;
     padding-left: 6px;
     background-color: #F5F7FF;
-    border-radius: 4px;
+    border-radius: 0px;
   }
   .ant-list-split .ant-list-item {
     border-bottom: 1px solid $opacity01;
@@ -1241,9 +1241,10 @@
   font-family: Ubuntu;
   font-size: 10px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 500;
   line-height: normal;
   padding: 11px 8px 11px 16px;
+  // opacity: 0.5;
   margin-top: 27px;
   margin-bottom: 5px;
   .title-left{
@@ -1256,7 +1257,7 @@
 }
 .menu-utilities{
   h6{
-    font-size: 15px;
+    font-size: 13px;
     color: $purple00;
     width: 100%;
     display: flex;
@@ -2919,7 +2920,7 @@ cost-wr1{
 //CSS for TableListView
 .table-map-list {
   width: auto;
-  height: calc(100vh - 206px);
+  height: calc(100vh - 183px);
   overflow: auto; 
   border-left: 1px solid #E6E9EA;
   border-bottom: 1px solid #E6E9EA;
