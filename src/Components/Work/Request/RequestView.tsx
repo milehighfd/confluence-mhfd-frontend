@@ -130,7 +130,6 @@ const RequestView = ({ type, isFirstRendering, widthMap }: {
   }, [locality, tabKey, year]);
 
   useEffect(() => {
-    console.log('is going to set init map true');
     saveBoardProjecttype(tabKey);
   }, [tabKey]);
 

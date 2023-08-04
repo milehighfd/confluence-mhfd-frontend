@@ -665,7 +665,6 @@ export const ModalCapital = ({
     setServiceArea([]);
     setCounty([]);
     setjurisdiction([]);
-    setStreamsList([]);
     setIsDrawCapital(!isDrawStateCapital);
     setIsDraw(false);
   }
@@ -708,8 +707,6 @@ export const ModalCapital = ({
     setIndependentComponents([...thisIndependentComponents,component]);
   };
   const removeComponent = (component: any) => {
-    console.log(groups)
-    console.log(listComponents.result)
     let newComponents: any = [];
     let currentComponents = listComponents.result;
     newComponents = currentComponents
