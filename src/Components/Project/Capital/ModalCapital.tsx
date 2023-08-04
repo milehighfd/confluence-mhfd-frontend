@@ -535,7 +535,7 @@ export const ModalCapital = ({
     let streamValidation = streamIntersected.geom ? JSON.parse(streamIntersected.geom): undefined;
     if ((geom || isCountyWide) && description && county.length && serviceArea.length && jurisdiction.length && nameProject && sponsor) {
       setDisable(false);
-    }else if (selectedTypeProject === 'capital' && !streamValidation && streamValidation.coordinates.length && componentsToSave?.length) {
+    }else if (selectedTypeProject === 'capital' && !streamValidation && streamValidation?.coordinates?.length && componentsToSave?.length) {
       setDisable(false);
     } 
     else {
