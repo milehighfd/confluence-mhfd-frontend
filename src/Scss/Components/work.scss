@@ -452,11 +452,12 @@
   margin-right: 15px;  
   .cost-panel{
     background-color: #F5F7FF !important;
-    padding-left: 21px !important;
+    //padding-left: 21px !important;
     border-radius: 8px !important;
     padding-bottom: 0px !important;
     width: calc(100% - 200px) !important;
     border: none !important;
+    min-width: 470px;
     margin-bottom: 12px !important;
     .cost-body{
       font-size: 12px;
@@ -654,7 +655,7 @@
     padding: 15px 15px;
     // height: 40px;
     background-color: #f9faff;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
   }
   .ant-collapse-header .ant-collapse-header-collapsible-only {
