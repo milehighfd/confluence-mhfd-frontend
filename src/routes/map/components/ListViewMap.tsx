@@ -1,8 +1,105 @@
-import { Table } from "antd";
+import { List, Row, Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
-import React from "react";
+import { useProjectDispatch, useProjectState } from "hook/projectHook";
+import React, { useEffect, useState } from "react";
+import { FILTER_PROBLEMS_TRIGGER, PROBLEMS_TRIGGER } from "../constants/tabs.constants";
+import { useMapDispatch, useMapState } from "hook/mapHook";
+import InfiniteScroll from 'react-infinite-scroll-component';
+import LoadingView from "Components/Loading/LoadingView";
 
-const ListViewMap = () => {
+
+const ListViewMap = ({
+  totalElements,
+  type,
+  cardInformation,
+}: {
+  totalElements: number,
+  type: string,
+  cardInformation: any[]
+}) => {
+  const size = 20;
+  let totalElement = cardInformation?.length || 0;  
+  const [isLoading, setIsLoading] = useState(false);
+  const [dataSet, setDataSet] = useState<any>([]);
+  const [showData, setShowData] = useState<any>([]);
+  const [state, setState] = useState({
+    items: Array.from({ length: size }),
+    hasMore: true
+  });
+  const [carInfo, setCardInfo] = useState<any>([]);
+  const { setNextPageOfCards, setInfiniteScrollItems, setInfiniteScrollHasMoreItems } = useProjectDispatch();
+  const { nextPageOfCards, infiniteScrollHasMoreItems, infiniteScrollItems } = useProjectState();
+  const {
+    filterProblemOptions,
+    filterProjectOptions,
+    filterComponentOptions,
+    selectedOnMap,
+    favorites,
+    paramFilters: params
+  } = useMapState();
+  const {
+    getGalleryProblems,
+    getGalleryProjects,
+    setFilterProblemOptions,
+    setFilterProjectOptions,
+    setFilterComponentOptions,
+    setZoomProjectOrProblem,
+    favoriteList,
+    getExtraProjects,
+    setFilterTabNumber
+  } = useMapDispatch();
+
+  useEffect(() => {
+    if (type === FILTER_PROBLEMS_TRIGGER) {
+      setFilterTabNumber(PROBLEMS_TRIGGER)
+      const auxState = { ...state };
+      auxState.hasMore = true;
+      setState(auxState);
+    } else {
+      setInfiniteScrollHasMoreItems(true);
+      setIsLoading(false);
+    }
+  }, [totalElement])
+
+  useEffect(() => {
+    if (cardInformation && type !== FILTER_PROBLEMS_TRIGGER) {
+      const a = Math.ceil(cardInformation.length / 20) + 1
+      if ((nextPageOfCards + 1) === a) {
+        setNextPageOfCards(a)
+      }
+    }
+    if (favorites && carInfo) {
+      setDataSet(
+        carInfo.map((ci: any) => {
+          return {
+            ...ci,
+            isFavorite: favorites.some((f: any) => (f.project_id && f.project_id === ci.project_id) || (f.problem_id && f.problem_id === ci.problemid))
+          }
+
+        })
+      )
+    }
+    setCardInfo(cardInformation);    
+  }, [favorites, cardInformation]);
+
+  useEffect(() => {
+    const z = cardInformation?.map((ci: any) => {
+      let totalCost = ci?.project_costs?.reduce((sum:any, current:any) => sum + current.cost, 0);
+      let streamsNames = ci?.stream?.map((obj:any) => obj?.stream?.stream_name).filter((value:any, index:number, self:any) => self.indexOf(value) === index).join(', ');
+      let output = {
+        name: ci?.requestName,
+        type: ci?.projecttype,
+        status: ci?.status,
+        phase: ci?.phase,  
+        stream: streamsNames,  
+        sponsor: ci?.sponsor, 
+        cost: totalCost
+      };  
+      return output;
+    });    
+    setShowData(z);
+  }, [cardInformation]);
+
   const columns: ColumnsType<any>  = [
     {
       title: 'Project Name',
@@ -57,127 +154,34 @@ const ListViewMap = () => {
       sorter: (a, b) => a.cost - b.cost,
     },
   ];
-  const data = [
-    {
-      name:'Hidden Lake Drainageway @ Arvada Center',
-      type:'Restoration',
-      status:'Active',
-      phase:'Construction',
-      stream:'Happy Canyon Creek',
-      sponsor:'Commerce City',
-      cost:'$253,200',
-    },
-    {
-      name:'Cherry Creek @ Lincoln 2019',
-      type:'Capital',
-      status:'Submitted',
-      phase:'Construction',
-      stream:'Happy Canyon Creek',
-      sponsor:'Commerce City',
-      cost:'$450,000',
-    },
-    {
-      name:'South Englewood Basin Tributary @ City of E...',
-      type:'Vegetation Management',
-      status:'Requested',
-      phase:'Construction',
-      stream:'Happy Canyon Creek',
-      sponsor:'Commerce City',
-      cost:'$30,000',
-    },
-    {
-      name:'Hidden Lake Drainageway @ Arvada Center',
-      type:'Capital',
-      status:'Active',
-      phase:'Construction',
-      stream:'Happy Canyon Creek',
-      sponsor:'Commerce City',
-      cost:'$12,300',
-    },
-    {
-      name:'Cherry Creek @ Lincoln 2019',
-      type:'Acquiston',
-      status:'Submitted',
-      phase:'Construction',
-      stream:'Happy Canyon Creek',
-      sponsor:'Commerce City',
-      cost:'$253,200',
-    },
-    {
-      name:'South Englewood Basin Tributary @ City of E...',
-      type:'Research & Development',
-      status:'Active',
-      phase:'Construction',
-      stream:'Happy Canyon Creek',
-      sponsor:'Commerce City',
-      cost:'$450,000',
-    },
-    {
-      name:'Hidden Lake Drainageway @ Arvada Center',
-      type:'Research & Development',
-      status:'Submitted',
-      phase:'Construction',
-      stream:'Happy Canyon Creek',
-      sponsor:'Commerce City',
-      cost:'$30,000',
-    },
-    {
-      name:'Cherry Creek @ Lincoln 2019',
-      type:'Capital',
-      status:'Active',
-      phase:'Construction',
-      stream:'Happy Canyon Creek',
-      sponsor:'Commerce City',
-      cost:'$12,300',
-    },
-    {
-      name:'South Englewood Basin Tributary @ City of E...',
-      type:'Restoration',
-      status:'Submitted',
-      phase:'Construction',
-      stream:'Happy Canyon Creek',
-      sponsor:'Commerce City',
-      cost:'$253,200',
-    },
-    {
-      name:'Hidden Lake Drainageway @ Arvada Center',
-      type:'Maintenance',
-      status:'Requested',
-      phase:'Construction',
-      stream:'Happy Canyon Creek',
-      sponsor:'Commerce City',
-      cost:'$450,000',
-    },
-    {
-      name:'Cherry Creek @ Lincoln 2019',
-      type:'Sediment Management',
-      status:'Submitted',
-      phase:'Construction',
-      stream:'Happy Canyon Creek',
-      sponsor:'Commerce City',
-      cost:'$30,000',
-    },
-    {
-      name:'South Englewood Basin Tributary @ City of E...',
-      type:'Special',
-      status:'Submitted',
-      phase:'Construction',
-      stream:'Happy Canyon Creek',
-      sponsor:'Commerce City',
-      cost:'$12,300',
-    },
-    {
-      name:'South Englewood Basin Tributary @ City of E...',
-      type:'Capital',
-      status:'Submitted',
-      phase:'Construction',
-      stream:'Happy Canyon Creek',
-      sponsor:'Commerce City',
-      cost:'$12,300',
-    },
-  ]
-  return (
-    <Table columns={columns} dataSource={data} scroll={{ x: 996, y: 'calc(100vh - 315px)' }} pagination={false} className="table-list-map"/>
+  const fetchMoreData = async () => {
+    console.log('fetchMoreData')
+    if (infiniteScrollItems.length < totalElements) {
+      if (!isLoading) {
+        setIsLoading(true);
+        getExtraProjects(nextPageOfCards);
+      }
+      const nextItems = infiniteScrollItems.concat(Array.from({ length: size }));
+      setInfiniteScrollItems(nextItems);
+      setInfiniteScrollHasMoreItems(true);
+    }
+  };  
+
+  return (<>
+    {isLoading && <LoadingView />}
+    <Row id='table-list-map' gutter={[16, 16]} style={{ overflowY: 'scroll', height: '600px' }}>
+      <InfiniteScroll
+        dataLength={type !== FILTER_PROBLEMS_TRIGGER ? totalElement : state.items.length}
+        next={fetchMoreData}
+        hasMore={type !== FILTER_PROBLEMS_TRIGGER ? infiniteScrollHasMoreItems : state.hasMore}
+        className="scroll-infinite-mobile"
+        endMessage={''}
+        scrollableTarget="table-list-map"
+        loader={<></>}
+      >
+        <Table className="table-list-map" columns={columns} dataSource={showData} pagination={false} />
+      </InfiniteScroll>
+    </Row></>
   )
 };
 
