@@ -4,24 +4,29 @@ import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import { WINDOW_WIDTH } from "constants/constants";
+import { useRequestDispatch } from 'hook/requestHook';
 
 const BoardYear = () => {
   const [openDropYear, setOpenDropYear] = useState(false);
-  const [year, setYear] = useState('2023');
+  const [yearEdit, setYearEdit] = useState('2023');
+  const {
+    setYear,
+  } = useRequestDispatch();
 
   useEffect(() => {
     datasets.getData(SERVER.GET_CONFIGURATIONS('BOARD_YEAR'))
       .then((response: any) => {
-        setYear(response.value);
+        setYearEdit(response.value);
       }).catch((error: any) => {
         console.error(error);
       });
   }, []);
 
   const changeConfigurationYear = (value: string) => {
-    setYear(value);
+    setYearEdit(value);
     datasets.putData(SERVER.GET_CONFIGURATIONS('BOARD_YEAR'), { value })
       .then((response: any) => {
+        setYear(value);
         console.log(response);
       }).catch((error: any) => {
         console.error(error);
@@ -41,7 +46,7 @@ const BoardYear = () => {
         <span style={{color: 'rgb(17, 9, 60)', paddingRight: '10px'}}>Most recent board year:</span>
         <Select
           placeholder="2022"
-          value={year}
+          value={yearEdit}
           listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
           suffixIcon={openDropYear? <UpOutlined /> :< DownOutlined />}
           onClick={()=>(setOpenDropYear(!openDropYear))}
