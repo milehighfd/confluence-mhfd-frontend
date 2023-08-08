@@ -51,7 +51,6 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   const getCompleteProjectData = async () => {
     let dataForBoard = {...project.projectData};
     const dataFromDB = await getData(SERVER.V2_DETAILED_PAGE(dataForBoard.project_id), getToken());
-    console.log('dataFromDB', dataFromDB)
     setCompleteProjectData({...dataFromDB, tabKey}); 
   }
 

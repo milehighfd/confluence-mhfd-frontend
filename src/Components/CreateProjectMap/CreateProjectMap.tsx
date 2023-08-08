@@ -318,7 +318,6 @@ const CreateProjectMap = (type: any) => {
     if (zoomGeom && map) {
       map.map.fitBounds(zoomGeom);
       map.map.once('load', () => {
-        console.log('entra');
         map.map.fitBounds(zoomGeom);
       });
     }
@@ -608,7 +607,6 @@ const CreateProjectMap = (type: any) => {
     let geom: any = undefined;
     let thisStreamIntersected = streamIntersected;
     let drawStream = true;
-    console.log('streamIntersected', streamIntersected)
     if (thisStreamIntersected && thisStreamIntersected.geom) {
       geom = JSON.parse(thisStreamIntersected.geom);
       let cg = componentGeom ? JSON.parse(componentGeom.geom) : undefined;
@@ -665,8 +663,12 @@ const CreateProjectMap = (type: any) => {
               },
             });
             setTimeout(() => {
-              map.map.moveLayer('streamIntersected');
-            }, 4500);
+              map.map.once('idle', () => {
+                if (map.map.getLayer('streamIntersected')) {
+                  map.map.moveLayer('streamIntersected');
+                }
+              })
+            }, 5500);
             let poly = getTurfGeom(geom);
             if (map.map && poly) {
               let bboxBounds = turf.bbox(poly);
@@ -694,7 +696,6 @@ const CreateProjectMap = (type: any) => {
     }
   }, [streamIntersected]);
   useEffect(() => {
-    console.log('streamsIntersectedIds', streamsIntersectedIds);
     if (streamsIntersectedIds.length > 0) {
       let streamsCodes: any = streamsIntersectedIds
         .filter((fstr: any) => fstr.mhfd_code)

@@ -163,7 +163,7 @@ const ModalProjectView = ({
         const allowedProjectTypeIds = [1,5, 7, 8, 9, 10, 11];
         const currentProjectType = getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id;
         if(allowedProjectTypeIds.includes(currentProjectType)){
-          getStreamsByProjectId(data.project_id);
+          getStreamsByProjectId(data.project_id, currentProjectType);
         }
         if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 5) {
           getIndependentComponentsByProjectId(data.project_id);

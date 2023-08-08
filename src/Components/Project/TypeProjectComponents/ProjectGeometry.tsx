@@ -118,7 +118,6 @@ export const ProjectGeometry = ({
           );
         }
         if(record.key.includes('title')){
-          console.log('type', type);
           return (
             <>
               {text}&nbsp;&nbsp;&nbsp; { (type === 'study') && <DeleteOutlined className='ico-delete' onClick={() => removeStreamByName(record)} />}

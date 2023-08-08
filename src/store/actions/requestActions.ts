@@ -315,7 +315,6 @@ export const loadColumns = (board_id: any) => {
       promises.push(promise);
     }
     Promise.all(promises).then((dataArray) => {
-      console.log('Data array ', dataArray);
       const sums: any[] = [];
       const totals: any[] = [];      
       dataArray.forEach(([sumByGroupMap, groupTotal]: any[], columnId: number) => {

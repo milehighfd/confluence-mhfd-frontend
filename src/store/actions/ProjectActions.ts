@@ -78,7 +78,6 @@ export const saveCapital = (data: any) => {
     const { request: { namespaceId } } = getState();
     const formData = new FormData();
     let covername = '';
-    console.log(Object.keys(data));
     Object.keys(data).forEach((key: string) => {
       if (key === 'geom' && (data.type === 'capital' || data.type === 'maintenance')) {
         formData.append(key, data[key]);
@@ -611,7 +610,7 @@ export const getAllComponentsByProblemId = (problemId: any) => {
     });
   }
 }
-export const getStreamsByProjectId = (projectId: any) => {
+export const getStreamsByProjectId = (projectId: any, typeProjectId: any) => {
   return (dispatch: Function) => {
     datasets.getData(SERVER.GET_STREAMS_BY_PROJECT(projectId), datasets.getToken()).then( listStreams => {
       let independentStreams: any = [];
@@ -636,7 +635,10 @@ export const getStreamsByProjectId = (projectId: any) => {
           mhfd_code:i
         })
       };
-      dispatch({type: types.SET_STREAMS_IDS_ADD, streamsIntersectedIds});
+      if (typeProjectId == 1 || typeProjectId === 18) { // VALUES of STUDY
+        dispatch({type: types.SET_STREAMS_IDS_ADD, streamsIntersectedIds});
+      }
+      
     })
   }
 }

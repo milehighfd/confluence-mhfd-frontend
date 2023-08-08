@@ -258,7 +258,6 @@ export const ModalCapital = ({
 
   //Load Data if is Edit
   useEffect(() => {
-    console.log(typeProject)
     setIsEdit(false);
     if (data !== 'no data') {
       const counties = data.project_counties.map((e: any) => e?.CODE_STATE_COUNTY?.county_name);
