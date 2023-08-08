@@ -27,7 +27,6 @@ import Status from 'Components/Work/Drawers/Status';
 import Filter from 'Components/Work/Drawers/Filter';
 import NavbarView from 'Components/Shared/Navbar/NavbarView';
 import RequestView from 'Components/Work/Request/RequestView';
-import { setBoardStatus } from 'store/actions/requestActions';
 import Map from 'routes/map/components/Map';
 import MapView from 'routes/map/components/MapView';
 
@@ -44,6 +43,7 @@ const MapLayout = () => {
     tabActiveNavbar
   } = useMapState();
   const {
+    isLocalGovernment,
     userInformation: {
       coordinates: {
         latitude,
@@ -73,11 +73,7 @@ const MapLayout = () => {
     tabKeys,
     showCreateProject,
     problemId,
-    namespaceId,
     showBoardStatus,
-    boardStatus,
-    boardSubstatus,
-    boardComment,
     leftWidth,
     showFilters,
     visibleCreateProject,
@@ -86,8 +82,6 @@ const MapLayout = () => {
     setShowModalProject,
     setShowCreateProject,
     setShowBoardStatus,
-    setAlertStatus,
-    setShowAlert,
     setVisibleCreateProject,
     setYearList,
     setYear,
@@ -113,13 +107,16 @@ const MapLayout = () => {
       let boardYearLimit = +config.value;
       let array = [];
       for (var i = 0; i < 5; i++) {
+        if (i === 0 && isLocalGovernment && tabActiveNavbar === WORK_PLAN) {
+          continue;
+        }
         array.push(boardYearLimit - i);
       }
       setYearList(array);
-      setYear(boardYearLimit);
+      setYear(array[0]);
     }
     initLoading();
-  }, [setYearList]);
+  }, [isLocalGovernment, setYear, setYearList, tabActiveNavbar]);
 
   // END WORK REQUEST-WORK-PLAN
 
