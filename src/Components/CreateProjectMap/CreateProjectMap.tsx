@@ -724,6 +724,13 @@ const CreateProjectMap = (type: any) => {
             });
           }, timer);
         }
+        setTimeout(() => {
+          map.map.once('idle', () => {
+            if (map.map.getLayer('streams-intersects')) {
+              map.map.moveLayer('streams-intersects');
+            }
+          })
+        }, 5500);
       });
     } else {
       map.removeLayer('streams-intersects');
