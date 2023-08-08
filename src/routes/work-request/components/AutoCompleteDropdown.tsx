@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { GOVERNMENT_STAFF, WORK_PLAN, WORK_REQUEST } from 'constants/constants';
-import { useProfileState } from 'hook/profileHook';
+import { WORK_REQUEST } from 'constants/constants';
 import { AutoComplete, Input } from 'antd';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
@@ -15,7 +14,6 @@ const AutoCompleteDropdown = (
     type: string,
   }
 ) => {
-  const { userInformation } = useProfileState();
   const {
     dataAutocomplete,
     localityFilter,
@@ -211,66 +209,54 @@ const AutoCompleteDropdown = (
 
   return (
     <div className="auto-complete-map">
-      {
-        userInformation.designation !== GOVERNMENT_STAFF ? (
-          <AutoComplete
-            className={'ant-select-1'}
-            options={renderOption.length > 0 ? [...dataAutocomplete.map(renderOption), {}] : dataAutocomplete.map(renderOption)}
-            placeholder={localityFilter}
-            filterOption={(inputValue, option: any) => {
-              if (dataAutocomplete.includes(inputValue)) {
-                return true;
-              }
-              if (!option.value) return false;
-              return option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
-            }}
-            onSelect={onSelect}
-            value={localityFilter}
-            onSearch={(input2: any) => {
-              setLocalityFilter(input2);
-              if (localities.map((r: any) => r.name).indexOf(input2) !== -1) {
-                setLocality(input2)
-                setIsOnSelected(false);
-                let l = localities.find((p: any) => {
-                  return p.name === locality;
-                })
-                if (l) {
-                  setLocalityType(l.table);
-                }
-              }
-            }}
-            open={dropdownIsOpen}
-            onClick={() => setDropdownIsOpen(!dropdownIsOpen)}
-            onBlur={() => setDropdownIsOpen(false)}
-            listHeight={windowWidth > 2554 ? (windowWidth > 3799 ? 500 : 320) : 256}
-          >
-            <Input
-              className={inputClassName}
-              prefix={prefix}
-              suffix={
-                dropdownIsOpen ? <UpOutlined style={{ marginRight: '-18px' }} /> : <DownOutlined style={{ marginRight: '-18px' }} />
-              }
-              style={{
-                border: 'none',
-                boxShadow: 'none',
-                borderBottom: '1px solid rgba(37, 24, 99, 0.3)',
-                marginRight: '-18px',
-                marginLeft: '-6px'
-              }}
-            />
-          </AutoComplete>
-        ) : (
-          <Input
-            style={{ border: 'none' }}
-            className={inputClassName}
-            value={localityFilter}
-            readOnly={true}
-            prefix={prefix}
-          />
-        )
-      }
+      <AutoComplete
+        className={'ant-select-1'}
+        options={renderOption.length > 0 ? [...dataAutocomplete.map(renderOption), {}] : dataAutocomplete.map(renderOption)}
+        placeholder={localityFilter}
+        filterOption={(inputValue, option: any) => {
+          if (dataAutocomplete.includes(inputValue)) {
+            return true;
+          }
+          if (!option.value) return false;
+          return option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
+        }}
+        onSelect={onSelect}
+        value={localityFilter}
+        onSearch={(input2: any) => {
+          setLocalityFilter(input2);
+          if (localities.map((r: any) => r.name).indexOf(input2) !== -1) {
+            setLocality(input2)
+            setIsOnSelected(false);
+            let l = localities.find((p: any) => {
+              return p.name === locality;
+            })
+            if (l) {
+              setLocalityType(l.table);
+            }
+          }
+        }}
+        open={dropdownIsOpen}
+        onClick={() => setDropdownIsOpen(!dropdownIsOpen)}
+        onBlur={() => setDropdownIsOpen(false)}
+        listHeight={windowWidth > 2554 ? (windowWidth > 3799 ? 500 : 320) : 256}
+      >
+        <Input
+          className={inputClassName}
+          prefix={prefix}
+          suffix={
+            dropdownIsOpen ? <UpOutlined style={{ marginRight: '-18px' }} /> : <DownOutlined style={{ marginRight: '-18px' }} />
+          }
+          style={{
+            border: 'none',
+            boxShadow: 'none',
+            borderBottom: '1px solid rgba(37, 24, 99, 0.3)',
+            marginRight: '-18px',
+            marginLeft: '-6px'
+          }}
+        />
+      </AutoComplete>
     </div>
-  )
+  );
 };
 
 export default AutoCompleteDropdown;
