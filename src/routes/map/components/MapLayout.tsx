@@ -90,6 +90,7 @@ const MapLayout = () => {
     setShowAlert,
     setVisibleCreateProject,
     setYearList,
+    setYear,
     setLeftWidth,
     setShowFilters,
   } = useRequestDispatch();
@@ -115,6 +116,7 @@ const MapLayout = () => {
         array.push(boardYearLimit - i);
       }
       setYearList(array);
+      setYear(boardYearLimit);
     }
     initLoading();
   }, [setYearList]);

@@ -608,6 +608,7 @@ const CreateProjectMap = (type: any) => {
     let geom: any = undefined;
     let thisStreamIntersected = streamIntersected;
     let drawStream = true;
+    console.log('streamIntersected', streamIntersected)
     if (thisStreamIntersected && thisStreamIntersected.geom) {
       geom = JSON.parse(thisStreamIntersected.geom);
       let cg = componentGeom ? JSON.parse(componentGeom.geom) : undefined;
@@ -693,6 +694,7 @@ const CreateProjectMap = (type: any) => {
     }
   }, [streamIntersected]);
   useEffect(() => {
+    console.log('streamsIntersectedIds', streamsIntersectedIds);
     if (streamsIntersectedIds.length > 0) {
       let streamsCodes: any = streamsIntersectedIds
         .filter((fstr: any) => fstr.mhfd_code)
