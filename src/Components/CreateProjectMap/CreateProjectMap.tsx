@@ -323,20 +323,21 @@ const CreateProjectMap = (type: any) => {
     }
   }, [zoomGeom, map]);
   useEffect(() => {
-    if (map) {
-      if (highlightedComponent.table && !magicAddingVariable) {
-        setFlagtoDraw(false);
-        hideHighlighted();
-        if (highlightedComponent.table.includes('stream_improvement_measure_copy')) {
-          showHighlighted(highlightedComponent.table, highlightedComponent.objectid);
-        } else {
-          showHighlighted(highlightedComponent.table, highlightedComponent.cartodb_id);
-        }
-      } else {
-        // hideHighlighted();
-        setFlagtoDraw(true);
-      }
-    }
+    // commented to avoid only one action to be highlighted instead of all actions in same table 
+    // if (map) {
+    //   if (highlightedComponent.table && !magicAddingVariable) {
+    //     setFlagtoDraw(false);
+    //     hideHighlighted();
+    //     if (highlightedComponent.table.includes('stream_improvement_measure_copy')) {
+    //       showHighlighted(highlightedComponent.table, highlightedComponent.objectid);
+    //     } else {
+    //       showHighlighted(highlightedComponent.table, highlightedComponent.cartodb_id);
+    //     }
+    //   } else {
+    //     // hideHighlighted();
+    //     setFlagtoDraw(true);
+    //   }
+    // }
   }, [highlightedComponent]);
   useEffect(() => {
     let mask;
