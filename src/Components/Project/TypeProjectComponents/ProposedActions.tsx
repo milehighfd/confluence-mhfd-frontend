@@ -129,11 +129,14 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       }
     },
     {
-      title: 'Problem',
+      title: 'Problem Group',
       dataIndex: 'problem',
       key: 'problem',
       sorter: (a:any, b:any) => a.age - b.age,
       width: '39%',
+      render: (text:any) => {
+        return (text ? (text === 'No name' ? 'No Problem Group' : text) : 'No Problem Group')
+      }
     },
     {
       title: '',
@@ -202,13 +205,13 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       }
     },
     {
-      title: 'Problem',
+      title: 'Problem Group',
       dataIndex: 'problem',
       key: 'problem',
       sorter: (a:any, b:any) => a.age - b.age,
       width: '34%',
-      render: () => {
-      return ('-')
+      render: (text:any) => {
+        return (text ? (text === 'No name' ? 'No Problem Group' : text) : 'No Problem Group')
       }
     },
     {
