@@ -877,6 +877,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
               [Number(verifiedStatus)]: newValues,
             },
           };
+          console.log('result ids grouped bwfore split ', result);
           // delete result.undefined;
           let idsToFilter: any = [];
           typeLayer?.forEach((type: any) => {
@@ -891,6 +892,9 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
           });
 
           allFilters = ['all', ['in', ['get', 'projectid'], ['literal', [...idsToFilter]]]];
+          if (idsToFilter.length) {
+            console.log('SEt filter', idsToFilter, key + '_' + index);
+          }
           map.setFilter(key + '_' + index, allFilters);
           map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
         } else {
