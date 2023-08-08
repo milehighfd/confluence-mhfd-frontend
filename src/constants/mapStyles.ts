@@ -2701,1021 +2701,957 @@ export const PROJECTS_STYLES_WR = {
     },
   ],
   [`${PROJECTS_DRAFT}draft`]: [
-    // START SYMBOLS
-    {
-      // "id": "propacq_DRAFT copy",
-      type: 'symbol',
-      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1, 2, 3], project_type: [13] },
-      'source-layer': 'pluto15v1',
-      // "minzoom": 0,
-      layout: {
-        'icon-image': 'propacq_ORANGE_bold_small',
-        'icon-size': 0.5,
-        visibility: 'none',
-        'icon-ignore-placement': true,
-        'text-allow-overlap': true,
-        'icon-allow-overlap': true,
-        'text-ignore-placement': true,
-      },
-      paint: {},
-    },
-    {
-      // "id": "RD_DRAFT copy",
-      type: 'symbol',
-      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1, 2, 3], project_type: [15] },
-      'source-layer': 'pluto15v1',
-      layout: {
-        'icon-size': 0.6,
-        'icon-image': 'RD_ORANGE_bold_small',
-        // "visibility": "none",
-        'icon-ignore-placement': true,
-        'text-allow-overlap': true,
-        'icon-allow-overlap': true,
-        'text-ignore-placement': true,
-      },
-      paint: {},
-    },
-    {
-      // "id": "propacq_DRAFT",
-      type: 'symbol',
-      metadata: { 'mapbox:group': 'bdf3db001830c897392db56b343f448b', project_status: [1, 2, 3], project_type: [13] },
-      'source-layer': 'pluto15v1',
-      // "minzoom": 8,
-      layout: {
-        'icon-image': 'propacq_ORANGE_bold_small',
-        'icon-size': 0.5,
-        'icon-ignore-placement': true,
-        'text-allow-overlap': true,
-        'icon-allow-overlap': true,
-        'text-ignore-placement': true,
-      },
-      paint: {},
-    },
-    {
-      // "id": "RD_DRAFT",
-      type: 'symbol',
-      metadata: { 'mapbox:group': 'bdf3db001830c897392db56b343f448b', project_status: [1, 2, 3], project_type: [15] },
-      'source-layer': 'pluto15v1',
-      layout: {
-        'icon-size': 0.6,
-        'icon-image': 'RD_ORANGE_bold_small',
-        'icon-ignore-placement': true,
-        'text-allow-overlap': true,
-        'icon-allow-overlap': true,
-        'text-ignore-placement': true,
-      },
-      paint: {},
-    },
-    {
-      // "id": "propacq_ACTV ",
-      type: 'symbol',
-      metadata: { 'mapbox:group': 'bdf3db001830c897392db56b343f448b', project_status: [5], project_type: [13] },
-      'source-layer': 'pluto15v1',
-      // "minzoom": 0,
-      layout: {
-        'icon-image': 'propacq_GREEN_bold_small',
-        'icon-size': 0.5,
-        'icon-ignore-placement': true,
-        'text-allow-overlap': true,
-        'icon-allow-overlap': true,
-        'text-ignore-placement': true,
-      },
-      paint: {},
-    },
-    {
-      // "id": "RD_ACTV",
-      type: 'symbol',
-      metadata: { 'mapbox:group': 'bdf3db001830c897392db56b343f448b', project_status: [5], project_type: [15] },
-      'source-layer': 'pluto15v1',
-      layout: {
-        'icon-size': 0.6,
-        'icon-image': 'RD_GREEN_bold_small',
-        'icon-ignore-placement': true,
-        'text-allow-overlap': true,
-        'icon-allow-overlap': true,
-        'text-ignore-placement': true,
-      },
-      paint: {},
-    },
-    {
-      // "id": "propacq_CNCLD/INACTV ",
-      type: 'symbol',
-      metadata: { 'mapbox:group': 'bdf3db001830c897392db56b343f448b', project_status: [7, 8], project_type: [13] },
-      'source-layer': 'pluto15v1',
-      // "minzoom": 0,
-      layout: {
-        'icon-image': 'prop-acq_RED',
-        'icon-size': 0.5,
-        'icon-ignore-placement': true,
-        'text-allow-overlap': true,
-        'icon-allow-overlap': true,
-        'text-ignore-placement': true,
-      },
-      paint: {},
-    },
-    {
-      // "id": "RD_CNCLD/INACTV",
-      type: 'symbol',
-      metadata: { 'mapbox:group': 'bdf3db001830c897392db56b343f448b', project_status: [7, 8], project_type: [15] },
-      'source-layer': 'pluto15v1',
-      layout: {
-        'icon-size': 0.6,
-        'icon-image': 'rd_RED',
-        'icon-ignore-placement': true,
-        'text-allow-overlap': true,
-        'icon-allow-overlap': true,
-        'text-ignore-placement': true,
-      },
-      paint: {},
-    },
-    {
-      // "id": "propacq_CLSD ",
-      type: 'symbol',
-      metadata: { 'mapbox:group': 'bdf3db001830c897392db56b343f448b', project_status: [9, 10], project_type: [13] },
-      'source-layer': 'pluto15v1',
-      // "minzoom": 0,
-      layout: {
-        'icon-image': 'propacq_PINK_bold_small',
-        'icon-size': 0.5,
-        'icon-ignore-placement': true,
-        'text-allow-overlap': true,
-        'icon-allow-overlap': true,
-        'text-ignore-placement': true,
-      },
-      paint: {},
-    },
-    {
-      // "id": "RD_CLSD",
-      type: 'symbol',
-      metadata: { 'mapbox:group': 'bdf3db001830c897392db56b343f448b', project_status: [9, 10], project_type: [15] },
-      'source-layer': 'pluto15v1',
-      layout: {
-        'icon-size': 0.6,
-        'icon-image': 'RD_PINK_bold_small',
-        'icon-ignore-placement': true,
-        'text-allow-overlap': true,
-        'icon-allow-overlap': true,
-        'text-ignore-placement': true,
-      },
-      paint: {},
-    },
-    // FINISH SYMBOLS
-    {
-      // "id": "z13_allstudy_neg_DRAFT_test",
-      type: 'line',
-      metadata: {
-        'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5',
-        project_status: [1, 2, 3],
-        project_type: [1, 18],
-      },
-      'source-layer': 'pluto15v1',
-      maxzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#fdc43f',
-        'line-width': 2.5,
-        'line-offset': -4.8,
-      },
-    },
-    {
-      // "id": "z13_allstudy_pos_DRAFT_test",
-      type: 'line',
-      metadata: {
-        'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5',
-        project_status: [1, 2, 3],
-        project_type: [1, 18],
-      },
-      'source-layer': 'pluto15v1',
-      maxzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#fdc43f',
-        'line-width': 2.5,
-        'line-offset': 4.8,
-      },
-    },
     {
       // "id": "study-MDP_neg_DRAFT_shdw",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1, 2, 3], project_type: [1] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#fdc43f',
-        'line-width': 2.5,
-        'line-offset': -4.8,
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {"line-width": 7, "line-offset": -18, "line-blur": 10}
     },
     {
       // "id": "study-MDP_pos_DRAFT_shdw",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1, 2, 3], project_type: [1] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#fdc43f',
-        'line-width': 2.5,
-        'line-offset': 4.8,
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {"line-width": 7, "line-offset": 18, "line-blur": 10}
     },
     {
       // "id": "study-FHAD_neg_DRAFT_shdw",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1, 2, 3], project_type: [18] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#fdc43f',
-        'line-width': 2.5,
-        'line-offset': -14,
-        'line-dasharray': [1, 2],
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-width": 7,
+          "line-offset": -14,
+          "line-dasharray": [1, 2],
+          "line-blur": 10
+      }
     },
     {
       // "id": "study-FHAD_pos_DRAFT_shdw",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1, 2, 3], project_type: [18] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#fdc43f',
-        'line-width': 2.5,
-        'line-offset': 14,
-        'line-dasharray': [1, 2],
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-width": 7,
+          "line-offset": 14,
+          "line-dasharray": [1, 2],
+          "line-blur": 10
+      }
     },
     {
       // "id": "capital_neg_DRAFT_shdw",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1, 2, 3], project_type: [5] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#fdc43f',
-        'line-offset': -10,
-        'line-width': 2.5,
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {"line-offset": -10, "line-width": 7, "line-blur": 10}
     },
     {
       // "id": "capital_pos_DRAFT_shdw",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1, 2, 3], project_type: [5] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#fdc43f',
-        'line-width': 2.5,
-        'line-offset': 10,
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {"line-width": 7, "line-offset": 10, "line-blur": 10}
     },
     {
       // "id": "maintenance_neg_DRAFT_shdw",
-      type: 'line',
+      "type": "line",
       metadata: {
         'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5',
         project_status: [1, 2, 3],
         project_type: [7, 8, 9, 10, 11, 17],
       },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#fdc43f',
-        'line-offset': -6,
-        'line-width': 2.5,
-        'line-dasharray': [3, 3],
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {"line-offset": -6, "line-blur": 10, "line-width": 7}
     },
     {
       // "id": "maintenance_pos_DRAFT_shdw",
-      type: 'line',
+      "type": "line",
       metadata: {
         'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5',
         project_status: [1, 2, 3],
         project_type: [7, 8, 9, 10, 11, 17],
       },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#fdc43f',
-        'line-offset': 6,
-        'line-width': 2.5,
-        'line-dasharray': [3, 3],
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {"line-offset": 6, "line-blur": 10, "line-width": 7}
+    },
+    {
+      // "id": "propacq_DRAFT copy",
+      "type": "symbol",
+      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1, 2, 3], project_type: [13] },
+      'source-layer': 'pluto15v1',
+      "layout": {
+          "icon-image": "propacq_ORANGE_bold_small",
+          'icon-ignore-placement': true,
+          'text-allow-overlap': true,
+          'icon-allow-overlap': true,
+          'text-ignore-placement': true,
+          "icon-size": 0.5,
       },
+      "paint": {}
+    },
+    {
+      // "id": "RD_DRAFT copy",
+      "type": "symbol",
+      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1, 2, 3], project_type: [15] },
+      'source-layer': 'pluto15v1',
+      "layout": {
+          "icon-size": 0.6,
+          "icon-image": "RD_ORANGE_bold_small",
+          'icon-ignore-placement': true,
+          'text-allow-overlap': true,
+          'icon-allow-overlap': true,
+          'text-ignore-placement': true,
+      },
+      "paint": {}
     },
     {
       // "id": "study-MDP_neg_DRAFT_test",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': 'cf08e6682ac5c524c0eb9c365153091e', project_status: [1, 2, 3], project_type: [1] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#fdc43f',
-        'line-width': 2.5,
-        'line-offset': -18,
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#c76d00",
+          "line-width": 2.5,
+          "line-offset": -18
+      }
     },
     {
       // "id": "study-MDP_pos_DRAFT_test",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': 'cf08e6682ac5c524c0eb9c365153091e', project_status: [1, 2, 3], project_type: [1] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#fdc43f',
-        'line-width': 2.5,
-        'line-offset': 18,
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#c76d00",
+          "line-width": 2.5,
+          "line-offset": 18
+      }
     },
     {
       // "id": "study-FHAD_neg_DRAFT_test",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': 'cf08e6682ac5c524c0eb9c365153091e', project_status: [1, 2, 3], project_type: [18] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#fdc43f',
-        'line-width': 2.5,
-        'line-offset': -14,
-        'line-dasharray': [1, 2],
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#c76d00",
+          "line-width": 2.5,
+          "line-offset": -14,
+          "line-dasharray": [1, 2]
+      }
     },
     {
       // "id": "study-FHAD_pos_DRAFT_test",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': 'cf08e6682ac5c524c0eb9c365153091e', project_status: [1, 2, 3], project_type: [18] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#fdc43f',
-        'line-width': 2.5,
-        'line-offset': 14,
-        'line-dasharray': [1, 2],
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#c76d00",
+          "line-width": 2.5,
+          "line-offset": 14,
+          "line-dasharray": [1, 2]
+      }
     },
     {
       // "id": "capital_neg_DRAFT_test",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': 'cf08e6682ac5c524c0eb9c365153091e', project_status: [1, 2, 3], project_type: [5] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#fdc43f',
-        'line-offset': -10,
-        'line-width': 2.5,
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#fdc43f",
+          "line-offset": -10,
+          "line-width": 2.5
+      }
     },
     {
       // "id": "capital_pos_DRAFT_test",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': 'cf08e6682ac5c524c0eb9c365153091e', project_status: [1, 2, 3], project_type: [5] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#fdc43f',
-        'line-width': 2.5,
-        'line-offset': 10,
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#fdc43f",
+          "line-width": 2.5,
+          "line-offset": 10
+      }
     },
     {
       // "id": "maintenance_neg_DRAFT_test",
-      type: 'line',
+      "type": "line",
       metadata: {
         'mapbox:group': 'cf08e6682ac5c524c0eb9c365153091e',
         project_status: [1, 2, 3],
         project_type: [7, 8, 9, 10, 11, 17],
       },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#fdc43f',
-        'line-offset': -6,
-        'line-width': 2.5,
-        'line-dasharray': [3, 3],
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#fdc43f",
+          "line-offset": -6,
+          "line-width": 2.5,
+          "line-dasharray": [3, 3]
+      }
     },
     {
       // "id": "maintenance_pos_DRAFT_test",
-      type: 'line',
+      "type": "line",
       metadata: {
         'mapbox:group': 'cf08e6682ac5c524c0eb9c365153091e',
         project_status: [1, 2, 3],
         project_type: [7, 8, 9, 10, 11, 17],
       },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#fdc43f',
-        'line-offset': 6,
-        'line-width': 2.5,
-        'line-dasharray': [3, 3],
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#fdc43f",
+          "line-offset": 6,
+          "line-width": 2.5,
+          "line-dasharray": [3, 3]
+      }
     },
     {
       // "id": "z13_allstudy_neg_DRAFT_test",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': 'cf08e6682ac5c524c0eb9c365153091e', project_status: [1], project_type: [1, 18]  },
       'source-layer': 'pluto15v1',
-      maxzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#fdc43f',
-        'line-width': 2.5,
-        'line-offset': -4.8,
-      },
+      "maxzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#c76d00",
+          "line-width": 2.5,
+          "line-offset": -4.8
+      }
     },
     {
       // "id": "z13_allstudy_pos_DRAFT_test",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': 'cf08e6682ac5c524c0eb9c365153091e', project_status: [1], project_type: [1, 18] },
       'source-layer': 'pluto15v1',
-      maxzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#fdc43f',
-        'line-width': 2.5,
-        'line-offset': 4.8,
-      },
+      "maxzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#c76d00",
+          "line-width": 2.5,
+          "line-offset": 4.8
+      }
     },
     {
       // "id": "z13_allproj_neg_DRAFT_test",
-      type: 'line',
+      "type": "line",
       metadata: {
         'mapbox:group': 'cf08e6682ac5c524c0eb9c365153091e',
         project_status: [1, 2, 3],
         project_type: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 17, 12, 14, 16, 17],
       },
       'source-layer': 'pluto15v1',
-      maxzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#fdc43f',
-        'line-offset': -2,
-        'line-width': 2.5,
-      },
+      "maxzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#fdc43f",
+          "line-offset": -2,
+          "line-width": 2.5
+      }
     },
     {
       // "id": "z13_allproj_pos_DRAFT_test",
-      type: 'line',
+      "type": "line",
       metadata: {
         'mapbox:group': 'cf08e6682ac5c524c0eb9c365153091e',
         project_status: [1, 2, 3],
         project_type: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 17, 12, 14, 16, 17],
       },
       'source-layer': 'pluto15v1',
-      maxzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#fdc43f',
-        'line-width': 2.5,
-        'line-offset': 2,
-      },
+      "maxzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#fdc43f",
+          "line-width": 2.5,
+          "line-offset": 2
+      }
     },
     {
       // "id": "study-MDP_neg_CLSD",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f', project_status: [9, 10], project_type: [1] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#e629ff',
-        'line-width': 2.5,
-        'line-offset': -18,
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#e629ff",
+          "line-width": 2.5,
+          "line-offset": -18
+      }
     },
     {
       // "id": "study-MDP_pos_CLSD",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f', project_status: [9, 10], project_type: [1] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#e629ff',
-        'line-width': 2.5,
-        'line-offset': 18,
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#e629ff",
+          "line-width": 2.5,
+          "line-offset": 18
+      }
     },
     {
       // "id": "study-FHAD_neg_CLSD",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f', project_status: [9, 10], project_type: [18] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#e629ff',
-        'line-width': 2.5,
-        'line-offset': -14,
-        'line-dasharray': [1, 2],
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#e629ff",
+          "line-width": 2.5,
+          "line-offset": -14,
+          "line-dasharray": [1, 2]
+      }
     },
     {
       // "id": "study-FHAD_pos_CLSD",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f', project_status: [9, 10], project_type: [18] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#e629ff',
-        'line-width': 2.5,
-        'line-offset': 14,
-        'line-dasharray': [1, 2],
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#e629ff",
+          "line-width": 2.5,
+          "line-offset": 14,
+          "line-dasharray": [1, 2]
+      }
     },
     {
       // "id": "capital_neg_CLSD",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f', project_status: [9, 10], project_type: [5] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-offset': -10,
-        'line-width': 2.5,
-        'line-color': '#f5adff',
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-offset": -10,
+          "line-width": 2.5,
+          "line-color": "#f5adff"
+      }
     },
     {
       // "id": "capital_pos_CLSD",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f', project_status: [9, 10], project_type: [5] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-width': 2.5,
-        'line-offset': 10,
-        'line-color': '#f5adff',
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-width": 2.5,
+          "line-offset": 10,
+          "line-color": "#f5adff"
+      }
     },
     {
       // "id": "maintenance_neg_CLSD",
-      type: 'line',
+      "type": "line",
       metadata: {
         'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f',
         project_status: [9, 10],
         project_type: [7, 8, 9, 10, 11, 17],
       },
-
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-offset': -6,
-        'line-width': 2.5,
-        'line-dasharray': [3, 3],
-        'line-color': '#f5adff',
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-offset": -6,
+          "line-width": 2.5,
+          "line-dasharray": [3, 3],
+          "line-color": "#f5adff"
+      }
     },
     {
       // "id": "maintenance_pos_CLSD",
-      type: 'line',
+      "type": "line",
       metadata: {
         'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f',
         project_status: [9, 10],
         project_type: [7, 8, 9, 10, 11, 17],
       },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-width': 2.5,
-        'line-dasharray': [3, 3],
-        'line-offset': 6,
-        'line-color': '#f5adff',
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-width": 2.5,
+          "line-dasharray": [3, 3],
+          "line-offset": 6,
+          "line-color": "#f5adff"
+      }
     },
     {
       // "id": "z13_allstudy_neg_CLSD",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f', project_status: [9, 10], project_type: [1,18] },
       'source-layer': 'pluto15v1',
-      maxzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#e629ff',
-        'line-width': 2.5,
-        'line-offset': -4.8,
-      },
+      "maxzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#e629ff",
+          "line-width": 2.5,
+          "line-offset": -4.8
+      }
     },
     {
       // "id": "z13_allstudy_pos_CLSD",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f', project_status: [9, 10], project_type: [1, 18] },
       'source-layer': 'pluto15v1',
-      maxzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#e629ff',
-        'line-width': 2.5,
-        'line-offset': 4.8,
-      },
+      "maxzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#e629ff",
+          "line-width": 2.5,
+          "line-offset": 4.8
+      }
     },
     {
       // "id": "z13_allproj_neg_CLSD",
-      type: 'line',
+      "type": "line",
       metadata: {
         'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f',
         project_status: [9, 10],
         project_type: [1,18,2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 17, 12, 14, 16, 17],
       },
       'source-layer': 'pluto15v1',
-      maxzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#f5adff',
-        'line-offset': -2,
-        'line-width': 2.5,
-      },
+      "maxzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#f5adff",
+          "line-offset": -2,
+          "line-width": 2.5
+      }
     },
     {
       // "id": "z13_allproj_pos_CLSD",
-      type: 'line',
+      "type": "line",
       metadata: {
         'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f',
         project_status: [9, 10],
         project_type: [1,18,2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 17, 12, 14, 16, 17],
       },
       'source-layer': 'pluto15v1',
-      maxzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#f5adff',
-        'line-width': 2.5,
-        'line-offset': 2,
-      },
+      "maxzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#f5adff",
+          "line-width": 2.5,
+          "line-offset": 2
+      }
     },
     {
       // "id": "study-MDP_neg_CNCL",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda', project_status: [7, 8], project_type: [1] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#a8052e',
-        'line-width': 2.5,
-        'line-offset': -18,
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#a8052e",
+          "line-width": 2.5,
+          "line-offset": -18
+      }
     },
     {
       // "id": "study-MDP_pos_CNCL",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda', project_status: [7, 8], project_type: [1] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#a8052e',
-        'line-width': 2.5,
-        'line-offset': 18,
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#a8052e",
+          "line-width": 2.5,
+          "line-offset": 18
+      }
     },
     {
       // "id": "study-FHAD_neg_CNCL",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda', project_status: [7, 8], project_type: [18] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#a8052e',
-        'line-width': 2.5,
-        'line-offset': -14,
-        'line-dasharray': [1, 2],
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#a8052e",
+          "line-width": 2.5,
+          "line-offset": -14,
+          "line-dasharray": [1, 2]
+      }
     },
     {
       // "id": "study-FHAD_pos_CNCL",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda', project_status: [7, 8], project_type: [18] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#a8052e',
-        'line-width': 2.5,
-        'line-offset': 14,
-        'line-dasharray': [1, 2],
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#a8052e",
+          "line-width": 2.5,
+          "line-offset": 14,
+          "line-dasharray": [1, 2]
+      }
     },
     {
       // "id": "capital_neg_CNCL",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda', project_status: [7, 8], project_type: [5] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-offset': -10,
-        'line-width': 2.5,
-        'line-color': '#fd4e7a',
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-offset": -10,
+          "line-width": 2.5,
+          "line-color": "#fd4e7a"
+      }
     },
     {
       // "id": "capital_pos_CNCL",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda', project_status: [7, 8], project_type: [5] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-width': 2.5,
-        'line-offset': 10,
-        'line-color': '#fd4e7a',
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-width": 2.5,
+          "line-offset": 10,
+          "line-color": "#fd4e7a"
+      }
     },
     {
       // "id": "maintenance_neg_CNCL",
-      type: 'line',
+      "type": "line",
       metadata: {
         'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda',
         project_status: [7, 8],
         project_type: [7, 8, 9, 10, 11, 17],
       },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-offset': -6,
-        'line-width': 2.5,
-        'line-dasharray': [3, 3],
-        'line-color': '#fd4e7a',
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-offset": -6,
+          "line-width": 2.5,
+          "line-dasharray": [3, 3],
+          "line-color": "#fd4e7a"
+      }
     },
     {
       // "id": "maintenance_pos_CNCL",
-      type: 'line',
+      "type": "line",
       metadata: {
         'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda',
         project_status: [7, 8],
         project_type: [7, 8, 9, 10, 11, 17],
       },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-width': 2.5,
-        'line-dasharray': [3, 3],
-        'line-offset': 6,
-        'line-color': '#fd4e7a',
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-width": 2.5,
+          "line-dasharray": [3, 3],
+          "line-offset": 6,
+          "line-color": "#fd4e7a"
+      }
     },
     {
       // "id": "z13_allstudy_neg_CNCL",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda', project_status: [8], project_type: [1,18] },
       'source-layer': 'pluto15v1',
-      maxzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#a8052e',
-        'line-width': 2.5,
-        'line-offset': -4.8,
-      },
+      "maxzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#a8052e",
+          "line-width": 2.5,
+          "line-offset": -4.8
+      }
     },
     {
       // "id": "z13_allstudy_pos_CNCL",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda', project_status: [8], project_type: [1, 18] },
       'source-layer': 'pluto15v1',
-      maxzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#a8052e',
-        'line-width': 2.5,
-        'line-offset': 4.8,
-      },
+      "maxzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#a8052e",
+          "line-width": 2.5,
+          "line-offset": 4.8
+      }
     },
     {
       // "id": "z13_allproj_neg_CNCL",
-      type: 'line',
+      "type": "line",
       metadata: {
         'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda',
         project_status: [7, 8],
         project_type: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 17, 12, 14, 16, 17],
       },
       'source-layer': 'pluto15v1',
-      maxzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#fd4e7a',
-        'line-offset': -2,
-        'line-width': 2.5,
-      },
+      "maxzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#fd4e7a",
+          "line-offset": -2,
+          "line-width": 2.5
+      }
     },
     {
       // "id": "z13_allproj_pos_CNCL",
-      type: 'line',
+      "type": "line",
       metadata: {
         'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda',
         project_status: [7, 8],
         project_type: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 17, 12, 14, 16, 17],
       },
       'source-layer': 'pluto15v1',
-      maxzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#fd4e7a',
-        'line-width': 2.5,
-        'line-offset': 2,
-      },
+      "maxzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#fd4e7a",
+          "line-width": 2.5,
+          "line-offset": 2
+      }
     },
     {
       // "id": "study-MDP_neg_ACTV",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': 'ad742fba24a74c724837d82e41ee6880', project_status: [5], project_type: [1] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#00c247',
-        'line-width': 2.5,
-        'line-offset': -18,
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#00c247",
+          "line-width": 2.5,
+          "line-offset": -18
+      }
     },
     {
       // "id": "study-MDP_pos_ACTV",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': 'ad742fba24a74c724837d82e41ee6880', project_status: [5], project_type: [1] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#00c247',
-        'line-width': 2.5,
-        'line-offset': 18,
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#00c247",
+          "line-width": 2.5,
+          "line-offset": 18
+      }
     },
     {
       // "id": "study-FHAD_neg_ACTV",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': 'ad742fba24a74c724837d82e41ee6880', project_status: [5], project_type: [18] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#00c247',
-        'line-width': 2.5,
-        'line-offset': -14,
-        'line-dasharray': [1, 2],
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#00c247",
+          "line-width": 2.5,
+          "line-offset": -14,
+          "line-dasharray": [1, 2]
+      }
     },
     {
       // "id": "study-FHAD_pos_ACTV",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': 'ad742fba24a74c724837d82e41ee6880', project_status: [5], project_type: [18] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#00c247',
-        'line-width': 2.5,
-        'line-offset': 14,
-        'line-dasharray': [1, 2],
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#00c247",
+          "line-width": 2.5,
+          "line-offset": 14,
+          "line-dasharray": [1, 2]
+      }
     },
     {
       // "id": "capital_neg_ACTV",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': 'ad742fba24a74c724837d82e41ee6880', project_status: [5], project_type: [5] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#b5ff3d',
-        'line-offset': -10,
-        'line-width': 2.5,
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#b5ff3d",
+          "line-offset": -10,
+          "line-width": 2.5
+      }
     },
     {
       // "id": "capital_pos_ACTV",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': 'ad742fba24a74c724837d82e41ee6880', project_status: [5], project_type: [5] },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#b5ff3d',
-        'line-width': 2.5,
-        'line-offset': 10,
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#b5ff3d",
+          "line-width": 2.5,
+          "line-offset": 10
+      }
     },
     {
       // "id": "maintenance_neg_ACTV",
-      type: 'line',
+      "type": "line",
       metadata: {
         'mapbox:group': 'ad742fba24a74c724837d82e41ee6880',
         project_status: [5],
         project_type: [7, 8, 9, 10, 11, 17],
       },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#b5ff3d',
-        'line-offset': -6,
-        'line-width': 2.5,
-        'line-dasharray': [3, 3],
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#b5ff3d",
+          "line-offset": -6,
+          "line-width": 2.5,
+          "line-dasharray": [3, 3]
+      }
     },
     {
       // "id": "maintenance_pos_ACTV",
-      type: 'line',
+      "type": "line",
       metadata: {
         'mapbox:group': 'ad742fba24a74c724837d82e41ee6880',
         project_status: [5],
         project_type: [7, 8, 9, 10, 11, 17],
       },
       'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#b5ff3d',
-        'line-offset': 6,
-        'line-width': 2.5,
-        'line-dasharray': [3, 3],
-      },
+      "minzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#b5ff3d",
+          "line-offset": 6,
+          "line-width": 2.5,
+          "line-dasharray": [3, 3]
+      }
     },
     {
       // "id": "z13_allstudy_neg_ACTV",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': 'ad742fba24a74c724837d82e41ee6880', project_status: [5], project_type: [1] },
       'source-layer': 'pluto15v1',
-      maxzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#00c247',
-        'line-width': 2.5,
-        'line-offset': -4.8,
-      },
+      "maxzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#00c247",
+          "line-width": 2.5,
+          "line-offset": -4.8
+      }
     },
     {
       // "id": "z13_allstudy_pos_ACTV",
-      type: 'line',
+      "type": "line",
       metadata: { 'mapbox:group': 'ad742fba24a74c724837d82e41ee6880' , project_status: [5], project_type: [1]},
       'source-layer': 'pluto15v1',
-      maxzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#00c247',
-        'line-width': 2.5,
-        'line-offset': 4.8,
-      },
+      "maxzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#00c247",
+          "line-width": 2.5,
+          "line-offset": 4.8
+      }
     },
     {
       // "id": "z13_allproj_neg_ACTV",
-      type: 'line',
+      "type": "line",
       metadata: {
         'mapbox:group': 'ad742fba24a74c724837d82e41ee6880',
         project_status: [5],
         project_type: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 17, 12, 14, 16, 17],
       },
       'source-layer': 'pluto15v1',
-      maxzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#b5ff3d',
-        'line-offset': -2,
-        'line-width': 2.5,
-      },
+      "maxzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#b5ff3d",
+          "line-offset": -2,
+          "line-width": 2.5
+      }
     },
     {
       // "id": "z13_allproj_pos_ACTV",
-      type: 'line',
+      "type": "line",
       metadata: {
         'mapbox:group': 'ad742fba24a74c724837d82e41ee6880',
         project_status: [5],
         project_type: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 17, 12, 14, 16, 17],
       },
       'source-layer': 'pluto15v1',
-      maxzoom: 13,
-      layout: { 'line-cap': 'round' },
-      paint: {
-        'line-color': '#b5ff3d',
-        'line-width': 2.5,
-        'line-offset': 2,
-      },
+      "maxzoom": 13,
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#b5ff3d",
+          "line-width": 2.5,
+          "line-offset": 2
+      }
     },
-    // ...PROJECTS_STYLES[MHFD_PROJECTS]
+    {
+      // "id": "propacq__cncl",
+      "type": "symbol",
+      metadata: { 'mapbox:group': 'bdf3db001830c897392db56b343f448b', project_status: [7, 8], project_type: [13] },
+      'source-layer': 'pluto15v1',
+      "layout": {
+          "icon-image": "propacq_RED_small",
+          'icon-ignore-placement': true,
+          'text-allow-overlap': true,
+          'icon-allow-overlap': true,
+          'text-ignore-placement': true,
+          "icon-size": 0.5,
+          "icon-padding": 0
+      },
+      "paint": {}
+    },
+    {
+      // "id": "propacq__draft",
+      "type": "symbol",
+      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1], project_type: [13] },  'source-layer': 'pluto15v1',
+      "layout": {
+          "icon-image": "propacq_ORANGE_bold_small",
+          'icon-ignore-placement': true,
+          'text-allow-overlap': true,
+          'icon-allow-overlap': true,
+          'text-ignore-placement': true,
+          "icon-size": 0.5,
+          "icon-padding": 0
+      },
+      "paint": {}
+    },
+    {
+      // "id": "propacq__rqst",
+      "type": "symbol",
+      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [2], project_type: [13] },
+      'source-layer': 'pluto15v1',
+      "layout": {
+          "icon-image": "propacq_PINK_bold_small",
+          'icon-ignore-placement': true,
+          'text-allow-overlap': true,
+          'icon-allow-overlap': true,
+          'text-ignore-placement': true,
+          "icon-size": 0.5,
+          "icon-padding": 0
+      },
+      "paint": {}
+    },
+    {
+      // "id": "propacq__aprvd",
+      "type": "symbol",
+      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [3], project_type: [13] }, 
+      'source-layer': 'pluto15v1',
+      "layout": {
+          "icon-image": "propacq_GREEN_bold_small",
+          'icon-ignore-placement': true,
+          'text-allow-overlap': true,
+          'icon-allow-overlap': true,
+          'text-ignore-placement': true,
+          "icon-size": 0.5,
+          "icon-padding": 0
+      },
+      "paint": {}
+    },
+    {
+      // "id": "rd__cncl",
+      "type": "symbol",
+      metadata: { 'mapbox:group': 'bdf3db001830c897392db56b343f448b', project_status: [7, 8], project_type: [15] },
+      'source-layer': 'pluto15v1',
+      "layout": {
+          "icon-image": "RD_RED_small",
+          'icon-ignore-placement': true,
+          'text-allow-overlap': true,
+          'icon-allow-overlap': true,
+          'text-ignore-placement': true,
+          "icon-size": 0.5,
+          "icon-padding": 0
+      },
+      "paint": {}
+    },
+    {
+      // "id": "rd__draft",
+      "type": "symbol",
+      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1], project_type: [15] },
+      'source-layer': 'pluto15v1',
+      "layout": {
+          "icon-image": "RD_ORANGE_bold_small",
+          'icon-ignore-placement': true,
+          'text-allow-overlap': true,
+          'icon-allow-overlap': true,
+          'text-ignore-placement': true,
+          "icon-size": 0.5,
+          "icon-padding": 0
+      },
+      "paint": {}
+    },
+    {
+      // "id": "rd__rqst",
+      "type": "symbol",
+      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [2], project_type: [15] }, 
+      'source-layer': 'pluto15v1',
+      "layout": {
+          "icon-image": "RD_PINK_bold_small",
+          'icon-ignore-placement': true,
+          'text-allow-overlap': true,
+          'icon-allow-overlap': true,
+          'text-ignore-placement': true,
+          "icon-size": 0.5,
+          "icon-padding": 0
+      },
+      "paint": {}
+    },
+    {
+      // "id": "rd__aprvd",
+      "type": "symbol",
+      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [3], project_type: [15] },
+      'source-layer': 'pluto15v1',
+      "layout": {
+          "icon-image": "RD_GREEN_bold_small",
+          'icon-ignore-placement': true,
+          'text-allow-overlap': true,
+          'icon-allow-overlap': true,
+          'text-ignore-placement': true,
+          "icon-size": 0.5,
+          "icon-padding": 0
+      },
+      "paint": {}
+    }
   ],
 };
 
