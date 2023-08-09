@@ -1,12 +1,14 @@
 import { Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
+import { WINDOW_WIDTH } from "constants/constants";
 import React from "react";
+
 
 const ListViewMap = () => {
   const columns: ColumnsType<any>  = [
     {
       title: 'Project Name',
-      width: '220px',
+      width: WINDOW_WIDTH > 1900 ? '368px':'220px',
       dataIndex: 'name',
       key: 'name',
       fixed: 'left',
@@ -15,7 +17,7 @@ const ListViewMap = () => {
     },
     {
       title: 'Type',
-      width: '147px',
+      width: WINDOW_WIDTH > 1900 ? '188px':'147px',
       dataIndex: 'type',
       key: 'type',
       sorter: (a, b) => a.type - b.type,
@@ -24,7 +26,7 @@ const ListViewMap = () => {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
-      width: '86px',
+      width: WINDOW_WIDTH > 1900 ? '106px':'86px',
       sorter: (a, b) => a.status - b.status,
       render: (text: any) => <span className={"status-projects-"+ (text.toLowerCase())}>{text}</span>,
     },
@@ -32,28 +34,28 @@ const ListViewMap = () => {
       title: 'Phase',
       dataIndex: 'phase',
       key: 'phase',
-      width: '100px',
+      width: WINDOW_WIDTH > 1900 ? '125px':'100px',
       sorter: (a, b) => a.phase - b.phase,
     },
     {
       title: 'Stream',
       dataIndex: 'stream',
       key: 'stream',
-      width: '131px',
+      width: WINDOW_WIDTH > 1900 ? '153px':'131px',
       sorter: (a, b) => a.stream - b.stream,
     },
     {
       title: 'Sponsor',
       dataIndex: 'sponsor',
       key: 'sponsor',
-      width: '110px',
+      width: WINDOW_WIDTH > 1900 ? '125px':'110px',
       sorter: (a, b) => a.sponsor - b.sponsor,
     },
     {
       title: 'Est. Cost',
       dataIndex: 'cost',
       key: 'cost',
-      width: '108px',
+      width: WINDOW_WIDTH > 1900 ? '109px':'108px',
       sorter: (a, b) => a.cost - b.cost,
     },
   ];
@@ -177,7 +179,7 @@ const ListViewMap = () => {
     },
   ]
   return (
-    <Table columns={columns} dataSource={data} scroll={{ x: 996, y: 'calc(100vh - 315px)' }} pagination={false} className="table-list-map"/>
+    <Table columns={columns} dataSource={data} scroll={{x: WINDOW_WIDTH>1900? 1174: 996, y: 'calc(100vh - 315px)' }} pagination={false} className="table-list-map"/>
   )
 };
 
