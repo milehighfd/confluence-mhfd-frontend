@@ -25,8 +25,6 @@ const AutoCompleteDropdown = (
     tabKey,
     locality,
     boardStatus,
-    filterMap,
-    namespaceId,
   } = useRequestState();
   const {
     setShowAnalytics,
@@ -42,7 +40,6 @@ const AutoCompleteDropdown = (
     setLocalityType,
     setTabKey,
     setIsOnSelected,
-    loadColumns,
   } = useRequestDispatch();
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const [dropdownSelected, setDropdownSelected] = useState('');
@@ -66,82 +63,8 @@ const AutoCompleteDropdown = (
           setLocality(dropdownSelected);
         }
       }
-      if (filterMap && filterMap?.project_service_areas?.length > 0) {
-        setServiceAreasSelected(filterMap?.project_service_areas?.map((_: any) => true))
-      }
-      if (filterMap && filterMap?.currentId?.length > 0) {
-        setProjectStatusesSelected(filterMap?.currentId?.map((_: any) => true))
-      }
     }
   }, [year]);
-
-  useEffect(() => {
-    if (type === WORK_REQUEST) {
-      if (filterMap && filterMap?.project_counties?.length > 0) {
-        setCountiesSelected(filterMap?.project_counties?.map((_: any) => true));
-      }
-      if (filterMap && filterMap?.project_service_areas?.length > 0) {
-        setServiceAreasSelected(filterMap?.project_service_areas?.map((_: any) => true))
-      }
-    }
-    if (filterMap && filterMap?.currentId?.length > 0) {
-      setProjectStatusesSelected(filterMap?.currentId?.map((_: any) => true))
-    }
-    updateFilterSelected(dropdownSelected)
-  }, [filterMap, dropdownSelected, type])
-
-  const updateFilterSelected = (value: any) => {
-    if(type === WORK_PLAN_TAB && year >= YEAR_LOGIC_2024){
-      if (filterMap && value) {
-        const priorityFilterList = [true, true, true, true, true];
-        setPrioritySelected(priorityFilterList);
-        setIsLocatedInSouthPlateRiverSelected([false]);
-        let filterSelected = [false];
-        if (filterMap?.project_local_governments?.length > 0) {
-          setJurisdictionSelected(filterMap?.project_local_governments?.map((_: any) => true));
-        }
-        if (value === 'MHFD District Work Plan' || value === MMFD_LOCALITY) {
-          filterMap?.project_service_areas?.forEach((p: any, index: number) => {
-            filterSelected[index] = true;
-          })
-          filterMap?.project_counties?.forEach((p: any, index: number) => {
-            filterSelected[index] = true;
-          })
-          filterMap?.currentId?.forEach((p: any, index: number) => {
-            filterSelected[index] = true;
-          })
-          setProjectStatusesSelected(filterSelected);
-          setCountiesSelected(filterSelected);
-          setServiceAreasSelected(filterSelected)
-        } else {
-          if (value.includes('County')) {
-            const valueName = value.replace('County', '').trim();
-            filterMap?.project_counties.forEach((p: any, index: number) => {
-              if (p.county_name === valueName) {
-  
-                filterSelected[index] = true;
-              } else {
-                filterSelected[index] = false;
-              }
-            })
-            setCountiesSelected(filterSelected);
-          }
-          if (value.includes('Service Area')) {
-            const valueName = value.replace('Service Area', '').trim();
-            filterMap?.project_service_areas.forEach((p: any, index: number) => {
-              if (p.service_area_name === valueName) {
-                filterSelected[index] = true;
-              } else {
-                filterSelected[index] = false;
-              }
-            })
-            setServiceAreasSelected(filterSelected)
-          }
-        }
-      }
-    }
-    loadColumns(namespaceId)
-  }
 
   const onSelect = async (value: any) => {
     setDropdownSelected(value);
@@ -158,8 +81,6 @@ const AutoCompleteDropdown = (
     if (type === WORK_PLAN_TAB) {
       if (year < YEAR_LOGIC_2024) {
         setLocality(value);
-      } else {
-        updateFilterSelected(value);
       }
     } else {
       setLocality(value);

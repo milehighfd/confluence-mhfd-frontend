@@ -49,6 +49,8 @@ import {
   loadFilters,
   updateTargetCost,
   emptyBoard,
+  toggleFilter,
+  setFilterRequest,
 } from 'store/actions/requestActions';
 import { DragAndDropCards } from 'store/types/requestTypes';
 
@@ -201,6 +203,12 @@ export const useRequestDispatch = () => {
   const _emptyBoard = useCallback(() => {
     dispatch(emptyBoard());
   }, [dispatch]);
+  const _toggleFilter = useCallback((type: any, id: any) => {
+    dispatch(toggleFilter(type, id));
+  }, [dispatch]);
+  const _setFilterRequest = useCallback((filterRequest: any) => {
+    dispatch(setFilterRequest(filterRequest));
+  }, [dispatch]);
   return {
     setShowModalProject: _setShowModalProject,
     setCompleteProjectData: _setCompleteProjectData,
@@ -250,5 +258,7 @@ export const useRequestDispatch = () => {
     loadFilters: _loadFilters,
     updateTargetCost: _updateTargetCost,
     emptyBoard: _emptyBoard,
+    toggleFilter: _toggleFilter,
+    setFilterRequest: _setFilterRequest,
   };
 };

@@ -187,7 +187,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   }
   
   let labelOrigin = project.origin;
-  if (labelOrigin.length > 9) {
+  if (labelOrigin?.length > 9) {
     labelOrigin = labelOrigin.substr(0, 9) + '...';
   }
 
