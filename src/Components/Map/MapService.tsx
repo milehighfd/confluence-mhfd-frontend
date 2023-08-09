@@ -115,7 +115,9 @@ class MapService {
       'custom-sprite/prop-acq_YELLOW.png',
       'custom-sprite/rd_RED.png',
       'custom-sprite/prop-acq_RED.png',
-      'custom-sprite/MEP-X.png'
+      'custom-sprite/MEP-X.png',
+      'custom-sprite/propacq_RED_small.png',
+      'custom-sprite/RD_RED_small.png',
     ];
     imagesPaths.forEach((imagePath: string) => {
       this.map.loadImage(imagePath, (error: any, image: any) => {
