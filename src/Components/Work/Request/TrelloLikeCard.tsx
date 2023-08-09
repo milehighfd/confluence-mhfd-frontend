@@ -147,8 +147,10 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
       color = '#9309EA';
       break;
     case 'Approved':
-      backgroundColor = 'rgba(97, 158, 234, 0.15)';
-      color = '#497BF3';
+      // backgroundColor = 'rgba(97, 158, 234, 0.15)';
+      // color = '#497BF3';
+      backgroundColor = 'rgba(143, 252, 83, 0.3)';
+      color = '#139660';
       break;
     case 'Initiated':
       backgroundColor = 'rgba(41, 196, 153, 0.08)';
