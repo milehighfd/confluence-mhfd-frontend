@@ -9,6 +9,7 @@ import LoadingView from "Components/Loading/LoadingView";
 import { useProfileState } from "hook/profileHook";
 import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
+import { MHFD_PROJECTS } from "constants/constants";
 
 const ListViewMap = ({
   totalElements,
@@ -25,6 +26,7 @@ const ListViewMap = ({
   const [dataSet, setDataSet] = useState<any>([]);
   const [showData, setShowData] = useState<any>([]);
   const [showData2, setShowData2] = useState<any>([]);
+  const [hoveredRow, setHoveredRow] = useState<any>(null);
   const [state, setState] = useState({
     items: Array.from({ length: size }),
     hasMore: true
@@ -35,13 +37,15 @@ const ListViewMap = ({
   const { nextPageOfCards, infiniteScrollHasMoreItems, infiniteScrollItems } = useProjectState();
   const {
     favorites,
-    paramFilters: params
+    selectedOnMap,
+    paramFilters: params,
   } = useMapState();
   const {
     favoriteList,
     getExtraProjects,
     setFilterTabNumber,
-    setZoomProjectOrProblem
+    setZoomProjectOrProblem,
+    setHighlighted,
   } = useMapDispatch();
 
   useEffect(() => {
@@ -110,6 +114,7 @@ const ListViewMap = ({
         percentaje: ci?.percentage,
         problemid: ci?.problemid,
         coordinates: ci?.coordinates,
+        cartodb: ci?.cartodb_id,
       };
       return output;
     });
@@ -269,6 +274,9 @@ const ListViewMap = ({
       }
     }
   };  
+  const setValuesMap = (type: string, value: string) => {
+    setHighlighted({type: type, value: value});
+  }
   const handleScroll = (e:any) => {
     const { scrollTop, clientHeight, scrollHeight } = e.target;
     if (scrollHeight - scrollTop === clientHeight) {
@@ -301,32 +309,96 @@ const ListViewMap = ({
         loader={<></>}
       >
         {type !== FILTER_PROBLEMS_TRIGGER ?
-        <Table onRow={(record, rowIndex) => {
-          return {
-            onClick: (event) => {
-              changeCenter(record.project_id, '');
-            },
-          };
-        }} 
-        className="table-list-map" 
-        columns={columns} 
-        dataSource={showData} 
-        pagination={false} 
-        scroll={{ x: 996, y: 'calc(100vh - 315px)' }}/>:
-        <Table onRow={(record, rowIndex) => {
-          return {
-            onClick: (event) => {
-              changeCenter('', record.coordinates)
-            },
-          };
-        }} 
-        className="table-list-map" 
-        columns={columnsProblem} 
-        dataSource={showData2} 
-        pagination={false} 
-        scroll={{ x: 996, y: 'calc(100vh - 315px)' }}/>}
-      </InfiniteScroll>
-    </div>
+        <Table
+          onRow={(record, rowIndex) => {
+            return {
+              onClick: (event) => {
+                changeCenter(record.project_id, '');
+              },
+              onMouseEnter: (e) =>  {
+                let typeInData:any 
+                let valueInData:any  
+                if(record.project_id){
+                  typeInData = MHFD_PROJECTS;
+                  valueInData = record.project_id;
+                } else if(record.problemid){
+                  typeInData = record.type;
+                  valueInData = record.cartodb_id;
+                }
+                e.stopPropagation()
+                setHoveredRow(valueInData)
+                return setValuesMap(typeInData, valueInData)
+              },
+            };
+          }} 
+          onHeaderRow={(record, rowIndex) => {
+            return {
+              onMouseEnter: (e) =>  {
+                setHoveredRow(-1)
+              },
+            }
+          }}
+          className="table-list-map" 
+          columns={columns} 
+          dataSource={showData} 
+          pagination={false} 
+          scroll={{ x: 996, y: 'calc(100vh - 315px)' }}
+          rowClassName={(record, index) => {
+            if(selectedOnMap.id !== -1 &&  record.project_id === selectedOnMap.id){
+              return ('row-geometry-body-selected')
+            }
+            if(hoveredRow === record.project_id){
+              return ('row-geometry-body-selected')
+            }
+            return ('')
+          }}
+        />
+        : <Table
+          onRow={(record, rowIndex) => {
+            return {
+              onClick: (event) => {
+                changeCenter('', record.coordinates)
+              },
+              onMouseEnter: (e) =>  {
+                let typeInData:any 
+                let valueInData:any  
+                if(record.project_id){
+                  typeInData = MHFD_PROJECTS;
+                  valueInData = record.project_id;
+                } else if(record.problemid){
+                  typeInData = record.type;
+                  valueInData = record.cartodb;
+                }
+                e.stopPropagation()
+                setHoveredRow(valueInData)
+                return setValuesMap(typeInData, valueInData)
+              },
+            };
+          }} 
+          onHeaderRow={(record, rowIndex) => {
+            return {
+              onMouseEnter: (e) =>  {
+                setHoveredRow(-1)
+              },
+            }
+          }}
+          className="table-list-map" 
+          columns={columnsProblem} 
+          dataSource={showData2} 
+          pagination={false} 
+          scroll={{ x: 996, y: 'calc(100vh - 315px)' }}
+          rowClassName={(record, index) => {
+            if(selectedOnMap.id !== -1 && record.cartodb === selectedOnMap.id){
+              return ('row-geometry-body-selected')
+            }
+            if(hoveredRow === record.cartodb){
+              return ('row-geometry-body-selected')
+            }
+            return ('')
+          }}
+        />}
+        </InfiniteScroll>
+      </div>
     </>
   )
 };
