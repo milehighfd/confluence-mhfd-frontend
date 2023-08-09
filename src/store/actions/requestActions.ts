@@ -262,6 +262,10 @@ export const loadColumns = (board_id: any) => {
       item.type === 'project_service_areas').map((r: any) => r.id),
       project_priorities: filterRequest?.filter((item: any, index: number) => item.selected && 
       item.type === 'project_priorities').map((r: any) => r.id),
+      status_board: filterRequest?.filter((item: any, index: number) => item.selected &&
+      item.type === 'status').map((r: any) => r.id),
+      sponsor_board: filterRequest?.filter((item: any, index: number) => item.selected &&
+      item.type === 'project_partners').map((r: any) => r.id),
       // status: filterRequest?.filter((item: any, index: number) => item.selected && 
       // item.type === 'currentId')?.map((r: any) => r?.id),
       // isSouthPlatteRiver: isLocatedInSouthPlateRiverFilter?.filter((_: any, index: number) => {
