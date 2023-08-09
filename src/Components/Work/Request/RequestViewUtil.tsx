@@ -1,5 +1,6 @@
 import { boardType } from 'Components/Work/Request/RequestTypes';
 import { NEW_PROJECT_TYPES } from 'constants/constants';
+import { STATUS_NAMES } from 'constants/constants';
 
 export const defaultColumns: any[] = [
   {
@@ -261,16 +262,17 @@ const groupBy = (arr: any, keyGetter: any) => {
 };
 
 export const splitProjectsIdsByStatuses = (projects: any) => {
+  console.log('Project ', projects );
   const projectsRelevantData = projects.map((p: any) => {
     return {
-      current_project_status: p.projectData?.currentId,
-      project_id: p.projectData?.project_id
+      code_project_type_id: p.projectData?.code_project_type?.code_project_type_id,
+      project_id: p.projectData?.project_id,
+      current_project_status_id: p.code_status_type_id,
+      current_status_name: STATUS_NAMES[p.code_status_type_id ?? 1],
     }
   });
   const groupedByStatusId = groupBy(projectsRelevantData, (item:any) => {
-    if (item.current_project_status?.length > 0 &&  item.current_project_status[0]) {
-      return item.current_project_status[0]?.code_status_type_id;
-    }
+    return item.current_project_status_id;
   });
   let newGroups: any = {};
   for( let key in groupedByStatusId) {
@@ -286,9 +288,7 @@ export const splitProjectsIdsByStatuses = (projects: any) => {
   }
   for(let key in groupedByStatusId) {
     const groupedByProjectType = groupBy(groupedByStatusId[key], (item: any) => {
-      if(item.current_project_status?.length > 0 && item.current_project_status[0]) {
-        return item.current_project_status[0]?.code_project_type_id;
-      }
+      return item.code_project_type_id;
     });
     newGroups[key] = groupedByProjectType
   }
@@ -297,6 +297,7 @@ export const splitProjectsIdsByStatuses = (projects: any) => {
       newGroups[key][subkey] = newGroups[key][subkey].map((value:any) => value.project_id);
     }
   }
+  console.log('Projects grouped first STATUS, second PROJECT TYPE', newGroups );
   // first key is STATUS  
   // second key is PROJECT TYPE
   return newGroups;

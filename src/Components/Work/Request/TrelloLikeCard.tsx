@@ -12,6 +12,7 @@ import { boardType } from './RequestTypes';
 import { MoreOutlined } from '@ant-design/icons';
 import { CopyProjectAlert } from './CopyProjectAlert';
 import { useRequestState } from 'hook/requestHook';
+import { STATUS_NAMES } from 'constants/constants';
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -37,8 +38,8 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   const {setZoomProject, updateSelectedLayers} = useProjectDispatch();
   const { project_id } = project;
   const project_name = project?.projectData?.project_name;
-  const statusArray = project?.projectData?.currentId;
-  let status = statusArray && statusArray.length > 0 ? statusArray[0].status_name : null;
+  const proj_status_type_id: any = project?.code_status_type_id ?? 1;
+  let status: any =  STATUS_NAMES[proj_status_type_id];
   const {id} = project;
   const [amount, setAmount] = useState(project[`req${columnIdx}`]);
   const priority = project[`originPosition${columnIdx}`];
