@@ -907,6 +907,15 @@ hr.filters-line {
     padding: 11px 10px;
     padding-right: 8px;
   }
+  .row-geometry-body-selected{
+    td {
+      border-bottom: 2px solid $green;
+      border-top: 2px solid $green;
+    }
+    .ant-table-cell-fix-right{
+      border-left: 2px solid $green;
+    }
+  }
   .project-name{
     font-size: 14px;
     font-weight: 500;
