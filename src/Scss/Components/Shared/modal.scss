@@ -1,6 +1,13 @@
 @use '../../Theme/styles';
 @import '../../Theme/styles.scss';
 
+//All Modal
+.center-modal{
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
 .card-dropdown {
   width: 220px;
   max-height: 290px;
