@@ -2809,7 +2809,7 @@ export const PROJECTS_STYLES_WR = {
     {
       // "id": "RD_DRAFT copy",
       "type": "symbol",
-      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1, 2, 3], project_type: [15] },
+      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1], project_type: [15] },
       'source-layer': 'pluto15v1',
       "layout": {
           "icon-size": 0.6,
