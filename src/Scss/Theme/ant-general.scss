@@ -386,6 +386,18 @@
   .ant-dropdown-menu-item {
     font-size: 14px !important;
   }
+  .ant-menu-submenu-popup {
+    .ant-menu {
+      min-width: 160px !important;
+      position: relative;
+      top: -16px;
+      padding: 10px 5px;
+      .ant-menu-item {
+        font-size: 19px;
+        line-height: 46.3px;
+      }
+    }
+  }
 }
 @media (min-width: 2550px) and (max-width: 3799px) {
   .ant-dropdown-menu-title-content {

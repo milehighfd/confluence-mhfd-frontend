@@ -331,6 +331,14 @@
       }
     }
   }
+  .option-line{
+    height: 2px !important;
+  }
+  .option-layout {
+    span{
+      margin-left: 16px;
+    }
+  }
 }
 
 @media (min-width: 2550px) and (max-width: 3799px) {
