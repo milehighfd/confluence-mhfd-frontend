@@ -589,10 +589,53 @@
       font-size: 16px;
       line-height: 140%;
       font-weight: 400;
+      margin-bottom: 16px;
     }
   }
   .body-edit-dates{
     height: 450px;
+    .img-confetti{
+      color: #11093C;
+      text-align: center;
+      font-family: Ubuntu;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 140%;
+      img{
+        margin-top: 60px;
+        margin-bottom: 40px;
+      }
+    }
+    .form-edit-dates{
+      text-align: left;
+      label{
+        margin-top: 16px;
+        color: #11093C;
+        font-family: Ubuntu;
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
+    }
+  }
+  .foot-edit-dates{
+    text-align: end;
+    padding: 16px 0px 0px 0px;
+    button{
+      padding: 12px 53px;
+      text-align: center;
+      font-family: Ubuntu;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      height: auto;
+    }
+    .btn-transparent{
+      opacity: 0.6;
+    }
   }
   .ant-modal-body{
     padding: 30px;

@@ -13,6 +13,7 @@ import { MoreOutlined } from '@ant-design/icons';
 import { CopyProjectAlert } from './CopyProjectAlert';
 import { useRequestState } from 'hook/requestHook';
 import { STATUS_NAMES } from 'constants/constants';
+import EditDatesModal from './EditDatesModal';
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -216,6 +217,8 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
       visible={showAmountModal}
       setVisible={setShowAmountModal}
       />
+    <EditDatesModal visible={showAmountModal}
+      setVisible={setShowAmountModal} />
     <div ref={divRef} className="card-wr" style={{ borderLeft: `${pageWidth > 2000? (pageWidth > 3000? '6':'5'):'3'}px solid ${borderColor}`, borderRadius: '4px' }} draggable={editable && !filtered}
       onDragStart={e => {
         onDragStart(e, project_id);

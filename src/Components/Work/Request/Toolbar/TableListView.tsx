@@ -36,11 +36,9 @@ const TableListView = () => {
             title: 'Project Name',
             dataIndex: 'name',
             width: '276px',
-            fixed: true,
+            fixed: 'left',
             render: (name: any) =>
-                <div style={{ fontSize: "15px", fontWeight: 'bold' }}>
-                    <span className='name'>{name}</span>
-                </div>,
+                <span className='name'>{name}</span>,
             sorter: {
                 compare: (a: { name: string; }, b: { name: string; }) => a.name.localeCompare(b.name),
             },            
@@ -50,9 +48,7 @@ const TableListView = () => {
             dataIndex: 'status',
             width: '80px',
             render: (status: any) =>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <span className={typeStatus(status)}>{status}</span>
-                </div>,
+                    <span className={typeStatus(status)}>{status}</span>,
             sorter: {
                 compare: (a: { status: string; }, b: { status: string; }) => a.status.localeCompare(b.status),
             },
@@ -251,7 +247,42 @@ const TableListView = () => {
     return (
         <div className='table-map-list'>
 
-            <Table columns={columns} dataSource={data} onChange={onChange} pagination={false} scroll={{ x: 1000, y:400 }} sticky />
+            <Table columns={columns} dataSource={data} pagination={false} scroll={{ x: 1026, y: 'calc(100vh - 270px)' }} summary={() => (
+                <Table.Summary fixed={ 'bottom'} >
+                  <Table.Summary.Row  style={{ height: '40px' }}>
+                      <Table.Summary.Cell index={0}  >
+                        Total Requested Funding
+                      </Table.Summary.Cell>
+                      <Table.Summary.Cell index={1}  ></Table.Summary.Cell>
+                      <Table.Summary.Cell index={2}></Table.Summary.Cell>
+                      <Table.Summary.Cell index={3}>
+                        $980,000
+                      </Table.Summary.Cell>
+                      <Table.Summary.Cell index={4}>
+                        $980,000
+                      </Table.Summary.Cell>
+                      <Table.Summary.Cell index={5}>
+                        $980,000
+                      </Table.Summary.Cell>
+                      <Table.Summary.Cell index={6}>
+                        $980,000
+                      </Table.Summary.Cell>
+                      <Table.Summary.Cell index={7}>
+                        $980,000
+                      </Table.Summary.Cell>
+                      <Table.Summary.Cell index={8}>
+                        $980,000
+                      </Table.Summary.Cell>
+                      <Table.Summary.Cell index={9}>
+                        $980,000
+                      </Table.Summary.Cell>
+                      <Table.Summary.Cell index={10}>
+                        $980,000
+                      </Table.Summary.Cell>
+                  </Table.Summary.Row>
+                </Table.Summary>
+            )}
+        />
 
         </div>
 
