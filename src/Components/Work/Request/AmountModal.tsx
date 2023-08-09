@@ -33,9 +33,10 @@ const AmountModal = ({ project, visible, setVisible }: {
   });
 
   const handleOk = (e: any) => {
+    const send = { ...cost, isMaintenance };
     datasets.putData(
       SERVER.BOARD_PROJECT_COST(board_project_id),
-      cost,
+      send,
       datasets.getToken()
     ).then((res: any) => {
       setCost(res.newCost);
