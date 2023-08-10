@@ -46,6 +46,7 @@ const Filter = () => {
   const [countyFilter, setCountyFilter] = useState<any[]>([]);
   const [jurisdictionFilter, setJurisdictionFilter] = useState<any[]>([]);
   const [projectStatusFilter, setProjectStatusFilter] = useState<any[]>([]);
+  const [sponsorFilter, setSponsorFilter] = useState<any[]>([]);
   const [priorityFilter, setPriorityFilter] = useState<any[]>([]);
   const [resetFilter, setResetFilter] = useState(true);
 
@@ -73,7 +74,8 @@ const Filter = () => {
     setServiceAreaFilter(filterRequest.filter((f: any) => f.type === 'project_service_areas'));
     setCountyFilter(filterRequest.filter((f: any) => f.type === 'project_counties'));
     setJurisdictionFilter(filterRequest.filter((f: any) => f.type === 'project_local_governments'));
-    setProjectStatusFilter(filterRequest.filter((f: any) => f.type === 'currentId'));
+    setProjectStatusFilter(filterRequest.filter((f: any) => f.type === 'status'));
+    setSponsorFilter(filterRequest.filter((f: any) => f.type === 'project_partners'));
     setPriorityFilter(filterRequest.filter((f: any) => f.type === 'project_priorities'));
   }, [filterRequest,resetFilter]);
 
@@ -114,17 +116,24 @@ const Filter = () => {
       className="work-utilities drawer-filter"
       mask={false}
     >
-      {/* {
+      {
         <FilterGroup
           label="Project Status"
           filterList={projectStatusFilter}
         />
-      } */}
+      }
       {
         tabActiveNavbar === 'WORK_PLAN' &&
         <FilterGroup
           label="Priority"
           filterList={priorityFilter}
+        />
+      }
+      {
+        tabActiveNavbar === 'WORK_PLAN' &&
+        <FilterGroup
+          label="Sponsor"
+          filterList={sponsorFilter}
         />
       }
       {

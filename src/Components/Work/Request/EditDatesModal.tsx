@@ -105,7 +105,7 @@ const EditDatesModal = ({
             setStep(step + 1)
           }}}
         >
-        Next</Button>
+        {step === 2 ?'Activate':'Next'}</Button>
       </div>
     </Modal>
   )
