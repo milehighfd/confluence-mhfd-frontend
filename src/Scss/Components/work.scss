@@ -2795,9 +2795,11 @@
     width: 36px;
     height: 38px;
     border-radius: 4px;
+    opacity: 0.5;
   }
   .buttons:hover{
     background: rgba(245, 247, 255, 0.80);
+    opacity: 1;
   }
   .buttons1{
     .ant-input{
