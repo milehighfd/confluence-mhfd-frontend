@@ -255,6 +255,7 @@ const CreateProjectMap = (type: any) => {
         console.log('e', e);
       },
     );
+    hideHighlighted();
     typeRef.current = type.type
     if((type.type === 'STUDY' && type.projectid === -1) 
     || ((type.type !== 'CAPITAL' && type.type !== 'MAINTENANCE') && (type.lastValue === 'capital' || type.lastValue === 'maintenance'))
@@ -264,7 +265,6 @@ const CreateProjectMap = (type: any) => {
       setStreamsList([]);
     }
     return () => {
-      setStreamsList([]);
       setStreamsIds([]);
       setComponentIntersected([]);
       setComponentGeom(undefined);
@@ -315,28 +315,29 @@ const CreateProjectMap = (type: any) => {
     }
   }, [listStreams]);
   useEffect(() => {
-    console.log('zoomGeom', zoomGeom, map);
     if (zoomGeom && map) {
+      map.map.fitBounds(zoomGeom);
       map.map.once('load', () => {
         map.map.fitBounds(zoomGeom);
       });
     }
   }, [zoomGeom, map]);
   useEffect(() => {
-    if (map) {
-      if (highlightedComponent.table && !magicAddingVariable) {
-        setFlagtoDraw(false);
-        hideHighlighted();
-        if (highlightedComponent.table.includes('stream_improvement_measure_copy')) {
-          showHighlighted(highlightedComponent.table, highlightedComponent.objectid);
-        } else {
-          showHighlighted(highlightedComponent.table, highlightedComponent.cartodb_id);
-        }
-      } else {
-        // hideHighlighted();
-        setFlagtoDraw(true);
-      }
-    }
+    // commented to avoid only one action to be highlighted instead of all actions in same table 
+    // if (map) {
+    //   if (highlightedComponent.table && !magicAddingVariable) {
+    //     setFlagtoDraw(false);
+    //     hideHighlighted();
+    //     if (highlightedComponent.table.includes('stream_improvement_measure_copy')) {
+    //       showHighlighted(highlightedComponent.table, highlightedComponent.objectid);
+    //     } else {
+    //       showHighlighted(highlightedComponent.table, highlightedComponent.cartodb_id);
+    //     }
+    //   } else {
+    //     // hideHighlighted();
+    //     setFlagtoDraw(true);
+    //   }
+    // }
   }, [highlightedComponent]);
   useEffect(() => {
     let mask;
@@ -486,6 +487,7 @@ const CreateProjectMap = (type: any) => {
 
       componentsList = listComponents.result;
     } else {
+      hideHighlighted();
       // setStreamIntersected({ geom: null }); // TODO entender porque se borraba la intersection cuando no habia listcompoennts
       // setStreamsIds([]);
       if (!flagInit) {
@@ -496,6 +498,7 @@ const CreateProjectMap = (type: any) => {
 
   useEffect(() => {
     if (flagtoDraw && listComponents && listComponents.result && listComponents.result.length > 0) {
+      hideHighlighted();
       showHoverComponents();
     }
   }, [componentsHover, flagtoDraw]);
@@ -661,8 +664,12 @@ const CreateProjectMap = (type: any) => {
               },
             });
             setTimeout(() => {
-              map.map.moveLayer('streamIntersected');
-            }, 4500);
+              map.map.once('idle', () => {
+                if (map.map.getLayer('streamIntersected')) {
+                  map.map.moveLayer('streamIntersected');
+                }
+              })
+            }, 5500);
             let poly = getTurfGeom(geom);
             if (map.map && poly) {
               let bboxBounds = turf.bbox(poly);
@@ -690,7 +697,6 @@ const CreateProjectMap = (type: any) => {
     }
   }, [streamIntersected]);
   useEffect(() => {
-    console.log('Stream intersected ids', streamsIntersectedIds);
     if (streamsIntersectedIds.length > 0) {
       let streamsCodes: any = streamsIntersectedIds
         .filter((fstr: any) => fstr.mhfd_code)
@@ -719,6 +725,13 @@ const CreateProjectMap = (type: any) => {
             });
           }, timer);
         }
+        setTimeout(() => {
+          map.map.once('idle', () => {
+            if (map.map.getLayer('streams-intersects')) {
+              map.map.moveLayer('streams-intersects');
+            }
+          })
+        }, 5500);
       });
     } else {
       map.removeLayer('streams-intersects');

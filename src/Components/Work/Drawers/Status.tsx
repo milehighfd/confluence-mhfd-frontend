@@ -1,55 +1,64 @@
 import React, { useEffect, useState } from "react";
-import { Drawer, Button,  List, Row, Col, Popover, Switch, Space } from 'antd';
-import { getToken, putData } from "../../../Config/datasets";
+import { Drawer, Button,  List, Popover, Switch } from 'antd';
+import { getToken, putData } from "Config/datasets";
 import { SubmitModal } from "../Request/SubmitModal";
-import { boardType } from "../Request/RequestTypes";
 import { UPDATE_BOARD_BY_ID } from "Config/endpoints/board";
-import { useRequestDispatch } from "hook/requestHook";
+import { useRequestDispatch, useRequestState } from "hook/requestHook";
 import { WrongModal } from "../Request/WrongModal";
+import { useMapState } from "hook/mapHook";
+import { WORK_PLAN } from "constants/constants";
+import { notification } from 'antd';
+import { CheckCircleFilled } from '@ant-design/icons';
 
 const content02 = (<div className="popver-info">This is a place to add notes on a Local Government work request. Notes will be visible to any user from the same Local Government as well as MHFD staff.</div>);
-const Status = ({ locality, boardId, visible, setVisible, status, comment, type, substatus, setAlertStatus, setShowAlert, onUpdateHandler}: {
-  locality: string,
-  boardId: any,
-  visible: boolean,
-  setVisible: Function,
-  status: any,
-  comment: any,
-  type: boardType,
-  substatus: any,
-  setAlertStatus: Function,
-  setShowAlert: Function,
-  onUpdateHandler: Function
-}) => {
+const Status = () => {
+  const { 
+    tabActiveNavbar
+   } = useMapState();
+  const {
+    locality,
+    namespaceId: boardId,
+    showBoardStatus: visible,
+    boardStatus: status,
+    boardSubstatus: substatus,
+    boardComment: comment,
+  } = useRequestState();
   const {
     setBoardComment: _setBoardComment,
     setBoardStatus: _setBoardStatus,
     setBoardSubstatus: _setBoardSubstatus,
-    loadColumns
+    loadColumns,
+    setShowBoardStatus: setVisible,
+    setAlertStatus,
+    setShowAlert
   } = useRequestDispatch();
-  const [boardStatus, setBoardStatus] = useState(status);//from backend
+  const [boardStatus, setBoardStatus] = useState(status);
   const [boardComment, setBoardComment] = useState(comment || '');
   const [boardSubstatus, setBoardSubstatus] = useState(substatus);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [visibleWrongModal, setVisibleWrongModal] = useState(false);
   const [boardsData, setBoardsData] = useState<any[]>([]);
   const [boardsLength, setBoardsLength] = useState<number>(0);
-  const [loading, setLoading] = useState(false);
   const [pending, setpending] = useState(false);
-  const [arrayStateSwitch, setarrayStateSwitch] = useState(new Array(100).fill(true));
+  const [api, contextHolder] = notification.useNotification();
 
   const save = () => {
     putData(UPDATE_BOARD_BY_ID(boardId), {
-      status: boardStatus,
+      status: 'Approved',
       comment: boardComment,
       substatus: boardSubstatus
     }, getToken())
         .then((r) => {
-
-          _setBoardStatus(boardStatus)
+          api.success({
+            message: 'Success! Your board is in progress of being updated!',
+            className: 'notification-alert-layout',
+            icon: <CheckCircleFilled className='notification-icon-success'/>,
+            duration: 2
+          });
+          _setBoardStatus('Approved')
           _setBoardComment(boardComment);
           _setBoardSubstatus(boardSubstatus);
-          setBoardStatus(boardStatus)
+          setBoardStatus('Approved')
           setBoardComment(boardComment);
           setBoardSubstatus(boardSubstatus);
           let alertStatus: { type: 'success' | 'error', message: string } = {
@@ -58,13 +67,12 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
           };
           if (r) {
             alertStatus.type = 'success';
-            alertStatus.message = `${locality}'s ${type === 'WORK_PLAN' ? 'Work Plan': 'Work Request'} status has been updated.`;
+            alertStatus.message = `${locality}'s ${tabActiveNavbar === WORK_PLAN ? 'Work Plan': 'Work Request'} status has been updated.`;
           }
           setAlertStatus(alertStatus);
           setShowAlert(true);
           setTimeout(() => {
             setShowAlert(false);
-            onUpdateHandler();
             loadColumns(boardId);
           }, 4000);
         })
@@ -106,11 +114,12 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
 
   return (
     <>
+    {contextHolder}
     { visibleAlert && <SubmitModal
       locality={locality}
       boardSubstatus={boardSubstatus}
       boardsLength={boardsLength}
-      type={type}
+      type={tabActiveNavbar}
       visibleAlert = {visibleAlert}
       setVisibleAlert ={setVisibleAlert}
       setSave = {save}
@@ -137,40 +146,6 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
     >
       <h6>Status Management</h6>
       <p style={{fontSize:'12px', lineHeight:'13.79px', color:'$purple00'}}>As part of the MHFD Work Request approval process, confirm that all project types are ready and click save. Once saved, the board is locked and cannot be edited.</p>
-      {/* <Select
-        value={boardStatus ? boardStatus : '- Select -'}
-        className="ant-dropdown-link"
-        listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-        getPopupContainer={trigger => trigger.parentNode}>
-        <Select.Option value="key-Approved">
-          <div onClick={() => setBoardStatus('Approved')}>
-            <h6 style={{marginBottom:'0px'}}><i className="mdi mdi-circle" style={{ color: '#29C499' }}></i> Approved</h6>
-            <p style={{marginBottom:'0px'}}>{`${type === 'WORK_PLAN' ? 'MHFD' : 'Local Government'} Staff approves the Work Request.`}</p>
-          </div>
-        </Select.Option>
-        <Select.Option value="key-Under-Review">
-          <div onClick={() => {
-            if (status === 'Approved') {
-              alert(`You can't set board to 'Under Review'`)
-              return;
-            }
-            setBoardStatus('Under Review');
-          }}>
-            <h6 style={{marginBottom:'0px'}}><i className="mdi mdi-circle" style={{ color: '#FFC664' }}></i> Under Review</h6>
-            <p style={{marginBottom:'0px'}}>{`${type === 'WORK_PLAN' ? 'MHFD' : 'Local Government'} Staff are developing ${type === 'WORK_PLAN' ? 'or reviewing' : ''} the Work Request.`}</p>
-          </div>
-        </Select.Option>
-      </Select> */}
-          {/* <Row style={{marginTop:'20px', border:'1px solid #E6E9EA', borderRadius:'8px', display:'flex', alignItems:'center', padding:'11px 16px', backgroundColor:'#f5f7ff'}}>
-            <Col lg={{ span: 12 }}>
-              <p style={{fontSize:'10px', color:'#11093C'}}>Project Type                
-              </p>
-            </Col>           
-            <Col lg={{ span: 12 }}>
-              <p style={{textAlign:'center', fontSize:'10px', color:'#11093C', lineHeight:'11.49px'}}>Is this Board <br/>Ready for Review?</p>
-            </Col>
-            
-          </Row> */}
           <div className="title-status-list">
             <div className="title-left">
               Project Type
@@ -179,8 +154,6 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
               Is this Board <br/>Ready for Review?
             </div>
           </div>
-          {
-            loading ? (<div>Loading...</div>) : (
               <List
                 itemLayout="horizontal"
                 dataSource={boardsData}
@@ -189,8 +162,6 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
                     <List.Item.Meta
                       title={
                         <h6 className="content-locality">
-                          {/* <i className="mdi mdi-circle" style={{color: item.status === 'Approved' ? '#29C499' : '#ffdd00' , background:'transparent'}}>
-                          </i> */}
                           <div className="name-locality">{item.locality}</div>
                           <div className="swith-locality">
                             <Switch
@@ -209,8 +180,6 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
                   </List.Item>
                 )}
               />
-            )
-          }
       <br />
       <p className="note-text">Notes <Popover content={content02}>  <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></p>
       <textarea className="note" rows={8} value={boardComment} onChange={e => {
@@ -221,6 +190,8 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
       <div className="footer-drawer">
         <Button
           className="btn-purple"
+          disabled={status === 'Approved'}
+          style={{ opacity: status === 'Approved' ? 0.5 : 1 }}
           onClick={() => {
             const canBeApproved = boardsData.every(r => r.checked);
             if (canBeApproved) {
@@ -228,7 +199,6 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
             } else {
               setVisibleWrongModal(true);
             }
-            save();
           }}
         >
           Save

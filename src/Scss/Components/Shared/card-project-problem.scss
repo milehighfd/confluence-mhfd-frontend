@@ -135,8 +135,15 @@
 @media (min-width: 1900px) and (max-width: 2499px) {
   .card-map {
     padding: 0px 8px 0px 0px;
+    .border-line-green {
+      border-right: 0px;
+    }
     .ant-card {
       margin: 0px 13px 13px 0px;
+      border-right: 0px;
+    }
+    .ant-card:hover {
+      border-right: 0px;
     }
     .btn-card{
       width: 22px;
@@ -156,12 +163,15 @@
       width: 100%;
       padding: 26px 20px;
     }
+    .card-title-s{
+      height: 100%;
+    }
     h4 {
       font-size: 20px;
       line-height: 25px;
+      margin-bottom: 10px;
     }
     h6 {
-      margin-top: 10px;
       font-size: 19px;
     }
     h5 {

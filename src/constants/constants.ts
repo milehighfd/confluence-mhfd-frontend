@@ -1429,3 +1429,15 @@ export const YEAR_LOGIC_2024 = 2024;
 export const YEAR_LOGIC_2022 = 2022;
 export const MMFD_LOCALITY = 'Mile High Flood District'
 export const MMFD_LOCALITY_TYPE = 'MHFD_BOUNDARY'
+
+export const STATUS_NAMES: any = {
+  1:	"Draft",
+  2:	"Requested",
+  3:	"Approved",
+  5:	"Active",
+  7:	"Inactive",
+  8:	"Cancelled",
+  9:	"Closed",
+  10:	"Closeout",
+  11:	"Under Review"
+}

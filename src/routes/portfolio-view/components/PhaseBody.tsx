@@ -11,8 +11,7 @@ import * as datasets from 'Config/datasets';
 import { colorScale } from 'routes/portfolio-view/constants/PhaseViewData';
 import { usePortflioState, usePortfolioDispatch } from '../../../hook/portfolioHook';
 import { useMapState } from 'hook/mapHook';
-
-const DetailModal = React.lazy(() => import('routes/detail-page/components/DetailModal'));
+import DetailModal from 'routes/detail-page/components/DetailModal';
 
 const PhaseBody = ({
   dataId,

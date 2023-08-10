@@ -32,7 +32,7 @@ const AmountModalField = ({
     <Fragment>
       <div style={{ display: 'flex', fontSize: 16, color: 'rgba(17, 9, 60, 0.5)' }}>
         {label}
-        {isRequired && <p style={{ color: 'red', whiteSpace: 'break-spaces' }}>{' *'}</p>}
+        {/* {isRequired && <p style={{ color: 'red', whiteSpace: 'break-spaces' }}>{' *'}</p>} */}
       </div>
       <InputNumber min={0}
         formatter={priceFormatter}

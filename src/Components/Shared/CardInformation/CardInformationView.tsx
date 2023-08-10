@@ -7,8 +7,7 @@ import { useMapDispatch } from 'hook/mapHook';
 import { getTotalEstimatedCost } from 'utils/parsers';
 import * as datasets from 'Config/datasets';
 import { useProfileState } from 'hook/profileHook';
-
-const DetailModal = React.lazy(() => import('routes/detail-page/components/DetailModal'));
+import DetailModal from 'routes/detail-page/components/DetailModal';
 
 const CardInformationView = ({
   data,

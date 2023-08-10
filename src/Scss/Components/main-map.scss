@@ -931,7 +931,23 @@ hr.filters-line {
     color: $purple00;
   }
 }
+//table scroll
+.table-scroll-map-list{
+  overflow-y: scroll;
+  height: calc(100vh - 262px);
+  margin-right: -11px;
+  .infinite-scroll-component__outerdiv{
+    height: 100%;
+    overflow-y: hidden;
+  }
+}
+.table-scroll-map-list::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 10px;
+}
+
 //table-style-map
+
 .table-list-map {
   .ant-table {
     color: $purple00;
@@ -941,7 +957,10 @@ hr.filters-line {
     height: calc(100vh - 306px) !important;
     max-height: calc(100vh - 306px) !important;
   }
-  .ant-table-thead {
+  .ant-table-thead th.ant-table-column-has-sorters:hover {
+    background: #F5F7FF;
+  }
+  .ant-table-thead{
     tr:first-child th:first-child {
       border-top-left-radius: 8px;
       border-bottom-left-radius: 8px;
@@ -975,7 +994,16 @@ hr.filters-line {
     padding: 11px 10px;
     padding-right: 8px;
   }
-  .project-name {
+  .row-geometry-body-selected{
+    td {
+      border-bottom: 2px solid $green;
+      border-top: 2px solid $green;
+    }
+    .ant-table-cell-fix-right{
+      border-left: 2px solid $green;
+    }
+  }
+  .project-name{
     font-size: 14px;
     font-weight: 500;
     line-height: 19px;
@@ -1050,6 +1078,7 @@ hr.filters-line {
       }
       span {
         font-size: 16px;
+        vertical-align: middle;
       }
     }
     .sort-content {
@@ -1145,19 +1174,19 @@ hr.filters-line {
     }
 
     button .img-filter {
-      -webkit-mask-size: 22px;
+      -webkit-mask-size: 21px;
     }
 
     .ant-btn:hover > .img-filter {
-      -webkit-mask-size: 22px;
+      -webkit-mask-size: 21px;
     }
 
     button .img-sortBy {
-      -webkit-mask-size: 22px;
+      -webkit-mask-size: 21px;
     }
 
     .ant-btn:hover > .img-sortBy {
-      -webkit-mask-size: 22px;
+      -webkit-mask-size: 21px;
     }
 
     .sort-content {
@@ -1168,8 +1197,7 @@ hr.filters-line {
         cursor: pointer;
 
         .img-filter00 {
-          height: 18px;
-          width: 18px;
+          -webkit-mask-size: 21px;
           background: $opacity02;
           transition: width 2s;
           padding: 9px;
@@ -1265,6 +1293,9 @@ hr.filters-line {
   .tabs-map .ant-tabs-nav {
     padding: 0px 20px;
   }
+  .tabs-map .ant-tabs-nav .ant-tabs-tab{
+    font-size: 21px;
+  }
   .apply-filter-no-effect {
     font-size: 15px;
     padding: 14px 0px;
@@ -1281,7 +1312,7 @@ hr.filters-line {
     }
   }
   .like-btn button .like-img-on {
-    width: 26, 6px;
+    width: 27px;
     height: 24px;
   }
   .like-btn button .like-img {
@@ -1292,18 +1323,26 @@ hr.filters-line {
     font-size: 16px;
     height: 54px;
   }
+  .infinite-scroll-component{
+    height: calc(100vh - 288px) !important;
+
+  }
+  .table-scroll-map-list{
+
+  }
   .table-list-map {
     .ant-table {
       font-size: 16px;
       height: 58px;
     }
     .ant-table-body {
-      height: calc(100vh - 341px) !important;
-      max-height: calc(100vh - 341px) !important;
+      height: calc(100vh - 346px) !important;
+      max-height: calc(100vh - 346px) !important;
     }
   }
   .table-list-map .project-name {
     font-size: 20px;
     height: 58px;
+    line-height: 25px;
   }
 }

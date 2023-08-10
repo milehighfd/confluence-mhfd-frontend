@@ -23,9 +23,8 @@ import { SERVER } from 'Config/Server.config';
 import ApplyMapViewFilter from './ApplyMapViewFilter';
 import { useFilterContext } from 'utils/filterContext';
 import ListViewMap from './ListViewMap';
-
-const MapAutoComplete = React.lazy(() => import('routes/map/components/MapAutoComplete'));
-const FiltersProjectView = React.lazy(() => import('Components/FiltersProject/FiltersProjectView'));
+import MapAutoComplete from 'routes/map/components/MapAutoComplete';
+import FiltersProjectView from 'Components/FiltersProject/FiltersProjectView';
 
 const STATUS = 'status',
   JURISDICTION = 'jurisdiction',
@@ -1233,6 +1232,8 @@ const MapView = () => {
                       type: project.type,
                       value: project.cartodb_id,
                       id: project.projectId,
+                      phase: project?.currentId[0]?.code_phase_type?.phase_name,
+                      stream: project?.project_streams,
                       totalComponents: parseInt(
                         project.GRADE_CONTROL_STRUCTURE +
                         project.PIPE_APPURTENANCES +
@@ -1267,7 +1268,11 @@ const MapView = () => {
                     key={index}
                   >
                     {selectView === 'list' ?
-                      <ListViewMap />:
+                      <ListViewMap
+                        type={value}
+                        totalElements={totalElements}
+                        cardInformation={cardInformation}
+                      /> :
                       <GenericTabView
                         type={value}
                         totalElements={totalElements}

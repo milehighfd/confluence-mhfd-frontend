@@ -9,8 +9,7 @@ import { FILTER_PROJECTS_TRIGGER } from 'constants/constants';
 import { OverlappingDatesAlert } from '../../../Components/Alerts/OverlappingAlert';
 import { usePortflioState, usePortfolioDispatch } from 'hook/portfolioHook';
 import { useMapDispatch } from 'hook/mapHook';
-
-const DetailModal = React.lazy(() => import('routes/detail-page/components/DetailModal'));
+import DetailModal from 'routes/detail-page/components/DetailModal';
 
 const { RangePicker }: any = DatePicker;
 

@@ -17,38 +17,60 @@ const Filter = () => {
     serviceAreasSelected,
     projectStatusesSelected,
     isLocatedInSouthPlateRiverSelected,
+    columns2,
   } = useRequestState();
   const {
     tabActiveNavbar
   } = useMapState();
   const { setShowFilters, loadColumns, setPrioritySelected, setJurisdictionSelected, setCountiesSelected, setServiceAreasSelected, setProjectStatusesSelected, setIsLocatedInSouthPlateRiverSelected } = useRequestDispatch();
+  let jurisdictionFilterList: any[] = filterMap['project_local_governments'];
+  let countiesFilterList: any[] = filterMap['project_counties'];
+  let serviceAreasFilterList: any[] = filterMap['project_service_areas'];
+  let projectStatusFilterList: any[] = filterMap['currentId'];
 
-  const jurisdictionFilterList: any[] = filterMap['project_local_governments'];
-  const countiesFilterList: any[] = filterMap['project_counties'];
-  const serviceAreasFilterList: any[] = filterMap['project_service_areas'];
-  const projectStatusFilterList: any[] = filterMap['project_statuses'];
-  const priorityFilterList = useMemo(() => [
+  let priorityFilterList = useMemo(() => [
     { label: '1', value: 0 },
     { label: '2', value: 1 },
     { label: '3', value: 2 },
     { label: 'Over 3', value: 3 },
     { label: 'Work Plan', value: 4 }
   ], []);
+  const [notFoundProjects, setNotFoundProjects] = useState(true);
+
+
+  useEffect(() => {
+    if (year >= YEAR_LOGIC_2024 ) {
+      if(tabActiveNavbar === WORK_PLAN){
+        columns2.forEach((value: any) => {
+          value.projects.forEach(() => {
+              setNotFoundProjects(false);
+              return ;
+          })
+        })
+        if (notFoundProjects) {
+            serviceAreasFilterList = [];
+            countiesFilterList = [];
+            projectStatusFilterList = []
+            jurisdictionFilterList = []
+            priorityFilterList = []
+        }
+      }
+    }
+  }, [columns2]);
+
   const isLocatedInSouthPlateRiverFilter = useMemo(() => [
     { label: 'Yes', value: 1 }
   ], []);
 
   useEffect(() => {
-    console.log('entraaaaa', jurisdictionFilterList, countiesFilterList, priorityFilterList, serviceAreasFilterList, projectStatusFilterList, isLocatedInSouthPlateRiverFilter);
-    if (prioritySelected.length === 0) {
-      setJurisdictionSelected(jurisdictionFilterList.map((r: any) => true));
-      setPrioritySelected(priorityFilterList.map((r: any) => true));
-      setProjectStatusesSelected(projectStatusFilterList.map((r: any) => true));
-      setIsLocatedInSouthPlateRiverSelected(isLocatedInSouthPlateRiverFilter.map((r: any) => false));
-      if (year < YEAR_LOGIC_2024) {
-        setCountiesSelected(countiesFilterList.map((r: any) => true));
-        setServiceAreasSelected(serviceAreasFilterList.map((r: any) => true));
-      }
+    if (year < 2024) {
+      setJurisdictionSelected(jurisdictionFilterList?.map((r: any) => true));
+      setPrioritySelected(priorityFilterList?.map((r: any) => true));
+      setProjectStatusesSelected(projectStatusFilterList?.map((r: any) => true));
+      setIsLocatedInSouthPlateRiverSelected(isLocatedInSouthPlateRiverFilter?.map((r: any) => false));
+      setCountiesSelected(countiesFilterList?.map((r: any) => true));
+      setServiceAreasSelected(serviceAreasFilterList?.map((r: any) => true));
+      loadColumns(namespaceId);
     }
   }, [jurisdictionFilterList, countiesFilterList, priorityFilterList, serviceAreasFilterList, projectStatusFilterList, isLocatedInSouthPlateRiverFilter]);
 
@@ -89,7 +111,8 @@ const Filter = () => {
       {
         tabActiveNavbar === WORK_PLAN && year >= YEAR_LOGIC_2024 &&
         <FilterGroup
-          label="Located in the South Platte River"
+        notFoundProjects={notFoundProjects}
+          label="Located in South Platte River"
           filterList={isLocatedInSouthPlateRiverFilter}
           selected={isLocatedInSouthPlateRiverSelected}
           setter={setIsLocatedInSouthPlateRiverSelected}
@@ -100,6 +123,7 @@ const Filter = () => {
       {
         tabActiveNavbar === WORK_PLAN &&
         <FilterGroup
+        notFoundProjects={notFoundProjects}
           label="Work Request Priority"
           filterList={priorityFilterList}
           selected={prioritySelected}
@@ -111,6 +135,7 @@ const Filter = () => {
       {
         tabActiveNavbar === WORK_PLAN &&
         <FilterGroup
+        notFoundProjects={notFoundProjects}
           label="Local Government"
           filterList={jurisdictionFilterList}
           selected={jurisdictionSelected}
@@ -122,6 +147,7 @@ const Filter = () => {
       {
         label === 'COUNTY' &&
         <FilterGroup
+        notFoundProjects={notFoundProjects}
           label="County"
           filterList={countiesFilterList}
           selected={countiesSelected}
@@ -133,6 +159,7 @@ const Filter = () => {
       {
         label === 'SERVICE AREA' &&
         <FilterGroup
+        notFoundProjects={notFoundProjects}
           label="Service Area"
           filterList={serviceAreasFilterList}
           selected={serviceAreasSelected}
@@ -145,6 +172,7 @@ const Filter = () => {
       {
         year >= YEAR_LOGIC_2024 &&
         <FilterGroup
+        notFoundProjects={notFoundProjects}
           label="Project Status"
           filterList={projectStatusFilterList}
           selected={projectStatusesSelected}

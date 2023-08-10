@@ -12,6 +12,7 @@ import { boardType } from './RequestTypes';
 import { MoreOutlined } from '@ant-design/icons';
 import { CopyProjectAlert } from './CopyProjectAlert';
 import { useRequestState } from 'hook/requestHook';
+import { STATUS_NAMES } from 'constants/constants';
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -37,8 +38,8 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   const {setZoomProject, updateSelectedLayers} = useProjectDispatch();
   const { project_id } = project;
   const project_name = project?.projectData?.project_name;
-  const statusArray = project?.projectData?.currentId;
-  let status = statusArray && statusArray.length > 0 ? statusArray[0].status_name : null;
+  const proj_status_type_id: any = project?.code_status_type_id ?? 1;
+  let status: any =  STATUS_NAMES[proj_status_type_id];
   const {id} = project;
   const [amount, setAmount] = useState(project[`req${columnIdx}`]);
   const priority = project[`originPosition${columnIdx}`];
@@ -51,7 +52,6 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   const getCompleteProjectData = async () => {
     let dataForBoard = {...project.projectData};
     const dataFromDB = await getData(SERVER.V2_DETAILED_PAGE(dataForBoard.project_id), getToken());
-    console.log('dataFromDB', dataFromDB)
     setCompleteProjectData({...dataFromDB, tabKey}); 
   }
 
@@ -148,8 +148,10 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
       color = '#9309EA';
       break;
     case 'Approved':
-      backgroundColor = 'rgba(97, 158, 234, 0.15)';
-      color = '#497BF3';
+      // backgroundColor = 'rgba(97, 158, 234, 0.15)';
+      // color = '#497BF3';
+      backgroundColor = 'rgba(143, 252, 83, 0.3)';
+      color = '#139660';
       break;
     case 'Initiated':
       backgroundColor = 'rgba(41, 196, 153, 0.08)';

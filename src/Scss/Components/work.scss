@@ -215,52 +215,6 @@
       color: $purple !important;
     }
   
-    .ant-collapse>.ant-collapse-item>.ant-collapse-header .ant-collapse-extra {
-      float: none;
-    }
-  
-    .ant-collapse>.ant-collapse-item>.ant-collapse-header .ant-collapse-arrow {
-      display: none;
-    }
-  
-    .ant-collapse>.ant-collapse-item>.ant-collapse-header {
-     padding-top: 15px;
-     padding-left: 24px;
-      color: $black !important;
-      line-height: 30px;
-      height: 54px;
-      width: 100%;
-    }
-  
-    .ant-collapse>.ant-collapse-item {
-      border-bottom: none;
-      background: $white;
-    }
-  
-    .ant-collapse {
-      border: none;
-      background: transparent;
-    }
-  
-    .ant-tabs-ink-bar {
-      height: 2px !important;
-      background-color: $purple;
-      margin-bottom: 1.5px !important;
-    }
-  
-    .ant-collapse-content {
-      background-color: $opacity00;
-      border-top: none;
-    }
-  
-    .ant-collapse>.ant-collapse-item:last-child,
-    .ant-collapse>.ant-collapse-item:last-child>.ant-collapse-header {
-      border-radius: 0 0 0px 0px;      
-    }
-  
-    .ant-collapse-content>.ant-collapse-content-box {
-      padding: 20px 15px 0px 15px;
-    }
   }
   .btn-filter-d{
     position: absolute;
@@ -504,6 +458,50 @@
       }
     }    
   }
+  .ant-collapse>.ant-collapse-item>.ant-collapse-header .ant-collapse-extra {
+    float: none;
+  }
+
+  .ant-collapse>.ant-collapse-item>.ant-collapse-header .ant-collapse-arrow {
+    display: none;
+  }
+
+  .ant-collapse>.ant-collapse-item>.ant-collapse-header {
+   padding-top: 12px;
+   padding-left: 24px;
+    color: $black !important;
+    line-height: 30px;
+    height: 45px;
+    width: 100%;
+  }
+  .ant-collapse {
+    border: none;
+    background: transparent;
+  }
+
+  .ant-tabs-ink-bar {
+    height: 2px !important;
+    background-color: $purple;
+    margin-bottom: 1.5px !important;
+  }
+
+  .ant-collapse-content {
+    background-color: $opacity00;
+    border-top: none;
+  }
+
+  .ant-collapse>.ant-collapse-item:last-child,
+  .ant-collapse>.ant-collapse-item:last-child>.ant-collapse-header {
+    border-radius: 0 0 0px 0px;      
+  }
+
+  .ant-collapse-content>.ant-collapse-content-box {
+    padding: 20px 15px 0px 15px;
+  }
+  .ant-collapse>.ant-collapse-item {
+    border-bottom: none;
+    background: $white;
+  }
   .cost-collapse{
     width: 120% !important;
   .cost-header {
@@ -625,7 +623,7 @@
   }
   .ant-collapse{
     border: none;
-    background-color: $white;
+    // background-color: $white;
     width: 71vw;
   }
   .ant-collapse-content{
@@ -1577,6 +1575,9 @@
 }
 // 1920x1080 DISPLAY
 @media (min-width: 1900px) and (max-width: 2499px){
+  .work-head .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    width: fit-content !important;
+  }    
   .differential {
     padding-left: 20px !important;
   }
@@ -2919,59 +2920,35 @@ cost-wr1{
 }
 //CSS for TableListView
 .table-map-list {
-  width: auto;
-  height: calc(100vh - 183px);
-  overflow: auto; 
-  border-left: 1px solid #E6E9EA;
-  border-bottom: 1px solid #E6E9EA;
-  border-top-left-radius: 10px;
-  top: 0;
-
+  // margin-top: -14px;
+  .ant-table{
+    color: $purple00;
+    font-family: Ubuntu;
+    font-size: 12px;
+    font-weight: 400;
+  }
   .ant-table-thead>tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan]):before {
     display: none;
   }
-
-  .ant-table-container {
-    width: auto; 
+  .ant-table-column-sorters {
+    display: inline-flex;
+    margin-left: 8px;
   }
-  
-
-  .ant-table-header {
-    overflow: auto;
-    width: fit-content;
-    position: sticky;
-    }
-
-  .ant-table-body {
-    overflow: hidden !important;
-    width: max-content;
-    height: auto !important;
-    max-height: max-content !important;
-    color: #11093C;
-    font-family: 'Ubuntu';
-    font-style: normal;
+  .ant-table-summary {
     font-weight: 500;
-    font-size: 12px;
-    line-height: 19px;
   }
-
-  .ant-table-thead .ant-table-cell {
-    background-color: #F5F7FF !important;
-    color: #11093C;
-    background: #F5F7FF;
-    border-width: 1px 1px 1px 0px;
-    border-style: solid;
-    border-color: #E6E9EA;
-    font-size: 12px;
-    font-weight: bold;
-    
+  .ant-table-thead>tr>th {
+    background: white;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 18px;
+    letter-spacing: 0.171px;
+    padding: 11px 12px;
+    color: $purple00;
   }
-
-  .ant-table-thead {
-    height: 39px;
-    border-radius: 7px 7px 0px 0px;
+  .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
+    padding: 11px 4.5px;
   }
-
   .span-submitted {
     background: rgba(255, 221, 0, 0.2);
     display: flex;
@@ -2986,7 +2963,26 @@ cost-wr1{
     border-radius: 19px;
     color: #FF8938;
   }
-
+  .ant-table-cell{
+    height: 40px;
+    line-height: 0px;
+  }
+  .ant-table-cell-fix-left-first:after, .ant-table-cell-fix-left-last:after {
+    display: none;
+  }
+  
+  .custom-summary {
+    height: 40px; 
+  }
+  .name{
+    color: #11093C;
+    font-family: Ubuntu;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px; /* 150% */
+    letter-spacing: 0.171px;
+  }
   .span-active {
     display: flex;
     flex-direction: row;

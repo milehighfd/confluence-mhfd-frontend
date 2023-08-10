@@ -201,8 +201,8 @@ export const useProjectDispatch = () => {
     setEditLocation: (editLocation: any) => {
       dispatch(setEditLocation(editLocation));
     },
-    getStreamsByProjectId: (projectId: any) => {
-      dispatch(getStreamsByProjectId(projectId))
+    getStreamsByProjectId: (projectId: any, typeProjectId: any) => {
+      dispatch(getStreamsByProjectId(projectId, typeProjectId))
     },
     getIndependentComponentsByProjectId: (projectId: any) => {
       dispatch(getIndependentComponentsByProjectId(projectId))

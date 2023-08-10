@@ -1,12 +1,11 @@
 import React from "react";
 import { Button, Col, Modal, Row } from 'antd';
-import { boardType } from "./RequestTypes";
 
 export const SubmitModal = ({ locality, boardsLength, boardSubstatus, type, visibleAlert, setVisibleAlert, setSave, currentStatus, pending  }: {
   locality: string,
   boardsLength: number,
   boardSubstatus: string,
-  type: boardType,
+  type: string,
   visibleAlert: boolean,
   setVisibleAlert: Function,
   setSave: Function,

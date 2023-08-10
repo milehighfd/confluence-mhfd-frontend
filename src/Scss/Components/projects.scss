@@ -423,9 +423,9 @@
       .tag-active{
         background: rgba(41, 196, 153, 0.20);
         border-radius: 19px;
-        padding: 2px 11px;
-        display: flex;
-        justify-content: center;
+        padding: 1px 2px;
+        display: block;
+        text-align: center;
         color: #29C499;
       }
       .ico-delete{

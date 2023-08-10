@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Button } from 'antd';
+import { Card, Button, notification } from 'antd';
 import { MAPTYPES, MENU_OPTIONS } from 'constants/constants';
 
 const problemStyle: any = {
@@ -185,6 +185,18 @@ export const MeasurePopup = ({ id, item, eventFunctions } : any) => {
       </div>
     </div>
 }
+
+const copiedFilepath = (filepath:any) => {
+  const openNotification = () => {
+    notification.open({
+      message: `Filepath copied to clipboard!`,
+      duration: 5
+    });
+  };
+  navigator.clipboard.writeText(filepath);
+  openNotification();
+};
+
 export const ComponentPopup = ({ id, item, isComponent, maptype, eventFunctions } : any) => {
   if (!item.layer) {
     isComponent = false;
@@ -348,8 +360,8 @@ export const ComponentPopup = ({ id, item, isComponent, maptype, eventFunctions 
             {item.streamname_mhfd ? <p><i>Stream Name (MHFD):</i>  {item.streamname_mhfd}</p> : ''}
             {item.streamname_fema ? <p><i>Stream Name (FEMA):</i>  {item.streamname_fema}</p> : ''}
             {item.studyname && item.studydate? <p><i>Study Name and Date:</i>  {`${item.studyname} and ${item.studydate}`}</p> : ''}
-            {item.modellocation_mip ? <p><i>Model Location (MIP):</i> {item.modellocation_mip == '-'? item.modellocation_mip:<a href={item.modellocation_mip} target="_blank">Link</a>} </p> : ''}
-            {item.modellocation_local ? <p><i>Model Location (MHFD):</i>  {item.modellocation_local == '-' ? item.modellocation_local : <a href={item.modellocation_local} target="_blank"> Link </a>}</p> : ''}
+            {item.modellocation_mip ? <p><i>Model Location (MIP):</i> {item.modellocation_mip == '-'? item.modellocation_mip:<a onClick={() => copiedFilepath(item.modellocation_mip)} target="_blank">Copy File Path</a>} </p> : ''}
+            {item.modellocation_local ? <p><i>Model Location (MHFD):</i>  {item.modellocation_local == '-' ? item.modellocation_local : <a onClick={() => copiedFilepath(item.modellocation_local)} target="_blank"> Copy File Path </a>}</p> : ''}
             {item.notes ? <p><i>Notes:</i>  {item.notes}</p> : ''}
             {item.hydra_modeltype ? <p><i>Model Type (Hydra ):</i>  {item.hydra_modeltype}</p> : ''}
             {item.hydra_modeldate ? <p><i>Model Date (Hydra):</i>  {item.hydra_modeldate}</p> : ''}

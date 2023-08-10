@@ -519,3 +519,75 @@
     }
   }
 }
+
+//MODAL -EDIT-Dates
+.work-modal-edit-dates{
+  width: 581px;
+  .ant-modal-header {
+    display: none;
+  }
+  .ant-modal-footer {
+    display: none;
+  }
+  .header-step{
+    display: flex;
+    margin-top: 19px;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    .step{
+      width: 163px;
+      border-top: 4px solid #D9D9D9;
+      padding-top: 8px;
+      p{
+        color: #858F94;
+        font-family: Ubuntu;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 140%;
+        margin: 0px;
+      }
+    }
+    .step-active{
+      width: 163px;
+      border-top: 4px solid #28C499;
+      padding-top: 8px;
+      p{
+        color: #858F94;
+        font-family: Ubuntu;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 140%;
+        margin: 0px;
+      }
+      .p-active{
+        color: #11093C;
+      }
+    }
+  }
+  .name-project{
+    color: #11093C;
+    font-family: Ubuntu;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+    h1{
+      color: #11093C;
+      font-size: 22px;
+      line-height: 120%;
+    }
+    p{
+      font-size: 16px;
+      line-height: 140%;
+      font-weight: 400;
+    }
+  }
+  .body-edit-dates{
+    height: 450px;
+  }
+  .ant-modal-body{
+    padding: 30px;
+  }
+}

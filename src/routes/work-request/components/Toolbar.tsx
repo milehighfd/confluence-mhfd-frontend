@@ -94,7 +94,7 @@ const Toolbar = ({
             />
           </Button>
         </Popover>
-        <Popover
+        {/* <Popover
           className='buttons-header'
           content={<div className='popover-text'>Filter:<br />Display projects by conditions such as project status and location.</div>} placement="bottomLeft" overlayClassName='popover-work-header' >
           <Button
@@ -106,7 +106,7 @@ const Toolbar = ({
               style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center" }}
               alt="" />
           </Button>
-        </Popover>
+        </Popover> */}
         <DownloadCSV
           type={type}
           localities={localities}
