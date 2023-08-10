@@ -1059,12 +1059,12 @@ hr.filters-line {
 }
 
 @media (min-width: 1900px) and (max-width: 2499px) {
+  //MAIN-MAP
   .button-header-tab {
     .ico-header-tab {
       font-size: 17px;
       padding: 12px 10px;
       margin-left: 16px;
-
       img {
         height: 19px;
       }
@@ -1363,5 +1363,10 @@ hr.filters-line {
     font-size: 16px;
     // height: 58px;
     line-height: 20px;
+  }
+  //WR
+  .auto-complete-map .ant-input{
+    font-size: 27px;
+    height: 40px;
   }
 }

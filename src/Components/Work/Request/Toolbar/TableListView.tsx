@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/lib/table';
+import { WINDOW_WIDTH } from 'constants/constants';
 
 const TableListView = () => {
     const typeStatus = (status: string) => {
@@ -21,6 +22,7 @@ const TableListView = () => {
         }
         return text;
     }
+    const [windowWidth, setWindowWidth] = useState(WINDOW_WIDTH);
     interface DataType {
         key: React.Key;
         name: string;
@@ -243,6 +245,17 @@ const TableListView = () => {
     const onChange = (pagination: any, filters: any, sorter: any, extra: any) => {
         console.log('params', pagination, filters, sorter, extra);
     };
+
+    const updateWindowSize = () => {
+        setWindowWidth(window.innerWidth);
+      };
+
+    useEffect(() => {
+        window.addEventListener('resize', updateWindowSize);
+        return () => {
+          window.removeEventListener('resize', updateWindowSize);
+        };
+      }, [])
 
     return (
         <div className='table-map-list'>

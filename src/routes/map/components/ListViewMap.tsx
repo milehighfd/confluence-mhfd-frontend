@@ -141,7 +141,6 @@ const ListViewMap = ({
 
   useEffect(() => {
     window.addEventListener('resize', updateWindowSize);
-    console.log(windowWidth);
     return () => {
       window.removeEventListener('resize', updateWindowSize);
     };
