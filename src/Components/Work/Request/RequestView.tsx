@@ -270,7 +270,6 @@ const RequestView = ({ type, widthMap }: {
   }
 
   useEffect(() => {
-    console.trace('Locality reaches here, should not repeat after change', locality, isInitMap);
     if (locality) {
       // reach on initLoading
       onSelect(locality, isInitMap ? 'isinit' : undefined);
