@@ -12,14 +12,10 @@ const Filter = () => {
     filterMap,
     year,
     namespaceId,
-    prioritySelected,
-    jurisdictionSelected,
-    countiesSelected,
-    serviceAreasSelected,
-    projectStatusesSelected,
-    isLocatedInSouthPlateRiverSelected,
     columns2,
-    filterRequest
+    filterRequest,
+    disableFilterServiceArea,
+    disableFilterCounty,
   } = useRequestState();
   const {
     tabActiveNavbar
@@ -148,6 +144,7 @@ const Filter = () => {
         <FilterGroup
           label="County"
           filterList={countyFilter}
+          disabled = {disableFilterCounty}
         />
       }
       {
@@ -155,6 +152,7 @@ const Filter = () => {
         <FilterGroup
           label="Service Area"
           filterList={serviceAreaFilter}
+          disabled = {disableFilterServiceArea}
         />
       }
 

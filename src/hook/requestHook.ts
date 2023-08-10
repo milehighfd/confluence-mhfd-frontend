@@ -51,6 +51,7 @@ import {
   emptyBoard,
   toggleFilter,
   setFilterRequest,
+  setDisableFilterComponent,
 } from 'store/actions/requestActions';
 import { DragAndDropCards } from 'store/types/requestTypes';
 
@@ -209,6 +210,9 @@ export const useRequestDispatch = () => {
   const _setFilterRequest = useCallback((filterRequest: any) => {
     dispatch(setFilterRequest(filterRequest));
   }, [dispatch]);
+  const _setDisableFilterComponent = useCallback((disable: boolean, localityType: string) => {
+    dispatch(setDisableFilterComponent(disable, localityType));
+  }, [dispatch]);
   return {
     setShowModalProject: _setShowModalProject,
     setCompleteProjectData: _setCompleteProjectData,
@@ -260,5 +264,6 @@ export const useRequestDispatch = () => {
     emptyBoard: _emptyBoard,
     toggleFilter: _toggleFilter,
     setFilterRequest: _setFilterRequest,
+    setDisableFilterComponent: _setDisableFilterComponent,
   };
 };

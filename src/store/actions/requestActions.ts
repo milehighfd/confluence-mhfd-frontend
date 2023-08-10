@@ -645,3 +645,22 @@ export const setFilterRequest = (payload: any) => {
     })
   }
 };
+
+export const setDisableFilterComponent = (disable: any, localityType: any) => {
+  if (localityType === 'county') {
+    console.log('setcounty to true')
+    return (dispatch: any) => {
+      dispatch({
+        type: types.REQUEST_SET_DISABLE_FILTER_COUNTY,
+        payload: disable
+      })
+    }
+  }else{
+    return (dispatch: any) => {
+      dispatch({
+        type: types.REQUEST_SET_DISABLE_FILTER_SERVICE_AREA,
+        payload: disable
+      })
+    }
+  }  
+}

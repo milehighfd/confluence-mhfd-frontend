@@ -53,6 +53,8 @@ const initialState = {
   setIsOnSelected: false,
   filterMap: {},
   filterRequest: [],
+  disableFilterCounty: false,
+  disableFilterServiceArea: false,
 };
 
 const requestReducer = (state = initialState, action: any) => {
@@ -329,6 +331,17 @@ const requestReducer = (state = initialState, action: any) => {
       return {
         ...state,
         filterRequest: action.payload
+      };
+    case types.REQUEST_SET_DISABLE_FILTER_COUNTY:
+      console.log('action.payload', action.payload)
+      return {
+        ...state,
+        disableFilterCounty: action.payload
+      };
+    case types.REQUEST_SET_DISABLE_FILTER_SERVICE_AREA:
+      return {
+        ...state,
+        disableFilterServiceArea: action.payload
       };
     case types.REQUEST_EMPTY_BOARD:
       return {
