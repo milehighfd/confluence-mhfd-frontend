@@ -539,7 +539,7 @@ const ModalTollgate = ({ saveCB, setOpenPiney }: { saveCB?: any; setOpenPiney?: 
                           <span className="span-dots-tollgate">
                             <div className="toolgate-circle" style={{ backgroundColor: colorScale[paintCircle(index)] }} />
                           </span>
-                          {x.name}
+                          {x.name.replace(/([A-Z])/g, ' $1')}
                         </span>
                         <span>
                           {x.locked && <LockOutlined />}
