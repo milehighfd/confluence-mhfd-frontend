@@ -51,7 +51,8 @@ const initialState = {
   localityFilter: '',
   dataAutocomplete: [],
   setIsOnSelected: false,
-  filterMap: {}
+  filterMap: {},
+  filterRequest: [],
 };
 
 const requestReducer = (state = initialState, action: any) => {
@@ -324,20 +325,25 @@ const requestReducer = (state = initialState, action: any) => {
         ...state,
         filterMap: action.payload
       };
-      case types.REQUEST_EMPTY_BOARD:
-        return {
-          ...state,
-          columns2: defaultColumns.map((column: any, index: number) => {
-            if( index === 0 ){
-              return column;
-            }else{
-              return {
-                ...column,
-                tittle: `${state.year + index - 1}`
-              }
+    case types.REQUEST_SET_FILTER_REQUEST:
+      return {
+        ...state,
+        filterRequest: action.payload
+      };
+    case types.REQUEST_EMPTY_BOARD:
+      return {
+        ...state,
+        columns2: defaultColumns.map((column: any, index: number) => {
+          if (index === 0) {
+            return column;
+          } else {
+            return {
+              ...column,
+              tittle: `${state.year + index - 1}`
             }
-          })
-        };
+          }
+        })
+      };
     default:
       return state;
   }

@@ -80,10 +80,11 @@ export const UploaderModal = (
     <>
     <Modal
       className="detailed-upload"
-      style={{ top: 60, width: '100%'}}
+      style={{ width: '100%'}}
       visible={modal}
       onCancel={() => setModal(false)}
       forceRender={false}
+      wrapClassName='center-modal'
       destroyOnClose>
       <div className="upload">
         <Row className="detailed-h" gutter={[16, 8]}>

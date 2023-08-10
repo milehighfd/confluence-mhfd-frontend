@@ -7,7 +7,7 @@ import {
   PROJECTS_MAP_STYLES,
   MEDIUM_SCREEN_LEFT
 } from 'routes/map/constants/layout.constants';
-import { MAP, MEDIUM_SCREEN_RIGHT, PROBLEMS_TRIGGER, WORK_PLAN, WORK_REQUEST } from 'constants/constants';
+import { GOVERNMENT_STAFF, MAP, MEDIUM_SCREEN_RIGHT, PROBLEMS_TRIGGER, WORK_PLAN, WORK_REQUEST } from 'constants/constants';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
 import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { useNotesState } from 'hook/notesHook';
@@ -45,6 +45,7 @@ const MapLayout = () => {
   const {
     isLocalGovernment,
     userInformation: {
+      designation,
       coordinates: {
         latitude,
         longitude
@@ -107,7 +108,7 @@ const MapLayout = () => {
       let boardYearLimit = +config.value;
       let array = [];
       for (var i = 0; i < 5; i++) {
-        if (i === 0 && isLocalGovernment && tabActiveNavbar === WORK_PLAN) {
+        if (i === 0 && (isLocalGovernment || designation === GOVERNMENT_STAFF) && tabActiveNavbar === WORK_PLAN) {
           continue;
         }
         array.push(boardYearLimit - i);

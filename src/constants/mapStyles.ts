@@ -2809,7 +2809,7 @@ export const PROJECTS_STYLES_WR = {
     {
       // "id": "RD_DRAFT copy",
       "type": "symbol",
-      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1, 2, 3], project_type: [15] },
+      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1], project_type: [15] },
       'source-layer': 'pluto15v1',
       "layout": {
           "icon-size": 0.6,
@@ -3292,7 +3292,7 @@ export const PROJECTS_STYLES_WR = {
     {
       // "id": "z13_allstudy_neg_CNCL",
       "type": "line",
-      metadata: { 'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda', project_status: [8], project_type: [1,18] },
+      metadata: { 'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda', project_status: [7, 8], project_type: [1,18] },
       'source-layer': 'pluto15v1',
       "maxzoom": 13,
       "layout": {"line-cap": "round"},
@@ -3305,7 +3305,7 @@ export const PROJECTS_STYLES_WR = {
     {
       // "id": "z13_allstudy_pos_CNCL",
       "type": "line",
-      metadata: { 'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda', project_status: [8], project_type: [1, 18] },
+      metadata: { 'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda', project_status: [7, 8], project_type: [1, 18] },
       'source-layer': 'pluto15v1',
       "maxzoom": 13,
       "layout": {"line-cap": "round"},

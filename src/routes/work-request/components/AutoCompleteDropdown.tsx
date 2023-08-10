@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { WORK_REQUEST } from 'constants/constants';
+import { GOVERNMENT_STAFF, WORK_PLAN, WORK_REQUEST } from 'constants/constants';
+import { useProfileState } from 'hook/profileHook';
 import { AutoComplete, Input } from 'antd';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
@@ -14,6 +15,7 @@ const AutoCompleteDropdown = (
     type: string,
   }
 ) => {
+  const { userInformation } = useProfileState();
   const {
     dataAutocomplete,
     localityFilter,
@@ -23,8 +25,6 @@ const AutoCompleteDropdown = (
     tabKey,
     locality,
     boardStatus,
-    filterMap,
-    namespaceId,
   } = useRequestState();
   const {
     setShowAnalytics,
@@ -40,7 +40,6 @@ const AutoCompleteDropdown = (
     setLocalityType,
     setTabKey,
     setIsOnSelected,
-    loadColumns,
   } = useRequestDispatch();
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const [dropdownSelected, setDropdownSelected] = useState('');
@@ -64,82 +63,8 @@ const AutoCompleteDropdown = (
           setLocality(dropdownSelected);
         }
       }
-      if (filterMap && filterMap?.project_service_areas?.length > 0) {
-        setServiceAreasSelected(filterMap?.project_service_areas?.map((_: any) => true))
-      }
-      if (filterMap && filterMap?.currentId?.length > 0) {
-        setProjectStatusesSelected(filterMap?.currentId?.map((_: any) => true))
-      }
     }
   }, [year]);
-
-  useEffect(() => {
-    if (type === WORK_REQUEST) {
-      if (filterMap && filterMap?.project_counties?.length > 0) {
-        setCountiesSelected(filterMap?.project_counties?.map((_: any) => true));
-      }
-      if (filterMap && filterMap?.project_service_areas?.length > 0) {
-        setServiceAreasSelected(filterMap?.project_service_areas?.map((_: any) => true))
-      }
-    }
-    if (filterMap && filterMap?.currentId?.length > 0) {
-      setProjectStatusesSelected(filterMap?.currentId?.map((_: any) => true))
-    }
-    updateFilterSelected(dropdownSelected)
-  }, [filterMap, dropdownSelected, type])
-
-  const updateFilterSelected = (value: any) => {
-    if(type === WORK_PLAN_TAB && year >= YEAR_LOGIC_2024){
-      if (filterMap && value) {
-        const priorityFilterList = [true, true, true, true, true];
-        setPrioritySelected(priorityFilterList);
-        setIsLocatedInSouthPlateRiverSelected([false]);
-        let filterSelected = [false];
-        if (filterMap?.project_local_governments?.length > 0) {
-          setJurisdictionSelected(filterMap?.project_local_governments?.map((_: any) => true));
-        }
-        if (value === 'MHFD District Work Plan' || value === MMFD_LOCALITY) {
-          filterMap?.project_service_areas?.forEach((p: any, index: number) => {
-            filterSelected[index] = true;
-          })
-          filterMap?.project_counties?.forEach((p: any, index: number) => {
-            filterSelected[index] = true;
-          })
-          filterMap?.currentId?.forEach((p: any, index: number) => {
-            filterSelected[index] = true;
-          })
-          setProjectStatusesSelected(filterSelected);
-          setCountiesSelected(filterSelected);
-          setServiceAreasSelected(filterSelected)
-        } else {
-          if (value.includes('County')) {
-            const valueName = value.replace('County', '').trim();
-            filterMap?.project_counties.forEach((p: any, index: number) => {
-              if (p.county_name === valueName) {
-  
-                filterSelected[index] = true;
-              } else {
-                filterSelected[index] = false;
-              }
-            })
-            setCountiesSelected(filterSelected);
-          }
-          if (value.includes('Service Area')) {
-            const valueName = value.replace('Service Area', '').trim();
-            filterMap?.project_service_areas.forEach((p: any, index: number) => {
-              if (p.service_area_name === valueName) {
-                filterSelected[index] = true;
-              } else {
-                filterSelected[index] = false;
-              }
-            })
-            setServiceAreasSelected(filterSelected)
-          }
-        }
-      }
-    }
-    loadColumns(namespaceId)
-  }
 
   const onSelect = async (value: any) => {
     setDropdownSelected(value);
@@ -156,8 +81,6 @@ const AutoCompleteDropdown = (
     if (type === WORK_PLAN_TAB) {
       if (year < YEAR_LOGIC_2024) {
         setLocality(value);
-      } else {
-        updateFilterSelected(value);
       }
     } else {
       setLocality(value);
@@ -206,55 +129,72 @@ const AutoCompleteDropdown = (
   };
   const prefix = <i className="mdi mdi-circle" style={{ marginLeft: '-6px', zIndex: '3' }}></i>;
   const inputClassName = boardStatus === 'Approved' ? 'approved' : 'not-approved';
+  let showAllOptions = true;
+  let isLocalGovernment = userInformation.designation === GOVERNMENT_STAFF;
+  if (isLocalGovernment) {
+    showAllOptions = type === WORK_PLAN;
+  }
 
   return (
     <div className="auto-complete-map">
-      <AutoComplete
-        className={'ant-select-1'}
-        options={renderOption.length > 0 ? [...dataAutocomplete.map(renderOption), {}] : dataAutocomplete.map(renderOption)}
-        placeholder={localityFilter}
-        filterOption={(inputValue, option: any) => {
-          if (dataAutocomplete.includes(inputValue)) {
-            return true;
-          }
-          if (!option.value) return false;
-          return option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
-        }}
-        onSelect={onSelect}
-        value={localityFilter}
-        onSearch={(input2: any) => {
-          setLocalityFilter(input2);
-          if (localities.map((r: any) => r.name).indexOf(input2) !== -1) {
-            setLocality(input2)
-            setIsOnSelected(false);
-            let l = localities.find((p: any) => {
-              return p.name === locality;
-            })
-            if (l) {
-              setLocalityType(l.table);
-            }
-          }
-        }}
-        open={dropdownIsOpen}
-        onClick={() => setDropdownIsOpen(!dropdownIsOpen)}
-        onBlur={() => setDropdownIsOpen(false)}
-        listHeight={windowWidth > 2554 ? (windowWidth > 3799 ? 500 : 320) : 256}
-      >
-        <Input
-          className={inputClassName}
-          prefix={prefix}
-          suffix={
-            dropdownIsOpen ? <UpOutlined style={{ marginRight: '-18px' }} /> : <DownOutlined style={{ marginRight: '-18px' }} />
-          }
-          style={{
-            border: 'none',
-            boxShadow: 'none',
-            borderBottom: '1px solid rgba(37, 24, 99, 0.3)',
-            marginRight: '-18px',
-            marginLeft: '-6px'
-          }}
-        />
-      </AutoComplete>
+      {
+        showAllOptions ? (
+          <AutoComplete
+            className={'ant-select-1'}
+            options={renderOption.length > 0 ? [...dataAutocomplete.map(renderOption), {}] : dataAutocomplete.map(renderOption)}
+            placeholder={localityFilter}
+            filterOption={(inputValue, option: any) => {
+              if (dataAutocomplete.includes(inputValue)) {
+                return true;
+              }
+              if (!option.value) return false;
+              return option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
+            }}
+            onSelect={onSelect}
+            value={localityFilter}
+            onSearch={(input2: any) => {
+              setLocalityFilter(input2);
+              if (localities.map((r: any) => r.name).indexOf(input2) !== -1) {
+                setLocality(input2)
+                setIsOnSelected(false);
+                let l = localities.find((p: any) => {
+                  return p.name === locality;
+                })
+                if (l) {
+                  setLocalityType(l.table);
+                }
+              }
+            }}
+            open={dropdownIsOpen}
+            onClick={() => setDropdownIsOpen(!dropdownIsOpen)}
+            onBlur={() => setDropdownIsOpen(false)}
+            listHeight={windowWidth > 2554 ? (windowWidth > 3799 ? 500 : 320) : 256}
+          >
+            <Input
+              className={inputClassName}
+              prefix={prefix}
+              suffix={
+                dropdownIsOpen ? <UpOutlined style={{ marginRight: '-18px' }} /> : <DownOutlined style={{ marginRight: '-18px' }} />
+              }
+              style={{
+                border: 'none',
+                boxShadow: 'none',
+                borderBottom: '1px solid rgba(37, 24, 99, 0.3)',
+                marginRight: '-18px',
+                marginLeft: '-6px'
+              }}
+            />
+          </AutoComplete>
+        ) : (
+          <Input
+            style={{ border: 'none' }}
+            className={inputClassName}
+            value={localityFilter}
+            readOnly={true}
+            prefix={prefix}
+          />
+        )
+      }
     </div>
   );
 };

@@ -3,7 +3,8 @@ import { Drawer, Button, Checkbox } from 'antd';
 import { useRequestDispatch, useRequestState } from "hook/requestHook";
 import FilterGroup from "./FilterGroup";
 import { useMapState } from "hook/mapHook";
-import { YEAR_LOGIC_2024, WORK_REQUEST, WORK_PLAN } from 'constants/constants';
+import { YEAR_LOGIC_2024, WORK_REQUEST, WORK_PLAN, YEAR_LOGIC_2023 } from 'constants/constants';
+
 const Filter = () => {
   const {
     showFilters,
@@ -18,11 +19,16 @@ const Filter = () => {
     projectStatusesSelected,
     isLocatedInSouthPlateRiverSelected,
     columns2,
+    filterRequest
   } = useRequestState();
   const {
     tabActiveNavbar
   } = useMapState();
-  const { setShowFilters, loadColumns, setPrioritySelected, setJurisdictionSelected, setCountiesSelected, setServiceAreasSelected, setProjectStatusesSelected, setIsLocatedInSouthPlateRiverSelected } = useRequestDispatch();
+  const { 
+    setShowFilters, 
+    loadColumns, 
+    setFilterRequest
+  } = useRequestDispatch();
   let jurisdictionFilterList: any[] = filterMap['project_local_governments'];
   let countiesFilterList: any[] = filterMap['project_counties'];
   let serviceAreasFilterList: any[] = filterMap['project_service_areas'];
@@ -36,7 +42,13 @@ const Filter = () => {
     { label: 'Work Plan', value: 4 }
   ], []);
   const [notFoundProjects, setNotFoundProjects] = useState(true);
-
+  const [serviceAreaFilter, setServiceAreaFilter] = useState<any[]>([]);
+  const [countyFilter, setCountyFilter] = useState<any[]>([]);
+  const [jurisdictionFilter, setJurisdictionFilter] = useState<any[]>([]);
+  const [projectStatusFilter, setProjectStatusFilter] = useState<any[]>([]);
+  const [sponsorFilter, setSponsorFilter] = useState<any[]>([]);
+  const [priorityFilter, setPriorityFilter] = useState<any[]>([]);
+  const [resetFilter, setResetFilter] = useState(true);
 
   useEffect(() => {
     if (year >= YEAR_LOGIC_2024 ) {
@@ -58,33 +70,29 @@ const Filter = () => {
     }
   }, [columns2]);
 
+  useEffect(() => {
+    setServiceAreaFilter(filterRequest.filter((f: any) => f.type === 'project_service_areas'));
+    setCountyFilter(filterRequest.filter((f: any) => f.type === 'project_counties'));
+    setJurisdictionFilter(filterRequest.filter((f: any) => f.type === 'project_local_governments'));
+    setProjectStatusFilter(filterRequest.filter((f: any) => f.type === 'status'));
+    setSponsorFilter(filterRequest.filter((f: any) => f.type === 'project_partners'));
+    setPriorityFilter(filterRequest.filter((f: any) => f.type === 'project_priorities'));
+  }, [filterRequest,resetFilter]);
+
   const isLocatedInSouthPlateRiverFilter = useMemo(() => [
     { label: 'Yes', value: 1 }
   ], []);
 
-  useEffect(() => {
-    if (year < 2024) {
-      setJurisdictionSelected(jurisdictionFilterList?.map((r: any) => true));
-      setPrioritySelected(priorityFilterList?.map((r: any) => true));
-      setProjectStatusesSelected(projectStatusFilterList?.map((r: any) => true));
-      setIsLocatedInSouthPlateRiverSelected(isLocatedInSouthPlateRiverFilter?.map((r: any) => false));
-      setCountiesSelected(countiesFilterList?.map((r: any) => true));
-      setServiceAreasSelected(serviceAreasFilterList?.map((r: any) => true));
-      loadColumns(namespaceId);
-    }
-  }, [jurisdictionFilterList, countiesFilterList, priorityFilterList, serviceAreasFilterList, projectStatusFilterList, isLocatedInSouthPlateRiverFilter]);
-
   const applyFilters = () => {
     loadColumns(namespaceId);
   }
-  const reset = (value: boolean) => {
-    setJurisdictionSelected(jurisdictionSelected.map((_: any) => value));
-    setCountiesSelected(countiesSelected.map((_: any) => value));
-    setPrioritySelected(prioritySelected.map((_: any) => value));
-    setServiceAreasSelected(serviceAreasSelected.map((_: any) => value));
-    setProjectStatusesSelected(projectStatusesSelected.map((_: any) => value));
-    setIsLocatedInSouthPlateRiverSelected(isLocatedInSouthPlateRiverFilter.map((_: any) => false));
-
+  const reset = () => {
+    let filterRequestReset = filterRequest.map((f: any) => {
+      f.selected = false;
+      return f;
+    });
+    setFilterRequest(filterRequestReset);
+    setResetFilter(!resetFilter);
   }
   let label;
   if (l === 'CODE_STATE_COUNTY' || l === 'CODE_LOCAL_GOVERNMENT') {
@@ -109,82 +117,50 @@ const Filter = () => {
       mask={false}
     >
       {
-        tabActiveNavbar === WORK_PLAN && year >= YEAR_LOGIC_2024 &&
         <FilterGroup
-        notFoundProjects={notFoundProjects}
-          label="Located in South Platte River"
-          filterList={isLocatedInSouthPlateRiverFilter}
-          selected={isLocatedInSouthPlateRiverSelected}
-          setter={setIsLocatedInSouthPlateRiverSelected}
-          labelKey="label"
-          valueKey="value"
-        />
-      }
-      {
-        tabActiveNavbar === WORK_PLAN &&
-        <FilterGroup
-        notFoundProjects={notFoundProjects}
-          label="Work Request Priority"
-          filterList={priorityFilterList}
-          selected={prioritySelected}
-          setter={setPrioritySelected}
-          labelKey="label"
-          valueKey="value"
-        />
-      }
-      {
-        tabActiveNavbar === WORK_PLAN &&
-        <FilterGroup
-        notFoundProjects={notFoundProjects}
-          label="Local Government"
-          filterList={jurisdictionFilterList}
-          selected={jurisdictionSelected}
-          setter={setJurisdictionSelected}
-          labelKey="local_government_name"
-          valueKey="code_local_government_id"
-        />
-      }
-      {
-        label === 'COUNTY' &&
-        <FilterGroup
-        notFoundProjects={notFoundProjects}
-          label="County"
-          filterList={countiesFilterList}
-          selected={countiesSelected}
-          setter={setCountiesSelected}
-          labelKey="county_name"
-          valueKey="code_county_id"
-        />
-      }
-      {
-        label === 'SERVICE AREA' &&
-        <FilterGroup
-        notFoundProjects={notFoundProjects}
-          label="Service Area"
-          filterList={serviceAreasFilterList}
-          selected={serviceAreasSelected}
-          setter={setServiceAreasSelected}
-          labelKey="service_area_name"
-          valueKey="code_service_area_id"
-        />
-
-      }
-      {
-        year >= YEAR_LOGIC_2024 &&
-        <FilterGroup
-        notFoundProjects={notFoundProjects}
           label="Project Status"
-          filterList={projectStatusFilterList}
-          selected={projectStatusesSelected}
-          setter={setProjectStatusesSelected}
-          labelKey="status_name"
-          valueKey="code_status_type_id"
+          filterList={projectStatusFilter}
+        />
+      }
+      {
+        tabActiveNavbar === 'WORK_PLAN' &&
+        <FilterGroup
+          label="Priority"
+          filterList={priorityFilter}
+        />
+      }
+      {
+        tabActiveNavbar === 'WORK_PLAN' &&
+        <FilterGroup
+          label="Sponsor"
+          filterList={sponsorFilter}
+        />
+      }
+      {
+        tabActiveNavbar === 'WORK_PLAN' &&
+        <FilterGroup
+          label="Local Government"
+          filterList={jurisdictionFilter}
+        />
+      }
+      {
+        (tabActiveNavbar === 'WORK_REQUEST' ||  tabActiveNavbar === 'WORK_PLAN') &&
+        <FilterGroup
+          label="County"
+          filterList={countyFilter}
+        />
+      }
+      {
+        (tabActiveNavbar === 'WORK_REQUEST' ||  tabActiveNavbar === 'WORK_PLAN') &&
+        <FilterGroup
+          label="Service Area"
+          filterList={serviceAreaFilter}
         />
       }
 
       <div className="footer-drawer" style={{ position: 'fixed', bottom: '50px', right: '19px', backgroundColor: 'white', 'width': '277px' }}>
         <div className="buttons-filters" style={{ display: 'flex' }}>
-          <Button className="btn-borde" onClick={() => reset(true)}>
+          <Button className="btn-borde" onClick={() => reset()}>
             Reset
           </Button>
           <Button className="btn-purple" style={{ marginLeft: '10px' }} onClick={applyFilters}>

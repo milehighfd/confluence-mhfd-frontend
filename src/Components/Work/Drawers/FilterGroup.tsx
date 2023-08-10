@@ -1,25 +1,19 @@
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { Checkbox } from 'antd';
+import { useRequestDispatch } from 'hook/requestHook';
 import React from 'react';
 import { capitalLetter, capitalizeWords } from 'utils/utils';
 
 const FilterGroup = ({
-  notFoundProjects,
   label,
   filterList,
-  selected,
-  setter,
-  labelKey,
-  valueKey
 }: {
-  notFoundProjects: boolean;
   label: string;
   filterList: any[];
-  selected: boolean[];
-  setter: (selected: boolean[]) => void;
-  labelKey: string;
-  valueKey: string;
 }) => {
+  const {
+    toggleFilter
+  } = useRequestDispatch();
   return (
     <div style={{ marginTop: '10px' }}>
       <div style={{ paddingBottom: '10px' }}>
@@ -30,16 +24,10 @@ const FilterGroup = ({
         {
           filterList?.map((cn: any, index: number) => (
             <div key={`filter-ps${index}`} className='filter-00'>
-              <Checkbox className='check-filter' checked={selected[index]} onChange={e => {
-                let v = e.target.checked;
-                setter(selected.map((w, i) => {
-                  if (i === index) {
-                    return v;
-                  }
-                  return w;
-                }))
+              <Checkbox className='check-filter' checked={cn?.selected} onChange={e => {
+                toggleFilter(cn?.type,cn?.id)
               }} />
-              &nbsp;&nbsp;&nbsp;{cn[labelKey]}
+              &nbsp;&nbsp;&nbsp;{cn?.name}
               <br />
             </div>
           ))
