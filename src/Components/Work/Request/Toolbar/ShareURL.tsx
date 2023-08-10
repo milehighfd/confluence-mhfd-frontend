@@ -21,8 +21,8 @@ const ShareURL = () => {
       }
     }>
       <img
-        className='icon-bt'       
-        style={{ WebkitMask: "url('/Icons/ic-link.svg') no-repeat center" }}
+        src='Icons/ic-004.svg'  
+        //style={{ WebkitMask: "url('/Icons/ic-link.svg') no-repeat center" }}
         alt=""
       />
     </Button>

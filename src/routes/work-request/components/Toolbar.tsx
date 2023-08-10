@@ -71,8 +71,7 @@ const Toolbar = ({
               onClick={() => setShowBoardStatus(true)}
             >
               <img
-                className="icon-bt"
-                style={{ WebkitMask: "url('/Icons/icon-88.svg') no-repeat center" }}
+                src='Icons/ic-001.svg'
                 alt=""
               />
             </Button>
@@ -88,8 +87,7 @@ const Toolbar = ({
             onClick={() => setShowAnalytics(true)}
           >
             <img
-              className="icon-bt"
-              style={{ WebkitMask: "url('/Icons/icon-89.svg') no-repeat center" }}
+              src='Icons/ic-002.svg'
               alt=""
             />
           </Button>
@@ -102,8 +100,7 @@ const Toolbar = ({
           type='link'           
             onClick={() => setShowFilters(true)}>
             <img
-              className="icon-bt"
-              style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center" }}
+              src='Icons/ic-003.svg'
               alt="" />
           </Button>
         </Popover>

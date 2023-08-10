@@ -142,9 +142,9 @@
       margin: 0px 13px 13px 0px;
       border-right: 0px;
     }
-    .ant-card:hover {
-      border-right: 0px;
-    }
+    // .ant-card:hover {
+    //   border-right: 0px;
+    // }
     .btn-card{
       width: 22px;
       height: 22px;
@@ -161,28 +161,29 @@
     }
     .infinite-scroll-component__outerdiv {
       width: 100%;
-      padding: 26px 20px;
+      padding: 0px 8px;
     }
     .card-title-s{
       height: 100%;
     }
     h4 {
-      font-size: 20px;
-      line-height: 25px;
+      font-size: 18px;
+      line-height: 20px;
       margin-bottom: 10px;
     }
     h6 {
-      font-size: 19px;
+      font-size: 17px;
     }
     h5 {
-      font-size: 21px;
+      font-size: 18px;
     }
     b {
       font-size: 16px;
     }
   }
   .card-content-text .text-type-percentage {
-    font-size: 17px;
+    font-size: 16px;
+    line-height: 19px;
   }
   
 }
