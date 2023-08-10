@@ -160,7 +160,7 @@ const ListViewMap = ({
     },
     {
       title: 'Type',
-      width: windowWidth > 1900 ? '222px':'147px',
+      width: windowWidth > 1900 ? '200px':'147px',
       dataIndex: 'type',
       key: 'type',
       // sorter: (a, b) => a.type - b.type,
@@ -358,7 +358,7 @@ const ListViewMap = ({
           columns={columns} 
           dataSource={showData} 
           pagination={false} 
-          scroll={{ x: windowWidth>1900? 1174: 996, y: 'calc(100vh - 315px)' }}
+          scroll={{ x: windowWidth>1900? 1152: 996, y: 'calc(100vh - 315px)' }}
           rowClassName={(record, index) => {
             if(selectedOnMap.id !== -1 &&  record.project_id === selectedOnMap.id){
               return ('row-geometry-body-selected')
