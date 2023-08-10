@@ -70,6 +70,7 @@ import { useProfileState } from '../../hook/profileHook';
 import LoadingViewOverall from '../Loading-overall/LoadingViewOverall';
 import { polyMask } from '../../routes/map/components/MapFunctionsUtilities';
 import MapDropdownLayers from 'routes/map/components/MapDropdownLayers';
+import ModalLayers from 'Components/Project/TypeProjectComponents/ModalLayers';
 
 const windowWidth: any = window.innerWidth;
 
@@ -204,6 +205,7 @@ const CreateProjectMap = (type: any) => {
   const [markerGeocoder, setMarkerGeocoder] = useState<any>(undefined);
   const [zoomEndCounter, setZoomEndCounter] = useState(0);
   const [dragEndCounter, setDragEndCounter] = useState(0);
+  const [visible, setVisible] = useState(false);
   const [flagtoDraw, setFlagtoDraw] = useState(false);
   const [groupedProjectIdsType, setGroupedProjectIdsType] = useState<any>([]);
 
@@ -1690,6 +1692,7 @@ const CreateProjectMap = (type: any) => {
   };
   return (
     <>
+      <ModalLayers visible={visible} setVisible={setVisible} />
       {showIntersectionError && (
         <Modal
           className="detailed-version detailed-upload-save"
@@ -1790,6 +1793,9 @@ const CreateProjectMap = (type: any) => {
           >
             <Input.Search size="large" placeholder="Stream or Location" className="style-input" />
           </AutoComplete>
+        </div>
+        <div className='show-filter'>
+          <Button className='btn-show-filter' onClick={()=>{setVisible(!visible)}}>Show suggested layers</Button>
         </div>
       </div>
       {loading && <LoadingViewOverall></LoadingViewOverall>}
