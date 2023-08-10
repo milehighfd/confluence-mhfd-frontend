@@ -57,11 +57,24 @@ const ModalLayers = ({
   }
 
   const updateLayers = () => {
+    console.log('selectedLayersCP', selectedLayersCP)
+    console.log('finalCheckedLayers', finalCheckedLayers)
     const layers = [...new Set([...selectedLayersCP, ...finalCheckedLayers])as any];
     // const layers = selectedLayersCP.concat(finalCheckedLayers);
-    console.log('layers', layers);
+    
+    const checkedResult = projectTypeLayers
+    .filter((layer:any) => finalCheckedLayers.includes(layer.value))
+    .map((layer:any) => layer.value);
+  
+  const uncheckedResult = projectTypeLayers
+    .filter((layer:any) => !finalCheckedLayers.includes(layer.value))
+    .map((layer:any) => layer.value);
+
+    console.log('layers', layers, checkedResult, uncheckedResult);
+    const layersResult = layers.filter(item => !uncheckedResult.includes(item));
     // updateSelectedLayersCP(layers);
-    selectCheckboxes(layers);
+    console.log('layersResult', layersResult);
+    selectCheckboxes(layersResult);
   }
   const getLayersOptions = (type:any) => {
    let checkedLayers: any = [];

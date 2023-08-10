@@ -304,13 +304,17 @@ const CreateProjectMap = (type: any) => {
       setStreamsIds([]);
       setComponentIntersected([]);
       setComponentGeom(undefined);
-      updateSelectedLayersCP([]);
+      // updateSelectedLayersCP([]);
       setUserPolygon([]);
       setEditLocation([]);
       marker.remove();
       // setZoomGeom(undefined);
     };
   }, [type.type]);
+
+  useEffect(() => {
+    console.log('aaaa', selectedLayersCP, selectedLayers);
+  }, [selectedLayersCP, selectedLayers]);
 
   useEffect(() => {
     if (map && map.map) {
@@ -847,7 +851,7 @@ const CreateProjectMap = (type: any) => {
     // }
     map.isStyleLoaded(() => {
       // updateSelectedLayersCP(thisSL);
-      updateSelectedLayersCP(selectedLayers);
+      // updateSelectedLayersCP(selectedLayers);
     });
   };
   const removeProjectLayer = () => {
@@ -2012,7 +2016,7 @@ const CreateProjectMap = (type: any) => {
             selectCheckboxes={selectCheckboxes}
             selectedLayers={selectedLayersCP}
             removePopup={removePopup}
-            isWR={true}
+            // isWR={true}
           />
           <AutoComplete
             dropdownMatchSelectWidth={true}
