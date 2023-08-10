@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import * as mapboxgl from 'mapbox-gl';
-import { MapService } from '../../utils/MapService';
+import { MapService as MapServiceCreate } from '../../utils/MapService';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import * as turf from '@turf/turf';
 import { getData, getToken } from '../../Config/datasets';
@@ -10,6 +10,7 @@ import { addGeojsonSource, removeGeojsonCluster } from './../../routes/map/compo
 import { addPopupAndListeners, addPopupsOnClick } from '../../routes/map/components/MapFunctionsPopup';
 import { depth } from '../../routes/map/components/MapFunctionsUtilities';
 import EventService from '../../services/EventService';
+import MapService from 'Components/Map/MapService';
 import {
   PROBLEMS_TRIGGER,
   COMPONENT_LAYERS,
@@ -70,6 +71,14 @@ import { useProfileState } from '../../hook/profileHook';
 import LoadingViewOverall from '../Loading-overall/LoadingViewOverall';
 import { polyMask } from '../../routes/map/components/MapFunctionsUtilities';
 import MapDropdownLayers from 'routes/map/components/MapDropdownLayers';
+import SideMenuTools from 'routes/map/components/SideMenuTools';
+// import SideBarComment from 'Components/Map/SideBarComment';
+// import {   createNoteWithElem,
+//   editNoteWithElem,
+//   handleColor,
+//   openMarkerOfNoteWithoutAdd, } from 'routes/map/components/MapFunctionsNotes';
+// import { useNoteDispatch, useNotesState } from 'hook/notesHook';
+// import { notesPopup } from 'routes/map/components/MapGetters';
 
 const windowWidth: any = window.innerWidth;
 
@@ -99,6 +108,7 @@ const CreateProjectMap = (type: any) => {
     componentDetailIds,
     filterComponents,
     projectsids,
+    selectedLayers
   } = useMapState();
 
   const {
@@ -153,6 +163,8 @@ const CreateProjectMap = (type: any) => {
     highlightedStreams,
   } = useProjectState();
   const { groupOrganization } = useProfileState();
+  // const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
+  // const { notes, availableColors } = useNotesState();
   const [idsBoardProjects, setIdsBoardProjects] = useState(boardProjectsCreate);
   const [layerFilters, setLayerFilters] = useState(layers);
   const [localAOI, setLocalAOI] = useState(type.locality);
@@ -206,6 +218,19 @@ const CreateProjectMap = (type: any) => {
   const [dragEndCounter, setDragEndCounter] = useState(0);
   const [flagtoDraw, setFlagtoDraw] = useState(false);
   const [groupedProjectIdsType, setGroupedProjectIdsType] = useState<any>([]);
+  const [mapService] = useState<MapService>(new MapService());
+  // the next const is created to avoid error adding buttons to sidebar
+  const [commentVisible ,setCommentVisible] = useState(false);
+  // const [markersNotes, setMarkerNotes] = useState([]);
+  // let momentaryMarker = new mapboxgl.Marker({ color: '#FFFFFF', scale: 0.7 });
+  // const docNote = document.createElement('div');
+  // docNote.className = 'marker-note';
+  // const markerNote = new mapboxgl.Marker(docNote);
+  // let isEdit = false;
+  // let newNote: any = undefined;
+  // let currentNote: any = undefined;
+  // let canAdd = { value: false };
+  // let commentAvailable = false;
 
   useEffect(() => {
     magicAddingVariable = isAddLocation;
@@ -222,7 +247,8 @@ const CreateProjectMap = (type: any) => {
         setTimeout(waiting, 50);
       } else {
         if (!map) {
-          map = new MapService('map3');
+          // getNotes();
+          map = new MapServiceCreate('map3');
           map.loadImages();
           let _ = 0;
           map.zoomEnd(() => {
@@ -782,32 +808,33 @@ const CreateProjectMap = (type: any) => {
   }, [selectedLayersCP]);
 
   const setLayersSelectedOnInit = () => {
-    let ppArray: any = [];
-    let thisSL = [...ppArray, MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS];
-    if (type.type === 'CAPITAL') {
-      thisSL = [...thisSL, AREA_BASED_MASK, BORDER, PROBLEMS_TRIGGER, COMPONENT_LAYERS];
-    }
-    if (type.type === 'ACQUISITION' || type.type === 'SPECIAL') {
-      thisSL = [...thisSL, AREA_BASED_MASK, BORDER];
-    }
-    if (type.type === 'STUDY') {
-      thisSL = [
-        ...thisSL,
-        AREA_BASED_MASK,
-        BORDER,
-        FLOODPLAINS,
-        FEMA_FLOOD_HAZARD,
-        PROBLEMS_TRIGGER,
-        MHFD_BOUNDARY_FILTERS,
-        XSTREAMS,
-        STREAMS_FILTERS,
-      ];
-    }
-    if (type.type === 'MAINTENANCE') {
-      thisSL = [...thisSL, AREA_BASED_MASK, BORDER, PROBLEMS_TRIGGER, ROUTINE_MAINTENANCE, MEP_PROJECTS];
-    }
+    // let ppArray: any = [];
+    // let thisSL = [...ppArray, MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS];
+    // if (type.type === 'CAPITAL') {
+    //   thisSL = [...thisSL, AREA_BASED_MASK, BORDER, PROBLEMS_TRIGGER, COMPONENT_LAYERS];
+    // }
+    // if (type.type === 'ACQUISITION' || type.type === 'SPECIAL') {
+    //   thisSL = [...thisSL, AREA_BASED_MASK, BORDER];
+    // }
+    // if (type.type === 'STUDY') {
+    //   thisSL = [
+    //     ...thisSL,
+    //     AREA_BASED_MASK,
+    //     BORDER,
+    //     FLOODPLAINS,
+    //     FEMA_FLOOD_HAZARD,
+    //     PROBLEMS_TRIGGER,
+    //     MHFD_BOUNDARY_FILTERS,
+    //     XSTREAMS,
+    //     STREAMS_FILTERS,
+    //   ];
+    // }
+    // if (type.type === 'MAINTENANCE') {
+    //   thisSL = [...thisSL, AREA_BASED_MASK, BORDER, PROBLEMS_TRIGGER, ROUTINE_MAINTENANCE, MEP_PROJECTS];
+    // }
     map.isStyleLoaded(() => {
-      updateSelectedLayersCP(thisSL);
+      // updateSelectedLayersCP(thisSL);
+      updateSelectedLayersCP(selectedLayers);
     });
   };
   const removeProjectLayer = () => {
@@ -1330,6 +1357,9 @@ const CreateProjectMap = (type: any) => {
             if (isDrawingCurrently) {
               return;
             }
+            // if (commentAvailable) {
+            //   return;
+            // }
             if (hovereableLayers.includes(key) && currentDraw != 'capitalpolygon' && !magicAddingVariable) {
               setFlagtoDraw(false);
               if (key.includes('stream_improvement_measure_copy')) {
@@ -1348,6 +1378,9 @@ const CreateProjectMap = (type: any) => {
             }
           });
           map.map.on('mouseleave', key + '_' + index, (e: any) => {
+            // if (commentAvailable) {
+            //   return;
+            // }
             if (hovereableLayers.includes(key) && currentDraw != 'capitalpolygon') {
               hideOneHighlighted(key);
             }
@@ -1365,6 +1398,9 @@ const CreateProjectMap = (type: any) => {
       map.map.on('mouseleave', key, () => {
         map.map.getCanvas().style.cursor = '';
       });
+      // map.map.on('mousemove', () => {
+      //   map.map.getCanvas().style.cursor = !(canAdd.value && commentAvailable) ? 'default' : 'crosshair';
+      // });
     }
   };
   const existDetailedPage = (item: any) => {
@@ -1603,6 +1639,51 @@ const CreateProjectMap = (type: any) => {
         getComponentsFromProjProb,
       );
     }
+
+    // if (isEdit) {
+    //   editNoteWithElem(currentNote, editNote);
+    //   isEdit = false;
+    //   newNote = undefined;
+    //   currentNote = undefined;
+    // }
+    // if (newNote !== void 0 && isEdit === false) {
+    //   createNoteWithElem(newNote, createNote);
+    //   markerNote.remove();
+    //   popup.remove();
+    //   isEdit = false;
+    //   newNote = undefined;
+    //   currentNote = undefined;
+    // }
+
+    // if (markerGeocoder) {
+    //   markerGeocoder.remove();
+    //   setMarkerGeocoder(undefined);
+    // }
+
+    // if (commentAvailable && canAdd.value) {
+    //   const html = notesPopup(setNote, handleDeleteNote);
+    //   popup = new mapboxgl.Popup({
+    //     closeButton: false,
+    //     offset: {
+    //       top: [0, 10],
+    //       bottom: [0, -10],
+    //       left: [10, 0],
+    //       right: [-10, 0],
+    //     },
+    //   });
+    //   markerNote.setPopup(popup);
+    //   popup.setDOMContent(html);
+    //   markerNote
+    //     .setLngLat([e.lngLat.lng, e.lngLat.lat])
+    //     .setPopup(popup)
+    //     .addTo(map)
+    //     .togglePopup();
+    //   canAdd.value = false;
+    //   return;
+    // }
+    // if (commentAvailable) {
+    //   return;
+    // }
   };
   const getComponentsFromProjProb = (item: any, event: any) => {
     let id = item.type == 'project' ? item.id : item.problemid;
@@ -1688,8 +1769,145 @@ const CreateProjectMap = (type: any) => {
   const removePopup = () => {
     popup.remove();
   };
+
+  // const setNote = useCallback(
+  //   (event: any, note?: any) => {
+  //     const getText = event?.target?.value ? event.target.value : event;
+  //     const getColorId = handleColor(availableColors);
+  //     if (!note) {
+  //       const note = {
+  //         color_id: getColorId,
+  //         note_text: getText,
+  //         latitude: popup.getLngLat().lat,
+  //         longitude: popup.getLngLat().lng,
+  //       };
+  //       newNote = note;
+  //       return;
+  //     } else {
+  //       const noteEdit = {
+  //         newnotes_id: note.newnotes_id,
+  //         color_id: getColorId,
+  //         note_text: getText,
+  //         latitude: note.latitude,
+  //         longitude: note.longitude,
+  //       };
+  //       currentNote = noteEdit;
+  //       isEdit = true;
+  //       return;
+  //     }
+  //   },
+  //   [availableColors],
+  // );
+
+  // const flyTo = (longitude: number, latitude: number, zoom?: number) => {
+  //   map.flyTo({
+  //     center: [longitude, latitude],
+  //     zoom: zoom ?? 15,
+  //   });
+  // };
+
+  // const openEditNote = (note: any) => {
+  //   flyTo(note.longitude, note.latitude, 16.5);
+  //   popup.remove();
+  //   openMarkerOfNoteWithoutAdd(
+  //     note,
+  //     markersNotes,
+  //     // eventsOnClickNotes
+  //   );
+  // };
+
+  // const setSideBarStatus = (status: boolean) => {
+  //   setCommentVisible(status);
+  //   setOpen(status);
+  // };
+
+  // const addToMap = () => {
+  //   if (markersNotes.length > 0) {
+  //     markersNotes.forEach((marker: any) => {
+  //       marker.marker._popup.remove();
+  //     });
+  //   }
+  //   canAdd.value = true;
+  // };
+
+  // const handleDeleteNote = (note: any) => {
+  //   let noteId = note.newnotes_id;
+  //   deleteNote(noteId);
+  //   markerNote.remove();
+  //   popup.remove();
+  // };
+
+  // useEffect(() => {
+  //   if (commentVisible && markersNotes.length > 0) {
+  //     markersNotes.forEach((marker: any) => {
+  //       marker.marker.addTo(map.map);
+  //     });
+  //   } else if (markersNotes.length > 0) {
+  //     markersNotes.forEach((marker: any) => {
+  //       marker.marker.remove();
+  //     });
+  //   }
+  // }, [markersNotes, commentVisible]);
+
+  // useEffect(() => {
+  //   let totalmarkers: any = [];
+  //   if (map) {
+  //     markersNotes?.forEach((marker: any) => {
+  //       marker.marker.remove();
+  //     });
+  //     notes?.forEach((note: any) => {
+  //       let colorOfMarker = note?.color?.color ? note?.color?.color : '#F6BE0F';
+  //       const doc = document.createElement('div');
+  //       doc.className = 'marker-note';
+  //       doc.style.backgroundColor = colorOfMarker;
+  //       const newmarker = new mapboxgl.Marker(doc);
+  //       const html = notesPopup(setNote, handleDeleteNote, note);
+  //       let newpopup = new mapboxgl.Popup({
+  //         closeButton: false,
+  //         offset: {
+  //           top: [0, 10],
+  //           bottom: [0, -10],
+  //           left: [10, 0],
+  //           right: [-10, 0],
+  //         },
+  //       });
+  //       newpopup.on('close', (e: any) => {
+  //         momentaryMarker.remove();
+  //       });
+  //       newmarker.setPopup(newpopup);
+  //       newpopup.setDOMContent(html);
+  //       newmarker.setLngLat([note?.longitude, note?.latitude]).setPopup(newpopup);
+  //       totalmarkers.push({ marker: newmarker, note: note });
+  //     });
+  //     setMarkerNotes(totalmarkers);
+  //   }
+  // }, [notes]);
+
+  // useEffect(() => {
+  //   commentAvailable = commentVisible;
+  //   setOpen(commentVisible);
+  //   if (map) {
+  //     setTimeout(() => {
+  //       map?.map.resize();
+  //     }, 2000);
+  //   }
+  //   if (!commentVisible) {
+  //     markerNote.remove();
+  //     popup.remove();
+  //   }
+  // }, [commentVisible]);
+
   return (
-    <>
+    <div className="map" id='create-map'>
+      {/* {commentVisible && (
+      <SideBarComment
+          visible={commentVisible}
+          setVisible={setSideBarStatus}
+          flyTo={flyTo}
+          openEditNote={openEditNote}
+          addToMap={addToMap}
+        />
+      )} */}
       {showIntersectionError && (
         <Modal
           className="detailed-version detailed-upload-save"
@@ -1793,7 +2011,8 @@ const CreateProjectMap = (type: any) => {
         </div>
       </div>
       {loading && <LoadingViewOverall></LoadingViewOverall>}
-    </>
+      <SideMenuTools map={map?.map} setCommentVisible={setCommentVisible} mapService={mapService} isMobile={false} />
+    </div>
   );
 };
 
