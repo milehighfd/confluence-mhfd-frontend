@@ -66,6 +66,7 @@ import {
   resetInfiniteScrollHasMoreItems,
   setIsEdit,
   setDeleteAttachmentsIds,
+  setZoomGeomCreateMap,
 } from '../store/actions/ProjectActions';
 
 export const useProjectState = () => useSelector(
@@ -236,6 +237,9 @@ export const useProjectDispatch = () => {
     },
     getZoomGeomProblem: (problemid: any) => {
       dispatch(getZoomGeomProblem(problemid))
+    },
+    setZoomGeomCreateMap: (geomCreateMap: any) => {
+      dispatch(setZoomGeomCreateMap(geomCreateMap));
     },
     setZoomGeom: (zoomGeom: any) => {
       dispatch(setZoomGeom(zoomGeom));

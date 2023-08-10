@@ -139,7 +139,7 @@ const CreateProjectMap = (type: any) => {
     updateSelectedLayersCP,
     getJurisdictionPolygon,
     getServiceAreaPolygonofStreams,
-    setZoomGeom,
+    setZoomGeomCreateMap,
     setComponentIntersected,
     setComponentGeom,
     setEditLocation,
@@ -222,6 +222,8 @@ const CreateProjectMap = (type: any) => {
   const [flagtoDraw, setFlagtoDraw] = useState(false);
   const [groupedProjectIdsType, setGroupedProjectIdsType] = useState<any>([]);
   const [mapService] = useState<MapService>(new MapService());
+  const [hasZoomedInit, setHasZoomedInit] = useState(false);
+  const currentBounds = useRef(undefined);
   // the next const is created to avoid error adding buttons to sidebar
   const [commentVisible ,setCommentVisible] = useState(false);
   // const [markersNotes, setMarkerNotes] = useState([]);
@@ -241,6 +243,11 @@ const CreateProjectMap = (type: any) => {
 
   useEffect(() => {
     map = undefined;
+    return () => {
+      setStreamIntersected([]);
+      setZoomGeomCreateMap(currentBounds.current);
+      // recien mandar al zoomgeom
+    };
   }, []);
   useEffect(() => {
     setLoading(true);
@@ -304,11 +311,7 @@ const CreateProjectMap = (type: any) => {
       // setZoomGeom(undefined);
     };
   }, [type.type]);
-  useEffect(() => {
-    return () => {
-      setStreamIntersected([]);
-    };
-  }, []);
+
   useEffect(() => {
     if (map && map.map) {
       const bounds = map.getBoundingBox();
@@ -344,9 +347,10 @@ const CreateProjectMap = (type: any) => {
     }
   }, [listStreams]);
   useEffect(() => {
-    if (zoomGeom && map) {
+    if (zoomGeom && map && !hasZoomedInit) {
       map.map.fitBounds(zoomGeom);
       map.map.once('load', () => {
+        setHasZoomedInit(true);
         map.map.fitBounds(zoomGeom);
       });
     }
@@ -772,6 +776,12 @@ const CreateProjectMap = (type: any) => {
       setLayerFilters(layers);
       map.isStyleLoaded(() => {
         applyNearMapLayer();
+      });
+      map.map.on('idle', () => {
+        map.map.on('moveend', () => {
+          console.log('Move end');
+          currentBounds.current = map.map.getBounds();
+        });
       });
     }
   }, [map]);

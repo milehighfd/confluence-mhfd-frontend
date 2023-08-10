@@ -592,6 +592,11 @@ export const getZoomGeomProblem = (problemid: any) => {
     })
   }
 }
+export const setZoomGeomCreateMap = (geomCreateMap: any) => {
+    return (dispatch: Function) => {
+      dispatch({type: types.SET_GEOM_CREATE, geomCreateMap});
+    }
+}
 export const setZoomGeom = (zoomGeom: any) => {
   return (dispatch: Function) => {
     dispatch({type: types.SET_ZOOM_GEOM, zoomGeom})

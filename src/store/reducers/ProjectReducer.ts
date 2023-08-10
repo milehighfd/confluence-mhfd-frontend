@@ -71,6 +71,7 @@ const initState = {
   jurisdiction: undefined,
   componentGeom: undefined,
   zoomGeom: undefined,
+  geomCreateMap: undefined,
   nextPageOfCards: 1,
   infiniteScrollItems: Array.from({ length: 20 }),
   infiniteScrollHasMoreItems: true,
@@ -253,6 +254,12 @@ const projectReducer = (state = initState, action: any) => {
       return {
           ...state,
           selectedLayersCP: action.selectedLayerCP
+      }
+    }
+    case types.SET_GEOM_CREATE: {
+      return {
+        ...state,
+        geomCreateMap: action.geomCreateMap
       }
     }
     case types.SET_ZOOM_GEOM: {
