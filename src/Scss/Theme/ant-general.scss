@@ -380,12 +380,12 @@
 @media (min-width: 1900px) and (max-width: 2549px) {
   .ant-dropdown-menu-item,
   .ant-dropdown-menu-submenu-title {
-    font-size: 16px;
+    font-size: 16px !important;
     padding: 6px 12px;
   }
-  .ant-dropdown-menu-item {
-    font-size: 14px !important;
-  }
+  // .ant-dropdown-menu-item {
+  //   font-size: 14px !important;
+  // }
   .ant-menu-submenu-popup {
     .ant-menu {
       min-width: 160px !important;
@@ -490,4 +490,13 @@
 //movend from map.scss
 .ant-popover-placement-bottomLeft .ant-popover-arrow {
   left: 12px;
+}
+
+@media (min-width: 1900px) and (max-width: 2549px) {
+  .ant-popover-inner-content{
+    .ant-menu{
+      font-size: 16px;
+    }
+  }
+  
 }

@@ -80,7 +80,6 @@
     font-size: 12px;
     font-weight: 400;
     line-height: normal;
-
   }
 
   hr {
@@ -117,18 +116,73 @@
     top: -5px;
   }
 }
-.card-content-text{
+.card-content-text {
   display: flex;
   justify-content: space-between;
   width: 100%;
   font-size: 12px;
   align-items: baseline;
-  .text-type-percentage{
+  .text-type-percentage {
     font-size: 13px;
   }
-  span{
+  span {
     color: $opacity;
     font-weight: 400;
     line-height: normal;
   }
+}
+
+@media (min-width: 1900px) and (max-width: 2499px) {
+  .card-map {
+    padding: 0px 8px 0px 0px;
+    .border-line-green {
+      border-right: 0px;
+    }
+    .ant-card {
+      margin: 0px 13px 13px 0px;
+      border-right: 0px;
+    }
+    .ant-card:hover {
+      border-right: 0px;
+    }
+    .btn-card{
+      width: 22px;
+      height: 22px;
+      top: 10px;
+      right: 10px;
+    }
+    .btn-card:hover{
+      top: 10px;
+      right: 10px;
+    }
+    .btn-card:active{
+      top: 10px;
+      right: 10px;
+    }
+    .infinite-scroll-component__outerdiv {
+      width: 100%;
+      padding: 26px 20px;
+    }
+    .card-title-s{
+      height: 100%;
+    }
+    h4 {
+      font-size: 20px;
+      line-height: 25px;
+      margin-bottom: 10px;
+    }
+    h6 {
+      font-size: 19px;
+    }
+    h5 {
+      font-size: 21px;
+    }
+    b {
+      font-size: 16px;
+    }
+  }
+  .card-content-text .text-type-percentage {
+    font-size: 17px;
+  }
+  
 }

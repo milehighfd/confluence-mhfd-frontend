@@ -1,6 +1,7 @@
 import { List, Row, Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import { useProjectDispatch, useProjectState } from "hook/projectHook";
+import { WINDOW_WIDTH } from "constants/constants";
 import React, { useEffect, useState } from "react";
 import { FILTER_PROBLEMS_TRIGGER, PROBLEMS_TRIGGER } from "../constants/tabs.constants";
 import { useMapDispatch, useMapState } from "hook/mapHook";
@@ -10,6 +11,7 @@ import { useProfileState } from "hook/profileHook";
 import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import { MHFD_PROJECTS } from "constants/constants";
+import { Console } from "console";
 
 const ListViewMap = ({
   totalElements,
@@ -35,6 +37,7 @@ const ListViewMap = ({
   const { setNextPageOfCards, setInfiniteScrollItems, setInfiniteScrollHasMoreItems } = useProjectDispatch();
   const { userInformation: user } = useProfileState();
   const { nextPageOfCards, infiniteScrollHasMoreItems, infiniteScrollItems } = useProjectState();
+  const [windowWidth, setWindowWidth] = useState(WINDOW_WIDTH)
   const {
     favorites,
     selectedOnMap,
@@ -47,6 +50,10 @@ const ListViewMap = ({
     setZoomProjectOrProblem,
     setHighlighted,
   } = useMapDispatch();
+
+  const updateWindowSize = () => {
+    setWindowWidth(window.innerWidth);
+  };
 
   useEffect(() => {
     if (type === FILTER_PROBLEMS_TRIGGER) {
@@ -131,11 +138,20 @@ const ListViewMap = ({
   useEffect(() => {
     favoriteList(type === 'Problems');
   }, [user]);
+
+  useEffect(() => {
+    window.addEventListener('resize', updateWindowSize);
+    console.log(windowWidth);
+    return () => {
+      window.removeEventListener('resize', updateWindowSize);
+    };
+  }, [])
   
+
   const columns: ColumnsType<any>  = [
     {
       title: 'Project Name',
-      width: '220px',
+      width: windowWidth > 1900 ? '368px':'220px',
       dataIndex: 'name',
       key: 'name',
       fixed: 'left',
@@ -144,7 +160,7 @@ const ListViewMap = ({
     },
     {
       title: 'Type',
-      width: '147px',
+      width: windowWidth > 1900 ? '222px':'147px',
       dataIndex: 'type',
       key: 'type',
       // sorter: (a, b) => a.type - b.type,
@@ -153,44 +169,44 @@ const ListViewMap = ({
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
-      width: '86px',
-      // sorter: (a, b) => a.status - b.status,
+      width: windowWidth > 1900 ? '140px':'86px',
+      sorter: (a, b) => a.status - b.status,
       render: (text: any) => <span className={"status-projects-"+ (text.toLowerCase())}>{text}</span>,
     },
     {
       title: 'Phase',
       dataIndex: 'phase',
       key: 'phase',
-      width: '100px',
-      // sorter: (a, b) => a.phase - b.phase,
+      width: windowWidth > 1900 ? '159px':'100px',
+      sorter: (a, b) => a.phase - b.phase,
     },
     {
       title: 'Stream',
       dataIndex: 'stream',
       key: 'stream',
-      width: '131px',
-      // sorter: (a, b) => a.stream - b.stream,
+      width: windowWidth > 1900 ? '187px':'131px',
+      sorter: (a, b) => a.stream - b.stream,
     },
     {
       title: 'Sponsor',
       dataIndex: 'sponsor',
       key: 'sponsor',
-      width: '110px',
-      // sorter: (a, b) => a.sponsor - b.sponsor,
+      width: windowWidth > 1900 ? '159px':'110px',
+      sorter: (a, b) => a.sponsor - b.sponsor,
     },
     {
       title: 'Est. Cost',
       dataIndex: 'cost',
       key: 'cost',
-      width: '108px',
-      // sorter: (a, b) => a.cost - b.cost,
+      width: windowWidth > 1900 ? '143px':'108px',
+      sorter: (a, b) => a.cost - b.cost,
     },
   ];
 
   const columnsProblem: ColumnsType<any>  = [
     {
       title: 'Problem Name',
-      width: '220px',
+      width: windowWidth > 1900 ? '368px':'220px',
       dataIndex: 'requestName',
       key: 'requestName',
       fixed: 'left',
@@ -199,7 +215,7 @@ const ListViewMap = ({
     },
     {
       title: 'Type',
-      width: '147px',
+      width: windowWidth > 1900 ? '222px':'147px',
       dataIndex: 'type',
       key: 'type',
       // sorter: (a, b) => a.type - b.type,
@@ -208,35 +224,35 @@ const ListViewMap = ({
       title: 'Priority',
       dataIndex: 'problempriority',
       key: 'problempriority',
-      width: '86px',
+      width: windowWidth > 1900 ? '140px':'86px',
       // sorter: (a, b) => a.problempriority - b.problempriority,      
     },
     {
       title: 'Cost',
       dataIndex: 'cost',
       key: 'cost',
-      width: '100px',
+      width: windowWidth > 1900 ? '159px':'100px',
       // sorter: (a, b) => a.cost - b.cost,
     },
     {
       title: 'Local Government',
       dataIndex: 'local_government',
       key: 'local_government',
-      width: '131px',
+      width: windowWidth > 1900 ? '187px':'131px',
       // sorter: (a, b) => a.local_government - b.local_government,
     },
     {
       title: 'Actions',
       dataIndex: 'actions',
       key: 'actions',
-      width: '110px',
+      width: windowWidth > 1900 ? '159px':'110px',
       // sorter: (a, b) => a.actions - b.actions,
     },
     {
       title: 'Percentaje',
       dataIndex: 'percentaje',
       key: 'percentaje',
-      width: '108px',
+      width: windowWidth > 1900 ? '143px':'108px',
       // sorter: (a, b) => a.percentaje - b.percentaje,
       render: (text: any) => <p>{`${text} %`}</p>,
     },
@@ -342,7 +358,7 @@ const ListViewMap = ({
           columns={columns} 
           dataSource={showData} 
           pagination={false} 
-          scroll={{ x: 996, y: 'calc(100vh - 315px)' }}
+          scroll={{ x: windowWidth>1900? 1174: 996, y: 'calc(100vh - 315px)' }}
           rowClassName={(record, index) => {
             if(selectedOnMap.id !== -1 &&  record.project_id === selectedOnMap.id){
               return ('row-geometry-body-selected')
@@ -386,7 +402,7 @@ const ListViewMap = ({
           columns={columnsProblem} 
           dataSource={showData2} 
           pagination={false} 
-          scroll={{ x: 996, y: 'calc(100vh - 315px)' }}
+          scroll={{x: windowWidth>1900? 1174: 996, y: 'calc(100vh - 315px)' }}
           rowClassName={(record, index) => {
             if(selectedOnMap.id !== -1 && record.cartodb === selectedOnMap.id){
               return ('row-geometry-body-selected')
