@@ -925,7 +925,6 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
 
   useEffect(() => {
     const [intervalId, promise] = waitingInterval(map);
-    updateSelectedLayersCP(selectedLayers);
     promise.then(() => {
       applySkyMapLayer();
       mapService.applyMapLayers(layerFilters, selectedLayers, showLayers, applyFilters, getProjectsFilteredIds, filterProblems, filterProjectOptions, addMapListeners);
