@@ -142,7 +142,6 @@ const RequestView = ({ type, widthMap }: {
         _locality = r.localities[0].name;
       }
       if (_locality) {
-        setIsInitMap(true);
         setLocality(_locality)
         setIsOnSelected(false);
         setLocalityFilter(_locality)
@@ -203,7 +202,12 @@ const RequestView = ({ type, widthMap }: {
     }
     initLoading();
     setZoomProject(undefined);
-  }, []);
+    setIsInitMap(true);
+    return () => {
+      setLocality(undefined);
+      setIsInitMap(true);
+    };
+  }, [type]);
 
   useEffect(() => {
     if (!locality || !tabKey) {
@@ -250,7 +254,6 @@ const RequestView = ({ type, widthMap }: {
     })
   }, [year, locality, tabKey, type]);
 
-
   useEffect(() => {
     let diffTmp = []
     for (var i = 1; i <= 5; i++) {
@@ -260,18 +263,6 @@ const RequestView = ({ type, widthMap }: {
     setDiff(diffTmp);
   }, [reqManager, sumTotal]);
 
-  const openEdit = (project: any) => {
-    datasets.getData(
-      SERVER.V2_DETAILED_PAGE(project.project_id),
-      datasets.getToken()
-    ).then((value: any) => {
-      setCompleteProjectData({ ...value, tabKey });
-      setTimeout(() => {
-        setShowModalProject(true);
-      }, 200);
-    });
-  }
-
   const scrollToRight = () => {
     let element: any = wrtRef.current;
     let parent = element.parentElement;
@@ -279,6 +270,7 @@ const RequestView = ({ type, widthMap }: {
   }
 
   useEffect(() => {
+    console.trace('Locality reaches here, should not repeat after change', locality, isInitMap);
     if (locality) {
       // reach on initLoading
       onSelect(locality, isInitMap ? 'isinit' : undefined);
@@ -363,7 +355,7 @@ const RequestView = ({ type, widthMap }: {
           displayedTabKey = ['Study'];
         }
       }
-      if (locality.name === 'MHFD District Work Plan' || locality.name === 'Mile High Flood District' || year >= 2024) {
+      if (locality && (locality.name === 'MHFD District Work Plan' || locality.name === 'Mile High Flood District' || year >= 2024)) {
         displayedTabKey = tabKeys;
       }
   }

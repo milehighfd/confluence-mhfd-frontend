@@ -262,7 +262,6 @@ const groupBy = (arr: any, keyGetter: any) => {
 };
 
 export const splitProjectsIdsByStatuses = (projects: any) => {
-  console.log('Project ', projects );
   const projectsRelevantData = projects.map((p: any) => {
     return {
       code_project_type_id: p.projectData?.code_project_type?.code_project_type_id,
@@ -297,7 +296,6 @@ export const splitProjectsIdsByStatuses = (projects: any) => {
       newGroups[key][subkey] = newGroups[key][subkey].map((value:any) => value.project_id);
     }
   }
-  console.log('Projects grouped first STATUS, second PROJECT TYPE', newGroups );
   // first key is STATUS  
   // second key is PROJECT TYPE
   return newGroups;

@@ -249,7 +249,6 @@ const MapLayout = () => {
   }, [commentVisible]);
 
   useEffect(() => {
-    console.log('TABActiveNavbar', tabActiveNavbar)
     setLeftWidthMap(MEDIUM_SCREEN_LEFT);
     setLeftWidth(MEDIUM_SCREEN_RIGHT - 1);
     setRotationStyle(emptyStyle);
@@ -341,11 +340,7 @@ const MapLayout = () => {
                     lg={24 - (tabActiveNavbar === MAP ? leftWidthMap : leftWidth)}
                   >
                    {tabActiveNavbar === MAP && <MapView />}
-                   {tabActiveNavbar === WORK_REQUEST && <RequestView
-                      type={tabActiveNavbar}
-                      widthMap={leftWidth}
-                    />}
-                   {tabActiveNavbar === WORK_PLAN && <RequestView
+                   {(tabActiveNavbar === WORK_REQUEST || tabActiveNavbar === WORK_PLAN) && <RequestView
                       type={tabActiveNavbar}
                       widthMap={leftWidth}
                     />}

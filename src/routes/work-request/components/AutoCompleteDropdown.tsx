@@ -53,15 +53,10 @@ const AutoCompleteDropdown = (
   useEffect(() => {
     if (type === WORK_PLAN_TAB) {
       if (year >= YEAR_LOGIC_2024) {
-        setLocality(MMFD_LOCALITY);
         setDropdownSelected(MMFD_LOCALITY)
         setLocalityFilter(MMFD_LOCALITY);
         setLocalityType(MMFD_LOCALITY_TYPE);
         setTabKey(tabKeys[0]);
-      } else {
-        if (dropdownSelected) {
-          setLocality(dropdownSelected);
-        }
       }
     }
   }, [year]);
@@ -78,13 +73,8 @@ const AutoCompleteDropdown = (
     setServiceAreasSelected([]);
     setProjectStatusesSelected([])
     setIsLocatedInSouthPlateRiverSelected([]);
-    if (type === WORK_PLAN_TAB) {
-      if (year < YEAR_LOGIC_2024) {
-        setLocality(value);
-      }
-    } else {
-      setLocality(value);
-    }
+    console.log('aquicambia');
+setLocality(value);
     let l = localities.find((p: any) => {
       return p.name === value;
     })
@@ -155,7 +145,8 @@ const AutoCompleteDropdown = (
             onSearch={(input2: any) => {
               setLocalityFilter(input2);
               if (localities.map((r: any) => r.name).indexOf(input2) !== -1) {
-                setLocality(input2)
+                console.log('aquicambia');
+setLocality(input2)
                 setIsOnSelected(false);
                 let l = localities.find((p: any) => {
                   return p.name === locality;
