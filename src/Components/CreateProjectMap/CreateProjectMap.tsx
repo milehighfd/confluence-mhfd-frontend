@@ -119,6 +119,7 @@ const CreateProjectMap = (type: any) => {
     existDetailedPageProblem,
     existDetailedPageProject,
     getComponentsByProjid,
+    updateSelectedLayers
   } = useMapDispatch();
   const {
     saveSpecialLocation,
@@ -856,6 +857,7 @@ const CreateProjectMap = (type: any) => {
       }
     });
     updateSelectedLayersCP(filterLayers);
+    updateSelectedLayers(filterLayers);
   };
   const onCreateDraw = (event: any) => {
     if (firstCallDraw) {
@@ -1220,7 +1222,9 @@ const CreateProjectMap = (type: any) => {
         removeTilesHandler(layer);
       }
     });
+    console.log('selectedItems', selectedItems);
     updateSelectedLayersCP(selectedItems);
+    updateSelectedLayers(selectedItems);
     topStreams();
   };
   const hideLayers = (key: string) => {
@@ -1910,7 +1914,7 @@ const CreateProjectMap = (type: any) => {
           addToMap={addToMap}
         />
       )} */}
-      <ModalLayers visible={visible} setVisible={setVisible} />
+      <ModalLayers type={type} selectCheckboxes={selectCheckboxes} visible={visible} setVisible={setVisible} />
       {showIntersectionError && (
         <Modal
           className="detailed-version detailed-upload-save"

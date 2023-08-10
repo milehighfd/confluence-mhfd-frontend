@@ -1442,3 +1442,32 @@ export const STATUS_NAMES: any = {
   10:	"Closeout",
   11:	"Under Review"
 }
+
+export const LAYERS_LABELS: any = {
+  BORDER:'Borders',
+  AREA_BASED_MASK:'Area-Based Mask',
+  PROBLEMS_TRIGGER:'Problem Groups',
+  FLOOD_HAZARDS:'Problems',
+  COMPONENT_LAYERS:'Proposed Actions',
+  MHFD_PROJECTS:'Projects',
+  MEP_PROJECTS:'MEP Projects',
+  ROUTINE_MAINTENANCE:'Routine Maintenance',
+  STREAMS_FILTERS:'Streams',
+  WATERSHED_FILTERS:'Watersheds',
+  NRCS_SOILS:'NRCS Soils',
+  ALERT_STATION:'Alert Stations',
+  FLOODPLAINS:'Floodplains (Non-FEMA)',
+  FEMA_FLOOD_HAZARD:'FEMA Flood Hazard Zones',
+  EFFECTIVE_REACHES:'Effective Reaches',
+  ACTIVE_LOMS:'LOMCs',
+  STREAM_MANAGEMENT_CORRIDORS:'Stream Management Corridors',
+  BLOCK_CLEARANCE_ZONES_LAYERS:'Block Clearance Zone',
+  RESEARCH_MONITORING:'Research/Monitoring',
+  USE_LAND_COVER:'Land Use Land Cover',
+  CLIMB_TO_SAFETY:'Climb to Safety Signs',
+  DWR_DAM_SAFETY:'DWR Dam Safety',
+  SERVICE_AREA:'Service Areas',
+  COUNTIES:'Counties',
+  MUNICIPALITIES:'Municipalities',
+  SEMSWA_SERVICE_AREA:'SEMSWA Service Area',
+  }
