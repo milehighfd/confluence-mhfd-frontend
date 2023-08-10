@@ -44,7 +44,7 @@ const EditDatesModal = ({
       {step === 0 && (
         <div className="body-edit-dates">
           <div className="img-confetti">
-            <img src="Icons/ic-confetti.svg" alt="ic-confetti"/>
+            {/* <img src="Icons/ic-confetti.svg" alt="ic-confetti"/> */}
             <br/>
             Hooray! 
             <br/>
@@ -58,15 +58,16 @@ const EditDatesModal = ({
             <label>The current phase for my project is:</label><br/>
             <Select
               placeholder="Select phase"
-              style={{ width: '100%', fontSize: '12px' }}
+              style={{ width: '100%', fontSize: '12px', marginBottom:'16px' }}
               listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
             >
               <Option key='Select-phase' value='Select-phase'>
                 Select phase
               </Option>
             </Select>
+
             <label>It’s start date is:</label><br/>
-            <DatePicker style={{ width: '100%', borderRadius: '3px', height:'34px'}}/>
+            <DatePicker style={{ width: '100%', borderRadius: '5px', height:'36px'}}/>
           </div>
         </div>
       )}

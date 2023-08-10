@@ -593,7 +593,7 @@
     }
   }
   .body-edit-dates{
-    height: 450px;
+    height: 350px;
     .img-confetti{
       color: #11093C;
       text-align: center;
@@ -619,6 +619,29 @@
         line-height: normal;
       }
     }
+    .ant-picker-input>input {
+      font-size: 14px;
+      color: $purple00;
+    }
+    .ant-picker-input>input::placeholder {
+      font-size: 14px;
+      color: $purple00;
+    }
+    .ant-select-single.ant-select-show-arrow .ant-select-selection-item, .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
+      font-size: 14px;
+      color: $purple00;
+    }
+    .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+      border-radius: 5px !important;
+      box-shadow: 0px 4px 40px 0px rgba(0, 0, 0, 0.04);
+    }
+    .ant-picker-focused, .ant-picker:hover {
+      border-color: $purple00;
+    }
+    .ant-picker {
+      color: #11093c;
+      box-shadow: 0px 4px 40px 0px rgba(0, 0, 0, 0.04);
+  }
   }
   .foot-edit-dates{
     text-align: end;
