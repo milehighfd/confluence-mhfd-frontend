@@ -25,6 +25,8 @@ const AutoCompleteDropdown = (
     tabKey,
     locality,
     boardStatus,
+    filterRequest,
+    namespaceId,    
   } = useRequestState();
   const {
     setShowAnalytics,
@@ -40,6 +42,9 @@ const AutoCompleteDropdown = (
     setLocalityType,
     setTabKey,
     setIsOnSelected,
+    setFilterRequest,
+    loadColumns,
+    setDisableFilterComponent
   } = useRequestDispatch();
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const [dropdownSelected, setDropdownSelected] = useState('');
@@ -57,6 +62,9 @@ const AutoCompleteDropdown = (
         setLocalityFilter(MMFD_LOCALITY);
         setLocalityType(MMFD_LOCALITY_TYPE);
         setTabKey(tabKeys[0]);
+      } else {
+        setDisableFilterComponent(false,'county')
+        setDisableFilterComponent(false,'service_area')        
       }
     }
   }, [year]);
@@ -73,11 +81,36 @@ const AutoCompleteDropdown = (
     setServiceAreasSelected([]);
     setProjectStatusesSelected([])
     setIsLocatedInSouthPlateRiverSelected([]);
-    console.log('aquicambia');
-setLocality(value);
     let l = localities.find((p: any) => {
       return p.name === value;
     })
+    if (type === WORK_PLAN_TAB) {
+      if (year < YEAR_LOGIC_2024) {
+        setLocality(value);        
+      }else{
+        let filterRequestReset = filterRequest.map((f: any) => {
+          if (l.table === 'CODE_STATE_COUNTY') {
+            if (f.name === l.name.replace(' County', '')) {
+              setDisableFilterComponent(true,'county')
+              setDisableFilterComponent(false,'service_area')
+              f.selected = true;
+            } else {
+              f.selected = false;
+            }
+          } else if (l.table === 'CODE_SERVICE_AREA') {
+            if (f.name === l.name.replace(' Service Area', '')) {
+              setDisableFilterComponent(true,'service_area')
+              setDisableFilterComponent(false,'county')
+              f.selected = true;
+            } else {
+              f.selected = false;
+            }
+          }
+          return f;
+        });
+        setFilterRequest(filterRequestReset);
+      }
+    }
     console.log('Locality', l);
     if (l) {
       setLocalityType(l.table);
@@ -99,16 +132,20 @@ setLocality(value);
           }
         }
         if (l.name === 'MHFD District Work Plan' || l.name === 'Mile High Flood District') {
+          let filterRequestReset = filterRequest.map((f: any) => {
+            f.selected = false;
+            return f;
+          });
+          setFilterRequest(filterRequestReset);
           displayedTabKey = tabKeys;
+          setDisableFilterComponent(false,'county')
+          setDisableFilterComponent(false,'service_area')
         }
         if(year >= YEAR_LOGIC_2024){
-          if (l.name.includes('South Platte River County')) {
-            displayedTabKey = tabKeys;
-            setTabKey(displayedTabKey[0]);
-          }
-          if (!displayedTabKey.includes(tabKey)) {
-            setTabKey(displayedTabKey[0]);
-          }
+          loadColumns(namespaceId);
+        }else{
+          setDisableFilterComponent(false,'county')
+          setDisableFilterComponent(false,'service_area')
         }
       } else {
         if (!tabKeys.includes(tabKey)) {
