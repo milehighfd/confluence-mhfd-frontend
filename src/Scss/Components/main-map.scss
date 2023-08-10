@@ -873,6 +873,7 @@ hr.filters-line {
   .ant-table-body{
     height: calc(100vh - 306px) !important;
     max-height: calc(100vh - 306px) !important;
+    padding-right: 2px;
   }
   .ant-table-thead th.ant-table-column-has-sorters:hover {
     background: #F5F7FF;
@@ -890,6 +891,8 @@ hr.filters-line {
       line-height: 18px;
       border: 0px solid #E6E9EA;
       background: #F5F7FF;
+      border-bottom: 1px solid #f0f0f0;
+      border-top: 1px solid transparent;
     }
     tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan]):before {
       display: none;
@@ -906,14 +909,21 @@ hr.filters-line {
   .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
     padding: 11px 10px;
     padding-right: 8px;
+    border-bottom: 1px solid #f0f0f0;
+      border-top: 1px solid transparent;
   }
   .row-geometry-body-selected{
     td {
-      border-bottom: 2px solid $green;
-      border-top: 2px solid $green;
+      border-bottom: 1px solid $green !important;
+      border-top: 1px solid $green !important;
     }
-    .ant-table-cell-fix-right{
-      border-left: 2px solid $green;
+    td:first-child {
+      border-left: 1px solid $green !important;
+      border-radius: 3px 0px 0px 3px;
+    }
+    td:last-child{
+      border-right: 1px solid $green !important;
+      border-radius: 0px 3px 3px 0px;
     }
   }
   .project-name{
