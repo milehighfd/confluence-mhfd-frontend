@@ -22,7 +22,8 @@ export const MAP_DROPDOWN_ITEMS = [
   }, {
     // THIS ONE IS THE BASEMAP OFFICIAL
     type: 'Optional style',
-    style: `mapbox://styles/milehighfd/ckxhudjgf1er514o9wbyvi6nw`,
+    // style: `mapbox://styles/milehighfd/ckxhudjgf1er514o9wbyvi6nw`,
+    style: 'mapbox://styles/milehighfd/cll48eh32008b01qk7ygzbay7'
   }, {
     type: 'Dark Road',
     style: 'mapbox://styles/milehighfd/ck4jfj4yy5abd1cqw90v1dlft'

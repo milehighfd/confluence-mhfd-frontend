@@ -18,7 +18,7 @@ import {
   LAYERS_LABELS
 } from '../../../constants/constants';
 import { useMapState } from "hook/mapHook";
-import { useProjectDispatch } from "hook/projectHook";
+import { useProjectDispatch, useProjectState } from "hook/projectHook";
 
 const ModalLayers = ({
   type,
@@ -35,6 +35,9 @@ const ModalLayers = ({
   const {
     selectedLayers
   } = useMapState();
+  const {
+    selectedLayersCP
+  } = useProjectState();
   const {
     updateSelectedLayersCP,
   } = useProjectDispatch();
@@ -54,14 +57,27 @@ const ModalLayers = ({
   }
 
   const updateLayers = () => {
-    const layers = [...new Set([...selectedLayers, ...finalCheckedLayers])as any];
-    console.log('layers', layers);
+    console.log('selectedLayersCP', selectedLayersCP)
+    console.log('finalCheckedLayers', finalCheckedLayers)
+    const layers = [...new Set([...selectedLayersCP, ...finalCheckedLayers])as any];
+    // const layers = selectedLayersCP.concat(finalCheckedLayers);
+    
+    const checkedResult = projectTypeLayers
+    .filter((layer:any) => finalCheckedLayers.includes(layer.value))
+    .map((layer:any) => layer.value);
+  
+  const uncheckedResult = projectTypeLayers
+    .filter((layer:any) => !finalCheckedLayers.includes(layer.value))
+    .map((layer:any) => layer.value);
+
+    console.log('layers', layers, checkedResult, uncheckedResult);
+    const layersResult = layers.filter(item => !uncheckedResult.includes(item));
     // updateSelectedLayersCP(layers);
-    selectCheckboxes(layers);
+    console.log('layersResult', layersResult);
+    selectCheckboxes(layersResult);
   }
   const getLayersOptions = (type:any) => {
    let checkedLayers: any = [];
-   console.log('type', type.type);
     switch (type.type) {
       case 'CAPITAL':
         checkedLayers = [
@@ -109,19 +125,13 @@ const ModalLayers = ({
         ]
         break
     }
-    console.log('gets here', checkedLayers)
     setProjectTypeLayers(checkedLayers)
   }
 
   useEffect(() => {
-    console.log('type', type);
     getLayersOptions(type)
   }, [type]);
 
-  useEffect(() => {
-    console.log('projectTypeLayers', projectTypeLayers);
-   
-  }, [projectTypeLayers]);
   return (
     <Modal
         visible={visible}
@@ -135,7 +145,7 @@ const ModalLayers = ({
       <Checkbox.Group
         key={`checkbox-group-${type.type}`}
         options={projectTypeLayers}
-        defaultValue={selectedLayers}
+        defaultValue={selectedLayersCP}
         onChange={onChange}
       />
       <div className="btn-footer-modal-layers">
