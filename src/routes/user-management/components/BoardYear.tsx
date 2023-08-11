@@ -8,7 +8,7 @@ import { useRequestDispatch } from 'hook/requestHook';
 
 const BoardYear = () => {
   const [openDropYear, setOpenDropYear] = useState(false);
-  const [yearEdit, setYearEdit] = useState('2023');
+  const [yearEdit, setYearEdit] = useState('2024');
   const {
     setYear,
   } = useRequestDispatch();
