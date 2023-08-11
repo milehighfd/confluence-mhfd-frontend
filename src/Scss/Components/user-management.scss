@@ -910,6 +910,7 @@
 }
 @media (min-width: 1900px) and (max-width: 2549px){
   .profile-myprofile{
+    //width: 413px;
     img{
       height: 125px !important;
       width: 125px !important;
@@ -928,10 +929,10 @@
       }
     }
     h1{
-      font-size: 18px !important;
+      font-size: 19px !important;
     }
     p{
-      font-size: 17px !important;
+      font-size: 16px !important;
     }
     h2{
       font-size: 26px !important;
@@ -941,7 +942,7 @@
       height: calc(100vh - 444px) !important;
       .input-profile{
         height: 34px !important;
-        font-size: 17px !important;
+        font-size: 16px !important;
         margin-top: -4px !important;
       }
     }
@@ -960,6 +961,7 @@
     }
   }
   .searches-myprofile{
+    padding: 10px 15px;
     p {
       font-size: 16px !important;
     }
@@ -972,6 +974,7 @@
     .card-map{
       h4{
         font-size: 18px !important;
+        line-height: 20px;
       }
       h6{
         font-size: 16px !important;
@@ -1197,6 +1200,25 @@
       .line-01{
         margin-top: 17px !important;
       }
+    }
+    .ant-checkbox-wrapper .ant-checkbox .ant-checkbox-inner{
+      width: 26px;
+      height: 26px;
+    }
+    .ant-checkbox-wrapper .ant-checkbox .ant-checkbox-inner::after{
+      margin-left: 3px;
+      position: absolute;
+      display: table;
+      border: 3px solid #fff;
+      border-top: 0;
+      border-left: 0;
+      transform: rotate(45deg) scale(1) translate(-50%,-50%);
+      opacity: 1;
+      transition: all .2s cubic-bezier(.12,.4,.29,1.46) .1s;
+    content: " ";
+    }
+    .ant-checkbox-wrapper .ant-checkbox{
+      top: 12px;
     }
   }
   
