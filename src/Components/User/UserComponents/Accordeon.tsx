@@ -283,7 +283,7 @@ const Accordeon = ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }
               <Row gutter={16}>
                 <Col className="gutter-row" span={12}>
                   <p>EMAIL</p>
-                  <Input placeholder="Email" value={values.email} name="email" onChange={handleChange}
+                  <Input autoComplete='off' placeholder="Email" value={values.email} name="email" onChange={handleChange}
                     style={(errors.email && touched.email) ? { border: "solid red" } : {}} />
                 </Col>
                 <Col className="gutter-row" span={12}>
