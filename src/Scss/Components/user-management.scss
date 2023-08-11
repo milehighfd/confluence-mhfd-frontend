@@ -1037,7 +1037,7 @@
         }
       }
       .ant-select-arrow {
-        height: 18px !important;
+        height: 15px !important;
         font-size: 14px !important;
       }
       .dropdown-special-bottomLeft-filter{
@@ -1166,9 +1166,10 @@
         }
       }
       .btn-profile-list{
-        font-size: 21px;
-        height: auto;
-        padding: 10px 45px;
+        font-size: 14px;
+        height: 40px;
+        width: 98px;
+        padding: 0px;
       }
       .profile-user{
         .btn-borde-management{
@@ -1202,23 +1203,15 @@
       }
     }
     .ant-checkbox-wrapper .ant-checkbox .ant-checkbox-inner{
-      width: 26px;
-      height: 26px;
+      width: 24px;
+      height: 24px;
     }
     .ant-checkbox-wrapper .ant-checkbox .ant-checkbox-inner::after{
-      margin-left: 3px;
-      position: absolute;
-      display: table;
-      border: 3px solid #fff;
-      border-top: 0;
-      border-left: 0;
-      transform: rotate(45deg) scale(1) translate(-50%,-50%);
-      opacity: 1;
-      transition: all .2s cubic-bezier(.12,.4,.29,1.46) .1s;
-    content: " ";
+      height: 13px;
+      width: 9px;
     }
     .ant-checkbox-wrapper .ant-checkbox{
-      top: 12px;
+      top: 10px;
     }
   }
   
