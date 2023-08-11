@@ -67,12 +67,17 @@ const Filter = () => {
   }, [columns2]);
 
   useEffect(() => {
-    setServiceAreaFilter(filterRequest.filter((f: any) => f.type === 'project_service_areas'));
-    setCountyFilter(filterRequest.filter((f: any) => f.type === 'project_counties'));
-    setJurisdictionFilter(filterRequest.filter((f: any) => f.type === 'project_local_governments'));
-    setProjectStatusFilter(filterRequest.filter((f: any) => f.type === 'status'));
-    setSponsorFilter(filterRequest.filter((f: any) => f.type === 'project_partners'));
-    setPriorityFilter(filterRequest.filter((f: any) => f.type === 'project_priorities'));
+    const orderForStatus = ['Draft', 'Requested','Under Review', 'Approved', 'Cancelled', 'Inactive'];
+    const statusFilter = filterRequest.filter((f: any) => f.type === 'status').sort((a:any, b:any) => {
+      return orderForStatus.indexOf(a.name) - orderForStatus.indexOf(b.name);
+    });
+    const sortedFilterRequest = [...filterRequest].sort((a, b) => a.name.localeCompare(b.name));  
+    setServiceAreaFilter(sortedFilterRequest.filter((f: any) => f.type === 'project_service_areas'));
+    setCountyFilter(sortedFilterRequest.filter((f: any) => f.type === 'project_counties'));
+    setJurisdictionFilter(sortedFilterRequest.filter((f: any) => f.type === 'project_local_governments'));
+    setProjectStatusFilter(statusFilter);
+    setSponsorFilter(sortedFilterRequest.filter((f: any) => f.type === 'project_partners'));
+    setPriorityFilter(sortedFilterRequest.filter((f: any) => f.type === 'project_priorities'));
   }, [filterRequest,resetFilter]);
 
   const isLocatedInSouthPlateRiverFilter = useMemo(() => [
