@@ -810,7 +810,6 @@ const CreateProjectMap = (type: any) => {
       });
       map.map.on('idle', () => {
         map.map.on('moveend', () => {
-          console.log('Move end');
           currentBounds.current = map.map.getBounds();
         });
       });
@@ -1678,7 +1677,24 @@ const CreateProjectMap = (type: any) => {
       }
     }
   }, [counterPopup]);
-
+  const measureCenterAndDelete = (type: any, item: any) => {
+    if (type == 'center') {
+      const coords = JSON.parse(item.coordinates);
+      if (item.type == 'line') {
+        const line = turf.lineString(coords);
+        const bbox = turf.bbox(line);
+        map.map.fitBounds(bbox, { padding: 80 });
+      } else {
+        const polygon = turf.polygon(coords);
+        const bbox = turf.bbox(polygon);
+        map.map.fitBounds(bbox, { padding: 80 });
+      }
+    } else if (type == 'delete') {
+      geojsonMeasuresSaved.features = geojsonMeasuresSaved.features.filter(elem => elem.properties.id != item.id);
+      popup.remove();
+      map.map.getSource('geojsonMeasuresSaved').setData(geojsonMeasuresSaved);
+    }
+  };
   const eventClick = async (e: any) => {
     popup.remove();
     if (!isPopup) {
@@ -1765,7 +1781,7 @@ const CreateProjectMap = (type: any) => {
           showPopup,
           () => {},
           () => {},
-          () => {},
+          measureCenterAndDelete,
           e,
           ids,
           addRemoveComponent,

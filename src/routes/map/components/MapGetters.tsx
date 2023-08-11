@@ -74,7 +74,6 @@ export const loadMenuPopupWithData = (
 ) => {
   const firstItemOfMenu = menuOptions[0];
   const popupNode = document.createElement('div');
-  console.log('eventFunctions', eventFunctions, menuOptions);
   ReactDOM.render(
     <>
       {firstItemOfMenu === MENU_OPTIONS.MEASURES ? (

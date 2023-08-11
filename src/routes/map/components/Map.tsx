@@ -1504,7 +1504,6 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     }
   };
 
-  // TODO: Move this function to service
   const measureCenterAndDelete = (type: any, item: any) => {
     if (type == 'center') {
       const coords = JSON.parse(item.coordinates);
