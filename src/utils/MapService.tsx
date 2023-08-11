@@ -850,19 +850,15 @@ export class MapService {
       this.topLabels();
       setTimeout(() => {
         if (this.map.getLayer('area_based_mask')) {
-          console.log('gets here')
           this.map.moveLayer('area_based_mask');
         }
         if (this.map.getLayer('border')) {
-          console.log('gets here2222')
           this.map.moveLayer('border');
         }
         if (this.map.getLayer('area_based_maskMASK')) {
-          console.log('gets here')
           this.map.moveLayer('area_based_maskMASK');
         }
         if (this.map.getLayer('borderMASK')) {
-          console.log('gets here2222')
           this.map.moveLayer('borderMASK');
         }
       }, 1000);
