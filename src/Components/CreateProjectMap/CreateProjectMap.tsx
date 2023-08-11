@@ -8,7 +8,7 @@ import * as datasets from '../../Config/datasets';
 import { SERVER } from '../../Config/Server.config';
 import { addGeojsonSource, removeGeojsonCluster } from './../../routes/map/components/MapFunctionsCluster';
 import { addPopupAndListeners, addPopupsOnClick, measureFunction } from '../../routes/map/components/MapFunctionsPopup';
-import { depth } from '../../routes/map/components/MapFunctionsUtilities';
+import { depth, applyMeasuresLayer } from '../../routes/map/components/MapFunctionsUtilities';
 import EventService from '../../services/EventService';
 import MapService from 'Components/Map/MapService';
 import {
@@ -58,6 +58,7 @@ import {
   BORDER,
   FLOODPLAINS,
   FEMA_FLOOD_HAZARD,
+  MENU_OPTIONS,
   MAPTYPES,
   MAINTENANCE_TRAILS,
 } from '../../constants/constants';
@@ -94,7 +95,6 @@ let marker = new mapboxgl.Marker({ color: '#ffbf00', scale: 0.7 });
 let currentDraw = 'polygon';
 let firstCallDraw = false;
 let flagInit = true;
-let isMeasuring = false;
 type GeoJSONMeasures = {
   type: string;
   features: any[];
@@ -121,6 +121,7 @@ const CreateProjectMap = (type: any) => {
   const factorKMToMiles = 0.621371;
   const factorKMtoFeet = 3280.8;
   const factorm2toacre = 0.00024710538146717;
+  let isMeasuring = useRef(false);
   let popup = new mapboxgl.Popup({ closeButton: true });
   const user = store.getState().profile.userInformation;
   const typeRef = useRef(type.type);
@@ -248,8 +249,8 @@ const CreateProjectMap = (type: any) => {
   const [hasZoomedInit, setHasZoomedInit] = useState(false);
   const currentBounds = useRef(undefined);
   const [areaValue, setAreaValue] = useState('0');
-  const [measuringState, setMeasuringState] = useState(isMeasuring);
-  const [measuringState2, setMeasuringState2] = useState(isMeasuring);
+  const [measuringState, setMeasuringState] = useState(isMeasuring.current);
+  const [measuringState2, setMeasuringState2] = useState(isMeasuring.current);
   const [isdrawingmeasure, setIsDrawingMeasure] = useState(false);
   const [distanceValue, setDistanceValue] = useState('0');
   const [distanceValueMi, setDistanceValueMi] = useState('0');
@@ -853,7 +854,7 @@ const CreateProjectMap = (type: any) => {
     // EventService.setRef('addmarker', addMarker);
   }, [selectedLayersCP]);
   const setIsMeasuring = (value: boolean) => {
-    isMeasuring = value;
+    isMeasuring.current = value;
     setMeasuringState2(value);
     setMeasuringState(false);
     geojsonMeasures.features = [];
@@ -867,7 +868,7 @@ const CreateProjectMap = (type: any) => {
   };
   const finishMeasure = (type?: string) => {
     const size = type === 'line' ? 1 : 2;
-    if (linestringMeasure.geometry.coordinates.length > size && isMeasuring) {
+    if (linestringMeasure.geometry.coordinates.length > size && isMeasuring.current) {
       var line = turf.lineString(linestringMeasure.geometry.coordinates);
       var polygon = type === 'line' ? undefined : turf.lineToPolygon(JSON.parse(JSON.stringify(line)));
       const area = type === 'line' ? undefined : polygon ? turf.area(polygon) : undefined;
@@ -886,7 +887,7 @@ const CreateProjectMap = (type: any) => {
           type: 'line',
         };
         geojsonMeasuresSaved.features.push(line);
-        map.getSource('geojsonMeasuresSaved').setData(geojsonMeasuresSaved);
+        map.map.getSource('geojsonMeasuresSaved').setData(geojsonMeasuresSaved);
       } else if (polygon && area) {
         polygon.properties = {
           id: geojsonMeasuresSaved.features.length,
@@ -897,12 +898,12 @@ const CreateProjectMap = (type: any) => {
           type: 'polygon',
         };
         geojsonMeasuresSaved.features.push(polygon);
-        map.getSource('geojsonMeasuresSaved').setData(geojsonMeasuresSaved);
+        map.map.getSource('geojsonMeasuresSaved').setData(geojsonMeasuresSaved);
       }
 
       geojsonMeasures.features = [];
       linestringMeasure.geometry.coordinates = [];
-      map.getSource('geojsonMeasure').setData(geojsonMeasures);
+      map.map.getSource('geojsonMeasure').setData(geojsonMeasures);
       setIsDrawingMeasure(false);
       setIsMeasuring(false);
     }
@@ -1143,6 +1144,7 @@ const CreateProjectMap = (type: any) => {
       }
     }
     applyFilters(MHFD_PROJECTS, filterProjectsNew);
+    applyMeasuresLayer(map.map, geojsonMeasures, geojsonMeasuresSaved);
     setTimeout(() => {
       map.map.moveLayer('munis-centroids-shea-plusother');
     }, 500);
@@ -1457,7 +1459,7 @@ const CreateProjectMap = (type: any) => {
         availableLayers.push(key + '_' + index);
         if (style.type != 'symbol') {
           map.map.on('mousemove', key + '_' + index, (e: any) => {
-            if (isDrawingCurrently) {
+            if (isDrawingCurrently || isMeasuring.current) {
               return;
             }
             // if (commentAvailable) {
@@ -1501,9 +1503,9 @@ const CreateProjectMap = (type: any) => {
       map.map.on('mouseleave', key, () => {
         map.map.getCanvas().style.cursor = '';
       });
-      // map.map.on('mousemove', () => {
-      //   map.map.getCanvas().style.cursor = !(canAdd.value && commentAvailable) ? 'default' : 'crosshair';
-      // });
+      map.map.on('mousemove', () => {
+        map.getCanvas().style.cursor = !isMeasuring.current ? 'default' : 'crosshair';
+      });
     }
   };
   const existDetailedPage = (item: any) => {
@@ -1686,10 +1688,10 @@ const CreateProjectMap = (type: any) => {
     if (!isPopup) {
       return;
     }
-    if (isMeasuring) {
+    if (isMeasuring.current) {
       measureFunction(
         e,
-        map,
+        map.map,
         coordX,
         coordY,
         geojsonMeasures,
@@ -1709,30 +1711,49 @@ const CreateProjectMap = (type: any) => {
       const mobileIds: any = [];
       const bbox = [e.point.x, e.point.y, e.point.x, e.point.y];
       setSelectedPopup(-1);
-  
-      let layersToClick = [...allLayers];
-      if (map.map.getLayer('streams-intersects')) {
-        layersToClick = [...layersToClick, 'streams-intersects'];
+      const measureFeature = map.map.queryRenderedFeatures(bbox, {
+        layers: ['measuresSaved', 'measuresSaved-border', 'measuresSaved-border-invisible'],
+      });
+      if (measureFeature.length) {
+        let measure = measureFeature[0];
+        const item = {
+          layer: MENU_OPTIONS.MEASURES,
+          coordinates: measure.properties.coordinates,
+          area: measure.properties.area,
+          perimeterFeet: measure.properties.perimeterFeet,
+          perimeterMi: measure.properties.perimeterMi,
+          id: measure.properties.id,
+          type: measure.properties.type,
+        };
+        menuOptions.push(MENU_OPTIONS.MEASURES);
+        popups.push(item);
+        mobile.push(item);
+        mobileIds.push({ layer: measure.layer.id.replace(/_\d+$/, ''), id: measure.properties.id });
+        ids.push({ layer: measure.layer.id.replace(/_\d+$/, ''), id: measure.properties.id });
+      } else {
+        let layersToClick = [...allLayers];
+        if (map.map.getLayer('streams-intersects')) {
+          layersToClick = [...layersToClick, 'streams-intersects'];
+        }
+        await addPopupsOnClick(
+          map.map,
+          bbox,
+          layersToClick,
+          coordX,
+          coordY,
+          e,
+          mobile,
+          menuOptions,
+          popups,
+          mobileIds,
+          ids,
+          user,
+          getComponentsByProjid,
+          setCounterPopup,
+          componentsList,
+          MAPTYPES.CREATEPROJECTMAP,
+        );
       }
-      await addPopupsOnClick(
-        map.map,
-        bbox,
-        layersToClick,
-        coordX,
-        coordY,
-        e,
-        mobile,
-        menuOptions,
-        popups,
-        mobileIds,
-        ids,
-        user,
-        getComponentsByProjid,
-        setCounterPopup,
-        componentsList,
-        MAPTYPES.CREATEPROJECTMAP,
-      );
-  
       if (popups.length) {
         popup.remove();
         popup = new mapboxgl.Popup({ closeButton: true });
@@ -1757,6 +1778,7 @@ const CreateProjectMap = (type: any) => {
           getComponentsFromProjProb,
         );
       }
+      
     }
 
     // if (isEdit) {
