@@ -625,6 +625,145 @@
   //container
 }
 
+.createmap .measure-button {
+  position: absolute;
+  width: 300px;
+  left: 21px;
+  right: auto !important;
+  top: 71px;
+  z-index: 10;
+
+  button {
+    width: 35px;
+    height: 35px;
+    padding: 0px;
+    border: none;
+    right: auto;
+    position: absolute;
+  }
+
+  button .img-icon {
+    -webkit-mask: url('../../Icons/u_ruler-combined.svg') no-repeat center;
+    height: 35px;
+    width: 35px;
+    background: $purple00;
+  }
+
+  .btn-measurestyle{
+    border-radius: 4px;
+  }
+
+  .measurecontainer {
+    width: 300px;
+    height: 100px;
+    z-index: 2000;
+    position: absolute;
+
+    // MEASURE 
+    .measure-block {
+      border-radius: 7px;
+      box-shadow: $shadow;
+      background-color: #fafbfb;
+      padding: 0px 0px 4px 0px;
+
+      .headmap {
+        text-align: center;
+        min-height: 40px;
+        border-radius: 7px 7px 0px 0px;
+        background: #fafbfb;
+        font-size: 14px;
+        padding: 16px 10px;
+        padding-bottom: 5px;
+        line-height: 16px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden
+      }
+
+      hr{
+        opacity: 0.4;
+        width: 96%;
+      }
+
+      .bodymap {
+        text-align: center;
+        padding: 10px 10px;
+        color: $purple00;
+
+        .label {
+          color: $opacity;
+        }
+
+        &:hover {
+          opacity: 0.5;
+        }
+      }
+
+      .bodymapvalues {
+        text-align: left;
+        padding: 5px 25px;
+        display: grid;
+        align-content: center;
+        justify-content: start;
+        align-items: baseline;
+        justify-items: start;
+        font-size: 12px;
+
+        .button-cancel {
+          position: inherit;
+        }
+
+        .button-finish {
+          position: inherit;
+        }
+
+        .paragraph {
+          padding-top: 15px;
+        }
+      }
+
+      .paragraph {
+        text-align: left;
+        padding: 5px 25px;
+        align-content: center;
+        justify-content: start;
+        align-items: baseline;
+        justify-items: start;
+        margin-bottom: 5px;
+
+        a{
+          color: #11093C;
+        }
+        .button-c {
+          &:hover {
+            opacity: 0.5;
+          }
+        }
+        
+        #button-cancel {
+          margin-left: -1px;
+        }
+
+        #button-line{
+          padding-left: 20px;
+        }
+
+        #button-polygon{
+          padding-left: 22px;
+        }
+
+        .drawingmeasuere{
+          padding-left: 20px;
+        }
+        .nodrawingmeasuere{
+          margin-left: -1px;
+        }
+      }
+    }
+  }
+
+  //container
+}
 .map .m-zoom {
   position: absolute;
   width: 32px;

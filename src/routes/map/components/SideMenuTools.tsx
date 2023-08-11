@@ -17,12 +17,14 @@ const SideMenuTools = ({
   map,
   setCommentVisible,
   mapService,
-  isMobile
+  isMobile,
+  typeMap
 }: {
   map: any,
   setCommentVisible: Function,
   mapService: MapService,
-  isMobile: boolean
+  isMobile: boolean,
+  typeMap: string
 }) => {
   const {
     setFilterProblemOptions,
@@ -175,12 +177,12 @@ const SideMenuTools = ({
           }}
         /></Button>
       }
-      <Button className="btn-none" onClick={() => {
+      { typeMap !== 'CREATE' && <Button className="btn-none" onClick={() => {
         setCommentVisible((commentVisible: any) => !commentVisible);
-      }} style={{ borderRadius: '4px' }} ><img className="img-icon-01" alt="" /></Button>
+      }} style={{ borderRadius: '4px' }} ><img className="img-icon-01" alt="" /></Button>}
 
       <Button className='btn-showmhfd' style={{ borderRadius: '4px' }} onClick={() => showMHFD()} ><img className="img-icon" alt="" /></Button>
-      <Button className='btn-history' onClick={() => setDisplayPrevNext(!displayPrevNext)}><img className='img-icon-04' alt=""></img></Button>
+      { typeMap !== 'CREATE' && <Button className='btn-history' onClick={() => setDisplayPrevNext(!displayPrevNext)}><img className='img-icon-04' alt=""></img></Button>}
       {
         displayPrevNext && <div className='mapstatebuttons'  >
           <div className="mapstateprevnext"

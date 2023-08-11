@@ -7,8 +7,8 @@ import { getData, getToken } from '../../Config/datasets';
 import * as datasets from '../../Config/datasets';
 import { SERVER } from '../../Config/Server.config';
 import { addGeojsonSource, removeGeojsonCluster } from './../../routes/map/components/MapFunctionsCluster';
-import { addPopupAndListeners, addPopupsOnClick } from '../../routes/map/components/MapFunctionsPopup';
-import { depth } from '../../routes/map/components/MapFunctionsUtilities';
+import { addPopupAndListeners, addPopupsOnClick, measureFunction } from '../../routes/map/components/MapFunctionsPopup';
+import { depth, applyMeasuresLayer } from '../../routes/map/components/MapFunctionsUtilities';
 import EventService from '../../services/EventService';
 import MapService from 'Components/Map/MapService';
 import {
@@ -58,6 +58,7 @@ import {
   BORDER,
   FLOODPLAINS,
   FEMA_FLOOD_HAZARD,
+  MENU_OPTIONS,
   MAPTYPES,
   MAINTENANCE_TRAILS,
 } from '../../constants/constants';
@@ -94,10 +95,33 @@ let marker = new mapboxgl.Marker({ color: '#ffbf00', scale: 0.7 });
 let currentDraw = 'polygon';
 let firstCallDraw = false;
 let flagInit = true;
+type GeoJSONMeasures = {
+  type: string;
+  features: any[];
+};
+const geojsonMeasures = {
+  type: 'FeatureCollection',
+  features: [],
+};
+const geojsonMeasuresSaved: GeoJSONMeasures = {
+  type: 'FeatureCollection',
+  features: [],
+};
+const linestringMeasure = {
+  type: 'Feature',
+  geometry: {
+    type: 'LineString',
+    coordinates: [],
+  },
+};
 type LayersType = string | ObjectLayerType;
 let magicAddingVariable = false;
 const CreateProjectMap = (type: any) => {
   let html = document.getElementById('map3');
+  const factorKMToMiles = 0.621371;
+  const factorKMtoFeet = 3280.8;
+  const factorm2toacre = 0.00024710538146717;
+  let isMeasuring = useRef(false);
   let popup = new mapboxgl.Popup({ closeButton: true });
   const user = store.getState().profile.userInformation;
   const typeRef = useRef(type.type);
@@ -220,12 +244,19 @@ const CreateProjectMap = (type: any) => {
   const [dragEndCounter, setDragEndCounter] = useState(0);
   const [visible, setVisible] = useState(false);
   const [flagtoDraw, setFlagtoDraw] = useState(false);
-  const [groupedProjectIdsType, setGroupedProjectIdsType] = useState<any>([]);
   const [mapService] = useState<MapService>(new MapService());
   const [hasZoomedInit, setHasZoomedInit] = useState(false);
   const currentBounds = useRef(undefined);
+  const [areaValue, setAreaValue] = useState('0');
+  const [measuringState, setMeasuringState] = useState(isMeasuring.current);
+  const [measuringState2, setMeasuringState2] = useState(isMeasuring.current);
+  const [isdrawingmeasure, setIsDrawingMeasure] = useState(false);
+  const [distanceValue, setDistanceValue] = useState('0');
+  const [distanceValueMi, setDistanceValueMi] = useState('0');
+  const groupedProjectIdsType = useRef<any>({});
   // the next const is created to avoid error adding buttons to sidebar
   const [commentVisible ,setCommentVisible] = useState(false);
+  // the next const is created to avoid error adding buttons to sidebar
   // const [markersNotes, setMarkerNotes] = useState([]);
   // let momentaryMarker = new mapboxgl.Marker({ color: '#FFFFFF', scale: 0.7 });
   // const docNote = document.createElement('div');
@@ -311,10 +342,6 @@ const CreateProjectMap = (type: any) => {
       // setZoomGeom(undefined);
     };
   }, [type.type]);
-
-  useEffect(() => {
-    console.log('aaaa', selectedLayersCP, selectedLayers);
-  }, [selectedLayersCP, selectedLayers]);
 
   useEffect(() => {
     if (map && map.map) {
@@ -783,7 +810,6 @@ const CreateProjectMap = (type: any) => {
       });
       map.map.on('idle', () => {
         map.map.on('moveend', () => {
-          console.log('Move end');
           currentBounds.current = map.map.getBounds();
         });
       });
@@ -823,7 +849,61 @@ const CreateProjectMap = (type: any) => {
     EventService.setRef('oncreatedraw', onCreateDraw);
     // EventService.setRef('addmarker', addMarker);
   }, [selectedLayersCP]);
+  const setIsMeasuring = (value: boolean) => {
+    isMeasuring.current = value;
+    setMeasuringState2(value);
+    setMeasuringState(false);
+    geojsonMeasures.features = [];
+    linestringMeasure.geometry.coordinates = [];
+    setDistanceValue('0');
+    setDistanceValueMi('0');
+    setAreaValue('0');
+    if (map.getSource('geojsonMeasure')) {
+      map.getSource('geojsonMeasure').setData(geojsonMeasures);
+    }
+  };
+  const finishMeasure = (type?: string) => {
+    const size = type === 'line' ? 1 : 2;
+    if (linestringMeasure.geometry.coordinates.length > size && isMeasuring.current) {
+      var line = turf.lineString(linestringMeasure.geometry.coordinates);
+      var polygon = type === 'line' ? undefined : turf.lineToPolygon(JSON.parse(JSON.stringify(line)));
+      const area = type === 'line' ? undefined : polygon ? turf.area(polygon) : undefined;
+      if (type !== 'line' && area) {
+        setAreaValue((area * factorm2toacre).toLocaleString(undefined, { maximumFractionDigits: 2 }));
+      }
+      const newLS = turf.lineString(linestringMeasure.geometry.coordinates);
+      const perimeter = turf.length(JSON.parse(JSON.stringify(newLS)));
+      if (type === 'line') {
+        line.properties = {
+          id: geojsonMeasuresSaved.features.length,
+          coordinates: line.geometry?.coordinates,
+          area: 0,
+          perimeterFeet: (perimeter * factorKMtoFeet).toLocaleString(undefined, { maximumFractionDigits: 2 }),
+          perimeterMi: (perimeter * factorKMToMiles).toLocaleString(undefined, { maximumFractionDigits: 2 }),
+          type: 'line',
+        };
+        geojsonMeasuresSaved.features.push(line);
+        map.map.getSource('geojsonMeasuresSaved').setData(geojsonMeasuresSaved);
+      } else if (polygon && area) {
+        polygon.properties = {
+          id: geojsonMeasuresSaved.features.length,
+          coordinates: polygon.geometry?.coordinates,
+          area: (area * factorm2toacre).toLocaleString(undefined, { maximumFractionDigits: 2 }),
+          perimeterFeet: (perimeter * factorKMtoFeet).toLocaleString(undefined, { maximumFractionDigits: 2 }),
+          perimeterMi: (perimeter * factorKMToMiles).toLocaleString(undefined, { maximumFractionDigits: 2 }),
+          type: 'polygon',
+        };
+        geojsonMeasuresSaved.features.push(polygon);
+        map.map.getSource('geojsonMeasuresSaved').setData(geojsonMeasuresSaved);
+      }
 
+      geojsonMeasures.features = [];
+      linestringMeasure.geometry.coordinates = [];
+      map.map.getSource('geojsonMeasure').setData(geojsonMeasures);
+      setIsDrawingMeasure(false);
+      setIsMeasuring(false);
+    }
+  };
   const setLayersSelectedOnInit = () => {
     // let ppArray: any = [];
     // let thisSL = [...ppArray, MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS];
@@ -1002,7 +1082,7 @@ const CreateProjectMap = (type: any) => {
       13: acquisitionProjects,
       6: developementImprProjects,
     };
-    setGroupedProjectIdsType(groupedProjectsByType);
+    groupedProjectIdsType.current = groupedProjectsByType;
   };
 
   useEffect(() => {
@@ -1060,6 +1140,7 @@ const CreateProjectMap = (type: any) => {
       }
     }
     applyFilters(MHFD_PROJECTS, filterProjectsNew);
+    applyMeasuresLayer(map.map, geojsonMeasures, geojsonMeasuresSaved);
     setTimeout(() => {
       map.map.moveLayer('munis-centroids-shea-plusother');
     }, 500);
@@ -1198,9 +1279,9 @@ const CreateProjectMap = (type: any) => {
           const currentLayer = map.getLayer(key + '_' + index);
           let projecttypes = currentLayer.metadata.projecttype;
           let combinedProjects: any = [];
-          for (let type in groupedProjectIdsType) {
+          for (let type in groupedProjectIdsType.current) {
             if (projecttypes.includes(+type)) {
-              combinedProjects.push(...groupedProjectIdsType[type]);
+              combinedProjects.push(...groupedProjectIdsType.current[type]);
             }
           }
           if (combinedProjects.length === 0) {
@@ -1225,7 +1306,7 @@ const CreateProjectMap = (type: any) => {
         }
       });
     },
-    [problemClusterGeojson, groupedProjectIdsType],
+    [problemClusterGeojson],
   );
   const selectCheckboxes = (selectedItems: Array<LayersType>) => {
     const deleteLayers = selectedLayersCP.filter((layer: any) => !selectedItems.includes(layer as string));
@@ -1236,7 +1317,6 @@ const CreateProjectMap = (type: any) => {
         removeTilesHandler(layer);
       }
     });
-    console.log('selectedItems', selectedItems);
     updateSelectedLayersCP(selectedItems);
     updateSelectedLayers(selectedItems);
     topStreams();
@@ -1374,7 +1454,7 @@ const CreateProjectMap = (type: any) => {
         availableLayers.push(key + '_' + index);
         if (style.type != 'symbol') {
           map.map.on('mousemove', key + '_' + index, (e: any) => {
-            if (isDrawingCurrently) {
+            if (isDrawingCurrently || isMeasuring.current) {
               return;
             }
             // if (commentAvailable) {
@@ -1418,9 +1498,9 @@ const CreateProjectMap = (type: any) => {
       map.map.on('mouseleave', key, () => {
         map.map.getCanvas().style.cursor = '';
       });
-      // map.map.on('mousemove', () => {
-      //   map.map.getCanvas().style.cursor = !(canAdd.value && commentAvailable) ? 'default' : 'crosshair';
-      // });
+      map.map.on('mousemove', () => {
+        map.getCanvas().style.cursor = !isMeasuring.current ? 'default' : 'crosshair';
+      });
     }
   };
   const existDetailedPage = (item: any) => {
@@ -1597,67 +1677,120 @@ const CreateProjectMap = (type: any) => {
       }
     }
   }, [counterPopup]);
-
+  const measureCenterAndDelete = (type: any, item: any) => {
+    if (type == 'center') {
+      const coords = JSON.parse(item.coordinates);
+      if (item.type == 'line') {
+        const line = turf.lineString(coords);
+        const bbox = turf.bbox(line);
+        map.map.fitBounds(bbox, { padding: 80 });
+      } else {
+        const polygon = turf.polygon(coords);
+        const bbox = turf.bbox(polygon);
+        map.map.fitBounds(bbox, { padding: 80 });
+      }
+    } else if (type == 'delete') {
+      geojsonMeasuresSaved.features = geojsonMeasuresSaved.features.filter(elem => elem.properties.id != item.id);
+      popup.remove();
+      map.map.getSource('geojsonMeasuresSaved').setData(geojsonMeasuresSaved);
+    }
+  };
   const eventClick = async (e: any) => {
     popup.remove();
     if (!isPopup) {
       return;
     }
-    hideHighlighted();
-    const popups: any = [];
-    const mobile: any = [];
-    const menuOptions: any = [];
-    const ids: any = [];
-    const mobileIds: any = [];
-    const bbox = [e.point.x, e.point.y, e.point.x, e.point.y];
-    setSelectedPopup(-1);
-
-    let layersToClick = [...allLayers];
-    if (map.map.getLayer('streams-intersects')) {
-      layersToClick = [...layersToClick, 'streams-intersects'];
-    }
-    await addPopupsOnClick(
-      map.map,
-      bbox,
-      layersToClick,
-      coordX,
-      coordY,
-      e,
-      mobile,
-      menuOptions,
-      popups,
-      mobileIds,
-      ids,
-      user,
-      getComponentsByProjid,
-      setCounterPopup,
-      componentsList,
-      MAPTYPES.CREATEPROJECTMAP,
-    );
-
-    if (popups.length) {
-      popup.remove();
-      popup = new mapboxgl.Popup({ closeButton: true });
-      setSelectedPopup(0);
-      addPopupAndListeners(
-        MAPTYPES.CREATEPROJECTMAP,
-        menuOptions,
-        popups,
-        user,
-        existDetailedPage,
-        popup,
-        map.map,
-        showPopup,
-        () => {},
-        () => {},
-        () => {},
+    if (isMeasuring.current) {
+      measureFunction(
         e,
-        ids,
-        addRemoveComponent,
-        () => {},
-        false,
-        getComponentsFromProjProb,
+        map.map,
+        coordX,
+        coordY,
+        geojsonMeasures,
+        setIsDrawingMeasure,
+        linestringMeasure,
+        finishMeasure,
+        setDistanceValue,
+        setAreaValue,
+        setDistanceValueMi,
       );
+    } else {
+      hideHighlighted();
+      const popups: any = [];
+      const mobile: any = [];
+      const menuOptions: any = [];
+      const ids: any = [];
+      const mobileIds: any = [];
+      const bbox = [e.point.x, e.point.y, e.point.x, e.point.y];
+      setSelectedPopup(-1);
+      const measureFeature = map.map.queryRenderedFeatures(bbox, {
+        layers: ['measuresSaved', 'measuresSaved-border', 'measuresSaved-border-invisible'],
+      });
+      if (measureFeature.length) {
+        let measure = measureFeature[0];
+        const item = {
+          layer: MENU_OPTIONS.MEASURES,
+          coordinates: measure.properties.coordinates,
+          area: measure.properties.area,
+          perimeterFeet: measure.properties.perimeterFeet,
+          perimeterMi: measure.properties.perimeterMi,
+          id: measure.properties.id,
+          type: measure.properties.type,
+        };
+        menuOptions.push(MENU_OPTIONS.MEASURES);
+        popups.push(item);
+        mobile.push(item);
+        mobileIds.push({ layer: measure.layer.id.replace(/_\d+$/, ''), id: measure.properties.id });
+        ids.push({ layer: measure.layer.id.replace(/_\d+$/, ''), id: measure.properties.id });
+      } else {
+        let layersToClick = [...allLayers];
+        if (map.map.getLayer('streams-intersects')) {
+          layersToClick = [...layersToClick, 'streams-intersects'];
+        }
+        await addPopupsOnClick(
+          map.map,
+          bbox,
+          layersToClick,
+          coordX,
+          coordY,
+          e,
+          mobile,
+          menuOptions,
+          popups,
+          mobileIds,
+          ids,
+          user,
+          getComponentsByProjid,
+          setCounterPopup,
+          componentsList,
+          MAPTYPES.CREATEPROJECTMAP,
+        );
+      }
+      if (popups.length) {
+        popup.remove();
+        popup = new mapboxgl.Popup({ closeButton: true });
+        setSelectedPopup(0);
+        addPopupAndListeners(
+          MAPTYPES.CREATEPROJECTMAP,
+          menuOptions,
+          popups,
+          user,
+          existDetailedPage,
+          popup,
+          map.map,
+          showPopup,
+          () => {},
+          () => {},
+          measureCenterAndDelete,
+          e,
+          ids,
+          addRemoveComponent,
+          () => {},
+          false,
+          getComponentsFromProjProb,
+        );
+      }
+      
     }
 
     // if (isEdit) {
@@ -1918,7 +2051,7 @@ const CreateProjectMap = (type: any) => {
   // }, [commentVisible]);
 
   return (
-    <div className="map" id='create-map'>
+    <div className="map createmap" id='create-map'>
       {/* {commentVisible && (
       <SideBarComment
           visible={commentVisible}
@@ -2035,7 +2168,86 @@ const CreateProjectMap = (type: any) => {
         </div>
       </div>
       {loading && <LoadingViewOverall></LoadingViewOverall>}
-      <SideMenuTools map={map?.map} setCommentVisible={setCommentVisible} mapService={mapService} isMobile={false} />
+      <div className="measure-button">
+          {!!!measuringState && (
+            <Button className='btn-measurestyle' onClick={() => setMeasuringState(true)}>
+              <img className="img-icon" alt="" />
+            </Button>
+          )}
+          {!!measuringState && (
+            <div className="measurecontainer">
+              <div id={'measure-block'} className="measure-block" onClick={() => setMeasuringState(false)}>
+                <div className="headmap">
+                  <h4>Measure distances and areas</h4>
+                  <button className="close-measure-button" onClick={() => setIsMeasuring(false)}></button>
+                </div>
+                <hr></hr>
+                <div className="bodymap" onClick={() => setIsMeasuring(true)}>
+                  <b>
+                    <img className="img-measure-00" src="/Icons/fi_play-circle.svg" alt="Create new measurement"></img>
+                    Create a new measurement
+                  </b>
+                </div>
+              </div>
+            </div>
+          )}
+          {!!measuringState2 && (
+            <div className="measurecontainer">
+              <div id={'measure-block'} className="measure-block">
+                <div className="headmap">
+                  <h4>Measure distances and areas</h4>
+                  <button className="close-measure-button" onClick={() => setIsMeasuring(false)}></button>
+                </div>
+                <hr></hr>
+                <div className="bodymapvalues">
+                  {distanceValue == '0' && areaValue == '0' ? (
+                    <span>Start creating a measurement by adding points to the map</span>
+                  ) : (
+                    <>
+                      <span>
+                        Distance:{' '}
+                        <b>
+                          {distanceValue} Feet ({distanceValueMi} Miles)
+                        </b>{' '}
+                      </span>
+                      <span>
+                        Area: <b>{areaValue} Acres</b>{' '}
+                      </span>
+                    </>
+                  )}
+                </div>
+                <hr ></hr>
+                <p className="paragraph">
+                  {!isdrawingmeasure && (
+                    <span className="button-c nodrawingmeasuere" onClick={() => setIsMeasuring(false)}>
+                      <a>
+                        <img className="img-measure-05" alt="Cancel"></img>
+                        <b>Cancel</b>
+                      </a>
+                    </span>
+                  )}
+                  {isdrawingmeasure && (
+                    <span className="button-c drawingmeasuere" onClick={() => finishMeasure('line')}>
+                      <a>
+                        <img className="img-measure-png-01" src="/Icons/icon-line.png" alt="Finish Line"></img>
+                        <b>Finish Line</b>
+                      </a>
+                    </span>
+                  )}
+                  {isdrawingmeasure && (
+                    <span className="button-c drawingmeasuere" onClick={() => finishMeasure('polygon')}>
+                      <a>
+                        <img className="img-measure-png-02" src="/Icons/icon-polygon.png" alt="Finish Polygon"></img>
+                        <b>Finish Polygon</b>
+                      </a>
+                    </span>
+                  )}
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+      <SideMenuTools map={map?.map} setCommentVisible={setCommentVisible} mapService={mapService} isMobile={false} typeMap='CREATE' />
     </div>
   );
 };

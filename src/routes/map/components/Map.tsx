@@ -121,7 +121,7 @@ const linestringMeasure = {
   },
 };
 let canAdd = { value: false };
-let isProblemActive = true;
+let isProblemActive = false;
 
 let commentAvailable = false;
 
@@ -224,7 +224,9 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
   });
   const [showDefault, setShowDefault] = useState(false);
   const isMobile = useIsMobile();
-
+  const [distanceValue, setDistanceValue] = useState('0');
+  const [distanceValueMi, setDistanceValueMi] = useState('0');
+  const [areaValue, setAreaValue] = useState('0');
   const setNote = useCallback(
     (event: any, note?: any) => {
       const getText = event?.target?.value ? event.target.value : event;
@@ -910,7 +912,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
           mapService.showSelectedComponents(filterComponents.component_type.split(','));
         }
         if (key === PROBLEMS_TRIGGER) {
-          isProblemActive = true;
+          isProblemActive = selectedLayers.includes(PROBLEMS_TRIGGER);;
         }
       }
     });
@@ -924,6 +926,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
   };
 
   useEffect(() => {
+    isProblemActive = selectedLayers.includes(PROBLEMS_TRIGGER);
     const [intervalId, promise] = waitingInterval(map);
     updateSelectedLayersCP(selectedLayers);
     promise.then(() => {
@@ -1457,9 +1460,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     }
     return;
   };
-  const [distanceValue, setDistanceValue] = useState('0');
-  const [distanceValueMi, setDistanceValueMi] = useState('0');
-  const [areaValue, setAreaValue] = useState('0');
+  
   const finishMeasure = (type?: string) => {
     const size = type === 'line' ? 1 : 2;
     if (linestringMeasure.geometry.coordinates.length > size && isMeasuring) {
@@ -1503,7 +1504,6 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     }
   };
 
-  // TODO: Move this function to service
   const measureCenterAndDelete = (type: any, item: any) => {
     if (type == 'center') {
       const coords = JSON.parse(item.coordinates);
@@ -2190,7 +2190,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
           )}
         </div>
 
-        <SideMenuTools map={map} setCommentVisible={setCommentVisible} mapService={mapService} isMobile={isMobile} />
+        <SideMenuTools map={map} setCommentVisible={setCommentVisible} mapService={mapService} isMobile={isMobile} typeMap='MAIN'/>
         {isMobile && <MobileMenu />}
       </div>
     </>

@@ -214,7 +214,6 @@ export const polyMask = (mask: any, bounds: any) => {
     return turf.difference(bboxPoly, mask);
   }
 };
-
 export const applyMeasuresLayer = (map: any, geojsonMeasures: any, geojsonMeasuresSaved: any) => {
   if (!map.getSource('geojsonMeasure')) {
     map.addSource('geojsonMeasure', {

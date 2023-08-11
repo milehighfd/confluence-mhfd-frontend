@@ -5,7 +5,12 @@ import { ClusterPie } from './ClusterPie';
 const colors = ['#FF0806', '#BE0807', '#8D0000', '#00ff00'];
 
 export const addGeojsonSource = (map: any, geojson: any, isProblemActive: boolean, allFilters?: any) => {
-  if (!isProblemActive) return;
+  if (!isProblemActive){
+    if (map.getSource('clusterproblem')) {
+      removeGeojsonCluster(map);
+    }
+    return
+  } ;
   let mag1 = ['==', ['get', 'problem_type'], 'Watershed Change'];
   let mag2 = ['==', ['get', 'problem_type'], 'Stream Condition'];
   let mag3 = ['==', ['get', 'problem_type'], 'Flood Hazard'];
