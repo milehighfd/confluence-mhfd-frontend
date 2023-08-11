@@ -1499,7 +1499,11 @@ const CreateProjectMap = (type: any) => {
         map.map.getCanvas().style.cursor = '';
       });
       map.map.on('mousemove', () => {
-        map.getCanvas().style.cursor = !isMeasuring.current ? 'default' : 'crosshair';
+        console.log('IsDrawing currently', isDrawingCurrently);
+        if (!isDrawingCurrently) {
+          map.getCanvas().style.cursor = (!isMeasuring.current) ? 'default' : 'crosshair';
+        }
+        
       });
     }
   };
