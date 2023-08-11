@@ -45,6 +45,7 @@ const RequestView = ({ type, widthMap }: {
     sumTotal,
     localityType,
     reqManager,
+    localityFilter
   } = useRequestState();
   
   const {
@@ -268,13 +269,19 @@ const RequestView = ({ type, widthMap }: {
     let parent = element.parentElement;
     parent.scroll(parent.scrollWidth, 0);
   }
-
   useEffect(() => {
-    if (locality) {
-      // reach on initLoading
-      onSelect(locality, isInitMap ? 'isinit' : undefined);
+    console.log('Locality filter', localityFilter);
+    if (localityFilter) {
+      onSelect(localityFilter, isInitMap ? 'isinit' : undefined);
     }
-  }, [locality]);
+  }, [localityFilter]);
+  // useEffect(() => {
+  //   console.log('Locality', locality);
+  //   if (locality) {
+  //     // reach on initLoading
+  //     onSelect(locality, isInitMap ? 'isinit' : undefined);
+  //   }
+  // }, [locality]);
 
   const onSelect = (value: any, isSelect?: any) => {
     setAutocomplete(value);

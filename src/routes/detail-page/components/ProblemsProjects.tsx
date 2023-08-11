@@ -16,19 +16,23 @@ const ProblemsProjects = () => {
         })
       : {};
   const columns = [
-    {
-      title: <>Name</>,
-      dataIndex: 'name',
-      key: 'name',
-      sorter: (a: any, b: any) => a.agreement.length - b.agreement.length,
+  {
+    title: <>Name</>,
+    dataIndex: 'name',
+    key: 'name',
+    sorter: (a: any, b: any) => {
+      return (a?.name).localeCompare(b?.name);
     },
-    {
-      title: <>Priority</>,
-      dataIndex: 'problempriority',
-      key: 'problempriority',
-      sorter: (a: any, b: any) => a.agreement.length - b.agreement.length,
+  },
+  {
+    title: <>Priority</>,
+    dataIndex: 'problempriority',
+    key: 'problempriority',
+    sorter: (a: any, b: any) => {
+      return (a?.problempriority).localeCompare(b?.problempriority);
     },
-  ];
+  },
+];
   return (
     <>
       <Row>

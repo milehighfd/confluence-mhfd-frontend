@@ -11,7 +11,7 @@ import { NotificationType } from 'Components/Shared/Notifications/NotificationsT
 const BoardYear = () => {
   const [api, contextHolder] = notification.useNotification();
   const [openDropYear, setOpenDropYear] = useState(false);
-  const [yearEdit, setYearEdit] = useState('2023');
+  const [yearEdit, setYearEdit] = useState('2024');
   const {
     setYear,
   } = useRequestDispatch();

@@ -4,7 +4,7 @@ import { YEAR } from "../../constants/constants";
 import ConfigurationService from '../../services/ConfigurationService';
 
 const UserFilterYear = () => {
-  const [year, setYear] = useState('2022');
+  const [year, setYear] = useState('2024');
   const MenuOrganization = () => {
     const itemYear: any = [];
     YEAR.forEach((item: string) => {

@@ -829,10 +829,10 @@ const CreateProjectMap = (type: any) => {
           } else {
             map.isStyleLoaded(() => {
               applyMapLayers();
-              map.orderLayers();
               map.map.once('idle', () => {
                 setLoading(false);
                 flagInit = false;
+                map.orderLayers();
               });
               applyProblemClusterLayer();
               // topStreams();
@@ -847,6 +847,7 @@ const CreateProjectMap = (type: any) => {
     if (map && selectedLayersCP.length > 0) {
       waiting();
     }
+    map.orderLayers();
     EventService.setRef('oncreatedraw', onCreateDraw);
     // EventService.setRef('addmarker', addMarker);
   }, [selectedLayersCP]);
@@ -1501,7 +1502,6 @@ const CreateProjectMap = (type: any) => {
         map.map.getCanvas().style.cursor = '';
       });
       map.map.on('mousemove', () => {
-        console.log('IsDrawing currently', isDrawingCurrently);
         if (!isDrawingCurrently) {
           map.getCanvas().style.cursor = (!isMeasuring.current) ? 'default' : 'crosshair';
         }
