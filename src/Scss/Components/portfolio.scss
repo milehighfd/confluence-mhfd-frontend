@@ -2305,6 +2305,84 @@
   width: auto !important;
 }
 
+//Style Tabs Main Map Old (It's been reused in other parts)
+.tabs-pm-tools {
+  .ant-tabs-nav {
+    padding-left: 16px;
+  }
+  .ant-tabs-content-holder {
+    // padding-left: 16px;
+  }
+  .ant-tabs-nav .ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: $purple !important;
+    padding: 0px -10px 0px -10px !important;
+    font-weight: 400 !important;
+  }
+
+  .ant-tabs-nav .ant-tabs-tab {
+    padding: 15px 0px 15px 0px !important;
+    margin: 0 20px 0 0;
+    font-size: 16px;
+    color: $opacity;
+    font-weight: 400;
+  }
+
+  .ant-tabs-ink-bar {
+    background-color: $purple !important;
+  }
+
+  .ant-tabs-nav .ant-tabs-tab:hover {
+    color: $purple !important;
+  }
+
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-extra {
+    float: none;
+  }
+
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
+    display: none;
+  }
+
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+    padding: 12px 10px;
+    padding-left: 10px;
+    color: $black !important;
+    line-height: 30px;
+    height: 54px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  }
+
+  .ant-collapse > .ant-collapse-item {
+    border-bottom: none;
+    background: $white;
+  }
+
+  .ant-collapse {
+    border: none;
+    background: transparent;
+  }
+
+  .ant-tabs-ink-bar {
+    height: 2px !important;
+    background-color: $purple;
+    margin-bottom: 1.5px !important;
+  }
+
+  .ant-collapse-content {
+    background-color: $opacity00;
+    border-top: none;
+  }
+
+  .ant-collapse > .ant-collapse-item:last-child,
+  .ant-collapse > .ant-collapse-item:last-child > .ant-collapse-header {
+    border-radius: 0 0 0px 0px;
+  }
+
+  .ant-collapse-content > .ant-collapse-content-box {
+    padding: 20px 15px 0px 15px;
+  }
+}
+
 @media (min-width: 1900px) and (max-width: 2549px) {
   .team-item {
     display: flex;
@@ -2370,14 +2448,17 @@
       }
       width: 385px !important;
       h1 {
-        font-size: 20px !important;
-        line-height: 25px !important;
+        font-size: 18px !important;
+        line-height: 21px !important;
+        margin-bottom: 10px !important;
+        margin-top: 3px !important;
       }
       .tag-blue {
         font-size: 16px !important;
       }
       p {
-        font-size: 16px !important;
+        font-size: 14px !important;
+        line-height: 22px !important;
       }
       span {
         font-size: 16px !important;
@@ -2640,18 +2721,18 @@
     h2 {
       max-width: 487px !important;
       color: $purple00;
-      font-size: 29px;
+      font-size: 27px;
       span {
         font-size: 20px !important;
       }
     }
     span {
-      font-size: 20px !important;
+      font-size: 18px !important;
     }
     .btn-filter-k {
       img {
-        height: 20px !important;
-        margin-bottom: 2px;
+        height: 18px !important;
+        margin-bottom: 0px;
         padding: 0px;
         background: transparent !important;
       }
@@ -2690,8 +2771,10 @@
     .text-search {
       padding: 12.4px 16px !important;
       width: 100.4% !important;
+      height: 53.07px;
       p {
-        font-size: 18px !important;
+        font-size: 16px !important;
+        // line-height: 19px !important;
       }
       span {
         font-size: 17px !important;
@@ -2699,7 +2782,7 @@
     }
     .ant-collapse > .ant-collapse-item > .ant-collapse-header {
       padding: 9px 16px !important;
-      font-size: 21px !important;
+      font-size: 19px !important;
       height: 53.07px !important;
     }
   }
@@ -2749,7 +2832,7 @@
       .ant-table tfoot > tr > td,
       .ant-table tfoot > tr > th {
         padding: 13px 14px !important;
-        font-size: 16.5px;
+        font-size: 14.5px;
         height: 53.07px !important;
         // width: 219px !important;
       }

@@ -907,7 +907,7 @@ const Roadmap = ({
           <div className="roadmap-title-label" id="phaseviewTitleDetailPage" style={{}}>
             {availableStatusList.map((item: any, index: number) => {
               return (
-                <p style={{ width: item[1] }} className={index === 0 ? 'roadmap-p' : 'roadmap-pp'}>
+                <p style={index === 0 ? { width: item[1], borderLeft:'none' }:{ width: item[1] }} className={index === 0 ? 'roadmap-p' : 'roadmap-pp'}>
                   <hr className="roadmap-hr2" style={{ width: item[1] / 2 - 48 }}></hr>
                   {item[0]}
                   <hr className="roadmap-hr2" style={{ width: item[1] / 2 - 48 }}></hr>

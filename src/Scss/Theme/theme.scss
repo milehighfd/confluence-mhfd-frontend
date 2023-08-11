@@ -3197,9 +3197,7 @@ tr > .ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
     padding: 0px 20px;
   }
 
-  .ant-picker-input > input {
-    font-size: 16px;
-  }
+  
 
   .detailed-image {
     width: 1731px !important;
@@ -3518,6 +3516,15 @@ tr > .ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
   .modal-tollgate {
     top: 115px !important;
     width: 830px !important;
+  }
+}
+.calendar-toollgate {
+  span {
+    font-size: 18px !important;
+  }
+  .ant-picker-input > input {
+    font-size: 14px;
+    height: 25.3px !important;
   }
 }
 }
