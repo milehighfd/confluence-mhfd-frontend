@@ -224,7 +224,9 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
   });
   const [showDefault, setShowDefault] = useState(false);
   const isMobile = useIsMobile();
-
+  const [distanceValue, setDistanceValue] = useState('0');
+  const [distanceValueMi, setDistanceValueMi] = useState('0');
+  const [areaValue, setAreaValue] = useState('0');
   const setNote = useCallback(
     (event: any, note?: any) => {
       const getText = event?.target?.value ? event.target.value : event;
@@ -1457,9 +1459,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     }
     return;
   };
-  const [distanceValue, setDistanceValue] = useState('0');
-  const [distanceValueMi, setDistanceValueMi] = useState('0');
-  const [areaValue, setAreaValue] = useState('0');
+  
   const finishMeasure = (type?: string) => {
     const size = type === 'line' ? 1 : 2;
     if (linestringMeasure.geometry.coordinates.length > size && isMeasuring) {
