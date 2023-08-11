@@ -121,7 +121,7 @@ const linestringMeasure = {
   },
 };
 let canAdd = { value: false };
-let isProblemActive = true;
+let isProblemActive = false;
 
 let commentAvailable = false;
 
@@ -912,7 +912,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
           mapService.showSelectedComponents(filterComponents.component_type.split(','));
         }
         if (key === PROBLEMS_TRIGGER) {
-          isProblemActive = true;
+          isProblemActive = selectedLayers.includes(PROBLEMS_TRIGGER);;
         }
       }
     });
@@ -926,6 +926,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
   };
 
   useEffect(() => {
+    isProblemActive = selectedLayers.includes(PROBLEMS_TRIGGER);
     const [intervalId, promise] = waitingInterval(map);
     updateSelectedLayersCP(selectedLayers);
     promise.then(() => {

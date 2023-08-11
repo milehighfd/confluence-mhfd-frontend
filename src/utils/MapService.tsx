@@ -353,7 +353,12 @@ export class MapService {
       'custom-sprite/prop-acq_YELLOW.png',
       'custom-sprite/rd_RED.png',
       'custom-sprite/prop-acq_RED.png',
-      'custom-sprite/MEP-X.png'
+      'custom-sprite/MEP-X.png',
+      'custom-sprite/PrecipStage.png',
+      'custom-sprite/Precip.png',
+      'custom-sprite/WeatherStage.png',
+      'custom-sprite/Weather.png',
+      'custom-sprite/Stage.png',
     ];
     imagesPaths.forEach((imagePath: string) => {
       this.map.loadImage(imagePath, (error: any, image: any) => {

@@ -244,7 +244,6 @@ const CreateProjectMap = (type: any) => {
   const [dragEndCounter, setDragEndCounter] = useState(0);
   const [visible, setVisible] = useState(false);
   const [flagtoDraw, setFlagtoDraw] = useState(false);
-  const [groupedProjectIdsType, setGroupedProjectIdsType] = useState<any>([]);
   const [mapService] = useState<MapService>(new MapService());
   const [hasZoomedInit, setHasZoomedInit] = useState(false);
   const currentBounds = useRef(undefined);
@@ -254,6 +253,8 @@ const CreateProjectMap = (type: any) => {
   const [isdrawingmeasure, setIsDrawingMeasure] = useState(false);
   const [distanceValue, setDistanceValue] = useState('0');
   const [distanceValueMi, setDistanceValueMi] = useState('0');
+  const groupedProjectIdsType = useRef<any>({});
+  // the next const is created to avoid error adding buttons to sidebar
   const [commentVisible ,setCommentVisible] = useState(false);
   // the next const is created to avoid error adding buttons to sidebar
   // const [markersNotes, setMarkerNotes] = useState([]);
@@ -341,10 +342,6 @@ const CreateProjectMap = (type: any) => {
       // setZoomGeom(undefined);
     };
   }, [type.type]);
-
-  useEffect(() => {
-    console.log('aaaa', selectedLayersCP, selectedLayers);
-  }, [selectedLayersCP, selectedLayers]);
 
   useEffect(() => {
     if (map && map.map) {
@@ -1086,7 +1083,7 @@ const CreateProjectMap = (type: any) => {
       13: acquisitionProjects,
       6: developementImprProjects,
     };
-    setGroupedProjectIdsType(groupedProjectsByType);
+    groupedProjectIdsType.current = groupedProjectsByType;
   };
 
   useEffect(() => {
@@ -1283,9 +1280,9 @@ const CreateProjectMap = (type: any) => {
           const currentLayer = map.getLayer(key + '_' + index);
           let projecttypes = currentLayer.metadata.projecttype;
           let combinedProjects: any = [];
-          for (let type in groupedProjectIdsType) {
+          for (let type in groupedProjectIdsType.current) {
             if (projecttypes.includes(+type)) {
-              combinedProjects.push(...groupedProjectIdsType[type]);
+              combinedProjects.push(...groupedProjectIdsType.current[type]);
             }
           }
           if (combinedProjects.length === 0) {
@@ -1310,7 +1307,7 @@ const CreateProjectMap = (type: any) => {
         }
       });
     },
-    [problemClusterGeojson, groupedProjectIdsType],
+    [problemClusterGeojson],
   );
   const selectCheckboxes = (selectedItems: Array<LayersType>) => {
     const deleteLayers = selectedLayersCP.filter((layer: any) => !selectedItems.includes(layer as string));
@@ -1321,7 +1318,6 @@ const CreateProjectMap = (type: any) => {
         removeTilesHandler(layer);
       }
     });
-    console.log('selectedItems', selectedItems);
     updateSelectedLayersCP(selectedItems);
     updateSelectedLayers(selectedItems);
     topStreams();
