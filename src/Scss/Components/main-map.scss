@@ -1016,6 +1016,14 @@ hr.filters-line {
       border-radius: 0px 3px 3px 0px;
     }
   }
+  .content-project-name{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .more-ico{
+    font-size: 18px;
+  }
   .project-name{
     font-size: 14px;
     font-weight: 500;
