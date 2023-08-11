@@ -1067,6 +1067,7 @@ hr.filters-line {
       margin-left: 16px;
       img {
         height: 19px;
+        width: 19px;
       }
     }
     .ico-header-tab-active {
@@ -1075,6 +1076,7 @@ hr.filters-line {
       margin-left: 16px;
       img {
         height: 19px;
+        width: 19px;
         margin-right: 8px;
       }
     }
@@ -1253,7 +1255,7 @@ hr.filters-line {
     .ant-tabs-nav .ant-tabs-tab {
       padding: 9px 0px 17px 0px !important;
       margin: 0 21px 0 0;
-      font-size: 21px;
+      font-size: 18px;
     }
 
     .ant-tabs-ink-bar {
@@ -1320,7 +1322,7 @@ hr.filters-line {
   .apply-filter-no-effect {
     font-size: 14px;
     padding: 14px 0px;
-    margin-top: 9px;
+    margin-top: 3px;
   }
   .card-button-hover {
     height: 200px;
@@ -1346,7 +1348,7 @@ hr.filters-line {
     height: 54px;
   }
   .infinite-scroll-component{
-    height: calc(100vh - 285px) !important;
+    height: calc(100vh - 220px) !important;
 
   }
   .table-list-map {

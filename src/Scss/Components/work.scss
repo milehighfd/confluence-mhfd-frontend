@@ -1754,13 +1754,13 @@
   }
   .drawer-filter{
     .ant-drawer-body{
-      padding-bottom: 76px
+      padding-bottom: 76px !important
     }
   }
   // Utilities
   .work-utilities{
     h5{
-      font-size: 27px;
+      font-size: 22px;
     }
     .ant-drawer-header {
       padding: 25px 25px 25px;
@@ -1779,6 +1779,7 @@
     }
     .ant-drawer-title img{
       height: 32px;
+      width: 32px !important;
     }
     .ant-drawer-body {
       padding: 25px;
@@ -1788,7 +1789,7 @@
       }
     }
     h6{
-      font-size: 19px;
+      font-size: 17px;
       margin: 5px 0px !important;
     }
     p{
@@ -1976,7 +1977,7 @@
     max-width: 520px;
   }
   .work-head .button-header-tab #buttons-header{
-    font-size: 19px;
+    font-size: 17px;
   }
   .work-body .tabs-work .ant-tabs-nav .ant-tabs-tab{
     font-size: 16px;
@@ -2007,7 +2008,7 @@
   }
 
   .work-head{
-    padding: 22px 24px 0px 24px;
+    padding: 14px 24px 0px 24px;
   }
   .table-map-list .ant-table{
     font-size: 16px !important;
@@ -2025,47 +2026,50 @@
     height: 51px !important;
   }
   .menu-utilities .switch-status-no{
-    width: 156px;
-    height: 35px;
+    width: 110px;
+    height: 28px;
     .ant-switch-inner{
-      width: 78px;
+      width: 55px;
     }
     .ant-switch-handle{
-      left: calc(100% - 78px);
+      left: calc(100% - 55px);
       height: 35px;
     }
     .ant-switch-handle::before{
-      width: 78px;
-      font-size: 21px;
-      height: 31px;
+      width: 55px;
+      font-size: 18px;
+      height: 24px;
     }
     span{
-      font-size: 21px;
+      font-size: 18px;
     }
   }
   .menu-utilities .switch-status{
-    width: 156px;
-    height: 35px;
+    width: 110px;
+    height: 28px;
     .ant-switch-inner{
-      width: 78px;
+      width: 55px;
     }
     .ant-switch-handle{
-      left: calc(100% - 78px);
-      height: 35px;
+      left: calc(100% - 55px);
+      height: 28px;
     }
     .ant-switch-handle::before{
-      width: 78px;
-      font-size: 21px;
-      height: 31px;
+      width: 55px;
+      font-size: 18px;
+      height: 24px;
 
     }
     span{
-      font-size: 21px;
+      font-size: 18px;
     }
   }
     //total-cost
   .cost-wr .cost-collapse .cost-header span{
-    font-size: 24px;
+    font-size: 22px;
+  }
+  .cost-wr .ant-timeline-item-last > .ant-timeline-item-content{
+    font-size: 16px;
   }
   .cost-wr .cost-panel .cost-body{
     font-size: 16px;
@@ -2792,8 +2796,8 @@
     border:'none';
     padding-right: 0px;
     padding-top: 0px;
-    width: 36px;
-    height: 38px;
+    width: 34px;
+    height: 36px;
     border-radius: 4px;
     opacity: 0.5;
   }

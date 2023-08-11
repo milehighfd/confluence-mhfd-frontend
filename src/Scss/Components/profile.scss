@@ -498,12 +498,22 @@
 }
 // END PROFILE
 
-
 @media(min-width: 1900px) and (max-width: 2549px){
   .card-information img {
     width: 99.3% !important;
     height: 100%;
   }
+  // .profile-00{
+  //   .ant-row{
+  //     .ant-col-lg-6{
+  //       max-width: 20%;
+  //     }
+  //     .ant-col-lg-13{
+  //       flex: 1;
+  //       max-width: 60%;
+  //     }
+  //   }
+  // }
 }
 @media(min-width: 2550px) and (max-width: 3799px){
   .card-information img {

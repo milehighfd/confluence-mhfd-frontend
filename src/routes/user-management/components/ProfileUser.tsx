@@ -650,7 +650,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
               style={{marginBottom: '15px'}}
             />
           </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 9 }}>
+          <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
             <h1>PHONE NUMBER</h1>
             <Input
               type='text'

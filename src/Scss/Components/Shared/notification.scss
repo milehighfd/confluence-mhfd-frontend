@@ -37,3 +37,13 @@
 .notification-icon-success {
   color: #29c499 !important;
 }
+
+@media (min-width: 1900px) and (max-width: 2549px) {
+  .notification-alert-layout {
+    width: 490px;
+    height: 84px;
+    .ant-notification-notice-message {
+      font-size: 18px;
+    }
+  }
+}

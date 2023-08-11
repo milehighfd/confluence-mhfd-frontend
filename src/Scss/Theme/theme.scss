@@ -3197,8 +3197,12 @@ tr > .ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
     padding: 0px 20px;
   }
 
-  .ant-picker-input > input {
-    font-size: 16px;
+  .modal-confirm {
+    width: 445px !important;
+    button{
+      font-size: 16px !important;
+      line-height: 19px;
+    }
   }
 
   .detailed-image {
@@ -3243,12 +3247,13 @@ tr > .ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
     }
 
     h1 {
-      font-size: 26px;
+      font-size: 24px;
       line-height: 26px;
     }
 
     p {
       font-size: 16px;
+      line-height: 21px;
     }
   }
 
@@ -3310,6 +3315,19 @@ tr > .ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
     .span-Active {
       font-size: 16px;
     }
+  }
+  .detailed-upload-save{
+    width: 411px !important;
+    .detailed-h h1 {
+      font-size: 22px !important;
+      line-height: 27px !important;
+  }
+    button{
+      font-size: 16px;
+      line-height: 19px;
+      padding: 12px !important;
+    }
+
   }
 
   .detailed-Team {
@@ -3518,6 +3536,15 @@ tr > .ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
   .modal-tollgate {
     top: 115px !important;
     width: 830px !important;
+  }
+}
+.calendar-toollgate {
+  span {
+    font-size: 18px !important;
+  }
+  .ant-picker-input > input {
+    font-size: 14px;
+    height: 25.3px !important;
   }
 }
 }

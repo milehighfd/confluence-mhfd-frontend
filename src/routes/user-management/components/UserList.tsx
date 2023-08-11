@@ -352,9 +352,10 @@ const UserList = () => {
                 return(<DownOutlined onClick={(e:any) => onExpand(record, e)}/>)
               }
               else{
-                return(<Dropdown overlay={menu(record, onExpand)} placement="bottomRight" >
+                return(<div className='row-menu'><Dropdown overlay={menu(record, onExpand)} placement="bottomRight" >
                 <MoreOutlined />
-              </Dropdown>)
+              </Dropdown>
+              </div>)
               }
             }
           }}

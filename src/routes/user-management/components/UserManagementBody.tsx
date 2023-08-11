@@ -23,7 +23,7 @@ const UserManagementBody = () => {
     <div className="work-body user-management">
       <Tabs defaultActiveKey={displayedTabKey[1]}
         activeKey={tabKey}
-        onChange={(key) => setTabKey(key as any)} className="tabs-map"
+        onChange={(key) => setTabKey(key as any)} className="tabs-user-management"
       >
         {
           displayedTabKey.map((tk: string) => (

@@ -374,6 +374,12 @@
   padding: 0px;
   border-radius: 5px;
   color: #11093c !important;
+  .ant-picker-input > input {
+    color: $purple00;
+  }
+  span{
+    // color: $purple00;
+  }
 }
 .duration-toollgate {
   margin-bottom: 14px !important;
