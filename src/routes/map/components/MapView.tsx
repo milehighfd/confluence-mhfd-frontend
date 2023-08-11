@@ -1109,6 +1109,7 @@ const MapView = () => {
                     </span>
                   </Button>
                 </Popover>
+                {selectView==='card'?
                 <div className="sort-content">
                   <span className="button" style={{ transitionTimingFunction: 'ease-in' }} onClick={sortClick}>
                     {filterProjectOptions.order === 'asc' ? (
@@ -1144,7 +1145,7 @@ const MapView = () => {
                       <span style={{ color: textStyle, marginLeft: '-3px', fontFamily: 'Ubuntu' }}> Sort By</span>
                     </Button>
                   </Dropdown>
-                </div>
+                </div>:<></>}
               </div>
             </Col>
           </Row>

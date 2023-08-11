@@ -15,7 +15,7 @@ const Actions = () => {
     // <div className="popoveer-00"><b>Saved Searches:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>,
   ]
   return (
-    <div className="searches-myprofile">
+    <div className="searches-myprofile" style={{opacity:0.5}}>
       <h2 style={{marginTop:'12px', marginBottom:'0px'}} className='title-action'>ACTION ITEMS</h2>
       <Tabs defaultActiveKey={displayedTabKey[0]}
         activeKey={tabKey}

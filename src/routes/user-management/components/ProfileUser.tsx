@@ -596,7 +596,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
       save(selectAssociate);
     }
   }
-  const message = 'Are you sure you want to update the record ' + values.firstName + ' ' + values.lastName + '?';
+  const message = 'Are you sure you want to update the record for ' + values.firstName + ' ' + values.lastName + '?';
 
 
   return (

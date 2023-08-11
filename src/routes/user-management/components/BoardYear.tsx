@@ -1,17 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Row, Select } from 'antd';
-import { DownOutlined, UpOutlined } from '@ant-design/icons';
+import { Col, Row, Select, notification } from 'antd';
+import { CheckCircleFilled, DownOutlined, UpOutlined } from '@ant-design/icons';
 import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import { WINDOW_WIDTH } from "constants/constants";
 import { useRequestDispatch } from 'hook/requestHook';
+import { NotificationType } from 'Components/Shared/Notifications/NotificationsTypes';
+
 
 const BoardYear = () => {
+  const [api, contextHolder] = notification.useNotification();
   const [openDropYear, setOpenDropYear] = useState(false);
   const [yearEdit, setYearEdit] = useState('2023');
   const {
     setYear,
   } = useRequestDispatch();
+
+  const openNotificationWithIcon = (type: NotificationType) => {
+    api[type]({
+      message: 'Success! The board year has been updated.',
+      className: 'notification-alert-layout adjust-width-for-board',
+      icon: <CheckCircleFilled className='notification-icon-success'/>,
+      duration: 20
+    });
+  };
 
   useEffect(() => {
     datasets.getData(SERVER.GET_CONFIGURATIONS('BOARD_YEAR'))
@@ -35,6 +47,7 @@ const BoardYear = () => {
 
   return (
     <div>
+      {contextHolder}
       <Row>
         <Col xs={{ span: 9}} lg={{ span: 5 }}>
           <div className="list-view-head" style={{paddingTop:'10px', paddingLeft:'15px'}} >
@@ -50,7 +63,7 @@ const BoardYear = () => {
           listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
           suffixIcon={openDropYear? <UpOutlined /> :< DownOutlined />}
           onClick={()=>(setOpenDropYear(!openDropYear))}
-          onChange={(e) => changeConfigurationYear(e)}
+          onChange={(e) => {changeConfigurationYear(e); openNotificationWithIcon('success')}}
         >
           <Select.Option key={'2022'} value={'2022'}>2022</Select.Option>
           <Select.Option key={'2023'} value={'2023'}>2023</Select.Option>

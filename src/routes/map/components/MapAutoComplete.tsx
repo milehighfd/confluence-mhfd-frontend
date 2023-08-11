@@ -52,7 +52,7 @@ const MapAutoComplete = ({
   return (
     <Row className="head-m mobile-display">
       <Col span={24} id="westminter">
-        <div className="auto-complete-map" >
+        <div className="auto-complete-map">
           <AutoComplete
             style={{ width: '200' }}
             options={renderOption.length > 0 ? [...dataAutoCArray.map(renderOption), {}] : dataAutoCArray.map(renderOption)}

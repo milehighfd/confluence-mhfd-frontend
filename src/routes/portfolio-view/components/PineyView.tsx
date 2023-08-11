@@ -297,8 +297,8 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 <p className="text-piney-body">
-                  {!actualStartDate ? 'No Data Available' : actualStartDate}
-                  {!appUser?.isLocalGovernment && <span className='span-tollgate' style={{ textDecorationLine: 'underline' }} onClick={() => { openTollModal() }}> Edit</span>}
+                  {!actualStartDate ? 'No Data Available ' : actualStartDate+" "}
+                  {!appUser?.isLocalGovernment && <span className='span-tollgate' style={{ textDecorationLine: 'underline' }} onClick={() => { openTollModal() }}>Edit</span>}
                 </p>
               </Col>
             </Row>
@@ -308,8 +308,8 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 <p className="text-piney-body">
-                  {!actualEndDate ? 'No Data Available' : actualEndDate}
-                  {!appUser?.isLocalGovernment && <span className='span-tollgate' style={{ textDecorationLine: 'underline' }} onClick={() => { openTollModal() }}> Edit</span>}
+                  {!actualEndDate ? 'No Data Available ' : actualEndDate+" "}
+                  {!appUser?.isLocalGovernment && <span className='span-tollgate' style={{ textDecorationLine: 'underline' }} onClick={() => { openTollModal() }}>Edit</span>}
                 </p>
               </Col>
             </Row>
