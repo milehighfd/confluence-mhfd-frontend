@@ -34,6 +34,7 @@ import {
   MEP_PROJECTS_STYLES,
   tileStyles,
 } from 'constants/mapStyles';
+import { set } from 'react-ga';
 
 export class MapService {
   public token: String = MAPBOX_TOKEN;
@@ -630,20 +631,28 @@ export class MapService {
   topAddLayers () {
     const styles = { ...(tileStyles as any) };
     styles[DWR_DAM_SAFETY].forEach((style: LayerStylesType, index: number) => {
-      this.map.moveLayer(`${DWR_DAM_SAFETY}_${index}`);
+      if (this.map.getLayer(`${DWR_DAM_SAFETY}_${index}`)) {
+        this.map.moveLayer(`${DWR_DAM_SAFETY}_${index}`);
+      }
     });
     styles[RESEARCH_MONITORING].forEach((style: LayerStylesType, index: number) => {
-      this.map.moveLayer(`${RESEARCH_MONITORING}_${index}`);
+      if (this.map.getLayer(`${RESEARCH_MONITORING}_${index}`)) {
+        this.map.moveLayer(`${RESEARCH_MONITORING}_${index}`);
+      }
     });
     styles[CLIMB_TO_SAFETY].forEach((style: LayerStylesType, index: number) => {
-      this.map.moveLayer(`${CLIMB_TO_SAFETY}_${index}`);
+      if (this.map.getLayer(`${CLIMB_TO_SAFETY}_${index}`)) {
+        this.map.moveLayer(`${CLIMB_TO_SAFETY}_${index}`);
+      }
     });
   };
 
   topProjects () {
     const styles = { ...(tileStyles as any) };
     styles[MHFD_PROJECTS].forEach((style: LayerStylesType, index: number) => {
-      this.map.moveLayer(`${MHFD_PROJECTS}_${index}`);
+      if (this.map.getLayer(`${MHFD_PROJECTS}_${index}`)) {
+        this.map.moveLayer(`${MHFD_PROJECTS}_${index}`);
+      }
     });
   };
   topComponents () {
@@ -813,11 +822,16 @@ export class MapService {
     }
   };
   topStreamLabels () {
-    this.map.moveLayer('streams_4');
-    this.map.moveLayer('streams_5');
+    if (this.map.getLayer('streams_4')) {
+      this.map.moveLayer('streams_4');
+    }
+    if (this.map.getLayer('streams_5')) {
+      this.map.moveLayer('streams_5');
+    }
   };
 
   orderLayers () {
+    // console.log('orderLayers', this.map.getStyle().layers)
     setTimeout(() => {
       this.topLandUseCover();
       this.topCounties();
@@ -834,12 +848,24 @@ export class MapService {
       this.topProblems();
       this.topStreamLabels();
       this.topLabels();
-      if (this.map.getLayer('area_based_maskMASK')) {
-        this.map.moveLayer('area_based_maskMASK');
-      }
-      if (this.map.getLayer('borderMASK')) {
-        this.map.moveLayer('borderMASK');
-      }
+      setTimeout(() => {
+        if (this.map.getLayer('area_based_mask')) {
+          console.log('gets here')
+          this.map.moveLayer('area_based_mask');
+        }
+        if (this.map.getLayer('border')) {
+          console.log('gets here2222')
+          this.map.moveLayer('border');
+        }
+        if (this.map.getLayer('area_based_maskMASK')) {
+          console.log('gets here')
+          this.map.moveLayer('area_based_maskMASK');
+        }
+        if (this.map.getLayer('borderMASK')) {
+          console.log('gets here2222')
+          this.map.moveLayer('borderMASK');
+        }
+      }, 1000);
     }, 300);
   }
 }
