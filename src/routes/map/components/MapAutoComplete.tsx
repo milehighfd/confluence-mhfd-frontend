@@ -20,17 +20,15 @@ const MapAutoComplete = ({
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const [valueA, setvalueA] = useState('');
   const ref = useRef<any>(null);
-  const [dataAutocomplete, setDataAutocomplete] = useState(groupOrganization.map((item: any) => {
-    return { key: item.id + item.name, value: item.name, label: item.name }
-  }));
+  const [dataAutoCArray, setDataAutoCArray] = useState<any>([]);
 
   const onSelect = (value: any, isSelect?: any) => {
     setvalueA(value);
     onAutoCompleteSelected(value, isSelect);
   };
   useEffect(() => {
-    setDataAutocomplete(groupOrganization.map((item: any) => {
-      return { key: item.id + item.name, value: item.name, label: item.name }
+    setDataAutoCArray(groupOrganization.map((item: any) => {
+      return item.name
     }));
   }, [groupOrganization]);
 
@@ -42,20 +40,28 @@ const MapAutoComplete = ({
     }
     
   }, [nameZoomArea]);
+
+  const renderOption = (item: string) => {
+    return {
+      key: `${item}|${item}`,
+      value: item,
+      label: item
+    };
+  };
+
   return (
     <Row className="head-m mobile-display">
       <Col span={24} id="westminter">
         <div className="auto-complete-map" >
           <AutoComplete
             style={{ width: '200' }}
-            options={dataAutocomplete}
+            options={renderOption.length > 0 ? [...dataAutoCArray.map(renderOption), {}] : dataAutoCArray.map(renderOption)}
             placeholder={nameZoomArea ? (nameZoomArea.endsWith(', CO') ? nameZoomArea.replace(', CO', '') : nameZoomArea) : 'Mile High Flood District'}
             filterOption={(inputValue, option: any) => {
-              // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-              option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
-              if (dataAutocomplete.map((r: any) => r.key).includes(inputValue)) {
+              if (dataAutoCArray.includes(inputValue)) {
                 return true;
               }
+              if (!option.value) return false;
               return option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
             }}
             onSelect={onSelect}
