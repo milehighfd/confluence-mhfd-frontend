@@ -204,7 +204,7 @@ export const ModalCapital = ({
   const [ownership, setOwnership] = useState(true);
   const [subType, setSubType] = useState(subTypeInit||'');
   //study 
-  const [studyreason, setStudyReason] = useState<any>();
+  const [studyreason, setStudyReason] = useState<any>('');
   const [otherReason, setOtherReason] = useState('');
   const [streamsList, setThisStreamsList] = useState<any>([]);
   //acquisition
@@ -530,17 +530,20 @@ export const ModalCapital = ({
   }, [save]);
 
   //Check if required fields are filled to enable save button
-  useEffect(()=>{
-    let streamValidation = streamIntersected.geom ? JSON.parse(streamIntersected.geom): undefined;
-    if ((geom || isCountyWide) && description && county.length && serviceArea.length && jurisdiction.length && nameProject && sponsor && nameProject !== 'Add Project Name') {
-      setDisable(false);
-    }else if (selectedTypeProject === 'capital' && !streamValidation && streamValidation?.coordinates?.length && componentsToSave?.length) {
-      setDisable(false);
-    } 
-    else {
-      setDisable(true);
+  useEffect(()=>{   
+    if (geom || isCountyWide) {
+      if (description && county.length && serviceArea.length && jurisdiction.length && nameProject && sponsor && nameProject !== 'Add Project Name') {
+        if ((selectedTypeProject === 'study' && studyreason)) {
+          setDisable(false);
+        }
+        if (selectedTypeProject === 'acquisition' || selectedTypeProject === 'special' || selectedTypeProject === 'maintenance' || selectedTypeProject === 'capital') {
+          setDisable(false);
+        }
+      } else {
+        setDisable(true);
+      }
     }
-  },[geom, description, county, serviceArea , sponsor, nameProject, componentsToSave, streamIntersected, jurisdiction, selectedTypeProject]);
+  },[geom, description, county, serviceArea , sponsor, nameProject, componentsToSave, streamIntersected, jurisdiction, selectedTypeProject,studyreason]);
 
   useEffect(() => {
     if(componentsFromMap.length > 0 ) {      
