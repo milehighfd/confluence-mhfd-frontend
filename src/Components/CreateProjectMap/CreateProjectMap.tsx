@@ -1501,7 +1501,6 @@ const CreateProjectMap = (type: any) => {
         map.map.getCanvas().style.cursor = '';
       });
       map.map.on('mousemove', () => {
-        console.log('IsDrawing currently', isDrawingCurrently);
         if (!isDrawingCurrently) {
           map.getCanvas().style.cursor = (!isMeasuring.current) ? 'default' : 'crosshair';
         }
