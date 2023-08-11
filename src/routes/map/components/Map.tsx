@@ -2190,7 +2190,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
           )}
         </div>
 
-        <SideMenuTools map={map} setCommentVisible={setCommentVisible} mapService={mapService} isMobile={isMobile} />
+        <SideMenuTools map={map} setCommentVisible={setCommentVisible} mapService={mapService} isMobile={isMobile} typeMap='MAIN'/>
         {isMobile && <MobileMenu />}
       </div>
     </>

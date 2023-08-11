@@ -2035,7 +2035,7 @@ const CreateProjectMap = (type: any) => {
         </div>
       </div>
       {loading && <LoadingViewOverall></LoadingViewOverall>}
-      <SideMenuTools map={map?.map} setCommentVisible={setCommentVisible} mapService={mapService} isMobile={false} />
+      <SideMenuTools map={map?.map} setCommentVisible={setCommentVisible} mapService={mapService} isMobile={false} typeMap='CREATE' />
     </div>
   );
 };
