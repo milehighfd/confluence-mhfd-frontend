@@ -2480,7 +2480,21 @@ hr.filters-line {
 }
 
 @media(min-width: 1900px) and (max-width: 2549px) {
-
+  .map-modal-layers{
+    width: 342px !important;
+    top: 68px !important;
+    right: 10%;
+    p{
+      font-size: 16px !important;
+      line-height: 19px !important;
+    }
+    .ant-checkbox-wrapper {
+      font-size: 16px !important;
+      .anticon-info-circle{
+        font-size: 12px !important;
+      }
+    }
+  }
   .map-pop-01,
   .map-pop-03 {
     p {

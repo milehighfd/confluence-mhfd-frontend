@@ -261,6 +261,9 @@
   }
   span{
     width: 100%;
+    opacity: 1;
+    color: $purple00;
+    font-weight: 400 !important;
   }
   span:hover{
     color: $purple;
