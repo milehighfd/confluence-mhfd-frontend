@@ -829,12 +829,13 @@ const CreateProjectMap = (type: any) => {
           } else {
             map.isStyleLoaded(() => {
               applyMapLayers();
+              map.orderLayers();
               map.map.once('idle', () => {
                 setLoading(false);
                 flagInit = false;
               });
               applyProblemClusterLayer();
-              topStreams();
+              // topStreams();
             });
             setCompareSL(JSON.stringify(selectedLayersCP));
           }
@@ -1319,7 +1320,8 @@ const CreateProjectMap = (type: any) => {
     });
     updateSelectedLayersCP(selectedItems);
     updateSelectedLayers(selectedItems);
-    topStreams();
+    map.orderLayers();
+    // topStreams();
   };
   const hideLayers = (key: string) => {
     if (map) {
