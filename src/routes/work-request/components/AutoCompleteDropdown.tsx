@@ -110,6 +110,8 @@ const AutoCompleteDropdown = (
         });
         setFilterRequest(filterRequestReset);
       }
+    } else {
+      setLocality(value); // Implemented for WR functionality
     }
     console.log('Locality', l);
     if (l) {
@@ -182,7 +184,6 @@ const AutoCompleteDropdown = (
             onSearch={(input2: any) => {
               setLocalityFilter(input2);
               if (localities.map((r: any) => r.name).indexOf(input2) !== -1) {
-                console.log('aquicambia');
 setLocality(input2)
                 setIsOnSelected(false);
                 let l = localities.find((p: any) => {
