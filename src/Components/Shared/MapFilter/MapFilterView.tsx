@@ -485,7 +485,7 @@ const MapFilterView = ({
             <p>
               <img key="VpFnjqz019PZ" src="/Icons/Filters/ic_streams.png" width="18px" alt="" style={{borderRadius:'2px'}}/>
                   Streams
-                  <Popover key="LHIIbYWaSAfa" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.watershed)}>
+                  <Popover key="LHIIbYWaSAfa" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.streams)}>
                 <img key="M3WnT7oyw2jd" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
               <Switch key="sibrryODEhTp" checked={switches[STREAMS_FILTERS]} size="small" onClick={(value) => onChange(value, STREAMS_FILTERS)} />
