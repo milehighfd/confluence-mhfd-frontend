@@ -289,7 +289,7 @@
       }
     }
     .ant-table-tbody>tr>td{
-      border-bottom: transparent !important;
+      border-bottom: 1px solid #E9E8EF !important;
     }
     .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
       padding: 8px 16px;
@@ -832,7 +832,82 @@
     padding: 0px !important;
   }
 }
+.tabs-user-management {
+  .ant-tabs-nav {
+    padding-left: 16px;
+  }
+  .ant-tabs-content-holder {
+    padding-left: 16px;
+  }
+  .ant-tabs-nav .ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: $purple !important;
+    padding: 0px -10px 0px -10px !important;
+    font-weight: 400 !important;
+  }
 
+  .ant-tabs-nav .ant-tabs-tab {
+    padding: 15px 0px 15px 0px !important;
+    margin: 0 20px 0 0;
+    font-size: 16px;
+    color: $opacity;
+    font-weight: 400;
+  }
+
+  .ant-tabs-ink-bar {
+    background-color: $purple !important;
+  }
+
+  .ant-tabs-nav .ant-tabs-tab:hover {
+    color: $purple !important;
+  }
+
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-extra {
+    float: none;
+  }
+
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
+    display: none;
+  }
+
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+    padding: 12px 10px;
+    padding-left: 10px;
+    color: $black !important;
+    line-height: 30px;
+    height: 54px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  }
+
+  .ant-collapse > .ant-collapse-item {
+    border-bottom: none;
+    background: $white;
+  }
+
+  .ant-collapse {
+    border: none;
+    background: transparent;
+  }
+
+  .ant-tabs-ink-bar {
+    height: 2px !important;
+    background-color: $purple;
+    margin-bottom: 1.5px !important;
+  }
+
+  .ant-collapse-content {
+    background-color: $opacity00;
+    border-top: none;
+  }
+
+  .ant-collapse > .ant-collapse-item:last-child,
+  .ant-collapse > .ant-collapse-item:last-child > .ant-collapse-header {
+    border-radius: 0 0 0px 0px;
+  }
+
+  .ant-collapse-content > .ant-collapse-content-box {
+    padding: 20px 15px 0px 15px;
+  }
+}
 @media (min-width: 1900px) and (max-width: 2549px){
   .profile-myprofile{
     img{
@@ -909,14 +984,31 @@
       }
     }
   }
+  .user-management{
+    padding: 26px;
+  }
+  .tabs-user-management .ant-tabs-nav {
+    padding: 0px 53px;
+  }
+  .tabs-user-management .ant-tabs-nav .ant-tabs-tab{
+    font-size: 16px;
+  }
+  .row-menu{
+    font-size: 22px;
+  }
   // BODDY MANAGEMENT
   .user-management-body{
     .list-view-head{
       width: 375.88px !important;
       .ant-select-single.ant-select-show-arrow .ant-select-selection-item, .user-management-body .list-view-head .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
-        font-size: 28px !important;
+        font-size: 25px !important;
         padding-right: 25px !important;
         height: 29px;
+      }
+      .ant-select-show-arrow{
+        .ant-select-arrow{
+          font-size: 25 !important;
+        }
       }
     }
     .filter-user-management {
@@ -955,6 +1047,10 @@
         width: 19%;
         text-align: initial;
         height:36px;
+        .ant-select-single .ant-select-selector .ant-select-selection-search-input{
+          height: 37px !important;
+          vertical-align: middle;
+        }
       }
       .btn-borde{
         width: 100%;
@@ -1035,10 +1131,14 @@
         .name-user-list {
           font-size: 16px !important;
           margin-bottom: -4px !important;
+          line-height: 19px;
           margin-left: 10px !important;
+          margin-top: 4px;
         }
         .oganization-user-list{
-          font-size: 12px !important;
+          font-size: 13px !important;
+          margin-top: 4px;
+          line-height: 17px;
           margin-left: 10px !important;
         }
       }
@@ -1063,9 +1163,14 @@
         }
       }
       .btn-profile-list{
-        font-size: 16px;
+        font-size: 21px;
         height: auto;
         padding: 10px 45px;
+      }
+      .profile-user{
+        .btn-borde-management{
+          height: 40px;
+        }
       }
     }
     .profile-user{
@@ -1094,6 +1199,7 @@
       }
     }
   }
+  
 }
 @media (min-width: 2555px) and (max-width: 3799px){
   .ant-table-column-sorter-down, .ant-table-column-sorter-up {
