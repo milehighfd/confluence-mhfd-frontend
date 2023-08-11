@@ -6,14 +6,16 @@ class ColorService {
         let color = '#9faeb1'
         let a = arr.filter(p => p.origin === project.origin);
         let index = -1;
-        if (type === 'WORK_REQUEST' && columnIdx !== 0) {
-            a.forEach((p: any, i: number) => {
-                if (p.project_id === project.project_id) {
-                    index = i;
-                }
-            })
-        } else {
-          index = project[`originPosition${columnIdx}`];
+        if (columnIdx !== 0) {
+            if (project[`originPosition${columnIdx}`] === null) {
+                a.forEach((p: any, i: number) => {
+                    if (p.project_id === project.project_id) {
+                        index = i;
+                    }
+                })
+            } else {
+                index = project[`originPosition${columnIdx}`];
+            }
         }
         switch(index) {
             case 0:
