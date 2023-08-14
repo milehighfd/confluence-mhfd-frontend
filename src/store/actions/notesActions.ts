@@ -34,7 +34,7 @@ export const createNote = (note: any, openNotification: any) => {
     datasets.postData(SERVER.CREATE_NOTE, note, datasets.getToken()).then(note => {
       dispatch({type: types.CREATE_NOTE, note});
       dispatch(getNotes());
-      openNotification('Success! Your note was created.', "success");
+      openNotification('Success! Your board was just updated!', "success");
     });
   };
 };

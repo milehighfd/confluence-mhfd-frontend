@@ -61,7 +61,7 @@ export const AlertView = ({
     setVisibleAlert(false);
     setState(auxState);
     setSave(true);
-    isEdit?openNotification('Success! Your project was updated', "success"):openNotification('Success! Your project was created', "success");
+    isEdit?openNotification('Success! Your project was just updated!', "success"):openNotification('Success! Your project was just created!', "success");
   };
 
   const handleCancel = (e: any) => {

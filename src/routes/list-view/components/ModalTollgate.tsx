@@ -426,7 +426,7 @@ const ModalTollgate = ({ saveCB, setOpenPiney }: { saveCB?: any; setOpenPiney?: 
         setUpdateGroup({ id1: originPhase, id2: currentStatus });
         getDetailedPageProject(datesData.d.project_id);
         setDatesData(newDataProject);
-        openNotification('Success! The date was updated', "success");
+        openNotification('Success! Your project timeline was just updated!', "success");
       });
   }
 
