@@ -560,10 +560,17 @@ const CreateProjectMap = (type: any) => {
 
   useEffect(() => {
     // if (flagtoDraw && listComponents && listComponents.result && listComponents.result.length > 0) {
+    const containsComponents = selectedLayersCP.some((item:any) => item.name === 'components');
+     if(containsComponents){
       hideHighlighted();
-      showHoverComponents();
+      map.isStyleLoaded(() => {
+        map.map.once('render', () => {
+          showHoverComponents(); 
+        });
+      });
+     }
     // }
-  }, [componentsHover, flagtoDraw]);
+  }, [componentsHover, flagtoDraw, selectedLayersCP]);
 
   useEffect(() => {
     if (isAddLocation) {
@@ -587,6 +594,7 @@ const CreateProjectMap = (type: any) => {
   }, [isAddLocation]);
   const showHoverComponents = () => {
     if (listComponents && listComponents.result && listComponents.result.length > 0 && !magicAddingVariable) {
+      console.log('here', listComponents, componentsHover)
       Object.keys(componentsHover).forEach((key: any) => {
         showHighlightedArray(key, componentsHover[key]);
       });
