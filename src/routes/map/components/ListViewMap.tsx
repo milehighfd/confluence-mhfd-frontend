@@ -233,7 +233,7 @@ const ListViewMap = ({
       key: 'name',
       fixed: 'left',
       // sorter: (a, b) => a.name - b.name,
-      render: (text: any, record:any) => <div className="content-project-name"><p className="project-name">{text}</p><Popover overlayClassName="pop-card-map" content={menu(record)} placement="bottomLeft" trigger="click" visible={dropdownIsOpen} onVisibleChange={()=>{ setDropdownIsOpen(!dropdownIsOpen);}}>
+      render: (text: any, record:any) => <div className="content-project-name"><p className="project-name">{text}</p><Popover overlayClassName="pop-card-map" content={menu(record)} placement="bottom" trigger="click" visible={dropdownIsOpen} onVisibleChange={()=>{ setDropdownIsOpen(!dropdownIsOpen);}}>
         <MoreOutlined className="more-ico"/>
       </Popover></div>,
     },
@@ -290,7 +290,9 @@ const ListViewMap = ({
       key: 'requestName',
       fixed: 'left',
       // sorter: (a, b) => a.name - b.name,
-      render: (text: any) => <p className="project-name">{text}</p>,
+      render: (text: any, record:any) => <div className="content-project-name"><p className="project-name">{text}</p><Popover overlayClassName="pop-card-map" content={menu(record)} placement="bottom" trigger="click" visible={dropdownIsOpen} onVisibleChange={()=>{ setDropdownIsOpen(!dropdownIsOpen);}}>
+        <MoreOutlined className="more-ico"/>
+      </Popover></div>,
     },
     {
       title: 'Type',
