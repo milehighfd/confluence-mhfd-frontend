@@ -78,6 +78,7 @@ import SideBarComment from 'Components/Map/SideBarComment';
 import ModalProjectView from 'Components/ProjectModal/ModalProjectView';
 import DetailModal from 'routes/detail-page/components/DetailModal';
 import MobilePopup from 'Components/MobilePopup/MobilePopup';
+import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
 
 let map: any = null;
 let searchMarker = new mapboxgl.Marker({ color: '#F4C754', scale: 0.7 });
@@ -205,6 +206,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
   const [idsBoardProjects, setIdsBoardProjects] = useState<any>([]);
   const [groupedIdsBoardProjects, setGroupedIdsBoardProjects] = useState<any>([]);
   const coorBounds: any[][] = [];
+
   const [data, setData] = useState({
     problemid: '',
     id: '',
@@ -227,6 +229,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
   const [distanceValue, setDistanceValue] = useState('0');
   const [distanceValueMi, setDistanceValueMi] = useState('0');
   const [areaValue, setAreaValue] = useState('0');
+  const { openNotification } = useNotifications();
   const setNote = useCallback(
     (event: any, note?: any) => {
       const getText = event?.target?.value ? event.target.value : event;
@@ -326,6 +329,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
       },
     });
   };
+
 
   useEffect(() => {
     if (zoomProject && (zoomProject.projectid || zoomProject.project_id)) {
@@ -1539,7 +1543,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
       currentNote = undefined;
     }
     if (newNote !== void 0 && isEdit === false) {
-      createNoteWithElem(newNote, createNote);
+      createNoteWithElem(newNote, createNote, openNotification);
       markerNote.remove();
       popup.remove();
       isEdit = false;

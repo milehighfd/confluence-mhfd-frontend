@@ -28,11 +28,13 @@ export const setIsnewNote = (isnewnote: boolean) => {
     dispatch({type: types.SET_IS_NEW_NOTE, payload: isnewnote});
   }
 }
-export const createNote = (note: any) => {
+
+export const createNote = (note: any, openNotification: any) => {
   return (dispatch: Function) => {
     datasets.postData(SERVER.CREATE_NOTE, note, datasets.getToken()).then(note => {
       dispatch({type: types.CREATE_NOTE, note});
       dispatch(getNotes());
+      openNotification('Success! Your board was just updated!', "success");
     });
   };
 };

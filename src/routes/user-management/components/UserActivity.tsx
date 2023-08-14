@@ -7,15 +7,16 @@ import { useUsersDispatch, useUsersState } from 'hook/usersHook';
 
 const UserActivity = () => {
   const columns2: ColumnsType<any> = [
-    { title: <>Date and Time <ArrowDownOutlined className="ico-arrow"/></>, dataIndex: 'registerDate', key: 'registerDate' },
-    { title: <>User <ArrowDownOutlined className="ico-arrow"/></>, dataIndex: 'user', key: 'user' },
-    { title: <>City <ArrowDownOutlined className="ico-arrow"/></>, dataIndex: 'city', key: 'city' },
-    { title: <>Change <ArrowDownOutlined className="ico-arrow"/></>, dataIndex: 'activityType', key: 'activityType',
+    { title: 'Date and', dataIndex: 'registerDate', key: 'registerDate', sorter: (a, b) => a.registerDate.length - b.registerDate.length,},
+    { title: 'User', dataIndex: 'user', key: 'user', sorter: (a, b) => a.user.length - b.user.length,},
+    { title: 'City', dataIndex: 'city', key: 'city', sorter: (a, b) => a.city.length - b.city.length,},
+    { title: 'Change', dataIndex: 'activityType', key: 'activityType',
     render: (activityType) => (
       <span className="span-activityType">
         {activityType}
       </span>
     ),
+    sorter: (a, b) => a.activityType.length - b.activityType.length,
     },
   ];
   const { userActivity } = useUsersState();

@@ -1,4 +1,4 @@
-import { List, Row, Table } from "antd";
+import { List, Menu, MenuProps, Popover, Row, Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import { useProjectDispatch, useProjectState } from "hook/projectHook";
 import { WINDOW_WIDTH } from "constants/constants";
@@ -12,6 +12,7 @@ import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import { MHFD_PROJECTS } from "constants/constants";
 import { Console } from "console";
+import { MoreOutlined } from "@ant-design/icons";
 
 const ListViewMap = ({
   totalElements,
@@ -47,12 +48,16 @@ const ListViewMap = ({
   const [windowWidth, setWindowWidth] = useState(WINDOW_WIDTH)
   const [sortBy, setSortBy] = useState<any>(null);
   const [sortOrder, setSortOrder] = useState<any>(null);
+  const [openedDropdownKey, setOpenedDropdownKey] = useState<string | null>(null);
+  const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
+  const [itHasComponents, setItHasComponents] = useState(false);
   const {
     favorites,
     selectedOnMap,
     paramFilters: params,
     filterProjectOptions,
     filterProblemOptions,
+    addFavorite,
   } = useMapState();
 
   const {
@@ -164,7 +169,81 @@ const ListViewMap = ({
       window.removeEventListener('resize', updateWindowSize);
     };
   }, [])
-
+  useEffect(() => {
+    if(dropdownIsOpen){
+      setItHasComponents(true)
+    }
+  }, [dropdownIsOpen]);
+  const stopModal = (e: any) => {
+    e.domEvent.stopPropagation();
+    e.domEvent.nativeEvent.stopImmediatePropagation();
+  }
+  const deleteFunction = (email: string, id: number, type: string) => {
+    const suffix = type === 'Problems' ? '?isProblem=1' : '';
+    datasets.deleteDataWithBody(`${SERVER.DELETE_FAVORITE}${suffix}`, { email: email, id: id }, datasets.getToken()).then(favorite => {
+      // if (deleteCallback) {
+      //   deleteCallback(id);
+      // }
+   });    
+  }
+  const menu = (record:any) => {
+    const onClickPopupCard = (e: any) => {
+      stopModal(e);
+      // e.stopPropagation();
+      switch (e.key) {
+        case 'popup-show-components':
+          if(itHasComponents){
+            // showComponents();
+          }
+          break;
+        case 'popup-zoom':
+          changeCenter('', record.coordinates);
+          return;
+        case 'popup-favorite':
+          record.isFavorite ?  deleteFunction(user.email, (record.project_id || record.problemid), type) : addFavorite(user.email, (record.project_id || record.problemid), type === 'Problems' );
+          setDropdownIsOpen(false);
+          return;
+        default:
+          break;
+      }
+    };
+    let menuPopupItem: MenuProps['items'] = [
+      {
+        key: 'popup-title',
+        style: {cursor: 'auto', color: 'rgba(17, 9, 60, 0.5)', background: 'rgba(61, 46, 138, 0.07)', margin:'0px'},
+        label: <label style={{ cursor: 'auto', color: 'rgba(17, 9, 60, 0.5)' }}>
+          LIST ACTIONS
+        </label>
+      },
+      {
+        key: 'popup-show-components',
+        label: <span className="menu-item-text" style={{ opacity: itHasComponents?1:0.5 }} >Show Actions</span>
+      },
+      {
+        key: 'popup-zoom',
+        label: <span className="menu-item-text">Zoom to Feature</span>
+      },
+      {
+        key: 'popup-favorite',
+        label: <span className="menu-item-text">{record.isFavorite ? 'Unfavorite Card':'Favorite Card'}</span>
+      },
+      {
+        key: 'popup-comment',
+        label: <span className="menu-item-text" style={{ cursor: 'auto', opacity: 0.5 }}>Comment</span>
+      },
+      {
+        key: 'popup-add-team',
+        label: <span className="menu-item-text" style={{ cursor: 'auto', opacity: 0.5 }}>Add Team Member</span>
+      }
+    ];
+    return <Menu
+      className="menu-dropdown-map"
+      style={{ backgroundColor: 'white', border: 0, paddingTop: '0px' }}
+      items={menuPopupItem}
+      onClick={onClickPopupCard}
+    >
+    </Menu>
+  };
   useEffect(()=>{
     if(sortOrder && type !== FILTER_PROBLEMS_TRIGGER){
       const auxOptions = { ...filterProjectOptions };
@@ -197,7 +276,24 @@ const ListViewMap = ({
         setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');      
         return 0
       },
-      render: (text: any) => <p className="project-name">{text}</p>,
+      render: (text: any, record:any) => <div className="content-project-name"><p className="project-name">{text}</p>
+        <Popover
+          overlayClassName="pop-card-map"
+          content={menu(record)}
+          placement="bottom"
+          trigger="click"
+          visible={openedDropdownKey === record.problemid}
+          onVisibleChange={(visible) => {
+            console.log(record)
+            if (visible) {
+              setOpenedDropdownKey(record.problemid);
+            } else {
+              setOpenedDropdownKey(null);
+            }
+          }}
+        >
+          <MoreOutlined className="more-ico" />
+        </Popover></div>,
     },
     {
       title: 'Type',
@@ -281,7 +377,23 @@ const ListViewMap = ({
         setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
         return 0
       },
-      render: (text: any) => <p className="project-name">{text}</p>,
+      render: (text: any, record: any) => <div className="content-project-name"><p className="project-name">{text}</p>
+      <Popover
+        overlayClassName="pop-card-map"
+        content={menu(record)}
+        placement="bottom"
+        trigger="click"
+        visible={openedDropdownKey === record.project_id}
+        onVisibleChange={(visible) => {
+          if (visible) {
+            setOpenedDropdownKey(record.project_id);
+          } else {
+            setOpenedDropdownKey(null);
+          }
+        }}
+      >
+        <MoreOutlined className="more-ico" />
+      </Popover></div>,
     },
     {
       title: 'Type',
@@ -363,62 +475,61 @@ const ListViewMap = ({
     }
 }, [totalElement])
 
+const fetchMoreData = async () => {
+  if (type === 'Problems') {
+    if (state.items.length >= totalElement - size) {
+      const auxState = { ...state };
+      if (state.items.length !== totalElements) {
+        auxState.items = state.items.concat(
+          Array.from({ length: totalElement - state.items.length })
+        );
+      }
+      auxState.hasMore = false;
+      setState(auxState);
+      return;
+    }
+    setTimeout(() => {
+      const auxState = { ...state };
+      const newItems = Array.from({ length: size }).map((_, index) => cardInformation[state.items.length + index]);
+      auxState.items = state.items.concat(newItems);
+      setDataProblems([...dataProblems, ...newItems]);
+      setState(auxState);
+    }, 500);
+  } else {
+    if (infiniteScrollItems.length < totalElements) {
+      if (!isLoading) {
+        setIsLoading(true);
+        getExtraProjects(nextPageOfCards);
+      }
+      const nextItems = infiniteScrollItems.concat(Array.from({ length: size }));
+      setInfiniteScrollItems(nextItems);
+      setInfiniteScrollHasMoreItems(true);
+    }
+  }
+};  
+const setValuesMap = (type: string, value: string) => {
+  setHighlighted({type: type, value: value});
+}
+const handleScroll = (e:any) => {
+  const { scrollTop, clientHeight, scrollHeight } = e.target;
+  if (scrollHeight - scrollTop === clientHeight) {
+    fetchMoreData();
+  }
+};
+const changeCenter = (id:any, coordinateP:any) => {
+  if(setZoomProjectOrProblem){
+  if (id) {      
+    datasets.getData(SERVER.GET_BBOX_BY_PROJECT_ID(id)).then((coordinates: any) => {
+      if( coordinates.length ) {
+        setZoomProjectOrProblem(coordinates);
+      }
+    });
+  } else {
+    setZoomProjectOrProblem(coordinateP);
+  }}
   
+}
 
-  const fetchMoreData = async () => {
-    if (type === 'Problems') {
-      if (state.items.length >= totalElement - size) {
-        const auxState = { ...state };
-        if (state.items.length !== totalElements) {
-          auxState.items = state.items.concat(
-            Array.from({ length: totalElement - state.items.length })
-          );
-        }
-        auxState.hasMore = false;
-        setState(auxState);
-        return;
-      }
-      setTimeout(() => {
-        const auxState = { ...state };
-        const newItems = Array.from({ length: size }).map((_, index) => cardInformation[state.items.length + index]);
-        auxState.items = state.items.concat(newItems);
-        setDataProblems([...dataProblems, ...newItems]);
-        setState(auxState);
-      }, 500);
-    } else {
-      if (infiniteScrollItems.length < totalElements) {
-        if (!isLoading) {
-          setIsLoading(true);
-          getExtraProjects(nextPageOfCards);
-        }
-        const nextItems = infiniteScrollItems.concat(Array.from({ length: size }));
-        setInfiniteScrollItems(nextItems);
-        setInfiniteScrollHasMoreItems(true);
-      }
-    }
-  };  
-  const setValuesMap = (type: string, value: string) => {
-    setHighlighted({type: type, value: value});
-  }
-  const handleScroll = (e:any) => {        
-    const { scrollTop, clientHeight, scrollHeight } = e.target;
-    if (scrollHeight - scrollTop === clientHeight) {      
-      fetchMoreData();
-    }
-  };
-  const changeCenter = (id:any, coordinateP:any) => {
-    if(setZoomProjectOrProblem){
-    if (id) {      
-      datasets.getData(SERVER.GET_BBOX_BY_PROJECT_ID(id)).then((coordinates: any) => {
-        if( coordinates.length ) {
-          setZoomProjectOrProblem(coordinates);
-        }
-      });
-    } else {
-      setZoomProjectOrProblem(coordinateP);
-    }}
-    
-  }
   return (<>
     {isLoading && <LoadingView />}
     <div className="table-scroll-map-list" onScroll={handleScroll}>

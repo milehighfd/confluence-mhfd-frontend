@@ -2455,8 +2455,8 @@ hr.filters-line {
       font-style: normal;
       font-weight: 500;
       line-height: normal;
-      height: auto;
-      padding: 16px;
+      height: 44px;
+      padding: 12px;
       border: 1px solid #eae8f0 !important;
       span{
         opacity: 0.6;
@@ -2470,10 +2470,10 @@ hr.filters-line {
       font-family: Ubuntu;
       font-size: 14px;
       font-style: normal;
-      font-weight: 700;
+      font-weight: 500;
       line-height: normal;
-      height: auto;
-      padding: 16px;
+      height: 44px;
+      padding: 12px;
     }
   }
   
@@ -2493,6 +2493,9 @@ hr.filters-line {
       .anticon-info-circle{
         font-size: 12px !important;
       }
+    }
+    button{
+      height: 44px !important;
     }
   }
   .map-pop-01,

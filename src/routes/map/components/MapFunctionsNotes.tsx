@@ -6,7 +6,7 @@ const colorsCodes = {
   SKY:  'rgb(102, 212, 255)',
 }
 
-export const createNoteWithElem = (note: any, createNote: Function) => {
+export const createNoteWithElem = (note: any, createNote: Function, openNotification: Function) => {
 
   const contentTitle:any = document.getElementById('color-text');
   if(contentTitle != null) {
@@ -15,7 +15,7 @@ export const createNoteWithElem = (note: any, createNote: Function) => {
       note.color_id = comment_id;
     }
   }
-  createNote(note);
+  createNote(note, openNotification);
 }
 
 export const editNoteWithElem = (note: any, editNote: Function) => {

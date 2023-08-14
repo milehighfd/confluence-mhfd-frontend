@@ -350,11 +350,11 @@
     padding: 10px !important;
   }
   .notification-popoveer {
-    font-size: 17px;
+    font-size: 21px;
 
     .notification-header {
       a {
-        font-size: 17px !important;
+        font-size: 21px !important;
       }
 
       h2 {
@@ -378,6 +378,19 @@
           margin-top: 8px !important;
         }
       }
+    }
+  }
+  .none-notification{
+    font-size: 19px;
+  }
+  .option-line{
+    height: 2px !important;
+  }
+  .option-layout {
+    width: 160px;
+    span{
+      font-size: 19px;
+      line-height: 50px;
     }
   }
 }
