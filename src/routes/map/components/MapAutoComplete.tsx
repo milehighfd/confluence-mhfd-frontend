@@ -45,7 +45,7 @@ const MapAutoComplete = ({
     return {
       key: `${item}|${item}`,
       value: item,
-      label: item
+      label: <span className='main-map-dropdown'>{item}</span>,
     };
   };
 

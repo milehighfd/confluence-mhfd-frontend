@@ -1067,6 +1067,9 @@ hr.filters-line {
   }
 }
 
+.main-map-dropdown{
+  font-size: 14px;
+}
 
 @media (min-width: 1900px) and (max-width: 2499px) {
   //MAIN-MAP
@@ -1375,6 +1378,9 @@ hr.filters-line {
     font-size: 16px;
     // height: 58px;
     line-height: 20px;
+  }
+  .main-map-dropdown{
+    font-size: 16px;
   }
   //WR
   .auto-complete-map .ant-input{

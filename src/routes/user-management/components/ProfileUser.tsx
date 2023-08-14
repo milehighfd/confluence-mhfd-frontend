@@ -17,9 +17,8 @@ import { BusinessAssociatesDropdownMemoized } from 'routes/user-management/compo
 import RadioDesignation from 'routes/user-management/components/RadioDesignation';
 import { formatPhoneNumber } from 'utils/utils';
 import { useAppUserDispatch } from "../../../hook/useAppUser";
-import ConfirmationSave from './ConfirmationSave';
-import { notification } from 'antd';
-import { NotificationType } from 'Components/Shared/Notifications/NotificationsTypes';
+import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
+
 
 const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveUser: Function, setExpandedRow: React.Dispatch<React.SetStateAction<boolean>> }) => {
   const [organization, setOrganization] = useState('');
@@ -65,7 +64,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
   const [createAssociate, setCreateAssociate] = useState<any>(false);
   const [createAssociateName, setCreateAssociateName] = useState<any>('');
   const [createPhone, setCreatePhone] = useState<any>('');
-  const [api, contextHolder] = notification.useNotification();
+  const { openNotification } = useNotifications();
 
   interface Contact {
     full_address: string;
@@ -74,13 +73,8 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
     zip: string;
   }
 
-  const openNotificationWithIcon = (type: NotificationType) => {
-    api[type]({
-      message: 'Success! Your user update was saved!',
-      className: 'notification-alert-layout',
-      icon: <CheckCircleFilled className='notification-icon-success'/>,
-      duration: 2
-    });
+  const handleNotification = () => {
+    openNotification('Success! Your user update was saved!', "success");
   };
 
   const {
@@ -569,7 +563,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
             setUpdate(!update);
             getUserInformation();
             setConfirmation(true);
-            openNotificationWithIcon('success');
+            handleNotification();
             setTimeout(() => {
               setConfirmation(false);
             }, 3000);
@@ -602,7 +596,6 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
   return (
     <>
     {/* <ConfirmationSave visible={confirmation} setVisible={setConfirmation} /> */}
-    {contextHolder}
     <Alert save={result} visible={{visible:saveAlert}} setVisible={setSaveAlert} message={message}/>
       <div className="profile-user">
         <Row>

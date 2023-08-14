@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import { Button, Checkbox, Col, Modal, Row } from 'antd';
+import { Button, Checkbox, Col, Modal, Row, notification } from 'antd';
 import store from 'store';
 import { ADMIN, STAFF } from 'constants/constants';
 import { getBoardData3 } from 'dataFetching/workRequest';
 import { useRequestState } from 'hook/requestHook';
+import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
 
 const stateValue = {
   visible: false
@@ -44,6 +45,7 @@ export const AlertView = ({
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
   const [workPlanString, setWorkPlanString] = useState('');
   const { year } = useRequestState();
+  const { openNotification } = useNotifications();
   useEffect(() => {
     if (isWorkPlan) {
       setWorkPlanString(locality.join(','));
@@ -59,6 +61,7 @@ export const AlertView = ({
     setVisibleAlert(false);
     setState(auxState);
     setSave(true);
+    isEdit?openNotification('Success! Your project was updated', "success"):openNotification('Success! Your project was created', "success");
   };
 
   const handleCancel = (e: any) => {

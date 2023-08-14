@@ -10,6 +10,7 @@ import { OverlappingDatesAlert } from '../../../Components/Alerts/OverlappingAle
 import { usePortflioState, usePortfolioDispatch } from 'hook/portfolioHook';
 import { useMapDispatch } from 'hook/mapHook';
 import DetailModal from 'routes/detail-page/components/DetailModal';
+import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
 
 const { RangePicker }: any = DatePicker;
 
@@ -37,6 +38,7 @@ const ModalTollgate = ({ saveCB, setOpenPiney }: { saveCB?: any; setOpenPiney?: 
   const [viewOverlappingAlert, setViewOverlappingAlert] = useState(false);
   const [overlapping, setOverlapping] = useState(false);
   const [originPhase, setOriginPhase] = useState(null);
+  const { openNotification } = useNotifications();
 
   const parseDuration = (duration: string) => {
     const type = duration.trim()[0];
@@ -389,6 +391,7 @@ const ModalTollgate = ({ saveCB, setOpenPiney }: { saveCB?: any; setOpenPiney?: 
     setCalendarPhase(0);
   }
   function sendData() {
+
     const newDates = datesData.d.schedule?.map((x: any) => {
       const date = dates?.find((y: any) => y.phase_id === x.phaseId);
       return {
@@ -423,6 +426,7 @@ const ModalTollgate = ({ saveCB, setOpenPiney }: { saveCB?: any; setOpenPiney?: 
         setUpdateGroup({ id1: originPhase, id2: currentStatus });
         getDetailedPageProject(datesData.d.project_id);
         setDatesData(newDataProject);
+        openNotification('Success! The date was updated', "success");
       });
   }
 
