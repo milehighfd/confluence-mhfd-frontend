@@ -594,7 +594,6 @@ const CreateProjectMap = (type: any) => {
   }, [isAddLocation]);
   const showHoverComponents = () => {
     if (listComponents && listComponents.result && listComponents.result.length > 0 && !magicAddingVariable) {
-      console.log('here', listComponents, componentsHover)
       Object.keys(componentsHover).forEach((key: any) => {
         showHighlightedArray(key, componentsHover[key]);
       });
