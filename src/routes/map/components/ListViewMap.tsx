@@ -282,11 +282,11 @@ const ListViewMap = ({
           content={menu(record)}
           placement="bottom"
           trigger="click"
-          visible={openedDropdownKey === record.problemid}
+          visible={openedDropdownKey === record.project_id}
           onVisibleChange={(visible) => {
             console.log(record)
             if (visible) {
-              setOpenedDropdownKey(record.problemid);
+              setOpenedDropdownKey(record.project_id);
             } else {
               setOpenedDropdownKey(null);
             }
@@ -383,10 +383,10 @@ const ListViewMap = ({
         content={menu(record)}
         placement="bottom"
         trigger="click"
-        visible={openedDropdownKey === record.project_id}
+        visible={openedDropdownKey === record.problemid}
         onVisibleChange={(visible) => {
           if (visible) {
-            setOpenedDropdownKey(record.project_id);
+            setOpenedDropdownKey(record.problemid);
           } else {
             setOpenedDropdownKey(null);
           }
