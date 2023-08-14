@@ -34,7 +34,7 @@ import {
   MEP_PROJECTS_STYLES,
   tileStyles,
 } from 'constants/mapStyles';
-import { set } from 'react-ga';
+import { hovereableLayers } from 'routes/map/constants/layout.constants';
 
 export class MapService {
   public token: String = MAPBOX_TOKEN;
@@ -829,6 +829,18 @@ export class MapService {
       this.map.moveLayer('streams_5');
     }
   };
+  topHovereableLayers () {
+    const styles = { ...(tileStyles as any) };
+    hovereableLayers.forEach((key: any) => {
+      if (styles[key]) {
+        styles[key].forEach((_: LayerStylesType, index: number) => {
+          if (this.map.getLayer(key + '_highlight_' + index)) {
+            this.map.moveLayer(key + '_highlight_' + index);
+          }
+        });
+      }
+    });
+  };
 
   orderLayers () {
     // console.log('orderLayers', this.map.getStyle().layers)
@@ -848,6 +860,13 @@ export class MapService {
       this.topProblems();
       this.topStreamLabels();
       this.topLabels();
+      this.topHovereableLayers();
+      if (this.map.getLayer('streamIntersected')) {
+        this.map.moveLayer('streamIntersected');
+      }
+      if (this.map.getLayer('streams-intersects')) {
+        this.map.moveLayer('streams-intersects');
+      }
       setTimeout(() => {
         if (this.map.getLayer('area_based_mask')) {
           this.map.moveLayer('area_based_mask');

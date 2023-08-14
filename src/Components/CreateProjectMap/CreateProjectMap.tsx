@@ -245,7 +245,6 @@ const CreateProjectMap = (type: any) => {
   const [visible, setVisible] = useState(false);
   const [flagtoDraw, setFlagtoDraw] = useState(false);
   const [mapService] = useState<MapService>(new MapService());
-  const [hasZoomedInit, setHasZoomedInit] = useState(false);
   const currentBounds = useRef(undefined);
   const [areaValue, setAreaValue] = useState('0');
   const [measuringState, setMeasuringState] = useState(isMeasuring.current);
@@ -378,10 +377,9 @@ const CreateProjectMap = (type: any) => {
     }
   }, [listStreams]);
   useEffect(() => {
-    if (zoomGeom && map && !hasZoomedInit) {
+    if (zoomGeom && map ) {
       map.map.fitBounds(zoomGeom);
       map.map.once('load', () => {
-        setHasZoomedInit(true);
         map.map.fitBounds(zoomGeom);
       });
     }
@@ -561,11 +559,18 @@ const CreateProjectMap = (type: any) => {
   }, [listComponents]);
 
   useEffect(() => {
-    if (flagtoDraw && listComponents && listComponents.result && listComponents.result.length > 0) {
+    // if (flagtoDraw && listComponents && listComponents.result && listComponents.result.length > 0) {
+    const containsComponents = selectedLayersCP.some((item:any) => item.name === 'components');
+     if(containsComponents){
       hideHighlighted();
-      showHoverComponents();
-    }
-  }, [componentsHover, flagtoDraw]);
+      map.isStyleLoaded(() => {
+        map.map.once('render', () => {
+          showHoverComponents(); 
+        });
+      });
+     }
+    // }
+  }, [componentsHover, flagtoDraw, selectedLayersCP]);
 
   useEffect(() => {
     if (isAddLocation) {
@@ -1721,7 +1726,7 @@ const CreateProjectMap = (type: any) => {
         setDistanceValueMi,
       );
     } else {
-      hideHighlighted();
+      // hideHighlighted();
       const popups: any = [];
       const mobile: any = [];
       const menuOptions: any = [];
