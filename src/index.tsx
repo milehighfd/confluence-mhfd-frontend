@@ -11,12 +11,15 @@ import '@mdi/font/scss/materialdesignicons.scss';
 import 'antd/dist/antd.min.css';
 import './index.scss';
 import App from './App';
+import { NotificationsProvider } from 'Components/Shared/Notifications/NotificationsProvider';
 
 ReactDOM.render(
   <GoogleReCaptchaProvider reCaptchaKey={process.env.REACT_APP_CAPTCHA}>
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <App />
+        <NotificationsProvider>
+          <App />
+        </NotificationsProvider>
       </ConnectedRouter>
     </Provider>
   </GoogleReCaptchaProvider>,

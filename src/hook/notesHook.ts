@@ -23,8 +23,8 @@ export const useNoteDispatch = () => {
       getNotes: (color_id?:any) => {
         dispatch(getNotes(color_id));
       },
-      createNote: (note: any) => {
-        dispatch(createNote(note));
+      createNote: (note: any, openNotification: any) => {
+        dispatch(createNote(note, openNotification));
       },
       deleteNote: (id: any) => {
         dispatch(deleteNote(id));
