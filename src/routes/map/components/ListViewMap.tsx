@@ -224,7 +224,7 @@ const ListViewMap = ({
     >
     </Menu>
   };
-
+  const [openedDropdownKey, setOpenedDropdownKey] = useState<string | null>(null);
   const columns: ColumnsType<any>  = [
     {
       title: 'Project Name',
@@ -233,9 +233,23 @@ const ListViewMap = ({
       key: 'name',
       fixed: 'left',
       // sorter: (a, b) => a.name - b.name,
-      render: (text: any, record:any) => <div className="content-project-name"><p className="project-name">{text}</p><Popover overlayClassName="pop-card-map" content={menu(record)} placement="bottomLeft" trigger="click" visible={dropdownIsOpen} onVisibleChange={()=>{ setDropdownIsOpen(!dropdownIsOpen);}}>
-        <MoreOutlined className="more-ico"/>
-      </Popover></div>,
+      render: (text: any, record: any) => <div className="content-project-name"><p className="project-name">{text}</p>
+        <Popover
+          overlayClassName="pop-card-map"
+          content={menu(record)}
+          placement="bottom"
+          trigger="click"
+          visible={openedDropdownKey === record.project_id}
+          onVisibleChange={(visible) => {
+            if (visible) {
+              setOpenedDropdownKey(record.project_id);
+            } else {
+              setOpenedDropdownKey(null);
+            }
+          }}
+        >
+          <MoreOutlined className="more-ico" />
+        </Popover></div>,
     },
     {
       title: 'Type',
@@ -290,7 +304,24 @@ const ListViewMap = ({
       key: 'requestName',
       fixed: 'left',
       // sorter: (a, b) => a.name - b.name,
-      render: (text: any) => <p className="project-name">{text}</p>,
+      render: (text: any, record:any) => <div className="content-project-name"><p className="project-name">{text}</p>
+        <Popover
+          overlayClassName="pop-card-map"
+          content={menu(record)}
+          placement="bottom"
+          trigger="click"
+          visible={openedDropdownKey === record.problemid}
+          onVisibleChange={(visible) => {
+            console.log(record)
+            if (visible) {
+              setOpenedDropdownKey(record.problemid);
+            } else {
+              setOpenedDropdownKey(null);
+            }
+          }}
+        >
+          <MoreOutlined className="more-ico" />
+        </Popover></div>,
     },
     {
       title: 'Type',
