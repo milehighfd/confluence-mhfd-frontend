@@ -44,7 +44,7 @@ const Toolbar = ({
   };
   const handdle = () => {
     setSearchValue('');
-    setShowSearch(false);
+    setShowSearch(!showSearch);
   };
 
   return (
@@ -60,16 +60,17 @@ const Toolbar = ({
                   onChange={handdleSearch}
                   className='search-input'
                   style={{ maxWidth: '254', height: '34px', borderRadius:'4px' }} addonBefore={<SearchOutlined onClick={search} />} placeholder="Search" 
-                  suffix={<CloseCircleFilled onClick={handdle} />}
+                  suffix={<CloseCircleFilled onClick={handdle} style={{color:'#11093c', opacity:'0.5'}}/>}
                   value={searchValue}
                   />
               </Space>
             </div>
             {/* LUPA WR and WP */}
-            {!showSearch && <div style={{ display: 'inline-block' }} onClick={handleIconClick}>
-              <img className="icon-bt icon-search-size"
-                style={{ WebkitMask: "url('/Icons/ic-search.svg') no-repeat center" }}
-                alt="" />
+            {!showSearch && <div onClick={handleIconClick}>
+              <img
+                src='Icons/ic-000.svg'
+                alt=""
+              />
             </div>}
           </Button>
           
