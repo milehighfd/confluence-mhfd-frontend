@@ -58,6 +58,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
             FILTERS.PROJECT.JURISDICTION,
             FILTERS.PROJECT.MHFDMANAGER,
             FILTERS.PROJECT.FAVORITES,
+            FILTERS.PROJECT.PHASE
         ];
         if (filters.includes(field)) {
             let newValue = '';
@@ -131,12 +132,12 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
         <div className='filt-00'>
             <h5 className="filter-title chart-filter-title">Personalized <Popover content={content0}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
             <div className='body-filt-00'>
-                <Button className="btn-svg-text btn-svg-text-active" onClick={() => { setOpenFavorites(!openFavorites)}} style={{borderRadius: '3px 0px 0px 3px'}}>
+                <Button className={`btn-svg-text ${openFavorites ? 'btn-svg-text-active' : ''}`} onClick={() => { setOpenFavorites(!openFavorites)}} style={{borderRadius: '3px 0px 0px 3px'}}>
                     <img src="/Icons/ic-favorites.svg" alt=""/>
                     <br/>
                     My Favorites
                 </Button>
-                <Button className="btn-svg-text" onClick={() => { setMyTeams(!myTeams)}} style={{borderRadius: '0px 3px 3px 0px'}}>
+                <Button className={`btn-svg-text ${myTeams ? 'btn-svg-text-active' : ''}`} onClick={() => { setMyTeams(!myTeams)}} style={{borderRadius: '0px 3px 3px 0px'}}>
                     <img src="/Icons/ic-team.svg" alt=""/>
                     <br/>
                     My Teams
@@ -205,9 +206,9 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
                 <h5 className="filter-title chart-filter-title">Project Phase <Popover content={content5}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></h5>
                 {
                     paramProjects?.phaseName &&
-                    <CheckBoxFilters defaultValue={-1}
+                    <CheckBoxFilters defaultValue={''}
                         data={(paramProjects.phaseName)}
-                        selected={filterProjectOptions.phaseName}
+                        selected={filterProjectOptions.phase}
                         onSelect={(items: any) => apply(items, FILTERS.PROJECT.PHASE)} />
                 }
                 {/* <Button className="btn-svg">

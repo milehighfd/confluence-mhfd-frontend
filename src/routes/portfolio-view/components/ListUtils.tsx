@@ -59,6 +59,7 @@ export const optionsProjects = (options: OptionProjects, filterComponent: Option
     sorttype: options.order,
     favorites: options.favorites,
     teams: options.teams,
+    phase: options.phase,
   }
   if (applyFilter) {
     formattedOptions['bounds'] = coordinates;

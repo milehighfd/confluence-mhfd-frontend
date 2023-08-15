@@ -213,6 +213,7 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
     keyword,
     favorites: filters.favorites,
     teams: filters.teams,
+    phase: filters.phase,
   };
   return (dispatch: Function) => {
     dispatch({ type: types.SET_FILTER_PROJECT_OPTIONS, filters });

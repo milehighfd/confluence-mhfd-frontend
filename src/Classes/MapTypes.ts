@@ -43,6 +43,7 @@ export type OptionProjects = {
     servicearea: string,
     favorites: string,
     teams: string,
+    phase: [],
 }
 export type OptionComponents = {
     component_type: string,
