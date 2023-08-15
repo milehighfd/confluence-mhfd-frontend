@@ -2011,6 +2011,11 @@
   .work-head{
     padding: 14px 24px 0px 24px;
   }
+  .table-map-list{
+    .dots-table{
+      font-size: 18px !important;
+    }
+  }
   .table-map-list .ant-table{
     font-size: 16px !important;
     line-height: 24px !important;
@@ -3100,6 +3105,13 @@ cost-wr1{
   
   .custom-summary {
     height: 40px; 
+  }
+  .name-project-sec{
+    display: flex;
+    justify-content: space-between;
+  }
+  .dots-table{
+    font-size: 16px;
   }
   .name{
     color: #11093C;

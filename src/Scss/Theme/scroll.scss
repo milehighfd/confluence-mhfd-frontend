@@ -85,3 +85,7 @@
   background: $purple00;
   border-radius: 10px;
 }
+ *{
+  touch-action: pan-y;
+  touch-action: pan-x;
+ }

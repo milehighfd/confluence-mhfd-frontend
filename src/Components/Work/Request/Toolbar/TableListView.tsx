@@ -1,9 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { Table } from 'antd';
+import { Menu, MenuProps, Popover, Table } from 'antd';
 import type { ColumnsType } from 'antd/lib/table';
-import { WINDOW_WIDTH } from 'constants/constants';
+import { WINDOW_WIDTH, WORK_PLAN } from 'constants/constants';
+import { MoreOutlined } from '@ant-design/icons';
+import { getData, getToken } from 'Config/datasets';
+import { SERVER } from 'Config/Server.config';
+import { useProjectDispatch } from 'hook/projectHook';
+import { useRequestState } from 'hook/requestHook';
+import { useMapState } from 'hook/mapHook';
 
 const TableListView = () => {
+  const [completeProjectData, setCompleteProjectData] = useState<any>(null);
+  const [showAmountModal, setShowAmountModal] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(WINDOW_WIDTH);
+  const {setZoomProject, updateSelectedLayers} = useProjectDispatch();
+  const [editable, setEditable] = useState(false);
+  const [showCopyToCurrentYearAlert, setShowCopyToCurrentYearAlert] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const { tabActiveNavbar } = useMapState();
+  const {year} = useRequestState(); 
+
+  const getCompleteProjectData = async (record:any) => {
+    let dataForBoard = {...record.projectData};
+    const dataFromDB = await getData(SERVER.V2_DETAILED_PAGE(dataForBoard.project_id), getToken());
+    setCompleteProjectData({...dataFromDB, ...dataForBoard}); 
+  }
     const typeStatus = (status: string) => {
         let text = '';
         switch (status) {
@@ -22,7 +43,6 @@ const TableListView = () => {
         }
         return text;
     }
-    const [windowWidth, setWindowWidth] = useState(WINDOW_WIDTH);
     interface DataType {
         key: React.Key;
         name: string;
@@ -32,15 +52,58 @@ const TableListView = () => {
         actions: number;
         type: string;
     }
-
+    const content = (record:any) => {
+      const items: MenuProps['items'] = [{
+        key: '0',
+        label: <span style={{borderBottom: '1px solid transparent'}}>
+          <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
+          Edit Project
+        </span>,
+        onClick: (() => getCompleteProjectData(record))
+      }, {
+        key: '1',
+        label: <span style={{borderBottom: '1px solid transparent'}}>
+          <img src="/Icons/icon-90.svg" alt="" width="8px" style={{ opacity: '0.5', marginTop: '-2px', marginRight: '8.8px' }} />
+          Edit Amount
+        </span>,
+        onClick: (() => setShowAmountModal(true))
+      }, {
+        key: '2',
+        label: <span style={{borderBottom: '1px solid transparent'}}>
+          <img src="/Icons/icon-13.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px', marginRight: '4.6px' }} />
+          Zoom to
+        </span>,
+        onClick: (() => { setZoomProject(record.projectData);})
+      }];
+      if (!editable) {
+        items.pop();
+        items.splice(1, 1);
+      }
+      if (tabActiveNavbar === WORK_PLAN && year != 2023) {
+        items.splice(2, 0, {
+          key: '4',
+          label: <span style={{borderBottom: '1px solid transparent'}}>
+            <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
+            Copy to Current Year
+          </span>,
+          onClick: (() => setShowCopyToCurrentYearAlert(true))
+        });
+      }
+      return (<Menu className="js-mm-00" items={items} />)
+    };
     const columns: ColumnsType<DataType> = [
         {
             title: 'Project Name',
             dataIndex: 'name',
             width: '276px',
             fixed: 'left',
-            render: (name: any) =>
-                <span className='name'>{name}</span>,
+            render: (name: any, record:any) =>
+              <div className='name-project-sec'>
+                <span className='name'>{name}</span>
+                <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={content(record)} trigger="click" style={{marginRight:'-10px',cursor: 'pointer'}}>
+                  <MoreOutlined onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} className='dots-table'/>
+                </Popover>
+              </div>,
             sorter: {
                 compare: (a: { name: string; }, b: { name: string; }) => a.name.localeCompare(b.name),
             },            
