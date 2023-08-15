@@ -262,6 +262,7 @@ export const loadColumns = () => {
       item.type === 'status').map((r: any) => r.id),
       sponsor_board: filterRequest?.filter((item: any, index: number) => item.selected &&
       item.type === 'project_partners').map((r: any) => r.id),
+      name: filterRequest?.name?.searchValue || '',
       // status: filterRequest?.filter((item: any, index: number) => item.selected && 
       // item.type === 'currentId')?.map((r: any) => r?.id),
       // isSouthPlatteRiver: isLocatedInSouthPlateRiverFilter?.filter((_: any, index: number) => {
