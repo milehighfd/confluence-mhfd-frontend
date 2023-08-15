@@ -11,16 +11,22 @@ import { FILTERS } from 'constants/filter';
 
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Service Area</b> is the MHFD Watershed Service Area where the project is located.</div>);
+const content0 = (<div className="popoveer-00"><b>Personalized</b> is the name or ID of the stream where the project is located.</div>);
 const content1 = (<div className="popoveer-00"><b>County</b> is the county where the project is located.</div>);
 const content2 = (<div className="popoveer-00"><b>Local Government</b> is the local government where the project is located.</div>);
 const content3 = (<div className="popoveer-00"><b>MHFD Lead</b> is the MHFD PM who is responsible for the service area where the project is located.</div>);
 const content4 = (<div className="popoveer-00"><b>Project Type</b> is the MHFD program of which the project is a part.</div>);
+const content5 = (<div className="popoveer-00"><b>Project Phase</b> is the MHFD program of which the project is a part.</div>);
 const content05 = (<div className="popoveer-00"><b>Estimated Project Cost</b> is the estimated total cost of the project based on the cost of the underlying components.</div>);
 const content06 = (<div className="popoveer-00"><b>Project Status</b> is the current status of the Project. Some statuses are only applicable to certain project types.</div>);
 const content11 = (<div className="popoveer-00"><b>Consultant</b> is the primary civil engineering design consultant on the project.</div>);
 const content12 = (<div className="popoveer-00"><b>Local Government Lead</b> is the local government's project manager assigned to the project.</div>);
 const content13 = (<div className="popoveer-00"><b>Contractor</b> is the primary civil engineering construction contractor on the project.</div>);
 const content14 = (<div className="popoveer-00"><b>Stream Name</b> is the name or ID of the stream where the project is located.</div>);
+const content15 = (<div className="popoveer-00"><b>Work Plan Year</b> is the name or ID of the stream where the project is located.</div>);
+const content16 = (<div className="popoveer-00"><b>MHFD Manager</b> is the name or ID of the stream where the project is located.</div>);
+const content17 = (<div className="popoveer-00"><b>Local Government Manager</b> is the name or ID of the stream where the project is located.</div>);
+
 
 export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) => {
     const {
@@ -99,7 +105,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
     const axisLabel = 'Number of Projects';
     return <>  <div className="scroll-filters" style={{ height: window.innerHeight - 280 }}>
         <div className='filt-00'>
-            <h5 className="filter-title chart-filter-title">Personalized <Popover content={content1}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+            <h5 className="filter-title chart-filter-title">Personalized <Popover content={content0}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
             <div className='body-filt-00'>
                 <Button className="btn-svg-text btn-svg-text-active" onClick={() => { }} style={{borderRadius: '3px 0px 0px 3px'}}>
                     <img src="/Icons/ic-favorites.svg" alt=""/>
@@ -116,7 +122,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
         <hr className='filters-line'></hr>
         <Row className="filt-00">
             <Col span={12} className={filtersObject?.filterby === FILTERS.PROJECT.SERVICEAREA ? 'disabledchart': ''}>
-                <h5 className="filter-title chart-filter-title">Service Area <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 className="filter-title chart-filter-title">Service Area <Popover content={content}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></h5>
                 {
                     paramProjects?.servicearea &&
                     <TreeMap data={paramProjects.servicearea} type={FILTERS.PROJECT.SERVICEAREA} tab={'project'}
@@ -138,7 +144,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={24} className={(filtersObject?.tabKey != 'All' && filtersObject) ? 'disabledchart': ''}>
                 <div className='sub-title-sec'>
-                  <h5 className="filter-title chart-filter-title">Project type <Popover content={content4}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                  <h5 className="filter-title chart-filter-title">Project type <Popover content={content4}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></h5>
                   <div>
                     <Button className="btn-svg">
                       Apply
@@ -162,7 +168,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
         <hr className='filters-line'></hr>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12} className={filtersObject?.filterby === FILTERS.PROJECT.STATUS ? 'disabledchart': ''}>
-                <h5 className="filter-title chart-filter-title">Project Status <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 className="filter-title chart-filter-title">Project Status <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></h5>
                 {
                     paramProjects?.status &&
                     <CheckBoxFilters defaultValue={5}
@@ -192,7 +198,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
                 }
             </Col>
             <Col span={12} className={(filtersObject?.tabKey != 'All' && filtersObject) ? 'disabledchart': ''}>
-                <h5 className="filter-title chart-filter-title">Project Phase <Popover content={content4}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 className="filter-title chart-filter-title">Project Phase <Popover content={content5}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></h5>
                 <Button className="btn-svg">
                     Apply
                   </Button>
@@ -210,7 +216,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
         <Row className="filt-00">
             <Col span={12}>
                 <div className='sub-title-sec' style={{width:'200%'}}>
-                  <h5 className="filter-title chart-filter-title">Estimated Project Cost <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                  <h5 className="filter-title chart-filter-title">Estimated Project Cost <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></h5>
                   <div>
                     <Button className="btn-svg">
                       Apply
@@ -282,7 +288,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
                 }
             </Col>
             <Col span={12}>
-                <h5 className="filter-title">Work Plan Year <Popover content={content3}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                <h5 className="filter-title">Work Plan Year <Popover content={content15}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 <Button className="btn-svg">
                   Apply
                 </Button>
@@ -310,7 +316,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
         <hr className='filters-line'></hr>
         <Row className="filt-00" gutter={[24, 16]} style={{marginBottom: 25}}>
             <Col span={12}>
-                <h5 className="filter-title">MHFD Manager<Popover content={content12}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                <h5 className="filter-title">MHFD Manager <Popover content={content16}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                   <Button className="btn-svg" onClick={() => { }}>
                       Apply
                   </Button>
@@ -347,7 +353,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
                 } */}
             </Col>
             <Col span={12}>
-                <h5 className="filter-title">Local Government Manager <Popover content={content14}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                <h5 className="filter-title">Local Government Manager <Popover content={content17}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 <Button className="btn-svg">
                   Apply
                 </Button>
