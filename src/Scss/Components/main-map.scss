@@ -1066,6 +1066,22 @@ hr.filters-line {
     align-items: center;
   }
 }
+//Filters
+.scroll-filters {
+  padding: 0px 6px 0px 0px;
+  .ant-input {
+    height: 36px;
+    border-radius: 5px;
+    color: $purple00;
+  }
+  .ant-select {
+    font-size: 14px;
+  }
+  .sub-title-sec{
+    display: flex;
+    justify-content: space-between;
+  }
+}
 
 .main-map-dropdown{
   font-size: 14px;

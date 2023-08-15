@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Row, Col, Popover, Select } from 'antd';
+import { Button, Row, Col, Popover, Select, Input, Checkbox } from 'antd';
 import PieChart from 'Components/FiltersProject/NewProblemsFilter/PieChart';
 import TreeMap from 'Components/FiltersProject/NewProblemsFilter/TreeMap';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
@@ -98,6 +98,22 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
 
     const axisLabel = 'Number of Projects';
     return <>  <div className="scroll-filters" style={{ height: window.innerHeight - 280 }}>
+        <div className='filt-00'>
+            <h5 className="filter-title chart-filter-title">Personalized <Popover content={content1}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+            <div className='body-filt-00'>
+                <Button className="btn-svg-text btn-svg-text-active" onClick={() => { }} style={{borderRadius: '3px 0px 0px 3px'}}>
+                    <img src="/Icons/ic-favorites.svg" alt=""/>
+                    <br/>
+                    My Favorites
+                </Button>
+                <Button className="btn-svg-text" onClick={() => { }} style={{borderRadius: '0px 3px 3px 0px'}}>
+                    <img src="/Icons/ic-team.svg" alt=""/>
+                    <br/>
+                    My Teams
+                </Button>
+            </div>
+        </div>
+        <hr className='filters-line'></hr>
         <Row className="filt-00">
             <Col span={12} className={filtersObject?.filterby === FILTERS.PROJECT.SERVICEAREA ? 'disabledchart': ''}>
                 <h5 className="filter-title chart-filter-title">Service Area <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
@@ -120,8 +136,19 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
         </Row>
         <hr className='filters-line'></hr>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
-            <Col span={12} className={(filtersObject?.tabKey != 'All' && filtersObject) ? 'disabledchart': ''}>
-                <h5 className="filter-title chart-filter-title">Project type <Popover content={content4}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+            <Col span={24} className={(filtersObject?.tabKey != 'All' && filtersObject) ? 'disabledchart': ''}>
+                <div className='sub-title-sec'>
+                  <h5 className="filter-title chart-filter-title">Project type <Popover content={content4}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                  <div>
+                    <Button className="btn-svg">
+                      Apply
+                    </Button>
+                    &nbsp;<span style={{color:'#E9E8EF'}}>|</span>&nbsp;
+                    <Button className="btn-svg">
+                        Reset
+                    </Button>
+                  </div>
+                </div>
                 {
                     paramProjects?.projecttype &&
                     <PieChart type={FILTERS.PROJECT.PROJECTTYPE} defaultValue={''}
@@ -130,6 +157,10 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
                         onSelect={(e: string) => apply(e, FILTERS.PROJECT.PROJECTTYPE)} />
                 }
             </Col>
+            
+        </Row>
+        <hr className='filters-line'></hr>
+        <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12} className={filtersObject?.filterby === FILTERS.PROJECT.STATUS ? 'disabledchart': ''}>
                 <h5 className="filter-title chart-filter-title">Project Status <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
@@ -160,11 +191,36 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
                         onSelect={(items: any) => apply(items, FILTERS.PROJECT.STATUS)} />
                 }
             </Col>
+            <Col span={12} className={(filtersObject?.tabKey != 'All' && filtersObject) ? 'disabledchart': ''}>
+                <h5 className="filter-title chart-filter-title">Project Phase <Popover content={content4}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <Button className="btn-svg">
+                    Apply
+                  </Button>
+                  &nbsp;<span style={{color:'#E9E8EF'}}>|</span>&nbsp;
+                  <Button className="btn-svg">
+                      Reset
+                  </Button>
+                <Checkbox.Group
+                  // data={paramProjects.contractor.sort((a: any, b: any) => a.value.localeCompare(b.value))}
+                  options={['Draft', 'Requested', 'Approved','Idle']}
+                />
+            </Col>
         </Row>
         <hr className='filters-line'></hr>
         <Row className="filt-00">
             <Col span={12}>
-                <h5 className="filter-title chart-filter-title">Estimated Project Cost <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <div className='sub-title-sec' style={{width:'200%'}}>
+                  <h5 className="filter-title chart-filter-title">Estimated Project Cost <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                  <div>
+                    <Button className="btn-svg">
+                      Apply
+                    </Button>
+                    &nbsp;<span style={{color:'#E9E8EF'}}>|</span>&nbsp;
+                    <Button className="btn-svg">
+                        Reset
+                    </Button>
+                  </div>
+                </div>
                 {
                     paramProjects?.estimatedCost &&
                     <DropdownFilters type={FILTERS.PROJECT.TOTALCOST} axisLabel={axisLabel} defaultValue={''}
@@ -177,23 +233,40 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
         <Row className="filt-00" style={{ paddingRight: '0px', paddingLeft:'14px', marginBottom: 25 }} gutter={[24, 16]}>
             <Col span={12} style={{paddingLeft:'0px'}} className={filtersObject?.filterby === FILTERS.PROJECT.CONSULTANT ? 'disabledchart': ''}>
                 <h5 className="filter-title">Consultant <Popover content={content11}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
-                {
+                {/* {
                     paramProjects?.consultant &&
                     <CheckBoxFilters defaultValue={""}
                     data={paramProjects.consultant.sort((a: any, b: any) => a.value.localeCompare(b.value))}
                     selected={filterProjectOptions.consultant}
                     onSelect={(items: any) => apply(items, FILTERS.PROJECT.CONSULTANT)} />
-                }
+                } */}
+                <Button className="btn-svg" >
+                    Apply
+                </Button>
+                &nbsp;<span style={{color:'#E9E8EF'}}>|</span>&nbsp;
+                <Button className="btn-svg" >
+                    Reset
+                </Button>
+                <Input placeholder="Search here.." />
+
             </Col>
             <Col span={12}  style={{paddingLeft:'6px'}} className={filtersObject?.filterby === FILTERS.PROJECT.CONTRACTOR ? 'disabledchart': ''}>
                 <h5 className="filter-title">Contractor <Popover content={content13}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
-                {
+                {/* {
                     paramProjects?.contractor &&
                     <CheckBoxFilters defaultValue={""}
                     data={paramProjects.contractor.sort((a: any, b: any) => a.value.localeCompare(b.value))}
                     selected={filterProjectOptions.contractor}
                     onSelect={(items: any) => apply(items, FILTERS.PROJECT.CONTRACTOR)} />
-                }
+                } */}
+                 <Button className="btn-svg" >
+                    Apply
+                </Button>
+                &nbsp;<span style={{color:'#E9E8EF'}}>|</span>&nbsp;
+                <Button className="btn-svg">
+                    Reset
+                </Button>
+                <Input placeholder="Search" value='American |'/>
             </Col>
         </Row>
         <hr className='filters-line'></hr>
@@ -209,29 +282,55 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
                 }
             </Col>
             <Col span={12}>
-                <h5 className="filter-title">MHFD Lead <Popover content={content3}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
-                {
+                <h5 className="filter-title">Work Plan Year <Popover content={content3}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                <Button className="btn-svg">
+                  Apply
+                </Button>
+                &nbsp;<span style={{color:'#E9E8EF'}}>|</span>&nbsp;
+                <Button className="btn-svg">
+                  Reset
+                </Button>
+                <Select
+                  placeholder="Select"
+                  style={{ width: '100%', fontSize: '12px' }}
+                  listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+                >
+                  <Option key={'2023'} value={'2023'}>2023</Option>
+                </Select>
+                {/* {
                     paramProjects?.mhfdmanager &&
                     <CheckBoxFilters defaultValue={''}
                         data={paramProjects.mhfdmanager.sort((a: any, b: any) => a.value.localeCompare(b.value))}
                         selected={filterProjectOptions.mhfdmanager}
                         onSelect={(items: any) => apply(items, FILTERS.PROJECT.MHFDMANAGER)} />
-                }
+                } */}
+
             </Col>
         </Row>
         <hr className='filters-line'></hr>
         <Row className="filt-00" gutter={[24, 16]} style={{marginBottom: 25}}>
             <Col span={12}>
-                <h5 className="filter-title">Local Government Lead <Popover content={content12}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                <h5 className="filter-title">MHFD Manager<Popover content={content12}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                  <Button className="btn-svg" onClick={() => { }}>
+                      Apply
+                  </Button>
+                  &nbsp;<span style={{color:'#E9E8EF'}}>|</span>&nbsp;
+                  <Button className="btn-svg" onClick={() => apply('', FILTERS.PROJECT.LGMANAGER)}>
+                      Reset
+                  </Button>
+                  <Checkbox.Group
+                    options={['Colin Haggerty', 'Morgan Lynch', 'Teresa Patterson','Jamie Stephanopolos']}
+                  />
+                    {/* <h5 className="filter-title">Local Government Lead <Popover content={content12}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
                     paramProjects?.lgmanager &&
                     <>
                         <Button className="btn-svg" onClick={() => { }}>
-                            <u>Apply</u>
+                            Apply
                         </Button>
-                        &nbsp;|&nbsp;
+                        &nbsp;<span style={{color:'#E9E8EF'}}>|</span>&nbsp;
                         <Button className="btn-svg" onClick={() => apply('', FILTERS.PROJECT.LGMANAGER)}>
-                            <u>Reset</u>
+                            Reset
                         </Button>
                         <Select
                             value={filterProjectOptions.lgmanager ? filterProjectOptions.lgmanager : '- Select -'}
@@ -245,33 +344,24 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
                             })}
                         </Select>
                     </>
-                }
+                } */}
             </Col>
             <Col span={12}>
-                <h5 className="filter-title">Stream Name <Popover content={content14}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
-                {
-                    paramProjects?.streamname &&
-                    <>
-                        <Button className="btn-svg" onClick={() => { }}>
-                            <u>Apply</u>
-                        </Button>
-                        &nbsp;|&nbsp;
-                        <Button className="btn-svg" onClick={() => { apply('', FILTERS.PROJECT.STREAMNAME) }}>
-                            <u>Reset</u>
-                        </Button>
-                        <Select
-                            value={filterProjectOptions.streamname ? filterProjectOptions.streamname : '- Select -'}
-                            style={{ width: '100%', fontSize: '12px' }}
-                            listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-                            onChange={(e: string) => {
-                            apply(e, FILTERS.PROJECT.STREAMNAME);
-                        }}>
-                            {paramProjects.streamname.map((element: any, index: number) => {
-                                return element && <Option key={index} value={element.id}>{`${element.value} `}</Option>
-                            })}
-                        </Select>
-                    </>
-                }
+                <h5 className="filter-title">Local Government Manager <Popover content={content14}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                <Button className="btn-svg">
+                  Apply
+                </Button>
+                &nbsp;<span style={{color:'#E9E8EF'}}>|</span>&nbsp;
+                <Button className="btn-svg">
+                  Reset
+                </Button>
+                <Select
+                  placeholder="Select"
+                  style={{ width: '100%', fontSize: '12px' }}
+                  listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+                >
+                  <Option key={'2023'} value={'2023'}>2023</Option>
+                </Select>
             </Col>
         </Row>
         <hr className='filters-line'></hr>

@@ -201,13 +201,13 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
   return (
     <>
       <div>
-      <Button className="btn-svg" onClick={apply}>
+      {/* <Button className="btn-svg" onClick={apply}>
         <u>Apply</u>
       </Button>
       &nbsp;|&nbsp;
       <Button className="btn-svg" onClick={reset}>
         <u>Reset</u>
-      </Button>
+      </Button> */}
       </div>
       <svg ref={svgRef} />
     </>

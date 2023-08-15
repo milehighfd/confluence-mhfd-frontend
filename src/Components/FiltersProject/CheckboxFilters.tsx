@@ -50,11 +50,11 @@ export const CheckBoxFilters = ({
         showControls ? (
         <>
           <Button className="btn-svg" onClick={apply}>
-            <u>Apply</u>
+            Apply
           </Button>
           &nbsp;|&nbsp;
           <Button className="btn-svg" onClick={reset}>
-            <u>Reset</u>
+            Reset
           </Button>
         </>
         ) : (
