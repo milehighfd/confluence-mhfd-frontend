@@ -383,7 +383,7 @@ export const ComponentPopup = ({ id, item, isComponent, maptype, eventFunctions 
             {item.constructionmanagers ? <p><i>Construction Manager:</i>  {item.constructionmanagers}</p> : ''}
             {item.city ? <p><i>City:</i>  {item.city}</p> : ''}
             {item.mhfd_code ? <p><i>MHFD Code:</i>  {item.mhfd_code}</p> : ''}
-            {item.catch_acre ? <p><i>Tributary Area:</i>  {item.catch_acre}</p> : ''}
+            {item.catch_acre ? <p><i>Tributary Area:</i>  {item.catch_acre} acre-feet</p> : ''}
             {item.dfirm_id ? <p><i>DFIRM ID:</i>  {item.dfirm_id}</p> : ''}
             {item.fld_zone ? <p><i>Flood Zone:</i>  {item.fld_zone}</p> : ''}
             {item.zone_subty ? <p><i>Flood Zone Subtype:</i>  {item.zone_subty}</p> : ''}
@@ -475,7 +475,7 @@ export const ComponentPopupCreate = ({ id, item, isComponent, isWR, eventFunctio
           {item.constructionmanagers ? <p><i>Construction Manager:</i>  {item.constructionmanagers}</p> : ''}
           {item.city ? <p><i>City:</i>  {item.city}</p> : ''}
           {item.mhfd_code ? <p><i>MHFD Code:</i>  {item.mhfd_code}</p> : ''}
-          {item.catch_acre ? <p><i>Tributary Area:</i>  {item.catch_acre}</p> : ''}
+          {item.catch_acre ? <p><i>Tributary Area:</i>  {item.catch_acre} acre-feet</p> : ''}
           {item.dfirm_id ? <p><i>DFIRM ID:</i>  {item.dfirm_id}</p> : ''}
           {item.fld_zone ? <p><i>Flood Zone:</i>  {item.fld_zone}</p> : ''}
           {item.zone_subty ? <p><i>Flood Zone Subtype:</i>  {item.zone_subty}</p> : ''}

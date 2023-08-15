@@ -50,7 +50,13 @@ export const ProjectGeometry = ({
     const formattedNumber = formatterIntegers.format(roundedNumber);
     const miles = number * 0.000189394;
     const formattedMiles = formatterDecimals.format(miles);
-    return formattedNumber + ' feet '+ '(' + formattedMiles + ' miles)';
+    return (
+      <>
+      {formattedNumber + ' feet '} 
+      <br/>
+      {'(' + formattedMiles + ' miles)'}
+      </>
+    );
   }
 
   const formatListStreams = (thislistStreams: any) => {
@@ -153,7 +159,7 @@ export const ProjectGeometry = ({
         if (text === undefined) {
           return ('');
         }else{
-          return formatterDecimals.format(+text) + ' acres';
+          return formatterIntegers.format(+text) + ' acre-feet';
         }
       }
     },
