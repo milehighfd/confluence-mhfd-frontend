@@ -21,11 +21,14 @@ const Toolbar = ({
     columns2: columns,
     diff,
     reqManager,
+    filterRequest,
+    namespaceId,
   } = useRequestState();
   const {
     setShowBoardStatus,
     setShowAnalytics,
     setShowFilters,
+    loadColumns,
   } = useRequestDispatch();
 
   const [showSearch, setShowSearch] = useState(false);
@@ -40,10 +43,13 @@ const Toolbar = ({
   };
 
   const search = () => {
-    console.log('searching ', searchValue)
+    filterRequest.name = {searchValue, type: 'search_name'}
+    loadColumns(namespaceId);
   };
   const handdle = () => {
     setSearchValue('');
+    filterRequest.name = {searchValue : '', type: 'search_name'}
+    loadColumns(namespaceId);
     setShowSearch(!showSearch);
   };
 
