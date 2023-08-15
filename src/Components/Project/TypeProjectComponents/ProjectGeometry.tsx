@@ -76,20 +76,16 @@ export const ProjectGeometry = ({
         dataFormated.push(titleTemplate);
         const substreams = thislistStreams[key];
         substreams.forEach((substream: any, index: any) => {
-          totalTributary += substream.tributary;
-          totalLength += substream.length;
-          let formatedNumber = formatterIntegers.format(substream.length);
-          if (formatedNumber.length === 5) {
-            formatedNumber = formatedNumber.replace(',', '');
-          } 
-          let formattedTributary = formatterDecimals.format(substream.tributary);
+          totalTributary += (substream.tributary ?? 0);
+          totalLength += (substream.length ?? 0);
           const rowTemplate = {
+            ...substream,
             key: `${id}_${index}`,
             reach: substream.jurisdiction,
             code: substream.mhfd_code,
-            tributary:`${formattedTributary} acres`,
-            length:`${formatedNumber} ft`,
-            ...substream
+            tributary: substream.tributary ?? 0,
+            length: substream.length ?? 0,
+            
           };
 
           dataFormated.push(rowTemplate);
@@ -154,7 +150,6 @@ export const ProjectGeometry = ({
       key: 'tributary',
       width: '20%',
       render: (text: any) => {
-        console.log('Text', text);
         if (text === undefined) {
           return ('');
         }else{
