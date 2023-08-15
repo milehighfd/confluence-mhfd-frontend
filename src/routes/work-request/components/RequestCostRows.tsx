@@ -30,7 +30,7 @@ const RequestCostRows = () => {
         targetcost4: targetCosts[3],
         targetcost5: targetCosts[4]
       }
-      updateTargetCost(board.board_id, formattedTargetCosts);
+      updateTargetCost(formattedTargetCosts);
     }
   }, [targetCosts], 1000);
 

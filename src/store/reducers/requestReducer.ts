@@ -18,7 +18,11 @@ const initialState = {
   sumByServiceArea: [],
   sumTotal: {},
   totalCountyBudget: 0,
-  namespaceId: '',
+  namespaceId: {
+    year: null,
+    locality: null,
+    projecttype: null,
+  },
   showBoardStatus: false,
   boardStatus: null,
   boardSubstatus: null,

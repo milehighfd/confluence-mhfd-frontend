@@ -10,8 +10,6 @@ import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 import { boardType } from 'Components/Work/Request/RequestTypes';
 import { defaultColumns } from 'Components/Work/Request/RequestViewUtil';
 import ColumsTrelloCard from 'Components/Work/Request/ColumsTrelloCard';
-import { SERVER } from 'Config/Server.config';
-import * as datasets from 'Config/datasets';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import Toolbar from 'routes/work-request/components/Toolbar';
 import YearDropdown from 'routes/work-request/components/YearDropdown';
@@ -49,8 +47,6 @@ const RequestView = ({ type, widthMap }: {
   } = useRequestState();
   
   const {
-    setShowModalProject,
-    setCompleteProjectData,
     setLocality,
     setTabKey,
     setYear,
@@ -89,7 +85,6 @@ const RequestView = ({ type, widthMap }: {
   const { saveBoardProjecttype } = useProfileDispatch();
   const users = useMyUser();
   const fakeLoading = useFakeLoadingHook(tabKey);
-  const [ListWork, setListWork] = useState(false);
   const [selectView, setSelectView] = useState('card');
 
   const {  
@@ -215,28 +210,30 @@ const RequestView = ({ type, widthMap }: {
       return;
     }
     const loadProjects = async () => {
+      const boardKey = {
+        type,
+        year: `${year}`,
+        locality: locality === 'Mile High Flood District' ? 'MHFD District Work Plan' : locality,
+        projecttype: tabKey ? (tabKey === 'R&D' ? 'Special' : tabKey) : tabKeys[0],
+      }
       setColumns(defaultColumns);
       let board;
       try {
-        board = await getBoardData3({
-          type,
-          year: `${year}`,
-          locality: locality === 'Mile High Flood District' ? 'MHFD District Work Plan' : locality,
-          projecttype: tabKey ? (tabKey === 'R&D' ? 'Special' : tabKey) : tabKeys[0],
-        })
+        board = await getBoardData3(boardKey)
       } catch (e) {
         console.log('e', e)
       }
 
       setBoard(board);
-      loadColumns(board.board_id);     
-      loadFilters(board.board_id);
-      
+      setNamespaceId(boardKey);
+      loadColumns();     
+      loadFilters();
+
       /* TODO: this should be replaced */
       setBoardStatus(board.status);
       setBoardSubstatus(board.substatus);
       setBoardComment(board.comment);
-      setNamespaceId(board.board_id);
+      
       setFlagforScroll(Math.random());
       setTotalCountyBudget(board.total_county_budget);
       setReqManager([

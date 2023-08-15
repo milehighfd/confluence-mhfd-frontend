@@ -39,14 +39,15 @@ const Analytics = () => {
   const {tabActiveNavbar} = useMapState();
 
   const clickUpdate = () => {
-    datasets.putData(SERVER.UPDATE_BUDGET(boardId), {
+    datasets.putData(SERVER.UPDATE_BUDGET, {
+      boardId,
       budget: tcb
     }).then((data) => {
       console.log(data);
     })
-      .catch((e) => {
-        console.log(e);
-      });
+    .catch((e) => {
+      console.log(e);
+    });
   };
 
   useEffect(() => {

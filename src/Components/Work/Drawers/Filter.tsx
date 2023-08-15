@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Drawer, Button, Checkbox } from 'antd';
+import { Drawer, Button } from 'antd';
 import { useRequestDispatch, useRequestState } from "hook/requestHook";
 import FilterGroup from "./FilterGroup";
 import { useMapState } from "hook/mapHook";
-import { YEAR_LOGIC_2024, WORK_REQUEST, WORK_PLAN, YEAR_LOGIC_2023 } from 'constants/constants';
+import { YEAR_LOGIC_2024, WORK_PLAN } from 'constants/constants';
 
 const Filter = () => {
   const {
@@ -11,7 +11,6 @@ const Filter = () => {
     localityType: l,
     filterMap,
     year,
-    namespaceId,
     columns2,
     filterRequest,
     disableFilterServiceArea,
@@ -80,12 +79,8 @@ const Filter = () => {
     setPriorityFilter(sortedFilterRequest.filter((f: any) => f.type === 'project_priorities'));
   }, [filterRequest,resetFilter]);
 
-  const isLocatedInSouthPlateRiverFilter = useMemo(() => [
-    { label: 'Yes', value: 1 }
-  ], []);
-
   const applyFilters = () => {
-    loadColumns(namespaceId);
+    loadColumns();
   }
   const reset = () => {
     let filterRequestReset = filterRequest.map((f: any) => {

@@ -43,7 +43,8 @@ const Status = () => {
   const [api, contextHolder] = notification.useNotification();
 
   const save = () => {
-    putData(UPDATE_BOARD_BY_ID(boardId), {
+    putData(UPDATE_BOARD_BY_ID, {
+      boardId,
       status: 'Approved',
       comment: boardComment,
       substatus: boardSubstatus
@@ -73,7 +74,7 @@ const Status = () => {
           setShowAlert(true);
           setTimeout(() => {
             setShowAlert(false);
-            loadColumns(boardId);
+            loadColumns();
           }, 4000);
         })
         .catch((e) => {

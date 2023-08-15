@@ -168,8 +168,8 @@ export const useRequestDispatch = () => {
   const _setDiff = useCallback((diff: any) => {
     dispatch(setDiff(diff));
   }, [dispatch]);
-  const _loadColumns = useCallback((board_id: any) => {
-    dispatch(loadColumns(board_id));
+  const _loadColumns = useCallback(() => {
+    dispatch(loadColumns());
   }, [dispatch]);
   const _loadOneColumn = useCallback((board_id: any, position: number) => {
     dispatch(loadOneColumn(board_id, position));
@@ -195,11 +195,11 @@ export const useRequestDispatch = () => {
   const _handleMoveFromColumnToColumn = useCallback((payload: DragAndDropCards) => {
     dispatch(handleMoveFromColumnToColumn(payload));
   }, [dispatch]);
-  const _loadFilters = useCallback((board_id: any) => {
-    dispatch(loadFilters(board_id));
+  const _loadFilters = useCallback(() => {
+    dispatch(loadFilters());
   }, [dispatch]);
-  const _updateTargetCost = useCallback((board_id: any, targetCosts: any) => {
-    dispatch(updateTargetCost(board_id, targetCosts));
+  const _updateTargetCost = useCallback((targetCosts: any) => {
+    dispatch(updateTargetCost(targetCosts));
   }, [dispatch]);
   const _emptyBoard = useCallback(() => {
     dispatch(emptyBoard());

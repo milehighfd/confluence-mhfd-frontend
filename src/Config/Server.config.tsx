@@ -290,7 +290,7 @@ export const SERVER = (function () {
         GET_COUNT_PMTOOLS_PAGE: (groupname: string, group : number) => `${URL_BASE.BASE}/${PMTOOLS}/groupsFilter/${COUNT}/${groupname}/${group}`,
         GET_CREATE_DATA: (projectId: number) => `${URL_BASE.BASE}/${CREATE}/${CREATE_PROJECT_GENERAL}/createdata?project_id=${projectId}`,
         GET_LIST_GROUPS: (groupname: string) => `${URL_BASE.BASE}/${PMTOOLS}/groups/${groupname}`,
-        UPDATE_BUDGET: (id: any) => `${URL_BASE.BASE}/${BOARD}/update-budget/${id}`,
+        UPDATE_BUDGET: `${URL_BASE.BASE}/${BOARD}/update-budget`,
         GET_CONFIGURATIONS: (key: string) => {
             return `${URL_BASE.BASE}/${CONFIGURATIONS}/${key}`;
         },
@@ -364,6 +364,6 @@ export const SERVER = (function () {
             return `${URL_BASE.BASE}/${BOARD_PROJECT}/${board_project_id}/${COST}?rnd=${Math.random()}`
         },
         BOARD_UPDATE_RANK: (board_project_id: string) => `${URL_BASE.BASE}/${BOARD_PROJECT}/${board_project_id}/update-rank`,
-        BOARD_UPDATE_TARGET_COST: (board_id: string) => `${URL_BASE.BASE}/${BOARD_PROJECT}/${board_id}/update-target-cost`
+        BOARD_UPDATE_TARGET_COST: `${URL_BASE.BASE}/${BOARD_PROJECT}/update-target-cost`
     }
 })();

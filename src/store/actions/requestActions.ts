@@ -235,10 +235,20 @@ export const loadOneColumn = (board_id: any, position: any) => {
   }
 }
 
-export const loadColumns = (board_id: any) => {
+export const loadColumns = () => {
   return (dispatch: any, getState: Function) => {
-    const { map: { tabActiveNavbar }, request: { localityType, tabKey, year, filterMap, prioritySelected, isLocatedInSouthPlateRiverSelected, filterRequest }} = getState();
-    
+    const {
+      map: {
+        tabActiveNavbar
+      },
+      request: {
+        namespaceId,
+        tabKey,
+        year,
+        filterRequest
+      }
+    } = getState();
+
     const filters = {
       county:filterRequest?.filter((item: any, index: number) => item.selected && 
       item.type === 'project_counties').map((r: any) => r.id),
@@ -265,7 +275,7 @@ export const loadColumns = (board_id: any) => {
     for (let position = 0; position <= 5; position++) {
       const promise = datasets.postData(
         BOARD_FOR_POSITIONS,
-        { board_id, position, filters, year, tabActiveNavbar, localityType }
+        { boardId: namespaceId, position, filters }
       ).then((projects) => {
         let sumByGroupMap = {}, groupTotal = {};
         if (position !== 0) {
@@ -371,11 +381,19 @@ export const setColumns2Manual = (payload: any) => ({
   payload
 });
 
-export const updateTargetCost = (board_id: any, targetCosts: any) => {
-  return (dispatch: any) => {
+export const updateTargetCost = (targetCosts: any) => {
+  return (_: any, getState: Function) => {
+    const {
+      request: {
+        namespaceId
+      }
+    } = getState();
     datasets.putData(
-      SERVER.BOARD_UPDATE_TARGET_COST(board_id),
-      targetCosts
+      SERVER.BOARD_UPDATE_TARGET_COST,
+      {
+        ...targetCosts,
+        boardId: namespaceId,
+      }
     );
   }
 }
@@ -572,11 +590,14 @@ interface TransformedDataItem {
   selected: boolean;
   type: string;
 }
-export const loadFilters = (board_id: any) => {
-  return (dispatch: any) => {
-    datasets.getData(
-      GET_FILTER(board_id),
-    ).then((res: any) => {
+export const loadFilters = () => {
+  return (dispatch: any, getState: Function) => {
+    const {
+      request: {
+        namespaceId
+      }
+    } = getState();
+    datasets.postData(GET_FILTER, { boardId: namespaceId }).then((res: any) => {
       let priorityFilterList =  [
         { name: '1', id: 0, selected: false, type: 'project_priorities' },
         { name: '2', id: 1, selected: false, type: 'project_priorities' },
