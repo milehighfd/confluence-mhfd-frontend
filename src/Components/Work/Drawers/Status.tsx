@@ -36,29 +36,34 @@ const Status = () => {
   const [boardComment, setBoardComment] = useState(comment || '');
   const [boardSubstatus, setBoardSubstatus] = useState(substatus);
   const [visibleAlert, setVisibleAlert] = useState(false);
-  const [visibleWrongModal, setVisibleWrongModal] = useState(false);
+  const [visibleModal, setVisibleModal] = useState(false);
   const [boardsData, setBoardsData] = useState<any[]>([]);
   const [boardsLength, setBoardsLength] = useState<number>(0);
   const [pending, setpending] = useState(false);
   const [api, contextHolder] = notification.useNotification();
 
-  const save = () => {
+  const UNDER_REVIEW_STATE = 'Under Review';
+  const APPROVED_STATE = 'Approved';
+
+  const save = (status : string) => {
     putData(UPDATE_BOARD_BY_ID(boardId), {
-      status: 'Approved',
+      status: status,
       comment: boardComment,
       substatus: boardSubstatus
     }, getToken())
         .then((r) => {
-          api.success({
-            message: 'Success! Your board is in progress of being updated!',
-            className: 'notification-alert-layout',
-            icon: <CheckCircleFilled className='notification-icon-success'/>,
-            duration: 2
-          });
-          _setBoardStatus('Approved')
+          if(status === APPROVED_STATE){
+            api.success({
+              message: 'Success! Your board is in progress of being updated!',
+              className: 'notification-alert-layout',
+              icon: <CheckCircleFilled className='notification-icon-success'/>,
+              duration: 2
+            });
+          }
+          _setBoardStatus(status)
           _setBoardComment(boardComment);
           _setBoardSubstatus(boardSubstatus);
-          setBoardStatus('Approved')
+          setBoardStatus(status)
           setBoardComment(boardComment);
           setBoardSubstatus(boardSubstatus);
           let alertStatus: { type: 'success' | 'error', message: string } = {
@@ -87,7 +92,7 @@ const Status = () => {
     setBoardsData(ls.map((l) => {
       return {
         locality: l,
-        status: list.includes(l) ? 'Approved' : 'Under Review',
+        status: list.includes(l) ? APPROVED_STATE : UNDER_REVIEW_STATE,
         checked: list.includes(l)
       }
     }))
@@ -128,7 +133,7 @@ const Status = () => {
      />
     }
     {
-      <WrongModal visible={visibleWrongModal} setVisible={setVisibleWrongModal} />
+      <WrongModal visible={visibleModal} setVisible={setVisibleModal} />
     }
     <Drawer
       title={<h5 className='title-drawer'>
@@ -190,14 +195,15 @@ const Status = () => {
       <div className="footer-drawer">
         <Button
           className="btn-purple"
-          disabled={status === 'Approved'}
-          style={{ opacity: status === 'Approved' ? 0.5 : 1 }}
+          disabled={status === APPROVED_STATE}
+          style={{ opacity: status === APPROVED_STATE ? 0.5 : 1 }}
           onClick={() => {
             const canBeApproved = boardsData.every(r => r.checked);
             if (canBeApproved) {
               setVisibleAlert(true)
             } else {
-              setVisibleWrongModal(true);
+              save(UNDER_REVIEW_STATE);
+              setVisibleModal(true);
             }
           }}
         >
