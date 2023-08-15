@@ -144,7 +144,7 @@ const AutoCompleteDropdown = (
           setDisableFilterComponent(false,'service_area')
         }
         if(year >= YEAR_LOGIC_2024){
-          loadColumns(namespaceId);
+          loadColumns();
         }else{
           setDisableFilterComponent(false,'county')
           setDisableFilterComponent(false,'service_area')

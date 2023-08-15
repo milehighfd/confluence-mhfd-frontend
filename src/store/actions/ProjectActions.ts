@@ -110,7 +110,7 @@ export const saveCapital = (data: any) => {
         status = 0;
       }
       dispatch(loadOneColumn(namespaceId, 0));
-      dispatch(loadFilters(namespaceId))
+      dispatch(loadFilters())
       dispatch({ type: types.SET_SAVE, status });
     })
   };
@@ -373,7 +373,7 @@ export const editCapital = (data: any) => {
         status = 0;
       }
       dispatch(loadOneColumn(namespaceId, 0));
-      dispatch(loadFilters(namespaceId))
+      dispatch(loadFilters())
       dispatch({ type: types.SET_EDIT, status });
     })
   };
