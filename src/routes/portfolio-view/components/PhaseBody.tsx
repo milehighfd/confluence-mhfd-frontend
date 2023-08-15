@@ -75,7 +75,7 @@ const PhaseBody = ({
         return (windowWidth >= 3001 && windowWidth <= 3999 ? 45 : 
           (windowWidth >= 2550 && windowWidth <= 3000 ? 32.5 : 
             (windowWidth >= 2001 && windowWidth <= 2549 ? 29 : 
-              (windowWidth >= 1450 && windowWidth <= 2000 ? 20 :22))))
+              (windowWidth >= 1450 && windowWidth <= 2000 ? 27 :22))))
       case 'marginRight':
         return (windowWidth >= 1900 && windowWidth <= 2549 ? 30 : 
           (windowWidth >= 2550 && windowWidth <= 3000 ? 50 : 

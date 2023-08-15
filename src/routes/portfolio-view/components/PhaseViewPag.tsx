@@ -26,7 +26,7 @@ const PhaseViewPag = ({
   const scrollRef = useRef<null | HTMLDivElement>(null);
   const phaseHeaderRef = useRef<null | HTMLDivElement>(null);
   const windowWidth: any = window.innerWidth;
-  const labelWidth = windowWidth > 2000 && windowWidth <= 2999 ? 150 : windowWidth >= 3001 && windowWidth <= 3999 ? 185 : 95;
+  const labelWidth = windowWidth > 1800 && windowWidth <= 1999 ? 125 : windowWidth > 2000 && windowWidth <= 2999 ? 150 : windowWidth >= 3001 && windowWidth <= 3999 ? 185 : 95;
   const phaseRef = useRef<any[]>([]);
   let totalLabelWidth = phaseList.length * labelWidth;
   const [openPiney, setOpenPiney] = useState(false);
