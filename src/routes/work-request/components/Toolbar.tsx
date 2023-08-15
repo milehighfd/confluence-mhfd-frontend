@@ -22,7 +22,6 @@ const Toolbar = ({
     diff,
     reqManager,
     filterRequest,
-    namespaceId,
   } = useRequestState();
   const {
     setShowBoardStatus,
@@ -44,12 +43,12 @@ const Toolbar = ({
 
   const search = () => {
     filterRequest.name = {searchValue, type: 'search_name'}
-    loadColumns(namespaceId);
+    loadColumns();
   };
   const handdle = () => {
     setSearchValue('');
     filterRequest.name = {searchValue : '', type: 'search_name'}
-    loadColumns(namespaceId);
+    loadColumns();
     setShowSearch(!showSearch);
   };
 
