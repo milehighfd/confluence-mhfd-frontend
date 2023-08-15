@@ -56,7 +56,9 @@ export const optionsProjects = (options: OptionProjects, filterComponent: Option
     servicearea: servicearea,
     serviceareaComp: filterComponent.servicearea,
     sortby: options.column,
-    sorttype: options.order
+    sorttype: options.order,
+    favorites: options.favorites,
+    teams: options.teams,
   }
   if (applyFilter) {
     formattedOptions['bounds'] = coordinates;

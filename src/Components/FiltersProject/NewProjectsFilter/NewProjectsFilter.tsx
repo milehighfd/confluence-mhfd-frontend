@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Row, Col, Popover, Select, Input, Checkbox } from 'antd';
 import PieChart from 'Components/FiltersProject/NewProblemsFilter/PieChart';
 import TreeMap from 'Components/FiltersProject/NewProblemsFilter/TreeMap';
@@ -8,6 +8,7 @@ import { DropdownFilters } from 'Components/FiltersProject/DropdownFilters';
 import { useProjectDispatch } from 'hook/projectHook';
 import { WINDOW_WIDTH } from 'constants/constants';
 import { FILTERS } from 'constants/filter';
+import store from 'store';
 
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Service Area</b> is the MHFD Watershed Service Area where the project is located.</div>);
@@ -37,11 +38,14 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
         applyFilter,
     } = useMapState();
     const { resetNextPageOfCards, resetInfiniteScrollItems, resetInfiniteScrollHasMoreItems } = useProjectDispatch();
+    const appUser = store.getState().profile;
     const {
         getParamFilterProjects,
         setFilterProjectOptions,
     } = useMapDispatch();
     const { boundsMap } = useMapState();
+    const [myTeams, setMyTeams] = useState(false);
+    const [openFavorites, setOpenFavorites] = useState(false);
     const apply = (values: any, field: string) => {
         const options = { ...filterProjectOptions };
         console.log('Values at new project filter', values, field);
@@ -53,6 +57,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
             FILTERS.PROJECT.CONTRACTOR,
             FILTERS.PROJECT.JURISDICTION,
             FILTERS.PROJECT.MHFDMANAGER,
+            FILTERS.PROJECT.FAVORITES,
         ];
         if (filters.includes(field)) {
             let newValue = '';
@@ -103,16 +108,35 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
         });
 
     const axisLabel = 'Number of Projects';
+
+    useEffect(() => {
+        if (openFavorites) {
+            const user_id = appUser.userInformation?.user_id;
+            apply(user_id,FILTERS.PROJECT.FAVORITES)
+        } else {
+            apply('',FILTERS.PROJECT.FAVORITES)
+        }
+    }, [openFavorites]);
+
+    useEffect(() => {
+        if (myTeams) {
+            const user_contact = appUser.userInformation?.business_associate_contact?.business_associate_contact_id || -1;
+            apply(user_contact,FILTERS.PROJECT.TEAMS)
+        } else {
+            apply('',FILTERS.PROJECT.TEAMS)
+        }
+    }, [myTeams]);
+
     return <>  <div className="scroll-filters" style={{ height: window.innerHeight - 280 }}>
         <div className='filt-00'>
             <h5 className="filter-title chart-filter-title">Personalized <Popover content={content0}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
             <div className='body-filt-00'>
-                <Button className="btn-svg-text btn-svg-text-active" onClick={() => { }} style={{borderRadius: '3px 0px 0px 3px'}}>
+                <Button className="btn-svg-text btn-svg-text-active" onClick={() => { setOpenFavorites(!openFavorites)}} style={{borderRadius: '3px 0px 0px 3px'}}>
                     <img src="/Icons/ic-favorites.svg" alt=""/>
                     <br/>
                     My Favorites
                 </Button>
-                <Button className="btn-svg-text" onClick={() => { }} style={{borderRadius: '0px 3px 3px 0px'}}>
+                <Button className="btn-svg-text" onClick={() => { setMyTeams(!myTeams)}} style={{borderRadius: '0px 3px 3px 0px'}}>
                     <img src="/Icons/ic-team.svg" alt=""/>
                     <br/>
                     My Teams
@@ -172,34 +196,21 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
                 {
                     paramProjects?.status &&
                     <CheckBoxFilters defaultValue={5}
-                        data={(paramProjects.status.filter((a: any) => {
-                            if (a.value === 'Approved') return 1;
-                            if (a.value === 'Active') return 1;
-                            if (a.value === 'Closeout') return 1;
-                            if (a.value === 'Closed') return 1;
-                            if (a.value === 'Inactive') return 1;
-                            if (a.value === 'Cancelled') return 1;
-                            return false;
-                            //return a.value.localeCompare(b.value);
-                        })).sort((a: any, b: any) => {
-                            const getValue = (d: string) => {
-                                if (d === 'Approved') return 0;
-                                if (d === 'Active') return 1;
-                                if (d === 'Closeout') return 2;
-                                if (d === 'Closed') return 3;
-                                if (d === 'Inactive') return 4;
-                                if (d === 'Cancelled')return 5;
-                                return -1;
-                            }
-                            return getValue(a.value) - getValue(b.value);
-                        })}
+                        data={(paramProjects.status)}
                         selected={filterProjectOptions.status}
                         onSelect={(items: any) => apply(items, FILTERS.PROJECT.STATUS)} />
                 }
             </Col>
             <Col span={12} className={(filtersObject?.tabKey != 'All' && filtersObject) ? 'disabledchart': ''}>
                 <h5 className="filter-title chart-filter-title">Project Phase <Popover content={content5}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></h5>
-                <Button className="btn-svg">
+                {
+                    paramProjects?.phaseName &&
+                    <CheckBoxFilters defaultValue={-1}
+                        data={(paramProjects.phaseName)}
+                        selected={filterProjectOptions.phaseName}
+                        onSelect={(items: any) => apply(items, FILTERS.PROJECT.PHASE)} />
+                }
+                {/* <Button className="btn-svg">
                     Apply
                   </Button>
                   &nbsp;<span style={{color:'#E9E8EF'}}>|</span>&nbsp;
@@ -209,7 +220,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
                 <Checkbox.Group
                   // data={paramProjects.contractor.sort((a: any, b: any) => a.value.localeCompare(b.value))}
                   options={['Draft', 'Requested', 'Approved','Idle']}
-                />
+                /> */}
             </Col>
         </Row>
         <hr className='filters-line'></hr>

@@ -185,7 +185,7 @@ export const setFilterProblemOptions = (filters: OptionProblems) => {
   };
 };
 
-export const setFilterProjectOptions = (filters: OptionProjects) => {
+export const setFilterProjectOptions = (filters: OptionProjects) => {  
   const keyword = store.getState().map.filterProjects.keyword;
   const auxFilter = {
     projectname: filters.keyword,
@@ -211,6 +211,8 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
     sortby: filters.column,
     sorttype: filters.order,
     keyword,
+    favorites: filters.favorites,
+    teams: filters.teams,
   };
   return (dispatch: Function) => {
     dispatch({ type: types.SET_FILTER_PROJECT_OPTIONS, filters });
