@@ -64,6 +64,8 @@ export const ProjectGeometry = ({
       });
       setKeys(Array.from(myset));
       const dataFormated: any = [];
+      let totalTributary:any = 0;
+      let totalLength:any = 0;
       Object.keys(thislistStreams).forEach((key: any, id: any) => {
         const titleTemplate = {
           key: `title-${id}`,
@@ -74,21 +76,34 @@ export const ProjectGeometry = ({
         dataFormated.push(titleTemplate);
         const substreams = thislistStreams[key];
         substreams.forEach((substream: any, index: any) => {
+          totalTributary += substream.tributary;
+          totalLength += substream.length;
           let formatedNumber = formatterIntegers.format(substream.length);
           if (formatedNumber.length === 5) {
             formatedNumber = formatedNumber.replace(',', '');
           } 
+          let formattedTributary = formatterDecimals.format(substream.tributary);
           const rowTemplate = {
             key: `${id}_${index}`,
             reach: substream.jurisdiction,
             code: substream.mhfd_code,
-            tributary:'XXXX acres',
+            tributary:`${formattedTributary} acres`,
             length:`${formatedNumber} ft`,
             ...substream
           };
+
           dataFormated.push(rowTemplate);
         });
       });
+      dataFormated.push(
+        {
+          key: 'total',
+          reach: 'Total',
+          tributary: totalTributary,
+          length: totalLength,
+          delete: false,
+        }
+      );
       setStreamListData(dataFormated);
   }
   useEffect(() => {
@@ -138,6 +153,14 @@ export const ProjectGeometry = ({
       dataIndex: 'tributary',
       key: 'tributary',
       width: '20%',
+      render: (text: any) => {
+        console.log('Text', text);
+        if (text === undefined) {
+          return ('');
+        }else{
+          return formatterDecimals.format(+text) + ' acres';
+        }
+      }
     },
     {
       title: 'Reach Length',
@@ -201,7 +224,7 @@ export const ProjectGeometry = ({
 
   const [columnsGeometry, setColumnsGeometry] = useState(columnsGeometryDefault);
   useEffect(() => {
-    if (type !== 'STUDY') {
+    if (type !== 'study') {
       const columnsGeometryNoStudy = columnsGeometryDefault.filter((column: any) => {
         return column.key !== 'code' && column.key !== 'tributary';
       });
