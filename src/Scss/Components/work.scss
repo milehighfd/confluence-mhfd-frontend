@@ -2855,11 +2855,18 @@
       border-color: #D9D9D9 !important;
     }
     .ant-btn .anticon {
-      transition: none;
+      transition: none !important;
       /* transition: margin-left .3s cubic-bezier(.645,.045,.355,1); */
     }
+    img{
+      opacity: 0.5;
+      height: 13px;
+    }
   }
-  
+  .buttons1:hover{
+    background: rgba(245, 247, 255, 0.80);
+    opacity: 1;
+  }
 }
 .popover-text {
   color: #11093C;
