@@ -383,10 +383,10 @@ const RequestView = ({ type, widthMap }: {
                 <div className='button-header-tab'>
                   <YearDropdown />
                   <div className='button-header'>
-                    {/* <Button id='buttons-header' style={selectView === 'card' && widthMap === 15 ? {display:'none'}:{}} className={selectView === 'list' ? 'ico-header-tab-active' : 'ico-header-tab'} onClick={() => { setSelectView( 'list') }}>
+                    <Button id='buttons-header' style={selectView === 'card' && widthMap === 15 ? {display:'none'}:{}} className={selectView === 'list' ? 'ico-header-tab-active' : 'ico-header-tab'} onClick={() => { setSelectView( 'list') }}>
                       {selectView === 'list' ? <img src='Icons/ic-list-purple.svg' alt='ic-list-purple' /> : <img src='Icons/ic-list.svg' alt='ic-list' />}
                       List
-                    </Button> */}
+                    </Button>
                     <Button id='buttons-header'  style={selectView === 'list' && widthMap === 15 ? {display:'none'}:{}} className={selectView === 'card' ? 'ico-header-tab-active' : 'ico-header-tab'} onClick={() => { setSelectView('card') }}>
                       {selectView === 'card' ? <img src='Icons/ic-card-purple.svg' alt='ic-card-purple' /> : <img src='Icons/ic-card.svg' alt='ic-card' />}
                       Card
