@@ -220,7 +220,7 @@
 }
 
 .notification-layout:hover {
-  cursor: context-menu;
+  cursor: pointer;
   display: table;
   span{
     color: $purple00;
@@ -232,6 +232,8 @@
   width: fit-content;
   overflow-y: auto;
   overflow-x: clip;
+  margin-left: -10px;
+  padding-right: 6px;
 }
 
 .clear-notifications{

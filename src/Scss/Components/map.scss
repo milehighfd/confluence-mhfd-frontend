@@ -1912,7 +1912,7 @@ hr.filters-line {
   padding-bottom: 12px;
   border-radius: 0px 0px 4px 4px;
   i{
-    opacity: 0.6;
+    opacity: 0.16;
   }
 }
 
@@ -1959,7 +1959,7 @@ hr.filters-line {
       color: $purple !important;
       padding: 0px -10px 0px -10px !important;
       font-weight: 400 !important;
-      font-size: 21px;
+      font-size: 22px;
     }
 
     .ant-tabs-nav {
@@ -2653,8 +2653,7 @@ hr.filters-line {
 
   //Legend Map Problems
   .legendProblemTypemap {
-    padding-left: 21px;
-    padding-right: 21px;
+    padding: 6px 21px;
     bottom: 49px;
     right: 18px;
     width: 288px;
