@@ -178,6 +178,10 @@ export const addPopupAndListeners = (
       .addTo(map);
   }
 };
+const formatterIntegers = new Intl.NumberFormat('en-US', {
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 0,
+});
 export const addPopupServiceCountyMunicipality = (
   menuOptions: any,
   popups: any,
@@ -672,7 +676,7 @@ export const addPopupsOnClick = async (
         layer: MENU_OPTIONS.WATERSHED,
         str_name: feature.properties.str_name ? feature.properties.str_name : 'No name',
         mhfd_code: feature.properties.mhfd_code ? feature.properties.mhfd_code : '-',
-        catch_acre: feature.properties.catch_acre ? feature.properties.catch_acre : '-',
+        catch_acre: feature.properties.catch_acre ? formatterIntegers.format(feature.properties.catch_acre) : '-',
       };
       menuOptions.push(MENU_OPTIONS.WATERSHED);
       popups.push(item);
