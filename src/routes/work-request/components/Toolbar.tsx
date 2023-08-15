@@ -4,7 +4,7 @@ import DownloadCSV from 'Components/Work/Request/Toolbar/DownloadCSV';
 import ShareURL from 'Components/Work/Request/Toolbar/ShareURL';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { boardType } from 'Components/Work/Request/RequestTypes';
-import { SearchOutlined } from '@ant-design/icons';
+import { CloseCircleFilled, SearchOutlined } from '@ant-design/icons';
 
 const Toolbar = ({
   type,
@@ -29,12 +29,21 @@ const Toolbar = ({
   } = useRequestDispatch();
 
   const [showSearch, setShowSearch] = useState(false);
+  const [searchValue, setSearchValue] = useState <any>();
 
   const handleIconClick = () => {
     setShowSearch(!showSearch);
   };
 
-  const handleBlur = () => {
+  const handdleSearch = (e : any) => {
+    setSearchValue(e.target.value);
+  };
+
+  const search = () => {
+    console.log('searching ', searchValue)
+  };
+  const handdle = () => {
+    setSearchValue('');
     setShowSearch(false);
   };
 
@@ -47,17 +56,21 @@ const Toolbar = ({
             type='link' style={{ border: 'none', backgroundColor: 'transparent', outline: 'none', boxShadow: 'none', padding:'0px' }}>
             <div style={{ display: showSearch ? 'inline-block' : 'none' }}>
               <Space size="large">
-                <Input onBlur={handleBlur}
+                <Input
+                  onChange={handdleSearch}
                   className='search-input'
-                  style={{ maxWidth: '254', height: '34px', borderRadius:'4px' }} addonBefore={<SearchOutlined />} placeholder="Search" />
+                  style={{ maxWidth: '254', height: '34px', borderRadius:'4px' }} addonBefore={<SearchOutlined onClick={search} />} placeholder="Search" 
+                  suffix={<CloseCircleFilled onClick={handdle} />}
+                  value={searchValue}
+                  />
               </Space>
             </div>
-            {/* LUPA WR
+            {/* LUPA WR and WP */}
             {!showSearch && <div style={{ display: 'inline-block' }} onClick={handleIconClick}>
               <img className="icon-bt icon-search-size"
                 style={{ WebkitMask: "url('/Icons/ic-search.svg') no-repeat center" }}
                 alt="" />
-            </div>} */}
+            </div>}
           </Button>
           
         </Popover>
