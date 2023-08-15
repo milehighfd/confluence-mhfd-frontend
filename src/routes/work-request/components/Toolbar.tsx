@@ -55,7 +55,8 @@ const Toolbar = ({
   return (
     <Fragment>
       <div className='work-header-buttons'>
-        <Popover className='buttons-header' content={<div className='popover-text'>Search:<br />Filter projects below by querying a name.</div>} placement="bottomLeft" overlayClassName='popover-work-header' >
+        {/* LUPA WR and WP */}
+        {/* <Popover className='buttons-header' content={<div className='popover-text'>Search:<br />Filter projects below by querying a name.</div>} placement="bottomLeft" overlayClassName='popover-work-header' >
           <Button
             className='buttons1'
             type='link' style={{ border: 'none', backgroundColor: 'transparent', outline: 'none', boxShadow: 'none', padding:'0px' }}>
@@ -70,7 +71,7 @@ const Toolbar = ({
                   />
               </Space>
             </div>
-            {/* LUPA WR and WP */}
+            
             {!showSearch && <div onClick={handleIconClick}>
               <img
                 src='Icons/ic-000.svg'
@@ -79,7 +80,7 @@ const Toolbar = ({
             </div>}
           </Button>
           
-        </Popover>
+        </Popover> */}
         {
           (locality === 'Mile High Flood District' || type === 'WORK_REQUEST') &&
           <Popover className='buttons-header' content={<div className='popover-text'>Status:<br />Submit the board for Mile High's review.</div>} placement="bottomLeft" overlayClassName='popover-work-header' >
