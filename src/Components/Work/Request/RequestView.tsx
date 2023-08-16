@@ -356,10 +356,14 @@ const RequestView = ({ type, widthMap }: {
         } else if (localityType === 'CODE_SERVICE_AREA') {
           displayedTabKey = ['Study'];
         }
+        if (locality && locality.name === 'South Platte River Service Area') {
+          displayedTabKey = tabKeys;
+        }
       }
       if (locality && (locality.name === 'MHFD District Work Plan' || locality.name === 'Mile High Flood District' || year >= 2024)) {
         displayedTabKey = tabKeys;
       }
+
   }
   loadTabkeysDisplayed();
 
