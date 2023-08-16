@@ -1327,6 +1327,11 @@ hr.filters-line {
     padding: 14px 0px;
     margin-top: 3px;
   }
+  .apply-filter{
+    font-size: 14px;
+    padding: 14px 0px;
+    margin-top: 3px;
+  }
   .card-button-hover {
     height: 200px;
     img {
@@ -1352,7 +1357,6 @@ hr.filters-line {
   }
   .infinite-scroll-component{
     height: calc(100vh - 220px) !important;
-
   }
   .table-list-map {
     .ant-table {
@@ -1427,7 +1431,6 @@ hr.filters-line {
   .head-filter {
     height: 83px;
     padding: 14px 26px;
-    margin-right: 20px;
 
     .ant-row-middle {
       flex: 1;
@@ -1508,26 +1511,28 @@ hr.filters-line {
     }
 
     button .img-filter {
-      -webkit-mask-size: 21px;
-      height: 21px;
+      -webkit-mask-size: 25px;
+      height: 25px;
       margin-right: 9px;
     }
 
     .ant-btn:hover > .img-filter {
-      -webkit-mask-size: 21px;
-      height: 21px;
+      -webkit-mask-size: 25px;
+      height: 25px;
       margin-right: 9px;
     }
 
     button .img-sortBy {
-      -webkit-mask-size: 21px;
-      height: 21px;
+      -webkit-mask-size: 25px;
+      height: 35px;
+      width: 35px;
       margin-right: 9px;
     }
 
     .ant-btn:hover > .img-sortBy {
-      -webkit-mask-size: 21px;
-      height: 21px;
+      -webkit-mask-size: 25px;
+      height: 35px;
+      width: 35px;
       margin-right: 9px;
     }
 
@@ -1557,7 +1562,6 @@ hr.filters-line {
       }
     }
   }
-  //////
   .main-map-tabs-filters {
     .ant-tabs-nav {
       padding: 0px 20px;
@@ -1633,14 +1637,31 @@ hr.filters-line {
       padding: 20px 15px 0px 15px;
     }
   }
-  /// 
   .tabs-map .ant-tabs-nav {
     padding: 0px 20px;
   }
   .tabs-map .ant-tabs-nav .ant-tabs-tab{
     font-size: 22px;
   }
+  .table-list-map {
+    .ant-table-thead tr > th {
+      height: 68px;
+    }
+    .more-ico{
+      font-size: 21px;
+    }
+    .ant-table-body{
+      height: calc(100vh - 421px) !important;
+      max-height: calc(100vh - 421px) !important;
+    }
+  }
+  
   .apply-filter-no-effect {
+    font-size: 19px;
+    padding: 16px 0px;
+    margin-top: 3px;
+  }
+  .apply-filter{
     font-size: 19px;
     padding: 16px 0px;
     margin-top: 3px;
@@ -1699,15 +1720,115 @@ hr.filters-line {
     }
   }
 
-  .table-list-map .ant-table-thead tr > th {
-    font-size: 19px;
-    height: 54px;
+  .table-list-map .ant-table {
+    font-size: 16px;
   }
   .main-map-dropdown{
     font-size: 19px;
   }
-  .auto-complete-map .ant-input{
+  .auto-complete-map {
+    .ant-input{
     font-size: 30px !important;
     height: 47px;
+    }
+    .ant-input-affix-wrapper .ant-input-suffix{
+      font-size: 24px;
+    }
+  }
+  .tag-filters {
+    //width: auto;
+    //margin-top: -8px;
+    //padding: 8px 4px;
+    .tag-body {
+      //max-height: calc(100vh - 260px);
+      //height: auto;
+      //overflow-y: auto;
+    }
+  
+    .ant-popover-inner-content {
+      //padding: 0px;
+      //padding-bottom: 0px;
+    }
+  
+    .head {
+      //background: transparent;
+      //padding: 5px 10px;
+      //color: #11093c;
+      font-size: 19px;
+      //text-transform: uppercase;
+      //font-weight: 500;
+      //margin-bottom: 2px;
+      //margin-top: 2px;
+      img {
+        //margin-top: -1px;
+      }
+    }
+  
+    p {
+      //margin-bottom: 0px;
+      //margin: 0px 5px;
+      //padding: 6px 5px;
+      font-size: 19px;
+      //box-sizing: border-box;
+      //display: flex;
+      //flex-direction: row;
+      //justify-content: space-between;
+      //align-items: baseline;
+      //color: $opacity06;
+  
+      button {
+        // height: auto;
+        // width: 15px;
+        // padding: 0px;
+        // margin: 0px;
+        // float: right;
+        // margin-left: 6px;
+      }
+    }
+    // .ant-popover-placement-bottomRight .ant-popover-arrow {
+    //   display: none !important;
+    // }
+  
+    // .ant-popover-arrow {
+    //   display: none !important;
+    // }
+  
+    // .ant-popover-placement-bottom .ant-popover-arrow,
+    // .ant-popover-placement-bottomLeft .ant-popover-arrow,
+    // .ant-popover-placement-bottomRight .ant-popover-arrow {
+    //   display: none !important;
+    // }
+  
+    // .ant-arrow {
+    //   display: none !important;
+    // }
+    .btn-footer-02 {
+      margin: 5px 0px 0px 0px;
+      text-align: right;
+  
+      .btn-borde {
+        // margin-right: 0px;
+        // border: none !important;
+         font-size: 17px;
+        // color: $opacity06 !important;
+        // font-weight: 500;
+      }
+  
+      .ant-btn > span {
+        //margin-right: -4px;
+      }
+    }
+  }
+  .table-list-map .project-name {
+    font-size: 19px;
+    line-height: 24px;
+  }
+  .table-scroll-map-list{
+    height: calc(100vh - 350px);
+  }
+  .infinite-scroll-component{
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: calc(100vh - 350px);
   }
 }

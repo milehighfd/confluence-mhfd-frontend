@@ -71,9 +71,6 @@ const ListViewMap = ({
     setFilterProblemOptions,
     getGalleryProblems
   } = useMapDispatch();
-  const updateWindowSize = () => {
-    setWindowWidth(window.innerWidth);
-  };
 
   useEffect(() => {
     if (type === FILTER_PROBLEMS_TRIGGER) {
@@ -164,11 +161,10 @@ const ListViewMap = ({
   }, [user]);
 
   useEffect(() => {
-    window.addEventListener('resize', updateWindowSize);
-    return () => {
-      window.removeEventListener('resize', updateWindowSize);
-    };
-  }, [])
+    //log importante no borrar por ahora
+    console.log(window.innerWidth)
+    setWindowWidth(window.screen.width);
+  }, [window.innerWidth])
   useEffect(() => {
     if(dropdownIsOpen){
       setItHasComponents(true)
@@ -267,7 +263,7 @@ const ListViewMap = ({
   const columnsProjects: ColumnsType<any>  = [
     {
       title: 'Project Name',
-      width: windowWidth > 1900 ? '368px':'220px',
+      width: windowWidth > 1900 ? windowWidth > 2500 ? '490px':'368px':'220px',
       dataIndex: 'name',
       key: 'name',
       fixed: 'left',
@@ -297,7 +293,7 @@ const ListViewMap = ({
     },
     {
       title: 'Type',
-      width: windowWidth > 1900 ? '200px':'147px',
+      width: windowWidth > 1900 ? windowWidth > 2500 ? '250px':'200px':'147px',
       dataIndex: 'type',
       key: 'type',
       sorter: (a, b, sortOrder) => {
@@ -310,7 +306,7 @@ const ListViewMap = ({
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
-      width: windowWidth > 1900 ? '140px':'86px',      
+      width: windowWidth > 1900 ? windowWidth > 2500 ? '199px':'140px':'86px',      
       sorter: (a, b, sortOrder) => {
         setSortBy('status')
         setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');      
@@ -322,7 +318,7 @@ const ListViewMap = ({
       title: 'Phase',
       dataIndex: 'phase',
       key: 'phase',
-      width: windowWidth > 1900 ? '159px':'100px',      
+      width: windowWidth > 1900 ? windowWidth > 2500 ? '224px':'159px':'100px',      
       sorter: (a, b, sortOrder) => {
         setSortBy('phase')
         setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');      
@@ -333,7 +329,7 @@ const ListViewMap = ({
       title: 'Stream',
       dataIndex: 'stream',
       key: 'stream',
-      width: windowWidth > 1900 ? '187px':'131px',
+      width: windowWidth > 1900 ? windowWidth > 2500 ? '261px':'187px':'131px',
       sorter: (a, b, sortOrder) => {
         setSortBy('stream')
         setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');      
@@ -344,7 +340,7 @@ const ListViewMap = ({
       title: 'Sponsor',
       dataIndex: 'sponsor',
       key: 'sponsor',
-      width: windowWidth > 1900 ? '159px':'110px',      
+      width: windowWidth > 1900 ? windowWidth > 2500 ? '224px':'159px':'110px',      
       sorter: (a, b, sortOrder) => {
         setSortBy('project_sponsor')
         setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');      
@@ -356,7 +352,7 @@ const ListViewMap = ({
       title: 'Est. Cost',
       dataIndex: 'cost',
       key: 'cost',      
-      width: windowWidth > 1900 ? '143px':'108px',
+      width: windowWidth > 1900 ? windowWidth > 2500 ? '202':'143px':'108px',
       sorter: (a, b, sortOrder) => {
         setSortBy('estimatedcost')
         setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');      
@@ -368,7 +364,7 @@ const ListViewMap = ({
   const columnsProblem: ColumnsType<any>  = [
     {
       title: 'Problem Name',
-      width: windowWidth > 1900 ? '368px':'220px',
+      width: windowWidth > 1900 ? windowWidth > 2500 ? '490px':'368px':'220px',
       dataIndex: 'requestName',
       key: 'requestName',
       fixed: 'left',
@@ -397,7 +393,7 @@ const ListViewMap = ({
     },
     {
       title: 'Type',
-      width: windowWidth > 1900 ? '222px':'147px',
+      width: windowWidth > 1900 ? windowWidth > 2500 ? '250px':'222px':'147px',
       dataIndex: 'type',
       key: 'type',      
       sorter: (a, b, sortOrder) => {
@@ -410,7 +406,7 @@ const ListViewMap = ({
       title: 'Priority',
       dataIndex: 'problempriority',
       key: 'problempriority',
-      width: windowWidth > 1900 ? '140px':'86px',
+      width: windowWidth > 1900 ? windowWidth > 2500 ? '199px':'140px':'86px',
       sorter: (a, b, sortOrder) => {
         setSortBy('problem_severity')
         setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
@@ -421,7 +417,7 @@ const ListViewMap = ({
       title: 'Cost',
       dataIndex: 'solutioncost',
       key: 'cost',
-      width: windowWidth > 1900 ? '159px':'100px',
+      width: windowWidth > 1900 ? windowWidth > 2500 ? '224px':'159px':'100px',
       sorter: (a, b, sortOrder) => {
         setSortBy('estimated_cost')
         setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
@@ -432,7 +428,7 @@ const ListViewMap = ({
       title: 'Local Government',
       dataIndex: 'local_government',
       key: 'local_government',
-      width: windowWidth > 1900 ? '187px':'131px',
+      width: windowWidth > 1900 ? windowWidth > 2500 ? '261px':'187px':'131px',
       sorter: (a, b, sortOrder) => {
         setSortBy('local_government')
         setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
@@ -443,7 +439,7 @@ const ListViewMap = ({
       title: 'Actions',
       dataIndex: 'actions',
       key: 'actions',
-      width: windowWidth > 1900 ? '159px':'110px',
+      width: windowWidth > 1900 ? windowWidth > 2500 ? '224px':'159px':'110px',
       sorter: (a, b, sortOrder) => {
         setSortBy('component_count')
         setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
@@ -454,7 +450,7 @@ const ListViewMap = ({
       title: 'Percentaje',
       dataIndex: 'percentaje',
       key: 'percentaje',
-      width: windowWidth > 1900 ? '143px':'108px',
+      width: windowWidth > 1900 ? windowWidth > 2500 ? '202':'143px':'108px',
       sorter: (a, b, sortOrder) => {
         setSortBy('component_status')
         setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
@@ -576,7 +572,7 @@ const changeCenter = (id:any, coordinateP:any) => {
           columns={columnsProjects} 
           dataSource={dataProjects} 
           pagination={false} 
-          scroll={{ x: windowWidth>1900? 1152: 996, y: 'calc(100vh - 315px)' }}
+          scroll={{ x: windowWidth>1900? windowWidth>2500? 1922:1152: 996, y: 'calc(100vh - 315px)' }}
           rowClassName={(record, index) => {
             if(selectedOnMap.id !== -1 &&  record.project_id === selectedOnMap.id){
               return ('row-geometry-body-selected')
