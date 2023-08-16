@@ -531,8 +531,19 @@ export const ModalCapital = ({
 
   //Check if required fields are filled to enable save button
   useEffect(()=>{   
+    const checkIfIndependentHaveName = () => {
+      let result = true;
+      thisIndependentComponents.forEach((comp: any) => {
+        if(!comp.name || comp.name === 'Proposed Actions'){
+          result = false;
+        }
+      });
+      // true if all have name 
+      // false if one doesnt have 
+      return result;
+    }
     if (geom || isCountyWide) {
-      if (description && county.length && serviceArea.length && jurisdiction.length && nameProject && sponsor && nameProject !== 'Add Project Name') {
+      if (description && county.length && serviceArea.length && jurisdiction.length && nameProject && sponsor && nameProject !== 'Add Project Name' && checkIfIndependentHaveName()) {
         if ((selectedTypeProject === 'study' && studyreason)) {
           setDisable(false);
         }
@@ -543,7 +554,20 @@ export const ModalCapital = ({
         setDisable(true);
       }
     }
-  },[geom, description, county, serviceArea , sponsor, nameProject, componentsToSave, streamIntersected, jurisdiction, selectedTypeProject,studyreason]);
+  },[
+    geom,
+    description,
+    county,
+    serviceArea ,
+    sponsor,
+    nameProject,
+    componentsToSave,
+    streamIntersected,
+    jurisdiction,
+    selectedTypeProject,
+    studyreason,
+    thisIndependentComponents
+  ]);
 
   useEffect(() => {
     if(componentsFromMap.length > 0 ) {      
