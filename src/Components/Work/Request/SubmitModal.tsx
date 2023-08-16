@@ -12,9 +12,9 @@ export const SubmitModal = ({ locality, boardsLength, boardSubstatus, type, visi
   currentStatus: string,
   pending: boolean
 }) => {
-
+  const APPROVED_STATE = 'Approved';
   const handleOk = (e: any) => {
-    setSave();
+    setSave(APPROVED_STATE);
     setVisibleAlert(false);
   };
 
@@ -33,7 +33,7 @@ export const SubmitModal = ({ locality, boardsLength, boardSubstatus, type, visi
   }
 
   
-  let currentApproved = currentStatus === 'Approved';
+  let currentApproved = currentStatus === APPROVED_STATE;
   let hasChecksAlertText = `${type === 'WORK_REQUEST' ? 'Unavailable': 'District Work Plan submission is unavailable'} until all ${type === 'WORK_REQUEST' ? 'project types' : 'Work Plans'} are selected for approval.`;
   let notChecksAlertText = `Work Plan submission is unavailable until all underlying Work Requests are submitted.`;
 
@@ -71,7 +71,7 @@ export const SubmitModal = ({ locality, boardsLength, boardSubstatus, type, visi
           </Col> */}
           <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
             <p>
-              Please confirm that Arvada’s Work Request will be submitted to the Mile High Flood District for review. Once submitted, it cannot be returned.
+              Please confirm that {locality} Work Request will be submitted to the Mile High Flood District for review. Once submitted, it cannot be returned.
             </p>
           </Col>
           <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{display: 'flex', justifyContent: 'space-between'}}>

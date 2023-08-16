@@ -518,6 +518,9 @@ const MapView = () => {
             }
           }
         }
+        if (!labelsProblems[position]) {
+          labelsProblems[position] = {};
+        }
         labelsProblems[position]['detail'] = elements as any;
       }
     }

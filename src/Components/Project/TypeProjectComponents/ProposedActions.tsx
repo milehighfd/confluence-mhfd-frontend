@@ -84,7 +84,7 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       title: 'Action',
       dataIndex: 'action',
       key: 'action',
-      sorter: (a:any, b:any) => a.age - b.age,
+      sorter: (a:any, b:any) => a.table.localeCompare(b.table),
       width: '35%',
       render: (text: any) => {
         if(text === 'Total Proposed Cost'){
@@ -105,7 +105,7 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       title: 'Cost',
       dataIndex: 'cost',
       key: 'cost',
-      sorter: (a:any, b:any) => a.age - b.age,
+      sorter: (a:any, b:any) => a.cost - b.cost,
       width: '10%',
       render: (cost: any) => {
         return (formatter.format(cost));
@@ -115,7 +115,7 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
-      sorter: (a:any, b:any) => a.age - b.age,
+      sorter: (a:any, b:any) => a.status.localeCompare(b.status),
       width: '15%',
       render: (text: any) => {
         if(text && text.length > 0){
@@ -132,7 +132,7 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       title: 'Problem Group',
       dataIndex: 'problem',
       key: 'problem',
-      sorter: (a:any, b:any) => a.age - b.age,
+      sorter: (a:any, b:any) => a.problem.localeCompare(b.problem),
       width: '39%',
       render: (text:any) => {
         return (text ? (text === 'No name' ? 'No Problem Group' : text) : 'No Problem Group')
@@ -162,7 +162,7 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       dataIndex: 'name',
       key: 'action',
       width: '35%',
-      sorter: (a:any, b:any) => a.age - b.age,
+      sorter: (a:any, b:any) => a.name.localeCompare(b.name),
       render: (text:any,record:any) => (
         <input
           value={record.name}
@@ -176,7 +176,7 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       title: 'Cost',
       dataIndex: 'cost',
       key: 'cost',
-      sorter: (a:any, b:any) => a.age - b.age,
+      sorter: (a:any, b:any) =>  a.cost - b.cost,
       render: (text:any,record:any) => (
         <input
           value={formatter.format(record.cost)}
@@ -191,7 +191,7 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
-      sorter: (a:any, b:any) => a.age - b.age,
+      sorter: (a:any, b:any) => a.status.localeCompare(b.status),
       width: '15%',
       render: (text: any) => {
         if(text && text.length > 0){
@@ -208,7 +208,7 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       title: 'Problem Group',
       dataIndex: 'problem',
       key: 'problem',
-      sorter: (a:any, b:any) => a.age - b.age,
+      sorter: (a:any, b:any) => a.problem.localeCompare(b.problem),
       width: '34%',
       render: (text:any) => {
         return (text ? (text === 'No name' ? 'No Problem Group' : text) : 'No Problem Group')

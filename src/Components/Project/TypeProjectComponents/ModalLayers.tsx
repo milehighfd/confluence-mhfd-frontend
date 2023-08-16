@@ -44,10 +44,16 @@ const ModalLayers = ({
   } = useProjectDispatch();
   const [ projectTypeLayers, setProjectTypeLayers ] =useState<any>([]);
   const [ finalCheckedLayers, setFinalCheckedLayers ] =useState<any>([]);
+  const [ checkedLayersOnChange, setCheckedLayersOnChange ] =useState<any>(selectedLayersCP);
   
   const onChange = (checkedValues: CheckboxValueType[]) => {
-    console.log('checked = ', checkedValues);
     setFinalCheckedLayers(checkedValues)
+    const layers = [...new Set([...selectedLayersCP, ...checkedValues])as any];
+    const uncheckedResult = projectTypeLayers
+    .filter((layer:any) => !checkedValues.includes(layer.value))
+    .map((layer:any) => layer.value);
+    const layersResult = layers.filter(item => !uncheckedResult.includes(item));
+    setCheckedLayersOnChange(layersResult)
   };
 
   const convertToTitleCase =(inputString: string) => {
@@ -126,6 +132,10 @@ const ModalLayers = ({
     getLayersOptions(type)
   }, [type]);
 
+  useEffect(() => {
+    setCheckedLayersOnChange(selectedLayersCP)
+  }, [selectedLayersCP]);
+
   return (
     <Modal
         visible={visible}
@@ -139,7 +149,7 @@ const ModalLayers = ({
       <Checkbox.Group
         key={`checkbox-group-${type.type}`}
         options={projectTypeLayers}
-        defaultValue={selectedLayersCP}
+        value={checkedLayersOnChange}
         onChange={onChange}
       />
       <div className="btn-footer-modal-layers">
