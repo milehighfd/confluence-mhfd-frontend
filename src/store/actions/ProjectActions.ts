@@ -33,7 +33,7 @@ export const saveSpecial = (data: any) => {
       }else{
         status = 0;
       }
-      dispatch(loadOneColumn(namespaceId, 0));
+      dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_SAVE, status });
     })
   };
@@ -67,7 +67,7 @@ export const saveAcquisition = (data: any) => {
       }else{
         status = 0;
       }
-      dispatch(loadOneColumn(namespaceId, 0));
+      dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_SAVE, status });
     })
   };
@@ -109,7 +109,7 @@ export const saveCapital = (data: any) => {
       }else{
         status = 0;
       }
-      dispatch(loadOneColumn(namespaceId, 0));
+      dispatch(loadOneColumn(0));
       dispatch(loadFilters())
       dispatch({ type: types.SET_SAVE, status });
     })
@@ -146,7 +146,7 @@ export const saveMaintenance = (data: any) => {
       }else{
         status = 0;
       }
-      dispatch(loadOneColumn(namespaceId, 0));
+      dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_SAVE, status });
     })
   };
@@ -162,7 +162,7 @@ export const saveOverheadCost = (data: any) => {
       }else{
         status = 0;
       }
-      dispatch(loadOneColumn(namespaceId, 0));
+      dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_SAVE, status });
     })
   };
@@ -195,7 +195,7 @@ export const saveStudy = (data: any) => {
       }else{
         status = 0;
       }
-      dispatch(loadOneColumn(namespaceId, 0));
+      dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_SAVE, status });
     })
   };
@@ -228,7 +228,7 @@ export const editSpecial = (data: any) => {
       }else{
         status = 0;
       }
-      dispatch(loadOneColumn(namespaceId, 0));
+      dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_EDIT, status });
     })
   };
@@ -262,7 +262,7 @@ export const editAcquisition = (data: any) => {
       }else{
         status = 0;
       }
-      dispatch(loadOneColumn(namespaceId, 0));
+      dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_EDIT, status });
     })
   };
@@ -296,7 +296,7 @@ export const editStudy = (data: any) => {
       }else{
         status = 0;
       }
-      dispatch(loadOneColumn(namespaceId, 0));
+      dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_EDIT, status });
     })
   };
@@ -330,7 +330,7 @@ export const editMaintenance = (data: any) => {
       }else{
         status = 0;
       }
-      dispatch(loadOneColumn(namespaceId, 0));
+      dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_EDIT, status });
     })
   };
@@ -372,7 +372,7 @@ export const editCapital = (data: any) => {
       }else{
         status = 0;
       }
-      dispatch(loadOneColumn(namespaceId, 0));
+      dispatch(loadOneColumn(0));
       dispatch(loadFilters())
       dispatch({ type: types.SET_EDIT, status });
     })
