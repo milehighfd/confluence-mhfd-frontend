@@ -217,7 +217,7 @@ const ListViewMap = ({
       },
       {
         key: 'popup-zoom',
-        label: <span className="menu-item-text">Zoom to Feature</span>
+        label: <span className="menu-item-text" onClick={() => {changeCenter(record.project_id, '')}}>Zoom to Feature</span>
       },
       {
         key: 'popup-favorite',
@@ -543,7 +543,7 @@ const changeCenter = (id:any, coordinateP:any) => {
           onRow={(record, rowIndex) => {
             return {
               onClick: (event) => {
-                changeCenter(record.project_id, '');
+                // changeCenter(record.project_id, '');
               },
               onMouseEnter: (e) =>  {
                 let typeInData:any 
