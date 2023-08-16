@@ -41,7 +41,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   const project_name = project?.projectData?.project_name;
   const proj_status_type_id: any = project?.code_status_type_id ?? 1;
   let status: any =  STATUS_NAMES[proj_status_type_id];
-  const {id} = project;
+  const {id, board_project_id} = project;
   const [amount, setAmount] = useState(project[`req${columnIdx}`]);
   const priority = project[`originPosition${columnIdx}`];
   const [showAmountModal, setShowAmountModal] = useState(false);
@@ -242,9 +242,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
             <br />
             <b>Project: </b> {project_id}
             <br />
-            <b>Board: </b> {namespaceId}
-            <br />
-            <b>Board project: </b> {id}
+            <b>Board project: </b> {board_project_id}
             </>}>
             <h4>{displayName}</h4>
           </Popover>
