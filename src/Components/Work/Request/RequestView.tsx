@@ -339,10 +339,6 @@ const RequestView = ({ type, widthMap }: {
 
   let displayedTabKey = tabKeys;
 
-  useEffect(() => {
-    loadTabkeysDisplayed();
-  }, [localityType]);
-
   const loadTabkeysDisplayed = () => {
       if (year < 2022) {
         if (localityType === 'CODE_STATE_COUNTY') {
@@ -356,14 +352,13 @@ const RequestView = ({ type, widthMap }: {
         } else if (localityType === 'CODE_SERVICE_AREA') {
           displayedTabKey = ['Study'];
         }
-        if (locality && locality.name === 'South Platte River Service Area') {
-          displayedTabKey = tabKeys;
+        if (locality && locality === 'South Platte River Service Area') {
+          displayedTabKey = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'R&D'];
         }
       }
-      if (locality && (locality.name === 'MHFD District Work Plan' || locality.name === 'Mile High Flood District' || year >= 2024)) {
+      if (locality && (locality === 'MHFD District Work Plan' || locality === 'Mile High Flood District' || year >= 2024)) {
         displayedTabKey = tabKeys;
       }
-
   }
   loadTabkeysDisplayed();
 
