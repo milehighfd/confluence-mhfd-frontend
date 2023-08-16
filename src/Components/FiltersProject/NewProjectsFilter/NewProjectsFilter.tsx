@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Row, Col, Popover, Select, Input, Checkbox } from 'antd';
 import PieChart from 'Components/FiltersProject/NewProblemsFilter/PieChart';
 import TreeMap from 'Components/FiltersProject/NewProblemsFilter/TreeMap';
@@ -46,6 +46,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
     const { boundsMap } = useMapState();
     const [myTeams, setMyTeams] = useState(false);
     const [openFavorites, setOpenFavorites] = useState(false);
+    const [selectedData, setSelectedData] = useState<any[]>([]);
     const apply = (values: any, field: string) => {
         const options = { ...filterProjectOptions };
         console.log('Values at new project filter', values, field);
@@ -171,11 +172,11 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
                 <div className='sub-title-sec'>
                   <h5 className="filter-title chart-filter-title">Project type <Popover content={content4}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></h5>
                   <div>
-                    <Button className="btn-svg">
+                    <Button className="btn-svg" onClick={() => apply(selectedData,FILTERS.PROJECT.PROJECTTYPE)}>
                       Apply
                     </Button>
                     &nbsp;<span style={{color:'#E9E8EF'}}>|</span>&nbsp;
-                    <Button className="btn-svg">
+                    <Button className="btn-svg" onClick={() => apply('',FILTERS.PROJECT.PROJECTTYPE)}>
                         Reset
                     </Button>
                   </div>
@@ -185,7 +186,10 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
                     <PieChart type={FILTERS.PROJECT.PROJECTTYPE} defaultValue={''}
                         data={paramProjects.projecttype}
                         selected={filterProjectOptions.projecttype}
-                        onSelect={(e: string) => apply(e, FILTERS.PROJECT.PROJECTTYPE)} />
+                        onSelect={(e: string) => apply(e, FILTERS.PROJECT.PROJECTTYPE)}
+                        selectedData={selectedData}
+                        setSelectedData={setSelectedData}
+                    />
                 }
             </Col>
             
