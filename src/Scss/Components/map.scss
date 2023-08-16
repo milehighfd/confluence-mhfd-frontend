@@ -2604,6 +2604,136 @@ hr.filters-line {
         }
       }
     }
+    .measure-button {
+      width: 500px;
+      .measurecontainer {
+          min-width: 300px;
+          width: 500px;
+          max-width: 550px;
+      
+        // MEASURE 
+        .measure-block {
+           padding: 20px 10px;
+      
+          .headmap {
+            // text-align: left;
+            // min-height: 40px;
+            // border-radius: 7px 7px 0px 0px;
+            // background: #fafbfb;
+             font-size: 19px;
+            // padding: 16px 10px;
+            // padding-left: 25px;
+            // padding-bottom: 5px;
+            // line-height: 16px;
+            // white-space: nowrap;
+            // text-overflow: ellipsis;
+            // overflow: hidden
+          }
+      
+          .bodymap {
+            b{
+              font-size: 19px;
+            }
+            text-align: center;
+            padding: 10px 10px;
+            color: $purple00;
+      
+            .label {
+              color: $opacity;
+            }
+      
+            &:hover {
+              opacity: 0.5;
+            }
+          }
+      
+          .bodymapvalues {
+            text-align: left;
+            padding: 5px 25px;
+            display: grid;
+            align-content: center;
+            justify-content: start;
+            align-items: baseline;
+            justify-items: start;
+            font-size: 19px;
+      
+            .button-cancel {
+              position: inherit;
+            }
+      
+            .button-finish {
+              position: inherit;
+            }
+      
+            .paragraph {
+              padding-top: 15px;
+            }
+          }
+      
+          .paragraph {
+            font-size: 19px;
+            text-align: left;
+            padding: 5px 25px;
+            align-content: center;
+            justify-content: start;
+            align-items: baseline;
+            justify-items: start;
+            margin-bottom: 5px;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-around;
+      
+            .button-c {
+              &:hover {
+                opacity: 0.5;
+              }
+            }
+          }
+        }
+      }
+      button{
+        width: 45px;
+        height: 45px;
+        .img-icon{
+          -webkit-mask-size: 30px;
+        }
+      }
+    }
+    .m-head {
+      .ant-input-search > .ant-input-group > .ant-input-group-addon:last-child .ant-input-search-button:not(.ant-btn-primary){
+        span svg{
+          transform: scale(1.5);
+        }
+      }
+      .ant-input-search > .ant-input-group > .ant-input-group-addon:last-child{
+        margin-top: -37px;
+      }
+      .ant-input-group .ant-input-affix-wrapper:not(:last-child) {
+        border-radius: 4px !important;
+        height: 45px;
+        input{
+          height: 40px;
+        }
+      }
+      button{
+        height: 45px;
+        width: 45px;
+      }
+      .btn-02{
+        margin-top: 5px;
+        height: 35px;
+        width: 35px;
+        -webkit-mask-size: 30px;
+      }
+      button:hover{
+        .btn-02{
+          margin-top: 5px;
+          height: 35px;
+          width: 35px;
+          -webkit-mask-size: 30px;
+        }
+      }
+  }
   }
   .map-00{
     .mapboxgl-ctrl-group {
@@ -2650,10 +2780,93 @@ hr.filters-line {
       font-size: 16px !important;
     }
   }
-
+  .img-measure-05{
+    -webkit-mask-size: 19px;
+    max-width: 35px;
+  }
+  .close-measure-button {
+    height: 20px !important;
+    width: 20px !important;
+    background-size: cover;
+    top: 30px !important;
+    right: 30px !important;
+  }
+  .img-measure-png-01, .img-measure-png-02{
+    margin-right: 10px;
+  }
+  .filter-map{
+    max-height: calc(100vh - 200px);
+  }
+  .pop-card-map {
+    span{
+      font-size: 19px;
+    }
+    .drop-head {
+      min-height: 40px;
+      border-radius: 1.3px 1.3px 0px 0px;
+      background: $opacity01;
+      font-size: 19px;
+      color: $opacity;
+      padding: 12px 15px;
+      text-transform: uppercase;
+      line-height: 19px;
+    }
+  
+    .ant-popover-inner-content {
+      padding: 0px;
+      width: 220px;
+    }
+  
+    .ant-menu-inline,
+    .ant-menu-vertical,
+    .ant-menu-vertical-left {
+      border-right: 0px solid #e8e8e8;
+      border-radius: 4px;
+    }
+  
+    .ant-menu-item,
+    .ant-menu-submenu-title,
+    .ant-menu-item-disabled {
+      border-top: none !important;
+    }
+  
+    .ant-menu-item:active,
+    .ant-menu-submenu-title:active {
+      background: #f7f7f9;
+    }
+  
+    .ant-menu-vertical .ant-menu-item,
+    .ant-menu-vertical-left .ant-menu-item,
+    .ant-menu-vertical-right .ant-menu-item,
+    .ant-menu-inline .ant-menu-item,
+    .ant-menu-vertical .ant-menu-submenu-title,
+    .ant-menu-vertical-left .ant-menu-submenu-title,
+    .ant-menu-vertical-right .ant-menu-submenu-title,
+    .ant-menu-inline .ant-menu-submenu-title {
+      margin-bottom: 0px !important;
+      margin: 0px 5px;
+    }
+  
+    .ant-menu,
+    .ant-menu-item:hover,
+    .ant-menu-item-active,
+    .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
+    .ant-menu-submenu-active,
+    .ant-menu-submenu-title:hover {
+      color: #706b8a;
+      background: #f7f7f9;
+      border-radius: 9px;
+    }
+  
+    .ant-menu-item-selected,
+    .ant-menu-item-selected a,
+    .ant-menu-item-selected a:hover {
+      color: #706b8a;
+    }
+  }
   //Legend Map Problems
   .legendProblemTypemap {
-    padding: 6px 21px;
+    padding: 9px 21px 6px 21px;
     bottom: 49px;
     right: 18px;
     width: 288px;
@@ -2707,11 +2920,11 @@ hr.filters-line {
   }
 
   .popoveer-00 {
-    font-size: 17px;
+    font-size: 19px;
 
     .notification-header {
       a {
-        font-size: 17px !important;
+        font-size: 19px !important;
       }
 
       h2 {
@@ -2738,12 +2951,17 @@ hr.filters-line {
     }
   }
 
-  .head-filter button {
-    font-size: 18px;
-
-    .img-filter {
-      height: 18px;
+  .head-filter {
+    button {
+      font-size: 19px;
     }
+    .ant-input-search>.ant-input-group>.ant-input-group-addon:last-child .ant-input-search-button:not(.ant-btn-primary) {
+      margin-right: 10px;
+      span svg{
+        transform: scale(1.5);
+      }
+    }
+
   }
 }
 
