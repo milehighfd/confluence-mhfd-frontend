@@ -57,7 +57,6 @@ const ListViewMap = ({
     paramFilters: params,
     filterProjectOptions,
     filterProblemOptions,
-    addFavorite,
   } = useMapState();
 
   const {
@@ -69,7 +68,8 @@ const ListViewMap = ({
     getGalleryProjects,
     setFilterProjectOptions,
     setFilterProblemOptions,
-    getGalleryProblems
+    getGalleryProblems,
+    addFavorite
   } = useMapDispatch();
 
   useEffect(() => {
