@@ -531,8 +531,19 @@ export const ModalCapital = ({
 
   //Check if required fields are filled to enable save button
   useEffect(()=>{   
+    const checkIfIndependentHaveName = () => {
+      let result = true;
+      thisIndependentComponents.forEach((comp: any) => {
+        if(!comp.name || comp.name === 'Proposed Actions'){
+          result = false;
+        }
+      });
+      // true if all have name 
+      // false if one doesnt have 
+      return result;
+    }
     if (geom || isCountyWide) {
-      if (description && county.length && serviceArea.length && jurisdiction.length && nameProject && sponsor && nameProject !== 'Add Project Name') {
+      if (description && county.length && serviceArea.length && jurisdiction.length && nameProject && sponsor && nameProject !== 'Add Project Name' && checkIfIndependentHaveName()) {
         if ((selectedTypeProject === 'study' && studyreason)) {
           setDisable(false);
         }
@@ -543,7 +554,20 @@ export const ModalCapital = ({
         setDisable(true);
       }
     }
-  },[geom, description, county, serviceArea , sponsor, nameProject, componentsToSave, streamIntersected, jurisdiction, selectedTypeProject,studyreason]);
+  },[
+    geom,
+    description,
+    county,
+    serviceArea ,
+    sponsor,
+    nameProject,
+    componentsToSave,
+    streamIntersected,
+    jurisdiction,
+    selectedTypeProject,
+    studyreason,
+    thisIndependentComponents
+  ]);
 
   useEffect(() => {
     if(componentsFromMap.length > 0 ) {      
@@ -897,6 +921,31 @@ export const ModalCapital = ({
       setThisStreamsList(listStreams);
     }
   }, [listStreams]);
+
+  useEffect(() => {
+    if (showCounty) {
+      if(county.length > 0) {
+        const countyList: any = [];
+        groupOrganization.forEach((item: any) => {
+          if (item.table === 'CODE_STATE_COUNTY') {
+            item.name = item.name.replace(' County', '');
+            countyList.push(item);
+          }
+        });
+        let countyA = county.map((element: any) => element.replace(' County', ''));
+        let countyIds = countyList.filter((countys: any) => countyA.includes(countys.name)).map((countyl: any) => countyl.id);
+        datasets.postData(SERVER.GET_COUNTY_DATA_CREATE, { state: countyIds }, datasets.getToken()).then(data => {
+          const serviceAreaNames = data.serviceArea.map((item: any) => item.service_area_name);
+          const localGovernmentNames = data.localGovernment.map((item: any) => item.local_government_name);
+          setServiceArea(serviceAreaNames);
+          setjurisdiction(localGovernmentNames);
+        })
+      }else{
+        setServiceArea([]);
+        setjurisdiction([]);
+      }      
+    }
+  }, [county]);
 
   //capital
   useEffect(() => {

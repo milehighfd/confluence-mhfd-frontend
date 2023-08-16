@@ -1,6 +1,6 @@
 import React from "react";
 import { Menu, MenuProps, Badge, Popover } from 'antd';
-import { Link, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import store from "../../../store";
 import { ROUTERS_SIDEBAR } from "./constants/layout.constants";
 import '../../../Scss/Components/Shared/sidebar.scss';
@@ -9,6 +9,8 @@ import { MAP, WORK_PLAN, WORK_REQUEST } from "constants/constants";
 
 const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
   const location = useLocation();
+  const history = useHistory();
+  const { search } = history.location;
   const appUser = store.getState().appUser;
   const { setTabActiveNavbar } =  useMapDispatch();
   const { tabActiveNavbar } = useMapState();
@@ -37,7 +39,7 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
   {
     key: '4',
     className: Number(indexOf) === 4  ? 'menu-sidebar-hover':'',
-    label: <Link to={userApproved ? '/map' : '#'} onClick={()=>{setTabActiveNavbar(WORK_REQUEST)}}>
+    label: <Link to={userApproved ? '/map'+search : '#'} onClick={()=>{setTabActiveNavbar(WORK_REQUEST)}}>
       <img className={"img-h anticon"+(userApproved?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-14.svg" alt="" width="22px" height="22px" />
       <img className={"img-a anticon"+(userApproved?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-14.svg" alt="" width="22px" height="22px" />
       <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>work request</span>
@@ -46,7 +48,7 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
   {
     key: '3',
     className: Number(indexOf) === 3 ? 'menu-sidebar-hover':'',
-    label: <Link to={userApproved ? '/map' : '#'} onClick={()=>{setTabActiveNavbar(WORK_PLAN)}}>
+    label: <Link to={userApproved ? '/map'+search : '#'} onClick={()=>{setTabActiveNavbar(WORK_PLAN)}}>
       <img className={"img-h anticon"+(userApproved?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-13.svg" alt="" width="22px" height="22px" />
       <img className={"img-a anticon"+(userApproved?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-13.svg" alt="" width="22px" height="22px" />
       <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>work plan</span>

@@ -171,8 +171,8 @@ export const useRequestDispatch = () => {
   const _loadColumns = useCallback(() => {
     dispatch(loadColumns());
   }, [dispatch]);
-  const _loadOneColumn = useCallback((board_id: any, position: number) => {
-    dispatch(loadOneColumn(board_id, position));
+  const _loadOneColumn = useCallback((position: number) => {
+    dispatch(loadOneColumn(position));
   }, [dispatch]);
   const _setBoard = useCallback((board: any) => {
     dispatch(setBoard(board));

@@ -61,7 +61,7 @@ const AutoCompleteDropdown = (
         setDropdownSelected(MMFD_LOCALITY)
         setLocalityFilter(MMFD_LOCALITY);
         setLocalityType(MMFD_LOCALITY_TYPE);
-        setTabKey(tabKeys[0]);
+        // setTabKey(tabKeys[0]);
       } else {
         setDisableFilterComponent(false,'county')
         setDisableFilterComponent(false,'service_area')        
@@ -151,7 +151,7 @@ const AutoCompleteDropdown = (
         }
       } else {
         if (!tabKeys.includes(tabKey)) {
-          setTabKey(tabKeys[0]);
+          // setTabKey(tabKeys[0]);
         }
       }
     }

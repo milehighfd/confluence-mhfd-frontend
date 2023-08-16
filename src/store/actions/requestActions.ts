@@ -187,10 +187,17 @@ export const setDiff = (payload: any) => ({
   payload
 });
 
-export const loadOneColumn = (board_id: any, position: any) => {
+export const loadOneColumn = (position: any) => {
   return (dispatch: any, getState: Function) => {
-    const { request: { tabKey, year, filterRequest }, router: { location } } = getState();
-    
+    const {
+      request: {
+        tabKey,
+        year,
+        filterRequest,
+        namespaceId,
+      }
+    } = getState();
+
     const filters = {
       county:filterRequest?.filter((item: any, index: number) => item.selected && 
       item.type === 'project_counties').map((r: any) => r.id),
@@ -214,7 +221,7 @@ export const loadOneColumn = (board_id: any, position: any) => {
     dispatch({
       type: types.REQUEST_START_LOADING_COLUMNS_2
     });
-    datasets.postData(BOARD_FOR_POSITIONS, { board_id, position, filters })
+    datasets.postData(BOARD_FOR_POSITIONS, { boardId: namespaceId, position, filters })
     .then((projects) => {
       let sumByGroupMap = {}, groupTotal = {};
       if (position !== 0) {
@@ -437,7 +444,7 @@ export const moveProjectsManual = (payload: DragAndDropCards) => {
       },
       datasets.getToken()
     ).then(() => {
-        dispatch(loadOneColumn(namespaceId, originColumnPosition));
+        dispatch(loadOneColumn(originColumnPosition));
     })
     .catch((err: any) => {
         console.log('err', err)
@@ -535,8 +542,8 @@ export const handleMoveFromColumnToColumn = (payload: DragAndDropCards) => {
       },
       datasets.getToken()
     ).then((res: any) => {
-      dispatch(loadOneColumn(namespaceId, originColumnPosition));
-      dispatch(loadOneColumn(namespaceId, targetColumnPosition));
+      dispatch(loadOneColumn(originColumnPosition));
+      dispatch(loadOneColumn(targetColumnPosition));
     })
     .catch((err: any) => {
         console.log('err', err)

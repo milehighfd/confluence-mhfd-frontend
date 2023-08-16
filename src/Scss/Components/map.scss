@@ -489,16 +489,17 @@
 .map .measure-button {
   position: absolute;
   width: 300px;
-  right: 20px;
-  top: 20px;
+  left: 21px;
+  right: auto !important;
+  top: 71px;
   z-index: 10;
 
   button {
     width: 35px;
     height: 35px;
     padding: 0px;
-    right: 0;
     border: none;
+    right: auto;
     position: absolute;
   }
 
