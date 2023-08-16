@@ -110,7 +110,7 @@ const ListViewMap = ({
       const z = cardInformation?.map((ci: any) => {
         let totalCost = ci?.project_costs?.filter((cost: any) => cost.code_cost_type_id === 1)
           .reduce((sum: any, current: any) => sum + parseFloat(current.cost), 0)
-          .toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+          .toLocaleString('en-US', { style: 'currency', currency: 'USD',  minimumFractionDigits: 0, maximumFractionDigits: 0 });
         let streamsNames = ci?.stream?.map((obj: any) => obj?.stream?.stream_name).filter((value: any, index: number, self: any) => self.indexOf(value) === index).join(', ');
         let output = {
           name: ci?.requestName,
