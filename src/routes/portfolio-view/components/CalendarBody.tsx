@@ -160,15 +160,15 @@ const CalendarBody = ({
             (windowWidth >= 2001 && windowWidth <= 2549 ? 17 : 
               (windowWidth >= 1450 && windowWidth <= 2000 ? 16 : 15)))
       case 'factorTranslateMonthly':
-        return (windowWidth >= 3001 && windowWidth <= 3999 ? -382 : 
-          (windowWidth >= 2550 && windowWidth <= 3000 ? -252 : 
-            (windowWidth >= 2001 && windowWidth <= 2549 ? -196 : 
-              (windowWidth >= 1450 && windowWidth <= 2000 ? -244 : -174))))
+        return (windowWidth >= 3001 && windowWidth <= 3999 ? -527 : 
+          (windowWidth >= 2550 && windowWidth <= 3000 ? -347 : 
+            (windowWidth >= 2001 && windowWidth <= 2549 ? -300 : 
+              (windowWidth >= 1450 && windowWidth <= 2000 ? -254 : -185))))
       case 'factorTranslateDaily':
-        return (windowWidth >= 3001 && windowWidth <= 3999 ? -378 : 
-          (windowWidth >= 2550 && windowWidth <= 3000 ? -249 : 
+        return (windowWidth >= 3001 && windowWidth <= 3999 ? -230 : 
+          (windowWidth >= 2550 && windowWidth <= 3000 ? -148 : 
             (windowWidth >= 2001 && windowWidth <= 2549 ? -229 : 
-              (windowWidth >= 1450 && windowWidth <= 2000 ? -99 : -68))))
+              (windowWidth >= 1450 && windowWidth <= 2000 ? -107 : -76))))
       case 'factorToShowTodaylineDaily':
         return (windowWidth >= 3001 && windowWidth <= 3999 ? 1500 : 
           (windowWidth >= 2550 && windowWidth <= 3000 ? 1000 : 
@@ -212,6 +212,10 @@ const CalendarBody = ({
       setNext(false)
     }
   }, [next, prev])
+
+  const formatCamelCaseString = (input:string) => {
+    return input.replace(/([a-z])([A-Z])/g, '$1 $2');
+  }
 
   //Start of calendar generation
   let heightDiv: any = document.getElementsByClassName(`ant-collapse-header`);
@@ -540,7 +544,7 @@ const CalendarBody = ({
             let xScaleFrom: any = (xScale(d['from']) || 0);
             return  xScaleTo - xScaleFrom
           })
-          .text((d: any) => d.name)
+          .text((d: any) => formatCamelCaseString(d.name))
           .style('visibility', (d: any) => {
             return d.show ? 'visible' : 'hidden'
           });
@@ -583,14 +587,14 @@ const CalendarBody = ({
             try {
               const rectElemWidth: any = rectElem.attr('width');
               const totalWidth = rectElemWidth - padding;
-              textElem.text(completeLabel);
+              textElem.text(formatCamelCaseString(completeLabel));
               let it = 1;
               if (totalWidth < 25) {
                 textElem.text('');
               } else {
                 if (textElem.node()?.getComputedTextLength() > totalWidth - padding) {
                   while (textElem.node()?.getComputedTextLength() > totalWidth - padding && it < completeLabel.length) {
-                    textElem.text(completeLabel.slice(0, -it) + '...');
+                    textElem.text(formatCamelCaseString(completeLabel).slice(0, -it) + '...');
                     it++;
                   }
                 }
