@@ -116,9 +116,9 @@ const RequestView = ({ type, widthMap }: {
       let params = new URLSearchParams(history.location.search)
       let _year = params.get('year');
       let _locality: any; //= params.get('locality'); commented to avoid preserve the same locality for wr and wp
-      let _tabKey = 'Capital';
-      if(year < YEAR_LOGIC_2024){
-        _tabKey = params.get('tabKey') || users.projecttype
+      let _tabKey: any = 'Capital';
+      if(params.get('tabKey') !== null){
+        _tabKey = params.get('tabKey');
       }
       if (type === 'WORK_REQUEST' && isLocalGovernment && _locality !== profileLocality) {
         _locality = profileLocality;
@@ -341,7 +341,6 @@ const RequestView = ({ type, widthMap }: {
 
   useEffect(() => {
     loadTabkeysDisplayed();
-    setTabKey(displayedTabKey[0])
   }, [localityType]);
 
   const loadTabkeysDisplayed = () => {
