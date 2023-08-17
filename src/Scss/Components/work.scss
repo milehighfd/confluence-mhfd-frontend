@@ -2238,6 +2238,7 @@
       #buttons-header {
         font-size: 22px;
         height: 60px;
+        padding: 9px 21px;
       }
       .ant-select {
         display: flex;
@@ -2282,7 +2283,7 @@
       height: 52px !important;
     }
     .ant-input-affix-wrapper .ant-input:not(:first-child) {
-      padding-left: 20px !important;
+      padding-left: 10px !important;
     }
     .ant-select-1 {
       max-width: 620px !important;
