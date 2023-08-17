@@ -2007,6 +2007,11 @@
   .work-header-buttons .buttons:hover{
     background: #f5f7ff;    
   }
+  .work-header-buttons{
+    .input-search-wr-wp{
+      margin-right: 22px;
+    }
+  }
   .work-header-buttons .buttons1{
     // width: 45px;
     height: 46px;
@@ -2020,7 +2025,15 @@
       height: 22px !important;
       opacity: 0.5;
     }
-    
+    .search-input{
+      color: $purple00;
+    }
+    .ant-input{
+      color: $purple00; 
+    }
+    .ant-input-prefix{
+      color: $purple00;
+    }
   }
   .work-header-buttons .buttons1:hover{
     background: #f5f7ff;
@@ -2808,13 +2821,15 @@
 .work-header-buttons{
   border: none;
   display: flex;
-  
+  align-items: center;
   .buttons-header:hover{
     .icon-bt{
     background-color: $purple;
   }
-    
   }
+  .ant-input-prefix{
+    color: $purple00;
+  }s
   .icon-bt{
     background-color: $opacity;
     margin-left: -16px;   
@@ -2823,6 +2838,7 @@
     border:'none';
     padding-right: 0px;
     padding-top: 0px;
+    padding-left: 0px;
     width: 34px;
     height: 36px;
     border-radius: 4px;
@@ -2833,6 +2849,13 @@
     opacity: 1;
   }
   .buttons1{
+    border:'none';
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-left: 0px;
+    width: 34px;
+    height: 36px;
+    border-radius: 4px;
     .ant-input{
       border-left: none !important;
       padding-left: 0px;
@@ -2869,8 +2892,11 @@
     }
   }
   .buttons1:hover{
-    background: rgba(245, 247, 255, 0.80);
+    background: rgba(245, 247, 255, 0.80) !important;
     opacity: 1;
+    img{
+      opacity: 1;
+    }
   }
 }
 .popover-text {
