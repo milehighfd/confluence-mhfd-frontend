@@ -35,13 +35,18 @@ const Toolbar = ({
   const [searchValue, setSearchValue] = useState <any>();
 
   useEffect(() => {
-    handdle();
-    setShowSearch(false);
+    if(type && locality && localityFilter ){
+      setSearchValue('');
+      filterRequest.name = {searchValue : '', type: 'search_name'}
+      setShowSearch(false);
+    }
   }, [type, locality, localityFilter]);
 
-  useEffect(() => {
-    search();
-  }, [tabKey, year]);
+  // useEffect(() => {
+  //   if(tabKey && year){
+  //     search();
+  //   }
+  // }, [tabKey, year]);
 
   const handleIconClick = () => {
     setShowSearch(!showSearch);
