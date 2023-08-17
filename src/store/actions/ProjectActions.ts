@@ -568,7 +568,11 @@ export const getZoomGeomComp = (table:any, objectid: any) => {
       if (DEPTH == 4) {
         poly = turf.multiPolygon(geom?.coordinates, { name: 'zoomarea' });
       } else {
-        poly = turf.polygon(geom?.coordinates, { name: 'zoomarea' });
+        if(geom?.type == 'Point'){
+          poly = turf.point(geom?.coordinates, { name: 'zoomarea' });
+        }else{
+          poly = turf.polygon(geom?.coordinates, { name: 'zoomarea' });
+        }
       }
       let bboxBounds = turf.bbox(poly);
       dispatch({type: types.SET_ZOOM_GEOM, zoomGeom: [[bboxBounds[0], bboxBounds[1]], [bboxBounds[2], bboxBounds[3]]]})
