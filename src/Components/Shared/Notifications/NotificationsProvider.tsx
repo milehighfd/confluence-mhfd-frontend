@@ -18,7 +18,8 @@ const NotificationsProvider: React.FC = ({ children }) => {
     notification.open({
       message,
       className: NotificationType.className,
-      icon: NotificationType.icon
+      icon: NotificationType.icon,
+      duration: 40
     });
   };
 
