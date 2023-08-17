@@ -516,13 +516,13 @@ const handleScroll = (e:any) => {
   const isHorizontalScroll = Math.abs(scrollLeft - lastScrollLeft) > Math.abs(scrollTop - lastScrollTop);
   lastScrollLeft = scrollLeft;
   lastScrollTop = scrollTop;
-  if (isHorizontalScroll) {
-    return;
-  }else{
+  // if (isHorizontalScroll) {
+  //   return;
+  // }else{
     if (scrollHeight - scrollTop === clientHeight) {
       fetchMoreData();
     }
-  }
+  // }
 };
 const changeCenter = (id:any, coordinateP:any) => {
   if(setZoomProjectOrProblem){
