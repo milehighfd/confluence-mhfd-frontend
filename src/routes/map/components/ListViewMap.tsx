@@ -121,12 +121,13 @@ const ListViewMap = ({
           sponsor: ci?.sponsor,
           cost: totalCost,
           project_id: ci?.project_id,
+          isFavorite: favorites.some((f: any) => (f.project_id && f.project_id === ci.project_id) || (f.problem_id && f.problem_id === ci.problemid))
         };
         return output;
       });
       setDataProjects(z);
     }
-  }, [cardInformation]);
+  }, [cardInformation, favorites]);
 
   useEffect(() => {
     if (type === FILTER_PROBLEMS_TRIGGER) {
@@ -198,6 +199,8 @@ const ListViewMap = ({
         case 'popup-favorite':
           record.isFavorite ?  deleteFunction(user.email, (record.project_id || record.problemid), type) : addFavorite(user.email, (record.project_id || record.problemid), type === 'Problems' );
           setDropdownIsOpen(false);
+          setOpenedDropdownKey(null);
+          favoriteList(type === FILTER_PROBLEMS_TRIGGER);
           return;
         default:
           break;
