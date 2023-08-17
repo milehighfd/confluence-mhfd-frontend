@@ -21,7 +21,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
   const [openDrop, setOpenDrop] = useState(false);
   const [openDropPhatner, setOpenPhatner] = useState(false);
   const [openDropPhase, setOpenDropPhase] = useState(false);
-  const [filters, setFilters] = useState<any>([]);
+  const [filters, setFilters] = useState<any>({});
   const [phase, setPhase] = useState<any>();
   const [partner, setPartner] = useState<any>();
   const [income, setIncome] = useState([0, 0, 0]);
@@ -29,7 +29,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
   const [searchValue, setSearchValue] = useState<any>();
 
   useEffect(() => {
-    getFinancialData(projectId, []);
+    getFinancialData(projectId, {});
   }, []);
 
   const formatter = new Intl.NumberFormat('en-US', {
@@ -101,7 +101,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
     setExpense(expense)
     setFinalData(mappingDataForDataSource);
 
-    if (filters.length === 0) {
+    if (Object.keys(filters).length === 0) {
       setInitialData(mappingDataForDataSource);
       const dropdownPhase = mappingDataForDataSource.map((element: any) => {
         if (element?.phase) {
@@ -160,12 +160,12 @@ const Financials = ({ projectId }: { projectId: any }) => {
   }, [financialInformation]);
 
   useEffect(() => {
-    if (filters[0] || (filters[1]) || (filters[2]) ) {
+    if (Object.keys(filters).length > 0) {
       resetIcomeExpense()
       getFinancialData(projectId, filters);
     }
 
-  }, [filters[0], filters[1], filters[2]]);
+  }, [filters.partner ,filters.incomeExpense, filters.phase, filters.name]);
 
   const columns = [
     {
@@ -225,8 +225,8 @@ const Financials = ({ projectId }: { projectId: any }) => {
   ];
   const reset = () => {
     resetIcomeExpense()
-    getFinancialData(projectId, []);
-    setFilters([]);
+    getFinancialData(projectId, {});
+    setFilters({});
     setPhase('');
     setPartner('');
     setViewDropdow({
@@ -246,10 +246,10 @@ const Financials = ({ projectId }: { projectId: any }) => {
               onChange={() => {
                 if (viewDropdown.income && !viewDropdown.expense) {
                   setViewDropdow({ expense: true, income: false });
-                  filters[2] = { expense: true, income: false };
+                  filters.incomeExpense = { expense: true, income: false };
                 } else {
                   setViewDropdow({ ...viewDropdown, income: !viewDropdown.income });
-                  filters[2] = { ...viewDropdown, income: !viewDropdown.income };
+                  filters.incomeExpense = { ...viewDropdown, income: !viewDropdown.income };
                 }
               }}
               checked={viewDropdown.income}
@@ -265,10 +265,10 @@ const Financials = ({ projectId }: { projectId: any }) => {
               onChange={() => {
                 if (!viewDropdown.income && viewDropdown.expense) {
                   setViewDropdow({ expense: false, income: true });
-                  filters[2] = { expense: false, income: true };
+                  filters.incomeExpense = { expense: false, income: true };
                 } else {
                   setViewDropdow({ ...viewDropdown, expense: !viewDropdown.expense });
-                  filters[2] = { ...viewDropdown, expense: !viewDropdown.expense };
+                  filters.incomeExpense = { ...viewDropdown, expense: !viewDropdown.expense };
                 }
               }}
               checked={viewDropdown.expense}
@@ -307,14 +307,14 @@ const Financials = ({ projectId }: { projectId: any }) => {
   const menu2 = (
     <Menu
       className="menu-density"
-      onClick={e => ((filters[0] = e.key), setPartner(findFilterName(e.key, 'partner')))}
+      onClick={e => ((filters.partner = e.key), setPartner(findFilterName(e.key, 'partner')))}
       items={dropdownPartner}
     />
   );
   const menu3 = (
     <Menu
       className="menu-density"
-      onClick={e => ((filters[1] = e.key), setPhase(findFilterName(e.key, 'phase')))}
+      onClick={e => ((filters.phase = e.key), setPhase(findFilterName(e.key, 'phase')))}
       items={dropdownPhase}
     />
   );
@@ -322,17 +322,15 @@ const Financials = ({ projectId }: { projectId: any }) => {
   const handdleSearch = (e: any) => {
     if(e.target.value === ''){
       setSearchValue('');
-      filters[3] = ''
-      console.log(filters)
+      filters.name = ''
+      resetIcomeExpense()
       getFinancialData(projectId, filters);
     }
-
     setSearchValue(e.target.value);
   };
 
   const search = () => {
-    filters[3] = searchValue
-    console.log(filters)
+    filters.name = searchValue
     resetIcomeExpense()
     getFinancialData(projectId, filters);
 
