@@ -320,6 +320,13 @@ const Financials = ({ projectId }: { projectId: any }) => {
   );
 
   const handdleSearch = (e: any) => {
+    if(e.target.value === ''){
+      setSearchValue('');
+      filters[3] = ''
+      console.log(filters)
+      getFinancialData(projectId, filters);
+    }
+
     setSearchValue(e.target.value);
   };
 
@@ -329,12 +336,6 @@ const Financials = ({ projectId }: { projectId: any }) => {
     resetIcomeExpense()
     getFinancialData(projectId, filters);
 
-  };
-  const handdle = () => {
-    setSearchValue('');
-    filters[3] = ''
-    console.log(filters)
-    getFinancialData(projectId, filters);
   };
 
   const checkEnter = (e: any) => {

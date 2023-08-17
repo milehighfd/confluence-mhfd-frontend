@@ -22,7 +22,6 @@ const Toolbar = ({
     diff,
     reqManager,
     filterRequest,
-    namespaceId,
   } = useRequestState();
   const {
     setShowBoardStatus,
@@ -69,7 +68,6 @@ const Toolbar = ({
               onKeyUp={checkEnter}
               className='search-input'
               style={{ maxWidth: '254', height: '34px', borderRadius:'4px' }}
-              // addonBefore={<SearchOutlined />}
               placeholder="Search" 
               suffix={<CloseCircleFilled onClick={handdle} style={{color:'#11093c', opacity:'0.5'}}/>}
               value={searchValue}
