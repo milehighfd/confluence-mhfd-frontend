@@ -3662,7 +3662,8 @@ tr > .ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
     }
 
     p {
-      font-size: 20px;
+      font-size: 22px;
+      line-height: 20px;
     }
   }
 
@@ -3696,7 +3697,7 @@ tr > .ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
     width: 515px !important;
     h1 {
       font-size: 26px !important;
-      line-height: 29px !important;
+      line-height: 34px !important;
     }
     .detailed-h {
       button {
@@ -3706,6 +3707,11 @@ tr > .ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
       }
       .btn-transparent {
         padding: 0px 12px !important;
+        margin: 18px 0px;
+        img{
+          height: 25px;
+          width: 25px;
+        }
       }
     }
   }
@@ -3722,14 +3728,17 @@ tr > .ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
         font-size: 22px !important;
         line-height: 24px !important;
         padding: 19px !important;
-        height: auto;
+        height: 100%;
         // width: 135% !important;
         // margin-left: -35%;
       }
       .btn-transparent {
         padding: 0px 12px !important;
         width: auto !important;
-        margin-left: 0px;
+        margin: 15px 0px;
+        img{
+          height: 25px;
+        }
       }
     }
   }

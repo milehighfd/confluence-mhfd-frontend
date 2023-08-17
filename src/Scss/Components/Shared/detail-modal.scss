@@ -2088,8 +2088,11 @@
 
     min-width: 1700px !important;
     .detailed-tab {
-      font-size: 20 px !important;
+      font-size: 22px !important;
     }
+  }
+  .detailed-image-placeholder {
+    padding: 30px 30px;
   }
   .detailed-header {
     .detail-carousel-image-layout {
@@ -2361,6 +2364,13 @@
       color: #488abf;
     }
   }
+  //Table
+  .detail-problems-component-table {
+    .ant-table-tbody > tr > td {
+      font-size: 20px;
+      line-height: 25px ;
+    }
+  }
   //ROADMAP
   .roadmap-content {
     .roadmap-title {
@@ -2393,6 +2403,18 @@
       width: 18px;
       height: 18px;
       // margin-top: 7px !important;
+    }
+  }
+  .group-dropdown-financial{
+    .body-dropdown-view-partner{
+      font-size: 21px !important;
+      line-height: 26px !important;
+    }
+    .dropdown-view-income {
+      height: 50px;
+    }
+    .dropdown-view-phase{
+      height: 50px;
     }
   }
 }
