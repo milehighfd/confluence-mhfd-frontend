@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Checkbox, Col, Dropdown, Menu, Row, Space, Table } from 'antd';
-import { DeleteOutlined, DownOutlined, UpOutlined } from '@ant-design/icons';
+import { Checkbox, Col, Dropdown, Input, Menu, Row, Space, Table } from 'antd';
+import { CloseCircleFilled, DownOutlined, SearchOutlined, UpOutlined } from '@ant-design/icons';
 import AddAmountModal from 'Components/Shared/Modals/AddAmountModal';
 import { useFinancialDispatch, useFinancialState } from 'hook/financialHook';
 import moment from 'moment';
@@ -26,6 +26,8 @@ const Financials = ({ projectId }: { projectId: any }) => {
   const [partner, setPartner] = useState<any>();
   const [income, setIncome] = useState([0, 0, 0]);
   const [expense, setExpense] = useState([0, 0, 0]);
+  const [searchValue, setSearchValue] = useState<any>();
+
   useEffect(() => {
     getFinancialData(projectId, []);
   }, []);
@@ -158,11 +160,8 @@ const Financials = ({ projectId }: { projectId: any }) => {
   }, [financialInformation]);
 
   useEffect(() => {
-    if (filters[0] || (filters[1]) || (filters[2])) {
-      income[0] = 0; income[1] = 0; income[2] = 0;
-      expense[0] = 0; expense[1] = 0; expense[2] = 0;
-      setIncome([0, 0, 0]);
-      setExpense([0, 0, 0]);
+    if (filters[0] || (filters[1]) || (filters[2]) ) {
+      resetIcomeExpense()
       getFinancialData(projectId, filters);
     }
 
@@ -225,10 +224,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
     },
   ];
   const reset = () => {
-    income[0] = 0; income[1] = 0; income[2] = 0;
-    expense[0] = 0; expense[1] = 0; expense[2] = 0;
-    setIncome([0, 0, 0]);
-    setExpense([0, 0, 0]);
+    resetIcomeExpense()
     getFinancialData(projectId, []);
     setFilters([]);
     setPhase('');
@@ -237,6 +233,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
       income: true,
       expense: true,
     });
+    setSearchValue('');
   };
   const menu = (
     <Menu
@@ -300,6 +297,13 @@ const Financials = ({ projectId }: { projectId: any }) => {
     return name;
   };
 
+  const resetIcomeExpense = () => {
+    income[0] = 0; income[1] = 0; income[2] = 0;
+    expense[0] = 0; expense[1] = 0; expense[2] = 0;
+    setIncome([0, 0, 0]);
+    setExpense([0, 0, 0]);
+  };
+
   const menu2 = (
     <Menu
       className="menu-density"
@@ -314,6 +318,30 @@ const Financials = ({ projectId }: { projectId: any }) => {
       items={dropdownPhase}
     />
   );
+
+  const handdleSearch = (e: any) => {
+    setSearchValue(e.target.value);
+  };
+
+  const search = () => {
+    filters[3] = searchValue
+    console.log(filters)
+    resetIcomeExpense()
+    getFinancialData(projectId, filters);
+
+  };
+  const handdle = () => {
+    setSearchValue('');
+    filters[3] = ''
+    console.log(filters)
+    getFinancialData(projectId, filters);
+  };
+
+  const checkEnter = (e: any) => {
+    if (e.key === 'Enter') {
+      search();
+    }
+  }
 
   return (
     <>
@@ -397,7 +425,21 @@ const Financials = ({ projectId }: { projectId: any }) => {
               )}
             </Space>
           </Dropdown>
-          {(partner || phase || !viewDropdown.expense || !viewDropdown.income) &&  <p onClick={reset} style={{color:'red', margin:'0px'}}>
+          <div style={{ textAlign: 'right' }}>
+              <div style={{ textAlign: 'end' }}>
+                <Space size="large">
+                  <Input
+                    onChange={handdleSearch}
+                    onKeyUp={checkEnter}
+                    className='search-input'
+                    style={{ maxWidth: '254', height: '34px', borderRadius: '4px' }} addonAfter={<SearchOutlined onClick={search} />} placeholder="Search"
+                    suffix={<CloseCircleFilled onClick={handdle} style={{ color: '#11093c', opacity: '0.5' }} />}
+                    value={searchValue}
+                  />
+                </Space>
+              </div>
+          </div>
+          {(partner || phase || !viewDropdown.expense || !viewDropdown.income) && <p onClick={reset} style={{ color: 'red', margin: '0px 0px 0px 10px' }}>
             Reset
           </p>}
         </Col>
