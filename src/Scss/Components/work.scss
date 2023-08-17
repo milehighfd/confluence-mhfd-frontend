@@ -2432,7 +2432,7 @@
     }
     .menu-wr {
       width: 15px !important;
-      font-size: 25px;
+      font-size: 30px;
     }
   }
   .cost-wr {
@@ -2584,7 +2584,7 @@
     }
     .ant-drawer-title img {
       height: 32px;
-      width: 32px
+      width: 32px !important
     }
     .title-utilities{
       font-size: 19px;
@@ -2593,7 +2593,7 @@
       height: 22px;
     }
     .ant-drawer-body {
-      padding: 0px 30px 30px 30px;
+      padding: 0px 30px 120px 30px;
     }
     h6 {
       font-size: 24px !important;
@@ -2672,6 +2672,7 @@
     }
     .body-f-p-filter{
       font-size: 19px;
+      height: 265px;
     }
   }
   .menu-utilities {
@@ -2850,6 +2851,12 @@
     span {
       font-size: 18px;
     }
+  }
+  //Maintenence
+  .btn-maintenence{
+    width: 240px;
+    font-size: 18px;
+    height: 45px;
   }
 }
 
