@@ -2154,6 +2154,7 @@
     padding: 14px 24px 0px 24px;
   }
   .table-map-list {
+
     .dots-table {
       font-size: 18px !important;
     }
@@ -2171,7 +2172,7 @@
     margin-left: 5px;
   }
   .table-map-list .ant-table-cell {
-    height: 51px !important;
+    padding: 15px 3px !important;
   }
   //SWITCH for status
   .menu-utilities .switch-status-no {
@@ -2252,6 +2253,7 @@
       #buttons-header {
         font-size: 22px;
         height: 60px;
+        padding: 9px 21px;
       }
       .ant-select {
         display: flex;
@@ -2296,7 +2298,7 @@
       height: 52px !important;
     }
     .ant-input-affix-wrapper .ant-input:not(:first-child) {
-      padding-left: 20px !important;
+      padding-left: 10px !important;
     }
     .ant-select-1 {
       max-width: 620px !important;
@@ -2335,12 +2337,32 @@
     margin-bottom: 10px !important;
   }
   .work-body {
+    .table-map-list {
+      .ant-table{
+        font-size: 19px !important;
+        line-height: 24px !important;
+      }
+      .name-project-sec{
+        font-size: 21px !important;
+        line-height: 25px !important;
+        .name{
+          font-size: 21px !important;
+          line-height: 25px !important;
+        }
+        span{
+          font-size: 28px !important;
+        }
+      }
+       .ant-table-tbody > tr > td, .table-map-list .ant-table-thead > tr > th, .table-map-list .ant-table tfoot > tr > td, .table-map-list .ant-table tfoot > tr > th {
+        padding: 13px 4.5px;
+      }
+    }
     .tabs-work {
     }
     .ant-tabs-nav .ant-tabs-tab {
       margin-top: 10px !important;
-      margin-right: 71px !important;
-      font-size: 19px !important ;
+      margin-right: 36px !important;
+      font-size: 23px !important ;
     }
     .ant-tabs-tabpane-active {
       height: calc(100vh - 227px) !important;
@@ -3371,6 +3393,7 @@ cost-wr1 {
     color: $purple00;
     font-family: Ubuntu;
     font-size: 12px;
+    line-height: 18px;
     font-weight: 400;
   }
   .ant-table-thead
@@ -3380,7 +3403,7 @@ cost-wr1 {
   }
   .ant-table-column-sorters {
     display: inline-flex;
-    margin-left: 8px;
+    // margin-left: 8px;
   }
   .ant-table-summary {
     font-weight: 500;
@@ -3414,10 +3437,10 @@ cost-wr1 {
     border-radius: 19px;
     color: #ff8938;
   }
-  .ant-table-cell {
-    height: 40px;
-    line-height: 0px;
-  }
+  // .ant-table-cell {
+  //   height: 40px;
+  //   line-height: 0px;
+  // }
   .ant-table-cell-fix-left-first:after,
   .ant-table-cell-fix-left-last:after {
     display: none;
