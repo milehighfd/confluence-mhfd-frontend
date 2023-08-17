@@ -1,6 +1,6 @@
 import { BoardDataRequest, boardType } from 'Components/Work/Request/RequestTypes';
 import * as datasets from 'Config/datasets';
-import { GET_OR_CREATE } from 'Config/endpoints/board';
+import { GET_OR_CREATE, GET_STATUS } from 'Config/endpoints/board';
 import { SERVER } from 'Config/Server.config';
 
 export const getLocalitiesByBoardType = (type: boardType) => {
@@ -14,6 +14,13 @@ export const getBoardData = (data: BoardDataRequest) => {
 export const getBoardData3 = (data: BoardDataRequest) => {
   return datasets.postData(
     GET_OR_CREATE,
+    data
+  );
+};
+
+export const getBoardStatus = (data: any) => {
+  return datasets.postData(
+    GET_STATUS,
     data
   );
 };

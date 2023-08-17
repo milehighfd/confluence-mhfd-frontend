@@ -488,7 +488,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
       clearInterval(intervalId);
     };
     // }
-  }, [idsBoardProjects]);
+  }, [groupedIdsBoardProjects]);
   
   useEffect(() => {
     let totalmarkers: any = [];

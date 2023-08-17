@@ -294,15 +294,13 @@
         margin-left: 8px;
       }
     }
-    .ant-table-tbody>tr>td{
-      border-bottom: 1px solid #E9E8EF !important;
-    }
     .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
       padding: 8px 16px;
       font-size: 14px;
     }
     .ant-table-tbody>tr>td {
       color: #413b64;
+      border-bottom: 1px solid #E9E8EF !important;
     }
     .ant-table-thead {
       .ant-table-cell{
@@ -1283,17 +1281,17 @@
       font-size: 26px !important;
     }
     p{
-      font-size: 19px !important;
+      font-size: 20px !important;
     }
     h2{
-      font-size: 28px !important;
+      font-size: 34px !important;
     }
     .profile{
       height: calc(100vh - 574px) !important;
       padding: 25px !important;
       .input-profile{
         height: 40px !important;
-        font-size: 19px !important;
+        font-size: 20px !important;
         margin-top: -3px !important;
       }
     }
@@ -1395,6 +1393,9 @@
     .table-user-management{
       margin-top: 10px !important;
       height: calc(100vh - 249px);
+      >span{
+        font-size: 24px !important;
+      }
       .ant-pagination-jump-next, .ant-pagination-jump-prev, .ant-pagination-next, .ant-pagination-prev {
         min-width: 60px;
         height: 60px;
@@ -1412,6 +1413,9 @@
       }
       .ant-table-thead .ant-table-cell {
         font-size: 24px;
+      }
+      .ant-table-tbody>tr>td {
+        border-bottom: 2px solid #E9E8EF !important;
       }
       .ant-table-tbody > tr > td, .user-management-body .table-user-management .ant-table-thead > tr > th, .user-management-body .table-user-management .ant-table tfoot > tr > td, .user-management-body .table-user-management .ant-table tfoot > tr > th {
         padding: 14px 16px;
