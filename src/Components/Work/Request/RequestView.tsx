@@ -20,7 +20,7 @@ import '../../../index.scss';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
 import TableListView from './Toolbar/TableListView';
 
-import { YEAR_LOGIC_2024 } from 'constants/constants';
+import { GOVERNMENT_STAFF, WORK_REQUEST, YEAR_LOGIC_2024 } from 'constants/constants';
 const { TabPane } = Tabs;
 
 const popovers: any = [
@@ -120,8 +120,12 @@ const RequestView = ({ type, widthMap }: {
       if(params.get('tabKey') !== null){
         _tabKey = params.get('tabKey');
       }
-      if (type === 'WORK_REQUEST' && isLocalGovernment && _locality !== profileLocality) {
-        _locality = profileLocality;
+      if (type === WORK_REQUEST && (isLocalGovernment || userInformation.designation === GOVERNMENT_STAFF)) {
+        if (isLocalGovernment) {
+          _locality = profileLocality;
+        } else if (userInformation.designation === GOVERNMENT_STAFF) {
+          _locality = userInformation.zoomarea;
+        }
       }
       let r;
       try {
