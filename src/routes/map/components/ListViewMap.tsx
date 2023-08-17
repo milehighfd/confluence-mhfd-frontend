@@ -57,7 +57,6 @@ const ListViewMap = ({
     paramFilters: params,
     filterProjectOptions,
     filterProblemOptions,
-    addFavorite,
   } = useMapState();
 
   const {
@@ -69,7 +68,8 @@ const ListViewMap = ({
     getGalleryProjects,
     setFilterProjectOptions,
     setFilterProblemOptions,
-    getGalleryProblems
+    getGalleryProblems,
+    addFavorite
   } = useMapDispatch();
 
   useEffect(() => {
@@ -110,7 +110,7 @@ const ListViewMap = ({
       const z = cardInformation?.map((ci: any) => {
         let totalCost = ci?.project_costs?.filter((cost: any) => cost.code_cost_type_id === 1)
           .reduce((sum: any, current: any) => sum + parseFloat(current.cost), 0)
-          .toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+          .toLocaleString('en-US', { style: 'currency', currency: 'USD',  minimumFractionDigits: 0, maximumFractionDigits: 0 });
         let streamsNames = ci?.stream?.map((obj: any) => obj?.stream?.stream_name).filter((value: any, index: number, self: any) => self.indexOf(value) === index).join(', ');
         let output = {
           name: ci?.requestName,
@@ -121,12 +121,13 @@ const ListViewMap = ({
           sponsor: ci?.sponsor,
           cost: totalCost,
           project_id: ci?.project_id,
+          isFavorite: favorites.some((f: any) => (f.project_id && f.project_id === ci.project_id) || (f.problem_id && f.problem_id === ci.problemid))
         };
         return output;
       });
       setDataProjects(z);
     }
-  }, [cardInformation]);
+  }, [cardInformation, favorites]);
 
   useEffect(() => {
     if (type === FILTER_PROBLEMS_TRIGGER) {
@@ -198,6 +199,8 @@ const ListViewMap = ({
         case 'popup-favorite':
           record.isFavorite ?  deleteFunction(user.email, (record.project_id || record.problemid), type) : addFavorite(user.email, (record.project_id || record.problemid), type === 'Problems' );
           setDropdownIsOpen(false);
+          setOpenedDropdownKey(null);
+          favoriteList(type === FILTER_PROBLEMS_TRIGGER);
           return;
         default:
           break;
@@ -217,7 +220,7 @@ const ListViewMap = ({
       },
       {
         key: 'popup-zoom',
-        label: <span className="menu-item-text">Zoom to Feature</span>
+        label: <span className="menu-item-text" onClick={() => {changeCenter(record.project_id, '')}}>Zoom to Feature</span>
       },
       {
         key: 'popup-favorite',
@@ -543,7 +546,7 @@ const changeCenter = (id:any, coordinateP:any) => {
           onRow={(record, rowIndex) => {
             return {
               onClick: (event) => {
-                changeCenter(record.project_id, '');
+                // changeCenter(record.project_id, '');
               },
               onMouseEnter: (e) =>  {
                 let typeInData:any 
