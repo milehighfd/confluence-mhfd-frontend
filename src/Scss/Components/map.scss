@@ -2573,8 +2573,21 @@ hr.filters-line {
     }
   } 
   .map{
+    .show-filter{
+      top: 36px;
+      right: 20px;
+      .btn-show-filter{
+        font-size: 20px;
+        height: auto;
+        padding: 10px 20px;
+      }
+    }
     .mapboxgl-ctrl-group {
-      width: 108px !important;
+      width: 50px !important;
+    }
+    .mapboxgl-ctrl-group button {
+      width: 45px !important;
+      height: 58px !important;
     }
     .m-zoom{
       width: 45px !important;
@@ -2716,6 +2729,15 @@ hr.filters-line {
         input{
           height: 40px;
         }
+      }
+      .ant-select-auto-complete.ant-select .ant-input {
+        height: 37px;
+        padding-left: 35px;
+        font-size: 18px !important;
+      }
+      .style-input .ant-input-group-addon {
+        margin-top: -30px !important;
+        left: -5px !important;
       }
       button{
         height: 45px;

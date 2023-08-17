@@ -401,7 +401,10 @@
 }
 @media (min-width: 2550px) and (max-width: 3799px) {
   .ant-dropdown-menu-title-content {
-    padding: 4px 0px !important;
+    // padding: 4px 0px !important;
+  }
+  .ant-dropdown-menu-item-only-child{
+    // padding: 4px 0px !important;
   }
   .ant-dropdown-menu-item {
     font-size: 16px !important;
@@ -417,7 +420,10 @@
   }
   .ant-dropdown-menu-item,
   .ant-dropdown-menu-submenu-title {
-    padding: 7px 12px;
+    padding: 11px 12px;
+  }
+  .ant-dropdown-menu-submenu-popup .ant-dropdown-menu {
+    max-height: 295px;
   }
 }
 @media (min-width: 3800px) and (max-width: 5999px) {

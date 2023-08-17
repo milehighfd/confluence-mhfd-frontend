@@ -30,6 +30,8 @@ const ListViewMap = ({
   const [dataProjects, setDataProjects] = useState<any>([]);
   const [dataProblems, setDataProblems] = useState<any>([]);
   const [hoveredRow, setHoveredRow] = useState<any>(null);
+  let lastScrollLeft = 0;
+  let lastScrollTop = 0;
   const [state, setState] = useState({
     items: Array.from({ length: size }),
     hasMore: true
@@ -510,9 +512,16 @@ const setValuesMap = (type: string, value: string) => {
   setHighlighted({type: type, value: value});
 }
 const handleScroll = (e:any) => {
-  const { scrollTop, clientHeight, scrollHeight } = e.target;
-  if (scrollHeight - scrollTop === clientHeight) {
-    fetchMoreData();
+  const { scrollTop, scrollLeft, clientHeight, scrollHeight, clientWidth, scrollWidth } = e.target;
+  const isHorizontalScroll = Math.abs(scrollLeft - lastScrollLeft) > Math.abs(scrollTop - lastScrollTop);
+  lastScrollLeft = scrollLeft;
+  lastScrollTop = scrollTop;
+  if (isHorizontalScroll) {
+    return;
+  }else{
+    if (scrollHeight - scrollTop === clientHeight) {
+      fetchMoreData();
+    }
   }
 };
 const changeCenter = (id:any, coordinateP:any) => {
