@@ -62,30 +62,35 @@ const Toolbar = ({
   return (
     <Fragment>
       <div className='work-header-buttons'>
-        <div style={{ display: showSearch ? 'inline-block' : 'none' }}>
-              <Space size="large">
-                <Input
-                  onChange={handdleSearch}
-                  onKeyUp={checkEnter}
-                  className='search-input'
-                  style={{ maxWidth: '254', height: '34px', borderRadius:'4px' }} addonBefore={<SearchOutlined onClick={search} />} placeholder="Search" 
-                  suffix={<CloseCircleFilled onClick={handdle} style={{color:'#11093c', opacity:'0.5'}}/>}
-                  value={searchValue}
-                  />
-              </Space>
-            </div>
-          <Button
-            className='buttons1'
-            type='link' style={{ border: 'none', backgroundColor: 'transparent', outline: 'none', boxShadow: 'none', padding:'0px' }}>
-            {!showSearch &&<Popover className='buttons-header' content={<div className='popover-text'>Search:<br />Filter projects below by querying a name.</div>} placement="bottomLeft" overlayClassName='popover-work-header' >
-             <div onClick={handleIconClick}>
-              <img
-                src='Icons/ic-000.svg'
-                alt=""
+        <div style={{ display: showSearch ? 'inline-block' : 'none' }} className='input-search-wr-wp'>
+          <Space size="large">
+            <Input
+              onChange={handdleSearch}
+              onKeyUp={checkEnter}
+              className='search-input'
+              style={{ maxWidth: '254', height: '34px', borderRadius:'4px' }}
+              // addonBefore={<SearchOutlined />}
+              placeholder="Search" 
+              suffix={<CloseCircleFilled onClick={handdle} style={{color:'#11093c', opacity:'0.5'}}/>}
+              value={searchValue}
+              prefix={<SearchOutlined onClick={search} />}
               />
-            </div>
-            </Popover>}
-          </Button>
+          </Space>
+        </div>
+        <Button
+          style={{ display: showSearch ? 'none' : 'inline-block' }}
+          className='buttons1'
+          type='link'
+        >
+          {!showSearch &&<Popover className='buttons-header' content={<div className='popover-text'>Search:<br />Filter projects below by querying a name.</div>} placement="bottomLeft" overlayClassName='popover-work-header' >
+            <div onClick={handleIconClick}>
+            <img
+              src='Icons/ic-000.svg'
+              alt=""
+            />
+          </div>
+          </Popover>}
+        </Button>
           
         {
           (locality === 'Mile High Flood District' || type === 'WORK_REQUEST') &&

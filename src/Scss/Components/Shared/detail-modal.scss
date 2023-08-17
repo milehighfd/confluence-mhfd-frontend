@@ -633,6 +633,16 @@
   }
   .group-dropdown-financial {
     margin-bottom: 20px;
+    .ant-input-affix-wrapper {
+      height: 32px;
+      border: 1px solid #e9e7ef !important;
+    }
+    .ant-input-prefix {
+      color: $purple00;
+    }
+    .anticon-close-circle{
+      margin-right: 10px;
+    }
   }
 
   .dropdown-view-income {
@@ -1825,6 +1835,23 @@
         width: 90px;
         height: 80px;
       }
+    }
+  }
+  .group-dropdown-financial{
+    .ant-input-affix-wrapper {
+      height: 39px !important;
+      font-size: 16px !important;
+      display: flex;
+      align-items: center;
+    }
+    .ant-input{
+      font-size: 16px !important;
+    }
+    .ant-input-prefix {
+      margin-top: 4px;
+    }
+    .ant-input-suffix {
+      margin-top: 4px;
     }
   }
   .detailed-header {

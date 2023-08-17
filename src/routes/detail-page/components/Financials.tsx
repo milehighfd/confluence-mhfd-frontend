@@ -432,8 +432,12 @@ const Financials = ({ projectId }: { projectId: any }) => {
                     onChange={handdleSearch}
                     onKeyUp={checkEnter}
                     className='search-input'
-                    style={{ maxWidth: '254', height: '34px', borderRadius: '4px' }} addonAfter={<SearchOutlined onClick={search} />} placeholder="Search"
-                    suffix={<CloseCircleFilled onClick={handdle} style={{ color: '#11093c', opacity: '0.5' }} />}
+                    style={{ maxWidth: '254', height: '34px', borderRadius: '4px' }} 
+                    // addonAfter={<SearchOutlined onClick={search} />} 
+                    placeholder="Search"
+                    allowClear
+                    // suffix={<CloseCircleFilled onClick={handdle}  style={{ color: '#11093c', opacity: '0.5' }} />}
+                    prefix={<SearchOutlined onClick={search} />}
                     value={searchValue}
                   />
                 </Space>
