@@ -1,7 +1,7 @@
 import * as types from 'store/types/ProjectTypes';
 import * as datasets from "Config/datasets";
 import { SERVER } from "Config/Server.config";
-import { loadFilters, loadOneColumn } from 'store/actions/requestActions';
+import { loadColumns, loadFilters, loadOneColumn } from 'store/actions/requestActions';
 import * as turf from '@turf/turf';
 import { depth } from 'routes/map/components/MapFunctionsUtilities';
 
@@ -109,7 +109,7 @@ export const saveCapital = (data: any) => {
       }else{
         status = 0;
       }
-      dispatch(loadOneColumn(0));
+      dispatch(loadColumns());
       dispatch(loadFilters())
       dispatch({ type: types.SET_SAVE, status });
     })
@@ -372,7 +372,7 @@ export const editCapital = (data: any) => {
       }else{
         status = 0;
       }
-      dispatch(loadOneColumn(0));
+      dispatch(loadColumns());
       dispatch(loadFilters())
       dispatch({ type: types.SET_EDIT, status });
     })
