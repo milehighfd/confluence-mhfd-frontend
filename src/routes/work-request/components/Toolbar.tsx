@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Button, Input, Popover, Space } from 'antd';
 import DownloadCSV from 'Components/Work/Request/Toolbar/DownloadCSV';
 import ShareURL from 'Components/Work/Request/Toolbar/ShareURL';
@@ -22,6 +22,7 @@ const Toolbar = ({
     diff,
     reqManager,
     filterRequest,
+    localityFilter,
   } = useRequestState();
   const {
     setShowBoardStatus,
@@ -32,6 +33,15 @@ const Toolbar = ({
 
   const [showSearch, setShowSearch] = useState(false);
   const [searchValue, setSearchValue] = useState <any>();
+
+  useEffect(() => {
+    handdle();
+    setShowSearch(false);
+  }, [type, locality, localityFilter]);
+
+  useEffect(() => {
+    search();
+  }, [tabKey, year]);
 
   const handleIconClick = () => {
     setShowSearch(!showSearch);
