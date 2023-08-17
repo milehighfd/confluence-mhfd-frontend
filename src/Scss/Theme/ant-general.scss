@@ -393,8 +393,8 @@
       top: -16px;
       padding: 10px 5px;
       .ant-menu-item {
-        font-size: 19px;
-        line-height: 46.3px;
+        font-size: 16px;
+        line-height: 40px;
       }
     }
   }
@@ -470,8 +470,9 @@
   text-align: left;
   font-size: 14px;
   color: $purple00 !important;
-  margin: 3px;
+  // margin: 3px;
   border-radius: 5px;
+  margin: 0px 3px;
   font-weight: 400 !important;
 }
 //movend from map.scss
@@ -479,7 +480,7 @@
   background: #f7f7f9 !important;
   color: $purple00 !important;
   font-weight: 400 !important;
-  margin: 3px;
+  margin: 0px 3px;
   border-radius: 5px;
 }
 //movend from map.scss

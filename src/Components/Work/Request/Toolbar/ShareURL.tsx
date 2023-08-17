@@ -21,7 +21,7 @@ const ShareURL = () => {
       }
     }>
       <img
-        src='Icons/ic-004.svg'  
+        src='Icons/ic-005.svg'  
         //style={{ WebkitMask: "url('/Icons/ic-link.svg') no-repeat center" }}
         alt=""
       />

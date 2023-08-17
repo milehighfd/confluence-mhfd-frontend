@@ -271,7 +271,7 @@ const Analytics = () => {
           />
         }
       </div>
-      <div className="subtitle-requests" style={{marginTop: WINDOW_WIDTH>1900? '80px' :'30px' }}>
+      <div className="subtitle-requests" style={{marginTop: WINDOW_WIDTH>1900? WINDOW_WIDTH>2500? '100px' : '80px' :'30px' }}>
         <h6 style={{ marginTop: '10px', textTransform: 'uppercase' }}>{`Dollars Requested by ${localityType}`}
         </h6>
       </div>
