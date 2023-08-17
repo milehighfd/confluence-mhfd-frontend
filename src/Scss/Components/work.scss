@@ -2324,7 +2324,7 @@
     .tabs-work {
     }
     .ant-tabs-nav .ant-tabs-tab {
-      margin-top: 10px;
+      margin-top: 10px !important;
       margin-right: 71px !important;
       font-size: 19px !important ;
     }
@@ -2796,6 +2796,7 @@
   .title-status-list{
     .title-left, .title-right{
       font-size: 19px;
+      line-height: 24px;
     }
   }
   .menu-utilities .switch-status-no {
