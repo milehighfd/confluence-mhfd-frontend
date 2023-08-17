@@ -22,6 +22,7 @@ const Toolbar = ({
     diff,
     reqManager,
     filterRequest,
+    namespaceId,
   } = useRequestState();
   const {
     setShowBoardStatus,
@@ -52,18 +53,20 @@ const Toolbar = ({
     setShowSearch(!showSearch);
   };
 
+  const checkEnter = (e: any) => {
+    if (e.key === 'Enter') {
+      search();
+    }
+  }
+
   return (
     <Fragment>
       <div className='work-header-buttons'>
-        {/* LUPA WR and WP */}
-        {/* <Popover className='buttons-header' content={<div className='popover-text'>Search:<br />Filter projects below by querying a name.</div>} placement="bottomLeft" overlayClassName='popover-work-header' >
-          <Button
-            className='buttons1'
-            type='link' style={{ border: 'none', backgroundColor: 'transparent', outline: 'none', boxShadow: 'none', padding:'0px' }}>
-            <div style={{ display: showSearch ? 'inline-block' : 'none' }}>
+        <div style={{ display: showSearch ? 'inline-block' : 'none' }}>
               <Space size="large">
                 <Input
                   onChange={handdleSearch}
+                  onKeyUp={checkEnter}
                   className='search-input'
                   style={{ maxWidth: '254', height: '34px', borderRadius:'4px' }} addonBefore={<SearchOutlined onClick={search} />} placeholder="Search" 
                   suffix={<CloseCircleFilled onClick={handdle} style={{color:'#11093c', opacity:'0.5'}}/>}
@@ -71,16 +74,19 @@ const Toolbar = ({
                   />
               </Space>
             </div>
-            
-            {!showSearch && <div onClick={handleIconClick}>
+          <Button
+            className='buttons1'
+            type='link' style={{ border: 'none', backgroundColor: 'transparent', outline: 'none', boxShadow: 'none', padding:'0px' }}>
+            {!showSearch &&<Popover className='buttons-header' content={<div className='popover-text'>Search:<br />Filter projects below by querying a name.</div>} placement="bottomLeft" overlayClassName='popover-work-header' >
+             <div onClick={handleIconClick}>
               <img
                 src='Icons/ic-000.svg'
                 alt=""
               />
-            </div>}
+            </div>
+            </Popover>}
           </Button>
           
-        </Popover> */}
         {
           (locality === 'Mile High Flood District' || type === 'WORK_REQUEST') &&
           <Popover className='buttons-header' content={<div className='popover-text'>Status:<br />Submit the board for Mile High's review.</div>} placement="bottomLeft" overlayClassName='popover-work-header' >
