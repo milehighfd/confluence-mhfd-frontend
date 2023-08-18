@@ -2539,6 +2539,9 @@ hr.filters-line {
 }
 
 @media(min-width: 2550px) and (max-width: 3799px) {
+  .map-filter-s {
+    width: 330px;
+  }
   .global-search-item {
     h6 {
       font-size: 18px !important;
@@ -2821,11 +2824,13 @@ hr.filters-line {
   .filter-map{
     max-height: calc(100vh - 200px);
     p{
-      font-size: 13px;
+      font-size: 16px;
+      width: 310px;
     }
   }
   .filter-coll-header {
     font-size: 16px;
+    width: 302px;
   }
   .pop-card-map {
     span{

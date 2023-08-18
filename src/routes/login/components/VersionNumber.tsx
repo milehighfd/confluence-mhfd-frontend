@@ -5,8 +5,9 @@ import React from 'react';
 const VersionNumber = ({visible, setVisible}: {visible: boolean, setVisible: React.Dispatch<React.SetStateAction<boolean>>}) => {
   return (
     <Modal
-      className="detailed-version"
-      style={{ top: 60, width: '70%' }}
+      className="detailed-version-login"
+      centered= {true}
+      style={{width:'70%'}}
       visible={visible}
       onCancel={() => setVisible(false)}
       forceRender={false}
