@@ -374,6 +374,8 @@ const CreateProjectMap = (type: any) => {
           AddMarkerEdit({ lat: editLocation[1], lng: editLocation[0] + 0.00003 });
         });
       }, 1300);
+    } else {
+      marker.remove();
     }
   }, [editLocation]);
   useEffect(() => {

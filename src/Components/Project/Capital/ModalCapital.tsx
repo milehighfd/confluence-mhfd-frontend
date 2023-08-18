@@ -120,21 +120,16 @@ export const ModalCapital = ({
     setComponentIntersected, 
     getListComponentsByComponentsAndPolygon, 
     setStreamIntersected, 
-    setHighlightedComponent, 
     setStreamsIds, 
     setIndComponents, 
     getGEOMByProjectId, 
     editProjectCapital, 
     setServiceAreaCounty, 
     setJurisdictionSponsor, 
-    getZoomGeomComp, 
-    getZoomGeomProblem, 
-    setHighlightedProblem, 
     setIsEdit,
     setStreamsList,
-    setDeleteAttachmentsIds,
-    setHighlightedStream, 
-    setHighlightedStreams
+    saveSpecialLocation,
+    saveAcquisitionLocation
   } = useProjectDispatch();
   const {
     listComponents, 
@@ -259,6 +254,11 @@ export const ModalCapital = ({
     if(!showDraw) {
       setStreamIntersected({ geom: null });
       setStreamsList([]);
+      changeAddLocationState(false);
+      setGeom(undefined);
+      saveSpecialLocation({geom: null});
+      saveAcquisitionLocation({geom: null});
+      setEditLocation([]);
     }
   }, [showDraw]);
   //Load Data if is Edit
