@@ -55,7 +55,7 @@ const MapAutoComplete = ({
         <div className="auto-complete-map">
           <AutoComplete
             style={{ width: '200' }}
-            options={renderOption.length > 0 ? [...dataAutoCArray.map(renderOption), {}] : dataAutoCArray.map(renderOption)}
+            options={ dataAutoCArray.map(renderOption)}
             placeholder={nameZoomArea ? (nameZoomArea.endsWith(', CO') ? nameZoomArea.replace(', CO', '') : nameZoomArea) : 'Mile High Flood District'}
             filterOption={(inputValue, option: any) => {
               if (dataAutoCArray.includes(inputValue)) {
