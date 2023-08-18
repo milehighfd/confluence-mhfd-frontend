@@ -2798,6 +2798,12 @@ hr.filters-line {
   }
   .filter-map{
     max-height: calc(100vh - 200px);
+    p{
+      font-size: 13px;
+    }
+  }
+  .filter-coll-header {
+    font-size: 16px;
   }
   .pop-card-map {
     span{

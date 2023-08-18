@@ -543,21 +543,6 @@ body {
 .detailed-version {
   width: 800px !important;
 
-  .scroll-version::-webkit-scrollbar {
-    width: 5px;
-  }
-
-  /* Track */
-  .scroll-version::-webkit-scrollbar-track {
-    border-radius: 10px;
-  }
-
-  /* Handle */
-  .scroll-version::-webkit-scrollbar-thumb {
-    background: $purple00;
-    border-radius: 10px;
-  }
-
   /* Default close button */
   .ant-modal-close {
     display: none;
@@ -3549,8 +3534,18 @@ tr > .ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
 }
 }
 @media (min-width: 2550px) and (max-width: 3799px) {
+  .marbot-4 {
+    font-size: 21px;
+  }
   .detailed-upload {
     width: 850px !important;
+  }
+  .detailed-version{
+    .scroll-version{
+      li{
+        font-size: 16px;
+      }
+    }
   }
   .user-name-upload {
     font-size: 22px !important;

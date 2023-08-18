@@ -155,7 +155,7 @@ const LoginView = () => {
                 }}
               />
             </div>
-            <span style={{ color: message.color }}>&nbsp;&nbsp; {message.message}</span>
+            <span className='conection-message' style={{ color: message.color }}>&nbsp;&nbsp; {message.message}</span>
             <Button className="btn-purple" block htmlType="submit">
               Login
             </Button>
