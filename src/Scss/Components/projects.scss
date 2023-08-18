@@ -964,17 +964,13 @@
       width: 100%;
     }
     .mapboxgl-ctrl-scale {
-      font-size: 25px;
-      padding: 12px 14px;
-      left: 85px;
-      bottom: 30px;
+      left: 55px;
       position: absolute;
-      height: 35px;
-      width: 45px !important;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      
+      bottom: 30px;
+      width: auto !important;
+      border: none;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.8);
     }
   }
 }
@@ -1215,6 +1211,18 @@
     .map{
       .mapboxgl-ctrl-group{
        left: 25px;
+      }
+      .mapboxgl-ctrl-scale{
+        font-size: 25px;
+        padding: 12px 14px;
+        left: 85px;
+        bottom: 30px;
+        position: absolute;
+        height: 35px;
+        width: 45px !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;  
       }
     }
     p{
