@@ -849,6 +849,7 @@ const CreateProjectMap = (type: any) => {
     }
   };
   useEffect(() => {
+    console.log('selectedLayersCP', selectedLayersCP);
     if (map && selectedLayersCP.length > 0) {
       waiting();
     }
@@ -943,11 +944,11 @@ const CreateProjectMap = (type: any) => {
   };
   const removeProjectLayer = () => {
     let filterLayers = selectedLayersCP.filter((Layer: any) => {
-      if (Layer.name) {
-        return !(Layer.name == 'projects');
-      } else {
+      // if (Layer.name) {
+      //   return !(Layer.name == 'projects');
+      // } else {
         return true;
-      }
+      // }
     });
     const deleteLayers = selectedLayersCP.filter((layer: any) => !filterLayers.includes(layer as string));
     deleteLayers.forEach((layer: LayersType) => {
