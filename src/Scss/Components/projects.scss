@@ -1259,11 +1259,21 @@
       .sub-project .ant-select:not(.ant-select-customize-input) .ant-select-selector {
         width: 100px !important;
        }
+       .btn-purple, .btn-purple:hover, .btn-purple:focus, .btn-purple:active, .btn-purple.active {
+          font-size: 22px;
+          height: auto;
+          padding: 13px 23px;
+        }
       .ant-select-selector {
         padding: 6px 13px !important;
         margin: 10px 0px !important;
-       
+        min-height: 51px;
        }
+      .ant-checkbox-inner {
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+      }
       .section-gemetry{
         .ant-radio-inner {
           width: 22px;
@@ -1346,7 +1356,7 @@
        line-height: 78px;
       }
       .draw{
-        height: 140px;
+        height: 168px;
         padding: 36px 0px;
         margin-bottom: 25px;
         border: 2px dashed $opacity04;

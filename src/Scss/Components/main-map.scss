@@ -844,7 +844,7 @@ hr.filters-line {
   }
 
   .ant-input-affix-wrapper .ant-input:not(:first-child) {
-    padding-left: 0px !important;
+    padding-left: 0px;
   }
 
   .auto-complete-map .ant-select-auto-complete.ant-select .ant-input {
@@ -1511,16 +1511,16 @@ hr.filters-line {
     }
 
     button .img-sortBy {
-      -webkit-mask-size: 25px;
-      height: 35px;
-      width: 35px;
+      height: 25px;
+      width: 25px;
+      background-size: cover;
       margin-right: 9px;
     }
 
     .ant-btn:hover > .img-sortBy {
-      -webkit-mask-size: 25px;
-      height: 35px;
-      width: 35px;
+      height: 25px;
+      width: 25px;
+      background-size: cover;
       margin-right: 9px;
     }
 

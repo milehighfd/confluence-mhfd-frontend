@@ -282,6 +282,7 @@ export const SERVER = (function () {
         GET_CONSULTANTS: `${URL_BASE.BASE}/${CONSULTANTS}`,
         GENERATE_SIGNUP_URL: `${URL_BASE.BASE}/${USER}/${GENERATE_SIGNUP_URL}`,
         GET_SPONSOR: `${URL_BASE.BASE}/${BUSINESS}/${SPONSOR_LIST}`,
+        GET_PAST_DATA: `${URL_BASE.BASE}/${BOARD}/get-past-data`,
         GET_RESET_AND_CONFIRM: `${URL_BASE.BASE}/${USER}/${GET_RESET_AND_CONFIRM}`,
         GET_SIGNUP_EMAIL: (token: string) => `${URL_BASE.BASE}/${USER}/${GET_SIGNUP_EMAIL}?token=${token}`,
         GET_LIST_PMTOOLS: (groupname: string) => `${URL_BASE.BASE}/${PMTOOLS}/list?group=${groupname}`,
