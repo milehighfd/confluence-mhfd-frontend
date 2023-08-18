@@ -11,6 +11,7 @@ import { useMapState } from 'hook/mapHook';
 import { useProfileState } from 'hook/profileHook';
 import AmountModal from '../AmountModal';
 import ModalProjectView from 'Components/ProjectModal/ModalProjectView';
+import { postData } from 'Config/datasets';
 
 const TableListView = () => {
   const [completeProjectData, setCompleteProjectData] = useState<any>(null);
@@ -28,6 +29,7 @@ const TableListView = () => {
   const [editable, setEditable] = useState<boolean>(true);
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [showModalProject, setShowModalProject] = useState(false);
+  const [pastCosts, setPastCosts] = useState<any[]>([]);
   
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -36,7 +38,7 @@ const TableListView = () => {
     maximumFractionDigits: 0
   });
 
-  useEffect(() => {
+  useEffect(() => {    
     let allProjects: any[] = [];
     let years: any[] = [];
     let totalByYearObject: any[] = [];
@@ -71,7 +73,6 @@ const TableListView = () => {
         projectMap[extracted.key] = extracted;
       }    
     }
-    setParsedData(Object.values(projectMap));
     const totalArray = [];
     for (let i = 1; i <= 5; i++) {
       const key = "req" + i;
@@ -80,7 +81,27 @@ const TableListView = () => {
     }
     setTotalByYear(totalArray);
     setYearList(years);
-  }, [columnsList]);  
+    let parsedDataWCosts = Object.values(projectMap);
+    if(pastCosts.length > 0) {
+      parsedDataWCosts = parsedDataWCosts.map((item: any) => {
+        const found = pastCosts.find((cost: any) => cost.project_id === item.key);
+        return {
+          ...item,
+          past: found ? found.totalreq : 0,
+        };
+      });
+    }
+    setParsedData(parsedDataWCosts);
+  }, [columnsList,pastCosts]);  
+  
+  useEffect(() => {
+    postData(`${SERVER.GET_PAST_DATA}`, { boardId: namespaceId})
+      .then(
+        (r: any) => {
+          setPastCosts(r);
+        }
+      )
+  }, [namespaceId]);
 
   useEffect(() => {
     setEditable(boardStatus !== 'Approved' || userInformation.designation === ADMIN || userInformation.designation === STAFF);
@@ -209,10 +230,12 @@ const TableListView = () => {
         },
         {
             title: 'Past',
-            dataIndex: 'cost',
+            dataIndex: 'past',
             width: '64px',           
+            render: (past: any) =>
+            <span className='span-past'>{formatter.format(past)}</span>,
             sorter: {
-              compare: (a: any, b: any) => {return 0}
+              compare: (a: any, b: any) => a.past - b.past,
             },
         },
         {
