@@ -9,6 +9,9 @@
   .ant-select-dropdown .ant-select-dropdown-placement-bottomLeft  {
     width: fit-content !important;
   }
+  .ant-select {
+    width: auto !important;
+  }
 }
 .ant-notification-notice {
   border-bottom: 5px solid #29c499;
