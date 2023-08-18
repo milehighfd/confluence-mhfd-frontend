@@ -1653,6 +1653,10 @@ hr.filters-line {
     font-size: 19px;
     padding: 16px 0px;
     margin-top: 3px;
+    .progress {
+      width: 250px;
+      left: -15px;
+    }
   }
   .card-button-hover {
     height: 260px;

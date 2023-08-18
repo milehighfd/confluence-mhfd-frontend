@@ -558,6 +558,24 @@ body {
     display: none;
   }
 }
+.detailed-version-login{
+  width: 800px !important;
+
+  /* Default close button */
+  .ant-modal-close {
+    display: none;
+  }
+
+  /* Body of the Modal */
+  .ant-modal-body {
+    padding: 0;
+  }
+
+  /* Moldal's Footer */
+  .ant-modal-footer {
+    display: none;
+  }
+}
 
 .detailed-upload-save {
   width: 430px !important;
@@ -3540,10 +3558,11 @@ tr > .ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
   .detailed-upload {
     width: 850px !important;
   }
-  .detailed-version{
+  .detailed-version-login{
+    width: 1050px !important;
     .scroll-version{
       li{
-        font-size: 16px;
+        font-size: 20px;
       }
     }
   }

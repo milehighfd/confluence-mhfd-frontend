@@ -87,7 +87,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
     }, {
       key: '1',
       label: <span style={{borderBottom: '1px solid transparent'}}>
-        <img src="/Icons/icon-90.svg" alt="" width="8px" style={{ opacity: '0.5', marginTop: '-2px', marginRight: '8.8px' }} />
+        <img src="/Icons/icon-90.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px', marginRight: '4px' }} />
         Edit Amount
       </span>,
       onClick: (() => setShowAmountModal(true))

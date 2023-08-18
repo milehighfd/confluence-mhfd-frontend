@@ -31,13 +31,11 @@ const BoardYear = () => {
     datasets.putData(SERVER.GET_CONFIGURATIONS('BOARD_YEAR'), { value })
       .then((response: any) => {
         setYear(value);
+        openNotification('Success! The board year has been updated.', "success");
         console.log(response);
       }).catch((error: any) => {
         console.error(error);
       });
-  };
-  const handleNotification = () => {
-    openNotification('Success! The board year has been updated.', "success");
   };
 
   return (
@@ -58,7 +56,7 @@ const BoardYear = () => {
           listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
           suffixIcon={openDropYear? <UpOutlined /> :< DownOutlined />}
           onClick={()=>(setOpenDropYear(!openDropYear))}
-          onChange={(e) => {changeConfigurationYear(e); handleNotification()}}
+          onChange={(e) => {changeConfigurationYear(e)}}
         >
           <Select.Option key={'2022'} value={'2022'}>2022</Select.Option>
           <Select.Option key={'2023'} value={'2023'}>2023</Select.Option>

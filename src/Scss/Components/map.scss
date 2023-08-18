@@ -1591,8 +1591,8 @@
 
   .ant-input-clear-icon {
     color: rgba(0, 0, 0, .25);
-    margin-right: 30px;
-    font-size: 12px;
+    margin-right: 45px;
+    font-size: 20px;
     cursor: pointer;
     -webkit-transition: color .3s;
     transition: color .3s;
@@ -2539,6 +2539,9 @@ hr.filters-line {
 }
 
 @media(min-width: 2550px) and (max-width: 3799px) {
+  .map-filter-s {
+    width: 330px;
+  }
   .global-search-item {
     h6 {
       font-size: 18px !important;
@@ -2592,7 +2595,7 @@ hr.filters-line {
     .m-zoom{
       width: 45px !important;
       left: 25px;
-      bottom: 230px !important;
+      bottom: 190px !important;
       button {
         width: 45px !important;
         height: 45px !important;
@@ -2797,7 +2800,7 @@ hr.filters-line {
     .mapboxgl-ctrl-group {
       left: 25px;
       width: 45px !important;
-      bottom: 70px;  
+      bottom: 30px;  
     }
     .mapboxgl-ctrl-group button {
       width: 45px !important;
@@ -2807,7 +2810,7 @@ hr.filters-line {
       font-size: 25px;
       padding: 12px 14px;
       left: 85px;
-      bottom: 70px;
+      bottom: 30px;
       height: 35px;
       width: 45px !important;
       display: flex;
@@ -2855,11 +2858,13 @@ hr.filters-line {
   .filter-map{
     max-height: calc(100vh - 200px);
     p{
-      font-size: 13px;
+      font-size: 16px;
+      width: 310px;
     }
   }
   .filter-coll-header {
     font-size: 16px;
+    width: 302px;
   }
   .pop-card-map {
     span{

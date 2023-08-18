@@ -284,7 +284,9 @@
     border-radius: 5px 5px 0px 0px !important;
   }
 }
-
+.ant-select-selection-placeholder{
+  color: $purple;
+}
 @media (max-width: 575.98px) {
   .ant-layout-sider {
     flex: auto !important;
