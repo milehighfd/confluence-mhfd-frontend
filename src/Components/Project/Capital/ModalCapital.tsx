@@ -255,7 +255,12 @@ export const ModalCapital = ({
       }
     }       
   }, [userInformation]);
-
+  useEffect(() => {
+    if(!showDraw) {
+      setStreamIntersected({ geom: null });
+      setStreamsList([]);
+    }
+  }, [showDraw]);
   //Load Data if is Edit
   useEffect(() => {
     setIsEdit(false);
