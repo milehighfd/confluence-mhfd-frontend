@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Menu, MenuProps, Popover, Table } from 'antd';
 import type { ColumnsType } from 'antd/lib/table';
-import { ADMIN, STAFF, STATUS_NAMES, WINDOW_WIDTH, WORK_PLAN } from 'constants/constants';
+import { ADMIN, NEW_PROJECT_TYPES, STAFF, STATUS_NAMES, WINDOW_WIDTH, WORK_PLAN } from 'constants/constants';
 import { MoreOutlined } from '@ant-design/icons';
 import { getData, getToken } from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
@@ -18,18 +18,21 @@ const TableListView = () => {
   const [showAmountModal, setShowAmountModal] = useState(false);
   const [windowWidth, setWindowWidth] = useState(WINDOW_WIDTH);
   const {setZoomProject, updateSelectedLayers} = useProjectDispatch();
-  const [showCopyToCurrentYearAlert, setShowCopyToCurrentYearAlert] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const { tabActiveNavbar } = useMapState();
   const { columns2: columnsList, tabKey, locality, year, namespaceId, boardStatus } = useRequestState();
   const { userInformation } = useProfileState();
   const [parsedData, setParsedData] = useState<any[]>([]);
+  const [maintenanceData, setMaintenanceData] = useState<any[]>([]);
   const [yearList, setYearList] = useState<any[]>([]);
   const [totalByYear, setTotalByYear] = useState<any[]>([]);
   const [editable, setEditable] = useState<boolean>(true);
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [showModalProject, setShowModalProject] = useState(false);
   const [pastCosts, setPastCosts] = useState<any[]>([]);
+  const [filteredColumns, setFilteredColumns] = useState<any[]>([]);
+  const [showCopyToCurrentYearAlert, setShowCopyToCurrentYearAlert] = useState(false);
+  const [boardProjectIds, setBoardProjectIds] = useState<any[]>([]);
   
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -38,60 +41,128 @@ const TableListView = () => {
     maximumFractionDigits: 0
   });
 
-  useEffect(() => {    
+  useEffect(() => {
+    if (namespaceId.projecttype === 'Maintenance') {
+      postData(`${SERVER.GET_COSTS_FOR_MAINTENANCE}`, { board_project_id: boardProjectIds})
+      .then(
+        (r: any) => {
+          let addCosts = maintenanceData.map((item: any) => {
+            let costs = r.find((cost: any) => cost.board_project_id === item.board_project_id);
+            if (costs) {
+              const subtype = item?.projectData?.code_project_type?.project_type_name;
+              const costMapping = {
+                [NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management]: [costs.req1, costs.year1, costs.year2],
+                [NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management]: [costs.req2, costs.year1, costs.year2],
+                [NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal]: [costs.req3, costs.year1, costs.year2],
+                [NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Minor_Repairs]: [costs.req4, costs.year1, costs.year2],
+                [NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Restoration]: [costs.req5, costs.year1, costs.year2],
+              };              
+              return {
+                ...item,
+                costs: costMapping[subtype] || item.costs
+              };
+            } else {
+              return {
+                ...item,
+                costs: [0, 0, 0]
+              }
+            }            
+          })
+          setParsedData(addCosts);
+        }
+      )
+    }
+  },[boardProjectIds])
+
+  useEffect(() => {
     let allProjects: any[] = [];
     let years: any[] = [];
     let totalByYearObject: any[] = [];
     columnsList.forEach((item: any) => {
       totalByYearObject.push(item.groupTotal);
-      if (item.title !== 'Workspace'){
+      if (item.title !== 'Workspace') {
         years = years.concat(item.title);
-      }      
+      }
       if (item.projects) {
         allProjects = allProjects.concat(item.projects);
       }
     });
-    const projectMap: { [key: number]: any } = {};
-    for (let project of allProjects) {
-      const extracted: any = {
-        key: project?.project_id,
-        name: project?.projectData?.project_name,
-        status: STATUS_NAMES[project?.code_status_type_id] || '',
-        requestor: project?.origin,
-        projectData: project?.projectData,
-        board_project_id: project?.board_project_id,
-        costs: []
-      };
-      for (let i = 1; i <= 5; i++) {
-        extracted.costs.push(project[`req${i}`] || 0);
-      }
-      if (projectMap[extracted.key]) {
-        for (let i = 0; i < extracted.costs.length; i++) {
-          projectMap[extracted.key].costs[i] += extracted.costs[i];
-        }
-      } else {
-        projectMap[extracted.key] = extracted;
-      }    
-    }
-    const totalArray = [];
-    for (let i = 1; i <= 5; i++) {
-      const key = "req" + i;
-      const found = totalByYearObject.find(item => item[key] !== undefined);
-      totalArray.push(found ? found[key] : 0);
-    }
-    setTotalByYear(totalArray);
-    setYearList(years);
-    let parsedDataWCosts = Object.values(projectMap);
-    if(pastCosts.length > 0) {
-      parsedDataWCosts = parsedDataWCosts.map((item: any) => {
-        const found = pastCosts.find((cost: any) => cost.project_id === item.key);
-        return {
-          ...item,
-          past: found ? found.totalreq : 0,
+
+    if (namespaceId.projecttype === 'Maintenance') {      
+      const projectMap: { [key: number]: any } = {};
+      for (let project of allProjects) {
+        const extracted: any = {
+          key: project?.project_id,
+          name: project?.projectData?.project_name,
+          status: STATUS_NAMES[project?.code_status_type_id] || '',
+          requestor: project?.origin,
+          projectData: project?.projectData,
+          board_project_id: project?.board_project_id,
+          costs:[]
         };
-      });
-    }
-    setParsedData(parsedDataWCosts);
+        projectMap[extracted.key] = extracted;
+      }
+      let parsedDataWCosts = Object.values(projectMap);
+      if (pastCosts.length > 0) {
+        parsedDataWCosts = parsedDataWCosts.map((item: any) => {
+          const found = pastCosts.find((cost: any) => cost.project_id === item.key);
+          return {
+            ...item,
+            past: found ? found.totalreq : 0,
+          };
+        });
+      }
+      setMaintenanceData(parsedDataWCosts);
+      const boardProjectIds = Object.values(projectMap).map((project) => project.board_project_id);
+      setBoardProjectIds(boardProjectIds);
+      const years = [];
+      for (let i = 0; i <= 2; i++) {
+        years.push(+namespaceId.year + i);
+      }
+      setYearList(years);
+    } else {      
+      const projectMap: { [key: number]: any } = {};
+      for (let project of allProjects) {
+        const extracted: any = {
+          key: project?.project_id,
+          name: project?.projectData?.project_name,
+          status: STATUS_NAMES[project?.code_status_type_id] || '',
+          requestor: project?.origin,
+          projectData: project?.projectData,
+          board_project_id: project?.board_project_id,
+          costs: []
+        };
+        for (let i = 1; i <= 5; i++) {
+          extracted.costs.push(project[`req${i}`] || 0);
+        }
+        if (projectMap[extracted.key]) {
+          for (let i = 0; i < extracted.costs.length; i++) {
+            projectMap[extracted.key].costs[i] += extracted.costs[i];
+          }
+        } else {
+          projectMap[extracted.key] = extracted;
+        }
+      }
+      const totalArray = [];
+      for (let i = 1; i <= 5; i++) {
+        const key = "req" + i;
+        const found = totalByYearObject.find(item => item[key] !== undefined);
+        totalArray.push(found ? found[key] : 0);
+      }
+      setTotalByYear(totalArray);
+      setYearList(years);
+      let parsedDataWCosts = Object.values(projectMap);
+      if (pastCosts.length > 0) {
+        parsedDataWCosts = parsedDataWCosts.map((item: any) => {
+          const found = pastCosts.find((cost: any) => cost.project_id === item.key);
+          return {
+            ...item,
+            past: found ? found.totalreq : 0,
+          };
+        });
+      }
+      setParsedData(parsedDataWCosts);
+    }        
   }, [columnsList,pastCosts]);  
   
   useEffect(() => {
@@ -185,20 +256,21 @@ const TableListView = () => {
       items.pop();
       items.splice(1, 1);
     }
-    // if (type === 'WORK_PLAN' && year != 2023) {
-    //   items.splice(2, 0, {
-    //     key: '4',
-    //     label: <span style={{borderBottom: '1px solid transparent'}}>
-    //       <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
-    //       Copy to Current Year
-    //     </span>,
-    //     onClick: (() => setShowCopyToCurrentYearAlert(true))
-    //   });
-    // }
+    if (namespaceId.type === 'WORK_PLAN' && year != 2023) {
+      items.splice(2, 0, {
+        key: '4',
+        label: <span style={{borderBottom: '1px solid transparent'}}>
+          <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
+          Copy to Current Year
+        </span>,
+        onClick: (() => setShowCopyToCurrentYearAlert(true))
+      });
+    }
     return (<Menu className="js-mm-00" items={items} />)
   };
     const columns: ColumnsType<DataType> = [
         {
+            key: 'name',
             title: 'Project Name',
             dataIndex: 'name',
             width: '276px',
@@ -215,6 +287,7 @@ const TableListView = () => {
             },            
         },
         {
+            key: 'status',
             title: 'Status',
             dataIndex: 'status',
             width: '80px',
@@ -225,6 +298,7 @@ const TableListView = () => {
             },
         },
         {
+            key: 'requestor',
             title: 'Requestor',
             dataIndex: 'requestor',
             width: '94px',
@@ -233,6 +307,7 @@ const TableListView = () => {
             },
         },
         {
+            key: 'past',
             title: 'Past',
             dataIndex: 'past',
             width: '64px',           
@@ -243,6 +318,7 @@ const TableListView = () => {
             },
         },
         {
+            key: 'costs1',
             title: yearList[0],
             dataIndex: 'costs',
             width: '64px',
@@ -253,6 +329,7 @@ const TableListView = () => {
             },
         },
         {
+            key: 'costs2',
             title: yearList[1],
             dataIndex: 'costs',
             width: '64px',
@@ -263,6 +340,7 @@ const TableListView = () => {
             },
         },
         {
+            key: 'costs3',
             title: yearList[2],
             dataIndex: 'costs',
             width: '64px',
@@ -273,6 +351,7 @@ const TableListView = () => {
             },
         },
         {
+            key: 'costs4',
             title: yearList[3],
             dataIndex: 'costs',
             width: '64px',
@@ -283,6 +362,7 @@ const TableListView = () => {
             },
         },
         {
+            key: 'costs5',
             title: yearList[4],
             dataIndex: 'costs',
             width: '64px',
@@ -293,6 +373,7 @@ const TableListView = () => {
             },
         },
         {
+            key: 'total',
             title: 'Total',
             dataIndex: 'costs',
             width: '64px',
@@ -307,6 +388,14 @@ const TableListView = () => {
             },
         },
     ];
+
+    useEffect(()=>{
+      if (namespaceId.projecttype === 'Maintenance') {
+        setFilteredColumns(columns.filter((column: any) => (column.key !== 'costs4' && column.key !== 'costs5')));
+      }else{
+        setFilteredColumns(columns)
+      }      
+    },[namespaceId,yearList]);
 
     const onChange = (pagination: any, filters: any, sorter: any, extra: any) => {
         console.log('params', pagination, filters, sorter, extra);
@@ -344,7 +433,7 @@ const TableListView = () => {
           />
         }
         <div className='table-map-list'>
-            <Table columns={columns} dataSource={parsedData} pagination={false} scroll={{ x: 1026, y: 'calc(100vh - 270px)' }} summary={() => (
+            <Table columns={filteredColumns} dataSource={parsedData} pagination={false} scroll={{ x: 1026, y: 'calc(100vh - 270px)' }} summary={() => (
                 <Table.Summary fixed={ 'bottom'} >
                   <Table.Summary.Row  style={{ height: '40px' }}>
                       <Table.Summary.Cell index={0}  >
