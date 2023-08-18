@@ -859,8 +859,6 @@ const CreateProjectMap = (type: any) => {
     }
   };
   useEffect(() => {
-    updateSelectedLayersCP(selectedLayers);
-    updateSelectedLayers(selectedLayers)
     if (map && selectedLayersCP.length > 0) {
       waiting();
     }
@@ -978,7 +976,7 @@ const CreateProjectMap = (type: any) => {
     }
     const currentType = typeRef.current;
     firstCallDraw = true;
-    removeProjectLayer();
+    // removeProjectLayer();
     setLoading(true);
     const userPolygon = event.features[0];
     if (currentType === 'CAPITAL') {
@@ -1662,7 +1660,7 @@ const CreateProjectMap = (type: any) => {
     isPopup = true;
   };
   const addMarker = (e: any) => {
-    removeProjectLayer();
+    // removeProjectLayer();
     e.originalEvent.stopPropagation();
     map.removePopUpOffset();
     popup.remove();
