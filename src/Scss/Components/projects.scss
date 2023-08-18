@@ -955,7 +955,7 @@
     height: calc(100vh - 20px);
 
     .mapboxgl-ctrl-group {
-      left: 25px;
+      left: 20px;
       position: absolute;
       width: 25px;
       bottom: 30px;
@@ -1212,6 +1212,11 @@
   }
   .projects{
     // width: 1955px !important;
+    .map{
+      .mapboxgl-ctrl-group{
+       left: 25px;
+      }
+    }
     p{
       font-size: 22px;
       line-height: 25px;
