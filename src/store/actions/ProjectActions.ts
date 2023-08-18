@@ -1,7 +1,7 @@
 import * as types from 'store/types/ProjectTypes';
 import * as datasets from "Config/datasets";
 import { SERVER } from "Config/Server.config";
-import { loadFilters, loadOneColumn } from 'store/actions/requestActions';
+import { loadColumns, loadFilters, loadOneColumn } from 'store/actions/requestActions';
 import * as turf from '@turf/turf';
 import { depth } from 'routes/map/components/MapFunctionsUtilities';
 
@@ -109,7 +109,7 @@ export const saveCapital = (data: any) => {
       }else{
         status = 0;
       }
-      dispatch(loadOneColumn(0));
+      dispatch(loadColumns());
       dispatch(loadFilters())
       dispatch({ type: types.SET_SAVE, status });
     })
@@ -372,7 +372,7 @@ export const editCapital = (data: any) => {
       }else{
         status = 0;
       }
-      dispatch(loadOneColumn(0));
+      dispatch(loadColumns());
       dispatch(loadFilters())
       dispatch({ type: types.SET_EDIT, status });
     })
@@ -568,7 +568,11 @@ export const getZoomGeomComp = (table:any, objectid: any) => {
       if (DEPTH == 4) {
         poly = turf.multiPolygon(geom?.coordinates, { name: 'zoomarea' });
       } else {
-        poly = turf.polygon(geom?.coordinates, { name: 'zoomarea' });
+        if(geom?.type == 'Point'){
+          poly = turf.point(geom?.coordinates, { name: 'zoomarea' });
+        }else{
+          poly = turf.polygon(geom?.coordinates, { name: 'zoomarea' });
+        }
       }
       let bboxBounds = turf.bbox(poly);
       dispatch({type: types.SET_ZOOM_GEOM, zoomGeom: [[bboxBounds[0], bboxBounds[1]], [bboxBounds[2], bboxBounds[3]]]})

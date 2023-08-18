@@ -1,29 +1,107 @@
 import React, { useEffect, useState } from 'react';
 import { Menu, MenuProps, Popover, Table } from 'antd';
 import type { ColumnsType } from 'antd/lib/table';
-import { WINDOW_WIDTH, WORK_PLAN } from 'constants/constants';
+import { ADMIN, STAFF, STATUS_NAMES, WINDOW_WIDTH, WORK_PLAN } from 'constants/constants';
 import { MoreOutlined } from '@ant-design/icons';
 import { getData, getToken } from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import { useProjectDispatch } from 'hook/projectHook';
 import { useRequestState } from 'hook/requestHook';
 import { useMapState } from 'hook/mapHook';
+import { useProfileState } from 'hook/profileHook';
+import AmountModal from '../AmountModal';
+import ModalProjectView from 'Components/ProjectModal/ModalProjectView';
 
 const TableListView = () => {
   const [completeProjectData, setCompleteProjectData] = useState<any>(null);
   const [showAmountModal, setShowAmountModal] = useState(false);
   const [windowWidth, setWindowWidth] = useState(WINDOW_WIDTH);
   const {setZoomProject, updateSelectedLayers} = useProjectDispatch();
-  const [editable, setEditable] = useState(false);
   const [showCopyToCurrentYearAlert, setShowCopyToCurrentYearAlert] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const { tabActiveNavbar } = useMapState();
-  const {year} = useRequestState(); 
+  const { columns2: columnsList, tabKey, locality, year, namespaceId, boardStatus } = useRequestState();
+  const { userInformation } = useProfileState();
+  const [parsedData, setParsedData] = useState<any[]>([]);
+  const [yearList, setYearList] = useState<any[]>([]);
+  const [totalByYear, setTotalByYear] = useState<any[]>([]);
+  const [editable, setEditable] = useState<boolean>(true);
+  const [selectedProject, setSelectedProject] = useState<any>(null);
+  const [showModalProject, setShowModalProject] = useState(false);
+  
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  });
+
+  useEffect(() => {
+    let allProjects: any[] = [];
+    let years: any[] = [];
+    let totalByYearObject: any[] = [];
+    columnsList.forEach((item: any) => {
+      totalByYearObject.push(item.groupTotal);
+      if (item.title !== 'Workspace'){
+        years = years.concat(item.title);
+      }      
+      if (item.projects) {
+        allProjects = allProjects.concat(item.projects);
+      }
+    });
+    const projectMap: { [key: number]: any } = {};
+    for (let project of allProjects) {
+      const extracted: any = {
+        key: project?.project_id,
+        name: project?.projectData?.project_name,
+        status: STATUS_NAMES[project?.code_status_type_id] || '',
+        requestor: project?.origin,
+        projectData: project?.projectData,
+        board_project_id: project?.board_project_id,
+        costs: []
+      };
+      for (let i = 1; i <= 5; i++) {
+        extracted.costs.push(project[`req${i}`] || 0);
+      }
+      if (projectMap[extracted.key]) {
+        for (let i = 0; i < extracted.costs.length; i++) {
+          projectMap[extracted.key].costs[i] += extracted.costs[i];
+        }
+      } else {
+        projectMap[extracted.key] = extracted;
+      }    
+    }
+    setParsedData(Object.values(projectMap));
+    const totalArray = [];
+    for (let i = 1; i <= 5; i++) {
+      const key = "req" + i;
+      const found = totalByYearObject.find(item => item[key] !== undefined);
+      totalArray.push(found ? found[key] : 0);
+    }
+    setTotalByYear(totalArray);
+    setYearList(years);
+  }, [columnsList]);  
+
+  useEffect(() => {
+    setEditable(boardStatus !== 'Approved' || userInformation.designation === ADMIN || userInformation.designation === STAFF);
+  }, [boardStatus, userInformation.designation]);
+
+  useEffect(() => {
+    if (completeProjectData) {
+      setShowModalProject(true);
+    }
+  }, [completeProjectData]);
+
+  useEffect(()=>{
+    if(!showModalProject) {
+      setCompleteProjectData(null);
+    }
+  },[showModalProject]);
 
   const getCompleteProjectData = async (record:any) => {
     let dataForBoard = {...record.projectData};
     const dataFromDB = await getData(SERVER.V2_DETAILED_PAGE(dataForBoard.project_id), getToken());
-    setCompleteProjectData({...dataFromDB, ...dataForBoard}); 
+    setCompleteProjectData({...dataFromDB, ...tabKey}); 
   }
     const typeStatus = (status: string) => {
         let text = '';
@@ -40,6 +118,10 @@ const TableListView = () => {
                 text = 'span-requested';
                 break;
             }
+            default:{
+              text = 'span-submitted';
+                break;
+            }
         }
         return text;
     }
@@ -53,44 +135,47 @@ const TableListView = () => {
         type: string;
     }
     const content = (record:any) => {
-      const items: MenuProps['items'] = [{
-        key: '0',
-        label: <span style={{borderBottom: '1px solid transparent'}}>
-          <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
-          Edit Project
-        </span>,
-        onClick: (() => getCompleteProjectData(record))
-      }, {
-        key: '1',
-        label: <span style={{borderBottom: '1px solid transparent'}}>
-          <img src="/Icons/icon-90.svg" alt="" width="8px" style={{ opacity: '0.5', marginTop: '-2px', marginRight: '8.8px' }} />
-          Edit Amount
-        </span>,
-        onClick: (() => setShowAmountModal(true))
-      }, {
-        key: '2',
-        label: <span style={{borderBottom: '1px solid transparent'}}>
-          <img src="/Icons/icon-13.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px', marginRight: '4.6px' }} />
-          Zoom to
-        </span>,
-        onClick: (() => { setZoomProject(record.projectData);})
-      }];
-      if (!editable) {
-        items.pop();
-        items.splice(1, 1);
-      }
-      if (tabActiveNavbar === WORK_PLAN && year != 2023) {
-        items.splice(2, 0, {
-          key: '4',
-          label: <span style={{borderBottom: '1px solid transparent'}}>
-            <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
-            Copy to Current Year
-          </span>,
-          onClick: (() => setShowCopyToCurrentYearAlert(true))
-        });
-      }
-      return (<Menu className="js-mm-00" items={items} />)
-    };
+    const items: MenuProps['items'] = [{
+      key: '0',
+      label: <span style={{borderBottom: '1px solid transparent'}}>
+        <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
+        Edit Project
+      </span>,
+      onClick: (() => getCompleteProjectData(record))
+    }, {
+      key: '1',
+      label: <span style={{borderBottom: '1px solid transparent'}}>
+        <img src="/Icons/icon-90.svg" alt="" width="8px" style={{ opacity: '0.5', marginTop: '-2px', marginRight: '8.8px' }} />
+        Edit Amount
+      </span>,
+      onClick: (() => {
+        setSelectedProject(record);
+        setShowAmountModal(true)
+      })
+    }, {
+      key: '2',
+      label: <span style={{borderBottom: '1px solid transparent'}}>
+        <img src="/Icons/icon-13.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px', marginRight: '4.6px' }} />
+        Zoom to
+      </span>,
+      onClick: (() => { setZoomProject(record.projectData);})
+    }];
+    if (!editable) {
+      items.pop();
+      items.splice(1, 1);
+    }
+    // if (type === 'WORK_PLAN' && year != 2023) {
+    //   items.splice(2, 0, {
+    //     key: '4',
+    //     label: <span style={{borderBottom: '1px solid transparent'}}>
+    //       <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
+    //       Copy to Current Year
+    //     </span>,
+    //     onClick: (() => setShowCopyToCurrentYearAlert(true))
+    //   });
+    // }
+    return (<Menu className="js-mm-00" items={items} />)
+  };
     const columns: ColumnsType<DataType> = [
         {
             title: 'Project Name',
@@ -115,7 +200,7 @@ const TableListView = () => {
             render: (status: any) =>
                     <span className={typeStatus(status)}>{status}</span>,
             sorter: {
-                compare: (a: { status: string; }, b: { status: string; }) => a.status.localeCompare(b.status),
+                compare: (a: { status: string; }, b: { status: string; }) => a?.status?.localeCompare(b?.status),
             },
         },
         {
@@ -129,180 +214,75 @@ const TableListView = () => {
         {
             title: 'Past',
             dataIndex: 'cost',
-            width: '64px',
+            width: '64px',           
             sorter: {
-                compare: (a: { cost: string; }, b: { cost: string; }) => a.cost.localeCompare(b.cost),
+              compare: (a: any, b: any) => {return 0}
             },
         },
         {
-            title: '2023',
-            dataIndex: 'cost',
+            title: yearList[0],
+            dataIndex: 'costs',
             width: '64px',
+            render: (cost: any) =>
+            <span className='span-past'>{formatter.format(cost[0])}</span>,
             sorter: {
-                compare: (a: { cost: string; }, b: { cost: string; }) => a.cost.localeCompare(b.cost),
+              compare: (a: any, b: any) => a.costs[0] - b.costs[0],
             },
         },
         {
-            title: '2024',
-            dataIndex: 'cost',
+            title: yearList[1],
+            dataIndex: 'costs',
             width: '64px',
+            render: (cost: any) =>
+            <span className='span-past'>{formatter.format(cost[1])}</span>,
             sorter: {
-                compare: (a: { cost: string; }, b: { cost: string; }) => a.cost.localeCompare(b.cost),
+              compare: (a: any, b: any) => a.costs[1] - b.costs[1],
             },
         },
         {
-            title: '2025',
-            dataIndex: 'cost',
+            title: yearList[2],
+            dataIndex: 'costs',
             width: '64px',
+            render: (cost: any) =>
+            <span className='span-past'>{formatter.format(cost[2])}</span>,
             sorter: {
-                compare: (a: { cost: string; }, b: { cost: string; }) => a.cost.localeCompare(b.cost),
+              compare: (a: any, b: any) => a.costs[2] - b.costs[2],
             },
         },
         {
-            title: '2026',
-            dataIndex: 'cost',
+            title: yearList[3],
+            dataIndex: 'costs',
             width: '64px',
+            render: (cost: any) =>
+            <span className='span-past'>{formatter.format(cost[3])}</span>,
             sorter: {
-                compare: (a: { cost: string; }, b: { cost: string; }) => a.cost.localeCompare(b.cost),
+              compare: (a: any, b: any) => a.costs[3] - b.costs[3],
             },
         },
         {
-            title: '2027',
-            dataIndex: 'cost',
+            title: yearList[4],
+            dataIndex: 'costs',
             width: '64px',
+            render: (cost: any) =>
+            <span className='span-past'>{formatter.format(cost[4])}</span>,
             sorter: {
-                compare: (a: { cost: string; }, b: { cost: string; }) => a.cost.localeCompare(b.cost),
+              compare: (a: any, b: any) => a.costs[4] - b.costs[4],
             },
         },
         {
             title: 'Total',
-            dataIndex: 'cost',
+            dataIndex: 'costs',
             width: '64px',
+            render: (cost: any) =>
+            <span className='span-past'>{formatter.format(cost.reduce((acc: number, curr: number) => acc + curr, 0))}</span>,
             sorter: {
-                compare: (a: { cost: string; }, b: { cost: string; }) => a.cost.localeCompare(b.cost),
+              compare: (a: any, b: any) => {
+                const sumA = a.costs.reduce((acc: number, curr: number) => acc + curr, 0);
+                const sumB = b.costs.reduce((acc: number, curr: number) => acc + curr, 0);
+                return sumA - sumB;
+              },
             },
         },
-    ];
-
-    const data: DataType[] = [
-        {
-            key: '1',
-            name: 'Hidden Lake Drainageway @ Arvada Center',
-            status: 'Active',
-            requestor: 'Commerce City',
-            cost: '$253,200',
-            actions: 4,
-            type: 'Restoration',
-        },
-        {
-            key: '2',
-            name: 'Cherry Creek @ Lincoln 2019',
-            status: 'Submitted',
-            requestor: 'Boulder',
-            cost: '$450,000',
-            actions: 3,
-            type: 'Capital',
-        },
-        {
-            key: '3',
-            name: 'South Englewood Basin Tributary @ City of E...',
-            status: 'Requested',
-            requestor: 'Thornton',
-            cost: '$30,000',
-            actions: 12,
-            type: 'Vegetation Management',
-        },
-        {
-            key: '4',
-            name: 'Hidden Lake Drainageway @ Arvada Center',
-            status: 'Active',
-            requestor: 'Litleton',
-            cost: '$12,300',
-            actions: 5,
-            type: 'Capital',
-        },
-        {
-            key: '5',
-            name: 'Cherry Creek @ Lincoln 2019',
-            status: 'Submitted',
-            requestor: 'Commerce City',
-            cost: '$253,200',
-            actions: 6,
-            type: 'Acquiston',
-        },
-        {
-            key: '6',
-            name: 'South Englewood Basin Tributary @ City of E...',
-            status: 'Active',
-            requestor: 'Boulder',
-            cost: '$450,000',
-            actions: 12,
-            type: 'Research & Development',
-        },
-        {
-            key: '7',
-            name: 'Hidden Lake Drainageway @ Arvada Center',
-            status: 'Submitted',
-            requestor: 'Thornton',
-            cost: '$30,000',
-            actions: 9,
-            type: 'Research & Development',
-        },
-        {
-            key: '8',
-            name: 'Cherry Creek @ Lincoln 2019',
-            status: 'Active',
-            requestor: 'Littleton',
-            cost: '$12,300',
-            actions: 32,
-            type: 'Capital',
-        },
-        {
-            key: '9',
-            name: 'South Englewood Basin Tributary @ City of E...',
-            status: 'Submitted',
-            requestor: 'Commerce City',
-            cost: '$253,200',
-            actions: 16,
-            type: 'Restoration',
-        },
-        {
-            key: '10',
-            name: 'Hidden Lake Drainageway @ Arvada Center',
-            status: 'Requested',
-            requestor: 'Boulder',
-            cost: '$450,000',
-            actions: 7,
-            type: 'Maintenance',
-        },
-        {
-            key: '11',
-            name: 'Cherry Creek @ Lincoln 2019',
-            status: 'Submitted',
-            requestor: 'Thornton',
-            cost: '$30,000',
-            actions: 78,
-            type: 'Sediment Management',
-        },
-        {
-            key: '12',
-            name: 'South Englewood Basin Tributary @ City of E...',
-            status: 'Submitted',
-            requestor: 'Littleton',
-            cost: '$12,300',
-            actions: 42,
-            type: 'Special',
-        },
-        {
-            key: '13',
-            name: 'South Englewood Basin Tributary @ City of E...',
-            status: 'Submitted',
-            requestor: 'Littleton',
-            cost: '$12,300',
-            actions: 36,
-            type: 'Capital',
-        },
-
     ];
 
     const onChange = (pagination: any, filters: any, sorter: any, extra: any) => {
@@ -321,9 +301,27 @@ const TableListView = () => {
       }, [])
 
     return (
+      <>
+        {
+          showModalProject &&
+          <ModalProjectView
+            visible={showModalProject}
+            setVisible={setShowModalProject}
+            data={completeProjectData}
+            showDefaultTab={true}
+            locality={locality}
+            editable={editable}
+          />
+        }
+        {
+          showAmountModal && <AmountModal
+            project={selectedProject}
+            visible={showAmountModal}
+            setVisible={setShowAmountModal}
+          />
+        }
         <div className='table-map-list'>
-
-            <Table columns={columns} dataSource={data} pagination={false} scroll={{ x: 1026, y: 'calc(100vh - 270px)' }} summary={() => (
+            <Table columns={columns} dataSource={parsedData} pagination={false} scroll={{ x: 1026, y: 'calc(100vh - 270px)' }} summary={() => (
                 <Table.Summary fixed={ 'bottom'} >
                   <Table.Summary.Row  style={{ height: '40px' }}>
                       <Table.Summary.Cell index={0}  >
@@ -332,28 +330,16 @@ const TableListView = () => {
                       <Table.Summary.Cell index={1}  ></Table.Summary.Cell>
                       <Table.Summary.Cell index={2}></Table.Summary.Cell>
                       <Table.Summary.Cell index={3}>
-                        $980,000
+                        
                       </Table.Summary.Cell>
-                      <Table.Summary.Cell index={4}>
-                        $980,000
-                      </Table.Summary.Cell>
-                      <Table.Summary.Cell index={5}>
-                        $980,000
-                      </Table.Summary.Cell>
-                      <Table.Summary.Cell index={6}>
-                        $980,000
-                      </Table.Summary.Cell>
-                      <Table.Summary.Cell index={7}>
-                        $980,000
-                      </Table.Summary.Cell>
-                      <Table.Summary.Cell index={8}>
-                        $980,000
-                      </Table.Summary.Cell>
+                      {totalByYear.map((total: number, index: number) => {
+                        return <Table.Summary.Cell index={index + 4} key={index}>
+                          {formatter.format(total)}
+                        </Table.Summary.Cell>
+                      })
+                      }
                       <Table.Summary.Cell index={9}>
-                        $980,000
-                      </Table.Summary.Cell>
-                      <Table.Summary.Cell index={10}>
-                        $980,000
+                        {formatter.format(totalByYear.reduce((acc: number, curr: number) => acc + curr, 0))}
                       </Table.Summary.Cell>
                   </Table.Summary.Row>
                 </Table.Summary>
@@ -361,7 +347,7 @@ const TableListView = () => {
         />
 
         </div>
-
+        </>
     )
 };
 
