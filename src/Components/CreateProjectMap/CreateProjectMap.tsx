@@ -61,6 +61,8 @@ import {
   MENU_OPTIONS,
   MAPTYPES,
   MAINTENANCE_TRAILS,
+  REMOVAL_AREA,
+  REMOVAL_LINE,
 } from '../../constants/constants';
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
@@ -218,6 +220,8 @@ const CreateProjectMap = (type: any) => {
     SPECIAL_ITEM_AREA,
     SPECIAL_ITEM_LINEAR,
     SPECIAL_ITEM_POINT,
+    REMOVAL_AREA,
+    REMOVAL_LINE,
     MAINTENANCE_TRAILS,
     FLOOD_HAZARD_POLYGON,
     FLOOD_HAZARD_LINE,
