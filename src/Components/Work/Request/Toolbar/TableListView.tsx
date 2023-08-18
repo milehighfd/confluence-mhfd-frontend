@@ -118,6 +118,10 @@ const TableListView = () => {
                 text = 'span-requested';
                 break;
             }
+            default:{
+              text = 'span-submitted';
+                break;
+            }
         }
         return text;
     }
