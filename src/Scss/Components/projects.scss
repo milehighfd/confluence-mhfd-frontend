@@ -77,13 +77,14 @@
     }
     .project-name{
       border: none;
-      width: auto;
+      width: -webkit-fill-available;
       font-size: 24px;
       color: #11093C;
       word-wrap: break-word;
       resize: none;
       line-height: 27px;
       font-weight: 500;
+      margin-left: 20px;
       p{
         margin-top: 4px;
       }
@@ -964,13 +965,17 @@
       width: 100%;
     }
     .mapboxgl-ctrl-scale {
-      left: 55px;
-      position: absolute;
+      font-size: 25px;
+      padding: 12px 14px;
+      left: 85px;
       bottom: 30px;
-      width: auto !important;
-      border: none;
-      border-radius: 4px;
-      background: rgba(255, 255, 255, 0.8);
+      position: absolute;
+      height: 35px;
+      width: 45px !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
     }
   }
 }
@@ -1208,6 +1213,11 @@
   }
   .projects{
     // width: 1955px !important;
+    .map{
+      .mapboxgl-ctrl-group{
+       left: 25px;
+      }
+    }
     p{
       font-size: 22px;
       line-height: 25px;
