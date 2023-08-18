@@ -21,6 +21,7 @@ import { useMapDispatch, useMapState } from 'hook/mapHook';
 import TableListView from './Toolbar/TableListView';
 
 import { GOVERNMENT_STAFF, WORK_REQUEST, YEAR_LOGIC_2024 } from 'constants/constants';
+import MaintenanceTypesDropdown from '../../../routes/work-request/components/MaintenanceTypesDropdown';
 const { TabPane } = Tabs;
 
 const popovers: any = [
@@ -380,7 +381,16 @@ const RequestView = ({ type, widthMap }: {
                 <Col xs={{ span: 24 }} lg={{ span: 12 }}
                   style={{ textAlign: 'right' }}>
                 <div className='button-header-tab'>
-                  <YearDropdown />
+                  <div
+                    style={{
+                      display: 'flex',
+                      gap: '10px',
+                    }}
+                  >
+                    <MaintenanceTypesDropdown />
+                    <YearDropdown />
+                  </div>
+                  
                   <div className='button-header'>
                     <Button id='buttons-header' style={selectView === 'card' && widthMap === 15 ? {display:'none'}:{}} className={selectView === 'list' ? 'ico-header-tab-active' : 'ico-header-tab'} onClick={() => { setSelectView( 'list') }}>
                       {selectView === 'list' ? <img src='Icons/ic-list-purple.svg' alt='ic-list-purple' /> : <img src='Icons/ic-list.svg' alt='ic-list' />}
