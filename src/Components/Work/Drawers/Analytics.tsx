@@ -196,7 +196,7 @@ const Analytics = () => {
             </Row>
             <div style={{ textAlign: 'end' }}>
               <Button
-                className="btn-purple"
+                className="btn-purple btn-maintenence"
                 style={{ marginTop: '10px'}}
                 onClick={clickUpdate}
               >

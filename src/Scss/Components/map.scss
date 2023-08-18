@@ -2757,7 +2757,41 @@ hr.filters-line {
           -webkit-mask-size: 30px;
         }
       }
+    }
   }
+  .map-modal-layers {
+    width: 415px !important;
+    top: 107px !important;
+    right: 9%;
+    .ant-modal-body {
+      padding: 23px;
+      p{
+        font-size: 20px !important;
+      }
+      .ant-checkbox-inner {
+        width: 21px;
+        height: 21px;
+        border-radius: 4px;
+      }
+      .ant-checkbox-inner:after {
+        width: 6.714286px;
+        height: 11.142857px;
+      }
+      .ant-checkbox-wrapper {
+        font-size: 20px !important;
+        margin-bottom: 20px !important;
+        span{
+          font-size: 18px !important;
+        }
+      }
+    }
+    .btn-footer-modal-layers{
+      button{
+        font-size: 21px !important;
+        padding: 15px 20px !important;
+        height: auto !important;
+      }
+    }
   }
   .map-00{
     .mapboxgl-ctrl-group {
@@ -2820,6 +2854,12 @@ hr.filters-line {
   }
   .filter-map{
     max-height: calc(100vh - 200px);
+    p{
+      font-size: 13px;
+    }
+  }
+  .filter-coll-header {
+    font-size: 16px;
   }
   .pop-card-map {
     span{
