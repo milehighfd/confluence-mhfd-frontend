@@ -1254,7 +1254,7 @@
      }
     }
     .body-project{
-      height: calc(100vh - 300px);
+      height: calc(100vh - 249px);
       padding: 10px 35px;
       .sub-project .ant-select:not(.ant-select-customize-input) .ant-select-selector {
         width: 100px !important;
@@ -1270,9 +1270,13 @@
         min-height: 51px;
        }
       .ant-checkbox-inner {
-        width: 20px;
-        height: 20px;
+        width: 22px;
+        height: 22px;
         border-radius: 4px;
+      }
+      .ant-checkbox-inner:after {
+        width: 7.714286px;
+        height: 11.142857px;
       }
       .section-gemetry{
         .ant-radio-inner {
@@ -1283,7 +1287,7 @@
           width: 22px;
           height: 22px;
           margin-top: -11.5px;
-          margin-left: -10.5px;
+          margin-left: -11px;
         }
         .text-radio-btn{
           font-size: 22px;

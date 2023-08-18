@@ -2200,6 +2200,17 @@
         opacity: 1;
       }
     }
+    .detailed-header-button-layout{
+      .detailed-header-button-progress {
+        height: 39px;
+        .ant-progress-inner{
+          margin-top: 10px;
+        }
+        .ant-progress-bg{
+          height: 12px !important;
+        }
+      }
+    }
   }
   .detailed-header-button-circle {
     height: 42px;
@@ -2442,6 +2453,9 @@
     }
     .dropdown-view-phase{
       height: 50px;
+    }
+    .ant-input-affix-wrapper {
+      height: 50px !important;
     }
   }
 }

@@ -85,7 +85,7 @@ const FiltersProjectView = ({
         }
     }
     return <>
-        { <Tabs activeKey={tabPosition} tabBarExtraContent={genExtra()} onChange={(key) => setTabPosition(key)} className="main-map-tabs-filters over-00" onTabClick={(e: string) => {
+        { <Tabs activeKey={tabPosition} tabBarExtraContent={genExtra()} onChange={(key) => setTabPosition(key)} className="tabs-map over-00"onTabClick={(e: string) => {
             if (e === '0') {
                 setTabActive('0');
                 setFilterTabNumber(PROBLEMS_TRIGGER);
@@ -117,7 +117,7 @@ const FiltersProjectView = ({
                     tabLabel = `${value === 'Components' ? 'Actions' : value}`;
                 }
                 return (
-                    <TabPane key={'' + index} style={{ height: window.innerHeight - 240, overflow: 'auto' }} tab={<span><Popover content={contents[index]} placement="rightBottom">{tabLabel} </Popover> </span>}>
+                    <TabPane key={'' + index} style={{ height: window.innerHeight - 240, overflow: 'auto' }}  tab={<span><Popover content={contents[index]} placement="rightBottom">{tabLabel} </Popover> </span>}>
                         {!spinFilter && getFilterBody(value)}
                     </TabPane>
                 );

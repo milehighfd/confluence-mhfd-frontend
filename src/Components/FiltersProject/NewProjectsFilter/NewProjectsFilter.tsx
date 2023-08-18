@@ -109,7 +109,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
                 }
             </Col>
             <Col span={12} className={filtersObject?.filterby === FILTERS.PROJECT.COUNTY ? 'disabledchart': ''}>
-                <h5 className="filter-title chart-filter-title">County <Popover content={content1}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                <h5 className="filter-title chart-filter-title">County <Popover content={content1}><img src="/Icons/icon-19.svg" alt="" /></Popover> </h5>
                 {
                     paramProjects?.county &&
                     <TreeMap data={paramProjects.county} type={FILTERS.PROJECT.COUNTY} tab={'project'}
@@ -176,7 +176,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
         <hr className='filters-line'></hr>
         <Row className="filt-00" style={{ paddingRight: '0px', paddingLeft:'14px', marginBottom: 25 }} gutter={[24, 16]}>
             <Col span={12} style={{paddingLeft:'0px'}} className={filtersObject?.filterby === FILTERS.PROJECT.CONSULTANT ? 'disabledchart': ''}>
-                <h5 className="filter-title">Consultant <Popover content={content11}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                <h5 className="filter-title">Consultant <Popover content={content11}><img src="/Icons/icon-19.svg" alt="" /></Popover> </h5>
                 {
                     paramProjects?.consultant &&
                     <CheckBoxFilters defaultValue={""}
@@ -186,7 +186,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
                 }
             </Col>
             <Col span={12}  style={{paddingLeft:'6px'}} className={filtersObject?.filterby === FILTERS.PROJECT.CONTRACTOR ? 'disabledchart': ''}>
-                <h5 className="filter-title">Contractor <Popover content={content13}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                <h5 className="filter-title">Contractor <Popover content={content13}><img src="/Icons/icon-19.svg" alt="" /></Popover> </h5>
                 {
                     paramProjects?.contractor &&
                     <CheckBoxFilters defaultValue={""}
@@ -199,7 +199,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
         <hr className='filters-line'></hr>
         <Row className="filt-00" gutter={[24, 16]} style={{marginBottom: 25}}>
             <Col span={12} className={filtersObject?.filterby === FILTERS.PROJECT.JURISDICTION ? 'disabledchart': ''}>
-                <h5 className="filter-title">Local Government <Popover content={content2}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                <h5 className="filter-title">Local Government <Popover content={content2}><img src="/Icons/icon-19.svg" alt="" /></Popover> </h5>
                 {
                     paramProjects?.jurisdiction &&
                     <CheckBoxFilters defaultValue={''}
@@ -209,7 +209,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
                 }
             </Col>
             <Col span={12}>
-                <h5 className="filter-title">MHFD Lead <Popover content={content3}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                <h5 className="filter-title">MHFD Lead <Popover content={content3}><img src="/Icons/icon-19.svg" alt="" /></Popover> </h5>
                 {
                     paramProjects?.mhfdmanager &&
                     <CheckBoxFilters defaultValue={''}
@@ -222,7 +222,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
         <hr className='filters-line'></hr>
         <Row className="filt-00" gutter={[24, 16]} style={{marginBottom: 25}}>
             <Col span={12}>
-                <h5 className="filter-title">Local Government Lead <Popover content={content12}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                <h5 className="filter-title">Local Government Lead <Popover content={content12}><img src="/Icons/icon-19.svg" alt="" /></Popover> </h5>
                 {
                     paramProjects?.lgmanager &&
                     <>
@@ -248,7 +248,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
                 }
             </Col>
             <Col span={12}>
-                <h5 className="filter-title">Stream Name <Popover content={content14}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                <h5 className="filter-title">Stream Name <Popover content={content14}><img src="/Icons/icon-19.svg" alt="" /></Popover> </h5>
                 {
                     paramProjects?.streamname &&
                     <>
