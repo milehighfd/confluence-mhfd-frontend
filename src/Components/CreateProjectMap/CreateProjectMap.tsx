@@ -439,10 +439,10 @@ const CreateProjectMap = (type: any) => {
     if (map) {
       if (highlightedProblem.problemid && !magicAddingVariable) {
         showHighlightedProblem(highlightedProblem.problemid);
-
-        updateSelectedLayersCP([...selectedLayersCP, PROBLEMS_TRIGGER]);
+        // updateSelectedLayersCP([...selectedLayersCP, PROBLEMS_TRIGGER]);
       } else {
         hideHighlighted();
+        showHoverComponents();
       }
     }
   }, [highlightedProblem]);
