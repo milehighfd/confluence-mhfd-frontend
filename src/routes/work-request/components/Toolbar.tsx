@@ -42,11 +42,11 @@ const Toolbar = ({
     }
   }, [type, locality, localityFilter]);
 
-  // useEffect(() => {
-  //   if(tabKey && year){
-  //     search();
-  //   }
-  // }, [tabKey, year]);
+  useEffect(() => {
+    if(showSearch){
+      search();
+    }
+  }, [tabKey, year]);
 
   const handleIconClick = () => {
     setShowSearch(!showSearch);
@@ -60,7 +60,7 @@ const Toolbar = ({
     filterRequest.name = {searchValue, type: 'search_name'}
     loadColumns();
   };
-  const handdle = () => {
+  const handdleClose = () => {
     setSearchValue('');
     filterRequest.name = {searchValue : '', type: 'search_name'}
     loadColumns();
@@ -84,7 +84,7 @@ const Toolbar = ({
               className='search-input'
               style={{ maxWidth: '254', height: '34px', borderRadius:'4px' }}
               placeholder="Search" 
-              suffix={<CloseCircleFilled onClick={handdle} style={{color:'#11093c', opacity:'0.5'}}/>}
+              suffix={<CloseCircleFilled onClick={handdleClose} style={{color:'#11093c', opacity:'0.5'}}/>}
               value={searchValue}
               prefix={<SearchOutlined onClick={search} />}
               />

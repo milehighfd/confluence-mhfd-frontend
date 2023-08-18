@@ -1,5 +1,15 @@
 @use '../Theme/styles';
 @import '../Theme/styles.scss';
+
+
+.subtype-dropdown {
+  .ant-select-selector {
+    width: fit-content !important;
+  }
+  .ant-select-dropdown .ant-select-dropdown-placement-bottomLeft  {
+    width: fit-content !important;
+  }
+}
 .ant-notification-notice {
   border-bottom: 5px solid #29c499;
 }

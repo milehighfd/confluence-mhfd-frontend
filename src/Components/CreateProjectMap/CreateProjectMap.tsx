@@ -61,6 +61,8 @@ import {
   MENU_OPTIONS,
   MAPTYPES,
   MAINTENANCE_TRAILS,
+  REMOVAL_AREA,
+  REMOVAL_LINE,
 } from '../../constants/constants';
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
@@ -218,6 +220,8 @@ const CreateProjectMap = (type: any) => {
     SPECIAL_ITEM_AREA,
     SPECIAL_ITEM_LINEAR,
     SPECIAL_ITEM_POINT,
+    REMOVAL_AREA,
+    REMOVAL_LINE,
     MAINTENANCE_TRAILS,
     FLOOD_HAZARD_POLYGON,
     FLOOD_HAZARD_LINE,
@@ -322,6 +326,7 @@ const CreateProjectMap = (type: any) => {
       },
     );
     hideHighlighted();
+    showHoverComponents();
     typeRef.current = type.type
     if((type.type === 'STUDY' && type.projectid === -1) 
     || ((type.type !== 'CAPITAL' && type.type !== 'MAINTENANCE') && (type.lastValue === 'capital' || type.lastValue === 'maintenance'))
@@ -435,10 +440,10 @@ const CreateProjectMap = (type: any) => {
     if (map) {
       if (highlightedProblem.problemid && !magicAddingVariable) {
         showHighlightedProblem(highlightedProblem.problemid);
-
-        updateSelectedLayersCP([...selectedLayersCP, PROBLEMS_TRIGGER]);
+        // updateSelectedLayersCP([...selectedLayersCP, PROBLEMS_TRIGGER]);
       } else {
         hideHighlighted();
+        showHoverComponents();
       }
     }
   }, [highlightedProblem]);
@@ -448,6 +453,7 @@ const CreateProjectMap = (type: any) => {
         showHighlightedStream(highlightedStream.streamId);
       } else {
         hideHighlighted();
+        showHoverComponents();
       }
     }
   }, [highlightedStream]);
@@ -459,11 +465,13 @@ const CreateProjectMap = (type: any) => {
           showHighlightedStreams(codes);
         } else {
           hideHighlighted();
+          showHoverComponents();
         }
       }
     } else {
       if (map) {
         hideHighlighted();
+        showHoverComponents();
       }
     }
   }, [highlightedStreams]);
@@ -550,6 +558,7 @@ const CreateProjectMap = (type: any) => {
       componentsList = listComponents.result;
     } else {
       hideHighlighted();
+      showHoverComponents();
       // setStreamIntersected({ geom: null }); // TODO entender porque se borraba la intersection cuando no habia listcompoennts
       // setStreamsIds([]);
       if (!flagInit) {
@@ -636,6 +645,7 @@ const CreateProjectMap = (type: any) => {
         }
       } else {
         hideHighlighted();
+        showHoverComponents();
       }
       if (isAlreadyDraw) {
         map.removeDrawController();
@@ -849,7 +859,6 @@ const CreateProjectMap = (type: any) => {
     }
   };
   useEffect(() => {
-    console.log('selectedLayersCP', selectedLayersCP);
     if (map && selectedLayersCP.length > 0) {
       waiting();
     }
@@ -967,7 +976,7 @@ const CreateProjectMap = (type: any) => {
     }
     const currentType = typeRef.current;
     firstCallDraw = true;
-    removeProjectLayer();
+    // removeProjectLayer();
     setLoading(true);
     const userPolygon = event.features[0];
     if (currentType === 'CAPITAL') {
@@ -975,6 +984,7 @@ const CreateProjectMap = (type: any) => {
         getListComponentsByComponentsAndPolygon(componentsList, userPolygon.geometry);
       } else {
         hideHighlighted();
+        showHoverComponents();
         getStreamIntersectionPolygon(userPolygon.geometry);
       }
       getStreamsList(userPolygon.geometry, currentType);
@@ -1473,9 +1483,11 @@ const CreateProjectMap = (type: any) => {
               setFlagtoDraw(false);
               if (key.includes('stream_improvement_measure_copy')) {
                 hideHighlighted();
+                showHoverComponents();
                 showHighlighted(key, e.features[0].properties.objectid);
               } else {
                 hideHighlighted();
+                showHoverComponents();
                 showHighlighted(key, e.features[0].properties.cartodb_id);
               }
             }
@@ -1648,7 +1660,7 @@ const CreateProjectMap = (type: any) => {
     isPopup = true;
   };
   const addMarker = (e: any) => {
-    removeProjectLayer();
+    // removeProjectLayer();
     e.originalEvent.stopPropagation();
     map.removePopUpOffset();
     popup.remove();

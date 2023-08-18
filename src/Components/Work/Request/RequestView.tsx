@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { getBoardData3, getLocalitiesByBoardType } from 'dataFetching/workRequest';
 import useFakeLoadingHook from 'hook/custom/useFakeLoadingHook';
 import { useMyUser, useProfileDispatch, useProfileState } from 'hook/profileHook';
-import { useProjectDispatch } from 'hook/projectHook';
+import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 import { boardType } from 'Components/Work/Request/RequestTypes';
 import { defaultColumns } from 'Components/Work/Request/RequestViewUtil';
@@ -21,6 +21,8 @@ import { useMapDispatch, useMapState } from 'hook/mapHook';
 import TableListView from './Toolbar/TableListView';
 
 import { GOVERNMENT_STAFF, WORK_REQUEST, YEAR_LOGIC_2024 } from 'constants/constants';
+import MaintenanceTypesDropdown from '../../../routes/work-request/components/MaintenanceTypesDropdown';
+import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
 const { TabPane } = Tabs;
 
 const popovers: any = [
@@ -86,6 +88,9 @@ const RequestView = ({ type, widthMap }: {
   const users = useMyUser();
   const fakeLoading = useFakeLoadingHook(tabKey);
   const [selectView, setSelectView] = useState('card');
+  const {status} = useProjectState();
+  const { openNotification } = useNotifications();
+
 
   const {  
     tabActiveNavbar
@@ -101,6 +106,13 @@ const RequestView = ({ type, widthMap }: {
       resetOnClose();
     }
   }, [showModalProject]);
+  useEffect(() => {
+    // console.log('success---------------------------', status);
+    if(status === 0){
+      openNotification('Success! Your project save!', "success");
+      console.log('success');
+    }
+  }, [status]);
   useEffect(() => {
     if (!showCreateProject) {
       resetOnClose();
@@ -380,12 +392,21 @@ const RequestView = ({ type, widthMap }: {
                 <Col xs={{ span: 24 }} lg={{ span: 12 }}
                   style={{ textAlign: 'right' }}>
                 <div className='button-header-tab'>
-                  <YearDropdown />
+                  <div
+                    style={{
+                      display: 'flex',
+                      gap: '10px',
+                    }}
+                  >
+                    {/* <MaintenanceTypesDropdown /> */}
+                    <YearDropdown />
+                  </div>
+                  
                   <div className='button-header'>
-                    <Button id='buttons-header' style={selectView === 'card' && widthMap === 15 ? {display:'none'}:{}} className={selectView === 'list' ? 'ico-header-tab-active' : 'ico-header-tab'} onClick={() => { setSelectView( 'list') }}>
+                    {/* <Button id='buttons-header' style={selectView === 'card' && widthMap === 15 ? {display:'none'}:{}} className={selectView === 'list' ? 'ico-header-tab-active' : 'ico-header-tab'} onClick={() => { setSelectView( 'list') }}>
                       {selectView === 'list' ? <img src='Icons/ic-list-purple.svg' alt='ic-list-purple' /> : <img src='Icons/ic-list.svg' alt='ic-list' />}
                       List
-                    </Button>
+                    </Button> */}
                     <Button id='buttons-header'  style={selectView === 'list' && widthMap === 15 ? {display:'none'}:{}} className={selectView === 'card' ? 'ico-header-tab-active' : 'ico-header-tab'} onClick={() => { setSelectView('card') }}>
                       {selectView === 'card' ? <img src='Icons/ic-card-purple.svg' alt='ic-card-purple' /> : <img src='Icons/ic-card.svg' alt='ic-card' />}
                       Card

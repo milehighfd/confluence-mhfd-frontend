@@ -889,7 +889,6 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
               [Number(verifiedStatus)]: newValues,
             },
           };
-          // console.log('result ids grouped bwfore split ', result);
           // delete result.undefined;
           let idsToFilter: any = [];
           typeLayer?.forEach((type: any) => {
