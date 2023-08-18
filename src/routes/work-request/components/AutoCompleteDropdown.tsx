@@ -61,6 +61,7 @@ const AutoCompleteDropdown = (
         setDropdownSelected(MMFD_LOCALITY)
         setLocalityFilter(MMFD_LOCALITY);
         setLocalityType(MMFD_LOCALITY_TYPE);
+        setLocality('MHFD District Work Plan');
         // setTabKey(tabKeys[0]);
       } else {
         setDisableFilterComponent(false,'county')
