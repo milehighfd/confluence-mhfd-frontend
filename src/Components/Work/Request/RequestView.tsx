@@ -109,7 +109,7 @@ const RequestView = ({ type, widthMap }: {
   useEffect(() => {
     // console.log('success---------------------------', status);
     if(status === 0){
-      openNotification('Success! Your project save!', "success");
+      openNotification('Success! Your project was saved!', "success");
       console.log('success');
     }
   }, [status]);

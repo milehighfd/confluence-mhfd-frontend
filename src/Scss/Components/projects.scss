@@ -77,13 +77,14 @@
     }
     .project-name{
       border: none;
-      width: auto;
+      width: -webkit-fill-available;
       font-size: 24px;
       color: #11093C;
       word-wrap: break-word;
       resize: none;
       line-height: 27px;
       font-weight: 500;
+      margin-left: 20px;
       p{
         margin-top: 4px;
       }
