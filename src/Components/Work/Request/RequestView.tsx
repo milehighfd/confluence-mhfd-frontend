@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { getBoardData3, getLocalitiesByBoardType } from 'dataFetching/workRequest';
 import useFakeLoadingHook from 'hook/custom/useFakeLoadingHook';
 import { useMyUser, useProfileDispatch, useProfileState } from 'hook/profileHook';
-import { useProjectDispatch } from 'hook/projectHook';
+import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 import { boardType } from 'Components/Work/Request/RequestTypes';
 import { defaultColumns } from 'Components/Work/Request/RequestViewUtil';
@@ -22,6 +22,7 @@ import TableListView from './Toolbar/TableListView';
 
 import { GOVERNMENT_STAFF, WORK_REQUEST, YEAR_LOGIC_2024 } from 'constants/constants';
 import MaintenanceTypesDropdown from '../../../routes/work-request/components/MaintenanceTypesDropdown';
+import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
 const { TabPane } = Tabs;
 
 const popovers: any = [
@@ -87,6 +88,9 @@ const RequestView = ({ type, widthMap }: {
   const users = useMyUser();
   const fakeLoading = useFakeLoadingHook(tabKey);
   const [selectView, setSelectView] = useState('card');
+  const {status} = useProjectState();
+  const { openNotification } = useNotifications();
+
 
   const {  
     tabActiveNavbar
@@ -102,6 +106,13 @@ const RequestView = ({ type, widthMap }: {
       resetOnClose();
     }
   }, [showModalProject]);
+  useEffect(() => {
+    // console.log('success---------------------------', status);
+    if(status === 0){
+      openNotification('Success! Your project save!', "success");
+      console.log('success');
+    }
+  }, [status]);
   useEffect(() => {
     if (!showCreateProject) {
       resetOnClose();
