@@ -104,7 +104,7 @@ export const saveCapital = (data: any) => {
     });
     datasets.postDataMultipart(SERVER.CREATE_PROJECT_GENERAL, formData, datasets.getToken()).then(res => {
       let status ; 
-      if(res && res.total_rows && res.total_rows > 0 ){
+      if(res && res.project_data){
         status = 1;
       }else{
         status = 0;
@@ -367,7 +367,7 @@ export const editCapital = (data: any) => {
     datasets.postDataMultipart(SERVER.EDIT_PROJECT(data.editProject), formData, datasets.getToken()).then(res => {
       
       let status ; 
-      if(res && res.total_rows && res.total_rows > 0 ){
+      if(res && res.project_update){
         status = 1;
       }else{
         status = 0;

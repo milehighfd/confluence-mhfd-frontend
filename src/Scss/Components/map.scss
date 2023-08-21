@@ -291,15 +291,14 @@
   }
 
   .ant-input-clear-icon {
-    color: rgba(0, 0, 0, .25);
+    color: rgba(0, 0, 0, 0.25);
     margin-right: 10px;
-    font-size: 12px;
+    font-size: 14px;
     cursor: pointer;
-    -webkit-transition: color .3s;
-    transition: color .3s;
+    transition: color 0.3s;
     vertical-align: 0;
     z-index: 2;
-
+    margin-top: 1px;
   }
 
   .style-input {
@@ -1590,12 +1589,12 @@
   }
 
   .ant-input-clear-icon {
-    color: rgba(0, 0, 0, .25);
-    margin-right: 30px;
-    font-size: 20px;
+    color: rgba(0, 0, 0, 0.25);
+    margin-right: 27px;
+    font-size: 16px;
+    margin-top: 3px;
     cursor: pointer;
-    -webkit-transition: color .3s;
-    transition: color .3s;
+    transition: color 0.3s;
     vertical-align: 0;
     z-index: 2;
   }
@@ -1664,6 +1663,7 @@
   .head-filter {
     .ant-input-clear-icon {
       margin-right: 40px !important;
+      font-size: 20px !important;
     }
   }
   .mdi-circle {
