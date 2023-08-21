@@ -536,11 +536,13 @@ export const ModalCapital = ({
     }
   }, [save]);
   useEffect(() => {
-    console.log('Status', status);
-    if(status === 1){
+    if(status === 1 || status === 0) {
       setVisible(false);
       setVisibleCapital(false);
       setLoading(false);
+    } else {
+      setLoading(false);
+      setSave(false);
     }
   }, [status]);
   //Check if required fields are filled to enable save button

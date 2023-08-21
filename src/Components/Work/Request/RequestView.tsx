@@ -108,8 +108,7 @@ const RequestView = ({ type, widthMap }: {
   }, [showModalProject]);
   useEffect(() => {
     // console.log('success---------------------------', status);
-    // TODO, review what does the status means
-    if(status === 1){
+    if(status === 0){
       openNotification('Success! Your project was saved!', "success");
       console.log('success');
     }
