@@ -3,12 +3,15 @@ import { Col, Collapse, InputNumber, Row, Timeline } from 'antd';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { priceFormatter, priceParser, formatter } from 'Components/Work/Request/RequestViewUtil';
 import { UseDebouncedEffect } from "routes/Utils/useDebouncedEffect";
+import { MAINTENANCE, WORK_SPACE, WORK_REQUEST } from 'constants/constants';
+import { useMapState } from 'hook/mapHook';
 
 const { Panel } = Collapse;
 
 const RequestCostRows = () => {
   const {
     sumByCounty,
+    sumByLocalGov,
     tabKey,
     diff,
     reqManager,
@@ -16,11 +19,14 @@ const RequestCostRows = () => {
     showFilters: isFiltered,
     sumTotal,
     year,
+    columns2
   } = useRequestState();
+  const { tabActiveNavbar } = useMapState();
+
   const { setReqManager, updateTargetCost } = useRequestDispatch();
   const [ targetCosts, setTargetCosts ] = useState([]);
   const [openCollaps, setOpenCollaps] = useState(false);
-
+  const sumBy = tabActiveNavbar === WORK_REQUEST ? sumByCounty : sumByLocalGov;
   UseDebouncedEffect(() => {
     if (targetCosts.length > 0) {
       const formattedTargetCosts = {
@@ -64,10 +70,15 @@ const RequestCostRows = () => {
             <div className='body-1'>
               <Row>
                 <Col span={4} ></Col>
-                {
+                { tabKey !== MAINTENANCE &&
                   [0,1,2,3,4].map(y => (
-                    <Col span={4} key={y}>{year+y}</Col>
+                    <Col span={4} key={y}>{`${parseInt(year)+y}`}</Col>
                   ))
+                }
+                { tabKey === MAINTENANCE &&
+                columns2.map((y: any, index : any) => ( 
+                  y.title !== WORK_SPACE && <Col span={4} key={index}>{y.title}</Col>
+                ))
                 }
               </Row>
             </div>
@@ -86,7 +97,7 @@ const RequestCostRows = () => {
                 <Col span={4} >
                   <Timeline>
                     {
-                      sumByCounty.map((countySum: any) => (
+                      sumBy.map((countySum: any) => (
                         <Timeline.Item key={countySum.locality} style={{ opacity: isFiltered ? 0.5 : 1 }}>
                           {countySum.locality}
                         </Timeline.Item>
@@ -96,7 +107,7 @@ const RequestCostRows = () => {
                 </Col>
                 <Col span={4} className='row-col-3' style={{paddingLeft:'14px'}}>
                   {
-                    sumByCounty.map((countySum: any) => (
+                    sumBy.map((countySum: any) => (
                       <div className='row-col-1' key={countySum.locality}>
                         {countySum.req1 ? formatter.format(Math.floor(countySum.req1)) : `$0`}
                       </div>
@@ -105,7 +116,7 @@ const RequestCostRows = () => {
                 </Col>
                 <Col span={4} className='row-col-3' style={{paddingLeft:'11px'}}>
                   {
-                    sumByCounty.map((countySum: any) => (
+                    sumBy.map((countySum: any) => (
                       <div className='row-col-1' key={countySum.locality}>
                         {countySum.req2 ? formatter.format(Math.floor(countySum.req2)) : `$0`}
                       </div>
@@ -114,7 +125,7 @@ const RequestCostRows = () => {
                 </Col>
                 <Col span={4} className='row-col-3' style={{paddingLeft:'8px'}}>
                  {
-                    sumByCounty.map((countySum: any) => (
+                    sumBy.map((countySum: any) => (
                       <div className='row-col-1' key={countySum.locality}>
                         {countySum.req3 ? formatter.format(Math.floor(countySum.req3)) : `$0`}
                       </div>
@@ -123,7 +134,7 @@ const RequestCostRows = () => {
                 </Col>
                 <Col span={4} className='row-col-3' style={{paddingLeft:'6px'}}>
                  {
-                    sumByCounty.map((countySum: any) => (
+                    sumBy.map((countySum: any) => (
                       <div className='row-col-1' key={countySum.locality}>
                         {countySum.req4 ? formatter.format(Math.floor(countySum.req4)) : `$0`}
                       </div>
@@ -132,7 +143,7 @@ const RequestCostRows = () => {
                 </Col>
                 <Col span={4} className='row-col-3' style={{paddingLeft:'4px'}}>
                   {
-                    sumByCounty.map((countySum: any) => (
+                    sumBy.map((countySum: any) => (
                       <div className='row-col-1' key={countySum.locality}>
                         {countySum.req5 ? formatter.format(Math.floor(countySum.req5)) : `$0`}
                       </div>
@@ -184,7 +195,7 @@ const RequestCostRows = () => {
           </div>
         </Panel>
       </Collapse>
-      {openCollaps && tabKey !== 'Maintenance' && <>
+      {openCollaps && tabKey !== MAINTENANCE && <>
         <div className="col-bg">
           <div><h5>Target Cost</h5></div>
           {
