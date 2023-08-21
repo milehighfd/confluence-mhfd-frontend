@@ -454,7 +454,6 @@ const TableListView = ({
                         
                       </Table.Summary.Cell>
                       {totalByYear.map((total: number, index: number) => {
-                        console.log('total', total,'___', index, 'Index')
                         if(namespaceId.projecttype !== 'Maintenance') {
                           return <Table.Summary.Cell index={index + 4} key={index}>
                             {formatter.format(total)}
