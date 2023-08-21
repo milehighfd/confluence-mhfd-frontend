@@ -331,7 +331,7 @@ export const loadColumns = () => {
       }      
       dispatchSumByGroup(types.REQUEST_SET_SUM_BY_COUNTY, 'project_counties');
       dispatchSumByGroup(types.REQUEST_SET_SUM_BY_SA, 'project_service_areas');
-      dispatchSumByGroup(types.REQUEST_SET_SUM_BY_LG, 'project_local_governments');
+      dispatchSumByGroup(types.REQUEST_SET_SUM_BY_LG, 'project_partners_for_total');
       dispatch({
         type: types.REQUEST_SET_SUM_TOTAL,
         payload: totalByGroupMap
@@ -582,8 +582,8 @@ export const recalculateTotals = () => {
     });
     dispatch({
       type: types.REQUEST_SET_SUM_BY_LG,
-      payload: Object.keys(sumByGroupMapTotal['project_local_governments'] || {}).map(
-        (key: any) => sumByGroupMapTotal['project_local_governments'][key]
+      payload: Object.keys(sumByGroupMapTotal['project_partners_for_total'] || {}).map(
+        (key: any) => sumByGroupMapTotal['project_partners_for_total'][key]
       )
     });
     dispatch({
