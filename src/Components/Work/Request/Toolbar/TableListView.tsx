@@ -13,7 +13,11 @@ import AmountModal from '../AmountModal';
 import ModalProjectView from 'Components/ProjectModal/ModalProjectView';
 import { postData } from 'Config/datasets';
 
-const TableListView = () => {
+const TableListView = ({
+  maintenanceSubType
+}:{
+  maintenanceSubType:string
+}) => {
   const [completeProjectData, setCompleteProjectData] = useState<any>(null);
   const [showAmountModal, setShowAmountModal] = useState(false);
   const [windowWidth, setWindowWidth] = useState(WINDOW_WIDTH);
@@ -98,7 +102,8 @@ const TableListView = () => {
           requestor: project?.origin,
           projectData: project?.projectData,
           board_project_id: project?.board_project_id,
-          costs:[]
+          costs:[],
+          past: 0,
         };
         projectMap[extracted.key] = extracted;
       }
@@ -112,7 +117,10 @@ const TableListView = () => {
           };
         });
       }
-      setMaintenanceData(parsedDataWCosts);
+      const filteredData = parsedDataWCosts.filter((item: any) => {
+        return item?.projectData?.code_project_type?.project_type_name === maintenanceSubType;
+      });
+      setMaintenanceData(filteredData);
       const boardProjectIds = Object.values(projectMap).map((project) => project.board_project_id);
       setBoardProjectIds(boardProjectIds);
       const years = [];
@@ -130,7 +138,8 @@ const TableListView = () => {
           requestor: project?.origin,
           projectData: project?.projectData,
           board_project_id: project?.board_project_id,
-          costs: []
+          costs: [],
+          past: 0,
         };
         for (let i = 1; i <= 5; i++) {
           extracted.costs.push(project[`req${i}`] || 0);
@@ -163,7 +172,7 @@ const TableListView = () => {
       }
       setParsedData(parsedDataWCosts);
     }        
-  }, [columnsList,pastCosts]);  
+  }, [columnsList,pastCosts,maintenanceSubType]);  
   
   useEffect(() => {
     postData(`${SERVER.GET_PAST_DATA}`, { boardId: namespaceId})
