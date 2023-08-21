@@ -522,9 +522,10 @@
         margin-top: 23px;
         background-color: #f5f7ff;
         padding-left: 21px;
-        .ant-col{
-          display: flex;
-          align-items: center;
+        .cost-row {
+          .row-col-1 {
+            padding-bottom: 10px;
+          }
         }
         .row-col-3 {
           margin-top: -4px;
