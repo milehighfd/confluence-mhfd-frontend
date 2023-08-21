@@ -1728,7 +1728,7 @@
     .ant-timeline-item-tail {
       left: 3px !important;
     }
-  }
+  }  
   .work-head {
     h2 {
       font-size: 27px;
@@ -1782,9 +1782,11 @@
   }
   .cost-wr {
     font-size: 16px;
-
     .ant-collapse-icon-position-left > .ant-collapse-item > .ant-collapse-header {
       height: 54px;
+    }
+    .ant-timeline-item-head-blue {
+      top: 4px
     }
     .tab-head-project {
       font-size: 16px;
@@ -2517,9 +2519,11 @@
   }
   .cost-wr {
     font-size: 21px !important;
-
     .ant-collapse-icon-position-left > .ant-collapse-item > .ant-collapse-header {
       height: 70px !important;
+    }
+    .ant-timeline-item-head-blue {
+      top: 5px;
     }
     .ant-collapse-header {
       a {
