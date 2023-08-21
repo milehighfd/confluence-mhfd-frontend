@@ -102,7 +102,8 @@ const TableListView = ({
           requestor: project?.origin,
           projectData: project?.projectData,
           board_project_id: project?.board_project_id,
-          costs:[]
+          costs:[],
+          past: 0,
         };
         projectMap[extracted.key] = extracted;
       }
@@ -137,7 +138,8 @@ const TableListView = ({
           requestor: project?.origin,
           projectData: project?.projectData,
           board_project_id: project?.board_project_id,
-          costs: []
+          costs: [],
+          past: 0,
         };
         for (let i = 1; i <= 5; i++) {
           extracted.costs.push(project[`req${i}`] || 0);
