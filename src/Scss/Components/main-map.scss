@@ -1331,6 +1331,10 @@ hr.filters-line {
     font-size: 14px;
     padding: 14px 0px;
     margin-top: 3px;
+    .progress{
+      width: 200px;
+      left: -15px;
+    }
   }
   .card-button-hover {
     height: 200px;

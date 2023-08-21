@@ -15,6 +15,9 @@ const Filter = () => {
     filterRequest,
     disableFilterServiceArea,
     disableFilterCounty,
+    isListView,
+    namespaceId,
+    filterYear
   } = useRequestState();
   const {
     tabActiveNavbar
@@ -22,7 +25,8 @@ const Filter = () => {
   const { 
     setShowFilters, 
     loadColumns, 
-    setFilterRequest
+    setFilterRequest,
+    setFilterYear
   } = useRequestDispatch();
   let jurisdictionFilterList: any[] = filterMap['project_local_governments'];
   let countiesFilterList: any[] = filterMap['project_counties'];
@@ -44,6 +48,7 @@ const Filter = () => {
   const [sponsorFilter, setSponsorFilter] = useState<any[]>([]);
   const [priorityFilter, setPriorityFilter] = useState<any[]>([]);
   const [resetFilter, setResetFilter] = useState(true);
+  const [yearFilter, setYearFilter] = useState<any[]>([]);
 
   useEffect(() => {
     if (year >= YEAR_LOGIC_2024 ) {
@@ -77,10 +82,28 @@ const Filter = () => {
     setProjectStatusFilter(statusFilter);
     setSponsorFilter(sortedFilterRequest.filter((f: any) => f.type === 'project_partners'));
     setPriorityFilter(sortedFilterRequest.filter((f: any) => f.type === 'project_priorities'));
+    const year = +namespaceId.year;
+    const years = [];
+    for (let i = 0; i <= 2; i++) {
+      years.push({ id: year + i, name: year + i, selected: false, type: 'year' });
+    }
+    if (namespaceId.projecttype !== 'Maintenance') {
+      for (let i = 3; i <= 4; i++) {
+        years.push({ id: year + i, name: year + i, selected: false, type: 'year' });
+      }
+    }
+    const updatedYears = years.map((yearObj) => {
+      if (filterYear.includes(yearObj.name)) {
+        return { ...yearObj, selected: true };
+      }
+      return yearObj;
+    });
+    setYearFilter(updatedYears);
   }, [filterRequest,resetFilter]);
 
   const applyFilters = () => {
     loadColumns();
+    setFilterYear(yearFilter.filter((f: any) => f.selected).map((f: any) => f.id));
   }
   const reset = () => {
     let filterRequestReset = filterRequest.map((f: any) => {
@@ -116,6 +139,13 @@ const Filter = () => {
         <FilterGroup
           label="Project Status"
           filterList={projectStatusFilter}
+        />
+      }
+      { isListView &&
+        <FilterGroup
+          label="Funding Year"
+          filterList={yearFilter}
+          setYearFilter={setYearFilter}
         />
       }
       {

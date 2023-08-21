@@ -64,6 +64,17 @@ export const postDataMultipart = (url: any, body: any, token?: any) => {
       console.log(err);
     });
 }
+export const postDataMultipartWithoutCatch = (url: any, body: any, token?: any) => {
+  const headers = token ? MultiPartOptions(token) : MultiPart();
+  return fetch(url, {
+      method: 'POST',
+      headers,
+      body: body
+  })
+  .then(handleErrors)
+  .then(data => {return (data);});
+}
+
 
 export const putData = (url: any, body: any, token?: any) => {
     const headers = token ? JSONOptions(token) : JSONDefault();

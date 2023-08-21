@@ -24,7 +24,7 @@ const TableListView = ({
   const {setZoomProject, updateSelectedLayers} = useProjectDispatch();
   const [isHovered, setIsHovered] = useState(false);
   const { tabActiveNavbar } = useMapState();
-  const { columns2: columnsList, tabKey, locality, year, namespaceId, boardStatus } = useRequestState();
+  const { columns2: columnsList, tabKey, locality, year, namespaceId, boardStatus, filterYear } = useRequestState();
   const { userInformation } = useProfileState();
   const [parsedData, setParsedData] = useState<any[]>([]);
   const [maintenanceData, setMaintenanceData] = useState<any[]>([]);
@@ -72,7 +72,36 @@ const TableListView = ({
               }
             }            
           })
-          setParsedData(addCosts);
+          if (filterYear && filterYear.length > 0) {
+            const filterDataWY = addCosts.filter(project => {
+              for (let year of filterYear) {
+                const yearIndex = yearList.indexOf(year);
+                if (project.costs[yearIndex]) {
+                  return true;
+                }
+              }
+              return false;
+            });
+            const totalCosts = filterDataWY.reduce((acc, project) => {
+              return [
+                acc[0] + project.costs[0],
+                acc[1] + project.costs[1],
+                acc[2] + project.costs[2],
+              ];
+            }, [0, 0, 0]);
+            setTotalByYear(totalCosts);
+            setParsedData(filterDataWY);
+          } else {
+            const totalCosts = addCosts.reduce((acc, project) => {
+              return [
+                acc[0] + project.costs[0],
+                acc[1] + project.costs[1],
+                acc[2] + project.costs[2],
+              ];
+            }, [0, 0, 0]);
+            setTotalByYear(totalCosts);
+            setParsedData(addCosts);
+          }
         }
       )
     }
@@ -91,7 +120,6 @@ const TableListView = ({
         allProjects = allProjects.concat(item.projects);
       }
     });
-
     if (namespaceId.projecttype === 'Maintenance') {      
       const projectMap: { [key: number]: any } = {};
       for (let project of allProjects) {
@@ -170,9 +198,22 @@ const TableListView = ({
           };
         });
       }
-      setParsedData(parsedDataWCosts);
+      if (filterYear && filterYear.length > 0) {
+        const filterDataWY = parsedDataWCosts.filter(project => {
+          for (let year of filterYear) {
+            const yearIndex = years.indexOf(year);
+            if (project.costs[yearIndex] !== 0) {
+              return true;
+            }
+          }
+          return false;
+        });
+        setParsedData(filterDataWY);
+      } else {
+        setParsedData(parsedDataWCosts);
+      }
     }        
-  }, [columnsList,pastCosts,maintenanceSubType]);  
+  }, [columnsList,pastCosts,maintenanceSubType,filterYear]);  
   
   useEffect(() => {
     postData(`${SERVER.GET_PAST_DATA}`, { boardId: namespaceId})
@@ -420,7 +461,6 @@ const TableListView = ({
           window.removeEventListener('resize', updateWindowSize);
         };
       }, [])
-
     return (
       <>
         {
@@ -443,7 +483,7 @@ const TableListView = ({
         }
         <div className='table-map-list'>
             <Table columns={filteredColumns} dataSource={parsedData} pagination={false} scroll={{ x: 1026, y: 'calc(100vh - 270px)' }} summary={() => (
-                <Table.Summary fixed={ 'bottom'} >
+                <Table.Summary fixed={ 'bottom'}  >
                   <Table.Summary.Row  style={{ height: '40px' }}>
                       <Table.Summary.Cell index={0}  >
                         Total Requested Funding
@@ -454,14 +494,19 @@ const TableListView = ({
                         
                       </Table.Summary.Cell>
                       {totalByYear.map((total: number, index: number) => {
-                        return <Table.Summary.Cell index={index + 4} key={index}>
-                          {formatter.format(total)}
-                        </Table.Summary.Cell>
-                      })
-                      }
-                      <Table.Summary.Cell index={9}>
+                        if (namespaceId.projecttype !== 'Maintenance' || index !== 4) {
+                          return (
+                            <Table.Summary.Cell index={index + 4} key={index}>
+                              {formatter.format(total)}
+                            </Table.Summary.Cell>
+                          );
+                        }
+                        return null;
+                      })}
+                      {<Table.Summary.Cell index={totalByYear.length + 3}>
                         {formatter.format(totalByYear.reduce((acc: number, curr: number) => acc + curr, 0))}
                       </Table.Summary.Cell>
+                      }
                   </Table.Summary.Row>
                 </Table.Summary>
             )}

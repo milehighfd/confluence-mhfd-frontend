@@ -52,6 +52,8 @@ import {
   toggleFilter,
   setFilterRequest,
   setDisableFilterComponent,
+  setListView,
+  setFilterYear,
 } from 'store/actions/requestActions';
 import { DragAndDropCards } from 'store/types/requestTypes';
 
@@ -213,6 +215,12 @@ export const useRequestDispatch = () => {
   const _setDisableFilterComponent = useCallback((disable: boolean, localityType: string) => {
     dispatch(setDisableFilterComponent(disable, localityType));
   }, [dispatch]);
+  const _setIsListView = useCallback((isListView: boolean) => {
+    dispatch(setListView(isListView));
+  }, [dispatch]);
+  const _setFilterYear = useCallback((filterYear: any) => {
+    dispatch(setFilterYear(filterYear));
+  }, [dispatch]);
   return {
     setShowModalProject: _setShowModalProject,
     setCompleteProjectData: _setCompleteProjectData,
@@ -265,5 +273,7 @@ export const useRequestDispatch = () => {
     toggleFilter: _toggleFilter,
     setFilterRequest: _setFilterRequest,
     setDisableFilterComponent: _setDisableFilterComponent,
+    setIsListView: _setIsListView,
+    setFilterYear: _setFilterYear,
   };
 };
