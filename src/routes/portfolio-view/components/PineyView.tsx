@@ -41,6 +41,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
   const [sendEndDate,setSendEndDate] = useState<any>()
   const [duration,setDuration] = useState<any>()
   const [remaining,setRemaining] = useState<any>()
+  const [disabledLG, setDisabledLG] = useState(appUser?.isLocalGovernment || appUser?.userInformation?.designation === 'government_staff');
   const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"];
   const formatter = new Intl.NumberFormat('en-US', {
@@ -76,7 +77,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
       })
    
   }, [updateList,note])
-
+  
   useEffect(() => {
     const scrollPosition = document.getElementById('pineyBody')
     if(scrollPosition){
@@ -260,7 +261,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
             onChange={handleOnchange}
             value={newNote}
             placeholder="Add note here"
-            disabled={appUser?.isLocalGovernment ? true : false}
+            disabled={disabledLG}
           />
           <div className="form-text-calendar">
             <Row>
@@ -298,7 +299,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 <p className="text-piney-body">
                   {!actualStartDate ? 'No Data Available ' : actualStartDate+" "}
-                  {!appUser?.isLocalGovernment && <span className='span-tollgate' style={{ textDecorationLine: 'underline' }} onClick={() => { openTollModal() }}>Edit</span>}
+                  {!disabledLG && <span className='span-tollgate' style={{ textDecorationLine: 'underline' }} onClick={() => { openTollModal() }}>Edit</span>}
                 </p>
               </Col>
             </Row>
@@ -309,7 +310,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 <p className="text-piney-body">
                   {!actualEndDate ? 'No Data Available ' : actualEndDate+" "}
-                  {!appUser?.isLocalGovernment && <span className='span-tollgate' style={{ textDecorationLine: 'underline' }} onClick={() => { openTollModal() }}>Edit</span>}
+                  {!disabledLG && <span className='span-tollgate' style={{ textDecorationLine: 'underline' }} onClick={() => { openTollModal() }}>Edit</span>}
                 </p>
               </Col>
             </Row>
@@ -341,7 +342,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
           </Row>
           {actionList.map((x: any) => {
             return (<div key={x.code_rule_action_item_id} className={x.isChecked ? "checkbox-select-active checkbox-select" : "checkbox-select"}
-              onClick={appUser?.isLocalGovernment ? undefined : (e) => {
+              onClick={disabledLG ? undefined : (e) => {
                 if (x.isChecked) {
                   deleteData(x)
                 } else {
