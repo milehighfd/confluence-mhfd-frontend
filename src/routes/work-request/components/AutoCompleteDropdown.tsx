@@ -171,7 +171,7 @@ const AutoCompleteDropdown = (
         showAllOptions ? (
           <AutoComplete
             className={'ant-select-1'}
-            options={renderOption.length > 0 ? [...dataAutocomplete.map(renderOption), {}] : dataAutocomplete.map(renderOption)}
+            options={ dataAutocomplete.map(renderOption)}
             placeholder={localityFilter}
             filterOption={(inputValue, option: any) => {
               if (dataAutocomplete.includes(inputValue)) {

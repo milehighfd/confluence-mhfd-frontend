@@ -59,6 +59,8 @@ const initialState = {
   filterRequest: [],
   disableFilterCounty: false,
   disableFilterServiceArea: false,
+  filterYear: [],
+  isListView: false,
 };
 
 const requestReducer = (state = initialState, action: any) => {
@@ -346,6 +348,16 @@ const requestReducer = (state = initialState, action: any) => {
       return {
         ...state,
         disableFilterServiceArea: action.payload
+      };
+    case types.SET_IS_LIST_VIEW:
+      return {
+        ...state,
+        isListView: action.payload
+      };
+    case types.SET_FILTER_YEAR:
+      return {
+        ...state,
+        filterYear: action.payload
       };
     case types.REQUEST_EMPTY_BOARD:
       return {

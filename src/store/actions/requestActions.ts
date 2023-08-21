@@ -675,6 +675,24 @@ export const setFilterRequest = (payload: any) => {
   }
 };
 
+export const setListView = (payload: any) => {
+  return (dispatch: any) => {
+    dispatch({
+      type: types.SET_IS_LIST_VIEW,
+      payload
+    })
+  }
+};
+
+export const setFilterYear = (payload: any) => {
+  return (dispatch: any) => {
+    dispatch({
+      type: types.SET_FILTER_YEAR,
+      payload
+    })
+  }
+};
+
 export const setDisableFilterComponent = (disable: any, localityType: any) => {
   if (localityType === 'county') {
     console.log('setcounty to true')
