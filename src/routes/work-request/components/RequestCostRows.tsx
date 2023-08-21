@@ -70,15 +70,13 @@ const RequestCostRows = () => {
             <div className='body-1'>
               <Row>
                 <Col span={4} ></Col>
-                { tabKey !== MAINTENANCE &&
+                { tabKey !== MAINTENANCE ?
                   [0,1,2,3,4].map(y => (
                     <Col span={4} key={y}>{`${parseInt(year)+y}`}</Col>
+                  )) :
+                  columns2.map((y: any, index: any) => (
+                    y.title !== WORK_SPACE && <Col span={4} key={index}>{y.title}</Col>
                   ))
-                }
-                { tabKey === MAINTENANCE &&
-                columns2.map((y: any, index : any) => ( 
-                  y.title !== WORK_SPACE && <Col span={4} key={index}>{y.title}</Col>
-                ))
                 }
               </Row>
             </div>
