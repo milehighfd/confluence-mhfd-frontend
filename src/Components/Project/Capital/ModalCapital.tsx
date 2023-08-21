@@ -29,6 +29,7 @@ import { Countywide } from '../TypeProjectComponents/Countywide';
 import { TypeProjectsMenu } from '../TypeProjectComponents/TypeProjectMenu';
 import { setStreamsList } from 'store/actions/ProjectActions';
 import { deletefirstnumbersmhfdcode } from 'utils/utils';
+import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -142,6 +143,7 @@ export const ModalCapital = ({
     listStreams,
     streamsIntersectedIds,
   } = useProjectState();
+  const [loading, setLoading] = useState(false);
   const { userInformation } = useProfileState();
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
@@ -404,6 +406,7 @@ export const ModalCapital = ({
     const countyList: any = [];
     const serviceAreaList: any = [];
     if (save === true) {
+      setLoading(true);
       groupOrganization.forEach((item: any) => {
         if (item.table === 'CODE_LOCAL_GOVERNMENT') {
           jurisdictionList.push(item);
@@ -537,6 +540,7 @@ export const ModalCapital = ({
     if(status === 1){
       setVisible(false);
       setVisibleCapital(false);
+      setLoading(false);
     }
   }, [status]);
   //Check if required fields are filled to enable save button
@@ -999,6 +1003,7 @@ export const ModalCapital = ({
 
     return (
     <>
+    {loading && <LoadingViewOverall></LoadingViewOverall>}
     {visibleAlert && <AlertView
       isWorkPlan={isWorkPlan}
       visibleAlert = {visibleAlert}
