@@ -98,39 +98,29 @@ const RequestCostRows = () => {
                       <Row className="cost-row">
                         <Col>{countySum.locality}</Col>
                         <Col span={4} className="row-col-3">
-                          {sumBy.map((countySum: any) => (
                             <div className="row-col-1" key={countySum.locality}>
                               {countySum.req1 ? formatter.format(Math.floor(countySum.req1)) : `$0`}
                             </div>
-                          ))}
                         </Col>
                         <Col span={4} className="row-col-3">
-                          {sumBy.map((countySum: any) => (
                             <div className="row-col-1" key={countySum.locality}>
                               {countySum.req2 ? formatter.format(Math.floor(countySum.req2)) : `$0`}
                             </div>
-                          ))}
                         </Col>
                         <Col span={4} className="row-col-3">
-                          {sumBy.map((countySum: any) => (
                             <div className="row-col-1" key={countySum.locality}>
                               {countySum.req3 ? formatter.format(Math.floor(countySum.req3)) : `$0`}
                             </div>
-                          ))}
                         </Col>
                         <Col span={4} className="row-col-3">
-                          {sumBy.map((countySum: any) => (
                             <div className="row-col-1" key={countySum.locality}>
                               {countySum.req4 ? formatter.format(Math.floor(countySum.req4)) : `$0`}
                             </div>
-                          ))}
                         </Col>
                         <Col span={4} className="row-col-3">
-                          {sumBy.map((countySum: any) => (
                             <div className="row-col-1" key={countySum.locality}>
                               {countySum.req5 ? formatter.format(Math.floor(countySum.req5)) : `$0`}
                             </div>
-                          ))}
                         </Col>
                       </Row>
                     </Timeline.Item>
