@@ -96,31 +96,33 @@ const RequestCostRows = () => {
                   {sumBy.map((countySum: any) => (
                     <Timeline.Item key={countySum.locality} style={{ opacity: isFiltered ? 0.5 : 1 }}>
                       <Row className="cost-row">
-                        <Col>{countySum.locality}</Col>
-                        <Col span={4} className="row-col-3">
-                            <div className="row-col-1" key={countySum.locality}>
-                              {countySum.req1 ? formatter.format(Math.floor(countySum.req1)) : `$0`}
-                            </div>
+                        <Col>
+                          <div className='row-col-1'>{countySum.locality}</div>
                         </Col>
                         <Col span={4} className="row-col-3">
-                            <div className="row-col-1" key={countySum.locality}>
-                              {countySum.req2 ? formatter.format(Math.floor(countySum.req2)) : `$0`}
-                            </div>
+                          <div className="row-col-1" key={countySum.locality}>
+                            {countySum.req1 ? formatter.format(Math.floor(countySum.req1)) : `$0`}
+                          </div>
                         </Col>
                         <Col span={4} className="row-col-3">
-                            <div className="row-col-1" key={countySum.locality}>
-                              {countySum.req3 ? formatter.format(Math.floor(countySum.req3)) : `$0`}
-                            </div>
+                          <div className="row-col-1" key={countySum.locality}>
+                            {countySum.req2 ? formatter.format(Math.floor(countySum.req2)) : `$0`}
+                          </div>
                         </Col>
                         <Col span={4} className="row-col-3">
-                            <div className="row-col-1" key={countySum.locality}>
-                              {countySum.req4 ? formatter.format(Math.floor(countySum.req4)) : `$0`}
-                            </div>
+                          <div className="row-col-1" key={countySum.locality}>
+                            {countySum.req3 ? formatter.format(Math.floor(countySum.req3)) : `$0`}
+                          </div>
                         </Col>
                         <Col span={4} className="row-col-3">
-                            <div className="row-col-1" key={countySum.locality}>
-                              {countySum.req5 ? formatter.format(Math.floor(countySum.req5)) : `$0`}
-                            </div>
+                          <div className="row-col-1" key={countySum.locality}>
+                            {countySum.req4 ? formatter.format(Math.floor(countySum.req4)) : `$0`}
+                          </div>
+                        </Col>
+                        <Col span={4} className="row-col-3">
+                          <div className="row-col-1" key={countySum.locality}>
+                            {countySum.req5 ? formatter.format(Math.floor(countySum.req5)) : `$0`}
+                          </div>
                         </Col>
                       </Row>
                     </Timeline.Item>
@@ -130,9 +132,7 @@ const RequestCostRows = () => {
             </div>
             <div className="body-4">
               <Row>
-                <Col span={4}>
-                  Budget
-                </Col>
+                <Col span={4}>Budget</Col>
                 {reqManager.map((val: any, index: number) => (
                   <Col span={4} className="row-col-4" key={index}>
                     <InputNumber
@@ -160,9 +160,7 @@ const RequestCostRows = () => {
             </div>
             <div className="body-5">
               <Row>
-                <Col span={4}>
-                  Differential
-                </Col>
+                <Col span={4}>Differential</Col>
                 {diff.map((d: any, i: number) => (
                   <Col key={i} span={4} style={{ opacity: isFiltered ? 0.5 : 1 }} className="row-col-5">
                     {d ? formatter.format(Math.floor(d)) : '$0'}
