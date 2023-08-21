@@ -2,18 +2,23 @@ import { Select } from 'antd';
 import React, { useState } from 'react';
 import { NEW_PROJECT_TYPES } from '../../../constants/constants';
 
-const MaintenanceTypesDropdown = () => {
+const MaintenanceTypesDropdown = ({
+  setMaintenanceSubType,
+  maintenanceSubType
+}:{
+  setMaintenanceSubType:Function,
+  maintenanceSubType:string
+}) => {
   const subtypes = Object.values(NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES);
-  const [value, setValue] = useState(subtypes[0]);
   return (
     <div className="subtype-dropdown">
       <Select
-        defaultValue={value}
-        value={`${value}`}
+        defaultValue={maintenanceSubType}
+        value={`${maintenanceSubType}`}
         showArrow={false}
         size="large"
         onChange={(change: any) => {
-          setValue(change);
+          setMaintenanceSubType(change);
         }}
         className={'ant-select-2'}>
         {

@@ -20,7 +20,7 @@ import '../../../index.scss';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
 import TableListView from './Toolbar/TableListView';
 
-import { GOVERNMENT_STAFF, WORK_REQUEST, YEAR_LOGIC_2024 } from 'constants/constants';
+import { GOVERNMENT_STAFF, NEW_PROJECT_TYPES, WORK_REQUEST, YEAR_LOGIC_2024 } from 'constants/constants';
 import MaintenanceTypesDropdown from '../../../routes/work-request/components/MaintenanceTypesDropdown';
 import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
 const { TabPane } = Tabs;
@@ -45,7 +45,8 @@ const RequestView = ({ type, widthMap }: {
     sumTotal,
     localityType,
     reqManager,
-    localityFilter
+    localityFilter,
+    namespaceId
   } = useRequestState();
   
   const {
@@ -90,6 +91,7 @@ const RequestView = ({ type, widthMap }: {
   const [selectView, setSelectView] = useState('card');
   const {status} = useProjectState();
   const { openNotification } = useNotifications();
+  const [maintenanceSubType, setMaintenanceSubType] = useState<any>(NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management);
 
 
   const {  
@@ -377,7 +379,6 @@ const RequestView = ({ type, widthMap }: {
       }
   }
   loadTabkeysDisplayed();
-
   return (
     <Layout className="work">
       {(fakeLoading) && <LoadingViewOverall />}
@@ -398,15 +399,18 @@ const RequestView = ({ type, widthMap }: {
                       gap: '10px',
                     }}
                   >
-                    {/* <MaintenanceTypesDropdown /> */}
+                    {(selectView === 'list' && namespaceId?.projecttype === 'Maintenance') && <MaintenanceTypesDropdown 
+                      setMaintenanceSubType={setMaintenanceSubType}
+                      maintenanceSubType={maintenanceSubType}
+                    />}
                     <YearDropdown />
                   </div>
                   
                   <div className='button-header'>
-                    {/* <Button id='buttons-header' style={selectView === 'card' && widthMap === 15 ? {display:'none'}:{}} className={selectView === 'list' ? 'ico-header-tab-active' : 'ico-header-tab'} onClick={() => { setSelectView( 'list') }}>
+                    <Button id='buttons-header' style={selectView === 'card' && widthMap === 15 ? {display:'none'}:{}} className={selectView === 'list' ? 'ico-header-tab-active' : 'ico-header-tab'} onClick={() => { setSelectView( 'list') }}>
                       {selectView === 'list' ? <img src='Icons/ic-list-purple.svg' alt='ic-list-purple' /> : <img src='Icons/ic-list.svg' alt='ic-list' />}
                       List
-                    </Button> */}
+                    </Button>
                     <Button id='buttons-header'  style={selectView === 'list' && widthMap === 15 ? {display:'none'}:{}} className={selectView === 'card' ? 'ico-header-tab-active' : 'ico-header-tab'} onClick={() => { setSelectView('card') }}>
                       {selectView === 'card' ? <img src='Icons/ic-card-purple.svg' alt='ic-card-purple' /> : <img src='Icons/ic-card.svg' alt='ic-card' />}
                       Card
@@ -431,7 +435,7 @@ const RequestView = ({ type, widthMap }: {
                   displayedTabKey.map((tk: string) => (
                     <TabPane tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style">{tk} </Popover> </span>} key={tk}>
                         { selectView === 'list' &&
-                        <TableListView />
+                        <TableListView maintenanceSubType={maintenanceSubType} />
                         }{selectView === 'card' && <div><div className="work-table"
                         ref={wrtRef}>
                         <ColumsTrelloCard
