@@ -276,7 +276,7 @@ export const ProjectGeometry = ({
                       setHighlightedStreams(listStreams[key])
                     } else {
                       const streamData = listStreams[key];
-                      const valueHighlight = !(streamData[0].mhfd_code) ? deletefirstnumbersmhfdcode(streamData[0]) : streamData[0].mhfd_code;
+                      const valueHighlight = !(streamData[0].cartodb_id) ? deletefirstnumbersmhfdcode(streamData[0]) : streamData[0].mhfd_code;
                       setHighlightedStream(valueHighlight);
                     }
                   },

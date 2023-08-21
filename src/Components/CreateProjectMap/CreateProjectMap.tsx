@@ -83,6 +83,7 @@ import SideMenuTools from 'routes/map/components/SideMenuTools';
 // import { useNoteDispatch, useNotesState } from 'hook/notesHook';
 // import { notesPopup } from 'routes/map/components/MapGetters';
 import ModalLayers from 'Components/Project/TypeProjectComponents/ModalLayers';
+import { deletefirstnumbersmhfdcode } from 'utils/utils';
 
 const windowWidth: any = window.innerWidth;
 
@@ -461,7 +462,15 @@ const CreateProjectMap = (type: any) => {
   }, [highlightedStream]);
   useEffect(() => {
     if (highlightedStreams.ids) {
-      let codes = highlightedStreams.ids.map((hs: any) => hs.mhfd_code);
+      let codes = highlightedStreams.ids.map((hs: any) => {
+        let code;
+        if(hs.cartodb_id){
+          code = hs.mhfd_code;
+        } else {
+          code = deletefirstnumbersmhfdcode(hs);
+        }
+        return code;
+      });
       if (map) {
         if (codes.length > 0 && !magicAddingVariable) {
           showHighlightedStreams(codes);
