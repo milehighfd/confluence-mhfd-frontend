@@ -201,8 +201,14 @@ export const ProjectGeometry = ({
     let mhfd_codeToRemove = stream?.mhfd_code;
     let copyList = { ...currentListStreams.current };
     for (let jurisdiction in copyList) {
-      let newArray = [...copyList[jurisdiction]].filter((st: any) => st.str_name ? st.str_name !== mhfd_NameToRemove : st.stream.stream.stream_name !== mhfd_NameToRemove);
-      console.log('key name', jurisdiction, 'new array', copyList[jurisdiction], mhfd_NameToRemove);
+      console.log('cipylist', copyList[jurisdiction], mhfd_NameToRemove);
+      let newArray = [...copyList[jurisdiction]].filter((st: any) => {
+        if (mhfd_NameToRemove === 'Unnamed Streams') {
+          return st.str_name ? st.str_name !== 'Unnamed Streams' : st.stream.stream.stream_name;
+        } else {
+          return st.str_name ? st.str_name !== mhfd_NameToRemove : st.stream.stream.stream_name !== mhfd_NameToRemove;
+        }
+      });
       copyList[jurisdiction] = newArray;
     }
     let newCopyList: any = {};
@@ -217,10 +223,10 @@ export const ProjectGeometry = ({
     if (currentStreamsIds.current.length > 0) {
       let newIds = [...currentStreamsIds.current].filter((id: any) => {
         if (mhfd_NameToRemove === 'Unnamed Streams') {
-          return id.str_name ? id.str_name : id.stream.stream.stream_name;
+          return id.str_name;
         } else {
-          console.log('id', id, mhfd_NameToRemove );
-          return id.mhfd_code !== mhfd_codeToRemove; 
+          console.log('TEST', id , id.mhfd_code ? id.mhfd_code !== mhfd_codeToRemove : id.mhfd_code_full !== mhfd_codeToRemove, 'id.mhfd_code ,', id.mhfd_code , 'mhfd_codeToRemove', mhfd_codeToRemove, 'id.mhfd_code_full', id.mhfd_code_full);
+          return id.mhfd_code_full ? id.mhfd_code_full !== mhfd_codeToRemove : id.mhfd_code !== mhfd_codeToRemove; 
         }
       });
       setStreamsIds(newIds);
