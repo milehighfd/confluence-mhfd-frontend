@@ -215,12 +215,14 @@ const projectReducer = (state = initState, action: any) => {
           array.push(streamIntersected);
         }
       })
+      console.log('streamsIntersectedIds', action.streamsIntersectedIds);
       return { 
         ...state, 
         streamsIntersectedIds: array
       }
     }
     case types.SET_STREAMS_IDS: {
+      console.log('streamsIntersectedIds', action.streamsIntersectedIds);
       return { 
         ...state, 
         streamsIntersectedIds: action.streamsIntersectedIds
