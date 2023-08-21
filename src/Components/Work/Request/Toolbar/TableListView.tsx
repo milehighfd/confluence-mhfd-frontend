@@ -443,7 +443,7 @@ const TableListView = ({
         }
         <div className='table-map-list'>
             <Table columns={filteredColumns} dataSource={parsedData} pagination={false} scroll={{ x: 1026, y: 'calc(100vh - 270px)' }} summary={() => (
-                <Table.Summary fixed={ 'bottom'} >
+                <Table.Summary fixed={ 'bottom'}  >
                   <Table.Summary.Row  style={{ height: '40px' }}>
                       <Table.Summary.Cell index={0}  >
                         Total Requested Funding
@@ -454,14 +454,24 @@ const TableListView = ({
                         
                       </Table.Summary.Cell>
                       {totalByYear.map((total: number, index: number) => {
-                        return <Table.Summary.Cell index={index + 4} key={index}>
-                          {formatter.format(total)}
-                        </Table.Summary.Cell>
+                        console.log('total', total,'___', index, 'Index')
+                        if(namespaceId.projecttype !== 'Maintenance') {
+                          return <Table.Summary.Cell index={index + 4} key={index}>
+                            {formatter.format(total)}
+                          </Table.Summary.Cell>
+                        }else{
+                          if(index !== 4){
+                            return <Table.Summary.Cell index={index + 4} key={index}>
+                              {formatter.format(total)}
+                            </Table.Summary.Cell>
+                          }
+                        }
                       })
                       }
-                      <Table.Summary.Cell index={9}>
+                      {namespaceId.projecttype !== 'Maintenance' && <Table.Summary.Cell index={9}>
                         {formatter.format(totalByYear.reduce((acc: number, curr: number) => acc + curr, 0))}
                       </Table.Summary.Cell>
+                      }
                   </Table.Summary.Row>
                 </Table.Summary>
             )}
