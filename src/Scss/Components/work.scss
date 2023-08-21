@@ -1130,6 +1130,7 @@
     height: 100px;
   }
   .footer-drawer {
+    background-color: white;
     text-align: right;
     padding: 20px 0px;
 
@@ -1879,7 +1880,7 @@
   }
   .drawer-filter {
     .ant-drawer-body {
-      padding-bottom: 76px !important;
+      padding-bottom: 89px !important;
     }
   }
   // Utilities
@@ -1913,6 +1914,9 @@
       .sub-title-filter {
         font-size: 19px;
       }
+    }
+    .ant-input-number-lg input{
+      height: 36px;
     }
     h6 {
       font-size: 17px;
@@ -2638,6 +2642,12 @@
     h5 {
       font-size: 28px !important;
     }
+    .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+      height: 40px;
+    }
+    .ant-input-number-lg input{
+      height: 40px;
+    }
     .ant-drawer-header {
       padding: 30px;
 
@@ -2925,7 +2935,7 @@
   }
   //Maintenence
   .btn-maintenence{
-    width: 240px;
+    width: 250px;
     font-size: 18px;
     height: 45px;
   }
