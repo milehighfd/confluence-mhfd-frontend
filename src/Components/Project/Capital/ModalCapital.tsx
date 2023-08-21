@@ -137,7 +137,7 @@ export const ModalCapital = ({
     userPolygon, 
     streamIntersected, 
     independentComponents, 
-    isEdit,
+    status,
     deleteAttachmentsIds,
     listStreams,
     streamsIntersectedIds,
@@ -529,11 +529,16 @@ export const ModalCapital = ({
       else {
         saveProjectCapital(capital);
       }
-      setVisibleCapital(false);
-      setVisible(false);
+      // setVisible(false);
     }
   }, [save]);
-
+  useEffect(() => {
+    console.log('Status', status);
+    if(status === 1){
+      setVisible(false);
+      setVisibleCapital(false);
+    }
+  }, [status]);
   //Check if required fields are filled to enable save button
   useEffect(()=>{   
     const checkIfIndependentHaveName = () => {

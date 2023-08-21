@@ -102,7 +102,8 @@ export const saveCapital = (data: any) => {
         formData.append(key, data[key]);
       }
     });
-    datasets.postDataMultipart(SERVER.CREATE_PROJECT_GENERAL, formData, datasets.getToken()).then(res => {
+    datasets.postDataMultipartWithoutCatch(SERVER.CREATE_PROJECT_GENERAL, formData, datasets.getToken()).then(res => {
+      console.log('result of creation', res);
       let status ; 
       if(res && res.total_rows && res.total_rows > 0 ){
         status = 1;
@@ -112,6 +113,8 @@ export const saveCapital = (data: any) => {
       dispatch(loadColumns());
       dispatch(loadFilters())
       dispatch({ type: types.SET_SAVE, status });
+    }).catch((err) => {
+      dispatch({ type: types.SET_SAVE, status: -1 });
     })
   };
 };
@@ -148,6 +151,8 @@ export const saveMaintenance = (data: any) => {
       }
       dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_SAVE, status });
+    }).catch((err) => {
+      console.log('Here is the error of creationg', err);
     })
   };
 };
@@ -423,6 +428,7 @@ export const getStreamsIntersectedPolygon = (geom: any) => {
   return ( dispatch: Function) => {
     datasets.postData(SERVER.GET_STREAM_INTERSECTED, {geom: geom}, datasets.getToken()).then(res => {
       let streamsIntersectedIds = res;
+      console.trace('streamsIntersectedIds', streamsIntersectedIds);
         dispatch({type: types.SET_STREAMS_IDS_ADD, streamsIntersectedIds});
     });
   }
@@ -628,9 +634,11 @@ export const getStreamsByProjectId = (projectId: any, typeProjectId: any) => {
       for(let str in listStreams) {
         independentStreams = [...independentStreams, ...listStreams[str]];
       }
+      const completeMhfdList:any = [];
       independentStreams = independentStreams.map((indStr:any) => {
         const arrayValues = indStr.stream.stream.MHFD_Code.split('.');
         arrayValues.shift();
+        completeMhfdList.push({mhfd_code_complete: indStr.stream.stream.MHFD_Code, mhfd_code_split: arrayValues.join('.')});
         return arrayValues.join('.');
       });
       const setMHFD:any = new Set();
@@ -643,7 +651,8 @@ export const getStreamsByProjectId = (projectId: any, typeProjectId: any) => {
       for(let i of setArray){
         streamsIntersectedIds.push({
           cartodb_id: undefined,
-          mhfd_code:i
+          mhfd_code:i,
+          mhfd_code_full: completeMhfdList.find((mhfd: any) => mhfd.mhfd_code_split === i)?.mhfd_code_complete,
         })
       };
       if (typeProjectId == 1 || typeProjectId === 18) { // VALUES of STUDY
