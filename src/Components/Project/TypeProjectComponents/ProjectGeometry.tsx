@@ -196,13 +196,10 @@ export const ProjectGeometry = ({
   ];
 
   const removeStreamByName = (stream: any) => {
-    console.log('About to remove stream', stream);
     let mhfd_NameToRemove = stream?.reach;
     let mhfd_codeToRemove = stream?.mhfd_code;
     let copyList = { ...currentListStreams.current };
-    for (let jurisdiction in copyList) {
-      console.log('cipylist', copyList[jurisdiction], mhfd_NameToRemove);
-      let newArray = [...copyList[jurisdiction]].filter((st: any) => {
+    for (let jurisdiction in copyList) {      let newArray = [...copyList[jurisdiction]].filter((st: any) => {
         if (mhfd_NameToRemove === 'Unnamed Streams') {
           return st.str_name ? st.str_name !== 'Unnamed Streams' : st.stream.stream.stream_name;
         } else {
@@ -219,7 +216,6 @@ export const ProjectGeometry = ({
     }
 
     setStreamsList(newCopyList);
-    console.log('mhfd to delete',mhfd_codeToRemove, 'old list', currentListStreams.current, 'old ids', currentStreamsIds.current);
     if (currentStreamsIds.current.length > 0) {
       let newIds = [...currentStreamsIds.current].filter((id: any) => {
         if (mhfd_NameToRemove === 'Unnamed Streams') {
@@ -230,7 +226,6 @@ export const ProjectGeometry = ({
         }
       });
       setStreamsIds(newIds);
-      console.log('newCpyList', newCopyList, 'streamids', newIds);
     }
     
     
