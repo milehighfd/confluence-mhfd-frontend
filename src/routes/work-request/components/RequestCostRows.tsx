@@ -3,6 +3,7 @@ import { Col, Collapse, InputNumber, Row, Timeline } from 'antd';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { priceFormatter, priceParser, formatter } from 'Components/Work/Request/RequestViewUtil';
 import { UseDebouncedEffect } from "routes/Utils/useDebouncedEffect";
+import { MAINTENANCE, WORK_SPACE } from 'constants/constants';
 
 const { Panel } = Collapse;
 
@@ -16,6 +17,7 @@ const RequestCostRows = () => {
     showFilters: isFiltered,
     sumTotal,
     year,
+    columns2
   } = useRequestState();
   const { setReqManager, updateTargetCost } = useRequestDispatch();
   const [ targetCosts, setTargetCosts ] = useState([]);
@@ -64,10 +66,15 @@ const RequestCostRows = () => {
             <div className='body-1'>
               <Row>
                 <Col span={4} ></Col>
-                {
+                { tabKey !== MAINTENANCE &&
                   [0,1,2,3,4].map(y => (
                     <Col span={4} key={y}>{year+y}</Col>
                   ))
+                }
+                { tabKey === MAINTENANCE &&
+                columns2.map((y: any, index : any) => ( 
+                  y.title !== WORK_SPACE && <Col span={4} key={index}>{y.title}</Col>
+                ))
                 }
               </Row>
             </div>
@@ -184,7 +191,7 @@ const RequestCostRows = () => {
           </div>
         </Panel>
       </Collapse>
-      {openCollaps && tabKey !== 'Maintenance' && <>
+      {openCollaps && tabKey !== MAINTENANCE && <>
         <div className="col-bg">
           <div><h5>Target Cost</h5></div>
           {
