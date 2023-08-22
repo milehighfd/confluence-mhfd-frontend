@@ -179,7 +179,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
 
   return (
     <>
-      <div>
+      {/* <div>
       <Button className="btn-svg" onClick={apply}>
         <u>Apply</u>
       </Button>
@@ -187,7 +187,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       <Button className="btn-svg" onClick={reset}>
         <u>Reset</u>
       </Button>
-      </div>
+      </div> */}
       <svg ref={svgRef} />
     </>
   )

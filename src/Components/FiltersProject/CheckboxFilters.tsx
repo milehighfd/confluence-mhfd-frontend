@@ -52,7 +52,7 @@ export const CheckBoxFilters = ({
           <Button className="btn-svg" onClick={apply}>
             Apply
           </Button>
-          &nbsp;|&nbsp;
+          &nbsp;<span style={{color:'#E9E8EF'}}>|</span>&nbsp;
           <Button className="btn-svg" onClick={reset}>
             Reset
           </Button>
