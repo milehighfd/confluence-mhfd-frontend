@@ -45,7 +45,7 @@ export const FinancialInformation = ({
     { label: 'Mobilization', index: 1 },
     { label: 'Traffic Control', index: 2 },
     { label: 'Utility Coordination / Relocation', index: 3 },
-    { label: 'Stormwater Management / Erosion Contro', index: 4 },
+    { label: 'Stormwater Management / Erosion Control', index: 4 },
     { label: 'Engineering', index: 5 },
     { label: 'Contract Admin / Construction Management', index: 6 },
     { label: 'Legal / Administrative', index: 7 },
