@@ -38,7 +38,7 @@ export const NewProblemsFilter = () => {
         getProblemCounter,
     } = useMapDispatch();
     const { boundsMap } = useMapState();
-
+    const [selectedData, setSelectedData] = useState<any[]>([]);
     const apply = (values: any, field: string) => {
         const options = { ...filterProblemOptions };
         if ('priority' === field || 'components' === field || 'solutionstatus' === field || 'county' === field) {
@@ -133,11 +133,11 @@ export const NewProblemsFilter = () => {
                 <div className='sub-title-sec'>
                   <h5 className="filter-title chart-filter-title">Project type <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></h5>
                   <div>
-                    <Button className="btn-svg" onClick={() => {}}>
+                    <Button className="btn-svg" onClick={() => apply(selectedData.join(','),'problemtype')}>
                       Apply
                     </Button>
                     &nbsp;<span style={{color:'#E9E8EF'}}>|</span>&nbsp;
-                    <Button className="btn-svg" onClick={() => {}}>
+                    <Button className="btn-svg" onClick={() => apply('','problemtype')}>
                         Reset
                     </Button>
                   </div>
@@ -148,7 +148,10 @@ export const NewProblemsFilter = () => {
                         <PieChartProblem type={'problemtype'} defaultValue={''}
                             data={paramProblems.problemtype}
                             selected={filterProblemOptions.problemtype}
-                            onSelect={(e: string) => apply(e, 'problemtype')} />
+                            onSelect={(e: string) => apply(e, 'problemtype')} 
+                            selectedData={selectedData}
+                            setSelectedData={setSelectedData}
+                            />
                     }
                 </Col>
             </Row>

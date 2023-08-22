@@ -28,15 +28,15 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue, selectedData, 
     });
 
     const width = 200;
-    const height = 105;
-    const radius = 50;
+    const height = 95;
+    const radius = 45;
     
     var arc2 = d3.arc()
       .innerRadius(radius * 0.78)
       .outerRadius(radius + 5);
     var arc3 = d3.arc()
-      .innerRadius(radius * 0.68)
-      .outerRadius(radius * 1.2);
+      .innerRadius(radius * 0.70)
+      .outerRadius(radius * 1.18);
     var color = d3.scaleOrdinal()
       .domain(pieChartData.map((r: any) => r.key))
       .range(["#67D4FF", "#23CBA1", "#5E63E4", "#DC373C", "#E8EAFC", "#FFDD04"]);

@@ -3,10 +3,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { Button } from 'antd';
 
-const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
+const PieChart = ({ data, type, selected, onSelect, defaultValue,selectedData, setSelectedData }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
-  const [selectedData, setSelectedData] = useState<any[]>([]);
+  // const [selectedData, setSelectedData] = useState<any[]>([]);
 
   useEffect(() => {
     setSelectedData(selected ? selected.split(',') : []);
@@ -26,15 +26,15 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     });
 
     const width = 200;
-    const height = 180;
-    const radius = 50;
+    const height = 100;
+    const radius = 30;
     
     var arc2 = d3.arc()
-      .innerRadius(radius * 0.72)
+      .innerRadius(radius * 0.78)
       .outerRadius(radius + 5);
     var arc3 = d3.arc()
-      .innerRadius(radius * 0.60)
-      .outerRadius(radius * 1.2);
+      .innerRadius(radius * 0.68)
+      .outerRadius(radius * 1.27);
     var color = d3.scaleOrdinal()
       .domain(pieChartData.map((r: any) => r.key))
       .range(["#5E63E4", "#8893E7", "#C8CEFC", "#29c49a", "#66d5ff"]);
@@ -47,7 +47,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     const svg = d3.select(svgRef.current)
       .attr("viewBox", `0 0 ${width + 50} ${height - 20}`)
       .append("g")
-      .attr("transform", "translate(" + width / 1.9 + "," + height / 3 + ")");
+      .attr("transform", "translate(" + width / 1.9 + "," + height / 1.7 + ")");
     
     var data_ready: any = pie(pieChartData)
     var slices = svg
@@ -59,7 +59,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     let clickFn = (d: any) => {
       let index = selectedData.indexOf(d.data.key);
       if (index !== -1) {
-        setSelectedData(selectedData.filter((_, ind) => ind !== index))
+        setSelectedData(selectedData.filter((_:any, ind:any) => ind !== index))
       } else {
         setSelectedData([...selectedData, d.data.key])
       }
@@ -71,11 +71,12 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     .attr('fill', (d: any): any => { return '#ddd'; })
       .style("opacity", 1)
     .on('click', clickFn)
-    .transition().duration(2000)
+    // .transition().duration(2000)
     .attr('d', (d: any) => {
       let index = selectedData.indexOf(d.data.key);
       return index === -1 ? arc2(d) : arc3(d);
     })
+    .attr("transform", "translate(" + -width/4.5 + "," + -20+ ")");
 
   slicesSelected.exit().remove();
 
@@ -88,10 +89,11 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .attr('d', (d: any) => {
         return arc2(d);
       })
+      .attr("transform", "translate(" + -width/4.5 + "," + -20+ ")"); 
 
     slices.exit().remove();
     var separationJump = 80;
-    var fontSize = 10;
+    var fontSize = 7.5;
     var legendsText = svg
       .selectAll('slices')
       .data(data_ready)
@@ -101,10 +103,16 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     legendsText
       .enter()
       .append('text')
-      .text(function (d: any) { return d.data.key == 'Human Connection'? 'Community Values':( isProb ? d.data?.key?.split(' ')[0] : d.data.key) })
+      .text(function (d: any) { 
+        console.log('d', d);
+        return `${d.data.key} (${d.data.counter})`})
       .attr("transform", (d: any, i) => {
-        let xo = -radius + (i * separationJump) - 42;
-        let yo = radius + 32;
+        // let xo = -radius + (i * separationJump) - 42;
+        // let yo = radius + 32;
+        // let xo = (i<3 ? -radius + (i * separationJump) - 42 : -radius + ((i-3) * separationJump) - 42);
+        let xo = radius -2
+        // let yo = (i<3 ? radius + 32 :radius + 67 );
+        let yo = -radius/0.85 + (i * (separationJump/6)) +2.5
         return `translate(${xo},${yo})`;
       })
       .style("font-size", fontSize)
@@ -118,31 +126,31 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       })
       .style("font-size", fontSize)
 
-      var legendsCounterText = svg
-      .selectAll('slices')
-      .data(data_ready)
+    //   var legendsCounterText = svg
+    //   .selectAll('slices')
+    //   .data(data_ready)
 
-    legendsCounterText.exit().remove();
+    // legendsCounterText.exit().remove();
 
-    legendsCounterText
-      .enter()
-      .append('text')
-      .text(function (d: any) {  return (isProb ? d.data?.key?.split(' ')[1] + ' (':'') + d.data.counter + (isProb ? ')':'') + ' ' + labelValues })
-      .attr("transform", (d: any, i) => {
-        let xo = -radius + (i * separationJump) - 42;
-        let yo = radius + 45;
-        return `translate(${xo},${yo})`;
-      })
-      .style("font-size", fontSize)
+    // legendsCounterText
+    //   .enter()
+    //   .append('text')
+    //   .text(function (d: any) {  return (isProb ? d.data?.key?.split(' ')[1] + ' (':'') + d.data.counter + (isProb ? ')':'') + ' ' + labelValues })
+    //   .attr("transform", (d: any, i) => {
+    //     let xo = -radius + (i * separationJump) - 42;
+    //     let yo = radius + 45;
+    //     return `translate(${xo},${yo})`;
+    //   })
+    //   .style("font-size", fontSize)
 
-    legendsCounterText
-      .text(function (d: any) { return d.data.key })
-      .attr("transform", (d: any, i) => {
-        let xo = -radius + (i * separationJump) - 42;
-        let yo = radius + 45;
-        return `translate(${xo},${yo})`;
-      })
-      .style("font-size", fontSize)
+    // legendsCounterText
+    //   .text(function (d: any) { return d.data.key })
+    //   .attr("transform", (d: any, i) => {
+    //     let xo = -radius + (i * separationJump) - 42;
+    //     let yo = radius + 45;
+    //     return `translate(${xo},${yo})`;
+    //   })
+    //   .style("font-size", fontSize)
 
     var legendsCircles = svg 
       .selectAll('slices')
@@ -152,16 +160,18 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
 
     legendsCircles
       .enter().append("circle")
-      .style("stroke", "gray")
+      // .style("stroke", "gray")
       .style("fill", (d: any): any => {
         return color(d.data.key)
       })
-      .attr("r", 5)
+      .attr("r", 3)
       .attr("cx", (d: any, i) => {
-        return -radius + (i * separationJump) - 50
+        // return -radius + (i * separationJump) - 50
+        return radius -10
       })
       .attr("cy", (d: any, i) => {
-        return radius + 29.5
+        // return radius + 29.5
+        return -radius/0.85 + (i * (separationJump/6))
       });
   }, [data, selectedData]);
 
