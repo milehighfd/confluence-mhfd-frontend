@@ -4,7 +4,7 @@ import { NotificationType } from './NotificationsTypes';
 import { CheckCircleFilled } from '@ant-design/icons';
 
 type NotificationsContextType = {
-  openNotification: (message: string, notificationType: NotificationType) => void;
+  openNotification: (message: string, notificationType: NotificationType, description?: string) => void;
 };
 type Notification = {
   className: string;
@@ -13,13 +13,14 @@ type Notification = {
 
 const NotificationsContext = createContext<NotificationsContextType | undefined>(undefined);
 const NotificationsProvider: React.FC = ({ children }) => {
-  const openNotification = (message: string, notificationType: NotificationType) => {
+  const openNotification = (message: string, notificationType: NotificationType, description?: string) => {
     let NotificationType = getNotificationbyType(notificationType);
     notification.open({
-      message,
+      message:<div>{message}</div>,
       className: NotificationType.className,
       icon: NotificationType.icon,
-      // duration:10060,
+      //description: description,
+      //duration:10060,
     });
   };
 
@@ -27,7 +28,7 @@ const NotificationsProvider: React.FC = ({ children }) => {
     switch (notiType) {
       case 'success':
         return {
-          className: 'notification-alert-layout',
+          className: 'notification-alert-layout notification-alert-success',
           icon: <CheckCircleFilled className='notification-icon-success'/>,
         };
       case 'case2':

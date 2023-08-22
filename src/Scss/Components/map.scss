@@ -168,6 +168,9 @@
     border: none;
     border-radius: 4px;
     background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
@@ -597,6 +600,8 @@
 
         a{
           color: #11093C;
+          display: flex;
+          align-items: center;
         }
         .button-c {
           &:hover {
@@ -2192,8 +2197,8 @@ hr.filters-line {
 
 .img-measure-00 {
   // -webkit-mask: url('../../Icons/fi_play-circle.svg') no-repeat center;
-  height: 18px;
-  width: 18px;
+  height: 25px;
+  width: 25px;
   // background: black;
   margin-bottom: 2px;
   margin-right: 10px;
@@ -2209,8 +2214,8 @@ hr.filters-line {
 
 .img-measure-png-01 {
   src: url('../../Icons/icon-line.png') no-repeat center;
-  height: 18px;
-  width: 18px;
+  height: 25px;
+  width: 25px;
   margin-bottom: 2px;
 }
 
@@ -2224,8 +2229,8 @@ hr.filters-line {
 
 .img-measure-png-02 {
   src: url('../../Icons/icon-polygon.png') no-repeat center;
-  height: 18px;
-  width: 18px;
+  height: 25x;
+  width: 25px;
   margin-bottom: 2px;
 }
 
@@ -2816,15 +2821,10 @@ hr.filters-line {
       height: 45px !important;
     }
     .mapboxgl-ctrl-scale {
-      font-size: 25px;
-      padding: 12px 14px;
+      font-size: 21px;
+      padding: 8px 10px;
       left: 85px;
       bottom: 30px;
-      height: 35px;
-      width: 45px !important;
-      display: flex;
-      align-items: center;
-      justify-content: center;
      }
   }
 

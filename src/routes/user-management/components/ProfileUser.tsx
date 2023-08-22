@@ -74,7 +74,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
   }
 
   const handleNotification = () => {
-    openNotification('Success! Your user update was saved!', "success");
+    openNotification('Success! Your user update was saved!', "success", "example text for notification");
   };
 
   const {

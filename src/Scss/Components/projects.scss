@@ -965,17 +965,16 @@
       width: 100%;
     }
     .mapboxgl-ctrl-scale {
-      font-size: 25px;
-      padding: 12px 14px;
-      left: 85px;
-      bottom: 30px;
+      left: 55px;
       position: absolute;
-      height: 35px;
-      width: 45px !important;
+      bottom: 30px;
+      width: auto !important;
+      border: none;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.8);
       display: flex;
       align-items: center;
       justify-content: center;
-      
     }
   }
 }
@@ -1064,6 +1063,12 @@
 }
 @media (min-width: 1900px) and (max-width: 2499px){
   .projects{
+    .map{
+      .mapboxgl-ctrl-scale {
+        font-size: 14px;
+        padding: 3px 6px;
+      }
+    }
     .head-project {
       padding: 0px 20px;
       padding-top: 22px;
@@ -1216,6 +1221,12 @@
     .map{
       .mapboxgl-ctrl-group{
        left: 25px;
+      }
+      .mapboxgl-ctrl-scale {
+        font-size: 21px;
+        padding: 8px 10px;
+        left: 85px;
+        bottom: 30px;
       }
     }
     p{
