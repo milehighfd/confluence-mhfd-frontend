@@ -252,8 +252,8 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
             </Col>
         </Row>
         <hr className='filters-line'></hr>
-        <Row className="filt-00" style={{ paddingRight: '0px', paddingLeft:'14px', marginBottom: 25 }} gutter={[24, 16]}>
-            <Col span={12} style={{paddingLeft:'0px'}} className={filtersObject?.filterby === FILTERS.PROJECT.CONSULTANT ? 'disabledchart': ''}>
+        <Row className="filt-00" gutter={[24, 16]} style={{marginBottom: 25}}>
+            <Col span={12}  className={filtersObject?.filterby === FILTERS.PROJECT.CONSULTANT ? 'disabledchart': ''}>
                 <h5 className="filter-title">Consultant <Popover content={content11}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {/* {
                     paramProjects?.consultant &&
@@ -272,7 +272,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
                 <Input placeholder="Search here.." />
 
             </Col>
-            <Col span={12}  style={{paddingLeft:'6px'}} className={filtersObject?.filterby === FILTERS.PROJECT.CONTRACTOR ? 'disabledchart': ''}>
+            <Col span={12}  className={filtersObject?.filterby === FILTERS.PROJECT.CONTRACTOR ? 'disabledchart': ''} style={{paddingLeft:'0px'}}>
                 <h5 className="filter-title">Contractor <Popover content={content13}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {/* {
                     paramProjects?.contractor &&
@@ -303,7 +303,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
                         onSelect={(items: any) => apply(items, FILTERS.PROJECT.JURISDICTION)} />
                 }
             </Col>
-            <Col span={12}>
+            <Col span={12} style={{paddingLeft:'0px'}}>
                 <h5 className="filter-title">Work Plan Year <Popover content={content15}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 <Button className="btn-svg">
                   Apply
