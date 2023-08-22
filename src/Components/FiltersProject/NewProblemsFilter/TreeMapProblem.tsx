@@ -348,7 +348,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
       <Button className="btn-svg" onClick={apply}>
         Apply
       </Button>
-      &nbsp;<span style={{color:'#E9E8EF'}}>|</span>&nbsp;
+      &nbsp;<span style={{color:'#11093c'}}>|</span>&nbsp;
       <Button className="btn-svg" onClick={reset}>
         Reset
       </Button>

@@ -169,18 +169,18 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
         <hr className='filters-line'></hr>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={24} className={(filtersObject?.tabKey != 'All' && filtersObject) ? 'disabledchart': ''}>
-                <div className='sub-title-sec'>
+                {/* <div className='sub-title-sec'> */}
                   <h5 className="filter-title chart-filter-title">Project type <Popover content={content4}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></h5>
                   <div>
                     <Button className="btn-svg" onClick={() => apply(selectedData,FILTERS.PROJECT.PROJECTTYPE)}>
                       Apply
                     </Button>
-                    &nbsp;<span style={{color:'#E9E8EF'}}>|</span>&nbsp;
+                    &nbsp;<span style={{color:'##11093c'}}>|</span>&nbsp;
                     <Button className="btn-svg" onClick={() => apply('',FILTERS.PROJECT.PROJECTTYPE)}>
                         Reset
                     </Button>
                   </div>
-                </div>
+                {/* </div> */}
                 {
                     paramProjects?.projecttype &&
                     <PieChart type={FILTERS.PROJECT.PROJECTTYPE} defaultValue={''}
@@ -231,18 +231,9 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
         <hr className='filters-line'></hr>
         <Row className="filt-00">
             <Col span={12}>
-                <div className='sub-title-sec' style={{width:'200%'}}>
+                {/* <div className='sub-title-sec' style={{width:'200%'}}> */}
                   <h5 className="filter-title chart-filter-title">Estimated Project Cost <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></h5>
-                  <div>
-                    <Button className="btn-svg">
-                      Apply
-                    </Button>
-                    &nbsp;<span style={{color:'#E9E8EF'}}>|</span>&nbsp;
-                    <Button className="btn-svg">
-                        Reset
-                    </Button>
-                  </div>
-                </div>
+                {/* </div> */}
                 {
                     paramProjects?.estimatedCost &&
                     <DropdownFilters type={FILTERS.PROJECT.TOTALCOST} axisLabel={axisLabel} defaultValue={''}
@@ -265,11 +256,22 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
                 <Button className="btn-svg" >
                     Apply
                 </Button>
-                &nbsp;<span style={{color:'#E9E8EF'}}>|</span>&nbsp;
+                &nbsp;<span style={{color:'#11093c'}}>|</span>&nbsp;
                 <Button className="btn-svg" >
                     Reset
                 </Button>
-                <Input placeholder="Search here.." />
+                <Select
+                    mode="multiple"
+                    placeholder={"Search here.."}
+                    style={{ width: '100%' }}
+                    listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+                >
+                    <Option key={'Lonetree'} value={'Lonetree'}>Lonetree</Option>
+                    <Option key={'Parker'} value={'Parker'}>Parker</Option>
+                    <Option key={'SEMSWA'} value={'SEMSWA'}>SEMSWA</Option>
+                    <Option key={'Unincorporated Arapahoe'} value={'Unincorporated Arapahoe'}>Unincorporated Arapahoe</Option>
+
+                </Select>
 
             </Col>
             <Col span={12}  className={filtersObject?.filterby === FILTERS.PROJECT.CONTRACTOR ? 'disabledchart': ''} style={{paddingLeft:'0px'}}>
@@ -284,11 +286,23 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
                  <Button className="btn-svg" >
                     Apply
                 </Button>
-                &nbsp;<span style={{color:'#E9E8EF'}}>|</span>&nbsp;
+                &nbsp;<span style={{color:'#11093c'}}>|</span>&nbsp;
                 <Button className="btn-svg">
                     Reset
                 </Button>
-                <Input placeholder="Search" value='American |'/>
+                <Select
+                    mode="multiple"
+                    placeholder={"Search here.."}
+                    style={{ width: '100%' }}
+                    listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+                >
+                    <Option key={'American'} value={'American'}>American</Option>
+                    <Option key={'Lonetree'} value={'Lonetree'}>Lonetree</Option>
+                    <Option key={'Parker'} value={'Parker'}>Parker</Option>
+                    <Option key={'SEMSWA'} value={'SEMSWA'}>SEMSWA</Option>
+                    <Option key={'Unincorporated Arapahoe'} value={'Unincorporated Arapahoe'}>Unincorporated Arapahoe</Option>
+
+                </Select>
             </Col>
         </Row>
         <hr className='filters-line'></hr>
@@ -308,7 +322,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
                 <Button className="btn-svg">
                   Apply
                 </Button>
-                &nbsp;<span style={{color:'#E9E8EF'}}>|</span>&nbsp;
+                &nbsp;<span style={{color:'#11093c'}}>|</span>&nbsp;
                 <Button className="btn-svg">
                   Reset
                 </Button>
@@ -336,7 +350,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
                   <Button className="btn-svg" onClick={() => { }}>
                       Apply
                   </Button>
-                  &nbsp;<span style={{color:'#E9E8EF'}}>|</span>&nbsp;
+                  &nbsp;<span style={{color:'#11093c'}}>|</span>&nbsp;
                   <Button className="btn-svg" onClick={() => apply('', FILTERS.PROJECT.LGMANAGER)}>
                       Reset
                   </Button>
@@ -373,7 +387,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
                 <Button className="btn-svg">
                   Apply
                 </Button>
-                &nbsp;<span style={{color:'#E9E8EF'}}>|</span>&nbsp;
+                &nbsp;<span style={{color:'#11093c'}}>|</span>&nbsp;
                 <Button className="btn-svg">
                   Reset
                 </Button>

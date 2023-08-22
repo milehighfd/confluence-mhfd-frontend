@@ -124,19 +124,19 @@ export const DropdownFilters = ({ onSelect, defaultValue, labels, showControls =
   }, [selected]);
   return (
     <>
-      {/* {showControls ? (
+      {showControls ? (
         <>
           <Button className="btn-svg" onClick={apply}>
-            <u>Apply</u>
+            Apply
           </Button>
-          &nbsp;|&nbsp;
+          &nbsp;<span style={{color:'#11093c'}}>|</span>&nbsp;
           <Button className="btn-svg" onClick={reset}>
-            <u>Reset</u>
+            Reset
           </Button>
         </>
       ) : (
         <div style={{ marginBottom: 10 }}></div>
-      )} */}
+      )}
       <div className='dropdown-container-filter'>
         <Col xs={{ span: 45 }} lg={{ span: 23 }}  style={{ paddingLeft: '0px' }}>
           <Select

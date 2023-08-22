@@ -1717,13 +1717,22 @@ hr.filters-line {
     color: $opacity;
     line-height: 22px;
   }
-
   span {
-    color: $purple;
+    color: $purple00;
     border-color: #9f9fad;
     align-items: center;
   }
-
+  .btn-svg{
+    color: $purple00;
+    opacity: 1;
+  }
+  .btn-svg:hover{
+    color: $green !important;
+    opacity: 1; 
+    span{
+      color: $green !important;
+    }
+  }
   p {
     margin-bottom: 4px;
   }
@@ -2474,6 +2483,20 @@ hr.filters-line {
 }
 
 @media(min-width: 1900px) and (max-width: 2549px) {
+  .filt-00 {
+    .btn-svg{
+      font-size: 14px !important;
+      span{
+        font-size: 14px !important;
+      }
+    }
+    .btn-svg:hover{
+      font-size: 14px !important;
+      span{
+        font-size: 14px !important;
+      }
+    }
+  }
   .map-modal-layers{
     width: 342px !important;
     top: 68px !important;
@@ -2532,6 +2555,49 @@ hr.filters-line {
 }
 
 @media(min-width: 2550px) and (max-width: 3799px) {
+  .scroll-filters{
+    .ant-checkbox-wrapper{
+      font-size: 20px !important;
+    }
+    .ant-checkbox-group{
+      height: 204px !important;
+    }
+    .ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+      min-height: 40px !important;
+    }
+    .btn-svg-text{
+      font-size: 20px !important;
+      padding: 20px 45px !important;
+      img{
+        height: 38px !important;
+      }
+    }
+  }
+  .filt-00 {
+    span{
+      font-size: 22px !important;
+    }
+    h5 {
+      font-size: 24px !important;
+      line-height: 25px !important;
+      margin-bottom: 4px !important;
+      img{
+        width: 20px !important;
+      }
+    }
+    .btn-svg{
+      font-size: 18px !important;
+      span{
+        font-size: 18px !important;
+      }
+    }
+    .btn-svg:hover{
+      font-size: 18px !important;
+      span{
+        font-size: 18px !important;
+      }
+    }
+  }
   .global-search-item {
     h6 {
       font-size: 18px !important;

@@ -19,7 +19,7 @@ const content03 = (<div className="popoveer-00"> <p style={{fontWeight:'600'}}>P
 <p><span style={{fontWeight:'600'}}>Watershed Change </span>  Problems related to flood waters that may pose safety or functional concerns related to people, property, and the environment due to changing watershed conditions (land use, topography, regional detention, etc).</p></div>);
 const content04 = (<div className="popoveer-00"><b>Service Area</b> is the MHFD Watershed Service Area where the problem is located.</div>);
 const content05 = (<div className="popoveer-00"><b>County</b> is the county where the problem is located.</div>);
-const content06 = (<div className="popoveer-00"><b>Jurisdiction</b> is the local government where the problem is located.</div>);
+const content06 = (<div className="popoveer-00"><b>Local Government</b> is the local government where the problem is located.</div>);
 const content07 = (<div className="popoveer-00"><b>MHFD Lead</b> is the MHFD PM who is responsible for the service area where the problem is located.</div>);
 
 export const NewProblemsFilter = () => {
@@ -99,11 +99,11 @@ export const NewProblemsFilter = () => {
                     <br/>
                     My Favorites
                 </Button>
-                <Button className={`btn-svg-text ${myTeams ? 'btn-svg-text-active' : ''}`} onClick={() => { setMyTeams(!myTeams)}} style={{borderRadius: '0px 3px 3px 0px'}}>
+                {/* <Button className={`btn-svg-text ${myTeams ? 'btn-svg-text-active' : ''}`} onClick={() => { setMyTeams(!myTeams)}} style={{borderRadius: '0px 3px 3px 0px'}}>
                     <img src="/Icons/ic-team.svg" alt=""/>
                     <br/>
                     My Teams
-                </Button>
+                </Button> */}
             </div>
         </div>
             <Row className="filt-00">
@@ -130,17 +130,17 @@ export const NewProblemsFilter = () => {
 
             <Row className="filt-00" style={{ marginTop: '10px' }}>
                 <Col span={24}>
-                <div className='sub-title-sec'>
+                {/* <div className='sub-title-sec'> */}
                   <h5 className="filter-title chart-filter-title">Project type <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></h5>
                   <div>
                     <Button className="btn-svg" onClick={() => apply(selectedData.join(','),'problemtype')}>
                       Apply
                     </Button>
-                    &nbsp;<span style={{color:'#E9E8EF'}}>|</span>&nbsp;
+                    &nbsp;<span style={{color:'#11093c'}}>|</span>&nbsp;
                     <Button className="btn-svg" onClick={() => apply('','problemtype')}>
                         Reset
                     </Button>
-                  </div>
+                  {/* </div> */}
                 </div>
                     {/* <h5 className="filter-title chart-filter-title">Problem Type <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5> */}
                     {
@@ -214,18 +214,18 @@ export const NewProblemsFilter = () => {
                     </>
                 </Col>
                 <Col span={12} style={{ paddingLeft: '8px', paddingRight:'26px'}}>
-                <h5 className="filter-title">Jurisdiction <Popover content={content06}><img src="/Icons/icon-19.svg" alt=""  width="12px"/></Popover></h5>
+                <h5 className="filter-title">Local Government <Popover content={content06}><img src="/Icons/icon-19.svg" alt=""  width="12px"/></Popover></h5>
                     <>
                         <div>
                         <Button className="btn-svg" onClick={() => { }}>
                             Apply
                         </Button>
-                        &nbsp;<span style={{color:'#E9E8EF'}}>|</span>&nbsp;
+                        &nbsp;<span style={{color:'#11093c'}}>|</span>&nbsp;
                         <Button className="btn-svg" onClick={() => { apply('', 'jurisdiction') }}>
                             Reset
                         </Button>
                         </div>
-                        <Select placeholder="- Select -" value={filterProblemOptions.jurisdiction ? filterProblemOptions.jurisdiction : '- Select -'}
+                        <Select placeholder="Select" value={filterProblemOptions.jurisdiction ? filterProblemOptions.jurisdiction : '- Select -'}
                             style={{ width: '100%', borderRadius: '5px', fontSize: '12px' }}
                             listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
                             onChange={(e: string) => {
@@ -243,18 +243,18 @@ export const NewProblemsFilter = () => {
 
             <Row className="filt-00" gutter={[24, 16]} style={{paddingBottom: 10}}>
                 <Col span={12}>
-                    <div className='sub-title-sec' style={{width:'200%'}}>
+                    {/* <div className='sub-title-sec' style={{width:'200%'}}> */}
                     <h5 className="filter-title chart-filter-title">Solution Cost <Popover content={content02}><img src="/Icons/icon-19.svg" alt=""  width="12px"/></Popover></h5>
-                    <div>
+                    {/* <div>
                         <Button className="btn-svg">
                         Apply
                         </Button>
-                        &nbsp;<span style={{color:'#E9E8EF'}}>|</span>&nbsp;
+                        &nbsp;<span style={{color:'#11093c'}}>|</span>&nbsp;
                         <Button className="btn-svg">
                             Reset
                         </Button>
-                    </div>
-                    </div>
+                    </div> */}
+                    {/* </div> */}
                     {
                         paramProblems.cost &&   
                         <DropdownFilters 

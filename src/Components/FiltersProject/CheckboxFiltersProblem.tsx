@@ -61,7 +61,7 @@ export const CheckBoxFilters = ({
           <Button className="btn-svg" onClick={apply} disabled={type === 'problemPriority'?true : false}>
             Apply
           </Button>
-          &nbsp;<span style={{color:'#E9E8EF'}}>|</span>&nbsp;
+          &nbsp;<span style={{color:'#11093c'}}>|</span>&nbsp;
           <Button className="btn-svg" onClick={reset} disabled={type === 'problemPriority'?true : false}>
             Reset
           </Button>
