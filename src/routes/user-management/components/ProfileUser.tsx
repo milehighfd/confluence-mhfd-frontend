@@ -27,7 +27,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
   const [saveAlert, setSaveAlert] = useState(false);
   const [confirmation, setConfirmation] = useState(false);
   const validationSchema = VALIDATION_USER;
-  const [disabled, setDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(false);
   const [disabledContact, setDisabledContact] = useState(false);
   const [disabledAddress, setDisabledAddress] = useState(false);
   const [selectAssociate, setSelectAssociate] = useState(-1);
@@ -74,7 +74,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
   }
 
   const handleNotification = () => {
-    openNotification('Success! Your user update was saved!', "success", "example text for notification");
+    openNotification('Success! Your user update was saved!', "success");
   };
 
   const {
@@ -477,7 +477,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
     }
     setSaveAlert(false)
   }
-  
+
   function handleSuccess(res: any) {
     if (res.message === 'SUCCESS') {   
       setDisabledContact(false);     
@@ -675,8 +675,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
               </Col>
             </Row>
           <Row style={{ paddingLeft: '20px' }}>
-            {
-              disabledAddress &&
+            {/* {disabledAddress && */}
               <>
                 <Col xs={{ span: 24 }} lg={{ span: 18 }} style={{ paddingRight: '0px' }}>
                   <p>ADDRESS</p>
@@ -709,19 +708,20 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
                   <p>STATE</p>
-                  <Dropdown trigger={['click']} overlay={menuStates} >
+                  <Dropdown trigger={['click']} overlay={menuStates}
+                    overlayStyle={disabled?{backgroundColor: 'red'}:{}}
+                    >
                     <Button className="btn-borde-management">
-                      {state === '' ? 'State' : state}<DownOutlined />
+                      {state? state:'State'}<DownOutlined />
                     </Button>
                   </Dropdown>
                 </Col>
               </>
-            }
           </Row>
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{paddingLeft: '20px',paddingTop: '20px', paddingRight: '20px' }}>
                 <div className="gutter-row">
-                  <p>BUSINESS ASSOCIATE  CONTACT </p>
+                  <p>BUSINESS ASSOCIATE CONTACT </p>
                   <Dropdown trigger={['click']} overlay={menuContactAssociate}
                     getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
                     <Button className="btn-borde-management">
@@ -731,7 +731,8 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
                 </div>
               </Col>
             </Row> 
-          {disabledContact && <Row>
+            {/* {disabledContact &&  */}
+          <Row>
             <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px', paddingRight: '20px'  }}>
               <p>CONTACT NAME</p>
               <Input
@@ -750,7 +751,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
                 onChange= {(e) => {handleChangeData(e.target.value, setCreateMail)}}
               />
             </Col>
-            <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
+            <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px', paddingRight: '20px'   }}>
               <p>PHONE NUMBER</p>
               <Input
                 style={{marginBottom:'15px'}}
@@ -759,7 +760,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
                 onChange= {(e) => {handleChangeData(formatPhoneNumber(e.target.value), setCreatePhone)}}
               />
             </Col>
-          </Row> }          
+          </Row>    
           <br />
           </>
         }
