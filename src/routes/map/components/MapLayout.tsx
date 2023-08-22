@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Layout, Row, Col, Button } from 'antd';
-import SidebarView from 'Components/Shared/Sidebar/SidebarView';
-import LoadingView from 'Components/Loading/LoadingView';
+import React, { useState, useEffect, Fragment } from 'react';
+import { Row, Col, Button } from 'antd';
 import {
   COMPLETE_SCREEN,
   PROJECTS_MAP_STYLES,
@@ -16,16 +14,9 @@ import { useAppUserDispatch } from 'hook/useAppUser';
 import { SELECT_ALL_FILTERS } from 'constants/constants';
 import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
-import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
-import { FiltersContext } from 'utils/filterContext';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import ConfigurationService from 'services/ConfigurationService';
-import { BoardDataRequest } from 'Components/Work/Request/RequestTypes';
-import ModalProjectView from 'Components/ProjectModal/ModalProjectView';
-import Analytics from 'Components/Work/Drawers/Analytics';
-import Status from 'Components/Work/Drawers/Status';
-import Filter from 'Components/Work/Drawers/Filter';
-import NavbarView from 'Components/Shared/Navbar/NavbarView';
+import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 import RequestView from 'Components/Work/Request/RequestView';
 import Map from 'routes/map/components/Map';
 import MapView from 'routes/map/components/MapView';
@@ -65,37 +56,14 @@ const MapLayout = () => {
   const { getUserInformation } = useAppUserDispatch();
   const [safeLoading, setSafeLoading] = useState(false);
 
+  const { leftWidth } = useRequestState();
   const {
-    showModalProject,
-    completeProjectData,
-    locality,
-    year,
-    tabKey,
-    tabKeys,
-    showCreateProject,
-    problemId,
-    showBoardStatus,
-    leftWidth,
-    showFilters,
-    visibleCreateProject,
-  } = useRequestState();
-  const {
-    setShowModalProject,
-    setShowCreateProject,
     setShowBoardStatus,
-    setVisibleCreateProject,
     setYearList,
     setYear,
     setLeftWidth,
     setShowFilters,
   } = useRequestDispatch();
-  const currentDataForBoard: BoardDataRequest = {
-    type: tabActiveNavbar === WORK_REQUEST ? WORK_REQUEST: WORK_PLAN,
-    year: `${year}`,
-    locality,
-    projecttype: tabKey ? tabKey : tabKeys[0],
-    position: ''
-  };
 
   useEffect(() => {
     const initLoading = async () => {
@@ -258,101 +226,43 @@ const MapLayout = () => {
     }
     setShowBoardStatus(false);
     setShowFilters(false);
-  },[tabActiveNavbar])
+  },[tabActiveNavbar]);
+
   return (
-    <>
-    {/* WORK-PLAN-ComPONMENTS */}
+    <Fragment>
+      {safeLoading && <LoadingViewOverall />}
       {
-        showModalProject &&
-        <ModalProjectView
-          visible={showModalProject}
-          setVisible={setShowModalProject}
-          data={completeProjectData}
-          showDefaultTab={true}
-          locality={locality}
-          editable={true}
-          currentData={currentDataForBoard}
-          year={year}
-        />
+        !!(longitude && latitude && loaded) && (
+          <Row>
+            <Col
+              xs={{ span: 24 }}
+              className={open ? "padding-comment transition-map" : "transition-map"}
+              lg={tabActiveNavbar === MAP ? leftWidthMap: { span: leftWidth }}
+            >
+              <Map
+                leftWidth={tabActiveNavbar === MAP ? leftWidthMap : leftWidth}
+                commentVisible={commentVisible}
+                setCommentVisible={setCommentVisible}
+              />
+              <Button className="btn-coll" onClick={updateWidth} disabled={tabActiveNavbar!==MAP && commentVisible}>
+                <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px" />
+              </Button>
+            </Col>
+            <Col
+              xs={{ span: 24 }}
+              className="menu-mobile"
+              lg={24 - (tabActiveNavbar === MAP ? leftWidthMap : leftWidth)}
+            >
+              {tabActiveNavbar === MAP && <MapView />}
+              {(tabActiveNavbar === WORK_REQUEST || tabActiveNavbar === WORK_PLAN) && <RequestView
+                type={tabActiveNavbar}
+                widthMap={leftWidth}
+              />}
+            </Col>
+          </Row>
+        )
       }
-      {
-        showCreateProject &&
-        <ModalProjectView
-          visible={showCreateProject}
-          setVisible={setShowCreateProject}
-          data={"no data"}
-          showDefaultTab={true}
-          locality={locality}
-          editable={true}
-          problemId={problemId}
-          currentData={currentDataForBoard}
-          year={year}
-        />
-      }
-      { <Analytics /> }
-      {
-        showBoardStatus && <Status />
-      }
-      {
-        showFilters && <Filter/>
-      }
-      {
-        visibleCreateProject &&
-        <ModalProjectView
-          visible={visibleCreateProject}
-          setVisible={setVisibleCreateProject}
-          data={"no data"}
-          defaultTab={tabKey}
-          locality={locality}
-          editable={true}
-          currentData={currentDataForBoard}
-          year={year}
-        />
-      }
-     {/* END-WORK-PLAN-ComPONMENTS */}
-      <Layout key={'main-map'}>
-        <NavbarView />
-        <FiltersContext>
-        <Layout>
-          <SidebarView></SidebarView>
-          {safeLoading && <LoadingViewOverall />}
-          <Layout className="map-00">
-            {
-              !!(longitude && latitude && loaded) ? (
-                <Row>
-                  <Col
-                    xs={{ span: 24 }}
-                    className={open ? "padding-comment transition-map" : "transition-map"}
-                    lg={tabActiveNavbar === MAP ? leftWidthMap: { span: leftWidth }}
-                  >
-                    <Map
-                      leftWidth={tabActiveNavbar === MAP ? leftWidthMap : leftWidth}
-                      commentVisible={commentVisible}
-                      setCommentVisible={setCommentVisible}
-                    />
-                    <Button className="btn-coll" onClick={updateWidth} disabled={tabActiveNavbar!==MAP && commentVisible}>
-                      <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px" />
-                    </Button>
-                  </Col>
-                  <Col
-                    xs={{ span: 24 }}
-                    className="menu-mobile"
-                    lg={24 - (tabActiveNavbar === MAP ? leftWidthMap : leftWidth)}
-                  >
-                   {tabActiveNavbar === MAP && <MapView />}
-                   {(tabActiveNavbar === WORK_REQUEST || tabActiveNavbar === WORK_PLAN) && <RequestView
-                      type={tabActiveNavbar}
-                      widthMap={leftWidth}
-                    />}
-                  </Col>
-                </Row>
-            ) : <LoadingView />
-            }
-          </Layout>
-        </Layout>
-        </FiltersContext>
-      </Layout>
-    </>
+    </Fragment>
   );
 };
 

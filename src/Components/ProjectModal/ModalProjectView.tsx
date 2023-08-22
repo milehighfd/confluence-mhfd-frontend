@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Input, Row, Col, Popover } from 'antd';
 import { ModalCapital } from 'Components/Project/Capital/ModalCapital';
-import { ModalAcquisition } from 'Components/Project/Acquisition/ModalAcquisition';
-import { ModalMaintenance } from 'Components/Project/Maintenance/ModalMaintenance';
-import { ModalSpecial } from 'Components/Project/Special/ModalSpecial';
-import { ModalStudy } from 'Components/Project/Study/ModalStudy';
 import { NEW_PROJECT_TYPES } from 'constants/constants';
 import { useProjectDispatch } from 'hook/projectHook';
 import { getAllowedBasedOnLocality } from 'Components/Work/Request/RequestViewUtil';
 import { postData } from 'Config/datasets';
-import { SERVER } from 'Config/Server.config';
 import { getCurrentProjectStatus } from 'utils/parsers';
 import { useAttachmentDispatch } from 'hook/attachmentHook';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
+import { UPDATE_BOARD_BY_ID } from 'Config/endpoints/board';
+import { useRequestState } from 'hook/requestHook';
 
 const content00 = (<div className="popver-info">Collection and removal of trash and debris that could prevent the system from functioning as intended.</div>);
 const content01 = (<div className="popver-info">Planting, seeding, thinning, weed control, adaptive management, and other vegetation-related activities.</div>);
@@ -29,7 +26,6 @@ const ModalProjectView = ({
   locality,
   editable,
   problemId,
-  currentData,
   year
 }: {
   visible: boolean,
@@ -40,9 +36,11 @@ const ModalProjectView = ({
   locality?: any,
   editable:boolean,
   problemId?: any,
-  currentData?: any,
   year?: number
 }) => {
+  const {
+    namespaceId
+  } = useRequestState();
   const {
     getStreamsByProjectId, 
     getIndependentComponentsByProjectId, 
@@ -58,19 +56,13 @@ const ModalProjectView = ({
   const [visibleSubType, setVisibleSubType] = useState(false);
   const [visibleModal, setVisibleModal] = useState(visible)
   const [visibleCapital, setVisibleCapital] = useState(false);
-  const [visibleAcquisition, setVisibleAcquisition] = useState(false);
-  const [visibleMaintenance, setVisibleMaintenance] = useState(false);
-  const [visibleSpecial, setVisibleSpecial] = useState(false);
-  const [visibleStudy, setVisibleStudy] = useState(false);
   const [openCollapserd, setOpenCollapserd] = useState(false);
   const [allowed, setAllowed] = useState<string[]>([]);
   const pageWidth  = document.documentElement.scrollWidth;
   const RandD = 'R&D';
 
   const handleOk = (e: any) => {  
-    let dataForBoard = {...currentData};
-    dataForBoard.projecttype = typeProject;
-    postData(`${SERVER.URL_BASE}/board/`, dataForBoard)
+    postData(`${UPDATE_BOARD_BY_ID}`, namespaceId)
       .then(
         (r: any) => {
           let { projects } = r; 
@@ -215,6 +207,7 @@ const ModalProjectView = ({
   useEffect(() => {
     console.trace('visibleCapita', visibleCapital);
   }, [visibleCapital]);
+  console.log('rendering ModalProjectView');
   return (
     <div id='modalProjectView'>
      {visibleCapital && <ModalCapital

@@ -117,7 +117,7 @@ const Status = () => {
     });
     setBoardsData(newBoardsData);
   }
-
+  console.log('rendering Status');
   return (
     <>
     {contextHolder}

@@ -157,6 +157,7 @@ const Analytics = () => {
   useEffect(() =>{
     setShowAnalytics(false);
   },[tabActiveNavbar])
+  console.log('rendering Analytics');
   return (
     <Drawer
       title={
