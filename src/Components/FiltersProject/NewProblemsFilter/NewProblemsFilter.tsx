@@ -108,7 +108,7 @@ export const NewProblemsFilter = () => {
         </div>
             <Row className="filt-00">
                 <Col span={12}>
-                    <h5 className="filter-title chart-filter-title">Service Area <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <h5 className="filter-title chart-filter-title">Service Area <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></h5>
                     {
                         paramProblems.servicearea &&
                         <TreeMapProblem data={paramProblems.servicearea} type={'servicearea'} tab={'problem'}
@@ -117,7 +117,7 @@ export const NewProblemsFilter = () => {
                     }
                 </Col>
                 <Col span={12}>
-                    <h5 className="filter-title chart-filter-title">County <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <h5 className="filter-title chart-filter-title">County <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></h5>
                     {
                         paramProblems.county &&
                         <TreeMapProblem data={paramProblems.county} type={'county'} tab={'problem'}
@@ -158,7 +158,7 @@ export const NewProblemsFilter = () => {
             <hr className='filters-line'></hr>
             <Row className="filt-00" style={{ marginTop: '10px' }}>
                 <Col span={12}>
-                    <h5 className="filter-title chart-filter-title">Solution Status <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <h5 className="filter-title chart-filter-title">Solution Status <Popover content={content}><img src="/Icons/icon-19.svg" alt=""  width="12px"/></Popover></h5>
                     {
                         paramProblems.solutionstatus &&
                          <CheckBoxFilters 
@@ -185,7 +185,7 @@ export const NewProblemsFilter = () => {
                     }
                 </Col>
                 <Col span={12} style={{opacity:'0.5'}}>
-                    <h5 className="filter-title chart-filter-title">Problem Priority <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <h5 className="filter-title chart-filter-title">Problem Priority <Popover content={content01}><img src="/Icons/icon-19.svg" alt=""  width="12px"/></Popover></h5>
                     {
                         paramProblems.priority &&
                         <CheckBoxFilters data={paramProblems.priority}
@@ -201,7 +201,7 @@ export const NewProblemsFilter = () => {
             <hr className='filters-line'></hr>
             <Row className="filt-00">
                 <Col span={12}>
-                    <h5 className="filter-title">MHFD Lead <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <h5 className="filter-title">MHFD Lead <Popover content={content07}><img src="/Icons/icon-19.svg" alt=""  width="12px"/></Popover></h5>
                     <>
                         <CheckBoxIds
                             defaultValue={''}
@@ -214,7 +214,7 @@ export const NewProblemsFilter = () => {
                     </>
                 </Col>
                 <Col span={12} style={{ paddingLeft: '8px', paddingRight:'26px'}}>
-                <h5 className="filter-title">Jurisdiction <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 className="filter-title">Jurisdiction <Popover content={content06}><img src="/Icons/icon-19.svg" alt=""  width="12px"/></Popover></h5>
                     <>
                         <div>
                         <Button className="btn-svg" onClick={() => { }}>
@@ -244,7 +244,7 @@ export const NewProblemsFilter = () => {
             <Row className="filt-00" gutter={[24, 16]} style={{paddingBottom: 10}}>
                 <Col span={12}>
                     <div className='sub-title-sec' style={{width:'200%'}}>
-                    <h5 className="filter-title chart-filter-title">Solution Cost <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <h5 className="filter-title chart-filter-title">Solution Cost <Popover content={content02}><img src="/Icons/icon-19.svg" alt=""  width="12px"/></Popover></h5>
                     <div>
                         <Button className="btn-svg">
                         Apply
