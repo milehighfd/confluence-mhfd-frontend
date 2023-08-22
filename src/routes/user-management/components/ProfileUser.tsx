@@ -423,20 +423,6 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
   } 
 
   const save = (selectAssociateId: any) => {
-    const newUser: any = {
-      firstName,
-      lastName,
-      email,
-      title,
-      phone,
-      designation,
-      organization,
-      serviceArea,
-      county,
-      city: jurisdiction,
-      zoomarea,
-      business_associate_contact_id: +contactId
-    };
     const newAddress: any = {
       business_address_line_1: addressLine1,
       business_address_line_2: addressLine1,
@@ -451,32 +437,10 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
         contact_name: createFullName,
         contact_email: createMail,
         contact_phone_number: createPhone,
-        business_associate_contact_id: +selectAssociateId
+        business_associate_contact_id: +selectAssociateId,
+        user_id: record.user_id
       },datasets.getToken()).then(res => {
-        newUser.business_associate_contact_id = +contactId;
-        datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => { 
-          if (res.message === 'SUCCESS') {   
-            setDisabledContact(false);     
-            setDisabledAddress(false);
-            saveUser();           
-            updateSuccessful();
-            setDisabled(true);
-            setUpdate(!update);
-            setCreateAssociate(false);
-            getUserInformation();     
-            setConfirmation(true);
-            setTimeout(() => {
-              setConfirmation(false);
-            }, 3000);
-          } else {
-            if (res?.error) {
-              updateError(res.error);
-            }
-            else {
-              updateError(res);
-            }
-          }
-        })
+        handleSuccess(res);
       });
     } else if (createAdress && createContact) {
       datasets.postData(SERVER.SAVE_BUSINESS_ADRESS_AND_CONTACT(selectAssociateId), {
@@ -484,32 +448,10 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
         contact_name: createFullName,
         contact_email: createMail,
         contact_phone_number: createPhone,
-        business_address_id: addressId
+        business_address_id: addressId,
+        user_id: record.user_id
       }, datasets.getToken()).then(res => {
-        newUser.business_associate_contact_id = +res?.businessContact?.business_associate_contact_id;
-        datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => { 
-          if (res.message === 'SUCCESS') {   
-            setDisabledContact(false);     
-            setDisabledAddress(false);
-            saveUser();           
-            updateSuccessful();
-            setCreateAssociate(false);
-            setDisabled(true);
-            setUpdate(!update);
-            getUserInformation();     
-            setConfirmation(true);
-            setTimeout(() => {
-              setConfirmation(false);
-            }, 3000);
-          } else {
-            if (res?.error) {
-              updateError(res.error);
-            }
-            else {
-              updateError(res);
-            }
-          }
-        });
+        handleSuccess(res);
       });
     } else if (!createAdress && createContact) {
       datasets.postData(SERVER.CREATE_CONTACT  + '/' + addressId, {
@@ -517,32 +459,10 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
         contact_name: createFullName,
         contact_email: createMail,
         contact_phone_number: createPhone,
-        business_address_id: addressId,        
+        business_address_id: addressId,
+        user_id: record.user_id
       }, datasets.getToken()).then(res => {
-        newUser.business_associate_contact_id = +res?.business_associate_contact_id;
-        datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => { 
-          if (res.message === 'SUCCESS') {     
-            setDisabledContact(false);     
-            setDisabledAddress(false);   
-            saveUser();           
-            updateSuccessful();
-            setCreateAssociate(false);
-            setDisabled(true);
-            setUpdate(!update);
-            getUserInformation();
-            setConfirmation(true);
-            setTimeout(() => {
-              setConfirmation(false);
-            }, 3000);
-          } else {
-            if (res?.error) {
-              updateError(res.error);
-            }
-            else {
-              updateError(res);
-            }
-          }
-        });
+        handleSuccess(res);
       });
     } else {
       datasets.putData(SERVER.UPDATE_BUSINESS_ADRESS_AND_CONTACT(addressId,contactId), {
@@ -550,35 +470,36 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
         contact_name: createFullName,
         contact_email: createMail,
         contact_phone_number: createPhone,
+        user_id: record.user_id
       }, datasets.getToken()).then(res => {
-        newUser.business_associate_contact_id = +contactId;
-        datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => { 
-          if (res.message === 'SUCCESS') {   
-            setDisabledContact(false);     
-            setDisabledAddress(false);
-            saveUser();           
-            updateSuccessful();
-            setCreateAssociate(false);
-            setDisabled(true);
-            setUpdate(!update);
-            getUserInformation();
-            setConfirmation(true);
-            handleNotification();
-            setTimeout(() => {
-              setConfirmation(false);
-            }, 3000);
-          } else {
-            if (res?.error) {
-              updateError(res.error);
-            }
-            else {
-              updateError(res);
-            }
-          }
-        });
+        handleSuccess(res);
       });
     }
     setSaveAlert(false)
+  }
+  
+  function handleSuccess(res: any) {
+    if (res.message === 'SUCCESS') {   
+      setDisabledContact(false);     
+      setDisabledAddress(false);
+      saveUser();           
+      updateSuccessful();
+      setCreateAssociate(false);
+      setDisabled(true);
+      setUpdate(!update);
+      getUserInformation();
+      setConfirmation(true);
+      handleNotification();
+      setTimeout(() => {
+        setConfirmation(false);
+      }, 3000);
+    } else {
+      if (res?.error) {
+        updateError(res.error);
+      } else {
+        updateError(res);
+      }
+    }
   }
 
   const result = () => {

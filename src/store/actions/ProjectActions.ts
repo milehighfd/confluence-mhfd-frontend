@@ -638,13 +638,14 @@ export const getStreamsByProjectId = (projectId: any, typeProjectId: any) => {
       independentStreams = independentStreams.map((indStr:any) => {
         const arrayValues = indStr.stream.stream.MHFD_Code.split('.');
         arrayValues.shift();
-        completeMhfdList.push({mhfd_code_complete: indStr.stream.stream.MHFD_Code, mhfd_code_split: arrayValues.join('.')});
+        completeMhfdList.push({mhfd_code_complete: indStr.stream.stream.MHFD_Code, mhfd_code_split: arrayValues.join('.'), str_name: indStr.stream.stream.stream_name});
         return arrayValues.join('.');
       });
       const setMHFD:any = new Set();
       for(let i = 0; i < independentStreams.length; ++i) {
         setMHFD.add(independentStreams[i])
       }
+      console.log('completeMhfdList', completeMhfdList);
       dispatch({type: types.SET_LIST_STREAMS, listStreams});
       let setArray = [...setMHFD];
       let streamsIntersectedIds: any = [];
@@ -653,6 +654,7 @@ export const getStreamsByProjectId = (projectId: any, typeProjectId: any) => {
           cartodb_id: undefined,
           mhfd_code:i,
           mhfd_code_full: completeMhfdList.find((mhfd: any) => mhfd.mhfd_code_split === i)?.mhfd_code_complete,
+          str_name: completeMhfdList.find((mhfd:any) => mhfd.mhfd_code_split === i)?.str_name,
         })
       };
       if (typeProjectId == 1 || typeProjectId === 18) { // VALUES of STUDY

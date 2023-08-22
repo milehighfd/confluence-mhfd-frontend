@@ -141,7 +141,6 @@ export const getUserBrowser = () => {
 
 
 export const formatPhoneNumber = (value:any) => {
-  console.log(value, 'value: PHONE')
   if(!value) return value;
   const phoneNumber = value.replace(/[^\d]/g,'');
   const phoneNumberLength = phoneNumber.length;

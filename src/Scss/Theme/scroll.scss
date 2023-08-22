@@ -89,3 +89,9 @@
   touch-action: pan-y;
   touch-action: pan-x;
  }
+ @media (min-width: 2500px) and (max-width: 3999px) {
+  ::-webkit-scrollbar {
+    width: 8px !important;
+    height: 8px !important;
+  }
+}

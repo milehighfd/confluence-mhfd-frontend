@@ -17,12 +17,36 @@ function shallowEqual(object1: any, object2:any ) {
 
   return true;
 }
+function getValuesOfStream (object1: any) {
+  if (object1.cartodb_id) {
+    return {
+      length: object1.length,
+      mhfd_code: object1?.stream[0]?.mhfd_code,
+      str_name: object1.str_name,
+      stream_id: object1?.stream[0]?.stream_id,
+      jurisdiction: object1?.jurisdiction
+    };
+  } else {
+    return {
+      length: object1.length,
+      mhfd_code: object1.mhfd_code,
+      str_name: object1?.stream?.stream?.stream_name,
+      stream_id: object1?.stream?.stream_id,
+      jurisdiction: object1.jurisdiction
+    };
+  }
+}
+function equalStreams(object1: any, object2: any) {
+  let ValuesToCompareObj1 = getValuesOfStream(object1);
+  let ValuesToCompareObj2 = getValuesOfStream(object2);
+  return shallowEqual(ValuesToCompareObj1, ValuesToCompareObj2);
+}
 function ObjInsideArray(object1: any, array:any) {
   if(!array) {
     return false;
   }
   for(let j = 0 ; j < array.length ; ++j) {
-    if(shallowEqual(object1, array[j])) {
+    if(equalStreams(object1, array[j])) {
       return true;
     }
   }
@@ -176,6 +200,7 @@ const projectReducer = (state = initState, action: any) => {
     }
     case types.SET_LIST_STREAMS_ADD: {
       let listStreams: any = state.listStreams;
+      
       if(Array.isArray(state.listStreams)){
         return {
           ...state, 
