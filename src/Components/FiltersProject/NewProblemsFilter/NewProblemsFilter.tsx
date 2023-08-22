@@ -210,23 +210,29 @@ export const NewProblemsFilter = () => {
                         />
                     </>
                 </Col>
-                <Col span={12} >
-                <h5 className="filter-title">Local Government <Popover content={content00}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
-                <div>
-                    <Button className="btn-svg" onClick={() => {}}>
-                    Apply
-                    </Button>
-                    &nbsp;<span style={{color:'#E9E8EF'}}>|</span>&nbsp;
-                    <Button className="btn-svg" onClick={() => {}}>
-                        Reset
-                    </Button>
-                </div>
-                    {
-                    <Checkbox.Group
-                    // data={paramProjects.contractor.sort((a: any, b: any) => a.value.localeCompare(b.value))}
-                    options={['Lonetree', 'Parker', 'SEMSWA','Unincorporated Arapahoe C...']}
-                  />
-                }
+                <Col span={12} style={{ paddingLeft: '8px', paddingRight:'26px'}}>
+                <h5 className="filter-title">Jurisdiction <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <>
+                        <div>
+                        <Button className="btn-svg" onClick={() => { }}>
+                            Apply
+                        </Button>
+                        &nbsp;<span style={{color:'#E9E8EF'}}>|</span>&nbsp;
+                        <Button className="btn-svg" onClick={() => { apply('', 'jurisdiction') }}>
+                            Reset
+                        </Button>
+                        </div>
+                        <Select placeholder="- Select -" value={filterProblemOptions.jurisdiction ? filterProblemOptions.jurisdiction : '- Select -'}
+                            style={{ width: '100%', borderRadius: '5px', fontSize: '12px' }}
+                            listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+                            onChange={(e: string) => {
+                                apply(e, 'jurisdiction');
+                            }}>
+                            {(paramProblems.jurisdiction || []).map((element: any, index: number) => {
+                                return element && <Option key={index} value={element.value}>{`${element.value}`}</Option>
+                            })}
+                        </Select>
+                    </>
                 </Col>
             </Row>
 
@@ -260,7 +266,7 @@ export const NewProblemsFilter = () => {
                     }
                 </Col>
             </Row>
-            <hr className='filters-line'></hr>
+            {/* <hr className='filters-line'></hr>
             <Row className="filt-00" gutter={[24, 16]} style={{paddingBottom: 10}}>
                 <Col span={11} style={{ paddingRight: '20px'}}>
                 <h5 className="filter-title">Jurisdiction <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
@@ -286,7 +292,7 @@ export const NewProblemsFilter = () => {
                         </Select>
                     </>
                 </Col>
-            </Row>
+            </Row> */}
             <Row className="filt-00" gutter={[24, 16]} style={{height: 50}}>
                 <Col span={24} style={{height: 50}}></Col>
             </Row>
