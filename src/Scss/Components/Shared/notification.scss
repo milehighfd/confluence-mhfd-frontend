@@ -19,13 +19,10 @@
     margin-left: 14px;
     margin-bottom: 0px;
   }
-  .ant-notification-notice-icon-success {
-    color: #29c499 !important;
-  }
-  .ant-notification-notice-close{
+  .ant-notification-notice-close {
     right: 16px;
-    .ant-notification-notice-close-x{
-      span{
+    .ant-notification-notice-close-x {
+      span {
         font-size: 16px;
       }
     }
@@ -35,31 +32,55 @@
     margin-left: 0px;
     font-size: 24px;
     line-height: 24px;
-}
-  .ant-notification-notice-with-icon{
+  }
+  .ant-notification-notice-with-icon {
     display: flex;
     align-items: center;
     width: 100%;
+    .ant-notification-notice-description {
+      display: none !important;
+    }
+  }
+}
+.notification-alert-layout-with-description {
+  max-width: 50vw !important;
+  font-size: 16px;
+  .ant-notification-notice-message {
+    color: #11093c;
+    font-family: Ubuntu;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+    // height: 22px;
+    letter-spacing: -0.5px;
+    // margin-left: 14px;
+    // margin-bottom: 0px;
   }
 }
 .notification-icon-success {
   color: #29c499 !important;
   font-size: 24px;
 }
-.notification-alert-success{
+.notification-icon-warning {
+  color: #ff8838 !important;
+  font-size: 24px;
+}
+.notification-alert-success {
   border-bottom: 5px solid #29c499;
+}
+.notification-alert-warning {
+  border-bottom: 5px solid #ff8838;
 }
 
 .ant-notification-notice-content {
   width: auto !important;
 }
-.ant-notification-notice{
+.ant-notification-notice {
   width: max-content !important;
   max-width: max-content;
 }
-.ant-notification-notice-with-icon .ant-notification-notice-description {
-  display: none !important;
-}
+
 @media (min-width: 1900px) and (max-width: 2549px) {
   .notification-alert-layout {
     // width: 490px;
@@ -69,29 +90,27 @@
     }
   }
 }
-@media (min-width: 2550px) and (max-width: 3799px){
+@media (min-width: 2550px) and (max-width: 3799px) {
   .notification-alert-layout {
     padding: 20px 40px 20px;
     .ant-notification-notice-message {
       font-size: 22px;
       margin-left: 18px;
     }
-    .ant-notification-notice-close{
+    .ant-notification-notice-close {
       right: 28px;
       top: 28px;
-      .ant-notification-notice-close-x{
-        span{
+      .ant-notification-notice-close-x {
+        span {
           font-size: 24px;
           margin-top: -10px;
-      
         }
       }
     }
     .ant-notification-notice-icon {
-      span{
+      span {
         font-size: 30px;
       }
     }
-
   }
 }

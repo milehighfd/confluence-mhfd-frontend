@@ -54,6 +54,7 @@ import {
   setDisableFilterComponent,
   setListView,
   setFilterYear,
+  setConfiguredYear,
 } from 'store/actions/requestActions';
 import { DragAndDropCards } from 'store/types/requestTypes';
 
@@ -221,6 +222,9 @@ export const useRequestDispatch = () => {
   const _setFilterYear = useCallback((filterYear: any) => {
     dispatch(setFilterYear(filterYear));
   }, [dispatch]);
+  const _setConfiguredYear = useCallback((configuredYear: any) => {
+    dispatch(setConfiguredYear(configuredYear));
+  }, [dispatch]);
   return {
     setShowModalProject: _setShowModalProject,
     setCompleteProjectData: _setCompleteProjectData,
@@ -275,5 +279,6 @@ export const useRequestDispatch = () => {
     setDisableFilterComponent: _setDisableFilterComponent,
     setIsListView: _setIsListView,
     setFilterYear: _setFilterYear,
+    setConfiguredYear: _setConfiguredYear,
   };
 };

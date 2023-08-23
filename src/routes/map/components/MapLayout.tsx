@@ -60,9 +60,9 @@ const MapLayout = () => {
   const {
     setShowBoardStatus,
     setYearList,
-    setYear,
     setLeftWidth,
     setShowFilters,
+    setConfiguredYear,
   } = useRequestDispatch();
 
   useEffect(() => {
@@ -81,11 +81,11 @@ const MapLayout = () => {
         }
         array.push(boardYearLimit - i);
       }
+      setConfiguredYear(boardYearLimit);
       setYearList(array);
-      setYear(array[0]);
     }
     initLoading();
-  }, [isLocalGovernment, setYear, setYearList, tabActiveNavbar]);
+  }, [isLocalGovernment, setYearList, tabActiveNavbar]);
 
   // END WORK REQUEST-WORK-PLAN
 
