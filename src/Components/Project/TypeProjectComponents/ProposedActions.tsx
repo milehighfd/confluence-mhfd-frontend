@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, Popover } from 'antd';
+import { Table, Button, Popover, Tooltip } from 'antd';
 import { DeleteOutlined, ExclamationCircleOutlined, PlusCircleFilled } from '@ant-design/icons';
 import { useProjectDispatch } from "hook/projectHook";
 
@@ -102,10 +102,10 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       }
     },
     {
-      title: 'Cost', 
-      //<>Cost <Popover content={
-      //   <div style={{zIndex:"1000"}}>Costs are adjusted for inflation.</div>
-      // }><ExclamationCircleOutlined style={{opacity:"0.4"}}/></Popover> </>,
+      title: 
+      <>Cost <Tooltip title={
+        <div style={{zIndex:"1000"}}>Costs are adjusted for inflation.</div>
+      }><ExclamationCircleOutlined style={{opacity:"0.4"}}/></Tooltip> </>,
       dataIndex: 'cost',
       key: 'cost',
       sorter: (a:any, b:any) => a.cost - b.cost,
@@ -176,10 +176,10 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       )
     },
     {
-      title: 'Cost', 
-      //<>Cost <Popover content={
-      //   <div style={{zIndex:"1000"}}>Costs are adjusted for inflation.</div>
-      // }><ExclamationCircleOutlined style={{opacity:"0.4"}}/></Popover> </>,
+      title:  
+      <>Cost <Tooltip  title={
+        <div style={{zIndex:"1000"}}>Costs are adjusted for inflation.</div>
+      }><ExclamationCircleOutlined style={{opacity:"0.4"}}/></Tooltip> </>,
       dataIndex: 'cost',
       key: 'cost',
       sorter: (a:any, b:any) =>  a.cost - b.cost,
