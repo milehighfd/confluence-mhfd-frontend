@@ -1,7 +1,7 @@
-@use  '../Theme/styles';
-@import "../Theme/styles.scss";
+@use '../Theme/styles';
+@import '../Theme/styles.scss';
 
-.user-management{
+.user-management {
   padding: 20px;
   height: 100%;
   .ant-tabs-tabpane-active {
@@ -9,13 +9,13 @@
     overflow-x: auto;
   }
 }
-.user-filter-mng{
+.user-filter-mng {
   border-radius: 5px !important;
   width: 100%;
   display: flex;
   font-family: $ubunto;
   position: relative;
-  div{
+  div {
     margin: 0px 15px 20px 0px;
     .ant-input {
       width: 240px;
@@ -23,9 +23,12 @@
       border-radius: 5px !important;
       color: $black;
     }
-    .ant-input-search>.ant-input-group>.ant-input-group-addon:last-child .ant-input-search-button:not(.ant-btn-primary) {
+    .ant-input-search
+      > .ant-input-group
+      > .ant-input-group-addon:last-child
+      .ant-input-search-button:not(.ant-btn-primary) {
       visibility: hidden;
-      color: rgba(0,0,0,.75);
+      color: rgba(0, 0, 0, 0.75);
       margin-left: -30px;
       z-index: 100;
       padding: 3px;
@@ -42,21 +45,21 @@
     border-radius: 5px !important;
     align-self: center;
     min-height: 40px;
-    transition: all .3s cubic-bezier(.645,.045,.355,1);
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   }
-  .ant-btn img{
+  .ant-btn img {
     float: right;
     margin-top: 6px;
     margin-left: 10px;
   }
-  .f-btn{
+  .f-btn {
     background: $purple !important;
     color: $white !important;
     width: 69px !important;
     height: 32px !important;
     border-radius: 5px;
   }
-  .f-btn:hover{
+  .f-btn:hover {
     background: $black;
     color: $white;
     width: 69px;
@@ -65,8 +68,8 @@
     top: 0px;
   }
 }
-.user-management-body{
-  .btn-profile-list-transparent{
+.user-management-body {
+  .btn-profile-list-transparent {
     background: transparent;
     border-color: transparent;
     margin-right: 20px;
@@ -78,14 +81,14 @@
     margin-left: 4px;
     color: #1d1646;
     font-size: 0;
-    transition: color .3s;
-}
-  .btn-profile-list{
+    transition: color 0.3s;
+  }
+  .btn-profile-list {
     font-size: 17.6px;
     height: auto;
     padding: 7px 40px;
   }
-  .select-type{
+  .select-type {
     color: rgb(17 9 60);
     font-size: 20px;
     .select:not(.ant-select-disabled):hover .ant-select-selector {
@@ -96,8 +99,8 @@
       background-color: #fff;
       border: 1px solid #ffffff !important;
     }
-  }  
-  .filter-user-management{
+  }
+  .filter-user-management {
     background-color: #f9f8fa;
     padding: 5px;
     filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.2));
@@ -107,7 +110,7 @@
     justify-content: space-between;
     width: 960px;
     z-index: 20;
-    .ant-select-dropdown{
+    .ant-select-dropdown {
       width: auto !important;
     }
     .ant-select-item-option {
@@ -116,19 +119,20 @@
     }
     .ant-select-arrow {
       height: 16px !important;
+      color: $purple00;
     }
-    .dropdown-special-bottomLeft-filter{
-      margin-right:10px;
+    .dropdown-special-bottomLeft-filter {
+      margin-right: 10px;
       text-align: initial;
-      height:36px;
+      height: 36px;
     }
-    .filter-area{
-      margin-right:10px;
+    .filter-area {
+      margin-right: 10px;
       width: 19%;
       text-align: initial;
-      height:36px;
+      height: 36px;
     }
-    .btn-borde{
+    .btn-borde {
       width: 100%;
       text-align: initial;
       height: 36px;
@@ -138,71 +142,80 @@
       border-radius: 5px !important;
       align-items: center;
       border: 1px solid #d9d9d9 !important;
-      span{
+      span {
         display: inline-block;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
-        color: #bfbfbf;
+        color: $purple00;
       }
-      .anticon{
+      .anticon {
         margin-top: 7px;
-        color: #bfbfbf;
+        color: $purple00;
         font-size: 13px;
       }
     }
     .sign-menu-organization {
       width: 176px;
     }
-    .menu-sub-drop{
-      opacity: 0.6 !important;
+    .menu-sub-drop {
+      // opacity: 0.6 !important;
       padding: 4.5px 7px !important;
     }
-    .menu-sub-drop:hover{
+    .menu-sub-drop:hover {
       opacity: 1 !important;
     }
-    .ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title {
+    .ant-dropdown-menu-item,
+    .ant-dropdown-menu-submenu-title {
       line-height: 18px;
     }
     .ant-input-search-button {
       height: 36px;
     }
-    .ant-input{
+    .ant-input {
       height: 36px;
+      color: $purple;
     }
-    .ant-input-search .ant-input:focus, .ant-input-search .ant-input:hover {
+    .ant-input::placeholder{
+      color: $purple;
+    }
+    .ant-input-search .ant-input:focus,
+    .ant-input-search .ant-input:hover {
       border-color: $purple;
     }
   }
   .ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover {
     border-color: $purple;
   }
-  .ant-btn:focus, .ant-btn:hover {
+  .ant-btn:focus,
+  .ant-btn:hover {
     border-color: $purple !important;
   }
-  .btn-profile-list-transparent:focus, .btn-profile-list-transparent:hover{
+  .btn-profile-list-transparent:focus,
+  .btn-profile-list-transparent:hover {
     border-color: transparent !important;
     opacity: 1;
   }
-  .head-list{
+  .head-list {
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
   }
-  .button-space{
+  .button-space {
     width: 90px;
   }
   .list-view-head {
     width: 276px;
     margin-right: 10px;
-    .ant-select-selector{
-      border:transparent !important;
+    .ant-select-selector {
+      border: transparent !important;
       padding: 0px !important;
       box-shadow: none !important;
     }
-    .ant-select-single.ant-select-show-arrow .ant-select-selection-item, .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
+    .ant-select-single.ant-select-show-arrow .ant-select-selection-item,
+    .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
       margin-right: 8px !important;
       color: rgb(29 22 70) !important;
       font-weight: 500;
@@ -219,29 +232,29 @@
   .table-user-management::-webkit-scrollbar {
     width: 5px;
   }
-  
+
   /* Track */
   .table-user-management::-webkit-scrollbar-track {
     border-radius: 10px;
   }
-   
+
   /* Handle */
   .table-user-management::-webkit-scrollbar-thumb {
     background: $purple00;
     border-radius: 10px;
   }
-  .table-user-management{
+  .table-user-management {
     height: calc(100vh - 199px);
     overflow-y: auto !important;
     margin-top: 5px;
     .ant-table-pagination-right {
       justify-content: flex-start;
     }
-    .ico-arrow{
+    .ico-arrow {
       color: $purple;
       margin-left: 6px;
     }
-    .ant-table-thead>tr>th {
+    .ant-table-thead > tr > th {
       color: $purple !important;
       background: #ffffff;
     }
@@ -262,27 +275,29 @@
     .ant-pagination-item-active {
       border-color: $purple;
     }
-    .ant-table-thead>tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan]):before {
+    .ant-table-thead
+      > tr
+      > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan]):before {
       background-color: rgb(0 0 0 / 0%);
     }
-    .user-tab{
+    .user-tab {
       box-sizing: border-box;
       display: flex;
       flex-direction: row;
       width: 100%;
-      .name-user-list{
-        font-size:14px;
+      .name-user-list {
+        font-size: 14px;
         margin-bottom: 0px;
         font-weight: 400;
-        padding-left:5px;
+        padding-left: 5px;
       }
-      .oganization-user-list{
-        font-size:11px;
+      .oganization-user-list {
+        font-size: 11px;
         margin-bottom: 0px;
         opacity: 0.6;
-        padding-left:5px;
+        padding-left: 5px;
       }
-      img{
+      img {
         border-radius: 50% !important;
         height: 34px !important;
         width: 34px !important;
@@ -294,25 +309,27 @@
         margin-left: 8px;
       }
     }
-    .ant-table-tbody>tr>td{
-      border-bottom: 1px solid #E9E8EF !important;
-    }
-    .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
+    .ant-table-tbody > tr > td,
+    .ant-table-thead > tr > th,
+    .ant-table tfoot > tr > td,
+    .ant-table tfoot > tr > th {
       padding: 8px 16px;
       font-size: 14px;
     }
-    .ant-table-tbody>tr>td {
+    .ant-table-tbody > tr > td {
       color: #413b64;
+      border-bottom: 1px solid #e9e8ef !important;
     }
     .ant-table-thead {
-      .ant-table-cell{
+      .ant-table-cell {
         font-size: 14px;
       }
     }
-    tr.ant-table-expanded-row:hover>td, tr.ant-table-expanded-row>td {
+    tr.ant-table-expanded-row:hover > td,
+    tr.ant-table-expanded-row > td {
       background: #ffffff;
     }
-    .span-activityType{
+    .span-activityType {
       font-family: 'Ubuntu';
       font-style: normal;
       font-weight: 500;
@@ -328,21 +345,21 @@
       border-radius: 5px;
       font-size: 14px;
     }
-    .span-manager{
+    .span-manager {
       color: $purple;
       background-color: #eaf4fa;
       padding: 3px 8px;
       border-radius: 5px;
       font-size: 14px;
     }
-    .span-gov{
+    .span-gov {
       color: $purple;
       background-color: #eafaf5;
       padding: 3px 8px;
       border-radius: 5px;
       font-size: 14px;
     }
-    .span-Active{
+    .span-Active {
       color: #40cba4;
       background-color: #eafaf5;
       padding: 3px 8px;
@@ -357,7 +374,7 @@
         margin-right: 6px;
       }
     }
-    .span-Inactive{
+    .span-Inactive {
       color: #ff0000;
       background-color: #ffe6e6;
       padding: 3px 8px;
@@ -372,12 +389,15 @@
         margin-right: 6px;
       }
     }
-    .profile-user{
+    .profile-user {
       background-color: white;
       border: 1px solid #eae8f0;
       padding: 30px 40px;
       border-radius: 3px;
       color: $purple00;
+      .border-red{
+        border: 2px solid #FF5A5F !important;
+      }
       .ant-dropdown-menu-item {
         // opacity: 0.6;
       }
@@ -390,43 +410,52 @@
       .ant-select-item-option {
         margin: 0px 3px;
       }
-      h1, h2, h3, h4, h5, h6 {
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
         color: rgb(29 22 70);
       }
-      h3{
+      h3 {
         font-size: 19px;
       }
-      h1{
+      h1 {
         font-size: 16px;
       }
-      input{
+      input {
         border-radius: 3px;
         height: 36px;
-        color: #88849d;
+        color: $purple00;
         font-weight: 300 !important;
       }
-      .line-01{
+      input::placeholder{
+        color: $purple00;
+      }
+      .line-01 {
         margin-top: 13px;
       }
       .btn-borde-management {
         width: 100%;
         text-align: initial;
-        height:36px;
+        height: 36px;
         justify-content: space-between;
         display: flex;
         padding: 6.5px 10px;
         border-radius: 3px !important;
         margin-bottom: 15px;
-        span{
+        span {
           display: inline-block;
           white-space: nowrap;
           text-overflow: ellipsis;
           overflow: hidden;
+          color: $purple00;
         }
-        .anticon{
+        .anticon {
           margin-top: 5px;
           font-size: 12px;
-          color: #bfbfbf;
+          color: $purple00;
         }
       }
     }
@@ -434,29 +463,29 @@
   .table-activity-management::-webkit-scrollbar {
     width: 5px;
   }
-  
+
   /* Track */
   .table-activity-management::-webkit-scrollbar-track {
     border-radius: 10px;
   }
-   
+
   /* Handle */
   .table-activity-management::-webkit-scrollbar-thumb {
     background: $purple00;
     border-radius: 10px;
   }
-  .table-activity-management{
+  .table-activity-management {
     height: calc(100vh - 199px);
     overflow-y: auto !important;
     margin-top: 5px;
     .ant-table-pagination-right {
       justify-content: flex-start;
     }
-    .ico-arrow{
+    .ico-arrow {
       color: $purple;
       margin-left: 6px;
     }
-    .ant-table-thead>tr>th {
+    .ant-table-thead > tr > th {
       color: $purple !important;
       background: #ffffff;
     }
@@ -469,42 +498,48 @@
     .ant-pagination-item-active {
       border-color: $purple;
     }
-    .ant-table-thead>tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan]):before {
+    .ant-table-thead
+      > tr
+      > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan]):before {
       background-color: rgb(0 0 0 / 0%);
     }
-    .user-tab{
+    .user-tab {
       box-sizing: border-box;
       display: flex;
       flex-direction: row;
       width: 100%;
-      .name-user-list{
-        font-size:14px;
+      .name-user-list {
+        font-size: 14px;
         margin-bottom: 0px;
         font-weight: 400;
-        padding-left:5px;
+        padding-left: 5px;
       }
-      .oganization-user-list{
-        font-size:11px;
+      .oganization-user-list {
+        font-size: 11px;
         margin-bottom: 0px;
         opacity: 0.6;
-        padding-left:5px;
+        padding-left: 5px;
       }
-      img{
+      img {
         border-radius: 50% !important;
         height: 34px !important;
         width: 34px !important;
       }
     }
-    .ant-table-tbody>tr>td{
+    .ant-table-tbody > tr > td {
       border-bottom: transparent !important;
     }
-    .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
+    .ant-table-tbody > tr > td,
+    .ant-table-thead > tr > th,
+    .ant-table tfoot > tr > td,
+    .ant-table tfoot > tr > th {
       padding: 8px 16px;
     }
-    .ant-table-tbody>tr>td {
+    .ant-table-tbody > tr > td {
       color: #413b64;
     }
-    tr.ant-table-expanded-row:hover>td, tr.ant-table-expanded-row>td {
+    tr.ant-table-expanded-row:hover > td,
+    tr.ant-table-expanded-row > td {
       background: #ffffff;
     }
     .span-admin {
@@ -513,19 +548,19 @@
       padding: 3px 8px;
       border-radius: 5px;
     }
-    .span-manager{
+    .span-manager {
       color: $purple;
       background-color: #eaf4fa;
       padding: 3px 8px;
       border-radius: 5px;
     }
-    .span-gov{
+    .span-gov {
       color: $purple;
       background-color: #eafaf5;
       padding: 3px 8px;
       border-radius: 5px;
     }
-    .span-Active{
+    .span-Active {
       color: #40cba4;
       background-color: #eafaf5;
       padding: 3px 8px;
@@ -540,7 +575,7 @@
         margin-right: 6px;
       }
     }
-    .span-Inactive{
+    .span-Inactive {
       color: #ff0000;
       background-color: #ffe6e6;
       padding: 3px 8px;
@@ -555,69 +590,79 @@
         margin-right: 6px;
       }
     }
-    .profile-user{
+    .profile-user {
       background-color: white;
       border: 1px solid #eae8f0;
       padding: 30px 40px;
       border-radius: 3px;
       color: $purple00;
-      h1, h2, h3, h4, h5, h6 {
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
         color: rgb(29 22 70);
       }
-      .line-01{
+      .line-01 {
         margin-top: 5px;
       }
     }
   }
-  .ant-checkbox-wrapper{
+  .ant-checkbox-wrapper {
     width: 100%;
   }
 }
-.profile-myprofile{
-  background: #FFFFFF;
-  border: 1px solid #E3E5E5;
+.profile-myprofile {
+  background: #ffffff;
+  border: 1px solid #e3e5e5;
   border-radius: 4px;
   color: $purple00;
   text-align: center;
-  height:  calc(100vh - 59px);
+  height: calc(100vh - 59px);
   overflow-y: hidden;
-  .profile-change-image{
+  .profile-change-image {
     position: absolute;
     top: 112px;
     width: 100%;
     margin-left: 40px;
-    .img-change{
+    .img-change {
       width: 33px;
       height: 33px;
     }
     .ant-btn-circle {
-        min-width: 20px;
-        padding-right: 0;
-        padding-left: 0;
-        text-align: center;
-        border-radius: 50%;
-        height: auto;
-      }
+      min-width: 20px;
+      padding-right: 0;
+      padding-left: 0;
+      text-align: center;
+      border-radius: 50%;
+      height: auto;
+    }
   }
-  h1{
+  h1 {
     font-size: 16px;
     margin: 0px;
   }
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     color: rgb(29 22 70);
   }
-  .color-sub{
+  .color-sub {
     color: $purple00;
     opacity: 0.6;
   }
-  .profile{
-    height:  calc(100vh - 396px);
+  .profile {
+    height: calc(100vh - 396px);
     overflow-y: auto;
-    .input-profile{
+    .input-profile {
       height: 32px !important;
       margin-top: -10px;
       border: 1px solid #d9d9d9;
-      border-radius: 16px;
+      border-radius: 25px;
       padding: 0px 10px;
       width: 100%;
       background: white;
@@ -626,12 +671,12 @@
   .profile::-webkit-scrollbar {
     width: 5px;
   }
-  
+
   /* Track */
   .profile::-webkit-scrollbar-track {
     border-radius: 10px;
   }
-   
+
   /* Handle */
   .profile::-webkit-scrollbar-thumb {
     background: $purple00;
@@ -642,7 +687,7 @@
     min-height: auto !important;
     margin-top: -5px;
   }
-  .foot-profile{
+  .foot-profile {
     position: absolute;
     /* z-index: 198; */
     bottom: 0px;
@@ -659,7 +704,7 @@
 .profile-myprofile::-webkit-scrollbar-track {
   border-radius: 10px;
 }
- 
+
 /* Handle */
 .profile-myprofile::-webkit-scrollbar-thumb {
   background: $purple00;
@@ -668,20 +713,25 @@
 .card-style {
   overflow: hidden;
   color: rgb(29 22 70);
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     color: rgb(29 22 70);
   }
-  .card-group{
+  .card-group {
     margin-top: 20px;
     margin-left: 25px;
     overflow-y: auto;
     overflow-x: hidden;
   }
-  .color-sub{
+  .color-sub {
     color: $purple00;
     opacity: 0.6;
   }
-  .avatar-group{
+  .avatar-group {
     align-items: center;
     box-sizing: border-box;
     display: flex;
@@ -689,13 +739,13 @@
     justify-content: space-between;
     width: 100%;
   }
-  .tag-card{
+  .tag-card {
     position: absolute;
     top: 0px;
     right: 3%;
     margin-bottom: 5px;
   }
-  .card-dropdown{
+  .card-dropdown {
     .ant-dropdown-menu-item-active {
       background: rgba(37, 24, 99, 0.03) !important;
       color: #2e2753 !important;
@@ -703,28 +753,34 @@
     }
   }
 }
-.searches-myprofile{
+.searches-myprofile {
   background: white;
   padding: 5px 15px;
   height: 100%;
-  h1, h2, h3, h4, h5, h6, p {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
     color: rgb(29 22 70);
   }
-  .title-action{
-    font-size: 16px ;
+  .title-action {
+    font-size: 16px;
     margin-left: 0px !important;
   }
-  h2{
+  h2 {
     margin-left: 9px !important;
   }
-  p{
-    font-size: 14px;
-  }
-  h1{
+  // p{
+  //   font-size: 14px;
+  // }
+  h1 {
     font-size: 16px;
     color: #000000;
   }
-  .avatar-group{
+  .avatar-group {
     align-items: center;
     box-sizing: border-box;
     display: flex;
@@ -735,106 +791,106 @@
   .ant-switch-checked {
     background: #29c499;
   }
-  .card-map{
-    padding: 0px 8px 0px 0px;
-    .infinite-scroll-component__outerdiv {
-      width: 100%;
-    }
-    .card-title-s{
-      height: 40px;
-    }
-    .ant-card-bordered {
-      border: none;
-    }
-    .border-line-green{
-      border: 4px solid transparent;
-      border-radius: 10px 10px 6px 6px;
-      padding-bottom: 0px !important;
-      margin-bottom: 8px !important;
-    }
-    .ant-card{
-      width: 100% !important;
-      background: $white;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
-      border-radius: 8px 8px 6px 6px;
-      padding: 0px;
-      margin: 8px;
-      border: 2px solid transparent;
-    }
-    .ant-card:hover{
-      border: 2px solid $green;
-    }
-    .ant-card-hoverable:hover,  .ant-card-hoverable:active, .ant-card-hoverable:focus-visible, .ant-card-hoverable:focus, .ant-card-hoverable:visited{
-      transition: 0s ease !important;
-      border: 2px solid $green !important;
-    }
-    .ant-card-body {
-      padding: 10px;
-    }
-    h4{
-      font-size: 16px;
-      color: $purple;
-      margin-bottom: 0px;
-      line-height: 18px;
-      margin-bottom: 6px;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    h6{
-      font-size: 14px;
-      color: $opacity;
-      font-weight: 400;
-    }
-    h5{
-      font-size: 16px;
-      color: $purple;
-    }
-    h5 span{
-      color: $opacity;
-      font-size: 12px;
-      font-weight: 400;
-      line-height: 30px;
-    }
-    hr{
-      opacity: 0.5;
-    }
-    p{
-      margin-bottom: 0px;
-    }
-    .btn-card, .btn-card:hover, .btn-card:focus, .btn-card:active, .btn-card.active{
-      border: none;
-      background: rgba(0, 0, 0, 0.5);
-      box-shadow: none;
-      position: absolute;
-      right: 5px;
-      top: 5px;
-      color: white;
-      font-size: 20px;
-      height: 20px;
-      line-height: 10px;
-      opacity: 0.8;
-      z-index: 9;
-      width: 20px;
-      padding: 0px 0px;
-    }
-    .btn-card label{
-      position: relative;
-      top: -5px;
-    }
-  }
+  // .card-map{
+  //   padding: 0px 8px 0px 0px;
+  //   .infinite-scroll-component__outerdiv {
+  //     width: 100%;
+  //   }
+  //   .card-title-s{
+  //     height: 40px;
+  //   }
+  //   .ant-card-bordered {
+  //     border: none;
+  //   }
+  //   .border-line-green{
+  //     border: 4px solid transparent;
+  //     border-radius: 10px 10px 6px 6px;
+  //     padding-bottom: 0px !important;
+  //     margin-bottom: 8px !important;
+  //   }
+  //   .ant-card{
+  //     width: 100% !important;
+  //     background: $white;
+  //     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+  //     border-radius: 8px 8px 6px 6px;
+  //     padding: 0px;
+  //     margin: 8px;
+  //     border: 2px solid transparent;
+  //   }
+  //   .ant-card:hover{
+  //     border: 2px solid $green;
+  //   }
+  //   .ant-card-hoverable:hover,  .ant-card-hoverable:active, .ant-card-hoverable:focus-visible, .ant-card-hoverable:focus, .ant-card-hoverable:visited{
+  //     transition: 0s ease !important;
+  //     border: 2px solid $green !important;
+  //   }
+  //   .ant-card-body {
+  //     padding: 10px;
+  //   }
+  //   h4{
+  //     font-size: 16px;
+  //     color: $purple;
+  //     margin-bottom: 0px;
+  //     line-height: 18px;
+  //     margin-bottom: 6px;
+  //     display: -webkit-box;
+  //     -webkit-line-clamp: 2;
+  //     -webkit-box-orient: vertical;
+  //     overflow: hidden;
+  //   }
+  //   h6{
+  //     font-size: 14px;
+  //     color: $opacity;
+  //     font-weight: 400;
+  //   }
+  //   h5{
+  //     font-size: 16px;
+  //     color: $purple;
+  //   }
+  //   h5 span{
+  //     color: $opacity;
+  //     font-size: 12px;
+  //     font-weight: 400;
+  //     line-height: 30px;
+  //   }
+  //   hr{
+  //     opacity: 0.5;
+  //   }
+  //   p{
+  //     margin-bottom: 0px;
+  //   }
+  //   .btn-card, .btn-card:hover, .btn-card:focus, .btn-card:active, .btn-card.active{
+  //     border: none;
+  //     background: rgba(0, 0, 0, 0.5);
+  //     box-shadow: none;
+  //     position: absolute;
+  //     right: 5px;
+  //     top: 5px;
+  //     color: white;
+  //     font-size: 20px;
+  //     height: 20px;
+  //     line-height: 10px;
+  //     opacity: 0.8;
+  //     z-index: 9;
+  //     width: 20px;
+  //     padding: 0px 0px;
+  //   }
+  //   .btn-card label{
+  //     position: relative;
+  //     top: -5px;
+  //   }
+  // }
 }
-.header-myprofile{
+.header-myprofile {
   background: #29c499;
   padding: 16px 20px;
-  h2{
+  h2 {
     margin: 0px;
     color: white;
   }
 }
-.expandable-row{
-  .ant-table-expanded-row > td{
+.expandable-row {
+  .ant-table-expanded-row > td {
     padding: 0px !important;
   }
 }
@@ -914,19 +970,30 @@
     padding: 20px 15px 0px 15px;
   }
 }
-@media (min-width: 1900px) and (max-width: 2549px){
-  .profile-myprofile{
+//ACTION
+.action-tabpane {
+  margin-bottom: 0px;
+  overflow-y: auto;
+  height: calc(100vh - 184px);
+}
+.gutter-row {
+  input::placeholder {
+    color: $purple00;
+  }
+}
+@media (min-width: 1900px) and (max-width: 2549px) {
+  .profile-myprofile {
     //width: 413px;
-    img{
+    img {
       height: 125px !important;
       width: 125px !important;
     }
-    .profile-change-image{
+    .profile-change-image {
       position: absolute;
       top: 127px;
       width: 100%;
       margin-left: 59px;
-      .img-change{
+      .img-change {
         width: 53px !important;
         height: 53px !important;
       }
@@ -934,28 +1001,28 @@
         height: 53px !important;
       }
     }
-    h1{
+    h1 {
       font-size: 19px !important;
     }
-    p{
+    p {
       font-size: 16px !important;
     }
-    h2{
+    h2 {
       font-size: 26px !important;
     }
-    .profile{
+    .profile {
       padding: 20px !important;
       height: calc(100vh - 444px) !important;
-      .input-profile{
+      .input-profile {
         height: 34px !important;
         font-size: 16px !important;
         margin-top: -4px !important;
       }
     }
-    .foot-profile{
-      padding: 20px 0px !important
+    .foot-profile {
+      padding: 20px 0px !important;
     }
-    .btn-purple{
+    .btn-purple {
       width: 100%;
       font-size: 17px !important;
       padding: 10px !important;
@@ -966,56 +1033,57 @@
       font-size: 17px !important;
     }
   }
-  .searches-myprofile{
+  .searches-myprofile {
     padding: 10px 15px;
     p {
       font-size: 16px !important;
     }
-    h1{
+    h1 {
       font-size: 18px !important;
     }
-    .title-action{
-      font-size: 20px ;
+    .title-action {
+      font-size: 20px;
     }
-    .card-map{
-      h4{
+    .card-map {
+      h4 {
         font-size: 18px !important;
         line-height: 20px;
       }
-      h6{
+      h6 {
         font-size: 16px !important;
       }
-      h5{
+      h5 {
         font-size: 18px !important;
       }
-      span{
+      span {
         font-size: 16px !important;
       }
     }
   }
-  .user-management{
+  .user-management {
     padding: 26px;
   }
   .tabs-user-management .ant-tabs-nav {
     padding: 0px 53px;
   }
-  .tabs-user-management .ant-tabs-nav .ant-tabs-tab{
+  .tabs-user-management .ant-tabs-nav .ant-tabs-tab {
     font-size: 16px;
   }
-  .row-menu{
+  .row-menu {
     font-size: 22px;
   }
   // BODDY MANAGEMENT
-  .user-management-body{
-    .list-view-head{
+  .user-management-body {
+    .list-view-head {
       width: 375.88px !important;
-      .ant-select-single.ant-select-show-arrow .ant-select-selection-item, .user-management-body .list-view-head .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
+      .ant-select-single.ant-select-show-arrow .ant-select-selection-item,
+      .user-management-body .list-view-head .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
         font-size: 25px !important;
         padding-right: 25px !important;
         height: 29px;
       }
-      .ant-select-show-arrow{
-        .ant-select-arrow{
+      .ant-select-show-arrow {
+        .ant-select-arrow {
           font-size: 25 !important;
         }
       }
@@ -1024,21 +1092,21 @@
       width: 1253px !important;
       padding: 9px;
       height: auto;
-      button{
+      button {
         height: 40px !important;
       }
-      .ant-input-affix-wrapper{
+      .ant-input-affix-wrapper {
         height: 40px !important;
         font-size: 16px !important;
-        input{
+        input {
           font-size: 16px !important;
         }
       }
-      .ant-select-selector{
+      .ant-select-selector {
         height: 40px !important;
         font-size: 16px !important;
         align-items: center !important;
-        span{
+        span {
           font-size: 16px !important;
         }
       }
@@ -1046,37 +1114,37 @@
         height: 15px !important;
         font-size: 14px !important;
       }
-      .dropdown-special-bottomLeft-filter{
-        margin-right:10px;
+      .dropdown-special-bottomLeft-filter {
+        margin-right: 10px;
         text-align: initial;
-        height:36px;
+        height: 36px;
       }
-      .filter-area{
-        margin-right:10px;
+      .filter-area {
+        margin-right: 10px;
         width: 19%;
         text-align: initial;
-        height:36px;
-        .ant-select-single .ant-select-selector .ant-select-selection-search-input{
+        height: 36px;
+        .ant-select-single .ant-select-selector .ant-select-selection-search-input {
           height: 37px !important;
           vertical-align: middle;
         }
       }
-      .btn-borde{
+      .btn-borde {
         width: 100%;
         text-align: initial;
-        height:36px;
+        height: 36px;
         justify-content: space-between;
         display: flex;
         padding: 6.5px 10px;
         border-radius: 5px !important;
-        span{
+        span {
           display: inline-block;
           white-space: nowrap;
           text-overflow: ellipsis;
           overflow: hidden;
           font-size: 17px;
         }
-        .anticon{
+        .anticon {
           margin-top: 7px;
           font-size: 14px;
         }
@@ -1084,21 +1152,22 @@
       .sign-menu-organization {
         width: 231px;
       }
-      .menu-sub-drop{
+      .menu-sub-drop {
         opacity: 1 !important;
         padding: 4.5px 7px !important;
         font-size: 16px !important;
       }
-      .menu-sub-drop:hover{
+      .menu-sub-drop:hover {
         opacity: 1 !important;
       }
-      .ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title {
+      .ant-dropdown-menu-item,
+      .ant-dropdown-menu-submenu-title {
         line-height: 20px;
       }
       .ant-input-search-button {
         height: 36px;
       }
-      .ant-input{
+      .ant-input {
         height: 40px;
         font-size: 16px;
       }
@@ -1106,17 +1175,22 @@
     .button-space {
       width: 211px;
     }
-    .table-user-management{
+    .table-user-management {
       height: calc(100vh - 222px);
       margin-top: 10px !important;
-      .ant-table-column-sorter-down.active, .ant-table-column-sorter-up.active {
+      .ant-table-column-sorter-down.active,
+      .ant-table-column-sorter-up.active {
         color: $purple;
       }
-      .ant-pagination-jump-next, .ant-pagination-jump-prev, .ant-pagination-next, .ant-pagination-prev {
+      .ant-pagination-jump-next,
+      .ant-pagination-jump-prev,
+      .ant-pagination-next,
+      .ant-pagination-prev {
         min-width: 40px;
         height: 40px;
       }
-      .ant-pagination-item, .ant-pagination-total-text {
+      .ant-pagination-item,
+      .ant-pagination-total-text {
         height: 40px;
         line-height: 38px;
       }
@@ -1129,12 +1203,15 @@
       .ant-table-thead .ant-table-cell {
         font-size: 16px;
       }
-      .ant-table-tbody > tr > td, .user-management-body .table-user-management .ant-table-thead > tr > th, .user-management-body .table-user-management .ant-table tfoot > tr > td, .user-management-body .table-user-management .ant-table tfoot > tr > th {
+      .ant-table-tbody > tr > td,
+      .user-management-body .table-user-management .ant-table-thead > tr > th,
+      .user-management-body .table-user-management .ant-table tfoot > tr > td,
+      .user-management-body .table-user-management .ant-table tfoot > tr > th {
         padding: 8px 16px;
         font-size: 16px;
       }
-      .user-tab{
-        img{
+      .user-tab {
+        img {
           height: 43px !important;
           width: 43px !important;
         }
@@ -1145,7 +1222,7 @@
           margin-left: 10px !important;
           margin-top: 4px;
         }
-        .oganization-user-list{
+        .oganization-user-list {
           font-size: 13px !important;
           margin-top: 4px;
           line-height: 17px;
@@ -1157,41 +1234,41 @@
         border-radius: 5px;
         font-size: 16px;
       }
-      .span-manager{
+      .span-manager {
         padding: 4px 10px;
         border-radius: 5px;
         font-size: 16px;
       }
-      .span-gov{
+      .span-gov {
         padding: 4px 10px;
         border-radius: 5px;
         font-size: 16px;
       }
-      .span-Active{
-        .circulo{
+      .span-Active {
+        .circulo {
           margin-top: 8px;
         }
       }
-      .btn-profile-list{
+      .btn-profile-list {
         font-size: 14px;
         height: 40px;
         width: 98px;
         padding: 0px;
       }
-      .profile-user{
-        .btn-borde-management{
+      .profile-user {
+        .btn-borde-management {
           height: 40px;
         }
       }
     }
-    .profile-user{
-      .btn-borde-management{
+    .profile-user {
+      .btn-borde-management {
         height: 40px;
       }
       h3 {
         font-size: 22px !important;
       }
-      h1{
+      h1 {
         font-size: 18px !important;
       }
       input {
@@ -1199,7 +1276,7 @@
         height: 40px !important;
         font-size: 16px !important;
       }
-      span{
+      span {
         font-size: 16px !important;
         // color: #88849d;
         font-weight: 300;
@@ -1207,19 +1284,19 @@
       .btn-borde-management .anticon {
         margin-top: 3px;
       }
-      .line-01{
+      .line-01 {
         margin-top: 17px !important;
       }
     }
-    .ant-checkbox-wrapper .ant-checkbox .ant-checkbox-inner{
+    .ant-checkbox-wrapper .ant-checkbox .ant-checkbox-inner {
       width: 24px;
       height: 24px;
     }
-    .ant-checkbox-wrapper .ant-checkbox .ant-checkbox-inner::after{
+    .ant-checkbox-wrapper .ant-checkbox .ant-checkbox-inner::after {
       height: 13px;
       width: 9px;
     }
-    .ant-checkbox-wrapper .ant-checkbox{
+    .ant-checkbox-wrapper .ant-checkbox {
       top: 10px;
     }
     .ant-select-item-option {
@@ -1229,43 +1306,43 @@
     .ant-select-item-group {
       font-size: 16px !important;
     }
-    .btn-borde-management{
+    .btn-borde-management {
       border-radius: 5px;
     }
     .ant-dropdown-trigger .btn-borde-management::placeholder {
       color: #bfbfbf !important;
       font-weight: 300;
     }
-    .ant-dropdown-trigger .btn-borde-management{
+    .ant-dropdown-trigger .btn-borde-management {
       color: #bfbfbf !important;
       font-weight: 300;
     }
-    .ant-dropdown-menu-title-content{
+    .ant-dropdown-menu-title-content {
       color: $purple00 !important;
       opacity: 1 !important;
     }
   }
-  
 }
-@media (min-width: 2555px) and (max-width: 3799px){
-  .ant-table-column-sorter-down, .ant-table-column-sorter-up {
+@media (min-width: 2555px) and (max-width: 3799px) {
+  .ant-table-column-sorter-down,
+  .ant-table-column-sorter-up {
     font-size: 15px;
   }
   .ant-dropdown-menu-title-content {
-    padding: 16px 20px !important;
+    // padding: 16px 20px !important;
     font-size: 20px !important;
   }
-  .profile-myprofile{
-    img{
-      height: 170px !important;
-      width: 170px !important;
+  .profile-myprofile {
+    img {
+      height: 165px !important;
+      width: 165px !important;
     }
-    .profile-change-image{
+    .profile-change-image {
       position: absolute;
       top: 163px;
       width: 100%;
       margin-left: 77px;
-      .img-change{
+      .img-change {
         width: 63px !important;
         height: 63px !important;
       }
@@ -1273,28 +1350,29 @@
         height: 63px !important;
       }
     }
-    h1{
+    h1 {
       font-size: 26px !important;
     }
-    p{
-      font-size: 21px !important;
+    p {
+      font-size: 20px !important;
     }
-    h2{
-      font-size: 28px !important;
+    h2 {
+      font-size: 34px !important;
     }
-    .profile{
+    .profile {
       height: calc(100vh - 574px) !important;
       padding: 25px !important;
-      .input-profile{
+      .input-profile {
         height: 40px !important;
+        //padding-left: 10px !important;
         font-size: 21px !important;
         margin-top: -3px !important;
       }
     }
-    .foot-profile{
-      padding: 20px 0px !important
+    .foot-profile {
+      padding: 20px 0px !important;
     }
-    .btn-purple{
+    .btn-purple {
       width: 100%;
       font-size: 21px !important;
       padding: 10px !important;
@@ -1304,46 +1382,32 @@
       height: 40px !important;
     }
   }
-  .searches-myprofile{
-    padding: 5px 20px !important;
+  .searches-myprofile {
+    padding: 20px !important;
     p {
-      font-size: 21px !important;
+      font-size: 21px;
     }
-    h1{
+    h1 {
       font-size: 24px !important;
     }
-    .title-action{
-      font-size: 26px ;
+    .title-action {
+      margin-top: 30px;
+      font-size: 26px;
     }
-    .card-map{
-      h4{
-        font-size: 24px !important;
-        line-height: 26px !important;
-      }
-      h6{
-        font-size: 21px !important;
-        margin-top: 14px;
-        margin-bottom: 13px;
-      }
-      h5{
-        font-size: 24px !important;
-      }
-      span{
-        font-size: 21px !important;
-      }
-      .ant-card:hover {
-        border: 2.5px solid $green !important;
-      }
+    .card-map .border-line-green {
+      border-right: 0px;
+      margin-right: 12px;
     }
   }
-  .user-management-body{
-    h2{
+  .user-management-body {
+    h2 {
       font-size: 28px;
     }
-    .list-view-head{
+    .list-view-head {
       width: 482.48px !important;
       padding-top: 26px !important;
-      .ant-select-single.ant-select-show-arrow .ant-select-selection-item, .user-management-body .list-view-head .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
+      .ant-select-single.ant-select-show-arrow .ant-select-selection-item,
+      .user-management-body .list-view-head .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
         font-size: 40px !important;
         height: 40px;
         padding-right: 27px !important;
@@ -1353,7 +1417,7 @@
         font-size: 24px;
         padding-left: 7px;
         width: 21px;
-        padding-top: 9px;    
+        padding-top: 9px;
       }
     }
     .filter-user-management {
@@ -1363,13 +1427,14 @@
       .menu-sub-drop {
         font-size: 22px !important;
       }
-      .ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title {
+      .ant-dropdown-menu-item,
+      .ant-dropdown-menu-submenu-title {
         padding: 10px 12px;
       }
       .sign-menu-organization {
         width: 309px;
       }
-      button{
+      button {
         height: 55px !important;
         font-size: 21px;
         width: 46px;
@@ -1378,21 +1443,21 @@
         margin-top: 4px;
         font-size: 20px;
       }
-      .ant-input{
+      .ant-input {
         height: 55px !important;
       }
-      .ant-input-affix-wrapper{
+      .ant-input-affix-wrapper {
         height: 55px !important;
         font-size: 21px !important;
-        input{
+        input {
           font-size: 21px !important;
         }
       }
-      .ant-select-selector{
+      .ant-select-selector {
         height: 55px !important;
         font-size: 21px !important;
         align-items: center !important;
-        span{
+        span {
           font-size: 21px !important;
         }
       }
@@ -1405,14 +1470,27 @@
     .button-space {
       width: 211px;
     }
-    .table-user-management{
+    .table-user-management {
       margin-top: 10px !important;
       height: calc(100vh - 249px);
-      .ant-pagination-jump-next, .ant-pagination-jump-prev, .ant-pagination-next, .ant-pagination-prev {
+      > span {
+        font-size: 24px !important;
+      }
+      .span-Active {
+        padding: 6px 17px !important;
+      }
+      .span-Inactive {
+        padding: 6px 17px !important;
+      }
+      .ant-pagination-jump-next,
+      .ant-pagination-jump-prev,
+      .ant-pagination-next,
+      .ant-pagination-prev {
         min-width: 60px;
         height: 60px;
       }
-      .ant-pagination-item, .ant-pagination-total-text {
+      .ant-pagination-item,
+      .ant-pagination-total-text {
         height: 60px;
         line-height: 53px;
         font-size: 20px;
@@ -1426,16 +1504,28 @@
       .ant-table-thead .ant-table-cell {
         font-size: 24px;
       }
-      .ant-table-tbody > tr > td, .user-management-body .table-user-management .ant-table-thead > tr > th, .user-management-body .table-user-management .ant-table tfoot > tr > td, .user-management-body .table-user-management .ant-table tfoot > tr > th {
+      .ant-table-tbody > tr > td {
+        border-bottom: 2px solid #e9e8ef !important;
+      }
+      .ant-table-tbody > tr > td,
+      .user-management-body .table-user-management .ant-table-thead > tr > th,
+      .user-management-body .table-user-management .ant-table tfoot > tr > td,
+      .user-management-body .table-user-management .ant-table tfoot > tr > th {
         padding: 14px 16px;
-        font-size: 24px;
-        span{
-          font-size: 24px !important;
+        font-size: 22px;
+        span {
+          font-size: 22px !important;
           padding: 0px 5px;
         }
+        .row-menu {
+          // font-size: 26px !important;
+          .anticon-more {
+            font-size: 26px !important;
+          }
+        }
       }
-      .user-tab{
-        img{
+      .user-tab {
+        img {
           height: 60px !important;
           width: 60px !important;
         }
@@ -1444,7 +1534,7 @@
           margin-bottom: -4px !important;
           margin-left: 10px !important;
         }
-        .oganization-user-list{
+        .oganization-user-list {
           font-size: 20px !important;
           margin-left: 10px !important;
         }
@@ -1454,17 +1544,17 @@
         border-radius: 5px;
         font-size: 24px;
       }
-      .span-manager{
+      .span-manager {
         padding: 5px 14px;
         border-radius: 5px;
         font-size: 24px;
       }
-      .span-gov{
+      .span-gov {
         padding: 5px 14px;
         border-radius: 5px;
         font-size: 24px;
       }
-      .span-Active{
+      .span-Active {
         .circulo {
           width: 13px;
           height: 13px;
@@ -1472,7 +1562,7 @@
           margin-right: 9px;
         }
       }
-      .span-Inactive{
+      .span-Inactive {
         .circulo {
           width: 13px;
           height: 13px;
@@ -1480,20 +1570,21 @@
           margin-right: 9px;
         }
       }
-      .btn-profile-list{
+      .btn-profile-list {
         font-size: 32px !important;
         height: auto;
         padding: 7px 60px;
-        span{
+        span {
           font-size: 32px !important;
+          line-height: 25px !important;
         }
       }
     }
-    .profile-user{
+    .profile-user {
       h3 {
         font-size: 32px !important;
       }
-      h1{
+      h1 {
         font-size: 26px !important;
       }
       input {
@@ -1502,7 +1593,7 @@
         font-size: 24px !important;
         padding: 4px 18px;
       }
-      span{
+      span {
         font-size: 24px !important;
       }
       .ant-radio-inner {
@@ -1512,25 +1603,39 @@
       .ant-radio-inner:after {
         width: 23px !important;
         height: 23px !important;
-        margin-top: -11.5px !important;
-        margin-left: -12px !important;
+        margin-top: -11px !important;
+        margin-left: -11px !important;
       }
-      .line-01{
+      .line-01 {
         margin-top: 25px !important;
         height: 2px !important;
       }
-      .btn-borde-management{
+      .btn-borde-management {
         height: 60px !important;
         padding: 11.5px 16px !important;
       }
     }
     .ant-select-item-option {
-      font-size: 16px !important;
+      font-size: 22px !important;
       font-weight: 400 !important;
     }
+    .ant-checkbox-wrapper .ant-checkbox .ant-checkbox-inner {
+      width: 30px;
+      height: 30px;
+    }
+    .ant-checkbox-wrapper .ant-checkbox .ant-checkbox-inner::after {
+      height: 15px;
+      width: 10px;
+    }
+    .ant-checkbox-wrapper .ant-checkbox {
+      top: 12px;
+    }
+  }
+  .action-tabpane {
+    height: calc(100vh - 250px);
   }
 }
-@media (min-width: 3800px) and (max-width: 5999px){
+@media (min-width: 3800px) and (max-width: 5999px) {
   .ant-dropdown-menu-title-content {
     padding: 4px 0px !important;
     font-size: 30px !important;
@@ -1539,21 +1644,22 @@
     font-size: 32px !important;
     margin: 17px 0px !important;
   }
-  .ant-table-column-sorter-down, .ant-table-column-sorter-up {
+  .ant-table-column-sorter-down,
+  .ant-table-column-sorter-up {
     font-size: 23px;
   }
-  .profile-myprofile{
-    img{
+  .profile-myprofile {
+    img {
       height: 250px !important;
       width: 250px !important;
       margin-top: 170px !important;
     }
-    .profile-change-image{
+    .profile-change-image {
       position: absolute;
       top: 163px;
       width: 100%;
       margin-left: 119px;
-      .img-change{
+      .img-change {
         width: 83px !important;
         height: 83px !important;
       }
@@ -1561,33 +1667,33 @@
         height: 83px !important;
       }
     }
-    .sub-title{
+    .sub-title {
       margin-bottom: 120px !important;
     }
-    h1{
+    h1 {
       font-size: 31px !important;
     }
-    p{
+    p {
       font-size: 27px !important;
     }
-    h2{
+    h2 {
       font-size: 33px !important;
     }
-    .profile{
+    .profile {
       height: calc(100vh - 574px) !important;
       padding: 30px !important;
-      .input-profile{
+      .input-profile {
         height: 50px !important;
         border-radius: 20px !important;
         padding: 10px 15px !important;
         font-size: 27px !important;
       }
     }
-    .foot-profile{
+    .foot-profile {
       padding: 40px 0px !important;
       bottom: 57px;
     }
-    .btn-purple{
+    .btn-purple {
       width: 100%;
       font-size: 27px !important;
       padding: 10px !important;
@@ -1598,46 +1704,46 @@
       padding: 10px 15px !important;
     }
   }
-  .searches-myprofile{
+  .searches-myprofile {
     padding: 5px 20px !important;
     p {
       font-size: 27px !important;
     }
-    h1{
+    h1 {
       font-size: 30px !important;
     }
-    .title-action{
-      font-size: 32px ;
+    .title-action {
+      font-size: 32px;
       margin-left: 31px !important;
     }
-    .card-map{
-      h4{
+    .card-map {
+      h4 {
         font-size: 30px !important;
         line-height: 36px !important;
       }
-      h6{
+      h6 {
         font-size: 27px !important;
         margin-top: 23px;
         margin-bottom: 13px;
       }
-      h5{
+      h5 {
         font-size: 30px !important;
       }
-      span{
+      span {
         font-size: 27px !important;
       }
       .ant-card:hover {
         border: 4px solid $green !important;
       }
-      .ant-card{
+      .ant-card {
         margin: 13px !important;
       }
     }
-    .body-action{
+    .body-action {
       padding: 0px 27px;
     }
   }
-  .head-list{
+  .head-list {
     .ant-select-item-option {
       font-size: 32px !important;
       font-weight: 400 !important;
@@ -1645,7 +1751,7 @@
       line-height: 40px !important;
     }
   }
-  .user-management-body{
+  .user-management-body {
     .js-mm-00 .ant-dropdown-menu-item {
       padding: 22px 30px 22px 30px !important;
       /* font-size: 35px !important; */
@@ -1657,11 +1763,11 @@
       padding: 18px !important;
       line-height: 40px !important;
     }
-    h2{
+    h2 {
       font-size: 36px;
       margin-left: 23px !important;
     }
-    .ant-checkbox{
+    .ant-checkbox {
       margin-right: 20px !important;
     }
     .ant-checkbox-inner {
@@ -1672,10 +1778,10 @@
       width: 9.714286px;
       height: 14.142857px;
     }
-    .infinite-scroll-component{
+    .infinite-scroll-component {
       padding: 0px 20px !important;
     }
-    .list-view-head{
+    .list-view-head {
       width: 675px !important;
       padding-top: 26px !important;
       .ant-select-item-option {
@@ -1687,7 +1793,8 @@
       .ant-select {
         margin-left: 19px !important;
       }
-      .ant-select-single.ant-select-show-arrow .ant-select-selection-item, .user-management-body .list-view-head .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
+      .ant-select-single.ant-select-show-arrow .ant-select-selection-item,
+      .user-management-body .list-view-head .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
         font-size: 58px !important;
         /* height: 58px; */
         padding-right: 45px !important;
@@ -1709,7 +1816,8 @@
       .menu-sub-drop {
         font-size: 32px !important;
       }
-      .ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title {
+      .ant-dropdown-menu-item,
+      .ant-dropdown-menu-submenu-title {
         padding: 10px 12px;
       }
       .sign-menu-organization {
@@ -1717,12 +1825,12 @@
         height: 415px;
         max-height: 415px;
       }
-      button{
+      button {
         height: 75px !important;
         font-size: 32px;
         width: 70px;
         padding: 11px 20px !important;
-        .anticon{
+        .anticon {
           font-size: 20px;
         }
       }
@@ -1730,24 +1838,24 @@
         margin-top: 19px;
         font-size: 25px;
       }
-      .ant-input{
+      .ant-input {
         height: 75px !important;
         font-size: 32px !important;
       }
-      .ant-input-affix-wrapper{
+      .ant-input-affix-wrapper {
         height: 75px !important;
         font-size: 32px !important;
         padding: 0px 20px !important;
-        input{
+        input {
           font-size: 32px !important;
         }
       }
-      .ant-select-selector{
+      .ant-select-selector {
         height: 75px !important;
         font-size: 32px !important;
         align-items: center !important;
         padding: 0px 20px;
-        span{
+        span {
           font-size: 32px !important;
           line-height: 38px;
         }
@@ -1761,15 +1869,19 @@
     .button-space {
       width: 211px;
     }
-    .table-user-management{
+    .table-user-management {
       margin-top: 15px !important;
       height: calc(100vh - 350px);
       padding: 0px 20px;
-      .ant-pagination-jump-next, .ant-pagination-jump-prev, .ant-pagination-next, .ant-pagination-prev {
+      .ant-pagination-jump-next,
+      .ant-pagination-jump-prev,
+      .ant-pagination-next,
+      .ant-pagination-prev {
         min-width: 80px;
         height: 80px;
       }
-      .ant-pagination-item, .ant-pagination-total-text {
+      .ant-pagination-item,
+      .ant-pagination-total-text {
         height: 80px;
         line-height: 73px;
         font-size: 30px;
@@ -1784,10 +1896,13 @@
       .ant-table-thead .ant-table-cell {
         font-size: 32px;
       }
-      .ant-table-tbody > tr > td, .user-management-body .table-user-management .ant-table-thead > tr > th, .user-management-body .table-user-management .ant-table tfoot > tr > td, .user-management-body .table-user-management .ant-table tfoot > tr > th {
+      .ant-table-tbody > tr > td,
+      .user-management-body .table-user-management .ant-table-thead > tr > th,
+      .user-management-body .table-user-management .ant-table tfoot > tr > td,
+      .user-management-body .table-user-management .ant-table tfoot > tr > th {
         padding: 16px 16px;
         font-size: 35px;
-        span{
+        span {
           font-size: 32px !important;
           height: auto;
           line-height: 42px;
@@ -1796,8 +1911,8 @@
           margin-top: 10px;
         }
       }
-      .user-tab{
-        img{
+      .user-tab {
+        img {
           height: 90px !important;
           width: 90px !important;
         }
@@ -1806,7 +1921,7 @@
           margin-bottom: -4px !important;
           margin-left: 10px !important;
         }
-        .oganization-user-list{
+        .oganization-user-list {
           font-size: 28px !important;
           margin-left: 10px !important;
         }
@@ -1816,17 +1931,17 @@
         border-radius: 5px;
         font-size: 35px;
       }
-      .span-manager{
+      .span-manager {
         padding: 8px 21px;
         border-radius: 5px;
         font-size: 35px;
       }
-      .span-gov{
+      .span-gov {
         padding: 8px 21px;
         border-radius: 5px;
         font-size: 35px;
       }
-      .span-Active{
+      .span-Active {
         padding: 8px 21px !important;
         .circulo {
           width: 20px;
@@ -1835,7 +1950,7 @@
           margin-right: 11px;
         }
       }
-      .span-Inactive{
+      .span-Inactive {
         padding: 8px 21px !important;
         .circulo {
           width: 20px;
@@ -1844,19 +1959,19 @@
           margin-right: 11px;
         }
       }
-      .btn-profile-list{
+      .btn-profile-list {
         font-size: 44px !important;
         height: auto;
         padding: 10px 75px;
         margin-left: 20px;
-        span{
+        span {
           font-size: 44px !important;
         }
       }
     }
-    .profile-user{
+    .profile-user {
       padding: 45px 55px !important;
-      .rc-virtual-list-holder{
+      .rc-virtual-list-holder {
         height: 400px !important;
         max-height: 400px !important;
       }
@@ -1868,14 +1983,14 @@
         font-size: 32px !important;
         line-height: 40px;
       }
-      .ant-select-arrow{
+      .ant-select-arrow {
         margin-top: -23px;
         margin-right: 15px;
       }
       h3 {
         font-size: 51px !important;
       }
-      h1{
+      h1 {
         font-size: 40px !important;
       }
       input {
@@ -1884,7 +1999,7 @@
         font-size: 35px !important;
         padding: 4px 30px;
       }
-      span{
+      span {
         font-size: 35px !important;
       }
       .ant-radio-inner {
@@ -1897,11 +2012,11 @@
         margin-top: -18px !important;
         margin-left: -18px !important;
       }
-      .line-01{
+      .line-01 {
         margin-top: 40px !important;
         height: 3px !important;
       }
-      .btn-borde-management{
+      .btn-borde-management {
         height: 80px !important;
         padding: 13.5px 25px !important;
       }
@@ -1916,7 +2031,7 @@
     padding: 18px !important;
     line-height: 40px !important;
   }
-  .user-management-body{
+  .user-management-body {
     .infinite-scroll-component {
       padding-bottom: 75px !important;
     }

@@ -292,7 +292,14 @@
   .btn-svg:hover{
     font-size: 17px !important;
   }
- 
+  .scroll-filters{
+    .ant-checkbox-wrapper{
+      font-size: 20px !important;
+    }
+    .ant-checkbox-group{
+      height: 185px !important;
+    }
+  }
   .ant-select{
     font-size: 24px !important;
   }

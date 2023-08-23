@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { Button, Checkbox, Col, Modal, Row, notification } from 'antd';
 import store from 'store';
 import { ADMIN, STAFF } from 'constants/constants';
-import { getBoardData3 } from 'dataFetching/workRequest';
+import { getBoardStatus } from 'dataFetching/workRequest';
 import { useRequestState } from 'hook/requestHook';
 import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
 
@@ -61,7 +61,7 @@ export const AlertView = ({
     setVisibleAlert(false);
     setState(auxState);
     setSave(true);
-    isEdit?openNotification('Success! Your project was just updated!', "success"):openNotification('Success! Your project was just created!', "success");
+    // isEdit?openNotification('Success! Your project was just updated!', "success"):openNotification('Success! Your project was just created!', "success");
   };
 
   const handleCancel = (e: any) => {
@@ -79,15 +79,11 @@ export const AlertView = ({
 
   useEffect(() => {
     const checkStatus = async () => {
-      const str = type;
-      const capitalizedType = str.charAt(0).toUpperCase() + str.slice(1);
-      const boards = await getBoardData3({
+      const boards = await getBoardStatus({
         type: 'WORK_REQUEST',
         year: `${year}`,
-        locality: sponsor,
-        projecttype: capitalizedType,
-      });   
-      console.log('BOARDS', boards)
+        locality: sponsor
+      });
       const statuses = boards.status;
       const isUnderReview = statuses === 'Under Review';
       setIsUnderReview(isUnderReview);

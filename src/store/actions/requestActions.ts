@@ -187,10 +187,17 @@ export const setDiff = (payload: any) => ({
   payload
 });
 
-export const loadOneColumn = (board_id: any, position: any) => {
+export const loadOneColumn = (position: any) => {
   return (dispatch: any, getState: Function) => {
-    const { request: { tabKey, year, filterRequest }, router: { location } } = getState();
-    
+    const {
+      request: {
+        tabKey,
+        year,
+        filterRequest,
+        namespaceId,
+      }
+    } = getState();
+
     const filters = {
       county:filterRequest?.filter((item: any, index: number) => item.selected && 
       item.type === 'project_counties').map((r: any) => r.id),
@@ -214,7 +221,7 @@ export const loadOneColumn = (board_id: any, position: any) => {
     dispatch({
       type: types.REQUEST_START_LOADING_COLUMNS_2
     });
-    datasets.postData(BOARD_FOR_POSITIONS, { board_id, position, filters })
+    datasets.postData(BOARD_FOR_POSITIONS, { boardId: namespaceId, position, filters })
     .then((projects) => {
       let sumByGroupMap = {}, groupTotal = {};
       if (position !== 0) {
@@ -235,10 +242,20 @@ export const loadOneColumn = (board_id: any, position: any) => {
   }
 }
 
-export const loadColumns = (board_id: any) => {
+export const loadColumns = () => {
   return (dispatch: any, getState: Function) => {
-    const { map: { tabActiveNavbar }, request: { localityType, tabKey, year, filterMap, prioritySelected, isLocatedInSouthPlateRiverSelected, filterRequest }} = getState();
-    
+    const {
+      map: {
+        tabActiveNavbar
+      },
+      request: {
+        namespaceId,
+        tabKey,
+        year,
+        filterRequest
+      }
+    } = getState();
+
     const filters = {
       county:filterRequest?.filter((item: any, index: number) => item.selected && 
       item.type === 'project_counties').map((r: any) => r.id),
@@ -252,6 +269,7 @@ export const loadColumns = (board_id: any) => {
       item.type === 'status').map((r: any) => r.id),
       sponsor_board: filterRequest?.filter((item: any, index: number) => item.selected &&
       item.type === 'project_partners').map((r: any) => r.id),
+      name: filterRequest?.name?.searchValue || '',
       // status: filterRequest?.filter((item: any, index: number) => item.selected && 
       // item.type === 'currentId')?.map((r: any) => r?.id),
       // isSouthPlatteRiver: isLocatedInSouthPlateRiverFilter?.filter((_: any, index: number) => {
@@ -265,7 +283,7 @@ export const loadColumns = (board_id: any) => {
     for (let position = 0; position <= 5; position++) {
       const promise = datasets.postData(
         BOARD_FOR_POSITIONS,
-        { board_id, position, filters, year, tabActiveNavbar, localityType }
+        { boardId: namespaceId, position, filters }
       ).then((projects) => {
         let sumByGroupMap = {}, groupTotal = {};
         if (position !== 0) {
@@ -313,7 +331,7 @@ export const loadColumns = (board_id: any) => {
       }      
       dispatchSumByGroup(types.REQUEST_SET_SUM_BY_COUNTY, 'project_counties');
       dispatchSumByGroup(types.REQUEST_SET_SUM_BY_SA, 'project_service_areas');
-      dispatchSumByGroup(types.REQUEST_SET_SUM_BY_LG, 'project_local_governments');
+      dispatchSumByGroup(types.REQUEST_SET_SUM_BY_LG, 'project_partners_for_total');
       dispatch({
         type: types.REQUEST_SET_SUM_TOTAL,
         payload: totalByGroupMap
@@ -371,11 +389,19 @@ export const setColumns2Manual = (payload: any) => ({
   payload
 });
 
-export const updateTargetCost = (board_id: any, targetCosts: any) => {
-  return (dispatch: any) => {
+export const updateTargetCost = (targetCosts: any) => {
+  return (_: any, getState: Function) => {
+    const {
+      request: {
+        namespaceId
+      }
+    } = getState();
     datasets.putData(
-      SERVER.BOARD_UPDATE_TARGET_COST(board_id),
-      targetCosts
+      SERVER.BOARD_UPDATE_TARGET_COST,
+      {
+        ...targetCosts,
+        boardId: namespaceId,
+      }
     );
   }
 }
@@ -418,7 +444,7 @@ export const moveProjectsManual = (payload: DragAndDropCards) => {
       },
       datasets.getToken()
     ).then(() => {
-        dispatch(loadOneColumn(namespaceId, originColumnPosition));
+        dispatch(loadOneColumn(originColumnPosition));
     })
     .catch((err: any) => {
         console.log('err', err)
@@ -516,8 +542,8 @@ export const handleMoveFromColumnToColumn = (payload: DragAndDropCards) => {
       },
       datasets.getToken()
     ).then((res: any) => {
-      dispatch(loadOneColumn(namespaceId, originColumnPosition));
-      dispatch(loadOneColumn(namespaceId, targetColumnPosition));
+      dispatch(loadOneColumn(originColumnPosition));
+      dispatch(loadOneColumn(targetColumnPosition));
     })
     .catch((err: any) => {
         console.log('err', err)
@@ -556,8 +582,8 @@ export const recalculateTotals = () => {
     });
     dispatch({
       type: types.REQUEST_SET_SUM_BY_LG,
-      payload: Object.keys(sumByGroupMapTotal['project_local_governments'] || {}).map(
-        (key: any) => sumByGroupMapTotal['project_local_governments'][key]
+      payload: Object.keys(sumByGroupMapTotal['project_partners_for_total'] || {}).map(
+        (key: any) => sumByGroupMapTotal['project_partners_for_total'][key]
       )
     });
     dispatch({
@@ -572,11 +598,14 @@ interface TransformedDataItem {
   selected: boolean;
   type: string;
 }
-export const loadFilters = (board_id: any) => {
-  return (dispatch: any) => {
-    datasets.getData(
-      GET_FILTER(board_id),
-    ).then((res: any) => {
+export const loadFilters = () => {
+  return (dispatch: any, getState: Function) => {
+    const {
+      request: {
+        namespaceId
+      }
+    } = getState();
+    datasets.postData(GET_FILTER, { boardId: namespaceId }).then((res: any) => {
       let priorityFilterList =  [
         { name: '1', id: 0, selected: false, type: 'project_priorities' },
         { name: '2', id: 1, selected: false, type: 'project_priorities' },
@@ -646,6 +675,24 @@ export const setFilterRequest = (payload: any) => {
   }
 };
 
+export const setListView = (payload: any) => {
+  return (dispatch: any) => {
+    dispatch({
+      type: types.SET_IS_LIST_VIEW,
+      payload
+    })
+  }
+};
+
+export const setFilterYear = (payload: any) => {
+  return (dispatch: any) => {
+    dispatch({
+      type: types.SET_FILTER_YEAR,
+      payload
+    })
+  }
+};
+
 export const setDisableFilterComponent = (disable: any, localityType: any) => {
   if (localityType === 'county') {
     console.log('setcounty to true')
@@ -664,3 +711,8 @@ export const setDisableFilterComponent = (disable: any, localityType: any) => {
     }
   }  
 }
+
+export const setConfiguredYear = (payload: any) => ({
+  type: types.REQUEST_SET_CONFIGURED_YEAR,
+  payload
+});

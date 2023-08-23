@@ -161,7 +161,7 @@ const ModalProjectView = ({
         setNameProject('Add Project Name');
       } else {
         const allowedProjectTypeIds = [1,5, 7, 8, 9, 10, 11];
-        const currentProjectType = getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id;
+        const currentProjectType = data.code_project_type_id ?? 1;
         if(allowedProjectTypeIds.includes(currentProjectType)){
           getStreamsByProjectId(data.project_id, currentProjectType);
         }
@@ -212,7 +212,9 @@ const ModalProjectView = ({
   useEffect(() => {
     setAllowed(getAllowedBasedOnLocality(locality, year));
   }, [locality]);
-
+  useEffect(() => {
+    console.trace('visibleCapita', visibleCapital);
+  }, [visibleCapital]);
   return (
     <div id='modalProjectView'>
      {visibleCapital && <ModalCapital

@@ -284,7 +284,9 @@
     border-radius: 5px 5px 0px 0px !important;
   }
 }
-
+.ant-select-selection-placeholder{
+  color: $purple;
+}
 @media (max-width: 575.98px) {
   .ant-layout-sider {
     flex: auto !important;
@@ -393,15 +395,18 @@
       top: -16px;
       padding: 10px 5px;
       .ant-menu-item {
-        font-size: 19px;
-        line-height: 46.3px;
+        font-size: 16px;
+        line-height: 40px;
       }
     }
   }
 }
 @media (min-width: 2550px) and (max-width: 3799px) {
   .ant-dropdown-menu-title-content {
-    padding: 4px 0px !important;
+    // padding: 4px 0px !important;
+  }
+  .ant-dropdown-menu-item-only-child{
+    // padding: 4px 0px !important;
   }
   .ant-dropdown-menu-item {
     font-size: 16px !important;
@@ -417,7 +422,10 @@
   }
   .ant-dropdown-menu-item,
   .ant-dropdown-menu-submenu-title {
-    padding: 7px 12px;
+    padding: 11px 12px;
+  }
+  .ant-dropdown-menu-submenu-popup .ant-dropdown-menu {
+    max-height: 295px;
   }
 }
 @media (min-width: 3800px) and (max-width: 5999px) {
@@ -444,11 +452,9 @@
 //movend from project.scss
 .ant-select-arrow {
   align-items: right;
+  color: $purple00;
 }
 //movend from project.scss
-.ant-select-arrow {
-  align-items: right;
-}
 //movend from map.scss
 .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
   color: rgba(0, 0, 0, 0.85);
@@ -470,8 +476,9 @@
   text-align: left;
   font-size: 14px;
   color: $purple00 !important;
-  margin: 3px;
+  // margin: 3px;
   border-radius: 5px;
+  margin: 0px 3px;
   font-weight: 400 !important;
 }
 //movend from map.scss
@@ -479,7 +486,7 @@
   background: #f7f7f9 !important;
   color: $purple00 !important;
   font-weight: 400 !important;
-  margin: 3px;
+  margin: 0px 3px;
   border-radius: 5px;
 }
 //movend from map.scss

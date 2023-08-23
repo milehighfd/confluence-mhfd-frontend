@@ -93,8 +93,7 @@
   .btn-card,
   .btn-card:hover,
   .btn-card:focus,
-  .btn-card:active,
-  .btn-card.active {
+  .btn-card:active {
     border: none;
     background: rgba(0, 0, 0, 0.5);
     box-shadow: none;
@@ -145,17 +144,12 @@
     // .ant-card:hover {
     //   border-right: 0px;
     // }
-    .btn-card{
+    .btn-card,
+    .btn-card:hover,
+    .btn-card:active,
+    .btn-card:focus {
       width: 22px;
       height: 22px;
-      top: 10px;
-      right: 10px;
-    }
-    .btn-card:hover{
-      top: 10px;
-      right: 10px;
-    }
-    .btn-card:active{
       top: 10px;
       right: 10px;
     }
@@ -163,7 +157,7 @@
       width: 100%;
       padding: 0px 8px;
     }
-    .card-title-s{
+    .card-title-s {
       height: 100%;
     }
     h4 {
@@ -185,5 +179,59 @@
     font-size: 16px;
     line-height: 19px;
   }
-  
+}
+@media (min-width: 2550px) and (max-width: 3799px) {
+  .card-map {
+    padding: 0px 8px 0px 0px;
+    .border-line-green {
+      border-right: 0px;
+    }
+    .ant-card-body {
+      padding: 20px;
+    }
+    .ant-card {
+      margin: 0px 13px 13px 0px;
+      // border-right: 0px !important;
+    }
+    // .ant-card:hover {
+    //   border-right: 0px;
+    // }
+    .btn-card,
+    .btn-card:hover,
+    .btn-card:active,
+    .btn-card:focus {
+      width: 28px;
+      height: 28px;
+      top: 14px;
+      right: 14px;
+    }
+    .infinite-scroll-component__outerdiv {
+      width: 100%;
+      padding: 0px 8px;
+    }
+    .card-title-s {
+      height: 100%;
+    }
+    h4 {
+      font-size: 22px;
+      line-height: 30px;
+      margin-bottom: 10px;
+    }
+    h6 {
+      font-size: 19px;
+    }
+    h5 {
+      font-size: 20px;
+    }
+    b {
+      font-size: 19px;
+    }
+  }
+  .card-content-text {
+    margin-top: 10px;
+    .text-type-percentage {
+      font-size: 19px;
+      line-height: 22px;
+    }
+  }
 }

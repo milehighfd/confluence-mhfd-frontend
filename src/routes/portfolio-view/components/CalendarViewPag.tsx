@@ -22,13 +22,14 @@ const CalendarViewPag = ({
   const [updateAction, setUpdateAction] = useState(false);
   const [editData,setEditData] = useState<any>({});
   const [openPiney, setOpenPiney] = useState(false);
+  const appUser = store.getState().profile;
+  const [disabledLG, setDisabledLG] = useState(appUser?.isLocalGovernment || appUser?.userInformation?.designation === 'government_staff');
   const pageWidth  = document.documentElement.scrollWidth;
   const windowWidth: any = window.innerWidth;
   const heightSearchHeader = document.getElementById('searchPortfolio')?.offsetHeight
   const heightSearchtest = document.getElementById('tabsPM')?.offsetHeight
   const heightSearch = (heightSearchtest && heightSearchHeader) && heightSearchtest - heightSearchHeader
-  const marginReducerHeaderAxis = windowWidth >= 3001 && windowWidth <= 3999 ? '-5.3px' : '-5.9px';
-  const appUser = store.getState().profile;
+  const marginReducerHeaderAxis = windowWidth >= 3001 && windowWidth <= 3999 ? '-5.3px' : '-5.9px';  
   useEffect(() => {
     getActionsDone();
   }, [tabKey, updateAction])
@@ -93,7 +94,7 @@ const CalendarViewPag = ({
             <Col xs={{ span: 10 }} lg={{ span: 12 }} style={openPiney ? (pageWidth > 1900 ? (pageWidth > 2550 ? ((pageWidth > 3800 ? { textAlign: 'end', paddingRight: '638px' } : { textAlign: 'end', paddingRight: '465px' })) : { textAlign: 'end', paddingRight: '396px' }) : { textAlign: 'end', paddingRight: '305px' }) : { textAlign: 'end', paddingRight: '15px' }} className='header-zoom'>
               <div>
                 {
-                  (openPiney && !appUser?.isLocalGovernment) &&
+                  (openPiney && !disabledLG) &&
                   <>
                     <Button style={{ border: '1px solid transparent', background: 'none', color: '#11093C', opacity: '0.6', paddingRight: '10px', paddingTop: '0px', paddingBottom: '0px' }} onClick={() => { setDatesData(editData); setOpenModalTollgate(true); }}>
                       <CalendarOutlined /> Edit Dates

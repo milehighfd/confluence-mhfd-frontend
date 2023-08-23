@@ -50,7 +50,13 @@ export const ProjectGeometry = ({
     const formattedNumber = formatterIntegers.format(roundedNumber);
     const miles = number * 0.000189394;
     const formattedMiles = formatterDecimals.format(miles);
-    return formattedNumber + ' feet '+ '(' + formattedMiles + ' miles)';
+    return (
+      <>
+      {formattedNumber + ' feet '} 
+      <br/>
+      {'(' + formattedMiles + ' miles)'}
+      </>
+    );
   }
 
   const formatListStreams = (thislistStreams: any) => {
@@ -64,6 +70,8 @@ export const ProjectGeometry = ({
       });
       setKeys(Array.from(myset));
       const dataFormated: any = [];
+      let totalTributary:any = 0;
+      let totalLength:any = 0;
       Object.keys(thislistStreams).forEach((key: any, id: any) => {
         const titleTemplate = {
           key: `title-${id}`,
@@ -74,21 +82,30 @@ export const ProjectGeometry = ({
         dataFormated.push(titleTemplate);
         const substreams = thislistStreams[key];
         substreams.forEach((substream: any, index: any) => {
-          let formatedNumber = formatterIntegers.format(substream.length);
-          if (formatedNumber.length === 5) {
-            formatedNumber = formatedNumber.replace(',', '');
-          } 
+          totalTributary += (substream.tributary ?? 0);
+          totalLength += (substream.length ?? 0);
           const rowTemplate = {
+            ...substream,
             key: `${id}_${index}`,
             reach: substream.jurisdiction,
             code: substream.mhfd_code,
-            tributary:'XXXX acres',
-            length:`${formatedNumber} ft`,
-            ...substream
+            tributary: substream.tributary ?? 0,
+            length: substream.length ?? 0,
+            
           };
+
           dataFormated.push(rowTemplate);
         });
       });
+      dataFormated.push(
+        {
+          key: 'total',
+          reach: 'Total',
+          tributary: totalTributary,
+          length: totalLength,
+          delete: false,
+        }
+      );
       setStreamListData(dataFormated);
   }
   useEffect(() => {
@@ -138,6 +155,13 @@ export const ProjectGeometry = ({
       dataIndex: 'tributary',
       key: 'tributary',
       width: '20%',
+      render: (text: any) => {
+        if (text === undefined) {
+          return ('');
+        }else{
+          return formatterIntegers.format(+text) + ' acre-feet';
+        }
+      }
     },
     {
       title: 'Reach Length',
@@ -175,8 +199,13 @@ export const ProjectGeometry = ({
     let mhfd_NameToRemove = stream?.reach;
     let mhfd_codeToRemove = stream?.mhfd_code;
     let copyList = { ...currentListStreams.current };
-    for (let jurisdiction in copyList) {
-      let newArray = [...copyList[jurisdiction]].filter((st: any) => st.str_name !== mhfd_NameToRemove);
+    for (let jurisdiction in copyList) {      let newArray = [...copyList[jurisdiction]].filter((st: any) => {
+        if (mhfd_NameToRemove === 'Unnamed Streams') {
+          return st.str_name ? st.str_name !== 'Unnamed Streams' : st.stream.stream.stream_name;
+        } else {
+          return st.str_name ? st.str_name !== mhfd_NameToRemove : st.stream.stream.stream_name !== mhfd_NameToRemove;
+        }
+      });
       copyList[jurisdiction] = newArray;
     }
     let newCopyList: any = {};
@@ -192,16 +221,19 @@ export const ProjectGeometry = ({
         if (mhfd_NameToRemove === 'Unnamed Streams') {
           return id.str_name;
         } else {
-          return id.mhfd_code !== mhfd_codeToRemove;
+          console.log('TEST', id , id.mhfd_code ? id.mhfd_code !== mhfd_codeToRemove : id.mhfd_code_full !== mhfd_codeToRemove, 'id.mhfd_code ,', id.mhfd_code , 'mhfd_codeToRemove', mhfd_codeToRemove, 'id.mhfd_code_full', id.mhfd_code_full);
+          return id.mhfd_code_full ? id.mhfd_code_full !== mhfd_codeToRemove : id.mhfd_code !== mhfd_codeToRemove; 
         }
       });
       setStreamsIds(newIds);
     }
+    
+    
   }
 
   const [columnsGeometry, setColumnsGeometry] = useState(columnsGeometryDefault);
   useEffect(() => {
-    if (type !== 'STUDY') {
+    if (type !== 'study') {
       const columnsGeometryNoStudy = columnsGeometryDefault.filter((column: any) => {
         return column.key !== 'code' && column.key !== 'tributary';
       });
@@ -244,7 +276,7 @@ export const ProjectGeometry = ({
                       setHighlightedStreams(listStreams[key])
                     } else {
                       const streamData = listStreams[key];
-                      const valueHighlight = !(streamData[0].mhfd_code) ? deletefirstnumbersmhfdcode(streamData[0]) : streamData[0].mhfd_code;
+                      const valueHighlight = !(streamData[0].cartodb_id) ? deletefirstnumbersmhfdcode(streamData[0]) : streamData[0].mhfd_code;
                       setHighlightedStream(valueHighlight);
                     }
                   },

@@ -29,6 +29,7 @@ import { Countywide } from '../TypeProjectComponents/Countywide';
 import { TypeProjectsMenu } from '../TypeProjectComponents/TypeProjectMenu';
 import { setStreamsList } from 'store/actions/ProjectActions';
 import { deletefirstnumbersmhfdcode } from 'utils/utils';
+import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -120,21 +121,16 @@ export const ModalCapital = ({
     setComponentIntersected, 
     getListComponentsByComponentsAndPolygon, 
     setStreamIntersected, 
-    setHighlightedComponent, 
     setStreamsIds, 
     setIndComponents, 
     getGEOMByProjectId, 
     editProjectCapital, 
     setServiceAreaCounty, 
     setJurisdictionSponsor, 
-    getZoomGeomComp, 
-    getZoomGeomProblem, 
-    setHighlightedProblem, 
     setIsEdit,
     setStreamsList,
-    setDeleteAttachmentsIds,
-    setHighlightedStream, 
-    setHighlightedStreams
+    saveSpecialLocation,
+    saveAcquisitionLocation
   } = useProjectDispatch();
   const {
     listComponents, 
@@ -142,11 +138,12 @@ export const ModalCapital = ({
     userPolygon, 
     streamIntersected, 
     independentComponents, 
-    isEdit,
+    status,
     deleteAttachmentsIds,
     listStreams,
     streamsIntersectedIds,
   } = useProjectState();
+  const [loading, setLoading] = useState(false);
   const { userInformation } = useProfileState();
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
@@ -255,7 +252,17 @@ export const ModalCapital = ({
       }
     }       
   }, [userInformation]);
-
+  useEffect(() => {
+    if(!showDraw) {
+      setStreamIntersected({ geom: null });
+      setStreamsList([]);
+      changeAddLocationState(false);
+      setGeom(undefined);
+      saveSpecialLocation({geom: null});
+      saveAcquisitionLocation({geom: null});
+      setEditLocation([]);
+    }
+  }, [showDraw]);
   //Load Data if is Edit
   useEffect(() => {
     setIsEdit(false);
@@ -399,6 +406,7 @@ export const ModalCapital = ({
     const countyList: any = [];
     const serviceAreaList: any = [];
     if (save === true) {
+      setLoading(true);
       groupOrganization.forEach((item: any) => {
         if (item.table === 'CODE_LOCAL_GOVERNMENT') {
           jurisdictionList.push(item);
@@ -524,15 +532,34 @@ export const ModalCapital = ({
       else {
         saveProjectCapital(capital);
       }
-      setVisibleCapital(false);
-      setVisible(false);
+      // setVisible(false);
     }
   }, [save]);
-
+  useEffect(() => {
+    if(status === 1 || status === 0) {
+      setVisible(false);
+      setVisibleCapital(false);
+      setLoading(false);
+    } else {
+      setLoading(false);
+      setSave(false);
+    }
+  }, [status]);
   //Check if required fields are filled to enable save button
   useEffect(()=>{   
+    const checkIfIndependentHaveName = () => {
+      let result = true;
+      thisIndependentComponents.forEach((comp: any) => {
+        if(!comp.name || comp.name === 'Proposed Actions'){
+          result = false;
+        }
+      });
+      // true if all have name 
+      // false if one doesnt have 
+      return result;
+    }
     if (geom || isCountyWide) {
-      if (description && county.length && serviceArea.length && jurisdiction.length && nameProject && sponsor && nameProject !== 'Add Project Name') {
+      if (description && county.length && serviceArea.length && jurisdiction.length && nameProject && sponsor && nameProject !== 'Add Project Name' && checkIfIndependentHaveName()) {
         if ((selectedTypeProject === 'study' && studyreason)) {
           setDisable(false);
         }
@@ -543,7 +570,20 @@ export const ModalCapital = ({
         setDisable(true);
       }
     }
-  },[geom, description, county, serviceArea , sponsor, nameProject, componentsToSave, streamIntersected, jurisdiction, selectedTypeProject,studyreason]);
+  },[
+    geom,
+    description,
+    county,
+    serviceArea ,
+    sponsor,
+    nameProject,
+    componentsToSave,
+    streamIntersected,
+    jurisdiction,
+    selectedTypeProject,
+    studyreason,
+    thisIndependentComponents
+  ]);
 
   useEffect(() => {
     if(componentsFromMap.length > 0 ) {      
@@ -898,6 +938,31 @@ export const ModalCapital = ({
     }
   }, [listStreams]);
 
+  useEffect(() => {
+    if (showCounty) {
+      if(county.length > 0) {
+        const countyList: any = [];
+        groupOrganization.forEach((item: any) => {
+          if (item.table === 'CODE_STATE_COUNTY') {
+            item.name = item.name.replace(' County', '');
+            countyList.push(item);
+          }
+        });
+        let countyA = county.map((element: any) => element.replace(' County', ''));
+        let countyIds = countyList.filter((countys: any) => countyA.includes(countys.name)).map((countyl: any) => countyl.id);
+        datasets.postData(SERVER.GET_COUNTY_DATA_CREATE, { state: countyIds }, datasets.getToken()).then(data => {
+          const serviceAreaNames = data.serviceArea.map((item: any) => item.service_area_name);
+          const localGovernmentNames = data.localGovernment.map((item: any) => item.local_government_name);
+          setServiceArea(serviceAreaNames);
+          setjurisdiction(localGovernmentNames);
+        })
+      }else{
+        setServiceArea([]);
+        setjurisdiction([]);
+      }      
+    }
+  }, [county]);
+
   //capital
   useEffect(() => {
     if (Array.isArray(groups)) {
@@ -940,6 +1005,7 @@ export const ModalCapital = ({
 
     return (
     <>
+    {loading && <LoadingViewOverall></LoadingViewOverall>}
     {visibleAlert && <AlertView
       isWorkPlan={isWorkPlan}
       visibleAlert = {visibleAlert}

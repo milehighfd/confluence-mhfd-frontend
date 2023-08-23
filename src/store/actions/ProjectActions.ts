@@ -1,7 +1,7 @@
 import * as types from 'store/types/ProjectTypes';
 import * as datasets from "Config/datasets";
 import { SERVER } from "Config/Server.config";
-import { loadFilters, loadOneColumn } from 'store/actions/requestActions';
+import { loadColumns, loadFilters, loadOneColumn } from 'store/actions/requestActions';
 import * as turf from '@turf/turf';
 import { depth } from 'routes/map/components/MapFunctionsUtilities';
 
@@ -33,7 +33,7 @@ export const saveSpecial = (data: any) => {
       }else{
         status = 0;
       }
-      dispatch(loadOneColumn(namespaceId, 0));
+      dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_SAVE, status });
     })
   };
@@ -67,7 +67,7 @@ export const saveAcquisition = (data: any) => {
       }else{
         status = 0;
       }
-      dispatch(loadOneColumn(namespaceId, 0));
+      dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_SAVE, status });
     })
   };
@@ -102,16 +102,19 @@ export const saveCapital = (data: any) => {
         formData.append(key, data[key]);
       }
     });
-    datasets.postDataMultipart(SERVER.CREATE_PROJECT_GENERAL, formData, datasets.getToken()).then(res => {
+    datasets.postDataMultipartWithoutCatch(SERVER.CREATE_PROJECT_GENERAL, formData, datasets.getToken()).then(res => {
+      console.log('result of creation', res);
       let status ; 
-      if(res && res.total_rows && res.total_rows > 0 ){
+      if(res && res.project_data){
         status = 1;
       }else{
         status = 0;
       }
-      dispatch(loadOneColumn(namespaceId, 0));
-      dispatch(loadFilters(namespaceId))
+      dispatch(loadColumns());
+      dispatch(loadFilters())
       dispatch({ type: types.SET_SAVE, status });
+    }).catch((err) => {
+      dispatch({ type: types.SET_SAVE, status: -1 });
     })
   };
 };
@@ -146,8 +149,10 @@ export const saveMaintenance = (data: any) => {
       }else{
         status = 0;
       }
-      dispatch(loadOneColumn(namespaceId, 0));
+      dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_SAVE, status });
+    }).catch((err) => {
+      console.log('Here is the error of creationg', err);
     })
   };
 };
@@ -162,7 +167,7 @@ export const saveOverheadCost = (data: any) => {
       }else{
         status = 0;
       }
-      dispatch(loadOneColumn(namespaceId, 0));
+      dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_SAVE, status });
     })
   };
@@ -195,7 +200,7 @@ export const saveStudy = (data: any) => {
       }else{
         status = 0;
       }
-      dispatch(loadOneColumn(namespaceId, 0));
+      dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_SAVE, status });
     })
   };
@@ -228,7 +233,7 @@ export const editSpecial = (data: any) => {
       }else{
         status = 0;
       }
-      dispatch(loadOneColumn(namespaceId, 0));
+      dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_EDIT, status });
     })
   };
@@ -262,7 +267,7 @@ export const editAcquisition = (data: any) => {
       }else{
         status = 0;
       }
-      dispatch(loadOneColumn(namespaceId, 0));
+      dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_EDIT, status });
     })
   };
@@ -296,7 +301,7 @@ export const editStudy = (data: any) => {
       }else{
         status = 0;
       }
-      dispatch(loadOneColumn(namespaceId, 0));
+      dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_EDIT, status });
     })
   };
@@ -330,7 +335,7 @@ export const editMaintenance = (data: any) => {
       }else{
         status = 0;
       }
-      dispatch(loadOneColumn(namespaceId, 0));
+      dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_EDIT, status });
     })
   };
@@ -367,13 +372,13 @@ export const editCapital = (data: any) => {
     datasets.postDataMultipart(SERVER.EDIT_PROJECT(data.editProject), formData, datasets.getToken()).then(res => {
       
       let status ; 
-      if(res && res.total_rows && res.total_rows > 0 ){
+      if(res && res.project_update){
         status = 1;
       }else{
         status = 0;
       }
-      dispatch(loadOneColumn(namespaceId, 0));
-      dispatch(loadFilters(namespaceId))
+      dispatch(loadColumns());
+      dispatch(loadFilters())
       dispatch({ type: types.SET_EDIT, status });
     })
   };
@@ -423,6 +428,7 @@ export const getStreamsIntersectedPolygon = (geom: any) => {
   return ( dispatch: Function) => {
     datasets.postData(SERVER.GET_STREAM_INTERSECTED, {geom: geom}, datasets.getToken()).then(res => {
       let streamsIntersectedIds = res;
+      console.trace('streamsIntersectedIds', streamsIntersectedIds);
         dispatch({type: types.SET_STREAMS_IDS_ADD, streamsIntersectedIds});
     });
   }
@@ -568,7 +574,11 @@ export const getZoomGeomComp = (table:any, objectid: any) => {
       if (DEPTH == 4) {
         poly = turf.multiPolygon(geom?.coordinates, { name: 'zoomarea' });
       } else {
-        poly = turf.polygon(geom?.coordinates, { name: 'zoomarea' });
+        if(geom?.type == 'Point'){
+          poly = turf.point(geom?.coordinates, { name: 'zoomarea' });
+        }else{
+          poly = turf.polygon(geom?.coordinates, { name: 'zoomarea' });
+        }
       }
       let bboxBounds = turf.bbox(poly);
       dispatch({type: types.SET_ZOOM_GEOM, zoomGeom: [[bboxBounds[0], bboxBounds[1]], [bboxBounds[2], bboxBounds[3]]]})
@@ -624,22 +634,27 @@ export const getStreamsByProjectId = (projectId: any, typeProjectId: any) => {
       for(let str in listStreams) {
         independentStreams = [...independentStreams, ...listStreams[str]];
       }
+      const completeMhfdList:any = [];
       independentStreams = independentStreams.map((indStr:any) => {
         const arrayValues = indStr.stream.stream.MHFD_Code.split('.');
         arrayValues.shift();
+        completeMhfdList.push({mhfd_code_complete: indStr.stream.stream.MHFD_Code, mhfd_code_split: arrayValues.join('.'), str_name: indStr.stream.stream.stream_name});
         return arrayValues.join('.');
       });
       const setMHFD:any = new Set();
       for(let i = 0; i < independentStreams.length; ++i) {
         setMHFD.add(independentStreams[i])
       }
+      console.log('completeMhfdList', completeMhfdList);
       dispatch({type: types.SET_LIST_STREAMS, listStreams});
       let setArray = [...setMHFD];
       let streamsIntersectedIds: any = [];
       for(let i of setArray){
         streamsIntersectedIds.push({
           cartodb_id: undefined,
-          mhfd_code:i
+          mhfd_code:i,
+          mhfd_code_full: completeMhfdList.find((mhfd: any) => mhfd.mhfd_code_split === i)?.mhfd_code_complete,
+          str_name: completeMhfdList.find((mhfd:any) => mhfd.mhfd_code_split === i)?.str_name,
         })
       };
       if (typeProjectId == 1 || typeProjectId === 18) { // VALUES of STUDY

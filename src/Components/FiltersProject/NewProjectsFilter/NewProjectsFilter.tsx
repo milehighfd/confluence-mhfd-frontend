@@ -171,7 +171,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
                 }
             </Col>
             <Col span={12} className={filtersObject?.filterby === FILTERS.PROJECT.COUNTY ? 'disabledchart': ''}>
-                <h5 className="filter-title chart-filter-title">County <Popover content={content1}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                <h5 className="filter-title chart-filter-title">County <Popover content={content1}><img src="/Icons/icon-19.svg" alt="" /></Popover> </h5>
                 {
                     paramProjects?.county &&
                     <TreeMap data={paramProjects.county} type={FILTERS.PROJECT.COUNTY} tab={'project'}
@@ -300,7 +300,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
         <hr className='filters-line'></hr>
         <Row className="filt-00" gutter={[24, 16]} style={{marginBottom: 25}}>
             <Col span={12} className={filtersObject?.filterby === FILTERS.PROJECT.JURISDICTION ? 'disabledchart': ''}>
-                <h5 className="filter-title">Local Government <Popover content={content2}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                <h5 className="filter-title">Local Government <Popover content={content2}><img src="/Icons/icon-19.svg" alt="" /></Popover> </h5>
                 {
                     paramProjects?.jurisdiction &&
                     <CheckBoxFilters defaultValue={''}

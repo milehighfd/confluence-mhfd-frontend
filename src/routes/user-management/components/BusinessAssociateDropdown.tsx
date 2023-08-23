@@ -16,9 +16,9 @@ const BusinessAssociatesDropdown = ({
   setDisableAdress,
   setDisableContact,
   setDisabled,
-  setContactData,
   setAddressLabel,
   setCreateAssociate,
+  setCleanRecord,
 }: {
   businessAssociate: any,
   designation: any,
@@ -32,9 +32,9 @@ const BusinessAssociatesDropdown = ({
   setDisableAdress: any,
   setDisableContact: any,
   setDisabled: any,
-  setContactData: any,
   setAddressLabel: any,
   setCreateAssociate: any,
+  setCleanRecord: any,
 }) => {
   const [menu, setMenu] = useState<any>([]);
   const [keyword, setKeyword] = useState(associateLabel);
@@ -57,7 +57,7 @@ const BusinessAssociatesDropdown = ({
     setDisableAdress(false);
     setDisableContact(false);
     setDisabled(false);
-    setContactData({});
+    setCleanRecord(true);
   }
 
   const onSearch = (value: string) => {
@@ -75,8 +75,6 @@ const BusinessAssociatesDropdown = ({
     let array = businessAssociate;
     if (designation === 'government_staff') {
       const LOCAL_GOVERNMENT = 3;
-      console.log('apply ');
-      console.log(businessAssociate);
       array = businessAssociate.filter((element: any) => element.code_business_associates_type_id === LOCAL_GOVERNMENT);
       console.log(array);
     }
@@ -106,11 +104,11 @@ const BusinessAssociatesDropdown = ({
       onSelect={onSelect}
       onSearch={onSearch}
       value={keyword}
-      filterOption={(inputValue: any, option: any) => {
-          const element = dataMenu.find((el: any) => +el.key === option.key)?.label || '';
-          return element.toUpperCase().includes(inputValue.toUpperCase());;
-        }
-      }
+      // filterOption={(inputValue: any, option: any) => {
+      //     const element = dataMenu.find((el: any) => +el.key === option.key)?.label || '';
+      //     return element.toUpperCase().includes(inputValue.toUpperCase());;
+      //   }
+      // }
       placeholder="Select Business Associates"
       listHeight={windowWidth > 2554 ? (windowWidth > 3799 ? 500 : 320) : 256}
     />

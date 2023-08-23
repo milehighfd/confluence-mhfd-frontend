@@ -64,6 +64,10 @@ export const DropPin = ({
       setLongitude( parseFloat(specialLocation.geom.coordinates[0][0][0]).toFixed(2) );
       setLocation(specialLocation.geom);
       setGeom(specialLocation.geom);
+    } else {
+      setLocation(undefined);
+      setLatitude('--');
+      setLongitude('--');
     }
   }, [specialLocation]);
 
@@ -73,6 +77,10 @@ export const DropPin = ({
       setLongitude(parseFloat(acquisitionLocation.geom.coordinates[0][0][0]).toFixed(2)   );
       setLocation(acquisitionLocation.geom);
       setGeom(acquisitionLocation.geom);
+    } else {
+      setLocation(undefined);
+      setLatitude('--');
+      setLongitude('--');
     }
   }, [acquisitionLocation]);
   useEffect(()=>{

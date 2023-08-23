@@ -39,14 +39,15 @@ const Analytics = () => {
   const {tabActiveNavbar} = useMapState();
 
   const clickUpdate = () => {
-    datasets.putData(SERVER.UPDATE_BUDGET(boardId), {
+    datasets.putData(SERVER.UPDATE_BUDGET, {
+      boardId,
       budget: tcb
     }).then((data) => {
       console.log(data);
     })
-      .catch((e) => {
-        console.log(e);
-      });
+    .catch((e) => {
+      console.log(e);
+    });
   };
 
   useEffect(() => {
@@ -195,7 +196,7 @@ const Analytics = () => {
             </Row>
             <div style={{ textAlign: 'end' }}>
               <Button
-                className="btn-purple"
+                className="btn-purple btn-maintenence"
                 style={{ marginTop: '10px'}}
                 onClick={clickUpdate}
               >
@@ -270,7 +271,7 @@ const Analytics = () => {
           />
         }
       </div>
-      <div className="subtitle-requests" style={{marginTop: WINDOW_WIDTH>1900? '80px' :'30px' }}>
+      <div className="subtitle-requests" style={{marginTop: WINDOW_WIDTH>1900? WINDOW_WIDTH>2500? '100px' : '80px' :'30px' }}>
         <h6 style={{ marginTop: '10px', textTransform: 'uppercase' }}>{`Dollars Requested by ${localityType}`}
         </h6>
       </div>

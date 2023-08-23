@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Checkbox, Col, Dropdown, Menu, Row, Space, Table } from 'antd';
-import { DeleteOutlined, DownOutlined, UpOutlined } from '@ant-design/icons';
+import { Checkbox, Col, Dropdown, Input, Menu, Row, Space, Table } from 'antd';
+import { CloseCircleFilled, DownOutlined, SearchOutlined, UpOutlined } from '@ant-design/icons';
 import AddAmountModal from 'Components/Shared/Modals/AddAmountModal';
 import { useFinancialDispatch, useFinancialState } from 'hook/financialHook';
 import moment from 'moment';
@@ -21,13 +21,15 @@ const Financials = ({ projectId }: { projectId: any }) => {
   const [openDrop, setOpenDrop] = useState(false);
   const [openDropPhatner, setOpenPhatner] = useState(false);
   const [openDropPhase, setOpenDropPhase] = useState(false);
-  const [filters, setFilters] = useState<any>([]);
+  const [filters, setFilters] = useState<any>({});
   const [phase, setPhase] = useState<any>();
   const [partner, setPartner] = useState<any>();
   const [income, setIncome] = useState([0, 0, 0]);
   const [expense, setExpense] = useState([0, 0, 0]);
+  const [searchValue, setSearchValue] = useState<any>();
+
   useEffect(() => {
-    getFinancialData(projectId, []);
+    getFinancialData(projectId, {});
   }, []);
 
   const formatter = new Intl.NumberFormat('en-US', {
@@ -99,7 +101,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
     setExpense(expense)
     setFinalData(mappingDataForDataSource);
 
-    if (filters.length === 0) {
+    if (Object.keys(filters).length === 0) {
       setInitialData(mappingDataForDataSource);
       const dropdownPhase = mappingDataForDataSource.map((element: any) => {
         if (element?.phase) {
@@ -158,15 +160,12 @@ const Financials = ({ projectId }: { projectId: any }) => {
   }, [financialInformation]);
 
   useEffect(() => {
-    if (filters[0] || (filters[1]) || (filters[2])) {
-      income[0] = 0; income[1] = 0; income[2] = 0;
-      expense[0] = 0; expense[1] = 0; expense[2] = 0;
-      setIncome([0, 0, 0]);
-      setExpense([0, 0, 0]);
+    if (Object.keys(filters).length > 0) {
+      resetIcomeExpense()
       getFinancialData(projectId, filters);
     }
 
-  }, [filters[0], filters[1], filters[2]]);
+  }, [filters.partner ,filters.incomeExpense, filters.phase, filters.name]);
 
   const columns = [
     {
@@ -225,18 +224,16 @@ const Financials = ({ projectId }: { projectId: any }) => {
     },
   ];
   const reset = () => {
-    income[0] = 0; income[1] = 0; income[2] = 0;
-    expense[0] = 0; expense[1] = 0; expense[2] = 0;
-    setIncome([0, 0, 0]);
-    setExpense([0, 0, 0]);
-    getFinancialData(projectId, []);
-    setFilters([]);
+    resetIcomeExpense()
+    getFinancialData(projectId, {});
+    setFilters({});
     setPhase('');
     setPartner('');
     setViewDropdow({
       income: true,
       expense: true,
     });
+    setSearchValue('');
   };
   const menu = (
     <Menu
@@ -249,10 +246,10 @@ const Financials = ({ projectId }: { projectId: any }) => {
               onChange={() => {
                 if (viewDropdown.income && !viewDropdown.expense) {
                   setViewDropdow({ expense: true, income: false });
-                  filters[2] = { expense: true, income: false };
+                  filters.incomeExpense = { expense: true, income: false };
                 } else {
                   setViewDropdow({ ...viewDropdown, income: !viewDropdown.income });
-                  filters[2] = { ...viewDropdown, income: !viewDropdown.income };
+                  filters.incomeExpense = { ...viewDropdown, income: !viewDropdown.income };
                 }
               }}
               checked={viewDropdown.income}
@@ -268,10 +265,10 @@ const Financials = ({ projectId }: { projectId: any }) => {
               onChange={() => {
                 if (!viewDropdown.income && viewDropdown.expense) {
                   setViewDropdow({ expense: false, income: true });
-                  filters[2] = { expense: false, income: true };
+                  filters.incomeExpense = { expense: false, income: true };
                 } else {
                   setViewDropdow({ ...viewDropdown, expense: !viewDropdown.expense });
-                  filters[2] = { ...viewDropdown, expense: !viewDropdown.expense };
+                  filters.incomeExpense = { ...viewDropdown, expense: !viewDropdown.expense };
                 }
               }}
               checked={viewDropdown.expense}
@@ -300,20 +297,50 @@ const Financials = ({ projectId }: { projectId: any }) => {
     return name;
   };
 
+  const resetIcomeExpense = () => {
+    income[0] = 0; income[1] = 0; income[2] = 0;
+    expense[0] = 0; expense[1] = 0; expense[2] = 0;
+    setIncome([0, 0, 0]);
+    setExpense([0, 0, 0]);
+  };
+
   const menu2 = (
     <Menu
       className="menu-density"
-      onClick={e => ((filters[0] = e.key), setPartner(findFilterName(e.key, 'partner')))}
+      onClick={e => ((filters.partner = e.key), setPartner(findFilterName(e.key, 'partner')))}
       items={dropdownPartner}
     />
   );
   const menu3 = (
     <Menu
       className="menu-density"
-      onClick={e => ((filters[1] = e.key), setPhase(findFilterName(e.key, 'phase')))}
+      onClick={e => ((filters.phase = e.key), setPhase(findFilterName(e.key, 'phase')))}
       items={dropdownPhase}
     />
   );
+
+  const handdleSearch = (e: any) => {
+    if(e.target.value === ''){
+      setSearchValue('');
+      filters.name = ''
+      resetIcomeExpense()
+      getFinancialData(projectId, filters);
+    }
+    setSearchValue(e.target.value);
+  };
+
+  const search = () => {
+    filters.name = searchValue
+    resetIcomeExpense()
+    getFinancialData(projectId, filters);
+
+  };
+
+  const checkEnter = (e: any) => {
+    if (e.key === 'Enter') {
+      search();
+    }
+  }
 
   return (
     <>
@@ -397,7 +424,25 @@ const Financials = ({ projectId }: { projectId: any }) => {
               )}
             </Space>
           </Dropdown>
-          {(partner || phase || !viewDropdown.expense || !viewDropdown.income) &&  <p onClick={reset} style={{color:'red', margin:'0px'}}>
+          <div style={{ textAlign: 'right' }}>
+              <div style={{ textAlign: 'end' }}>
+                <Space size="large">
+                  <Input
+                    onChange={handdleSearch}
+                    onKeyUp={checkEnter}
+                    className='search-input'
+                    style={{ maxWidth: '254', height: '34px', borderRadius: '4px' }} 
+                    // addonAfter={<SearchOutlined onClick={search} />} 
+                    placeholder="Search"
+                    allowClear
+                    // suffix={<CloseCircleFilled onClick={handdle}  style={{ color: '#11093c', opacity: '0.5' }} />}
+                    prefix={<SearchOutlined onClick={search} />}
+                    value={searchValue}
+                  />
+                </Space>
+              </div>
+          </div>
+          {(partner || phase || !viewDropdown.expense || !viewDropdown.income) && <p onClick={reset} style={{ color: 'red', margin: '0px 0px 0px 10px' }}>
             Reset
           </p>}
         </Col>
