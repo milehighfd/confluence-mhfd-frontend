@@ -711,3 +711,8 @@ export const setDisableFilterComponent = (disable: any, localityType: any) => {
     }
   }  
 }
+
+export const setConfiguredYear = (payload: any) => ({
+  type: types.REQUEST_SET_CONFIGURED_YEAR,
+  payload
+});

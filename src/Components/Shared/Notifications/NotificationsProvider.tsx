@@ -29,7 +29,6 @@ const NotificationsProvider: React.FC = ({ children }) => {
       className: NotificationType.className,
       icon: NotificationType.icon,
       description,
-      duration:10060,
     });
   };
 

@@ -46,7 +46,8 @@ const RequestView = ({ type, widthMap }: {
     localityType,
     reqManager,
     localityFilter,
-    namespaceId
+    namespaceId,
+    configuredYear,
   } = useRequestState();
   
   const {
@@ -151,7 +152,9 @@ const RequestView = ({ type, widthMap }: {
       setLocalities(r.localities);
       setDataAutocomplete(r.localities.map((l: any) => l.name));
       if (_year) {
-        setYear(_year)
+        setYear(_year);
+      } else {
+        setYear(configuredYear);
       }
       if (!_locality && r.localities.length > 0) {
         _locality = r.localities[0].name;
