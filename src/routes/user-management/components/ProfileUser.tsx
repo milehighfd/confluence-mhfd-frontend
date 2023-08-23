@@ -64,7 +64,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
   const [createAssociate, setCreateAssociate] = useState<any>(false);
   const [createAssociateName, setCreateAssociateName] = useState<any>('');
   const [createPhone, setCreatePhone] = useState<any>('');
-  const { openNotification } = useNotifications();
+  const { openNotification, openNotificationWithDescription } = useNotifications();
 
   interface Contact {
     full_address: string;
@@ -75,6 +75,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
 
   const handleNotification = () => {
     openNotification('Success! Your user update was saved!', "success");
+    //openNotificationWithDescription('Warning! a savage pokemon has appeared.', "warning", "Description example text a large example of this feature incredible!!!!!, Description example text a large example of this feature incredible!!!!!, Description example text a large example of this feature incredible!!!!!");
   };
 
   const {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Table, Button, Popover } from 'antd';
-import { DeleteOutlined, PlusCircleFilled } from '@ant-design/icons';
+import { DeleteOutlined, ExclamationCircleOutlined, PlusCircleFilled } from '@ant-design/icons';
 import { useProjectDispatch } from "hook/projectHook";
 
 interface ProposedActionsProps {
@@ -102,7 +102,9 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       }
     },
     {
-      title: 'Cost',
+      title: <>Cost <Popover content={
+        <div style={{zIndex:"1000"}}>Costs are adjusted for inflation.</div>
+      }><ExclamationCircleOutlined style={{opacity:"0.4"}}/></Popover> </>,
       dataIndex: 'cost',
       key: 'cost',
       sorter: (a:any, b:any) => a.cost - b.cost,
@@ -173,7 +175,9 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       )
     },
     {
-      title: 'Cost',
+      title: <>Cost <Popover content={
+        <div style={{zIndex:"1000"}}>Costs are adjusted for inflation.</div>
+      }><ExclamationCircleOutlined style={{opacity:"0.4"}}/></Popover> </>,
       dataIndex: 'cost',
       key: 'cost',
       sorter: (a:any, b:any) =>  a.cost - b.cost,

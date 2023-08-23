@@ -1,10 +1,11 @@
 import React, { createContext, useContext } from 'react';
 import { notification } from 'antd';
 import { NotificationType } from './NotificationsTypes';
-import { CheckCircleFilled } from '@ant-design/icons';
+import { CheckCircleFilled, WarningFilled } from '@ant-design/icons';
 
 type NotificationsContextType = {
-  openNotification: (message: string, notificationType: NotificationType, description?: string) => void;
+  openNotification: (message: string, notificationType: NotificationType) => void;
+  openNotificationWithDescription: (message: string, notificationType: NotificationType, description?: string) => void;
 };
 type Notification = {
   className: string;
@@ -13,14 +14,22 @@ type Notification = {
 
 const NotificationsContext = createContext<NotificationsContextType | undefined>(undefined);
 const NotificationsProvider: React.FC = ({ children }) => {
-  const openNotification = (message: string, notificationType: NotificationType, description?: string) => {
+  const openNotification = (message: string, notificationType: NotificationType) => {
     let NotificationType = getNotificationbyType(notificationType);
     notification.open({
       message:<div>{message}</div>,
       className: NotificationType.className,
       icon: NotificationType.icon,
-      //description: description,
-      //duration:10060,
+    });
+  };
+  const openNotificationWithDescription= (message: string, notificationType: NotificationType, description?: string) => {
+    let NotificationType = getNotificationbyType(notificationType);
+    notification.open({
+      message:<div>{message}</div>,
+      className: NotificationType.className,
+      icon: NotificationType.icon,
+      description,
+      duration:10060,
     });
   };
 
@@ -31,10 +40,10 @@ const NotificationsProvider: React.FC = ({ children }) => {
           className: 'notification-alert-layout notification-alert-success',
           icon: <CheckCircleFilled className='notification-icon-success'/>,
         };
-      case 'case2':
+      case 'warning':
         return {
-          className: 'notification-alert-layout',
-          icon: <CheckCircleFilled className='notification-icon-success'/>,
+          className: 'notification-alert-layout-with-description notification-alert-warning',
+          icon: <WarningFilled className='notification-icon-warning'/>,
         };
       default:
         return {
@@ -44,7 +53,7 @@ const NotificationsProvider: React.FC = ({ children }) => {
     }
   };
 
-  return <NotificationsContext.Provider value={{ openNotification }}>{children}</NotificationsContext.Provider>;
+  return <NotificationsContext.Provider value={{ openNotification, openNotificationWithDescription }}>{children}</NotificationsContext.Provider>;
 };
 
 const useNotifications = (): NotificationsContextType => {
