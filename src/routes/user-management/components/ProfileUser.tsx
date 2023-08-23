@@ -686,6 +686,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
                     name="address_line_1"
                     onChange={(e) => { handleChangeData(e.target.value, setAdressLine1) }}
                     disabled={disabled}
+                    className='border-red'
                   />
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
@@ -696,6 +697,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
                     value={(city === '' && disabled ? (city !== '' ? city : values.business_associate_contact?.business_address?.city) : city)}
                     onChange={(e) => { handleCityChange(e.target.value) }}
                     disabled={disabled}
+                    className='border-red'
                   />
                   <p>ZIP CODE</p>
                   <Input
@@ -704,12 +706,14 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
                     onChange={(e) => { handleZipChange(e.target.value, setZip) }}
                     style={errors.email && touched.email ? { border: 'solid red', marginBottom: '15px' } : { marginBottom: '15px' }}
                     disabled={disabled}
+                    className='border-red'
                   />
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
                   <p>STATE</p>
                   <Dropdown trigger={['click']} overlay={menuStates}
                     overlayStyle={disabled?{backgroundColor: 'red'}:{}}
+                    className='border-red'
                     >
                     <Button className="btn-borde-management">
                       {state? state:'State'}<DownOutlined />

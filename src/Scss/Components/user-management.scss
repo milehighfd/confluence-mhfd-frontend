@@ -395,6 +395,9 @@
       padding: 30px 40px;
       border-radius: 3px;
       color: $purple00;
+      .border-red{
+        border: 2px solid red !important;
+      }
       .ant-dropdown-menu-item {
         // opacity: 0.6;
       }
