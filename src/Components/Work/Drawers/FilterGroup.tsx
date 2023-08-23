@@ -7,11 +7,14 @@ import { capitalLetter, capitalizeWords } from 'utils/utils';
 const FilterGroup = ({
   label,
   filterList,
-  disabled = false
+  disabled = false,
+  setYearFilter
 }: {
   label: string;
   filterList: any[];
   disabled?: boolean;
+  yearFilter?: any[];
+  setYearFilter?: any;
 }) => {
   const {
     toggleFilter
@@ -27,7 +30,17 @@ const FilterGroup = ({
           filterList?.map((cn: any, index: number) => (
             <div key={`filter-ps${index}`} className='filter-00'>
               <Checkbox disabled={disabled} className='check-filter' checked={cn?.selected} onChange={e => {
-                toggleFilter(cn?.type,cn?.id)
+                if(label === 'Funding Year' && setYearFilter) {
+                  setYearFilter(filterList.map((f: any) => {
+                    const selected = f.selected;
+                    if(f.id === cn.id) {
+                      f.selected = !selected;
+                    }
+                    return f;
+                  }));
+                }else{
+                  toggleFilter(cn?.type,cn?.id)
+                }                
               }} />
               &nbsp;&nbsp;&nbsp;{cn?.name}
               <br />

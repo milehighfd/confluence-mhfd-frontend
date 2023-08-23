@@ -1432,6 +1432,9 @@ export const YEAR_LOGIC_2022 = 2022;
 export const MMFD_LOCALITY = 'Mile High Flood District'
 export const MMFD_LOCALITY_TYPE = 'MHFD_BOUNDARY'
 
+export const MAINTENANCE = 'Maintenance'
+export const WORK_SPACE = 'Workspace'
+
 export const STATUS_NAMES: any = {
   1:	"Draft",
   2:	"Requested",

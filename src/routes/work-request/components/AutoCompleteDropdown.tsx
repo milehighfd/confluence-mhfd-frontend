@@ -61,7 +61,8 @@ const AutoCompleteDropdown = (
         setDropdownSelected(MMFD_LOCALITY)
         setLocalityFilter(MMFD_LOCALITY);
         setLocalityType(MMFD_LOCALITY_TYPE);
-        setTabKey(tabKeys[0]);
+        setLocality('MHFD District Work Plan');
+        // setTabKey(tabKeys[0]);
       } else {
         setDisableFilterComponent(false,'county')
         setDisableFilterComponent(false,'service_area')        
@@ -144,14 +145,14 @@ const AutoCompleteDropdown = (
           setDisableFilterComponent(false,'service_area')
         }
         if(year >= YEAR_LOGIC_2024){
-          loadColumns(namespaceId);
+          loadColumns();
         }else{
           setDisableFilterComponent(false,'county')
           setDisableFilterComponent(false,'service_area')
         }
       } else {
         if (!tabKeys.includes(tabKey)) {
-          setTabKey(tabKeys[0]);
+          // setTabKey(tabKeys[0]);
         }
       }
     }
@@ -170,7 +171,7 @@ const AutoCompleteDropdown = (
         showAllOptions ? (
           <AutoComplete
             className={'ant-select-1'}
-            options={renderOption.length > 0 ? [...dataAutocomplete.map(renderOption), {}] : dataAutocomplete.map(renderOption)}
+            options={ dataAutocomplete.map(renderOption)}
             placeholder={localityFilter}
             filterOption={(inputValue, option: any) => {
               if (dataAutocomplete.includes(inputValue)) {

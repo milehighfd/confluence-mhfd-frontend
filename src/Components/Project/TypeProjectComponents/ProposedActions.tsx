@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, Popover } from 'antd';
-import { DeleteOutlined, PlusCircleFilled } from '@ant-design/icons';
+import { Table, Button, Popover, Tooltip } from 'antd';
+import { DeleteOutlined, ExclamationCircleOutlined, PlusCircleFilled } from '@ant-design/icons';
 import { useProjectDispatch } from "hook/projectHook";
 
 interface ProposedActionsProps {
@@ -85,7 +85,7 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       dataIndex: 'action',
       key: 'action',
       sorter: (a:any, b:any) => a.table.localeCompare(b.table),
-      width: '35%',
+      width: '37%',
       render: (text: any) => {
         if(text === 'Total Proposed Cost'){
           return (
@@ -102,11 +102,14 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       }
     },
     {
-      title: 'Cost',
+      title: 
+      <>Cost <Tooltip title={
+        <div style={{zIndex:"1000"}}>Costs are adjusted for inflation.</div>
+      }><ExclamationCircleOutlined style={{opacity:"0.4"}}/></Tooltip> </>,
       dataIndex: 'cost',
       key: 'cost',
       sorter: (a:any, b:any) => a.cost - b.cost,
-      width: '10%',
+      width: '17%',
       render: (cost: any) => {
         return (formatter.format(cost));
       }
@@ -133,7 +136,7 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       dataIndex: 'problem',
       key: 'problem',
       sorter: (a:any, b:any) => a.problem.localeCompare(b.problem),
-      width: '39%',
+      width: '30%',
       render: (text:any) => {
         return (text ? (text === 'No name' ? 'No Problem Group' : text) : 'No Problem Group')
       }
@@ -161,7 +164,7 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       title: 'Independent Actions',
       dataIndex: 'name',
       key: 'action',
-      width: '35%',
+      width: '37%',
       sorter: (a:any, b:any) => a.name.localeCompare(b.name),
       render: (text:any,record:any) => (
         <input
@@ -173,7 +176,10 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       )
     },
     {
-      title: 'Cost',
+      title:  
+      <>Cost <Tooltip  title={
+        <div style={{zIndex:"1000"}}>Costs are adjusted for inflation.</div>
+      }><ExclamationCircleOutlined style={{opacity:"0.4"}}/></Tooltip> </>,
       dataIndex: 'cost',
       key: 'cost',
       sorter: (a:any, b:any) =>  a.cost - b.cost,
@@ -185,7 +191,7 @@ export const ProposedActions = (props: ProposedActionsProps) => {
           placeholder='Proposed Actions'
         />
       ),
-      width: '15%',
+      width: '17%',
     },
     {
       title: 'Status',
@@ -209,7 +215,7 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       dataIndex: 'problem',
       key: 'problem',
       sorter: (a:any, b:any) => a.problem.localeCompare(b.problem),
-      width: '34%',
+      width: '30%',
       render: (text:any) => {
         return (text ? (text === 'No name' ? 'No Problem Group' : text) : 'No Problem Group')
       }

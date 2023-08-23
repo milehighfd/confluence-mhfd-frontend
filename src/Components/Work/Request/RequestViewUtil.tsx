@@ -309,7 +309,7 @@ export const getColumnSumAndTotals = (columnProjects: any, position: number) => 
   const groupingArray = [
     ['project_counties', 'county_name'],
     ['project_service_areas', 'service_area_name'],
-    ['project_local_governments', 'local_government_name'],
+    ['project_partners_for_total', 'business_name'],
   ];
 
   columnProjects.forEach((columnProject: any) => {

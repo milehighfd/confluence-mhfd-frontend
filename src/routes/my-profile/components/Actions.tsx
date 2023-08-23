@@ -22,7 +22,7 @@ const Actions = () => {
           onChange={(key) => setTabKey(key)} className="tabs-map">
           {
             displayedTabKey.map((tk: string) => (
-            <TabPane style={{marginBottom:'0px', overflowY:'auto', height:'calc(100vh - 184px)'}} tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="rightBottom">{tk} </Popover> </span>} key={tk}>
+            <TabPane className="action-tabpane" tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="rightBottom">{tk} </Popover> </span>} key={tk}>
               <div className="user-management-body body-action">
                 <h1>May</h1>
                 <Checkbox style={{marginLeft:'0px'}}>

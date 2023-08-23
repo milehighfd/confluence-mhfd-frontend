@@ -5,13 +5,11 @@ import { useHistory } from 'react-router-dom';
 import { getBoardData3, getLocalitiesByBoardType } from 'dataFetching/workRequest';
 import useFakeLoadingHook from 'hook/custom/useFakeLoadingHook';
 import { useMyUser, useProfileDispatch, useProfileState } from 'hook/profileHook';
-import { useProjectDispatch } from 'hook/projectHook';
+import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 import { boardType } from 'Components/Work/Request/RequestTypes';
 import { defaultColumns } from 'Components/Work/Request/RequestViewUtil';
 import ColumsTrelloCard from 'Components/Work/Request/ColumsTrelloCard';
-import { SERVER } from 'Config/Server.config';
-import * as datasets from 'Config/datasets';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import Toolbar from 'routes/work-request/components/Toolbar';
 import YearDropdown from 'routes/work-request/components/YearDropdown';
@@ -22,7 +20,9 @@ import '../../../index.scss';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
 import TableListView from './Toolbar/TableListView';
 
-import { YEAR_LOGIC_2024 } from 'constants/constants';
+import { GOVERNMENT_STAFF, NEW_PROJECT_TYPES, WORK_REQUEST, YEAR_LOGIC_2024 } from 'constants/constants';
+import MaintenanceTypesDropdown from '../../../routes/work-request/components/MaintenanceTypesDropdown';
+import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
 const { TabPane } = Tabs;
 
 const popovers: any = [
@@ -45,12 +45,12 @@ const RequestView = ({ type, widthMap }: {
     sumTotal,
     localityType,
     reqManager,
-    localityFilter
+    localityFilter,
+    namespaceId,
+    configuredYear,
   } = useRequestState();
   
   const {
-    setShowModalProject,
-    setCompleteProjectData,
     setLocality,
     setTabKey,
     setYear,
@@ -70,7 +70,8 @@ const RequestView = ({ type, widthMap }: {
     setIsOnSelected,
     setDataAutocomplete,
     loadFilters,
-    setTotalCountyBudget
+    setTotalCountyBudget,
+    setIsListView,
   } = useRequestDispatch();
   const {
     setOpacityLayer,
@@ -89,8 +90,11 @@ const RequestView = ({ type, widthMap }: {
   const { saveBoardProjecttype } = useProfileDispatch();
   const users = useMyUser();
   const fakeLoading = useFakeLoadingHook(tabKey);
-  const [ListWork, setListWork] = useState(false);
   const [selectView, setSelectView] = useState('card');
+  const {status} = useProjectState();
+  const { openNotification } = useNotifications();
+  const [maintenanceSubType, setMaintenanceSubType] = useState<any>(NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management);
+
 
   const {  
     tabActiveNavbar
@@ -107,6 +111,13 @@ const RequestView = ({ type, widthMap }: {
     }
   }, [showModalProject]);
   useEffect(() => {
+    // console.log('success---------------------------', status);
+    if(status === 1){
+      openNotification('Success! Your project was saved!', "success");
+      console.log('success');
+    }
+  }, [status]);
+  useEffect(() => {
     if (!showCreateProject) {
       resetOnClose();
     }
@@ -121,12 +132,16 @@ const RequestView = ({ type, widthMap }: {
       let params = new URLSearchParams(history.location.search)
       let _year = params.get('year');
       let _locality: any; //= params.get('locality'); commented to avoid preserve the same locality for wr and wp
-      let _tabKey = 'Capital';
-      if(year < YEAR_LOGIC_2024){
-        _tabKey = params.get('tabKey') || users.projecttype
+      let _tabKey: any = 'Capital';
+      if(params.get('tabKey') !== null){
+        _tabKey = params.get('tabKey');
       }
-      if (type === 'WORK_REQUEST' && isLocalGovernment && _locality !== profileLocality) {
-        _locality = profileLocality;
+      if (type === WORK_REQUEST && (isLocalGovernment || userInformation.designation === GOVERNMENT_STAFF)) {
+        if (isLocalGovernment) {
+          _locality = profileLocality;
+        } else if (userInformation.designation === GOVERNMENT_STAFF) {
+          _locality = userInformation.zoomarea;
+        }
       }
       let r;
       try {
@@ -137,7 +152,9 @@ const RequestView = ({ type, widthMap }: {
       setLocalities(r.localities);
       setDataAutocomplete(r.localities.map((l: any) => l.name));
       if (_year) {
-        setYear(_year)
+        setYear(_year);
+      } else {
+        setYear(configuredYear);
       }
       if (!_locality && r.localities.length > 0) {
         _locality = r.localities[0].name;
@@ -215,28 +232,30 @@ const RequestView = ({ type, widthMap }: {
       return;
     }
     const loadProjects = async () => {
+      const boardKey = {
+        type,
+        year: `${year}`,
+        locality: locality === 'Mile High Flood District' ? 'MHFD District Work Plan' : locality,
+        projecttype: tabKey ? (tabKey === 'R&D' ? 'Special' : tabKey) : tabKeys[0],
+      }
       setColumns(defaultColumns);
       let board;
       try {
-        board = await getBoardData3({
-          type,
-          year: `${year}`,
-          locality: locality === 'Mile High Flood District' ? 'MHFD District Work Plan' : locality,
-          projecttype: tabKey ? (tabKey === 'R&D' ? 'Special' : tabKey) : tabKeys[0],
-        })
+        board = await getBoardData3(boardKey)
       } catch (e) {
         console.log('e', e)
       }
 
       setBoard(board);
-      loadColumns(board.board_id);     
-      loadFilters(board.board_id);
-      
+      setNamespaceId(boardKey);
+      loadColumns();     
+      loadFilters();
+
       /* TODO: this should be replaced */
       setBoardStatus(board.status);
       setBoardSubstatus(board.substatus);
       setBoardComment(board.comment);
-      setNamespaceId(board.board_id);
+      
       setFlagforScroll(Math.random());
       setTotalCountyBudget(board.total_county_budget);
       setReqManager([
@@ -342,11 +361,6 @@ const RequestView = ({ type, widthMap }: {
 
   let displayedTabKey = tabKeys;
 
-  useEffect(() => {
-    loadTabkeysDisplayed();
-    setTabKey(displayedTabKey[0])
-  }, [localityType]);
-
   const loadTabkeysDisplayed = () => {
       if (year < 2022) {
         if (localityType === 'CODE_STATE_COUNTY') {
@@ -360,13 +374,15 @@ const RequestView = ({ type, widthMap }: {
         } else if (localityType === 'CODE_SERVICE_AREA') {
           displayedTabKey = ['Study'];
         }
+        if (locality && locality === 'South Platte River Service Area') {
+          displayedTabKey = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'R&D'];
+        }
       }
-      if (locality && (locality.name === 'MHFD District Work Plan' || locality.name === 'Mile High Flood District' || year >= 2024)) {
+      if (locality && (locality === 'MHFD District Work Plan' || locality === 'Mile High Flood District' || year >= 2024)) {
         displayedTabKey = tabKeys;
       }
   }
   loadTabkeysDisplayed();
-
   return (
     <Layout className="work">
       {(fakeLoading) && <LoadingViewOverall />}
@@ -381,13 +397,32 @@ const RequestView = ({ type, widthMap }: {
                 <Col xs={{ span: 24 }} lg={{ span: 12 }}
                   style={{ textAlign: 'right' }}>
                 <div className='button-header-tab'>
-                  <YearDropdown />
+                  <div
+                    style={{
+                      display: 'flex',
+                      gap: '10px',
+                    }}
+                  >
+                    {(selectView === 'list' && namespaceId?.projecttype === 'Maintenance') && <MaintenanceTypesDropdown 
+                      setMaintenanceSubType={setMaintenanceSubType}
+                      maintenanceSubType={maintenanceSubType}
+                    />}
+                    <YearDropdown />
+                  </div>
+                  
                   <div className='button-header'>
-                    {/* <Button id='buttons-header' style={selectView === 'card' && widthMap === 15 ? {display:'none'}:{}} className={selectView === 'list' ? 'ico-header-tab-active' : 'ico-header-tab'} onClick={() => { setSelectView( 'list') }}>
+                    <Button id='buttons-header' style={selectView === 'card' && widthMap === 15 ? {display:'none'}:{}} className={selectView === 'list' ? 'ico-header-tab-active' : 'ico-header-tab'}
+                    onClick={() => { 
+                      setSelectView( 'list') 
+                      setIsListView(true)
+                    }}>
                       {selectView === 'list' ? <img src='Icons/ic-list-purple.svg' alt='ic-list-purple' /> : <img src='Icons/ic-list.svg' alt='ic-list' />}
                       List
-                    </Button> */}
-                    <Button id='buttons-header'  style={selectView === 'list' && widthMap === 15 ? {display:'none'}:{}} className={selectView === 'card' ? 'ico-header-tab-active' : 'ico-header-tab'} onClick={() => { setSelectView('card') }}>
+                    </Button>
+                    <Button id='buttons-header'  style={selectView === 'list' && widthMap === 15 ? {display:'none'}:{}} className={selectView === 'card' ? 'ico-header-tab-active' : 'ico-header-tab'} onClick={() => { 
+                      setSelectView('card') 
+                      setIsListView(false)
+                    }}>
                       {selectView === 'card' ? <img src='Icons/ic-card-purple.svg' alt='ic-card-purple' /> : <img src='Icons/ic-card.svg' alt='ic-card' />}
                       Card
                     </Button>
@@ -411,7 +446,7 @@ const RequestView = ({ type, widthMap }: {
                   displayedTabKey.map((tk: string) => (
                     <TabPane tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style">{tk} </Popover> </span>} key={tk}>
                         { selectView === 'list' &&
-                        <TableListView />
+                        <TableListView maintenanceSubType={maintenanceSubType} />
                         }{selectView === 'card' && <div><div className="work-table"
                         ref={wrtRef}>
                         <ColumsTrelloCard

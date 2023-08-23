@@ -44,7 +44,7 @@ const DownloadCSV = ({
         style={{ padding: '0px' }}
       >
         <img
-          src='Icons/ic-005.svg'
+          src='Icons/ic-004.svg'
           alt=""
         />
       </CSVLink>

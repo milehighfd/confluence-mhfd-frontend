@@ -168,6 +168,9 @@
     border: none;
     border-radius: 4px;
     background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
@@ -291,15 +294,14 @@
   }
 
   .ant-input-clear-icon {
-    color: rgba(0, 0, 0, .25);
+    color: rgba(0, 0, 0, 0.25);
     margin-right: 10px;
-    font-size: 12px;
+    font-size: 14px;
     cursor: pointer;
-    -webkit-transition: color .3s;
-    transition: color .3s;
+    transition: color 0.3s;
     vertical-align: 0;
     z-index: 2;
-
+    margin-top: 1px;
   }
 
   .style-input {
@@ -489,16 +491,17 @@
 .map .measure-button {
   position: absolute;
   width: 300px;
-  right: 20px;
-  top: 20px;
+  left: 21px;
+  right: auto !important;
+  top: 71px;
   z-index: 10;
 
   button {
     width: 35px;
     height: 35px;
     padding: 0px;
-    right: 0;
     border: none;
+    right: auto;
     position: absolute;
   }
 
@@ -518,6 +521,9 @@
     height: 100px;
     z-index: 2000;
     position: absolute;
+    h4,b,span{
+      color:$purple;
+    }
 
     // MEASURE 
     .measure-block {
@@ -537,7 +543,8 @@
         line-height: 16px;
         white-space: nowrap;
         text-overflow: ellipsis;
-        overflow: hidden
+        overflow: hidden;
+        
       }
 
       hr{
@@ -593,6 +600,8 @@
 
         a{
           color: #11093C;
+          display: flex;
+          align-items: center;
         }
         .button-c {
           &:hover {
@@ -1589,12 +1598,12 @@
   }
 
   .ant-input-clear-icon {
-    color: rgba(0, 0, 0, .25);
-    margin-right: 30px;
-    font-size: 12px;
+    color: rgba(0, 0, 0, 0.25);
+    margin-right: 27px;
+    font-size: 16px;
+    margin-top: 3px;
     cursor: pointer;
-    -webkit-transition: color .3s;
-    transition: color .3s;
+    transition: color 0.3s;
     vertical-align: 0;
     z-index: 2;
   }
@@ -1660,7 +1669,12 @@
   .head-filter .ant-input-search {
     width: 307px !important;
   }
-
+  .head-filter {
+    .ant-input-clear-icon {
+      margin-right: 40px !important;
+      font-size: 20px !important;
+    }
+  }
   .mdi-circle {
     font-size: 25px;
   }
@@ -1922,7 +1936,7 @@ hr.filters-line {
   padding-bottom: 12px;
   border-radius: 0px 0px 4px 4px;
   i{
-    opacity: 0.6;
+    opacity: 0.16;
   }
 }
 
@@ -1963,7 +1977,7 @@ hr.filters-line {
       color: $purple !important;
       padding: 0px -10px 0px -10px !important;
       font-weight: 400 !important;
-      font-size: 21px;
+      font-size: 22px;
     }
 
     .ant-tabs-nav {
@@ -2187,8 +2201,8 @@ hr.filters-line {
 
 .img-measure-00 {
   // -webkit-mask: url('../../Icons/fi_play-circle.svg') no-repeat center;
-  height: 18px;
-  width: 18px;
+  height: 25px;
+  width: 25px;
   // background: black;
   margin-bottom: 2px;
   margin-right: 10px;
@@ -2204,8 +2218,8 @@ hr.filters-line {
 
 .img-measure-png-01 {
   src: url('../../Icons/icon-line.png') no-repeat center;
-  height: 18px;
-  width: 18px;
+  height: 25px;
+  width: 25px;
   margin-bottom: 2px;
 }
 
@@ -2219,8 +2233,8 @@ hr.filters-line {
 
 .img-measure-png-02 {
   src: url('../../Icons/icon-polygon.png') no-repeat center;
-  height: 18px;
-  width: 18px;
+  height: 25x;
+  width: 25px;
   margin-bottom: 2px;
 }
 
@@ -2459,7 +2473,7 @@ hr.filters-line {
       font-style: normal;
       font-weight: 500;
       line-height: normal;
-      height: 44px;
+      height: 42px;
       padding: 12px;
       border: 1px solid #eae8f0 !important;
       span{
@@ -2476,7 +2490,7 @@ hr.filters-line {
       font-style: normal;
       font-weight: 500;
       line-height: normal;
-      height: 44px;
+      height: 42px;
       padding: 12px;
     }
   }
@@ -2598,6 +2612,8 @@ hr.filters-line {
         font-size: 18px !important;
       }
     }
+  .map-filter-s {
+    width: 330px;
   }
   .global-search-item {
     h6 {
@@ -2633,13 +2649,27 @@ hr.filters-line {
     }
   } 
   .map{
+    .show-filter{
+      top: 36px;
+      right: 20px;
+      .btn-show-filter{
+        font-size: 20px;
+        height: auto;
+        padding: 10px 20px;
+      }
+    }
     .mapboxgl-ctrl-group {
-      width: 108px !important;
+      width: 45px !important;
+      height: 135px !important;
+    }
+    .mapboxgl-ctrl-group button {
+      width: 45px !important;
+      height: 45px !important;
     }
     .m-zoom{
       width: 45px !important;
       left: 25px;
-      bottom: 230px !important;
+      bottom: 190px !important;
       button {
         width: 45px !important;
         height: 45px !important;
@@ -2665,28 +2695,198 @@ hr.filters-line {
         }
       }
     }
+    .measure-button {
+      width: 500px;
+      top: 95px;
+      .measurecontainer {
+          min-width: 300px;
+          width: 500px;
+          max-width: 550px;
+      
+        // MEASURE 
+        .measure-block {
+           padding: 20px 10px;
+      
+          .headmap {
+            // text-align: left;
+            // min-height: 40px;
+            // border-radius: 7px 7px 0px 0px;
+            // background: #fafbfb;
+             font-size: 19px;
+            // padding: 16px 10px;
+            // padding-left: 25px;
+            // padding-bottom: 5px;
+            // line-height: 16px;
+            // white-space: nowrap;
+            // text-overflow: ellipsis;
+            // overflow: hidden
+          }
+      
+          .bodymap {
+            b{
+              font-size: 19px;
+            }
+            text-align: center;
+            padding: 10px 10px;
+            color: $purple00;
+      
+            .label {
+              color: $opacity;
+            }
+      
+            &:hover {
+              opacity: 0.5;
+            }
+          }
+      
+          .bodymapvalues {
+            text-align: left;
+            padding: 5px 25px;
+            display: grid;
+            align-content: center;
+            justify-content: start;
+            align-items: baseline;
+            justify-items: start;
+            font-size: 19px;
+      
+            .button-cancel {
+              position: inherit;
+            }
+      
+            .button-finish {
+              position: inherit;
+            }
+      
+            .paragraph {
+              padding-top: 15px;
+            }
+          }
+      
+          .paragraph {
+            font-size: 19px;
+            text-align: left;
+            padding: 5px 25px;
+            align-content: center;
+            justify-content: start;
+            align-items: baseline;
+            justify-items: start;
+            margin-bottom: 5px;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-around;
+      
+            .button-c {
+              &:hover {
+                opacity: 0.5;
+              }
+            }
+          }
+        }
+      }
+      button{
+        width: 45px;
+        height: 45px;
+        .img-icon{
+          -webkit-mask-size: 30px;
+        }
+      }
+    }
+    .m-head {
+      .ant-input-search > .ant-input-group > .ant-input-group-addon:last-child .ant-input-search-button:not(.ant-btn-primary){
+        span svg{
+          transform: scale(1.5);
+        }
+      }
+      .ant-input-search > .ant-input-group > .ant-input-group-addon:last-child{
+        margin-top: -37px;
+      }
+      .ant-input-group .ant-input-affix-wrapper:not(:last-child) {
+        border-radius: 4px !important;
+        height: 45px;
+        input{
+          height: 40px;
+        }
+      }
+      .ant-select-auto-complete.ant-select .ant-input {
+        height: 37px;
+        padding-left: 35px;
+        font-size: 18px !important;
+      }
+      .style-input .ant-input-group-addon {
+        margin-top: -30px !important;
+        left: -5px !important;
+      }
+      button{
+        height: 45px;
+        width: 45px;
+      }
+      .btn-02{
+        margin-top: 5px;
+        height: 35px;
+        width: 35px;
+        -webkit-mask-size: 30px;
+      }
+      button:hover{
+        .btn-02{
+          margin-top: 5px;
+          height: 35px;
+          width: 35px;
+          -webkit-mask-size: 30px;
+        }
+      }
+    }
+  }
+  .map-modal-layers {
+    width: 415px !important;
+    top: 107px !important;
+    right: 9%;
+    .ant-modal-body {
+      padding: 23px;
+      p{
+        font-size: 20px !important;
+      }
+      .ant-checkbox-inner {
+        width: 21px;
+        height: 21px;
+        border-radius: 4px;
+      }
+      .ant-checkbox-inner:after {
+        width: 6.714286px;
+        height: 11.142857px;
+      }
+      .ant-checkbox-wrapper {
+        font-size: 20px !important;
+        margin-bottom: 20px !important;
+        span{
+          font-size: 18px !important;
+        }
+      }
+    }
+    .btn-footer-modal-layers{
+      button{
+        font-size: 21px !important;
+        padding: 15px 20px !important;
+        height: auto !important;
+      }
+    }
   }
   .map-00{
     .mapboxgl-ctrl-group {
       left: 25px;
       width: 45px !important;
-      bottom: 70px;  
+      bottom: 30px;  
     }
     .mapboxgl-ctrl-group button {
       width: 45px !important;
       height: 45px !important;
     }
     .mapboxgl-ctrl-scale {
-      font-size: 25px;
-      padding: 12px 14px;
+      font-size: 21px;
+      padding: 8px 10px;
       left: 85px;
-      bottom: 70px;
-      height: 35px;
-      width: 45px !important;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      bottom: 30px;
      }
+    }
   }
 
   .map-pop-00 {
@@ -2711,11 +2911,101 @@ hr.filters-line {
       font-size: 16px !important;
     }
   }
-
+  .img-measure-05{
+    -webkit-mask-size: 19px;
+    max-width: 35px;
+  }
+  .close-measure-button {
+    height: 20px !important;
+    width: 20px !important;
+    background-size: cover;
+    top: 30px !important;
+    right: 30px !important;
+  }
+  .img-measure-png-01, .img-measure-png-02{
+    margin-right: 10px;
+  }
+  .filter-map{
+    max-height: calc(100vh - 200px);
+    p{
+      font-size: 16px;
+      width: 310px;
+    }
+  }
+  .filter-coll-header {
+    font-size: 16px;
+    width: 302px;
+  }
+  .pop-card-map {
+    span{
+      font-size: 19px;
+    }
+    .drop-head {
+      min-height: 40px;
+      border-radius: 1.3px 1.3px 0px 0px;
+      background: $opacity01;
+      font-size: 19px;
+      color: $opacity;
+      padding: 12px 15px;
+      text-transform: uppercase;
+      line-height: 19px;
+    }
+  
+    .ant-popover-inner-content {
+      padding: 0px;
+      width: 220px;
+    }
+  
+    .ant-menu-inline,
+    .ant-menu-vertical,
+    .ant-menu-vertical-left {
+      border-right: 0px solid #e8e8e8;
+      border-radius: 4px;
+    }
+  
+    .ant-menu-item,
+    .ant-menu-submenu-title,
+    .ant-menu-item-disabled {
+      border-top: none !important;
+    }
+  
+    .ant-menu-item:active,
+    .ant-menu-submenu-title:active {
+      background: #f7f7f9;
+    }
+  
+    .ant-menu-vertical .ant-menu-item,
+    .ant-menu-vertical-left .ant-menu-item,
+    .ant-menu-vertical-right .ant-menu-item,
+    .ant-menu-inline .ant-menu-item,
+    .ant-menu-vertical .ant-menu-submenu-title,
+    .ant-menu-vertical-left .ant-menu-submenu-title,
+    .ant-menu-vertical-right .ant-menu-submenu-title,
+    .ant-menu-inline .ant-menu-submenu-title {
+      margin-bottom: 0px !important;
+      margin: 0px 5px;
+    }
+  
+    .ant-menu,
+    .ant-menu-item:hover,
+    .ant-menu-item-active,
+    .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
+    .ant-menu-submenu-active,
+    .ant-menu-submenu-title:hover {
+      color: #706b8a;
+      background: #f7f7f9;
+      border-radius: 9px;
+    }
+  
+    .ant-menu-item-selected,
+    .ant-menu-item-selected a,
+    .ant-menu-item-selected a:hover {
+      color: #706b8a;
+    }
+  }
   //Legend Map Problems
   .legendProblemTypemap {
-    padding-left: 21px;
-    padding-right: 21px;
+    padding: 9px 21px 6px 21px;
     bottom: 49px;
     right: 18px;
     width: 288px;
@@ -2769,11 +3059,11 @@ hr.filters-line {
   }
 
   .popoveer-00 {
-    font-size: 17px;
+    font-size: 19px;
 
     .notification-header {
       a {
-        font-size: 17px !important;
+        font-size: 19px !important;
       }
 
       h2 {
@@ -2800,12 +3090,17 @@ hr.filters-line {
     }
   }
 
-  .head-filter button {
-    font-size: 18px;
-
-    .img-filter {
-      height: 18px;
+  .head-filter {
+    button {
+      font-size: 19px;
     }
+    .ant-input-search>.ant-input-group>.ant-input-group-addon:last-child .ant-input-search-button:not(.ant-btn-primary) {
+      margin-right: 10px;
+      span svg{
+        transform: scale(1.5);
+      }
+    }
+
   }
 }
 

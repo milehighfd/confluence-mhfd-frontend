@@ -52,6 +52,9 @@ import {
   toggleFilter,
   setFilterRequest,
   setDisableFilterComponent,
+  setListView,
+  setFilterYear,
+  setConfiguredYear,
 } from 'store/actions/requestActions';
 import { DragAndDropCards } from 'store/types/requestTypes';
 
@@ -168,11 +171,11 @@ export const useRequestDispatch = () => {
   const _setDiff = useCallback((diff: any) => {
     dispatch(setDiff(diff));
   }, [dispatch]);
-  const _loadColumns = useCallback((board_id: any) => {
-    dispatch(loadColumns(board_id));
+  const _loadColumns = useCallback(() => {
+    dispatch(loadColumns());
   }, [dispatch]);
-  const _loadOneColumn = useCallback((board_id: any, position: number) => {
-    dispatch(loadOneColumn(board_id, position));
+  const _loadOneColumn = useCallback((position: number) => {
+    dispatch(loadOneColumn(position));
   }, [dispatch]);
   const _setBoard = useCallback((board: any) => {
     dispatch(setBoard(board));
@@ -195,11 +198,11 @@ export const useRequestDispatch = () => {
   const _handleMoveFromColumnToColumn = useCallback((payload: DragAndDropCards) => {
     dispatch(handleMoveFromColumnToColumn(payload));
   }, [dispatch]);
-  const _loadFilters = useCallback((board_id: any) => {
-    dispatch(loadFilters(board_id));
+  const _loadFilters = useCallback(() => {
+    dispatch(loadFilters());
   }, [dispatch]);
-  const _updateTargetCost = useCallback((board_id: any, targetCosts: any) => {
-    dispatch(updateTargetCost(board_id, targetCosts));
+  const _updateTargetCost = useCallback((targetCosts: any) => {
+    dispatch(updateTargetCost(targetCosts));
   }, [dispatch]);
   const _emptyBoard = useCallback(() => {
     dispatch(emptyBoard());
@@ -212,6 +215,15 @@ export const useRequestDispatch = () => {
   }, [dispatch]);
   const _setDisableFilterComponent = useCallback((disable: boolean, localityType: string) => {
     dispatch(setDisableFilterComponent(disable, localityType));
+  }, [dispatch]);
+  const _setIsListView = useCallback((isListView: boolean) => {
+    dispatch(setListView(isListView));
+  }, [dispatch]);
+  const _setFilterYear = useCallback((filterYear: any) => {
+    dispatch(setFilterYear(filterYear));
+  }, [dispatch]);
+  const _setConfiguredYear = useCallback((configuredYear: any) => {
+    dispatch(setConfiguredYear(configuredYear));
   }, [dispatch]);
   return {
     setShowModalProject: _setShowModalProject,
@@ -265,5 +277,8 @@ export const useRequestDispatch = () => {
     toggleFilter: _toggleFilter,
     setFilterRequest: _setFilterRequest,
     setDisableFilterComponent: _setDisableFilterComponent,
+    setIsListView: _setIsListView,
+    setFilterYear: _setFilterYear,
+    setConfiguredYear: _setConfiguredYear,
   };
 };

@@ -92,7 +92,7 @@ const TablePortafolio = ({
 
   return (
     <div>
-        <div className="scroll-custom" style={{width:`${widthMax - 5}px`}}  ref={scrollRef}
+        <div className="scroll-custom" style={{width:`${widthMax + 5}px`}}  ref={scrollRef}
           onScrollCapture={(e: any) => {
             let dr: any = scrollRef.current;
             if (scrollRef.current) {
@@ -107,7 +107,7 @@ const TablePortafolio = ({
             }
           }}
         >
-          <div className="scroll-bar" style={{ width: `${myDivWidth - 5}px`}}></div>
+          <div className="scroll-bar" style={{ width: `${myDivWidth + 0}px`}}></div>
       </div>
       <Row>
         <Col xs={{ span: 10 }} lg={{ span: 5 }}>         

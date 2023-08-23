@@ -20,14 +20,14 @@ import { useAppUserDispatch } from "../../../hook/useAppUser";
 import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
 
 
-const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveUser: Function, setExpandedRow: React.Dispatch<React.SetStateAction<boolean>> }) => {
+const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUser: Function, setExpandedRow: React.Dispatch<React.SetStateAction<boolean>> }) => {
   const [organization, setOrganization] = useState('');
   const [zoomarea, setZoomArea] = useState('');
   const [serviceArea, setServiceArea] = useState('');
   const [saveAlert, setSaveAlert] = useState(false);
   const [confirmation, setConfirmation] = useState(false);
   const validationSchema = VALIDATION_USER;
-  const [disabled, setDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(false);
   const [disabledContact, setDisabledContact] = useState(false);
   const [disabledAddress, setDisabledAddress] = useState(false);
   const [selectAssociate, setSelectAssociate] = useState(-1);
@@ -64,6 +64,8 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
   const [createAssociate, setCreateAssociate] = useState<any>(false);
   const [createAssociateName, setCreateAssociateName] = useState<any>('');
   const [createPhone, setCreatePhone] = useState<any>('');
+  const [saveValidation, setSaveValidation] = useState<any>(false);
+  const [cleanRecord, setCleanRecord] = useState<any>(false);
   const { openNotification } = useNotifications();
 
   interface Contact {
@@ -72,10 +74,14 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
     state: string;
     zip: string;
   }
-
   const handleNotification = () => {
     openNotification('Success! Your user update was saved!', "success");
-  };
+ };
+
+  const handleErrorNotification = (emptyFields: any) => {
+    const message = `Missing inputs: ${emptyFields.join(', ')}.`;
+    openNotification('Warning! Required input are missing below.', "warning", message);
+  }
 
   const {
     replaceAppUser,
@@ -131,15 +137,14 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
       onClick={(event:any) => {
         if (event.key === 'Create_1') {
           setDisabledContact(false);
-          setContactData({})
-          setZip('')
-          setCity('')
-          setAdressLine1('')
-          setAdressLine2('')
-          setState('')
+          //setContactData({})         
           setAddressId(0)
           setCreateAdress(true)
           setAdressLabel('Add New Address')
+          setCity('')
+          setZip('')
+          setAdressLine1('')
+          setState('')
           setDisabledAddress(true);
           setDisabled(false);
         } else {          
@@ -324,6 +329,19 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
     }
   }, [selectAssociate, listAssociates]);
 
+  useEffect(() => {
+    if (cleanRecord) {
+      setCity('');
+      setZip('');
+      setAdressLine1('');
+      setState('');
+      setAdressLine2('');
+      setCreateFullName('');
+      setCreateMail('');
+      setCreatePhone('');
+    }
+  }, [cleanRecord]);
+
   useEffect(() => {      
     const auxUser = { ...record };
     setInitialValues(auxUser);    
@@ -423,20 +441,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
   } 
 
   const save = (selectAssociateId: any) => {
-    const newUser: any = {
-      firstName,
-      lastName,
-      email,
-      title,
-      phone,
-      designation,
-      organization,
-      serviceArea,
-      county,
-      city: jurisdiction,
-      zoomarea,
-      business_associate_contact_id: +contactId
-    };
+    setSaveValidation(true);
     const newAddress: any = {
       business_address_line_1: addressLine1,
       business_address_line_2: addressLine1,
@@ -445,140 +450,101 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
       city: city,
       zip: zip,
     };
-    if (createAdress && !createContact) {
-      datasets.postData(SERVER.UPDATE_ADDRESS + '/' + contactId, {
-        ...newAddress,
-        contact_name: createFullName,
-        contact_email: createMail,
-        contact_phone_number: createPhone,
-        business_associate_contact_id: +selectAssociateId
-      },datasets.getToken()).then(res => {
-        newUser.business_associate_contact_id = +contactId;
-        datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => { 
-          if (res.message === 'SUCCESS') {   
-            setDisabledContact(false);     
-            setDisabledAddress(false);
-            saveUser();           
-            updateSuccessful();
-            setDisabled(true);
-            setUpdate(!update);
-            setCreateAssociate(false);
-            getUserInformation();     
-            setConfirmation(true);
-            setTimeout(() => {
-              setConfirmation(false);
-            }, 3000);
-          } else {
-            if (res?.error) {
-              updateError(res.error);
-            }
-            else {
-              updateError(res);
-            }
-          }
-        })
-      });
-    } else if (createAdress && createContact) {
-      datasets.postData(SERVER.SAVE_BUSINESS_ADRESS_AND_CONTACT(selectAssociateId), {
-        ...newAddress,
-        contact_name: createFullName,
-        contact_email: createMail,
-        contact_phone_number: createPhone,
-        business_address_id: addressId
-      }, datasets.getToken()).then(res => {
-        newUser.business_associate_contact_id = +res?.businessContact?.business_associate_contact_id;
-        datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => { 
-          if (res.message === 'SUCCESS') {   
-            setDisabledContact(false);     
-            setDisabledAddress(false);
-            saveUser();           
-            updateSuccessful();
-            setCreateAssociate(false);
-            setDisabled(true);
-            setUpdate(!update);
-            getUserInformation();     
-            setConfirmation(true);
-            setTimeout(() => {
-              setConfirmation(false);
-            }, 3000);
-          } else {
-            if (res?.error) {
-              updateError(res.error);
-            }
-            else {
-              updateError(res);
-            }
-          }
+    if (city && state && zip && addressLine1 && createFullName && createMail && createPhone) {
+      if (createAdress && !createContact) {
+        datasets.postData(SERVER.UPDATE_ADDRESS + '/' + contactId, {
+          ...newAddress,
+          contact_name: createFullName,
+          contact_email: createMail,
+          contact_phone_number: createPhone,
+          business_associate_contact_id: +selectAssociateId,
+          user_id: record.user_id
+        },datasets.getToken()).then(res => {
+          handleSuccess(res);
         });
-      });
-    } else if (!createAdress && createContact) {
-      datasets.postData(SERVER.CREATE_CONTACT  + '/' + addressId, {
-        ...newAddress,
-        contact_name: createFullName,
-        contact_email: createMail,
-        contact_phone_number: createPhone,
-        business_address_id: addressId,        
-      }, datasets.getToken()).then(res => {
-        newUser.business_associate_contact_id = +res?.business_associate_contact_id;
-        datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => { 
-          if (res.message === 'SUCCESS') {     
-            setDisabledContact(false);     
-            setDisabledAddress(false);   
-            saveUser();           
-            updateSuccessful();
-            setCreateAssociate(false);
-            setDisabled(true);
-            setUpdate(!update);
-            getUserInformation();
-            setConfirmation(true);
-            setTimeout(() => {
-              setConfirmation(false);
-            }, 3000);
-          } else {
-            if (res?.error) {
-              updateError(res.error);
-            }
-            else {
-              updateError(res);
-            }
-          }
+      } else if (createAdress && createContact) {
+        datasets.postData(SERVER.SAVE_BUSINESS_ADRESS_AND_CONTACT(selectAssociateId), {
+          ...newAddress,
+          contact_name: createFullName,
+          contact_email: createMail,
+          contact_phone_number: createPhone,
+          business_address_id: addressId,
+          user_id: record.user_id
+        }, datasets.getToken()).then(res => {
+          handleSuccess(res);
         });
-      });
+      } else if (!createAdress && createContact) {
+        datasets.postData(SERVER.CREATE_CONTACT  + '/' + addressId, {
+          ...newAddress,
+          contact_name: createFullName,
+          contact_email: createMail,
+          contact_phone_number: createPhone,
+          business_address_id: addressId,
+          user_id: record.user_id
+        }, datasets.getToken()).then(res => {
+          handleSuccess(res);
+        });
+      } else {
+        datasets.putData(SERVER.UPDATE_BUSINESS_ADRESS_AND_CONTACT(addressId,contactId), {
+          ...newAddress,
+          contact_name: createFullName,
+          contact_email: createMail,
+          contact_phone_number: createPhone,
+          user_id: record.user_id
+        }, datasets.getToken()).then(res => {
+          handleSuccess(res);
+        });
+      }
+      setSaveAlert(false)
+      setSaveValidation(false);
+    }else{
+      const emptyFields = [];
+      if (!addressLine1) {
+        emptyFields.push('Address');
+      }
+      if (!city) {
+        emptyFields.push('City');
+      }
+      if (!state) {
+        emptyFields.push('State');
+      }
+      if (!zip) {
+        emptyFields.push('Zip Code');
+      }
+      if (!createFullName) {
+        emptyFields.push('Contact Name');
+      }
+      if (!createMail) {
+        emptyFields.push('Email');
+      }
+      if (!createPhone) {
+        emptyFields.push('Phone Number');
+      }
+      handleErrorNotification(emptyFields);
+      setSaveAlert(false)
+    }    
+  }
+
+  function handleSuccess(res: any) {
+    if (res.message === 'SUCCESS') {   
+      setDisabledContact(false);     
+      setDisabledAddress(false);
+      saveUser();           
+      updateSuccessful();
+      setCreateAssociate(false);
+      //setDisabled(true);
+      setUpdate(!update);
+      getUserInformation();
+      setConfirmation(true);
+      handleNotification();
+      setTimeout(() => {
+        setConfirmation(false);
+      }, 3000);
     } else {
-      datasets.putData(SERVER.UPDATE_BUSINESS_ADRESS_AND_CONTACT(addressId,contactId), {
-        ...newAddress,
-        contact_name: createFullName,
-        contact_email: createMail,
-        contact_phone_number: createPhone,
-      }, datasets.getToken()).then(res => {
-        newUser.business_associate_contact_id = +contactId;
-        datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => { 
-          if (res.message === 'SUCCESS') {   
-            setDisabledContact(false);     
-            setDisabledAddress(false);
-            saveUser();           
-            updateSuccessful();
-            setCreateAssociate(false);
-            setDisabled(true);
-            setUpdate(!update);
-            getUserInformation();
-            setConfirmation(true);
-            handleNotification();
-            setTimeout(() => {
-              setConfirmation(false);
-            }, 3000);
-          } else {
-            if (res?.error) {
-              updateError(res.error);
-            }
-            else {
-              updateError(res);
-            }
-          }
-        });
-      });
+      if (res.message === 'SUCCESS') {
+        updateError('500 Internal Server Error');
+      }
     }
-    setSaveAlert(false)
   }
 
   const result = () => {
@@ -591,8 +557,9 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
     }
   }
   const message = 'Are you sure you want to update the record for ' + values.firstName + ' ' + values.lastName + '?';
-
-
+  function validateField (field: string): string {
+    return (!field && saveValidation) ? 'border-red' : '';
+  }
   return (
     <>
     {/* <ConfirmationSave visible={confirmation} setVisible={setConfirmation} /> */}
@@ -713,8 +680,8 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
                     setDisableContact={setDisabledContact}
                     setDisableAdress={setDisabledAddress}
                     setDisabled={setDisabled}
-                    setContactData={setContactData}
                     setCreateAssociate={setCreateAssociate}
+                    setCleanRecord={setCleanRecord}
                   />
                 </div>
               </Col>
@@ -747,15 +714,14 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
                   <Dropdown trigger={['click']} overlay={menuAdressAssociate}
                     getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
                     <Button className="btn-borde-management">
-                      {Object.keys(contactData).length > 0 ? contactData.label : (adressLabel ? adressLabel : 'Select Business Associates Address')}  <DownOutlined />
+                      {(adressLabel ? adressLabel : 'Select Business Associates Address')}  <DownOutlined />
                     </Button>
                   </Dropdown>
                 </div>
               </Col>
             </Row>
           <Row style={{ paddingLeft: '20px' }}>
-            {
-              disabledAddress &&
+            {/* {disabledAddress && */}
               <>
                 <Col xs={{ span: 24 }} lg={{ span: 18 }} style={{ paddingRight: '0px' }}>
                   <p>ADDRESS</p>
@@ -766,6 +732,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
                     name="address_line_1"
                     onChange={(e) => { handleChangeData(e.target.value, setAdressLine1) }}
                     disabled={disabled}
+                    className={validateField(addressLine1)}
                   />
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
@@ -776,6 +743,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
                     value={(city === '' && disabled ? (city !== '' ? city : values.business_associate_contact?.business_address?.city) : city)}
                     onChange={(e) => { handleCityChange(e.target.value) }}
                     disabled={disabled}
+                    className={validateField(city)}
                   />
                   <p>ZIP CODE</p>
                   <Input
@@ -784,23 +752,26 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
                     onChange={(e) => { handleZipChange(e.target.value, setZip) }}
                     style={errors.email && touched.email ? { border: 'solid red', marginBottom: '15px' } : { marginBottom: '15px' }}
                     disabled={disabled}
+                    className={validateField(zip)}
                   />
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
                   <p>STATE</p>
-                  <Dropdown trigger={['click']} overlay={menuStates} >
+                  <Dropdown trigger={['click']} overlay={menuStates}
+                    overlayStyle={disabled?{backgroundColor: 'red'}:{}}
+                    className={validateField(state)}
+                    >
                     <Button className="btn-borde-management">
-                      {state === '' ? 'State' : state}<DownOutlined />
+                      {state? state:'State'}<DownOutlined />
                     </Button>
                   </Dropdown>
                 </Col>
               </>
-            }
           </Row>
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{paddingLeft: '20px',paddingTop: '20px', paddingRight: '20px' }}>
                 <div className="gutter-row">
-                  <p>BUSINESS ASSOCIATE  CONTACT </p>
+                  <p>BUSINESS ASSOCIATE CONTACT </p>
                   <Dropdown trigger={['click']} overlay={menuContactAssociate}
                     getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
                     <Button className="btn-borde-management">
@@ -810,7 +781,8 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
                 </div>
               </Col>
             </Row> 
-          {disabledContact && <Row>
+            {/* {disabledContact &&  */}
+          <Row>
             <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px', paddingRight: '20px'  }}>
               <p>CONTACT NAME</p>
               <Input
@@ -818,6 +790,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
                 placeholder="Enter Contact Name"
                 value={createFullName}
                 onChange= {(e) => {handleChangeData(e.target.value, setCreateFullName)}}
+                className={validateField(createFullName)}
               />
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px', paddingRight: '20px'  }}>
@@ -827,18 +800,20 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: User, saveU
                 placeholder="Enter Email"
                 value={createMail}
                 onChange= {(e) => {handleChangeData(e.target.value, setCreateMail)}}
+                className={validateField(createMail)}
               />
             </Col>
-            <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
+            <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px', paddingRight: '20px'   }}>
               <p>PHONE NUMBER</p>
               <Input
                 style={{marginBottom:'15px'}}
                 placeholder="Phone"
                 value={createPhone}
                 onChange= {(e) => {handleChangeData(formatPhoneNumber(e.target.value), setCreatePhone)}}
+                className={validateField(createPhone)}
               />
             </Col>
-          </Row> }          
+          </Row>    
           <br />
           </>
         }

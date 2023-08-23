@@ -24,13 +24,11 @@ const SidebarMenuDown = ({
   const { deleteNotification } = useAppUserDispatch();
   const { TabPane } = Tabs;
   const { userInformation } = useProfileState();
-  const SubMenu = Menu.SubMenu;
   const [redirect, setRedirect] = useState(false);
   const tabKeys = ['Unread', 'All'];
   const [tabKey, setTabKey] = useState<any>('Unread');
   const user = userInformation;
   const [notification, setNotification] = useState<any>([]);
-  const [projectData, setProjectData] = useState<any>({});
   const { deleteMaps } = GlobalMapHook();
   const location = useLocation();
   let displayedTabKey = tabKeys;
@@ -109,7 +107,6 @@ const SidebarMenuDown = ({
   function readClick(id: any, notification_id: any) {
     const sendId = { notification_id: notification_id };
     datasets.postData(SERVER.NOTIFICATIONS, sendId, datasets.getToken()).then(async result => {
-      setProjectData({ project_id: id });
       deleteNotification(notification_id);
       console.log(result);
     });
@@ -122,39 +119,64 @@ const SidebarMenuDown = ({
     return <Redirect to="/login" />;
   }
 
+  const items: MenuProps['items'] = [
+    {
+      key: 'sub1',
+      className: 'submenu-sidebar custom-submenu',
+      theme: 'light',
+      label: notificationLabel,
+      popupOffset: [15, -10],
+      children: [
+        {
+          key: '1',
+          className: 'notification-layout',
+          label: notification?.length > 0 ? contentNotification : content,
+        },
+      ],
+    },
+    {
+      key: 'sub4',
+      className: 'submenu-sidebar submenu-sidebar-porfile',
+      theme: 'light',
+      label: optionsLabel,
+      popupOffset: [15, -100],
+      children: [
+        {
+          key: '2',
+          className: 'option-layout option-layout-top',
+          label: 'Introduction',
+          onClick: () => setVisibleIntroduction(true),
+        },
+        {
+          key: '3',
+          className: 'option-layout option-layout-central',
+          label: 'Tutorial',
+          onClick: () => setVisibleTutorial(true),
+        },
+        {
+          key: '4',
+          className: 'option-line',
+          type: 'divider',
+          dashed: true,
+        },
+        {
+          key: '5',
+          className: 'option-layout',
+          label: localStorage.getItem('mfx-token') === 'GUEST' ? 'Sign In' : 'Logout',
+          onClick: logout,
+        },
+      ]
+    }
+  ];
+
   return (
-    <Menu theme="dark" className="menu-mobile sidebar-down" defaultSelectedKeys={[indexOf]} mode="vertical">
-      <SubMenu
-        className="submenu-sidebar custom-submenu"
-        key="sub1"
-        theme="light"
-        title={notificationLabel}
-        popupOffset={[15, -10]}
-      >
-        <Menu.Item key="1" className="notification-layout">
-          {notification?.length > 0 ? contentNotification : content}
-        </Menu.Item>
-      </SubMenu>
-      <SubMenu
-        className="submenu-sidebar submenu-sidebar-porfile"
-        key="sub4"
-        theme="light"
-        title={optionsLabel}
-        popupOffset={[15, -100]}
-      >
-        <Menu.Item className="option-layout option-layout-top" onClick={() => setVisibleIntroduction(true)} key="2">
-          Introduction
-        </Menu.Item>
-        <Menu.Item className="option-layout option-layout-central" onClick={() => setVisibleTutorial(true)} key="3">
-          Tutorial
-        </Menu.Item>
-        <div className="option-line" key="4">
-        </div>
-        <Menu.Item className="option-layout" onClick={logout} key="5">
-          {localStorage.getItem('mfx-token') == 'GUEST' ? 'Sign In' : 'Logout'}
-        </Menu.Item>
-      </SubMenu>
-    </Menu>
+    <Menu
+      theme="dark"
+      className="menu-mobile sidebar-down"
+      defaultSelectedKeys={[indexOf]}
+      mode="vertical"
+      items={items}
+    />
   );
 };
 

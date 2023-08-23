@@ -8,6 +8,7 @@ const initialState = {
   locality: '',
   yearList: [2024, 2023, 2022, 2021, 2020],
   year: 2024,
+  configuredYear: 2024,
   tabKeys: ['Capital', 'Study', 'Maintenance', 'Acquisition', 'R&D'],
   tabKey: null,
   showCreateProject: false,
@@ -18,7 +19,11 @@ const initialState = {
   sumByServiceArea: [],
   sumTotal: {},
   totalCountyBudget: 0,
-  namespaceId: '',
+  namespaceId: {
+    year: null,
+    locality: null,
+    projecttype: null,
+  },
   showBoardStatus: false,
   boardStatus: null,
   boardSubstatus: null,
@@ -55,6 +60,8 @@ const initialState = {
   filterRequest: [],
   disableFilterCounty: false,
   disableFilterServiceArea: false,
+  filterYear: [],
+  isListView: false,
 };
 
 const requestReducer = (state = initialState, action: any) => {
@@ -342,6 +349,16 @@ const requestReducer = (state = initialState, action: any) => {
       return {
         ...state,
         disableFilterServiceArea: action.payload
+      };
+    case types.SET_IS_LIST_VIEW:
+      return {
+        ...state,
+        isListView: action.payload
+      };
+    case types.SET_FILTER_YEAR:
+      return {
+        ...state,
+        filterYear: action.payload
       };
     case types.REQUEST_EMPTY_BOARD:
       return {

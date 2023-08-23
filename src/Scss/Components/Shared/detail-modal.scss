@@ -633,6 +633,16 @@
   }
   .group-dropdown-financial {
     margin-bottom: 20px;
+    .ant-input-affix-wrapper {
+      height: 32px;
+      border: 1px solid #e9e7ef !important;
+    }
+    .ant-input-prefix {
+      color: $purple00;
+    }
+    .anticon-close-circle{
+      margin-right: 10px;
+    }
   }
 
   .dropdown-view-income {
@@ -653,7 +663,7 @@
 
   .dropdown-view-partner {
     display: flex;
-    width: 39%;
+    width: 20%;
     margin-right: 8px;
     justify-content: space-between;
     gap: 8px;
@@ -1827,6 +1837,23 @@
       }
     }
   }
+  .group-dropdown-financial{
+    .ant-input-affix-wrapper {
+      height: 39px !important;
+      font-size: 16px !important;
+      display: flex;
+      align-items: center;
+    }
+    .ant-input{
+      font-size: 16px !important;
+    }
+    .ant-input-prefix {
+      margin-top: 4px;
+    }
+    .ant-input-suffix {
+      margin-top: 4px;
+    }
+  }
   .detailed-header {
     .dates-title {
       margin-left: -44px;
@@ -2088,8 +2115,11 @@
 
     min-width: 1700px !important;
     .detailed-tab {
-      font-size: 20 px !important;
+      font-size: 22px !important;
     }
+  }
+  .detailed-image-placeholder {
+    padding: 30px 30px;
   }
   .detailed-header {
     .detail-carousel-image-layout {
@@ -2168,6 +2198,17 @@
       h4 {
         color: $purple00;
         opacity: 1;
+      }
+    }
+    .detailed-header-button-layout{
+      .detailed-header-button-progress {
+        height: 39px;
+        .ant-progress-inner{
+          margin-top: 10px;
+        }
+        .ant-progress-bg{
+          height: 12px !important;
+        }
       }
     }
   }
@@ -2361,6 +2402,13 @@
       color: #488abf;
     }
   }
+  //Table
+  .detail-problems-component-table {
+    .ant-table-tbody > tr > td {
+      font-size: 20px;
+      line-height: 25px ;
+    }
+  }
   //ROADMAP
   .roadmap-content {
     .roadmap-title {
@@ -2393,6 +2441,21 @@
       width: 18px;
       height: 18px;
       // margin-top: 7px !important;
+    }
+  }
+  .group-dropdown-financial{
+    .body-dropdown-view-partner{
+      font-size: 21px !important;
+      line-height: 26px !important;
+    }
+    .dropdown-view-income {
+      height: 50px;
+    }
+    .dropdown-view-phase{
+      height: 50px;
+    }
+    .ant-input-affix-wrapper {
+      height: 50px !important;
     }
   }
 }

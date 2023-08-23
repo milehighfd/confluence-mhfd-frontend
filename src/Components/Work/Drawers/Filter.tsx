@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Drawer, Button, Checkbox } from 'antd';
+import { Drawer, Button } from 'antd';
 import { useRequestDispatch, useRequestState } from "hook/requestHook";
 import FilterGroup from "./FilterGroup";
 import { useMapState } from "hook/mapHook";
-import { YEAR_LOGIC_2024, WORK_REQUEST, WORK_PLAN, YEAR_LOGIC_2023 } from 'constants/constants';
+import { YEAR_LOGIC_2024, WORK_PLAN } from 'constants/constants';
 
 const Filter = () => {
   const {
@@ -11,11 +11,13 @@ const Filter = () => {
     localityType: l,
     filterMap,
     year,
-    namespaceId,
     columns2,
     filterRequest,
     disableFilterServiceArea,
     disableFilterCounty,
+    isListView,
+    namespaceId,
+    filterYear
   } = useRequestState();
   const {
     tabActiveNavbar
@@ -23,7 +25,8 @@ const Filter = () => {
   const { 
     setShowFilters, 
     loadColumns, 
-    setFilterRequest
+    setFilterRequest,
+    setFilterYear
   } = useRequestDispatch();
   let jurisdictionFilterList: any[] = filterMap['project_local_governments'];
   let countiesFilterList: any[] = filterMap['project_counties'];
@@ -45,6 +48,7 @@ const Filter = () => {
   const [sponsorFilter, setSponsorFilter] = useState<any[]>([]);
   const [priorityFilter, setPriorityFilter] = useState<any[]>([]);
   const [resetFilter, setResetFilter] = useState(true);
+  const [yearFilter, setYearFilter] = useState<any[]>([]);
 
   useEffect(() => {
     if (year >= YEAR_LOGIC_2024 ) {
@@ -78,14 +82,28 @@ const Filter = () => {
     setProjectStatusFilter(statusFilter);
     setSponsorFilter(sortedFilterRequest.filter((f: any) => f.type === 'project_partners'));
     setPriorityFilter(sortedFilterRequest.filter((f: any) => f.type === 'project_priorities'));
+    const year = +namespaceId.year;
+    const years = [];
+    for (let i = 0; i <= 2; i++) {
+      years.push({ id: year + i, name: year + i, selected: false, type: 'year' });
+    }
+    if (namespaceId.projecttype !== 'Maintenance') {
+      for (let i = 3; i <= 4; i++) {
+        years.push({ id: year + i, name: year + i, selected: false, type: 'year' });
+      }
+    }
+    const updatedYears = years.map((yearObj) => {
+      if (filterYear.includes(yearObj.name)) {
+        return { ...yearObj, selected: true };
+      }
+      return yearObj;
+    });
+    setYearFilter(updatedYears);
   }, [filterRequest,resetFilter]);
 
-  const isLocatedInSouthPlateRiverFilter = useMemo(() => [
-    { label: 'Yes', value: 1 }
-  ], []);
-
   const applyFilters = () => {
-    loadColumns(namespaceId);
+    loadColumns();
+    setFilterYear(yearFilter.filter((f: any) => f.selected).map((f: any) => f.id));
   }
   const reset = () => {
     let filterRequestReset = filterRequest.map((f: any) => {
@@ -121,6 +139,13 @@ const Filter = () => {
         <FilterGroup
           label="Project Status"
           filterList={projectStatusFilter}
+        />
+      }
+      { isListView &&
+        <FilterGroup
+          label="Funding Year"
+          filterList={yearFilter}
+          setYearFilter={setYearFilter}
         />
       }
       {

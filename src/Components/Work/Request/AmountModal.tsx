@@ -41,7 +41,7 @@ const AmountModal = ({ project, visible, setVisible }: {
     ).then((res: any) => {
       setCost(res.newCost);
       res.columnsChanged.forEach((columnNumber: number) => {
-        loadOneColumn(namespaceId, columnNumber);
+        loadOneColumn(columnNumber);
       });
     })
       .catch((err: any) => {

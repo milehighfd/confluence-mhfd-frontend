@@ -549,6 +549,13 @@
     }
   }
   .tollgate-header {
+    .tollgate-btn-transparent{
+      img{
+        height: 23px !important;
+        margin-top: 10px;
+        margin-left: 6px;
+      }
+    }
     .dates-title {
       margin-left: -24px;
     }
@@ -587,6 +594,16 @@
       h3 {
         font-size: 33px;
       }
+      .text-tollgate-title{
+        span{
+          font-size: 24px !important;
+        }
+        .name-tollgate{
+          font-size: 20px !important;
+          margin-bottom: 24px !important;
+        }
+      }
+      
     }
 
     h1 {
@@ -613,8 +630,13 @@
       }
     }
   }
+  .btn-tollgate{
+    font-size: 22px !important;
+    padding: 11px !important;
+  }
   .tollgate-header-head {
     height: 89px;
+    
   }
   .span-dots-tollgate {
     font-size: 21px;

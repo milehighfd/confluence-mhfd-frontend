@@ -282,7 +282,9 @@ export const SERVER = (function () {
         GET_CONSULTANTS: `${URL_BASE.BASE}/${CONSULTANTS}`,
         GENERATE_SIGNUP_URL: `${URL_BASE.BASE}/${USER}/${GENERATE_SIGNUP_URL}`,
         GET_SPONSOR: `${URL_BASE.BASE}/${BUSINESS}/${SPONSOR_LIST}`,
-        GET_RESET_AND_CONFIRM: `${URL_BASE.BASE}/${USER}/${GET_RESET_AND_CONFIRM}`,
+        GET_PAST_DATA: `${URL_BASE.BASE}/${BOARD}/get-past-data`,
+        GET_COSTS_FOR_MAINTENANCE: `${URL_BASE.BASE}/${BOARD_PROJECT}/getCostsMaintenance`,
+        GET_RESET_AND_CONFIRM: `${URL_BASE.BASE}/${USER}/${GET_RESET_AND_CONFIRM}`,        
         GET_SIGNUP_EMAIL: (token: string) => `${URL_BASE.BASE}/${USER}/${GET_SIGNUP_EMAIL}?token=${token}`,
         GET_LIST_PMTOOLS: (groupname: string) => `${URL_BASE.BASE}/${PMTOOLS}/list?group=${groupname}`,
         GET_COUNT_FOR_PROBLEM: (problemid: string) => `${URL_BASE.BASE}/${GALLERY}/${GET_COUNT_FOR_PROBLEM}/${problemid}`,
@@ -290,7 +292,7 @@ export const SERVER = (function () {
         GET_COUNT_PMTOOLS_PAGE: (groupname: string, group : number) => `${URL_BASE.BASE}/${PMTOOLS}/groupsFilter/${COUNT}/${groupname}/${group}`,
         GET_CREATE_DATA: (projectId: number) => `${URL_BASE.BASE}/${CREATE}/${CREATE_PROJECT_GENERAL}/createdata?project_id=${projectId}`,
         GET_LIST_GROUPS: (groupname: string) => `${URL_BASE.BASE}/${PMTOOLS}/groups/${groupname}`,
-        UPDATE_BUDGET: (id: any) => `${URL_BASE.BASE}/${BOARD}/update-budget/${id}`,
+        UPDATE_BUDGET: `${URL_BASE.BASE}/${BOARD}/update-budget`,
         GET_CONFIGURATIONS: (key: string) => {
             return `${URL_BASE.BASE}/${CONFIGURATIONS}/${key}`;
         },
@@ -364,6 +366,6 @@ export const SERVER = (function () {
             return `${URL_BASE.BASE}/${BOARD_PROJECT}/${board_project_id}/${COST}?rnd=${Math.random()}`
         },
         BOARD_UPDATE_RANK: (board_project_id: string) => `${URL_BASE.BASE}/${BOARD_PROJECT}/${board_project_id}/update-rank`,
-        BOARD_UPDATE_TARGET_COST: (board_id: string) => `${URL_BASE.BASE}/${BOARD_PROJECT}/${board_id}/update-target-cost`
+        BOARD_UPDATE_TARGET_COST: `${URL_BASE.BASE}/${BOARD_PROJECT}/update-target-cost`
     }
 })();
