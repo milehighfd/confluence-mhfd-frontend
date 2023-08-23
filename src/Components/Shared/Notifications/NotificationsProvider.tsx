@@ -2,11 +2,9 @@ import React, { createContext, useContext } from 'react';
 import { notification } from 'antd';
 import { NotificationType } from './NotificationsTypes';
 import { CheckCircleFilled, WarningFilled } from '@ant-design/icons';
-import { duration } from 'moment';
 
 type NotificationsContextType = {
   openNotification: (message: string, notificationType: NotificationType, description?: string) => void;
-  openNotificationWithDescription: (message: string, notificationType: NotificationType, description?: string) => void;
 };
 type Notification = {
   className: string;
@@ -17,25 +15,13 @@ const NotificationsContext = createContext<NotificationsContextType | undefined>
 const NotificationsProvider: React.FC = ({ children }) => {
   const openNotification = (message: string, notificationType: NotificationType, description?: string) => {
     let NotificationType = getNotificationbyType(notificationType, description);
-    alert(NotificationType.className)
     notification.open({
       message:<div>{message}</div>,
       className: NotificationType.className,
       icon: NotificationType.icon,
       description: description? description: undefined,
-      duration: 100
     });
   };
-  const openNotificationWithDescription= (message: string, notificationType: NotificationType, description?: string) => {
-    let NotificationType = getNotificationbyType(notificationType, description);
-    notification.open({
-      message:<div>{message}</div>,
-      className: NotificationType.className,
-      icon: NotificationType.icon,
-      description,
-    });
-  };
-
   const getNotificationbyType = (notiType: string, description: string|undefined): Notification => {
     switch (notiType) {
       case 'success':
@@ -56,7 +42,7 @@ const NotificationsProvider: React.FC = ({ children }) => {
     }
   };
 
-  return <NotificationsContext.Provider value={{ openNotification, openNotificationWithDescription }}>{children}</NotificationsContext.Provider>;
+  return <NotificationsContext.Provider value={{openNotification}}>{children}</NotificationsContext.Provider>;
 };
 
 const useNotifications = (): NotificationsContextType => {

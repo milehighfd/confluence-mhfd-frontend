@@ -66,7 +66,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUs
   const [createPhone, setCreatePhone] = useState<any>('');
   const [saveValidation, setSaveValidation] = useState<any>(false);
   const [cleanRecord, setCleanRecord] = useState<any>(false);
-  const { openNotification, openNotificationWithDescription } = useNotifications();
+  const { openNotification } = useNotifications();
 
   interface Contact {
     full_address: string;
@@ -80,7 +80,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUs
 
   const handleErrorNotification = (emptyFields: any) => {
     const message = `Missing inputs: ${emptyFields.join(', ')}.`;
-    openNotificationWithDescription('Warning! Required input are missing below.', "warning", message);
+    openNotification('Warning! Required input are missing below.', "warning", message);
   }
 
   const {
