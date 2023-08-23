@@ -50,7 +50,10 @@ export const NewProblemsFilter = () => {
             options[field] = newValue;
         } else if (field === 'mhfdmanager') {
           let newValue = '';
-          newValue = values;
+          newValue = paramProblems.mhfdmanager
+            .filter((item:any) => values.includes(item.id))
+            .map((item:any) => item.value);
+        //   newValue = values;
           options[field] = newValue;
         } else if ('cost' === field) {
           if(values.length === 0 || values === '') {
