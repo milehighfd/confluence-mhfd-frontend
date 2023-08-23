@@ -512,7 +512,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUs
         emptyFields.push('Zip Code');
       }
       if (!createFullName) {
-        emptyFields.push('Full Name');
+        emptyFields.push('Contact Name');
       }
       if (!createMail) {
         emptyFields.push('Email');
