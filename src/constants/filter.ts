@@ -12,5 +12,8 @@ export const FILTERS = {
         MHFDMANAGER: 'mhfdmanager',
         LGMANAGER: 'lgmanager',
         STREAMNAME: 'streamname',
+        FAVORITES: 'favorites',
+        TEAMS: 'teams',
+        PHASE: 'phase',
     }
 };

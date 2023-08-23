@@ -78,9 +78,6 @@ body {
   outline: none !important;
 }
 
-.scroll-filters {
-  padding: 0px 20px;
-}
 
 .scroll-cards {
   overflow-y: auto;
@@ -3188,6 +3185,7 @@ tr > .ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
 
 .dropdown-container-filter {
   display: flex;
+  width: 98%;
 }
 
 .ant-select-single .ant-select-selector .ant-select-selection-placeholder {

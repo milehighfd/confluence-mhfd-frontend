@@ -40,7 +40,10 @@ export type OptionProjects = {
     county: string,
     consultant: string,
     contractor: string,
-    servicearea: string
+    servicearea: string,
+    favorites: string,
+    teams: string,
+    phase: [],
 }
 export type OptionComponents = {
     component_type: string,
