@@ -1145,7 +1145,7 @@ const MapView = () => {
                       className="btn-filter"
                     >
                       <img className="img-sortBy" alt="" style={tabActive === '0'? (filterProblemOptions.order === 'asc' ? {transform: 'rotate(-180deg)'}:{}):(filterProjectOptions.order === 'asc' ? {transform: 'rotate(-180deg)'}:{})}/>
-                      <span style={{ color: textStyle, marginLeft: '-3px', fontFamily: 'Ubuntu' }}> Sort By</span>
+                      <span style={{ color: purple, marginLeft: '-3px', fontFamily: 'Ubuntu' }}> Sort By</span>
                     </Button>
                   </Dropdown>
                 </div>:<></>}
