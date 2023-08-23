@@ -43,7 +43,6 @@
   }
 }
 .notification-alert-layout-with-description {
-  max-width: 50vw !important;
   font-size: 16px;
   .ant-notification-notice-message {
     color: #11093c;
@@ -79,6 +78,7 @@
 .ant-notification-notice {
   width: max-content !important;
   max-width: max-content;
+  max-width: 30vw !important;
 }
 
 @media (min-width: 1900px) and (max-width: 2549px) {
@@ -89,6 +89,15 @@
       font-size: 17px;
     }
   }
+  .notification-alert-layout-with-description {
+    .ant-notification-notice-message {
+      font-size: 17px;
+    }
+    .ant-notification-notice-description{
+      font-size: 17px;
+      margin-right: 20px;
+    }
+  }
 }
 @media (min-width: 2550px) and (max-width: 3799px) {
   .notification-alert-layout {
@@ -96,6 +105,30 @@
     .ant-notification-notice-message {
       font-size: 22px;
       margin-left: 18px;
+    }
+    .ant-notification-notice-close {
+      right: 28px;
+      top: 28px;
+      .ant-notification-notice-close-x {
+        span {
+          font-size: 24px;
+          margin-top: -10px;
+        }
+      }
+    }
+    .ant-notification-notice-icon {
+      span {
+        font-size: 30px;
+      }
+    }
+  }
+  .notification-alert-layout-with-description {
+    padding: 20px 40px 20px;
+    .ant-notification-notice-message {
+      font-size: 22px;
+    }
+    .ant-notification-notice-description{
+      font-size: 22px
     }
     .ant-notification-notice-close {
       right: 28px;
