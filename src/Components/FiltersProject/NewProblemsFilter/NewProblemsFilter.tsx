@@ -50,10 +50,12 @@ export const NewProblemsFilter = () => {
             options[field] = newValue;
         } else if (field === 'mhfdmanager') {
           let newValue = '';
-          newValue = paramProblems.mhfdmanager
+          if(values?.length !== 0) {
+            newValue = paramProblems.mhfdmanager
             .filter((item:any) => values.includes(item.id))
             .map((item:any) => item.value);
         //   newValue = values;
+          }
           options[field] = newValue;
         } else if ('cost' === field) {
           if(values.length === 0 || values === '') {
@@ -210,7 +212,9 @@ export const NewProblemsFilter = () => {
                     <>
                         <CheckBoxIds
                             defaultValue={''}
-                            selected={filterProblemOptions.mhfdmanager}
+                            selected={paramProblems.mhfdmanager
+                                .filter((item:any) => filterProblemOptions.mhfdmanager.includes(item.value))
+                                .map((item:any) => item.id)}
                             data={paramProblems.mhfdmanager}
                             onSelect={(items: any) => {
                                 apply(items, 'mhfdmanager');

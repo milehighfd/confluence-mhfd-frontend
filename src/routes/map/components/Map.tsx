@@ -1235,38 +1235,47 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
                 }
               } else {
                 let managers;
-                if (filterField === 'mhfdmanager' && mhfdmanagers) {
-                  const mhfdmanagersArray = filters.map((mhfdmanager: any) => {
-                    const mhfdmanagerObject = (mhfdmanagers as any).find(
-                      (mhfdmanagerObject: any) => mhfdmanagerObject.id === mhfdmanager,
-                    );
-                    return mhfdmanagerObject?.value;
-                  });
-                  managers = mhfdmanagersArray.join(',');
-                }
-                const filterToCheck = filterField !== 'mhfdmanager' ? filters : managers;
-                for (const filter of filterToCheck.split(',')) {
-                  if (isNaN(+filter)) {
+                // if (filterField === 'mhfdmanager' && mhfdmanagers) {
+                //   const mhfdmanagersArray = filters.map((mhfdmanager: any) => {
+                //     const mhfdmanagerObject = (mhfdmanagers as any).find(
+                //       (mhfdmanagerObject: any) => mhfdmanagerObject.id === mhfdmanager,
+                //     );
+                //     return mhfdmanagerObject?.value;
+                //   });
+                //   managers = mhfdmanagersArray.join(',');
+                // }
+                if (filterField === 'mhfdmanager')  {
+                  for (const filter of filters) {
                     options.push([
                       '==',
                       ['get', key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField],
                       filter,
                     ]);
-                  } else {
-                    const equalFilter: any[] = [
-                      '==',
-                      [
-                        'to-number',
-                        [
-                          'get',
-                          key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField,
-                        ],
-                      ],
-                      +filter,
-                    ];
-                    options.push(equalFilter);
                   }
                 }
+                // const filterToCheck = filterField !== 'mhfdmanager' ? filters : managers;
+                // for (const filter of filterToCheck.split(',')) {
+                //   if (isNaN(+filter)) {
+                //     options.push([
+                //       '==',
+                //       ['get', key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField],
+                //       filter,
+                //     ]);
+                //   } else {
+                //     const equalFilter: any[] = [
+                //       '==',
+                //       [
+                //         'to-number',
+                //         [
+                //           'get',
+                //           key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField,
+                //         ],
+                //       ],
+                //       +filter,
+                //     ];
+                //     options.push(equalFilter);
+                //   }
+                // }
               }
 
               allFilters.push(options);
@@ -1301,6 +1310,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
         }
         if (key === PROBLEMS_TRIGGER && problemClusterGeojson) {
           if (!clusterAdded) {
+            console.log('add cluster',allFilters)
             addGeojsonSource(map, problemClusterGeojson, isProblemActive, allFilters);
             clusterAdded = true;
           }
