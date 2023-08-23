@@ -15,5 +15,6 @@ export const FILTERS = {
         FAVORITES: 'favorites',
         TEAMS: 'teams',
         PHASE: 'phase',
+        WORKPLANYEAR: 'workplanyear',
     }
 };

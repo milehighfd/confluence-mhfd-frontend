@@ -51,7 +51,6 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
     const [selectedContractors, setSelectedContractors] = useState<string[]>([]);
     const apply = (values: any, field: string) => {
         const options = { ...filterProjectOptions };
-        console.log('Values at new project filter', values, field);
         const filters = [
             FILTERS.PROJECT.PROJECTTYPE,
             FILTERS.PROJECT.STATUS,
@@ -142,7 +141,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
             setSelectedContractors(filterProjectOptions.contractor);
         }
     }, [filterProjectOptions.contractor]);
-    console.log(paramProjects.mhfdmanager)
+    
     return <>  <div className="scroll-filters" style={{ height: window.innerHeight - 280 }}>
         <div className='filt-00'>
             <h5 className="filter-title chart-filter-title">Personalized <Popover content={content0}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
@@ -253,7 +252,12 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
                     Apply
                 </Button>
                 &nbsp;<span style={{color:'#11093c'}}>|</span>&nbsp;
-                <Button className="btn-svg" >
+                <Button className="btn-svg" 
+                onClick={() => {
+                    apply('', FILTERS.PROJECT.CONSULTANT)
+                    setSelectedConsultants([]);
+                }}
+                >
                     Reset
                 </Button>
                 <Select
@@ -278,7 +282,11 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
                     Apply
                 </Button>
                 &nbsp;<span style={{color:'#11093c'}}>|</span>&nbsp;
-                <Button className="btn-svg">
+                <Button className="btn-svg" 
+                onClick={() => {
+                    apply('', FILTERS.PROJECT.CONTRACTOR)
+                    setSelectedContractors([]);
+                }}>
                     Reset
                 </Button>
                 <Select
@@ -315,14 +323,17 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
                   Apply
                 </Button>
                 &nbsp;<span style={{color:'#11093c'}}>|</span>&nbsp;
-                <Button className="btn-svg">
+                <Button className="btn-svg" onClick={()=> apply('', FILTERS.PROJECT.WORKPLANYEAR)}>
                   Reset
                 </Button>
                 <Select
                   placeholder="Select"
                   style={{ width: '100%', fontSize: '12px' }}
                   listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+                  value={filterProjectOptions.workplanyear ? filterProjectOptions.workplanyear : '- Select -'}
+                  onSelect={(e: string) => apply(e, FILTERS.PROJECT.WORKPLANYEAR)}
                 >
+                  <Option key={'2022'} value={'2022'}>2022</Option>
                   <Option key={'2023'} value={'2023'}>2023</Option>
                 </Select>        
             </Col>
@@ -333,7 +344,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
                 <h5 className="filter-title chart-filter-title">MHFD Lead <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></h5>
                 {
                     paramProjects?.mhfdmanager &&
-                    <CheckBoxFilters defaultValue={[]}
+                    <CheckBoxFilters defaultValue={''}
                         data={(paramProjects.mhfdmanager)}
                         selected={filterProjectOptions.mhfdmanager}
                         onSelect={(items: any) => apply(items, FILTERS.PROJECT.MHFDMANAGER)} />
