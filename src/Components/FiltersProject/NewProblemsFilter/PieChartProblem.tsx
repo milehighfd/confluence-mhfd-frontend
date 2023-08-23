@@ -104,7 +104,6 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue,selectedData, s
       .enter()
       .append('text')
       .text(function (d: any) { 
-        console.log('d', d);
         return `${d.data.key} (${d.data.counter})`})
       .attr("transform", (d: any, i) => {
         // let xo = -radius + (i * separationJump) - 42;

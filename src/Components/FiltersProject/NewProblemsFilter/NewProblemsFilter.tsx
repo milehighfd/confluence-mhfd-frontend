@@ -50,10 +50,12 @@ export const NewProblemsFilter = () => {
             options[field] = newValue;
         } else if (field === 'mhfdmanager') {
           let newValue = '';
-          newValue = paramProblems.mhfdmanager
+          if(values?.length !== 0) {
+            newValue = paramProblems.mhfdmanager
             .filter((item:any) => values.includes(item.id))
             .map((item:any) => item.value);
         //   newValue = values;
+          }
           options[field] = newValue;
         } else if ('cost' === field) {
           if(values.length === 0 || values === '') {
@@ -108,7 +110,9 @@ export const NewProblemsFilter = () => {
                     My Teams
                 </Button> */}
             </div>
+            <hr className='filters-line'></hr>
         </div>
+            
             <Row className="filt-00">
                 <Col span={12}>
                     <h5 className="filter-title chart-filter-title">Service Area <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></h5>
@@ -208,7 +212,9 @@ export const NewProblemsFilter = () => {
                     <>
                         <CheckBoxIds
                             defaultValue={''}
-                            selected={filterProblemOptions.mhfdmanager}
+                            selected={paramProblems.mhfdmanager
+                                .filter((item:any) => filterProblemOptions.mhfdmanager.includes(item.value))
+                                .map((item:any) => item.id)}
                             data={paramProblems.mhfdmanager}
                             onSelect={(items: any) => {
                                 apply(items, 'mhfdmanager');
