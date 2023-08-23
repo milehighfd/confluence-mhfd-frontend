@@ -85,9 +85,9 @@ const MapLayout = () => {
     setShowBoardStatus,
     setVisibleCreateProject,
     setYearList,
-    setYear,
     setLeftWidth,
     setShowFilters,
+    setConfiguredYear,
   } = useRequestDispatch();
   const currentDataForBoard: BoardDataRequest = {
     type: tabActiveNavbar === WORK_REQUEST ? WORK_REQUEST: WORK_PLAN,
@@ -113,11 +113,11 @@ const MapLayout = () => {
         }
         array.push(boardYearLimit - i);
       }
+      setConfiguredYear(boardYearLimit);
       setYearList(array);
-      setYear(array[0]);
     }
     initLoading();
-  }, [isLocalGovernment, setYear, setYearList, tabActiveNavbar]);
+  }, [isLocalGovernment, setYearList, tabActiveNavbar]);
 
   // END WORK REQUEST-WORK-PLAN
 

@@ -8,6 +8,7 @@ const initialState = {
   locality: '',
   yearList: [2024, 2023, 2022, 2021, 2020],
   year: 2024,
+  configuredYear: 2024,
   tabKeys: ['Capital', 'Study', 'Maintenance', 'Acquisition', 'R&D'],
   tabKey: null,
   showCreateProject: false,
