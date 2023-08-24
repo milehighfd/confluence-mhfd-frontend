@@ -17,7 +17,8 @@ export type OptionProblems = {
     problemtype: string,
     source: string,
     components: string,
-    servicearea: string
+    servicearea: string,
+    favorites: string,
 }
 
 export type OptionProjects = {

@@ -7,6 +7,8 @@ import { CheckBoxFilters } from '../CheckboxFiltersProblem';
 import { CheckBoxFilters as CheckBoxIds } from '../CheckboxFilters';
 import { DropdownFilters } from '../DropdownFilters';
 import { WINDOW_WIDTH } from 'constants/constants';
+import store from 'store';
+import { FILTERS } from 'constants/filter';
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Solution Cost</b> is the total estimated cost to solve a problem.</div>);
 const content0 = (<div className="popoveer-00"><b>Personalized</b> is the severity of a problem relative to other problems of the same type.</div>);
@@ -38,6 +40,7 @@ export const NewProblemsFilter = () => {
         getProblemCounter,
     } = useMapDispatch();
     const { boundsMap } = useMapState();
+    const appUser = store.getState().profile;
     const [selectedData, setSelectedData] = useState<any[]>([]);
     const apply = (values: any, field: string) => {
         const options = { ...filterProblemOptions };
@@ -93,6 +96,16 @@ export const NewProblemsFilter = () => {
             }
         })
     }
+    
+    useEffect(() => {
+        if (openFavorites) {
+            const user_id = appUser.userInformation?.user_id;
+            console.log(user_id,FILTERS.PROJECT.FAVORITES)
+            apply(user_id,FILTERS.PROJECT.FAVORITES)
+        } else {
+            apply('',FILTERS.PROJECT.FAVORITES)
+        }
+    }, [openFavorites]);
 
     return (
         <>  <div className="scroll-filters" style={{ height: window.innerHeight - 280 }}>

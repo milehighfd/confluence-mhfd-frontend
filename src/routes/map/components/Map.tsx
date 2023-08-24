@@ -168,7 +168,8 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     zoomProblemOrProject: zoom,
     projectsids,
     filterProjects,
-    tabActiveNavbar
+    tabActiveNavbar,
+    galleryProblems
   } = useMapState();
   const { tabKey } = useRequestState();
   const { setCompleteProjectData, setShowModalProject } = useRequestDispatch();
@@ -179,6 +180,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
   const divMapRef = useRef<HTMLDivElement>(null);
   const dropdownItems = { default: 1, items: MAP_DROPDOWN_ITEMS };
   const { notes, availableColors } = useNotesState();
+  const galleryProblemsRef = useRef<any>(null);
   const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
   const {
     setComponentsFromMap,
@@ -329,7 +331,6 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
       },
     });
   };
-
 
   useEffect(() => {
     if (zoomProject && (zoomProject.projectid || zoomProject.project_id)) {
@@ -611,8 +612,9 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
   }, [coordinatesJurisdiction]);
 
   useEffect(() => {
+    galleryProblemsRef.current = galleryProblems;
     applyFilters(PROBLEMS_TRIGGER, filterProblems);
-  }, [filterProblems, zoomEndCounter, dragEndCounter]);
+  }, [filterProblems, zoomEndCounter, dragEndCounter, galleryProblems]);
   useEffect(() => {
     applyFilters(MHFD_PROJECTS, filterProjectOptions);
   }, [groupedProjectIdsType, zoomEndCounter, dragEndCounter]);
@@ -1142,6 +1144,16 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
                 allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...filters[key]]]]);
               }
             }
+            if (filterField === 'favorites') {
+              if(filters && galleryProblemsRef.current){
+                const ids = galleryProblemsRef.current.map((problem:any) => problem.problemid);
+                if (ids.length === 0) {
+                  allFilters.push(['in', ['get', 'problem_id'], ['literal', [-1]]]);
+                } else {
+                  allFilters.push(['in', ['get', 'problem_id'], ['literal', ids]]);
+                }
+              }
+            }
             if (filters && filters.length) {
               const options: any[] = ['any'];
               if (
@@ -1253,29 +1265,31 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
                     ]);
                   }
                 }
-                // const filterToCheck = filterField !== 'mhfdmanager' ? filters : managers;
-                // for (const filter of filterToCheck.split(',')) {
-                //   if (isNaN(+filter)) {
-                //     options.push([
-                //       '==',
-                //       ['get', key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField],
-                //       filter,
-                //     ]);
-                //   } else {
-                //     const equalFilter: any[] = [
-                //       '==',
-                //       [
-                //         'to-number',
-                //         [
-                //           'get',
-                //           key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField,
-                //         ],
-                //       ],
-                //       +filter,
-                //     ];
-                //     options.push(equalFilter);
-                //   }
-                // }
+                const filterToCheck = filterField !== 'mhfdmanager' ? filters : managers;
+                if (filterField !== 'mhfdmanager'){
+                  for (const filter of filterToCheck.split(',')) {
+                    if (isNaN(+filter)) {
+                      options.push([
+                        '==',
+                        ['get', key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField],
+                        filter,
+                      ]);
+                    } else {
+                      const equalFilter: any[] = [
+                        '==',
+                        [
+                          'to-number',
+                          [
+                            'get',
+                            key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField,
+                          ],
+                        ],
+                        +filter,
+                      ];
+                      options.push(equalFilter);
+                    }
+                  }
+                }
               }
 
               allFilters.push(options);
