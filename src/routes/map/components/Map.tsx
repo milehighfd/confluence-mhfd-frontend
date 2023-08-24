@@ -1265,29 +1265,31 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
                     ]);
                   }
                 }
-                // const filterToCheck = filterField !== 'mhfdmanager' ? filters : managers;
-                // for (const filter of filterToCheck.split(',')) {
-                //   if (isNaN(+filter)) {
-                //     options.push([
-                //       '==',
-                //       ['get', key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField],
-                //       filter,
-                //     ]);
-                //   } else {
-                //     const equalFilter: any[] = [
-                //       '==',
-                //       [
-                //         'to-number',
-                //         [
-                //           'get',
-                //           key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField,
-                //         ],
-                //       ],
-                //       +filter,
-                //     ];
-                //     options.push(equalFilter);
-                //   }
-                // }
+                const filterToCheck = filterField !== 'mhfdmanager' ? filters : managers;
+                if (filterField !== 'mhfdmanager'){
+                  for (const filter of filterToCheck.split(',')) {
+                    if (isNaN(+filter)) {
+                      options.push([
+                        '==',
+                        ['get', key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField],
+                        filter,
+                      ]);
+                    } else {
+                      const equalFilter: any[] = [
+                        '==',
+                        [
+                          'to-number',
+                          [
+                            'get',
+                            key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField,
+                          ],
+                        ],
+                        +filter,
+                      ];
+                      options.push(equalFilter);
+                    }
+                  }
+                }
               }
 
               allFilters.push(options);
