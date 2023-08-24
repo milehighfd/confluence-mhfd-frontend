@@ -1427,7 +1427,29 @@ hr.filters-line {
     }
   }
 }
-@media(min-width: 2550px) and (max-width: 3799px){
+@media(min-width: 2550px){
+  .scroll-filters{
+    padding: 0px 15px 0px 0px;
+    .ant-checkbox-wrapper{
+      font-size: 20px !important;
+    }
+    .ant-checkbox-group{
+      height: 204px !important;
+    }
+    .ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+      min-height: 45px !important;
+    }
+    .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+      min-height: 45px !important;
+    }
+    .btn-svg-text{
+      font-size: 20px !important;
+      padding: 20px 45px !important;
+      img{
+        height: 38px !important;
+      }
+    }
+  }
   .button-header-tab {
     .ico-header-tab {
       font-size: 22px;
