@@ -196,7 +196,11 @@ const ListViewMap = ({
           }
           break;
         case 'popup-zoom':
-          changeCenter('', record.coordinates);
+          if (record.project_id) {
+            changeCenter(record.project_id, '');
+          }else{
+            changeCenter('', record.coordinates);
+          }          
           return;
         case 'popup-favorite':
           record.isFavorite ?  deleteFunction(user.email, (record.project_id || record.problemid), type) : addFavorite(user.email, (record.project_id || record.problemid), type === 'Problems' );
@@ -293,7 +297,9 @@ const ListViewMap = ({
             }
           }}
         >
-          <MoreOutlined className="more-ico" />
+          <MoreOutlined onClick={(e) => {
+            e.stopPropagation();
+          }} className="more-ico" />
         </Popover></div>,
     },
     {
@@ -393,7 +399,9 @@ const ListViewMap = ({
           }
         }}
       >
-        <MoreOutlined className="more-ico" />
+        <MoreOutlined onClick={(e) => {
+            e.stopPropagation();
+          }}  className="more-ico" />
       </Popover></div>,
     },
     {

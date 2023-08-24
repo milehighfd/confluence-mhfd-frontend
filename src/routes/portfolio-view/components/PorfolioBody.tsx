@@ -46,7 +46,7 @@ const PortafolioBody = () => {
   const [filtername, setFiltername] = useState('Mile High Flood District');
   const [tabKey, setTabKey] = useState<any>('All');
   const [openFilters, setOpenFilters] = useState(false);
-  const [openProjects, setOpenProjects] = useState(false);
+  const [myTeams, setMyTeams] = useState(false);
   const [openFavorites, setOpenFavorites] = useState(false);
   const [openModalTable, setOpenModalTable] = useState(false);
   let displayedTabKey = tabKeys;
@@ -170,7 +170,7 @@ const PortafolioBody = () => {
   }, [openFavorites]);
 
   useEffect(() => {
-    if (openProjects){
+    if (myTeams){
       const auxOptions = { ...filterProjectOptions };
       auxOptions.teams = appUser.userInformation?.business_associate_contact?.business_associate_contact_id || -1;
       setFilterProjectOptions(auxOptions);
@@ -179,7 +179,7 @@ const PortafolioBody = () => {
       delete auxOptions.teams;
       setFilterProjectOptions(auxOptions);
     }   
-  }, [openProjects]);
+  }, [myTeams]);
 
   useEffect(() => {
     if (sortValue.columnKey === 'project_type' && sortValue.order !== undefined) {
@@ -278,8 +278,8 @@ const PortafolioBody = () => {
 
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{textAlign:'right'}}>
-            <Button className={openProjects ? "btn-filter-k btn-filter-k-active":"btn-filter-k" } onClick={()=>{setOpenProjects(!openProjects)}}>
-              {openProjects? <CheckCircleFilled style={{color:'#2ac499', fontSize: '16px'}}/>:<CheckCircleOutlined style={{color: '#251863', fontSize: '16px'}} />} My Teams
+            <Button className={myTeams ? "btn-filter-k btn-filter-k-active":"btn-filter-k" } onClick={()=>{setMyTeams(!myTeams)}}>
+              {myTeams? <CheckCircleFilled style={{color:'#2ac499', fontSize: '16px'}}/>:<CheckCircleOutlined style={{color: '#251863', fontSize: '16px'}} />} My Teams
             </Button>
             <Button className={openFavorites ? "btn-filter-k btn-filter-k-active":"btn-filter-k" } onClick={()=>{openFavs()}}>
               {openFavorites? <HeartFilled style={{color: '#f5575c', fontSize: '16px'}}/>:<HeartOutlined style={{color: '#251863', fontSize: '16px'}}  />} Favorites

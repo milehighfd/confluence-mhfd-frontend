@@ -287,7 +287,6 @@
 .ant-select-selection-placeholder{
   color: $purple;
 }
-
 //movend from project.scss
 .ant-select-arrow {
   align-items: right;
@@ -337,6 +336,12 @@
 .ant-popover-placement-bottomLeft .ant-popover-arrow {
   left: 12px;
 }
+
+//Incoming from map - take a look
+.ant-select-multiple .ant-select-selection-item {
+  height: auto;
+}
+
 
 @media (max-width: 575.98px) {
   .ant-layout-sider {

@@ -102,14 +102,15 @@
 
 .btn-svg {
   border: none !important;
-  font-size: 12px !important;
+  font-size: 12px ;
   font-weight: 400 !important;
   width: auto !important;
   background-color: transparent !important;
   box-shadow: none !important;
   padding: 0px !important;
-  text-decoration: underline !important;
+  // text-decoration: underline !important;
   margin-bottom: 15px;
+  opacity: 0.6;
 }
 .btn-svg:hover {
   border: none !important;
@@ -120,7 +121,8 @@
   background-color: transparent !important;
   box-shadow: none !important;
   padding: 0px !important;
-  text-decoration: underline !important;
+  // text-decoration: underline !important;
+  opacity: 1;
 }
 
 // OTHER BUTTONS
@@ -176,7 +178,7 @@
   .ant-checkbox-group{
     width: 100%;
     overflow: auto;
-    height: 136px;
+    height: 137px;
   }
   .ant-checkbox-group::-webkit-scrollbar {
     width: 5px;
@@ -293,14 +295,7 @@
   .btn-svg:hover{
     font-size: 17px !important;
   }
-  .scroll-filters{
-    .ant-checkbox-wrapper{
-      font-size: 20px !important;
-    }
-    .ant-checkbox-group{
-      height: 185px !important;
-    }
-  }
+ 
   .ant-select{
     font-size: 24px !important;
   }

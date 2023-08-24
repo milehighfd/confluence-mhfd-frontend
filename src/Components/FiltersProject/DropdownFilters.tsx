@@ -127,11 +127,11 @@ export const DropdownFilters = ({ onSelect, defaultValue, labels, showControls =
       {showControls ? (
         <>
           <Button className="btn-svg" onClick={apply}>
-            <u>Apply</u>
+            Apply
           </Button>
-          &nbsp;|&nbsp;
+          &nbsp;<span style={{color:'#11093c'}}>|</span>&nbsp;
           <Button className="btn-svg" onClick={reset}>
-            <u>Reset</u>
+            Reset
           </Button>
         </>
       ) : (

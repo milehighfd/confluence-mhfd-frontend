@@ -1727,13 +1727,22 @@ hr.filters-line {
     color: $opacity;
     line-height: 22px;
   }
-
   span {
-    color: $purple;
+    color: $purple00;
     border-color: #9f9fad;
     align-items: center;
   }
-
+  .btn-svg{
+    color: $purple00;
+    opacity: 1;
+  }
+  .btn-svg:hover{
+    color: $green !important;
+    opacity: 1; 
+    span{
+      color: $green !important;
+    }
+  }
   p {
     margin-bottom: 4px;
   }
@@ -1802,6 +1811,7 @@ hr.filters-line {
   }
   .body-filt-00{
     padding-top: 16px;
+    padding-right: 9px;
   }
 }
 
@@ -1947,12 +1957,6 @@ hr.filters-line {
     font-size: 18px !important;
     color: #131436 !important;
   }
-
-  .filt-00 {
-    h5 {
-      font-size: 18px !important;
-    }
-  }
 }
 
 @media only screen and (min-width: 2549px) {
@@ -2056,7 +2060,7 @@ hr.filters-line {
 }
 
 .tree-chart {
-  padding-left: 8px;
+  // padding-left: 8px;
   padding-right: 8px;
 }
 
@@ -2490,6 +2494,20 @@ hr.filters-line {
 }
 
 @media(min-width: 1900px) and (max-width: 2549px) {
+  .filt-00 {
+    .btn-svg{
+      font-size: 14px !important;
+      span{
+        font-size: 14px !important;
+      }
+    }
+    .btn-svg:hover{
+      font-size: 14px !important;
+      span{
+        font-size: 14px !important;
+      }
+    }
+  }
   .map-modal-layers{
     width: 342px !important;
     top: 68px !important;
@@ -2548,6 +2566,32 @@ hr.filters-line {
 }
 
 @media(min-width: 2550px){
+  //may filt-00 should be in main-map inside .scroll-filters
+  .filt-00 {
+    span{
+      font-size: 22px !important;
+    }
+    h5 {
+      font-size: 24px !important;
+      line-height: 25px !important;
+      margin-bottom: 4px !important;
+      img{
+        width: 20px !important;
+      }
+    }
+    .btn-svg{
+      font-size: 18px !important;
+      span{
+        font-size: 18px !important;
+      }
+    }
+    .btn-svg:hover{
+      font-size: 18px !important;
+      span{
+        font-size: 18px !important;
+      }
+    }
+  }
   .map-filter-s {
     width: 330px;
   }
@@ -2822,8 +2866,7 @@ hr.filters-line {
       left: 85px;
       bottom: 30px;
      }
-  }
-
+    }
   .map-pop-00 {
     .headmap {
       font-size: 16px !important;
@@ -3038,7 +3081,6 @@ hr.filters-line {
 
   }
 }
-
 // @media(min-width: 3800px) and (max-width: 5999px) {
 //   .tabs-map .ant-collapse > .ant-collapse-item:last-child, .tabs-map .ant-collapse > .ant-collapse-item:last-child > .ant-collapse-header {
 //     padding: 10px 9px;
