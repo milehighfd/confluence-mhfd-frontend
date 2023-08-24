@@ -65,7 +65,7 @@ export const MainPopup = ({id, item, eventFunctions, sw, ep, detailPage, mapType
     return <div id={"popup-" + id} className="map-pop-00">
       <Card hoverable>
         <div className="headmap">
-            {capitalize(item.title)} popups
+            {capitalize(item.title)}
         </div>
         <div className="bodymap">
           <h4>{item.name}</h4>

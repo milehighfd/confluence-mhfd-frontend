@@ -130,6 +130,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue, selectedData, 
         return `translate(${xo},${yo})`;
       })
       .style("font-size", fontSize)
+      .on('click', clickFn)
 
     legendsText
       .text(function (d: any) { return d.data.key })
@@ -186,7 +187,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue, selectedData, 
       .attr("cy", (d: any, i) => {
         // return (i<3 ?radius + 29.5 : radius + 64.5 )
         return -radius/1.4 + (i * (separationJump/6))
-      });
+      }).on('click', clickFn);
   }, [data, selectedData]);
 
   const apply = () => {
