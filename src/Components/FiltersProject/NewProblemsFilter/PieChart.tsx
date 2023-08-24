@@ -130,6 +130,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue, selectedData, 
         return `translate(${xo},${yo})`;
       })
       .style("font-size", fontSize)
+      .style("opacity",(d: any) => { return d.data.counter > 0 ? 1 : 0.6 } )
       .on('click', clickFn)
 
     legendsText
