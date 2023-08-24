@@ -482,7 +482,7 @@ const MapView = () => {
     const filterProblems = { ...filterProblemOptions } as any;
     const labelsProblems = [...labelsFiltersProblems];
     for (const key in filterProblemOptions) {
-      const tag = (key === 'cost' || key === 'mhfdmanager') ? filterProblems[key] : filterProblems[key].split(',');
+      const tag = (key === 'cost' || key === 'mhfdmanager' || key === 'favorites') ? filterProblems[key] : filterProblems[key].split(',');
       if (key !== 'keyword' && key !== 'column' && key !== 'order') {
         const elements = [];
         const position = labelsProblems.findIndex((x: any) => x.name === key);
@@ -696,7 +696,7 @@ const MapView = () => {
     const filterComponents = { ...filterComponentOptions } as any;
     const filterProblems = { ...filterProblemOptions } as any;
     for (const key in filterProblemOptions) {
-      const tag = (key === 'cost' || key === 'mhfdmanager') ? filterProblems[key] : filterProblems[key].split(',');
+      const tag = (key === 'cost' || key === 'mhfdmanager' || key === 'favorites') ? filterProblems[key] : filterProblems[key].split(',');
       if (key !== 'keyword' && key !== 'column' && key !== 'order') {
         if (key === 'cost') {
           if (tag?.length > 0) {

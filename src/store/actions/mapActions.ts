@@ -102,6 +102,7 @@ const options = (options: OptionProblems, filterComponent: OptionComponents, coo
         sortby: options.column,
         sorttype: options.order,
         bounds: coordinates,
+        favorites: options.favorites,
       }
     : {
         isproblem: true,
@@ -126,6 +127,7 @@ const options = (options: OptionProblems, filterComponent: OptionComponents, coo
         serviceareaComp: filterComponent.servicearea,
         sortby: options.column,
         sorttype: options.order,
+        favorites: options.favorites,
       };
 };
 
@@ -158,6 +160,7 @@ export const setFilterProblemOptions = (filters: OptionProblems) => {
     source: filters.source,
     components: [] as any,
     servicearea: filters.servicearea,
+    favorites: filters.favorites,
     keyword,
   };
   const solutionstatus = filters.solutionstatus.split(',');
