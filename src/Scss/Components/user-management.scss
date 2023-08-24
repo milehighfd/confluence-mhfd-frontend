@@ -1323,7 +1323,7 @@
     }
   }
 }
-@media (min-width: 2555px) and (max-width: 3799px) {
+@media (min-width: 2555px){
   .ant-table-column-sorter-down,
   .ant-table-column-sorter-up {
     font-size: 15px;
@@ -1635,405 +1635,405 @@
     height: calc(100vh - 250px);
   }
 }
-@media (min-width: 3800px) and (max-width: 5999px) {
-  .ant-dropdown-menu-title-content {
-    padding: 4px 0px !important;
-    font-size: 30px !important;
-  }
-  .ant-select-item-group {
-    font-size: 32px !important;
-    margin: 17px 0px !important;
-  }
-  .ant-table-column-sorter-down,
-  .ant-table-column-sorter-up {
-    font-size: 23px;
-  }
-  .profile-myprofile {
-    img {
-      height: 250px !important;
-      width: 250px !important;
-      margin-top: 170px !important;
-    }
-    .profile-change-image {
-      position: absolute;
-      top: 163px;
-      width: 100%;
-      margin-left: 119px;
-      .img-change {
-        width: 83px !important;
-        height: 83px !important;
-      }
-      .ant-btn-circle {
-        height: 83px !important;
-      }
-    }
-    .sub-title {
-      margin-bottom: 120px !important;
-    }
-    h1 {
-      font-size: 31px !important;
-    }
-    p {
-      font-size: 27px !important;
-    }
-    h2 {
-      font-size: 33px !important;
-    }
-    .profile {
-      height: calc(100vh - 574px) !important;
-      padding: 30px !important;
-      .input-profile {
-        height: 50px !important;
-        border-radius: 20px !important;
-        padding: 10px 15px !important;
-        font-size: 27px !important;
-      }
-    }
-    .foot-profile {
-      padding: 40px 0px !important;
-      bottom: 57px;
-    }
-    .btn-purple {
-      width: 100%;
-      font-size: 27px !important;
-      padding: 10px !important;
-      height: 64px !important;
-    }
-    .ant-select:not(.ant-select-customize-input) .ant-select-selector {
-      height: 50px !important;
-      padding: 10px 15px !important;
-    }
-  }
-  .searches-myprofile {
-    padding: 5px 20px !important;
-    p {
-      font-size: 27px !important;
-    }
-    h1 {
-      font-size: 30px !important;
-    }
-    .title-action {
-      font-size: 32px;
-      margin-left: 31px !important;
-    }
-    .card-map {
-      h4 {
-        font-size: 30px !important;
-        line-height: 36px !important;
-      }
-      h6 {
-        font-size: 27px !important;
-        margin-top: 23px;
-        margin-bottom: 13px;
-      }
-      h5 {
-        font-size: 30px !important;
-      }
-      span {
-        font-size: 27px !important;
-      }
-      .ant-card:hover {
-        border: 4px solid $green !important;
-      }
-      .ant-card {
-        margin: 13px !important;
-      }
-    }
-    .body-action {
-      padding: 0px 27px;
-    }
-  }
-  .head-list {
-    .ant-select-item-option {
-      font-size: 32px !important;
-      font-weight: 400 !important;
-      padding: 18px !important;
-      line-height: 40px !important;
-    }
-  }
-  .user-management-body {
-    .js-mm-00 .ant-dropdown-menu-item {
-      padding: 22px 30px 22px 30px !important;
-      /* font-size: 35px !important; */
-      margin-bottom: 10px;
-    }
-    .ant-select-item-option {
-      font-size: 32px !important;
-      font-weight: 400 !important;
-      padding: 18px !important;
-      line-height: 40px !important;
-    }
-    h2 {
-      font-size: 36px;
-      margin-left: 23px !important;
-    }
-    .ant-checkbox {
-      margin-right: 20px !important;
-    }
-    .ant-checkbox-inner {
-      width: 26px;
-      height: 26px;
-    }
-    .ant-checkbox-inner:after {
-      width: 9.714286px;
-      height: 14.142857px;
-    }
-    .infinite-scroll-component {
-      padding: 0px 20px !important;
-    }
-    .list-view-head {
-      width: 675px !important;
-      padding-top: 26px !important;
-      .ant-select-item-option {
-        font-size: 35px !important;
-        font-weight: 400 !important;
-        padding: 18px !important;
-        line-height: 40px !important;
-      }
-      .ant-select {
-        margin-left: 19px !important;
-      }
-      .ant-select-single.ant-select-show-arrow .ant-select-selection-item,
-      .user-management-body .list-view-head .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
-        font-size: 58px !important;
-        /* height: 58px; */
-        padding-right: 45px !important;
-        margin-top: 15px;
-        line-height: 64px;
-        margin-left: 17px;
-      }
-      .ant-select-arrow {
-        font-size: 33px !important;
-        padding-left: 11px;
-        width: 24px;
-        padding-top: 0px !important;
-      }
-    }
-    .filter-user-management {
-      width: 2507px !important;
-      padding: 21px;
-      height: auto;
-      .menu-sub-drop {
-        font-size: 32px !important;
-      }
-      .ant-dropdown-menu-item,
-      .ant-dropdown-menu-submenu-title {
-        padding: 10px 12px;
-      }
-      .sign-menu-organization {
-        width: 465px;
-        height: 415px;
-        max-height: 415px;
-      }
-      button {
-        height: 75px !important;
-        font-size: 32px;
-        width: 70px;
-        padding: 11px 20px !important;
-        .anticon {
-          font-size: 20px;
-        }
-      }
-      .btn-borde .anticon {
-        margin-top: 19px;
-        font-size: 25px;
-      }
-      .ant-input {
-        height: 75px !important;
-        font-size: 32px !important;
-      }
-      .ant-input-affix-wrapper {
-        height: 75px !important;
-        font-size: 32px !important;
-        padding: 0px 20px !important;
-        input {
-          font-size: 32px !important;
-        }
-      }
-      .ant-select-selector {
-        height: 75px !important;
-        font-size: 32px !important;
-        align-items: center !important;
-        padding: 0px 20px;
-        span {
-          font-size: 32px !important;
-          line-height: 38px;
-        }
-      }
-      .ant-select-arrow {
-        height: 53px !important;
-        font-size: 27px !important;
-        margin-top: -21px !important;
-      }
-    }
-    .button-space {
-      width: 211px;
-    }
-    .table-user-management {
-      margin-top: 15px !important;
-      height: calc(100vh - 350px);
-      padding: 0px 20px;
-      .ant-pagination-jump-next,
-      .ant-pagination-jump-prev,
-      .ant-pagination-next,
-      .ant-pagination-prev {
-        min-width: 80px;
-        height: 80px;
-      }
-      .ant-pagination-item,
-      .ant-pagination-total-text {
-        height: 80px;
-        line-height: 73px;
-        font-size: 30px;
-      }
-      .ant-pagination-item {
-        min-width: 80px;
-      }
-      .ant-select:not(.ant-select-customize-input) .ant-select-selector {
-        min-height: 80px !important;
-        padding: 0px 30px;
-      }
-      .ant-table-thead .ant-table-cell {
-        font-size: 32px;
-      }
-      .ant-table-tbody > tr > td,
-      .user-management-body .table-user-management .ant-table-thead > tr > th,
-      .user-management-body .table-user-management .ant-table tfoot > tr > td,
-      .user-management-body .table-user-management .ant-table tfoot > tr > th {
-        padding: 16px 16px;
-        font-size: 35px;
-        span {
-          font-size: 32px !important;
-          height: auto;
-          line-height: 42px;
-        }
-        .anticon {
-          margin-top: 10px;
-        }
-      }
-      .user-tab {
-        img {
-          height: 90px !important;
-          width: 90px !important;
-        }
-        .name-user-list {
-          font-size: 35px !important;
-          margin-bottom: -4px !important;
-          margin-left: 10px !important;
-        }
-        .oganization-user-list {
-          font-size: 28px !important;
-          margin-left: 10px !important;
-        }
-      }
-      .span-admin {
-        padding: 8px 21px;
-        border-radius: 5px;
-        font-size: 35px;
-      }
-      .span-manager {
-        padding: 8px 21px;
-        border-radius: 5px;
-        font-size: 35px;
-      }
-      .span-gov {
-        padding: 8px 21px;
-        border-radius: 5px;
-        font-size: 35px;
-      }
-      .span-Active {
-        padding: 8px 21px !important;
-        .circulo {
-          width: 20px;
-          height: 20px;
-          margin-top: 15px;
-          margin-right: 11px;
-        }
-      }
-      .span-Inactive {
-        padding: 8px 21px !important;
-        .circulo {
-          width: 20px;
-          height: 20px;
-          margin-top: 15px;
-          margin-right: 11px;
-        }
-      }
-      .btn-profile-list {
-        font-size: 44px !important;
-        height: auto;
-        padding: 10px 75px;
-        margin-left: 20px;
-        span {
-          font-size: 44px !important;
-        }
-      }
-    }
-    .profile-user {
-      padding: 45px 55px !important;
-      .rc-virtual-list-holder {
-        height: 400px !important;
-        max-height: 400px !important;
-      }
-      .sign-menu {
-        overflow-y: auto;
-        max-height: 485px;
-      }
-      .ant-select-item-option {
-        font-size: 32px !important;
-        line-height: 40px;
-      }
-      .ant-select-arrow {
-        margin-top: -23px;
-        margin-right: 15px;
-      }
-      h3 {
-        font-size: 51px !important;
-      }
-      h1 {
-        font-size: 40px !important;
-      }
-      input {
-        border-radius: 5px !important;
-        height: 80px !important;
-        font-size: 35px !important;
-        padding: 4px 30px;
-      }
-      span {
-        font-size: 35px !important;
-      }
-      .ant-radio-inner {
-        width: 35px !important;
-        height: 35px !important;
-      }
-      .ant-radio-inner:after {
-        width: 35px !important;
-        height: 35px !important;
-        margin-top: -18px !important;
-        margin-left: -18px !important;
-      }
-      .line-01 {
-        margin-top: 40px !important;
-        height: 3px !important;
-      }
-      .btn-borde-management {
-        height: 80px !important;
-        padding: 13.5px 25px !important;
-      }
-      .ant-dropdown-menu-item {
-        padding: 17px 17px 17px 17px !important;
-      }
-    }
-  }
-  .ant-select-item-option {
-    font-size: 32px !important;
-    font-weight: 400 !important;
-    padding: 18px !important;
-    line-height: 40px !important;
-  }
-  .user-management-body {
-    .infinite-scroll-component {
-      padding-bottom: 75px !important;
-    }
-  }
-}
+// @media (min-width: 3800px) and (max-width: 5999px) {
+//   .ant-dropdown-menu-title-content {
+//     padding: 4px 0px !important;
+//     font-size: 30px !important;
+//   }
+//   .ant-select-item-group {
+//     font-size: 32px !important;
+//     margin: 17px 0px !important;
+//   }
+//   .ant-table-column-sorter-down,
+//   .ant-table-column-sorter-up {
+//     font-size: 23px;
+//   }
+//   .profile-myprofile {
+//     img {
+//       height: 250px !important;
+//       width: 250px !important;
+//       margin-top: 170px !important;
+//     }
+//     .profile-change-image {
+//       position: absolute;
+//       top: 163px;
+//       width: 100%;
+//       margin-left: 119px;
+//       .img-change {
+//         width: 83px !important;
+//         height: 83px !important;
+//       }
+//       .ant-btn-circle {
+//         height: 83px !important;
+//       }
+//     }
+//     .sub-title {
+//       margin-bottom: 120px !important;
+//     }
+//     h1 {
+//       font-size: 31px !important;
+//     }
+//     p {
+//       font-size: 27px !important;
+//     }
+//     h2 {
+//       font-size: 33px !important;
+//     }
+//     .profile {
+//       height: calc(100vh - 574px) !important;
+//       padding: 30px !important;
+//       .input-profile {
+//         height: 50px !important;
+//         border-radius: 20px !important;
+//         padding: 10px 15px !important;
+//         font-size: 27px !important;
+//       }
+//     }
+//     .foot-profile {
+//       padding: 40px 0px !important;
+//       bottom: 57px;
+//     }
+//     .btn-purple {
+//       width: 100%;
+//       font-size: 27px !important;
+//       padding: 10px !important;
+//       height: 64px !important;
+//     }
+//     .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+//       height: 50px !important;
+//       padding: 10px 15px !important;
+//     }
+//   }
+//   .searches-myprofile {
+//     padding: 5px 20px !important;
+//     p {
+//       font-size: 27px !important;
+//     }
+//     h1 {
+//       font-size: 30px !important;
+//     }
+//     .title-action {
+//       font-size: 32px;
+//       margin-left: 31px !important;
+//     }
+//     .card-map {
+//       h4 {
+//         font-size: 30px !important;
+//         line-height: 36px !important;
+//       }
+//       h6 {
+//         font-size: 27px !important;
+//         margin-top: 23px;
+//         margin-bottom: 13px;
+//       }
+//       h5 {
+//         font-size: 30px !important;
+//       }
+//       span {
+//         font-size: 27px !important;
+//       }
+//       .ant-card:hover {
+//         border: 4px solid $green !important;
+//       }
+//       .ant-card {
+//         margin: 13px !important;
+//       }
+//     }
+//     .body-action {
+//       padding: 0px 27px;
+//     }
+//   }
+//   .head-list {
+//     .ant-select-item-option {
+//       font-size: 32px !important;
+//       font-weight: 400 !important;
+//       padding: 18px !important;
+//       line-height: 40px !important;
+//     }
+//   }
+//   .user-management-body {
+//     .js-mm-00 .ant-dropdown-menu-item {
+//       padding: 22px 30px 22px 30px !important;
+//       /* font-size: 35px !important; */
+//       margin-bottom: 10px;
+//     }
+//     .ant-select-item-option {
+//       font-size: 32px !important;
+//       font-weight: 400 !important;
+//       padding: 18px !important;
+//       line-height: 40px !important;
+//     }
+//     h2 {
+//       font-size: 36px;
+//       margin-left: 23px !important;
+//     }
+//     .ant-checkbox {
+//       margin-right: 20px !important;
+//     }
+//     .ant-checkbox-inner {
+//       width: 26px;
+//       height: 26px;
+//     }
+//     .ant-checkbox-inner:after {
+//       width: 9.714286px;
+//       height: 14.142857px;
+//     }
+//     .infinite-scroll-component {
+//       padding: 0px 20px !important;
+//     }
+//     .list-view-head {
+//       width: 675px !important;
+//       padding-top: 26px !important;
+//       .ant-select-item-option {
+//         font-size: 35px !important;
+//         font-weight: 400 !important;
+//         padding: 18px !important;
+//         line-height: 40px !important;
+//       }
+//       .ant-select {
+//         margin-left: 19px !important;
+//       }
+//       .ant-select-single.ant-select-show-arrow .ant-select-selection-item,
+//       .user-management-body .list-view-head .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
+//         font-size: 58px !important;
+//         /* height: 58px; */
+//         padding-right: 45px !important;
+//         margin-top: 15px;
+//         line-height: 64px;
+//         margin-left: 17px;
+//       }
+//       .ant-select-arrow {
+//         font-size: 33px !important;
+//         padding-left: 11px;
+//         width: 24px;
+//         padding-top: 0px !important;
+//       }
+//     }
+//     .filter-user-management {
+//       width: 2507px !important;
+//       padding: 21px;
+//       height: auto;
+//       .menu-sub-drop {
+//         font-size: 32px !important;
+//       }
+//       .ant-dropdown-menu-item,
+//       .ant-dropdown-menu-submenu-title {
+//         padding: 10px 12px;
+//       }
+//       .sign-menu-organization {
+//         width: 465px;
+//         height: 415px;
+//         max-height: 415px;
+//       }
+//       button {
+//         height: 75px !important;
+//         font-size: 32px;
+//         width: 70px;
+//         padding: 11px 20px !important;
+//         .anticon {
+//           font-size: 20px;
+//         }
+//       }
+//       .btn-borde .anticon {
+//         margin-top: 19px;
+//         font-size: 25px;
+//       }
+//       .ant-input {
+//         height: 75px !important;
+//         font-size: 32px !important;
+//       }
+//       .ant-input-affix-wrapper {
+//         height: 75px !important;
+//         font-size: 32px !important;
+//         padding: 0px 20px !important;
+//         input {
+//           font-size: 32px !important;
+//         }
+//       }
+//       .ant-select-selector {
+//         height: 75px !important;
+//         font-size: 32px !important;
+//         align-items: center !important;
+//         padding: 0px 20px;
+//         span {
+//           font-size: 32px !important;
+//           line-height: 38px;
+//         }
+//       }
+//       .ant-select-arrow {
+//         height: 53px !important;
+//         font-size: 27px !important;
+//         margin-top: -21px !important;
+//       }
+//     }
+//     .button-space {
+//       width: 211px;
+//     }
+//     .table-user-management {
+//       margin-top: 15px !important;
+//       height: calc(100vh - 350px);
+//       padding: 0px 20px;
+//       .ant-pagination-jump-next,
+//       .ant-pagination-jump-prev,
+//       .ant-pagination-next,
+//       .ant-pagination-prev {
+//         min-width: 80px;
+//         height: 80px;
+//       }
+//       .ant-pagination-item,
+//       .ant-pagination-total-text {
+//         height: 80px;
+//         line-height: 73px;
+//         font-size: 30px;
+//       }
+//       .ant-pagination-item {
+//         min-width: 80px;
+//       }
+//       .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+//         min-height: 80px !important;
+//         padding: 0px 30px;
+//       }
+//       .ant-table-thead .ant-table-cell {
+//         font-size: 32px;
+//       }
+//       .ant-table-tbody > tr > td,
+//       .user-management-body .table-user-management .ant-table-thead > tr > th,
+//       .user-management-body .table-user-management .ant-table tfoot > tr > td,
+//       .user-management-body .table-user-management .ant-table tfoot > tr > th {
+//         padding: 16px 16px;
+//         font-size: 35px;
+//         span {
+//           font-size: 32px !important;
+//           height: auto;
+//           line-height: 42px;
+//         }
+//         .anticon {
+//           margin-top: 10px;
+//         }
+//       }
+//       .user-tab {
+//         img {
+//           height: 90px !important;
+//           width: 90px !important;
+//         }
+//         .name-user-list {
+//           font-size: 35px !important;
+//           margin-bottom: -4px !important;
+//           margin-left: 10px !important;
+//         }
+//         .oganization-user-list {
+//           font-size: 28px !important;
+//           margin-left: 10px !important;
+//         }
+//       }
+//       .span-admin {
+//         padding: 8px 21px;
+//         border-radius: 5px;
+//         font-size: 35px;
+//       }
+//       .span-manager {
+//         padding: 8px 21px;
+//         border-radius: 5px;
+//         font-size: 35px;
+//       }
+//       .span-gov {
+//         padding: 8px 21px;
+//         border-radius: 5px;
+//         font-size: 35px;
+//       }
+//       .span-Active {
+//         padding: 8px 21px !important;
+//         .circulo {
+//           width: 20px;
+//           height: 20px;
+//           margin-top: 15px;
+//           margin-right: 11px;
+//         }
+//       }
+//       .span-Inactive {
+//         padding: 8px 21px !important;
+//         .circulo {
+//           width: 20px;
+//           height: 20px;
+//           margin-top: 15px;
+//           margin-right: 11px;
+//         }
+//       }
+//       .btn-profile-list {
+//         font-size: 44px !important;
+//         height: auto;
+//         padding: 10px 75px;
+//         margin-left: 20px;
+//         span {
+//           font-size: 44px !important;
+//         }
+//       }
+//     }
+//     .profile-user {
+//       padding: 45px 55px !important;
+//       .rc-virtual-list-holder {
+//         height: 400px !important;
+//         max-height: 400px !important;
+//       }
+//       .sign-menu {
+//         overflow-y: auto;
+//         max-height: 485px;
+//       }
+//       .ant-select-item-option {
+//         font-size: 32px !important;
+//         line-height: 40px;
+//       }
+//       .ant-select-arrow {
+//         margin-top: -23px;
+//         margin-right: 15px;
+//       }
+//       h3 {
+//         font-size: 51px !important;
+//       }
+//       h1 {
+//         font-size: 40px !important;
+//       }
+//       input {
+//         border-radius: 5px !important;
+//         height: 80px !important;
+//         font-size: 35px !important;
+//         padding: 4px 30px;
+//       }
+//       span {
+//         font-size: 35px !important;
+//       }
+//       .ant-radio-inner {
+//         width: 35px !important;
+//         height: 35px !important;
+//       }
+//       .ant-radio-inner:after {
+//         width: 35px !important;
+//         height: 35px !important;
+//         margin-top: -18px !important;
+//         margin-left: -18px !important;
+//       }
+//       .line-01 {
+//         margin-top: 40px !important;
+//         height: 3px !important;
+//       }
+//       .btn-borde-management {
+//         height: 80px !important;
+//         padding: 13.5px 25px !important;
+//       }
+//       .ant-dropdown-menu-item {
+//         padding: 17px 17px 17px 17px !important;
+//       }
+//     }
+//   }
+//   .ant-select-item-option {
+//     font-size: 32px !important;
+//     font-weight: 400 !important;
+//     padding: 18px !important;
+//     line-height: 40px !important;
+//   }
+//   .user-management-body {
+//     .infinite-scroll-component {
+//       padding-bottom: 75px !important;
+//     }
+//   }
+// }

@@ -853,7 +853,7 @@
   }
 }
 
-@media (min-width: 2500px) and (max-width: 2999px){
+@media (min-width: 2500px){
   .main-conf {
     .letter-conf{
       img{
@@ -931,55 +931,55 @@
     border-radius: 0px !important;
   }
 }
-@media (min-width: 3000px) and (max-width: 5999px){
-  .js-mm-00 .ant-menu-item {
-    margin: 0px !important;
-    padding: 0px 15px !important;
-  }
-  .main-conf {
-    .letter-conf{
-      img{
-        width: 350px !important;
-        margin-bottom: 30px !important;
-      }
-    }
-    .pre-signup{
-      p{
-        margin-bottom: 56px !important;
-        margin-top: 43px !important;
-      }
-    }
-  }
-  .text-logo {
-    width: 400px;
-    font-size: 20px;
-    top: 117px !important;
-  }
-  .text-logo02 {
-    width: 400px;
-    font-size: 18px;
-    top: 100px !important;
-  }
-  .logo-partner{
-    bottom: 50px;
-    right: 50px;
+// @media (min-width: 3000px) and (max-width: 5999px){
+//   .js-mm-00 .ant-menu-item {
+//     margin: 0px !important;
+//     padding: 0px 15px !important;
+//   }
+//   .main-conf {
+//     .letter-conf{
+//       img{
+//         width: 350px !important;
+//         margin-bottom: 30px !important;
+//       }
+//     }
+//     .pre-signup{
+//       p{
+//         margin-bottom: 56px !important;
+//         margin-top: 43px !important;
+//       }
+//     }
+//   }
+//   .text-logo {
+//     width: 400px;
+//     font-size: 20px;
+//     top: 117px !important;
+//   }
+//   .text-logo02 {
+//     width: 400px;
+//     font-size: 18px;
+//     top: 100px !important;
+//   }
+//   .logo-partner{
+//     bottom: 50px;
+//     right: 50px;
 
-    p{
-      font-size: 18px;
-      margin-bottom: 4px;
-    }
-    .vizonomy{
-      width: 180px;
-      margin-left: -16px;
-    }
-    .respec{
-      height: 90px;
-    }
-  }
-  .ant-form label {
-    font-size: 27px;
-  }
-  .ant-carousel .slick-list {
-    height: 98vh;
-  }
-}
+//     p{
+//       font-size: 18px;
+//       margin-bottom: 4px;
+//     }
+//     .vizonomy{
+//       width: 180px;
+//       margin-left: -16px;
+//     }
+//     .respec{
+//       height: 90px;
+//     }
+//   }
+//   .ant-form label {
+//     font-size: 27px;
+//   }
+//   .ant-carousel .slick-list {
+//     height: 98vh;
+//   }
+// }

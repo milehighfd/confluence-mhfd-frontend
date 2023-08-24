@@ -275,6 +275,9 @@
   margin: 0px;
   padding: 32px 0;
 }
+.text-color-disable {
+  color: white !important;
+}
 @media (min-width: 1900px) and (max-width: 2549px){
   .ant-checkbox-wrapper {
     font-size: 17px !important;
@@ -283,7 +286,7 @@
     font-size: 16px;
   }
 }
-@media (min-width: 2250px) and (max-width: 3799px){
+@media (min-width: 2250px){
   .btn-svg{
     font-size: 17px !important;
   }
@@ -315,44 +318,41 @@
     font-size: 18px !important;
   }
 }
-@media (min-width: 3800px) and (max-width: 5999px){
-  .rc-virtual-list-holder{
-    // max-height: 420px !important;
-  }
-  .btn-svg{
-    font-size: 24px !important;
-  }
-  .btn-svg:hover{
-    font-size: 22px !important;
-  }
-  .scroll-filters{
-    .ant-checkbox-wrapper{
-      font-size: 25px !important;
-    }
-    .ant-checkbox-group{
-      height: 250px !important;
-    }
-  }
-  .ant-select{
-    font-size:30px !important;
-  }
-  .ant-select:not(.ant-select-customize-input) .ant-select-selector {
-    border-radius: 5px !important;
-    align-self: center;
-    min-height: 70px;
-  }
-  .work-head .ant-select-2 {
-    min-width: 215px !important;
-  }
-  .not-approved .mdi-circle::before {
-    font-size: 28px;
-  }
-  .upload-button{
-    font-size: 27px !important;
-    height: auto !important;
-  }
-}
+// @media (min-width: 3800px) and (max-width: 5999px){
+//   .rc-virtual-list-holder{
+//     // max-height: 420px !important;
+//   }
+//   .btn-svg{
+//     font-size: 24px !important;
+//   }
+//   .btn-svg:hover{
+//     font-size: 22px !important;
+//   }
+//   .scroll-filters{
+//     .ant-checkbox-wrapper{
+//       font-size: 25px !important;
+//     }
+//     .ant-checkbox-group{
+//       height: 250px !important;
+//     }
+//   }
+//   .ant-select{
+//     font-size:30px !important;
+//   }
+//   .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+//     border-radius: 5px !important;
+//     align-self: center;
+//     min-height: 70px;
+//   }
+//   .work-head .ant-select-2 {
+//     min-width: 215px !important;
+//   }
+//   .not-approved .mdi-circle::before {
+//     font-size: 28px;
+//   }
+//   .upload-button{
+//     font-size: 27px !important;
+//     height: auto !important;
+//   }
+// }
 
-.text-color-disable {
-  color: white !important;
-}
