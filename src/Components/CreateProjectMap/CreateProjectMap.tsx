@@ -645,6 +645,9 @@ const CreateProjectMap = (type: any) => {
   useEffect(() => {
     if (isDraw || isDrawCapital) {
       isDrawingCurrently = true;
+      if ( map ){
+        map.resize();
+      }
       currentDraw = isDraw ? 'polygon' : isDrawCapital ? 'capitalpolygon' : 'polygon';
       if (isDrawCapital && type.type === 'CAPITAL') {
         showHoverComponents();
