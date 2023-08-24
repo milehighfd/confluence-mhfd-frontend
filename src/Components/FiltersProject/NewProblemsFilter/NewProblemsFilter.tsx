@@ -100,7 +100,6 @@ export const NewProblemsFilter = () => {
     useEffect(() => {
         if (openFavorites) {
             const user_id = appUser.userInformation?.user_id;
-            console.log(user_id,FILTERS.PROJECT.FAVORITES)
             apply(user_id,FILTERS.PROJECT.FAVORITES)
         } else {
             apply('',FILTERS.PROJECT.FAVORITES)
