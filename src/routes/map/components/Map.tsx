@@ -1324,7 +1324,6 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
         }
         if (key === PROBLEMS_TRIGGER && problemClusterGeojson) {
           if (!clusterAdded) {
-            console.log('add cluster',allFilters)
             addGeojsonSource(map, problemClusterGeojson, isProblemActive, allFilters);
             clusterAdded = true;
           }

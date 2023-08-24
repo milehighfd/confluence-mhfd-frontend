@@ -93,7 +93,6 @@ export const DropdownFilters = ({ onSelect, defaultValue, labels, showControls =
   }
 
   const apply = () => {
-    console.log('Selected ',selectedData);
     onSelect(transformSelectedData(selectedData));
   };
 
