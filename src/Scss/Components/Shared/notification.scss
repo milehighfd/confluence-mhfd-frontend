@@ -61,17 +61,30 @@
   color: #29c499 !important;
   font-size: 24px;
 }
+.notification-alert-success {
+  border-bottom: 5px solid #29c499;
+}
 .notification-icon-warning {
   color: #ff8838 !important;
   font-size: 24px;
 }
-.notification-alert-success {
-  border-bottom: 5px solid #29c499;
-}
 .notification-alert-warning {
   border-bottom: 5px solid #ff8838;
 }
-
+.notification-icon-info {
+  color: #5E63E4 !important;
+  font-size: 24px;
+}
+.notification-alert-info {
+  border-bottom: 5px solid #5E63E4;
+}
+.notification-icon-critical {
+  color: #FF4040 !important;
+  font-size: 24px;
+}
+.notification-alert-critical {
+  border-bottom: 5px solid #FF4040;
+}
 .ant-notification-notice-content {
   width: auto !important;
 }
