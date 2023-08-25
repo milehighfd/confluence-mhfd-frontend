@@ -642,6 +642,7 @@ const MapView = () => {
         return mlfp;
       })
       .filter((x: any) => x.detail.length > 0);
+      console.log('mappedLabelsFiltersProjects', mappedLabelsFiltersProjects)
     return (
       <div className="tag-filters">
         <div className="tag-body">
