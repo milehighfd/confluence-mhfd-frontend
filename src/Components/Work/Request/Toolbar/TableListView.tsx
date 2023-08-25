@@ -39,8 +39,6 @@ const TableListView = ({
   const [showCopyToCurrentYearAlert, setShowCopyToCurrentYearAlert] = useState(false);
   const [boardProjectIds, setBoardProjectIds] = useState<any[]>([]);
   const windowWidthSize: any = window.innerWidth;
-  const appUser = store.getState().profile;
-  const [disabledLG, setDisabledLG] = useState(appUser?.isLocalGovernment || appUser?.userInformation?.designation === 'government_staff');
 
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -309,9 +307,6 @@ const TableListView = ({
     if (!editable) {
       items.pop();
       items.splice(1, 1);
-    }
-    if(disabledLG && namespaceId.type === 'WORK_PLAN'){
-      items.splice(0, 1);
     }
     if (namespaceId.type === 'WORK_PLAN' && year != 2023) {
       items.splice(2, 0, {
