@@ -67,6 +67,7 @@ import {
   setIsEdit,
   setDeleteAttachmentsIds,
   setZoomGeomCreateMap,
+  archiveProject,
 } from '../store/actions/ProjectActions';
 
 export const useProjectState = () => useSelector(
@@ -276,6 +277,9 @@ export const useProjectDispatch = () => {
     },
     setDeleteAttachmentsIds: (deleteAttachmentsIds: Array<any>) => {
       dispatch(setDeleteAttachmentsIds(deleteAttachmentsIds))
+    },
+    archiveProject: (projectId: any) => {
+      dispatch(archiveProject(projectId))
     }
   };
 };
