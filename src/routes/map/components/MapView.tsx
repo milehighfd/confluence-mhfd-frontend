@@ -743,7 +743,11 @@ const MapView = () => {
     for (const key in filterProblemOptions) {
       const tag = (key === 'cost' || key === 'mhfdmanager' || key === 'favorites') ? filterProblems[key] : filterProblems[key].split(',');
       if (key !== 'keyword' && key !== 'column' && key !== 'order') {
-        if (key === 'cost') {
+        if (key === 'favorites') {
+          if (tag) {
+            countTagProblems++;
+          }
+        } else if (key === 'cost') {
           if (tag?.length > 0) {
             countTagProblems++;  
           }
@@ -767,10 +771,12 @@ const MapView = () => {
             countTagComponents += 1;
           }
         }
-      } else if ((key === 'estimatedcost' || key === 'yearofstudy')  && tag.length) {
+      } else if ((key === 'estimatedcost')  && tag.length) {
+        countTagComponents += 1;
+      } else if ( key === 'yearofstudy' && tag.length > 1) {
         countTagComponents += 1;
       }
-      
+       
     }
     const filterProjects = { ...filterProjectOptions } as any;
     for (const key in filterProjectOptions) {
@@ -786,7 +792,7 @@ const MapView = () => {
             tag =  tag.filter((x: any) => !maintenanceIds.includes(x));
           }
         }
-        if (key !== 'keyword' && key !== 'column' && key !== 'order' && key !== 'name' && key !== 'totalcost') {
+        if (key !== 'keyword' && key !== 'column' && key !== 'order' && key !== 'name' && key !== 'totalcost' && key != 'favorites') {
           for (let index = 0; index < tag.length; index++) {
             const element = tag[index];
             if (element) {
@@ -794,6 +800,8 @@ const MapView = () => {
             }
           }
         } else if (key === 'totalcost' && tag.length) {
+          countTagProjets += 1;
+        } else if (key === 'favorites' && tag) {
           countTagProjets += 1;
         }
         if (hasMaintenance.length > 0) {
