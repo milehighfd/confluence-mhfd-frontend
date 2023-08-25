@@ -37,6 +37,7 @@ const TableListView = ({
   const [filteredColumns, setFilteredColumns] = useState<any[]>([]);
   const [showCopyToCurrentYearAlert, setShowCopyToCurrentYearAlert] = useState(false);
   const [boardProjectIds, setBoardProjectIds] = useState<any[]>([]);
+  const windowWidthSize: any = window.innerWidth;
   
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -340,7 +341,7 @@ const TableListView = ({
             key: 'status',
             title: 'Status',
             dataIndex: 'status',
-            width: '80px',
+            width: windowWidthSize > 1900 ? (windowWidthSize > 2500 ? '120px':'100px'): '80px',
             render: (status: any) =>
                     <span className={typeStatus(status)}>{status}</span>,
             sorter: {
@@ -351,7 +352,7 @@ const TableListView = ({
             key: 'requestor',
             title: 'Requestor',
             dataIndex: 'requestor',
-            width: '94px',
+            width: windowWidthSize > 1900 ? (windowWidthSize > 2500 ? '154px':'114px'):'94px',
             sorter: {
                 compare: (a: { requestor: string; }, b: { requestor: string; }) => a.requestor.localeCompare(b.requestor),
             },
@@ -360,7 +361,7 @@ const TableListView = ({
             key: 'past',
             title: 'Past',
             dataIndex: 'past',
-            width: '64px',           
+            width: windowWidthSize > 1900 ? (windowWidthSize > 2500 ? '144px':'104px'):'84px',           
             render: (past: any) =>
             <span className='span-past'>{formatter.format(past)}</span>,
             sorter: {
@@ -371,7 +372,7 @@ const TableListView = ({
             key: 'costs1',
             title: yearList[0],
             dataIndex: 'costs',
-            width: '64px',
+            width: windowWidthSize > 1900 ? (windowWidthSize > 2500 ? '144':'104px'):'84px',
             render: (cost: any) =>
             <span className='span-past'>{formatter.format(cost[0])}</span>,
             sorter: {
@@ -382,7 +383,7 @@ const TableListView = ({
             key: 'costs2',
             title: yearList[1],
             dataIndex: 'costs',
-            width: '64px',
+            width: windowWidthSize > 1900 ? (windowWidthSize > 2500 ? '144':'104px'):'84px',
             render: (cost: any) =>
             <span className='span-past'>{formatter.format(cost[1])}</span>,
             sorter: {
@@ -393,7 +394,7 @@ const TableListView = ({
             key: 'costs3',
             title: yearList[2],
             dataIndex: 'costs',
-            width: '64px',
+            width: windowWidthSize > 1900 ? (windowWidthSize > 2500 ? '144':'104px'):'84px',
             render: (cost: any) =>
             <span className='span-past'>{formatter.format(cost[2])}</span>,
             sorter: {
@@ -404,7 +405,7 @@ const TableListView = ({
             key: 'costs4',
             title: yearList[3],
             dataIndex: 'costs',
-            width: '64px',
+            width: windowWidthSize > 1900 ? (windowWidthSize > 2500 ? '144':'104px'):'84px',
             render: (cost: any) =>
             <span className='span-past'>{formatter.format(cost[3])}</span>,
             sorter: {
@@ -415,7 +416,7 @@ const TableListView = ({
             key: 'costs5',
             title: yearList[4],
             dataIndex: 'costs',
-            width: '64px',
+            width: windowWidthSize > 1900 ? (windowWidthSize > 2500 ? '144':'104px'):'84px',
             render: (cost: any) =>
             <span className='span-past'>{formatter.format(cost[4])}</span>,
             sorter: {
@@ -426,7 +427,7 @@ const TableListView = ({
             key: 'total',
             title: 'Total',
             dataIndex: 'costs',
-            width: '64px',
+            width: windowWidthSize > 1900 ? (windowWidthSize > 2500 ? '144':'104px'):'84px',
             render: (cost: any) =>
             <span className='span-past'>{formatter.format(cost.reduce((acc: number, curr: number) => acc + curr, 0))}</span>,
             sorter: {
@@ -482,7 +483,7 @@ const TableListView = ({
           />
         }
         <div className='table-map-list'>
-            <Table columns={filteredColumns} dataSource={parsedData} pagination={false} scroll={{ x: 1026, y: 'calc(100vh - 270px)' }} summary={() => (
+            <Table columns={filteredColumns} dataSource={parsedData} pagination={false} scroll={{ x:  windowWidthSize > 1900 ? (windowWidthSize > 2500 ? 1766:1406) : 1166, y: 'calc(100vh - 270px)' }} summary={() => (
                 <Table.Summary fixed={ 'bottom'}  >
                   <Table.Summary.Row  style={{ height: '40px' }}>
                       <Table.Summary.Cell index={0}  >
