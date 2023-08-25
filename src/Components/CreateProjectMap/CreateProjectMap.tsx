@@ -646,7 +646,7 @@ const CreateProjectMap = (type: any) => {
     if (isDraw || isDrawCapital) {
       isDrawingCurrently = true;
       if ( map ){
-        map.resize();
+        map.map.setTerrain();
       }
       currentDraw = isDraw ? 'polygon' : isDrawCapital ? 'capitalpolygon' : 'polygon';
       if (isDrawCapital && type.type === 'CAPITAL') {
