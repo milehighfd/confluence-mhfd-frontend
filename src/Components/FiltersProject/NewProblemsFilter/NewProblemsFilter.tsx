@@ -106,6 +106,15 @@ export const NewProblemsFilter = () => {
         }
     }, [openFavorites]);
 
+    useEffect(() => {
+        console.log('filterProblemOptions',filterProblemOptions.favorites)
+        // if (filterProblemOptions.favorites === '' || filterProblemOptions.favorites === undefined) {
+        //     setOpenFavorites(false);
+        // } else {
+        //     setOpenFavorites(true);
+        // }
+    }, [filterProblemOptions.favorites]);
+
     return (
         <>  <div className="scroll-filters" style={{ height: window.innerHeight - 280 }}>
             <div className='filt-00'>
