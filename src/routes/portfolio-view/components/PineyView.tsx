@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Checkbox, Col, DatePicker, Menu, Progress, Row, Steps} from 'antd';
-import { ClockCircleOutlined, InfoCircleOutlined} from "@ant-design/icons";
+import { ClockCircleOutlined, InfoCircleOutlined, PlusCircleFilled} from "@ant-design/icons";
 import moment from 'moment';
 import TextArea from "antd/lib/input/TextArea";
 import * as datasets from "../../../Config/datasets";
@@ -41,6 +41,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
   const [sendEndDate,setSendEndDate] = useState<any>()
   const [duration,setDuration] = useState<any>()
   const [remaining,setRemaining] = useState<any>()
+  // const [addActionItem, setAddActionItem] = useState<any>([]);
   const [disabledLG, setDisabledLG] = useState(appUser?.isLocalGovernment || appUser?.userInformation?.designation === 'government_staff');
   const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"];
@@ -354,6 +355,21 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
               <Checkbox checked={x.isChecked}></Checkbox>
             </div>)
           })}
+          
+        {/* <div className="checkbox-select-active checkbox-select"
+        >
+          <p>Pay Invoice</p>
+          <Checkbox ></Checkbox>
+        </div>
+          <div onClick={()=>{
+            let addActionItemeCopy = addActionItem;
+            console.log(addActionItemeCopy);
+            addActionItemeCopy.push('Pay Invoice');
+            setAddActionItem(addActionItemeCopy);
+          }
+            }>
+            <PlusCircleFilled /> Create another task
+          </div> */}
         </div>
       </div>
     </>
