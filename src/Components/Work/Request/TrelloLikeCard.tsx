@@ -120,14 +120,17 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
         onClick: (() => setShowCopyToCurrentYearAlert(true))
       });
     }
-    items.push({
-      key: '5',
-      label: <span style={{borderBottom: '1px solid transparent'}}>
-        <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
-        Archive Project
-      </span>,
-      onClick: (() => archiveProject(project?.projectData?.project_id))
-    });
+    if (appUser?.userInformation?.designation === 'admin' ||
+    appUser?.userInformation?.designation === 'staff'){
+      items.push({
+        key: '5',
+        label: <span style={{borderBottom: '1px solid transparent'}}>
+          <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
+          Archive Project
+        </span>,
+        onClick: (() => archiveProject(project?.projectData?.project_id))
+      });
+    }    
     return (<Menu className="js-mm-00" items={items} />)
   };
 
