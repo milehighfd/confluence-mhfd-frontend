@@ -512,41 +512,42 @@ const MapView = () => {
         const elements = [];
         const position = labelsProblems.findIndex((x: any) => x.name === key);
         if(tag!== undefined && tag !== ''){
+          console.log('Tag', tag, key);
           if(key === 'favorites'){
             elements.push({
               tag: key,
               value: tag,
               display: FAVORITES,
             });
-          }
-        }else if (key === 'cost' && tag.length > 0) {
-          elements.push({
-            tag: key,
-            value: `$${tag[0]} - $${tag[1]}`,
-            display: `$${tag[0]} - $${tag[1]}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-          })
-        } else {
-          for (let index = 0; index < tag.length; index++) {
-            const element = tag[index];
-            if (element) {
-              if (key === 'solutionstatus') {
-                elements.push({
-                  tag: key,
-                  value: element,
-                  display: getStatus(element),
-                });
-              } else if (key == 'mhfdmanager') {
-                elements.push({
-                  tag: key,
-                  value: element,
-                  display: getLabel(key, tag[index]),
-                });
-              } else {
-                elements.push({
-                  tag: key,
-                  value: element,
-                  display: element,
-                });
+          } else if (key === 'cost' && tag.length > 0) {
+            elements.push({
+              tag: key,
+              value: `$${tag[0]} - $${tag[1]}`,
+              display: `$${tag[0]} - $${tag[1]}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            })
+          } else {
+            for (let index = 0; index < tag.length; index++) {
+              const element = tag[index];
+              if (element) {
+                if (key === 'solutionstatus') {
+                  elements.push({
+                    tag: key,
+                    value: element,
+                    display: getStatus(element),
+                  });
+                } else if (key == 'mhfdmanager') {
+                  elements.push({
+                    tag: key,
+                    value: element,
+                    display: getLabel(key, tag[index]),
+                  });
+                } else {
+                  elements.push({
+                    tag: key,
+                    value: element,
+                    display: element,
+                  });
+                }
               }
             }
           }
