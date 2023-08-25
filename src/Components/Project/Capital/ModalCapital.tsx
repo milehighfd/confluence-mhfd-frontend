@@ -197,6 +197,7 @@ export const ModalCapital = ({
   const [showCounty, setShowCounty] = useState(false);
   const [isCountyWide, setIsCountyWide] = useState();
   const [isSouthPlate, setIsSouthPlate] = useState();
+  const [disabledLG, setDisabledLG] = useState(appUser?.isLocalGovernment || appUser?.designation === 'government_staff');
   //maintenance
   const [frequency, setFrequency] = useState('');
   const [eligibility, setEligibility] = useState('');
@@ -213,6 +214,7 @@ export const ModalCapital = ({
   const [purchaseDate, setPurchaseDate] = useState('');
   const [isEditingPosition,setIsEditingPosition ]= useState(false)
   //special
+  
 
   const setTypeAndSubType = (type:string, subType:string, label:string) => {
     setSubType(subType);
@@ -560,7 +562,8 @@ export const ModalCapital = ({
       // false if one doesnt have 
       return result;
     }
-    if (geom || isCountyWide) {
+    let disableEditForLG = disabledLG && isWorkPlan && swSave;
+    if ((geom || isCountyWide) && !disableEditForLG) {
       if (description && county.length && serviceArea.length && jurisdiction.length && nameProject && sponsor && nameProject !== 'Add Project Name' && checkIfIndependentHaveName()) {
         if ((selectedTypeProject === 'study' && studyreason)) {
           setDisable(false);
