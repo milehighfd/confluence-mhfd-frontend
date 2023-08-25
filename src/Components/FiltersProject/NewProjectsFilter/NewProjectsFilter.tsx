@@ -141,6 +141,18 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
             setSelectedContractors(filterProjectOptions.contractor);
         }
     }, [filterProjectOptions.contractor]);
+
+    useEffect(() => {
+        if (filterProjectOptions.favorites === '' || filterProjectOptions.favorites === undefined) {
+            setOpenFavorites(false);
+        } else {
+            setOpenFavorites(true);
+        }
+    }, [filterProjectOptions.favorites]);
+
+    useEffect(() => {
+        console.log('filterProjectOptions', filterProjectOptions);
+    }, [filterProjectOptions]);
     
     return <>  <div className="scroll-filters" style={{ height: window.innerHeight - 280 }}>
         <div className='filt-00'>

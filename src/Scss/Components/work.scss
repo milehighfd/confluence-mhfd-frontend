@@ -1526,6 +1526,88 @@
   img {
     margin-top: 2px;
   }
+  .body-team-comment{
+    margin-right: -15px;
+    padding-right: 15px;
+    height: calc(100vh - 294px);
+    overflow: auto;
+  }
+  .input-comment{
+    border-radius: 60px;
+    background: #F5F7FF;
+    padding: 20px 20px 19px 20px;
+    display: flex;
+    align-items: center;
+    border:none;
+    color: #11093C;
+    font-size: 14px;
+    font-style: normal;
+    width: 100%;
+  }
+  .header-comment{
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+    p{
+      margin-bottom: 0px;
+      font-weight: 600;
+      font-size: 14px;
+      font-style: normal;
+      line-height: normal;
+    }
+    .comment-date{
+      font-weight: 400;
+      opacity: 0.5;
+      margin-top: 3px;
+    }
+  }
+  .user-item-comment{
+    font-size: 14px;
+    background: #5E63E4;
+    display: flex;
+    padding: 11px 10px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    margin-right: 8px;
+    color: white;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.171px;
+    border-radius: 50%;
+  }
+  .content-comment{
+    border-radius: 16px;
+    background: #F5F7FF;
+    padding: 12px;
+    margin-top: 8px;
+    .tag-name-user{
+      border-radius: 25px;
+      background: #FCFDFF;
+      color: #635e80;
+      font-size: 14px;
+      padding: 2px 8px;
+      margin-right: 4px;
+    }
+    .text-comment{
+      color: #84809e;
+      font-family: Ubuntu;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      // opacity: 0.5;
+      margin-bottom: 0px;
+    }
+    .tag-user{
+      border-radius: 25px;
+      background: #5E63E4;
+      padding: 2px 8px;
+      color: #FFF;
+      font-size: 14px;
+      margin: 0px 4px;
+    }
+  }
 }
 .chat-button {
   color: white;
@@ -2263,6 +2345,24 @@
       span {
         font-size: 12px;
       }
+    }
+    .comment{
+      p{
+        font-size: 16px !important;
+        line-height: 27.999px !important;
+      }
+      span{
+        font-size: 16px !important;
+        line-height: 22.999px !important;
+      }
+      .user-item-comment{
+        font-size: 21px;
+        padding: 13.333px 12.999px;
+        line-height: 22px;
+      }
+    }
+    .body-team-comment {
+      height: calc(100vh - 339px);
     }
   }
   .chat-00 {

@@ -12,6 +12,7 @@ import { useProfileState } from 'hook/profileHook';
 import AmountModal from '../AmountModal';
 import ModalProjectView from 'Components/ProjectModal/ModalProjectView';
 import { postData } from 'Config/datasets';
+import store from 'store/index';
 
 const TableListView = ({
   maintenanceSubType
@@ -37,7 +38,10 @@ const TableListView = ({
   const [filteredColumns, setFilteredColumns] = useState<any[]>([]);
   const [showCopyToCurrentYearAlert, setShowCopyToCurrentYearAlert] = useState(false);
   const [boardProjectIds, setBoardProjectIds] = useState<any[]>([]);
-  
+  const windowWidthSize: any = window.innerWidth;
+  const appUser = store.getState().profile;
+  const [disabledLG, setDisabledLG] = useState(appUser?.isLocalGovernment || appUser?.userInformation?.designation === 'government_staff');
+
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -306,6 +310,9 @@ const TableListView = ({
       items.pop();
       items.splice(1, 1);
     }
+    if(disabledLG && namespaceId.type === 'WORK_PLAN'){
+      items.splice(0, 1);
+    }
     if (namespaceId.type === 'WORK_PLAN' && year != 2023) {
       items.splice(2, 0, {
         key: '4',
@@ -348,7 +355,7 @@ const TableListView = ({
             key: 'status',
             title: 'Status',
             dataIndex: 'status',
-            width: '80px',
+            width: windowWidthSize > 1900 ? (windowWidthSize > 2500 ? '120px':'100px'): '80px',
             render: (status: any) =>
                     <span className={typeStatus(status)}>{status}</span>,
             sorter: {
@@ -359,7 +366,7 @@ const TableListView = ({
             key: 'requestor',
             title: 'Requestor',
             dataIndex: 'requestor',
-            width: '94px',
+            width: windowWidthSize > 1900 ? (windowWidthSize > 2500 ? '154px':'114px'):'94px',
             sorter: {
                 compare: (a: { requestor: string; }, b: { requestor: string; }) => a.requestor.localeCompare(b.requestor),
             },
@@ -368,7 +375,7 @@ const TableListView = ({
             key: 'past',
             title: 'Past',
             dataIndex: 'past',
-            width: '64px',           
+            width: windowWidthSize > 1900 ? (windowWidthSize > 2500 ? '144px':'104px'):'84px',           
             render: (past: any) =>
             <span className='span-past'>{formatter.format(past)}</span>,
             sorter: {
@@ -379,7 +386,7 @@ const TableListView = ({
             key: 'costs1',
             title: yearList[0],
             dataIndex: 'costs',
-            width: '64px',
+            width: windowWidthSize > 1900 ? (windowWidthSize > 2500 ? '144':'104px'):'84px',
             render: (cost: any) =>
             <span className='span-past'>{formatter.format(cost[0])}</span>,
             sorter: {
@@ -390,7 +397,7 @@ const TableListView = ({
             key: 'costs2',
             title: yearList[1],
             dataIndex: 'costs',
-            width: '64px',
+            width: windowWidthSize > 1900 ? (windowWidthSize > 2500 ? '144':'104px'):'84px',
             render: (cost: any) =>
             <span className='span-past'>{formatter.format(cost[1])}</span>,
             sorter: {
@@ -401,7 +408,7 @@ const TableListView = ({
             key: 'costs3',
             title: yearList[2],
             dataIndex: 'costs',
-            width: '64px',
+            width: windowWidthSize > 1900 ? (windowWidthSize > 2500 ? '144':'104px'):'84px',
             render: (cost: any) =>
             <span className='span-past'>{formatter.format(cost[2])}</span>,
             sorter: {
@@ -412,7 +419,7 @@ const TableListView = ({
             key: 'costs4',
             title: yearList[3],
             dataIndex: 'costs',
-            width: '64px',
+            width: windowWidthSize > 1900 ? (windowWidthSize > 2500 ? '144':'104px'):'84px',
             render: (cost: any) =>
             <span className='span-past'>{formatter.format(cost[3])}</span>,
             sorter: {
@@ -423,7 +430,7 @@ const TableListView = ({
             key: 'costs5',
             title: yearList[4],
             dataIndex: 'costs',
-            width: '64px',
+            width: windowWidthSize > 1900 ? (windowWidthSize > 2500 ? '144':'104px'):'84px',
             render: (cost: any) =>
             <span className='span-past'>{formatter.format(cost[4])}</span>,
             sorter: {
@@ -434,7 +441,7 @@ const TableListView = ({
             key: 'total',
             title: 'Total',
             dataIndex: 'costs',
-            width: '64px',
+            width: windowWidthSize > 1900 ? (windowWidthSize > 2500 ? '144':'104px'):'84px',
             render: (cost: any) =>
             <span className='span-past'>{formatter.format(cost.reduce((acc: number, curr: number) => acc + curr, 0))}</span>,
             sorter: {
@@ -490,7 +497,7 @@ const TableListView = ({
           />
         }
         <div className='table-map-list'>
-            <Table columns={filteredColumns} dataSource={parsedData} pagination={false} scroll={{ x: 1026, y: 'calc(100vh - 270px)' }} summary={() => (
+            <Table columns={filteredColumns} dataSource={parsedData} pagination={false} scroll={{ x:  windowWidthSize > 1900 ? (windowWidthSize > 2500 ? 1766:1406) : 1166, y: 'calc(100vh - 270px)' }} summary={() => (
                 <Table.Summary fixed={ 'bottom'}  >
                   <Table.Summary.Row  style={{ height: '40px' }}>
                       <Table.Summary.Cell index={0}  >

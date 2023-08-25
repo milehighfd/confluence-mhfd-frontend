@@ -138,6 +138,7 @@ const ListViewMap = ({
           requestName: ci?.requestName,
           type: ci?.type,
           problempriority: ci?.priority,
+          problemtype: ci?.problemtype,
           cost: ci?.estimatedCost,
           local_government: ci?.jurisdiction,
           actions: ci?.count,
@@ -407,8 +408,8 @@ const ListViewMap = ({
     {
       title: 'Type',
       width: windowWidth > 1900 ? windowWidth > 2500 ? '250px':'222px':'147px',
-      dataIndex: 'type',
-      key: 'type',      
+      dataIndex: 'problemtype',
+      key: 'problemtype',      
       sorter: (a, b, sortOrder) => {
         setSortBy('problemtype')
         setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');

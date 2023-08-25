@@ -22,6 +22,7 @@ const TeamModal = () => {
     }
   }, [detailed]);
   return <>
+  <div className='body-team-comment'>
     {data.map((item: any)=>(
       <div className='team-item' key={item.key}>
         <img src="/picture/user-default.svg" alt="" />
@@ -44,6 +45,7 @@ const TeamModal = () => {
     //   </Col>
     // </Row>
     ))}
+  </div>
   </>
 };
 

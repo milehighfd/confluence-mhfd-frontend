@@ -37,7 +37,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue,selectedData, s
       .outerRadius(radius * 1.27);
     var color = d3.scaleOrdinal()
       .domain(pieChartData.map((r: any) => r.key))
-      .range(["#5E63E4", "#8893E7", "#C8CEFC", "#29c49a", "#66d5ff"]);
+      .range(["#0de002", "#ffff03", "#ff0303", "#29c49a", "#66d5ff"]);
 
     var pie = d3.pie()
       .value(function (d: any) { return d.value; })
@@ -115,6 +115,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue,selectedData, s
         return `translate(${xo},${yo})`;
       })
       .style("font-size", fontSize)
+      .on('click', clickFn)
 
     legendsText
       .text(function (d: any) { return d.data.key })
@@ -158,7 +159,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue,selectedData, s
     legendsCircles.exit().remove();
 
     legendsCircles
-      .enter().append("circle")
+      .enter().append("circle").on('click', clickFn)
       // .style("stroke", "gray")
       .style("fill", (d: any): any => {
         return color(d.data.key)

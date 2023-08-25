@@ -35,7 +35,8 @@ const STATUS = 'status',
   STREAMS = 'streams',
   PROJECTTYPE = 'projecttype',
   MHFD_LEAD = 'staff',
-  LG_LEAD = 'lg_lead';
+  LG_LEAD = 'lg_lead',
+  FAVORITES = 'Favorites';
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 let contents: any = [];
@@ -234,6 +235,7 @@ const MapView = () => {
     options.problemtype = '';
     options.source = '';
     options.servicearea = '';
+    options.favorites = '';
     setFilterProblemOptions(options);
     getGalleryProblems();
     if (toggleModalFilter) {
@@ -270,6 +272,7 @@ const MapView = () => {
     options.consultant = '';
     options.contractor = '';
     options.servicearea = '';
+    options.favorites = '';
     setFilterProjectOptions(options);
     if (toggleModalFilter) {
       getParamFilterProjects(withCoords ? withCoords : boundsMap, options)
@@ -305,7 +308,9 @@ const MapView = () => {
     const valueTag = (tag === 'cost' || tag === 'mhfdmanager') ? filterProblemOptions[tag] : filterProblemOptions[tag].split(',');
     const auxValueTag = [] as Array<string>;
     let newValue = '';
-    if (tag !== 'cost') {
+    if (tag === 'favorites') {
+      auxFilterProblems.favorites = '';
+    }else if (tag !== 'cost') {
       if (tag === 'mhfdmanager') {
         for (let index = 0; index < valueTag?.length; index++) {
           const element = valueTag[index];
@@ -328,7 +333,9 @@ const MapView = () => {
         }
       }
     }
-    auxFilterProblems[tag] = (tag === 'cost') ? [] : ( tag === 'mhfdmanager' ? auxValueTag: newValue);
+    if (tag !== 'favorites') {
+      auxFilterProblems[tag] = (tag === 'cost') ? [] : ( tag === 'mhfdmanager' ? auxValueTag: newValue);
+    }
     setFilterProblemOptions(auxFilterProblems);
     getGalleryProblems();
     getParamFilterProblems(boundsMap, auxFilterProblems);
@@ -339,7 +346,9 @@ const MapView = () => {
       const auxFilterProjects = { ...filterProjectOptions };
       const valueTag = filterProjectOptions[tag];
       const auxValueTag = [] as Array<string>;
-      if (tag !== 'totalcost') {
+      if (tag === 'favorites') {
+        auxFilterProjects.favorites = '';
+      }else if (tag !== 'totalcost') {
         for (let index = 0; index < valueTag?.length; index++) {
           const element = valueTag[index];
           if (element !== value) {
@@ -347,7 +356,9 @@ const MapView = () => {
           }
         }
       }
-      auxFilterProjects[tag] = auxValueTag;
+      if (tag !== 'favorites') {
+        auxFilterProjects[tag] = auxValueTag;
+      }
       setFilterProjectOptions(auxFilterProjects);
       getParamFilterProjects(boundsMap, auxFilterProjects)
       resetNextPageOfCards();
@@ -486,7 +497,15 @@ const MapView = () => {
       if (key !== 'keyword' && key !== 'column' && key !== 'order') {
         const elements = [];
         const position = labelsProblems.findIndex((x: any) => x.name === key);
-        if (key === 'cost' && tag.length > 0) {
+        if(tag!== undefined && tag !== ''){
+          if(key === 'favorites'){
+            elements.push({
+              tag: key,
+              value: tag,
+              display: FAVORITES,
+            });
+          }
+        }else if (key === 'cost' && tag.length > 0) {
           elements.push({
             tag: key,
             value: `$${tag[0]} - $${tag[1]}`,
@@ -559,7 +578,14 @@ const MapView = () => {
       if (position >= 0) {
         const tag = filterProjects[key];
         const elements = [];
-        if(tag!== undefined){
+        if(tag!== undefined && tag !== ''){
+          if(key === 'favorites'){
+            elements.push({
+              tag: key,
+              value: tag,
+              display: FAVORITES,
+            });
+          }
           for (let index = 0; index < tag.length; index++) {
             if (key === 'mhfddollarsallocated') {
               const cost = tag[index].split(',');
@@ -576,7 +602,6 @@ const MapView = () => {
               });
               break;
             } else {
-              
               if (tag[index]) {
                 elements.push({
                   tag: key,
@@ -1187,6 +1212,7 @@ const MapView = () => {
                       componentCost: problem.component_cost ? problem.component_cost : 0,
                       field4: 'X',
                       field5: 'Components',
+                      problemtype: problem.problemtype,
                       priority: problem.problempriority,
                       percentage: problem.solutionstatus ? problem.solutionstatus : 0,
                       problemid: problem.problemid,
