@@ -12,6 +12,7 @@ import { useProfileState } from 'hook/profileHook';
 import AmountModal from '../AmountModal';
 import ModalProjectView from 'Components/ProjectModal/ModalProjectView';
 import { postData } from 'Config/datasets';
+import store from 'store/index';
 
 const TableListView = ({
   maintenanceSubType
@@ -38,7 +39,9 @@ const TableListView = ({
   const [showCopyToCurrentYearAlert, setShowCopyToCurrentYearAlert] = useState(false);
   const [boardProjectIds, setBoardProjectIds] = useState<any[]>([]);
   const windowWidthSize: any = window.innerWidth;
-  
+  const appUser = store.getState().profile;
+  const [disabledLG, setDisabledLG] = useState(appUser?.isLocalGovernment || appUser?.userInformation?.designation === 'government_staff');
+
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -306,6 +309,9 @@ const TableListView = ({
     if (!editable) {
       items.pop();
       items.splice(1, 1);
+    }
+    if(disabledLG && namespaceId.type === 'WORK_PLAN'){
+      items.splice(0, 1);
     }
     if (namespaceId.type === 'WORK_PLAN' && year != 2023) {
       items.splice(2, 0, {
