@@ -146,6 +146,7 @@ const MapView = () => {
     value: '',
     type: '',
   });
+  const maintenanceIds = [7, 8, 9, 10, 11, 12];
   const gray = 'rgba(17, 9, 60, 0.5)';
   const green = '#28C499';
   const purple = '#11093c';
@@ -342,13 +343,22 @@ const MapView = () => {
   };
 
   const deleteTagProjects = useCallback(
-    (tag: string, value: string) => {
+    (tag: string, value: any) => {
       const auxFilterProjects = { ...filterProjectOptions };
-      const valueTag = filterProjectOptions[tag];
+      let valueTag = filterProjectOptions[tag];
       const auxValueTag = [] as Array<string>;
       if (tag === 'favorites') {
         auxFilterProjects.favorites = '';
       }else if (tag !== 'totalcost') {
+        let hasToDeleteMaintenance = [];
+        if ( Array.isArray(value)) {
+          hasToDeleteMaintenance = value?.filter((x: any) => maintenanceIds.includes(x));
+        }
+        if (tag === 'projecttype' && hasToDeleteMaintenance.length > 0 ) {
+          // delete maintenance from value tag.
+          // hasMaintenance = valueTag.filter((x: any) => maintenanceIds.includes(x));
+          valueTag =  valueTag.filter((x: any) => !maintenanceIds.includes(x));
+        }
         for (let index = 0; index < valueTag?.length; index++) {
           const element = valueTag[index];
           if (element !== value) {
@@ -586,6 +596,7 @@ const MapView = () => {
               display: FAVORITES,
             });
           }
+        let isMaintenance = false;
           for (let index = 0; index < tag.length; index++) {
             if (key === 'mhfddollarsallocated') {
               const cost = tag[index].split(',');
@@ -602,14 +613,23 @@ const MapView = () => {
               });
               break;
             } else {
-              if (tag[index]) {
+              if (tag[index] && !maintenanceIds.includes(tag[index])) {
                 elements.push({
                   tag: key,
                   value: tag[index],
                   display: getLabel(key, tag[index]),
                 });
+              } else {
+                isMaintenance = true;
               }
             }
+          }
+          if( isMaintenance ) {
+            elements.push({
+              tag: key,
+              value: maintenanceIds,
+              display: 'Maintenance',
+            });
           }
         }
         labelsFiltersProjects[position]['detail'] = elements as any;
@@ -754,8 +774,18 @@ const MapView = () => {
     }
     const filterProjects = { ...filterProjectOptions } as any;
     for (const key in filterProjectOptions) {
-      const tag = filterProjects[key];
+      let tag = filterProjects[key];
       if (tag !== undefined) {	
+        let hasMaintenance = [];
+        if (key === 'projecttype') {
+          if (Array.isArray(tag)) {
+            hasMaintenance = tag.filter((x: any) => maintenanceIds.includes(x));
+          }
+          if (hasMaintenance.length > 0) {
+            // if has maintenance remove from tag projecttype to count them normally
+            tag =  tag.filter((x: any) => !maintenanceIds.includes(x));
+          }
+        }
         if (key !== 'keyword' && key !== 'column' && key !== 'order' && key !== 'name' && key !== 'totalcost') {
           for (let index = 0; index < tag.length; index++) {
             const element = tag[index];
@@ -764,6 +794,9 @@ const MapView = () => {
             }
           }
         } else if (key === 'totalcost' && tag.length) {
+          countTagProjets += 1;
+        }
+        if (hasMaintenance.length > 0) {
           countTagProjets += 1;
         }
         const position = labelsFiltersProjects.findIndex((x: any) => x.name === key);
