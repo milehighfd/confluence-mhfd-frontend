@@ -363,6 +363,12 @@ const initState = {
     ],
     labelsFiltersProblems: [
         {
+            'name': 'favorites',
+            'display': 'FAVORITES',
+            'detail': [],
+            'popover': '05'
+        },
+        {
             'name': 'cost',
             'display': 'SOLUTION COST',
             'detail': [],
