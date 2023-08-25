@@ -512,7 +512,6 @@ const MapView = () => {
         const elements = [];
         const position = labelsProblems.findIndex((x: any) => x.name === key);
         if(tag!== undefined && tag !== ''){
-          console.log('Tag', tag, key);
           if(key === 'favorites'){
             elements.push({
               tag: key,
