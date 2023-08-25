@@ -44,7 +44,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
         setFilterProjectOptions,
     } = useMapDispatch();
     const { boundsMap } = useMapState();
-    const [myTeams, setMyTeams] = useState(false);
+    const [myTeams, setMyTeams] = useState(filterProjectOptions.teams !== '' && filterProjectOptions.teams !== undefined);
     const [openFavorites, setOpenFavorites] = useState(false);
     const [selectedData, setSelectedData] = useState<any[]>([]);
     const [selectedConsultants, setSelectedConsultants] = useState<string[]>([]);
@@ -151,9 +151,13 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
     }, [filterProjectOptions.favorites]);
 
     useEffect(() => {
-        console.log('filterProjectOptions', filterProjectOptions);
-    }, [filterProjectOptions]);
-    
+        if (filterProjectOptions.teams !== '' && filterProjectOptions.teams !== undefined) {
+            setMyTeams(true);
+        } else {
+            setMyTeams(false);
+        }
+    }, [filterProjectOptions.teams]);
+
     return <>  <div className="scroll-filters" style={{ height: window.innerHeight - 280 }}>
         <div className='filt-00'>
             <h5 className="filter-title chart-filter-title">Personalized <Popover content={content0}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
