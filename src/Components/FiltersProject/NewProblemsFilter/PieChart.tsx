@@ -21,7 +21,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue, selectedData, 
     pieChartData = dataReduced.map((d: any) => {
       return {
         id: d.id,
-        key: d.value,
+        key: d.value === 'Restoration' ? 'Maintenance' : d.value ,
         counter: d.counter,
         value: d.counter / total
       }
@@ -119,7 +119,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue, selectedData, 
       .enter()
       .append('text')
       .text(function (d: any) {
-        return d.data.key == 'Human Connection'? 'Community Values':( isProb ? d.data?.key?.split(' ')[0] : (d.data?.id===1 ? `Study (${d.data.counter} ${labelValues})` : d.data?.key +` (${d.data.counter} ${labelValues})` )) ;
+        return (d.data?.id===1 ? `Study (${d.data.counter} ${labelValues})` : d.data?.key +` (${d.data.counter} ${labelValues})` );
         // return (isProb ? d.data?.key?.split(' ')[1] + ' (':'') + d.data.counter + (isProb ? ')':'') + ' ' + labelValues
       })
       .attr("transform", (d: any, i) => {

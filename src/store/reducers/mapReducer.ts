@@ -251,6 +251,19 @@ const initState = {
         centroids: []
     },
     labelsFiltersProjects: [
+        
+        {
+            'name': 'favorites',
+            'display': 'FAVORITES',
+            'detail': [],
+            'popover': '05'
+        },
+        {
+            'name': 'teams',
+            'display': 'TEAMS',
+            'detail': [],
+            'popover': '05'
+        },
         {
             'display': 'PROJECT TYPE',
             'name': 'projecttype',
