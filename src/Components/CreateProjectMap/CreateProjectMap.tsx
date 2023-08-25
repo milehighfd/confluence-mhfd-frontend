@@ -303,7 +303,9 @@ const CreateProjectMap = (type: any) => {
           map.dragEnd(() => {
             setDragEndCounter(__++);
           });
-          
+          map.isStyleLoaded(() => {
+            map.map.setTerrain();
+          });
         }
       }
     };
@@ -645,9 +647,6 @@ const CreateProjectMap = (type: any) => {
   useEffect(() => {
     if (isDraw || isDrawCapital) {
       isDrawingCurrently = true;
-      if ( map ){
-        map.map.setTerrain();
-      }
       currentDraw = isDraw ? 'polygon' : isDrawCapital ? 'capitalpolygon' : 'polygon';
       if (isDrawCapital && type.type === 'CAPITAL') {
         showHoverComponents();
