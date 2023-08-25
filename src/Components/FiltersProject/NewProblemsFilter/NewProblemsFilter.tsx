@@ -26,7 +26,6 @@ const content07 = (<div className="popoveer-00"><b>MHFD Lead</b> is the MHFD PM 
 
 export const NewProblemsFilter = () => {
     const [myTeams, setMyTeams] = useState(false);
-    const [openFavorites, setOpenFavorites] = useState(false);
     const {
         filterProblemOptions,
         paramFilters: {
@@ -41,6 +40,7 @@ export const NewProblemsFilter = () => {
     } = useMapDispatch();
     const { boundsMap } = useMapState();
     const appUser = store.getState().profile;
+    const [openFavorites, setOpenFavorites] = useState(filterProblemOptions.favorites !== undefined && filterProblemOptions.favorites !== '');
     const [selectedData, setSelectedData] = useState<any[]>([]);
     const apply = (values: any, field: string) => {
         const options = { ...filterProblemOptions };
@@ -105,15 +105,6 @@ export const NewProblemsFilter = () => {
             apply('',FILTERS.PROJECT.FAVORITES)
         }
     }, [openFavorites]);
-
-    useEffect(() => {
-        console.log('filterProblemOptions',filterProblemOptions.favorites)
-        // if (filterProblemOptions.favorites === '' || filterProblemOptions.favorites === undefined) {
-        //     setOpenFavorites(false);
-        // } else {
-        //     setOpenFavorites(true);
-        // }
-    }, [filterProblemOptions.favorites]);
 
     return (
         <>  <div className="scroll-filters" style={{ height: window.innerHeight - 280 }}>

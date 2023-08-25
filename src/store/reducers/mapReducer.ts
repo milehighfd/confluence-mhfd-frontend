@@ -139,7 +139,7 @@ const initState = {
       keyword: '',
       column: 'projectname',
       order: 'asc',
-      projecttype: [5,7],
+      projecttype: [5,7, 8, 9, 10, 11, 12],
       status: [5],
       startyear: '',
       completedyear: '',

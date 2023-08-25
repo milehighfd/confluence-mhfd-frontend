@@ -36,7 +36,8 @@ const STATUS = 'status',
   PROJECTTYPE = 'projecttype',
   MHFD_LEAD = 'staff',
   LG_LEAD = 'lg_lead',
-  FAVORITES = 'Favorites';
+  FAVORITES = 'Favorites',
+  TEAMS = 'teams';
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 let contents: any = [];
@@ -68,6 +69,8 @@ const content11 = (<div className="popoveer-00"><b>Consultant</b> is the primary
 const content12 = (<div className="popoveer-00"><b>Local Government Manager</b> is the local government's project manager assigned to the project.</div>);
 const content13 = (<div className="popoveer-00"><b>Contractor</b> is the primary civil engineering construction contractor on the project.</div>);
 const content14 = (<div className="popoveer-00"><b>Stream Name</b> is the name or ID of the stream where the project is located.</div>);
+const content15 = (<div className="popoveer-00"><b>Favorites</b> Description comming soon.</div>);
+const content16 = (<div className="popoveer-00"><b>Teams</b> Descriptioncomming soon.</div>);
 
 const { TabPane } = Tabs;
 const { Search } = Input;
@@ -146,6 +149,7 @@ const MapView = () => {
     value: '',
     type: '',
   });
+  const maintenanceIds = [7, 8, 9, 10, 11, 12];
   const gray = 'rgba(17, 9, 60, 0.5)';
   const green = '#28C499';
   const purple = '#11093c';
@@ -273,6 +277,7 @@ const MapView = () => {
     options.contractor = '';
     options.servicearea = '';
     options.favorites = '';
+    options.teams = '';
     setFilterProjectOptions(options);
     if (toggleModalFilter) {
       getParamFilterProjects(withCoords ? withCoords : boundsMap, options)
@@ -342,13 +347,22 @@ const MapView = () => {
   };
 
   const deleteTagProjects = useCallback(
-    (tag: string, value: string) => {
+    (tag: string, value: any) => {
       const auxFilterProjects = { ...filterProjectOptions };
-      const valueTag = filterProjectOptions[tag];
+      let valueTag = filterProjectOptions[tag];
       const auxValueTag = [] as Array<string>;
-      if (tag === 'favorites') {
-        auxFilterProjects.favorites = '';
+      if (tag === 'favorites' || tag === 'teams') {
+        auxFilterProjects[tag] = '';
       }else if (tag !== 'totalcost') {
+        let hasToDeleteMaintenance = [];
+        if ( Array.isArray(value)) {
+          hasToDeleteMaintenance = value?.filter((x: any) => maintenanceIds.includes(x));
+        }
+        if (tag === 'projecttype' && hasToDeleteMaintenance.length > 0 ) {
+          // delete maintenance from value tag.
+          // hasMaintenance = valueTag.filter((x: any) => maintenanceIds.includes(x));
+          valueTag =  valueTag.filter((x: any) => !maintenanceIds.includes(x));
+        }
         for (let index = 0; index < valueTag?.length; index++) {
           const element = valueTag[index];
           if (element !== value) {
@@ -356,7 +370,7 @@ const MapView = () => {
           }
         }
       }
-      if (tag !== 'favorites') {
+      if (tag !== 'favorites' && tag !== 'teams') {
         auxFilterProjects[tag] = auxValueTag;
       }
       setFilterProjectOptions(auxFilterProjects);
@@ -579,13 +593,14 @@ const MapView = () => {
         const tag = filterProjects[key];
         const elements = [];
         if(tag!== undefined && tag !== ''){
-          if(key === 'favorites'){
+          if(key === 'favorites' || key === 'teams'){
             elements.push({
               tag: key,
               value: tag,
-              display: FAVORITES,
+              display: key === 'favorites' ?FAVORITES : TEAMS,
             });
           }
+        let isMaintenance = false;
           for (let index = 0; index < tag.length; index++) {
             if (key === 'mhfddollarsallocated') {
               const cost = tag[index].split(',');
@@ -602,14 +617,23 @@ const MapView = () => {
               });
               break;
             } else {
-              if (tag[index]) {
+              if (tag[index] && !maintenanceIds.includes(tag[index])) {
                 elements.push({
                   tag: key,
                   value: tag[index],
                   display: getLabel(key, tag[index]),
                 });
+              } else {
+                isMaintenance = true;
               }
             }
+          }
+          if( isMaintenance ) {
+            elements.push({
+              tag: key,
+              value: maintenanceIds,
+              display: 'Maintenance',
+            });
           }
         }
         labelsFiltersProjects[position]['detail'] = elements as any;
@@ -672,6 +696,8 @@ const MapView = () => {
                 : toCamelCase(element.display) === 'local lovernment manager' ? content12
                 : toCamelCase(element.display) === 'contractor' ? content13
                 : toCamelCase(element.display) === 'stream name' ? content14
+                : toCamelCase(element.display) === 'favorites' ? content15
+                : toCamelCase(element.display) === 'teams' ? content16
                 : content4
             }
             >
@@ -723,7 +749,11 @@ const MapView = () => {
     for (const key in filterProblemOptions) {
       const tag = (key === 'cost' || key === 'mhfdmanager' || key === 'favorites') ? filterProblems[key] : filterProblems[key].split(',');
       if (key !== 'keyword' && key !== 'column' && key !== 'order') {
-        if (key === 'cost') {
+        if (key === 'favorites') {
+          if (tag) {
+            countTagProblems++;
+          }
+        } else if (key === 'cost') {
           if (tag?.length > 0) {
             countTagProblems++;  
           }
@@ -747,16 +777,28 @@ const MapView = () => {
             countTagComponents += 1;
           }
         }
-      } else if ((key === 'estimatedcost' || key === 'yearofstudy')  && tag.length) {
+      } else if ((key === 'estimatedcost')  && tag.length) {
+        countTagComponents += 1;
+      } else if ( key === 'yearofstudy' && tag.length > 1) {
         countTagComponents += 1;
       }
-      
+       
     }
     const filterProjects = { ...filterProjectOptions } as any;
     for (const key in filterProjectOptions) {
-      const tag = filterProjects[key];
+      let tag = filterProjects[key];
       if (tag !== undefined) {	
-        if (key !== 'keyword' && key !== 'column' && key !== 'order' && key !== 'name' && key !== 'totalcost') {
+        let hasMaintenance = [];
+        if (key === 'projecttype') {
+          if (Array.isArray(tag)) {
+            hasMaintenance = tag.filter((x: any) => maintenanceIds.includes(x));
+          }
+          if (hasMaintenance.length > 0) {
+            // if has maintenance remove from tag projecttype to count them normally
+            tag =  tag.filter((x: any) => !maintenanceIds.includes(x));
+          }
+        }
+        if (key !== 'keyword' && key !== 'column' && key !== 'order' && key !== 'name' && key !== 'totalcost' && key !== 'favorites' && key !== 'teams') {
           for (let index = 0; index < tag.length; index++) {
             const element = tag[index];
             if (element) {
@@ -764,6 +806,13 @@ const MapView = () => {
             }
           }
         } else if (key === 'totalcost' && tag.length) {
+          countTagProjets += 1;
+        } else if (key === 'favorites' && tag) {
+          countTagProjets += 1;
+        }  else if (key === 'teams' && tag) {
+          countTagProjets += 1;
+        }
+        if (hasMaintenance.length > 0) {
           countTagProjets += 1;
         }
         const position = labelsFiltersProjects.findIndex((x: any) => x.name === key);
