@@ -6,115 +6,37 @@ import { useDetailedState } from "hook/detailedHook";
 
 const CommentsModal = () => {
   const [openChat, setOpenChat] = useState(true);  
-  return <>   
-    {/* <Row style={{paddingBottom: '15px'}}>
-      <Col span={14}>
-        <h5 style={{textDecoration: 'none'}}>
-          Comments
-        </h5>
-      </Col>
-      <Col span={10} style={{textAlign:'end'}}>
-        <SearchOutlined style={{paddingRight:'10px'}}/>
-        {openChat && <UpOutlined onClick={() => (setOpenChat(false))}/>}
-        {!openChat && <DownOutlined onClick={() => (setOpenChat(true))}/>}
-      </Col>
-      </Row> */}
-    <div className="chat-00" style={!openChat ? {height: '90px'} : {}}>
-      <div className='chat-body-text'  style={!openChat ? {height: '0px'} : {}}>
-        <Row>
-          <Col span={3}>
-            <img src="/picture/user.png" alt="" height="20px" />
-          </Col>
-          <Col span={21}>
-            <h6 style={{fontWeight: 500}}>Finnegan Cooke<span>5h ago</span></h6>
-            <p>How long until 30% plans are ready for review?</p>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={3}>
-            <img src="/Icons/icon-28.svg" alt="" height="20px"  style={{borderRadius: '50%'}}/>
-          </Col>
-          <Col span={21}>
-            <h6  style={{fontWeight: 500}}>Noel Holland<span>4h ago</span></h6>
-            <p>Probably April 1</p>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={3}>
-            <img src="/picture/user.png" alt="" height="20px" />
-          </Col>
-          <Col span={21}>
-            <h6 style={{fontWeight: 500}}>Finnegan Cooke<span>3h ago</span></h6>
-            <p>Thanks, we'll have those turned around in a couple of weeks.</p>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={3}>
-            <img src="/picture/user01.png" alt="" height="20px" />
-          </Col>
-          <Col span={21}>
-            <h6 style={{fontWeight: 500}}>Megan Leonard<span>2h ago</span></h6>
-            <p>It might take SEMSWA closer to three weeks.</p>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={3}>
-            <img src="/Icons/icon-28.svg" alt="" height="20px" style={{borderRadius: '50%'}}/>
-          </Col>
-          <Col span={21}>
-            <h6 style={{fontWeight: 500}}>Serena Keller<span>1h ago</span></h6>
-            <p>We don't have any concerns at this point.</p>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={3}>
-            <img src="/Icons/icon-28.svg" alt="" height="20px" style={{borderRadius: '50%'}}/>
-          </Col>
-          <Col span={21}>
-            <h6 style={{fontWeight: 500}}>Serena Keller<span>Just now</span></h6>
-            <p>The boulder drop and culvert crossing look good in the renderings, we did something similar on Niver Trib.</p>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={3}>
-            <img src="/Icons/icon-28.svg" alt="" height="20px" style={{borderRadius: '50%'}}/>
-          </Col>
-          <Col span={21}>
-            <h6 style={{fontWeight: 500}}>Finnegan Cooke<span>5h ago</span></h6>
-            <p>How long until 30% plans are ready for review?</p>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={3}>
-            <img src="/Icons/icon-28.svg" alt="" height="20px" style={{borderRadius: '50%'}}/>
-          </Col>
-          <Col span={21}>
-            <h6 style={{fontWeight: 500}}>Finnegan Cooke<span>5h ago</span></h6>
-            <p>How long until 30% plans are ready for review?</p>
-          </Col>
-        </Row>
+  return <>
+    <div className='body-team-comment'>
+      <input type="text" placeholder="Write a comment..." className="input-comment" />
+      <div className='comment'>
+        <div className='header-comment'>
+          <div className='user-item-comment'>RS</div>
+          <div>
+            <p>Ricardo Saavedra</p>
+            <p className='comment-date'>Oct 6, 2022 at 1:12 AM</p>
+          </div>
+        </div >
+        <div className='content-comment'>
+          <p><span className='tag-name-user'>@katieevers2</span><span className='tag-name-user'>@jonvillines</span></p>
+          <p className='text-comment'>Don't see the outline. the source code also needs to be updated.re: aligned to one source. we need to make sure whether this is appropriate. consider that we have the organization in sign-up/profile, mask, and work request boards. On Thursday will provide the the source tables requested</p>
+        </div>
       </div>
-      <Row style={openChat ? {paddingTop: '15px'} : {}}>
-        <Col span={3}>
-          <img src="/picture/user.png" alt="" height="20px" />
-        </Col>
-        <Col span={21}>
-          <textarea className='chat-text'></textarea>
-        </Col>
-      </Row>
-    </div>
-    <div style={{textAlign: 'end'}}>
-      <button className='chat-button'>
-        <SendOutlined
-          style={{
-            marginBottom: '0px',
-            color: 'white',
-            transform: 'rotate(-45deg)',
-            marginRight:'5px'
-          }}
-        />
-        Send
-      </button>
+      <div className='comment'>
+        <div className='header-comment'>
+          <div className='user-item-comment' style={{background: '#23CBA1'}}>RS</div>
+          <div>
+            <p>Katie Evers</p>
+            <p className='comment-date'>Oct 5, 2022 at 11:51 PM</p>
+          </div>
+        </div>
+        <div className='content-comment'>
+          <p><span className='tag-name-user'>@jonvillines</span></p>
+          <p className='text-comment'>The zoom to areas table sources the main mapview drop down list which only has for example, "Adams County" and not "Unincorporated Adams County". Do we want both options?
+          <span className='tag-user'>@ricardosaavedra2</span>
+          what is the source table of the mask layers? and also what is the source layer for work request drop down? Earlier this week when I was trying to add highlands ranch geom you said 'jurisdictions'. I added it but still don't see the outline. All this should be aligned to one source with data restructure</p>
+        </div>
+      </div>
     </div>
   </>
 };
