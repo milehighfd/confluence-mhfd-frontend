@@ -1187,6 +1187,7 @@ const MapView = () => {
                       componentCost: problem.component_cost ? problem.component_cost : 0,
                       field4: 'X',
                       field5: 'Components',
+                      problemtype: problem.problemtype,
                       priority: problem.problempriority,
                       percentage: problem.solutionstatus ? problem.solutionstatus : 0,
                       problemid: problem.problemid,
