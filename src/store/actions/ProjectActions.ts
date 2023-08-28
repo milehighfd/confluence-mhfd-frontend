@@ -813,3 +813,9 @@ export const setDeleteAttachmentsIds = (deleteAttachmentsIds: Array<any>) => {
     dispatch({type: types.SET_DELETE_ATTACHMENTS_IDS, deleteAttachmentsIds});
   }
 }
+
+export const setDisableFieldsForLg = (disableFieldsForLG: boolean) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.SET_DISABLE_FIELDS_FOR_LG, disableFieldsForLG});
+  }
+}

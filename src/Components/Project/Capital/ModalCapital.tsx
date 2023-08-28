@@ -132,7 +132,8 @@ export const ModalCapital = ({
     setIsEdit,
     setStreamsList,
     saveSpecialLocation,
-    saveAcquisitionLocation
+    saveAcquisitionLocation,
+    setDisableFieldsForLg,
   } = useProjectDispatch();
   const {
     listComponents, 
@@ -144,9 +145,9 @@ export const ModalCapital = ({
     deleteAttachmentsIds,
     listStreams,
     streamsIntersectedIds,
+    disableFieldsForLG,
   } = useProjectState();
   const [loading, setLoading] = useState(false);
-  const { userInformation } = useProfileState();
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -178,14 +179,14 @@ export const ModalCapital = ({
   const [jurisdiction, setjurisdiction] = useState<any>([]);
   const history = useHistory();
   const [lengthName, setlengthName] = useState(0);
-  const appUser = store.getState().appUser;
+  const appUser = store.getState().profile;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
   const { toggleAttachmentCover , removeAttachment } = useAttachmentDispatch();
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
   const pageWidth  = document.documentElement.scrollWidth;
   const { tabActiveNavbar } = useMapState();
   const isWorkPlan = tabActiveNavbar === WORK_PLAN_TAB;
-  const { groupOrganization } = useProfileState();
+  const { groupOrganization, userInformation} = useProfileState();
   const [openDropdownTypeProject, setOpenDropdownTypeProject] = useState(false);
   const [activeTabBodyProject, setActiveTabBodyProject] = useState('Details');
   const [favorite, setFavorite] = useState(false);
@@ -197,7 +198,7 @@ export const ModalCapital = ({
   const [showCounty, setShowCounty] = useState(false);
   const [isCountyWide, setIsCountyWide] = useState();
   const [isSouthPlate, setIsSouthPlate] = useState();
-  const [disabledLG, setDisabledLG] = useState(appUser?.isLocalGovernment || appUser?.designation === 'government_staff');
+  const [disabledLG, setDisabledLG] = useState(appUser?.isLocalGovernment || appUser?.userInformation?.designation === 'government_staff');
   //maintenance
   const [frequency, setFrequency] = useState('');
   const [eligibility, setEligibility] = useState('');
@@ -214,15 +215,12 @@ export const ModalCapital = ({
   const [purchaseDate, setPurchaseDate] = useState('');
   const [isEditingPosition,setIsEditingPosition ]= useState(false)
   //special
-  
-
   const setTypeAndSubType = (type:string, subType:string, label:string) => {
     setSubType(subType);
     setLastValue(selectedTypeProject);
     setSelectedTypeProject(type);
     setSelectedLabelProject(label);
   }; 
-  
 
   //list Menu TypeProjects
   const menuTypeProjects = () => {
@@ -400,7 +398,6 @@ export const ModalCapital = ({
       setEditLocation(undefined);
     }
   }, [data]);
-  
   //Send for Create Data or Edit Data
   useEffect(() => {
     let serviceAreaIds: any = [];
@@ -549,6 +546,13 @@ export const ModalCapital = ({
       setSave(false);
     }
   }, [status]);
+
+  //Disable fields in edit workplan if the user is LG
+  useEffect(() => {
+    if (disabledLG && isWorkPlan && swSave) {
+      //setDisableFieldsForLg(true);
+    }
+  }, [disabledLG, isWorkPlan, swSave]);
   //Check if required fields are filled to enable save button
   useEffect(()=>{   
     const checkIfIndependentHaveName = () => {
@@ -751,8 +755,6 @@ export const ModalCapital = ({
     setIndependentComponents([...thisIndependentComponents,component]);
   };
   const removeComponent = (component: any) => {
-    console.log(groups)
-    console.log(listComponents.result)
     let newComponents: any = [];
     let currentComponents = listComponents.result;
     newComponents = currentComponents
@@ -851,7 +853,6 @@ export const ModalCapital = ({
 
   const removeIndComponent = (indComp: any) => {
     let currentComponents = [...thisIndependentComponents];
-    console.log(currentComponents, indComp)
     currentComponents = currentComponents.filter( (comp: any) => ( comp.index !== indComp.index ) );
     setIndependentComponents([...currentComponents]);
   }

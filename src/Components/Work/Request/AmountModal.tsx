@@ -22,9 +22,9 @@ const AmountModal = ({ project, visible, setVisible }: {
   } = useRequestState();
   const { loadOneColumn } = useRequestDispatch();
   const isMaintenance = tabKey === 'Maintenance';
-  const appUser = store.getState().appUser;
-  const [disabled, setDisabled] = useState<boolean>((appUser?.isLocalGovernment || appUser?.designation === 'government_staff') && namespaceId.type === 'WORK_PLAN');
-
+  const appUser = store.getState().profile;
+  const [disabled, setDisabled] = useState<boolean>((appUser?.isLocalGovernment || appUser?.userInformation?.designation === 'government_staff') && namespaceId.type === 'WORK_PLAN');
+  
   const [cost, setCost] = useState<any>({
     req1: null,
     req2: null,

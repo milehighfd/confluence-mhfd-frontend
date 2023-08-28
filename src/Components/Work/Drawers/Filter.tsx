@@ -110,6 +110,7 @@ const Filter = () => {
       f.selected = false;
       return f;
     });
+    setFilterYear([]);
     setFilterRequest(filterRequestReset);
     setResetFilter(!resetFilter);
   }
