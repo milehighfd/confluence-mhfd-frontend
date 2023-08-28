@@ -7,6 +7,7 @@ import { useRequestDispatch, useRequestState } from "hook/requestHook";
 import AmountModalField from "./AmountModalField";
 import useCostDataFormattingHook from "hook/custom/useCostDataFormattingHook";
 import { useAppUserState } from "hook/useAppUser";
+import { useProfileState } from "hook/profileHook";
 
 const AmountModal = ({ project, visible, setVisible }: {
   project: any,
@@ -22,9 +23,9 @@ const AmountModal = ({ project, visible, setVisible }: {
   } = useRequestState();
   const { loadOneColumn } = useRequestDispatch();
   const isMaintenance = tabKey === 'Maintenance';
-  const appUser = useAppUserState();
-  const [disabled, setDisabled] = useState<boolean>((appUser?.isLocalGovernment || appUser?.designation === 'government_staff') && namespaceId.type === 'WORK_PLAN');
-
+  const appUser = useProfileState();
+  const [disabled, setDisabled] = useState<boolean>((appUser?.isLocalGovernment || appUser?.userInformation?.designation === 'government_staff') && namespaceId.type === 'WORK_PLAN');
+ 
   const [cost, setCost] = useState<any>({
     req1: null,
     req2: null,
@@ -120,6 +121,7 @@ const AmountModal = ({ project, visible, setVisible }: {
               value={cost[item.key]}
               isRequired={item.isRequired}
               setter={(value: any) => setCost({ ...cost, [item.key]: value })}
+              disabled={disabled}
             />
           )
         })
