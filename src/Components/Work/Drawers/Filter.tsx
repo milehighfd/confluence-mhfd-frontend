@@ -81,7 +81,10 @@ const Filter = () => {
     setJurisdictionFilter(sortedFilterRequest.filter((f: any) => f.type === 'project_local_governments'));
     setProjectStatusFilter(statusFilter);
     setSponsorFilter(sortedFilterRequest.filter((f: any) => f.type === 'project_partners'));
-    setPriorityFilter(sortedFilterRequest.filter((f: any) => f.type === 'project_priorities'));
+    setPriorityFilter(sortedFilterRequest.filter((f: any) => f.type === 'project_priorities'));    
+  }, [filterRequest,resetFilter]);
+
+  useEffect(() => {
     const year = +namespaceId.year;
     const years = [];
     for (let i = 0; i <= 2; i++) {
@@ -99,11 +102,11 @@ const Filter = () => {
       return yearObj;
     });
     setYearFilter(updatedYears);
-  }, [filterRequest,resetFilter]);
+  }, [filterYear,resetFilter]);
 
   const applyFilters = () => {
-    loadColumns();
     setFilterYear(yearFilter.filter((f: any) => f.selected).map((f: any) => f.id));
+    loadColumns();    
   }
   const reset = () => {
     let filterRequestReset = filterRequest.map((f: any) => {
@@ -112,6 +115,7 @@ const Filter = () => {
     });
     setFilterYear([]);
     setFilterRequest(filterRequestReset);
+    loadColumns();
     setResetFilter(!resetFilter);
   }
   let label;
