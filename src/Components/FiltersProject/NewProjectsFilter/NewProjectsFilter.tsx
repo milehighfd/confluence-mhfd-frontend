@@ -8,7 +8,7 @@ import { DropdownFilters } from 'Components/FiltersProject/DropdownFilters';
 import { useProjectDispatch } from 'hook/projectHook';
 import { WINDOW_WIDTH } from 'constants/constants';
 import { FILTERS } from 'constants/filter';
-import store from 'store';
+import { useProfileState } from 'hook/profileHook';
 
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Service Area</b> is the MHFD Watershed Service Area where the project is located.</div>);
@@ -38,7 +38,7 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
         applyFilter,
     } = useMapState();
     const { resetNextPageOfCards, resetInfiniteScrollItems, resetInfiniteScrollHasMoreItems } = useProjectDispatch();
-    const appUser = store.getState().profile;
+    const appUser = useProfileState();
     const {
         getParamFilterProjects,
         setFilterProjectOptions,

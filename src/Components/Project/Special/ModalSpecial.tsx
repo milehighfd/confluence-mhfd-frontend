@@ -14,10 +14,10 @@ import { useAttachmentDispatch } from 'hook/attachmentHook';
 import { ADMIN, STAFF, WORK_PLAN_TAB } from 'constants/constants';
 import { useHistory } from 'react-router-dom';
 import { UploadImagesDocuments } from 'Components/Project/TypeProjectComponents/UploadImagesDocuments';
-import store from 'store';
 import { useMapState } from 'hook/mapHook';
 import TypeProjectsFilter from 'Components/FiltersProject/TypeProjectsFilter/TypeProjectsFilter';
 import { DownOutlined, HeartFilled, HeartOutlined, UpOutlined } from '@ant-design/icons';
+import { useAppUserState } from 'hook/useAppUser';
 
 const content = (<div className="popver-info"> Any effort for which MHFD funds or staff participation is requested that doesn’t fit into one of the other Project categories.</div>);
 const selec = [1];
@@ -217,7 +217,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const { toggleAttachmentCover, removeAttachment } = useAttachmentDispatch();
   const pageWidth = document.documentElement.scrollWidth;
 
-  const appUser = store.getState().appUser;
+  const appUser = useAppUserState();
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
   const [sendToWR, setsendToWR] = useState(!showCheckBox);
 

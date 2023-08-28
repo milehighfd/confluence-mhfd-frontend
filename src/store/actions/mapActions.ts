@@ -6,7 +6,6 @@ import * as datasets from 'Config/datasets';
 import * as constants from 'constants/constants';
 import { OptionProblems, OptionProjects, OptionComponents } from 'Classes/MapTypes';
 import { optionsProjects } from 'routes/portfolio-view/components/ListUtils';
-import store from '..';
 
 const getAndDispatchAbortableCtrl = (dispatch: Function, key: string): AbortController => {
   const controller = new AbortController();
@@ -67,8 +66,7 @@ export const resetMap = () => {
   };
 };
 
-const options = (options: OptionProblems, filterComponent: OptionComponents, coordinates: string) => {
-  const applyFilter = store.getState().map.applyFilter;
+const options = (options: OptionProblems, filterComponent: OptionComponents, coordinates: string, applyFilter: any) => {
   let servicearea = '';
   if (options.servicearea) {
     servicearea = options.servicearea;
@@ -147,32 +145,32 @@ export const replaceFilterCoordinates = (coordinates: string) => {
   };
 };
 export const setFilterProblemOptions = (filters: OptionProblems) => {
-  const keyword = store.getState().map.filterProblems.keyword;
-  const auxFilter = {
-    problemname: filters.keyword,
-    solutioncost: filters.cost,
-    problempriority: filters.priority,
-    solutionstatus: [] as string[],
-    county: filters.county,
-    jurisdiction: filters.jurisdiction,
-    mhfdmanager: filters.mhfdmanager,
-    problemtype: filters.problemtype,
-    source: filters.source,
-    components: [] as any,
-    servicearea: filters.servicearea,
-    favorites: filters.favorites,
-    keyword,
-  };
-  const solutionstatus = filters.solutionstatus.split(',');
-  const auxSolutionStatus = [];
-  for (let index = 0; index < solutionstatus.length && filters.solutionstatus.length; index++) {
-    const element = solutionstatus[index];
-    auxSolutionStatus.push(
-      element === '0' ? '0,25' : element === '25' ? '25,50' : element === '50' ? '50,75' : '75,100',
-    );
-  }
-  auxFilter.solutionstatus = auxSolutionStatus;
-  return (dispatch: Function) => {
+  return (dispatch: Function, getState: Function) => {
+    const keyword = getState().map.filterProblems.keyword;
+    const auxFilter = {
+      problemname: filters.keyword,
+      solutioncost: filters.cost,
+      problempriority: filters.priority,
+      solutionstatus: [] as string[],
+      county: filters.county,
+      jurisdiction: filters.jurisdiction,
+      mhfdmanager: filters.mhfdmanager,
+      problemtype: filters.problemtype,
+      source: filters.source,
+      components: [] as any,
+      servicearea: filters.servicearea,
+      favorites: filters.favorites,
+      keyword,
+    };
+    const solutionstatus = filters.solutionstatus.split(',');
+    const auxSolutionStatus = [];
+    for (let index = 0; index < solutionstatus.length && filters.solutionstatus.length; index++) {
+      const element = solutionstatus[index];
+      auxSolutionStatus.push(
+        element === '0' ? '0,25' : element === '25' ? '25,50' : element === '50' ? '50,75' : '75,100',
+      );
+    }
+    auxFilter.solutionstatus = auxSolutionStatus;
     dispatch({ type: types.SET_FILTER_PROBLEM_OPTIONS, filters });
     const params = '?tables=' + filters.components;
     if (filters.components) {
@@ -189,36 +187,36 @@ export const setFilterProblemOptions = (filters: OptionProblems) => {
 };
 
 export const setFilterProjectOptions = (filters: OptionProjects) => {  
-  const keyword = store.getState().map.filterProjects.keyword;
-  const auxFilter = {
-    projectname: filters.keyword,
-    projecttype: filters.projecttype,
-    status: filters.status,
-    startyear: filters.startyear ? '' + filters.startyear : '0',
-    completedyear: filters.completedyear ? '' + filters.completedyear : '9999',
-    mhfddollarsallocated: filters.mhfddollarsallocated,
-    lgmanager: filters.lgmanager,
-    streamname: filters.streamname,
-    creator: filters.creator,
-    estimatedcost: filters.totalcost,
-    finalcost: filters.totalcost,
-    workplanyr: filters.workplanyear,
-    mhfdmanager: filters.mhfdmanager,
-    jurisdiction: filters.jurisdiction,
-    // replace County is missing
-    county: filters.county,
-    problemtypeProjects: [] as any,
-    consultant: filters.consultant,
-    contractor: filters.contractor,
-    servicearea: filters.servicearea,
-    sortby: filters.column,
-    sorttype: filters.order,
-    keyword,
-    favorites: filters.favorites,
-    teams: filters.teams,
-    phase: filters.phase,
-  };
-  return (dispatch: Function) => {
+  return (dispatch: Function, getState: Function) => {
+    const keyword = getState().map.filterProjects.keyword;
+    const auxFilter = {
+      projectname: filters.keyword,
+      projecttype: filters.projecttype,
+      status: filters.status,
+      startyear: filters.startyear ? '' + filters.startyear : '0',
+      completedyear: filters.completedyear ? '' + filters.completedyear : '9999',
+      mhfddollarsallocated: filters.mhfddollarsallocated,
+      lgmanager: filters.lgmanager,
+      streamname: filters.streamname,
+      creator: filters.creator,
+      estimatedcost: filters.totalcost,
+      finalcost: filters.totalcost,
+      workplanyr: filters.workplanyear,
+      mhfdmanager: filters.mhfdmanager,
+      jurisdiction: filters.jurisdiction,
+      // replace County is missing
+      county: filters.county,
+      problemtypeProjects: [] as any,
+      consultant: filters.consultant,
+      contractor: filters.contractor,
+      servicearea: filters.servicearea,
+      sortby: filters.column,
+      sorttype: filters.order,
+      keyword,
+      favorites: filters.favorites,
+      teams: filters.teams,
+      phase: filters.phase,
+    };
     dispatch({ type: types.SET_FILTER_PROJECT_OPTIONS, filters });
     dispatch({ type: projectTypes.RESET_NEXT_PAGE });
     dispatch({ type: projectTypes.RESET_INFINITE_SCROLL_ITEM });
@@ -238,12 +236,12 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
 };
 
 export const setProblemKeyword = (keyword: string) => {
-  const filterOptions = store.getState().map.filterProblemOptions;
-  const auxFilter = { ...filterOptions };
-  const filterProblems = store.getState().map.filterProblems;
-  const auxFilterProblems = { ...filterProblems };
-  auxFilter.keyword = keyword;
-  return (dispatch: Function) => {
+  return (dispatch: Function, getState: Function) => {
+    const filterOptions = getState().map.filterProblemOptions;
+    const auxFilter = { ...filterOptions };
+    const filterProblems = getState().map.filterProblems;
+    const auxFilterProblems = { ...filterProblems };
+    auxFilter.keyword = keyword;
     dispatch({ type: types.SET_FILTER_PROBLEM_OPTIONS, filters: auxFilter });
     const params = '?field=' + keyword;
     if (keyword) {
@@ -263,11 +261,11 @@ export const setProblemKeyword = (keyword: string) => {
 };
 
 export const setProjectKeyword = (keyword: string) => {
-  const filterOptions = store.getState().map.filterProjectOptions;
-  const auxFilter = { ...filterOptions };
-  auxFilter.keyword = keyword;
-  auxFilter.name = keyword;
-  return (dispatch: Function) => {
+  return (dispatch: Function, getState: Function) => {
+    const filterOptions = getState().map.filterProjectOptions;
+    const auxFilter = { ...filterOptions };
+    auxFilter.keyword = keyword;
+    auxFilter.name = keyword;
     dispatch({ type: types.SET_FILTER_PROJECT_OPTIONS, filters: auxFilter });
   };
 };
@@ -312,6 +310,7 @@ export const getGalleryProblems = () => {
         filterCoordinates: coordinates,
         filterProblemOptions: filterOptions,
         filterComponentOptions: filterComponent,
+        applyFilter,
       },
     } = getState();
     dispatch({ type: types.SET_SPIN_CARD_PROBLEMS, spin: true });
@@ -319,7 +318,7 @@ export const getGalleryProblems = () => {
     datasets
       .postData(
         SERVER.GALLERY_PROJECTS,
-        options(filterOptions, filterComponent, coordinates),
+        options(filterOptions, filterComponent, coordinates, applyFilter),
         datasets.getToken(),
         controller.signal,
       )
@@ -386,8 +385,8 @@ export const getExtraGalleryProjects = (page: any = 0) => {
         filterComponentOptions: filterComponent,
       },
     } = getState();
-    const applyFilter = store.getState().map.applyFilter;
-    const currentPorjects = store.getState().map.galleryProjectsV2;
+    const applyFilter = getState().map.applyFilter;
+    const currentPorjects = getState().map.galleryProjectsV2;
     datasets
       .postData(
         `${SERVER.GALLERY_PROJECTS_V2}?limit=20&page=${page}`,

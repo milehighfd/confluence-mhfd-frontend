@@ -15,6 +15,7 @@ const BoardYear = () => {
   const { openNotification } = useNotifications();
   const {
     setYear,
+    setYearList,
   } = useRequestDispatch();
   const [alert, setAlert] = useState({
     show: false,
@@ -23,7 +24,6 @@ const BoardYear = () => {
   });
 
   useEffect(() => {
-    console.log('here');
     datasets.getData(SERVER.GET_CONFIGURATIONS('BOARD_YEAR'))
       .then((response: any) => {
         setYear(response.value);
@@ -41,6 +41,12 @@ const BoardYear = () => {
     datasets.putData(SERVER.GET_CONFIGURATIONS('BOARD_YEAR'), { value: yearEdit })
       .then(() => {
         openNotification(`Success! The board year has been updated to ${yearEdit}.`, "success");
+        setYear(yearEdit);
+        const yearList = [];
+        for (let i = 0; i < 5; i++) {
+          yearList.push(+yearEdit - i);
+        }
+        setYearList(yearList);
       }).catch(() => {
         setAlert({ ...alert, show: true, type: 'error', message: `Error saving year ${yearEdit}.` });
       })

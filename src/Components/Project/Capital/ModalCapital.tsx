@@ -12,7 +12,6 @@ import { useProfileState } from 'hook/profileHook';
 import { ADMIN, NEW_PROJECT_TYPES, STAFF, WINDOW_WIDTH, WORK_PLAN_TAB } from 'constants/constants';
 import { useHistory } from 'react-router-dom';
 import { UploadImagesDocuments } from 'Components/Project/TypeProjectComponents/UploadImagesDocuments';
-import store from 'store';
 import { getProjectOverheadCost } from 'utils/parsers';
 import { useMapState } from 'hook/mapHook';
 import TypeProjectsFilter from 'Components/FiltersProject/TypeProjectsFilter/TypeProjectsFilter';
@@ -32,6 +31,7 @@ import { deletefirstnumbersmhfdcode } from 'utils/utils';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 import { DiscussionCreateProject } from '../TypeProjectComponents/DiscussionCreateProject';
 import { ActivitiCreateProject } from '../TypeProjectComponents/ActivityCreateProject';
+import { useAppUserState } from 'hook/useAppUser';
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -179,7 +179,7 @@ export const ModalCapital = ({
   const [jurisdiction, setjurisdiction] = useState<any>([]);
   const history = useHistory();
   const [lengthName, setlengthName] = useState(0);
-  const appUser = store.getState().profile;
+  const appUser = useAppUserState();
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
   const { toggleAttachmentCover , removeAttachment } = useAttachmentDispatch();
   const [sendToWR,setsendToWR] = useState(!showCheckBox);

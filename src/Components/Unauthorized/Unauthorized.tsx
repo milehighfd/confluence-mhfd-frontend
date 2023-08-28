@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Result, Button } from 'antd';
 import { getToken } from '../../Config/datasets'
 import { Redirect } from "react-router-dom";
-import store from "../../store";
+import { useAppUserState } from "hook/useAppUser";
 
 const Unauthorized = () => {
     const [redirect, setRedirect] = useState<boolean>(false);
     const [second, ] = useState<number>(10);
-    const user = store.getState().appUser;
+    const user = useAppUserState();
     useEffect(() => {
         const timer = setTimeout(() => {
             setRedirect(true);

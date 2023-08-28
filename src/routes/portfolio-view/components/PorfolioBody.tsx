@@ -7,7 +7,6 @@ import Filters from 'routes/portfolio-view/components/Filters';
 import ModalFields from 'routes/list-view/components/ModalFields';
 import ModalTollgate from 'routes/list-view/components/ModalTollgate';
 import ModalGraphic from 'routes/portfolio-view/components/ModalGraphic';
-import store from 'store';
 import { FilterByGroupName } from 'routes/portfolio-view/components/FilterByGroupField';
 import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
@@ -15,6 +14,7 @@ import PhaseViewPag from 'routes/portfolio-view/components/PhaseViewPag';
 import CalendarViewPag from 'routes/portfolio-view/components/CalendarViewPag';
 import { usePortflioState, usePortfolioDispatch } from 'hook/portfolioHook';
 import { handleAbortError } from 'store/actions/mapActions';
+import { useProfileState } from 'hook/profileHook';
 
 const { TabPane } = Tabs;
 let isInit = true;
@@ -53,7 +53,7 @@ const PortafolioBody = () => {
   const [openDrop, setOpenDrop] = useState(false);
   const [newData, setNewData] = useState<any>([]);
   const [sortValue, setSortValue] = useState({columnKey: null, order: undefined});
-  const appUser = store.getState().profile;
+  const appUser = useProfileState();
   const [updateFilter, setUpdateFilter] = useState([]);
 
   useEffect(() => {

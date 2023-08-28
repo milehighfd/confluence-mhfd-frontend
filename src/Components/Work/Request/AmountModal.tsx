@@ -6,7 +6,7 @@ import { SERVER } from "Config/Server.config";
 import { useRequestDispatch, useRequestState } from "hook/requestHook";
 import AmountModalField from "./AmountModalField";
 import useCostDataFormattingHook from "hook/custom/useCostDataFormattingHook";
-import store from 'store';
+import { useAppUserState } from "hook/useAppUser";
 
 const AmountModal = ({ project, visible, setVisible }: {
   project: any,
@@ -22,9 +22,9 @@ const AmountModal = ({ project, visible, setVisible }: {
   } = useRequestState();
   const { loadOneColumn } = useRequestDispatch();
   const isMaintenance = tabKey === 'Maintenance';
-  const appUser = store.getState().profile;
-  const [disabled, setDisabled] = useState<boolean>((appUser?.isLocalGovernment || appUser?.userInformation?.designation === 'government_staff') && namespaceId.type === 'WORK_PLAN');
-  
+  const appUser = useAppUserState();
+  const [disabled, setDisabled] = useState<boolean>((appUser?.isLocalGovernment || appUser?.designation === 'government_staff') && namespaceId.type === 'WORK_PLAN');
+
   const [cost, setCost] = useState<any>({
     req1: null,
     req2: null,

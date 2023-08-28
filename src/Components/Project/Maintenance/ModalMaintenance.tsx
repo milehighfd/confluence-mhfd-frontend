@@ -11,12 +11,12 @@ import { Project } from 'Classes/Project';
 import { useProfileState } from 'hook/profileHook';
 import { useHistory } from 'react-router-dom';
 import { UploadImagesDocuments } from 'Components/Project/TypeProjectComponents/UploadImagesDocuments';
-import store from 'store';
 import { useAttachmentDispatch } from 'hook/attachmentHook';
 import { useMapState } from 'hook/mapHook';
 import TypeProjectsFilter from 'Components/FiltersProject/TypeProjectsFilter/TypeProjectsFilter';
 import { DownOutlined, HeartFilled, HeartOutlined, UpOutlined } from '@ant-design/icons';
 import { COLUMNS_GEOMEOTRY, DATA_SOURCE_GEOMEOTRY } from '../Constants/Constants';
+import { useAppUserState } from 'hook/useAppUser';
 
 const { Option } = Select;
 const content = (<div className="popver-info"> Projects that repair or restore existing infrastructure and are eligible for MHFD participation.</div>);
@@ -75,7 +75,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   const [lengthName, setlengthName] = useState(0);
   const history = useHistory();
   const textRef = useRef<any>(null);
-  const appUser = store.getState().appUser;
+  const appUser = useAppUserState();
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
   const { toggleAttachmentCover, removeAttachment } = useAttachmentDispatch();
   const [sendToWR,setsendToWR] = useState(!showCheckBox);

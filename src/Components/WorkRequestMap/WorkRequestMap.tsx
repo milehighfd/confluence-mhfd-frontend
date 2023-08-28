@@ -63,7 +63,6 @@ import {
   USE_LAND_COVER_MAP,
 } from 'constants/constants';
 import { ObjectLayerType, LayerStylesType } from 'Classes/MapTypes';
-import store from 'store';
 import { Button, Popover } from 'antd';
 import { tileStyles_WR as tileStyles, COMPONENT_LAYERS_STYLE, NEARMAP_STYLE, USE_LAND_TILES_STYLE } from 'constants/mapStyles';
 import { useMapState, useMapDispatch } from 'hook/mapHook';
@@ -138,7 +137,7 @@ const WorkRequestMap = ({
   const [visibleCreateProject, setVisibleCreateProject] = useState(false);
   const [showDefault, setShowDefault] = useState(false);
   const [problemid, setProblemIdLocal] = useState<any>(undefined);
-  const user = store.getState().profile.userInformation;
+  const { userInformation: user, groupOrganization } = useProfileState();
   const {
     layers,
     mapSearch,
@@ -172,7 +171,6 @@ const WorkRequestMap = ({
     setZoomGeom,
   } = useProjectDispatch();
   const { selectedLayersWR, highlightedComponent, boardProjects, zoomProject } = useProjectState();
-  const { groupOrganization } = useProfileState();
   const { getGroupOrganization } = useProfileDispatch();
   const [idsBoardProjects, setIdsBoardProjects] = useState<any>([]);
   const [groupedIdsBoardProjects, setGroupedIdsBoardProjects] = useState<any>([]);

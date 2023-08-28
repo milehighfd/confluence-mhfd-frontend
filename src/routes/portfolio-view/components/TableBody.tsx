@@ -1,5 +1,4 @@
 import { HeartFilled, HeartOutlined } from '@ant-design/icons';
-import store from 'store';
 import { Col, Row, Table, Tooltip } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { SERVER } from 'Config/Server.config';
@@ -11,6 +10,7 @@ import { usePortflioState, usePortfolioDispatch } from '../../../hook/portfolioH
 import { useMapState } from 'hook/mapHook';
 import { handleAbortError } from 'store/actions/mapActions';
 import DetailModal from 'routes/detail-page/components/DetailModal';
+import { useProfileState } from 'hook/profileHook';
 
 const TableBody = ({
   dataId,
@@ -51,7 +51,7 @@ const TableBody = ({
     filterProjectOptions,
   } = useMapState();
   
-  const appUser = store.getState().profile;
+  const appUser = useProfileState();
   const email = appUser.userInformation?.email;
 
   const [dataParsed, setDataParsed] = useState<any>([]);

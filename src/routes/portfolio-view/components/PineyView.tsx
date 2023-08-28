@@ -8,9 +8,9 @@ import { SERVER } from "../../../Config/Server.config";
 import * as d3 from 'd3';
 import { FILTER_PROJECTS_TRIGGER } from "constants/constants";
 import { UseDebouncedEffect } from "routes/Utils/useDebouncedEffect";
-import store from 'store';
 import { usePortflioState, usePortfolioDispatch } from "hook/portfolioHook";
 import DetailModal from 'routes/detail-page/components/DetailModal';
+import { useProfileState } from "hook/profileHook";
 
 const { Step } = Steps;
 const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }: 
@@ -22,7 +22,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
   const {setOpenModalTollgate, setDatesData, setIsFromDetailPage} = usePortfolioDispatch();
   const { pineyData, updateGroup } = usePortflioState();
   const data = pineyData;
-  const appUser = store.getState().profile;
+  const appUser = useProfileState();
   const userName = appUser.userInformation?.name;
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
   const [editView, setEditView] = useState(false);

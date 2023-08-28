@@ -13,7 +13,6 @@ import moment from 'moment';
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router';
 import PineyView from 'routes/portfolio-view/components/PineyView';
-import store from 'store/index';
 import TeamCollaborator from 'Components/Shared/Modals/TeamCollaborator';
 import * as datasets from 'Config/datasets';
 import {
@@ -40,6 +39,7 @@ import Roadmap from './Roadmap';
 import Vendors from './Vendors';
 import ModalTollgate from 'routes/list-view/components/ModalTollgate';
 import { useAttachmentDispatch, useAttachmentState } from 'hook/attachmentHook';
+import { useProfileState } from 'hook/profileHook';
 
 const DetailModal = ({
   visible,
@@ -77,7 +77,7 @@ const DetailModal = ({
   const [problemPart, setProblemPart] = useState<any[]>([]);
   const [dataRoadmap, setDataRoadmap] = useState<any[]>([]);
   const [updateAction, setUpdateAction] = useState(false);
-  const appUser = store.getState().profile.userInformation;
+  const { userInformation: appUser } = useProfileState();
   const [coverImage, setCoverImage] = useState<any>('');
 
   let divRef = useRef<null | HTMLDivElement>(null);

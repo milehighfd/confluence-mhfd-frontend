@@ -6,7 +6,7 @@ import { useProjectDispatch, useProjectState } from '../../../hook/projectHook';
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 
-import store from '../../../store';
+import { useProfileState } from "hook/profileHook";
 
 const { Option } = Select;
 export const LocationInformation = ({
@@ -63,7 +63,7 @@ export const LocationInformation = ({
   const [, setSArea] = useState(undefined);
   const [, setSCounty] = useState(undefined);
   const [disable] = useState(!editable);
-  const user = store.getState().profile.userInformation;
+  const { userInformation: user } = useProfileState();
 
   //Variables for use in the dropdowns
   const [countyList, setCountyList] = useState<any[]>([]);

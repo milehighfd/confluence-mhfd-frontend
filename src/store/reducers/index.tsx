@@ -12,24 +12,26 @@ import detailedReducer from './detailedReducer';
 import notesReducer from './notesReducer';
 import colorListReducer from './colorListReducer';
 import portfolioReducer from './portfolioReducer';
-import requestReducer from './requestReducer';
+import getRequestReducer from './requestReducer';
 import financialReducer from './financialReducer';
-const appReducer = (history: any) => combineReducers({
-  router: connectRouter(history),
-  map: mapReducer,
-  appUser,
-  users,
-  profile,
-  carouselImages,
-  uploadAttachment,
-  project,
-  notes: notesReducer,
-  detailed: detailedReducer,
-  colorList: colorListReducer,
-  portfolio: portfolioReducer,
-  request: requestReducer,
-  financial: financialReducer
-});
+const appReducer = (history: any, config: any) => {
+  return combineReducers({
+    router: connectRouter(history),
+    map: mapReducer,
+    appUser,
+    users,
+    profile,
+    carouselImages,
+    uploadAttachment,
+    project,
+    notes: notesReducer,
+    detailed: detailedReducer,
+    colorList: colorListReducer,
+    portfolio: portfolioReducer,
+    request: getRequestReducer(config.year),
+    financial: financialReducer
+  })
+};
 
 export type RootState = ReturnType<typeof appReducer>;
 export default appReducer;

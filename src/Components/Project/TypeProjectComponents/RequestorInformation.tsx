@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Input, Timeline, Popover, Select } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { WINDOW_WIDTH } from 'constants/constants';
-import store from '../../../store';
 import { JURISDICTION, PROJECT_INFORMATION, SERVICE_AREA, GOVERNMENT_STAFF } from "../../../constants/constants";
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import { useProjectDispatch, useProjectState } from '../../../hook/projectHook';
+import { useProfileState } from 'hook/profileHook';
 
 interface Props {
   index: number;
@@ -37,7 +37,7 @@ export const RequestorInformation = ({
     isEdit
   } = useProjectState();
   const { setServiceAreaCounty } = useProjectDispatch();
-  const user = store.getState().profile.userInformation;
+  const { userInformation: user } = useProfileState();
   const isMaintenance = originModal === 'Maintenance';
   const isStudy = originModal === 'Study';
   useEffect(() => {

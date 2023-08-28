@@ -65,7 +65,6 @@ import {
   REMOVAL_LINE,
 } from '../../constants/constants';
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
-import store from '../../store';
 import { Button, Popover, Modal, Input, AutoComplete, Col, Row } from 'antd';
 import { tileStyles, NEARMAP_STYLE } from '../../constants/mapStyles';
 import { useMapState, useMapDispatch } from '../../hook/mapHook';
@@ -126,7 +125,6 @@ const CreateProjectMap = (type: any) => {
   const factorm2toacre = 0.00024710538146717;
   let isMeasuring = useRef(false);
   let popup = new mapboxgl.Popup({ closeButton: true });
-  const user = store.getState().profile.userInformation;
   const typeRef = useRef(type.type);
   const {
     layers,
@@ -191,7 +189,7 @@ const CreateProjectMap = (type: any) => {
     highlightedStream,
     highlightedStreams,
   } = useProjectState();
-  const { groupOrganization } = useProfileState();
+  const { groupOrganization, userInformation: user } = useProfileState();
   // const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
   // const { notes, availableColors } = useNotesState();
   const [idsBoardProjects, setIdsBoardProjects] = useState(boardProjectsCreate);

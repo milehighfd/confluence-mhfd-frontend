@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import { Button, Checkbox, Col, Modal, Row, notification } from 'antd';
-import store from 'store';
+import { Button, Checkbox, Col, Modal, Row } from 'antd';
 import { ADMIN, STAFF } from 'constants/constants';
 import { getBoardStatus } from 'dataFetching/workRequest';
 import { useRequestState } from 'hook/requestHook';
 import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
+import { useAppUserState } from 'hook/useAppUser';
 
 const stateValue = {
   visible: false
@@ -41,7 +41,7 @@ export const AlertView = ({
 }) => {
   const [state, setState] = useState(stateValue);
   const [isUnderReview, setIsUnderReview] = useState(false);
-  const appUser = store.getState().appUser;
+  const { appUser } = useAppUserState();
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
   const [workPlanString, setWorkPlanString] = useState('');
   const { year } = useRequestState();

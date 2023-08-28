@@ -106,18 +106,10 @@ const MapLayout = () => {
         console.log(e);
       }
       let boardYearLimit = +config.value;
-      let array = [];
-      for (var i = 0; i < 5; i++) {
-        if (i === 0 && (isLocalGovernment || designation === GOVERNMENT_STAFF) && tabActiveNavbar === WORK_PLAN) {
-          continue;
-        }
-        array.push(boardYearLimit - i);
-      }
       setConfiguredYear(boardYearLimit);
-      setYearList(array);
     }
     initLoading();
-  }, [isLocalGovernment, setYearList, tabActiveNavbar]);
+  }, [isLocalGovernment, tabActiveNavbar]);
 
   // END WORK REQUEST-WORK-PLAN
 

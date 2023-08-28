@@ -14,7 +14,6 @@ import { CopyProjectAlert } from './CopyProjectAlert';
 import { useRequestState } from 'hook/requestHook';
 import { STATUS_NAMES } from 'constants/constants';
 import EditDatesModal from './EditDatesModal';
-import store from 'store/index';
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',

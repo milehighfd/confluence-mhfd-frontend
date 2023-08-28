@@ -12,7 +12,6 @@ import { useProfileState } from 'hook/profileHook';
 import AmountModal from '../AmountModal';
 import ModalProjectView from 'Components/ProjectModal/ModalProjectView';
 import { postData } from 'Config/datasets';
-import store from 'store/index';
 
 const TableListView = ({
   maintenanceSubType

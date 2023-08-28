@@ -7,8 +7,8 @@ import { CheckBoxFilters } from '../CheckboxFiltersProblem';
 import { CheckBoxFilters as CheckBoxIds } from '../CheckboxFilters';
 import { DropdownFilters } from '../DropdownFilters';
 import { WINDOW_WIDTH } from 'constants/constants';
-import store from 'store';
 import { FILTERS } from 'constants/filter';
+import { useProfileState } from 'hook/profileHook';
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Solution Cost</b> is the total estimated cost to solve a problem.</div>);
 const content0 = (<div className="popoveer-00"><b>Personalized</b> are problems which have been favorited.</div>);
@@ -39,7 +39,7 @@ export const NewProblemsFilter = () => {
         getProblemCounter,
     } = useMapDispatch();
     const { boundsMap } = useMapState();
-    const appUser = store.getState().profile;
+    const appUser = useProfileState();
     const [openFavorites, setOpenFavorites] = useState(filterProblemOptions.favorites !== undefined && filterProblemOptions.favorites !== '');
     const [selectedData, setSelectedData] = useState<any[]>([]);
     const apply = (values: any, field: string) => {
