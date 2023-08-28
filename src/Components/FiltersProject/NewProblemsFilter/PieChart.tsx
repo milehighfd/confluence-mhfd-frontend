@@ -73,7 +73,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue, selectedData, 
         if ( index !== -1) {
           setSelectedData(selectedData.filter((sd:any) => !(sd >= 7 && sd <= 12)));
         } else {
-          const allMaintenance = [7,8,9,10,11,12];
+          const allMaintenance = [7,8,9,10,11];
           setSelectedData([...selectedData, ...allMaintenance]);
         }
       }
