@@ -56,6 +56,7 @@ const RequestView = ({ type, widthMap }: {
     setLocality,
     setTabKey,
     setYear,
+    setYearList,
     setNamespaceId,
     setBoardStatus,
     setBoardSubstatus,
@@ -163,6 +164,11 @@ const RequestView = ({ type, widthMap }: {
           console.log(e);
         }
         setYear(+config.value);
+        const yearList = [];
+        for (let i = 0; i < 5; i++) {
+          yearList.push((+config.value) - i);
+        }
+        setYearList(yearList);
       }
       if (!_locality && r.localities.length > 0) {
         _locality = r.localities[0].name;
