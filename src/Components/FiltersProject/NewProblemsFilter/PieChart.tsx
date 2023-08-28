@@ -94,7 +94,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue, selectedData, 
     .on('click', clickFn)
     // .transition().duration(2000)
     .attr('d', (d: any) => {
-      let index = selectedData.indexOf(d.data.id);
+      let index =  (d.data.id === 10) ? MAINTENANCE_IDS.some((mid:any) => selectedData.indexOf(mid)) :selectedData.indexOf(d.data.id);
       return index === -1 ? arc2(d) : arc3(d);
     })
     .attr("transform", "translate(" + -width/4.5 + "," + 0+ ")");
