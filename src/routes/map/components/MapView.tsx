@@ -37,7 +37,7 @@ const STATUS = 'status',
   MHFD_LEAD = 'staff',
   LG_LEAD = 'lg_lead',
   FAVORITES = 'Favorites',
-  TEAMS = 'teams';
+  TEAMS = 'Teams';
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 let contents: any = [];
@@ -69,8 +69,8 @@ const content11 = (<div className="popoveer-00"><b>Consultant</b> is the primary
 const content12 = (<div className="popoveer-00"><b>Local Government Manager</b> is the local government's project manager assigned to the project.</div>);
 const content13 = (<div className="popoveer-00"><b>Contractor</b> is the primary civil engineering construction contractor on the project.</div>);
 const content14 = (<div className="popoveer-00"><b>Stream Name</b> is the name or ID of the stream where the project is located.</div>);
-const content15 = (<div className="popoveer-00"><b>Favorites</b> Description comming soon.</div>);
-const content16 = (<div className="popoveer-00"><b>Teams</b> Descriptioncomming soon.</div>);
+const content15 = (<div className="popoveer-00"><b>Personalized</b> are projects which have been favorited or to which the user belongs.</div>);
+const content16 = (<div className="popoveer-00"><b>Personalized</b> are problems which have been favorited.</div>);
 
 const { TabPane } = Tabs;
 const { Search } = Input;
@@ -310,7 +310,7 @@ const MapView = () => {
   const deleteTagProblems = (tag: string, value: string) => {
     
     const auxFilterProblems = { ...filterProblemOptions };
-    const valueTag = (tag === 'cost' || tag === 'mhfdmanager') ? filterProblemOptions[tag] : filterProblemOptions[tag].split(',');
+    const valueTag = (tag === 'cost' || tag === 'mhfdmanager' || tag === 'favorites') ? filterProblemOptions[tag] : filterProblemOptions[tag].split(',');
     const auxValueTag = [] as Array<string>;
     let newValue = '';
     if (tag === 'favorites') {
@@ -639,7 +639,18 @@ const MapView = () => {
         labelsFiltersProjects[position]['detail'] = elements as any;
       }
     }
-    let mappedLabelsFiltersProjects = labelsFiltersProjects
+
+    const fixedLabels = [
+      {
+        name: 'personalized',
+        display: 'PERSONALIZED',
+        detail: labelsFiltersProjects.filter((label:any) => label.name === 'favorites' || label.name === 'teams')
+                        .flatMap((label:any) => label.detail),
+        popover: '02'
+      },
+      ...labelsFiltersProjects.filter((label:any) => label.name !== 'favorites' && label.name !== 'teams')
+    ];
+    let mappedLabelsFiltersProjects = fixedLabels
       .map((lfp: any) => {
         let d = lfp.detail.filter((dt: any) => dt !== '');
         let mlfp = { ...lfp, detail: d };
@@ -696,8 +707,7 @@ const MapView = () => {
                 : toCamelCase(element.display) === 'local lovernment manager' ? content12
                 : toCamelCase(element.display) === 'contractor' ? content13
                 : toCamelCase(element.display) === 'stream name' ? content14
-                : toCamelCase(element.display) === 'favorites' ? content15
-                : toCamelCase(element.display) === 'teams' ? content16
+                : toCamelCase(element.display) === 'personalized' ? ( tabActive === '1' ? content15: content16)
                 : content4
             }
             >

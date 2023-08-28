@@ -12,7 +12,7 @@ import store from 'store';
 
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Service Area</b> is the MHFD Watershed Service Area where the project is located.</div>);
-const content0 = (<div className="popoveer-00"><b>Personalized</b> is the name or ID of the stream where the project is located.</div>);
+const content0 = (<div className="popoveer-00"><b>Personalized</b> are projects which have been favorited or to which the user belongs.</div>);
 const content1 = (<div className="popoveer-00"><b>County</b> is the county where the project is located.</div>);
 const content2 = (<div className="popoveer-00"><b>Local Government</b> is the local government where the project is located.</div>);
 const content3 = (<div className="popoveer-00"><b>MHFD Lead</b> is the MHFD PM who is responsible for the service area where the project is located.</div>);

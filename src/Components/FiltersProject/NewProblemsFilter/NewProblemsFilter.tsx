@@ -11,7 +11,7 @@ import store from 'store';
 import { FILTERS } from 'constants/filter';
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Solution Cost</b> is the total estimated cost to solve a problem.</div>);
-const content0 = (<div className="popoveer-00"><b>Personalized</b> is the severity of a problem relative to other problems of the same type.</div>);
+const content0 = (<div className="popoveer-00"><b>Personalized</b> are problems which have been favorited.</div>);
 const content00 = (<div className="popoveer-00"><b>Personalized</b> is the severity of a problem relative to other problems of the same type.</div>);
 const content01 = (<div className="popoveer-00"><b>Priority</b> is the severity of a problem relative to other problems of the same type.</div>);
 const content02 = (<div className="popoveer-00"><b>Status</b> is the percentage (by cost) of elements required to solve a problem that have been completed.</div>);
