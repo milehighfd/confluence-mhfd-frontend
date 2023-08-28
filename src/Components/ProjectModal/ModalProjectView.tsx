@@ -5,7 +5,7 @@ import { ModalAcquisition } from 'Components/Project/Acquisition/ModalAcquisitio
 import { ModalMaintenance } from 'Components/Project/Maintenance/ModalMaintenance';
 import { ModalSpecial } from 'Components/Project/Special/ModalSpecial';
 import { ModalStudy } from 'Components/Project/Study/ModalStudy';
-import { NEW_PROJECT_TYPES } from 'constants/constants';
+import { NEW_PROJECT_TYPES, MAINTENANCE_IDS, MAINTENANCE } from 'constants/constants';
 import { useProjectDispatch } from 'hook/projectHook';
 import { getAllowedBasedOnLocality } from 'Components/Work/Request/RequestViewUtil';
 import { postData } from 'Config/datasets';
@@ -160,7 +160,7 @@ const ModalProjectView = ({
         setVisibleCapital(true);
         setNameProject('Add Project Name');
       } else {
-        const allowedProjectTypeIds = [1,5, 7, 8, 9, 10, 11];
+        const allowedProjectTypeIds = [1,5, ...MAINTENANCE_IDS];
         const currentProjectType = data.code_project_type_id ?? 1;
         if(allowedProjectTypeIds.includes(currentProjectType)){
           getStreamsByProjectId(data.project_id, currentProjectType);

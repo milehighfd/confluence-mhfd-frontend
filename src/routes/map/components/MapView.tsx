@@ -11,7 +11,8 @@ import {
   PROBLEMS_TRIGGER,
   PROJECTS_TRIGGER,
   COMPONENTS_TRIGGER,
-  SELECT_ALL_FILTERS
+  SELECT_ALL_FILTERS,
+  MAINTENANCE_IDS
 } from 'constants/constants';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
 import { capitalLetter, elementCost, getStatus } from 'utils/utils';
@@ -149,7 +150,6 @@ const MapView = () => {
     value: '',
     type: '',
   });
-  const maintenanceIds = [7, 8, 9, 10, 11, 12];
   const gray = 'rgba(17, 9, 60, 0.5)';
   const green = '#28C499';
   const purple = '#11093c';
@@ -250,7 +250,7 @@ const MapView = () => {
   const resetFilterProjects = (withDefaults: boolean, withCoords?: any) => {
     const options = { ...filterProjectOptions };
     if (withDefaults) {
-      options.projecttype = [5, 7];
+      options.projecttype = [5, ...MAINTENANCE_IDS];
       options.status = [5];
     } else {
       options.projecttype = [];
@@ -353,16 +353,7 @@ const MapView = () => {
       const auxValueTag = [] as Array<string>;
       if (tag === 'favorites' || tag === 'teams') {
         auxFilterProjects[tag] = '';
-      }else if (tag !== 'totalcost') {
-        let hasToDeleteMaintenance = [];
-        if ( Array.isArray(value)) {
-          hasToDeleteMaintenance = value?.filter((x: any) => maintenanceIds.includes(x));
-        }
-        if (tag === 'projecttype' && hasToDeleteMaintenance.length > 0 ) {
-          // delete maintenance from value tag.
-          // hasMaintenance = valueTag.filter((x: any) => maintenanceIds.includes(x));
-          valueTag =  valueTag.filter((x: any) => !maintenanceIds.includes(x));
-        }
+      } else if (tag !== 'totalcost') {
         for (let index = 0; index < valueTag?.length; index++) {
           const element = valueTag[index];
           if (element !== value) {
@@ -373,6 +364,7 @@ const MapView = () => {
       if (tag !== 'favorites' && tag !== 'teams') {
         auxFilterProjects[tag] = auxValueTag;
       }
+      console.log('AuxFilterproject', auxFilterProjects);
       setFilterProjectOptions(auxFilterProjects);
       getParamFilterProjects(boundsMap, auxFilterProjects)
       resetNextPageOfCards();
@@ -600,7 +592,6 @@ const MapView = () => {
               display: key === 'favorites' ?FAVORITES : TEAMS,
             });
           }
-        let isMaintenance = false;
           for (let index = 0; index < tag.length; index++) {
             if (key === 'mhfddollarsallocated') {
               const cost = tag[index].split(',');
@@ -617,23 +608,12 @@ const MapView = () => {
               });
               break;
             } else {
-              if (tag[index] && !maintenanceIds.includes(tag[index])) {
-                elements.push({
-                  tag: key,
-                  value: tag[index],
-                  display: getLabel(key, tag[index]),
-                });
-              } else {
-                isMaintenance = true;
-              }
+              elements.push({
+                tag: key,
+                value: tag[index],
+                display: getLabel(key, tag[index]),
+              });
             }
-          }
-          if( isMaintenance ) {
-            elements.push({
-              tag: key,
-              value: maintenanceIds,
-              display: 'Maintenance',
-            });
           }
         }
         labelsFiltersProjects[position]['detail'] = elements as any;
@@ -798,16 +778,6 @@ const MapView = () => {
     for (const key in filterProjectOptions) {
       let tag = filterProjects[key];
       if (tag !== undefined) {	
-        let hasMaintenance = [];
-        if (key === 'projecttype') {
-          if (Array.isArray(tag)) {
-            hasMaintenance = tag.filter((x: any) => maintenanceIds.includes(x));
-          }
-          if (hasMaintenance.length > 0) {
-            // if has maintenance remove from tag projecttype to count them normally
-            tag =  tag.filter((x: any) => !maintenanceIds.includes(x));
-          }
-        }
         if (key !== 'keyword' && key !== 'column' && key !== 'order' && key !== 'name' && key !== 'totalcost' && key !== 'favorites' && key !== 'teams') {
           for (let index = 0; index < tag.length; index++) {
             const element = tag[index];
@@ -820,9 +790,6 @@ const MapView = () => {
         } else if (key === 'favorites' && tag) {
           countTagProjets += 1;
         }  else if (key === 'teams' && tag) {
-          countTagProjets += 1;
-        }
-        if (hasMaintenance.length > 0) {
           countTagProjets += 1;
         }
         const position = labelsFiltersProjects.findIndex((x: any) => x.name === key);

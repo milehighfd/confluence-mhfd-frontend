@@ -1082,6 +1082,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     const capitalProjects = projectsids
       .filter((project: any) => project.code_project_type_id === 5)
       .map((project: any) => project.project_id);
+      // TODO: filter by projectsubtype of maintenance 
     const maintenanceProjects = projectsids
       .filter(
         (project: any) =>
