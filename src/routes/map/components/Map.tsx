@@ -32,7 +32,8 @@ import {
   WINDOW_WIDTH,
   PROJECTS_DRAFT_MAP_STYLES,
   PROJECTS_DRAFT,
-  MAP_TAB
+  MAP_TAB,
+  MAINTENANCE_IDS
 } from 'constants/constants';
 import {
   tileStyles,
@@ -1086,8 +1087,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     const maintenanceProjects = projectsids
       .filter(
         (project: any) =>
-          (project.code_project_type_id >= 7 && project.code_project_type_id <= 11) ||
-          project.code_project_type_id === 17,
+          MAINTENANCE_IDS.some((mid:any) => mid === project.code_project_type_id)
       )
       .map((project: any) => project.project_id);
     const studyProjects = projectsids

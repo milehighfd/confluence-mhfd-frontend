@@ -67,23 +67,23 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue, selectedData, 
       .selectAll('slices')
       .data(data_ready)
     let clickFn = (d: any) => {
-      console.log('Click fn', d);
-      let index = selectedData.indexOf(d.data.id);
-      if (d.data.id != 7) {
-        if (index !== -1) {
-          setSelectedData(selectedData.filter((_:any, ind:any) => ind !== index))
+      if (d.data.counter > 0 ) {
+        if (d.data.id === 10) {
+          const existMaintenance = selectedData ? selectedData.some((sd:any) => MAINTENANCE_IDS.includes(sd)):false;
+          if (existMaintenance) {
+            setSelectedData(selectedData.filter((sd:any) => !MAINTENANCE_IDS.includes(sd)));
+          } else {
+            setSelectedData([...selectedData, ...MAINTENANCE_IDS])
+          }
         } else {
-          setSelectedData([...selectedData, d.data.id])
+          let index = selectedData.indexOf(d.data.id);
+          if (index !== -1) {
+            setSelectedData(selectedData.filter((_:any, ind:any) => ind !== index))
+          } else {
+            setSelectedData([...selectedData, d.data.id])
+          }
         }
-      } else {
-        if ( index !== -1) {
-          setSelectedData(selectedData.filter((sd:any) => !(sd >= 7 && sd <= 12)));
-        } else {
-          const allMaintenance = [7,8,9,10,11];
-          setSelectedData([...selectedData, ...allMaintenance]);
-        }
-      }
-      
+      }       
     }
 
     slicesSelected
@@ -94,7 +94,9 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue, selectedData, 
     .on('click', clickFn)
     // .transition().duration(2000)
     .attr('d', (d: any) => {
-      let index =  (d.data.id === 10) ? MAINTENANCE_IDS.some((mid:any) => selectedData.indexOf(mid)) :selectedData.indexOf(d.data.id);
+      const isMaintenance = MAINTENANCE_IDS.some((mid:any) => selectedData.indexOf(mid) != -1);
+      
+      let index =  (d.data.id === 10) ?  ( isMaintenance ? 1 : -1 ):selectedData.indexOf(d.data.id);
       return index === -1 ? arc2(d) : arc3(d);
     })
     .attr("transform", "translate(" + -width/4.5 + "," + 0+ ")");
