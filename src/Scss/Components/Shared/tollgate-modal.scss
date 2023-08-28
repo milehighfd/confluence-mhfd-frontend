@@ -533,7 +533,7 @@
     }
   }
 }
-@media (min-width: 2550px) and (max-width: 3799px) {
+@media (min-width: 2550px){
   .modal-tollgate {
     top: 115px !important;
     width: 1065px !important;
@@ -656,136 +656,136 @@
     }
   }
 }
-@media (min-width: 3800px) and (max-width: 5999px) {
-  .modal-tollgate {
-    top: 115px !important;
-    width: 1370px !important;
-    font-size: 18px !important;
-    top: 260px !important;
+// @media (min-width: 3800px) and (max-width: 5999px) {
+//   .modal-tollgate {
+//     top: 115px !important;
+//     width: 1370px !important;
+//     font-size: 18px !important;
+//     top: 260px !important;
 
-    .ant-picker-input > input {
-      font-size: 26px !important;
-    }
-  }
-  .tollgate-layout {
-    .map {
-      height: 1000px !important;
-    }
-  }
-  .tollgate-header {
-    padding: 20px 30px!important;
-    .dates-title {
-      margin-left: -24px;
-    }
+//     .ant-picker-input > input {
+//       font-size: 26px !important;
+//     }
+//   }
+//   .tollgate-layout {
+//     .map {
+//       height: 1000px !important;
+//     }
+//   }
+//   .tollgate-header {
+//     padding: 20px 30px!important;
+//     .dates-title {
+//       margin-left: -24px;
+//     }
 
-    .duration-toollgate {
-      margin-bottom: 15px !important;
-      height: 52.84px !important;
-      padding: 10px 0px;
-    }
+//     .duration-toollgate {
+//       margin-bottom: 15px !important;
+//       height: 52.84px !important;
+//       padding: 10px 0px;
+//     }
 
-    .duration-toollgate-l .ant-input-number-handler-wrap .ant-input-number-handler .ant-input-number-handler-down-inner,
-    .duration-toollgate-l .ant-input-number-handler-wrap .ant-input-number-handler .ant-input-number-handler-up-inner {
-      font-size: 17px;
-    }
+//     .duration-toollgate-l .ant-input-number-handler-wrap .ant-input-number-handler .ant-input-number-handler-down-inner,
+//     .duration-toollgate-l .ant-input-number-handler-wrap .ant-input-number-handler .ant-input-number-handler-up-inner {
+//       font-size: 17px;
+//     }
 
-    .duration-toollgate-l .ant-input-number-handler-wrap {
-      opacity: 1;
-      width: 35px;
-      padding-right: 3px;
-    }
-    .btn-tollgate {
-      font-size: 27px !important;
-      height: auto !important;
-      margin-top: 17px !important;
-    }
+//     .duration-toollgate-l .ant-input-number-handler-wrap {
+//       opacity: 1;
+//       width: 35px;
+//       padding-right: 3px;
+//     }
+//     .btn-tollgate {
+//       font-size: 27px !important;
+//       height: auto !important;
+//       margin-top: 17px !important;
+//     }
 
-    .tollgate-body {
-      height: 269px !important;
-    }
+//     .tollgate-body {
+//       height: 269px !important;
+//     }
 
-    .tollgate-row-list-view {
-      height: 731px !important;
+//     .tollgate-row-list-view {
+//       height: 731px !important;
 
-      h5 {
-        font-size: 24px;
-      }
+//       h5 {
+//         font-size: 24px;
+//       }
 
-      h3 {
-        font-size: 30px !important;
-      }
+//       h3 {
+//         font-size: 30px !important;
+//       }
 
-      .left-tollgate {
-        p {
-          margin-bottom: 27px !important;
-        }
-      }
+//       .left-tollgate {
+//         p {
+//           margin-bottom: 27px !important;
+//         }
+//       }
 
-      input {
-        font-size: 26px !important;
-      }
-    }
+//       input {
+//         font-size: 26px !important;
+//       }
+//     }
 
-    h1 {
-      font-size: 32px;
-      line-height: 42px!important
-    }
+//     h1 {
+//       font-size: 32px;
+//       line-height: 42px!important
+//     }
 
-    h3 {
-      font-size: 30px !important;
-    }
+//     h3 {
+//       font-size: 30px !important;
+//     }
 
-    p {
-      font-size: 26px !important;
-    }
+//     p {
+//       font-size: 26px !important;
+//     }
 
-    .calendar-toollgate {
-      margin-bottom: 15px !important;
-    }
-    .title {
-      font-size: 26px !important;
-      padding-bottom: 8px;
-    }
+//     .calendar-toollgate {
+//       margin-bottom: 15px !important;
+//     }
+//     .title {
+//       font-size: 26px !important;
+//       padding-bottom: 8px;
+//     }
 
-    .active {
-      border-bottom: 3px solid #11093c;
-      color: $purple00;
-      opacity: 1;
+//     .active {
+//       border-bottom: 3px solid #11093c;
+//       color: $purple00;
+//       opacity: 1;
 
-      h4 {
-        color: $purple00;
-        opacity: 1;
-      }
-    }
-  }
-  .tollgate-header-head {
-    height: 108px;
-  }
+//       h4 {
+//         color: $purple00;
+//         opacity: 1;
+//       }
+//     }
+//   }
+//   .tollgate-header-head {
+//     height: 108px;
+//   }
 
-  .span-dots-tollgate {
-    font-size: 28px;
-    .toolgate-circle {
-      width: 23px;
-      height: 23px;
-      margin-right: 8px;
-      margin-left: 16px;
-      // margin-top: 9px;
-    }
-  }
-  .calendar-toollgate {
-    span {
-      font-size: 18px !important;
-    }
-  }
-  .btn-tollgate {
-    font-size: 27px!important;
-    margin-top: 17px!important;
-  }
-  .tollgate-btn-transparent{
-    margin: 2px 5px!important;
-    padding: 0 12px!important;
-    img{
-      height: 19px;
-    }
-  }
-}
+//   .span-dots-tollgate {
+//     font-size: 28px;
+//     .toolgate-circle {
+//       width: 23px;
+//       height: 23px;
+//       margin-right: 8px;
+//       margin-left: 16px;
+//       // margin-top: 9px;
+//     }
+//   }
+//   .calendar-toollgate {
+//     span {
+//       font-size: 18px !important;
+//     }
+//   }
+//   .btn-tollgate {
+//     font-size: 27px!important;
+//     margin-top: 17px!important;
+//   }
+//   .tollgate-btn-transparent{
+//     margin: 2px 5px!important;
+//     padding: 0 12px!important;
+//     img{
+//       height: 19px;
+//     }
+//   }
+// }

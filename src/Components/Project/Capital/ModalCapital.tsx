@@ -30,6 +30,8 @@ import { TypeProjectsMenu } from '../TypeProjectComponents/TypeProjectMenu';
 import { setStreamsList } from 'store/actions/ProjectActions';
 import { deletefirstnumbersmhfdcode } from 'utils/utils';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
+import { DiscussionCreateProject } from '../TypeProjectComponents/DiscussionCreateProject';
+import { ActivitiCreateProject } from '../TypeProjectComponents/ActivityCreateProject';
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -1051,7 +1053,7 @@ export const ModalCapital = ({
             <p className={activeTabBodyProject ===  'Discussion'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Discussion')}}>Discussion</p>
             <p className={activeTabBodyProject ===  'Activity'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Activity')}}>Activity</p>
           </div>
-          {activeTabBodyProject === 'Details' ? */}
+          {activeTabBodyProject === 'Details' && <> */}
             <div className="body-project">
               {
                 (isWorkPlan && showCheckBox && !swSave) &&  
@@ -1199,35 +1201,11 @@ export const ModalCapital = ({
                 index={indexForm++}
               />
             </div>
-          {/* :<>
-          <div className="body-project">
-            <div className='discution-body'>
-              <div className='discution-other-user'>
-                <div className='other-user-information'>
-                  02/14/23
-                </div>
-                <div className='discution'>
-                  <div>
-                    Hi, I would like to follow-up on my submission
-                  </div>
-                  <div>
-                    We are requesting a new culvert along Almond Rd to Shawnee Avenue, as shown through our submission in February 2023.
-                  </div>
-                </div>
-              </div>
-              <div className='discution-user'>
-                We are requesting a new culvert along Almond Rd to Shawnee Avenue, as shown through our submission in February 2023.
-              </div>
-            </div>
-            <div className='discution-footer'>
-              <input placeholder="Write a comment..."/>
-              <Button>
-                <img>
-                </img>
-              </Button>
-            </div>
-          </div> */}
-          {/* </>} */}
+          {/* </>}
+          {activeTabBodyProject === 'Discussion' &&
+          <DiscussionCreateProject/>}
+          {activeTabBodyProject === 'Activity' &&
+          <ActivitiCreateProject/>} */}
           <div className="footer-project">
             <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>
             <Button className="btn-purple" onClick={handleOk} disabled={disable}><span className="text-color-disable">Save Draft Project</span></Button>

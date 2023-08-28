@@ -167,7 +167,7 @@ export class MapService {
     this.controller = true;
   }
   removeDrawController() {
-    if (this.controller) {
+    if (this.controller && this.map) {
       this.map.removeControl(this.draw);
     }
     this.controller = false;

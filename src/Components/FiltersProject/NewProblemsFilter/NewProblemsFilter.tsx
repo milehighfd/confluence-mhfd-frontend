@@ -111,7 +111,7 @@ export const NewProblemsFilter = () => {
             <div className='filt-00'>
             <h5 className="filter-title chart-filter-title">Personalized <Popover content={content0}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
             <div className='body-filt-00'>
-                <Button className={`btn-svg-text ${openFavorites ? 'btn-svg-text-active' : ''}`} onClick={() => { setOpenFavorites(!openFavorites)}} style={{borderRadius: '3px 0px 0px 3px', width:'100%'}}>
+                <Button className={`btn-svg-text ${openFavorites ? 'btn-svg-text-active' : ''}`} onClick={() => { setOpenFavorites(!openFavorites)}} style={{borderRadius: '3px 0px 0px 3px'}}>
                     <img src="/Icons/ic-favorites.svg" alt=""/>
                     <br/>
                     My Favorites

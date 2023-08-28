@@ -303,7 +303,9 @@ const CreateProjectMap = (type: any) => {
           map.dragEnd(() => {
             setDragEndCounter(__++);
           });
-          
+          map.isStyleLoaded(() => {
+            map.map.setTerrain();
+          });
         }
       }
     };

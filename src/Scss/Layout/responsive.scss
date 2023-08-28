@@ -30,7 +30,7 @@
   }
 }
 // 2K DISPLAY
-@media (min-width: 2500px) and (max-width: 3999px) {
+@media (min-width: 2500px){
   .pre-signup {
     font-size: 16px;
   }
@@ -220,792 +220,792 @@
 }
 
 // 4K DISPLAY
-@media (min-width: 3000px) {
-  .pre-signup {
-    font-size: 18px;
-  }
-  // LOGIN
-  .img-banner {
-    width: 195vh;
-    height: 100vh;
-    overflow: hidden;
-  }
-  .social01 a {
-    font-size: 40px;
-  }
-  .contact01 {
-    margin: 0px 0 100px 126px;
-    img {
-      height: 30px !important;
-    }
-  }
-  .contact02 {
-    top: 190px;
-    right: 450px;
-    .text-button {
-      font-size: 25px;
-    }
-  }
-  .ant-carousel .slick-dots {
-    padding-left: 100px !important;
-    padding-bottom: 8.5vh !important;
-  }
-  .ant-carousel .slick-slide h2 {
-    font-size: 72px;
-    padding-left: 42px;
-  }
-  .ant-carousel .slick-slide h5 {
-    font-size: 40px;
-    padding-left: 42px;
-  }
-  .ant-carousel .slick-dots li button {
-    width: 40px !important;
-    height: 10px !important;
-  }
-  .ant-carousel .slick-dots li.slick-active button {
-    width: 40px !important;
-  }
-  .ant-carousel .slick-slide .textContent {
-    height: 84vh;
-  }
-  .icons-list {
-    margin-bottom: 20px;
-  }
-  .logo-white {
-    width: 287px;
-    height: 100px;
-    margin: 100px 0 0 100px;
-  }
-  .ant-carousel .slick-dots li {
-    width: 90px;
-  }
-  .login-form {
-    width: 880px !important;
-    p {
-      font-size: 32px;
-    }
-  }
-  .text-l {
-    font-size: 32px;
-  }
-  .group {
-    margin-bottom: 40px;
+// @media (min-width: 3000px) {
+//   .pre-signup {
+//     font-size: 18px;
+//   }
+//   // LOGIN
+//   .img-banner {
+//     width: 195vh;
+//     height: 100vh;
+//     overflow: hidden;
+//   }
+//   .social01 a {
+//     font-size: 40px;
+//   }
+//   .contact01 {
+//     margin: 0px 0 100px 126px;
+//     img {
+//       height: 30px !important;
+//     }
+//   }
+//   .contact02 {
+//     top: 190px;
+//     right: 450px;
+//     .text-button {
+//       font-size: 25px;
+//     }
+//   }
+//   .ant-carousel .slick-dots {
+//     padding-left: 100px !important;
+//     padding-bottom: 8.5vh !important;
+//   }
+//   .ant-carousel .slick-slide h2 {
+//     font-size: 72px;
+//     padding-left: 42px;
+//   }
+//   .ant-carousel .slick-slide h5 {
+//     font-size: 40px;
+//     padding-left: 42px;
+//   }
+//   .ant-carousel .slick-dots li button {
+//     width: 40px !important;
+//     height: 10px !important;
+//   }
+//   .ant-carousel .slick-dots li.slick-active button {
+//     width: 40px !important;
+//   }
+//   .ant-carousel .slick-slide .textContent {
+//     height: 84vh;
+//   }
+//   .icons-list {
+//     margin-bottom: 20px;
+//   }
+//   .logo-white {
+//     width: 287px;
+//     height: 100px;
+//     margin: 100px 0 0 100px;
+//   }
+//   .ant-carousel .slick-dots li {
+//     width: 90px;
+//   }
+//   .login-form {
+//     width: 880px !important;
+//     p {
+//       font-size: 32px;
+//     }
+//   }
+//   .text-l {
+//     font-size: 32px;
+//   }
+//   .group {
+//     margin-bottom: 40px;
 
-    input {
-      font-size: 32px;
-    }
-  }
-  .returnText .anticon {
-    padding: 14px 7px 14px 7px;
-    height: 64px;
-    width: 64px;
-    font-size: 34px;
-  }
-  .login-step01 {
-    img {
-      width: 500px;
-      margin-bottom: 20px;
-    }
-    .btn-purple {
-      height: 80px;
-      font-size: 28px;
-      margin-top: 30px;
-    }
-  }
-  .marbot-4 {
-    font-size: 30px;
-  }
-  .login-form {
-    h1 {
-      font-size: 72px;
-      margin-bottom: 15px;
-    }
-    .btn-responsive,
-    .button-dropdown {
-      width: auto !important;
-      min-width: 316px;
-      max-width: 337px;
-    }
-    .btn-up img {
-      height: 30px !important;
-      width: 25px !important;
-    }
-    .btn-up .ant-btn {
-      height: 80px;
-      font-size: 32px;
-    }
-  }
-  .loginLabels {
-    font-size: 38px;
-  }
-  .signup {
-    height: 130px;
-    margin: 15px 0px 30px 0px;
+//     input {
+//       font-size: 32px;
+//     }
+//   }
+//   .returnText .anticon {
+//     padding: 14px 7px 14px 7px;
+//     height: 64px;
+//     width: 64px;
+//     font-size: 34px;
+//   }
+//   .login-step01 {
+//     img {
+//       width: 500px;
+//       margin-bottom: 20px;
+//     }
+//     .btn-purple {
+//       height: 80px;
+//       font-size: 28px;
+//       margin-top: 30px;
+//     }
+//   }
+//   .marbot-4 {
+//     font-size: 30px;
+//   }
+//   .login-form {
+//     h1 {
+//       font-size: 72px;
+//       margin-bottom: 15px;
+//     }
+//     .btn-responsive,
+//     .button-dropdown {
+//       width: auto !important;
+//       min-width: 316px;
+//       max-width: 337px;
+//     }
+//     .btn-up img {
+//       height: 30px !important;
+//       width: 25px !important;
+//     }
+//     .btn-up .ant-btn {
+//       height: 80px;
+//       font-size: 32px;
+//     }
+//   }
+//   .loginLabels {
+//     font-size: 38px;
+//   }
+//   .signup {
+//     height: 130px;
+//     margin: 15px 0px 30px 0px;
 
-    button {
-      font-size: 32px;
-      line-height: 36px;
-    }
-  }
-  .respo-tt,
-  .login-form-forgot {
-    font-size: 32px;
-  }
-  .returnText button {
-    height: 65px;
-  }
-  .ant-btn-circle,
-  .ant-btn-circle-outline {
-    min-width: 80px !important;
-  }
-  .js-mm-00 span {
-    font-size: 32px;
-  }
-  .js-mm-00 .ant-dropdown-menu-item {
-    padding: 30px 30px 10px 30px !important;
-  }
-  // NAVBAR
-  .logo {
-    width: 411px !important;
-    height: 46px !important;
-    margin-top: 21px !important;
-  }
-  .header {
-    height: 96px !important;
-    .ll-0 {
-      padding: 15px 0.5px;
-    }
-    h6 {
-      font-size: 32px !important;
-      line-height: 100px;
-      margin-bottom: 0px;
-    }
-    .ll-img {
-      height: 52px !important;
-      width: 52px !important;
-      border-radius: 50% !important;
-    }
-    a {
-      font-size: 24px !important;
-    }
-    .anticon {
-      font-size: 20px !important;
-    }
-    .ant-menu-dark.ant-menu-horizontal {
-      line-height: 100px !important;
-    }
-  }
-  .notification-icon,
-  .notification-icon:hover {
-    padding: 18px 25px !important;
-    mask-size: 35px 35px !important;
-    position: relative;
-  }
-  .tutorial {
-    .btn-question {
-      padding: 36px 22px !important;
-      mask-size: 35px 35px !important;
-      height: auto !important;
-    }
-  }
-  .tutorial-000 {
-    width: 2200px !important;
+//     button {
+//       font-size: 32px;
+//       line-height: 36px;
+//     }
+//   }
+//   .respo-tt,
+//   .login-form-forgot {
+//     font-size: 32px;
+//   }
+//   .returnText button {
+//     height: 65px;
+//   }
+//   .ant-btn-circle,
+//   .ant-btn-circle-outline {
+//     min-width: 80px !important;
+//   }
+//   .js-mm-00 span {
+//     font-size: 32px;
+//   }
+//   .js-mm-00 .ant-dropdown-menu-item {
+//     padding: 30px 30px 10px 30px !important;
+//   }
+//   // NAVBAR
+//   .logo {
+//     width: 411px !important;
+//     height: 46px !important;
+//     margin-top: 21px !important;
+//   }
+//   .header {
+//     height: 96px !important;
+//     .ll-0 {
+//       padding: 15px 0.5px;
+//     }
+//     h6 {
+//       font-size: 32px !important;
+//       line-height: 100px;
+//       margin-bottom: 0px;
+//     }
+//     .ll-img {
+//       height: 52px !important;
+//       width: 52px !important;
+//       border-radius: 50% !important;
+//     }
+//     a {
+//       font-size: 24px !important;
+//     }
+//     .anticon {
+//       font-size: 20px !important;
+//     }
+//     .ant-menu-dark.ant-menu-horizontal {
+//       line-height: 100px !important;
+//     }
+//   }
+//   .notification-icon,
+//   .notification-icon:hover {
+//     padding: 18px 25px !important;
+//     mask-size: 35px 35px !important;
+//     position: relative;
+//   }
+//   .tutorial {
+//     .btn-question {
+//       padding: 36px 22px !important;
+//       mask-size: 35px 35px !important;
+//       height: auto !important;
+//     }
+//   }
+//   .tutorial-000 {
+//     width: 2200px !important;
 
-    .ant-tabs .ant-tabs-left-bar .ant-tabs-nav-scroll,
-    .ant-tabs .ant-tabs-right-bar .ant-tabs-nav-scroll {
-      width: 530px !important;
-    }
-    .ant-tabs .ant-tabs-left-bar .ant-tabs-tab,
-    .ant-tabs .ant-tabs-right-bar .ant-tabs-tab {
-      margin: 0px 0 35px 25px !important;
-      font-size: 40px;
-    }
-    .ant-tabs .ant-tabs-left-bar .ant-tabs-ink-bar {
-      width: 10px !important;
-    }
-    .ant-tabs-left-content img {
-      width: 1540px !important;
-    }
-    .content {
-      height: 550px !important;
-      margin: 40px 45px 40px 0px !important;
-      text-align: justify;
-    }
-    p {
-      font-size: 40px !important;
-    }
-    .btn-purple {
-      width: 320px !important;
-      height: 120px !important;
-      font-size: 42px !important;
-    }
-    .ant-tabs .ant-tabs-left-content {
-      padding-left: 60px !important;
-      padding-top: 20px;
-      padding-bottom: 20px;
-    }
-    .ant-tabs-nav {
-      padding-top: 100px !important;
-    }
-    .logo-00 {
-      padding-left: 50px !important;
-    }
-    .ant-modal-close-x {
-      font-size: 32px !important;
-    }
-    .ant-modal-close {
-      padding: 15px !important;
-    }
-    .ant-tabs .ant-tabs-left-bar .ant-tabs-ink-bar {
-      width: 10px !important;
-    }
-  }
-  .tutorial .logo-00 img {
-    width: 350px !important;
-  }
-  .login-dropdown {
-    font-size: 26px !important;
-    padding: 12px 15px !important;
-  }
-  // SIDEBAR
-  .ant-layout-sider-collapsed {
-    width: 100px !important;
-    flex: 0 0 100px !important;
-    max-width: 100px !important;
-    min-width: 100px !important;
-  }
+//     .ant-tabs .ant-tabs-left-bar .ant-tabs-nav-scroll,
+//     .ant-tabs .ant-tabs-right-bar .ant-tabs-nav-scroll {
+//       width: 530px !important;
+//     }
+//     .ant-tabs .ant-tabs-left-bar .ant-tabs-tab,
+//     .ant-tabs .ant-tabs-right-bar .ant-tabs-tab {
+//       margin: 0px 0 35px 25px !important;
+//       font-size: 40px;
+//     }
+//     .ant-tabs .ant-tabs-left-bar .ant-tabs-ink-bar {
+//       width: 10px !important;
+//     }
+//     .ant-tabs-left-content img {
+//       width: 1540px !important;
+//     }
+//     .content {
+//       height: 550px !important;
+//       margin: 40px 45px 40px 0px !important;
+//       text-align: justify;
+//     }
+//     p {
+//       font-size: 40px !important;
+//     }
+//     .btn-purple {
+//       width: 320px !important;
+//       height: 120px !important;
+//       font-size: 42px !important;
+//     }
+//     .ant-tabs .ant-tabs-left-content {
+//       padding-left: 60px !important;
+//       padding-top: 20px;
+//       padding-bottom: 20px;
+//     }
+//     .ant-tabs-nav {
+//       padding-top: 100px !important;
+//     }
+//     .logo-00 {
+//       padding-left: 50px !important;
+//     }
+//     .ant-modal-close-x {
+//       font-size: 32px !important;
+//     }
+//     .ant-modal-close {
+//       padding: 15px !important;
+//     }
+//     .ant-tabs .ant-tabs-left-bar .ant-tabs-ink-bar {
+//       width: 10px !important;
+//     }
+//   }
+//   .tutorial .logo-00 img {
+//     width: 350px !important;
+//   }
+//   .login-dropdown {
+//     font-size: 26px !important;
+//     padding: 12px 15px !important;
+//   }
+//   // SIDEBAR
+//   .ant-layout-sider-collapsed {
+//     width: 100px !important;
+//     flex: 0 0 100px !important;
+//     max-width: 100px !important;
+//     min-width: 100px !important;
+//   }
 
-  .ant-menu-inline-collapsed > .ant-menu-item-group > .ant-menu-item-group-list > .ant-menu-item .anticon,
-  .ant-menu-inline-collapsed
-    > .ant-menu-item-group
-    > .ant-menu-item-group-list
-    > .ant-menu-submenu
-    > .ant-menu-submenu-title
-    .anticon,
-  .ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title .anticon {
-    width: 40px !important;
-    height: 40px !important;
-  }
-  .ant-menu-dark.ant-menu-inline .ant-menu-item,
-  .ant-menu-dark.ant-menu-vertical .ant-menu-item,
-  .ant-menu-dark.ant-menu-vertical-left .ant-menu-item,
-  .ant-menu-dark.ant-menu-vertical-right .ant-menu-item {
-    padding: 0px 31px !important;
-  }
-  .ant-menu-vertical > .ant-menu-item,
-  .ant-menu-vertical-left > .ant-menu-item,
-  .ant-menu-vertical-right > .ant-menu-item,
-  .ant-menu-inline > .ant-menu-item,
-  .ant-menu-vertical > .ant-menu-submenu > .ant-menu-submenu-title,
-  .ant-menu-vertical-left > .ant-menu-submenu > .ant-menu-submenu-title,
-  .ant-menu-vertical-right > .ant-menu-submenu > .ant-menu-submenu-title,
-  .ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
-    height: 80px !important;
-    line-height: 80px !important;
-    // margin-left: 15px !important;
-  }
-  .ant-layout-sider-trigger {
-    min-width: 100px !important;
-    max-width: 200px !important;
-    font-size: 20px;
-  }
-  // MAP
-  .map {
-    .m-head .ant-select-auto-complete.ant-select .ant-input {
-      height: 60px;
-      padding: 6px 20px 6px 45px;
-      width: 400px;
-      font-size: 24px;
-    }
-    .m-head {
-      .ant-input-search > .ant-input-group > .ant-input-group-addon:last-child {
-        margin-top: -48px;
-        margin-left: 14px;
-      }
-    }
-    .m-head .ant-input-search-icon {
-      font-size: 24px;
-    }
-    .m-head button {
-      height: 60px;
-      width: 60px;
-    }
-    .m-head button:hover > .btn-02 {
-      mask-size: 30px 30px !important;
-    }
-    .m-head .btn-02 {
-      padding: 30px 30px !important;
-      mask-size: 30px 30px !important;
-    }
-  }
+//   .ant-menu-inline-collapsed > .ant-menu-item-group > .ant-menu-item-group-list > .ant-menu-item .anticon,
+//   .ant-menu-inline-collapsed
+//     > .ant-menu-item-group
+//     > .ant-menu-item-group-list
+//     > .ant-menu-submenu
+//     > .ant-menu-submenu-title
+//     .anticon,
+//   .ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title .anticon {
+//     width: 40px !important;
+//     height: 40px !important;
+//   }
+//   .ant-menu-dark.ant-menu-inline .ant-menu-item,
+//   .ant-menu-dark.ant-menu-vertical .ant-menu-item,
+//   .ant-menu-dark.ant-menu-vertical-left .ant-menu-item,
+//   .ant-menu-dark.ant-menu-vertical-right .ant-menu-item {
+//     padding: 0px 31px !important;
+//   }
+//   .ant-menu-vertical > .ant-menu-item,
+//   .ant-menu-vertical-left > .ant-menu-item,
+//   .ant-menu-vertical-right > .ant-menu-item,
+//   .ant-menu-inline > .ant-menu-item,
+//   .ant-menu-vertical > .ant-menu-submenu > .ant-menu-submenu-title,
+//   .ant-menu-vertical-left > .ant-menu-submenu > .ant-menu-submenu-title,
+//   .ant-menu-vertical-right > .ant-menu-submenu > .ant-menu-submenu-title,
+//   .ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
+//     height: 80px !important;
+//     line-height: 80px !important;
+//     // margin-left: 15px !important;
+//   }
+//   .ant-layout-sider-trigger {
+//     min-width: 100px !important;
+//     max-width: 200px !important;
+//     font-size: 20px;
+//   }
+//   // MAP
+//   .map {
+//     .m-head .ant-select-auto-complete.ant-select .ant-input {
+//       height: 60px;
+//       padding: 6px 20px 6px 45px;
+//       width: 400px;
+//       font-size: 24px;
+//     }
+//     .m-head {
+//       .ant-input-search > .ant-input-group > .ant-input-group-addon:last-child {
+//         margin-top: -48px;
+//         margin-left: 14px;
+//       }
+//     }
+//     .m-head .ant-input-search-icon {
+//       font-size: 24px;
+//     }
+//     .m-head button {
+//       height: 60px;
+//       width: 60px;
+//     }
+//     .m-head button:hover > .btn-02 {
+//       mask-size: 30px 30px !important;
+//     }
+//     .m-head .btn-02 {
+//       padding: 30px 30px !important;
+//       mask-size: 30px 30px !important;
+//     }
+//   }
 
-  // CARDS
-  .card-information img {
-    height: 16vh;
-  }
-  .card-map {
-    h4 {
-      font-size: 36px;
-      line-height: 42px;
-    }
-    .card-title-s {
-      height: 90px;
-    }
-    h6 {
-      font-size: 32px;
-    }
-    .ant-card-body {
-      padding: 20px;
-    }
-    h5 {
-      font-size: 34px;
-    }
-    h5 span {
-      font-size: 28px;
-      line-height: 56px;
-    }
-    p,
-    span {
-      font-size: 26px !important;
-    }
-    .btn-card,
-    .btn-card:hover,
-    .btn-card:focus,
-    .btn-card:active,
-    .btn-card.active {
-      right: 10px;
-      top: 10px;
-      font-size: 40px;
-      height: 40px;
-      line-height: 0px;
-      width: 45px;
-    }
-    .btn-card label {
-      top: -10px;
-    }
-  }
-  .like-btn {
-    right: 10px;
-    bottom: 10px;
+//   // CARDS
+//   .card-information img {
+//     height: 16vh;
+//   }
+//   .card-map {
+//     h4 {
+//       font-size: 36px;
+//       line-height: 42px;
+//     }
+//     .card-title-s {
+//       height: 90px;
+//     }
+//     h6 {
+//       font-size: 32px;
+//     }
+//     .ant-card-body {
+//       padding: 20px;
+//     }
+//     h5 {
+//       font-size: 34px;
+//     }
+//     h5 span {
+//       font-size: 28px;
+//       line-height: 56px;
+//     }
+//     p,
+//     span {
+//       font-size: 26px !important;
+//     }
+//     .btn-card,
+//     .btn-card:hover,
+//     .btn-card:focus,
+//     .btn-card:active,
+//     .btn-card.active {
+//       right: 10px;
+//       top: 10px;
+//       font-size: 40px;
+//       height: 40px;
+//       line-height: 0px;
+//       width: 45px;
+//     }
+//     .btn-card label {
+//       top: -10px;
+//     }
+//   }
+//   .like-btn {
+//     right: 10px;
+//     bottom: 10px;
 
-    button,
-    button:hover,
-    button:focus,
-    button:active {
-      height: 52px;
-      width: 52px;
-      padding-left: 4px;
-    }
-    button .like-img {
-      height: 40px;
-      width: 48px;
-    }
-    .ant-btn:hover > .like-img,
-    .ant-btn:focus > .like-img,
-    .ant-btn:active > .like-img,
-    .ant-btn.active > .like-img {
-      height: 40px !important;
-      width: 48px !important;
-      background-size: 43px;
-    }
-    button .like-img-on {
-      background-image: url('../../Icons/icon-82.svg');
-      height: 40px;
-      width: 48px;
-      background-repeat: no-repeat;
-      background-size: 43px;
-    }
-    .ant-btn:hover > .like-img,
-    .ant-btn:focus > .like-img,
-    .ant-btn:active > .like-img,
-    .ant-btn.active > .like-img {
-      background-image: url('../../Icons/icon-82.svg');
-      height: 40px;
-      width: 48px;
-      background-repeat: no-repeat;
-      background-size: 43px;
-    }
-  }
-  .card-button-hover button {
-    padding: 20px 25px;
-    height: 80px;
-  }
-  // TABS
-  .ant-modal .new-project {
-    width: 1500px !important;
-  }
-  .tabs-map {
-    .ant-tabs-nav .ant-tabs-tab-active .ant-tabs-tab-btn {
-      font-size: 28px;
-    }
-    .ant-tabs-nav .ant-tabs-tab {
-      padding: 15px 0px 15px 0px !important;
-      margin: 0 70px 0 0;
-      font-size: 28px;
-    }
-  }
-  .apply-filter {
-    padding: 11px 20px;
-    height: 60px;
-    line-height: 35px;
-    font-size: 21px;
-  }
-  .apply-filter-no-effect {
-    padding: 11px 20px !important;
-    height: 60px !important;
-    line-height: 35px !important;
-    font-size: 21px !important;
+//     button,
+//     button:hover,
+//     button:focus,
+//     button:active {
+//       height: 52px;
+//       width: 52px;
+//       padding-left: 4px;
+//     }
+//     button .like-img {
+//       height: 40px;
+//       width: 48px;
+//     }
+//     .ant-btn:hover > .like-img,
+//     .ant-btn:focus > .like-img,
+//     .ant-btn:active > .like-img,
+//     .ant-btn.active > .like-img {
+//       height: 40px !important;
+//       width: 48px !important;
+//       background-size: 43px;
+//     }
+//     button .like-img-on {
+//       background-image: url('../../Icons/icon-82.svg');
+//       height: 40px;
+//       width: 48px;
+//       background-repeat: no-repeat;
+//       background-size: 43px;
+//     }
+//     .ant-btn:hover > .like-img,
+//     .ant-btn:focus > .like-img,
+//     .ant-btn:active > .like-img,
+//     .ant-btn.active > .like-img {
+//       background-image: url('../../Icons/icon-82.svg');
+//       height: 40px;
+//       width: 48px;
+//       background-repeat: no-repeat;
+//       background-size: 43px;
+//     }
+//   }
+//   .card-button-hover button {
+//     padding: 20px 25px;
+//     height: 80px;
+//   }
+//   // TABS
+//   .ant-modal .new-project {
+//     width: 1500px !important;
+//   }
+//   .tabs-map {
+//     .ant-tabs-nav .ant-tabs-tab-active .ant-tabs-tab-btn {
+//       font-size: 28px;
+//     }
+//     .ant-tabs-nav .ant-tabs-tab {
+//       padding: 15px 0px 15px 0px !important;
+//       margin: 0 70px 0 0;
+//       font-size: 28px;
+//     }
+//   }
+//   .apply-filter {
+//     padding: 11px 20px;
+//     height: 60px;
+//     line-height: 35px;
+//     font-size: 21px;
+//   }
+//   .apply-filter-no-effect {
+//     padding: 11px 20px !important;
+//     height: 60px !important;
+//     line-height: 35px !important;
+//     font-size: 21px !important;
 
-    .ant-checkbox-inner {
-      width: 32px !important;
-      height: 32px !important;
-      margin-left: 10px;
-    }
-    .ant-checkbox-checked .ant-checkbox-inner::after {
-      transform: rotate(45deg) scale(2) translate(-50%, -50%) !important;
-    }
-    .ant-checkbox-inner::after {
-      left: 35% !important;
-      top: 60% !important;
-    }
-  }
-  .progress {
-    width: auto !important;
-  }
+//     .ant-checkbox-inner {
+//       width: 32px !important;
+//       height: 32px !important;
+//       margin-left: 10px;
+//     }
+//     .ant-checkbox-checked .ant-checkbox-inner::after {
+//       transform: rotate(45deg) scale(2) translate(-50%, -50%) !important;
+//     }
+//     .ant-checkbox-inner::after {
+//       left: 35% !important;
+//       top: 60% !important;
+//     }
+//   }
+//   .progress {
+//     width: auto !important;
+//   }
 
-  // HEADER FILTERS
-  .head-filter {
-    height: 100px;
-    padding: 15px 15px;
-    .ant-input-search-button {
-      height: 34px !important;
-      width: 22px !important;
-      margin-left: -105px !important;
-    }
-    .ant-input-search .ant-input-group .ant-input-affix-wrapper:not(:last-child) {
-      align-items: center;
-    }
-    .ant-input-affix-wrapper .ant-input {
-      width: 350px;
-      font-size: 24px;
-      padding: 12px 15px;
-    }
-    .ant-input-affix-wrapper {
-      width: 582px !important;
-      height: 45px;
-    }
-    .ant-input-affix-wrapper .ant-input-suffix {
-      right: 20px;
-      font-size: 24px;
-    }
-    button {
-      font-size: 24px !important;
-      margin-left: 20px;
-    }
-    .ant-dropdown-link {
-      font-size: 24px;
-    }
-    button .img-filter {
-      height: 26px;
-      width: 28px;
-      padding: 13px;
-      margin-top: -5px;
-    }
-    .ant-btn:hover > .img-filter {
-      height: 26px;
-      width: 28px;
-      padding: 13px;
-      margin-top: -5px;
-    }
-    .sort-content .sort-buttons .img-filter00 {
-      height: 28px;
-      width: 28px;
-      padding: 15px;
-      margin-top: -5px;
-    }
-    .sort-content:hover > .sort-buttons > .img-filter00,
-    .sort-content .sort-buttons:hover > .img-filter00 {
-      height: 28px;
-      width: 28px;
-      padding: 15px;
-      margin-top: -5px;
-    }
-    .sort-content {
-      margin: 0px 20px;
-    }
-  }
-  .auto-complete-map {
-    .ant-select-selection__placeholder,
-    .ant-select-search__field__placeholder,
-    .ant-input {
-      font-size: 44px !important;
-      padding-top: 8px !important;
-      height: auto !important;
-      line-height: 54px;
-    }
-    .ant-input-suffix {
-      font-size: 20px;
-    }
-    .ant-select {
-      max-width: 600px !important;
-      height: 60px !important;
-    }
-  }
-  .list-line {
-    font-size: 28px !important;
-    margin: 0px 16px;
-    padding: 20px 10px !important;
-  }
-  .ant-select-dropdown-menu {
-    max-height: 500px;
-  }
-  .head-m {
-    margin-bottom: 30px;
-    .anticon-down {
-      font-size: 26px;
-    }
-    .anticon {
-      font-size: 26px;
-    }
-  }
-  .count {
-    padding: 35px !important;
-  }
-  .ant-drawer-right .ant-drawer-content-wrapper {
-    right: 0;
-    height: 100vh;
-    margin-top: 38px;
-    width: 720px !important;
-  }
-  // DETILED
-  .detailed-h {
-    background: '#f8f8fa';
-    padding: 20px 30px !important;
-    h1 {
-      font-size: 32px !important;
-      line-height: 40px !important;
-    }
-    p {
-      font-size: 28px !important;
-      margin-bottom: 0px !important;
-    }
-    .btn-opacity,
-    .btn-opacity:hover {
-      height: 76px !important;
-      font-size: 28px !important;
-      width: 250px !important;
-      padding: 18px 0px !important;
-    }
-    .btn-transparent img {
-      height: 19px;
-    }
-    .btn-transparent {
-      padding: 0px 12px !important;
-      margin: 2px 5px !important;
-    }
-    .information {
-      color: '#11093C' !important;
-      font-weight: '700' !important;
-    }
-  }
-  // .detailed-upload{
-  //   top: 400px !important;
-  //   .sub-title{
-  //     font-size: 24px !important;
-  //   }
-  //   .draw{
-  //     height: 301px !important;
-  //     img{
-  //       height: 84px !important;
-  //       margin-bottom: 23px;
-  //     }
-  //   }
-  // }
+//   // HEADER FILTERS
+//   .head-filter {
+//     height: 100px;
+//     padding: 15px 15px;
+//     .ant-input-search-button {
+//       height: 34px !important;
+//       width: 22px !important;
+//       margin-left: -105px !important;
+//     }
+//     .ant-input-search .ant-input-group .ant-input-affix-wrapper:not(:last-child) {
+//       align-items: center;
+//     }
+//     .ant-input-affix-wrapper .ant-input {
+//       width: 350px;
+//       font-size: 24px;
+//       padding: 12px 15px;
+//     }
+//     .ant-input-affix-wrapper {
+//       width: 582px !important;
+//       height: 45px;
+//     }
+//     .ant-input-affix-wrapper .ant-input-suffix {
+//       right: 20px;
+//       font-size: 24px;
+//     }
+//     button {
+//       font-size: 24px !important;
+//       margin-left: 20px;
+//     }
+//     .ant-dropdown-link {
+//       font-size: 24px;
+//     }
+//     button .img-filter {
+//       height: 26px;
+//       width: 28px;
+//       padding: 13px;
+//       margin-top: -5px;
+//     }
+//     .ant-btn:hover > .img-filter {
+//       height: 26px;
+//       width: 28px;
+//       padding: 13px;
+//       margin-top: -5px;
+//     }
+//     .sort-content .sort-buttons .img-filter00 {
+//       height: 28px;
+//       width: 28px;
+//       padding: 15px;
+//       margin-top: -5px;
+//     }
+//     .sort-content:hover > .sort-buttons > .img-filter00,
+//     .sort-content .sort-buttons:hover > .img-filter00 {
+//       height: 28px;
+//       width: 28px;
+//       padding: 15px;
+//       margin-top: -5px;
+//     }
+//     .sort-content {
+//       margin: 0px 20px;
+//     }
+//   }
+//   .auto-complete-map {
+//     .ant-select-selection__placeholder,
+//     .ant-select-search__field__placeholder,
+//     .ant-input {
+//       font-size: 44px !important;
+//       padding-top: 8px !important;
+//       height: auto !important;
+//       line-height: 54px;
+//     }
+//     .ant-input-suffix {
+//       font-size: 20px;
+//     }
+//     .ant-select {
+//       max-width: 600px !important;
+//       height: 60px !important;
+//     }
+//   }
+//   .list-line {
+//     font-size: 28px !important;
+//     margin: 0px 16px;
+//     padding: 20px 10px !important;
+//   }
+//   .ant-select-dropdown-menu {
+//     max-height: 500px;
+//   }
+//   .head-m {
+//     margin-bottom: 30px;
+//     .anticon-down {
+//       font-size: 26px;
+//     }
+//     .anticon {
+//       font-size: 26px;
+//     }
+//   }
+//   .count {
+//     padding: 35px !important;
+//   }
+//   .ant-drawer-right .ant-drawer-content-wrapper {
+//     right: 0;
+//     height: 100vh;
+//     margin-top: 38px;
+//     width: 720px !important;
+//   }
+//   // DETILED
+//   .detailed-h {
+//     background: '#f8f8fa';
+//     padding: 20px 30px !important;
+//     h1 {
+//       font-size: 32px !important;
+//       line-height: 40px !important;
+//     }
+//     p {
+//       font-size: 28px !important;
+//       margin-bottom: 0px !important;
+//     }
+//     .btn-opacity,
+//     .btn-opacity:hover {
+//       height: 76px !important;
+//       font-size: 28px !important;
+//       width: 250px !important;
+//       padding: 18px 0px !important;
+//     }
+//     .btn-transparent img {
+//       height: 19px;
+//     }
+//     .btn-transparent {
+//       padding: 0px 12px !important;
+//       margin: 2px 5px !important;
+//     }
+//     .information {
+//       color: '#11093C' !important;
+//       font-weight: '700' !important;
+//     }
+//   }
+//   // .detailed-upload{
+//   //   top: 400px !important;
+//   //   .sub-title{
+//   //     font-size: 24px !important;
+//   //   }
+//   //   .draw{
+//   //     height: 301px !important;
+//   //     img{
+//   //       height: 84px !important;
+//   //       margin-bottom: 23px;
+//   //     }
+//   //   }
+//   // }
 
-  .detailed-mm {
-    font-size: 28px !important;
-    min-height: 75px !important;
-    padding: 17px 0px !important;
-  }
-  .detailed-info {
-    padding: 40px 50px 0px 50px !important;
-    font-size: 24px !important;
+//   .detailed-mm {
+//     font-size: 28px !important;
+//     min-height: 75px !important;
+//     padding: 17px 0px !important;
+//   }
+//   .detailed-info {
+//     padding: 40px 50px 0px 50px !important;
+//     font-size: 24px !important;
 
-    p {
-      font-size: 24px !important;
-    }
-  }
-  .tabs-detailed .ant-collapse > .ant-collapse-item > .ant-collapse-header {
-    padding: 42px 0px !important;
-    font-size: 32px !important;
-  }
-  .divider img {
-    width: 30px !important;
-  }
-  .table-up-modal .ant-table-thead > tr > th,
-  .table-up-modal .ant-table-tbody > tr > td {
-    font-size: 28px !important;
-  }
-  .solution-b {
-    height: 60px !important;
-    font-size: 24px !important;
-  }
-  .detailed {
-    .map {
-      height: 1000px !important;
-    }
-  }
+//     p {
+//       font-size: 24px !important;
+//     }
+//   }
+//   .tabs-detailed .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+//     padding: 42px 0px !important;
+//     font-size: 32px !important;
+//   }
+//   .divider img {
+//     width: 30px !important;
+//   }
+//   .table-up-modal .ant-table-thead > tr > th,
+//   .table-up-modal .ant-table-tbody > tr > td {
+//     font-size: 28px !important;
+//   }
+//   .solution-b {
+//     height: 60px !important;
+//     font-size: 24px !important;
+//   }
+//   .detailed {
+//     .map {
+//       height: 1000px !important;
+//     }
+//   }
 
-  // FILTERS MENU
-  .tag-filters {
-    width: 460px;
-    padding-bottom: 10px;
+//   // FILTERS MENU
+//   .tag-filters {
+//     width: 460px;
+//     padding-bottom: 10px;
 
-    .head {
-      font-size: 26px;
+//     .head {
+//       font-size: 26px;
 
-      img {
-        width: 26px;
-      }
-    }
-    p {
-      font-size: 26px;
-    }
-    button img {
-      width: 30px;
-    }
-    p button {
-      height: 30px;
-      width: 30px;
-    }
-  }
-  .btn-footer-02 .btn-borde {
-    font-size: 26px;
-  }
+//       img {
+//         width: 26px;
+//       }
+//     }
+//     p {
+//       font-size: 26px;
+//     }
+//     button img {
+//       width: 30px;
+//     }
+//     p button {
+//       height: 30px;
+//       width: 30px;
+//     }
+//   }
+//   .btn-footer-02 .btn-borde {
+//     font-size: 26px;
+//   }
 
-  // FILTERS MAP
-  .map-filter-s {
-    width: 630px;
-  }
-  .filter-coll-header {
-    width: 590px;
-    font-size: 26px;
-    padding-left: 42px;
-  }
-  .filter-map {
-    .ant-collapse > .ant-collapse-item > .ant-collapse-header {
-      padding: 7px 12px;
-      height: 50px;
-      line-height: 36px;
-      padding-right: 26px;
-    }
-    .ant-switch-small .ant-switch-handle {
-      width: 24px;
-      height: 24px;
-      top: 4px;
-    }
-    .ant-switch-small.ant-switch-checked .ant-switch-handle {
-      left: calc(100% - 26px);
-    }
-    .ant-collapse-content > .ant-collapse-content-box {
-      padding: 20px 20px 0px 26px;
-    }
-    .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
-      left: 26px;
-      font-size: 20px;
-    }
-    p {
-      font-size: 24px;
-      width: 588px;
-      margin-bottom: 20px;
+//   // FILTERS MAP
+//   .map-filter-s {
+//     width: 630px;
+//   }
+//   .filter-coll-header {
+//     width: 590px;
+//     font-size: 26px;
+//     padding-left: 42px;
+//   }
+//   .filter-map {
+//     .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+//       padding: 7px 12px;
+//       height: 50px;
+//       line-height: 36px;
+//       padding-right: 26px;
+//     }
+//     .ant-switch-small .ant-switch-handle {
+//       width: 24px;
+//       height: 24px;
+//       top: 4px;
+//     }
+//     .ant-switch-small.ant-switch-checked .ant-switch-handle {
+//       left: calc(100% - 26px);
+//     }
+//     .ant-collapse-content > .ant-collapse-content-box {
+//       padding: 20px 20px 0px 26px;
+//     }
+//     .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
+//       left: 26px;
+//       font-size: 20px;
+//     }
+//     p {
+//       font-size: 24px;
+//       width: 588px;
+//       margin-bottom: 20px;
 
-      img {
-        height: 28px;
-        margin-top: -3px;
-        width: 30px;
-      }
-    }
-    .info-pop {
-      height: 20px;
-      margin-top: 0px;
-    }
-    .ant-switch-small {
-      min-width: 56px;
-      height: 32px;
-      line-height: 28px;
-    }
-    .ant-switch-small::after {
-      width: 24px;
-      height: 24px;
-    }
-    .ant-switch-loading-icon,
-    .ant-switch::after {
-      top: 3px;
-    }
-  }
-  .btn-footer-02 {
-    padding-bottom: 10px;
-  }
-  // CHAT
-  .chat-r {
-    h5 {
-      font-size: 28px !important;
-    }
-    img {
-      margin-top: 5px !important;
-      height: 60px !important;
-    }
-    h6 {
-      font-size: 25px !important;
-    }
-    p,
-    span {
-      font-size: 23px !important;
-    }
-    .chat-00 .chat-footer .ant-input {
-      font-size: 18px !important;
-    }
-  }
-  .chat-00 {
-    height: 430px !important;
+//       img {
+//         height: 28px;
+//         margin-top: -3px;
+//         width: 30px;
+//       }
+//     }
+//     .info-pop {
+//       height: 20px;
+//       margin-top: 0px;
+//     }
+//     .ant-switch-small {
+//       min-width: 56px;
+//       height: 32px;
+//       line-height: 28px;
+//     }
+//     .ant-switch-small::after {
+//       width: 24px;
+//       height: 24px;
+//     }
+//     .ant-switch-loading-icon,
+//     .ant-switch::after {
+//       top: 3px;
+//     }
+//   }
+//   .btn-footer-02 {
+//     padding-bottom: 10px;
+//   }
+//   // CHAT
+//   .chat-r {
+//     h5 {
+//       font-size: 28px !important;
+//     }
+//     img {
+//       margin-top: 5px !important;
+//       height: 60px !important;
+//     }
+//     h6 {
+//       font-size: 25px !important;
+//     }
+//     p,
+//     span {
+//       font-size: 23px !important;
+//     }
+//     .chat-00 .chat-footer .ant-input {
+//       font-size: 18px !important;
+//     }
+//   }
+//   .chat-00 {
+//     height: 430px !important;
 
-    .chat-head img {
-      height: 20px !important;
-      margin-top: -4px !important;
-    }
-    .chat-footer {
-      height: 60px;
-      padding: 14px 15px;
-    }
-    .chat-footer img {
-      margin-top: 0px !important;
-      height: 35px !important;
-    }
-    .chat-body h6 {
-      font-size: 24px !important;
-    }
-    .chat-body p {
-      font-size: 18px !important;
-    }
-    .chat-body {
-      padding: 75px 50px !important;
-    }
-  }
+//     .chat-head img {
+//       height: 20px !important;
+//       margin-top: -4px !important;
+//     }
+//     .chat-footer {
+//       height: 60px;
+//       padding: 14px 15px;
+//     }
+//     .chat-footer img {
+//       margin-top: 0px !important;
+//       height: 35px !important;
+//     }
+//     .chat-body h6 {
+//       font-size: 24px !important;
+//     }
+//     .chat-body p {
+//       font-size: 18px !important;
+//     }
+//     .chat-body {
+//       padding: 75px 50px !important;
+//     }
+//   }
 
-  // TUTORIAL
-  .tutorial-carousel {
-    p {
-      font-size: 28px !important;
-    }
-    .footer-next h4 {
-      font-size: 42px !important;
-      bottom: 50px !important;
-    }
-    .footer-next .btn-green {
-      height: 70px !important;
-      padding: 0px 50px !important;
-      font-size: 32px !important;
-    }
-  }
-}  
+//   // TUTORIAL
+//   .tutorial-carousel {
+//     p {
+//       font-size: 28px !important;
+//     }
+//     .footer-next h4 {
+//       font-size: 42px !important;
+//       bottom: 50px !important;
+//     }
+//     .footer-next .btn-green {
+//       height: 70px !important;
+//       padding: 0px 50px !important;
+//       font-size: 32px !important;
+//     }
+//   }
+// }  
 
