@@ -1,6 +1,7 @@
 import React from "react";
 import { Input, Row, Col, Popover, Select } from 'antd';
 import {  MAINTENANCE_ELIGIBILITY, NEW_PROJECT_TYPES, WINDOW_WIDTH } from "../../../constants/constants";
+import { useProjectState } from "hook/projectHook";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -28,6 +29,9 @@ export const StudyReason = ({
   otherReason: any;
   setOtherReason: any;
 }) => {
+  const {
+    disableFieldsForLG,
+  } = useProjectState();
   const applyOtherReason = (e: any)=>{
     if(e.target.value.length <= 100){
       setOtherReason(e.target.value);
@@ -59,6 +63,7 @@ export const StudyReason = ({
                 placeholder={"Select a Reason"}
                 listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
                 value={getValue(reason)}
+                disabled={disableFieldsForLG}
                 onChange={handleChange}>
                 {studyReasons.filter((x: any) => !x.isSubreason).map((x: any) => {
                   return (<Option key={x.id} value={x.id}>{x.name}</Option>)
@@ -83,6 +88,7 @@ export const StudyReason = ({
                   placeholder={"Select a Sub-Reason"}
                   listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
                   value={studyReasons.filter((x: any) => x.isSubreason).find((d: any) => reason === d.id) ? reason : 'Select a Sub-Reason'}
+                  disabled={disableFieldsForLG}
                   onChange={handleChange}>
                   {studyReasons.filter((x: any) => x.isSubreason).map((x: any) => {
                     return (<Option key={x.id} value={x.id}>{x.name}</Option>)

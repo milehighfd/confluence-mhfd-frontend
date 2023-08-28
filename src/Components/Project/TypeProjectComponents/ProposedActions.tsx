@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Table, Button, Popover, Tooltip } from 'antd';
 import { DeleteOutlined, ExclamationCircleOutlined, PlusCircleFilled } from '@ant-design/icons';
-import { useProjectDispatch } from "hook/projectHook";
+import { useProjectDispatch, useProjectState } from "hook/projectHook";
 
 interface ProposedActionsProps {
   keys: any;
@@ -40,6 +40,9 @@ export const ProposedActions = (props: ProposedActionsProps) => {
     getZoomGeomComp
   } = useProjectDispatch();
   const [groupParsed, setGroupParsed] = useState<any[]>([]);
+  const {
+    disableFieldsForLG,
+  } = useProjectState();
 
   const replaceUnderscoresAndCapitalize = (inputString:string) => {
     const stringWithSpaces = inputString.replace(/_/g, ' ');
@@ -244,7 +247,7 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       <div className="sub-title-project">
         <h5 className="requestor-information">{index}. PROPOSED ACTIONS&nbsp;*</h5>
       </div>
-      <div className={"draw " + (isDrawState ? 'active' : '')} onClick={onClickDraw}>
+      <div className={"draw " + (isDrawState ? 'active' : '')} onClick={disableFieldsForLG ? null : onClickDraw}>
         <img src="" className="icon-draw active" style={{ WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat' }} />
         <p>Click on the icon above and draw a polygon to select action items</p>
       </div>
@@ -254,7 +257,7 @@ export const ProposedActions = (props: ProposedActionsProps) => {
         </>
       }
       {visibleUnnamedComponent && <Table dataSource={thisIndependentComponents} columns={columnsIndependent} className='table-project' />}
-      <Button className="btn-transparent-green" onClick={() => { applyIndependentComponent() }}><PlusCircleFilled /> Independent Actions</Button> <Popover content={contentIndComp}><img src="/Icons/icon-19.svg" alt="" height="10px" className='icon-actions' /></Popover>
+      <Button disabled={disableFieldsForLG} className="btn-transparent-green" onClick={() => { applyIndependentComponent() }}><PlusCircleFilled /> Independent Actions</Button> <Popover content={contentIndComp}><img src="/Icons/icon-19.svg" alt="" height="10px" className='icon-actions' /></Popover>
     </>
   );
 }

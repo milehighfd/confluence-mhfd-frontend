@@ -34,7 +34,8 @@ export const RequestorInformation = ({
   const [businessName, setBusinessName] = useState('');
   const [isLocalGovernment, setIsLocalGovernment] = useState(false);
   const {
-    isEdit
+    isEdit,
+    disableFieldsForLG,
   } = useProjectState();
   const { setServiceAreaCounty } = useProjectDispatch();
   const { userInformation: user } = useProfileState();
@@ -118,7 +119,7 @@ export const RequestorInformation = ({
               placeholder={'Select a Sponsor'}
               value={sponsor === "" ? undefined : sponsor}
               listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-              disabled={isLocalGovernment}
+              disabled={isLocalGovernment || disableFieldsForLG}
               onChange={setSponsor}
               getPopupContainer={() => (document.getElementById("sponsorid") as HTMLElement)}>
               {
@@ -142,6 +143,7 @@ export const RequestorInformation = ({
               style={{ width: '100%' }}
               listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
               onChange={(coSponsor: any) => setCoSponsor(coSponsor)}
+              disabled={disableFieldsForLG}
               value={cosponsor}
               getPopupContainer={() => (document.getElementById("cosponsorid") as HTMLElement)}>
               {localities.map((element: string) => {

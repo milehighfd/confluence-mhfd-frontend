@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Row, Col, Input, Timeline, Popover, Select } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import {  WINDOW_WIDTH } from 'constants/constants';
+import { useProjectState } from 'hook/projectHook';
 
 interface Props {
   formatter: any;
@@ -41,6 +42,9 @@ export const FinancialInformation = ({
   changeValue,
   index
 }:Props) => {
+  const { 
+    disableFieldsForLG,
+    } = useProjectState();
   const timelineItems = [
     { label: 'Mobilization', index: 1 },
     { label: 'Traffic Control', index: 2 },
@@ -64,6 +68,7 @@ export const FinancialInformation = ({
               listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
               onSelect={(e:any)=>changeValue(e, index)}
               bordered={false}
+              disabled={disableFieldsForLG}
               style={{fontSize: '12px', marginTop: '-2px'}}
             >
               {Array.from({ length: 20 }, (_, i) => i * 5).map((value) => (
@@ -102,7 +107,7 @@ export const FinancialInformation = ({
 
       <Row className="sub-project">
         <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 18 }}>
-          <Input placeholder={overheadDescription!==""? overheadDescription  +"": "Overhead Cost Description"} onChange={onChangeOverheadDescription} value={overheadDescription}/>
+          <Input disabled={disableFieldsForLG} placeholder={overheadDescription!==""? overheadDescription  +"": "Overhead Cost Description"} onChange={onChangeOverheadDescription} value={overheadDescription}/>
         </Col>
       </Row>
       <br/>
@@ -112,12 +117,12 @@ export const FinancialInformation = ({
           <p>Additional Cost <Popover content={contentAdditionalCost}><img src="/Icons/icon-19.svg" alt="" height="10px" className='icon-cost'/></Popover></p>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>
-          <Input style={{paddingLeft:'0px'}} placeholder="$0" onChange={onChangeAdditionalCost} value={formatter.format(additionalCost ? additionalCost : 0)}/>
+          <Input disabled={disableFieldsForLG} style={{paddingLeft:'0px'}} placeholder="$0" onChange={onChangeAdditionalCost} value={formatter.format(additionalCost ? additionalCost : 0)}/>
         </Col>
       </Row>
       <Row className="sub-project">
         <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 18 }}>
-          <Input placeholder={additionalDescription!==""? additionalDescription  +"":"Additional Cost Description"} onChange={(description) => onChangeAdditionalDescription(description)} value={additionalDescription}/>
+          <Input disabled={disableFieldsForLG} placeholder={additionalDescription!==""? additionalDescription  +"":"Additional Cost Description"} onChange={(description) => onChangeAdditionalDescription(description)} value={additionalDescription}/>
         </Col>
       </Row>
       <hr/>

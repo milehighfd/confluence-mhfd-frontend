@@ -21,11 +21,13 @@ const AmountModalField = ({
   isRequired,
   value,
   setter,
+  disabled,
 }: {
   label: string,
   isRequired: boolean,
   value: string | number | undefined,
   setter: (value: any) => void,
+  disabled?: boolean,
 }) => {
 
   return (
@@ -38,8 +40,9 @@ const AmountModalField = ({
         formatter={priceFormatter}
         parser={priceParser}
         value={value} onChange={setter}
+        disabled={disabled}
       />
-      <Button className="button-close" onClick={() => setter(null)}>
+      <Button className="button-close" disabled={disabled} onClick={() => setter(null)}>
         <img src="/Icons/icon-23.svg" alt='Clear' />
       </Button>
     </Fragment>

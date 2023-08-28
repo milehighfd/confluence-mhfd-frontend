@@ -179,7 +179,7 @@ export const ModalCapital = ({
   const [jurisdiction, setjurisdiction] = useState<any>([]);
   const history = useHistory();
   const [lengthName, setlengthName] = useState(0);
-  const appUser = useAppUserState();
+  const appUser = useProfileState();
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
   const { toggleAttachmentCover , removeAttachment } = useAttachmentDispatch();
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
@@ -550,7 +550,9 @@ export const ModalCapital = ({
   //Disable fields in edit workplan if the user is LG
   useEffect(() => {
     if (disabledLG && isWorkPlan && swSave) {
-      //setDisableFieldsForLg(true);
+      setDisableFieldsForLg(true);
+    }else{
+      setDisableFieldsForLg(false);
     }
   }, [disabledLG, isWorkPlan, swSave]);
   //Check if required fields are filled to enable save button

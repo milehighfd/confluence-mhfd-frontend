@@ -34,7 +34,7 @@ export const DropPin = ({
   const [latitude, setLatitude] = useState('--');
   const [longitude, setLongitude] = useState('--');
   const {saveSpecialLocation, saveAcquisitionLocation} = useProjectDispatch();
-  const {specialLocation, acquisitionLocation, isAddLocation} = useProjectState();
+  const {specialLocation, acquisitionLocation, isAddLocation, disableFieldsForLG} = useProjectState();
   const [location, setLocation] =useState();
   const [isLocation, setIsLocation] = useState(false);
   const {changeAddLocationState} = useProjectDispatch();
@@ -116,7 +116,7 @@ export const DropPin = ({
         <Table dataSource={dataSource} columns={columns} bordered className="table-project table-dropin"/>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 12}} xxl={{ span: 12 }} className="center-droppin">
-           <Button className="btn-purple" onClick={changeLocation}>{isAddLocation?'Remove Location':(latitude != '--' && longitude != '--' ? 'Change Location':'Add Location')}</Button>
+           <Button disabled={disableFieldsForLG} className="btn-purple" onClick={changeLocation}>{isAddLocation?'Remove Location':(latitude != '--' && longitude != '--' ? 'Change Location':'Add Location')}</Button>
         </Col>
       </Row>}
       <br/>
