@@ -294,7 +294,7 @@ export const SERVER = (function () {
         GET_LIST_GROUPS: (groupname: string) => `${URL_BASE.BASE}/${PMTOOLS}/groups/${groupname}`,
         UPDATE_BUDGET: `${URL_BASE.BASE}/${BOARD}/update-budget`,
         GET_CONFIGURATIONS: (key: string) => {
-            return `${URL_BASE.BASE}/${CONFIGURATIONS}/${key}`;
+            return `${URL_BASE.BASE}/${CONFIGURATIONS}/${key}?rnd=${Math.random()}`;
         },
         DELETE_NOTE_LIST: (id: any) => {
           return `${URL_BASE.BASE}/${NEW_NOTES}/${COLOR}/${id}`;
