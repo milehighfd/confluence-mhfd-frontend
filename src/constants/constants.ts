@@ -1475,3 +1475,5 @@ export const LAYERS_LABELS: any = {
   MUNICIPALITIES:'Municipalities',
   SEMSWA_SERVICE_AREA:'SEMSWA Service Area',
   }
+
+  export const MAINTENANCE_IDS = [7, 8, 9, 11, 17];

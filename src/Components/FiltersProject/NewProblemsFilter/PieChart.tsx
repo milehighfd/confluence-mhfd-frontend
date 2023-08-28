@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import * as d3 from 'd3';
+import { MAINTENANCE_IDS } from 'constants/constants';
 
 const PieChart = ({ data, type, selected, onSelect, defaultValue, selectedData, setSelectedData}: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -8,7 +9,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue, selectedData, 
 
 
   useEffect(() => {
-    // setSelectedData(selected ? selected.split(',') : []);
+    // HERE REACH ALL THE IDS OF THE SELECTED DATA
     setSelectedData(selected);
   }, [selected]);
   const isProb = type === 'problemtype';
@@ -16,12 +17,20 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue, selectedData, 
   useEffect(() => {
     let total: any;
     let pieChartData: any;
-    let dataReduced = data.filter((d: any) => (d.id == 1 || d.id == 5 || d.id == 7 || d.id == 13 || d.id == 6 || d.id == 15));
+    // Here removes all but those five types
+    let dataMaintenance = data.filter((d:any) => MAINTENANCE_IDS.includes(d.id));
+    
+    let dataReduced = data.filter((d: any) => (d.id == 1 || d.id == 5 || d.id == 13 || d.id == 6 || d.id == 15));
+    dataReduced.push({
+      id: 10,
+      value: 'Maintenance',
+      counter: dataMaintenance.reduce((a: number, x: any) => a + x.counter, 0)
+    });
     total = dataReduced.reduce((a: number, x: any) => a + x.counter, 0);
     pieChartData = dataReduced.map((d: any) => {
       return {
         id: d.id,
-        key: d.value === 'Restoration' ? 'Maintenance' : d.value ,
+        key: d.value ,
         counter: d.counter,
         value: d.counter / total
       }
@@ -39,7 +48,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue, selectedData, 
       .outerRadius(radius * 1.18);
     var color = d3.scaleOrdinal()
       .domain(pieChartData.map((r: any) => r.key))
-      .range(["#67D4FF", "#23CBA1", "#5E63E4", "#DC373C", "#E8EAFC", "#FFDD04"]);
+      .range(["#67D4FF", "#23CBA1", "#5E63E4", "#DC373C", "#FFDD04", "#E8EAFC" ]);
 
     var pie = d3.pie()
       .value(function (d: any) { return d.value; })
@@ -50,7 +59,6 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue, selectedData, 
       .attr("viewBox", `0 0 ${width + 50} ${isProb ? height - 20: height+20}`)
       .append("g")
       .attr("transform", "translate(" + width / 1.9 + "," + height /1.7 + ")");
-    
     var data_ready: any = pie(pieChartData)
     var slices = svg
       .selectAll('slices')
@@ -63,10 +71,8 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue, selectedData, 
       let index = selectedData.indexOf(d.data.id);
       if (d.data.id != 7) {
         if (index !== -1) {
-          console.log('datsssssa.data', d.data.id)
           setSelectedData(selectedData.filter((_:any, ind:any) => ind !== index))
         } else {
-          console.log('data.data', d.data.id);
           setSelectedData([...selectedData, d.data.id])
         }
       } else {
@@ -93,7 +99,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue, selectedData, 
     })
     .attr("transform", "translate(" + -width/4.5 + "," + 0+ ")");
 
-  slicesSelected.exit().remove();
+    slicesSelected.exit().remove();
 
     slices
       .enter()
@@ -109,6 +115,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue, selectedData, 
     slices.exit().remove();
     var separationJump = 80;
     var fontSize = 7.5;
+    var DISABLED_OPACITY = 0.3;
     var legendsText = svg
       .selectAll('slices')
       .data(data_ready)
@@ -130,7 +137,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue, selectedData, 
         return `translate(${xo},${yo})`;
       })
       .style("font-size", fontSize)
-      .style("opacity",(d: any) => { return d.data.counter > 0 ? 1 : 0.6 } )
+      .style("opacity",(d: any) => { return d.data.counter > 0 ? 1 : DISABLED_OPACITY } )
       .on('click', clickFn)
 
     legendsText
@@ -190,21 +197,6 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue, selectedData, 
         return -radius/1.4 + (i * (separationJump/6))
       }).on('click', clickFn);
   }, [data, selectedData]);
-
-  const apply = () => {
-    console.log('type', type);
-    console.log('selectedData', selectedData);
-    if (isProb) {
-      onSelect(selectedData.join(','))
-    } else if (type === 'projecttype') {
-      onSelect(selectedData)
-    }
-    console.log('selected data with no effect', selectedData);
-  }
-
-  const reset = () => {
-    onSelect(defaultValue);
-  }
 
   return (
     <>

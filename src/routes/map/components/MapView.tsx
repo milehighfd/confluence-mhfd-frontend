@@ -11,7 +11,8 @@ import {
   PROBLEMS_TRIGGER,
   PROJECTS_TRIGGER,
   COMPONENTS_TRIGGER,
-  SELECT_ALL_FILTERS
+  SELECT_ALL_FILTERS,
+  MAINTENANCE_IDS
 } from 'constants/constants';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
 import { capitalLetter, elementCost, getStatus } from 'utils/utils';
@@ -249,7 +250,7 @@ const MapView = () => {
   const resetFilterProjects = (withDefaults: boolean, withCoords?: any) => {
     const options = { ...filterProjectOptions };
     if (withDefaults) {
-      options.projecttype = [5, 7];
+      options.projecttype = [5, ...MAINTENANCE_IDS];
       options.status = [5];
     } else {
       options.projecttype = [];
@@ -352,7 +353,7 @@ const MapView = () => {
       const auxValueTag = [] as Array<string>;
       if (tag === 'favorites' || tag === 'teams') {
         auxFilterProjects[tag] = '';
-      }else if (tag !== 'totalcost') {
+      } else if (tag !== 'totalcost') {
         for (let index = 0; index < valueTag?.length; index++) {
           const element = valueTag[index];
           if (element !== value) {
@@ -363,6 +364,7 @@ const MapView = () => {
       if (tag !== 'favorites' && tag !== 'teams') {
         auxFilterProjects[tag] = auxValueTag;
       }
+      console.log('AuxFilterproject', auxFilterProjects);
       setFilterProjectOptions(auxFilterProjects);
       getParamFilterProjects(boundsMap, auxFilterProjects)
       resetNextPageOfCards();

@@ -19,6 +19,7 @@ import { handleAbortError } from 'store/actions/mapActions';
 const { TabPane } = Tabs;
 let isInit = true;
 const tabKeys = ['All','CIP', 'Restoration', 'Study', 'DIP', 'R&D', 'Acquisition'];
+// TODO: REVIEW IF MAINTENANCE IDS should be here too
 const tabKeysIds = [0, 5, 7, 1, 6, 15, 13];
 
 const PortafolioBody = () => {
