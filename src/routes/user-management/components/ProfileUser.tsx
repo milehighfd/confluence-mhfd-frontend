@@ -78,9 +78,11 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUs
     openNotification('Success! Your user update was saved!', "success");
  };
 
-  const handleErrorNotification = (emptyFields: any) => {
-    const message = `Missing input's: ${emptyFields.join(', ')}.`;
-    openNotification('Warning! Required inputs are missing below.', "warning", message);
+  const handleErrorNotification = (emptyFields: any[]) => {
+    const inputLength = emptyFields.length;
+    const inputText = inputLength>1?"inputs":"input";
+    const message = `Missing ${inputText}: ${emptyFields.join(', ')}.`;
+    openNotification(`Warning! Required ${inputText} are missing below.`, "warning", message);
   }
 
   const {
