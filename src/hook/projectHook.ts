@@ -67,6 +67,7 @@ import {
   setIsEdit,
   setDeleteAttachmentsIds,
   setZoomGeomCreateMap,
+  archiveProject,
   setDisableFieldsForLg
 } from '../store/actions/ProjectActions';
 
@@ -277,6 +278,9 @@ export const useProjectDispatch = () => {
     },
     setDeleteAttachmentsIds: (deleteAttachmentsIds: Array<any>) => {
       dispatch(setDeleteAttachmentsIds(deleteAttachmentsIds))
+    },
+    archiveProject: (projectId: any) => {
+      dispatch(archiveProject(projectId))
     },
     setDisableFieldsForLg: (disableFieldsForLG: boolean) => {
       dispatch(setDisableFieldsForLg(disableFieldsForLG))

@@ -21,7 +21,7 @@ const TableListView = ({
   const [completeProjectData, setCompleteProjectData] = useState<any>(null);
   const [showAmountModal, setShowAmountModal] = useState(false);
   const [windowWidth, setWindowWidth] = useState(WINDOW_WIDTH);
-  const {setZoomProject, updateSelectedLayers} = useProjectDispatch();
+  const {setZoomProject, updateSelectedLayers, archiveProject} = useProjectDispatch();
   const [isHovered, setIsHovered] = useState(false);
   const { tabActiveNavbar } = useMapState();
   const { columns2: columnsList, tabKey, locality, year, namespaceId, boardStatus, filterYear } = useRequestState();
@@ -38,7 +38,7 @@ const TableListView = ({
   const [showCopyToCurrentYearAlert, setShowCopyToCurrentYearAlert] = useState(false);
   const [boardProjectIds, setBoardProjectIds] = useState<any[]>([]);
   const windowWidthSize: any = window.innerWidth;
-
+  const appUser = useProfileState();
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -317,6 +317,17 @@ const TableListView = ({
         onClick: (() => setShowCopyToCurrentYearAlert(true))
       });
     }
+    if (appUser?.userInformation?.designation === 'admin' ||
+    appUser?.userInformation?.designation === 'staff'){
+      items.push({
+        key: '5',
+        label: <span style={{borderBottom: '1px solid transparent'}}>
+          <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
+          Archive Project
+        </span>,
+        onClick: (() => archiveProject(record?.projectData?.project_id))
+      });
+    }    
     return (<Menu className="js-mm-00" items={items} />)
   };
     const columns: ColumnsType<DataType> = [

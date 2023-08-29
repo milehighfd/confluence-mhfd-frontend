@@ -366,6 +366,9 @@ export const SERVER = (function () {
         BOARD_PROJECT_COST: (board_project_id: string | number) => {
             return `${URL_BASE.BASE}/${BOARD_PROJECT}/${board_project_id}/${COST}?rnd=${Math.random()}`
         },
+        ARCHIVE_PROJECT: (project_id: number) => {
+            return `${URL_BASE.BASE}/${PROJECT}/archive/${project_id}`
+        },
         BOARD_UPDATE_RANK: (board_project_id: string) => `${URL_BASE.BASE}/${BOARD_PROJECT}/${board_project_id}/update-rank`,
         BOARD_UPDATE_TARGET_COST: `${URL_BASE.BASE}/${BOARD_PROJECT}/update-target-cost`
     }
