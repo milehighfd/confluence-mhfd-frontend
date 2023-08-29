@@ -23,6 +23,8 @@ import TableListView from './Toolbar/TableListView';
 import { GOVERNMENT_STAFF, NEW_PROJECT_TYPES, WORK_REQUEST, YEAR_LOGIC_2024 } from 'constants/constants';
 import MaintenanceTypesDropdown from '../../../routes/work-request/components/MaintenanceTypesDropdown';
 import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
+import ConfigurationService from 'services/ConfigurationService';
+
 const { TabPane } = Tabs;
 
 const popovers: any = [
@@ -54,6 +56,7 @@ const RequestView = ({ type, widthMap }: {
     setLocality,
     setTabKey,
     setYear,
+    setYearList,
     setNamespaceId,
     setBoardStatus,
     setBoardSubstatus,
@@ -154,7 +157,18 @@ const RequestView = ({ type, widthMap }: {
       if (_year) {
         setYear(_year);
       } else {
-        setYear(configuredYear);
+        let config;
+        try {
+          config = await ConfigurationService.getConfiguration('BOARD_YEAR');
+        } catch (e) {
+          console.log(e);
+        }
+        setYear(+config.value);
+        const yearList = [];
+        for (let i = 0; i < 5; i++) {
+          yearList.push((+config.value) - i);
+        }
+        setYearList(yearList);
       }
       if (!_locality && r.localities.length > 0) {
         _locality = r.localities[0].name;
