@@ -341,7 +341,55 @@
 .ant-select-multiple .ant-select-selection-item {
   height: auto;
 }
-
+.ant-timeline-item {
+  padding-bottom: 0px;
+}
+//moved from user.scss
+.ant-collapse>.ant-collapse-item>.ant-collapse-header .ant-collapse-extra{
+  width: 550px;
+}
+//moved from work
+.ant-timeline-item-last {
+  .ant-timeline-item-tail {
+    position: absolute;
+    top: 6px;
+    left: 4px;
+    height: calc(100% - 4px);
+    border-left: 1.5px solid #ff0000;
+    display: none;
+  }
+}
+.ant-drawer-mask {
+  background-color: rgba(0, 0, 0, 0) !important;
+}
+.ant-drawer-left,
+.ant-drawer-right {
+  top: 58px !important;
+}
+.ant-drawer .ant-drawer-content {
+  height: calc(100vh - 58px) !important;
+}
+.ant-drawer-right .ant-drawer-content-wrapper {
+  right: 0;
+  width: 310px !important;
+}
+.ant-select-disabled .ant-select-selection {
+  background-color: transparent !important;
+}
+.ant-input-disabled {
+  color: #251863 !important;
+}
+.ant-input-affix-wrapper .ant-input-disabled ~ .ant-input-suffix .anticon {
+  color: #251863 !important;
+}
+.ant-input-color {
+  color: rgba(17, 9, 60, 0.5) !important;
+}
+.ant-popover {
+  margin-top: 0px !important;
+  padding-top: 0px;
+  // max-width: 255px;
+}
 
 @media (max-width: 575.98px) {
   .ant-layout-sider {

@@ -1,9 +1,6 @@
 @use '../Theme/styles';
 @import '../Theme/styles.scss';
 
-.portafolio .ant-tabs-tabpane-active {
-  overflow-y: hidden;
-}
 .team-item {
   display: flex;
   align-items: center;
@@ -44,6 +41,9 @@
 }
 .portafolio {
   height: calc(100vh - 117px) !important;
+  .ant-tabs-tabpane-active {
+    overflow-y: hidden;
+  }
   .legends-porfolio {
     position: absolute;
     right: 5px;
@@ -75,177 +75,178 @@
   background: rgb(0 0 0 / 0%);
 }
 
-.topHeader line {
-  stroke: gray;
-  opacity: 0.3;
+.topHeader {
+  line {
+    stroke: gray;
+    opacity: 0.3;
+  }
+  path {
+    stroke: red;
+    visibility: hidden;
+  }
+  text {
+    fill: $purple00;
+    width: 58px;
+    height: 14px;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 14px;
+    text-align: center;
+    mix-blend-mode: normal;
+    opacity: 0.6;
+    flex: none;
+    order: 4;
+    flex-grow: 0;
+    position: fixed;
+  }
 }
 
-.topHeader path {
-  stroke: red;
-  visibility: hidden;
-}
-.topHeaderChart line {
-  stroke: gray;
-  opacity: 0.3;
-}
-
-.topHeaderChart path {
-  stroke: red;
-  visibility: hidden;
-}
-.ant-table-body::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-
-/* Track */
-.ant-table-body::-webkit-scrollbar-track {
-  border-radius: 10px;
-}
-
-/* Handle */
-.ant-table-body::-webkit-scrollbar-thumb {
-  background: $purple00;
-  border-radius: 10px;
-}
-.topHeaderYaxis line {
-  stroke: red;
-}
-.topHeaderYaxis path {
-  stroke: red;
-}
-.topHeader text {
-  fill: $purple00;
-  width: 58px;
-  height: 14px;
-  font-family: 'Ubuntu';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 10px;
-  line-height: 14px;
-  text-align: center;
-  mix-blend-mode: normal;
-  opacity: 0.6;
-  flex: none;
-  order: 4;
-  flex-grow: 0;
-  position: fixed;
+.topHeaderChart {
+  line {
+    stroke: gray;
+    opacity: 0.3;
+  }
+  path {
+    stroke: red;
+    visibility: hidden;
+  }
+  text {
+    visibility: hidden;
+    fill: $purple00;
+    width: 58px;
+    height: 14px;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 14px;
+    text-align: center;
+    mix-blend-mode: normal;
+    opacity: 0.6;
+    flex: none;
+    order: 4;
+    flex-grow: 0;
+    position: fixed;
+  }
 }
 
-.topHeaderM text {
-  fill: $purple00;
-  width: 58px;
-  height: 14px;
-  font-family: 'Ubuntu';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 12px;
-  text-align: center;
-  mix-blend-mode: normal;
-  opacity: 0.6;
-  flex: none;
-  order: 4;
-  flex-grow: 0;
-  position: fixed;
-}
-.topHeaderM path {
-  visibility: hidden;
-}
-.topHeaderM line {
-  visibility: hidden;
+.topHeaderM {
+  text {
+    fill: $purple00;
+    width: 58px;
+    height: 14px;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 12px;
+    text-align: center;
+    mix-blend-mode: normal;
+    opacity: 0.6;
+    flex: none;
+    order: 4;
+    flex-grow: 0;
+    position: fixed;
+  }
+
+  path,
+  line {
+    visibility: hidden;
+  }
 }
 .scroll-custom {
-  height: 5px;
-  width: 75%;
-  width: calc(100vw - 24.833333%);
-  background: #ffffff;
   position: absolute;
-  bottom: 0px;
+  bottom: 0;
   margin-left: 20.2%;
-  z-index: 10;
+  width: calc(100vw - 24.833333%);
+  height: 5px;
+  background: #ffffff;
   border-radius: 5px;
-  overflow: auto;
   margin-bottom: 2px;
+  z-index: 10;
+  overflow: auto;
+
   .scroll-bar {
-    z-index: 10;
-    border-radius: 5px;
     height: 6px;
     background-color: transparent;
   }
-}
-.scroll-custom::-webkit-scrollbar-thumb {
-  background: transparent;
-  border-radius: 10px;
-}
-.scroll-custom::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
 
-/* Track */
-.scroll-custom::-webkit-scrollbar-track {
-  border-radius: 10px;
-}
+  &::-webkit-scrollbar-thumb {
+    background: $purple00;
+    border-radius: 10px;
+    z-index: 100;
+  }
 
-/* Handle */
-.scroll-custom::-webkit-scrollbar-thumb {
-  background: $purple00;
-  border-radius: 10px;
-  z-index: 100;
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
 }
-.topHeaderMonth text {
-  fill: $purple00;
-  width: 58px;
-  height: 14px;
-  font-family: 'Ubuntu';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 14px;
-  text-align: center;
-  mix-blend-mode: normal;
-  opacity: 0.6;
-  flex: none;
-  order: 4;
-  flex-grow: 0;
-  position: fixed;
+.topHeaderMonth {
+  text {
+    fill: $purple00;
+    width: 58px;
+    height: 14px;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 14px;
+    text-align: center;
+    mix-blend-mode: normal;
+    opacity: 0.6;
+    flex: none;
+    order: 4;
+    flex-grow: 0;
+    position: fixed;
+  }
+
+  path,
+  line {
+    visibility: hidden;
+  }
 }
-.topHeaderMonth path {
-  visibility: hidden;
+.topHeaderYearAxis {
+  text {
+    fill: $purple00;
+    position: absolute;
+    height: 15px;
+    left: 23.15%;
+    right: 73.15%;
+    top: calc(50% - 15px / 2 - 327.5px);
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 15px;
+    text-align: center;
+  }
+
+  path,
+  line {
+    visibility: hidden;
+  }
 }
-.topHeaderMonth line {
-  visibility: hidden;
-}
-.topHeaderYearAxis text {
-  fill: $purple00;
-  position: absolute;
-  height: 15px;
-  left: 23.15%;
-  right: 73.15%;
-  top: calc(50% - 15px / 2 - 327.5px);
-  font-family: 'Ubuntu';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 13px;
-  line-height: 15px;
-  text-align: center;
-}
-.topHeaderYearAxis path {
-  visibility: hidden;
-}
-.topHeaderYearAxis line {
-  visibility: hidden;
-}
-.topHeaderMonthforTicks text {
-  visibility: hidden;
-}
-.topHeaderMonthforTicks line {
-  stroke: gray;
-  opacity: 0.8;
-}
-.topHeaderMonthforTicks path {
-  visibility: hidden;
+.topHeaderMonthforTicks {
+  text {
+    visibility: hidden;
+  }
+
+  line {
+    stroke: gray;
+    opacity: 0.8;
+  }
+
+  path {
+    visibility: hidden;
+  }
 }
 .modal-graphic {
   z-index: 9999999999;
@@ -273,87 +274,76 @@
     height: 0.5px;
   }
 }
-.topHeaderYear text {
-  fill: $purple00;
-  position: absolute;
-  height: 15px;
-  left: 23.15%;
-  right: 73.15%;
-  top: calc(50% - 15px / 2 - 327.5px);
-  font-family: 'Ubuntu';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 15px;
-  text-align: center;
-}
-.topHeaderYear path {
-  stroke: red;
-  visibility: hidden;
-}
-.topHeaderYear line {
-  stroke: red;
-  opacity: 0.5;
-  visibility: hidden;
-}
+.topHeaderYear {
+  text {
+    fill: $purple00;
+    position: absolute;
+    height: 15px;
+    left: 23.15%;
+    right: 73.15%;
+    top: calc(50% - 15px / 2 - 327.5px);
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: center;
+  }
 
-.topHeaderChart text {
-  visibility: hidden;
-  fill: $purple00;
-  width: 58px;
-  height: 14px;
-  font-family: 'Ubuntu';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 10px;
-  line-height: 14px;
-  text-align: center;
-  mix-blend-mode: normal;
-  opacity: 0.6;
-  flex: none;
-  order: 4;
-  flex-grow: 0;
-  position: fixed;
+  path,
+  line {
+    stroke: red;
+    visibility: hidden;
+  }
+
+  line {
+    opacity: 0.5;
+  }
 }
-.topHeaderMChart text {
-  visibility: hidden;
-  fill: $purple00;
-  width: 58px;
-  height: 14px;
-  font-family: 'Ubuntu';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 12px;
-  text-align: center;
-  mix-blend-mode: normal;
-  opacity: 0.6;
-  flex: none;
-  order: 4;
-  flex-grow: 0;
-  position: fixed;
+.topHeaderMChart {
+  text {
+    visibility: hidden;
+    fill: $purple00;
+    width: 58px;
+    height: 14px;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 12px;
+    text-align: center;
+    mix-blend-mode: normal;
+    opacity: 0.6;
+    flex: none;
+    order: 4;
+    flex-grow: 0;
+    position: fixed;
+  }
+  path {
+    visibility: hidden;
+  }
+  line {
+    visibility: hidden;
+  }
 }
-.topHeaderMChart path {
-  visibility: hidden;
-}
-.topHeaderMChart line {
-  visibility: hidden;
-}
-.topHeaderMonthChart text {
-  visibility: hidden;
-}
-.topHeaderMonthChart line {
-  stroke: gray;
-  opacity: 0.8;
-}
-.topHeaderMonthChart path {
-  visibility: hidden;
+.topHeaderMonthChart {
+  text {
+    visibility: hidden;
+  }
+  line {
+    stroke: gray;
+    opacity: 0.8;
+  }
+  path {
+    visibility: hidden;
+  }
 }
 .scroll-line {
   overflow: scroll;
-}
-.scroll-line::-webkit-scrollbar {
-  display: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 .line-collapse {
   width: 38px;
@@ -361,29 +351,31 @@
   height: 100%;
 }
 
-.topHeaderYearChart text {
-  visibility: hidden;
-  fill: $purple00;
-  position: absolute;
-  height: 15px;
-  left: 23.15%;
-  right: 73.15%;
-  top: calc(50% - 15px / 2 - 327.5px);
-  font-family: 'Ubuntu';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 15px;
-  line-height: 15px;
-  text-align: center;
-}
-.topHeaderYearChart path {
-  stroke: red;
-  visibility: hidden;
-}
-.topHeaderYearChart line {
-  stroke: red;
-  opacity: 0.5;
-  visibility: hidden;
+.topHeaderYearChart {
+  text {
+    visibility: hidden;
+    fill: $purple00;
+    position: absolute;
+    height: 15px;
+    left: 23.15%;
+    right: 73.15%;
+    top: calc(50% - 15px / 2 - 327.5px);
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 15px;
+    text-align: center;
+  }
+  path {
+    stroke: red;
+    visibility: hidden;
+  }
+  line {
+    stroke: red;
+    opacity: 0.5;
+    visibility: hidden;
+  }
 }
 
 .labels {
@@ -411,51 +403,6 @@
   line-height: 14px;
   color: $purple00;
 }
-
-.dragginglines path {
-  stroke: white;
-  stroke-width: 2;
-  opacity: 1;
-  visibility: visible;
-}
-.dragginglines line {
-  stroke: white;
-  stroke-width: 2;
-  opacity: 1;
-  visibility: hidden;
-}
-.dragginglinesLeft path {
-  stroke: white;
-  stroke-width: 2;
-  opacity: 1;
-  visibility: visible;
-}
-.dragginglinesLeft line {
-  stroke: white;
-  stroke-width: 2;
-  opacity: 1;
-  visibility: hidden;
-}
-.dragginglinesRight path {
-  stroke: white;
-  stroke-width: 2;
-  opacity: 1;
-  visibility: visible;
-}
-.dragginglinesRight line {
-  stroke: white;
-  stroke-width: 2;
-  opacity: 1;
-  visibility: hidden;
-}
-//change to hidden to avoid modifying dates. Dates will be modify from modal
-.dragginglinesonclick line {
-  stroke: white;
-  stroke-width: 2;
-  opacity: 1;
-  visibility: hidden;
-}
-
 .backgroundRecthidden {
   opacity: 1;
   stroke: #005e23;
@@ -466,7 +413,6 @@
   fill: #fafafa;
   visibility: visible;
 }
-
 .stackedbar {
   fill-opacity: 1;
   visibility: visible;
@@ -480,40 +426,12 @@
   stroke: gray;
   stroke-width: 6px;
 }
-.agrupationbar {
-  fill-opacity: 1;
-  visibility: visible;
-}
-.agrupationbarHover {
-  fill-opacity: 1;
-  visibility: visible;
-  stroke-opacity: 1;
-  stroke: gray;
-}
 .stackedbarClicked {
   fill-opacity: 1;
   visibility: visible;
   stroke-opacity: 1;
   stroke: gray;
 }
-
-.stackedbarCenter {
-  visibility: visible;
-}
-.stackedbarCenterClicked {
-  visibility: visible;
-}
-.stackedbarHidden {
-  visibility: hidden;
-}
-.nameClicked {
-  font-family: 'Ubuntu';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  visibility: visible;
-}
-
 .span-dots-heder {
   display: inline-flex;
   font-family: Ubuntu;
@@ -600,8 +518,8 @@
     }
   }
 }
-
 .portafolio-head {
+  padding: 15px 20px 0px 15px;
   background: $white;
   .circulo {
     width: 10px;
@@ -611,9 +529,6 @@
     margin-top: 6px;
     margin-right: 6px;
   }
-}
-.portafolio-head {
-  padding: 15px 20px 0px 15px;
   .ant-dropdown-menu-item.ant-dropdown-menu-item-active,
   .ant-dropdown-menu-item.ant-dropdown-menu-submenu-title-active,
   .ant-dropdown-menu-item:hover,
@@ -817,97 +732,6 @@
   }
 }
 .portafolio-body {
-  .filters {
-    position: absolute;
-  }
-  .btn-filter-d {
-    position: absolute;
-    top: 60px;
-    right: 25px;
-    background-color: transparent;
-    border: none;
-    box-shadow: none;
-    padding: 0px;
-    z-index: 998;
-  }
-  .icon-bt {
-    height: 4px;
-    width: 24px;
-    background: $purple;
-    padding: 9px;
-  }
-  .btn-filter-d:hover > .icon-bt {
-    opacity: 1;
-    height: 4px;
-    width: 24px;
-    background: $green !important;
-    padding: 9px;
-  }
-  .ant-tabs-nav .ant-tabs-tab {
-    margin: 0 20px 0 20px;
-    font-size: 12px;
-  }
-  .col-bg {
-    background: $light-purple;
-    padding: 7px 15px;
-    margin-bottom: 5px;
-    display: flex;
-    height: 40px;
-    width: 71vw;
-
-    div {
-      width: 160px;
-      min-width: 160px;
-      padding: 0px 10px;
-      margin-right: 10px;
-      line-height: 25px;
-    }
-  }
-  .ant-tabs-tabpane-active {
-    height: calc(100vh - 183px);
-    overflow-x: auto;
-  }
-}
-
-.popover-porfolio {
-  .ant-popover-inner {
-    background-color: #06242d;
-    color: #f5f5f5;
-    border-radius: 5px;
-    p {
-      color: #ffffff;
-      font-family: 'Ubuntu';
-      font-style: normal;
-      font-weight: 400;
-      font-size: 12px;
-      line-height: 14px;
-      letter-spacing: 0.233333px;
-    }
-  }
-  .ant-popover-arrow-content {
-    --antd-arrow-background-color: #06242d;
-  }
-  .ant-popover-arrow-content:before {
-    background: #06242d;
-  }
-  .ant-popover-title {
-    display: none;
-  }
-  .ant-popover-content {
-    position: relative;
-    background: transparent;
-  }
-  .ant-popover-inner-content {
-    padding: 10px 10px;
-  }
-}
-.collapse-first {
-  .ant-collapse-header {
-    position: absolute !important;
-    width: 99.5% !important;
-  }
-}
-.protafolio-body {
   .filters {
     position: absolute;
     width: 500px;
@@ -2109,11 +1933,6 @@
     background-color: #d9ebf8;
   }
 }
-
-.ant-timeline-item {
-  padding-bottom: 0px;
-}
-
 .button-footer-modal {
   text-align: end;
   position: fixed;
@@ -2122,24 +1941,6 @@
   width: 732px;
   display: flow-root;
   padding: 15px 0px;
-}
-.button-footer-modal-field {
-  text-align: end;
-  position: fixed;
-  top: 588px;
-  background-color: white;
-  width: 264px;
-  display: flow-root;
-  padding: 8px 0px;
-}
-.button-footer-modal-tollgate {
-  text-align: end;
-  position: fixed;
-  top: 588px;
-  background-color: white;
-  width: 400px;
-  display: flow-root;
-  padding: 8px 0px;
 }
 .body-list-view {
   background: white;
@@ -2292,27 +2093,14 @@
     }
   }
 }
-.lines-calendar {
-  background: #fbfbfc;
-  position: absolute;
-  height: 39px;
-  width: 100%;
-  top: 71px;
-  display: none;
-}
-
-.dropdown-menu {
-  width: auto !important;
-}
-
 //Style Tabs Main Map Old (It's been reused in other parts)
 .tabs-pm-tools {
   .ant-tabs-nav {
     padding-left: 16px;
   }
-  .ant-tabs-content-holder {
-    // padding-left: 16px;
-  }
+  // .ant-tabs-content-holder {
+  //   // padding-left: 16px;
+  // }
   .ant-tabs-nav .ant-tabs-tab-active .ant-tabs-tab-btn {
     color: $purple !important;
     padding: 0px -10px 0px -10px !important;
@@ -2382,6 +2170,31 @@
     padding: 20px 15px 0px 15px;
   }
 }
+.phase-groups {
+  height: calc(100vh - 249px);
+}
+.container-phase {
+  overflow-x: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+    width: 5px;
+    height: 5px;
+  }
+}
+.header-group {
+  display: flex;
+  // width: 100%;
+  width: 19.5%;
+  flex-direction: row;
+  justify-content: space-between;
+  .btn-arrow-porfolio:hover {
+    color: #29c499;
+  }
+}
+.row-active-table {
+  background: #fafafa;
+  transition: background 0.3s;
+}
 
 @media (min-width: 1900px) and (max-width: 2549px) {
   .team-item {
@@ -2415,8 +2228,6 @@
     }
     .title {
       font-size: 12px;
-    }
-    hr {
     }
   }
   .protafolio-body {
@@ -2787,10 +2598,10 @@
     }
   }
   .table-body {
-    .ant-table-tbody > tr.ant-table-row:hover > td,
-    .ant-table-tbody > tr > td.ant-table-cell-row-hover {
-      // background: #fafafa00 !important;
-    }
+    // .ant-table-tbody > tr.ant-table-row:hover > td,
+    // .ant-table-tbody > tr > td.ant-table-cell-row-hover {
+    //   // background: #fafafa00 !important;
+    // }
     .scroll-scroll-table {
       width: calc(100vw - 448px) !important;
     }
@@ -3037,17 +2848,6 @@
     line-height: 14px;
     color: $purple00;
   }
-  .nameClicked {
-    font-family: 'Ubuntu';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px !important;
-    visibility: visible;
-  }
-  .lines-calendar {
-    height: 53.06px;
-    top: 71px;
-  }
   .filters {
     width: 655px !important;
     .filters-foot {
@@ -3127,35 +2927,7 @@
     margin-left: 20.4%;
   }
 }
-/// Bottom
-.phase-groups {
-  height: calc(100vh - 249px);
-}
-
-.container-phase {
-  overflow-x: scroll;
-}
-.container-phase::-webkit-scrollbar {
-  display: none;
-  width: 5px;
-  height: 5px;
-}
-.header-group {
-  display: flex;
-  // width: 100%;
-  width: 19.5%;
-  flex-direction: row;
-  justify-content: space-between;
-  .btn-arrow-porfolio:hover {
-    color: #29c499;
-  }
-}
-.row-active-table {
-  background: #fafafa;
-  transition: background 0.3s;
-}
-
-@media (min-width: 2555px){
+@media (min-width: 2555px) {
   .team-item {
     margin-bottom: 15px;
     img {
@@ -3192,10 +2964,6 @@
       }
     }
   }
-  .lines-calendar {
-    height: 63.77px;
-    top: 96px;
-  }
   .modal-graphic {
     width: 296px;
     p {
@@ -3203,8 +2971,6 @@
     }
     .title {
       font-size: 16px;
-    }
-    hr {
     }
   }
   .ant-input {
@@ -3720,10 +3486,6 @@
   // .ant-btn {
   //   font-size: 20px !important;
   // }
-  .popover-porfolio .ant-popover-inner p {
-    font-size: 18px;
-    line-height: 21px;
-  }
   .topHeader text {
     fill: $purple00;
     width: 58px;
@@ -3804,13 +3566,6 @@
     font-size: 22px !important;
     line-height: 14px;
     color: $purple00;
-  }
-  .nameClicked {
-    font-family: 'Ubuntu';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 21px !important;
-    visibility: visible;
   }
   .filters {
     width: 927px !important;
@@ -3954,10 +3709,6 @@
 //         height: auto !important;
 //       }
 //     }
-//   }
-//   .lines-calendar {
-//     height: 73.02px;
-//     top: 103px;
 //   }
 //   .modal-graphic {
 //     width: 253px;
@@ -4511,10 +4262,6 @@
 //       // margin-top: 9px;
 //     }
 //   }
-//   .popover-porfolio .ant-popover-inner p {
-//     font-size: 18px;
-//     line-height: 21px;
-//   }
 //   .topHeader text {
 //     fill: $purple00;
 //     width: 58px;
@@ -4598,13 +4345,6 @@
 //     font-size: 22px !important;
 //     line-height: 14px;
 //     color: $purple00;
-//   }
-//   .nameClicked {
-//     font-family: 'Ubuntu';
-//     font-style: normal;
-//     font-weight: 400;
-//     font-size: 21px !important;
-//     visibility: visible;
 //   }
 //   .col-name-team-organization {
 //     line-height: 22px;

@@ -417,7 +417,7 @@ const RequestView = ({ type, widthMap }: {
                       gap: '10px',
                     }}
                   >
-                    {(selectView === 'list' && namespaceId?.projecttype === 'Maintenance') && <MaintenanceTypesDropdown 
+                    {(selectView === 'list' && namespaceId?.projecttype === 'Maintenance' && widthMap != 15) && <MaintenanceTypesDropdown 
                       setMaintenanceSubType={setMaintenanceSubType}
                       maintenanceSubType={maintenanceSubType}
                     />}

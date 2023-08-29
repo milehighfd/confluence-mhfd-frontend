@@ -1,5 +1,5 @@
-@use  '../Theme/styles';
-@import "../Theme/styles.scss";
+@use '../Theme/styles';
+@import '../Theme/styles.scss';
 
 // profile
 .profile-header {
@@ -50,7 +50,7 @@
   width: 170px;
 }
 .profile-name h3 {
-  font-size:18px;
+  font-size: 18px;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
@@ -59,7 +59,7 @@
   color: $purple00;
   margin-bottom: 2px;
 }
-.profile-contact{
+.profile-contact {
   position: static;
   margin-bottom: 20px;
   button {
@@ -68,30 +68,36 @@
     margin-right: 15px;
   }
 }
-.profile-prot button,.profile-prot button:hover,
-.profile-prot button:focus, .profile-prot button:active,
-.profile-prot button.active {
-  margin: 0 5px 5px 0px;
-  background-color: $opacity00;
-  border: none;
-  color: $purple00;
-  height: 30px;
-  font-size: 12px;
-  padding: 0px 15px;
-}
-.profile-prot{
-  padding-left: 10px;
-  .add-tag, .add-tag:hover, .add-tag:focus, .add-tag:active, .add-tag.active{
-    background: transparent;
-    color: $opacity;
-    box-shadow: none;
-    padding: 0px;
-  }
-  .add-tag img{
-    margin-right: 5px;
-    margin-top: -1px;
-  }
-}
+// .profile-prot button,
+// .profile-prot button:hover,
+// .profile-prot button:focus,
+// .profile-prot button:active,
+// .profile-prot button.active {
+//   margin: 0 5px 5px 0px;
+//   background-color: $opacity00;
+//   border: none;
+//   color: $purple00;
+//   height: 30px;
+//   font-size: 12px;
+//   padding: 0px 15px;
+// }
+// .profile-prot {
+//   padding-left: 10px;
+//   .add-tag,
+//   .add-tag:hover,
+//   .add-tag:focus,
+//   .add-tag:active,
+//   .add-tag.active {
+//     background: transparent;
+//     color: $opacity;
+//     box-shadow: none;
+//     padding: 0px;
+//   }
+//   .add-tag img {
+//     margin-right: 5px;
+//     margin-top: -1px;
+//   }
+// }
 .profile-table {
   padding: 8px 20px 0px 0px;
   width: 100%;
@@ -109,28 +115,29 @@
     text-align: center;
     color: $purple00;
   }
-  tr:nth-child(2), tr:nth-child(4){
+  tr:nth-child(2),
+  tr:nth-child(4) {
     background-color: $opacity00;
   }
   .ant-table-small > .ant-table-content > .ant-table-body {
     margin: 0px;
   }
   .span-text {
-      font-size: 14px;
-      font-weight: 500;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: normal;
-      letter-spacing: normal;
-      text-align: center;
-      color: $purple00;
-    }
-    th {
-      text-align: center !important;
-    }
-    div:nth-child(4) label{
-      display: none;
-    }
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: $purple00;
+  }
+  th {
+    text-align: center !important;
+  }
+  div:nth-child(4) label {
+    display: none;
+  }
 }
 .profile-bystatus {
   border: none !important;
@@ -148,21 +155,21 @@
   top: -38px;
   margin-bottom: -38px;
 
-  .ant-tabs-bar{
+  .ant-tabs-bar {
     padding: 0px 25px;
   }
-  .ant-tabs-bar{
+  .ant-tabs-bar {
     border-bottom: none;
   }
   .ant-tabs-nav .ant-tabs-tab {
-    padding: 12px 0 8px!important;
+    padding: 12px 0 8px !important;
     font-size: 14px !important;
   }
 }
 .profile-pad {
   opacity: 0.5;
-  pointer-events:none;
-  padding:20px;
+  pointer-events: none;
+  padding: 20px;
   .ant-collapse-borderless > .ant-collapse-item {
     border-bottom: none;
     margin-bottom: 10px;
@@ -179,7 +186,7 @@
     line-height: 1.5;
     list-style: none;
     -webkit-font-feature-settings: 'tnum';
-    font-feature-settings: 'tnum', "tnum";
+    font-feature-settings: 'tnum', 'tnum';
     background-color: transparent;
     border: none;
     border-bottom: 0;
@@ -199,11 +206,11 @@
     padding-left: 20px;
     color: $purple00;
   }
-}
-.profile-pad h2 {
-  font-size: 18px;
-  color: $purple00;
-  margin-bottom: 18px;
+  h2 {
+    font-size: 18px;
+    color: $purple00;
+    margin-bottom: 18px;
+  }
 }
 .card-information {
   img {
@@ -212,29 +219,29 @@
     width: 99.5% !important;
     border-radius: 6px 6px 0px 0px !important;
   }
-  .ant-card-cover{
+  .ant-card-cover {
     position: relative;
     text-align: center;
   }
 }
-.edit-profile{
-  .btn-opacity{
+.edit-profile {
+  .btn-opacity {
     height: 40px;
     position: absolute;
     bottom: 50px;
     right: 20px;
   }
-  button img{
+  button img {
     margin-right: 10px;
   }
 }
-.modal-edit{
-  h4{
+.modal-edit {
+  h4 {
     font-size: 18px;
     color: $purple00;
     font-weight: 600;
   }
-  h6{
+  h6 {
     font-size: 14px;
     color: $purple00;
     font-weight: 500;
@@ -250,7 +257,7 @@
     border: solid 1.3px rgba(37, 24, 99, 0.1);
     font-weight: lighter;
   }
-  hr{
+  hr {
     border-bottom: dashed 1.3px #251863;
     border-width: 1px;
     opacity: 0.3;
@@ -270,25 +277,26 @@
     font-weight: lighter;
     box-shadow: none;
   }
-  .ant-btn:hover, .ant-btn:focus {
+  .ant-btn:hover,
+  .ant-btn:focus {
     color: $purple00;
     background-color: $white;
     border-color: $purple00;
   }
-  .ant-btn img{
+  .ant-btn img {
     float: right;
     margin-top: 6px;
   }
   .ant-input:hover {
     border-color: $purple;
   }
-  .ant-modal-footer{
+  .ant-modal-footer {
     display: none;
   }
   .ant-modal-body {
     padding: 20px 25px;
   }
-  .footer-modal{
+  .footer-modal {
     .btn-borde {
       width: 130px !important;
       height: 45px !important;
@@ -304,7 +312,7 @@
       text-align: center;
     }
   }
-  p{
+  p {
     margin-bottom: 2px;
     color: $purple00;
     font-size: 12px;
@@ -313,7 +321,7 @@
 .cursor-pointer-span {
   cursor: pointer;
 }
-.sort-by{
+.sort-by {
   position: relative;
   border: none !important;
   color: rgba(17, 9, 60, 0.5) !important;
@@ -322,21 +330,29 @@
   width: auto !important;
   padding: 0px 6px !important;
 
-  .anticon + span, span + .anticon, .anticon {
+  .anticon + span,
+  span + .anticon,
+  .anticon {
     margin-left: 8px;
     position: absolute !important;
     font-size: 10px;
     z-index: 1000;
     right: 0px;
   }
-  .arrow-up{
+  .arrow-up {
     top: 12px;
   }
-  .arrow-down{
+  .arrow-down {
     top: 18px;
   }
-  .arrow-up:hover, .arrow-up:focus, .arrow-up:active, .arrow-up.active,
-  .arrow-down:hover, .arrow-down:focus, .arrow-down:active, .arrow-down.active{
+  .arrow-up:hover,
+  .arrow-up:focus,
+  .arrow-up:active,
+  .arrow-up.active,
+  .arrow-down:hover,
+  .arrow-down:focus,
+  .arrow-down:active,
+  .arrow-down.active {
     color: $purple;
     cursor: pointer;
   }
@@ -344,145 +360,148 @@
     line-height: 0 !important;
   }
 }
-.tab-activity{
-  position: relative;
+// .tab-activity {
+//   position: relative;
 
-  .btn-sort{
-    display: flex;
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    z-index: 1000;
+//   .btn-sort {
+//     display: flex;
+//     position: absolute;
+//     right: 20px;
+//     top: 20px;
+//     z-index: 1000;
 
-    button{
-      box-shadow: none;
-      background: none;
-    }
-    .sort-by .arrow-up {
-      top: 10px;
-    }
-    .sort-by .arrow-down {
-      top: 16px;
-    }
-  }
-  .ant-tabs-bar{
-    float: right;
-    margin-right: 125px;
-  }
-  .card{
-    .card-head{
-      display: flex;
-    }
-  }
-  .ant-tabs{
-    padding: 20px;
-  }
-  .ant-tabs-nav .ant-tabs-tab {
-    padding: 5px 0px 8px 0px !important;
-  }
-  .ant-tabs-bar{
-    border-bottom: none;
-  }
-  .comp{
-    width: 270px;
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    display: flex;
-     div{
-       width: 50%;
-     }
-    .img-00{
-      z-index: 5;
-      position: relative;
-      border: 1px solid $white;
-    }
-    .img-01{
-      margin-left: -15px;
-      z-index: 4;
-      position: relative;
-      border: 1px solid $white;
-    }
-    .img-02{
-      margin-left: -15px;
-      z-index: 3;
-      position: relative;
-      border: 1px solid $white;
-    }
-    span{
-      margin-left: 5px;
-      font-size: 14px;
-      color: $purple;
-    }
-    h6{
-      font-size: 16px;
-      float: right;
-      margin-bottom: 0px;
-      line-height: 30px;
-    }
-  }
-  .list-comment{
-    background: $white;
-    margin-left: -20px;
-    padding: 20px 20px 0px 20px;
+//     button {
+//       box-shadow: none;
+//       background: none;
+//     }
+//     .sort-by .arrow-up {
+//       top: 10px;
+//     }
+//     .sort-by .arrow-down {
+//       top: 16px;
+//     }
+//   }
+//   .ant-tabs-bar {
+//     float: right;
+//     margin-right: 125px;
+//   }
+//   .card {
+//     .card-head {
+//       display: flex;
+//     }
+//   }
+//   .ant-tabs {
+//     padding: 20px;
+//   }
+//   .ant-tabs-nav .ant-tabs-tab {
+//     padding: 5px 0px 8px 0px !important;
+//   }
+//   .ant-tabs-bar {
+//     border-bottom: none;
+//   }
+//   .comp {
+//     width: 270px;
+//     position: absolute;
+//     right: 0px;
+//     top: 0px;
+//     display: flex;
+//     div {
+//       width: 50%;
+//     }
+//     .img-00 {
+//       z-index: 5;
+//       position: relative;
+//       border: 1px solid $white;
+//     }
+//     .img-01 {
+//       margin-left: -15px;
+//       z-index: 4;
+//       position: relative;
+//       border: 1px solid $white;
+//     }
+//     .img-02 {
+//       margin-left: -15px;
+//       z-index: 3;
+//       position: relative;
+//       border: 1px solid $white;
+//     }
+//     span {
+//       margin-left: 5px;
+//       font-size: 14px;
+//       color: $purple;
+//     }
+//     h6 {
+//       font-size: 16px;
+//       float: right;
+//       margin-bottom: 0px;
+//       line-height: 30px;
+//     }
+//   }
+//   .list-comment {
+//     background: $white;
+//     margin-left: -20px;
+//     padding: 20px 20px 0px 20px;
 
-    .ant-avatar{
-      height: 35px;
-      width: 35px;
-    }
-    .ant-list-item-meta-title, .ant-list-item-meta-title > a{
-      font-size: 16px;
-      color: $purple;
-    }
-  }
-  .ant-list-item-meta-description {
-    color: $opacity;
-    font-size: 14px;
-    line-height: 22px;
-  }
-  .comment{
-    background: $opacity01;
-    margin-left: -20px;
-    padding: 10px 20px;
-    margin-bottom: 15px;
+//     .ant-avatar {
+//       height: 35px;
+//       width: 35px;
+//     }
+//     .ant-list-item-meta-title,
+//     .ant-list-item-meta-title > a {
+//       font-size: 16px;
+//       color: $purple;
+//     }
+//   }
+//   .ant-list-item-meta-description {
+//     color: $opacity;
+//     font-size: 14px;
+//     line-height: 22px;
+//   }
+//   .comment {
+//     background: $opacity01;
+//     margin-left: -20px;
+//     padding: 10px 20px;
+//     margin-bottom: 15px;
 
-    img{
-      margin-right: 15px;
-    }
-    input{
-      background: none;
-      border: none;
-      box-shadow: none;
-      color: $purple;
-      font-size: 14px;
-      width: 90%;
-    }
-    input::placeholder{
-      color: $opacity;
-    }
-  }
-}
-.profile-00{
+//     img {
+//       margin-right: 15px;
+//     }
+//     input {
+//       background: none;
+//       border: none;
+//       box-shadow: none;
+//       color: $purple;
+//       font-size: 14px;
+//       width: 90%;
+//     }
+//     input::placeholder {
+//       color: $opacity;
+//     }
+//   }
+// }
+.profile-00 {
   height: calc(100vh - 53px) !important;
   overflow-y: auto;
 }
-.profile-menu{
+.profile-menu {
   color: $opacity !important;
-  .ant-menu-item > a:hover, .ant-menu-item > a:focus,
-  .ant-dropdown-menu-item > a:hover, .ant-dropdown-menu-item > a:focus {
+  .ant-menu-item > a:hover,
+  .ant-menu-item > a:focus,
+  .ant-dropdown-menu-item > a:hover,
+  .ant-dropdown-menu-item > a:focus {
     color: $purple;
     font-weight: 500;
   }
-  .ant-dropdown-menu-item{
+  .ant-dropdown-menu-item {
     padding-top: 0px;
     padding-left: 20px !important;
     text-align: left;
   }
-  .ant-dropdown-menu-item:hover{
+  .ant-dropdown-menu-item:hover {
     background: none;
     background-color: #e6f7ff !important;
   }
-  span{
+  span {
     font-size: 12px;
     color: $purple00;
     padding-top: 3px;
@@ -491,14 +510,14 @@
     width: 100%;
     display: inline-block;
   }
-  span:hover{
+  span:hover {
     color: #251863;
     font-weight: 500;
   }
 }
 // END PROFILE
 
-@media(min-width: 1900px) and (max-width: 2549px){
+@media (min-width: 1900px) and (max-width: 2549px) {
   .card-information img {
     width: 99.3% !important;
     height: 100%;
@@ -515,7 +534,7 @@
   //   }
   // }
 }
-@media(min-width: 2550px){
+@media (min-width: 2550px) {
   .card-information img {
     width: 99.6% !important;
     border-radius: 7px 7px 0px 0px !important;

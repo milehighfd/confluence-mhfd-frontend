@@ -1,12 +1,11 @@
 @use '../Theme/styles';
 @import '../Theme/styles.scss';
 
-
 .subtype-dropdown {
   .ant-select-selector {
     width: fit-content !important;
   }
-  .ant-select-dropdown .ant-select-dropdown-placement-bottomLeft  {
+  .ant-select-dropdown .ant-select-dropdown-placement-bottomLeft {
     width: fit-content !important;
   }
   .ant-select {
@@ -50,16 +49,7 @@
     border-left: 1.5px solid #e8e8e8;
   }
 }
-.ant-timeline-item-last {
-  .ant-timeline-item-tail {
-    position: absolute;
-    top: 6px;
-    left: 4px;
-    height: calc(100% - 4px);
-    border-left: 1.5px solid #ff0000;
-    display: none;
-  }
-}
+
 .work-head,
 .work-body {
   background: $white;
@@ -208,13 +198,16 @@
 .work-header-buttons {
   border: none;
   display: flex;
-
+  align-items: center;
   .buttons-header:hover {
     .icon-bt {
       background-color: $purple;
     }
   }
-  .icon-bt {
+  .ant-input-prefix {
+    color: $purple00;
+  }
+  s .icon-bt {
     background-color: $opacity;
     margin-left: -16px;
   }
@@ -222,6 +215,7 @@
     border: 'none';
     padding-right: 0px;
     padding-top: 0px;
+    padding-left: 0px;
     width: 34px;
     height: 36px;
     border-radius: 4px;
@@ -232,6 +226,13 @@
     opacity: 1;
   }
   .buttons1 {
+    border: 'none';
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-left: 0px;
+    width: 34px;
+    height: 36px;
+    border-radius: 4px;
     .ant-input {
       border-left: none !important;
       padding-left: 0px;
@@ -249,15 +250,12 @@
       border-right: none;
       background-color: white !important;
     }
-    .ant-input:hover {
-      border-color: #d9d9d9 !important;
-    }
-    .ant-input:active {
-      border-color: #d9d9d9 !important;
-    }
+    .ant-input:hover,
+    .ant-input:active,
     .ant-input:focus {
       border-color: #d9d9d9 !important;
     }
+
     .ant-btn .anticon {
       transition: none !important;
       /* transition: margin-left .3s cubic-bezier(.645,.045,.355,1); */
@@ -268,8 +266,11 @@
     }
   }
   .buttons1:hover {
-    background: rgba(245, 247, 255, 0.8);
+    background: rgba(245, 247, 255, 0.8) !important;
     opacity: 1;
+    img {
+      opacity: 1;
+    }
   }
 }
 .work-body {
@@ -345,6 +346,7 @@
   .ant-tabs-tabpane-active {
     height: calc(100vh - 183px);
     overflow-x: auto;
+    overflow-y: auto;
   }
 }
 .work-table {
@@ -515,7 +517,7 @@
         margin-top: 23px;
         background-color: #f5f7ff;
         padding-left: 21px;
-        .ant-timeline{
+        .ant-timeline {
           width: 100%;
         }
         .cost-row {
@@ -523,7 +525,7 @@
             padding: 0px 10px 10px 0px;
           }
         }
-        .ant-col{
+        .ant-col {
           flex: 1;
           left: -8px;
         }
@@ -890,9 +892,6 @@
   .ant-popover-content {
     width: 165px;
   }
-}
-.popover-dollars {
-  left: '1573px' !important;
 }
 // MODAL EDIT
 .work-modal-edit {
@@ -1526,44 +1525,44 @@
   img {
     margin-top: 2px;
   }
-  .body-team-comment{
+  .body-team-comment {
     margin-right: -15px;
     padding-right: 15px;
     height: calc(100vh - 294px);
     overflow: auto;
   }
-  .input-comment{
+  .input-comment {
     border-radius: 60px;
-    background: #F5F7FF;
+    background: #f5f7ff;
     padding: 20px 20px 19px 20px;
     display: flex;
     align-items: center;
-    border:none;
-    color: #11093C;
+    border: none;
+    color: #11093c;
     font-size: 14px;
     font-style: normal;
     width: 100%;
   }
-  .header-comment{
+  .header-comment {
     display: flex;
     align-items: center;
     margin-top: 16px;
-    p{
+    p {
       margin-bottom: 0px;
       font-weight: 600;
       font-size: 14px;
       font-style: normal;
       line-height: normal;
     }
-    .comment-date{
+    .comment-date {
       font-weight: 400;
       opacity: 0.5;
       margin-top: 3px;
     }
   }
-  .user-item-comment{
+  .user-item-comment {
     font-size: 14px;
-    background: #5E63E4;
+    background: #5e63e4;
     display: flex;
     padding: 11px 10px;
     justify-content: center;
@@ -1577,20 +1576,20 @@
     letter-spacing: 0.171px;
     border-radius: 50%;
   }
-  .content-comment{
+  .content-comment {
     border-radius: 16px;
-    background: #F5F7FF;
+    background: #f5f7ff;
     padding: 12px;
     margin-top: 8px;
-    .tag-name-user{
+    .tag-name-user {
       border-radius: 25px;
-      background: #FCFDFF;
+      background: #fcfdff;
       color: #635e80;
       font-size: 14px;
       padding: 2px 8px;
       margin-right: 4px;
     }
-    .text-comment{
+    .text-comment {
       color: #84809e;
       font-family: Ubuntu;
       font-size: 14px;
@@ -1599,36 +1598,15 @@
       // opacity: 0.5;
       margin-bottom: 0px;
     }
-    .tag-user{
+    .tag-user {
       border-radius: 25px;
-      background: #5E63E4;
+      background: #5e63e4;
       padding: 2px 8px;
-      color: #FFF;
+      color: #fff;
       font-size: 14px;
       margin: 0px 4px;
     }
   }
-}
-.chat-button {
-  color: white;
-  background-color: #251863;
-  margin: 10px 0px 10px 10px;
-  padding: 5px 25px 5px 25px;
-  border-radius: 2px;
-  border-color: transparent;
-  span {
-    font-size: 14px;
-  }
-}
-.chat-text {
-  height: 56px;
-  width: 95%;
-  border-color: #d9d9d9;
-  border-radius: 2px;
-  padding: 5px;
-}
-.chat-text:hover {
-  border-color: $purple;
 }
 .chat-00 {
   width: 100%;
@@ -1726,39 +1704,6 @@
     margin: 2px 0px;
   }
 }
-// GENERAL
-.ant-drawer-mask {
-  background-color: rgba(0, 0, 0, 0) !important;
-}
-.ant-drawer-left,
-.ant-drawer-right {
-  top: 58px !important;
-}
-.ant-drawer .ant-drawer-content {
-  height: calc(100vh - 58px) !important;
-}
-.ant-drawer-right .ant-drawer-content-wrapper {
-  right: 0;
-  width: 310px !important;
-}
-.hide-when-1 {
-  display: none !important;
-}
-.ant-select-disabled .ant-select-selection {
-  background-color: transparent !important;
-}
-.ant-input-disabled {
-  color: #251863 !important;
-}
-.ant-input-affix-wrapper .ant-input-disabled ~ .ant-input-suffix .anticon {
-  color: #251863 !important;
-}
-.ant-input-color {
-  color: rgba(17, 9, 60, 0.5) !important;
-}
-.work-body .ant-tabs-tabpane-active {
-  overflow-y: auto;
-}
 .button-createProject {
   padding-top: 18px !important;
 }
@@ -1777,120 +1722,9 @@
   line-height: 18px;
   opacity: 0.6000000238418579;
 }
-.table-map-list {
-  .ant-table-body{
-    height: calc(100vh - 270px);
-    max-height:  calc(100vh - 270px);
-  }
-}
-
-///Bottom
-.resetFilter:hover {
-  color: #6fc699;
-}
-.icon-search-size {
-  position: relative;
-  top: 3px;
-  -webkit-mask-size: 22px !important;
-  margin-right: 7px;
-}
-.work-header-buttons{
-  border: none;
-  display: flex;
-  align-items: center;
-  .buttons-header:hover{
-    .icon-bt{
-    background-color: $purple;
-  }
-  }
-  .ant-input-prefix{
-    color: $purple00;
-  }s
-  .icon-bt{
-    background-color: $opacity;
-    margin-left: -16px;   
-  }
-  .buttons{
-    border:'none';
-    padding-right: 0px;
-    padding-top: 0px;
-    padding-left: 0px;
-    width: 34px;
-    height: 36px;
-    border-radius: 4px;
-    opacity: 0.5;
-  }
-  .buttons:hover{
-    background: rgba(245, 247, 255, 0.80);
-    opacity: 1;
-  }
-  .buttons1{
-    border:'none';
-    padding-right: 0px;
-    padding-top: 0px;
-    padding-left: 0px;
-    width: 34px;
-    height: 36px;
-    border-radius: 4px;
-    .ant-input{
-      border-left: none !important;
-      padding-left: 0px;
-    }
-    .ant-input-group-addon {
-      position: relative;
-      padding: 0px 8px;
-      color: #918BB0;
-      font-weight: 400;
-      font-size: 14px;
-      text-align: center;      
-      border: 1px solid #d9d9d9;
-      border-radius: 4px 0px 0px 4px;
-      transition: all .3s;
-      border-right: none;
-      background-color: white !important;
-    }
-    .ant-input:hover{
-      border-color: #D9D9D9 !important;
-    }
-    .ant-input:active{
-      border-color: #D9D9D9 !important;
-    }
-    .ant-input:focus{
-      border-color: #D9D9D9 !important;
-    }
-    .ant-btn .anticon {
-      transition: none !important;
-      /* transition: margin-left .3s cubic-bezier(.645,.045,.355,1); */
-    }
-    img{
-      opacity: 0.5;
-      height: 13px;
-    }
-  }
-  .buttons1:hover{
-    background: rgba(245, 247, 255, 0.80) !important;
-    opacity: 1;
-    img{
-      opacity: 1;
-    }
-  }
-}
-.popover-text {
-  color: #11093C;
-  font-family: Ubuntu;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 18px;
-  opacity: 0.6000000238418579;
-}
-
-.ant-popover {
-  margin-top: 0px !important;
-  padding-top: 0px;
-  // max-width: 255px;
-}
-
+// .resetFilter:hover {
+//   color: #6fc699;
+// }
 .popover-work-header {
   .ant-popover-arrow {
     display: none !important;
@@ -1899,6 +1733,10 @@
 //CSS for TableListView
 .table-map-list {
   // margin-top: -14px;
+  .ant-table-body {
+    height: calc(100vh - 270px);
+    max-height: calc(100vh - 270px);
+  }
   .ant-table {
     color: $purple00;
     font-family: Ubuntu;
@@ -1993,24 +1831,6 @@
   }
 }
 
-.table-map-list::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-  border-left: 1px solid #e6e9ea;
-}
-
-/* Track */
-.table-map-list::-webkit-scrollbar-track {
-  border-radius: none;
-}
-
-/* Handle */
-.table-map-list::-webkit-scrollbar-thumb {
-  background: $purple00;
-  border-radius: 10px;
-}
-
-
 //MOBILE
 @media (min-width: 0px) and (max-width: 600px) {
   .work-utilities {
@@ -2042,7 +1862,7 @@
     .ant-timeline-item-tail {
       left: 3px !important;
     }
-  }  
+  }
   .work-head {
     h2 {
       font-size: 27px;
@@ -2100,7 +1920,7 @@
       height: 54px;
     }
     .ant-timeline-item-head-blue {
-      top: 4px
+      top: 4px;
     }
     .tab-head-project {
       font-size: 16px;
@@ -2236,7 +2056,7 @@
         font-size: 19px;
       }
     }
-    .ant-input-number-lg input{
+    .ant-input-number-lg input {
       height: 36px;
     }
     h6 {
@@ -2346,16 +2166,16 @@
         font-size: 12px;
       }
     }
-    .comment{
-      p{
+    .comment {
+      p {
         font-size: 16px !important;
         line-height: 27.999px !important;
       }
-      span{
+      span {
         font-size: 16px !important;
         line-height: 22.999px !important;
       }
-      .user-item-comment{
+      .user-item-comment {
         font-size: 21px;
         padding: 13.333px 12.999px;
         line-height: 22px;
@@ -2478,12 +2298,12 @@
   .work-header-buttons .buttons:hover {
     background: #f5f7ff;
   }
-  .work-header-buttons{
-    .input-search-wr-wp{
+  .work-header-buttons {
+    .input-search-wr-wp {
       margin-right: 22px;
     }
   }
-  .work-header-buttons .buttons1{
+  .work-header-buttons .buttons1 {
     // width: 45px;
     height: 46px;
     margin-right: 22px;
@@ -2496,13 +2316,13 @@
       height: 22px !important;
       opacity: 0.5;
     }
-    .search-input{
+    .search-input {
       color: $purple00;
     }
-    .ant-input{
-      color: $purple00; 
+    .ant-input {
+      color: $purple00;
     }
-    .ant-input-prefix{
+    .ant-input-prefix {
       color: $purple00;
     }
   }
@@ -2516,7 +2336,7 @@
     padding: 14px 24px 0px 24px;
   }
   .table-map-list {
-    .ant-table-body{
+    .ant-table-body {
       height: calc(100vh - 303px);
       max-height: calc(100vh - 303px) !important;
     }
@@ -2595,7 +2415,7 @@
   }
 }
 // 2560x1440 DISPLAY
-@media (min-width: 2500px){
+@media (min-width: 2500px) {
   .differential {
     padding-left: 0px !important;
   }
@@ -2700,12 +2520,12 @@
         width: 25px;
       }
     }
-    .input-search-wr-wp{
+    .input-search-wr-wp {
       margin-right: 20px;
     }
     .ant-input-affix-wrapper {
       height: 40px !important;
-    }  
+    }
     .buttons1 {
       min-width: 45px;
       min-height: 45px;
@@ -2726,26 +2546,29 @@
   }
   .work-body {
     .table-map-list {
-      .ant-table-body{
+      .ant-table-body {
         height: calc(100vh - 334px);
         max-height: calc(100vh - 334px) !important;
       }
-      .ant-table{
+      .ant-table {
         font-size: 19px !important;
         line-height: 24px !important;
       }
-      .name-project-sec{
+      .name-project-sec {
         font-size: 21px !important;
         line-height: 25px !important;
-        .name{
+        .name {
           font-size: 20px !important;
           line-height: 27px !important;
         }
-        span{
+        span {
           font-size: 28px !important;
         }
       }
-       .ant-table-tbody > tr > td, .table-map-list .ant-table-thead > tr > th, .table-map-list .ant-table tfoot > tr > td, .table-map-list .ant-table tfoot > tr > th {
+      .ant-table-tbody > tr > td,
+      .table-map-list .ant-table-thead > tr > th,
+      .table-map-list .ant-table tfoot > tr > td,
+      .table-map-list .ant-table tfoot > tr > th {
         padding: 13px 4.5px;
       }
     }
@@ -2986,7 +2809,7 @@
     .ant-select:not(.ant-select-customize-input) .ant-select-selector {
       height: 40px;
     }
-    .ant-input-number-lg input{
+    .ant-input-number-lg input {
       height: 40px;
     }
     .ant-drawer-header {
@@ -3006,12 +2829,12 @@
     }
     .ant-drawer-title img {
       height: 32px;
-      width: 32px !important
+      width: 32px !important;
     }
-    .title-utilities{
+    .title-utilities {
       font-size: 19px;
     }
-    .title-drawer .close-style-drawer{
+    .title-drawer .close-style-drawer {
       height: 22px;
     }
     .ant-drawer-body {
@@ -3089,10 +2912,10 @@
         margin-bottom: 40px !important;
       }
     }
-    .ant-drawer-body .sub-title-filter{
+    .ant-drawer-body .sub-title-filter {
       font-size: 21px;
     }
-    .body-f-p-filter{
+    .body-f-p-filter {
       font-size: 19px;
       height: 265px;
     }
@@ -3230,8 +3053,9 @@
     line-height: 22px !important;
   }
   //Status
-  .title-status-list{
-    .title-left, .title-right{
+  .title-status-list {
+    .title-left,
+    .title-right {
       font-size: 19px;
       line-height: 24px;
     }
@@ -3275,13 +3099,12 @@
     }
   }
   //Maintenence
-  .btn-maintenence{
+  .btn-maintenence {
     width: 250px;
     font-size: 18px;
     height: 45px;
   }
 }
-
 
 // @media (min-width: 3000px) and (max-width: 5999px) {
 //   .mdi-circle {
@@ -3473,7 +3296,6 @@
 //     padding: 75px 6px 20px 6px !important;
 //   }
 // }
-
 
 // cost-wr1 {
 //   margin-top: 15px;

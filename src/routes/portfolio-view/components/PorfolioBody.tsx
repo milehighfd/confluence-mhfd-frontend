@@ -320,7 +320,7 @@ const PortafolioBody = () => {
             displayedTabKey.map((tk: string, idx: number) => {
               return (
                 <TabPane style={{ marginBottom: '0px', zIndex: 1 }} tab={<span>{tk}</span>} key={tk} disabled={(tabActiveNavbar === 'Phase') && tk === 'All' ? true : false}>
-                  <div className="protafolio-body">
+                  <div className="portafolio-body">
                     {openFilters && <Filters filtersObject={{ filterby, filterValue, tabKey }} />}
                     {tabActiveNavbar === 'List' && <TablePortafolio
                       tabKey={tabKey}
