@@ -450,6 +450,13 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     popup.remove();
     if (map && tabActiveNavbar === MAP_TAB) {
       resetBoardIds();
+      const styles = { ...(tileStyles as any) };
+      let key = PROJECTS_DRAFT + 'draft'
+      styles[key].forEach((style: LayerStylesType, index: number) => {
+        if (map.getLayer(key + '_' + index)) {
+          map.removeLayer(key + '_' + index);
+        }
+      });
     }
   }, [tabActiveNavbar]);
   
