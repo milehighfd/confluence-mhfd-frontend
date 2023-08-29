@@ -155,7 +155,7 @@ export const ProposedActions = (props: ProposedActionsProps) => {
         }else{
           return (
             <div>
-              <DeleteOutlined className='ico-delete' onClick={() => disableFieldsForLG ? null : removeComponent(record)} />
+              <DeleteOutlined className='ico-delete' disabled={disableFieldsForLG} onClick={() => disableFieldsForLG ? null : removeComponent(record)} />
             </div>
           );
         }
@@ -234,7 +234,7 @@ export const ProposedActions = (props: ProposedActionsProps) => {
         }else{
           return (
             <div>
-              <DeleteOutlined className='ico-delete' onClick={() => disableFieldsForLG ? null : removeIndComponent(record)} />
+              <DeleteOutlined className='ico-delete' disabled={disableFieldsForLG} onClick={() => disableFieldsForLG ? null : removeIndComponent(record)} />
             </div>
           );
         }

@@ -138,7 +138,16 @@ export const ProjectGeometry = ({
         if(record.key.includes('title')){
           return (
             <>
-              {text}&nbsp;&nbsp;&nbsp; { (type === 'study') && <DeleteOutlined className='ico-delete' onClick={() => removeStreamByName(record)} />}
+              {text}&nbsp;&nbsp;&nbsp; {(type === 'study') &&
+                <DeleteOutlined
+                  className='ico-delete'
+                  disabled={disableFieldsForLG}
+                  onClick={() => {
+                    if (disableFieldsForLG) {
+                      removeStreamByName(record)
+                    }
+                  }
+                  } />}
             </>
           );
         }
