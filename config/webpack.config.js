@@ -564,7 +564,10 @@ module.exports = function (webpackEnv) {
         },
       ].filter(Boolean),
     },
-    plugins: [
+    plugins: [      
+      new webpack.DefinePlugin({
+        BUILD_DATE: JSON.stringify(new Date().toLocaleString())
+      }),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign(

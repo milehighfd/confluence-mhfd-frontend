@@ -21,10 +21,12 @@ const MapRoute = lazy(() => import('./routes/map'));
 const Unauthorized = lazy(() => import('./Components/Unauthorized/Unauthorized'));
 const maptest = lazy(() => import('./routes/maptest'));
 const DetailedModal = lazy(() => import('./routes/detail-page/components/DetailModal'));
+declare const BUILD_DATE: string;
 
 const App = () => {
   console.log(`ENVIRONMENT: ${process.env.REACT_APP_NODE_ENV}`);
-  console.log('Aug 21 13:14 version');
+  //console.log('Aug 21 13:14 version');
+  console.log(`${BUILD_DATE} version`);
 
   const appUser = useAppUserState();
   const { loading } = useLogin();
