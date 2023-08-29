@@ -101,6 +101,7 @@ const initState = {
   infiniteScrollHasMoreItems: true,
   isEdit: false,
   deleteAttachmentsIds: [],
+  disableFieldsForLG: false
 }
 
 const projectReducer = (state = initState, action: any) => {
@@ -413,6 +414,12 @@ const projectReducer = (state = initState, action: any) => {
       return {
         ...state,
         deleteAttachmentsIds: action.deleteAttachmentsIds
+      }
+    }
+    case types.SET_DISABLE_FIELDS_FOR_LG: {
+      return {
+        ...state,
+        disableFieldsForLG: action.disableFieldsForLG
       }
     }
     default: 

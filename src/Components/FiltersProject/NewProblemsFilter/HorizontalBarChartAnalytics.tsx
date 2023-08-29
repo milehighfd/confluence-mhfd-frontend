@@ -196,7 +196,7 @@ const HorizontalBarChart = ({
     }else{
       axis.append("g")
       .attr('class', 'xAxisAnalytics')
-      .call(d3.axisBottom(x).ticks(5).tickFormat(customTickThousandsOfDollars));
+      .call(d3.axisBottom(x).ticks(2.5).tickFormat(customTickThousandsOfDollars));
     }
 
 

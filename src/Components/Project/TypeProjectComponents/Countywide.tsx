@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import {  WINDOW_WIDTH } from 'constants/constants';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useProfileState } from 'hook/profileHook';
+import { useProjectState } from 'hook/projectHook';
 
 interface Props {
   county: string;
@@ -34,6 +35,9 @@ export const Countywide = ({
   const [countyList, setCountyList] = useState<any>([]);
   const [defaultValueCounty, setDefaultValueCounty] = useState<any>('');
   const [defaultValueSouthPlate, setDefaultValueSouthPlate] = useState<any>('');
+  const {
+    disableFieldsForLG,
+  } = useProjectState();
 
   useEffect(() => {
     setDefaultValueCounty(isCountyWide ? 'Yes' : 'No');
@@ -70,7 +74,7 @@ export const Countywide = ({
       <p className='text-default'>Projects are spatially defined by stream reaches.  Select the option below that best allows you to define the project.</p>
       <div className='section-gemetry'>
         <p>i. Is this a countywide project?</p>
-        <Radio.Group value={defaultValueCounty} onChange={(e) => {
+        <Radio.Group value={defaultValueCounty} disabled={disableFieldsForLG} onChange={(e) => {
           if (e.target.value === 'Yes') {
             setIsCountyWide(true);
             setShowDraw(false);
@@ -96,6 +100,7 @@ export const Countywide = ({
               style={{ width: '100%' }}
               listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
               value={county}
+              disabled={disableFieldsForLG}
               onChange={(county: any) => setCounty(county)}
               getPopupContainer={() => (document.getElementById("countyid") as HTMLElement)}>
               {countyList.map((element:any) => {
@@ -105,7 +110,7 @@ export const Countywide = ({
             </>}
         </div>
         <p>ii. Is this project located on the South Platte River?</p>
-        <Radio.Group value={defaultValueSouthPlate} onChange={(e) => {
+        <Radio.Group value={defaultValueSouthPlate} disabled={disableFieldsForLG} onChange={(e) => {
           if (e.target.value === 'Yes') {
             setIsSouthPlate(true);
           } else if (e.target.value === 'No') {

@@ -823,3 +823,9 @@ export const archiveProject = (projectid: any) => {
     });
   }
 }
+
+export const setDisableFieldsForLg = (disableFieldsForLG: boolean) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.SET_DISABLE_FIELDS_FOR_LG, disableFieldsForLG});
+  }
+}

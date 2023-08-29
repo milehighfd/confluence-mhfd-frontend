@@ -8,7 +8,6 @@ import { useProjectState, useProjectDispatch } from 'hook/projectHook';
 import CreateProjectMap from 'Components/CreateProjectMap/CreateProjectMap';
 import { Project } from 'Classes/Project';
 import { NEW_PROJECT_TYPES, ADMIN, STAFF, WORK_PLAN_TAB, WINDOW_WIDTH } from 'constants/constants';
-import store from 'store';
 import { useProfileState } from 'hook/profileHook';
 import { useHistory } from 'react-router-dom';
 import { UploadImagesDocuments } from 'Components/Project/TypeProjectComponents/UploadImagesDocuments';
@@ -18,6 +17,7 @@ import { DownOutlined, HeartFilled, HeartOutlined, UpOutlined } from '@ant-desig
 import TypeProjectsFilter from 'Components/FiltersProject/TypeProjectsFilter/TypeProjectsFilter';
 import { Option } from 'antd/lib/mentions';
 import { COLUMNS_GEOMEOTRY, DATA_SOURCE_GEOMEOTRY } from '../Constants/Constants';
+import { useAppUserState } from 'hook/useAppUser';
 const { Panel } = Collapse;
 const content = (<div className="popver-info">Master plans that set goals for the watershed and stream corridor, identify problems, and recommend improvements.</div>);
 
@@ -82,7 +82,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   const [studyreason, setStudyReason] = useState<any>();
   const history = useHistory();
   const { toggleAttachmentCover,removeAttachment} = useAttachmentDispatch();
-  const appUser = store.getState().appUser;
+  const appUser = useAppUserState();
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
   const pageWidth  = document.documentElement.scrollWidth;

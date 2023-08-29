@@ -1,6 +1,7 @@
 import React from "react";
 import { Input, Row, Col, Popover, Select, Switch } from 'antd';
 import {  MAINTENANCE_ELIGIBILITY, NEW_PROJECT_TYPES, WINDOW_WIDTH } from "../../../constants/constants";
+import { useProjectState } from "hook/projectHook";
 
 interface InformationMaintenanceProps {
   frequency: string;
@@ -24,7 +25,9 @@ for (var i = 1; i < 13; i++) {
 
 export const InformationMaintenance = ({ frequency, applyFrequency, ownership, applyOwnership, eligibility, applyEligibility }: InformationMaintenanceProps) => {
   const WINDOW_WIDTH = window.innerWidth;
- 
+  const {
+    disableFieldsForLG,
+  } = useProjectState();
   return (
     <>
       <Row gutter={[16, 16]} style={{ marginTop: '13px' }}>
@@ -37,6 +40,7 @@ export const InformationMaintenance = ({ frequency, applyFrequency, ownership, a
               listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
               onChange={(frequency) => applyFrequency(frequency)}
               getPopupContainer={() => document.getElementById('freqid') as HTMLElement}
+              disabled={disableFieldsForLG}
             >
               {selec.map((element) => {
                 return (
@@ -53,7 +57,7 @@ export const InformationMaintenance = ({ frequency, applyFrequency, ownership, a
           <p className="switch-option" style={{ fontSize: '14px' }}>
             Public Access / Ownership{' '}
             <span>
-              <Switch checkedChildren="Yes" unCheckedChildren="No" checked={ownership} onChange={(ownership) => applyOwnership(ownership)} />
+              <Switch disabled={disableFieldsForLG} checkedChildren="Yes" unCheckedChildren="No" checked={ownership} onChange={(ownership) => applyOwnership(ownership)} />
             </span>
           </p>
         </Col>
@@ -68,6 +72,7 @@ export const InformationMaintenance = ({ frequency, applyFrequency, ownership, a
               listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
               onChange={(eligibility) => applyEligibility(eligibility)}
               getPopupContainer={() => document.getElementById('elegid') as HTMLElement}
+              disabled={disableFieldsForLG}
             >
               {MAINTENANCE_ELIGIBILITY.map((element) => {
                 return (

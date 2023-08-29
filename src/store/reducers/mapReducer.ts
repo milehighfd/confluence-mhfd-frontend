@@ -1,5 +1,5 @@
 import * as types from '../types/mapTypes';
-import { PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, STREAMS_FILTERS, MHFD_BOUNDARY_FILTERS, XSTREAMS } from '../../constants/constants';
+import { PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, STREAMS_FILTERS, MHFD_BOUNDARY_FILTERS, XSTREAMS, MAINTENANCE_IDS, MAINTENANCE } from '../../constants/constants';
 
 const initState = {
     autocomplete: '',
@@ -139,7 +139,7 @@ const initState = {
       keyword: '',
       column: 'projectname',
       order: 'asc',
-      projecttype: [5,7],
+      projecttype: [5, ...MAINTENANCE_IDS],
       status: [5],
       startyear: '',
       completedyear: '',
@@ -188,7 +188,7 @@ const initState = {
     },
     filterProjects: {
         projectname: '',
-        projecttype: [5, 7],
+        projecttype: [5, ...MAINTENANCE_IDS],
         status: [5],
         startyear: '0',
         completedyear: '9999',
@@ -362,6 +362,12 @@ const initState = {
         }
     ],
     labelsFiltersProblems: [
+        {
+            'name': 'favorites',
+            'display': 'FAVORITES',
+            'detail': [],
+            'popover': '05'
+        },
         {
             'name': 'cost',
             'display': 'SOLUTION COST',

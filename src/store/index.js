@@ -1,4 +1,8 @@
 import configureStore from './configureStore';
 
-const store = configureStore();
-export default store;
+const getStore = (config) => {
+    const store = configureStore(config);
+    return store;
+}
+
+export default getStore;

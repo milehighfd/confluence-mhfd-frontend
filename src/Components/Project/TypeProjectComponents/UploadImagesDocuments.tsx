@@ -22,7 +22,8 @@ export const UploadImagesDocuments = ({isCapital, setFiles, index }: {
     setDeleteAttachmentsIds,
   } = useProjectDispatch();
   const {
-    deleteAttachmentsIds
+    deleteAttachmentsIds,
+    disableFieldsForLG,
   } = useProjectState();
   const {isEdit} = useProjectState(); 
   const [modal, setModal] = useState(false);
@@ -329,7 +330,7 @@ const mimeToExtension = (mimeType:any) => {
           </h5>
           <div className="group-btn">
             {toDelete.length ?  <span onClick={deleteImages} className="delete-upload">Delete</span> : null }
-            <Button className="bottomn-heder" onClick={() => (setModal(true))}>
+            <Button disabled={disableFieldsForLG} className="bottomn-heder" onClick={() => (setModal(true))}>
               <span className="ic-document"/>Add Image
             </Button>
             {isEdit?<Button className="bottomn-heder" onClick={() => downloadZip(true)} disabled={!dataImages.length}>
@@ -358,7 +359,7 @@ const mimeToExtension = (mimeType:any) => {
           </h5>
           <div className="group-btn">
           {toDeleteFiles.length ?  <span onClick={deleteFiles} className="delete-upload">Delete</span> : null }
-            <Button className="bottomn-heder" onClick={() => (setModal02(true))}>
+            <Button disabled={disableFieldsForLG} className="bottomn-heder" onClick={() => (setModal02(true))}>
               <span className="ic-document"/>Add Document
             </Button>
             {isEdit?<Button className="bottomn-heder" onClick={() => downloadZip(false)} disabled={!dataFiles.length}>

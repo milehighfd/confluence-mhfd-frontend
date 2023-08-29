@@ -8,11 +8,11 @@ import { DropdownFilters } from 'Components/FiltersProject/DropdownFilters';
 import { useProjectDispatch } from 'hook/projectHook';
 import { WINDOW_WIDTH } from 'constants/constants';
 import { FILTERS } from 'constants/filter';
-import store from 'store';
+import { useProfileState } from 'hook/profileHook';
 
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Service Area</b> is the MHFD Watershed Service Area where the project is located.</div>);
-const content0 = (<div className="popoveer-00"><b>Personalized</b> is the name or ID of the stream where the project is located.</div>);
+const content0 = (<div className="popoveer-00"><b>Personalized</b> are projects which have been favorited or to which the user belongs.</div>);
 const content1 = (<div className="popoveer-00"><b>County</b> is the county where the project is located.</div>);
 const content2 = (<div className="popoveer-00"><b>Local Government</b> is the local government where the project is located.</div>);
 const content3 = (<div className="popoveer-00"><b>MHFD Lead</b> is the MHFD PM who is responsible for the service area where the project is located.</div>);
@@ -38,13 +38,13 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
         applyFilter,
     } = useMapState();
     const { resetNextPageOfCards, resetInfiniteScrollItems, resetInfiniteScrollHasMoreItems } = useProjectDispatch();
-    const appUser = store.getState().profile;
+    const appUser = useProfileState();
     const {
         getParamFilterProjects,
         setFilterProjectOptions,
     } = useMapDispatch();
     const { boundsMap } = useMapState();
-    const [myTeams, setMyTeams] = useState(false);
+    const [myTeams, setMyTeams] = useState(filterProjectOptions.teams !== '' && filterProjectOptions.teams !== undefined);
     const [openFavorites, setOpenFavorites] = useState(false);
     const [selectedData, setSelectedData] = useState<any[]>([]);
     const [selectedConsultants, setSelectedConsultants] = useState<string[]>([]);
@@ -151,9 +151,13 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
     }, [filterProjectOptions.favorites]);
 
     useEffect(() => {
-        console.log('filterProjectOptions', filterProjectOptions);
-    }, [filterProjectOptions]);
-    
+        if (filterProjectOptions.teams !== '' && filterProjectOptions.teams !== undefined) {
+            setMyTeams(true);
+        } else {
+            setMyTeams(false);
+        }
+    }, [filterProjectOptions.teams]);
+
     return <>  <div className="scroll-filters" style={{ height: window.innerHeight - 280 }}>
         <div className='filt-00'>
             <h5 className="filter-title chart-filter-title">Personalized <Popover content={content0}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>

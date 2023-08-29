@@ -25,7 +25,8 @@ export const ProjectGeometry = ({
   
   const {
     listStreams,
-    streamsIntersectedIds
+    streamsIntersectedIds,
+    disableFieldsForLG,
   } = useProjectState();
   const currentListStreams = useRef<any>(listStreams);
   const currentStreamsIds = useRef<any>(streamsIntersectedIds);
@@ -137,7 +138,16 @@ export const ProjectGeometry = ({
         if(record.key.includes('title')){
           return (
             <>
-              {text}&nbsp;&nbsp;&nbsp; { (type === 'study') && <DeleteOutlined className='ico-delete' onClick={() => removeStreamByName(record)} />}
+              {text}&nbsp;&nbsp;&nbsp; {(type === 'study') &&
+                <DeleteOutlined
+                  className='ico-delete'
+                  disabled={disableFieldsForLG}
+                  onClick={() => {
+                    if (disableFieldsForLG) {
+                      removeStreamByName(record)
+                    }
+                  }
+                  } />}
             </>
           );
         }
@@ -246,7 +256,7 @@ export const ProjectGeometry = ({
     <>
       {showDraw && <>
         {(
-          <div className={`draw ${isDrawStateCapital ? 'active' : ''}`} onClick={onClickDrawCapital}>
+          <div className={`draw ${isDrawStateCapital ? 'active' : ''}`} onClick={disableFieldsForLG ? null : onClickDrawCapital}>
             <img src="/Icons/icon-08.svg" className="icon-draw" style={{ WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat' }} />
             <p className='text-body-project'>Click on the icon above and draw a polygon to define the project feature</p>
           </div>

@@ -14,7 +14,6 @@ import { CopyProjectAlert } from './CopyProjectAlert';
 import { useRequestState } from 'hook/requestHook';
 import { STATUS_NAMES } from 'constants/constants';
 import EditDatesModal from './EditDatesModal';
-import store from 'store/index';
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -50,8 +49,6 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   const [isHovered, setIsHovered] = useState(false);
   const [completeProjectData, setCompleteProjectData] = useState<any>(null);
   const [showCopyToCurrentYearAlert, setShowCopyToCurrentYearAlert] = useState(false);
-  const appUser = store.getState().profile;
-  const [disabledLG, setDisabledLG] = useState(appUser?.isLocalGovernment || appUser?.userInformation?.designation === 'government_staff');
 
   const pageWidth  = document.documentElement.scrollWidth;
   const getCompleteProjectData = async () => {
@@ -106,9 +103,6 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
     if (!editable) {
       items.pop();
       items.splice(1, 1);
-    }
-    if(disabledLG && type === 'WORK_PLAN'){
-      items.splice(0, 1);
     }
     if (type === 'WORK_PLAN' && year != 2023) {
       items.splice(2, 0, {

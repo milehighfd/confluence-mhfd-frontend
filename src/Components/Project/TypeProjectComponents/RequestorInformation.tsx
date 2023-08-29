@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Input, Timeline, Popover, Select } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { WINDOW_WIDTH } from 'constants/constants';
-import store from '../../../store';
 import { JURISDICTION, PROJECT_INFORMATION, SERVICE_AREA, GOVERNMENT_STAFF } from "../../../constants/constants";
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import { useProjectDispatch, useProjectState } from '../../../hook/projectHook';
+import { useProfileState } from 'hook/profileHook';
 
 interface Props {
   index: number;
@@ -34,10 +34,11 @@ export const RequestorInformation = ({
   const [businessName, setBusinessName] = useState('');
   const [isLocalGovernment, setIsLocalGovernment] = useState(false);
   const {
-    isEdit
+    isEdit,
+    disableFieldsForLG,
   } = useProjectState();
   const { setServiceAreaCounty } = useProjectDispatch();
-  const user = store.getState().profile.userInformation;
+  const { userInformation: user } = useProfileState();
   const isMaintenance = originModal === 'Maintenance';
   const isStudy = originModal === 'Study';
   useEffect(() => {
@@ -118,7 +119,7 @@ export const RequestorInformation = ({
               placeholder={'Select a Sponsor'}
               value={sponsor === "" ? undefined : sponsor}
               listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-              disabled={isLocalGovernment}
+              disabled={isLocalGovernment || disableFieldsForLG}
               onChange={setSponsor}
               getPopupContainer={() => (document.getElementById("sponsorid") as HTMLElement)}>
               {
@@ -142,6 +143,7 @@ export const RequestorInformation = ({
               style={{ width: '100%' }}
               listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
               onChange={(coSponsor: any) => setCoSponsor(coSponsor)}
+              disabled={disableFieldsForLG}
               value={cosponsor}
               getPopupContainer={() => (document.getElementById("cosponsorid") as HTMLElement)}>
               {localities.map((element: string) => {

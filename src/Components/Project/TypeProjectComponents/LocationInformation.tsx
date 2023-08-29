@@ -6,7 +6,7 @@ import { useProjectDispatch, useProjectState } from '../../../hook/projectHook';
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 
-import store from '../../../store';
+import { useProfileState } from "hook/profileHook";
 
 const { Option } = Select;
 export const LocationInformation = ({
@@ -58,12 +58,14 @@ export const LocationInformation = ({
   const content03 = (<div className="popver-info">This is the primary local government sponsor that is requesting the project. By default, this attribute matches that of the Work Request. If changed, this project will be sent to the corresponding Work Request.</div>);
   const content04 = (<div className="popver-info">This is a list of all potential local government co-sponsors which might contribute funding or otherwise participate in the {getLabel()}.</div>);
 
-  const { currentServiceAreaCounty } = useProjectState();
+  const { 
+  currentServiceAreaCounty,
+  disableFieldsForLG,
+  } = useProjectState();
   const { setServiceAreaCounty } = useProjectDispatch();
   const [, setSArea] = useState(undefined);
   const [, setSCounty] = useState(undefined);
-  const [disable] = useState(!editable);
-  const user = store.getState().profile.userInformation;
+  const { userInformation: user } = useProfileState();
 
   //Variables for use in the dropdowns
   const [countyList, setCountyList] = useState<any[]>([]);
@@ -209,7 +211,8 @@ export const LocationInformation = ({
               style={{ width: '100%' }}
               listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
               onChange={(serviceArea: any) => setServiceArea(serviceArea)}
-              value={serviceArea} disabled={disable}
+              value={serviceArea} 
+              disabled={disableFieldsForLG}
               getPopupContainer={() => (document.getElementById("serviceid") as HTMLElement)}>
               {serviceAreaList.map((element) => 
                 element != 'None' && element != 'Boulder Service Area' && <Option key={element.key} value={element.value}>{filterName(element.label)}</Option>
@@ -230,7 +233,7 @@ export const LocationInformation = ({
               listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
               value={county}
               onChange={(county: any) => apllyCounty(county)}
-              disabled={disable}
+              disabled={disableFieldsForLG}
               getPopupContainer={() => (document.getElementById("countyid") as HTMLElement)}>
               {countyList.map((element) => {
                 return <Option key={element.key} value={element.value}>{filterName(element.label)}</Option>
@@ -252,6 +255,7 @@ export const LocationInformation = ({
               style={{ width: '100%' }}
               listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
               value={jUrisdiction}
+              disabled={disableFieldsForLG}
               onChange={(jUrisdiction: any) => setjurisdiction(jUrisdiction)}
               getPopupContainer={() => (document.getElementById("jurisdictionid") as HTMLElement)} >
               {jurisdictionList.map((element) => {

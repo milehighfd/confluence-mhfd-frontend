@@ -7,11 +7,11 @@ import { CheckBoxFilters } from '../CheckboxFiltersProblem';
 import { CheckBoxFilters as CheckBoxIds } from '../CheckboxFilters';
 import { DropdownFilters } from '../DropdownFilters';
 import { WINDOW_WIDTH } from 'constants/constants';
-import store from 'store';
 import { FILTERS } from 'constants/filter';
+import { useProfileState } from 'hook/profileHook';
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Solution Cost</b> is the total estimated cost to solve a problem.</div>);
-const content0 = (<div className="popoveer-00"><b>Personalized</b> is the severity of a problem relative to other problems of the same type.</div>);
+const content0 = (<div className="popoveer-00"><b>Personalized</b> are problems which have been favorited.</div>);
 const content00 = (<div className="popoveer-00"><b>Personalized</b> is the severity of a problem relative to other problems of the same type.</div>);
 const content01 = (<div className="popoveer-00"><b>Priority</b> is the severity of a problem relative to other problems of the same type.</div>);
 const content02 = (<div className="popoveer-00"><b>Status</b> is the percentage (by cost) of elements required to solve a problem that have been completed.</div>);
@@ -26,7 +26,6 @@ const content07 = (<div className="popoveer-00"><b>MHFD Lead</b> is the MHFD PM 
 
 export const NewProblemsFilter = () => {
     const [myTeams, setMyTeams] = useState(false);
-    const [openFavorites, setOpenFavorites] = useState(false);
     const {
         filterProblemOptions,
         paramFilters: {
@@ -40,7 +39,8 @@ export const NewProblemsFilter = () => {
         getProblemCounter,
     } = useMapDispatch();
     const { boundsMap } = useMapState();
-    const appUser = store.getState().profile;
+    const appUser = useProfileState();
+    const [openFavorites, setOpenFavorites] = useState(filterProblemOptions.favorites !== undefined && filterProblemOptions.favorites !== '');
     const [selectedData, setSelectedData] = useState<any[]>([]);
     const apply = (values: any, field: string) => {
         const options = { ...filterProblemOptions };
@@ -105,15 +105,6 @@ export const NewProblemsFilter = () => {
             apply('',FILTERS.PROJECT.FAVORITES)
         }
     }, [openFavorites]);
-
-    useEffect(() => {
-        console.log('filterProblemOptions',filterProblemOptions.favorites)
-        // if (filterProblemOptions.favorites === '' || filterProblemOptions.favorites === undefined) {
-        //     setOpenFavorites(false);
-        // } else {
-        //     setOpenFavorites(true);
-        // }
-    }, [filterProblemOptions.favorites]);
 
     return (
         <>  <div className="scroll-filters" style={{ height: window.innerHeight - 280 }}>

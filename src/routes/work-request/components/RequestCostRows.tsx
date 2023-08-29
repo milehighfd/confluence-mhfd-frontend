@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Collapse, InputNumber, Row, Timeline } from 'antd';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { priceFormatter, priceParser, formatter } from 'Components/Work/Request/RequestViewUtil';
 import { UseDebouncedEffect } from 'routes/Utils/useDebouncedEffect';
 import { MAINTENANCE, WORK_SPACE, WORK_REQUEST } from 'constants/constants';
 import { useMapState } from 'hook/mapHook';
+import { useProfileState } from 'hook/profileHook';
 
 const { Panel } = Collapse;
 
@@ -20,10 +21,14 @@ const RequestCostRows = () => {
     sumTotal,
     year,
     columns2,
+    namespaceId
   } = useRequestState();
   const { tabActiveNavbar } = useMapState();
 
   const { setReqManager, updateTargetCost } = useRequestDispatch();
+  const appUser = useProfileState();
+  const [disabled,setDisabled] = useState(false);
+  
   const [targetCosts, setTargetCosts] = useState([]);
   const [openCollaps, setOpenCollaps] = useState(false);
   const sumBy = tabActiveNavbar === WORK_REQUEST ? sumByCounty : sumByLocalGov;
@@ -43,7 +48,14 @@ const RequestCostRows = () => {
     [targetCosts],
     1000,
   );
-
+  useEffect(() => {
+    if ((appUser?.isLocalGovernment || appUser?.userInformation?.designation === 'government_staff') && namespaceId.type === 'WORK_PLAN') {
+      setDisabled(true);
+    }else{
+      setDisabled(false);
+    }
+  }, [appUser, namespaceId]);
+  
   const [isCollapseOpen, setIsCollapseOpen] = useState(false);
   const handleCollapseChange = (key: string | string[]) => {
     setIsCollapseOpen(!isCollapseOpen);
@@ -142,6 +154,7 @@ const RequestCostRows = () => {
                       formatter={priceFormatter}
                       parser={priceParser}
                       value={val}
+                      disabled={disabled}
                       onChange={(e: any) => {
                         let v = e;
                         let nv = reqManager.map((vl: any, i: number) => {

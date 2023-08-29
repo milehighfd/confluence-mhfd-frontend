@@ -4,9 +4,9 @@ import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import CardsView from "./CardsView";
 import { SORTED_PROBLEMS, SORTED_PROJECTS } from '../../../constants/constants';
-import store from '../../../store';
 import { useMapDispatch } from '../../../hook/mapHook';
 import { useDetailedState } from '../../../hook/detailedHook';
+import { useProfileState } from 'hook/profileHook';
 
 const { Search } = Input;
 
@@ -31,7 +31,7 @@ const TabPaneView = ({
     sw = true;
   }
   const valueDropdown = type === 'Problems' ? SORTED_PROBLEMS : SORTED_PROJECTS;
-  const user = store.getState().profile.userInformation;
+  const { userInformation: user } = useProfileState();
   const [options, setOptions] = useState({ keyword: "", column: type === 'Problems' ? 'problemname' : 'projectname', order: "asc"});
 
   const [state, setState] = useState({

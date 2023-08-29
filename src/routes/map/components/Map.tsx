@@ -32,7 +32,8 @@ import {
   WINDOW_WIDTH,
   PROJECTS_DRAFT_MAP_STYLES,
   PROJECTS_DRAFT,
-  MAP_TAB
+  MAP_TAB,
+  MAINTENANCE_IDS
 } from 'constants/constants';
 import {
   tileStyles,
@@ -449,6 +450,13 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     popup.remove();
     if (map && tabActiveNavbar === MAP_TAB) {
       resetBoardIds();
+      const styles = { ...(tileStyles as any) };
+      let key = PROJECTS_DRAFT + 'draft'
+      styles[key].forEach((style: LayerStylesType, index: number) => {
+        if (map.getLayer(key + '_' + index)) {
+          map.removeLayer(key + '_' + index);
+        }
+      });
     }
   }, [tabActiveNavbar]);
   
@@ -1082,11 +1090,11 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     const capitalProjects = projectsids
       .filter((project: any) => project.code_project_type_id === 5)
       .map((project: any) => project.project_id);
+      // TODO: filter by projectsubtype of maintenance 
     const maintenanceProjects = projectsids
       .filter(
         (project: any) =>
-          (project.code_project_type_id >= 7 && project.code_project_type_id <= 11) ||
-          project.code_project_type_id === 17,
+          MAINTENANCE_IDS.some((mid:any) => mid === project.code_project_type_id)
       )
       .map((project: any) => project.project_id);
     const studyProjects = projectsids

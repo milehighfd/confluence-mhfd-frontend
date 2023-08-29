@@ -1782,6 +1782,10 @@
     height: calc(100vh - 270px);
     max-height:  calc(100vh - 270px);
   }
+  ::-webkit-scrollbar {
+    width: 8px !important;
+    height: 8px !important;
+  }
 }
 
 ///Bottom
@@ -2523,6 +2527,10 @@
     .dots-table {
       font-size: 18px !important;
     }
+    ::-webkit-scrollbar {
+      width: 12px !important;
+      height: 12px !important;
+    }
   }
   .table-map-list .ant-table {
     font-size: 16px !important;
@@ -2747,6 +2755,10 @@
       }
        .ant-table-tbody > tr > td, .table-map-list .ant-table-thead > tr > th, .table-map-list .ant-table tfoot > tr > td, .table-map-list .ant-table tfoot > tr > th {
         padding: 13px 4.5px;
+      }
+      ::-webkit-scrollbar {
+        width: 16px !important;
+        height: 16px !important;
       }
     }
     .tabs-work {

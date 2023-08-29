@@ -68,6 +68,7 @@ import {
   setDeleteAttachmentsIds,
   setZoomGeomCreateMap,
   archiveProject,
+  setDisableFieldsForLg
 } from '../store/actions/ProjectActions';
 
 export const useProjectState = () => useSelector(
@@ -280,6 +281,9 @@ export const useProjectDispatch = () => {
     },
     archiveProject: (projectId: any) => {
       dispatch(archiveProject(projectId))
+    },
+    setDisableFieldsForLg: (disableFieldsForLG: boolean) => {
+      dispatch(setDisableFieldsForLg(disableFieldsForLG))
     }
   };
 };
