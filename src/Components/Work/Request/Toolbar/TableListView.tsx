@@ -38,7 +38,7 @@ const TableListView = ({
   const [showCopyToCurrentYearAlert, setShowCopyToCurrentYearAlert] = useState(false);
   const [boardProjectIds, setBoardProjectIds] = useState<any[]>([]);
   const windowWidthSize: any = window.innerWidth;
-
+  const appUser = useProfileState();
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
