@@ -983,7 +983,7 @@ hr.filters-line {
   }
   .ant-table-column-sorters {
     display: inline-flex;
-    font-size: 17px;
+    font-size: 13px;
   }
 
   .ant-table-tbody > tr > td,
@@ -1392,6 +1392,9 @@ hr.filters-line {
       height: calc(100vh - 346px) !important;
       max-height: calc(100vh - 346px) !important;
     }
+    .ant-table-column-sorters {
+      font-size: 15px;
+    }
   }
   .table-list-map .project-name {
     font-size: 16px;
@@ -1709,6 +1712,10 @@ hr.filters-line {
     .ant-table-body{
       height: calc(100vh - 421px) !important;
       max-height: calc(100vh - 421px) !important;
+    }
+    .ant-table-column-sorters {
+      display: inline-flex;
+      font-size: 20px;
     }
   }
   
