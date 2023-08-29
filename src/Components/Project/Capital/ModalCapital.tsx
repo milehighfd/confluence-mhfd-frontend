@@ -32,6 +32,7 @@ import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 import { DiscussionCreateProject } from '../TypeProjectComponents/DiscussionCreateProject';
 import { ActivitiCreateProject } from '../TypeProjectComponents/ActivityCreateProject';
 import { useAppUserState } from 'hook/useAppUser';
+import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -199,6 +200,7 @@ export const ModalCapital = ({
   const [isCountyWide, setIsCountyWide] = useState();
   const [isSouthPlate, setIsSouthPlate] = useState();
   const [disabledLG, setDisabledLG] = useState(appUser?.isLocalGovernment || appUser?.userInformation?.designation === 'government_staff');
+  const { openNotification } = useNotifications();
   //maintenance
   const [frequency, setFrequency] = useState('');
   const [eligibility, setEligibility] = useState('');
@@ -555,6 +557,36 @@ export const ModalCapital = ({
       setDisableFieldsForLg(false);
     }
   }, [disabledLG, isWorkPlan, swSave]);
+
+  const handleOk = (e: any) => {
+    datasets.postData(SERVER.CHECK_PROJECT_NAME, { project_name: nameProject }, datasets.getToken()).then(data => {
+      if (data.exists && !swSave) {
+        handleRepeatedNotification();
+      } else {
+        if (!disable) {
+          setVisibleAlert(true);
+        } else {
+          let missingFields = [];
+          if (!description) missingFields.push('Description');
+          if (!county.length) missingFields.push('County');
+          if (!serviceArea.length) missingFields.push('Service Area');
+          if (!jurisdiction.length) missingFields.push('Jurisdiction');
+          if (!nameProject) missingFields.push('Project Name');
+          if (!sponsor) missingFields.push('Sponsor');
+          const isGeom = (selectedTypeProject === 'capital' || selectedTypeProject === 'maintenance' || selectedTypeProject === 'study');
+          const isPin = (selectedTypeProject === 'acquisition' || selectedTypeProject === 'special');
+          if (isGeom && !geom?.length && !isCountyWide) missingFields.push('Geometry');
+          if (isPin && !geom && !isCountyWide) missingFields.push('Pin');
+          if (selectedTypeProject === 'study' && !studyreason) missingFields.push('Study Reason');
+          if (selectedTypeProject === 'capital' && !componentsToSave.length && !thisIndependentComponents.length) missingFields.push('Proposed Actions or Independent Actions');
+          if (selectedTypeProject === 'acquisition' && !progress) missingFields.push('Progress');
+          if (selectedTypeProject === 'acquisition' && !purchaseDate) missingFields.push('Purchase Date');
+          handleErrorNotification(missingFields);
+        }
+      }
+    })
+  };
+
   //Check if required fields are filled to enable save button
   useEffect(()=>{   
     const checkIfIndependentHaveName = () => {
@@ -571,11 +603,16 @@ export const ModalCapital = ({
     let disableEditForLG = disabledLG && isWorkPlan && swSave;
     if ((geom || isCountyWide) && !disableEditForLG) {
       if (description && county.length && serviceArea.length && jurisdiction.length && nameProject && sponsor && nameProject !== 'Add Project Name' && checkIfIndependentHaveName()) {
-        if ((selectedTypeProject === 'study' && studyreason)) {
+        if (selectedTypeProject === 'study' && studyreason) {
           setDisable(false);
-        }
-        if (selectedTypeProject === 'acquisition' || selectedTypeProject === 'special' || selectedTypeProject === 'maintenance' || selectedTypeProject === 'capital') {
+        } else if (selectedTypeProject === 'capital' && (thisIndependentComponents.length > 0 || componentsToSave.length > 0)) {
           setDisable(false);
+        } else if (selectedTypeProject === 'special' || selectedTypeProject === 'maintenance') {
+          setDisable(false);
+        } else if (selectedTypeProject === 'acquisition' && progress && purchaseDate) {
+          setDisable(false);
+        } else {
+          setDisable(true);
         }
       } else {
         setDisable(true);
@@ -593,7 +630,9 @@ export const ModalCapital = ({
     jurisdiction,
     selectedTypeProject,
     studyreason,
-    thisIndependentComponents
+    thisIndependentComponents,
+    progress,
+    purchaseDate,
   ]);
 
   useEffect(() => {
@@ -680,10 +719,6 @@ export const ModalCapital = ({
     setNameProject(e.target.value);
   };
 
-  const handleOk = (e: any) => {
-    setVisibleAlert( true);
-  };
-
   const handleCancel = (e: any) => {
     const auxState = {...state};
     setVisibleCapital (false);
@@ -767,6 +802,7 @@ export const ModalCapital = ({
         object_id: comp.objectid
       }));
     getListComponentsByComponentsAndPolygon(newComponents, null);
+    setComponentsToSave(newComponents);
   }
 
   useEffect(() => {
@@ -1008,6 +1044,18 @@ export const ModalCapital = ({
       setjurisdiction([])
     }
   },[isEditingPosition])
+
+  const handleErrorNotification = (emptyFields: any[]) => {
+    const inputLength = emptyFields.length;
+    const inputText = inputLength>1?"inputs":"input";
+    const message = `Missing ${inputText}: ${emptyFields.join(', ')}.`;
+    openNotification(`Warning! Required ${inputText} are missing below.`, "warning", message);
+  }
+
+  const handleRepeatedNotification = () => {
+    const message = `Project name already exists.`;
+    openNotification(`Warning!`, "warning", message);
+  }
   
   let indexForm = 1;
 
@@ -1214,7 +1262,7 @@ export const ModalCapital = ({
           <ActivitiCreateProject/>} */}
           <div className="footer-project">
             <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>
-            <Button className="btn-purple" onClick={handleOk} disabled={disable}><span className="text-color-disable">Save Draft Project</span></Button>
+            <Button className="btn-purple" onClick={handleOk}><span className="text-color-disable">Save Draft Project</span></Button>
           </div>
         </Col>
       </Row>

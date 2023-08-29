@@ -509,6 +509,9 @@
       font-size: 16px;
     }
   }
+  .ant-drawer-right .ant-drawer-content-wrapper {
+    width: 415px!important;
+  }
 }
 @media (min-width: 2550px){
   .ant-dropdown-menu-title-content {
@@ -535,6 +538,10 @@
   }
   .ant-dropdown-menu-submenu-popup .ant-dropdown-menu {
     max-height: 295px;
+  }
+  //moved from work
+  .ant-drawer-right .ant-drawer-content-wrapper {
+    width: 550px !important;
   }
 }
 // @media (min-width: 3800px) and (max-width: 5999px) {

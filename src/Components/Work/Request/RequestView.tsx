@@ -427,7 +427,7 @@ const RequestView = ({ type, widthMap }: {
                   <div className='button-header'>
                     <Button id='buttons-header' style={selectView === 'card' && widthMap === 15 ? {display:'none'}:{}} className={selectView === 'list' ? 'ico-header-tab-active' : 'ico-header-tab'}
                     onClick={() => { 
-                      setSelectView( 'list') 
+                      setSelectView('list') 
                       setIsListView(true)
                     }}>
                       {selectView === 'list' ? <img src='Icons/ic-list-purple.svg' alt='ic-list-purple' /> : <img src='Icons/ic-list.svg' alt='ic-list' />}

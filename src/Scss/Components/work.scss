@@ -1722,20 +1722,20 @@
   line-height: 18px;
   opacity: 0.6000000238418579;
 }
-// .resetFilter:hover {
-//   color: #6fc699;
-// }
 .popover-work-header {
   .ant-popover-arrow {
     display: none !important;
   }
 }
-//CSS for TableListView
 .table-map-list {
   // margin-top: -14px;
   .ant-table-body {
     height: calc(100vh - 270px);
     max-height: calc(100vh - 270px);
+  }
+  ::-webkit-scrollbar {
+    width: 8px !important;
+    height: 8px !important;
   }
   .ant-table {
     color: $purple00;
@@ -2268,73 +2268,76 @@
       font-size: 18px;
     }
   }
-  .work-head .auto-complete-map .ant-select {
-    max-width: 520px;
-  }
-  .work-head .button-header-tab #buttons-header {
-    font-size: 17px;
-  }
-  .work-body .tabs-work .ant-tabs-nav .ant-tabs-tab {
-    font-size: 16px;
-    margin-right: 54px;
-  }
-  .work-body .icon-bt {
-    -webkit-mask-size: 22px !important;
-    padding: 17px;
-  }
-  .work-body .btn-filter-d {
-    right: 5px;
-  }
-  .work-header-buttons .buttons {
-    margin-right: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0px;
-    img {
-      height: 22px;
+  .work-head {
+    padding: 14px 24px 0px 24px;
+    .auto-complete-map .ant-select {
+      max-width: 520px;
+    }
+    .button-header-tab #buttons-header {
+      font-size: 17px;
     }
   }
-  .work-header-buttons .buttons:hover {
-    background: #f5f7ff;
+  .work-body {
+    .tabs-work .ant-tabs-nav .ant-tabs-tab {
+      font-size: 16px;
+      margin-right: 54px;
+    }
+    .icon-bt {
+      -webkit-mask-size: 22px !important;
+      padding: 17px;
+    }
+    .btn-filter-d {
+      right: 5px;
+    }
   }
   .work-header-buttons {
+    .buttons {
+      margin-right: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0px;
+      img {
+        height: 22px;
+      }
+    }
+    .buttons:hover {
+      background: #f5f7ff;
+    }
     .input-search-wr-wp {
       margin-right: 22px;
     }
+    .buttons1 {
+      // width: 45px;
+      height: 46px;
+      margin-right: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0px;
+      margin-top: -6px;
+      img {
+        height: 22px !important;
+        opacity: 0.5;
+      }
+      .search-input {
+        color: $purple00;
+      }
+      .ant-input {
+        color: $purple00;
+      }
+      .ant-input-prefix {
+        color: $purple00;
+      }
+    }
+    .buttons1:hover {
+      background: #f5f7ff;
+      img {
+        opacity: 1;
+      }
+    }
   }
-  .work-header-buttons .buttons1 {
-    // width: 45px;
-    height: 46px;
-    margin-right: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0px;
-    margin-top: -6px;
-    img {
-      height: 22px !important;
-      opacity: 0.5;
-    }
-    .search-input {
-      color: $purple00;
-    }
-    .ant-input {
-      color: $purple00;
-    }
-    .ant-input-prefix {
-      color: $purple00;
-    }
-  }
-  .work-header-buttons .buttons1:hover {
-    background: #f5f7ff;
-    img {
-      opacity: 1;
-    }
-  }
-  .work-head {
-    padding: 14px 24px 0px 24px;
-  }
+
   .table-map-list {
     .ant-table-body {
       height: calc(100vh - 303px);
@@ -2343,75 +2346,84 @@
     .dots-table {
       font-size: 18px !important;
     }
+    ::-webkit-scrollbar {
+      width: 12px !important;
+      height: 12px !important;
+    }
+    .ant-table {
+      font-size: 16px !important;
+      line-height: 24px !important;
+    }
+    .name {
+      font-size: 16px !important;
+      margin-left: 5px;
+    }
+    .ant-table-cell {
+      padding: 15px 3px !important;
+    }
   }
-  .table-map-list .ant-table {
-    font-size: 16px !important;
-    line-height: 24px !important;
-  }
+
   .title-status-list {
     font-size: 13px;
     line-height: 19px;
   }
-  .table-map-list .name {
-    font-size: 16px !important;
-    margin-left: 5px;
-  }
-  .table-map-list .ant-table-cell {
-    padding: 15px 3px !important;
-  }
   //SWITCH for status
-  .menu-utilities .switch-status-no {
-    width: 110px;
-    height: 28px;
-    .ant-switch-inner {
-      width: 55px;
-    }
-    .ant-switch-handle {
-      left: calc(100% - 55px);
-      height: 35px;
-    }
-    .ant-switch-handle::before {
-      width: 55px;
-      font-size: 18px;
-      height: 24px;
-    }
-    span {
-      font-size: 18px;
-    }
-  }
-  .menu-utilities .switch-status {
-    width: 110px;
-    height: 28px;
-    .ant-switch-inner {
-      width: 55px;
-    }
-    .ant-switch-handle {
-      left: calc(100% - 55px);
+  .menu-utilities {
+    .switch-status-no {
+      width: 110px;
       height: 28px;
+      .ant-switch-inner {
+        width: 55px;
+      }
+      .ant-switch-handle {
+        left: calc(100% - 55px);
+        height: 35px;
+      }
+      .ant-switch-handle::before {
+        width: 55px;
+        font-size: 18px;
+        height: 24px;
+      }
+      span {
+        font-size: 18px;
+      }
     }
-    .ant-switch-handle::before {
-      width: 55px;
-      font-size: 18px;
-      height: 24px;
-    }
-    span {
-      font-size: 18px;
+    .switch-status {
+      width: 110px;
+      height: 28px;
+      .ant-switch-inner {
+        width: 55px;
+      }
+      .ant-switch-handle {
+        left: calc(100% - 55px);
+        height: 28px;
+      }
+      .ant-switch-handle::before {
+        width: 55px;
+        font-size: 18px;
+        height: 24px;
+      }
+      span {
+        font-size: 18px;
+      }
     }
   }
   //total-cost
-  .cost-wr .cost-collapse .cost-header span {
-    font-size: 22px;
-  }
-  .cost-wr .ant-timeline-item-content {
-    font-size: 16px;
-  }
-  .cost-wr .cost-panel .cost-body {
-    font-size: 16px;
-    line-height: 24px;
-  }
-  .cost-wr .cost-collapse {
-    min-width: 855px;
-    width: 115% !important;
+  .cost-wr {
+    .cost-collapse .cost-header span {
+      font-size: 22px;
+    }
+    .ant-timeline-item-content {
+      font-size: 16px;
+    }
+    .cost-panel .cost-body {
+      font-size: 16px;
+      line-height: 24px;
+    }
+    .cost-collapse {
+      min-width: 855px;
+      width: 115% !important;
+    }
   }
 }
 // 2560x1440 DISPLAY
@@ -2570,6 +2582,10 @@
       .table-map-list .ant-table tfoot > tr > td,
       .table-map-list .ant-table tfoot > tr > th {
         padding: 13px 4.5px;
+      }
+      ::-webkit-scrollbar {
+        width: 16px !important;
+        height: 16px !important;
       }
     }
     .tabs-work {
@@ -2803,6 +2819,7 @@
   }
   // Utilities
   .work-utilities {
+    padding: 12px 0px !important;
     h5 {
       font-size: 28px !important;
     }
@@ -2846,9 +2863,9 @@
       margin-top: 10px !important;
     }
     p {
-      font-size: 22px !important;
-      line-height: 25px !important;
-      margin-bottom: 10px !important;
+      font-size: 22px!important;
+      line-height: 25px!important;
+      margin-bottom: 10px!important;
       img {
         height: 18px !important;
       }
@@ -2919,29 +2936,12 @@
       font-size: 19px;
       height: 265px;
     }
-  }
-  .menu-utilities {
-    padding: 12px 0px !important;
-
     .ant-dropdown-menu-item,
     .ant-dropdown-menu-submenu-title {
       padding: 12px !important;
     }
-    h6 {
-      font-size: 20px !important;
-      margin-bottom: 0px !important;
-    }
-    p {
-      font-size: 16px !important;
-      padding-left: 24px !important;
-      width: 475px !important;
-      line-height: 16px !important;
-    }
     i {
       font-size: 18px !important;
-    }
-    img {
-      height: 12px !important;
     }
   }
   .chat-r {
@@ -3000,9 +3000,6 @@
       margin: 16px 0px !important;
     }
   }
-  .ant-drawer-right .ant-drawer-content-wrapper {
-    width: 550px !important;
-  }
   .work-popover {
     .ant-popover-inner-content {
       padding: 8px 12px !important;
@@ -3030,23 +3027,26 @@
     }
   }
   //Total Cost
-  .cost-wr .cost-collapse .cost-header span {
-    font-size: 22px;
+  .cost-wr {
+    .cost-collapse .cost-header span {
+      font-size: 22px;
+    }
+    .ant-timeline-item-content {
+      font-size: 19px;
+    }
+    .cost-panel .cost-body {
+      font-size: 19px;
+      line-height: 24px;
+    }
+    .cost-collapse {
+      min-width: 1200px;
+      width: 110% !important;
+    }
+    .ant-input-number-input {
+      font-size: 19px;
+    }
   }
-  .cost-wr .ant-timeline-item-content {
-    font-size: 19px;
-  }
-  .cost-wr .cost-panel .cost-body {
-    font-size: 19px;
-    line-height: 24px;
-  }
-  .cost-wr .cost-collapse {
-    min-width: 1200px;
-    width: 110% !important;
-  }
-  .cost-wr .ant-input-number-input {
-    font-size: 19px;
-  }
+
   //popover text
   .popover-text {
     font-size: 16px !important;
@@ -3060,42 +3060,44 @@
       line-height: 24px;
     }
   }
-  .menu-utilities .switch-status-no {
-    width: 110px;
-    height: 28px;
-    .ant-switch-inner {
-      width: 55px;
-    }
-    .ant-switch-handle {
-      left: calc(100% - 55px);
-      height: 35px;
-    }
-    .ant-switch-handle::before {
-      width: 55px;
-      font-size: 18px;
-      height: 24px;
-    }
-    span {
-      font-size: 18px;
-    }
-  }
-  .menu-utilities .switch-status {
-    width: 110px;
-    height: 28px;
-    .ant-switch-inner {
-      width: 55px;
-    }
-    .ant-switch-handle {
-      left: calc(100% - 55px);
+  .menu-utilities {
+    .switch-status-no {
+      width: 110px;
       height: 28px;
+      .ant-switch-inner {
+        width: 55px;
+      }
+      .ant-switch-handle {
+        left: calc(100% - 55px);
+        height: 35px;
+      }
+      .ant-switch-handle::before {
+        width: 55px;
+        font-size: 18px;
+        height: 24px;
+      }
+      span {
+        font-size: 18px;
+      }
     }
-    .ant-switch-handle::before {
-      width: 55px;
-      font-size: 18px;
-      height: 24px;
-    }
-    span {
-      font-size: 18px;
+    .switch-status {
+      width: 110px;
+      height: 28px;
+      .ant-switch-inner {
+        width: 55px;
+      }
+      .ant-switch-handle {
+        left: calc(100% - 55px);
+        height: 28px;
+      }
+      .ant-switch-handle::before {
+        width: 55px;
+        font-size: 18px;
+        height: 24px;
+      }
+      span {
+        font-size: 18px;
+      }
     }
   }
   //Maintenence
