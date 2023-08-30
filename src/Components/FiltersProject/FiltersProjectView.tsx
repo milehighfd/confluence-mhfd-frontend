@@ -84,8 +84,9 @@ const FiltersProjectView = ({
                 break;
         }
     }
-    return <>
-        { <Tabs activeKey={tabPosition} tabBarExtraContent={genExtra()} onChange={(key) => setTabPosition(key)} className="tabs-map over-00"onTabClick={(e: string) => {
+    return <> 
+        { 
+        <Tabs activeKey={tabPosition} tabBarExtraContent={genExtra()} onChange={(key) => setTabPosition(key)} className="tabs-map over-00"onTabClick={(e: string) => {
             if (e === '0') {
                 setTabActive('0');
                 setFilterTabNumber(PROBLEMS_TRIGGER);

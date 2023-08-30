@@ -40,7 +40,11 @@ const MapLayout = () => {
   const {
     selectedLayers,
     galleryProjectsV2,
-    tabActiveNavbar
+    tabActiveNavbar,
+    filterProjectOptions,
+    filterProblemOptions,
+    filterComponentOptions,
+    paramFilters
   } = useMapState();
   const {
     isLocalGovernment,
@@ -135,7 +139,12 @@ const MapLayout = () => {
       }
     })];
   }
-
+  useEffect(() => {
+    setSafeLoading(false);
+  },[paramFilters]);
+  useEffect(() => {
+    setSafeLoading(true);
+  }, [filterProjectOptions, filterProblemOptions, filterComponentOptions])
   useEffect(() => {
     getUserInformation();
     const promises: Promise<any>[] = [];
