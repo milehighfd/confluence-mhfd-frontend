@@ -465,7 +465,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUs
       city: city,
       zip: zip,
     };
-    if (city && state && zip && addressLine1 && createFullName && createMail && createPhone) {
+    if (city && state && zip && addressLine1 && createFullName && createMail) {
       if (createAdress && !createContact) {
         datasets.postData(SERVER.UPDATE_ADDRESS + '/' + contactId, {
           ...newAddress,
@@ -531,9 +531,6 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUs
       }
       if (!createMail) {
         emptyFields.push('Email');
-      }
-      if (!createPhone) {
-        emptyFields.push('Phone Number');
       }
       handleErrorNotification(emptyFields);
       setSaveAlert(false)
@@ -829,7 +826,6 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUs
                 placeholder="Phone"
                 value={createPhone}
                 onChange= {(e) => {handleChangeData(formatPhoneNumber(e.target.value), setCreatePhone)}}
-                className={validateField(createPhone)}
               />
             </Col>
           </Row>    
