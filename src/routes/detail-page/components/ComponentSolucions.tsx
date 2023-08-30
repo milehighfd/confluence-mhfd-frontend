@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Carousel, Col, Modal, Progress, Row, Table, Tooltip } from 'antd';
-import TeamCollaborator from '../../../Components/Shared/Modals/TeamCollaborator';
-import { DATA_SOLUTIONS } from '../constants';
-import { ArrowDownOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-import { useDetailedState } from 'hook/detailedHook';
+import React from 'react';
+import { Col, Row, Table, Tooltip } from 'antd';
 import { useMapState } from 'hook/mapHook';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 const ComponentSolucions = () => {
-  const { detailed } = useDetailedState();
   const { componentsByProblemId: componentsOfProblems } = useMapState();
   const dataSolution = componentsOfProblems
     ? componentsOfProblems.map((data: any, index: number) => {

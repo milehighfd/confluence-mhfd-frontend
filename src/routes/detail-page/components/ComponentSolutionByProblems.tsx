@@ -1,10 +1,8 @@
 import React from 'react';
 import { Col, Row, Table } from 'antd';
-import { useDetailedState } from 'hook/detailedHook';
 import { useMapState } from 'hook/mapHook';
 
 const ComponentSolucionsByProblems = () => {
-  const { detailed } = useDetailedState();
   const { componentsByProblemId: componentsOfProblems } = useMapState();
   const total = componentsOfProblems.reduce((prev: any, next: any) => prev + next.estimated_cost, 0);
 

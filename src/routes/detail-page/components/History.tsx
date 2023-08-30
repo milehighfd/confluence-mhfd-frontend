@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import { Col,  Row, } from "antd";
-
+import React, { useState } from 'react';
+import { Col,  Row, } from 'antd';
 
 const History = () => {
-  const [editedDates, setEditedDates] = useState([])
+  const [editedDates] = useState([])
   return (
     <>
       <Row>

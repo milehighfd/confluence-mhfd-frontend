@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Checkbox, Col, Dropdown, Input, Menu, Row, Space, Table } from 'antd';
-import { CloseCircleFilled, DownOutlined, SearchOutlined, UpOutlined } from '@ant-design/icons';
+import { DownOutlined, SearchOutlined, UpOutlined } from '@ant-design/icons';
 import AddAmountModal from 'Components/Shared/Modals/AddAmountModal';
 import { useFinancialDispatch, useFinancialState } from 'hook/financialHook';
 import moment from 'moment';
-// import { DATA_FINANCIALS, DATA_SOLUTIONS } from "../constants";
+
 const Financials = ({ projectId }: { projectId: any }) => {
   const { financialInformation } = useFinancialState();
   const { getFinancialData } = useFinancialDispatch();
