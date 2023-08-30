@@ -2,7 +2,7 @@
 
 const program = require('commander');
 const shell = require('shelljs');
-const fs = require('fs');
+const fs = require('fs-extra');
 const buildOutputFolder = 'build';
 program
   .version('1.0.0')
@@ -46,7 +46,7 @@ if (selectedEnv != 'all') {
   
   createBuildFolders();
   validEnvironments.forEach(environment => {
-    runBuild(environment);
+    //runBuild(environment);
     fs.copySync(buildOutputFolder, environment + '/' + buildOutputFolder);
   });
 }

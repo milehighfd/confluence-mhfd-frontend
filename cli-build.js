@@ -2,7 +2,7 @@
 
 const program = require('commander');
 const shell = require('shelljs');
-const fs = require('fs');
+const fs = require('fs-extra');
 const buildOutputFolder = 'build';
 program
   .version('1.0.0')
@@ -10,7 +10,7 @@ program
   .option('-e, --env <environment>', 'Specify the environment (development, production, test)')
   .parse(process.argv);
 
-const validEnvironments = ['production'];
+const validEnvironments = ['production', 'dev2', 'test'];
 const selectedEnv = program.opts().env;
 
 const runBuild = (env) => {
