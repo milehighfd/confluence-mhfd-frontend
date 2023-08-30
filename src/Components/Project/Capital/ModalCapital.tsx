@@ -120,7 +120,6 @@ export const ModalCapital = ({
  
   const {
     saveProjectCapital,
-    saveOverheadCost, 
     setComponentIntersected, 
     getListComponentsByComponentsAndPolygon, 
     setStreamIntersected, 
@@ -328,7 +327,6 @@ export const ModalCapital = ({
           getData(SERVER.GET_GEOM_BY_PROJECTID(data.project_id), getToken())
             .then(
               (r: any) => {
-                console.log('r', r);
                 let coor = JSON.parse(r.createdCoordinates);
                 let coordinates = coor.coordinates[0];
                 setGeom(coordinates);
