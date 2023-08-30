@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Carousel, Col, Modal, Progress, Row, Table, Tooltip } from 'antd';
 import TeamCollaborator from '../../../Components/Shared/Modals/TeamCollaborator';
 import { DATA_SOLUTIONS } from '../constants';
-import { ArrowDownOutlined } from '@ant-design/icons';
+import { ArrowDownOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { useDetailedState } from 'hook/detailedHook';
 import { useMapState } from 'hook/mapHook';
 
@@ -32,7 +32,9 @@ const ComponentSolucions = () => {
       sorter: (a: any, b: any) => a.component.localeCompare(b.component),
     },
     {
-      title: <>Cost</>,
+      title: <>Cost  <Tooltip title={
+        <div style={{zIndex:"1000"}}><b>Cost</b> is the estimated total cost of the project based on the cost of the underlying components.</div>
+      }><ExclamationCircleOutlined style={{opacity:"0.4"}}/></Tooltip></>,
       dataIndex: 'cost',
       key: 'cost',
       width: '20%',
