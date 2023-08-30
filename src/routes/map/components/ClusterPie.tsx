@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
-const colors = ['#FF0806', '#BE0807', '#8D0000', '#00ff00'];
+const colors = ['#8D0000', '#8D0000', '#8D0000', '#00ff00'];
 export const ClusterPie = ({
   counts,
   offsets,
   total
 } : any) => {
-  const fontSize = total >= 1000 ? 22 : total >= 100 ? 20 : total >= 10 ? 18 : 16;
-  const r = total >= 1000 ? 50 : total >= 100 ? 32 : total >= 10 ? 24 : 18;
-  const r0 = Math.round(r * 0.6);
+  const fontSize = (total >= 1000 ? 22 : total >= 100 ? 20 : total >= 10 ? 18 : 16)-5;
+  const r = (total >= 1000 ? 50 : total >= 100 ? 32 : total >= 10 ? 24 : 18) - 8;
+  const r0 = Math.round(r * 0.7);
   const width = r * 2;
   return <div className='svgclass'>
     <svg

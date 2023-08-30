@@ -24,11 +24,11 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
   let color: string;
   let colorUnselected: string;
   if (type === 'servicearea') {
-    color = "#5E63E4";
-    colorUnselected = "#8893E7";
+    color = "#5D3DC7";
+    colorUnselected = "#775DD0";
   } else {
     color = '#047CD7';
-    colorUnselected = '#82C7FD';
+    colorUnselected = '#0A92FA';
   }
 
   let sum = 0;
@@ -346,11 +346,11 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
       </div>
       <div>
       <Button className="btn-svg" onClick={apply}>
-        <u>Apply</u>
+        Apply
       </Button>
-      &nbsp;|&nbsp;
+      &nbsp;<span style={{color:'#11093c'}}>|</span>&nbsp;
       <Button className="btn-svg" onClick={reset}>
-        <u>Reset</u>
+        Reset
       </Button>
       </div>
       <div className="tree-chart">

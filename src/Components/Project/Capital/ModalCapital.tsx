@@ -12,7 +12,6 @@ import { useProfileState } from 'hook/profileHook';
 import { ADMIN, NEW_PROJECT_TYPES, STAFF, WINDOW_WIDTH, WORK_PLAN_TAB } from 'constants/constants';
 import { useHistory } from 'react-router-dom';
 import { UploadImagesDocuments } from 'Components/Project/TypeProjectComponents/UploadImagesDocuments';
-import store from 'store';
 import { getProjectOverheadCost } from 'utils/parsers';
 import { useMapState } from 'hook/mapHook';
 import TypeProjectsFilter from 'Components/FiltersProject/TypeProjectsFilter/TypeProjectsFilter';
@@ -30,6 +29,10 @@ import { TypeProjectsMenu } from '../TypeProjectComponents/TypeProjectMenu';
 import { setStreamsList } from 'store/actions/ProjectActions';
 import { deletefirstnumbersmhfdcode } from 'utils/utils';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
+import { DiscussionCreateProject } from '../TypeProjectComponents/DiscussionCreateProject';
+import { ActivitiCreateProject } from '../TypeProjectComponents/ActivityCreateProject';
+import { useAppUserState } from 'hook/useAppUser';
+import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -130,7 +133,8 @@ export const ModalCapital = ({
     setIsEdit,
     setStreamsList,
     saveSpecialLocation,
-    saveAcquisitionLocation
+    saveAcquisitionLocation,
+    setDisableFieldsForLg,
   } = useProjectDispatch();
   const {
     listComponents, 
@@ -142,9 +146,9 @@ export const ModalCapital = ({
     deleteAttachmentsIds,
     listStreams,
     streamsIntersectedIds,
+    disableFieldsForLG,
   } = useProjectState();
   const [loading, setLoading] = useState(false);
-  const { userInformation } = useProfileState();
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -176,14 +180,14 @@ export const ModalCapital = ({
   const [jurisdiction, setjurisdiction] = useState<any>([]);
   const history = useHistory();
   const [lengthName, setlengthName] = useState(0);
-  const appUser = store.getState().appUser;
+  const appUser = useProfileState();
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
   const { toggleAttachmentCover , removeAttachment } = useAttachmentDispatch();
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
   const pageWidth  = document.documentElement.scrollWidth;
   const { tabActiveNavbar } = useMapState();
   const isWorkPlan = tabActiveNavbar === WORK_PLAN_TAB;
-  const { groupOrganization } = useProfileState();
+  const { groupOrganization, userInformation} = useProfileState();
   const [openDropdownTypeProject, setOpenDropdownTypeProject] = useState(false);
   const [activeTabBodyProject, setActiveTabBodyProject] = useState('Details');
   const [favorite, setFavorite] = useState(false);
@@ -195,6 +199,8 @@ export const ModalCapital = ({
   const [showCounty, setShowCounty] = useState(false);
   const [isCountyWide, setIsCountyWide] = useState();
   const [isSouthPlate, setIsSouthPlate] = useState();
+  const [disabledLG, setDisabledLG] = useState(appUser?.isLocalGovernment || appUser?.userInformation?.designation === 'government_staff');
+  const { openNotification } = useNotifications();
   //maintenance
   const [frequency, setFrequency] = useState('');
   const [eligibility, setEligibility] = useState('');
@@ -211,14 +217,12 @@ export const ModalCapital = ({
   const [purchaseDate, setPurchaseDate] = useState('');
   const [isEditingPosition,setIsEditingPosition ]= useState(false)
   //special
-
   const setTypeAndSubType = (type:string, subType:string, label:string) => {
     setSubType(subType);
     setLastValue(selectedTypeProject);
     setSelectedTypeProject(type);
     setSelectedLabelProject(label);
   }; 
-  
 
   //list Menu TypeProjects
   const menuTypeProjects = () => {
@@ -396,7 +400,6 @@ export const ModalCapital = ({
       setEditLocation(undefined);
     }
   }, [data]);
-  
   //Send for Create Data or Edit Data
   useEffect(() => {
     let serviceAreaIds: any = [];
@@ -545,6 +548,45 @@ export const ModalCapital = ({
       setSave(false);
     }
   }, [status]);
+
+  //Disable fields in edit workplan if the user is LG
+  useEffect(() => {
+    if (disabledLG && isWorkPlan && swSave) {
+      setDisableFieldsForLg(true);
+    }else{
+      setDisableFieldsForLg(false);
+    }
+  }, [disabledLG, isWorkPlan, swSave]);
+
+  const handleOk = (e: any) => {
+    datasets.postData(SERVER.CHECK_PROJECT_NAME, { project_name: nameProject }, datasets.getToken()).then(data => {
+      if (data.exists && !swSave) {
+        handleRepeatedNotification();
+      } else {
+        if (!disable) {
+          setVisibleAlert(true);
+        } else {
+          let missingFields = [];
+          if (!description) missingFields.push('Description');
+          if (!county.length) missingFields.push('County');
+          if (!serviceArea.length) missingFields.push('Service Area');
+          if (!jurisdiction.length) missingFields.push('Jurisdiction');
+          if (!nameProject) missingFields.push('Project Name');
+          if (!sponsor) missingFields.push('Sponsor');
+          const isGeom = (selectedTypeProject === 'capital' || selectedTypeProject === 'maintenance' || selectedTypeProject === 'study');
+          const isPin = (selectedTypeProject === 'acquisition' || selectedTypeProject === 'special');
+          if (isGeom && !geom?.length && !isCountyWide) missingFields.push('Geometry');
+          if (isPin && !geom && !isCountyWide) missingFields.push('Pin');
+          if (selectedTypeProject === 'study' && !studyreason) missingFields.push('Study Reason');
+          if (selectedTypeProject === 'capital' && !componentsToSave.length && !thisIndependentComponents.length) missingFields.push('Proposed Actions or Independent Actions');
+          if (selectedTypeProject === 'acquisition' && !progress) missingFields.push('Progress');
+          if (selectedTypeProject === 'acquisition' && !purchaseDate) missingFields.push('Purchase Date');
+          handleErrorNotification(missingFields);
+        }
+      }
+    })
+  };
+
   //Check if required fields are filled to enable save button
   useEffect(()=>{   
     const checkIfIndependentHaveName = () => {
@@ -558,13 +600,19 @@ export const ModalCapital = ({
       // false if one doesnt have 
       return result;
     }
-    if (geom || isCountyWide) {
+    let disableEditForLG = disabledLG && isWorkPlan && swSave;
+    if ((geom || isCountyWide) && !disableEditForLG) {
       if (description && county.length && serviceArea.length && jurisdiction.length && nameProject && sponsor && nameProject !== 'Add Project Name' && checkIfIndependentHaveName()) {
-        if ((selectedTypeProject === 'study' && studyreason)) {
+        if (selectedTypeProject === 'study' && studyreason) {
           setDisable(false);
-        }
-        if (selectedTypeProject === 'acquisition' || selectedTypeProject === 'special' || selectedTypeProject === 'maintenance' || selectedTypeProject === 'capital') {
+        } else if (selectedTypeProject === 'capital' && (thisIndependentComponents.length > 0 || componentsToSave.length > 0)) {
           setDisable(false);
+        } else if (selectedTypeProject === 'special' || selectedTypeProject === 'maintenance') {
+          setDisable(false);
+        } else if (selectedTypeProject === 'acquisition' && progress && purchaseDate) {
+          setDisable(false);
+        } else {
+          setDisable(true);
         }
       } else {
         setDisable(true);
@@ -582,7 +630,9 @@ export const ModalCapital = ({
     jurisdiction,
     selectedTypeProject,
     studyreason,
-    thisIndependentComponents
+    thisIndependentComponents,
+    progress,
+    purchaseDate,
   ]);
 
   useEffect(() => {
@@ -669,10 +719,6 @@ export const ModalCapital = ({
     setNameProject(e.target.value);
   };
 
-  const handleOk = (e: any) => {
-    setVisibleAlert( true);
-  };
-
   const handleCancel = (e: any) => {
     const auxState = {...state};
     setVisibleCapital (false);
@@ -746,8 +792,6 @@ export const ModalCapital = ({
     setIndependentComponents([...thisIndependentComponents,component]);
   };
   const removeComponent = (component: any) => {
-    console.log(groups)
-    console.log(listComponents.result)
     let newComponents: any = [];
     let currentComponents = listComponents.result;
     newComponents = currentComponents
@@ -758,6 +802,7 @@ export const ModalCapital = ({
         object_id: comp.objectid
       }));
     getListComponentsByComponentsAndPolygon(newComponents, null);
+    setComponentsToSave(newComponents);
   }
 
   useEffect(() => {
@@ -846,7 +891,6 @@ export const ModalCapital = ({
 
   const removeIndComponent = (indComp: any) => {
     let currentComponents = [...thisIndependentComponents];
-    console.log(currentComponents, indComp)
     currentComponents = currentComponents.filter( (comp: any) => ( comp.index !== indComp.index ) );
     setIndependentComponents([...currentComponents]);
   }
@@ -1000,6 +1044,18 @@ export const ModalCapital = ({
       setjurisdiction([])
     }
   },[isEditingPosition])
+
+  const handleErrorNotification = (emptyFields: any[]) => {
+    const inputLength = emptyFields.length;
+    const inputText = inputLength>1?"inputs":"input";
+    const message = `Missing ${inputText}: ${emptyFields.join(', ')}.`;
+    openNotification(`Warning! Required ${inputText} are missing below.`, "warning", message);
+  }
+
+  const handleRepeatedNotification = () => {
+    const message = `Project name already exists.`;
+    openNotification(`Warning!`, "warning", message);
+  }
   
   let indexForm = 1;
 
@@ -1051,7 +1107,7 @@ export const ModalCapital = ({
             <p className={activeTabBodyProject ===  'Discussion'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Discussion')}}>Discussion</p>
             <p className={activeTabBodyProject ===  'Activity'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Activity')}}>Activity</p>
           </div>
-          {activeTabBodyProject === 'Details' ? */}
+          {activeTabBodyProject === 'Details' && <> */}
             <div className="body-project">
               {
                 (isWorkPlan && showCheckBox && !swSave) &&  
@@ -1199,38 +1255,14 @@ export const ModalCapital = ({
                 index={indexForm++}
               />
             </div>
-          {/* :<>
-          <div className="body-project">
-            <div className='discution-body'>
-              <div className='discution-other-user'>
-                <div className='other-user-information'>
-                  02/14/23
-                </div>
-                <div className='discution'>
-                  <div>
-                    Hi, I would like to follow-up on my submission
-                  </div>
-                  <div>
-                    We are requesting a new culvert along Almond Rd to Shawnee Avenue, as shown through our submission in February 2023.
-                  </div>
-                </div>
-              </div>
-              <div className='discution-user'>
-                We are requesting a new culvert along Almond Rd to Shawnee Avenue, as shown through our submission in February 2023.
-              </div>
-            </div>
-            <div className='discution-footer'>
-              <input placeholder="Write a comment..."/>
-              <Button>
-                <img>
-                </img>
-              </Button>
-            </div>
-          </div> */}
-          {/* </>} */}
+          {/* </>}
+          {activeTabBodyProject === 'Discussion' &&
+          <DiscussionCreateProject/>}
+          {activeTabBodyProject === 'Activity' &&
+          <ActivitiCreateProject/>} */}
           <div className="footer-project">
             <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>
-            <Button className="btn-purple" onClick={handleOk} disabled={disable}><span className="text-color-disable">Save Draft Project</span></Button>
+            <Button className="btn-purple" onClick={handleOk}><span className="text-color-disable">Save Draft Project</span></Button>
           </div>
         </Col>
       </Row>

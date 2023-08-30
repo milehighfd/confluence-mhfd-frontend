@@ -1,6 +1,7 @@
 import React from 'react';
-import { Card, Button, notification } from 'antd';
+import { Card, Button, notification, Tooltip } from 'antd';
 import { MAPTYPES, MENU_OPTIONS } from 'constants/constants';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 const problemStyle: any = {
     status: {
@@ -65,7 +66,7 @@ export const MainPopup = ({id, item, eventFunctions, sw, ep, detailPage, mapType
     return <div id={"popup-" + id} className="map-pop-00">
       <Card hoverable>
         <div className="headmap">
-            {capitalize(item.title)} popups
+            {capitalize(item.title)}
         </div>
         <div className="bodymap">
           <h4>{item.name}</h4>
@@ -275,7 +276,11 @@ export const ComponentPopup = ({ id, item, isComponent, maptype, eventFunctions 
             {item.type ? <h4>{item.type} </h4> : ''}
             {item.feature ? <h4>{item.feature}</h4> : ''}
             {item.subtype ? <p><i>Subtype:</i>  {item.subtype}</p> : ''}
-            {item.estimatedcost ? <p><i>Estimated Cost:</i>  ${numberWithCommas(item.estimatedcost)}</p> : ''}
+            {item.estimatedcost ? <p><i>Estimated Cost  {item.layer === 'Components' ? <Tooltip title={
+            <div className="popoveer-00">
+            <b>Estimated Cost</b> is the Estimated Cost of implementing or addressing an Action as part of a Capital or Maintenance project.</div>
+            }><ExclamationCircleOutlined/></Tooltip>:<></>} 
+            : </i>  ${numberWithCommas(item.estimatedcost)}</p> : ''}
             {item.studyyear ? <p><i>Study Year:</i>  {item.studyyear}</p> : ''}
             {item.status && !item?.layer?.includes('LOMC') ? <p><i>Status:</i>  {item.status}</p> : ''}
             {item.streamname ? <p><i>Stream:</i>  {item.streamname}</p> : ''}
@@ -418,7 +423,11 @@ export const ComponentPopupCreate = ({ id, item, isComponent, isWR, eventFunctio
           {item.type ? <h4><i>{item.type}</i> </h4> : ''}
           {item.feature ? <h4>{item.feature}</h4> : ''}
           {item.subtype ? <p><i>Subtype:</i>  {item.subtype}</p> : ''}
-          {item.estimatedcost ? <p><i>Estimated Cost:</i>  ${numberWithCommas(item.estimatedcost)}</p> : ''}
+          {item.estimatedcost ? <p><i>Estimated Cost  {item.layer === 'Components' ? <Tooltip title={
+            <div className="popoveer-00">
+            <b>Estimated Cost</b> is the Estimated Cost of implementing or addressing an Action as part of a Capital or Maintenance project.</div>
+            }><ExclamationCircleOutlined/></Tooltip>:<></>} 
+            : </i>  ${numberWithCommas(item.estimatedcost)}</p> : ''}
           {item.studyyear ? <p><i>Study Year:</i>  {item.studyyear}</p> : ''}
           {item.status ? <p><i>Status:</i>  {item.status}</p> : ''}
           {item.streamname ? <p><i>Stream:</i>  {item.streamname}</p> : ''}

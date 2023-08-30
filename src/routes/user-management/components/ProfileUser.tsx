@@ -78,9 +78,11 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUs
     openNotification('Success! Your user update was saved!', "success");
  };
 
-  const handleErrorNotification = (emptyFields: any) => {
-    const message = `Missing inputs: ${emptyFields.join(', ')}.`;
-    openNotification('Warning! Required input are missing below.', "warning", message);
+  const handleErrorNotification = (emptyFields: any[]) => {
+    const inputLength = emptyFields.length;
+    const inputText = inputLength>1?"inputs":"input";
+    const message = `Missing ${inputText}: ${emptyFields.join(', ')}.`;
+    openNotification(`Warning! Required ${inputText} are missing below.`, "warning", message);
   }
 
   const {
@@ -442,6 +444,19 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUs
 
   const save = (selectAssociateId: any) => {
     setSaveValidation(true);
+    const newUser: any = {
+      firstName,
+      lastName,
+      email,
+      title,
+      phone,
+      designation,
+      organization,
+      serviceArea,
+      county,
+      city: jurisdiction,
+      zoomarea
+    };
     const newAddress: any = {
       business_address_line_1: addressLine1,
       business_address_line_2: addressLine1,
@@ -450,7 +465,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUs
       city: city,
       zip: zip,
     };
-    if (city && state && zip && addressLine1 && createFullName && createMail && createPhone) {
+    if (city && state && zip && addressLine1 && createFullName && createMail) {
       if (createAdress && !createContact) {
         datasets.postData(SERVER.UPDATE_ADDRESS + '/' + contactId, {
           ...newAddress,
@@ -460,7 +475,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUs
           business_associate_contact_id: +selectAssociateId,
           user_id: record.user_id
         },datasets.getToken()).then(res => {
-          handleSuccess(res);
+          updateUserData(newUser, res);
         });
       } else if (createAdress && createContact) {
         datasets.postData(SERVER.SAVE_BUSINESS_ADRESS_AND_CONTACT(selectAssociateId), {
@@ -471,7 +486,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUs
           business_address_id: addressId,
           user_id: record.user_id
         }, datasets.getToken()).then(res => {
-          handleSuccess(res);
+          updateUserData(newUser, res);
         });
       } else if (!createAdress && createContact) {
         datasets.postData(SERVER.CREATE_CONTACT  + '/' + addressId, {
@@ -482,7 +497,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUs
           business_address_id: addressId,
           user_id: record.user_id
         }, datasets.getToken()).then(res => {
-          handleSuccess(res);
+          updateUserData(newUser, res);
         });
       } else {
         datasets.putData(SERVER.UPDATE_BUSINESS_ADRESS_AND_CONTACT(addressId,contactId), {
@@ -492,7 +507,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUs
           contact_phone_number: createPhone,
           user_id: record.user_id
         }, datasets.getToken()).then(res => {
-          handleSuccess(res);
+          updateUserData(newUser, res);
         });
       }
       setSaveAlert(false)
@@ -517,16 +532,19 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUs
       if (!createMail) {
         emptyFields.push('Email');
       }
-      if (!createPhone) {
-        emptyFields.push('Phone Number');
-      }
       handleErrorNotification(emptyFields);
       setSaveAlert(false)
     }    
   }
 
+  const updateUserData = (newUser: any, res: any) => {
+    datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(resUser => { 
+      handleSuccess(res);
+    })
+  }
+
   function handleSuccess(res: any) {
-    if (res.message === 'SUCCESS') {   
+    if (res.message === 'SUCCESS') {  
       setDisabledContact(false);     
       setDisabledAddress(false);
       saveUser();           
@@ -540,10 +558,8 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUs
       setTimeout(() => {
         setConfirmation(false);
       }, 3000);
-    } else {
-      if (res.message === 'SUCCESS') {
-        updateError('500 Internal Server Error');
-      }
+    } else {      
+      updateError('500 Internal Server Error');     
     }
   }
 
@@ -810,7 +826,6 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUs
                 placeholder="Phone"
                 value={createPhone}
                 onChange= {(e) => {handleChangeData(formatPhoneNumber(e.target.value), setCreatePhone)}}
-                className={validateField(createPhone)}
               />
             </Col>
           </Row>    

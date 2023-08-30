@@ -281,6 +281,7 @@ export const SERVER = (function () {
         GET_ORGANIZATIONS: `${URL_BASE.BASE}/${ORGANIZATIONS}`,
         GET_CONSULTANTS: `${URL_BASE.BASE}/${CONSULTANTS}`,
         GENERATE_SIGNUP_URL: `${URL_BASE.BASE}/${USER}/${GENERATE_SIGNUP_URL}`,
+        CHECK_PROJECT_NAME: `${URL_BASE.BASE}/${PROJECT}/check_project_name`,
         GET_SPONSOR: `${URL_BASE.BASE}/${BUSINESS}/${SPONSOR_LIST}`,
         GET_PAST_DATA: `${URL_BASE.BASE}/${BOARD}/get-past-data`,
         GET_COSTS_FOR_MAINTENANCE: `${URL_BASE.BASE}/${BOARD_PROJECT}/getCostsMaintenance`,
@@ -294,7 +295,7 @@ export const SERVER = (function () {
         GET_LIST_GROUPS: (groupname: string) => `${URL_BASE.BASE}/${PMTOOLS}/groups/${groupname}`,
         UPDATE_BUDGET: `${URL_BASE.BASE}/${BOARD}/update-budget`,
         GET_CONFIGURATIONS: (key: string) => {
-            return `${URL_BASE.BASE}/${CONFIGURATIONS}/${key}`;
+            return `${URL_BASE.BASE}/${CONFIGURATIONS}/${key}?rnd=${Math.random()}`;
         },
         DELETE_NOTE_LIST: (id: any) => {
           return `${URL_BASE.BASE}/${NEW_NOTES}/${COLOR}/${id}`;
@@ -364,6 +365,9 @@ export const SERVER = (function () {
         GET_BBOX_PROJECTS: `${URL_BASE.BASE}/${BOARD}/${PROJECTS_BBOX}`,
         BOARD_PROJECT_COST: (board_project_id: string | number) => {
             return `${URL_BASE.BASE}/${BOARD_PROJECT}/${board_project_id}/${COST}?rnd=${Math.random()}`
+        },
+        ARCHIVE_PROJECT: (project_id: number) => {
+            return `${URL_BASE.BASE}/${PROJECT}/archive/${project_id}`
         },
         BOARD_UPDATE_RANK: (board_project_id: string) => `${URL_BASE.BASE}/${BOARD_PROJECT}/${board_project_id}/update-rank`,
         BOARD_UPDATE_TARGET_COST: `${URL_BASE.BASE}/${BOARD_PROJECT}/update-target-cost`

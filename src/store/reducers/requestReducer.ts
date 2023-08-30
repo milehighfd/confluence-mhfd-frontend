@@ -2,13 +2,18 @@ import { MEDIUM_SCREEN_RIGHT } from 'constants/constants';
 import * as types from '../types/requestTypes';
 import { defaultColumns } from 'routes/work-request/constants';
 
+const getRequestReducer = (configurationYear: number) => {
+  const yearList = [];
+  for (let i = 0; i < 5; i++) {
+    yearList.push(configurationYear - i);
+  }
 const initialState = {
   showModalProject: false,
   completeProjectData: null,
   locality: '',
-  yearList: [2024, 2023, 2022, 2021, 2020],
-  year: 2024,
-  configuredYear: 2024,
+  yearList: yearList,
+  year: configurationYear,
+  configuredYear: configurationYear,
   tabKeys: ['Capital', 'Study', 'Maintenance', 'Acquisition', 'R&D'],
   tabKey: null,
   showCreateProject: false,
@@ -378,5 +383,7 @@ const requestReducer = (state = initialState, action: any) => {
       return state;
   }
 };
+return requestReducer;
+}
 
-export default requestReducer;
+export default getRequestReducer;

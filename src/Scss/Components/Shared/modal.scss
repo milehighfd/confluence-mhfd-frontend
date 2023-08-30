@@ -2,7 +2,7 @@
 @import '../../Theme/styles.scss';
 
 //All Modal
-.center-modal{
+.center-modal {
   justify-content: center;
   display: flex;
   align-items: center;
@@ -48,15 +48,15 @@
   padding: 6px 0px;
 }
 .menu-drop-sub {
-    background-color: #ffffff !important;
-    color: #1e1748 !important;
-    opacity: 0.6 !important;
-    font-weight: 400 !important;
-    margin: -5px -7px;
-    padding: 3px 10px;
-    font-size: 14px;
-    border-radius: 5px;
-  }
+  background-color: #ffffff !important;
+  color: #1e1748 !important;
+  opacity: 0.6 !important;
+  font-weight: 400 !important;
+  margin: -5px -7px;
+  padding: 3px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+}
 
 .menu-density {
   .ant-dropdown-menu-item-active {
@@ -508,27 +508,26 @@
   }
 }
 
-
 //SIDEBAR
 .dropdown-special-bottomLeft {
-    top: 42px !important;
-  }
+  top: 42px !important;
+}
 
 //MODAL-CONFIRM - STYLE -div
-.modal-confirm{
-  .img-wrong{
+.modal-confirm {
+  .img-wrong {
     display: flex;
     justify-content: center;
     width: 100%;
     margin: 0px 0px 14px 0px;
-    img{
+    img {
       width: 83px;
     }
   }
 }
 
 //MODAL -EDIT-Dates
-.work-modal-edit-dates{
+.work-modal-edit-dates {
   width: 581px;
   .ant-modal-header {
     display: none;
@@ -536,17 +535,17 @@
   .ant-modal-footer {
     display: none;
   }
-  .header-step{
+  .header-step {
     display: flex;
     margin-top: 19px;
     justify-content: space-between;
     margin-bottom: 28px;
-    .step{
+    .step {
       width: 163px;
-      border-top: 4px solid #D9D9D9;
+      border-top: 4px solid #d9d9d9;
       padding-top: 8px;
-      p{
-        color: #858F94;
+      p {
+        color: #858f94;
         font-family: Ubuntu;
         font-size: 12px;
         font-style: normal;
@@ -555,12 +554,12 @@
         margin: 0px;
       }
     }
-    .step-active{
+    .step-active {
       width: 163px;
-      border-top: 4px solid #28C499;
+      border-top: 4px solid #28c499;
       padding-top: 8px;
-      p{
-        color: #858F94;
+      p {
+        color: #858f94;
         font-family: Ubuntu;
         font-size: 12px;
         font-style: normal;
@@ -568,50 +567,50 @@
         line-height: 140%;
         margin: 0px;
       }
-      .p-active{
-        color: #11093C;
+      .p-active {
+        color: #11093c;
       }
     }
   }
-  .name-project{
-    color: #11093C;
+  .name-project {
+    color: #11093c;
     font-family: Ubuntu;
     font-size: 12px;
     font-style: normal;
     font-weight: 500;
     line-height: 140%;
-    h1{
-      color: #11093C;
+    h1 {
+      color: #11093c;
       font-size: 22px;
       line-height: 120%;
     }
-    p{
+    p {
       font-size: 16px;
       line-height: 140%;
       font-weight: 400;
       margin-bottom: 16px;
     }
   }
-  .body-edit-dates{
+  .body-edit-dates {
     height: 350px;
-    .img-confetti{
-      color: #11093C;
+    .img-confetti {
+      color: #11093c;
       text-align: center;
       font-family: Ubuntu;
       font-size: 24px;
       font-style: normal;
       font-weight: 400;
       line-height: 140%;
-      img{
+      img {
         margin-top: 60px;
         margin-bottom: 40px;
       }
     }
-    .form-edit-dates{
+    .form-edit-dates {
       text-align: left;
-      label{
+      label {
         margin-top: 16px;
-        color: #11093C;
+        color: #11093c;
         font-family: Ubuntu;
         font-size: 10px;
         font-style: normal;
@@ -619,15 +618,16 @@
         line-height: normal;
       }
     }
-    .ant-picker-input>input {
+    .ant-picker-input > input {
       font-size: 14px;
       color: $purple00;
     }
-    .ant-picker-input>input::placeholder {
+    .ant-picker-input > input::placeholder {
       font-size: 14px;
       color: $purple00;
     }
-    .ant-select-single.ant-select-show-arrow .ant-select-selection-item, .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
+    .ant-select-single.ant-select-show-arrow .ant-select-selection-item,
+    .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
       font-size: 14px;
       color: $purple00;
     }
@@ -635,18 +635,19 @@
       border-radius: 5px !important;
       box-shadow: 0px 4px 40px 0px rgba(0, 0, 0, 0.04);
     }
-    .ant-picker-focused, .ant-picker:hover {
+    .ant-picker-focused,
+    .ant-picker:hover {
       border-color: $purple00;
     }
     .ant-picker {
       color: #11093c;
       box-shadow: 0px 4px 40px 0px rgba(0, 0, 0, 0.04);
+    }
   }
-  }
-  .foot-edit-dates{
+  .foot-edit-dates {
     text-align: end;
     padding: 16px 0px 0px 0px;
-    button{
+    button {
       padding: 12px 53px;
       text-align: center;
       font-family: Ubuntu;
@@ -656,11 +657,337 @@
       line-height: normal;
       height: auto;
     }
-    .btn-transparent{
+    .btn-transparent {
       opacity: 0.6;
     }
   }
-  .ant-modal-body{
+  .ant-modal-body {
     padding: 30px;
   }
 }
+
+//MODAL EDIT AMOUNT MODULE
+.edit-amount-modal {
+  width: 835px !important;
+  .ant-row{
+    display: flex;
+    flex-wrap: nowrap
+  }
+  .ant-modal-body {
+    padding: 0px;
+  }
+  .edit-amount-modal-header {
+    background: #f8f8fa;
+    padding: 16px 30px 4px 30px;
+    border-radius: 4px;
+    .ant-col {
+      padding-right: 24px;
+    }
+    .edit-amount-modal-header-text {
+      width: 48%;
+    }
+    h2 {
+      color: #11093c;
+      font-family: 'Ubuntu';
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      word-wrap: break-word;
+    }
+    p {
+      color: #11093c;
+      font-family: 'Ubuntu';
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      opacity: 0.6;
+    }
+    span {
+      border-radius: 3px;
+      font-family: 'Ubuntu';
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 18px;
+      letter-spacing: 0.2px;
+      padding: 3px 8px;
+    }
+    h1 {
+      color: #251863;
+      text-align: left;
+      font-family: 'Ubuntu';
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      text-transform: uppercase;
+    }
+  }
+  .edit-amount-modal-body {
+    padding: 24px 30px 4px 30px;
+    .edit-amount-modal-body-title {
+      padding-bottom: 24px;
+      color: #000;
+      font-family: 'Ubuntu';
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 160%; /* 32px */
+    }
+  }
+  .edit-amount-modal-body-table {
+    color: #11093c;
+    font-family: 'Ubuntu';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    .ant-input-affix-wrapper{
+      border-color: #2518631A;
+      padding: 6px 11px;
+    }
+    .ant-input {
+      color: #11093c;
+      font-family: 'Ubuntu';
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+    p {
+      color: #11093c;
+      font-family: 'Ubuntu';
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      opacity: 0.6;
+    }
+    .ant-col {
+      min-width: 15%;
+      width: auto;
+      padding-bottom: 10px;
+      margin-right: 32px;
+    }
+    .ant-col:first-child {
+      min-width: 24%;
+      margin-right: 16px;
+    }
+    .ant-col:last-child {
+      margin-right: 0px;
+    }
+    .edit-amount-modal-body-table-title {
+      .ant-col {
+        font-weight: 500;
+      }
+      .ant-col:not(:first-child){
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+    .edit-amount-modal-body-table-sum {
+      .ant-col {
+        font-weight: 500;
+        padding-top: 6px;
+        padding-bottom: 16px;
+        width: 100%;
+      }
+      .ant-col:not(:first-child){
+        padding-left: 12px;
+      }
+    }
+    .edit-amount-modal-body-table-total {
+      .ant-col {
+        font-weight: 700;
+      }
+      .ant-col:not(:first-child){
+        padding-left: 12px;
+      }
+    }
+  }
+  .ant-modal-footer {
+    padding: 10px 30px 30px 30px;
+    button {
+      width: 110px;
+      height: 44px;
+      span {
+        text-align: center;
+        font-family: Ubuntu;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+      }
+    }
+    .ant-btn-default {
+      background-color: #ffffff;
+      span {
+        color: #11093c;
+        opacity: 0.6;
+      }
+    }
+    .ant-btn-primary {
+      background-color: #251863;
+      span {
+        color: #fff;
+      }
+    }
+  }
+}
+
+@media (min-width: 1900px) and (max-width: 2499px) {
+  .edit-amount-modal {
+    width: 1113px !important;
+    .ant-modal-close-x{
+      font-size: 19px;
+    }
+    .edit-amount-modal-header {
+      padding: 21px 40px 10px 40px;
+      .ant-col {
+        padding-right: 32px;
+      }
+      h2 {
+        font-size: 27px;
+      }
+      p {
+        font-size: 16px;
+      }
+      span {
+        font-size: 19px;
+        line-height: 24px;
+        letter-spacing: 0.2px;
+        padding: 4px 10px;
+      }
+      h1 {
+        font-size: 17px;
+      }
+    }
+    .edit-amount-modal-body {
+      padding: 40px 40px 4px 40px;
+      .edit-amount-modal-body-title {
+        padding-bottom: 31px;
+        font-size: 27px;
+        line-height: 160%; /* 43px */
+      }
+    }
+    .edit-amount-modal-body-table {
+      font-size: 19px;
+      .ant-input-affix-wrapper{
+        padding: 7px 11px;
+      }
+      .ant-input-prefix{
+        font-size: 17px;
+      }
+      .ant-input {
+        font-size: 19px;
+      }
+      p {
+        font-size: 16px;
+      }
+      .ant-col {
+        padding-bottom: 14px;
+        margin-right: 42px;
+      }
+      .ant-col:first-child {
+        margin-right: 20px;
+      }
+      .edit-amount-modal-body-table-sum {
+        .ant-col {
+          padding-top: 7px;
+          padding-bottom: 20px;
+        }
+      }
+    }
+    .ant-modal-footer {
+      padding: 15px 40px 40px 40px;
+      button {
+        width: 147px;
+        height: 59px;
+        span {
+          font-size: 19px;
+        }
+      }
+    }
+  }
+}
+@media(min-width: 2550px){
+  .edit-amount-modal {
+    width: 1484px !important;
+    .ant-modal-close-x{
+      font-size: 24px;
+    }
+    .edit-amount-modal-header {
+      padding: 28px 53px 16px 53px;
+      .ant-col {
+        padding-right: 42px;
+      }
+      h2 {
+        font-size: 35px;
+      }
+      p {
+        font-size: 21px;
+      }
+      span {
+        font-size: 24px;
+        line-height: 32px;
+        padding: 5px 14px;
+      }
+      h1 {
+        font-size: 23px;
+      }
+    }
+    .edit-amount-modal-body {
+      padding: 53px 53px 4px 53px;
+      .edit-amount-modal-body-title {
+        padding-bottom: 42px;
+        font-size: 35px;
+        line-height: 160%; /* 57px */
+      }
+    }
+    .edit-amount-modal-body-table {
+      font-size: 24px;
+      .ant-input-affix-wrapper{
+        padding: 9px 11px;
+      }
+      .ant-input-prefix{
+        font-size: 21px;
+      }
+      .ant-input {
+        font-size: 24px !important;
+      }
+      p {
+        font-size: 21px;
+      }
+      .ant-col {
+        padding-bottom: 17px;
+        margin-right: 57px;
+      }
+      .ant-col:first-child {
+        margin-right: 29px;
+      }
+      .edit-amount-modal-body-table-sum {
+        .ant-col {
+          padding-top: 10px;
+          padding-bottom: 27px;
+        }
+      }
+    }
+    .ant-modal-footer {
+      padding: 20px 53px 53px 53px;
+      button {
+        width: 196px;
+        height: 78px;
+        span {
+          font-size: 24px;
+        }
+      }
+    }
+  }
+  .card-dropdown {
+    width: 235px;
+  }
+}
+

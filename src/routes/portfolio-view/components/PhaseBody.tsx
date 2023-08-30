@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Col, Row, Tooltip } from 'antd';
 import * as d3 from 'd3';
 import moment from 'moment';
-import store from 'store';
 import { HeartFilled, HeartOutlined } from '@ant-design/icons';
 import { SERVER } from 'Config/Server.config';
 import { FILTER_PROJECTS_TRIGGER, LIMIT_PAGINATION } from 'constants/constants';
@@ -12,6 +11,7 @@ import { colorScale } from 'routes/portfolio-view/constants/PhaseViewData';
 import { usePortflioState, usePortfolioDispatch } from '../../../hook/portfolioHook';
 import { useMapState } from 'hook/mapHook';
 import DetailModal from 'routes/detail-page/components/DetailModal';
+import { useProfileState } from 'hook/profileHook';
 
 const PhaseBody = ({
   dataId,
@@ -46,7 +46,7 @@ const PhaseBody = ({
   page: number,
   setPage: React.Dispatch<React.SetStateAction<number>>,
 }) => {
-  const appUser = store.getState().profile;
+  const appUser = useProfileState();
   const email = appUser.userInformation?.email;
   const {
     filterProjectOptions,

@@ -32,7 +32,8 @@ import {
   WINDOW_WIDTH,
   PROJECTS_DRAFT_MAP_STYLES,
   PROJECTS_DRAFT,
-  MAP_TAB
+  MAP_TAB,
+  MAINTENANCE_IDS
 } from 'constants/constants';
 import {
   tileStyles,
@@ -168,7 +169,8 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     zoomProblemOrProject: zoom,
     projectsids,
     filterProjects,
-    tabActiveNavbar
+    tabActiveNavbar,
+    galleryProblems
   } = useMapState();
   const { tabKey } = useRequestState();
   const { setCompleteProjectData, setShowModalProject } = useRequestDispatch();
@@ -179,6 +181,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
   const divMapRef = useRef<HTMLDivElement>(null);
   const dropdownItems = { default: 1, items: MAP_DROPDOWN_ITEMS };
   const { notes, availableColors } = useNotesState();
+  const galleryProblemsRef = useRef<any>(null);
   const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
   const {
     setComponentsFromMap,
@@ -330,7 +333,6 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     });
   };
 
-
   useEffect(() => {
     if (zoomProject && (zoomProject.projectid || zoomProject.project_id)) {
       const projectid = zoomProject.project_id ? zoomProject.project_id : zoomProject.projectid;
@@ -448,6 +450,13 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     popup.remove();
     if (map && tabActiveNavbar === MAP_TAB) {
       resetBoardIds();
+      const styles = { ...(tileStyles as any) };
+      let key = PROJECTS_DRAFT + 'draft'
+      styles[key].forEach((style: LayerStylesType, index: number) => {
+        if (map.getLayer(key + '_' + index)) {
+          map.removeLayer(key + '_' + index);
+        }
+      });
     }
   }, [tabActiveNavbar]);
   
@@ -611,8 +620,9 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
   }, [coordinatesJurisdiction]);
 
   useEffect(() => {
+    galleryProblemsRef.current = galleryProblems;
     applyFilters(PROBLEMS_TRIGGER, filterProblems);
-  }, [filterProblems, zoomEndCounter, dragEndCounter]);
+  }, [filterProblems, zoomEndCounter, dragEndCounter, galleryProblems]);
   useEffect(() => {
     applyFilters(MHFD_PROJECTS, filterProjectOptions);
   }, [groupedProjectIdsType, zoomEndCounter, dragEndCounter]);
@@ -1080,11 +1090,11 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     const capitalProjects = projectsids
       .filter((project: any) => project.code_project_type_id === 5)
       .map((project: any) => project.project_id);
+      // TODO: filter by projectsubtype of maintenance 
     const maintenanceProjects = projectsids
       .filter(
         (project: any) =>
-          (project.code_project_type_id >= 7 && project.code_project_type_id <= 11) ||
-          project.code_project_type_id === 17,
+          MAINTENANCE_IDS.some((mid:any) => mid === project.code_project_type_id)
       )
       .map((project: any) => project.project_id);
     const studyProjects = projectsids
@@ -1140,6 +1150,16 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
             if (filterField === 'keyword') {
               if (filters[key]) {
                 allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...filters[key]]]]);
+              }
+            }
+            if (filterField === 'favorites') {
+              if(filters && galleryProblemsRef.current){
+                const ids = galleryProblemsRef.current.map((problem:any) => problem.problemid);
+                if (ids.length === 0) {
+                  allFilters.push(['in', ['get', 'problem_id'], ['literal', [-1]]]);
+                } else {
+                  allFilters.push(['in', ['get', 'problem_id'], ['literal', ids]]);
+                }
               }
             }
             if (filters && filters.length) {
@@ -1235,36 +1255,47 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
                 }
               } else {
                 let managers;
-                if (filterField === 'mhfdmanager' && mhfdmanagers) {
-                  const mhfdmanagersArray = filters.map((mhfdmanager: any) => {
-                    const mhfdmanagerObject = (mhfdmanagers as any).find(
-                      (mhfdmanagerObject: any) => mhfdmanagerObject.id === mhfdmanager,
-                    );
-                    return mhfdmanagerObject?.value;
-                  });
-                  managers = mhfdmanagersArray.join(',');
-                }
-                const filterToCheck = filterField !== 'mhfdmanager' ? filters : managers;
-                for (const filter of filterToCheck.split(',')) {
-                  if (isNaN(+filter)) {
+                // if (filterField === 'mhfdmanager' && mhfdmanagers) {
+                //   const mhfdmanagersArray = filters.map((mhfdmanager: any) => {
+                //     const mhfdmanagerObject = (mhfdmanagers as any).find(
+                //       (mhfdmanagerObject: any) => mhfdmanagerObject.id === mhfdmanager,
+                //     );
+                //     return mhfdmanagerObject?.value;
+                //   });
+                //   managers = mhfdmanagersArray.join(',');
+                // }
+                if (filterField === 'mhfdmanager')  {
+                  for (const filter of filters) {
                     options.push([
                       '==',
                       ['get', key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField],
                       filter,
                     ]);
-                  } else {
-                    const equalFilter: any[] = [
-                      '==',
-                      [
-                        'to-number',
+                  }
+                }
+                const filterToCheck = filterField !== 'mhfdmanager' ? filters : managers;
+                if (filterField !== 'mhfdmanager'){
+                  for (const filter of filterToCheck.split(',')) {
+                    if (isNaN(+filter)) {
+                      options.push([
+                        '==',
+                        ['get', key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField],
+                        filter,
+                      ]);
+                    } else {
+                      const equalFilter: any[] = [
+                        '==',
                         [
-                          'get',
-                          key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField,
+                          'to-number',
+                          [
+                            'get',
+                            key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField,
+                          ],
                         ],
-                      ],
-                      +filter,
-                    ];
-                    options.push(equalFilter);
+                        +filter,
+                      ];
+                      options.push(equalFilter);
+                    }
                   }
                 }
               }

@@ -16,6 +16,7 @@
   }
   .ant-checkbox-inner:after {
     height: 10.14285714px;
+    margin-left: 1px;
   }
 }
 //Style Tabs Main Map
@@ -982,7 +983,7 @@ hr.filters-line {
   }
   .ant-table-column-sorters {
     display: inline-flex;
-    font-size: 17px;
+    font-size: 13px;
   }
 
   .ant-table-tbody > tr > td,
@@ -1022,6 +1023,7 @@ hr.filters-line {
     line-height: 19px;
     margin: 0px;
     color: $purple00;
+    width: 95%;
   }
   .status-projects-active {
     color: $green;
@@ -1055,6 +1057,24 @@ hr.filters-line {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+}
+//Filters
+.scroll-filters {
+  padding: 0px 6px 0px 0px;
+  .ant-input {
+    height: 36px;
+    border-radius: 5px;
+    color: $purple00;
+    box-shadow: 0px 4px 40px 0px rgba(0, 0, 0, 0.04);
+  }
+  .ant-select {
+    font-size: 14px !important;
+    box-shadow: 0px 4px 40px 0px rgba(0, 0, 0, 0.04);
+  }
+  .sub-title-sec{
+    display: flex;
+    justify-content: space-between;
   }
 }
 
@@ -1372,6 +1392,9 @@ hr.filters-line {
       height: calc(100vh - 346px) !important;
       max-height: calc(100vh - 346px) !important;
     }
+    .ant-table-column-sorters {
+      font-size: 15px;
+    }
   }
   .table-list-map .project-name {
     font-size: 16px;
@@ -1386,8 +1409,51 @@ hr.filters-line {
     font-size: 27px;
     height: 40px;
   }
+  .scroll-filters{
+    .filt-00 {
+      h5 {
+        font-size: 19px !important;
+        img{
+          width: 16px !important;
+        }
+      }
+    }
+    .ant-input {
+      height: 36px !important;
+      font-size: 16px !important;
+    }
+    .btn-svg-text{
+      font-size: 15px !important;
+      padding: 16px 45px !important;
+      img{
+        height: 28px !important;
+      }
+    }
+  }
 }
-@media(min-width: 2550px) and (max-width: 3799px){
+@media(min-width: 2550px){
+  .scroll-filters{
+    padding: 0px 15px 0px 0px;
+    .ant-checkbox-wrapper{
+      font-size: 20px !important;
+    }
+    .ant-checkbox-group{
+      height: 204px !important;
+    }
+    .ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+      min-height: 45px !important;
+    }
+    .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+      min-height: 45px !important;
+    }
+    .btn-svg-text{
+      font-size: 20px !important;
+      padding: 20px 45px !important;
+      img{
+        height: 38px !important;
+      }
+    }
+  }
   .button-header-tab {
     .ico-header-tab {
       font-size: 22px;
@@ -1646,6 +1712,10 @@ hr.filters-line {
     .ant-table-body{
       height: calc(100vh - 421px) !important;
       max-height: calc(100vh - 421px) !important;
+    }
+    .ant-table-column-sorters {
+      display: inline-flex;
+      font-size: 20px;
     }
   }
   

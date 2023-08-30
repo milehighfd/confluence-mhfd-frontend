@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Badge, Menu, MenuProps, Tabs } from 'antd';
 import { Redirect, useLocation } from 'react-router-dom';
-import store from '../../../store';
 import { ROUTERS_SIDEBAR } from './constants/layout.constants';
 import '../../../Scss/Components/Shared/sidebar.scss';
 import '../../../Scss/Theme/scroll.scss';
@@ -10,7 +9,7 @@ import { useProfileState } from 'hook/profileHook';
 import { GlobalMapHook } from 'utils/globalMapHook';
 import { SERVER } from 'Config/Server.config';
 import moment from 'moment';
-import { useAppUserDispatch } from 'hook/useAppUser';
+import { useAppUserDispatch, useAppUserState } from 'hook/useAppUser';
 
 const SidebarMenuDown = ({
   collapsed,
@@ -32,7 +31,7 @@ const SidebarMenuDown = ({
   const { deleteMaps } = GlobalMapHook();
   const location = useLocation();
   let displayedTabKey = tabKeys;
-  const appUser = store.getState().appUser;
+  const appUser = useAppUserState();
   const indexOf = '' + ROUTERS_SIDEBAR.indexOf(location.pathname);
   const name = user.firstName;
   const initialName = user.firstName.charAt(0) + user.lastName.charAt(0);

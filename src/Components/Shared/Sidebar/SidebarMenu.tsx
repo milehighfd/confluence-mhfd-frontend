@@ -1,17 +1,17 @@
 import React from "react";
 import { Menu, MenuProps, Badge, Popover } from 'antd';
 import { Link, useHistory, useLocation } from "react-router-dom";
-import store from "../../../store";
 import { ROUTERS_SIDEBAR } from "./constants/layout.constants";
 import '../../../Scss/Components/Shared/sidebar.scss';
 import { useMapDispatch, useMapState } from "hook/mapHook";
 import { MAP, WORK_PLAN, WORK_REQUEST } from "constants/constants";
+import { useAppUserState } from "hook/useAppUser";
 
 const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
   const location = useLocation();
   const history = useHistory();
   const { search } = history.location;
-  const appUser = store.getState().appUser;
+  const appUser = useAppUserState();
   const { setTabActiveNavbar } =  useMapDispatch();
   const { tabActiveNavbar } = useMapState();
   const indexOf = '' + (ROUTERS_SIDEBAR.indexOf(location.pathname) === 1 ? (tabActiveNavbar === MAP? '1': (tabActiveNavbar === WORK_REQUEST ? '4':'3')):ROUTERS_SIDEBAR.indexOf(location.pathname));

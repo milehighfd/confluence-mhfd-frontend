@@ -17,7 +17,8 @@ export type OptionProblems = {
     problemtype: string,
     source: string,
     components: string,
-    servicearea: string
+    servicearea: string,
+    favorites: string,
 }
 
 export type OptionProjects = {
@@ -40,7 +41,10 @@ export type OptionProjects = {
     county: string,
     consultant: string,
     contractor: string,
-    servicearea: string
+    servicearea: string,
+    favorites: string,
+    teams: string,
+    phase: [],
 }
 export type OptionComponents = {
     component_type: string,

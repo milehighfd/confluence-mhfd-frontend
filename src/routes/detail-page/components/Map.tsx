@@ -19,7 +19,6 @@ import { useDetailedState } from 'hook/detailedHook';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
 import { useProfileState } from 'hook/profileHook';
 import { addPopupAndListeners, addPopupsOnClick } from 'routes/map/components/MapFunctionsPopup';
-import store from 'store/index';
 import { MapService } from 'utils/MapService';
 import * as datasets from 'Config/datasets';
 
@@ -30,11 +29,10 @@ let popup = new mapboxgl.Popup({ closeButton: true });
 const Map = forwardRef(({ type }: { type: any }, ref) => {
   const { detailed } = useDetailedState();
   const { resetDetailed, setSelectedPopup, getMapTables, getComponentsByProjid } = useMapDispatch();
-  const { galleryProjectsV2, layers: layerFilters } = useMapState();
+  const { layers, layers: layerFilters } = useMapState();
   const [, setZoomValue] = useState(0);
   const { userInformation } = useProfileState();
   const [allLayers, setAllLayers] = useState<any[]>([]);
-  const layers = store.getState().map.layers;
   let html = document.getElementById('map2');
   const applyNearMapLayer = () => {
     if (!map.getSource('raster-tiles')) {

@@ -138,6 +138,7 @@ const ListViewMap = ({
           requestName: ci?.requestName,
           type: ci?.type,
           problempriority: ci?.priority,
+          problemtype: ci?.problemtype,
           cost: ci?.estimatedCost,
           local_government: ci?.jurisdiction,
           actions: ci?.count,
@@ -196,7 +197,11 @@ const ListViewMap = ({
           }
           break;
         case 'popup-zoom':
-          changeCenter('', record.coordinates);
+          if (record.project_id) {
+            changeCenter(record.project_id, '');
+          }else{
+            changeCenter('', record.coordinates);
+          }          
           return;
         case 'popup-favorite':
           record.isFavorite ?  deleteFunction(user.email, (record.project_id || record.problemid), type) : addFavorite(user.email, (record.project_id || record.problemid), type === 'Problems' );
@@ -293,7 +298,9 @@ const ListViewMap = ({
             }
           }}
         >
-          <MoreOutlined className="more-ico" />
+          <MoreOutlined onClick={(e) => {
+            e.stopPropagation();
+          }} className="more-ico" />
         </Popover></div>,
     },
     {
@@ -393,14 +400,16 @@ const ListViewMap = ({
           }
         }}
       >
-        <MoreOutlined className="more-ico" />
+        <MoreOutlined onClick={(e) => {
+            e.stopPropagation();
+          }}  className="more-ico" />
       </Popover></div>,
     },
     {
       title: 'Type',
       width: windowWidth > 1900 ? windowWidth > 2500 ? '250px':'222px':'147px',
-      dataIndex: 'type',
-      key: 'type',      
+      dataIndex: 'problemtype',
+      key: 'problemtype',      
       sorter: (a, b, sortOrder) => {
         setSortBy('problemtype')
         setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');

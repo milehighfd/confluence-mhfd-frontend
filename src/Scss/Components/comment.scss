@@ -818,7 +818,7 @@
 
 
 // 2560x2999px DISPLAY
-@media (min-width: 2500px) and (max-width: 2999px) {
+@media (min-width: 2500px){
   .padding-comment{
     padding-left: 436px !important;
   }
@@ -1080,91 +1080,91 @@
 
 
 // 3800pxx5999px DISPLAY
-@media (min-width: 3800px) and (max-width: 5999px) {
-  .padding-comment{
-    padding-left: 630px !important;
-  }
-  // STYLE FOR MENU POPUP MAP Commnets
-  .divoptions {
-    padding: 10px;
-    li{
-      font-size: 27px;
-    }
-    img {
-      width: 24px;
-    }
-  }
-  .comment-drawer {
-    .ant-drawer-content-wrapper {
-      margin-left: 46px;
-      margin-top: 42px;
-      width: 626px !important;
-      padding: 10px;
-    }
-    .ant-drawer-title{
-      h5{
-        font-size: 34px !important;
-      }
-    }
-    .ant-drawer-body{
-      .main-node .s-item {
-        height: 80px !important;
-        .f-title {
-          font-size: 28px !important;
-          line-height: 34px !important;
-          padding-left: 20px !important;
-        }
-        .ll-00{
-          padding: 6px 8px 6px 8px;
-          font-size: 18px;
-        }
-        .ic-folder{
-          width: 26px !important;
-          height: 26px !important;
-        }
-      }
-      .a-layers{
-        padding: 24px 16px !important;
-        .title{
-          font-size: 36px !important;
-        }
-        .dropdown-ico-plus{
-          font-size: 50px !important;
-          line-height: 24px !important;
-          padding: 9px 11px 17px 11px !important;
-        }
-      }
-    }
-    .menu-wr{
-      img{
-        height: 26px;
-      }
-    }
-  }
-  //POPUP style
-  .popup-comment{
-    width: 480px;
-    border-radius: 10px;
-    .headmap{
-      padding: 12px 17px !important;
-      i{
-        font-size: 65px !important;
-      }
-      .testheader{
-        height: auto;
-        font-size: 30px !important;
-      }
-      .anticon{
-        font-size: 34px;
-        margin-top: 11px !important;
-      }
-    }
-    .bodymap{
-      padding: 21px;
-      .ant-input{
-        padding: 15px 20px;
-        min-height: 130px !important;
-      }
-    }
-  }
-}
+// @media (min-width: 3800px) and (max-width: 5999px) {
+//   .padding-comment{
+//     padding-left: 630px !important;
+//   }
+//   // STYLE FOR MENU POPUP MAP Commnets
+//   .divoptions {
+//     padding: 10px;
+//     li{
+//       font-size: 27px;
+//     }
+//     img {
+//       width: 24px;
+//     }
+//   }
+//   .comment-drawer {
+//     .ant-drawer-content-wrapper {
+//       margin-left: 46px;
+//       margin-top: 42px;
+//       width: 626px !important;
+//       padding: 10px;
+//     }
+//     .ant-drawer-title{
+//       h5{
+//         font-size: 34px !important;
+//       }
+//     }
+//     .ant-drawer-body{
+//       .main-node .s-item {
+//         height: 80px !important;
+//         .f-title {
+//           font-size: 28px !important;
+//           line-height: 34px !important;
+//           padding-left: 20px !important;
+//         }
+//         .ll-00{
+//           padding: 6px 8px 6px 8px;
+//           font-size: 18px;
+//         }
+//         .ic-folder{
+//           width: 26px !important;
+//           height: 26px !important;
+//         }
+//       }
+//       .a-layers{
+//         padding: 24px 16px !important;
+//         .title{
+//           font-size: 36px !important;
+//         }
+//         .dropdown-ico-plus{
+//           font-size: 50px !important;
+//           line-height: 24px !important;
+//           padding: 9px 11px 17px 11px !important;
+//         }
+//       }
+//     }
+//     .menu-wr{
+//       img{
+//         height: 26px;
+//       }
+//     }
+//   }
+//   //POPUP style
+//   .popup-comment{
+//     width: 480px;
+//     border-radius: 10px;
+//     .headmap{
+//       padding: 12px 17px !important;
+//       i{
+//         font-size: 65px !important;
+//       }
+//       .testheader{
+//         height: auto;
+//         font-size: 30px !important;
+//       }
+//       .anticon{
+//         font-size: 34px;
+//         margin-top: 11px !important;
+//       }
+//     }
+//     .bodymap{
+//       padding: 21px;
+//       .ant-input{
+//         padding: 15px 20px;
+//         min-height: 130px !important;
+//       }
+//     }
+//   }
+// }

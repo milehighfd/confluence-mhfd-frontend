@@ -14,6 +14,7 @@ import { CopyProjectAlert } from './CopyProjectAlert';
 import { useRequestState } from 'hook/requestHook';
 import { STATUS_NAMES } from 'constants/constants';
 import EditDatesModal from './EditDatesModal';
+import { useProfileState } from 'hook/profileHook';
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -36,7 +37,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   divRef:any,
 }) => {
   const { showFilters: filtered } = useRequestState();
-  const {setZoomProject, updateSelectedLayers} = useProjectDispatch();
+  const {setZoomProject, updateSelectedLayers, archiveProject} = useProjectDispatch();
   const { project_id } = project;
   const project_name = project?.projectData?.project_name;
   const proj_status_type_id: any = project?.code_status_type_id ?? 1;
@@ -49,6 +50,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   const [isHovered, setIsHovered] = useState(false);
   const [completeProjectData, setCompleteProjectData] = useState<any>(null);
   const [showCopyToCurrentYearAlert, setShowCopyToCurrentYearAlert] = useState(false);
+  const appUser = useProfileState();
   const pageWidth  = document.documentElement.scrollWidth;
   const getCompleteProjectData = async () => {
     let dataForBoard = {...project.projectData};
@@ -113,6 +115,17 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
         onClick: (() => setShowCopyToCurrentYearAlert(true))
       });
     }
+    if (appUser?.userInformation?.designation === 'admin' ||
+    appUser?.userInformation?.designation === 'staff'){
+      items.push({
+        key: '5',
+        label: <span style={{borderBottom: '1px solid transparent'}}>
+          <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
+          Archive Project
+        </span>,
+        onClick: (() => archiveProject(project?.projectData?.project_id))
+      });
+    }    
     return (<Menu className="js-mm-00" items={items} />)
   };
 

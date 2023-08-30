@@ -813,3 +813,19 @@ export const setDeleteAttachmentsIds = (deleteAttachmentsIds: Array<any>) => {
     dispatch({type: types.SET_DELETE_ATTACHMENTS_IDS, deleteAttachmentsIds});
   }
 }
+
+export const archiveProject = (projectid: any) => {
+  return (dispatch: Function) => {
+    datasets.putData(SERVER.ARCHIVE_PROJECT(projectid), {}, datasets.getToken()).then(res => {
+      console.log('res', res);
+      dispatch(loadColumns());
+      dispatch(loadFilters());
+    });
+  }
+}
+
+export const setDisableFieldsForLg = (disableFieldsForLG: boolean) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.SET_DISABLE_FIELDS_FOR_LG, disableFieldsForLG});
+  }
+}

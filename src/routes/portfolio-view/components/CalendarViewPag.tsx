@@ -9,7 +9,7 @@ import PineyView from 'routes/portfolio-view/components/PineyView';
 import SearchDropdown from 'routes/portfolio-view/components//SearchDropdown';
 import { handleAbortError } from 'store/actions/mapActions';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
-import store from 'store/index';
+import { useProfileState } from 'hook/profileHook';
 
 const CalendarViewPag = ({
   tabKey,
@@ -22,7 +22,7 @@ const CalendarViewPag = ({
   const [updateAction, setUpdateAction] = useState(false);
   const [editData,setEditData] = useState<any>({});
   const [openPiney, setOpenPiney] = useState(false);
-  const appUser = store.getState().profile;
+  const appUser = useProfileState();
   const [disabledLG, setDisabledLG] = useState(appUser?.isLocalGovernment || appUser?.userInformation?.designation === 'government_staff');
   const pageWidth  = document.documentElement.scrollWidth;
   const windowWidth: any = window.innerWidth;

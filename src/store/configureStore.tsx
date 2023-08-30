@@ -16,10 +16,10 @@ const logger = (store: any) => (next: any) => (action: any) => {
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-export default function configureStore(preloadedState: any) {
+export default function configureStore(config: any) {
   const store = createStore(
-    createRootReducer(history), // root reducer with router state
-    preloadedState,
+    createRootReducer(history, config), // root reducer with router state
+    undefined,
     // compose(
     composeEnhancers(
       applyMiddleware(

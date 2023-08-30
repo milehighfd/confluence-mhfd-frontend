@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Input, Row, Col, Popover, Select, Switch } from 'antd';
 import {  MAINTENANCE_ELIGIBILITY, NEW_PROJECT_TYPES,  PROGRESS_ACQUISITION,  STUDY_REASON, WINDOW_WIDTH } from "../../../constants/constants";
+import { useProjectState } from "hook/projectHook";
 const { Option } = Select;
 
 
@@ -24,11 +25,14 @@ export const InformationAcquisition = ({
   setPurchaseDate,
   year
 }: ModalAcquisitionProps) => {
-  const apllyProgress = (e: any) => {
+  const {
+    disableFieldsForLG,
+  } = useProjectState();
+  const applyProgress = (e: any) => {
     setProgress(e);
   };
 
-  const apllyPurchaseDate = (e: any) => {
+  const applyPurchaseDate = (e: any) => {
     setPurchaseDate(e);
   };
   return (
@@ -40,7 +44,8 @@ export const InformationAcquisition = ({
           placeholder={progress != '' ? PROGRESS_ACQUISITION.find((el: any) => parseInt(el.id) === parseInt(progress))?.name + "" : "Select a Status"}
           style={{ width: '100%' }}
           listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-          onChange={(progress) => apllyProgress(progress)}
+          onChange={(progress) => applyProgress(progress)}
+          disabled={disableFieldsForLG}
           getPopupContainer={() => (document.getElementById("progreid") as HTMLElement)}>
         {PROGRESS_ACQUISITION.map((element) => {
           return <Option key={element.id} value={element.id}>{element.name}</Option>
@@ -52,8 +57,9 @@ export const InformationAcquisition = ({
       <div id="antid">
         <Select
           placeholder={purchaseDate != '' ? purchaseDate + "" : "Select a Purchase Date"}
-          style={{ width: '100%' }} onChange={(purchaseDate) => apllyPurchaseDate(purchaseDate)}
+          style={{ width: '100%' }} onChange={(purchaseDate) => applyPurchaseDate(purchaseDate)}
           listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+          disabled={disableFieldsForLG}
           getPopupContainer={() => (document.getElementById("antid") as HTMLElement)}>
           {selec.map((element:any) => {
             var newYear = year + element;

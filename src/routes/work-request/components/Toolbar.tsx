@@ -84,7 +84,7 @@ const Toolbar = ({
               className='search-input'
               style={{ maxWidth: '254', height: '34px', borderRadius:'4px' }}
               placeholder="Search" 
-              suffix={<CloseCircleFilled onClick={handdleClose} style={{color:'#11093c', opacity:'0.5'}}/>}
+              suffix={searchValue?<CloseCircleFilled onClick={handdleClose} style={{color:'#11093c', opacity:'0.5'}}/>:<></>}
               value={searchValue}
               prefix={<SearchOutlined onClick={search} />}
               />

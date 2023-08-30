@@ -6,6 +6,7 @@ import * as datasets from "../../../Config/datasets";
 import { StudyReason } from "./StudyReason";
 import { InformationMaintenance } from "./InformationMaintenance";
 import { InformationAcquisition } from "./InformationAcquisition";
+import { useProjectState } from "hook/projectHook";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -66,6 +67,9 @@ export const ProjectInformation = ({
   year?: any,
   index?: any,
 }) => {
+  const {
+    disableFieldsForLG,
+  } = useProjectState();
   const [studyReasons, setStudyReasons] = React.useState<any[]>([]);
   useEffect(() => {
     if(reason && reason === studyReasons.find((x:any)=> 'Other' === x.name)?.id){
@@ -108,7 +112,7 @@ export const ProjectInformation = ({
         setOtherReason={setOtherReason}
       /></>)}
       <label className="sub-title">Description <Popover content={content00}><img src="../Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-      <TextArea rows={4} placeholder="Add description" onChange={(description) => applyDescription(description)} value={description} />
+      <TextArea rows={4} disabled={disableFieldsForLG} placeholder="Add description" onChange={(description) => applyDescription(description)} value={description} />
       {type && type?.toLowerCase() === NEW_PROJECT_TYPES.Maintenance.toLowerCase() && (<>
         <InformationMaintenance
           frequency={frequency}

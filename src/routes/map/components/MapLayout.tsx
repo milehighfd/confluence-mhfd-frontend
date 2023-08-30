@@ -7,7 +7,7 @@ import {
   PROJECTS_MAP_STYLES,
   MEDIUM_SCREEN_LEFT
 } from 'routes/map/constants/layout.constants';
-import { GOVERNMENT_STAFF, MAP, MEDIUM_SCREEN_RIGHT, PROBLEMS_TRIGGER, WORK_PLAN, WORK_REQUEST } from 'constants/constants';
+import { MAP, MEDIUM_SCREEN_RIGHT, PROBLEMS_TRIGGER, WORK_PLAN, WORK_REQUEST } from 'constants/constants';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
 import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { useNotesState } from 'hook/notesHook';
@@ -19,7 +19,6 @@ import * as datasets from 'Config/datasets';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 import { FiltersContext } from 'utils/filterContext';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
-import ConfigurationService from 'services/ConfigurationService';
 import { BoardDataRequest } from 'Components/Work/Request/RequestTypes';
 import ModalProjectView from 'Components/ProjectModal/ModalProjectView';
 import Analytics from 'Components/Work/Drawers/Analytics';
@@ -43,9 +42,7 @@ const MapLayout = () => {
     tabActiveNavbar
   } = useMapState();
   const {
-    isLocalGovernment,
     userInformation: {
-      designation,
       coordinates: {
         latitude,
         longitude
@@ -84,10 +81,8 @@ const MapLayout = () => {
     setShowCreateProject,
     setShowBoardStatus,
     setVisibleCreateProject,
-    setYearList,
     setLeftWidth,
     setShowFilters,
-    setConfiguredYear,
   } = useRequestDispatch();
   const currentDataForBoard: BoardDataRequest = {
     type: tabActiveNavbar === WORK_REQUEST ? WORK_REQUEST: WORK_PLAN,
@@ -96,28 +91,6 @@ const MapLayout = () => {
     projecttype: tabKey ? tabKey : tabKeys[0],
     position: ''
   };
-
-  useEffect(() => {
-    const initLoading = async () => {
-      let config;
-      try {
-        config = await ConfigurationService.getConfiguration('BOARD_YEAR');
-      } catch (e) {
-        console.log(e);
-      }
-      let boardYearLimit = +config.value;
-      let array = [];
-      for (var i = 0; i < 5; i++) {
-        if (i === 0 && (isLocalGovernment || designation === GOVERNMENT_STAFF) && tabActiveNavbar === WORK_PLAN) {
-          continue;
-        }
-        array.push(boardYearLimit - i);
-      }
-      setConfiguredYear(boardYearLimit);
-      setYearList(array);
-    }
-    initLoading();
-  }, [isLocalGovernment, setYearList, tabActiveNavbar]);
 
   // END WORK REQUEST-WORK-PLAN
 

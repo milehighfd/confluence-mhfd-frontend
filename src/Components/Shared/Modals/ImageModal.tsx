@@ -8,10 +8,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import MapModal from 'routes/detail-page/components/MapModal';
 import * as datasets from '../../../Config/datasets';
 import { SERVER } from 'Config/Server.config';
-import store from '../../../store';
 import { useMapDispatch } from 'hook/mapHook';
 import { useAttachmentState } from 'hook/attachmentHook';
 import { combine } from '@turf/turf';
+import { useProfileState } from 'hook/profileHook';
 
 const ImageModal = ({
   visible,
@@ -38,7 +38,7 @@ const ImageModal = ({
   let carouselRef = useRef<undefined | any>(undefined);
   const [numberCarousel, setNumberCarousel] = useState(1);
   const [numberElementCarousel, setNnumberElementCarousel] = useState(0);
-  const appUser = store.getState().profile;
+  const appUser = useProfileState();
   const email = appUser.userInformation?.email;
   const [favorite, setFavorite] = useState(false);
   const { attachments } = useAttachmentState();

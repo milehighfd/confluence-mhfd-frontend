@@ -8,6 +8,7 @@ const YearDropdown = () => {
   const { year, yearList } = useRequestState();
   const { setYear, setPrioritySelected } = useRequestDispatch();
   const [openYearDropdown, setOpenYearDropdown] = useState(false);
+
   return (
     <Select
       defaultValue={year}
@@ -22,7 +23,8 @@ const YearDropdown = () => {
       }}
       className={'ant-select-2'}>
       {
-        yearList.map((y: number, i: number) => (
+        yearList
+          .map((y: number, i: number) => (
           <Select.Option key={i} value={y} className="custom-option-background">
           {y}
         </Select.Option>
