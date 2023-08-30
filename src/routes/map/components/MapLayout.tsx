@@ -5,9 +5,9 @@ import LoadingView from 'Components/Loading/LoadingView';
 import {
   COMPLETE_SCREEN,
   PROJECTS_MAP_STYLES,
-  MEDIUM_SCREEN_LEFT
+  MEDIUM_SCREEN_LEFT,
 } from 'routes/map/constants/layout.constants';
-import { GOVERNMENT_STAFF, MAP, MEDIUM_SCREEN_RIGHT, PROBLEMS_TRIGGER, WORK_PLAN, WORK_REQUEST } from 'constants/constants';
+import { MAP_TAB, MAP, MEDIUM_SCREEN_RIGHT, PROBLEMS_TRIGGER, WORK_PLAN, WORK_REQUEST } from 'constants/constants';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
 import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { useNotesState } from 'hook/notesHook';
@@ -146,33 +146,7 @@ const MapLayout = () => {
       }
     })];
   }
-  useEffect(() => {
-    if (toggleModalFilter) {
-      console.log('false');
-      setSafeLoading(false);
-    }
-  },[paramFilters]);
-  useEffect(() => {
-    if(!toggleModalFilter) {
-      if (!(spinFilter || spinCardProblems || spinCardProjects || spinMapLoaded)) {
-        console.log('false 2');
-        setSafeLoading(false); 
-      }
-    }
-  }, [spinFilter, spinCardProblems, spinCardProjects, spinMapLoaded])
-  useEffect(() => {
-    console.log('tofggle', toggleModalFilter);
-  }, [toggleModalFilter]);
-  useEffect(() => {
-    console.log('Filter ', filterProjectOptions, 'prob', filterProjectOptions);
-    setSafeLoading(true);
-  }, [filterProjectOptions, filterProblemOptions, filterComponentOptions]);
-  useEffect(() => {
-    if ( applyFilter && boundsMap) {
-      console.log('applyFilter', applyFilter);
-      setSafeLoading(true);
-    }
-  }, [boundsMap, applyFilter]);
+
   useEffect(() => {
     getUserInformation();
     const promises: Promise<any>[] = [];
