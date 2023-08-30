@@ -158,7 +158,8 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
         }
     }, [filterProjectOptions.teams]);
 
-    return <>  <div className="scroll-filters" style={{ height: window.innerHeight - 280 }}>
+    return <>  
+    <div className="scroll-filters" style={{ height: window.innerHeight - 280 }}>
         <div className='filt-00'>
             <h5 className="filter-title chart-filter-title">Personalized <Popover content={content0}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
             <div className='body-filt-00'>

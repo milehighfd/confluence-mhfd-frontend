@@ -5,9 +5,9 @@ import LoadingView from 'Components/Loading/LoadingView';
 import {
   COMPLETE_SCREEN,
   PROJECTS_MAP_STYLES,
-  MEDIUM_SCREEN_LEFT
+  MEDIUM_SCREEN_LEFT,
 } from 'routes/map/constants/layout.constants';
-import { MAP, MEDIUM_SCREEN_RIGHT, PROBLEMS_TRIGGER, WORK_PLAN, WORK_REQUEST } from 'constants/constants';
+import { MAP_TAB, MAP, MEDIUM_SCREEN_RIGHT, PROBLEMS_TRIGGER, WORK_PLAN, WORK_REQUEST } from 'constants/constants';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
 import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { useNotesState } from 'hook/notesHook';
@@ -39,7 +39,7 @@ const MapLayout = () => {
   const {
     selectedLayers,
     galleryProjectsV2,
-    tabActiveNavbar
+    tabActiveNavbar,
   } = useMapState();
   const {
     userInformation: {
