@@ -55,14 +55,11 @@ export const LocationInformation = ({
   const contentSerAre = (<div className="popver-info">This is the MHFD Service Area where the {getLabel()} is located.</div>);
   const contentCounty = (<div className="popver-info">This is the County or Counties where the {getLabel()} is located.</div>);
   const contentJuris = (<div className="popver-info">This is the Local Government(s) where the {getLabel()} is located.</div>);
-  const content03 = (<div className="popver-info">This is the primary local government sponsor that is requesting the project. By default, this attribute matches that of the Work Request. If changed, this project will be sent to the corresponding Work Request.</div>);
-  const content04 = (<div className="popver-info">This is a list of all potential local government co-sponsors which might contribute funding or otherwise participate in the {getLabel()}.</div>);
-
+ 
   const { 
   currentServiceAreaCounty,
   disableFieldsForLG,
   } = useProjectState();
-  const { setServiceAreaCounty } = useProjectDispatch();
   const [, setSArea] = useState(undefined);
   const [, setSCounty] = useState(undefined);
   const { userInformation: user } = useProfileState();
@@ -80,8 +77,6 @@ export const LocationInformation = ({
       return elem;
     }
   }).filter((elem: any) => elem !== 'South Platte River Service Area');
-  const [localities, setLocalities] = useState<any[]>([]);
-
 
   let isLocalGovernment = user.designation === GOVERNMENT_STAFF;
 
@@ -106,19 +101,6 @@ export const LocationInformation = ({
       .catch((e) => {
         console.log(e);
       })             
-  }, []);
-
-  useEffect(() => {
-    datasets.getData(`${SERVER.GET_SPONSOR}`)
-      .then((rows) => {
-        const sponsor = rows.map((row:any) => row.business_name);
-        setLocalities(sponsor);
-      }).catch((e) => {
-        console.log(e);
-    })
-    return () => {
-      setServiceAreaCounty({});
-    }
   }, []);
 
   useEffect(() => {
