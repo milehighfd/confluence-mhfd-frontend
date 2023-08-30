@@ -993,7 +993,11 @@ hr.filters-line {
     padding: 11px 10px;
     padding-right: 8px;
     border-bottom: 1px solid #f0f0f0;
-      border-top: 1px solid transparent;
+    border-top: 1px solid transparent;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    max-width: 100%; 
   }
   .row-geometry-body-selected{
     td {
