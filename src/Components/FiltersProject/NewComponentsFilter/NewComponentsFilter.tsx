@@ -16,7 +16,7 @@ const content3 = (<div className="popoveer-00"><b>Watershed Manager</b> is the M
 const content14 = (<div className="popoveer-00"><b>Action Type</b> is a description of the type of Improvement or Data Point that has been identified at a particular location. (The term "Action" refers to a "Action of the Solution to a Problem," in the context of Capital Projects, or to a "Action of a Problem," in the context of Maintenance Projects.)</div>);
 const content15 = (<div className="popoveer-00"><b>Action Status</b> is the status of implementing an improvement. (The term "Action" refers to a "Action of the Solution to a Problem," in the context of Capital Projects, or to a "Action of a Problem," in the context of Maintenance Projects.)</div>);
 const content16 = (<div className="popoveer-00"><b>Year of Study</b> refers to the year of the Study in which the Action was first identified or proposed.</div>);
-const content17 = (<div className="popoveer-00"><b>Estimated Cost</b> is the Estimated Cost of implementing or addressing a Action as part of a Capital or Maintenance project.</div>);
+const content17 = (<div className="popoveer-00"><b>Estimated Cost</b> is the Estimated Cost of implementing or addressing an Action as part of an Capital or Maintenance project.</div>);
 
 export const NewComponentsFilter = () => {
     const {
