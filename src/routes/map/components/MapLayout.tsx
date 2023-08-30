@@ -44,7 +44,14 @@ const MapLayout = () => {
     filterProjectOptions,
     filterProblemOptions,
     filterComponentOptions,
-    paramFilters
+    paramFilters,
+    toggleModalFilter,
+    applyFilter,
+    spinFilters: spinFilter,
+    spinMapLoaded,
+    spinCardProblems,
+    spinCardProjects,
+    boundsMap
   } = useMapState();
   const {
     isLocalGovernment,
@@ -140,11 +147,32 @@ const MapLayout = () => {
     })];
   }
   useEffect(() => {
-    setSafeLoading(false);
+    if (toggleModalFilter) {
+      console.log('false');
+      setSafeLoading(false);
+    }
   },[paramFilters]);
   useEffect(() => {
+    if(!toggleModalFilter) {
+      if (!(spinFilter || spinCardProblems || spinCardProjects || spinMapLoaded)) {
+        console.log('false 2');
+        setSafeLoading(false); 
+      }
+    }
+  }, [spinFilter, spinCardProblems, spinCardProjects, spinMapLoaded])
+  useEffect(() => {
+    console.log('tofggle', toggleModalFilter);
+  }, [toggleModalFilter]);
+  useEffect(() => {
+    console.log('Filter ', filterProjectOptions, 'prob', filterProjectOptions);
     setSafeLoading(true);
-  }, [filterProjectOptions, filterProblemOptions, filterComponentOptions])
+  }, [filterProjectOptions, filterProblemOptions, filterComponentOptions]);
+  useEffect(() => {
+    if ( applyFilter && boundsMap) {
+      console.log('applyFilter', applyFilter);
+      setSafeLoading(true);
+    }
+  }, [boundsMap, applyFilter]);
   useEffect(() => {
     getUserInformation();
     const promises: Promise<any>[] = [];
