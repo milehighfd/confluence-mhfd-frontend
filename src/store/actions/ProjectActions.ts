@@ -263,7 +263,7 @@ export const editSpecial = (data: any) => {
       }
       dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_EDIT, status });
-      callArcGisProcess(data, res.project_data.project_id, 'edit');
+      callArcGisProcess(data, data.editProject, 'edit');
     })
   };
 };
@@ -298,7 +298,7 @@ export const editAcquisition = (data: any) => {
       }
       dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_EDIT, status });
-      callArcGisProcess(data, res.project_data.project_id, 'edit');
+      callArcGisProcess(data, data.editProject, 'edit');
     })
   };
 };
@@ -333,7 +333,7 @@ export const editStudy = (data: any) => {
       }
       dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_EDIT, status });
-      callArcGisProcess(data, res.project_data.project_id, 'edit');
+      callArcGisProcess(data, data.editProject, 'edit');
     })
   };
 };
@@ -368,7 +368,7 @@ export const editMaintenance = (data: any) => {
       }
       dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_EDIT, status });
-      callArcGisProcess(data, res.project_data.project_id, 'edit');
+      callArcGisProcess(data, data.editProject, 'edit');
     })
   };
 };
@@ -412,7 +412,7 @@ export const editCapital = (data: any) => {
       dispatch(loadColumns());
       dispatch(loadFilters())
       dispatch({ type: types.SET_EDIT, status });
-      callArcGisProcess(data, res.project_data.project_id, 'edit');
+      callArcGisProcess(data, data.editProject, 'edit');
     })
   };
 };
