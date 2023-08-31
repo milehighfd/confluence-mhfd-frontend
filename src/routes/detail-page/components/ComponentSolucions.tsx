@@ -33,7 +33,7 @@ const ComponentSolucions = () => {
     },
     {
       title: <>Cost  <Tooltip title={
-        <div style={{zIndex:"1000"}}><b>Cost</b> is the estimated total cost of the project based on the cost of the underlying components.</div>
+        <div style={{zIndex:"1000"}}>Cost is adjusted for inflation.</div>
       }><ExclamationCircleOutlined style={{opacity:"0.4"}}/></Tooltip></>,
       dataIndex: 'cost',
       key: 'cost',
