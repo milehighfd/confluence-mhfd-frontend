@@ -566,25 +566,34 @@ export const ModalCapital = ({
         } else {
           let missingFields = [];
           if (!description) missingFields.push('Description');
-          if (!county.length) missingFields.push('County');
-          if (!serviceArea.length) missingFields.push('Service Area');
-          if (!jurisdiction.length) missingFields.push('Jurisdiction');
+          if (!county?.length) missingFields.push('County');
+          if (!serviceArea?.length) missingFields.push('Service Area');
+          if (!jurisdiction?.length) missingFields.push('Jurisdiction');
           if (!nameProject) missingFields.push('Project Name');
           if (!sponsor) missingFields.push('Sponsor');
-          const isGeom = (selectedTypeProject === 'capital' || selectedTypeProject === 'maintenance' || selectedTypeProject === 'study');
+          const isGeom = (selectedTypeProject === 'capital' || selectedTypeProject === 'maintenance');
           const isPin = (selectedTypeProject === 'acquisition' || selectedTypeProject === 'special');
-          if (isGeom && !geom?.length && !isCountyWide) missingFields.push('Geometry');
+          let geomLengthFlag = false;
+          if ((Array.isArray(geom) && geom?.length > 0) || (typeof geom === 'object' && geom !== null && Object.keys(geom)?.length > 0)) {
+            geomLengthFlag = true;
+          } else {
+            geomLengthFlag = false;
+          }
+          console.log(geom)
+          if (isGeom && !geomLengthFlag && !isCountyWide) missingFields.push('Geometry');
           if (isPin && !geom && !isCountyWide) missingFields.push('Pin');
+          if (selectedTypeProject === 'study' && !geomLengthFlag && !isCountyWide) missingFields.push('Geometry');
           if (selectedTypeProject === 'study' && !studyreason) missingFields.push('Study Reason');
-          if (selectedTypeProject === 'capital' && !componentsToSave.length && !thisIndependentComponents.length) missingFields.push('Proposed Actions or Independent Actions');
+          if (selectedTypeProject === 'capital' && !componentsToSave?.length && !thisIndependentComponents?.length) missingFields.push('Proposed Actions or Independent Actions');
           if (selectedTypeProject === 'acquisition' && !progress) missingFields.push('Progress');
           if (selectedTypeProject === 'acquisition' && !purchaseDate) missingFields.push('Purchase Date');
+          if (selectedTypeProject === 'maintenance' && !frequency) missingFields.push('Frequency');
+          if (selectedTypeProject === 'maintenance' && !eligibility) missingFields.push('Eligibility');
           handleErrorNotification(missingFields);
         }
       }
     })
   };
-
   //Check if required fields are filled to enable save button
   useEffect(()=>{   
     const checkIfIndependentHaveName = () => {
@@ -598,16 +607,28 @@ export const ModalCapital = ({
       // false if one doesnt have 
       return result;
     }
-    let disableEditForLG = disabledLG && isWorkPlan && swSave;
-    if ((geom || isCountyWide) && !disableEditForLG) {
-      if (description && county.length && serviceArea.length && jurisdiction.length && nameProject && sponsor && nameProject !== 'Add Project Name' && checkIfIndependentHaveName()) {
-        if (selectedTypeProject === 'study' && studyreason) {
+    let disableEditForLG = disabledLG && isWorkPlan && swSave;    
+    if (!disableEditForLG) {  
+      console.log(geom)  
+      const pinFlag = (selectedTypeProject === 'acquisition'
+        || selectedTypeProject === 'special')
+        && (geom || isCountyWide);
+      let geomLengthFlag = false;
+      if ((Array.isArray(geom) && geom?.length > 0) || (typeof geom === 'object' && geom !== null && Object.keys(geom)?.length > 0)) {
+        geomLengthFlag = true;
+      } else {
+        geomLengthFlag = false;
+      }
+      if (description && county?.length && serviceArea?.length && jurisdiction?.length && nameProject && sponsor && nameProject !== 'Add Project Name' && checkIfIndependentHaveName()) {
+        if (selectedTypeProject === 'study' && studyreason && geomLengthFlag) {
           setDisable(false);
-        } else if (selectedTypeProject === 'capital' && (thisIndependentComponents.length > 0 || componentsToSave.length > 0)) {
+        } else if (selectedTypeProject === 'capital' && (thisIndependentComponents?.length > 0 || componentsToSave?.length > 0) && geomLengthFlag) {
           setDisable(false);
-        } else if (selectedTypeProject === 'special' || selectedTypeProject === 'maintenance') {
+        } else if (selectedTypeProject === 'special' && pinFlag) {
           setDisable(false);
-        } else if (selectedTypeProject === 'acquisition' && progress && purchaseDate) {
+        } else if (selectedTypeProject === 'maintenance' && geomLengthFlag && frequency && eligibility) {
+          setDisable(false);
+        } else if (selectedTypeProject === 'acquisition' && progress && purchaseDate && pinFlag) {
           setDisable(false);
         } else {
           setDisable(true);
