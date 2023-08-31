@@ -6,7 +6,7 @@ import LoadingViewOverall from "../../Components/Loading-overall/LoadingViewOver
 import { MEDIUM_SCREEN_LEFT, MEDIUM_SCREEN_RIGHT } from "../../constants/constants";
 import WorkRequestMap from "../../Components/WorkRequestMap/WorkRequestMap";
 import { AlignCenterOutlined, AppstoreOutlined, DownOutlined, SearchOutlined, UpOutlined } from "@ant-design/icons";
-import ListViewBody from "./components/ListViewBody";
+// import ListViewBody from "./components/ListViewBody";
 
 const ListView = () => {
   const emptyStyle: React.CSSProperties = {};
@@ -94,7 +94,7 @@ const ListView = () => {
                 </Button>
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: rightWidth }}>
-              <ListViewBody />
+              {/* <ListViewBody /> */}
             </Col>
           </Row>
           }
