@@ -1027,6 +1027,15 @@ const MapView = () => {
   };
 
   const onResetClick = () => {
+    if (tabActive === '0') {
+      setKeywordProblem('');
+      setProblemKeyword('');
+      getGalleryProblems();
+    } else {
+      setKeywordProject('');
+      setProjectKeyword('');
+      getGalleryProjects();
+    }
     if (toggleModalFilter) {
       switch (filterTabNumber) {
         case PROBLEMS_TRIGGER:
@@ -1040,16 +1049,6 @@ const MapView = () => {
           break;
       }
     } else {
-
-      if (tabActive === '0') {
-        setKeywordProblem('');
-        setProblemKeyword('');
-        getGalleryProblems();
-      } else {
-        setKeywordProject('');
-        setProjectKeyword('');
-        getGalleryProjects();
-      }
       switch(tabCards) {
         case PROBLEMS_TRIGGER:
           resetFilterProblems();

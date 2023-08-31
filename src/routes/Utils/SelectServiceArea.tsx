@@ -25,9 +25,13 @@ const SelectServiceArea = ({
   useEffect(() => {    
     datasets.getData(`${SERVER.ALL_GROUP_ORGANIZATION}`)
       .then((rows) => {
-        setServiceAreaList(rows.servicearea.map((item: any) => {
-            return { key: item.code_service_area_id, value: item.service_area_name, label : item.service_area_name }
-        }).filter((data:any)=>!!data.value));
+        const serviceAreaList = rows.servicearea.map((item: any) => {
+          return { key: item.code_service_area_id, value: item.service_area_name, label : item.service_area_name }
+        }).filter((data:any)=>!!data.value);
+  
+        serviceAreaList.sort((a:any, b:any) => a.label.localeCompare(b.label)); // sort alphabetically by label
+  
+        setServiceAreaList(serviceAreaList);
       })
       .catch((e) => {
         console.log(e);

@@ -76,7 +76,7 @@ const Toolbar = ({
   return (
     <Fragment>
       <div className='work-header-buttons'>
-        <div style={{ display: showSearch ? 'inline-block' : 'none' }} className='input-search-wr-wp'>
+        <div style={{ display: 'inline-block' }} className='input-search-wr-wp'>
           <Space size="large">
             <Input
               onChange={handdleSearch}
@@ -91,7 +91,7 @@ const Toolbar = ({
           </Space>
         </div>
         <Button
-          style={{ display: showSearch ? 'none' : 'inline-block' }}
+          style={{ display: 'none' }}
           className='buttons1'
           type='link'
         >

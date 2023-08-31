@@ -1,13 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Tabs, Popover } from 'antd';
 
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER, COMPONENT_LAYERS, PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER } from '../../constants/constants';
+import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER, COMPONENT_LAYERS, PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER, MAP_TAB } from '../../constants/constants';
 import { FiltersProjectTypes } from "../../Classes/MapTypes";
 import { useMapDispatch, useMapState } from "../../hook/mapHook";
 import { NewProblemsFilter } from "./NewProblemsFilter/NewProblemsFilter";
 import { NewProjectsFilter } from "./NewProjectsFilter/NewProjectsFilter";
 import { NewComponentsFilter } from "./NewComponentsFilter/NewComponentsFilter";
 import ApplyMapViewFilter from "routes/map/components/ApplyMapViewFilter";
+import LoadingViewSidebar from "Components/Loading-sidebar/LoadingViewSidebar";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER];
 
@@ -24,24 +25,30 @@ const FiltersProjectView = ({
     setTabActive
 }: FiltersProjectTypes) => {
     const {
-        getGalleryProblems, 
-        getGalleryProjects,
-        updateSelectedLayers,
+      getGalleryProblems, 
+      getGalleryProjects,
+      updateSelectedLayers,
     } = useMapDispatch();
     const {
-        galleryProblems,
-        boundsMap,
-        paramFilters: {
-            components: paramComponents
-          },
+      galleryProblems,
+      boundsMap,
+      paramFilters: {
+          components: paramComponents
+        },
+      selectedLayers,
+      galleryProjectsV2,
+      tabActiveNavbar,
+      filterProjectOptions,
+      filterProblemOptions,
+      filterComponentOptions,
+      paramFilters,
+      toggleModalFilter,
+      applyFilter,
+      spinFilters: spinFilter,
+      spinMapLoaded,
+      spinCardProblems,
+      spinCardProjects,
     } = useMapState();
-    const {
-        selectedLayers,
-        filterProblemOptions,
-        filterProjectOptions,
-        spinFilters: spinFilter,
-        galleryProjectsV2
-      } = useMapState();
     const genExtra = () => (
         <ApplyMapViewFilter
             onCheck={() => {
@@ -50,6 +57,7 @@ const FiltersProjectView = ({
             }}
         />
     );
+    const [safeLoading, setSafeLoading] = useState(false);
     const {
         setFilterTabNumber,
         getParamFilterProblems,
@@ -71,7 +79,28 @@ const FiltersProjectView = ({
         // commented to avoid error in network pending, lets check how to get the counter of components
         //getTabCounters(boundsMap, filterProblemOptions, filterProjectOptions, filterComponentOptions);
     }, [])
-
+    useEffect(() => {
+      if (toggleModalFilter) {
+        setSafeLoading(false);
+      }
+    },[paramFilters]);
+    useEffect(() => {
+      if(!toggleModalFilter) {
+        if (!(spinFilter || spinCardProblems || spinCardProjects || spinMapLoaded)) {
+          setSafeLoading(false); 
+        }
+      }
+    }, [spinFilter, spinCardProblems, spinCardProjects, spinMapLoaded])
+    useEffect(() => {
+      if ( tabActiveNavbar === MAP_TAB) {
+        setSafeLoading(true);
+      }
+    }, [filterProjectOptions, filterProblemOptions, filterComponentOptions]);
+    useEffect(() => {
+      if ( applyFilter && boundsMap && tabActiveNavbar === MAP_TAB) {
+        setSafeLoading(true);
+      }
+    }, [boundsMap, applyFilter]);
     const getTotalValue = (tabindex: number) => {
         switch (tabindex) {
             case 0:
@@ -84,8 +113,9 @@ const FiltersProjectView = ({
                 break;
         }
     }
-    return <>
-        { <Tabs activeKey={tabPosition} tabBarExtraContent={genExtra()} onChange={(key) => setTabPosition(key)} className="tabs-map over-00"onTabClick={(e: string) => {
+    return <> 
+        {safeLoading && <LoadingViewSidebar />}
+        <Tabs activeKey={tabPosition} tabBarExtraContent={genExtra()} onChange={(key) => setTabPosition(key)} className="tabs-map over-00"onTabClick={(e: string) => {
             if (e === '0') {
                 setTabActive('0');
                 setFilterTabNumber(PROBLEMS_TRIGGER);
@@ -122,7 +152,7 @@ const FiltersProjectView = ({
                     </TabPane>
                 );
             })}
-        </Tabs>}
+        </Tabs>
     </>
 };
 
