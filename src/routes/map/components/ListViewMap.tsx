@@ -324,7 +324,7 @@ const ListViewMap = ({
         setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');      
         return 0
       },
-      render: (text: any) => <span className={"status-projects-"+ (text.toLowerCase())}>{text}</span>,
+      render: (text: any) => <span className={"status-projects-"+ (text ? text.toLowerCase() : 'draft')}>{text}</span>,
     },
     {
       title: 'Phase',
