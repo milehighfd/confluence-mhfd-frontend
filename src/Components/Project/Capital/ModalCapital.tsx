@@ -574,15 +574,14 @@ export const ModalCapital = ({
           const isGeom = (selectedTypeProject === 'capital' || selectedTypeProject === 'maintenance');
           const isPin = (selectedTypeProject === 'acquisition' || selectedTypeProject === 'special');
           let geomLengthFlag = false;
-          if ((Array.isArray(geom) && geom?.length > 0) || (typeof geom === 'object' && geom !== null && Object.keys(geom)?.length > 0)) {
+          if (geom?.coordinates || streamIntersected?.geom) {
             geomLengthFlag = true;
           } else {
             geomLengthFlag = false;
           }
-          console.log(geom)
           if (isGeom && !geomLengthFlag && !isCountyWide) missingFields.push('Geometry');
           if (isPin && !geom && !isCountyWide) missingFields.push('Pin');
-          if (selectedTypeProject === 'study' && !geomLengthFlag && !isCountyWide) missingFields.push('Geometry');
+          if (selectedTypeProject === 'study' && !streamsIntersectedIds.length && !isCountyWide) missingFields.push('Geometry');
           if (selectedTypeProject === 'study' && !studyreason) missingFields.push('Study Reason');
           if (selectedTypeProject === 'capital' && !componentsToSave?.length && !thisIndependentComponents?.length) missingFields.push('Proposed Actions or Independent Actions');
           if (selectedTypeProject === 'acquisition' && !progress) missingFields.push('Progress');
@@ -595,7 +594,7 @@ export const ModalCapital = ({
     })
   };
   //Check if required fields are filled to enable save button
-  useEffect(()=>{   
+  useEffect(()=>{
     const checkIfIndependentHaveName = () => {
       let result = true;
       thisIndependentComponents.forEach((comp: any) => {
@@ -609,18 +608,17 @@ export const ModalCapital = ({
     }
     let disableEditForLG = disabledLG && isWorkPlan && swSave;    
     if (!disableEditForLG) {  
-      console.log(geom)  
       const pinFlag = (selectedTypeProject === 'acquisition'
         || selectedTypeProject === 'special')
         && (geom || isCountyWide);
       let geomLengthFlag = false;
-      if ((Array.isArray(geom) && geom?.length > 0) || (typeof geom === 'object' && geom !== null && Object.keys(geom)?.length > 0)) {
+      if (geom?.coordinates || streamIntersected?.geom) {
         geomLengthFlag = true;
       } else {
         geomLengthFlag = false;
       }
       if (description && county?.length && serviceArea?.length && jurisdiction?.length && nameProject && sponsor && nameProject !== 'Add Project Name' && checkIfIndependentHaveName()) {
-        if (selectedTypeProject === 'study' && studyreason && geomLengthFlag) {
+        if (selectedTypeProject === 'study' && studyreason && (streamsIntersectedIds.length)) {
           setDisable(false);
         } else if (selectedTypeProject === 'capital' && (thisIndependentComponents?.length > 0 || componentsToSave?.length > 0) && geomLengthFlag) {
           setDisable(false);
@@ -652,6 +650,9 @@ export const ModalCapital = ({
     thisIndependentComponents,
     progress,
     purchaseDate,
+    streamsIntersectedIds,
+    frequency,
+    eligibility
   ]);
 
   useEffect(() => {
