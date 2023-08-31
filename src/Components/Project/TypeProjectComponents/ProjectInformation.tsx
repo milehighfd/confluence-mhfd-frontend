@@ -46,6 +46,8 @@ export const ProjectInformation = ({
   setPurchaseDate,
   year,
   index,
+  isRoutine,
+  setIsRoutine,
 }:{
   type?: string, 
   description: string, 
@@ -66,6 +68,8 @@ export const ProjectInformation = ({
   setPurchaseDate?: any,
   year?: any,
   index?: any,
+  isRoutine?: any,
+  setIsRoutine?: any,
 }) => {
   const {
     disableFieldsForLG,
@@ -121,6 +125,8 @@ export const ProjectInformation = ({
           applyOwnership={applyOwnership}
           eligibility={eligibility}
           applyEligibility={applyEligibility}
+          isRoutine = {isRoutine}
+          setIsRoutine = {setIsRoutine}
         />
       </>)}
       {type && type?.toLowerCase() === NEW_PROJECT_TYPES.Acquisition.toLowerCase() && (
