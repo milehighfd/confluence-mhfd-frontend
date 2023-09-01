@@ -565,7 +565,7 @@ export const ModalCapital = ({
   const handleOk = (e: any) => {
     datasets.postData(SERVER.CHECK_PROJECT_NAME, { project_name: nameProject }, datasets.getToken()).then(data => {
       if (data.exists && !swSave) {
-        handleRepeatedNotification();
+        handleNotification(`Project name already exists.`);
       } else {
         if (!disable) {
           setVisibleAlert(true);
@@ -595,23 +595,25 @@ export const ModalCapital = ({
           if (selectedTypeProject === 'maintenance' && !frequency) missingFields.push('Frequency');
           if (selectedTypeProject === 'maintenance' && !eligibility) missingFields.push('Eligibility');
           handleErrorNotification(missingFields);
+          if (thisIndependentComponents.length && !checkIfIndependentHaveName()) {
+            handleNotification(`Independent components should have a name.`);
+          }
         }
       }
     })
   };
-  //Check if required fields are filled to enable save button
-  useEffect(()=>{
-    const checkIfIndependentHaveName = () => {
+
+  const checkIfIndependentHaveName = () => {
       let result = true;
       thisIndependentComponents.forEach((comp: any) => {
         if(!comp.name || comp.name === 'Proposed Actions'){
           result = false;
         }
       });
-      // true if all have name 
-      // false if one doesnt have 
       return result;
     }
+  //Check if required fields are filled to enable save button
+  useEffect(()=>{    
     let disableEditForLG = disabledLG && isWorkPlan && swSave;    
     if (!disableEditForLG) {  
       const pinFlag = (selectedTypeProject === 'acquisition'
@@ -1079,8 +1081,7 @@ export const ModalCapital = ({
     openNotification(`Warning! Required ${inputText} are missing below.`, "warning", message);
   }
 
-  const handleRepeatedNotification = () => {
-    const message = `Project name already exists.`;
+  const handleNotification = (message: string) => {
     openNotification(`Warning!`, "warning", message);
   }
   

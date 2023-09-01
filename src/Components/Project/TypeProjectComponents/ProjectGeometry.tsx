@@ -143,7 +143,7 @@ export const ProjectGeometry = ({
                   className='ico-delete'
                   disabled={disableFieldsForLG}
                   onClick={() => {
-                    if (disableFieldsForLG) {
+                    if (!disableFieldsForLG) {
                       removeStreamByName(record)
                     }
                   }
@@ -231,7 +231,6 @@ export const ProjectGeometry = ({
         if (mhfd_NameToRemove === 'Unnamed Streams') {
           return id.str_name;
         } else {
-          console.log('TEST', id , id.mhfd_code ? id.mhfd_code !== mhfd_codeToRemove : id.mhfd_code_full !== mhfd_codeToRemove, 'id.mhfd_code ,', id.mhfd_code , 'mhfd_codeToRemove', mhfd_codeToRemove, 'id.mhfd_code_full', id.mhfd_code_full);
           return id.mhfd_code_full ? id.mhfd_code_full !== mhfd_codeToRemove : id.mhfd_code !== mhfd_codeToRemove; 
         }
       });
