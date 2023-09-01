@@ -26,6 +26,7 @@ const ListViewMap = ({
   const size = 20;
   let totalElement = cardInformation?.length || 0;  
   const [isLoading, setIsLoading] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const [dataSet, setDataSet] = useState<any>([]);
   const [dataProjects, setDataProjects] = useState<any>([]);
   const [dataProblems, setDataProblems] = useState<any>([]);
@@ -283,26 +284,17 @@ const ListViewMap = ({
         setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');      
         return 0
       },
-      render: (text: any, record:any) => <div className="content-project-name"><p className="project-name">{text}</p>
-        <Popover
-          overlayClassName="pop-card-map"
-          content={menu(record)}
-          placement="bottom"
-          trigger="click"
-          visible={openedDropdownKey === record.project_id}
-          onVisibleChange={(visible) => {
-            console.log(record)
-            if (visible) {
-              setOpenedDropdownKey(record.project_id);
-            } else {
-              setOpenedDropdownKey(null);
-            }
-          }}
-        >
-          <MoreOutlined onClick={(e) => {
-            e.stopPropagation();
-          }} className="more-ico" />
-        </Popover></div>,
+      render: (name: any, record:any) =>
+              <div className='name-project-sec'>
+                <Popover placement="top" content={<>
+                  <p className="main-map-list-name-popover-text">{name}</p>
+                  </>}>
+                  <span className='name'>{name}</span>
+                </Popover>
+                <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={name} trigger="click" style={{marginRight:'-10px',cursor: 'pointer'}}>
+                  <MoreOutlined onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} className='dots-table'/>
+                </Popover>
+              </div>,
     },
     {
       title: 'Type',
@@ -406,7 +398,8 @@ const ListViewMap = ({
         <MoreOutlined onClick={(e) => {
             e.stopPropagation();
           }}  className="more-ico" />
-      </Popover></div>,
+      </Popover>
+      </div>,
     },
     {
       title: 'Type',
