@@ -1,7 +1,8 @@
 import React from 'react';
-import { Col, Row, Table } from 'antd';
+import { Col, Row, Table, Tooltip } from 'antd';
 import { useDetailedState } from 'hook/detailedHook';
 import { useMapState } from 'hook/mapHook';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 const ComponentSolucionsByProblems = () => {
   const { detailed } = useDetailedState();
@@ -31,7 +32,9 @@ const ComponentSolucionsByProblems = () => {
       sorter: (a: any, b: any) => a?.length - b?.length,
     },
     {
-      title: <>Cost</>,
+      title: <>Cost <Tooltip title={
+        <div style={{zIndex:"1000"}}>Cost is adjusted for inflation.</div>
+      }><ExclamationCircleOutlined style={{opacity:"0.4"}}/></Tooltip></>,
       dataIndex: 'estimated_cost',
       key: 'estimated_cost',
       width: '20%',
