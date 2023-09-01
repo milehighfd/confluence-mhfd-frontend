@@ -128,8 +128,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue, selectedData, 
       .enter()
       .append('text')
       .text(function (d: any) {
-        return (d.data?.id===1 ? `Study (${d.data.counter} ${labelValues})` : d.data?.key +` (${d.data.counter} ${labelValues})` );
-        // return (isProb ? d.data?.key?.split(' ')[1] + ' (':'') + d.data.counter + (isProb ? ')':'') + ' ' + labelValues
+        return (d.data?.id===1 ? `Study (${d.data.counter} ${labelValues})` : (d.data?.key).replace(/ /g,'') +` (${d.data.counter} ${labelValues})` );
       })
       .attr("transform", (d: any, i) => {
         // let xo = (i<3 ? -radius + (i * separationJump) - 42 : -radius + ((i-3) * separationJump) - 42);
