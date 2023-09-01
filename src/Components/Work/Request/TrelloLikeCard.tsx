@@ -15,6 +15,7 @@ import { useRequestState } from 'hook/requestHook';
 import { STATUS_NAMES } from 'constants/constants';
 import EditDatesModal from './EditDatesModal';
 import { useProfileState } from 'hook/profileHook';
+import EditAmountModuleModal from './EditAmountModuleModal';
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -225,7 +226,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
         editable= {editable}
     />
     }
-    <AmountModal
+    <EditAmountModuleModal
       project={project}
       visible={showAmountModal}
       setVisible={setShowAmountModal}
