@@ -225,11 +225,11 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
         editable= {editable}
     />
     }
-    <AmountModal
+    {showAmountModal && <AmountModal
       project={project}
       visible={showAmountModal}
       setVisible={setShowAmountModal}
-      />
+      />}
       {/* New Modal Edit date */}
     {/* <EditDatesModal visible={showAmountModal}
       setVisible={setShowAmountModal} /> */}
