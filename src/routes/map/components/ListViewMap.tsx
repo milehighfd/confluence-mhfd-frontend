@@ -416,13 +416,24 @@ const ListViewMap = ({
         return 0
       },
     },
+    // {
+    //   title: 'Priority',
+    //   dataIndex: 'problempriority',
+    //   key: 'problempriority',
+    //   width: windowWidth > 1900 ? windowWidth > 2500 ? '199px':'140px':'86px',
+    //   sorter: (a, b, sortOrder) => {
+    //     setSortBy('problem_severity')
+    //     setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
+    //     return 0
+    //   },
+    // },
     {
-      title: 'Priority',
-      dataIndex: 'problempriority',
-      key: 'problempriority',
-      width: windowWidth > 1900 ? windowWidth > 2500 ? '199px':'140px':'86px',
+      title: 'Actions',
+      dataIndex: 'actions',
+      key: 'actions',
+      width: windowWidth > 1900 ? windowWidth > 2500 ? '224px':'159px':'110px',
       sorter: (a, b, sortOrder) => {
-        setSortBy('problem_severity')
+        setSortBy('component_count')
         setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
         return 0
       },
@@ -445,17 +456,6 @@ const ListViewMap = ({
       width: windowWidth > 1900 ? windowWidth > 2500 ? '261px':'187px':'131px',
       sorter: (a, b, sortOrder) => {
         setSortBy('local_government')
-        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
-        return 0
-      },
-    },
-    {
-      title: 'Actions',
-      dataIndex: 'actions',
-      key: 'actions',
-      width: windowWidth > 1900 ? windowWidth > 2500 ? '224px':'159px':'110px',
-      sorter: (a, b, sortOrder) => {
-        setSortBy('component_count')
         setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
         return 0
       },
