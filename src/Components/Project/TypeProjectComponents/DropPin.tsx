@@ -37,6 +37,7 @@ export const DropPin = ({
   const {specialLocation, acquisitionLocation, isAddLocation, disableFieldsForLG} = useProjectState();
   const [location, setLocation] =useState();
   const [isLocation, setIsLocation] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
   const {changeAddLocationState} = useProjectDispatch();
   const dataSource = [
     {
@@ -74,7 +75,7 @@ export const DropPin = ({
     if(acquisitionLocation.geom && typeProject === 'acquisition') {
       setLatitude(parseFloat(acquisitionLocation.geom.coordinates[0][0][1]).toFixed(2)    );
       setLongitude(parseFloat(acquisitionLocation.geom.coordinates[0][0][0]).toFixed(2)   );
-      setLocation(acquisitionLocation.geom);
+      // setLocation(acquisitionLocation.geom);
       setGeom(acquisitionLocation.geom);
     } else {
       setLocation(undefined);
@@ -85,11 +86,20 @@ export const DropPin = ({
   useEffect(()=>{
     setGeom(location);
   },[location]);
+
+  useEffect(()=>{
+    if(isEdit === true ){
+      setGeom('');
+    }
+  },[isEdit]);
+
   useEffect(()=>{
     if(isAddLocation === true ){
       setIsEditingPosition(true);
+      setIsEdit(true);
     } else {
       setIsEditingPosition(false);
+      setIsEdit(false);
     }
     if(!isAddLocation) {
       setIsLocation(isAddLocation);
