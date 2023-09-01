@@ -88,33 +88,42 @@ const AmountModal = ({ project, visible, setVisible }: {
     return totalSum;
   }
 
-  useEffect(()=>{
-    getComponentsByProjectId(project?.project_id);
-  },[project])
+  useEffect(() => {
+    if (tabKey === 'Capital') {
+      getComponentsByProjectId(project?.project_id);
+    }
+  }, [project])
 
-  useEffect(()=>{
-    const costComponents = listComponents?.result?.map((item: any) => {
-      return item.original_cost;
-    });    
-    const totalComponents = costComponents?.reduce((acc:any, curr:any) => acc + curr, 0);
-    const costProject = cost?.projectData?.currentCost?.map((item: any) => {
-      return item.cost;
-    });
-    const totalProject = costProject?.reduce((acc:any, curr:any) => acc + curr, 0);
-    setRequestFunding(+totalComponents+ totalProject);
-  },[listComponents,cost])
+  useEffect(() => {
+    if (tabKey === 'Capital') {
+      const costComponents = listComponents?.result?.map((item: any) => {
+        return item.original_cost;
+      });
+      const totalComponents = costComponents?.reduce((acc: any, curr: any) => acc + curr, 0);
+      const costProject = cost?.projectData?.currentCost?.map((item: any) => {
+        return item.cost;
+      });
+      const totalProject = costProject?.reduce((acc: any, curr: any) => acc + curr, 0);
+      const totalIndependent = cost?.projectData?.independent_actions.map((item: any) => {
+        return item.cost;
+      });
+      const totalIndependentCost = totalIndependent?.reduce((acc: any, curr: any) => acc + curr, 0);
+      let totalCost = totalComponents + totalProject + totalIndependentCost;
+      setRequestFunding(isNaN(totalCost) ? 0 : totalCost);
+    }
+  }, [listComponents, cost])
 
   useEffect(() => {
     if (!visible) return;
     datasets.getData(SERVER.BOARD_PROJECT_COST(board_project_id))
       .then((res: any) => {
         setCost(res);
-        console.log(res)
       })
       .catch((err: any) => {
         console.log(err);
       });
   }, [board_project_id, visible]);
+
   return (
     <Modal
       title="How much funding from MHFD is being requested for the following years:"
