@@ -275,6 +275,7 @@ const ListViewMap = ({
       title: 'Project Name',
       width: windowWidth > 1900 ? windowWidth > 2500 ? '490px':'368px':'220px',
       dataIndex: 'name',
+      className:'project-name',
       key: 'name',
       fixed: 'left',
       sorter: (a, b, sortOrder) => {
@@ -308,6 +309,7 @@ const ListViewMap = ({
       width: windowWidth > 1900 ? windowWidth > 2500 ? '250px':'200px':'147px',
       dataIndex: 'type',
       key: 'type',
+      className:'project-type',
       sorter: (a, b, sortOrder) => {
         setSortBy('projecttype')
         setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');      
@@ -318,6 +320,7 @@ const ListViewMap = ({
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
+      className:'project-status',
       width: windowWidth > 1900 ? windowWidth > 2500 ? '199px':'140px':'86px',      
       sorter: (a, b, sortOrder) => {
         setSortBy('status')
@@ -364,7 +367,7 @@ const ListViewMap = ({
       title: 'Est. Cost',
       dataIndex: 'cost',
       key: 'cost',      
-      width: windowWidth > 1900 ? windowWidth > 2500 ? '202':'143px':'108px',
+      width: windowWidth > 1900 ? windowWidth > 2500 ? '202px':'143px':'108px',
       sorter: (a, b, sortOrder) => {
         setSortBy('estimatedcost')
         setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');      
@@ -637,7 +640,7 @@ const changeCenter = (id:any, coordinateP:any) => {
           columns={columnsProblem} 
           dataSource={dataProblems} 
           pagination={false} 
-          scroll={{x: windowWidth>1900? 1174: 996, y: 'calc(100vh - 315px)' }}
+          scroll={{x: windowWidth > 1900 ? windowWidth > 2500 ? 1651: 1238: 816, y: 'calc(100vh - 315px)' }}
           rowClassName={(record, index) => {
             if(selectedOnMap.id !== -1 && record.cartodb === selectedOnMap.id){
               return ('row-geometry-body-selected')
