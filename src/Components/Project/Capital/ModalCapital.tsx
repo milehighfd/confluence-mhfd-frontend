@@ -595,7 +595,7 @@ export const ModalCapital = ({
           if (selectedTypeProject === 'maintenance' && !frequency) missingFields.push('Frequency');
           if (selectedTypeProject === 'maintenance' && !eligibility) missingFields.push('Eligibility');
           if (thisIndependentComponents.length && !checkIfIndependentHaveName()) {
-            missingFields.push('Independent component name');
+            missingFields.push('Independent actions name');
           }
           if (missingFields.length > 0) {
             handleErrorNotification(missingFields);
