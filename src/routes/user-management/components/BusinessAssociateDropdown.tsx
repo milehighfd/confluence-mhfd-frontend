@@ -104,11 +104,21 @@ const BusinessAssociatesDropdown = ({
       onSelect={onSelect}
       onSearch={onSearch}
       value={keyword}
-      // filterOption={(inputValue: any, option: any) => {
-      //     const element = dataMenu.find((el: any) => +el.key === option.key)?.label || '';
-      //     return element.toUpperCase().includes(inputValue.toUpperCase());;
-      //   }
-      // }
+      filterOption={(inputValue: any, option: any) => {
+        if (inputValue) {
+          const upperInputValue = inputValue.toUpperCase();
+          const element = dataMenu.find((el: any) => +el.key === option.key)?.label || '';
+          const upperElement = element.toUpperCase();
+      
+          const pattern = new RegExp(`\\b${upperInputValue}\\b`, 'g');
+          if (upperElement.match(pattern) === null) {
+            return false;
+          }else{
+            return true;
+          }
+        }
+        return true;
+      }}
       placeholder="Select Business Associates"
       listHeight={windowWidth > 2554 ? (windowWidth > 3799 ? 500 : 320) : 256}
     />

@@ -204,7 +204,8 @@ export const ModalCapital = ({
   const [frequency, setFrequency] = useState('');
   const [eligibility, setEligibility] = useState('');
   const [ownership, setOwnership] = useState(true);
-  const [subType, setSubType] = useState(subTypeInit||'');
+  const [subType, setSubType] = useState(subTypeInit || '');
+  const [isRoutine, setIsRoutine] = useState(false);
   //study 
   const [studyreason, setStudyReason] = useState<any>('');
   const [otherReason, setOtherReason] = useState('');
@@ -360,12 +361,16 @@ export const ModalCapital = ({
         if (data?.project_details[0]?.maintenance_frequency === null) {
           setFrequency('');
         } else {
-          console.log(data?.project_details[0]?.maintenance_frequency, 'frequency')
           if (data?.project_details[0]?.maintenance_frequency === 0) {
             setFrequency('None');
           } else {
             setFrequency(data?.project_details[0]?.maintenance_frequency);
           }
+        }
+        if (data?.project_details[0]?.is_routine) {
+          setIsRoutine(true);
+        }else{
+          setIsRoutine(false);
         }
         if (data?.project_details[0]?.is_public_ownership === true) {
           console.log(data?.project_details[0]?.is_public_ownership === true);
@@ -486,6 +491,7 @@ export const ModalCapital = ({
       }     
       //maintenance
       if (selectedTypeProject === 'maintenance') {
+        capital.is_routine = isRoutine;
         capital.geom = streamIntersected.geom;
         capital.projectsubtype = subType;
         capital.frequency = frequency === 'None' ? 0 : frequency;
@@ -574,15 +580,14 @@ export const ModalCapital = ({
           const isGeom = (selectedTypeProject === 'capital' || selectedTypeProject === 'maintenance');
           const isPin = (selectedTypeProject === 'acquisition' || selectedTypeProject === 'special');
           let geomLengthFlag = false;
-          if ((Array.isArray(geom) && geom?.length > 0) || (typeof geom === 'object' && geom !== null && Object.keys(geom)?.length > 0)) {
+          if (geom?.coordinates || streamIntersected?.geom) {
             geomLengthFlag = true;
           } else {
             geomLengthFlag = false;
           }
-          console.log(geom)
           if (isGeom && !geomLengthFlag && !isCountyWide) missingFields.push('Geometry');
           if (isPin && !geom && !isCountyWide) missingFields.push('Pin');
-          if (selectedTypeProject === 'study' && !geomLengthFlag && !isCountyWide) missingFields.push('Geometry');
+          if (selectedTypeProject === 'study' && !streamsIntersectedIds.length && !isCountyWide) missingFields.push('Geometry');
           if (selectedTypeProject === 'study' && !studyreason) missingFields.push('Study Reason');
           if (selectedTypeProject === 'capital' && !componentsToSave?.length && !thisIndependentComponents?.length) missingFields.push('Proposed Actions or Independent Actions');
           if (selectedTypeProject === 'acquisition' && !progress) missingFields.push('Progress');
@@ -595,7 +600,7 @@ export const ModalCapital = ({
     })
   };
   //Check if required fields are filled to enable save button
-  useEffect(()=>{   
+  useEffect(()=>{
     const checkIfIndependentHaveName = () => {
       let result = true;
       thisIndependentComponents.forEach((comp: any) => {
@@ -609,26 +614,25 @@ export const ModalCapital = ({
     }
     let disableEditForLG = disabledLG && isWorkPlan && swSave;    
     if (!disableEditForLG) {  
-      console.log(geom)  
       const pinFlag = (selectedTypeProject === 'acquisition'
         || selectedTypeProject === 'special')
         && (geom || isCountyWide);
       let geomLengthFlag = false;
-      if ((Array.isArray(geom) && geom?.length > 0) || (typeof geom === 'object' && geom !== null && Object.keys(geom)?.length > 0)) {
+      if ((geom?.coordinates || streamIntersected?.geom)) {
         geomLengthFlag = true;
       } else {
         geomLengthFlag = false;
       }
       if (description && county?.length && serviceArea?.length && jurisdiction?.length && nameProject && sponsor && nameProject !== 'Add Project Name' && checkIfIndependentHaveName()) {
-        if (selectedTypeProject === 'study' && studyreason && geomLengthFlag) {
+        if (selectedTypeProject === 'study' && studyreason && (streamsIntersectedIds.length || isCountyWide)) {
           setDisable(false);
-        } else if (selectedTypeProject === 'capital' && (thisIndependentComponents?.length > 0 || componentsToSave?.length > 0) && geomLengthFlag) {
+        } else if (selectedTypeProject === 'capital' && (thisIndependentComponents?.length > 0 || componentsToSave?.length > 0) && (geomLengthFlag || isCountyWide)) {
           setDisable(false);
-        } else if (selectedTypeProject === 'special' && pinFlag) {
+        } else if (selectedTypeProject === 'special' && (pinFlag || isCountyWide)) {
           setDisable(false);
-        } else if (selectedTypeProject === 'maintenance' && geomLengthFlag && frequency && eligibility) {
+        } else if (selectedTypeProject === 'maintenance' && (geomLengthFlag || isCountyWide) && frequency && eligibility) {
           setDisable(false);
-        } else if (selectedTypeProject === 'acquisition' && progress && purchaseDate && pinFlag) {
+        } else if (selectedTypeProject === 'acquisition' && progress && purchaseDate && (pinFlag || isCountyWide)) {
           setDisable(false);
         } else {
           setDisable(true);
@@ -652,6 +656,10 @@ export const ModalCapital = ({
     thisIndependentComponents,
     progress,
     purchaseDate,
+    streamsIntersectedIds,
+    frequency,
+    eligibility,
+    isCountyWide
   ]);
 
   useEffect(() => {
@@ -1154,6 +1162,8 @@ export const ModalCapital = ({
                 setProgress={setProgress}
                 purchaseDate={purchaseDate}
                 setPurchaseDate={setPurchaseDate}
+                isRoutine={isRoutine}
+                setIsRoutine={setIsRoutine}
                 year={year}
                 index= {indexForm++}
               />

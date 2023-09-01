@@ -2460,6 +2460,72 @@
   }
 }
 
+@media (max-width: 875.98px) {
+  .detailed-header{
+    h1{
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 97%;
+      font-size: 16px;
+    }
+    .detail-header-info {
+      text-align: center;
+    }
+    .detailed-header .detailed-header-button-layout {
+      display: block;
+    }
+    .detailed-header-button-transparent{
+      position: absolute;
+      display: block !important;
+      right: 9px;
+      top: 7px;
+    }
+    .detailed-header-button-margin {
+      padding-top: 0px;
+      line-height: 17px;
+    }
+  }
+  .mobile-no-visibility{
+    display: none;
+  }
+  .detailed-body-info {
+    padding: 40px 12px 80px 12px;
+    font-size: 14px;
+  }
+  .placeholder-carousel {
+    height: 180px;
+  }
+  .detailed-body .ant-carousel .slick-slide img {
+    height: 180px;
+    object-fit: cover;
+  }
+  .placeholder-carousel-background {
+    height: 180px;
+  }
+  .mobile-padding{
+    padding-left: 0px !important;
+  }
+  .detail-problems-component-table  {
+    .ant-table {
+      font-size: 12px;
+    }
+    .ant-table-column-sorter{
+      display: none;
+    }
+    .ant-table-thead {
+      th{
+        font-weight: 600;
+      }
+    }
+  }
+  .detailed-body{
+    .mapboxgl-map {
+      height: 280px !important;
+    }
+  }
+}
+
 // @media (min-width: 3800px) and (max-width: 5999px) {
 //   .detailed-modal {
 //     top: 99px !important;

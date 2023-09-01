@@ -552,7 +552,7 @@ const DetailModal = ({
                 )}
               </div>
             </Col>
-            <Col xs={{ span: 10 }} lg={typeS === FILTER_PROBLEMS_TRIGGER ? { span: 10 } : { span: 5 }}>
+            <Col xs={{ span: 24 }} lg={typeS === FILTER_PROBLEMS_TRIGGER ? { span: 10 } : { span: 5 }}>
               <div className="detailed-header-button-layout">
                 {detailed?.problemtype ? (
                   <>
@@ -566,7 +566,7 @@ const DetailModal = ({
                       <Progress percent={detailed?.solutionstatus ? detailed.solutionstatus : 0} />
                     </div>
                     <div className="detailed-header-button-margin">
-                      <p className="fix-margin-top">Cost</p>
+                      <p className="fix-margin-top mobile-no-visibility">Cost</p>
                       <b>
                         {detailed?.component_cost != null
                           ? '$' +
@@ -590,7 +590,7 @@ const DetailModal = ({
                     </b>
                   </div>
                 )}
-                <Button className="detailed-header-button-circle" onClick={downloadPdf}>
+                <Button className="detailed-header-button-circle mobile-no-visibility" onClick={downloadPdf}>
                   <img src="/Icons/icon-01.svg" alt="" style={{ margin: '1px -10px', height: '17px' }} />
                 </Button>
                 <Button className="detailed-header-button-circle fix-margin-left" onClick={copyUrl}>
@@ -598,14 +598,18 @@ const DetailModal = ({
                 </Button>
               </div>
             </Col>
-            <Col xs={{ span: 4 }} lg={{ span: 1 }} style={{ textAlign: 'right' }}>
+            <Col xs={{ span: 4 }} lg={{ span: 1 }} style={{ textAlign: 'right' }} className='mobile-no-visibility'>
               <Tooltip title="Close Window">
                 <Button className="detailed-header-button-transparent" onClick={() => setVisible(false)}>
                   <img src="/Icons/icon-62.svg" alt="" height="15px" />
                 </Button>
               </Tooltip>
             </Col>
+              <Button className="detailed-header-button-transparent" onClick={() => setVisible(false)} style={{display:'none'}}>
+                <img src="/Icons/icon-62.svg" alt="" height="15px" />
+              </Button>
           </Row>
+         
           {!detailed?.problemtype && (
             <div className="detailed-tabs-layout">
               <p
