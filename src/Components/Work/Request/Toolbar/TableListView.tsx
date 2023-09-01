@@ -339,7 +339,15 @@ const TableListView = ({
             fixed: 'left',
             render: (name: any, record:any) =>
               <div className='name-project-sec'>
-                <span className='name'>{name}</span>
+                <Popover placement="top" content={<>
+                  <b>{name}</b>
+                  <br />
+                  <b>Project: </b> {record.projectData.project_id} 
+                  <br />
+                  <b>Board project: </b> {record.board_project_id}
+                  </>}>
+                  <span className='name'>{name}</span>
+                </Popover>
                 <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={content(record)} trigger="click" style={{marginRight:'-10px',cursor: 'pointer'}}>
                   <MoreOutlined onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} className='dots-table'/>
                 </Popover>
@@ -494,7 +502,12 @@ const TableListView = ({
           />
         }
         <div className='table-map-list'>
-            <Table columns={filteredColumns} dataSource={parsedData} pagination={false} scroll={{ x:  windowWidthSize > 1900 ? (windowWidthSize > 2500 ? 1766:1406) : 1166, y: 'calc(100vh - 270px)' }} summary={() => (
+            <Table
+              columns={filteredColumns}
+              dataSource={parsedData}
+              pagination={false}
+              scroll={{ x:  windowWidthSize > 1900 ? (windowWidthSize > 2500 ? 1766:1406) : 1166, y: 'calc(100vh - 270px)' }}
+              summary={() => (
                 <Table.Summary fixed={ 'bottom'}  >
                   <Table.Summary.Row  style={{ height: '40px' }}>
                       <Table.Summary.Cell index={0}  >
