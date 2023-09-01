@@ -1770,6 +1770,10 @@
   .ant-table tfoot > tr > td,
   .ant-table tfoot > tr > th {
     padding: 11px 4.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    max-width: 100%; 
   }
   .span-submitted {
     background: rgba(255, 221, 0, 0.2);
@@ -1806,6 +1810,10 @@
     font-weight: 400;
     line-height: 18px; /* 150% */
     letter-spacing: 0.171px;
+    white-space: nowrap;
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    max-width: 100%; 
   }
   .span-active {
     display: initial;
