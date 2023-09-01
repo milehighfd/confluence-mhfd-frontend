@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { GOVERNMENT_STAFF, WORK_PLAN, WORK_REQUEST } from 'constants/constants';
+import { GOVERNMENT_STAFF, WORK_PLAN } from 'constants/constants';
 import { useProfileState } from 'hook/profileHook';
 import { AutoComplete, Input } from 'antd';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import { YEAR_LOGIC_2024, YEAR_LOGIC_2022, MMFD_LOCALITY, MMFD_LOCALITY_TYPE, WORK_PLAN_TAB } from 'constants/constants';
+import { postData } from 'Config/datasets';
+import { GET_STATUS } from 'Config/endpoints/board';
+import { useMapState } from 'hook/mapHook';
 
 const windowWidth: any = window.innerWidth;
 
@@ -22,12 +25,13 @@ const AutoCompleteDropdown = (
     localities,
     year,
     tabKeys,
-    tabKey,
     locality,
     boardStatus,
     filterRequest,
-    namespaceId,    
   } = useRequestState();
+  const {
+    tabActiveNavbar,
+  } = useMapState();
   const {
     setShowAnalytics,
     setShowBoardStatus,
@@ -40,14 +44,13 @@ const AutoCompleteDropdown = (
     setProjectStatusesSelected,
     setIsLocatedInSouthPlateRiverSelected,
     setLocalityType,
-    setTabKey,
     setIsOnSelected,
     setFilterRequest,
     loadColumns,
     setDisableFilterComponent
   } = useRequestDispatch();
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
-  const [dropdownSelected, setDropdownSelected] = useState('');
+  const [inputClassName, setInputClassName] = useState('not-approved');
   const renderOption = (item: string) => {
     return {
       key: `${item}|${item}`,
@@ -58,11 +61,9 @@ const AutoCompleteDropdown = (
   useEffect(() => {
     if (type === WORK_PLAN_TAB) {
       if (year >= YEAR_LOGIC_2024) {
-        setDropdownSelected(MMFD_LOCALITY)
         setLocalityFilter(MMFD_LOCALITY);
         setLocalityType(MMFD_LOCALITY_TYPE);
         setLocality('MHFD District Work Plan');
-        // setTabKey(tabKeys[0]);
       } else {
         setDisableFilterComponent(false,'county')
         setDisableFilterComponent(false,'service_area')        
@@ -71,7 +72,6 @@ const AutoCompleteDropdown = (
   }, [year]);
 
   const onSelect = async (value: any) => {
-    setDropdownSelected(value);
     setShowAnalytics(false);
     setShowBoardStatus(false);
     setIsOnSelected(true);
@@ -150,15 +150,40 @@ const AutoCompleteDropdown = (
           setDisableFilterComponent(false,'county')
           setDisableFilterComponent(false,'service_area')
         }
-      } else {
-        if (!tabKeys.includes(tabKey)) {
-          // setTabKey(tabKeys[0]);
-        }
       }
     }
   };
+
+  useEffect(() => {
+    if (tabActiveNavbar !== WORK_PLAN || year < YEAR_LOGIC_2024) {
+      if (boardStatus === 'Approved') {
+        setInputClassName('approved');
+      } else {
+        setInputClassName('not-approved');
+      }
+    } else {
+      const getMhfdDistrictWorkPlan = async () => {
+        let mhfdStatus;
+        try {
+          mhfdStatus = await postData(GET_STATUS, {
+            type: WORK_PLAN,
+            year: `${year}`,
+            locality: 'MHFD District Work Plan',
+          });
+        } catch (error) {
+          console.log(error);
+        }
+        if (mhfdStatus.status === 'Approved') {
+          setInputClassName('approved');
+        } else {
+          setInputClassName('not-approved');
+        }
+      };
+      getMhfdDistrictWorkPlan();
+    }
+  }, [boardStatus, tabActiveNavbar, year, localityFilter]);
+
   const prefix = <i className="mdi mdi-circle" style={{ marginLeft: '-6px', zIndex: '3' }}></i>;
-  const inputClassName = boardStatus === 'Approved' ? 'approved' : 'not-approved';
   let showAllOptions = true;
   let isLocalGovernment = userInformation.designation === GOVERNMENT_STAFF;
   if (isLocalGovernment) {
@@ -185,7 +210,7 @@ const AutoCompleteDropdown = (
             onSearch={(input2: any) => {
               setLocalityFilter(input2);
               if (localities.map((r: any) => r.name).indexOf(input2) !== -1) {
-setLocality(input2)
+                setLocality(input2)
                 setIsOnSelected(false);
                 let l = localities.find((p: any) => {
                   return p.name === locality;
