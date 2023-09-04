@@ -54,6 +54,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   const [showActivateProject, setShowActivateProject] = useState(false);
   const [archiveAlert, setArchiveAlert] = useState(false);
   const [archiveProjectAction , setArchiveProjectAction] = useState(false);
+  const activeProject = project?.projectData?.currentId[0]?.status_name === 'Active';
   const appUser = useProfileState();
   const pageWidth  = document.documentElement.scrollWidth;
   const getCompleteProjectData = async () => {
@@ -133,17 +134,21 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
         })
       });
     }
-    items.push({
-      key: '6',
-      label: <span style={{borderBottom: '1px solid transparent'}}>
-        <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
-        Make Project Active
-      </span>,
-      onClick: (() => {setShowActivateProject(true)})
-    })
+    if (project?.projectData?.currentId[0]?.status_name !== 'Active'){
+      items.push({
+        key: '6',
+        label: <span style={{borderBottom: '1px solid transparent'}}>
+          <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
+          Make Project Active
+        </span>,
+        onClick: (() => {
+          setShowActivateProject(true)
+        })
+      })
+    }    
     return (<Menu className="js-mm-00" items={items} />)
   };
-
+  
   const onDragStart = (e: any, id: any) => {
     e.dataTransfer.setData('text', JSON.stringify({id, fromColumnIdx: columnIdx}));
   }
@@ -265,7 +270,13 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
       setVisible={setShowActivateProject}
       project={project?.projectData}
     />}
-    <div ref={divRef} className="card-wr" style={{ borderLeft: `${pageWidth > 2000? (pageWidth > 3000? '6':'5'):'3'}px solid ${borderColor}`, borderRadius: '4px' }} draggable={editable && !filtered}
+    <div 
+      style={activeProject ? { border: '1.5px solid #1753EF' } : {}}>
+    <div ref={divRef} className="card-wr" 
+      style={{ 
+        borderLeft: `${pageWidth > 2000? (pageWidth > 3000? '6':'5'):'3'}px solid ${borderColor}`, 
+        borderRadius: '4px' 
+      }} draggable={editable && !filtered}
       onDragStart={e => {
         onDragStart(e, project_id);
       }}
@@ -328,6 +339,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
           
         </div>
       
+    </div>
     </div>
     </>
   )
