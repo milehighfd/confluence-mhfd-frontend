@@ -12,6 +12,7 @@ import { useProfileState } from 'hook/profileHook';
 import AmountModal from '../AmountModal';
 import ModalProjectView from 'Components/ProjectModal/ModalProjectView';
 import { postData } from 'Config/datasets';
+import { ArchiveAlert } from 'Components/Alerts/ArchiveAlert';
 
 const TableListView = ({
   maintenanceSubType
@@ -37,6 +38,10 @@ const TableListView = ({
   const [filteredColumns, setFilteredColumns] = useState<any[]>([]);
   const [showCopyToCurrentYearAlert, setShowCopyToCurrentYearAlert] = useState(false);
   const [boardProjectIds, setBoardProjectIds] = useState<any[]>([]);
+  const [showActivateProject, setShowActivateProject] = useState(false);
+  const [archiveAlert, setArchiveAlert] = useState(false);
+  const [archiveProjectAction , setArchiveProjectAction] = useState(false);
+  const [archiveProjectId, setArchiveProjectId] = useState(0);
   const windowWidthSize: any = window.innerWidth;
   const appUser = useProfileState();
   const formatter = new Intl.NumberFormat('en-US', {
@@ -325,7 +330,11 @@ const TableListView = ({
           <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
           Archive Project
         </span>,
-        onClick: (() => archiveProject(record?.projectData?.project_id))
+        onClick: (() => {
+          setArchiveAlert(true)
+          setArchiveProjectId(record?.projectData?.project_id)
+          //archiveProject(record?.projectData?.project_id)
+        })
       });
     }    
     return (<Menu className="js-mm-00" items={items} />)
@@ -384,7 +393,7 @@ const TableListView = ({
             dataIndex: 'name',
             width: '276px',
             fixed: 'left',
-            render: (name: any, record:any) =>
+            render: (name: any, record:any) =>            
               <div className='name-project-sec'>
                 <Popover placement="top" content={<>
                   <b>{name}</b>
@@ -394,10 +403,16 @@ const TableListView = ({
                   <b>Board project: </b> {record.board_project_id}
                   </>}>
                   <span className='name'>{name}</span>
-                </Popover>
-                <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={content(record)} trigger="click" style={{marginRight:'-10px',cursor: 'pointer'}}>
-                  <MoreOutlined onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} className='dots-table'/>
-                </Popover>
+                </Popover>                
+                <Popover
+                  placement="bottom"
+                  overlayClassName="work-popover menu-item-custom dots-menu"
+                  content={content(record)}
+                  trigger="click"
+                  style={{ marginRight: '-10px', cursor: 'pointer' }}
+                >
+                  <MoreOutlined onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} className='dots-table' />
+                </Popover>    
               </div>,
             sorter: {
                 compare: (a: { name: string; }, b: { name: string; }) => a.name.localeCompare(b.name),
@@ -523,6 +538,13 @@ const TableListView = ({
       };
 
     useEffect(() => {
+      if (archiveProjectAction) {
+        archiveProject(archiveProjectId)
+        setArchiveProjectAction(false)
+      }
+    }, [archiveProjectAction])
+
+    useEffect(() => {
         window.addEventListener('resize', updateWindowSize);
         return () => {
           window.removeEventListener('resize', updateWindowSize);
@@ -530,6 +552,14 @@ const TableListView = ({
       }, [])
     return (
       <>
+        {
+          archiveAlert &&
+          <ArchiveAlert
+            visibleAlert={archiveAlert}
+            setVisibleAlert={setArchiveAlert}
+            setArchiveProjectAction={setArchiveProjectAction}
+          />
+        }
         {
           showModalProject &&
           <ModalProjectView
