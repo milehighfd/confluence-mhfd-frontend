@@ -42,18 +42,18 @@ const EditAmountModuleModal = ({ project, visible, setVisible }: {project: any; 
 
   useEffect(() => {
     console.log('project', project);
-    console.log(listCounties(project))
+    console.log(listCounties(project));
   }, [project]);
 
-  const listCounties = (project:any) =>{
+  const listCounties = (project: any) => {
     let counties = '';
     project?.projectData?.project_counties?.forEach((element: any) => {
       counties = counties + element.county_name + ', ';
     });
     return counties.slice(0, counties.length - 2);
-  }
+  };
 
-  const listServiceAreas = (project:any) =>{
+  const listServiceAreas = (project: any) => {
     let serviceArea = '';
     project?.projectData?.project_service_areas?.forEach((element: any) => {
       serviceArea = serviceArea + element.service_area_name + ', ';
@@ -128,7 +128,10 @@ const EditAmountModuleModal = ({ project, visible, setVisible }: {project: any; 
       <Row className="edit-amount-modal-header">
         <Col className="edit-amount-modal-header-text">
           <h2>{project?.projectData?.project_name}</h2>
-          <p>{project?.projectData?.code_project_type?.project_type_name} Project • {listCounties(project)} County • {listServiceAreas(project)} Service Area</p>
+          <p>
+            {project?.projectData?.code_project_type?.project_type_name} Project • {listCounties(project)} County •{' '}
+            {listServiceAreas(project)} Service Area
+          </p>
         </Col>
         <Col>
           <p>Status</p>
