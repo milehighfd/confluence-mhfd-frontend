@@ -45,7 +45,7 @@ export const ArchiveAlert = ({
           </p>
         </Col>
       </Row>
-      <Row>
+      <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white', paddingTop:'0px'}}>
         <Col
           xs={{ span: 24 }}
           lg={{ span: 12 }}
