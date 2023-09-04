@@ -3,10 +3,24 @@ import React, { useEffect, useState } from 'react';
 import * as datasets from 'Config/datasets';
 import { SERVER } from "Config/Server.config";
 import { formatter } from "./RequestViewUtil";
+import { useRequestState } from 'hook/requestHook';
+import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 
 const EditAmountModuleModal = ({ project, visible, setVisible }: {project: any; visible: boolean; setVisible: Function }) => {
   
+  const {
+    year: startYear,
+    tabKey,
+    namespaceId
+  } = useRequestState();
+  const {
+    listComponents
+  } = useProjectState();
+  const {
+    getComponentsByProjectId,
+  } = useProjectDispatch();
   const { board_project_id } = project;
+  const [requestFunding, setRequestFunding] = useState<any>(0);
   const [cost, setCost] = useState<any>({
     req1: null,
     req2: null,
@@ -65,6 +79,32 @@ const EditAmountModuleModal = ({ project, visible, setVisible }: {project: any; 
     return totalSum;
   }
   useEffect(() => {
+    if (tabKey === 'Capital') {
+      getComponentsByProjectId(project?.project_id);
+    }
+  }, [project])
+
+  useEffect(() => {
+    if (tabKey === 'Capital') {
+      console.log('listComponents', listComponents)
+      const costComponents = listComponents?.result?.map((item: any) => {
+        return item.original_cost;
+      });
+      const totalComponents = costComponents?.reduce((acc: any, curr: any) => acc + curr, 0);
+      const costProject = cost?.projectData?.currentCost?.map((item: any) => {
+        return item.cost;
+      });
+      const totalProject = costProject?.reduce((acc: any, curr: any) => acc + curr, 0);
+      const totalIndependent = cost?.projectData?.independent_actions.map((item: any) => {
+        return item.cost;
+      });
+      const totalIndependentCost = totalIndependent?.reduce((acc: any, curr: any) => acc + curr, 0);
+      let totalCost = totalComponents + totalProject + totalIndependentCost;
+      setRequestFunding(isNaN(totalCost) ? 0 : totalCost);
+    }
+  }, [listComponents, cost])
+
+  useEffect(() => {
     if (!visible) return;
     datasets.getData(SERVER.BOARD_PROJECT_COST(board_project_id))
       .then((res: any) => {
@@ -100,7 +140,7 @@ const EditAmountModuleModal = ({ project, visible, setVisible }: {project: any; 
         </Col>
         <Col>
           <p>Estimated Cost</p>
-          <h1>{formatter.format(getSumOfcosts())}</h1>
+          <h1>{formatter.format(requestFunding)}</h1>
         </Col>
       </Row>
       <Col className="edit-amount-modal-body">

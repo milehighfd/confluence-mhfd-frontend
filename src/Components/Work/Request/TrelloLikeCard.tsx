@@ -232,8 +232,9 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
       setVisible={setShowAmountModal}
       />}
       {/* New Modal Edit date */}
-    <EditDatesModal visible={showAmountModal}
-      setVisible={setShowAmountModal} />
+      {/* add false to avoid to trigger modal on edit amount */}
+    {false && <EditDatesModal visible={showAmountModal}
+      setVisible={setShowAmountModal} />}
     <div ref={divRef} className="card-wr" style={{ borderLeft: `${pageWidth > 2000? (pageWidth > 3000? '6':'5'):'3'}px solid ${borderColor}`, borderRadius: '4px' }} draggable={editable && !filtered}
       onDragStart={e => {
         onDragStart(e, project_id);
