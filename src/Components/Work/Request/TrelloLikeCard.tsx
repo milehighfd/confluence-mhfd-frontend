@@ -15,6 +15,7 @@ import { useRequestState } from 'hook/requestHook';
 import { STATUS_NAMES } from 'constants/constants';
 import EditDatesModal from './EditDatesModal';
 import { useProfileState } from 'hook/profileHook';
+import { ArchiveAlert } from 'Components/Alerts/ArchiveAlert';
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -51,6 +52,8 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   const [completeProjectData, setCompleteProjectData] = useState<any>(null);
   const [showCopyToCurrentYearAlert, setShowCopyToCurrentYearAlert] = useState(false);
   const [showActivateProject, setShowActivateProject] = useState(false);
+  const [archiveAlert, setArchiveAlert] = useState(false);
+  const [archiveProjectAction , setArchiveProjectAction] = useState(false);
   const appUser = useProfileState();
   const pageWidth  = document.documentElement.scrollWidth;
   const getCompleteProjectData = async () => {
@@ -124,7 +127,10 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
           <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
           Archive Project
         </span>,
-        onClick: (() => archiveProject(project?.projectData?.project_id))
+        onClick: (() => {
+          setArchiveAlert(true)
+          //archiveProject(project?.projectData?.project_id)
+        })
       });
     }
     items.push({
@@ -150,6 +156,13 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   useEffect(() => {
     setAmount(project[`req${columnIdx}`])
   }, [project, columnIdx]);
+
+  useEffect(() => {
+    if (archiveProjectAction) {
+      archiveProject(project?.projectData?.project_id)
+      setArchiveProjectAction(false)
+    }
+  }, [archiveProjectAction])
   
   useEffect(() => {
     if (completeProjectData) {
@@ -216,6 +229,14 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
 
   return (
     <>
+    {
+      archiveAlert &&
+      <ArchiveAlert
+        visibleAlert={archiveAlert}
+        setVisibleAlert={setArchiveAlert}
+        setArchiveProjectAction={setArchiveProjectAction}
+      />
+    }
     {
       showCopyToCurrentYearAlert &&
       <CopyProjectAlert
@@ -285,7 +306,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
             </Popover>
             <label className="yellow" style={{color, backgroundColor,marginRight:'-10px'}}>{status}</label>
             {
-              !(showAmountModal || showModalProject || showCopyToCurrentYearAlert || showActivateProject) &&
+              !(showAmountModal || showModalProject || showCopyToCurrentYearAlert || showActivateProject || archiveAlert) &&
               <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={content} trigger="click" style={{marginRight:'-10px',cursor: 'pointer'}}>
                 <div className="dot-position" onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
                   <MoreOutlined className="menu-wr" style={{marginTop:'3px', width:'3px', cursor: 'pointer'}}>
