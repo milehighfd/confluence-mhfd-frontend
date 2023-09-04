@@ -644,6 +644,17 @@
       box-shadow: 0px 4px 40px 0px rgba(0, 0, 0, 0.04);
     }
   }
+  .body-edit-dates-step2 {
+    height: 350px;
+    .tollgate-header {
+      padding: 0px !important;
+      .tollgate-body{
+        height: 311px;
+        padding-top: 2px;
+      }
+    }
+
+  }
   .foot-edit-dates {
     text-align: end;
     padding: 16px 0px 0px 0px;
@@ -910,6 +921,26 @@
           font-size: 19px;
         }
       }
+    }
+  }
+  .work-modal-edit-dates{
+    width: 775px !important;
+    .header-step{
+      .step{
+        p{
+          font-style: 14px;
+        }
+      }
+    }
+    .body-edit-dates-step2{
+      height: 487px !important;
+    }
+    .body-edit-dates{
+      height: 487px !important;
+    }
+    // height: 1040px !important;
+    .ant-modal-content{
+      height: 803px !important;
     }
   }
 }

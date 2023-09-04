@@ -320,7 +320,7 @@ const EditDatesModal = ({
         </div>
       )}
       {step === 2 && (
-        <div className="body-edit-dates">
+        <div className="body-edit-dates-step2">
           <div style={{ display: 'flex' }}>
             <span className="span-dots-heder">
               <div className="circulo" style={{ backgroundColor: '#5E5FE2' }} />
