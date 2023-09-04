@@ -1,8 +1,21 @@
 import { Col, Input, Modal, Row } from 'antd';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import * as datasets from 'Config/datasets';
+import { SERVER } from "Config/Server.config";
+import { formatter } from "./RequestViewUtil";
 
 const EditAmountModuleModal = ({ project, visible, setVisible }: {project: any; visible: boolean; setVisible: Function }) => {
   
+  const { board_project_id } = project;
+  const [cost, setCost] = useState<any>({
+    req1: null,
+    req2: null,
+    req3: null,
+    req4: null,
+    req5: null,
+    year1: null,
+    year2: null,
+  })
   const statusColor:any = {
     1: {color: '#FF8938', backgroundColor: 'rgba(255, 221, 0, 0.3)', projectStatus: 'Draft'},
     2: {color: '#9309EA', backgroundColor: 'rgba(94, 61, 255, 0.15)', projectStatus: 'Requested'},
@@ -34,10 +47,34 @@ const EditAmountModuleModal = ({ project, visible, setVisible }: {project: any; 
     return serviceArea.slice(0, serviceArea.length - 2);
   }
   
-    const getColorAndStatus = (status: string) => {
-      const {color, backgroundColor, projectStatus} = statusColor[status] || defaultColor;
-      return <span style={{color, backgroundColor}}>{projectStatus}</span>;
+  const getColorAndStatus = (status: string) => {
+    const {color, backgroundColor, projectStatus} = statusColor[status] || defaultColor;
+    return <span style={{color, backgroundColor}}>{projectStatus}</span>;
+  }
+  
+  const getSumOfcosts = () => {
+    let totalSum = 0;
+    console.log('costt', cost)
+    for(let key in cost) {
+      if(key.includes('req')){
+        console.log('key', key, cost[key])
+        totalSum += cost[key];
+      }
     }
+    console.log('totalSum', totalSum)
+    return totalSum;
+  }
+  useEffect(() => {
+    if (!visible) return;
+    datasets.getData(SERVER.BOARD_PROJECT_COST(board_project_id))
+      .then((res: any) => {
+        console.log('cost',res)
+        setCost(res);
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+    }, [board_project_id, visible]);
 
   return (
     <Modal
@@ -59,11 +96,11 @@ const EditAmountModuleModal = ({ project, visible, setVisible }: {project: any; 
         </Col>
         <Col>
           <p>Phase</p>
-          <span style={{ backgroundColor: '#E3EDF5', color: '#288CC4' }}>Consultant Procurement</span>
+          <span style={{ backgroundColor: '#E3EDF5', color: '#288CC4' }}>{project?.projectData?.currentId[0]?.phase_name}</span>
         </Col>
         <Col>
           <p>Estimated Cost</p>
-          <h1>$5,262,129</h1>
+          <h1>{formatter.format(getSumOfcosts())}</h1>
         </Col>
       </Row>
       <Col className="edit-amount-modal-body">

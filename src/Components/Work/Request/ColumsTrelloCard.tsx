@@ -42,6 +42,9 @@ const ColumsTrelloCard = ({
   }, []);
 
   useEffect(() => {
+    console.log('columns', columns);
+  }, [columns]);
+  useEffect(() => {
     setTimeout(() => {
       if (document.getElementById(`column_${tabKey}_1`)) {
         scrollValues.forEach((element: any, index: any) => {
