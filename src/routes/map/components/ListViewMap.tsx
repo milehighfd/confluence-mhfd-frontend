@@ -135,12 +135,13 @@ const ListViewMap = ({
   useEffect(() => {
     if (type === FILTER_PROBLEMS_TRIGGER) {
       const z1 = cardInformation?.slice(0, size).map((ci: any) => {
+        let totalCost = ci?.componentCost?.toLocaleString('en-US', { style: 'currency', currency: 'USD',  minimumFractionDigits: 0, maximumFractionDigits: 0 });
         let output = {
           requestName: ci?.requestName,
           type: ci?.type,
           problempriority: ci?.priority,
           problemtype: ci?.problemtype,
-          cost: ci?.estimatedCost,
+          cost: totalCost || 0,
           local_government: ci?.jurisdiction,
           actions: ci?.count,
           percentaje: ci?.percentage,
@@ -453,7 +454,7 @@ const ListViewMap = ({
     },
     {
       title: 'Cost',
-      dataIndex: 'solutioncost',
+      dataIndex: 'cost',
       key: 'cost',
       width: windowWidth > 1900 ? windowWidth > 2500 ? '224px':'159px':'100px',
       sorter: (a, b, sortOrder) => {
@@ -514,8 +515,25 @@ const fetchMoreData = async () => {
     setTimeout(() => {
       const auxState = { ...state };
       const newItems = Array.from({ length: size }).map((_, index) => cardInformation[state.items.length + index]);
-      auxState.items = state.items.concat(newItems);
-      setDataProblems([...dataProblems, ...newItems]);
+      const newParsedItems = newItems.map((ci: any) => {
+        let totalCost = ci?.componentCost?.toLocaleString('en-US', { style: 'currency', currency: 'USD',  minimumFractionDigits: 0, maximumFractionDigits: 0 });
+        let output = {
+          requestName: ci?.requestName,
+          type: ci?.type,
+          problempriority: ci?.priority,
+          problemtype: ci?.problemtype,
+          cost: totalCost || 0,
+          local_government: ci?.jurisdiction,
+          actions: ci?.count,
+          percentaje: ci?.percentage,
+          problemid: ci?.problemid,
+          coordinates: ci?.coordinates,
+          cartodb: ci?.cartodb_id,
+        };
+        return output;
+      });
+      auxState.items = state.items.concat(newParsedItems);
+      setDataProblems([...dataProblems, ...newParsedItems]);
       setState(auxState);
     }, 500);
   } else {
