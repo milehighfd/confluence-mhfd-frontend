@@ -271,99 +271,116 @@ const ListViewMap = ({
   },[sortBy, sortOrder])
   
 
-  const columnsProjects: ColumnsType<any>  = [
+  const columnsProjects: ColumnsType<any> = [
     {
       title: 'Project Name',
-      width: windowWidth > 1900 ? windowWidth > 2500 ? '490px':'368px':'220px',
+      width: windowWidth > 1900 ? (windowWidth > 2500 ? '490px' : '368px') : '220px',
       dataIndex: 'name',
-      className:'project-name',
+      className: 'project-name',
       key: 'name',
       fixed: 'left',
       sorter: (a, b, sortOrder) => {
-        setSortBy('projectname')
-        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');      
-        return 0
+        setSortBy('projectname');
+        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
+        return 0;
       },
-      render: (name: any, record:any) =>
-              <div className='name-project-sec'>
-                <Popover placement="top" content={<>
-                  <p className="main-map-list-name-popover-text">{name}</p>
-                  </>}>
-                  <span className='name'>{name}</span>
-                </Popover>
-                <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={name} trigger="click" style={{marginRight:'-10px',cursor: 'pointer'}}>
-                  <MoreOutlined onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} className='dots-table'/>
-                </Popover>
-              </div>,
+      render: (name: any, record: any) => (
+        <div className="content-project-name">
+          <Popover placement="top" content={<p className="main-map-list-name-popover-text">{name}</p>}>
+            <p className="project-name">{name}</p>
+          </Popover>
+          <Popover
+            overlayClassName="pop-card-map"
+            content={menu(record)}
+            placement="bottom"
+            trigger="click"
+            visible={openedDropdownKey === record.project_id}
+            onVisibleChange={visible => {
+              console.log(record);
+              if (visible) {
+                setOpenedDropdownKey(record.project_id);
+              } else {
+                setOpenedDropdownKey(null);
+              }
+            }}
+          >
+            <MoreOutlined
+              onClick={e => {
+                e.stopPropagation();
+              }}
+              className="more-ico"
+            />
+          </Popover>
+        </div>
+      ),
     },
     {
       title: 'Type',
-      width: windowWidth > 1900 ? windowWidth > 2500 ? '250px':'200px':'147px',
+      width: windowWidth > 1900 ? (windowWidth > 2500 ? '250px' : '200px') : '147px',
       dataIndex: 'type',
       key: 'type',
-      className:'project-type',
+      className: 'project-type',
       sorter: (a, b, sortOrder) => {
-        setSortBy('projecttype')
-        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');      
-        return 0
+        setSortBy('projecttype');
+        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
+        return 0;
       },
     },
     {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
-      className:'project-status',
-      width: windowWidth > 1900 ? windowWidth > 2500 ? '199px':'140px':'86px',      
+      className: 'project-status',
+      width: windowWidth > 1900 ? (windowWidth > 2500 ? '199px' : '140px') : '86px',
       sorter: (a, b, sortOrder) => {
-        setSortBy('status')
-        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');      
-        return 0
+        setSortBy('status');
+        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
+        return 0;
       },
-      render: (text: any) => <span className={"status-projects-"+ (text ? text.toLowerCase() : 'draft')}>{text}</span>,
+      render: (text: any) => <span className={'status-projects-' + (text ? text.toLowerCase() : 'draft')}>{text}</span>,
     },
     {
       title: 'Phase',
       dataIndex: 'phase',
       key: 'phase',
-      width: windowWidth > 1900 ? windowWidth > 2500 ? '224px':'159px':'100px',      
+      width: windowWidth > 1900 ? (windowWidth > 2500 ? '224px' : '159px') : '100px',
       sorter: (a, b, sortOrder) => {
-        setSortBy('phase')
-        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');      
-        return 0
+        setSortBy('phase');
+        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
+        return 0;
       },
     },
     {
       title: 'Stream',
       dataIndex: 'stream',
       key: 'stream',
-      width: windowWidth > 1900 ? windowWidth > 2500 ? '261px':'187px':'131px',
+      width: windowWidth > 1900 ? (windowWidth > 2500 ? '261px' : '187px') : '131px',
       sorter: (a, b, sortOrder) => {
-        setSortBy('stream')
-        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');      
-        return 0
+        setSortBy('stream');
+        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
+        return 0;
       },
     },
     {
       title: 'Sponsor',
       dataIndex: 'sponsor',
       key: 'sponsor',
-      width: windowWidth > 1900 ? windowWidth > 2500 ? '224px':'159px':'110px',      
+      width: windowWidth > 1900 ? (windowWidth > 2500 ? '224px' : '159px') : '110px',
       sorter: (a, b, sortOrder) => {
-        setSortBy('project_sponsor')
-        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');      
-        return 0
+        setSortBy('project_sponsor');
+        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
+        return 0;
       },
-
     },
     {
       title: 'Est. Cost',
       dataIndex: 'cost',
-      key: 'cost',      
-      width: windowWidth > 1900 ? windowWidth > 2500 ? '202px':'143px':'108px',
+      key: 'cost',
+      width: windowWidth > 1900 ? (windowWidth > 2500 ? '202px' : '143px') : '108px',
       sorter: (a, b, sortOrder) => {
-        setSortBy('estimatedcost')
-        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');      
-        return 0
+        setSortBy('estimatedcost');
+        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
+        return 0;
       },
     },
   ];
