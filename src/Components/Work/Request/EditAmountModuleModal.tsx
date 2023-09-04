@@ -3,6 +3,16 @@ import React, { useEffect } from 'react';
 
 const EditAmountModuleModal = ({ project, visible, setVisible }: {project: any; visible: boolean; setVisible: Function }) => {
   
+  const statusColor:any = {
+    1: {color: '#FF8938', backgroundColor: 'rgba(255, 221, 0, 0.3)', projectStatus: 'Draft'},
+    2: {color: '#9309EA', backgroundColor: 'rgba(94, 61, 255, 0.15)', projectStatus: 'Requested'},
+    3: {color: '#139660', backgroundColor: 'rgba(143, 252, 83, 0.3)', projectStatus: 'Approved'},
+    8: {color: '#FF0000', backgroundColor: 'rgba(255, 0, 0, 0.08)', projectStatus: 'Cancelled'},
+    5: {color: '#139660', backgroundColor: 'rgba(143, 252, 83, 0.3)', projectStatus: 'Active'},
+    9: {color: '#9309EA', backgroundColor: 'rgba(204, 146, 240, 0.2)', projectStatus: 'Closed'},
+  }
+  const defaultColor = {color: '#FF8938', backgroundColor: 'rgba(255, 221, 0, 0.3)', projectStatus: ''}
+
   useEffect(() => {
     console.log('project', project);
     console.log(listCounties(project))
@@ -25,16 +35,7 @@ const EditAmountModuleModal = ({ project, visible, setVisible }: {project: any; 
   }
   
     const getColorAndStatus = (status: string) => {
-      const statusColor:any = {
-        2: {color: '#9309EA', backgroundColor: 'rgba(94, 61, 255, 0.15)', projectStatus: 'Requested'},
-        3: {color: '#139660', backgroundColor: 'rgba(143, 252, 83, 0.3)', projectStatus: 'Approved'},
-        8: {color: '#FF0000', backgroundColor: 'rgba(255, 0, 0, 0.08)', projectStatus: 'Cancelled'},
-        5: {color: '#139660', backgroundColor: 'rgba(143, 252, 83, 0.3)', projectStatus: 'Active'},
-        9: {color: '#9309EA', backgroundColor: 'rgba(204, 146, 240, 0.2)', projectStatus: 'Closed'},
-      }
-      const defaultColor = {color: '#FF8938', backgroundColor: 'rgba(255, 221, 0, 0.3)', projectStatus: ''}
       const {color, backgroundColor, projectStatus} = statusColor[status] || defaultColor;
-      console.log('status', color, backgroundColor, projectStatus);
       return <span style={{color, backgroundColor}}>{projectStatus}</span>;
     }
 
@@ -54,7 +55,7 @@ const EditAmountModuleModal = ({ project, visible, setVisible }: {project: any; 
         </Col>
         <Col>
           <p>Status</p>
-          {getColorAndStatus(project?.projectData?.code_status_type_id)}
+          {getColorAndStatus(project?.code_status_type_id)}
         </Col>
         <Col>
           <p>Phase</p>
