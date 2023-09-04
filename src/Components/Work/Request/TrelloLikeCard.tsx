@@ -50,6 +50,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   const [isHovered, setIsHovered] = useState(false);
   const [completeProjectData, setCompleteProjectData] = useState<any>(null);
   const [showCopyToCurrentYearAlert, setShowCopyToCurrentYearAlert] = useState(false);
+  const [showActivateProject, setShowActivateProject] = useState(false);
   const appUser = useProfileState();
   const pageWidth  = document.documentElement.scrollWidth;
   const getCompleteProjectData = async () => {
@@ -125,7 +126,15 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
         </span>,
         onClick: (() => archiveProject(project?.projectData?.project_id))
       });
-    }    
+    }
+    items.push({
+      key: '6',
+      label: <span style={{borderBottom: '1px solid transparent'}}>
+        <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
+        Make Project Active
+      </span>,
+      onClick: (() => {setShowActivateProject(true)})
+    })
     return (<Menu className="js-mm-00" items={items} />)
   };
 
@@ -231,8 +240,10 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
       setVisible={setShowAmountModal}
       />}
       {/* New Modal Edit date */}
-    <EditDatesModal visible={showAmountModal}
-      setVisible={setShowAmountModal} />
+    {showActivateProject && <EditDatesModal visible={showActivateProject}
+      setVisible={setShowActivateProject}
+      project={project?.projectData}
+    />}
     <div ref={divRef} className="card-wr" style={{ borderLeft: `${pageWidth > 2000? (pageWidth > 3000? '6':'5'):'3'}px solid ${borderColor}`, borderRadius: '4px' }} draggable={editable && !filtered}
       onDragStart={e => {
         onDragStart(e, project_id);
@@ -274,7 +285,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
             </Popover>
             <label className="yellow" style={{color, backgroundColor,marginRight:'-10px'}}>{status}</label>
             {
-              !(showAmountModal || showModalProject || showCopyToCurrentYearAlert) &&
+              !(showAmountModal || showModalProject || showCopyToCurrentYearAlert || showActivateProject) &&
               <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={content} trigger="click" style={{marginRight:'-10px',cursor: 'pointer'}}>
                 <div className="dot-position" onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
                   <MoreOutlined className="menu-wr" style={{marginTop:'3px', width:'3px', cursor: 'pointer'}}>
