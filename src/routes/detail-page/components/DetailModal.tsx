@@ -501,7 +501,7 @@ const DetailModal = ({
           <Row className="detailed-header" gutter={[16, 8]}>
             <Col xs={{ span: 24 }} lg={typeS === FILTER_PROBLEMS_TRIGGER ? { span: 13 } : { span: 18 }}>
               <div className="detail-header-info">
-                <div style={detailed?.problemtype ? { width: '100%' } : { width: '76%' }}>
+                <div style={detailed?.problemtype ? { width: '100%' } : { width: '76%' }} className='title-detail-mobile'>
                   <h1>{detailed?.problemname ? detailed?.problemname : detailed?.project_name}</h1>
                   <p>
                     <span>
@@ -535,7 +535,7 @@ const DetailModal = ({
                 {detailed?.problemtype ? (
                   <></>
                 ) : (
-                  <div className="status-d" style={{ display: 'flex' }}>
+                  <div className="status-d mobile-no-visibility" style={{ display: 'flex' }}>
                     <p>
                       Status<br></br>
                       <span className="status-active" style={{ marginRight: '20px' }}>
@@ -578,8 +578,21 @@ const DetailModal = ({
                     </div>
                   </>
                 ) : (
+                  <>
+                  <div className="status-d status-d-mobile" style={{ display: 'none' }}>
+                    <p>
+                      <span className="status-active" style={{ marginRight: '20px' }}>
+                        {getCurrentProjectStatus(detailed)?.code_phase_type?.code_status_type?.status_name || 'N/A'}
+                      </span>
+                    </p>
+                    <p style={{}}>
+                      <span className="status-final">
+                        {getCurrentProjectStatus(detailed)?.code_phase_type?.phase_name || 'N/A'}
+                      </span>
+                    </p>
+                  </div>
                   <div className="detailed-header-button-margin">
-                    <p className="fix-margin-top">Estimated Cost</p>
+                    <p className="fix-margin-top mobile-no-visibility">Estimated Cost</p>
                     <b>
                       {getTotalEstimatedCost(detailed?.project_costs || []) != null
                         ? '$' +
@@ -588,7 +601,7 @@ const DetailModal = ({
                           )
                         : 'No Cost Data'}
                     </b>
-                  </div>
+                  </div></>
                 )}
                 <Button className="detailed-header-button-circle mobile-no-visibility" onClick={downloadPdf}>
                   <img src="/Icons/icon-01.svg" alt="" style={{ margin: '1px -10px', height: '17px' }} />
@@ -908,7 +921,7 @@ const DetailModal = ({
               </Carousel>
               {typeS === FILTER_PROJECTS_TRIGGER && (
                 <>
-                  <div className="img-carousel-detail">
+                  <div className="img-carousel-detail  mobile-no-visibility">
                     <img
                       src="/picture/map-denver.png"
                       alt=""
@@ -982,6 +995,7 @@ const DetailModal = ({
               </div>
             </Col>
             <Col
+              xs={{ span: 0}}
               span={7}
               className="pm-sidebar-graphics-display"
               style={{ height: 'calc(100vh - 183px)', overflowY: 'auto', scrollBehavior: 'smooth' }}
