@@ -2485,9 +2485,22 @@
       padding-top: 0px;
       line-height: 17px;
     }
+    .title-detail-mobile{
+      width: 97% !important;
+    }
+    .status-d-mobile{
+      display: flex !important;
+    }
+    .status-active{
+      font-size: 12px !important;
+      margin-right: 5px !important;
+    }
+    .status-final{
+      font-size: 12px !important;
+    }
   }
   .mobile-no-visibility{
-    display: none;
+    display: none !important;
   }
   .detailed-body-info {
     padding: 40px 12px 80px 12px;
@@ -2523,6 +2536,9 @@
     .mapboxgl-map {
       height: 280px !important;
     }
+  }
+  .detailed-tabs-layout{
+    display: none;
   }
 }
 
