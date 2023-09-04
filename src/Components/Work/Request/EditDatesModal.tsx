@@ -5,6 +5,8 @@ import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import moment from "moment";
 import { LockOutlined, MoreOutlined } from "@ant-design/icons";
+import { OverlappingDatesAlert } from "Components/Alerts/OverlappingAlert";
+import { useNotifications } from "Components/Shared/Notifications/NotificationsProvider";
 
 const { RangePicker }: any = DatePicker;
 
@@ -29,6 +31,9 @@ const EditDatesModal = ({
   const [invalidDateIndex, setInvalidDateIndex] = useState(-1);
   const [calendarValue, setCalendarValue] = useState('');
   const [calendarPhase, setCalendarPhase] = useState(0);
+  const [viewOverlappingAlert, setViewOverlappingAlert] = useState(false);
+  const [overlapping, setOverlapping] = useState(false);
+  const { openNotification } = useNotifications();
   
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
   const colorScale: any = {
@@ -70,6 +75,7 @@ const EditDatesModal = ({
   useEffect(() => {
     if (selectedPhase && startDate) {
       updateDate(dateIndex, startDate);
+      setCurrent(dateIndex);
     }
   }, [generateDates]);
 
@@ -194,6 +200,7 @@ const EditDatesModal = ({
   };
 
   const setCurrent = (index: number) => {
+    console.log(index)
     const newDates = [...dates];
     newDates.forEach((x: any) => (x.current = false));
     newDates[index].current = true;
@@ -203,7 +210,49 @@ const EditDatesModal = ({
     setDates(newDates);
   };
 
+  useEffect(() => {
+      setInvalidDateIndex(-1);
+      let isOverlap = true;
+      dates?.forEach((x: any, i: number) => {
+        if (x.from && x.to && x.from.isValid() && x.to.isValid()) {
+          if (i + 1 < dates.length) {
+            if (x.to.isAfter(dates[i + 1].from)) {
+              setInvalidDateIndex(i);
+              // setViewOverlappingAlert(true);
+              setOverlapping(true);
+              isOverlap = false;
+            } else {
+              if (isOverlap) {
+                setOverlapping(false);
+              }
+            }
+          }
+        }
+      });    
+  }, [dates]);
+
+  function sendData() {
+    datasets
+      .postData(
+        SERVER.CREATE_STATUS_GROUP,
+        {
+          project_id: project?.project_id,
+          phases: dates,
+        },
+        datasets.getToken(),
+      )
+      .then(async res => {
+        openNotification('Success! Your project timeline was just updated!', "success");
+        setStep(0)
+        setVisible(false);        
+      });
+  }
+
   return(
+    <>
+      {viewOverlappingAlert && (
+        <OverlappingDatesAlert visibleAlert={viewOverlappingAlert} setVisibleAlert={setViewOverlappingAlert} />
+      )}
     <Modal
       title="How much funding from MHFD is being requested for the following years:"
       centered
@@ -409,8 +458,11 @@ const EditDatesModal = ({
         <Button className="btn-transparent">Clear</Button>
         <Button className="btn-purple"
           onClick={() =>{if(step === 2) {
-            setStep(0)
-            setVisible(false)
+            if (overlapping) {
+              setViewOverlappingAlert(true)
+            }else{
+              sendData()
+            }
           }else{
             if (step === 1 && !selectedPhase && !startDate) {
               return
@@ -424,6 +476,7 @@ const EditDatesModal = ({
         {step === 2 ?'Activate':'Next'}</Button>
       </div>
     </Modal>
+    </>
   )
 };
 
