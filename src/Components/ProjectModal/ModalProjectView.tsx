@@ -212,9 +212,6 @@ const ModalProjectView = ({
   useEffect(() => {
     setAllowed(getAllowedBasedOnLocality(locality, year));
   }, [locality]);
-  useEffect(() => {
-    console.trace('visibleCapita', visibleCapital);
-  }, [visibleCapital]);
   return (
     <div id='modalProjectView'>
      {visibleCapital && <ModalCapital

@@ -944,6 +944,15 @@ hr.filters-line {
 //table-style-map
 
 .table-list-map {
+  // .project-name{
+  //   width: 220px;
+  // }
+  // .project-type{
+  //   width: 147px;
+  // }
+  // .project-status{
+  //   width: 86px;
+  // }
   .ant-table {
     color: $purple00;
     font-size: 12px;
@@ -1089,7 +1098,10 @@ hr.filters-line {
 .main-map-dropdown{
   font-size: 14px;
 }
-
+.main-map-list-name-popover-text{
+  font-size: 12px;
+  margin: 0px;
+}
 @media (min-width: 1900px) and (max-width: 2499px) {
   //MAIN-MAP
   .button-header-tab {
@@ -1437,6 +1449,9 @@ hr.filters-line {
         height: 28px !important;
       }
     }
+  }
+  .main-map-list-name-popover-text{
+    font-size: 14px;
   }
 }
 @media(min-width: 2550px){
@@ -1905,5 +1920,8 @@ hr.filters-line {
     overflow-x: auto;
     overflow-y: hidden;
     height: calc(100vh - 350px);
+  }
+  .main-map-list-name-popover-text{
+    font-size: 16px;
   }
 }
