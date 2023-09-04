@@ -2461,6 +2461,9 @@
 }
 
 @media (max-width: 875.98px) {
+  .gallery-grid{
+    grid-auto-rows: 64px !important;
+  }
   .detailed-header{
     h1{
       white-space: nowrap;
@@ -2497,6 +2500,11 @@
     }
     .status-final{
       font-size: 12px !important;
+    }
+    .table-financials-modal{
+      .scroll-table{
+        width: 200% !important;
+      }
     }
   }
   .mobile-no-visibility{
@@ -2535,6 +2543,35 @@
   .detailed-body{
     .mapboxgl-map {
       height: 280px !important;
+    }
+    .mobile-table-proposed{
+      width: 200% !important;
+      overflow-x : scroll !important;
+    }
+    .table-mobile-proposed{
+      overflow-x: auto;
+    }
+    .scroll-table{
+      overflow-x: auto !important;
+    }
+    .body-scroll-table{
+      width: 200% !important;
+      overflow-x : scroll !important;
+    }
+    .table-value-total{
+      font-size: 12px !important;
+      p{
+        font-size: 12px !important;
+      }
+    }
+    .row-mobile-financial{
+      width: 100%;
+      overflow-x: auto;
+      .group-dropdown-financial{
+        width: 800px;
+        max-width: 800px;
+        flex: 0 0 800px;
+      }
     }
   }
   .detailed-tabs-layout{
