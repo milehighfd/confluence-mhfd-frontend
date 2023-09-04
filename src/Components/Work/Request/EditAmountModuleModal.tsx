@@ -23,61 +23,20 @@ const EditAmountModuleModal = ({ project, visible, setVisible }: {project: any; 
     });
     return serviceArea.slice(0, serviceArea.length - 2);
   }
-
-    let color = null, backgroundColor = null;
-    let projectStatus ='';
-    
-    switch(project.projectData?.code_status_type_id) {
-      case 2:
-        backgroundColor = 'rgba(94, 61, 255, 0.15)';
-        color = '#9309EA';
-        projectStatus = 'Requested';
-        break;
-      case 3:
-        // backgroundColor = 'rgba(97, 158, 234, 0.15)';
-        // color = '#497BF3';
-        backgroundColor = 'rgba(143, 252, 83, 0.3)';
-        color = '#139660';
-        projectStatus = 'Approved';
-        break;
-      case 'Initiated':
-        backgroundColor = 'rgba(41, 196, 153, 0.08)';
-        color = '#139660';
-        projectStatus = 'Initiated';
-        break;
-      case 8:
-        backgroundColor = 'rgba(255, 0, 0, 0.08)';
-        color = '#FF0000';
-        projectStatus = 'Cancelled';
-        break;
-      case 'Complete':
-        backgroundColor = 'rgba(41, 196, 153, 0.08)';
-        color = '#06242D';
-        break;
-      case 5: 
-        // backgroundColor = 'rgba(65, 110, 218, 0.08)';
-        // color = '#416EDA';
-        backgroundColor = 'rgba(143, 252, 83, 0.3)';
-        color = '#139660';
-        projectStatus = 'Active';
-        break;
-      case 'Inactive':
-        // backgroundColor = 'rgba(164, 1688, 248, 0.08)';
-        // color = '#A4BCF8';
-        backgroundColor = 'rgba(255, 0, 0, 0.08)';
-        color = '#FF0000';
-        break;
-      case 9:
-        backgroundColor = 'rgba(204, 146, 240, 0.2)';
-        color = '#9309EA';
-        projectStatus = 'Closed';
-        break;
-      default:
-        color= '#FF8938';
-        backgroundColor = 'rgba(255, 221, 0, 0.3)';
-    }
   
-    console.log()
+    const getColorAndStatus = (status: string) => {
+      const statusColor:any = {
+        2: {color: '#9309EA', backgroundColor: 'rgba(94, 61, 255, 0.15)', projectStatus: 'Requested'},
+        3: {color: '#139660', backgroundColor: 'rgba(143, 252, 83, 0.3)', projectStatus: 'Approved'},
+        8: {color: '#FF0000', backgroundColor: 'rgba(255, 0, 0, 0.08)', projectStatus: 'Cancelled'},
+        5: {color: '#139660', backgroundColor: 'rgba(143, 252, 83, 0.3)', projectStatus: 'Active'},
+        9: {color: '#9309EA', backgroundColor: 'rgba(204, 146, 240, 0.2)', projectStatus: 'Closed'},
+      }
+      const defaultColor = {color: '#FF8938', backgroundColor: 'rgba(255, 221, 0, 0.3)', projectStatus: ''}
+      const {color, backgroundColor, projectStatus} = statusColor[status] || defaultColor;
+      console.log('status', color, backgroundColor, projectStatus);
+      return <span style={{color, backgroundColor}}>{projectStatus}</span>;
+    }
 
   return (
     <Modal
@@ -90,12 +49,12 @@ const EditAmountModuleModal = ({ project, visible, setVisible }: {project: any; 
     >
       <Row className="edit-amount-modal-header">
         <Col className="edit-amount-modal-header-text">
-          <h2>{project?.projectname}</h2>
+          <h2>{project?.projectData?.project_name}</h2>
           <p>{project?.projectData?.code_project_type?.project_type_name} Project • {listCounties(project)} County • {listServiceAreas(project)} Service Area</p>
         </Col>
         <Col>
           <p>Status</p>
-          <span style={{color, backgroundColor}}>{projectStatus}</span>
+          {getColorAndStatus(project?.projectData?.code_status_type_id)}
         </Col>
         <Col>
           <p>Phase</p>
