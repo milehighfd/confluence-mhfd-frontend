@@ -7,6 +7,7 @@ import moment from "moment";
 import { LockOutlined, MoreOutlined } from "@ant-design/icons";
 import { OverlappingDatesAlert } from "Components/Alerts/OverlappingAlert";
 import { useNotifications } from "Components/Shared/Notifications/NotificationsProvider";
+import { useRequestDispatch } from "hook/requestHook";
 
 const { RangePicker }: any = DatePicker;
 
@@ -33,7 +34,11 @@ const EditDatesModal = ({
   const [calendarPhase, setCalendarPhase] = useState(0);
   const [viewOverlappingAlert, setViewOverlappingAlert] = useState(false);
   const [overlapping, setOverlapping] = useState(false);
+  const [emptyDatesAlert, setEmptyDatesAlert] = useState(false);
   const { openNotification } = useNotifications();
+  const {
+    loadColumns, 
+  } = useRequestDispatch();
   
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
   const colorScale: any = {
@@ -80,7 +85,6 @@ const EditDatesModal = ({
   }, [generateDates]);
 
   const updateDate = (index: number, date: any) => {
-    console.log(index, date)
     const newDates = [...dates];
     newDates[index].from = date;
     let type = '';
@@ -95,7 +99,6 @@ const EditDatesModal = ({
   };
 
   const propagateDates = (array: any, index: number) => {
-    console.log(array, index)
     let newDates: any = [...array];
     const reversed = newDates.slice(0, index + 1).reverse();
     let reverseLocked: number = 0;
@@ -200,7 +203,6 @@ const EditDatesModal = ({
   };
 
   const setCurrent = (index: number) => {
-    console.log(index)
     const newDates = [...dates];
     newDates.forEach((x: any) => (x.current = false));
     newDates[index].current = true;
@@ -232,24 +234,56 @@ const EditDatesModal = ({
   }, [dates]);
 
   function sendData() {
-    datasets
-      .postData(
-        SERVER.CREATE_STATUS_GROUP,
-        {
-          project_id: project?.project_id,
-          phases: dates,
-        },
-        datasets.getToken(),
-      )
-      .then(async res => {
-        openNotification('Success! Your project timeline was just updated!', "success");
-        setStep(0)
-        setVisible(false);        
+    if (dates.some((date) => !date.from || !date.to)) {
+      setEmptyDatesAlert(true);
+    } else {
+      datasets
+        .postData(
+          SERVER.CREATE_STATUS_GROUP,
+          {
+            project_id: project?.project_id,
+            phases: dates,
+          },
+          datasets.getToken(),
+        )
+        .then(async res => {
+          openNotification('Success! Your project timeline was just updated!', "success");
+          setStep(0)
+          setVisible(false);
+          loadColumns();
+        });
+    }    
+  }
+
+  function resetData() {
+    if (step === 1) {
+      console.log('reset')
+      setSelectedPhase(null);
+      setStartDate(null);
+    }else if (step === 2) {
+      const copy = dates?.map((x: any) => {
+        if (x.locked) {
+          return {
+            ...x,
+          };
+        }
+        return {
+          ...x,
+          from: undefined,
+          to: undefined,
+        };
       });
+      setDates(copy);
+      setCalendarValue('');
+      setCalendarPhase(0);
+    }    
   }
 
   return(
     <>
+      {emptyDatesAlert && (
+        <OverlappingDatesAlert visibleAlert={emptyDatesAlert} setVisibleAlert={setEmptyDatesAlert} />
+      )}
       {viewOverlappingAlert && (
         <OverlappingDatesAlert visibleAlert={viewOverlappingAlert} setVisibleAlert={setViewOverlappingAlert} />
       )}
@@ -300,6 +334,7 @@ const EditDatesModal = ({
               placeholder="Select phase"
               style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
               listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+              value={selectedPhase}
               onChange={(value: string) => {
                 setSelectedPhase(value)
                 setDateIndex(phaseList.findIndex(x => x.value === value))
@@ -313,6 +348,7 @@ const EditDatesModal = ({
             </Select>
             <label>It’s start date is:</label><br />
             <DatePicker
+              value = {startDate}
               style={{ width: '100%', borderRadius: '5px', height: '36px' }}
               onChange={(date: any) => setStartDate(date)}
             />
@@ -455,7 +491,10 @@ const EditDatesModal = ({
         </div>
       )}
       <div className="foot-edit-dates">
-        <Button className="btn-transparent">Clear</Button>
+        <Button className="btn-transparent"
+          onClick={() => resetData()}>
+          Clear
+        </Button>
         <Button className="btn-purple"
           onClick={() =>{if(step === 2) {
             if (overlapping) {
@@ -464,7 +503,7 @@ const EditDatesModal = ({
               sendData()
             }
           }else{
-            if (step === 1 && !selectedPhase && !startDate) {
+            if (step === 1 && (!selectedPhase || !startDate)) {
               return
             }
             if (step === 1 && selectedPhase && startDate){
