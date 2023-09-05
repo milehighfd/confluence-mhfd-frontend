@@ -479,7 +479,7 @@ const ListViewMap = ({
       },
     },
     {
-      title: 'Percentaje',
+      title: 'Percentage',
       dataIndex: 'percentaje',
       key: 'percentaje',
       width: windowWidth > 1900 ? windowWidth > 2500 ? '202':'143px':'108px',
