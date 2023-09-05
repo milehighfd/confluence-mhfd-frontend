@@ -128,7 +128,7 @@ const DetailModal = ({
       });
     } else {
       const project_id = project_idS ? +project_idS : +problem_idS ? +problem_idS : 0;
-      getDetailedPageProject(project_id);
+      getDetailedPageProject(project_id ? project_id : data.project_id);
       getComponentsByProblemId({
         id: data?.on_base || project_id || data?.id || data?.cartodb_id,
         typeid: 'projectid',

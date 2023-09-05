@@ -13,6 +13,7 @@ import { SERVER } from 'Config/Server.config';
 import { MHFD_PROJECTS } from "constants/constants";
 import { Console } from "console";
 import { MoreOutlined } from "@ant-design/icons";
+import DetailModal from "routes/detail-page/components/DetailModal";
 
 const ListViewMap = ({
   totalElements,
@@ -28,9 +29,11 @@ const ListViewMap = ({
   const [isLoading, setIsLoading] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [dataSet, setDataSet] = useState<any>([]);
+  const [data, setData] = useState<any>({});
   const [dataProjects, setDataProjects] = useState<any>([]);
   const [dataProblems, setDataProblems] = useState<any>([]);
   const [hoveredRow, setHoveredRow] = useState<any>(null);
+  const [visible, setVisible] = useState(false); 
   let lastScrollLeft = 0;
   let lastScrollTop = 0;
   const [state, setState] = useState({
@@ -125,7 +128,10 @@ const ListViewMap = ({
           cost: totalCost,
           project_id: ci?.project_id,
           isFavorite: favorites.some((f: any) => (f.project_id && f.project_id === ci.project_id) || (f.problem_id && f.problem_id === ci.problemid)),
-          onBase: ci?.onBase
+          onBase: ci?.onBase,
+          project_idS: ci?.project_id,
+          cartodb_id: ci?.cartodb_id,
+          code_project_type_id: ci?.code_project_type_id,
         };
         return output;
       });
@@ -147,6 +153,7 @@ const ListViewMap = ({
           actions: ci?.count,
           percentaje: ci?.percentage,
           problemid: ci?.problemid,
+          problem_idS: ci?.problemid,
           coordinates: ci?.coordinates,
           cartodb: ci?.cartodb_id,
         };
@@ -177,6 +184,12 @@ const ListViewMap = ({
       setItHasComponents(true)
     }
   }, [dropdownIsOpen]);
+  const deleteFavorite = (id: number) => {
+    setTimeout(() => {
+        favoriteList(type === 'Problems');
+    }, 1000);
+}
+
   const stopModal = (e: any) => {
     e.domEvent.stopPropagation();
     e.domEvent.nativeEvent.stopImmediatePropagation();
@@ -488,7 +501,7 @@ const ListViewMap = ({
         setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
         return 0
       },
-      render: (text: any) => <p>{`${text} %`}</p>,
+      render: (text: any) => <>{`${text} %`}</>,
     },
   ];
   useEffect(() => {
@@ -583,6 +596,17 @@ const changeCenter = (id:any, coordinateP:any) => {
 }
 
   return (<>
+  {
+    visible &&
+    <DetailModal
+      visible={visible}
+      setVisible={setVisible}
+      data={data}
+      type={type}
+      deleteCallback={deleteFavorite}
+      addFavorite={addFavorite}
+    />
+  }
     {isLoading && <LoadingView />}
     <div className="table-scroll-map-list" onScroll={handleScroll}>
       <InfiniteScroll
@@ -599,7 +623,12 @@ const changeCenter = (id:any, coordinateP:any) => {
           onRow={(record, rowIndex) => {
             return {
               onClick: (event) => {
+                setData(record);
                 // changeCenter(record.project_id, '');
+                setTimeout(() => {
+                  setVisible(true);
+                }, 2000);
+
               },
               onMouseEnter: (e) =>  {
                 let typeInData:any 
@@ -643,6 +672,11 @@ const changeCenter = (id:any, coordinateP:any) => {
           onRow={(record, rowIndex) => {
             return {
               onClick: (event) => {
+                setData(record);
+                // changeCenter(record.project_id, '');
+                setTimeout(() => {
+                  setVisible(true);
+                }, 2000);
                 changeCenter('', record.coordinates)
               },
               onMouseEnter: (e) =>  {
