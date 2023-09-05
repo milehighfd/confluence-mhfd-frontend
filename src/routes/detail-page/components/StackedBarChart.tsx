@@ -5,24 +5,40 @@ const StackedBarChart = ({}) => {
   const [maxValue, setMaxValue] = useState(0);
   const [tickValues, setTickValues] = useState([]);
   const svgRef = useRef<SVGSVGElement>(null);
-  const totalWidth:any = document.getElementById('ProjectRoadmapHeader')?.clientWidth;
-  // const totalWidth = 260;
-  const totalHeight = 200;
-  const margin = {top: 10, right: 30, bottom: 20, left: 50},
-        width = totalWidth - margin.left - margin.right,
-        height = totalHeight - margin.top - margin.bottom;
+  const barWidth = 60;
+  // const totalWidth:any = document.getElementById('ProjectRoadmapHeader')?.clientWidth;
+  const totalHeight = 350;
   const data = [
     {group: 'banana', Nitrogen: '12', normal: '1', stress: '13' , additional: '12'},
     {group: 'poacee', Nitrogen: '6', normal: '6', stress: '33' , additional: '6'},
     {group: 'sorgho', Nitrogen: '11', normal: '28', stress: '12' , additional: '3'},
     {group: 'triticum', Nitrogen: '19', normal: '6', stress: '1' , additional: '30'},
     {group: 'banana1', Nitrogen: '12', normal: '1', stress: '13' , additional: '12'},
-    {group: 'poacee2', Nitrogen: '6', normal: '6', stress: '33' , additional: '10'},
+    {group: 'cacc', Nitrogen: '6', normal: '6', stress: '33' , additional: '10'},
     {group: 'sorgho3', Nitrogen: '11', normal: '28', stress: '12' , additional: '9'},
-    {group: 'triticum3', Nitrogen: '19', normal: '6', stress: '1' , additional: '3'}
+    {group: 'triticum3', Nitrogen: '19', normal: '6', stress: '1' , additional: '3'},
+    {group: 'b55', Nitrogen: '12', normal: '1', stress: '13' , additional: '12'},
+    {group: 'poa2cee', Nitrogen: '6', normal: '6', stress: '33' , additional: '6'},
+    {group: 'sorg1ho', Nitrogen: '11', normal: '28', stress: '12' , additional: '3'},
+    {group: 'triti2cum', Nitrogen: '19', normal: '6', stress: '1' , additional: '30'},
+    {group: 'ban', Nitrogen: '12', normal: '1', stress: '13' , additional: '12'},
+    {group: 'poac3ee2', Nitrogen: '6', normal: '6', stress: '33' , additional: '10'},
+    {group: 'sorg41ho3', Nitrogen: '11', normal: '28', stress: '12' , additional: '9'},
+    {group: 'trit123icum3', Nitrogen: '19', normal: '6', stress: '1' , additional: '3'},
+    {group: '555ana', Nitrogen: '12', normal: '1', stress: '13' , additional: '12'},
+    {group: 'po23e', Nitrogen: '6', normal: '6', stress: '33' , additional: '6'},
+    {group: 's13ho', Nitrogen: '11', normal: '28', stress: '12' , additional: '3'},
+    {group: 'tr2cum', Nitrogen: '19', normal: '6', stress: '1' , additional: '30'},
+    {group: 'barr', Nitrogen: '12', normal: '1', stress: '13' , additional: '12'},
+    {group: 'poacee2', Nitrogen: '6', normal: '6', stress: '33' , additional: '10'},
+    {group: 'sor222o3', Nitrogen: '11', normal: '28', stress: '12' , additional: '9'},
+    {group: '6555um3', Nitrogen: '19', normal: '6', stress: '1' , additional: '3'}
   ];
   const subGroups = ['Nitrogen', 'normal', 'stress', 'additional'];
-
+  const margin = {top: 10, right: 30, bottom: 20, left: 50};
+  const totalWidth = barWidth * data.length + margin.left + margin.right;
+  const width = totalWidth - margin.left - margin.right;
+  const height = totalHeight - margin.top - margin.bottom;
   useEffect(() => {
     const totals:any = {};
     data.forEach((item:any) => {
@@ -64,7 +80,7 @@ const StackedBarChart = ({}) => {
     const x = d3.scaleBand()
       .domain(groups)
       .range([0, width])
-      .padding(0.2);
+      .padding(0.15);
 
     svg.append("g")
       .attr("transform", `translate(0, ${height})`)
@@ -107,16 +123,16 @@ const StackedBarChart = ({}) => {
           .attr("x", (d:any):any => { return x(d.data.group); })
           .attr("y", (d:any): any => { return y(d[1]); })
           .attr("height", (d:any) => { const dimention = (y(d[0]) ?? 0) - (y(d[1]) ?? 0); return dimention; })
-          .attr("width",x.bandwidth())
+          .attr("width", x.bandwidth())
           .attr("rx", 5)
           .attr('stroke', 'white')
           .attr('stroke-width', '2')
           .style('stroke-linecap', 'round')
   } ,[data]);
   return (
-    <>
+    <div>
       <svg ref={svgRef} width="100%" height="100%" />
-    </>
+    </div>
   );
 }
 
