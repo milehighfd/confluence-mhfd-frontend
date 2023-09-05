@@ -627,7 +627,7 @@ const changeCenter = (id:any, coordinateP:any) => {
                 // changeCenter(record.project_id, '');
                 setTimeout(() => {
                   setVisible(true);
-                }, 2000);
+                }, 1500);
 
               },
               onMouseEnter: (e) =>  {
@@ -676,21 +676,21 @@ const changeCenter = (id:any, coordinateP:any) => {
                 // changeCenter(record.project_id, '');
                 setTimeout(() => {
                   setVisible(true);
-                }, 2000);
-                changeCenter('', record.coordinates)
+                }, 1500);
+                // changeCenter('', record.coordinates)
               },
               onMouseEnter: (e) =>  {
-                // let typeInData:any 
-                // let valueInData:any  
-                // if(record.project_id){
-                //   typeInData = MHFD_PROJECTS;
-                //   valueInData = record.project_id;
-                // } else if(record.problemid){
-                //   typeInData = record.type;
-                //   valueInData = record.cartodb;
-                // }
-                // e.stopPropagation()
-                // setHoveredRow(valueInData)
+                let typeInData:any 
+                let valueInData:any  
+                if(record.project_id){
+                  typeInData = MHFD_PROJECTS;
+                  valueInData = record.project_id;
+                } else if(record.problemid){
+                  typeInData = record.type;
+                  valueInData = record.cartodb;
+                }
+                e.stopPropagation()
+                return setHoveredRow(valueInData)
                 // return setValuesMap(typeInData, valueInData)
               },
             };
