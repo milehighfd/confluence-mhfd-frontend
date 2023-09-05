@@ -398,7 +398,10 @@ const ListViewMap = ({
         setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
         return 0
       },
-      render: (text: any, record: any) => <div className="content-project-name"><p className="project-name">{text}</p>
+      render: (text: any, record: any) => <div className="content-project-name">
+        <Popover placement="top" content={<p className="main-map-list-name-popover-text">{text}</p>}>
+          <p className="project-name">{text}</p>
+        </Popover>
       <Popover
         overlayClassName="pop-card-map"
         content={menu(record)}
