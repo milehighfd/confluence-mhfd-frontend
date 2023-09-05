@@ -120,12 +120,18 @@
     height: 24px;
     background: $white;
     padding: 0px 15px;
+    span{
+      .ant-menu-dark .ant-menu-item-selected .anticon {
+        color: white;
+        opacity: 0.6;
+      }
+    }
   }
   .btn-question:hover {
     opacity: 1;
-    -webkit-mask: url('../../../Icons/icon-27.svg') no-repeat center;
-    height: 22px;
-    background: $green !important;
+    //-webkit-mask: url('../../../Icons/icon-27.svg') no-repeat center;
+    //height: 22px;
+    //background: $green !important;
   }
   .logo-00 {
     position: absolute;

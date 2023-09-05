@@ -434,7 +434,8 @@
   .ant-menu-dark.ant-menu-vertical-left .ant-menu-item,
   .ant-menu-dark.ant-menu-vertical-right .ant-menu-item {
     text-align: center;
-    display: flex !important;
+    display: flex;
+    padding: 0px !important;
   }
   .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected .img-h,
   .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected .img-a {
@@ -480,6 +481,9 @@
     border: none;
     padding: 0px;
     box-shadow: none;
+  }
+  .ant-tooltip {
+    display: none !important;
   }
 }
 
