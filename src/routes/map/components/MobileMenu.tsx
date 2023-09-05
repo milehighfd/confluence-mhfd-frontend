@@ -32,7 +32,7 @@ const MobileMenu = () => {
       <Col>
         <div className={'apply-filter-no-effect'}>
           Apply map view to filters
-          <Checkbox style={{ paddingLeft: 6 }} checked={applyFilter} onChange={() => {
+          <Checkbox disabled  style={{ paddingLeft: 6 }} checked={applyFilter} onChange={() => {
             setApplyFilter(!applyFilter)
             getGalleryProblems();
                                  console.log('get gallery'); 

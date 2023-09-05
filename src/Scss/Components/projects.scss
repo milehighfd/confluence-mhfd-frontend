@@ -1404,7 +1404,7 @@
         margin-top: 8px;
       }
       p {
-        font-size: 24px !important;
+        font-size: 22px !important;
       }
       .btn-transparent {
         height: 45px;
@@ -1455,7 +1455,7 @@
         .ant-radio-inner:after {
           width: 22px;
           height: 22px;
-          margin-top: -11.5px;
+          margin-top: -10.5px;
           margin-left: -11px;
         }
         .text-radio-btn {
@@ -1514,7 +1514,7 @@
       }
       textarea.ant-input {
         height: 165px;
-        font-size: 24px !important;
+        font-size: 20px !important;
         padding: 10px 15px;
         line-height: 28px !important;
       }
@@ -1594,14 +1594,14 @@
         }
       }
       .ant-timeline-item {
-        font-size: 22px !important;
+        font-size: 20px !important;
         line-height: 25px !important;
 
         img {
           height: 20px;
         }
         .ant-input {
-          font-size: 21px;
+          font-size: 20px;
           width: 300px;
           padding: 8px 0px;
           height: 38px;
@@ -1614,7 +1614,7 @@
       .btn-transparent-green,
       .btn-transparent-green:hover,
       .btn-transparent-green:focus {
-        font-size: 21px !important;
+        font-size: 20px !important;
         img {
           height: 18px !important;
         }
@@ -1622,22 +1622,22 @@
       .btn-transparent-green .anticon,
       .btn-transparent-green:hover .anticon,
       .btn-transparent-green:focus .anticon {
-        font-size: 21px;
+        font-size: 20px;
       }
       .cost-project,
       .sub-project {
-        font-size: 21px !important;
+        font-size: 20px !important;
       }
       .overcost-capital {
         margin-bottom: 25px;
       }
       .sub-project {
         .ant-input {
-          font-size: 24px !important;
+          font-size: 20px !important;
           line-height: 26px !important;
         }
         p {
-          font-size: 24px !important;
+          font-size: 20px !important;
           line-height: 26px !important;
           margin: 12px 0px;
           img {
@@ -1645,7 +1645,7 @@
           }
         }
         .ant-select-selection {
-          font-size: 21px;
+          font-size: 20px;
           width: 80px;
         }
         .ant-timeline-item {
@@ -1709,7 +1709,7 @@
         }
       }
       .switch-option {
-        font-size: 18px !important;
+        font-size: 20px !important;
         line-height: 38px;
       }
       // STUDY
@@ -1744,6 +1744,23 @@
           line-height: 24px;
           padding: 16px 18px;
         }
+      }
+      .ant-switch {
+        height: 32px;
+        min-width: 74px;
+      }
+      .ant-switch-checked .ant-switch-handle {
+        left: calc(100% - 27px);
+      }
+      .ant-switch-handle {
+        width: 27px;
+        height: 27px;
+      }
+      .ant-switch-handle:before {
+        border-radius: 19px;
+      }
+      .ant-switch-checked .ant-switch-inner {
+        margin: 0 32px 0 7px;
       }
     }
     .footer-project {
