@@ -318,7 +318,7 @@ const ListViewMap = ({
     },
     {
       title: 'Type',
-      width: windowWidth > 1900 ? (windowWidth > 2500 ? '250px' : '200px') : '147px',
+      width: windowWidth > 1900 ? (windowWidth > 2500 ? '199px' : '140px') : '86px',
       dataIndex: 'type',
       key: 'type',
       className: 'project-type',
