@@ -393,7 +393,7 @@ const TableListView = ({
                   <br />
                   <b>Board project: </b> {record.board_project_id}
                   </>}>
-                  <span className='name'>{name}</span>
+                  <span className='project-name'>{name}</span>
                 </Popover>
                 <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={content(record)} trigger="click" style={{marginRight:'-10px',cursor: 'pointer'}}>
                   <MoreOutlined onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} className='dots-table'/>

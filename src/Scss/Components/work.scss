@@ -1770,9 +1770,7 @@
   .ant-table tfoot > tr > td,
   .ant-table tfoot > tr > th {
     padding: 11px 4.5px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis; 
+    white-space: normal;
     max-width: 100%; 
   }
   .span-submitted {
@@ -2582,7 +2580,7 @@
           line-height: 27px !important;
         }
         span {
-          font-size: 28px !important;
+          font-size: 19px !important;
         }
       }
       .ant-table-tbody > tr > td,
