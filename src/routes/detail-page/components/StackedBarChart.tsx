@@ -2,8 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 
 const StackedBarChart = ({}) => {
+  const [maxValue, setMaxValue] = useState(0);
   const svgRef = useRef<SVGSVGElement>(null);
-  const totalWidth = 260;
+  const totalWidth:any = document.getElementById('ProjectRoadmapHeader')?.clientWidth;
+  console.log('totalWidth', totalWidth)
+  // const totalWidth = 260;
   const totalHeight = 200;
   const margin = {top: 10, right: 30, bottom: 20, left: 50},
         width = totalWidth - margin.left - margin.right,
@@ -21,9 +24,37 @@ const StackedBarChart = ({}) => {
   const subGroups = ['Nitrogen', 'normal', 'stress'];
 
   useEffect(() => {
+    const totals:any = {};
+    data.forEach((item:any) => {
+        if (!totals[item.group]) {
+            totals[item.group] = 0;
+        }
+        subGroups.forEach((subGroup:any) => {
+            totals[item.group] += parseInt(item[subGroup]);
+        });
+    });
+    
+    let maxSum = -Infinity;
+    let maxGroup = '';
+    for (const group in totals) {
+        if (totals[group] > maxSum) {
+            maxSum = totals[group];
+            maxGroup = group;
+        }
+    }
+    
+    console.log("Totals:", totals);
+    console.log("Max Sum Group:", maxGroup);
+    console.log("Max Sum:", maxSum);
+    setMaxValue(maxSum)
+  }, []);
+
+  useEffect(() => {
     d3.select(svgRef.current).select('g').remove();
     const svg = d3.select(svgRef.current)
-      .attr("viewBox", `0 0 ${totalWidth} ${totalHeight} `)
+      .attr('width', totalWidth)
+      .attr('height', totalHeight)
+      // .attr("viewBox", `0 0 ${totalWidth} ${totalHeight} `)
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     
@@ -39,9 +70,10 @@ const StackedBarChart = ({}) => {
 
     // Add Y axis
     const y = d3.scaleLinear()
-      .domain([0, 60])
+      .domain([0, maxValue])
       .range([ height, 0 ]);
     svg.append("g")
+      .attr('class', 'y-axis-stackedbar-chart')
       .call(d3.axisLeft(y));
 
     // color palette = one color per subgroup
@@ -68,8 +100,9 @@ const StackedBarChart = ({}) => {
           .attr("y", (d:any): any => { return y(d[1]); })
           .attr("height", (d:any) => { const dimention = (y(d[0]) ?? 0) - (y(d[1]) ?? 0); return dimention; })
           .attr("width",x.bandwidth())
-          .attr("rx", 3)
-
+          .attr("rx", 1.5)
+          .attr('stroke', 'white')
+          .style('stroke-linecap', 'round')
   } ,[data]);
   return (
     <>

@@ -970,7 +970,6 @@ const DetailModal = ({
                     <ProblemsProjects />
                     <Vendors />
                     <ComponentSolucions />
-                    <StackedBarChart />
                     <Roadmap
                       data={dataRoadmap}
                       setOpenPiney={setOpenPiney}
@@ -978,6 +977,7 @@ const DetailModal = ({
                       updateAction={updateAction}
                       setUpdateAction={setUpdateAction}
                     />
+                    <StackedBarChart />
                     <br></br>
                     {appUser &&
                       appUser.designation &&
