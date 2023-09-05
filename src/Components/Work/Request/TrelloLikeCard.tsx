@@ -16,6 +16,7 @@ import { STATUS_NAMES } from 'constants/constants';
 import EditDatesModal from './EditDatesModal';
 import { useProfileState } from 'hook/profileHook';
 import { ArchiveAlert } from 'Components/Alerts/ArchiveAlert';
+import DetailModal from 'routes/detail-page/components/DetailModal';
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -54,6 +55,8 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   const [showActivateProject, setShowActivateProject] = useState(false);
   const [archiveAlert, setArchiveAlert] = useState(false);
   const [archiveProjectAction , setArchiveProjectAction] = useState(false);
+  const [visibleModal, setVisibleModal] = useState(false);
+  const [selectedProjectData, setSelectedProjectData] = useState<any>(null);
   const activeProject = project?.projectData?.currentId[0]?.status_name === 'Active';
   const appUser = useProfileState();
   const pageWidth  = document.documentElement.scrollWidth;
@@ -147,6 +150,19 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
         })
       }
     }
+    if (project?.projectData?.currentId[0]?.status_name === 'Active'){
+      items.push({
+        key: '7',
+        label: <span style={{ borderBottom: '1px solid transparent' }}>
+          <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
+          Detail Page
+        </span>,
+        onClick: (() => {
+          setSelectedProjectData(project?.projectData)
+          setVisibleModal(true)
+        })
+      })
+    }
     return (<Menu className="js-mm-00" items={items} />)
   };
   
@@ -235,14 +251,23 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
 
   return (
     <>
-    {
-      archiveAlert &&
-      <ArchiveAlert
-        visibleAlert={archiveAlert}
-        setVisibleAlert={setArchiveAlert}
-        setArchiveProjectAction={setArchiveProjectAction}
-      />
-    }
+      {
+        visibleModal &&
+        <DetailModal
+          visible={visibleModal}
+          setVisible={setVisibleModal}
+          data={selectedProjectData}
+          type={''}
+        />
+      }
+      {
+        archiveAlert &&
+        <ArchiveAlert
+          visibleAlert={archiveAlert}
+          setVisibleAlert={setArchiveAlert}
+          setArchiveProjectAction={setArchiveProjectAction}
+        />
+      }
     {
       showCopyToCurrentYearAlert &&
       <CopyProjectAlert
@@ -271,12 +296,16 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
       setVisible={setShowActivateProject}
       project={project?.projectData}
     />}
-    <div 
-      style={activeProject ? { border: '1.5px solid #1753EF' } : {}}>
+    <div style={activeProject ? {borderRight: `1.5px solid #1753EF`}:{}}>
     <div ref={divRef} className="card-wr" 
-      style={{ 
+      style={activeProject ? { 
+        borderBottom: `1.5px solid #1753EF`,
+        borderTop: `1.5px solid #1753EF`,
         borderLeft: `${pageWidth > 2000? (pageWidth > 3000? '6':'5'):'3'}px solid ${borderColor}`, 
         borderRadius: '4px' 
+      }:{
+        borderLeft: `${pageWidth > 2000? (pageWidth > 3000? '6':'5'):'3'}px solid ${borderColor}`, 
+        borderRadius: '4px'
       }} draggable={editable && !filtered}
       onDragStart={e => {
         onDragStart(e, project_id);
@@ -338,8 +367,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
             }
           </div>
           
-        </div>
-      
+        </div>      
     </div>
     </div>
     </>
