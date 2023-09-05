@@ -1769,9 +1769,14 @@
   .ant-table-thead > tr > th,
   .ant-table tfoot > tr > td,
   .ant-table tfoot > tr > th {
-    padding: 11px 4.5px;
+    padding: 9px 4.5px;
     white-space: normal;
     max-width: 100%; 
+  }
+  .ant-table-tbody>tr>td {
+    border-bottom: 1px solid #f0f0f0;
+    transition: background .3s;
+    border-top: 1px solid transparent;
   }
   .span-submitted {
     background: rgba(255, 221, 0, 0.2);
@@ -1836,6 +1841,20 @@
   .ant-table-column-sorter-up,
   .ant-table-column-sorter-down {
     color: #251863;
+  }
+  .row-geometry-body-selected{
+    td {
+      border-bottom: 1px solid $green !important;
+      border-top: 1px solid $green !important;
+    }
+    td:first-child {
+      border-left: 1px solid $green !important;
+      border-radius: 3px 0px 0px 3px;
+    }
+    td:last-child{
+      border-right: 1px solid $green !important;
+      border-radius: 0px 3px 3px 0px;
+    }
   }
 }
 
@@ -2367,7 +2386,7 @@
       margin-left: 5px;
     }
     .ant-table-cell {
-      padding: 15px 3px !important;
+      padding: 10px 3px !important;
     }
   }
 

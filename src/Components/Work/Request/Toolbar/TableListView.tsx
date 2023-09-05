@@ -38,6 +38,7 @@ const TableListView = ({
   const [showCopyToCurrentYearAlert, setShowCopyToCurrentYearAlert] = useState(false);
   const [boardProjectIds, setBoardProjectIds] = useState<any[]>([]);
   const windowWidthSize: any = window.innerWidth;
+  const [hoveredRow, setHoveredRow] = useState<any>(null);
   const appUser = useProfileState();
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -553,6 +554,31 @@ const TableListView = ({
               columns={filteredColumns}
               dataSource={parsedData}
               pagination={false}
+              onRow={(record, rowIndex) => {
+                return {
+                  onMouseEnter: (e) =>  {
+                    let valueInData:any  
+                    if(record.key){
+                      valueInData = record.key;
+                    }
+                    e.stopPropagation()
+                    setHoveredRow(valueInData)
+                  },
+                };
+              }} 
+              onHeaderRow={(record, rowIndex) => {
+                return {
+                  onMouseEnter: (e) =>  {
+                    setHoveredRow(-1)
+                  },
+                }
+              }}
+              rowClassName={(record, index) => {
+                if(hoveredRow !== -1 && hoveredRow === record.key){
+                  return ('row-geometry-body-selected')
+                }
+                return ('')
+              }}
               scroll={{ x:  windowWidthSize > 1900 ? (windowWidthSize > 2500 ? 1766:1406) : 1166, y: 'calc(100vh - 270px)' }}
               summary={() => (
                 <Table.Summary fixed={ 'bottom'}  >
