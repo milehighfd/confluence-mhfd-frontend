@@ -121,10 +121,10 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
       });
     }
     if (appUser?.userInformation?.designation === 'admin' ||
-    appUser?.userInformation?.designation === 'staff'){
+      appUser?.userInformation?.designation === 'staff') {
       items.push({
         key: '5',
-        label: <span style={{borderBottom: '1px solid transparent'}}>
+        label: <span style={{ borderBottom: '1px solid transparent' }}>
           <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
           Archive Project
         </span>,
@@ -133,19 +133,20 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
           //archiveProject(project?.projectData?.project_id)
         })
       });
-    }
-    if (project?.projectData?.currentId[0]?.status_name !== 'Active'){
-      items.push({
-        key: '6',
-        label: <span style={{borderBottom: '1px solid transparent'}}>
-          <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
-          Make Project Active
-        </span>,
-        onClick: (() => {
-          setShowActivateProject(true)
+      if (project?.projectData?.currentId[0]?.status_name !== 'Active'
+        && type === 'WORK_PLAN') {
+        items.push({
+          key: '6',
+          label: <span style={{ borderBottom: '1px solid transparent' }}>
+            <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
+            Make Project Active
+          </span>,
+          onClick: (() => {
+            setShowActivateProject(true)
+          })
         })
-      })
-    }    
+      }
+    }
     return (<Menu className="js-mm-00" items={items} />)
   };
   
