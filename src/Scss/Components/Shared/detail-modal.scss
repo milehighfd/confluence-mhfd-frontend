@@ -794,6 +794,23 @@
   .x-axis-stackedbar-chart-for-background line {
     visibility: hidden;
   }
+  .x-axis-selected {
+    color: #858F94 !important;
+    text-align: right !important;
+    font-family: Ubuntu !important;
+    font-size: 12px !important;
+    font-style: normal !important;
+    font-weight: 700 !important;
+    line-height: 120% !important; /* 14.4px */
+    letter-spacing: 0.415px !important;
+  }
+  .background-rect-hidden{
+    visibility: hidden;
+  }
+  .background-rect-visible{
+    visibility: visible;
+    fill: rgba(17, 9, 60, 0.15);
+  }
 }
 
 //IMAGE-MODAL

@@ -4,6 +4,7 @@ import * as d3 from 'd3';
 const StackedBarChart = ({}) => {
   const [maxValue, setMaxValue] = useState(0);
   const [tickValues, setTickValues] = useState([]);
+  const [sumGroups, setSumGroups] = useState<any>([]);
   const svgRef = useRef<SVGSVGElement>(null);
   const barWidth = 60;
   // const totalWidth:any = document.getElementById('ProjectRoadmapHeader')?.clientWidth;
@@ -58,7 +59,7 @@ const StackedBarChart = ({}) => {
             maxGroup = group;
         }
     }
-    
+    setSumGroups(totals)
     console.log("Totals:", totals);
     console.log("Max Sum Group:", maxGroup);
     console.log("Max Sum:", maxSum);
@@ -105,6 +106,19 @@ const StackedBarChart = ({}) => {
       .domain(subGroups)
       .range(['#5D3DC7','#047CD7','#29C499','#F4BE01'])
 
+    let backgroundRect = svg
+    .append("g")
+    .append('rect')
+    .attr('y',  150)
+    .attr('height',  100)
+    .attr('x',  100)
+    .attr('width', x.bandwidth()+10)
+    .attr("rx", 5)
+    .attr('class', 'background-rect-hidden');
+
+
+    d3.select(".x-axis-stackedbar-chart").selectAll("text").attr("id", function(d:any) { return d});
+
     //stack the data? --> stack per subgroup
     const stackedData = d3.stack()
       .keys(subGroups)
@@ -128,11 +142,35 @@ const StackedBarChart = ({}) => {
           .attr('stroke', 'white')
           .attr('stroke-width', '2')
           .style('stroke-linecap', 'round')
+          .on("click", function (d: any) {
+            d3.select('.x-axis-selected').attr('class', 'x-axis-stackedbar-chart text');
+            backgroundRect.attr('y', height-(5.5*sumGroups[d.data.group]));
+            backgroundRect.attr('x', d3.event.target.x.animVal.value-5);
+            backgroundRect.attr('height',5 + (5.5*sumGroups[d.data.group])).attr('class', 'background-rect-visible');
+            d3.select(`#${d.data.group}`).attr('class', 'x-axis-selected');
+          })
+
   } ,[data]);
   return (
-    <div>
-      <svg ref={svgRef} width="100%" height="100%" />
-    </div>
+    <>
+      <div style={{overflowY: 'auto'}}>
+        <svg ref={svgRef} width="100%" height="100%" />
+      </div>
+      <div className='roadmap-body-display ' style={{ paddingTop: '0px' }}>
+        <span className="span-dots-roadmap">
+          <div className="roadmap-circle" style={{ backgroundColor: '#5E5FE2' }} />
+          <span className='roadmap-dots-leyend'>Funding (MHFD Funds)</span>
+        </span>
+        <span className="span-dots-roadmap">
+          <div className="roadmap-circle" style={{ backgroundColor: '#047CD7' }} />
+          <span className='roadmap-dots-leyend'>Income (LG Funds)</span>
+        </span>
+        <span className="span-dots-roadmap">
+          <div className="roadmap-circle" style={{ backgroundColor: '#29C499' }} />
+          <span className='roadmap-dots-leyend'>Agreement</span>
+        </span>
+      </div>
+    </>
   );
 }
 
