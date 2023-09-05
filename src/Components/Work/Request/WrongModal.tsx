@@ -1,10 +1,9 @@
 import React from "react";
 import { Button, Col, Modal, Row } from 'antd';
 
-export const WrongModal = ({ visible, setVisible, message }: {
+export const WrongModal = ({ visible, setVisible }: {
   visible: boolean,
   setVisible: React.Dispatch<React.SetStateAction<boolean>>,
-  message: string
 }) => {
 
   return (
@@ -31,7 +30,7 @@ export const WrongModal = ({ visible, setVisible, message }: {
           <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
           <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
             <p>
-              {message}
+              Please note that only your notes and project type settings were updated. Once all five project types are toggled to 'Yes' will the board be submitted to the Mile High Flood District for review.
             </p>
           </Col>
           <Col xs={{ span: 48 }} lg={{ span: 24 }}>

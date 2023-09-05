@@ -41,7 +41,6 @@ const Status = () => {
   const [boardsLength, setBoardsLength] = useState<number>(0);
   const [pending, setpending] = useState(false);
   const [api, contextHolder] = notification.useNotification();
-  const [message, setMessage] = useState('');
 
   const UNDER_REVIEW_STATE = 'Under Review';
   const APPROVED_STATE = 'Approved';
@@ -135,7 +134,7 @@ const Status = () => {
      />
     }
     {
-      <WrongModal visible={visibleModal} setVisible={setVisibleModal} message={message}/>
+      <WrongModal visible={visibleModal} setVisible={setVisibleModal} />
     }
     <Drawer
       title={<h5 className='title-drawer'>
@@ -197,19 +196,14 @@ const Status = () => {
       <div className="footer-drawer">
         <Button
           className="btn-purple"
-          // disabled={status === APPROVED_STATE}
-          // style={{ opacity: status === APPROVED_STATE ? 0.5 : 1 }}
+          disabled={status === APPROVED_STATE}
+          style={{ opacity: status === APPROVED_STATE ? 0.5 : 1 }}
           onClick={() => {
             const canBeApproved = boardsData.every(r => r.checked);
-            if (canBeApproved && status !== APPROVED_STATE) {
+            if (canBeApproved) {
               setVisibleAlert(true)
             } else {
-              if (status === APPROVED_STATE) {
-                setMessage(`Please note that only your notes were updated.`)
-              } else {
-                setMessage(`Please note that only your notes and project type settings were updated. Once all five project types are toggled to 'Yes' will the board be submitted to the Mile High Flood District for review.`)
-              }
-              save(status);
+              save(UNDER_REVIEW_STATE);
               setVisibleModal(true);
             }
           }}
