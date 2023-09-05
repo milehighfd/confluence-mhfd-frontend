@@ -1037,9 +1037,7 @@ hr.filters-line {
     margin: 0px;
     color: $purple00;
     width: 95%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: normal;
     max-width: 100%;
   }
   .status-projects-active {
@@ -1103,6 +1101,9 @@ hr.filters-line {
   margin: 0px;
 }
 @media (max-width: 875px){
+  .tabs-map .ant-tabs-content-holder{
+    padding: 0px;
+  }
   .tabs-map .ant-tabs-nav {
     padding-left: 12px;
   }

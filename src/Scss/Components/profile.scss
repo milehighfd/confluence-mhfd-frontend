@@ -524,6 +524,9 @@
   .profile-myprofile-mobile-header {
     display: flex;
     padding: 16px 51px;
+    background-color: white;
+    border-radius: 0px 0px 20px 20px;
+    box-shadow: 0px 2px 10px 0px rgba(5, 33, 41, 0.10);
     .profile-myprofile-mobile-image {
       border-radius: '50%';
     }

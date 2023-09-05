@@ -40,7 +40,6 @@ const ProfileMobile = ({
           </p>
         </div>
       </div>
-      <div style={{ margin: '0px' }} className="line-01"></div>
       <div className="searches-myprofile-mobile">
         <Tabs
           defaultActiveKey={displayedTabKey[0]}

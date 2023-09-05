@@ -124,7 +124,8 @@ const ListViewMap = ({
           sponsor: ci?.sponsor,
           cost: totalCost,
           project_id: ci?.project_id,
-          isFavorite: favorites.some((f: any) => (f.project_id && f.project_id === ci.project_id) || (f.problem_id && f.problem_id === ci.problemid))
+          isFavorite: favorites.some((f: any) => (f.project_id && f.project_id === ci.project_id) || (f.problem_id && f.problem_id === ci.problemid)),
+          onBase: ci?.onBase
         };
         return output;
       });
@@ -287,7 +288,7 @@ const ListViewMap = ({
       },
       render: (name: any, record: any) => (
         <div className="content-project-name">
-          <Popover placement="top" content={<p className="main-map-list-name-popover-text">{name}</p>}>
+          <Popover placement="top" content={<p className="main-map-list-name-popover-text"><b>Project ID: </b> {record.project_id} <br /> <b>OnBase Project Number: </b> {record.onBase?record.onBase:"-"}</p>}>
             <p className="project-name">{name}</p>
           </Popover>
           <Popover
@@ -398,7 +399,10 @@ const ListViewMap = ({
         setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
         return 0
       },
-      render: (text: any, record: any) => <div className="content-project-name"><p className="project-name">{text}</p>
+      render: (text: any, record: any) => <div className="content-project-name">
+        <Popover placement="top" content={<p className="main-map-list-name-popover-text"><b>Problem ID: </b> {record.problemid}</p>}>
+            <p className="project-name">{text}</p>
+          </Popover>
       <Popover
         overlayClassName="pop-card-map"
         content={menu(record)}
