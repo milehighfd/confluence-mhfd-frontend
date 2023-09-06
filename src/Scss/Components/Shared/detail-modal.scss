@@ -533,6 +533,11 @@
   .chat-r {
     padding: 20px 25px;
   }
+  .table-financials-modal{
+    .ant-table-summary>tr>td, .ant-table-summary>tr>th {
+      border-bottom: none;
+    }
+  }
 }
 .detail-body-carousel {
   border-right: 1.5px solid rgba(61, 46, 138, 0.07);
