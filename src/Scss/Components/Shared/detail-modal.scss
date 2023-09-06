@@ -2553,10 +2553,28 @@
     }
     .scroll-table{
       overflow-x: auto !important;
+      .ant-table {
+        font-size: 12px !important;
+        p{
+          font-size: 12px !important;
+        }
+      }
+      p{
+        font-size: 12px !important;
+      }
     }
-    .body-scroll-table{
-      width: 200% !important;
-      overflow-x : scroll !important;
+    .table-financials-modal {
+      flex: 0 0 800px;
+      max-width: 800px;
+      .ant-table-tbody > tr > td {
+        font-size: 12px;
+        line-height: 14px;
+      }
+      .ant-table-thead {
+        th{
+          font-weight: 600;
+        }
+      }
     }
     .table-value-total{
       font-size: 12px !important;
