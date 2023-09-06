@@ -8,6 +8,7 @@ const StackedBarChart = ({}) => {
   const [sumGroups, setSumGroups] = useState<any>([]);
   const [openPopup, setOpenPopup] = useState(false);
   const dataPopup = useRef({});
+  const [dataPopup2, setDataPopup2] = useState({});
   const svgRef = useRef<SVGSVGElement>(null);
   const barWidth = 60;
   const totalHeight = 350;
@@ -90,12 +91,13 @@ const StackedBarChart = ({}) => {
     
   }
   useEffect(() => {
-    d3.select(svgRef.current).select('g').remove();
+    d3.select(svgRef.current).select('.stackedBar-chart').remove();
     const svg = d3.select(svgRef.current)
       .attr('width', totalWidth)
       .attr('height', totalHeight)
       // .attr("viewBox", `0 0 ${totalWidth} ${totalHeight} `)
       .append("g")
+      .attr("id", "stackedBar-chart")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     
     const groups = data.map(d => (d.group));
@@ -170,14 +172,19 @@ const StackedBarChart = ({}) => {
             } else {
               d3.select('.x-axis-selected').attr('class', 'x-axis-stackedbar-chart text');
               applyBackgroundRect('add', x , y, d, backgroundRect);
+              console.log('Setting data ', d.data);
               dataPopup.current = d.data;
+              setDataPopup2(d.data);
               setOpenPopup(true);
             }
           });
   } ,[data]);
+  useEffect(() => {
+    console.log('Data current', dataPopup2);
+  },[dataPopup2]);
   return (
     <>
-      { openPopup && <FinancialsPopup popupData={dataPopup.current}/>}
+      { openPopup && <FinancialsPopup popupData={dataPopup2}/>}
       <div id='stackedBar-chart-container' style={{overflowY: 'auto', position: 'relative'}}>
         <svg ref={svgRef} width="100%" height="100%" />
       </div>
