@@ -172,20 +172,20 @@ const Financials = ({ projectId }: { projectId: any }) => {
       title: <p>Agreement</p>,
       dataIndex: 'agreement',
       key: 'agreement',
-      width: '10%',
+      width: '12%',
       render: (agreement: any, index: any) => <p className={'table-' + agreement[1]}>{agreement[0]}</p>,
     },
     {
       title: <p>Amendment</p>,
       dataIndex: 'amendment',
       key: 'amendment',
-      width: '10%',
+      width: '14%',
     },
     {
       title: <p>Partner</p>,
       dataIndex: 'partner',
       key: 'partner',
-      width: '18%',
+      width: '17%',
     },
     {
       title: <p>Phase</p>,
@@ -198,21 +198,21 @@ const Financials = ({ projectId }: { projectId: any }) => {
       title: <p style={{ textAlign: 'center' }}>Projected</p>,
       dataIndex: 'projected',
       key: 'projected',
-      width: '14%',
+      width: '12%',
       render: (projected: string[]) => <p className={'table-' + projected[1]}>{projected[0]}</p>,
     },
     {
       title: <p style={{ textAlign: 'center' }}>Encumbered</p>,
       dataIndex: 'encumbered',
       key: 'encumbered',
-      width: '14%',
+      width: '12%',
       render: (encumbered: string[]) => <p className={'table-' + encumbered[1]}>{encumbered[0]}</p>,
     },
     {
       title: <p style={{ textAlign: 'center' }}>Tyler Encumbered</p>,
       dataIndex: 'tyler',
       key: 'tyler',
-      width: '14%',
+      width: '12%',
       render: (tyler: string[]) => <p className={'table-' + tyler[1]}>{tyler[0]}</p>,
     },
     {
@@ -456,7 +456,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
                   dataSource={finalData}
                   columns={columns}
                   pagination={{ pageSize: 50 }}
-                  scroll={{ y: 350 , x:'130%'}}
+                  scroll={{ y: 350 , x:'140%'}}
                   summary={() => (
                     <Table.Summary fixed={ 'bottom'}  >
                       <Table.Summary.Row  style={{ borderTop: '1px solid #d7d3e2', marginTop: '5px' }}>
