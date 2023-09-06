@@ -1737,7 +1737,13 @@
   .ant-table table {
     border-collapse: collapse;
   }
-  .row-color {
+  .row-color-onhover {
+    border-bottom: 1.5px;
+    border-width: 2px;
+    border-color: $green;
+    border-style: solid;
+  }
+  .row-color-active {
     border-bottom: 1.5px;
     border-width: 2px;
     border-color: #1753EF;

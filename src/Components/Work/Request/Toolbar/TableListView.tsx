@@ -648,20 +648,22 @@ const TableListView = ({
                   },
                 }
               }}
-              // rowClassName={(record, index) => {
-              //   if(hoveredRow !== -1 && hoveredRow === record.key){
-              //     return ('row-geometry-body-selected')
-              //   }
-              //   return ('')
-              // }}
-              scroll={{ x:  windowWidthSize > 1900 ? (windowWidthSize > 2500 ? 1766:1406) : 1166, y: 'calc(100vh - 270px)' }}
-              rowClassName={(record, index) => {
-                if (record?.projectData?.currentId[0]?.status_name === 'Active') {
-                  return 'row-color';
-                }else{
-                  return '';
+              rowClassName={(record, index) => {                
+                if(hoveredRow !== -1 && hoveredRow === record.key){
+                  return ('row-color-onhover')
+                }else if (record?.projectData?.currentId[0]?.status_name === 'Active') {       
+                  return ('row-color-active');                  
                 }
+                return ('')
               }}
+              scroll={{ x:  windowWidthSize > 1900 ? (windowWidthSize > 2500 ? 1766:1406) : 1166, y: 'calc(100vh - 270px)' }}
+              // rowClassName={(record, index) => {
+              //   if (record?.projectData?.currentId[0]?.status_name === 'Active') {
+              //     return 'row-color';
+              //   }else{
+              //     return '';
+              //   }
+              // }}
               summary={() => (
                 <Table.Summary fixed={ 'bottom'}  >
                   <Table.Summary.Row  style={{ height: '40px' }}>
