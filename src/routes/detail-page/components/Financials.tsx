@@ -449,7 +449,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
           </Col>
         </Row>
         <Row>
-          <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-financials-modal" style={{ paddingRight: '8px' }}>
+          <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-financials-modal table-financials-modal-mobile" style={{ paddingRight: '8px' }}>
             <div className="scroll-table" style={{ width: '100%', overflowX: 'hidden' }}>
               <div className="body-scroll-table">
                 <Table dataSource={finalData} columns={columns} pagination={{ pageSize: 50 }} scroll={{ y: 350 }} />
