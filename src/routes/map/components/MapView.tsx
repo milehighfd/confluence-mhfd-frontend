@@ -1289,6 +1289,8 @@ const MapView = () => {
                       id: project.projectId,
                       phase: project?.currentId[0]?.code_phase_type?.phase_name,
                       stream: project?.project_streams,
+                      onBase: project?.onbase_project_number,
+                      code_project_type_id: project?.code_project_type_id,
                       totalComponents: parseInt(
                         project.GRADE_CONTROL_STRUCTURE +
                         project.PIPE_APPURTENANCES +

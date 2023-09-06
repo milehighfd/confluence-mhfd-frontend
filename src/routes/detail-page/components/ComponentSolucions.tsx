@@ -70,14 +70,17 @@ const ComponentSolucions = () => {
         </Col>
       </Row>
       <Row>
-        <Col xs={{ span: 24 }} lg={{ span: 24 }} className="detail-problems-component-table">
-          <Table dataSource={componentsOfProblems ? dataSolution : {}} columns={columns} pagination={false} />
-          {componentsOfProblems.length > 0 && (
-            <div className="table-value-total">
-              <p className="table-total-font table-total-adjust">{`Total Proposed Cost (${totalComponents})`}</p>
-              <p style={{ width: 'calc(20% + 0px)' }}>${new Intl.NumberFormat('en-EN').format(total)}</p>
-            </div>
-          )}
+        <Col xs={{ span: 24 }} lg={{ span: 24 }} className="detail-problems-component-table table-mobile-proposed">
+          <div className='mobile-table-proposed'>
+            <Table dataSource={componentsOfProblems ? dataSolution : {}} columns={columns} pagination={false} />
+            {componentsOfProblems.length > 0 && (
+              <div className="table-value-total">
+                <p className="table-total-font table-total-adjust">{`Total Proposed Cost (${totalComponents})`}</p>
+                <p style={{ width: 'calc(20% + 0px)' }}>${new Intl.NumberFormat('en-EN').format(total)}</p>
+              </div>
+            )}
+          </div>
+          
         </Col>
       </Row>
     </>

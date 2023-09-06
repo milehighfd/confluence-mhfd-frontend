@@ -41,7 +41,7 @@ const PortafolioBody = () => {
     searchWord, graphicOpen
   } = usePortflioState();
   const { setFavorites, getListPMTools, setOpenGroups, getActionsDone } = usePortfolioDispatch();
-
+  const { openModalTollgate: visible, } = usePortflioState();
   const [filterby, setFilterby] = useState('');
   const [filterValue, setFilterValue] = useState(-1);
   const [filtername, setFiltername] = useState('Mile High Flood District');
@@ -250,7 +250,7 @@ const PortafolioBody = () => {
   return <>
     {graphicOpen && <ModalGraphic/>}
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
-    <ModalTollgate />
+    {visible && <ModalTollgate />}
     <div>
       <div className="portafolio-head">
         <Row>

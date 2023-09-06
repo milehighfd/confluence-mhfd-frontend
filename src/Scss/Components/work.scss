@@ -378,6 +378,14 @@
       height: 15px;
     }
   }
+  .active-card-wr {
+    border: 2px solid #057cd8;
+    border-radius: 4px;
+    margin-bottom: 5px;
+  }
+  .inactive-card-wr{
+    margin-bottom: 5px;
+  }
   .card-wr {
     width: 100% !important;
     height: 80px;
@@ -385,7 +393,7 @@
     background-color: $white;
     position: relative;
     padding: 5px 5px;
-    margin-bottom: 5px;
+    //margin-bottom: 5px;
     border-right: 12.5px solid white !important;
     margin-right: 0px;
     padding-right: 0px;
@@ -1727,16 +1735,32 @@
     display: none !important;
   }
 }
+
 .table-map-list {
   padding-left: 13px;
   .ant-table-body {
     height: calc(100vh - 270px);
     max-height: calc(100vh - 270px);
   }
+  .ant-table table {
+    border-collapse: collapse;
+  }
+  .row-color-onhover {
+    border-bottom: 1.5px;
+    border-width: 2px;
+    border-color: $green;
+    border-style: solid;
+  }
+  .row-color-active {
+    border-bottom: 1.5px;
+    border-width: 2px;
+    border-color: #057CD8;
+    border-style: solid;
+  }
   ::-webkit-scrollbar {
     width: 8px !important;
     height: 8px !important;
-  }
+  }  
   .ant-table {
     color: $purple00;
     font-family: Ubuntu;
@@ -1769,11 +1793,14 @@
   .ant-table-thead > tr > th,
   .ant-table tfoot > tr > td,
   .ant-table tfoot > tr > th {
-    padding: 11px 4.5px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis; 
+    padding: 9px 4.5px;
+    white-space: normal;
     max-width: 100%; 
+  }
+  .ant-table-tbody>tr>td {
+    border-bottom: 1px solid #f0f0f0;
+    transition: background .3s;
+    border-top: 1px solid transparent;
   }
   .span-submitted {
     background: rgba(255, 221, 0, 0.2);
@@ -1800,6 +1827,8 @@
     justify-content: space-between;
   }
   .dots-table {
+    display: flex;
+    align-items: center;
     font-size: 16px;
   }
   .name-popup-list {
@@ -1836,6 +1865,20 @@
   .ant-table-column-sorter-up,
   .ant-table-column-sorter-down {
     color: #251863;
+  }
+  .row-geometry-body-selected{
+    td {
+      border-bottom: 1px solid $green !important;
+      border-top: 1px solid $green !important;
+    }
+    td:first-child {
+      border-left: 1px solid $green !important;
+      border-radius: 3px 0px 0px 3px;
+    }
+    td:last-child{
+      border-right: 1px solid $green !important;
+      border-radius: 0px 3px 3px 0px;
+    }
   }
 }
 
@@ -1988,6 +2031,7 @@
     }
     .ant-modal-body {
       padding: 25px;
+      font-size: 17px;
     }
     p {
       font-size: 16px;
@@ -2367,7 +2411,7 @@
       margin-left: 5px;
     }
     .ant-table-cell {
-      padding: 15px 3px !important;
+      padding: 10px 3px !important;
     }
   }
 
@@ -2582,7 +2626,7 @@
           line-height: 27px !important;
         }
         span {
-          font-size: 28px !important;
+          font-size: 19px !important;
         }
       }
       .ant-table-tbody > tr > td,
@@ -2782,6 +2826,7 @@
     }
     .ant-modal-body {
       padding: 40px !important;
+      font-size: 22px !important;
     }
     p {
       font-size: 21px !important;

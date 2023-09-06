@@ -533,6 +533,11 @@
   .chat-r {
     padding: 20px 25px;
   }
+  .table-financials-modal{
+    .ant-table-summary>tr>td, .ant-table-summary>tr>th {
+      border-bottom: none;
+    }
+  }
 }
 .detail-body-carousel {
   border-right: 1.5px solid rgba(61, 46, 138, 0.07);
@@ -2598,6 +2603,9 @@
 }
 
 @media (max-width: 875.98px) {
+  .gallery-grid{
+    grid-auto-rows: 64px !important;
+  }
   .detailed-header{
     h1{
       white-space: nowrap;
@@ -2634,6 +2642,11 @@
     }
     .status-final{
       font-size: 12px !important;
+    }
+    .table-financials-modal{
+      .scroll-table{
+        width: 200% !important;
+      }
     }
   }
   .mobile-no-visibility{
@@ -2672,6 +2685,53 @@
   .detailed-body{
     .mapboxgl-map {
       height: 280px !important;
+    }
+    .mobile-table-proposed{
+      width: 200% !important;
+      overflow-x : scroll !important;
+    }
+    .table-mobile-proposed{
+      overflow-x: auto;
+    }
+    .scroll-table{
+      overflow-x: auto !important;
+      .ant-table {
+        font-size: 12px !important;
+        p{
+          font-size: 12px !important;
+        }
+      }
+      p{
+        font-size: 12px !important;
+      }
+    }
+    .table-financials-modal-mobile {
+      flex: 0 0 800px;
+      max-width: 800px;
+      .ant-table-tbody > tr > td {
+        font-size: 12px;
+        line-height: 14px;
+      }
+      .ant-table-thead {
+        th{
+          font-weight: 600;
+        }
+      }
+    }
+    .table-value-total{
+      font-size: 12px !important;
+      p{
+        font-size: 12px !important;
+      }
+    }
+    .row-mobile-financial{
+      width: 100%;
+      overflow-x: auto;
+      .group-dropdown-financial{
+        width: 800px;
+        max-width: 800px;
+        flex: 0 0 800px;
+      }
     }
   }
   .detailed-tabs-layout{

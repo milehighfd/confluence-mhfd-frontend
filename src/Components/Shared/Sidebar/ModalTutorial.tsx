@@ -34,22 +34,38 @@ const ModalTutorial = (
         locationPage.pathname === '/map' && (
           <>
             {sliderIndex === 0 && <div className="tuto-01">
-              <div className="tuto-17">
+              <div className="tuto-17 mobile-no-display">
                 <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
                 <p><i>View more than 20 curated layers for additional project context.</i></p>
               </div>
-              <div className="tuto-18">
+              <div className="tuto-18 mobile-no-display">
                 <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
                 <p><i>Explore Confluence and learn more about your streams and watersheds. Please use this button to make suggestions, ask questions and provide overall feedback.</i></p>
               </div>
-              <div className="tuto-19">
+              <div className="tuto-19 mobile-no-display">
                 <img src="/Icons/tutorial/ic_arrow8.svg" alt="" />
                 <p><i>This is the hybrid map view. Click on the chevron arrows to expand into full map view.</i></p>
               </div>
-              <div className="tuto-20">
+              <div className="tuto-20 mobile-no-display">
                 <img src="/Icons/tutorial/ic_arrow8.svg" alt="" />
                 <p><i>Access project and problem profiles, detailing associated actions, financial information, team members, and other attributes.</i></p>
               </div>
+              <div className="tuto-mobile-1 desktop-no-display">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>Click here to see all of the layers for display.</i></p>
+              </div>
+              <div className="tuto-mobile-2 desktop-no-display">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>Click here to zoom to your location.</i></p>
+              </div>
+              <div className="tuto-mobile-3 desktop-no-display">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>Click here to quickly zoom out to MHFD boundary extents.</i></p>
+              </div>
+              <div className="tuto-mobile-4 desktop-no-display">
+                <img src="/Icons/tutorial/ic_arrow33.svg" alt="" />
+                <p><i>Swipe up to view all Project & Problem cards within your area.</i></p>
+              </div>  
             </div>}
 
             {sliderIndex === 1 && <div className="tuto-01">
@@ -239,7 +255,7 @@ const ModalTutorial = (
           </>
         )
       }
-      <div className="footer-next">
+      <div className="footer-next mobile-no-display">
         <h4>How to Use the&nbsp;
           {locationPage.pathname === '/map' && 'Map'}
           {locationPage.pathname === '/profile-view' && 'MyConfluence Page'}

@@ -63,7 +63,7 @@ const DetailModal = ({
   const { detailed } = useDetailedState();
   const useQuery = () => new URLSearchParams(useLocation().search);
   const query = useQuery();
-  const project_idS = query.get('project_id') || data?.project_id;
+  const project_idS = query.get('project_id') || data?.project_id || data?.id;
   const problem_idS = query.get('problem_id') || data?.problemid;
   const ciprRef = useRef(null);
   const cipjRef = useRef(null);
@@ -85,6 +85,14 @@ const DetailModal = ({
   let carouselRef = useRef<undefined | any>(undefined);
   const { getAttachmentProjectId } = useAttachmentDispatch();
   const { attachments } = useAttachmentState();
+
+  useEffect(() => {
+    console.log('project_idS',project_idS)
+  }, [project_idS]);
+
+  useEffect(() => {
+    console.log('data',data)
+  }, [data]);
   useEffect(() => {
     if (detailed?.project_id) {
       getAttachmentProjectId(detailed.project_id);
@@ -129,7 +137,7 @@ const DetailModal = ({
       });
     } else {
       const project_id = project_idS ? +project_idS : +problem_idS ? +problem_idS : 0;
-      getDetailedPageProject(project_id);
+      getDetailedPageProject(project_id ? project_id : data.project_id);
       getComponentsByProblemId({
         id: data?.on_base || project_id || data?.id || data?.cartodb_id,
         typeid: 'projectid',
@@ -997,6 +1005,7 @@ const DetailModal = ({
               </div>
             </Col>
             <Col
+              xs={{ span: 0}}
               span={7}
               className="pm-sidebar-graphics-display"
               style={{ height: 'calc(100vh - 183px)', overflowY: 'auto', scrollBehavior: 'smooth' }}
