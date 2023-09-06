@@ -294,7 +294,7 @@
 .menu-mobile {
   transition: all 0.7s;
 }
-.desktop-menu-no-display{
+.desktop-no-display{
   display: none !important;
 }
 // RESPONSIVE MOBILE
@@ -332,10 +332,10 @@
       }
     }
   }
-  .mobile-menu-no-display{
+  .mobile-no-display{
     display: none !important;
   }
-  .desktop-menu-no-display{
+  .desktop-no-display{
     display: block !important;
   }
   .btn-question{
