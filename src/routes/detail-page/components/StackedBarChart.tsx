@@ -6,13 +6,10 @@ const StackedBarChart = ({}) => {
   const [maxValue, setMaxValue] = useState(0);
   const [tickValues, setTickValues] = useState([]);
   const [sumGroups, setSumGroups] = useState<any>([]);
-  // const [openPopup, setOpenPopup] = useState(false);
-  const openPopup = useRef(false);
-  // const [dataPopup, setDataPopup] = useState<any>({}); 
+  const [openPopup, setOpenPopup] = useState(false);
   const dataPopup = useRef({});
   const svgRef = useRef<SVGSVGElement>(null);
   const barWidth = 60;
-  // const totalWidth:any = document.getElementById('ProjectRoadmapHeader')?.clientWidth;
   const totalHeight = 350;
   const data = [
     {group: 'banana', Nitrogen: '12', normal: '1', stress: '13' , additional: '12'},
@@ -74,19 +71,20 @@ const StackedBarChart = ({}) => {
   }, []);
 
 
-  const applyBackgroundRect = (type: string, svg: any, x: any, y:any, d: any, backgroundRect: any) => {
+  const applyBackgroundRect = (type: string, x: any, y:any, d: any, backgroundRect: any) => {
     if (type === 'add') {
-      console.log('Funcion', type);
+      console.log('Funcion', type, d, backgroundRect, d3.select(`#${d.data.group}`));
       backgroundRect
       .attr('y',  y(sumGroups[d.data.group]) - 7)
-      .attr('height', (ddd:any) => { const dimention = (y(0) ?? 0) - (y(sumGroups[d.data.group]) ); return dimention + 6;})
+      .attr('height', (y(0) ?? 0) - (y(sumGroups[d.data.group]) ) + 6 )
       .attr('x',  d3.event.target.x.animVal.value - 7)
       .attr('width', x.bandwidth() + 13)
       .attr("rx", 5)
-      .attr('class', 'background-rect-visible');
+      .attr('class', `background-rect-visible`)
+      .attr('id', `rect-${d.data.group}`);
       d3.select(`#${d.data.group}`).attr('class', 'x-axis-selected');  
     } else {
-      backgroundRect.attr('class', 'background-rect-hidden');
+      backgroundRect.attr('class', 'background-rect-hidden').attr('rect-undefined');
       d3.select(`#${d.data.group}`).attr('class', 'x-axis-stackedbar-chart text');  
     }
     
@@ -139,12 +137,11 @@ const StackedBarChart = ({}) => {
         .append("g")
         .append('rect')
         .attr('y',  150)
-        .attr('height',  100)
+        .attr('height',  0)
         .attr('x',  100)
-        .attr('width', x.bandwidth()+10)
+        .attr('width', 0)
         .attr("rx", 5)
-        .attr("id", 'background-rect')
-        .attr("class", 'background-rect-hidden');
+        .attr("id", 'background-rect');
     // Show the bars
     svg.append("g")
       .selectAll("g")
@@ -164,26 +161,23 @@ const StackedBarChart = ({}) => {
           .attr('stroke-width', '2')
           .style('stroke-linecap', 'round')
           .on("click", (d: any) => {
-            console.log('d', d.data, 'open popup ', openPopup.current);
-            if (!openPopup.current) {
-              d3.select('.x-axis-selected').attr('class', 'x-axis-stackedbar-chart text');
-              applyBackgroundRect('add', svg, x , y, d, backgroundRect);
-              dataPopup.current = d.data;
-              
-              openPopup.current = true;
+            const selection = d3.select(`#rect-${d.data.group}`);
+            console.log('S3lect', selection, selection.empty());
+            if (!selection.empty()) { // true the rect is already there // false the rect is of other or doesnt exist 
+            // he clickeado sobre el mismo que ya existe 
+              applyBackgroundRect('remove', x , y, d, backgroundRect);
+              setOpenPopup(false);
             } else {
-              applyBackgroundRect('remove', svg, x , y, d, backgroundRect);
-              openPopup.current = false;
+              d3.select('.x-axis-selected').attr('class', 'x-axis-stackedbar-chart text');
+              applyBackgroundRect('add', x , y, d, backgroundRect);
+              dataPopup.current = d.data;
+              setOpenPopup(true);
             }
-              
-
-              
-            
           });
   } ,[data]);
   return (
     <>
-    {openPopup.current && <FinancialsPopup popupData={dataPopup.current}/>}
+      { openPopup && <FinancialsPopup popupData={dataPopup.current}/>}
       <div id='stackedBar-chart-container' style={{overflowY: 'auto', position: 'relative'}}>
         <svg ref={svgRef} width="100%" height="100%" />
       </div>
