@@ -47,6 +47,7 @@ const TableListView = ({
   const [visibleModal, setVisibleModal] = useState(false);
   const [selectedProjectData, setSelectedProjectData] = useState<any>(null);
   const windowWidthSize: any = window.innerWidth;
+  const [hoveredRow, setHoveredRow] = useState<any>(null);
   const appUser = useProfileState();
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -434,7 +435,7 @@ const TableListView = ({
                   <br />
                   <b>Board project: </b> {record.board_project_id}
                   </>}>
-                  <span className='name'>{name}</span>
+                  <span className='project-name'>{name}</span>
                 </Popover>                
                 <Popover
                   placement="bottom"
@@ -628,6 +629,31 @@ const TableListView = ({
               columns={filteredColumns}
               dataSource={parsedData}
               pagination={false}
+              onRow={(record, rowIndex) => {
+                return {
+                  onMouseEnter: (e) =>  {
+                    let valueInData:any  
+                    if(record.key){
+                      valueInData = record.key;
+                    }
+                    e.stopPropagation()
+                    setHoveredRow(valueInData)
+                  },
+                };
+              }} 
+              onHeaderRow={(record, rowIndex) => {
+                return {
+                  onMouseEnter: (e) =>  {
+                    setHoveredRow(-1)
+                  },
+                }
+              }}
+              rowClassName={(record, index) => {
+                if(hoveredRow !== -1 && hoveredRow === record.key){
+                  return ('row-geometry-body-selected')
+                }
+                return ('')
+              }}
               scroll={{ x:  windowWidthSize > 1900 ? (windowWidthSize > 2500 ? 1766:1406) : 1166, y: 'calc(100vh - 270px)' }}
               rowClassName={(record, index) => {
                 if (record?.projectData?.currentId[0]?.status_name === 'Active') {

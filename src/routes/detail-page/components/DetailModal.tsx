@@ -128,7 +128,7 @@ const DetailModal = ({
       });
     } else {
       const project_id = project_idS ? +project_idS : +problem_idS ? +problem_idS : 0;
-      getDetailedPageProject(project_id);
+      getDetailedPageProject(project_id ? project_id : data.project_id);
       getComponentsByProblemId({
         id: data?.on_base || project_id || data?.id || data?.cartodb_id,
         typeid: 'projectid',
@@ -995,6 +995,7 @@ const DetailModal = ({
               </div>
             </Col>
             <Col
+              xs={{ span: 0}}
               span={7}
               className="pm-sidebar-graphics-display"
               style={{ height: 'calc(100vh - 183px)', overflowY: 'auto', scrollBehavior: 'smooth' }}

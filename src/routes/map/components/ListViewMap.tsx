@@ -13,6 +13,7 @@ import { SERVER } from 'Config/Server.config';
 import { MHFD_PROJECTS } from "constants/constants";
 import { Console } from "console";
 import { MoreOutlined } from "@ant-design/icons";
+import DetailModal from "routes/detail-page/components/DetailModal";
 
 const ListViewMap = ({
   totalElements,
@@ -28,9 +29,11 @@ const ListViewMap = ({
   const [isLoading, setIsLoading] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [dataSet, setDataSet] = useState<any>([]);
+  const [data, setData] = useState<any>({});
   const [dataProjects, setDataProjects] = useState<any>([]);
   const [dataProblems, setDataProblems] = useState<any>([]);
   const [hoveredRow, setHoveredRow] = useState<any>(null);
+  const [visible, setVisible] = useState(false); 
   let lastScrollLeft = 0;
   let lastScrollTop = 0;
   const [state, setState] = useState({
@@ -124,7 +127,11 @@ const ListViewMap = ({
           sponsor: ci?.sponsor,
           cost: totalCost,
           project_id: ci?.project_id,
-          isFavorite: favorites.some((f: any) => (f.project_id && f.project_id === ci.project_id) || (f.problem_id && f.problem_id === ci.problemid))
+          isFavorite: favorites.some((f: any) => (f.project_id && f.project_id === ci.project_id) || (f.problem_id && f.problem_id === ci.problemid)),
+          onBase: ci?.onBase,
+          project_idS: ci?.project_id,
+          cartodb_id: ci?.cartodb_id,
+          code_project_type_id: ci?.code_project_type_id,
         };
         return output;
       });
@@ -146,6 +153,7 @@ const ListViewMap = ({
           actions: ci?.count,
           percentaje: ci?.percentage,
           problemid: ci?.problemid,
+          problem_idS: ci?.problemid,
           coordinates: ci?.coordinates,
           cartodb: ci?.cartodb_id,
         };
@@ -176,6 +184,12 @@ const ListViewMap = ({
       setItHasComponents(true)
     }
   }, [dropdownIsOpen]);
+  const deleteFavorite = (id: number) => {
+    setTimeout(() => {
+        favoriteList(type === 'Problems');
+    }, 1000);
+}
+
   const stopModal = (e: any) => {
     e.domEvent.stopPropagation();
     e.domEvent.nativeEvent.stopImmediatePropagation();
@@ -287,7 +301,7 @@ const ListViewMap = ({
       },
       render: (name: any, record: any) => (
         <div className="content-project-name">
-          <Popover placement="top" content={<p className="main-map-list-name-popover-text">{name}</p>}>
+          <Popover placement="top" content={<p className="main-map-list-name-popover-text"><b>Project ID: </b> {record.project_id} <br /> <b>OnBase Project Number: </b> {record.onBase?record.onBase:"-"}</p>}>
             <p className="project-name">{name}</p>
           </Popover>
           <Popover
@@ -317,7 +331,7 @@ const ListViewMap = ({
     },
     {
       title: 'Type',
-      width: windowWidth > 1900 ? (windowWidth > 2500 ? '250px' : '200px') : '147px',
+      width: windowWidth > 1900 ? (windowWidth > 2500 ? '199px' : '140px') : '86px',
       dataIndex: 'type',
       key: 'type',
       className: 'project-type',
@@ -398,7 +412,10 @@ const ListViewMap = ({
         setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
         return 0
       },
-      render: (text: any, record: any) => <div className="content-project-name"><p className="project-name">{text}</p>
+      render: (text: any, record: any) => <div className="content-project-name">
+        <Popover placement="top" content={<p className="main-map-list-name-popover-text"><b>Problem ID: </b> {record.problemid}</p>}>
+            <p className="project-name">{text}</p>
+          </Popover>
       <Popover
         overlayClassName="pop-card-map"
         content={menu(record)}
@@ -475,7 +492,7 @@ const ListViewMap = ({
       },
     },
     {
-      title: 'Percentaje',
+      title: 'Percentage',
       dataIndex: 'percentaje',
       key: 'percentaje',
       width: windowWidth > 1900 ? windowWidth > 2500 ? '202':'143px':'108px',
@@ -484,7 +501,7 @@ const ListViewMap = ({
         setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
         return 0
       },
-      render: (text: any) => <p>{`${text} %`}</p>,
+      render: (text: any) => <>{`${text} %`}</>,
     },
   ];
   useEffect(() => {
@@ -579,6 +596,17 @@ const changeCenter = (id:any, coordinateP:any) => {
 }
 
   return (<>
+  {
+    visible &&
+    <DetailModal
+      visible={visible}
+      setVisible={setVisible}
+      data={data}
+      type={type}
+      deleteCallback={deleteFavorite}
+      addFavorite={addFavorite}
+    />
+  }
     {isLoading && <LoadingView />}
     <div className="table-scroll-map-list" onScroll={handleScroll}>
       <InfiniteScroll
@@ -595,7 +623,12 @@ const changeCenter = (id:any, coordinateP:any) => {
           onRow={(record, rowIndex) => {
             return {
               onClick: (event) => {
+                setData(record);
                 // changeCenter(record.project_id, '');
+                setTimeout(() => {
+                  setVisible(true);
+                }, 1500);
+
               },
               onMouseEnter: (e) =>  {
                 let typeInData:any 
@@ -639,20 +672,25 @@ const changeCenter = (id:any, coordinateP:any) => {
           onRow={(record, rowIndex) => {
             return {
               onClick: (event) => {
-                changeCenter('', record.coordinates)
+                setData(record);
+                // changeCenter(record.project_id, '');
+                setTimeout(() => {
+                  setVisible(true);
+                }, 1500);
+                // changeCenter('', record.coordinates)
               },
               onMouseEnter: (e) =>  {
-                // let typeInData:any 
-                // let valueInData:any  
-                // if(record.project_id){
-                //   typeInData = MHFD_PROJECTS;
-                //   valueInData = record.project_id;
-                // } else if(record.problemid){
-                //   typeInData = record.type;
-                //   valueInData = record.cartodb;
-                // }
-                // e.stopPropagation()
-                // setHoveredRow(valueInData)
+                let typeInData:any 
+                let valueInData:any  
+                if(record.project_id){
+                  typeInData = MHFD_PROJECTS;
+                  valueInData = record.project_id;
+                } else if(record.problemid){
+                  typeInData = record.type;
+                  valueInData = record.cartodb;
+                }
+                e.stopPropagation()
+                return setHoveredRow(valueInData)
                 // return setValuesMap(typeInData, valueInData)
               },
             };

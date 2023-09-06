@@ -8,6 +8,7 @@ import Searches from "./components/Searches";
 import Actions from "./components/Actions";
 import { SERVER } from "Config/Server.config";
 import * as datasets from "../../Config/datasets";
+import ProfileMobile from "./components/ProfileMobile";
 
 const MyProfile = () => {
 
@@ -40,13 +41,16 @@ const MyProfile = () => {
             <h2>My Profile</h2>
           </div> */}
           <Row>
-            <Col xs={{ span: 10 }} lg={{ span: 6 }} style={{zIndex:1}}>
+            <Col xs={24} sm={0} md={0} lg={0} xl={0} style={{zIndex:1}}>
+              <ProfileMobile counterProjects={counterProjects} counterProblems={counterProblems} getCount={getCount}/>
+            </Col>
+            <Col xs={0} sm={6} md={6} lg={6} xl={6}  style={{zIndex:1}}>
               <Profile counterProjects={counterProjects} counterProblems={counterProblems} />
             </Col>
-            <Col xs= {{span: 23}} lg={{ span: 13}}>
+            <Col xs={0} sm={13} md={13} lg={13} xl={13}>
               <Searches counterProjects={counterProjects} counterProblems={counterProblems} getCount={getCount}/>
             </Col>
-            <Col xs={{span: 11 }}lg={{ span: 5 }}>
+            <Col xs={0} sm={5} md={5} lg={5} xl={5}> 
               <Actions />
             </Col>
           </Row>

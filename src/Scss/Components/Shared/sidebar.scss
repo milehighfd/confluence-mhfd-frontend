@@ -46,32 +46,16 @@
 .img-collapsed {
   margin-top: -10px !important;
 }
-.img-profile-collapsed{
+.img-profile-collapsed {
   min-width: auto !important;
   margin-left: 1px !important;
 }
-.img-profile{
+.img-profile {
   margin-left: 1px;
 }
 
 .menu-desktop {
   display: none;
-}
-
-.menu-sidebar-hover {
-  background-color: #516065 !important;
-  .img-h {
-    display: none !important;
-  }
-  .img-a {
-    display: inline-block !important;
-  }
-}
-.menu-sidebar-hove:hover {
-  background-color: #516065 !important;
-}
-.menu-mobile {
-  transition: all 0.7s;
 }
 .notification-icon {
   -webkit-mask: url('../../../Icons/icon-26.svg') no-repeat center;
@@ -150,14 +134,12 @@
   }
 }
 
-
-
 .notification-popoveer {
   width: 369px;
   font-size: 12px;
 
   .notification-header {
-    //without header 
+    //without header
     height: 15px;
     padding-left: 5px;
 
@@ -222,11 +204,11 @@
 .notification-layout:hover {
   cursor: pointer;
   display: table;
-  span{
+  span {
     color: $purple00;
   }
 }
-.notification-layout-body{
+.notification-layout-body {
   max-height: 250px;
   height: fit-content;
   width: fit-content;
@@ -236,20 +218,20 @@
   padding-right: 6px;
 }
 
-.clear-notifications{
+.clear-notifications {
   text-decoration: underline;
 }
-.clear-notifications:hover{
+.clear-notifications:hover {
   cursor: pointer;
 }
 
-.none-notification{
+.none-notification {
   color: $purple00;
-  :hover{
+  :hover {
     color: $purple00;
   }
 }
-.notification-badge{
+.notification-badge {
   width: 15px;
   margin-right: 10px;
 }
@@ -266,34 +248,54 @@
   align-items: center;
   border-radius: 5px;
   margin: 0px !important;
-  span{
+  span {
     margin-left: 12px;
     display: flex;
     align-items: center;
   }
 }
 
-.option-line{
-  background-color: #EFEFF2 !important;
+.option-line {
+  background-color: #efeff2 !important;
   width: 85% !important;
   height: 1px !important;
   align-self: center;
 }
 
 .option-layout:hover {
-  background-color: #F7F7F9;
+  background-color: #f7f7f9;
   background-clip: content-box;
   border-radius: 4px;
   color: $purple00;
-  span{
+  span {
     color: #11093c !important;
     font-weight: 400 !important;
   }
 }
-.sidebar-down{
-  li{
+.sidebar-down {
+  li {
     height: auto;
   }
+}
+
+//MOBILE
+.menu-sidebar-hover {
+  background-color: #516065 !important;
+  .img-h {
+    display: none !important;
+  }
+  .img-a {
+    display: inline-block !important;
+  }
+}
+.menu-sidebar-hover:hover {
+  background-color: #516065 !important;
+}
+.menu-mobile {
+  transition: all 0.7s;
+}
+.desktop-menu-no-display{
+  display: none !important;
 }
 // RESPONSIVE MOBILE
 @media (max-width: 575.98px) {
@@ -303,9 +305,47 @@
   .menu-desktop {
     display: inline !important;
   }
+  .footer-mobile {
+    li {
+      margin: 10px 20px !important;
+      span {
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: normal;
+        font-size: 25px !important;
+        color: white !important;
+        a {
+          display: flex;
+          align-items: center;
+          height: 35px;
+          justify-content: center;
+          width: 35px;
+          img {
+            margin: 0px !important;
+            height: 25px;
+            width: 25px;
+          }
+        }
+      }
+    }
+  }
+  .mobile-menu-no-display{
+    display: none !important;
+  }
+  .desktop-menu-no-display{
+    display: block !important;
+  }
+  .btn-question{
+    span{
+      font-size: 25px;
+    }
+  }
 }
 @media (min-width: 1900px) and (max-width: 2549px) {
-  .notification-layout-body{
+  .notification-layout-body {
     max-height: 275px;
   }
   .notification-popoveer {
@@ -333,21 +373,21 @@
       }
     }
   }
-  .option-line{
+  .option-line {
     height: 2px !important;
   }
   .option-layout {
-    span{
+    span {
       margin-left: 16px;
     }
   }
-  .none-notification{
+  .none-notification {
     font-size: 14px;
     line-height: 14px;
   }
 }
-@media (min-width: 2550px){
-  .notification-layout-body{
+@media (min-width: 2550px) {
+  .notification-layout-body {
     max-height: 400px;
   }
   .notification-popoveer {
@@ -385,15 +425,15 @@
       }
     }
   }
-  .none-notification{
+  .none-notification {
     font-size: 19px;
   }
-  .option-line{
+  .option-line {
     height: 2px !important;
   }
   .option-layout {
     width: 160px;
-    span{
+    span {
       font-size: 19px;
       line-height: 50px;
     }
