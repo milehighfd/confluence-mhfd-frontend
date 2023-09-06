@@ -17,30 +17,30 @@ const StackedBarChart = () => {
 
   useEffect(() => {
     setData([
-      {group: 'banana', funding: '12', income: '1', agreement: '13' , additional: '12'},
-      {group: 'poacee', funding: '6', income: '6', agreement: '33' , additional: '6'},
-      {group: 'sorgho', funding: '11', income: '28', agreement: '12' , additional: '3'},
-      {group: 'triticum', funding: '19', income: '6', agreement: '1' , additional: '30'},
-      {group: 'banana1', funding: '12', income: '1', agreement: '13' , additional: '12'},
-      {group: 'cacc', funding: '6', income: '6', agreement: '33' , additional: '10'},
-      {group: 'sorgho3', funding: '11', income: '28', agreement: '12' , additional: '9'},
-      {group: 'triticum3', funding: '19', income: '6', agreement: '1' , additional: '3'},
-      {group: 'b55', funding: '12', income: '1', agreement: '13' , additional: '12'},
-      {group: 'poa2cee', funding: '6', income: '6', agreement: '33' , additional: '6'},
-      {group: 'sorg1ho', funding: '11', income: '28', agreement: '12' , additional: '3'},
-      {group: 'triti2cum', funding: '19', income: '6', agreement: '1' , additional: '30'},
-      {group: 'ban', funding: '12', income: '1', agreement: '13' , additional: '12'},
-      {group: 'poac3ee2', funding: '6', income: '6', agreement: '33' , additional: '10'},
-      {group: 'sorg41ho3', funding: '11', income: '28', agreement: '12' , additional: '9'},
-      {group: 'trit123icum3', funding: '19', income: '6', agreement: '1' , additional: '3'},
-      {group: '555ana', funding: '12', income: '1', agreement: '13' , additional: '12'},
-      {group: 'po23e', funding: '6', income: '6', agreement: '33' , additional: '6'},
-      {group: 's13ho', funding: '11', income: '28', agreement: '12' , additional: '3'},
-      {group: 'tr2cum', funding: '19', income: '6', agreement: '1' , additional: '30'},
-      {group: 'barr', funding: '12', income: '1', agreement: '13' , additional: '12'},
-      {group: 'poacee2', funding: '6', income: '6', agreement: '33' , additional: '10'},
-      {group: 'sor222o3', funding: '11', income: '28', agreement: '12' , additional: '9'},
-      {group: '6555um3', funding: '19', income: '6', agreement: '1' , additional: '3'}
+      {group: 'Jan-22', funding: '12', income: '1', agreement: '13' , additional: '12'},
+      {group: 'Feb-22', funding: '6', income: '6', agreement: '33' , additional: '6'},
+      {group: 'Mar-22', funding: '11', income: '28', agreement: '12' , additional: '3'},
+      {group: 'Apr-22', funding: '19', income: '6', agreement: '1' , additional: '30'},
+      {group: 'May-22', funding: '12', income: '1', agreement: '13' , additional: '12'},
+      {group: 'Jun-22', funding: '6', income: '6', agreement: '33' , additional: '10'},
+      {group: 'Jul-22', funding: '11', income: '28', agreement: '12' , additional: '9'},
+      {group: 'Aug-22', funding: '19', income: '6', agreement: '1' , additional: '3'},
+      {group: 'Sep-22', funding: '12', income: '1', agreement: '13' , additional: '12'},
+      {group: 'Oct-22', funding: '6', income: '6', agreement: '33' , additional: '6'},
+      {group: 'Nov-22', funding: '11', income: '28', agreement: '12' , additional: '3'},
+      {group: 'Dec-22', funding: '19', income: '6', agreement: '1' , additional: '30'},
+      {group: 'Jan-23', funding: '12', income: '1', agreement: '13' , additional: '12'},
+      {group: 'Feb-23', funding: '6', income: '6', agreement: '33' , additional: '10'},
+      {group: 'Mar-23', funding: '11', income: '28', agreement: '12' , additional: '9'},
+      {group: 'Apr-23', funding: '19', income: '6', agreement: '1' , additional: '3'},
+      {group: 'May-23', funding: '12', income: '1', agreement: '13' , additional: '12'},
+      {group: 'Jun-23', funding: '6', income: '6', agreement: '33' , additional: '6'},
+      {group: 'Jul-23', funding: '11', income: '28', agreement: '12' , additional: '3'},
+      {group: 'Aug-23', funding: '19', income: '6', agreement: '1' , additional: '30'},
+      {group: 'Sep-23', funding: '12', income: '1', agreement: '13' , additional: '12'},
+      {group: 'Oct-23', funding: '6', income: '6', agreement: '33' , additional: '10'},
+      {group: 'Nov-23', funding: '11', income: '28', agreement: '12' , additional: '9'},
+      {group: 'Dec-23', funding: '19', income: '6', agreement: '1' , additional: '3'}
     ]);
   }, []);
 
@@ -173,7 +173,7 @@ const StackedBarChart = () => {
       buildChart(data);
     }
   } ,[data]);
-  
+
   return (
     <>
       { openPopup && <FinancialsPopup popupData={dataPopup}/>}
