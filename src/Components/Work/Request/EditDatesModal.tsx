@@ -294,7 +294,7 @@ const EditDatesModal = ({
       onOk={()=>{setVisible(false)}}
       onCancel={()=>{setVisible(false)}}
       className="work-modal-edit-dates"
-      width= '581px'
+      width= '666px'
     > 
       <div className="header-step">
         <div className={step === 0 ? 'step-active':"step"}>
