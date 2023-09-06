@@ -74,12 +74,14 @@ const TableListView = ({
               };              
               return {
                 ...item,
-                costs: costMapping[subtype] || item.costs
+                costs: costMapping[subtype] || item.costs,
+                visible :false
               };
             } else {
               return {
                 ...item,
-                costs: [0, 0, 0]
+                costs: [0, 0, 0],
+                visible :false
               }
             }            
           })
@@ -278,6 +280,17 @@ const TableListView = ({
         }
         return text;
     }
+
+  const hidePopover = () => {
+    setParsedData(
+      parsedData.map((item: any) => {
+        return {
+          ...item,
+          visible: false
+        }
+      })
+    )
+  }
     interface DataType {
         key: React.Key;
         name: string;
@@ -287,14 +300,17 @@ const TableListView = ({
         actions: number;
         type: string;
     }
-    const content = (record:any) => {
+    const content = (record:any) => {      
     const items: MenuProps['items'] = [{
       key: '0',
       label: <span style={{borderBottom: '1px solid transparent'}}>
         <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
         Edit Project
       </span>,
-      onClick: (() => getCompleteProjectData(record))
+      onClick: (() => {
+        hidePopover();
+        getCompleteProjectData(record);        
+      })
     }, {
       key: '1',
       label: <span style={{borderBottom: '1px solid transparent'}}>
@@ -302,8 +318,9 @@ const TableListView = ({
         Edit Amount
       </span>,
       onClick: (() => {
+        hidePopover();
         setSelectedProject(record);
-        setShowAmountModal(true)
+        setShowAmountModal(true);
       })
     }, {
       key: '2',
@@ -311,7 +328,10 @@ const TableListView = ({
         <img src="/Icons/icon-13.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px', marginRight: '4.6px' }} />
         Zoom to
       </span>,
-      onClick: (() => { setZoomProject(record.projectData);})
+      onClick: (() => { 
+        hidePopover();
+        setZoomProject(record.projectData);
+      })
     }];
     if (!editable) {
       items.pop();
@@ -324,7 +344,10 @@ const TableListView = ({
           <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
           Copy to Current Year
         </span>,
-        onClick: (() => setShowCopyToCurrentYearAlert(true))
+        onClick: (() => {
+          hidePopover();
+          setShowCopyToCurrentYearAlert(true)
+        })
       });
     }
     if (appUser?.userInformation?.designation === 'admin' ||
@@ -336,9 +359,9 @@ const TableListView = ({
           Archive Project
         </span>,
         onClick: (() => {
+          hidePopover();
           setArchiveAlert(true)
           setArchiveProjectId(record?.projectData?.project_id)
-          //archiveProject(project?.projectData?.project_id)
         })
       });
       if (record?.projectData?.currentId[0]?.status_name !== 'Active'
@@ -351,6 +374,7 @@ const TableListView = ({
             Make Project Active
           </span>,
           onClick: (() => {
+            hidePopover();
             setSelectedProjectData(record?.projectData)
             setShowActivateProject(true)
           })
@@ -367,6 +391,7 @@ const TableListView = ({
         onClick: (() => {
           setSelectedProjectData(record?.projectData)
           setVisibleModal(true)
+          hidePopover();
         })
       })
     }
@@ -442,6 +467,24 @@ const TableListView = ({
                   overlayClassName="work-popover menu-item-custom dots-menu"
                   content={content(record)}
                   trigger="click"
+                  visible={record.visible}
+                  onVisibleChange={isVisible => {
+                    setParsedData(
+                      parsedData.map((item: any) => {
+                        if (item.key === record.key) {
+                          return {
+                            ...item,
+                            visible: isVisible
+                          }
+                        }else{
+                          return {
+                            ...item,
+                            visible: false
+                          }
+                        }
+                      }
+                    ))
+                  }}
                   style={{ marginRight: '-10px', cursor: 'pointer' }}
                 >
                   <MoreOutlined onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} className='dots-table' />
