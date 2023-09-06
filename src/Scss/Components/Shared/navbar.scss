@@ -9,7 +9,6 @@
 
 //NAVBAR NOTIFICATIONS
 
-
 //NAVBARLOGO
 .logo-navbar {
   background-image: url('/Icons/logo-02.svg');
@@ -108,8 +107,6 @@
   }
 }
 
-
-
 //NAVBAR TUTORIAL
 .tutorial {
   .ant-modal-mask {
@@ -120,7 +117,7 @@
     height: 24px;
     background: $white;
     padding: 0px 15px;
-    span{
+    span {
       .ant-menu-dark .ant-menu-item-selected .anticon {
         color: white;
         opacity: 0.6;
@@ -309,7 +306,11 @@
     .tuto-48,
     .tuto-49,
     .tuto-50,
-    .tuto-51 {
+    .tuto-51,
+    .tuto-mobile-1,
+    .tuto-mobile-2,
+    .tuto-mobile-3,
+    .tuto-mobile-4 {
       position: absolute;
       text-align: center;
       width: 300px;
@@ -319,6 +320,48 @@
     }
     p {
       color: $white;
+    }
+    .tuto-mobile-1 {
+      top: 45px;
+      left: 45px;
+      text-align: initial;
+      width: 290px;
+      p {
+        padding: 16px 0px 0px 5px;
+      }
+    }
+    .tuto-mobile-2 {
+      top: 533px;
+      left: 44px;
+      width: 304px;
+      text-align: initial;
+      p {
+        padding: 0px 0px 0px 50px;
+      }
+      img{
+        transform: rotate(350deg);
+      }
+    }
+    .tuto-mobile-3 {
+      top: 573px;
+      left: 44px;
+      width: 304px;
+      text-align: initial;
+      p {
+        padding: 0px 0px 0px 5px;
+      }
+      img{
+        transform: rotate(350deg);
+      }
+    }
+    .tuto-mobile-4 {
+      top: 702px;
+      right: 38px;
+      width: 295px;
+      display: flex !important;
+      p {
+        padding: 0px 0px 20px 0px;
+      }
     }
     .tuto-17 {
       top: 96px;
@@ -641,13 +684,16 @@
   .header {
     display: none;
   }
+  .tutorial-carousel {
+    margin-left: 7px;
+  }
 }
 @media (min-width: 1900px) and (max-width: 2549px) {
   .menu-drop-sub {
     font-size: 16px !important;
     padding: 5px 10px !important;
   }
-  
+
   .menu-drop {
     width: 211px !important;
     .ant-dropdown-menu-item,
@@ -659,7 +705,7 @@
       padding-left: 8px;
     }
   }
-  
+
   .tuto-01 {
     height: 100vh;
     width: 100%;
@@ -908,7 +954,7 @@
     }
   }
 }
-@media (min-width: 2550px){
+@media (min-width: 2550px) {
   .tutorial {
     .ant-tabs-tab {
       font-size: 22px;
@@ -934,7 +980,7 @@
     font-size: 20px !important;
     padding: 4.5px 10px !important;
   }
-  
+
   .piney-text {
     .ant-dropdown-menu-title-content {
       span {
@@ -950,7 +996,7 @@
     font-size: 18px;
     padding: 5.5px 10px;
   }
-  
+
   .menu-drop {
     width: 261px !important;
     .ant-dropdown-menu-item,
@@ -965,7 +1011,7 @@
       }
     }
   }
-  
+
   .tuto-01 {
     .tuto-17,
     .tuto-18,

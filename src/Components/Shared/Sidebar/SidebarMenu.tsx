@@ -19,14 +19,14 @@ const SidebarMenu = ({ collapsed, setVisibleTutorial, }: { collapsed: boolean, s
   const showWorkRequestPlan = (appUser?.designation?.toLocaleLowerCase() !== 'guest' && (appUser.designation === 'admin' || appUser.designation === 'staff' || appUser.designation === 'government_staff'))
   const userApproved = appUser.status === 'approved';
   const pmToolsAccess = (appUser?.designation?.toLocaleLowerCase() !== 'guest' && (appUser.designation === 'admin' || appUser.designation === 'staff' || appUser.designation === 'government_staff') && appUser.status === 'approved');
-
+  
   const itemMenuSidebar: MenuProps['items'] = [{
     className: Number(indexOf) === 0 ? 'menu-sidebar-hover':'',
     key: '0',
     label: <Link to={'/profile-view'}>
       <img className={"img-h anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-01.svg" alt="" width="22px" height="20px" />
       <img className={"img-a anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-01.svg" alt="" width="22px" height="22px" />
-      <span className={collapsed? 'menu-sidebar-colapse mobile-menu-no-display' : 'menu-sidebar'}>my confluence</span>
+      <span className={collapsed? 'menu-sidebar-colapse mobile-no-display' : 'menu-sidebar'}>my confluence</span>
     </Link>
   }, {
     className: Number(indexOf) === 1 ? 'menu-sidebar-hover':'',
@@ -34,21 +34,21 @@ const SidebarMenu = ({ collapsed, setVisibleTutorial, }: { collapsed: boolean, s
     label: <Link to={'/map'} onClick={()=>{setTabActiveNavbar(MAP)}}>
       <img className={"img-h anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-02.svg" alt="" width="22px" height="20px" />
       <img className={"img-a anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-02.svg" alt="" width="22px" height="22px" />
-      <span className={collapsed? 'menu-sidebar-colapse mobile-menu-no-display' : 'menu-sidebar'}>map view</span>
+      <span className={collapsed? 'menu-sidebar-colapse mobile-no-display' : 'menu-sidebar'}>map view</span>
     </Link>
   }, 
   {
     key: '4',
-    className: Number(indexOf) === 4  ? 'menu-sidebar-hover mobile-menu-no-display':'mobile-menu-no-display',
+    className: Number(indexOf) === 4  ? 'menu-sidebar-hover mobile-no-display':'mobile-no-display',
     label: <Link to={userApproved ? '/map'+search : '#'} onClick={()=>{setTabActiveNavbar(WORK_REQUEST)}}>
       <img className={"img-h anticon"+(userApproved?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-14.svg" alt="" width="22px" height="22px" />
       <img className={"img-a anticon"+(userApproved?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-14.svg" alt="" width="22px" height="22px" />
-      <span className={collapsed? 'menu-sidebar-colapse mobile-menu-no-display' : 'menu-sidebar'}>work request</span>
+      <span className={collapsed? 'menu-sidebar-colapse mobile-no-display' : 'menu-sidebar'}>work request</span>
     </Link>
   },
   {
     key: '3',
-    className: Number(indexOf) === 3 ? 'menu-sidebar-hover mobile-menu-no-display':'mobile-menu-no-display',
+    className: Number(indexOf) === 3 ? 'menu-sidebar-hover mobile-no-display':'mobile-no-display',
     label: <Link to={userApproved ? '/map'+search : '#'} onClick={()=>{setTabActiveNavbar(WORK_PLAN)}}>
       <img className={"img-h anticon"+(userApproved?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-13.svg" alt="" width="22px" height="22px" />
       <img className={"img-a anticon"+(userApproved?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-13.svg" alt="" width="22px" height="22px" />
@@ -56,7 +56,7 @@ const SidebarMenu = ({ collapsed, setVisibleTutorial, }: { collapsed: boolean, s
     </Link>
   },
   {
-    className: Number(indexOf) === 5 ? 'menu-sidebar-hover mobile-menu-no-display':'mobile-menu-no-display',
+    className: Number(indexOf) === 5 ? 'menu-sidebar-hover mobile-no-display':'mobile-no-display',
     key: '5',
     label: <Link to={pmToolsAccess ? '/pm-tools' : '#'}>
       <img className={"img-h anticon"+(pmToolsAccess?'':' img-opaque')+(collapsed?" img-collapsed":"")}src="/Icons/menu-white-11.svg" alt="" width="22px" height="22px"/>
@@ -64,7 +64,7 @@ const SidebarMenu = ({ collapsed, setVisibleTutorial, }: { collapsed: boolean, s
       <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>pm tools</span>
     </Link>
   }, {
-    className: Number(indexOf) === 2 ? 'menu-sidebar-hover mobile-menu-no-display':'mobile-menu-no-display',
+    className: Number(indexOf) === 2 ? 'menu-sidebar-hover mobile-no-display':'mobile-no-display',
     key: '2',
     label: <Link to={'/map'}>
       <img className={"img-h anticon img-opaque"+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-15.svg" alt="" width="22px" height="22px" />
@@ -84,11 +84,11 @@ const SidebarMenu = ({ collapsed, setVisibleTutorial, }: { collapsed: boolean, s
     label: <a href={'https://forms.office.com/r/CUgfTnrTUm'} target="_blank">
       <img className={"img-h anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-12.svg" alt="" width="22px" height="22px" />
       <img className={"img-a anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-12.svg" alt="" width="22px" height="22px" />
-      <span className={collapsed? 'menu-sidebar-colapse mobile-menu-no-display' : 'menu-sidebar'}>feedback</span>
+      <span className={collapsed? 'menu-sidebar-colapse mobile-no-display' : 'menu-sidebar'}>feedback</span>
     </a>
   }, {
     key: '8',
-    className: Number(indexOf) === 8 ? 'menu-sidebar-hover mobile-menu-no-display':'mobile-menu-no-display',
+    className: Number(indexOf) === 8 ? 'menu-sidebar-hover mobile-no-display':'mobile-no-display',
     label: <Link to={'/user'}>
       <img className={"img-h anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-06.svg" alt="" width="22px" height="22px" />
       <img className={"img-a anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-06.svg" alt="" width="22px" height="22px" />
@@ -97,7 +97,8 @@ const SidebarMenu = ({ collapsed, setVisibleTutorial, }: { collapsed: boolean, s
   },
   {
     key: '9',
-    className: Number(indexOf) === 9 ? 'menu-sidebar-hover desktop-menu-no-display':'desktop-menu-no-display',
+    style: {display:"none"},
+    className: (Number(indexOf) === 1?  'menu-sidebar-hover desktop-no-display':''),
     label: <Button className="btn-question" onClick={() => {setVisibleTutorial(true)}}>
     <QuestionCircleOutlined />
   </Button>
