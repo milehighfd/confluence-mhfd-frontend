@@ -98,10 +98,10 @@ const SidebarMenu = ({ collapsed, setVisibleTutorial, }: { collapsed: boolean, s
   {
     key: '9',
     style: {display:"none"},
-    className: (Number(indexOf) === 1?  'menu-sidebar-hover desktop-no-display':''),
-    label: <Button className="btn-question" onClick={() => {setVisibleTutorial(true)}}>
+    className: (Number(indexOf) === 1? Number(indexOf) === 9?  'menu-sidebar-hover desktop-no-display':'desktop-no-display':''),
+    label: <div className="btn-question" onClick={() => {setVisibleTutorial(true)}}>
     <QuestionCircleOutlined />
-  </Button>
+  </div>
   },
 ];
   const removeItemArray = (key: string) => {
