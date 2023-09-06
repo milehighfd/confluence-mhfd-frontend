@@ -12,32 +12,32 @@ const StackedBarChart = ({}) => {
   const barWidth = 60;
   const totalHeight = 350;
   const data = [
-    {group: 'banana', Nitrogen: '12', normal: '1', stress: '13' , additional: '12'},
-    {group: 'poacee', Nitrogen: '6', normal: '6', stress: '33' , additional: '6'},
-    {group: 'sorgho', Nitrogen: '11', normal: '28', stress: '12' , additional: '3'},
-    {group: 'triticum', Nitrogen: '19', normal: '6', stress: '1' , additional: '30'},
-    {group: 'banana1', Nitrogen: '12', normal: '1', stress: '13' , additional: '12'},
-    {group: 'cacc', Nitrogen: '6', normal: '6', stress: '33' , additional: '10'},
-    {group: 'sorgho3', Nitrogen: '11', normal: '28', stress: '12' , additional: '9'},
-    {group: 'triticum3', Nitrogen: '19', normal: '6', stress: '1' , additional: '3'},
-    {group: 'b55', Nitrogen: '12', normal: '1', stress: '13' , additional: '12'},
-    {group: 'poa2cee', Nitrogen: '6', normal: '6', stress: '33' , additional: '6'},
-    {group: 'sorg1ho', Nitrogen: '11', normal: '28', stress: '12' , additional: '3'},
-    {group: 'triti2cum', Nitrogen: '19', normal: '6', stress: '1' , additional: '30'},
-    {group: 'ban', Nitrogen: '12', normal: '1', stress: '13' , additional: '12'},
-    {group: 'poac3ee2', Nitrogen: '6', normal: '6', stress: '33' , additional: '10'},
-    {group: 'sorg41ho3', Nitrogen: '11', normal: '28', stress: '12' , additional: '9'},
-    {group: 'trit123icum3', Nitrogen: '19', normal: '6', stress: '1' , additional: '3'},
-    {group: '555ana', Nitrogen: '12', normal: '1', stress: '13' , additional: '12'},
-    {group: 'po23e', Nitrogen: '6', normal: '6', stress: '33' , additional: '6'},
-    {group: 's13ho', Nitrogen: '11', normal: '28', stress: '12' , additional: '3'},
-    {group: 'tr2cum', Nitrogen: '19', normal: '6', stress: '1' , additional: '30'},
-    {group: 'barr', Nitrogen: '12', normal: '1', stress: '13' , additional: '12'},
-    {group: 'poacee2', Nitrogen: '6', normal: '6', stress: '33' , additional: '10'},
-    {group: 'sor222o3', Nitrogen: '11', normal: '28', stress: '12' , additional: '9'},
-    {group: '6555um3', Nitrogen: '19', normal: '6', stress: '1' , additional: '3'}
+    {group: 'banana', funding: '12', income: '1', agreement: '13' , additional: '12'},
+    {group: 'poacee', funding: '6', income: '6', agreement: '33' , additional: '6'},
+    {group: 'sorgho', funding: '11', income: '28', agreement: '12' , additional: '3'},
+    {group: 'triticum', funding: '19', income: '6', agreement: '1' , additional: '30'},
+    {group: 'banana1', funding: '12', income: '1', agreement: '13' , additional: '12'},
+    {group: 'cacc', funding: '6', income: '6', agreement: '33' , additional: '10'},
+    {group: 'sorgho3', funding: '11', income: '28', agreement: '12' , additional: '9'},
+    {group: 'triticum3', funding: '19', income: '6', agreement: '1' , additional: '3'},
+    {group: 'b55', funding: '12', income: '1', agreement: '13' , additional: '12'},
+    {group: 'poa2cee', funding: '6', income: '6', agreement: '33' , additional: '6'},
+    {group: 'sorg1ho', funding: '11', income: '28', agreement: '12' , additional: '3'},
+    {group: 'triti2cum', funding: '19', income: '6', agreement: '1' , additional: '30'},
+    {group: 'ban', funding: '12', income: '1', agreement: '13' , additional: '12'},
+    {group: 'poac3ee2', funding: '6', income: '6', agreement: '33' , additional: '10'},
+    {group: 'sorg41ho3', funding: '11', income: '28', agreement: '12' , additional: '9'},
+    {group: 'trit123icum3', funding: '19', income: '6', agreement: '1' , additional: '3'},
+    {group: '555ana', funding: '12', income: '1', agreement: '13' , additional: '12'},
+    {group: 'po23e', funding: '6', income: '6', agreement: '33' , additional: '6'},
+    {group: 's13ho', funding: '11', income: '28', agreement: '12' , additional: '3'},
+    {group: 'tr2cum', funding: '19', income: '6', agreement: '1' , additional: '30'},
+    {group: 'barr', funding: '12', income: '1', agreement: '13' , additional: '12'},
+    {group: 'poacee2', funding: '6', income: '6', agreement: '33' , additional: '10'},
+    {group: 'sor222o3', funding: '11', income: '28', agreement: '12' , additional: '9'},
+    {group: '6555um3', funding: '19', income: '6', agreement: '1' , additional: '3'}
   ];
-  const subGroups = ['Nitrogen', 'normal', 'stress', 'additional'];
+  const subGroups = ['funding', 'income', 'agreement', 'additional'];
   const margin = {top: 10, right: 30, bottom: 20, left: 50};
   const totalWidth = barWidth * data.length + margin.left + margin.right;
   const width = totalWidth - margin.left - margin.right;

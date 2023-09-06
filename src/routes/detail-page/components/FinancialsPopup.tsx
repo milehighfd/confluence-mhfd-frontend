@@ -28,7 +28,7 @@ const FinancialsPopup = ({popupData}:{popupData:any}) => {
       style={{left:finalLeftPosition, top:positionTop}}
       ref={thisPopup}
     >
-      <p className="title">Work Request</p>
+      <p className="title">{popupData.group}</p>
     <Row>
         <Col className="row-financials-popup">
             <Row>
@@ -52,13 +52,13 @@ const FinancialsPopup = ({popupData}:{popupData:any}) => {
         </Col>
         <Col className="row-financials-popup" style={{paddingLeft: '35px'}}>
             <Row>
-                <span className='labels-financials-numbers'>{formatter.format(10)}</span>
+                <span className='labels-financials-numbers'>{formatter.format(popupData.funding)}</span>
             </Row>
             <Row>
-                <span className='labels-financials-numbers'>{formatter.format(155000)}</span>
+                <span className='labels-financials-numbers'>{formatter.format(popupData.income)}</span>
             </Row>
             <Row>
-                <span className='labels-financials-numbers'>{formatter.format(1000)}</span>
+                <span className='labels-financials-numbers'>{formatter.format(popupData.agreement)}</span>
             </Row>
         </Col>
     </Row>
