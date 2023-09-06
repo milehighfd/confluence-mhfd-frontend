@@ -8,7 +8,7 @@ import Searches from "./components/Searches";
 import Actions from "./components/Actions";
 import { SERVER } from "Config/Server.config";
 import * as datasets from "../../Config/datasets";
-import ProfileMobile from "./components/ProfileMobile";
+// import ProfileMobile from "./components/ProfileMobile";
 
 const MyProfile = () => {
 
@@ -42,7 +42,7 @@ const MyProfile = () => {
           </div> */}
           <Row>
             <Col xs={24} sm={0} md={0} lg={0} xl={0} style={{zIndex:1}}>
-              <ProfileMobile counterProjects={counterProjects} counterProblems={counterProblems} getCount={getCount}/>
+              {/* <ProfileMobile counterProjects={counterProjects} counterProblems={counterProblems} getCount={getCount}/> */}
             </Col>
             <Col xs={0} sm={6} md={6} lg={6} xl={6}  style={{zIndex:1}}>
               <Profile counterProjects={counterProjects} counterProblems={counterProblems} />

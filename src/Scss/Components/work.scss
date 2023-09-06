@@ -1727,16 +1727,32 @@
     display: none !important;
   }
 }
+
 .table-map-list {
   padding-left: 13px;
   .ant-table-body {
     height: calc(100vh - 270px);
     max-height: calc(100vh - 270px);
   }
+  .ant-table table {
+    border-collapse: collapse;
+  }
+  .row-color-onhover {
+    border-bottom: 1.5px;
+    border-width: 2px;
+    border-color: $green;
+    border-style: solid;
+  }
+  .row-color-active {
+    border-bottom: 1.5px;
+    border-width: 2px;
+    border-color: #1753EF;
+    border-style: solid;
+  }
   ::-webkit-scrollbar {
     width: 8px !important;
     height: 8px !important;
-  }
+  }  
   .ant-table {
     color: $purple00;
     font-family: Ubuntu;

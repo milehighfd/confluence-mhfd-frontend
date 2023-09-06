@@ -90,7 +90,9 @@ const AmountModal = ({ project, visible, setVisible }: {
 
   useEffect(() => {
     if (tabKey === 'Capital') {
-      getComponentsByProjectId(project?.project_id);
+      if (projectData?.project_id) {
+        getComponentsByProjectId(projectData?.project_id);
+      }
     }
   }, [project])
 
