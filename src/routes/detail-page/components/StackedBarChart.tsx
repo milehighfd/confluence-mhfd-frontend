@@ -6,8 +6,10 @@ const StackedBarChart = ({}) => {
   const [maxValue, setMaxValue] = useState(0);
   const [tickValues, setTickValues] = useState([]);
   const [sumGroups, setSumGroups] = useState<any>([]);
-  const [openPopup, setOpenPopup] = useState(false);
-  const [dataPopup, setDataPopup] = useState<any>({}); 
+  // const [openPopup, setOpenPopup] = useState(false);
+  const openPopup = useRef(false);
+  // const [dataPopup, setDataPopup] = useState<any>({}); 
+  const dataPopup = useRef({});
   const svgRef = useRef<SVGSVGElement>(null);
   const barWidth = 60;
   // const totalWidth:any = document.getElementById('ProjectRoadmapHeader')?.clientWidth;
@@ -71,6 +73,24 @@ const StackedBarChart = ({}) => {
     setTickValues(tickValue)
   }, []);
 
+
+  const applyBackgroundRect = (type: string, svg: any, x: any, y:any, d: any, backgroundRect: any) => {
+    if (type === 'add') {
+      console.log('Funcion', type);
+      backgroundRect
+      .attr('y',  y(sumGroups[d.data.group]) - 7)
+      .attr('height', (ddd:any) => { const dimention = (y(0) ?? 0) - (y(sumGroups[d.data.group]) ); return dimention + 6;})
+      .attr('x',  d3.event.target.x.animVal.value - 7)
+      .attr('width', x.bandwidth() + 13)
+      .attr("rx", 5)
+      .attr('class', 'background-rect-visible');
+      d3.select(`#${d.data.group}`).attr('class', 'x-axis-selected');  
+    } else {
+      backgroundRect.attr('class', 'background-rect-hidden');
+      d3.select(`#${d.data.group}`).attr('class', 'x-axis-stackedbar-chart text');  
+    }
+    
+  }
   useEffect(() => {
     d3.select(svgRef.current).select('g').remove();
     const svg = d3.select(svgRef.current)
@@ -107,18 +127,7 @@ const StackedBarChart = ({}) => {
     // color palette = one color per subgroup
     const color = d3.scaleOrdinal()
       .domain(subGroups)
-      .range(['#5D3DC7','#047CD7','#29C499','#F4BE01'])
-
-    let backgroundRect = svg
-    .append("g")
-    .append('rect')
-    .attr('y',  150)
-    .attr('height',  100)
-    .attr('x',  100)
-    .attr('width', x.bandwidth()+10)
-    .attr("rx", 5)
-    .attr('class', 'background-rect-hidden');
-
+      .range(['#5D3DC7','#047CD7','#29C499','#F4BE01']);
 
     d3.select(".x-axis-stackedbar-chart").selectAll("text").attr("id", function(d:any) { return d});
 
@@ -126,7 +135,16 @@ const StackedBarChart = ({}) => {
     const stackedData = d3.stack()
       .keys(subGroups)
       (data as any)
-
+    const backgroundRect = svg
+        .append("g")
+        .append('rect')
+        .attr('y',  150)
+        .attr('height',  100)
+        .attr('x',  100)
+        .attr('width', x.bandwidth()+10)
+        .attr("rx", 5)
+        .attr("id", 'background-rect')
+        .attr("class", 'background-rect-hidden');
     // Show the bars
     svg.append("g")
       .selectAll("g")
@@ -145,37 +163,27 @@ const StackedBarChart = ({}) => {
           .attr('stroke', 'white')
           .attr('stroke-width', '2')
           .style('stroke-linecap', 'round')
-          .on("click", function (d: any) {
-            setOpenPopup(true);
-            console.log('d', d.data)
-            // console.log('elem', document.getElementById('stackedBar-chart-container')?.offsetTop)
-            // console.log('elem', document.getElementById('stackedBar-chart-container')?.offsetLeft)
-            // let element:any = document.getElementById('stackedBar-chart-container');
-            // var rect = element.getBoundingClientRect();
-            // console.log(rect.top, rect.right, rect.bottom, rect.left);
-            console.log('as',d3.select('.x-axis-selected'))
-            console.log('qqqq', d3.select(`#${d.data.group}`))
-            d3.select('.x-axis-selected').attr('class', 'x-axis-stackedbar-chart text');
-            console.log('aaaa', d3.event)
-            backgroundRect.attr('y', height-(5.5*sumGroups[d.data.group]));
-            backgroundRect.attr('x', d3.event.target.x.animVal.value-5);
-            backgroundRect.attr('height',5 + (5.5*sumGroups[d.data.group])).attr('class', 'background-rect-visible');
-            setDataPopup(d.data);
-            d3.select(`#${d.data.group}`).attr('class', 'x-axis-selected');
-            // let widthOfPopup: any = document.getElementById('popup-financials')?.offsetWidth;
-            //     let heightOfPopup: any = document.getElementById('popup-financials')?.offsetHeight;
-            //     //let heightOfPopup: any =document.getElementById('popup-phaseview')?.offsetHeight;
-            //     let positionTop: any = d3.event.y - heightOfPopup - 50; // Delete 120 when the popup is fixed
-            //     let positionLeft: any = d3.event.x - widthOfPopup / 2;
-            //     // let positionTop: any = d3.event.layerY - heightOfPopup + popupfactorTop;
-            //     // let positionLeft: any = d3.event.layerX - widthOfPopup / 2 + popupfactorLeft;
-            // 647  1430
-          })
+          .on("click", (d: any) => {
+            console.log('d', d.data, 'open popup ', openPopup.current);
+            if (!openPopup.current) {
+              d3.select('.x-axis-selected').attr('class', 'x-axis-stackedbar-chart text');
+              applyBackgroundRect('add', svg, x , y, d, backgroundRect);
+              dataPopup.current = d.data;
+              
+              openPopup.current = true;
+            } else {
+              applyBackgroundRect('remove', svg, x , y, d, backgroundRect);
+              openPopup.current = false;
+            }
+              
 
+              
+            
+          });
   } ,[data]);
   return (
     <>
-    {openPopup && <FinancialsPopup popupData={dataPopup}/>}
+    {openPopup.current && <FinancialsPopup popupData={dataPopup.current}/>}
       <div id='stackedBar-chart-container' style={{overflowY: 'auto', position: 'relative'}}>
         <svg ref={svgRef} width="100%" height="100%" />
       </div>

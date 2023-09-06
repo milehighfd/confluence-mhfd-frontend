@@ -1,21 +1,33 @@
 import { Col, Row } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const FinancialsPopup = ({popupData}:{popupData:any}) => {
-    let positionTop: any = document.getElementById('stackedBar-chart-container')?.offsetTop
-    let positionLeft: any = document.getElementById('stackedBar-chart-container')?.offsetLeft
-    let divWidth: any = document.getElementById('stackedBar-chart-container')?.offsetWidth
-    let popupWidth: any = document.getElementById('popup-financials')?.offsetWidth
-    let finalLeftPosition: any = positionLeft + divWidth - popupWidth; 
-
+    let positionTop: any = document.getElementById('stackedBar-chart-container')?.offsetTop;
+    let positionLeft: any = document.getElementById('stackedBar-chart-container')?.offsetLeft;
+    let divWidth: any = document.getElementById('stackedBar-chart-container')?.offsetWidth;
+    let thisPopup = useRef<any>(null);
+    const [popupWidth, setPopupWidth] = useState(0);
     const formatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0
-      });
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    });
+    const [finalLeftPosition, setFinalLeftPosition] = useState(positionLeft + divWidth - 2000);
+    useEffect(() => {
+      setPopupWidth(thisPopup.current.offsetWidth);
+    }, []);
+    useEffect(() => {
+      setFinalLeftPosition(positionLeft + divWidth - popupWidth);
+    } ,[popupWidth]);
+
   return(
-    <div className='modal-financialsPopup' id='popup-financials' style={{left:finalLeftPosition, top:positionTop}}>
+    <div
+      className='modal-financialsPopup'
+      id='popup-financials'
+      style={{left:finalLeftPosition, top:positionTop}}
+      ref={thisPopup}
+    >
       <p className="title">Work Request</p>
     <Row>
         <Col className="row-financials-popup">
@@ -40,10 +52,10 @@ const FinancialsPopup = ({popupData}:{popupData:any}) => {
         </Col>
         <Col className="row-financials-popup" style={{paddingLeft: '35px'}}>
             <Row>
-                <span className='labels-financials-numbers'>{formatter.format(1000)}</span>
+                <span className='labels-financials-numbers'>{formatter.format(10)}</span>
             </Row>
             <Row>
-                <span className='labels-financials-numbers'>{formatter.format(1000)}</span>
+                <span className='labels-financials-numbers'>{formatter.format(155000)}</span>
             </Row>
             <Row>
                 <span className='labels-financials-numbers'>{formatter.format(1000)}</span>
