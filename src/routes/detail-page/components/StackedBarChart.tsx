@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
+import FinancialsPopup from './FinancialsPopup';
 
 const StackedBarChart = ({}) => {
   const [maxValue, setMaxValue] = useState(0);
   const [tickValues, setTickValues] = useState([]);
   const [sumGroups, setSumGroups] = useState<any>([]);
+  const [openPopup, setOpenPopup] = useState(false);
+  const [dataPopup, setDataPopup] = useState<any>({}); 
   const svgRef = useRef<SVGSVGElement>(null);
   const barWidth = 60;
   // const totalWidth:any = document.getElementById('ProjectRoadmapHeader')?.clientWidth;
@@ -143,22 +146,42 @@ const StackedBarChart = ({}) => {
           .attr('stroke-width', '2')
           .style('stroke-linecap', 'round')
           .on("click", function (d: any) {
+            setOpenPopup(true);
+            console.log('d', d.data)
+            // console.log('elem', document.getElementById('stackedBar-chart-container')?.offsetTop)
+            // console.log('elem', document.getElementById('stackedBar-chart-container')?.offsetLeft)
+            // let element:any = document.getElementById('stackedBar-chart-container');
+            // var rect = element.getBoundingClientRect();
+            // console.log(rect.top, rect.right, rect.bottom, rect.left);
+            console.log('as',d3.select('.x-axis-selected'))
+            console.log('qqqq', d3.select(`#${d.data.group}`))
             d3.select('.x-axis-selected').attr('class', 'x-axis-stackedbar-chart text');
+            console.log('aaaa', d3.event)
             backgroundRect.attr('y', height-(5.5*sumGroups[d.data.group]));
             backgroundRect.attr('x', d3.event.target.x.animVal.value-5);
             backgroundRect.attr('height',5 + (5.5*sumGroups[d.data.group])).attr('class', 'background-rect-visible');
+            setDataPopup(d.data);
             d3.select(`#${d.data.group}`).attr('class', 'x-axis-selected');
+            // let widthOfPopup: any = document.getElementById('popup-financials')?.offsetWidth;
+            //     let heightOfPopup: any = document.getElementById('popup-financials')?.offsetHeight;
+            //     //let heightOfPopup: any =document.getElementById('popup-phaseview')?.offsetHeight;
+            //     let positionTop: any = d3.event.y - heightOfPopup - 50; // Delete 120 when the popup is fixed
+            //     let positionLeft: any = d3.event.x - widthOfPopup / 2;
+            //     // let positionTop: any = d3.event.layerY - heightOfPopup + popupfactorTop;
+            //     // let positionLeft: any = d3.event.layerX - widthOfPopup / 2 + popupfactorLeft;
+            // 647  1430
           })
 
   } ,[data]);
   return (
     <>
-      <div style={{overflowY: 'auto'}}>
+    {openPopup && <FinancialsPopup popupData={dataPopup}/>}
+      <div id='stackedBar-chart-container' style={{overflowY: 'auto', position: 'relative'}}>
         <svg ref={svgRef} width="100%" height="100%" />
       </div>
       <div className='roadmap-body-display ' style={{ paddingTop: '0px' }}>
         <span className="span-dots-roadmap">
-          <div className="roadmap-circle" style={{ backgroundColor: '#5E5FE2' }} />
+          <div className="roadmap-circle" style={{ backgroundColor: '#5D3DC7' }} />
           <span className='roadmap-dots-leyend'>Funding (MHFD Funds)</span>
         </span>
         <span className="span-dots-roadmap">

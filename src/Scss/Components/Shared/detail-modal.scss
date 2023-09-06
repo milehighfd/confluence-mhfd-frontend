@@ -804,12 +804,58 @@
     line-height: 120% !important; /* 14.4px */
     letter-spacing: 0.415px !important;
   }
-  .background-rect-hidden{
+  .background-rect-hidden {
     visibility: hidden;
   }
-  .background-rect-visible{
+  .background-rect-visible {
     visibility: visible;
     fill: rgba(17, 9, 60, 0.15);
+  }
+  .modal-financialsPopup {
+    z-index: 9999999999;
+    position: absolute;
+    width: 222px;
+    // background-color: #11093C;
+    // color: white !important;
+    // border-radius: 5px;
+    padding: 15px 20px;
+    text-align: center;
+    // border-top: 6px solid;
+    flex-shrink: 0;
+    border-radius: 4px;
+    background: #11093C;
+    p {
+      color: white !important;
+      font-size: 12px;
+      margin-bottom: 1px;
+    }
+    .title {
+      // margin-bottom: -4px;
+      // font-size: 10px;
+      // opacity: 0.6;
+      color: #FFF;
+      text-align: left;
+      font-family: Ubuntu;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 120%;
+      opacity: 0.6;
+      margin-bottom: 8px;
+    }
+    hr {
+      opacity: 0.1;
+      background-color: #ffffff;
+      height: 0.5px;
+    }
+    .labels-financials {
+      color: #FFF;
+      font-family: Ubuntu;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 120%;
+    }
   }
 }
 
