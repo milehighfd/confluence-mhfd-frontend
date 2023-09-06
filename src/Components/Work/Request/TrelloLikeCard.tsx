@@ -296,14 +296,9 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
       setVisible={setShowActivateProject}
       project={project?.projectData}
     />}
-    <div style={activeProject ? {borderRight: `1.5px solid #1753EF`}:{}}>
+    <div className={activeProject ? 'active-card-wr' : 'inactive-card-wr'}>
     <div ref={divRef} className="card-wr" 
-      style={activeProject ? { 
-        borderBottom: `1.5px solid #1753EF`,
-        borderTop: `1.5px solid #1753EF`,
-        borderLeft: `${pageWidth > 2000? (pageWidth > 3000? '6':'5'):'3'}px solid ${borderColor}`, 
-        borderRadius: '4px' 
-      }:{
+      style={{
         borderLeft: `${pageWidth > 2000? (pageWidth > 3000? '6':'5'):'3'}px solid ${borderColor}`, 
         borderRadius: '4px'
       }} draggable={editable && !filtered}
