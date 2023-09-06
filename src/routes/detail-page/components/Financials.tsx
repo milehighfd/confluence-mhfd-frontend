@@ -27,6 +27,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
   const [income, setIncome] = useState([0, 0, 0]);
   const [expense, setExpense] = useState([0, 0, 0]);
   const [searchValue, setSearchValue] = useState<any>();
+  const windowWidth: any = window.innerWidth;
 
   useEffect(() => {
     getFinancialData(projectId, {});
@@ -456,7 +457,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
                   dataSource={finalData}
                   columns={columns}
                   pagination={{ pageSize: 50 }}
-                  scroll={{ y: 350 , x:'140%'}}
+                  scroll={{ y: 350 , x:windowWidth > 1000 ? '140%':'100%'}}
                   summary={() => (
                     <Table.Summary fixed={ 'bottom'}  >
                       <Table.Summary.Row  style={{ borderTop: '1px solid #d7d3e2', marginTop: '5px' }}>
