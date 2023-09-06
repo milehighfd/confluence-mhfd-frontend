@@ -62,7 +62,7 @@ const DetailModal = ({
   const { detailed } = useDetailedState();
   const useQuery = () => new URLSearchParams(useLocation().search);
   const query = useQuery();
-  const project_idS = query.get('project_id') || data?.project_id;
+  const project_idS = query.get('project_id') || data?.project_id || data?.id;
   const problem_idS = query.get('problem_id') || data?.problemid;
   const ciprRef = useRef(null);
   const cipjRef = useRef(null);
@@ -84,6 +84,14 @@ const DetailModal = ({
   let carouselRef = useRef<undefined | any>(undefined);
   const { getAttachmentProjectId } = useAttachmentDispatch();
   const { attachments } = useAttachmentState();
+
+  useEffect(() => {
+    console.log('project_idS',project_idS)
+  }, [project_idS]);
+
+  useEffect(() => {
+    console.log('data',data)
+  }, [data]);
   useEffect(() => {
     if (detailed?.project_id) {
       getAttachmentProjectId(detailed.project_id);
