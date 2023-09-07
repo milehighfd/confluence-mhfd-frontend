@@ -93,6 +93,26 @@
   .ant-menu-dark.ant-menu-horizontal > .ant-menu-item {
     background-color: transparent;
   }
+  .navbar-search {
+    max-width: 250px;
+    background-color: #06242d;
+    input {
+      padding-left: 6px;
+      background-color: #06242d;
+      color: white;
+    }
+    input:hover {
+      color: white;
+    }
+    .ant-input::placeholder {
+      opacity: 0.5;
+    }
+  }
+  .navbar-search:hover,
+  .navbar-search:focus,
+  .navbar-search:active {
+    border-color: white !important;
+  }
 }
 
 .popoveer-notification-box {
@@ -338,7 +358,7 @@
       p {
         padding: 0px 0px 0px 50px;
       }
-      img{
+      img {
         transform: rotate(350deg);
       }
     }
@@ -350,7 +370,7 @@
       p {
         padding: 0px 0px 0px 5px;
       }
-      img{
+      img {
         transform: rotate(350deg);
       }
     }
@@ -679,7 +699,76 @@
     }
   }
 }
-// RESPONSIVE MOBILE
+//NAVBAR SEARCH
+.navbar-search-tooltip {
+  width: 234px;
+  display: flex;
+  flex-direction: column;
+  .navbar-search-tooltip-item {
+    margin-bottom: 8px;
+    h1 {
+      color: #11093c;
+      font-family: 'Ubuntu';
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      margin-bottom: 8px;
+      opacity: 0.6;
+    }
+    .navbar-search-tooltip-card {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      border-radius: 4px;
+      border-left: 3px solid #fdb32b;
+      box-shadow: 0px 2px 4px 0px rgba(6, 36, 45, 0.06);
+      padding: 5px 8px 8px 5px;
+      h2 {
+        color: #11093c;
+        font-family: 'Ubuntu';
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 18px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; 
+      }
+      div {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        p {
+          color: rgba(17, 9, 60, 0.5);
+          font-family: 'Ubuntu';
+          font-size: 10px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 16px;
+          margin: 0px;
+        }
+        span {
+          background-color: #fff8cc;
+          color: #ff8938;
+          font-family: 'Ubuntu';
+          font-size: 10px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+          border-radius: 8px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 2px 12px;
+        }
+      }
+    }
+    .navbar-search-tooltip-card:hover{
+      background-color: #F5F7FF;
+    }
+  }
+}
 @media (max-width: 575.98px) {
   .header {
     display: none;
@@ -689,6 +778,16 @@
   }
 }
 @media (min-width: 1900px) and (max-width: 2549px) {
+  .header {
+    .navbar-search {
+      max-width: 333px;
+      height: 35px;
+      input {
+        padding-left: 8px;
+        font-size: 17px;
+      }
+    }
+  }
   .menu-drop-sub {
     font-size: 16px !important;
     padding: 5px 10px !important;
@@ -953,8 +1052,53 @@
       top: 85px !important;
     }
   }
+  .navbar-search-tooltip {
+    width: 312px;
+    padding: 2px;
+    .navbar-search-tooltip-item {
+      margin-bottom: 14px;
+      h1 {
+        font-size: 16px;
+      }
+      .navbar-search-tooltip-card {
+        border-left: 5px;
+        box-shadow: 0px 4px 6px 0px rgba(6, 36, 45, 0.06);
+        padding: 8px 11px 9px 10px;
+        h2 {
+          font-size: 16px;
+          line-height: 24px;
+        }
+        div {
+          p {
+            font-size: 13px;
+            line-height: 21px;
+          }
+          span {
+            font-size: 13px;
+            padding: 3px 16px;
+          }
+        }
+      }
+    }
+  }
+  .tootip-search-responsive{
+    left: 1569px !important;
+    .ant-tooltip-content{
+      width: 333px;
+    }
+  }
 }
 @media (min-width: 2550px) {
+  .header {
+    .navbar-search {
+      max-width: 445px;
+      height: 35px;
+      input {
+        padding-left: 10px;
+        font-size: 19px;
+      }
+    }
+  }
   .tutorial {
     .ant-tabs-tab {
       font-size: 22px;
@@ -1246,6 +1390,41 @@
       right: 65.5vw !important;
       width: 363px !important;
       top: 94px !important;
+    }
+  }
+  .navbar-search-tooltip {
+    width: 416px;
+    padding: 6px;
+    .navbar-search-tooltip-item {
+      margin-bottom: 19px;
+      h1 {
+        font-size: 21px;
+      }
+      .navbar-search-tooltip-card {
+        border-left: 8px;
+        box-shadow: 0px 4px 7px 0px rgba(6, 36, 45, 0.06);
+        padding: 9px 15px 14px 10px;
+        h2 {
+          font-size: 21px;
+          line-height: 32px;
+        }
+        div {
+          p {
+            font-size: 18px;
+            line-height: 28px;
+          }
+          span {
+            font-size: 18px;
+            padding: 4px 21px;
+          }
+        }
+      }
+    }
+  }
+  .tootip-search-responsive{
+    left: 2095px !important;
+    .ant-tooltip-content{
+      width: 444px;
     }
   }
 }
