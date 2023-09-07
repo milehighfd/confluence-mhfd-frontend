@@ -161,14 +161,14 @@ const CalendarBody = ({
               (windowWidth >= 1450 && windowWidth <= 2000 ? 16 : 15)))
       case 'factorTranslateMonthly':
         return (windowWidth >= 3001 && windowWidth <= 3999 ? -527 : 
-          (windowWidth >= 2550 && windowWidth <= 3000 ? -347 : 
+          (windowWidth >= 2550 && windowWidth <= 3000 ? -358 : 
             (windowWidth >= 2001 && windowWidth <= 2549 ? -300 : 
-              (windowWidth >= 1450 && windowWidth <= 2000 ? -254 : -185))))
+              (windowWidth >= 1450 && windowWidth <= 2000 ? -265 : -196))))
       case 'factorTranslateDaily':
         return (windowWidth >= 3001 && windowWidth <= 3999 ? -230 : 
-          (windowWidth >= 2550 && windowWidth <= 3000 ? -148 : 
+          (windowWidth >= 2550 && windowWidth <= 3000 ? -157 : 
             (windowWidth >= 2001 && windowWidth <= 2549 ? -229 : 
-              (windowWidth >= 1450 && windowWidth <= 2000 ? -107 : -76))))
+              (windowWidth >= 1450 && windowWidth <= 2000 ? -116 : -85))))
       case 'factorToShowTodaylineDaily':
         return (windowWidth >= 3001 && windowWidth <= 3999 ? 1500 : 
           (windowWidth >= 2550 && windowWidth <= 3000 ? 1000 : 
