@@ -223,13 +223,6 @@ const AutoCompleteDropdown = (
       projecttype: namespaceId.projecttype,
     }
     datasets.postData(SERVER.GET_STATUS_BOARD, boardsInfo).then(data => {
-      const colors = data.map((d: any) => {
-        if (d.status === 'Approved') {
-          return { ...d, color: '#28c499'};
-        } else {
-          return { ...d, color: '#ffdd00'};
-        }
-      });
       setLocalityStatus(data);
     });
   }, [namespaceId]);
