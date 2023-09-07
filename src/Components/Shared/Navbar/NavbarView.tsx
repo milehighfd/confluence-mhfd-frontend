@@ -15,7 +15,7 @@ import moment from 'moment';
 import { SERVER } from 'Config/Server.config';
 import ModalTutorial from '../Sidebar/ModalTutorial';
 import DetailModal from 'routes/detail-page/components/DetailModal';
-import NavBarSearchTooltip from './NavBarSearchTooltip';
+import NavBarSearchTooltip from './NavBarSearch/NavBarSearchTooltip';
 
 const { TabPane } = Tabs;
 const { Header } = Layout;
@@ -235,9 +235,10 @@ const NavbarView = ({
     {openProfile && <ModalEditUserView updateUserInformation={updateUserInformation} user={user}
       isVisible={true} hideProfile={hideProfile} groupOrganization={groupOrganization} getGroupOrganization={getGroupOrganization} />}
     <h6>{value}</h6>
-    <Tooltip overlayClassName='tootip-search-responsive' trigger={["focus","click"]} title={NavBarSearchTooltip}>
+    {/* NAVBAR SEARCH COMPONENT Descomentar cuando se vaya a aplicar el navbar search*/}
+    {/* <Tooltip overlayClassName='tootip-search-responsive' trigger={["focus","click"]} title={NavBarSearchTooltip}>
       <Input  id='navbar-search' className='navbar-search' placeholder="Search" prefix={<SearchOutlined />} />
-    </Tooltip>
+    </Tooltip> */}
     {/* <div className="navbar-options-box">
       <Popover overlayClassName="popoveer-notification-box" placement="bottom" content={notification?.length > 0 ? contentNotification : content}>
         {locationPage.pathname === '/portfolio-list-view' ?
