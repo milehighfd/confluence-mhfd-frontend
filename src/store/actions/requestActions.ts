@@ -423,7 +423,7 @@ const moveProjectsManualReducer = (columns2: any[], action: any) => {
 
 export const moveProjectsManual = (payload: DragAndDropCards) => {
   return (dispatch: any, getState: Function) => {
-    const { request: { columns2, namespaceId } } = getState();
+    const { request: { columns2 } } = getState();
     const { originColumnPosition, targetPosition } = payload;
     const updatedColumns = moveProjectsManualReducer(columns2, { payload });
     const projectsUpdated = updatedColumns[originColumnPosition].projects;
@@ -469,12 +469,12 @@ const handleMoveFromColumnToColumnReducer = (columns2: any[], action: any): any[
     newRequestValue = currentRequest + newRequestValue;
   }
   const requestFields = {
-    [`req${action.payload.targetColumnPosition}`]: newRequestValue,
-    [`req${action.payload.originColumnPosition}`]: null
+    // [`req${action.payload.targetColumnPosition}`]: newRequestValue,
+    // [`req${action.payload.originColumnPosition}`]: null
   };
   const newProject = {
     ...sourceProject,
-    ...requestFields
+    // ...requestFields
   };
 
   const columns = columns2.map((column: any, columnId: number) => {
@@ -514,7 +514,7 @@ const handleMoveFromColumnToColumnReducer = (columns2: any[], action: any): any[
 
 export const handleMoveFromColumnToColumn = (payload: DragAndDropCards) => {
   return (dispatch: any, getState: Function) => {
-    const { request: { columns2, namespaceId } } = getState();
+    const { request: { columns2 } } = getState();
     const { originColumnPosition, targetColumnPosition, targetPosition } = payload;
     const [
       updatedColumns,
