@@ -235,9 +235,10 @@ const NavbarView = ({
     {openProfile && <ModalEditUserView updateUserInformation={updateUserInformation} user={user}
       isVisible={true} hideProfile={hideProfile} groupOrganization={groupOrganization} getGroupOrganization={getGroupOrganization} />}
     <h6>{value}</h6>
-    <Tooltip overlayClassName='tootip-search-responsive' trigger={["focus","click"]} title={NavBarSearchTooltip}>
+    {/* NAVBAR SEARCH COMPONENT */}
+    {/* <Tooltip overlayClassName='tootip-search-responsive' trigger={["focus","click"]} title={NavBarSearchTooltip}>
       <Input  id='navbar-search' className='navbar-search' placeholder="Search" prefix={<SearchOutlined />} />
-    </Tooltip>
+    </Tooltip> */}
     {/* <div className="navbar-options-box">
       <Popover overlayClassName="popoveer-notification-box" placement="bottom" content={notification?.length > 0 ? contentNotification : content}>
         {locationPage.pathname === '/portfolio-list-view' ?

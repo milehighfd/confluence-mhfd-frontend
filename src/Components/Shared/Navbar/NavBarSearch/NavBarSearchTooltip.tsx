@@ -1,5 +1,4 @@
 import React from 'react';
-import NavBarSearchTooltopCard from './NavBarSearchTooltopCard';
 import NavBarSearchTooltipItem from './NavBarSearchTooltipItem';
 
 const cardData = [
