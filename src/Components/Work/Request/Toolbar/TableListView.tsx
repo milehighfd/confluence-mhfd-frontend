@@ -460,7 +460,7 @@ const TableListView = ({
                   <br />
                   <b>Board project: </b> {record.board_project_id}
                   </>}>
-                  <span className='project-name'>{name}</span>
+                  <p className='project-name'>{name}</p>
                 </Popover>                
                 <Popover
                   placement="bottom"
