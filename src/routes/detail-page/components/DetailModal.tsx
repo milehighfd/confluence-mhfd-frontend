@@ -40,6 +40,7 @@ import Vendors from './Vendors';
 import ModalTollgate from 'routes/list-view/components/ModalTollgate';
 import { useAttachmentDispatch, useAttachmentState } from 'hook/attachmentHook';
 import { useProfileState } from 'hook/profileHook';
+import StackedBarChart from './StackedBarChart';
 
 const DetailModal = ({
   visible,
@@ -984,6 +985,7 @@ const DetailModal = ({
                       updateAction={updateAction}
                       setUpdateAction={setUpdateAction}
                     />
+                    <StackedBarChart />
                     <br></br>
                     {appUser &&
                       appUser.designation &&

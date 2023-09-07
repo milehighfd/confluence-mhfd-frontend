@@ -390,7 +390,9 @@
   padding-top: 0px;
   // max-width: 255px;
 }
-
+.ant-select-dropdown {
+  width: max-content !important;
+}
 @media (max-width: 575.98px) {
   .ant-layout-sider {
     flex: auto !important;

@@ -27,6 +27,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
   const [income, setIncome] = useState([0, 0, 0]);
   const [expense, setExpense] = useState([0, 0, 0]);
   const [searchValue, setSearchValue] = useState<any>();
+  const windowWidth: any = window.innerWidth;
 
   useEffect(() => {
     getFinancialData(projectId, {});
@@ -172,20 +173,20 @@ const Financials = ({ projectId }: { projectId: any }) => {
       title: <p>Agreement</p>,
       dataIndex: 'agreement',
       key: 'agreement',
-      width: '10%',
+      width: '12%',
       render: (agreement: any, index: any) => <p className={'table-' + agreement[1]}>{agreement[0]}</p>,
     },
     {
       title: <p>Amendment</p>,
       dataIndex: 'amendment',
       key: 'amendment',
-      width: '15%',
+      width: '14%',
     },
     {
       title: <p>Partner</p>,
       dataIndex: 'partner',
       key: 'partner',
-      width: '10%',
+      width: '17%',
     },
     {
       title: <p>Phase</p>,
@@ -198,28 +199,28 @@ const Financials = ({ projectId }: { projectId: any }) => {
       title: <p style={{ textAlign: 'center' }}>Projected</p>,
       dataIndex: 'projected',
       key: 'projected',
-      width: '14%',
+      width: '12%',
       render: (projected: string[]) => <p className={'table-' + projected[1]}>{projected[0]}</p>,
     },
     {
       title: <p style={{ textAlign: 'center' }}>Encumbered</p>,
       dataIndex: 'encumbered',
       key: 'encumbered',
-      width: '14%',
+      width: '12%',
       render: (encumbered: string[]) => <p className={'table-' + encumbered[1]}>{encumbered[0]}</p>,
     },
     {
       title: <p style={{ textAlign: 'center' }}>Tyler Encumbered</p>,
       dataIndex: 'tyler',
       key: 'tyler',
-      width: '14%',
+      width: '12%',
       render: (tyler: string[]) => <p className={'table-' + tyler[1]}>{tyler[0]}</p>,
     },
     {
       title: <p style={{ textAlign: 'center' }}>Date</p>,
       dataIndex: 'date',
       key: 'date',
-      width: '13%',
+      width: '10%',
       render: (date: string) => <p style={{ textAlign: 'center' }}>{date}</p>,
     },
   ];
@@ -452,30 +453,65 @@ const Financials = ({ projectId }: { projectId: any }) => {
           <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-financials-modal table-financials-modal-mobile" style={{ paddingRight: '8px' }}>
             <div className="scroll-table" style={{ width: '100%', overflowX: 'hidden' }}>
               <div className="body-scroll-table">
-                <Table dataSource={finalData} columns={columns} pagination={{ pageSize: 50 }} scroll={{ y: 350 }} />
-                <div style={{ display: 'flex', paddingTop: '5px', borderTop: '1px solid #d7d3e2', marginTop: '5px' }}>
-                  <p style={{ color: '#28c499', fontWeight: '400', width: '45%' }}>Subtotal Income</p>
-                  <p style={{ color: '#28c499', fontWeight: '400', width: '14%', textAlign: 'center' }}>{formatter.format(income[0])}</p>
-                  <p style={{ color: '#28c499', fontWeight: '400', width: '14%', textAlign: 'center' }}>{formatter.format(income[1])}</p>
-                  <p style={{ color: '#28c499', fontWeight: '400', width: '14%', textAlign: 'center' }}>{formatter.format(income[2])}</p>
-                  <p style={{ color: '#28c499', fontWeight: '400', width: '13%', textAlign: 'center' }}></p>
-                </div>
-                <div style={{ display: 'flex', paddingTop: '5px' }}>
-                  <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '45%' }}>Subtotal Expense</p>
-                  <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '14%', textAlign: 'center' }}>{formatter.format(expense[0])}</p>
-                  <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '14%', textAlign: 'center' }}>{formatter.format(expense[1])}</p>
-                  <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '14%', textAlign: 'center' }}>{formatter.format(expense[2])}</p>
-                  <p style={{ color: '#28c499', fontWeight: '400', width: '13%', textAlign: 'center' }}></p>
-                </div>
-                <div
-                  style={{ display: 'flex', paddingTop: '5px', borderBottom: '1px solid #d7d3e2', paddingBottom: '5px' }}
-                >
-                  <p style={{ color: '#11093c', fontWeight: 'bolder', width: '45%' }}>Total</p>
-                  <p style={{ color: '#11093c', fontWeight: 'bolder', width: '14%', textAlign: 'center' }}>{formatter.format(income[0] - expense[0])}</p>
-                  <p style={{ color: '#11093c', fontWeight: 'bolder', width: '14%', textAlign: 'center' }}>{formatter.format(income[1] - expense[1])}</p>
-                  <p style={{ color: '#11093c', fontWeight: 'bolder', width: '14%', textAlign: 'center' }}>{formatter.format(income[2] - expense[2])}</p>
-                  <p style={{ color: '#28c499', fontWeight: '400', width: '13%', textAlign: 'center' }}></p>
-                </div>
+                <Table
+                  dataSource={finalData}
+                  columns={columns}
+                  pagination={{ pageSize: 50 }}
+                  scroll={{ y: 350 , x:windowWidth > 1000 ? '140%':'100%'}}
+                  summary={() => (
+                    <Table.Summary fixed={ 'bottom'}  >
+                      <Table.Summary.Row  style={{ borderTop: '1px solid #d7d3e2', marginTop: '5px' }}>
+                        <Table.Summary.Cell index={0} colSpan={4} >
+                          <p style={{ color: '#28c499', fontWeight: '400' }}>Subtotal Income</p>
+                        </Table.Summary.Cell>
+                        <Table.Summary.Cell index={1} >
+                        <p style={{ color: '#28c499', fontWeight: '400', textAlign: 'center' }}>{formatter.format(income[0])}</p>
+                        </Table.Summary.Cell>
+                        <Table.Summary.Cell index={2}>
+                        <p style={{ color: '#28c499', fontWeight: '400', textAlign: 'center' }}>{formatter.format(income[1])}</p>
+                        </Table.Summary.Cell>
+                        <Table.Summary.Cell index={3}>
+                        <p style={{ color: '#28c499', fontWeight: '400', textAlign: 'center' }}>{formatter.format(income[2])}</p>
+                        </Table.Summary.Cell>
+                        
+                      </Table.Summary.Row>
+                      <Table.Summary.Row  style={{  }}>
+                        <Table.Summary.Cell index={0} colSpan={4} >
+                            <p style={{ color: 'rgb(255 55 55)', fontWeight: '400' }}>Subtotal Expense</p>
+                          </Table.Summary.Cell>
+                          <Table.Summary.Cell index={1}  >
+                          <p style={{ color: 'rgb(255 55 55)', fontWeight: '400',  textAlign: 'center' }}>{formatter.format(expense[0])}</p>
+                          </Table.Summary.Cell>
+                          <Table.Summary.Cell index={2}>
+                          <p style={{ color: 'rgb(255 55 55)', fontWeight: '400',  textAlign: 'center' }}>{formatter.format(expense[1])}</p>
+                          </Table.Summary.Cell>
+                          <Table.Summary.Cell index={3}>
+                          <p style={{ color: 'rgb(255 55 55)', fontWeight: '400',  textAlign: 'center' }}>{formatter.format(expense[2])}</p>
+                          </Table.Summary.Cell>
+                          <Table.Summary.Cell index={4}>
+                          <p style={{ color: 'rgb(255 55 55)', fontWeight: '400',  textAlign: 'center' }}></p>
+                        </Table.Summary.Cell>
+                      </Table.Summary.Row>
+                      <Table.Summary.Row  style={{ }}>
+                        <Table.Summary.Cell index={0} colSpan={4} >
+                            <p style={{ color: '#11093c', fontWeight: 'bolder' }}>Total</p>
+                          </Table.Summary.Cell>
+                          <Table.Summary.Cell index={1}  >
+                          <p style={{ color: '#11093c', fontWeight: 'bolder',  textAlign: 'center' }}>{formatter.format(income[0] - expense[0])}</p>
+                          </Table.Summary.Cell>
+                          <Table.Summary.Cell index={2}>
+                          <p style={{ color: '#11093c', fontWeight: 'bolder',  textAlign: 'center' }}>{formatter.format(income[1] - expense[1])}</p>
+                          </Table.Summary.Cell>
+                          <Table.Summary.Cell index={3}>
+                          <p style={{ color: '#11093c', fontWeight: 'bolder',  textAlign: 'center' }}>{formatter.format(income[2] - expense[2])}</p>
+                          </Table.Summary.Cell>
+                          <Table.Summary.Cell index={4}>
+                          <p style={{ color: '#11093c', fontWeight: 'bolder',  textAlign: 'center' }}></p>
+                        </Table.Summary.Cell>
+                      </Table.Summary.Row>
+                    </Table.Summary>
+                )}
+                />
               </div>
             </div>
           </Col>

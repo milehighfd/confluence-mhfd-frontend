@@ -378,6 +378,14 @@
       height: 15px;
     }
   }
+  .active-card-wr {
+    border: 2px solid #057cd8;
+    border-radius: 4px;
+    margin-bottom: 5px;
+  }
+  .inactive-card-wr{
+    margin-bottom: 5px;
+  }
   .card-wr {
     width: 100% !important;
     height: 80px;
@@ -385,7 +393,7 @@
     background-color: $white;
     position: relative;
     padding: 5px 5px;
-    margin-bottom: 5px;
+    //margin-bottom: 5px;
     border-right: 12.5px solid white !important;
     margin-right: 0px;
     padding-right: 0px;
@@ -1746,7 +1754,7 @@
   .row-color-active {
     border-bottom: 1.5px;
     border-width: 2px;
-    border-color: #1753EF;
+    border-color: #057CD8;
     border-style: solid;
   }
   ::-webkit-scrollbar {
@@ -1817,6 +1825,10 @@
   .name-project-sec {
     display: flex;
     justify-content: space-between;
+    .project-name{
+      width: 95%;
+      margin-bottom: 0px;
+    }
   }
   .dots-table {
     display: flex;
@@ -2520,7 +2532,7 @@
     }
     .ant-select-2 {
       color: $opacity;
-      width: 155px !important;
+      min-width: 155px !important;
       font-size: 21px;
     }
     .ant-select-1 {
