@@ -5869,113 +5869,195 @@ export const tileStyles = {
   ],
   [STREAM_MANAGEMENT_CORRIDORS]: [
     {
-      type: 'fill',
-      'source-layer': 'pluto15v1',
-      paint: {
-        'fill-color': 'hsla(0, 0%, 0%, 0)',
-        'fill-outline-color': [
-          'match',
-          ['get', 'smc_type'],
-          ['Fluvial Hazard Buffer'],
-          [
-            'match',
-            ['get', 'scale'],
-            ['Watershed'],
-            'hsl(27, 97%, 56%)',
-            ['Stream Corridor'],
-            'hsl(301, 60%, 56%)',
-            '#000000',
-          ],
-          '#000000',
-        ],
-      },
+      // "id": "all corridor shadows",
+      "type": "line",
+      "source-layer": 'pluto15v1',
+      "paint": {"line-blur": 5, "line-width": 10, "line-opacity": 0.4}
     },
     {
-      type: 'fill',
-      'source-layer': 'pluto15v1',
-      paint: {
-        'fill-color': [
-          'match',
-          ['get', 'smc_type'],
-          ['Fluvial Hazard Buffer'],
-          [
-            'match',
-            ['get', 'scale'],
-            ['Watershed'],
-            'hsl(77, 88%, 64%)',
-            ['Stream Corridor'],
-            'hsl(288, 80%, 59%)',
-            '#000000',
-          ],
-          'hsla(0, 0%, 0%, 0)',
+      // "id": "FldHzrdBfr-Wtrshd",
+      "type": "fill",
+      "source-layer": 'pluto15v1',
+      "filter": [
+        "all",
+        [
+          "match",
+          ["get", "smc_type"],
+          ["Fluvial Hazard Buffer"],
+          true,
+          false
         ],
-        'fill-opacity': 0.21,
-      },
+        ["match", ["get", "scale"], ["Watershed"], true, false]
+      ],
+      "paint": {
+        "fill-color": "#0aa347",
+        "fill-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0.8,
+          12.31,
+          0.8,
+          13,
+          1,
+          14,
+          1,
+          15,
+          0.6,
+          17,
+          0.4
+        ],
+        "fill-pattern": "SMC_medgreen"
+      }
     },
     {
-      type: 'fill',
-      'source-layer': 'pluto15v1',
-      paint: {
-        'fill-color': [
-          'match',
-          ['get', 'smc_type'],
-          ['Fluvial Hazard Buffer'],
-          [
-            'match',
-            ['get', 'scale'],
-            ['Watershed'],
-            'hsl(77, 88%, 64%)',
-            ['Stream Corridor'],
-            'hsl(288, 80%, 59%)',
-            '#000000',
-          ],
-          'hsla(0, 0%, 0%, 0)',
+        // "id": "StrmMngmtCrdr-Wtrshd",
+        "type": "fill",
+        "source-layer": 'pluto15v1',
+        "filter": [
+            "all",
+            [
+                "match",
+                ["get", "smc_type"],
+                ["Stream Management Corridor"],
+                true,
+                false
+            ],
+            ["match", ["get", "scale"], ["Watershed"], true, false]
         ],
-        'fill-pattern': [
-          'match',
-          ['get', 'smc_type'],
-          ['Fluvial Hazard Buffer'],
-          [
-            'match',
-            ['get', 'scale'],
-            ['Watershed'],
-            'ic-stripered',
-            ['Stream Corridor'],
-            'ic-stripeviolet',
-            'pedestrian-polygon',
-          ],
-          'pedestrian-polygon',
-        ],
-      },
+        "paint": {
+            "fill-color": "#0aa347",
+            "fill-outline-color": "rgba(118, 218, 98, 0)",
+            "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                0,
+                0.8,
+                12.31,
+                0.8,
+                13,
+                1,
+                14,
+                1,
+                15,
+                0.6,
+                17,
+                0.4
+            ]
+        }
     },
     {
-      type: 'fill',
-      'source-layer': 'pluto15v1',
-      paint: {
-        'fill-color': [
-          'match',
-          ['get', 'smc_type'],
-          ['Stream Management Corridor'],
-          'hsl(46, 100%, 61%)',
-          ['Avulsion Hazard Zone'],
-          'hsla(303, 80%, 82%, 0)',
-          ['Active Stream Corridor'],
-          ['match', ['get', 'scale'], ['Watershed'], 'hsl(46, 88%, 67%)', ['Stream Corridor'], '#7a43db', '#000000'],
-          ['Fluvial Hazard Buffer'],
-          [
-            'match',
-            ['get', 'scale'],
-            ['Watershed'],
-            'hsla(77, 88%, 64%, 0)',
-            ['Stream Corridor'],
-            'hsla(288, 80%, 59%, 0)',
-            'hsla(0, 0%, 0%, 0)',
-          ],
-          '#000000',
+        // "id": "ActvStrmCrdr-Wtrshd",
+        "type": "fill",
+        "source-layer": 'pluto15v1',
+        "filter": [
+            "all",
+            [
+                "match",
+                ["get", "smc_type"],
+                ["Active Stream Corridor"],
+                true,
+                false
+            ],
+            ["match", ["get", "scale"], ["Watershed"], true, false]
         ],
-        'fill-opacity': 0.8,
-      },
+        "paint": {
+            "fill-color": "#0aa347",
+            "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                0,
+                0.8,
+                12.31,
+                0.8,
+                13,
+                1,
+                14,
+                1,
+                15,
+                0.6,
+                17,
+                0.4
+            ],
+            "fill-outline-color": "rgba(0, 0, 0, 0)"
+        }
     },
+    {
+        // "id": "FldHzrdBfr-StmCrdr",
+        "type": "fill",
+        "source-layer": 'pluto15v1',
+        "filter": [
+            "all",
+            [
+                "match",
+                ["get", "smc_type"],
+                ["Fluvial Hazard Buffer"],
+                true,
+                false
+            ],
+            ["match", ["get", "scale"], ["Stream Corridor"], true, false]
+        ],
+        "paint": {
+            "fill-color": "#92d050",
+            "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                0,
+                0.8,
+                12.31,
+                0.8,
+                13,
+                1,
+                14,
+                1,
+                15,
+                0.6,
+                17,
+                0.4
+            ],
+            "fill-pattern": "SMC_lightgreen"
+        }
+    },
+    {
+        // "id": "ActvStrmCrdr-StmCrdr",
+        "type": "fill",
+        "source-layer": 'pluto15v1',
+        "filter": [
+            "all",
+            [
+                "match",
+                ["get", "smc_type"],
+                ["Active Stream Corridor"],
+                true,
+                false
+            ],
+            ["match", ["get", "scale"], ["Stream Corridor"], true, false]
+        ],
+        "paint": {
+            "fill-color": "#92d050",
+            "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                0,
+                0.8,
+                12.31,
+                0.8,
+                13,
+                1,
+                14,
+                1,
+                15,
+                0.6,
+                17,
+                0.4
+            ]
+        }
+    }
   ],
   [BLOCK_CLEARANCE_ZONES_LAYERS]: [
     {
@@ -8501,114 +8583,195 @@ export const tileStylesDetailPage = {
   ],
   [STREAM_MANAGEMENT_CORRIDORS]: [
     {
-      type: 'fill',
-      'source-layer': 'pluto15v1',
-      paint: {
-        'fill-color': 'hsla(0, 0%, 0%, 0)',
-        'fill-outline-color': [
-          'match',
-          ['get', 'smc_type'],
-          ['Fluvial Hazard Buffer'],
-          [
-            'match',
-            ['get', 'scale'],
-            ['Watershed'],
-            'hsl(27, 97%, 56%)',
-            ['Stream Corridor'],
-            'hsl(301, 60%, 56%)',
-            '#000000',
-          ],
-          '#000000',
-        ],
-      },
-    },
-    ,
-    {
-      type: 'fill',
-      'source-layer': 'pluto15v1',
-      paint: {
-        'fill-color': [
-          'match',
-          ['get', 'smc_type'],
-          ['Fluvial Hazard Buffer'],
-          [
-            'match',
-            ['get', 'scale'],
-            ['Watershed'],
-            'hsl(77, 88%, 64%)',
-            ['Stream Corridor'],
-            'hsl(288, 80%, 59%)',
-            '#000000',
-          ],
-          'hsla(0, 0%, 0%, 0)',
-        ],
-        'fill-opacity': 0.21,
-      },
+      // "id": "all corridor shadows",
+      "type": "line",
+      "source-layer": 'pluto15v1',
+      "paint": {"line-blur": 5, "line-width": 10, "line-opacity": 0.4}
     },
     {
-      type: 'fill',
-      'source-layer': 'pluto15v1',
-      paint: {
-        'fill-color': [
-          'match',
-          ['get', 'smc_type'],
-          ['Fluvial Hazard Buffer'],
-          [
-            'match',
-            ['get', 'scale'],
-            ['Watershed'],
-            'hsl(77, 88%, 64%)',
-            ['Stream Corridor'],
-            'hsl(288, 80%, 59%)',
-            '#000000',
-          ],
-          'hsla(0, 0%, 0%, 0)',
+      // "id": "FldHzrdBfr-Wtrshd",
+      "type": "fill",
+      "source-layer": 'pluto15v1',
+      "filter": [
+        "all",
+        [
+          "match",
+          ["get", "smc_type"],
+          ["Fluvial Hazard Buffer"],
+          true,
+          false
         ],
-        'fill-pattern': [
-          'match',
-          ['get', 'smc_type'],
-          ['Fluvial Hazard Buffer'],
-          [
-            'match',
-            ['get', 'scale'],
-            ['Watershed'],
-            'ic-stripered',
-            ['Stream Corridor'],
-            'ic-stripeviolet',
-            'pedestrian-polygon',
-          ],
-          'pedestrian-polygon',
+        ["match", ["get", "scale"], ["Watershed"], true, false]
+      ],
+      "paint": {
+        "fill-color": "#0aa347",
+        "fill-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0.8,
+          12.31,
+          0.8,
+          13,
+          1,
+          14,
+          1,
+          15,
+          0.6,
+          17,
+          0.4
         ],
-      },
+        "fill-pattern": "SMC_medgreen"
+      }
     },
     {
-      type: 'fill',
-      'source-layer': 'pluto15v1',
-      paint: {
-        'fill-color': [
-          'match',
-          ['get', 'smc_type'],
-          ['Stream Management Corridor'],
-          'hsl(46, 100%, 61%)',
-          ['Avulsion Hazard Zone'],
-          'hsla(303, 80%, 82%, 0)',
-          ['Active Stream Corridor'],
-          ['match', ['get', 'scale'], ['Watershed'], 'hsl(46, 88%, 67%)', ['Stream Corridor'], '#7a43db', '#000000'],
-          ['Fluvial Hazard Buffer'],
-          [
-            'match',
-            ['get', 'scale'],
-            ['Watershed'],
-            'hsla(77, 88%, 64%, 0)',
-            ['Stream Corridor'],
-            'hsla(288, 80%, 59%, 0)',
-            'hsla(0, 0%, 0%, 0)',
-          ],
-          '#000000',
+        // "id": "StrmMngmtCrdr-Wtrshd",
+        "type": "fill",
+        "source-layer": 'pluto15v1',
+        "filter": [
+            "all",
+            [
+                "match",
+                ["get", "smc_type"],
+                ["Stream Management Corridor"],
+                true,
+                false
+            ],
+            ["match", ["get", "scale"], ["Watershed"], true, false]
         ],
-        'fill-opacity': 0.8,
-      },
+        "paint": {
+            "fill-color": "#0aa347",
+            "fill-outline-color": "rgba(118, 218, 98, 0)",
+            "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                0,
+                0.8,
+                12.31,
+                0.8,
+                13,
+                1,
+                14,
+                1,
+                15,
+                0.6,
+                17,
+                0.4
+            ]
+        }
     },
+    {
+        // "id": "ActvStrmCrdr-Wtrshd",
+        "type": "fill",
+        "source-layer": 'pluto15v1',
+        "filter": [
+            "all",
+            [
+                "match",
+                ["get", "smc_type"],
+                ["Active Stream Corridor"],
+                true,
+                false
+            ],
+            ["match", ["get", "scale"], ["Watershed"], true, false]
+        ],
+        "paint": {
+            "fill-color": "#0aa347",
+            "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                0,
+                0.8,
+                12.31,
+                0.8,
+                13,
+                1,
+                14,
+                1,
+                15,
+                0.6,
+                17,
+                0.4
+            ],
+            "fill-outline-color": "rgba(0, 0, 0, 0)"
+        }
+    },
+    {
+        // "id": "FldHzrdBfr-StmCrdr",
+        "type": "fill",
+        "source-layer": 'pluto15v1',
+        "filter": [
+            "all",
+            [
+                "match",
+                ["get", "smc_type"],
+                ["Fluvial Hazard Buffer"],
+                true,
+                false
+            ],
+            ["match", ["get", "Scale"], ["Stream Corridor"], true, false]
+        ],
+        "paint": {
+            "fill-color": "#92d050",
+            "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                0,
+                0.8,
+                12.31,
+                0.8,
+                13,
+                1,
+                14,
+                1,
+                15,
+                0.6,
+                17,
+                0.4
+            ],
+            "fill-pattern": "SMC_lightgreen"
+        }
+    },
+    {
+        // "id": "ActvStrmCrdr-StmCrdr",
+        "type": "fill",
+        "source-layer": 'pluto15v1',
+        "filter": [
+            "all",
+            [
+                "match",
+                ["get", "smc_type"],
+                ["Active Stream Corridor"],
+                true,
+                false
+            ],
+            ["match", ["get", "scale"], ["Stream Corridor"], true, false]
+        ],
+        "paint": {
+            "fill-color": "#92d050",
+            "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                0,
+                0.8,
+                12.31,
+                0.8,
+                13,
+                1,
+                14,
+                1,
+                15,
+                0.6,
+                17,
+                0.4
+            ]
+        }
+    }
   ],
   [BLOCK_CLEARANCE_ZONES_LAYERS]: [
     {
@@ -11324,114 +11487,195 @@ export const tileStyles_WR = {
   ],
   [STREAM_MANAGEMENT_CORRIDORS]: [
     {
-      type: 'fill',
-      'source-layer': 'pluto15v1',
-      paint: {
-        'fill-color': 'hsla(0, 0%, 0%, 0)',
-        'fill-outline-color': [
-          'match',
-          ['get', 'smc_type'],
-          ['Fluvial Hazard Buffer'],
-          [
-            'match',
-            ['get', 'scale'],
-            ['Watershed'],
-            'hsl(27, 97%, 56%)',
-            ['Stream Corridor'],
-            'hsl(301, 60%, 56%)',
-            '#000000',
-          ],
-          '#000000',
-        ],
-      },
-    },
-    ,
-    {
-      type: 'fill',
-      'source-layer': 'pluto15v1',
-      paint: {
-        'fill-color': [
-          'match',
-          ['get', 'smc_type'],
-          ['Fluvial Hazard Buffer'],
-          [
-            'match',
-            ['get', 'scale'],
-            ['Watershed'],
-            'hsl(77, 88%, 64%)',
-            ['Stream Corridor'],
-            'hsl(288, 80%, 59%)',
-            '#000000',
-          ],
-          'hsla(0, 0%, 0%, 0)',
-        ],
-        'fill-opacity': 0.21,
-      },
+      // "id": "all corridor shadows",
+      "type": "line",
+      "source-layer": 'pluto15v1',
+      "paint": {"line-blur": 5, "line-width": 10, "line-opacity": 0.4}
     },
     {
-      type: 'fill',
-      'source-layer': 'pluto15v1',
-      paint: {
-        'fill-color': [
-          'match',
-          ['get', 'smc_type'],
-          ['Fluvial Hazard Buffer'],
-          [
-            'match',
-            ['get', 'scale'],
-            ['Watershed'],
-            'hsl(77, 88%, 64%)',
-            ['Stream Corridor'],
-            'hsl(288, 80%, 59%)',
-            '#000000',
-          ],
-          'hsla(0, 0%, 0%, 0)',
+      // "id": "FldHzrdBfr-Wtrshd",
+      "type": "fill",
+      "source-layer": 'pluto15v1',
+      "filter": [
+        "all",
+        [
+          "match",
+          ["get", "smc_type"],
+          ["Fluvial Hazard Buffer"],
+          true,
+          false
         ],
-        'fill-pattern': [
-          'match',
-          ['get', 'smc_type'],
-          ['Fluvial Hazard Buffer'],
-          [
-            'match',
-            ['get', 'scale'],
-            ['Watershed'],
-            'ic-stripered',
-            ['Stream Corridor'],
-            'ic-stripeviolet',
-            'pedestrian-polygon',
-          ],
-          'pedestrian-polygon',
+        ["match", ["get", "scale"], ["Watershed"], true, false]
+      ],
+      "paint": {
+        "fill-color": "#0aa347",
+        "fill-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0.8,
+          12.31,
+          0.8,
+          13,
+          1,
+          14,
+          1,
+          15,
+          0.6,
+          17,
+          0.4
         ],
-      },
+        "fill-pattern": "SMC_medgreen"
+      }
     },
     {
-      type: 'fill',
-      'source-layer': 'pluto15v1',
-      paint: {
-        'fill-color': [
-          'match',
-          ['get', 'smc_type'],
-          ['Stream Management Corridor'],
-          'hsl(46, 100%, 61%)',
-          ['Avulsion Hazard Zone'],
-          'hsla(303, 80%, 82%, 0)',
-          ['Active Stream Corridor'],
-          ['match', ['get', 'scale'], ['Watershed'], 'hsl(46, 88%, 67%)', ['Stream Corridor'], '#7a43db', '#000000'],
-          ['Fluvial Hazard Buffer'],
-          [
-            'match',
-            ['get', 'scale'],
-            ['Watershed'],
-            'hsla(77, 88%, 64%, 0)',
-            ['Stream Corridor'],
-            'hsla(288, 80%, 59%, 0)',
-            'hsla(0, 0%, 0%, 0)',
-          ],
-          '#000000',
+        // "id": "StrmMngmtCrdr-Wtrshd",
+        "type": "fill",
+        "source-layer": 'pluto15v1',
+        "filter": [
+            "all",
+            [
+                "match",
+                ["get", "smc_type"],
+                ["Stream Management Corridor"],
+                true,
+                false
+            ],
+            ["match", ["get", "scale"], ["Watershed"], true, false]
         ],
-        'fill-opacity': 0.8,
-      },
+        "paint": {
+            "fill-color": "#0aa347",
+            "fill-outline-color": "rgba(118, 218, 98, 0)",
+            "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                0,
+                0.8,
+                12.31,
+                0.8,
+                13,
+                1,
+                14,
+                1,
+                15,
+                0.6,
+                17,
+                0.4
+            ]
+        }
     },
+    {
+        // "id": "ActvStrmCrdr-Wtrshd",
+        "type": "fill",
+        "source-layer": 'pluto15v1',
+        "filter": [
+            "all",
+            [
+                "match",
+                ["get", "smc_type"],
+                ["Active Stream Corridor"],
+                true,
+                false
+            ],
+            ["match", ["get", "scale"], ["Watershed"], true, false]
+        ],
+        "paint": {
+            "fill-color": "#0aa347",
+            "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                0,
+                0.8,
+                12.31,
+                0.8,
+                13,
+                1,
+                14,
+                1,
+                15,
+                0.6,
+                17,
+                0.4
+            ],
+            "fill-outline-color": "rgba(0, 0, 0, 0)"
+        }
+    },
+    {
+        // "id": "FldHzrdBfr-StmCrdr",
+        "type": "fill",
+        "source-layer": 'pluto15v1',
+        "filter": [
+            "all",
+            [
+                "match",
+                ["get", "smc_type"],
+                ["Fluvial Hazard Buffer"],
+                true,
+                false
+            ],
+            ["match", ["get", "Scale"], ["Stream Corridor"], true, false]
+        ],
+        "paint": {
+            "fill-color": "#92d050",
+            "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                0,
+                0.8,
+                12.31,
+                0.8,
+                13,
+                1,
+                14,
+                1,
+                15,
+                0.6,
+                17,
+                0.4
+            ],
+            "fill-pattern": "SMC_lightgreen"
+        }
+    },
+    {
+        // "id": "ActvStrmCrdr-StmCrdr",
+        "type": "fill",
+        "source-layer": 'pluto15v1',
+        "filter": [
+            "all",
+            [
+                "match",
+                ["get", "smc_type"],
+                ["Active Stream Corridor"],
+                true,
+                false
+            ],
+            ["match", ["get", "scale"], ["Stream Corridor"], true, false]
+        ],
+        "paint": {
+            "fill-color": "#92d050",
+            "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                0,
+                0.8,
+                12.31,
+                0.8,
+                13,
+                1,
+                14,
+                1,
+                15,
+                0.6,
+                17,
+                0.4
+            ]
+        }
+    }
   ],
   [BLOCK_CLEARANCE_ZONES_LAYERS]: [
     {
