@@ -8,6 +8,8 @@ import { YEAR_LOGIC_2024, YEAR_LOGIC_2022, MMFD_LOCALITY, MMFD_LOCALITY_TYPE, WO
 import { postData } from 'Config/datasets';
 import { GET_STATUS } from 'Config/endpoints/board';
 import { useMapState } from 'hook/mapHook';
+import { SERVER } from 'Config/Server.config';
+import * as datasets from "../../../Config/datasets";
 
 const windowWidth: any = window.innerWidth;
 
@@ -28,6 +30,7 @@ const AutoCompleteDropdown = (
     locality,
     boardStatus,
     filterRequest,
+    namespaceId
   } = useRequestState();
   const {
     tabActiveNavbar,
@@ -51,11 +54,34 @@ const AutoCompleteDropdown = (
   } = useRequestDispatch();
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const [inputClassName, setInputClassName] = useState('not-approved');
+  const [localityStatus, setLocalityStatus] = useState([]);
   const renderOption = (item: string) => {
     return {
       key: `${item}|${item}`,
       value: item,
-      label: item
+      label: (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          {localityStatus.find((c: any) => c.locality === item && c.status === 'Approved') ?
+            <div
+              style={{
+                width: '10px',
+                height: '10px',
+                borderRadius: '50%',
+                backgroundColor: '#28c499',
+                marginRight: '10px',
+              }}
+            ></div> : <div
+              style={{
+                width: '10px',
+                height: '10px',
+                borderRadius: '50%',
+                backgroundColor: '#ffdd00',
+                marginRight: '10px',
+              }}
+            ></div>}
+          {item}
+        </div>
+      )
     };
   };
   useEffect(() => {
@@ -182,6 +208,31 @@ const AutoCompleteDropdown = (
       getMhfdDistrictWorkPlan();
     }
   }, [boardStatus, tabActiveNavbar, year, localityFilter]);
+
+  useEffect(() => {
+    const localities = dataAutocomplete.map((l: any) => {
+      if (l.name === 'Mile High Flood District'){
+        return { ...l, name: 'MHFD District Work Plan' };
+      }
+      return l;
+    });
+    const boardsInfo = {
+      type: type,
+      year: `${year}`,
+      localities: localities,
+      projecttype: namespaceId.projecttype,
+    }
+    datasets.postData(SERVER.GET_STATUS_BOARD, boardsInfo).then(data => {
+      const colors = data.map((d: any) => {
+        if (d.status === 'Approved') {
+          return { ...d, color: '#28c499'};
+        } else {
+          return { ...d, color: '#ffdd00'};
+        }
+      });
+      setLocalityStatus(data);
+    });
+  }, [namespaceId]);
 
   const prefix = <i className="mdi mdi-circle" style={{ marginLeft: '-6px', zIndex: '3' }}></i>;
   let showAllOptions = true;

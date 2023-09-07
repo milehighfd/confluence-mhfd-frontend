@@ -61,8 +61,8 @@ export const DropPin = ({
   }
   useEffect(()=>{
     if(specialLocation.geom && typeProject === 'special') {
-      setLatitude( parseFloat(specialLocation.geom.coordinates[0][0][1]).toFixed(2) );
-      setLongitude( parseFloat(specialLocation.geom.coordinates[0][0][0]).toFixed(2) );
+      setLatitude( parseFloat(specialLocation.geom.coordinates[0][0][1]).toFixed(4) );
+      setLongitude( parseFloat(specialLocation.geom.coordinates[0][0][0]).toFixed(4) );
       setLocation(specialLocation.geom);
       setGeom(specialLocation.geom);
     } else {
@@ -73,8 +73,8 @@ export const DropPin = ({
   }, [specialLocation]);
   useEffect(()=>{
     if(acquisitionLocation.geom && typeProject === 'acquisition') {
-      setLatitude(parseFloat(acquisitionLocation.geom.coordinates[0][0][1]).toFixed(2)    );
-      setLongitude(parseFloat(acquisitionLocation.geom.coordinates[0][0][0]).toFixed(2)   );
+      setLatitude(parseFloat(acquisitionLocation.geom.coordinates[0][0][1]).toFixed(4)    );
+      setLongitude(parseFloat(acquisitionLocation.geom.coordinates[0][0][0]).toFixed(4)   );
       // setLocation(acquisitionLocation.geom);
       setGeom(acquisitionLocation.geom);
     } else {
