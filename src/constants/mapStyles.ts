@@ -2813,7 +2813,7 @@ export const PROJECTS_STYLES_WR = {
       'source-layer': 'pluto15v1',
       "layout": {
           "icon-size": 0.6,
-          "icon-image": "RD_ORANGE_bold_small",
+          "icon-image": "RD_orange",
           'icon-ignore-placement': true,
           'text-allow-overlap': true,
           'icon-allow-overlap': true,
@@ -3594,7 +3594,7 @@ export const PROJECTS_STYLES_WR = {
       metadata: { 'mapbox:group': 'bdf3db001830c897392db56b343f448b', project_status: [7, 8], project_type: [15] },
       'source-layer': 'pluto15v1',
       "layout": {
-          "icon-image": "RD_RED_small",
+          "icon-image": "RD_red",
           'icon-ignore-placement': true,
           'text-allow-overlap': true,
           'icon-allow-overlap': true,
@@ -3610,7 +3610,7 @@ export const PROJECTS_STYLES_WR = {
       metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1], project_type: [15] },
       'source-layer': 'pluto15v1',
       "layout": {
-          "icon-image": "RD_ORANGE_bold_small",
+          "icon-image": "RD_orange",
           'icon-ignore-placement': true,
           'text-allow-overlap': true,
           'icon-allow-overlap': true,
@@ -3626,7 +3626,7 @@ export const PROJECTS_STYLES_WR = {
       metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [2], project_type: [15] }, 
       'source-layer': 'pluto15v1',
       "layout": {
-          "icon-image": "RD_PINK_bold_small",
+          "icon-image": "RD_pink",
           'icon-ignore-placement': true,
           'text-allow-overlap': true,
           'icon-allow-overlap': true,
@@ -3642,7 +3642,7 @@ export const PROJECTS_STYLES_WR = {
       metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [3], project_type: [15] },
       'source-layer': 'pluto15v1',
       "layout": {
-          "icon-image": "RD_GREEN_bold_small",
+          "icon-image": "RD_green",
           'icon-ignore-placement': true,
           'text-allow-overlap': true,
           'icon-allow-overlap': true,
@@ -4974,218 +4974,273 @@ export const tileStyles = {
   ],
   [PROBLEMS_TRIGGER]: [
     {
-      type: 'line',
-      metadata: { 'mapbox:group': 'e64fb8f33e44c06f07e4142aa41a8907' },
-      'source-layer': 'pluto15v1',
-      minzoom: 13,
-      paint: {
-        'line-width': ['match', ['get', 'problem_type'], ['Stream Condition'], 15, 0],
-        'line-opacity': 0.5,
-        'line-blur': 5,
+      // "id": "FloodHaz-poly outline shadow",
+      "type": "line",
+      "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
+      "source-layer": "pluto15v1",
+      "layout": {"line-cap": "round", "line-join": "round"},
+      "paint": {
+          "line-width": 10,
+          "line-offset": -1,
+          "line-blur": 5,
+          "line-opacity": 0.5
       },
+      "filter": ['match', ['get', 'problem_type'], ['Flood Hazard', 'Flood Hazard '], true, false]
     },
     {
-      type: 'line',
-      metadata: { 'mapbox:group': 'e64fb8f33e44c06f07e4142aa41a8907' },
-      'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-join': 'round' },
-      paint: {
-        'line-width': ['match', ['get', 'problem_type'], ['Stream Condition'], 5, 0],
-        'line-color': '#a80000',
-        'line-dasharray': [0.9, 1.1],
-      },
+        // "id": "FutrDev-Poly outline shadow",
+        "type": "line",
+        "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
+        "source-layer": "pluto15v1",
+        "layout": {"line-cap": "round", "line-join": "round"},
+        "paint": {
+            "line-width": 10,
+            "line-opacity": 0.5,
+            "line-offset": -1,
+            "line-blur": 5
+        },
+        "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
     },
     {
-      type: 'line',
-      metadata: { 'mapbox:group': 'e64fb8f33e44c06f07e4142aa41a8907' },
-      'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-join': 'round' },
-      paint: {
-        'line-width': ['match', ['get', 'problem_type'], ['Stream Condition'], 2.5, 0],
-        'line-color': '#a80000',
-        'line-offset': -3,
-      },
+        // "id": "StrmFnct-poly outline shadow",
+        "type": "line",
+        "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
+        "source-layer": "pluto15v1",
+        "layout": {"line-cap": "round", "line-join": "round"},
+        "paint": {
+            "line-width": 10,
+            "line-offset": -1,
+            "line-opacity": 0.5,
+            "line-blur": 5
+        },
+        "filter": ['match', ['get', 'problem_type'], ['Stream Condition'], true, false]
     },
     {
-      type: 'line',
-      metadata: { 'mapbox:group': 'e64fb8f33e44c06f07e4142aa41a8907' },
-      'source-layer': 'pluto15v1',
-      minzoom: 13,
-      paint: {
-        'line-width': ['match', ['get', 'problem_type'], ['Stream Condition'], 2.5, 0],
-        'line-color': '#a80000',
-        'line-offset': 3,
-      },
+        // "id": "FloodHaz-poly",
+        "type": "fill",
+        "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
+        "source-layer": "pluto15v1",
+        "paint": {"fill-color": "#ff4d4d", "fill-opacity": 0.5},
+        "filter": ['match', ['get', 'problem_type'], ['Flood Hazard', 'Flood Hazard '], true, false]
     },
     {
-      type: 'line',
-      metadata: { 'mapbox:group': 'e64fb8f33e44c06f07e4142aa41a8907' },
-      'source-layer': 'pluto15v1',
-      minzoom: 13,
-      paint: {
-        'line-width': ['match', ['get', 'problem_type'], ['Watershed Change'], 15, 0],
-        'line-opacity': 0.5,
-        'line-blur': 5,
-      },
+        // "id": "FloodHaz-poly outline",
+        "type": "line",
+        "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
+        "source-layer": "pluto15v1",
+        "layout": {"line-cap": "round"},
+        "paint": {"line-color": "#ff4d4d", "line-width": 3.5},
+        "filter": ['match', ['get', 'problem_type'], ['Flood Hazard', 'Flood Hazard '], true, false]
     },
     {
-      type: 'line',
-      metadata: { 'mapbox:group': 'e64fb8f33e44c06f07e4142aa41a8907' },
-      'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-join': 'round' },
-      paint: {
-        'line-width': ['match', ['get', 'problem_type'], ['Watershed Change'], 2.5, 0],
-        'line-color': '#a80000',
-        'line-offset': -3,
-      },
+        // "id": "FutrDev-Poly",
+        "type": "fill",
+        "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
+        "source-layer": "pluto15v1",
+        "paint": {"fill-color": "#ff4d4d", "fill-opacity": 0.5},
+        "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
     },
     {
-      type: 'line',
-      metadata: { 'mapbox:group': 'e64fb8f33e44c06f07e4142aa41a8907' },
-      'source-layer': 'pluto15v1',
-      minzoom: 13,
-      paint: {
-        'line-width': ['match', ['get', 'problem_type'], ['Watershed Change'], 2.5, 0],
-        'line-color': '#a80000',
-        'line-offset': 3,
-      },
+        // "id": "FutrDev-Poly outline",
+        "type": "line",
+        "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
+        "source-layer": "pluto15v1",
+        "layout": {"line-cap": "round"},
+        "paint": {
+            "line-color": "#ff4d4d",
+            "line-width": 1.5,
+            "line-gap-width": 2,
+            "line-offset": -1
+        },
+        "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
     },
     {
-      type: 'line',
-      metadata: { 'mapbox:group': 'e64fb8f33e44c06f07e4142aa41a8907' },
-      'source-layer': 'pluto15v1',
-      minzoom: 13,
-      paint: {
-        'line-width': ['match', ['get', 'problem_type'], ['Flood Hazard', 'Flood Hazard '], 15, 0],
-        'line-blur': 5,
-        'line-opacity': 0.5,
-      },
+        // "id": "StrmFnct-poly",
+        "type": "fill",
+        "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
+        "source-layer": "pluto15v1",
+        "paint": {"fill-color": "#ff4d4d", "fill-opacity": 0.5},
+        "filter": ['match', ['get', 'problem_type'], ['Stream Condition'], true, false]
     },
     {
-      type: 'line',
-      metadata: { 'mapbox:group': 'e64fb8f33e44c06f07e4142aa41a8907' },
-      'source-layer': 'pluto15v1',
-      minzoom: 13,
-      layout: { 'line-join': 'round' },
-      paint: {
-        'line-width': ['match', ['get', 'problem_type'], ['Flood Hazard', 'Flood Hazard '], 7.5, 0],
-        'line-color': '#a80000',
-      },
+        // "id": "StrmFnct-poly outline",
+        "type": "line",
+        "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
+        "source-layer": "pluto15v1",
+        "layout": {"line-cap": "round"},
+        "paint": {
+            "line-color": "#ff4d4d",
+            "line-width": 1.5,
+            "line-gap-width": 2,
+            "line-offset": -1
+        },
+        "filter": ['match', ['get', 'problem_type'], ['Stream Condition'], true, false]
     },
     {
-      type: 'line',
-      metadata: { 'mapbox:group': 'df41d07fd67122c6ced8498a3202ef22' },
-      'source-layer': 'pluto15v1',
-      minzoom: 11,
-      maxzoom: 13,
-      paint: {
-        'line-width': ['match', ['get', 'problem_type'], ['Watershed Change'], 8, 0],
-        'line-opacity': 0.5,
-        'line-blur': 5,
-      },
+        // "id": "StrmFnct-poly outline dash",
+        "type": "line",
+        "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
+        "source-layer": "pluto15v1",
+        "paint": {
+            "line-color": "#ff4d4d",
+            "line-width": 4,
+            "line-offset": -1,
+            "line-dasharray": [0.8, 1]
+        },
+        "filter": ['match', ['get', 'problem_type'], ['Stream Condition'], true, false]
     },
     {
-      type: 'line',
-      metadata: { 'mapbox:group': 'df41d07fd67122c6ced8498a3202ef22' },
-      'source-layer': 'pluto15v1',
-      minzoom: 11,
-      maxzoom: 13,
-      layout: { 'line-join': 'round' },
-      paint: {
-        'line-width': ['match', ['get', 'problem_type'], ['Stream Condition'], 3, 0],
-        'line-color': 'rgb(168, 0, 0)',
-        'line-dasharray': [0.9, 1.1],
-      },
+        // "id": "FloodHaz-point shadow",
+        "type": "circle",
+        "metadata": {"mapbox:group": "1f5c94b77c56b90acd5d4a9b81969905"},
+        "source-layer": "pluto15v1",
+        "paint": {
+            "circle-radius": 15,
+            "circle-opacity": 0.33,
+            "circle-blur": 0.3
+        },
+        "filter": ['match', ['get', 'problem_type'], ['Flood Hazard', 'Flood Hazard '], true, false]
     },
     {
-      type: 'line',
-      metadata: { 'mapbox:group': 'df41d07fd67122c6ced8498a3202ef22' },
-      'source-layer': 'pluto15v1',
-      minzoom: 11,
-      maxzoom: 13,
-      layout: { 'line-join': 'round' },
-      paint: {
-        'line-width': ['match', ['get', 'problem_type'], ['Stream Condition'], 1.5, 0],
-        'line-color': 'rgb(168, 0, 0)',
-        'line-offset': -2,
-      },
+        // "id": "FutrDev-point shadow",
+        "type": "circle",
+        "metadata": {"mapbox:group": "1f5c94b77c56b90acd5d4a9b81969905"},
+        "source-layer": "pluto15v1",
+        "paint": {
+            "circle-radius": 15,
+            "circle-opacity": 0.33,
+            "circle-blur": 0.3
+        },
+        "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
     },
     {
-      type: 'line',
-      metadata: { 'mapbox:group': 'df41d07fd67122c6ced8498a3202ef22' },
-      'source-layer': 'pluto15v1',
-      minzoom: 11,
-      maxzoom: 13,
-      paint: {
-        'line-width': ['match', ['get', 'problem_type'], ['Stream Condition'], 1.5, 0],
-        'line-color': 'rgb(168, 0, 0)',
-        'line-offset': 2,
-      },
+        // "id": "StrmFnct-point shadow",
+        "type": "circle",
+        "metadata": {"mapbox:group": "1f5c94b77c56b90acd5d4a9b81969905"},
+        "source-layer": "pluto15v1",
+        "paint": {
+            "circle-radius": 15,
+            "circle-opacity": 0.33,
+            "circle-blur": 0.3
+        },
+        "filter": ['match', ['get', 'problem_type'], ['Stream Condition'], true, false]
     },
     {
-      type: 'line',
-      metadata: { 'mapbox:group': 'df41d07fd67122c6ced8498a3202ef22' },
-      'source-layer': 'pluto15v1',
-      minzoom: 11,
-      maxzoom: 13,
-      paint: {
-        'line-width': ['match', ['get', 'problem_type'], ['Watershed Change'], 8, 0],
-        'line-opacity': 0.5,
-        'line-blur': 5,
-      },
+        // "id": "FloodHaz-point",
+        "type": "symbol",
+        "metadata": {"mapbox:group": "1f5c94b77c56b90acd5d4a9b81969905"},
+        "source-layer": "pluto15v1",
+        "layout": {
+            "icon-image": "floodhazardpoint_small",
+            "icon-size": 0.4,
+            "icon-allow-overlap": true,
+            "icon-ignore-placement": true
+        },
+        "paint": {},
+        "filter": ['match', ['get', 'problem_type'], ['Flood Hazard', 'Flood Hazard '], true, false]
     },
     {
-      type: 'line',
-      metadata: { 'mapbox:group': 'df41d07fd67122c6ced8498a3202ef22' },
-      'source-layer': 'pluto15v1',
-      minzoom: 11,
-      maxzoom: 13,
-      layout: { 'line-join': 'round' },
-      paint: {
-        'line-width': ['match', ['get', 'problem_type'], ['Watershed Change'], 1.5, 0],
-        'line-color': 'rgb(168, 0, 0)',
-        'line-offset': -2,
-      },
+        // "id": "FutrDev-point",
+        "type": "symbol",
+        "metadata": {"mapbox:group": "1f5c94b77c56b90acd5d4a9b81969905"},
+        "source-layer": "pluto15v1",
+        "layout": {
+            "icon-image": "watershedchangepoint_small",
+            "icon-size": 0.4,
+            "icon-ignore-placement": true,
+            "icon-allow-overlap": true
+        },
+        "paint": {},
+        "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
     },
     {
-      type: 'line',
-      metadata: { 'mapbox:group': 'df41d07fd67122c6ced8498a3202ef22' },
-      'source-layer': 'pluto15v1',
-      minzoom: 11,
-      maxzoom: 13,
-      paint: {
-        'line-width': ['match', ['get', 'problem_type'], ['Watershed Change'], 1.5, 0],
-        'line-color': 'rgb(168, 0, 0)',
-        'line-offset': 2,
-      },
+        // "id": "StrmFnct-point",
+        "type": "symbol",
+        "metadata": {"mapbox:group": "1f5c94b77c56b90acd5d4a9b81969905"},
+        "source-layer": "pluto15v1",
+        "layout": {
+            "icon-size": 0.4,
+            "icon-image": "streamconditionpoint_small",
+            "icon-allow-overlap": true,
+            "icon-ignore-placement": true
+        },
+        "paint": {},
+        "filter": ['match', ['get', 'problem_type'], ['Stream Condition'], true, false]
     },
     {
-      type: 'line',
-      metadata: { 'mapbox:group': 'df41d07fd67122c6ced8498a3202ef22' },
-      'source-layer': 'pluto15v1',
-      minzoom: 11,
-      maxzoom: 13,
-      paint: {
-        'line-width': ['match', ['get', 'problem_type'], ['Flood Hazard', 'Flood Hazard '], 8, 0],
-        'line-blur': 5,
-        'line-opacity': 0.5,
-      },
+        // "id": "FloodHaz-line shadow",
+        "type": "line",
+        "metadata": {"mapbox:group": "0445d6c3967922421b40397619e986e8"},
+        "source-layer": "pluto15v1",
+        "layout": {"line-cap": "round"},
+        "paint": {"line-width": 10, "line-opacity": 0.5, "line-blur": 6},
+        "filter": ['match', ['get', 'problem_type'], ['Flood Hazard', 'Flood Hazard '], true, false]
     },
     {
-      type: 'line',
-      metadata: { 'mapbox:group': 'df41d07fd67122c6ced8498a3202ef22' },
-      'source-layer': 'pluto15v1',
-      minzoom: 11,
-      maxzoom: 13,
-      layout: { 'line-join': 'round' },
-      paint: {
-        'line-width': ['match', ['get', 'problem_type'], ['Flood Hazard', 'Flood Hazard '], 4, 0],
-        'line-color': 'rgb(168, 0, 0)',
-      },
+        // "id": "FutrDev-line shadow",
+        "type": "line",
+        "metadata": {"mapbox:group": "0445d6c3967922421b40397619e986e8"},
+        "source-layer": "pluto15v1",
+        "layout": {"line-cap": "round"},
+        "paint": {"line-width": 10, "line-opacity": 0.5, "line-blur": 6},
+        "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
     },
+    {
+        // "id": "StrmFnct-line shadow",
+        "type": "line",
+        "metadata": {"mapbox:group": "0445d6c3967922421b40397619e986e8"},
+        "source-layer": "pluto15v1",
+        "layout": {"line-cap": "round"},
+        "paint": {"line-width": 10, "line-opacity": 0.5, "line-blur": 6},
+        "filter": ['match', ['get', 'problem_type'], ['Stream Condition'], true, false]
+    },
+    {
+        // "id": "FloodHaz-line",
+        "type": "line",
+        "metadata": {"mapbox:group": "0445d6c3967922421b40397619e986e8"},
+        "source-layer": "pluto15v1",
+        "layout": {"line-cap": "round"},
+        "paint": {"line-color": "#ff4d4d", "line-width": 4},
+        "filter": ['match', ['get', 'problem_type'], ['Flood Hazard', 'Flood Hazard '], true, false]
+    },
+    {
+        // "id": "FutrDev-line",
+        "type": "line",
+        "metadata": {"mapbox:group": "0445d6c3967922421b40397619e986e8"},
+        "source-layer": "pluto15v1",
+        "layout": {"line-cap": "round"},
+        "paint": {
+            "line-color": "#ff4d4d",
+            "line-width": 1.5,
+            "line-gap-width": 2
+        },
+        "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false],
+    },
+    {
+        // "id": "StrmFnct-line",
+        "type": "line",
+        "metadata": {"mapbox:group": "0445d6c3967922421b40397619e986e8"},
+        "source-layer": "pluto15v1",
+        "layout": {"line-cap": "round"},
+        "paint": {
+            "line-color": "#ff4d4d",
+            "line-width": 1.5,
+            "line-gap-width": 2
+        },
+        "filter": ['match', ['get', 'problem_type'], ['Stream Condition'], true, false]
+    },
+    {
+        // "id": "StrmFnct-line dash",
+        "type": "line",
+        "metadata": {"mapbox:group": "0445d6c3967922421b40397619e986e8"},
+        "source-layer": "pluto15v1",
+        "paint": {
+            "line-color": "#ff4d4d",
+            "line-width": 4,
+            "line-dasharray": [0.8, 1]
+        },
+        "filter": ['match', ['get', 'problem_type'], ['Stream Condition'], true, false]
+    }
   ],
   [FLOOD_HAZARD_POLYGON]: [
     {
