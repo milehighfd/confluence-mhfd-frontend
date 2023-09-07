@@ -154,6 +154,7 @@ const RequestView = ({ type, widthMap }: {
       };
       setLocalities(r.localities);
       setDataAutocomplete(r.localities.map((l: any) => l.name));
+      console.log('r', r)
       if (_year) {
         setYear(_year);
       } else {

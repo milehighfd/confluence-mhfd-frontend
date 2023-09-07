@@ -288,6 +288,7 @@ export const SERVER = (function () {
         GET_PAST_DATA: `${URL_BASE.BASE}/${BOARD}/get-past-data`,
         GET_COSTS_FOR_MAINTENANCE: `${URL_BASE.BASE}/${BOARD_PROJECT}/getCostsMaintenance`,
         GET_RESET_AND_CONFIRM: `${URL_BASE.BASE}/${USER}/${GET_RESET_AND_CONFIRM}`,        
+        GET_STATUS_BOARD: `${URL_BASE.BASE}/${BOARD}/status-colors`,
         GET_SIGNUP_EMAIL: (token: string) => `${URL_BASE.BASE}/${USER}/${GET_SIGNUP_EMAIL}?token=${token}`,
         GET_LIST_PMTOOLS: (groupname: string) => `${URL_BASE.BASE}/${PMTOOLS}/list?group=${groupname}`,
         GET_COUNT_FOR_PROBLEM: (problemid: string) => `${URL_BASE.BASE}/${GALLERY}/${GET_COUNT_FOR_PROBLEM}/${problemid}`,
