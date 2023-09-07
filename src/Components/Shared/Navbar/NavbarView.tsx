@@ -15,7 +15,7 @@ import moment from 'moment';
 import { SERVER } from 'Config/Server.config';
 import ModalTutorial from '../Sidebar/ModalTutorial';
 import DetailModal from 'routes/detail-page/components/DetailModal';
-import NavBarSearchTooltip from './NavBarSearchTooltip';
+import NavBarSearchTooltip from './NavBarSearch/NavBarSearchTooltip';
 
 const { TabPane } = Tabs;
 const { Header } = Layout;
