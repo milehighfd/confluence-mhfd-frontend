@@ -391,6 +391,8 @@ export class MapService {
       'custom-sprite/WeatherStage.png',
       'custom-sprite/Weather.png',
       'custom-sprite/Stage.png',
+      'custom-sprite/SMC_medgreen.png',
+      'custom-sprite/SMC_lightgreen.png',
     ];
     imagesPaths.forEach((imagePath: string) => {
       this.map.loadImage(imagePath, (error: any, image: any) => {
