@@ -12,6 +12,7 @@ import { getAlertNameAndIcon } from "utils/utils";
 
 export const MenuList = ({menu, popups, index, showPopup, ids} : {menu: any, popups: any, index: any, showPopup: any, ids: any}) => {
   const popup = popups[index];
+  console.log('menu', menu, popup);
   let icon;
   ICON_POPUPS.forEach(element => {
     if (element[0] === menu) {
@@ -64,6 +65,9 @@ export const MenuList = ({menu, popups, index, showPopup, ids} : {menu: any, pop
       break;
     case menu === 'Project' && popup.projecctype !== undefined && popup.projecctype.includes('CIP'):
       iconLocation = '/Icons/icon_capital.png';
+      break;
+    case menu === 'Project' && popup.projecctype !== undefined && popup.projecctype.includes('R & D'):
+      iconLocation = '/Icons/ic_rdallprojects.png';
       break;
     case menu === 'NCRS Soils' && popup.hydgrpdcd !== undefined && popup.hydgrpdcd === 'A':
       iconLocation = '/Icons/ic_NRCS_GroupA@2x.png';
