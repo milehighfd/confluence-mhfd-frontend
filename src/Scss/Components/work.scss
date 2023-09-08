@@ -392,11 +392,10 @@
     box-shadow: 0 3px 5px 0 rgba(6, 36, 45, 0.06);
     background-color: $white;
     position: relative;
-    padding: 5px 5px;
+    padding: 5px;
     //margin-bottom: 5px;
-    border-right: 12.5px solid white !important;
+    //border-right: 12.5px solid white !important;
     margin-right: 0px;
-    padding-right: 0px;
     border-radius: 4px !important;
     transition: none;
   }
@@ -449,9 +448,6 @@
   }
   .menu-wr {
     float: right;
-    margin-right: 3px;
-    height: 18px;
-    width: 4px;
     font-size: 15px;
   }
   .purple {
@@ -460,17 +456,11 @@
     color: $purple;
     padding: 2px 3px;
     border-radius: 20px;
-    position: absolute;
-    bottom: 3px;
-    left: 5px;
   }
   .purple-priority {
     font-size: 12px;
     padding: 2px 3px;
     border-radius: 20px;
-    position: absolute;
-    bottom: 30px;
-    right: 10px;
   }
   .yellow {
     background: rgba(255, 221, 0, 0.3);
@@ -478,9 +468,6 @@
     color: #ff8938;
     padding: 2px 3px;
     border-radius: 20px;
-    position: absolute;
-    bottom: 3px;
-    right: 5px;
   }
 }
 .cost-wr {
@@ -2306,6 +2293,7 @@
     .card-wr {
       width: 203px;
       height: 110px;
+      padding: 6px;
       border-left: 6px solid;
     }
     h4 {
@@ -2709,10 +2697,8 @@
       }
     }
     .card-wr {
-      width: 265px !important;
       height: 135px !important;
       padding: 10px !important;
-      margin-bottom: 10px;
     }
     h4 {
       font-size: 24px !important;
@@ -2740,8 +2726,13 @@
       padding: 0px 10px !important;
     }
     .menu-wr {
-      width: 15px !important;
       font-size: 30px;
+    }
+    .active-card-wr {
+      margin-bottom: 10px;
+    }
+    .inactive-card-wr{
+      margin-bottom: 10px;
     }
   }
   .cost-wr {

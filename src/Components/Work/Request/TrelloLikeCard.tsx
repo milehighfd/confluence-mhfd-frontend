@@ -317,7 +317,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
         }
         e.preventDefault();
       }}>
-        <div style={{marginRight:'-10px', width:'100%'}}>
+        <div style={{width:'100%'}}>
           <Popover placement="top" content={<>
             <b>{project_name}</b>
             <br />
@@ -325,27 +325,13 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
             <br />
             <b>Board project: </b> {board_project_id}
             </>}>
-            <h4>{displayName}</h4>
-          </Popover>
-          <div style={{marginRight:'-10px'}}>
-            <h6 style={{marginRight:'-10px'}}>{amount ? formatter.format(amount) : ''}</h6>
-            {
-              type === 'WORK_PLAN' &&
-              <label className="purple-priority"style={{marginRight:'-10px'}}>
-                {
-                  priority === null ? 'Work Plan' :`No. ${priority + 1}`
-                }
-              </label>
-            }
-            <Popover placement="top" content={<>{project.origin}</>} style={{marginRight:'-10px'}}>
-              <label className="purple" >{labelOrigin}</label>
-            </Popover>
-            <label className="yellow" style={{color, backgroundColor,marginRight:'-10px'}}>{status}</label>
-            {
+              <div style={{display:'flex', justifyContent:'space-between'}}>
+              <h4>{displayName}</h4>
+              {
               !(showAmountModal || showModalProject || showCopyToCurrentYearAlert || showActivateProject || archiveAlert) &&
-              <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={content} trigger="click" style={{marginRight:'-10px',cursor: 'pointer'}}>
-                <div className="dot-position" onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-                  <MoreOutlined className="menu-wr" style={{marginTop:'3px', width:'3px', cursor: 'pointer'}}>
+              <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={content} trigger="click" style={{cursor: 'pointer'}}>
+                <div className="" onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+                  <MoreOutlined className="menu-wr" style={{cursor: 'pointer'}}>
                   <defs>
                     <clipPath id="clip-path" style={{cursor: 'pointer'}}>
                       <path id="Trazado_296" data-name="Trazado 296" d="M1.5-3A1.5,1.5,0,0,1,3-1.5,1.5,1.5,0,0,1,1.5,0,1.5,1.5,0,0,1,0-1.5,1.5,1.5,0,0,1,1.5-3Zm0-5A1.5,1.5,0,0,1,3-6.5,1.5,1.5,0,0,1,1.5-5,1.5,1.5,0,0,1,0-6.5,1.5,1.5,0,0,1,1.5-8Zm0-5A1.5,1.5,0,0,1,3-11.5,1.5,1.5,0,0,1,1.5-10,1.5,1.5,0,0,1,0-11.5,1.5,1.5,0,0,1,1.5-13Z" fill="none" clipRule="evenodd"/>
@@ -360,6 +346,27 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
                 </div>
               </Popover>
             }
+              </div>
+            
+          </Popover>
+          <div style={{display:'flex', flexDirection:"column"}}>
+            <div style={{display:'flex', justifyContent:"space-between"}}>
+              <h6 style={{}}>{amount ? formatter.format(amount) : ''}</h6>
+              {
+                type === 'WORK_PLAN' &&
+                <label className="purple-priority"style={{}}>
+                  {
+                    priority === null ? 'Work Plan' :`No. ${priority + 1}`
+                  }
+                </label>
+              }
+              </div>
+            <div style={{display:'flex', justifyContent:"space-between"}}>
+              <Popover placement="top" content={<>{project.origin}</>} style={{}}>
+                <label className="purple" >{labelOrigin}</label>
+              </Popover>
+              <label className="yellow" style={{color, backgroundColor}}>{status}</label>
+            </div>
           </div>
           
         </div>      
