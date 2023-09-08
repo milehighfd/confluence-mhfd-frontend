@@ -147,7 +147,7 @@ const Profile = ({
       datasets.putData(SERVER.USER_UPDATE, {
         email,
         phone,
-        organization,
+        organization: user?.organization,
         city,
         county,
         serviceArea,
