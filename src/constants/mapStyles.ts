@@ -4921,135 +4921,274 @@ export const tileStyles = {
         'line-color': 'rgb(168, 0, 0)',
       },
     },
-    // {
-    //   // "id": "FloodHaz-poly outline shadow",
-    //   "type": "line",
-    //   "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
-    //   "source-layer": "pluto15v1",
-    //   "layout": {"line-cap": "round", "line-join": "round"},
-    //   "paint": {
-    //       "line-width": 10,
-    //       "line-offset": -1,
-    //       "line-blur": 5,
-    //       "line-opacity": 0.5
-    //   },
-    //   "filter": ['match', ['get', 'problem_type'], ['Flood Hazard', 'Flood Hazard '], true, false]
-    // },
-    // {
-    //     // "id": "FutrDev-Poly outline shadow",
-    //     "type": "line",
-    //     "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
-    //     "source-layer": "pluto15v1",
-    //     "layout": {"line-cap": "round", "line-join": "round"},
-    //     "paint": {
-    //         "line-width": 10,
-    //         "line-opacity": 0.5,
-    //         "line-offset": -1,
-    //         "line-blur": 5
-    //     },
-    //     "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
-    // },
-    // {
-    //     // "id": "StrmFnct-poly outline shadow",
-    //     "type": "line",
-    //     "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
-    //     "source-layer": "pluto15v1",
-    //     "layout": {"line-cap": "round", "line-join": "round"},
-    //     "paint": {
-    //         "line-width": 10,
-    //         "line-offset": -1,
-    //         "line-opacity": 0.5,
-    //         "line-blur": 5
-    //     },
-    //     "filter": ['match', ['get', 'problem_type'], ['Stream Condition'], true, false]
-    // },
-    // {
-    //     // "id": "FloodHaz-poly",
-    //     "type": "fill",
-    //     "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
-    //     "source-layer": "pluto15v1",
-    //     "paint": {"fill-color": "#ff4d4d", "fill-opacity": 0.5},
-    //     "filter": ['match', ['get', 'problem_type'], ['Flood Hazard', 'Flood Hazard '], true, false]
-    // },
-    // {
-    //     // "id": "FloodHaz-poly outline",
-    //     "type": "line",
-    //     "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
-    //     "source-layer": "pluto15v1",
-    //     "layout": {"line-cap": "round"},
-    //     "paint": {"line-color": "#ff4d4d", "line-width": 3.5},
-    //     "filter": ['match', ['get', 'problem_type'], ['Flood Hazard', 'Flood Hazard '], true, false]
-    // },
-    // {
-    //     // "id": "FutrDev-Poly",
-    //     "type": "fill",
-    //     "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
-    //     "source-layer": "pluto15v1",
-    //     "paint": {"fill-color": "#ff4d4d", "fill-opacity": 0.5},
-    //     "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
-    // },
-    // {
-    //     // "id": "FutrDev-Poly outline",
-    //     "type": "line",
-    //     "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
-    //     "source-layer": "pluto15v1",
-    //     "layout": {"line-cap": "round"},
-    //     "paint": {
-    //         "line-color": "#ff4d4d",
-    //         "line-width": 1.5,
-    //         "line-gap-width": 2,
-    //         "line-offset": -1
-    //     },
-    //     "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
-    // },
-    // {
-    //     // "id": "StrmFnct-poly",
-    //     "type": "fill",
-    //     "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
-    //     "source-layer": "pluto15v1",
-    //     "paint": {"fill-color": "#ff4d4d", "fill-opacity": 0.5},
-    //     "filter": ['match', ['get', 'problem_type'], ['Stream Condition'], true, false]
-    // },
-    // {
-    //     // "id": "StrmFnct-poly outline",
-    //     "type": "line",
-    //     "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
-    //     "source-layer": "pluto15v1",
-    //     "layout": {"line-cap": "round"},
-    //     "paint": {
-    //         "line-color": "#ff4d4d",
-    //         "line-width": 1.5,
-    //         "line-gap-width": 2,
-    //         "line-offset": -1
-    //     },
-    //     "filter": ['match', ['get', 'problem_type'], ['Stream Condition'], true, false]
-    // },
-    // {
-    //     // "id": "StrmFnct-poly outline dash",
-    //     "type": "line",
-    //     "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
-    //     "source-layer": "pluto15v1",
-    //     "paint": {
-    //         "line-color": "#ff4d4d",
-    //         "line-width": 4,
-    //         "line-offset": -1,
-    //         "line-dasharray": [0.8, 1]
-    //     },
-    //     "filter": ['match', ['get', 'problem_type'], ['Stream Condition'], true, false]
-    // },
-    // {
-    //     // "id": "FloodHaz-point shadow",
-    //     "type": "circle",
-    //     "metadata": {"mapbox:group": "1f5c94b77c56b90acd5d4a9b81969905"},
-    //     "source-layer": "pluto15v1",
-    //     "paint": {
-    //         "circle-radius": 15,
-    //         "circle-opacity": 0.33,
-    //         "circle-blur": 0.3
-    //     },
-    //     "filter": ['match', ['get', 'problem_type'], ['Flood Hazard', 'Flood Hazard '], true, false]
-    // },
-    // {
+  ],
+  [FLOOD_HAZARD_POLYGON]: [
+    {
+  // "id": "FloodHaz-poly outline shadow",
+      "type": "line",
+      "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
+      "source-layer": "pluto15v1",
+      "layout": {"line-cap": "round", "line-join": "round"},
+      "paint": {
+          "line-width": 10,
+          "line-offset": -1,
+          "line-blur": 5,
+          "line-opacity": 0.5
+      },
+      // "filter": ['match', ['get', 'problem_type'], ['Flood Hazard', 'Flood Hazard '], true, false]
+    },
+    {
+      // "id": "FloodHaz-poly",
+      "type": "fill",
+      "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
+      "source-layer": "pluto15v1",
+      "paint": {"fill-color": "#ff4d4d", "fill-opacity": 0.5},
+      // "filter": ['match', ['get', 'problem_type'], ['Flood Hazard', 'Flood Hazard '], true, false]
+    },
+    {
+      // "id": "FloodHaz-poly outline",
+      "type": "line",
+      "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
+      "source-layer": "pluto15v1",
+      "layout": {"line-cap": "round"},
+      "paint": {"line-color": "#ff4d4d", "line-width": 3.5},
+      // "filter": ['match', ['get', 'problem_type'], ['Flood Hazard', 'Flood Hazard '], true, false]
+    },
+  ],
+  [FLOOD_HAZARD_LINE]: [
+    {
+      // "id": "FloodHaz-line shadow",
+      "type": "line",
+      "metadata": {"mapbox:group": "0445d6c3967922421b40397619e986e8"},
+      "source-layer": "pluto15v1",
+      "layout": {"line-cap": "round"},
+      "paint": {"line-width": 10, "line-opacity": 0.5, "line-blur": 6},
+      // "filter": ['match', ['get', 'problem_type'], ['Flood Hazard', 'Flood Hazard '], true, false]
+    },
+    {
+      // "id": "FloodHaz-line",
+      "type": "line",
+      "metadata": {"mapbox:group": "0445d6c3967922421b40397619e986e8"},
+      "source-layer": "pluto15v1",
+      "layout": {"line-cap": "round"},
+      "paint": {"line-color": "#ff4d4d", "line-width": 4},
+      "filter": ['match', ['get', 'problem_type'], ['Flood Hazard', 'Flood Hazard '], true, false]
+    },
+  ],
+  [FLOOD_HAZARD_POINT]: [
+    {
+      // "id": "FloodHaz-point shadow",
+      "type": "circle",
+      "metadata": {"mapbox:group": "1f5c94b77c56b90acd5d4a9b81969905"},
+      "source-layer": "pluto15v1",
+      "paint": {
+          "circle-radius": 15,
+          "circle-opacity": 0.33,
+          "circle-blur": 0.3
+      },
+      // "filter": ['match', ['get', 'problem_type'], ['Flood Hazard', 'Flood Hazard '], true, false]
+    },
+    {
+      // "id": "FloodHaz-point",
+      "type": "symbol",
+      "metadata": {"mapbox:group": "1f5c94b77c56b90acd5d4a9b81969905"},
+      "source-layer": "pluto15v1",
+      "layout": {
+          "icon-image": "floodhazardpoint_small",
+          "icon-size": 0.4,
+          "icon-allow-overlap": true,
+          "icon-ignore-placement": true
+      },
+      "paint": {},
+      // "filter": ['match', ['get', 'problem_type'], ['Flood Hazard', 'Flood Hazard '], true, false]
+    },
+
+  ],
+  [STREAM_FUNCTION_POLYGON]: [
+    {
+      // "id": "StrmFnct-poly outline shadow",
+      "type": "line",
+      "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
+      "source-layer": "pluto15v1",
+      "layout": {"line-cap": "round", "line-join": "round"},
+      "paint": {
+          "line-width": 10,
+          "line-offset": -1,
+          "line-opacity": 0.5,
+          "line-blur": 5
+      },
+      // "filter": ['match', ['get', 'problem_type'], ['Stream Condition'], true, false]
+    },
+    {
+      // "id": "StrmFnct-poly",
+      "type": "fill",
+      "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
+      "source-layer": "pluto15v1",
+      "paint": {"fill-color": "#ff4d4d", "fill-opacity": 0.5},
+      // "filter": ['match', ['get', 'problem_type'], ['Stream Condition'], true, false]
+    },
+    {
+      // "id": "StrmFnct-poly outline",
+      "type": "line",
+      "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
+      "source-layer": "pluto15v1",
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#ff4d4d",
+          "line-width": 1.5,
+          "line-gap-width": 2,
+          "line-offset": -1
+      },
+      // "filter": ['match', ['get', 'problem_type'], ['Stream Condition'], true, false]
+    },
+    {
+      // "id": "StrmFnct-poly outline dash",
+      "type": "line",
+      "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
+      "source-layer": "pluto15v1",
+      "paint": {
+          "line-color": "#ff4d4d",
+          "line-width": 4,
+          "line-offset": -1,
+          "line-dasharray": [0.8, 1]
+      },
+      // "filter": ['match', ['get', 'problem_type'], ['Stream Condition'], true, false]
+    },
+  ],
+  [STREAM_FUNCTION_POINT]: [
+    {
+      // "id": "StrmFnct-point shadow",
+      "type": "circle",
+      "metadata": {"mapbox:group": "1f5c94b77c56b90acd5d4a9b81969905"},
+      "source-layer": "pluto15v1",
+      "paint": {
+          "circle-radius": 15,
+          "circle-opacity": 0.33,
+          "circle-blur": 0.3
+      },
+      // "filter": ['match', ['get', 'problem_type'], ['Stream Condition'], true, false]
+    },
+    {
+      // "id": "StrmFnct-point",
+      "type": "symbol",
+      "metadata": {"mapbox:group": "1f5c94b77c56b90acd5d4a9b81969905"},
+      "source-layer": "pluto15v1",
+      "layout": {
+          "icon-size": 0.4,
+          "icon-image": "streamconditionpoint_small",
+          "icon-allow-overlap": true,
+          "icon-ignore-placement": true
+      },
+      "paint": {},
+      // "filter": ['match', ['get', 'problem_type'], ['Stream Condition'], true, false]
+    },
+
+  ],
+  [STREAM_FUNCTION_LINE]: [
+    {
+      // "id": "StrmFnct-line shadow",
+      "type": "line",
+      "metadata": {"mapbox:group": "0445d6c3967922421b40397619e986e8"},
+      "source-layer": "pluto15v1",
+      "layout": {"line-cap": "round"},
+      "paint": {"line-width": 10, "line-opacity": 0.5, "line-blur": 6},
+      // "filter": ['match', ['get', 'problem_type'], ['Stream Condition'], true, false]
+    },
+    {
+      // "id": "StrmFnct-line",
+      "type": "line",
+      "metadata": {"mapbox:group": "0445d6c3967922421b40397619e986e8"},
+      "source-layer": "pluto15v1",
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#ff4d4d",
+          "line-width": 1.5,
+          "line-gap-width": 2
+      },
+      // "filter": ['match', ['get', 'problem_type'], ['Stream Condition'], true, false]
+    },
+    {
+        // "id": "StrmFnct-line dash",
+      "type": "line",
+      "metadata": {"mapbox:group": "0445d6c3967922421b40397619e986e8"},
+      "source-layer": "pluto15v1",
+      "paint": {
+          "line-color": "#ff4d4d",
+          "line-width": 4,
+          "line-dasharray": [0.8, 1]
+      },
+        // "filter": ['match', ['get', 'problem_type'], ['Stream Condition'], true, false]
+    }
+  ],
+  [FUTURE_DEVELOPMENT_POLYGON]: [
+    {
+      // "id": "FutrDev-Poly outline shadow",
+      "type": "line",
+      "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
+      "source-layer": "pluto15v1",
+      "layout": {"line-cap": "round", "line-join": "round"},
+      "paint": {
+          "line-width": 10,
+          "line-opacity": 0.5,
+          "line-offset": -1,
+          "line-blur": 5
+      },
+      // "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
+    },
+
+    {
+      // "id": "FutrDev-Poly",
+      "type": "fill",
+      "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
+      "source-layer": "pluto15v1",
+      "paint": {"fill-color": "#ff4d4d", "fill-opacity": 0.5},
+      // "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
+    },
+    {
+      // "id": "FutrDev-Poly outline",
+      "type": "line",
+      "metadata": {"mapbox:group": "f456a66ef32c07201938aa70e666d66c"},
+      "source-layer": "pluto15v1",
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#ff4d4d",
+          "line-width": 1.5,
+          "line-gap-width": 2,
+          "line-offset": -1
+      },
+      // "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
+    },
+  ],
+  [FUTURE_DEVELOPMENT_LINE]: [
+
+    {
+        // "id": "FutrDev-line shadow",
+      "type": "line",
+      "metadata": {"mapbox:group": "0445d6c3967922421b40397619e986e8"},
+      "source-layer": "pluto15v1",
+      "layout": {"line-cap": "round"},
+      "paint": {"line-width": 10, "line-opacity": 0.5, "line-blur": 6},
+        // "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
+    },
+
+  
+    {
+      // "id": "FutrDev-line",
+      "type": "line",
+      "metadata": {"mapbox:group": "0445d6c3967922421b40397619e986e8"},
+      "source-layer": "pluto15v1",
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#ff4d4d",
+          "line-width": 1.5,
+          "line-gap-width": 2
+      },
+        // "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false],
+    },
+
+  ],
+  // FUTURE DEVELOPMENT POINT
+      // {
     //     // "id": "FutrDev-point shadow",
     //     "type": "circle",
     //     "metadata": {"mapbox:group": "1f5c94b77c56b90acd5d4a9b81969905"},
@@ -5061,32 +5200,8 @@ export const tileStyles = {
     //     },
     //     "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
     // },
-    // {
-    //     // "id": "StrmFnct-point shadow",
-    //     "type": "circle",
-    //     "metadata": {"mapbox:group": "1f5c94b77c56b90acd5d4a9b81969905"},
-    //     "source-layer": "pluto15v1",
-    //     "paint": {
-    //         "circle-radius": 15,
-    //         "circle-opacity": 0.33,
-    //         "circle-blur": 0.3
-    //     },
-    //     "filter": ['match', ['get', 'problem_type'], ['Stream Condition'], true, false]
-    // },
-    // {
-    //     // "id": "FloodHaz-point",
-    //     "type": "symbol",
-    //     "metadata": {"mapbox:group": "1f5c94b77c56b90acd5d4a9b81969905"},
-    //     "source-layer": "pluto15v1",
-    //     "layout": {
-    //         "icon-image": "floodhazardpoint_small",
-    //         "icon-size": 0.4,
-    //         "icon-allow-overlap": true,
-    //         "icon-ignore-placement": true
-    //     },
-    //     "paint": {},
-    //     "filter": ['match', ['get', 'problem_type'], ['Flood Hazard', 'Flood Hazard '], true, false]
-    // },
+    
+
     // {
     //     // "id": "FutrDev-point",
     //     "type": "symbol",
@@ -5101,503 +5216,7 @@ export const tileStyles = {
     //     "paint": {},
     //     "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
     // },
-    // {
-    //     // "id": "StrmFnct-point",
-    //     "type": "symbol",
-    //     "metadata": {"mapbox:group": "1f5c94b77c56b90acd5d4a9b81969905"},
-    //     "source-layer": "pluto15v1",
-    //     "layout": {
-    //         "icon-size": 0.4,
-    //         "icon-image": "streamconditionpoint_small",
-    //         "icon-allow-overlap": true,
-    //         "icon-ignore-placement": true
-    //     },
-    //     "paint": {},
-    //     "filter": ['match', ['get', 'problem_type'], ['Stream Condition'], true, false]
-    // },
-    // {
-    //     // "id": "FloodHaz-line shadow",
-    //     "type": "line",
-    //     "metadata": {"mapbox:group": "0445d6c3967922421b40397619e986e8"},
-    //     "source-layer": "pluto15v1",
-    //     "layout": {"line-cap": "round"},
-    //     "paint": {"line-width": 10, "line-opacity": 0.5, "line-blur": 6},
-    //     "filter": ['match', ['get', 'problem_type'], ['Flood Hazard', 'Flood Hazard '], true, false]
-    // },
-    // {
-    //     // "id": "FutrDev-line shadow",
-    //     "type": "line",
-    //     "metadata": {"mapbox:group": "0445d6c3967922421b40397619e986e8"},
-    //     "source-layer": "pluto15v1",
-    //     "layout": {"line-cap": "round"},
-    //     "paint": {"line-width": 10, "line-opacity": 0.5, "line-blur": 6},
-    //     "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
-    // },
-    // {
-    //     // "id": "StrmFnct-line shadow",
-    //     "type": "line",
-    //     "metadata": {"mapbox:group": "0445d6c3967922421b40397619e986e8"},
-    //     "source-layer": "pluto15v1",
-    //     "layout": {"line-cap": "round"},
-    //     "paint": {"line-width": 10, "line-opacity": 0.5, "line-blur": 6},
-    //     "filter": ['match', ['get', 'problem_type'], ['Stream Condition'], true, false]
-    // },
-    // {
-    //     // "id": "FloodHaz-line",
-    //     "type": "line",
-    //     "metadata": {"mapbox:group": "0445d6c3967922421b40397619e986e8"},
-    //     "source-layer": "pluto15v1",
-    //     "layout": {"line-cap": "round"},
-    //     "paint": {"line-color": "#ff4d4d", "line-width": 4},
-    //     "filter": ['match', ['get', 'problem_type'], ['Flood Hazard', 'Flood Hazard '], true, false]
-    // },
-    // {
-    //     // "id": "FutrDev-line",
-    //     "type": "line",
-    //     "metadata": {"mapbox:group": "0445d6c3967922421b40397619e986e8"},
-    //     "source-layer": "pluto15v1",
-    //     "layout": {"line-cap": "round"},
-    //     "paint": {
-    //         "line-color": "#ff4d4d",
-    //         "line-width": 1.5,
-    //         "line-gap-width": 2
-    //     },
-    //     "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false],
-    // },
-    // {
-    //     // "id": "StrmFnct-line",
-    //     "type": "line",
-    //     "metadata": {"mapbox:group": "0445d6c3967922421b40397619e986e8"},
-    //     "source-layer": "pluto15v1",
-    //     "layout": {"line-cap": "round"},
-    //     "paint": {
-    //         "line-color": "#ff4d4d",
-    //         "line-width": 1.5,
-    //         "line-gap-width": 2
-    //     },
-    //     "filter": ['match', ['get', 'problem_type'], ['Stream Condition'], true, false]
-    // },
-    // {
-    //     // "id": "StrmFnct-line dash",
-    //     "type": "line",
-    //     "metadata": {"mapbox:group": "0445d6c3967922421b40397619e986e8"},
-    //     "source-layer": "pluto15v1",
-    //     "paint": {
-    //         "line-color": "#ff4d4d",
-    //         "line-width": 4,
-    //         "line-dasharray": [0.8, 1]
-    //     },
-    //     "filter": ['match', ['get', 'problem_type'], ['Stream Condition'], true, false]
-    // }
-  ],
-  [FLOOD_HAZARD_POLYGON]: [
-    {
-      type: 'fill',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'fill-color': '#ea8448',
-        'fill-opacity': 1,
-        'fill-antialias': true,
-        'fill-outline-color': '#000000',
-      },
-    },
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: {
-        'line-cap': 'butt',
-        'line-join': 'round',
-        'line-round-limit': 1.05,
-      },
-      paint: {
-        'line-color': '#ea8448',
-        'line-opacity': 0.5,
-        'line-width': 5,
-        'line-offset': -2,
-      },
-    },
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: {
-        'line-cap': 'butt',
-        'line-join': 'round',
-        'line-round-limit': 1.05,
-      },
-      paint: {
-        'line-color': '#16927c',
-        'line-opacity': 1,
-        'line-width': 3,
-        'line-dasharray': [1, 1],
-        'line-offset': 2,
-      },
-    },
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'line-width': 9,
-        'line-opacity': 0,
-      },
-    },
-  ],
-  [FLOOD_HAZARD_LINE]: [
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: {
-        'line-cap': 'butt',
-        'line-join': 'round',
-        'line-round-limit': 1.05,
-      },
-      paint: {
-        'line-color': '#ea8448',
-        'line-opacity': 1,
-        'line-width': ['interpolate', ['linear'], ['zoom'], 6, 1, 15, 10],
-      },
-    },
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: {
-        'line-cap': 'butt',
-        'line-join': 'round',
-        'line-round-limit': 1.05,
-      },
-      paint: {
-        'line-color': '#ea8448',
-        'line-opacity': 0.34,
-        'line-width': ['interpolate', ['linear'], ['zoom'], 6, 1, 18, 20],
-      },
-    },
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'line-width': 8,
-        'line-opacity': 0,
-      },
-    },
-  ],
-  [FLOOD_HAZARD_POINT]: [
-    {
-      type: 'circle',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'circle-pitch-scale': 'map',
-        'circle-pitch-alignment': 'viewport',
-        'circle-color': 'hsla(169, 74%, 33%, 1)',
-        'circle-stroke-color': 'hsla(0, 0%, 0%, 1)',
-        'circle-stroke-width': 0,
-        'circle-radius': ['interpolate', ['linear'], ['zoom'], 8, 2, 13, 6],
-      },
-    },
-    {
-      type: 'circle',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'circle-pitch-scale': 'map',
-        'circle-pitch-alignment': 'viewport',
-        'circle-color': 'hsla(169, 74%, 33%, 0.6)',
-        'circle-stroke-color': 'hsla(0, 0%, 0%, 1)',
-        'circle-stroke-width': 0,
-        'circle-radius': ['interpolate', ['linear'], ['zoom'], 8, 4, 13, 9],
-      },
-    },
-    {
-      type: 'circle',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'circle-pitch-scale': 'map',
-        'circle-pitch-alignment': 'viewport',
-        'circle-color': '#ea8448',
-        'circle-opacity': 1,
-        'circle-blur': 0,
-        'circle-stroke-color': '#000000',
-        'circle-stroke-opacity': 1,
-        'circle-stroke-width': 0,
-        'circle-radius': ['interpolate', ['linear'], ['zoom'], 8, 2, 13, 4],
-      },
-    },
-    {
-      type: 'circle',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'circle-radius': 9,
-        'circle-opacity': 0,
-      },
-    },
-  ],
-  [STREAM_FUNCTION_POLYGON]: [
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: {
-        'line-cap': 'butt',
-        'line-join': 'miter',
-        'line-miter-limit': 2,
-      },
-      paint: {
-        'line-color': 'hsl(22, 57%, 35%)',
-        'line-opacity': 1,
-        'line-width': ['interpolate', ['linear'], ['zoom'], 12, 0.5, 22, 3],
-        'line-offset': -2,
-      },
-    },
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: {
-        'line-cap': 'butt',
-        'line-join': 'miter',
-        'line-miter-limit': 2,
-      },
-      paint: {
-        'line-color': 'hsl(22, 79%, 60%)',
-        'line-opacity': 1,
-        'line-width': ['interpolate', ['linear'], ['zoom'], 12, 0.5, 22, 2],
-      },
-    },
-    {
-      type: 'fill',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'fill-color': 'hsl(22, 63%, 81%)',
-        'fill-opacity': 0.8,
-        'fill-antialias': true,
-        //"fill-outline-color": "#000000"
-      },
-    },
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'line-width': 7,
-        'line-opacity': 0,
-      },
-    },
-  ],
-  [STREAM_FUNCTION_POINT]: [
-    {
-      type: 'circle',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'circle-pitch-scale': 'map',
-        'circle-pitch-alignment': 'viewport',
-        'circle-color': 'hsla(22, 79%, 60%, 0.7)',
-        'circle-stroke-color': 'hsla(0, 0%, 0%, 0)',
-        'circle-stroke-opacity': 1,
-        'circle-stroke-width': 2,
-        'circle-radius': ['interpolate', ['linear'], ['zoom'], 8, 4, 13, 9],
-      },
-    },
-    {
-      type: 'circle',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'circle-pitch-scale': 'map',
-        'circle-pitch-alignment': 'viewport',
-        'circle-color': 'hsl(22, 57%, 35%)',
-        'circle-opacity': 1,
-        'circle-stroke-color': 'hsla(0, 0%, 0%, 0)',
-        'circle-stroke-opacity': 1,
-        'circle-stroke-width': 2,
-        'circle-radius': ['interpolate', ['linear'], ['zoom'], 8, 2, 13, 7],
-      },
-    },
-    {
-      type: 'circle',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'circle-pitch-scale': 'map',
-        'circle-pitch-alignment': 'viewport',
-        'circle-color': '#ea8448',
-        'circle-opacity': 1,
-        'circle-stroke-color': '#000000',
-        'circle-stroke-opacity': 1,
-        'circle-stroke-width': 0,
-        'circle-radius': ['interpolate', ['linear'], ['zoom'], 8, 1, 13, 5],
-      },
-    },
-    {
-      type: 'circle',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'circle-radius': 9,
-        'circle-opacity': 0,
-      },
-    },
-  ],
-  [STREAM_FUNCTION_LINE]: [
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: {
-        'line-cap': 'round',
-        'line-join': 'round',
-        'line-round-limit': 1.05,
-      },
-      paint: {
-        'line-color': '#ea8448',
-        'line-opacity': 1,
-        'line-width': ['interpolate', ['linear'], ['zoom'], 8, 1, 22, 3],
-        'line-offset': 2,
-      },
-    },
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: {
-        'line-cap': 'butt',
-        'line-join': 'round',
-        'line-round-limit': 1.05,
-      },
-      paint: {
-        'line-color': '#ea8448',
-        'line-opacity': 0.5,
-        'line-width': ['interpolate', ['linear'], ['zoom'], 8, 4, 22, 8],
-        'line-offset': -2,
-      },
-    },
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: {
-        'line-cap': 'round',
-        'line-join': 'round',
-        'line-round-limit': 1.05,
-      },
-      paint: {
-        'line-color': '#edc7b1',
-        'line-opacity': 1,
-        'line-width': 1,
-      },
-    },
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: {
-        'line-cap': 'butt',
-        'line-join': 'round',
-        'line-round-limit': 1.05,
-      },
-      paint: {
-        'line-color': '#8c4c26',
-        'line-opacity': 1,
-        'line-width': ['interpolate', ['linear'], ['zoom'], 8, 0.5, 22, 3],
-        'line-offset': -2,
-      },
-    },
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'line-width': 7,
-        'line-opacity': 0,
-      },
-    },
-  ],
-  [FUTURE_DEVELOPMENT_POLYGON]: [
-    {
-      type: 'fill',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'fill-color': 'hsl(22, 63%, 81%)',
-        'fill-opacity': 0.5,
-        'fill-antialias': true,
-        'fill-outline-color': '#000000',
-      },
-    },
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: {
-        'line-cap': 'butt',
-        'line-join': 'miter',
-        'line-miter-limit': 2,
-      },
-      paint: {
-        'line-color': '#000000',
-        'line-opacity': 1,
-        'line-width': 1,
-      },
-    },
-    {
-      type: 'fill',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'fill-color': 'hsl(129, 78%, 68%)',
-        'fill-opacity': 1,
-        'fill-antialias': true,
-        'fill-outline-color': '#000000',
-      },
-    },
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'line-width': 7,
-        'line-opacity': 0,
-      },
-    },
-  ],
-  [FUTURE_DEVELOPMENT_LINE]: [
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: {
-        'line-cap': 'butt',
-        'line-join': 'miter',
-        'line-miter-limit': 2,
-      },
-      paint: {
-        'line-color': 'hsl(22, 79%, 60%)',
-        'line-opacity': 1,
-        'line-width': ['interpolate', ['linear'], ['zoom'], 8, 2, 15, 10],
-        'line-dasharray': [0.2, 0.08],
-      },
-    },
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: {
-        'line-cap': 'butt',
-        'line-join': 'miter',
-        'line-miter-limit': 2,
-      },
-      paint: {
-        'line-color': 'hsl(22, 79%, 60%)',
-        'line-opacity': 0.3,
-        'line-width': ['interpolate', ['linear'], ['zoom'], 8, 3, 15, 14],
-      },
-    },
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-        'line-width': 7,
-        'line-opacity': 0,
-      },
-    },
-  ],
+
   [STUDIES]: [
     {
       type: 'fill',
