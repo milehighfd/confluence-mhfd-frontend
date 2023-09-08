@@ -98,16 +98,19 @@ export const MenuList = ({menu, popups, index, showPopup, ids} : {menu: any, pop
       iconLocation = '/Icons/ic_FEMA_ZoneAO@2x.png';
       break;
     case menu === 'Active Stream Corridor' && popup.scale !== undefined && popup.scale === 'Stream Corridor':
-      iconLocation = '/Icons/ic_SMC_StreamCorridor@2x.png';
+      iconLocation = '/Icons/ic_ActvStrmCrdr-StmCrdr.png';
       break;
     case menu === 'Fluvial Hazard Buffer' && popup.scale !== undefined && popup.scale === 'Stream Corridor':
-      iconLocation = '/Icons/ic-pattern2.png';
+      iconLocation = '/Icons/ic_FldHzrdBfr-StmCrdr.png';
       break;
     case menu === 'Active Stream Corridor' && popup.scale !== undefined && popup.scale === 'Watershed':
-      iconLocation = '/Icons/ic_SMC_Watershed@2x.png';
+      iconLocation = '/Icons/ic_ActvStrmCrdr-Wtrshd.png';
       break;
     case menu === 'Fluvial Hazard Buffer' && popup.scale !== undefined && popup.scale === 'Watershed':
-      iconLocation = '/Icons/ic-pattern3.png';
+      iconLocation = '/Icons/ic_FldHzrdBfr-Wtrshd.png';
+      break;
+    case menu === 'Stream Management Corridor' && popup.scale !== undefined && popup.scale === 'Watershed':
+      iconLocation = '/Icons/ic_StrmMngmtCrdr-Wtrshd.png';
       break;
     case menu === 'LOMCs' && popup.status !== undefined && popup.status === 'Active':
       iconLocation = '/Icons/lomcs_active.png';
