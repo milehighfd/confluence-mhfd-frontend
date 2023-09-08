@@ -57,10 +57,10 @@ export const MenuList = ({menu, popups, index, showPopup, ids} : {menu: any, pop
       iconLocation = '/Icons/icon_restoration.png';
       break;
     case menu === 'Project' && popup.projecctype !== undefined && popup.name.includes('FHAD'):
-      iconLocation = '/Icons/ic_Project_FHAD@2x.png';
+      iconLocation = '/Icons/icon_fhad.png';
       break;
     case menu === 'Project' && popup.projecctype !== undefined && popup.projecctype.includes('Study'):
-      iconLocation = '/Icons/ic_Project_MasterPlan@2x.png';
+      iconLocation = '/Icons/icon_master_plan.png';
       break;
     case menu === 'Project' && popup.projecctype !== undefined && popup.projecctype.includes('CIP'):
       iconLocation = '/Icons/icon_capital.png';
