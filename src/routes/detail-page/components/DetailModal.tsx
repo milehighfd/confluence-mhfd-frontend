@@ -85,23 +85,8 @@ const DetailModal = ({
   let carouselRef = useRef<undefined | any>(undefined);
   const { getAttachmentProjectId } = useAttachmentDispatch();
   const { attachments } = useAttachmentState();
-  const [scrollY, setScrollY] = useState<number | null>(null);
 
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    setScrollY(e.touches[0].clientY);
-  };
 
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (scrollY !== null && divRef.current) {
-      const deltaY = e.touches[0].clientY - scrollY;
-      divRef.current.scrollTop -= deltaY;
-      setScrollY(e.touches[0].clientY);
-    }
-  };
-
-  const handleTouchEnd = () => {
-    setScrollY(null);
-  };
 
   useEffect(() => {
     console.log('project_idS',project_idS)
@@ -758,9 +743,6 @@ const DetailModal = ({
                   ? 'detail-body-carousel detail-body-carousel-problems'
                   : 'detail-body-carousel detail-body-carousel-proyects'
               }
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
               onScrollCapture={e => {
                 if (activeScroll) {
                   const projectDiv = document.getElementById('project-basics');
