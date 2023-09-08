@@ -393,6 +393,9 @@
 .ant-select-dropdown {
   width: max-content !important;
 }
+.ant-popover-inner ,.ant-popover-inner-content{
+  width: fit-content;
+}
 @media (max-width: 575.98px) {
   .ant-layout-sider {
     flex: auto !important;
