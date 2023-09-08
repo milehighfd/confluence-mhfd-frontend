@@ -741,6 +741,7 @@
     height: calc(100vh - 164px);
     box-shadow: 0px 2px 10px rgba(68, 58, 121, 0.12);
     padding-top: 20px;
+    padding-left: 20px;
     .filters-body::-webkit-scrollbar {
       width: 5px;
     }
@@ -2240,6 +2241,7 @@
       height: calc(100vh - 164px);
       box-shadow: 0px 2px 10px rgba(68, 58, 121, 0.12);
       padding-top: 20px;
+      padding-left: 0px;
       .filters-body::-webkit-scrollbar {
         width: 5px;
       }
@@ -3567,15 +3569,19 @@
     line-height: 14px;
     color: $purple00;
   }
-  .filters {
-    width: 927px !important;
-    .filters-foot {
-      bottom: 37px !important;
-      .btn-filter {
-        font-size: 23px !important;
+  .portafolio-body{
+    .filters {
+      width: 927px !important;
+      padding-left: 0px;
+      .filters-foot {
+        bottom: 37px !important;
+        .btn-filter {
+          font-size: 23px !important;
+        }
       }
     }
   }
+
   .ant-select-selection-item {
     font-size: 20px !important;
   }
@@ -3609,7 +3615,7 @@
       top: -0.1em !important;
     }
     .scroll-filters {
-      padding: 0px 40px !important;
+      padding: 0px 18px 0px 35px !important;
       .ant-checkbox-wrapper {
         font-size: 21px !important;
         padding-left: 12px !important;
