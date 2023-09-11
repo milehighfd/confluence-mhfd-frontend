@@ -1481,3 +1481,8 @@ export const LAYERS_LABELS: any = {
   }
 
   export const MAINTENANCE_IDS = [7, 8, 9, 11, 17];
+
+export const BOARD_STATUS_TYPES = {
+  APPROVED: 'Approved',
+  UNDER_REVIEW: 'Under Review',
+};
