@@ -111,15 +111,16 @@ const AutoCompleteDropdown = (
     let l = localities.find((p: any) => {
       return p.name === value;
     })
-    console.log('l', l);
-    console.log('localities', localities);
     if (type === WORK_PLAN_TAB) {
       if (year < YEAR_LOGIC_2024) {
         setLocality(value);        
       }else{
+        let matchedCriteria = false;
+        let missing = [];
         let filterRequestReset = filterRequest.map((f: any) => {
           if (l.table === 'CODE_STATE_COUNTY') {
             if (f.name === l.name.replace(' County', '') && f.type === 'project_counties') {
+              matchedCriteria = true;
               setDisableFilterComponent(true,'county')
               setDisableFilterComponent(false,'service_area')
               f.selected = true;
@@ -128,6 +129,7 @@ const AutoCompleteDropdown = (
             }
           } else if (l.table === 'CODE_SERVICE_AREA') {
             if (f.name === l.name.replace(' Service Area', '') && f.type === 'project_service_areas') {
+              matchedCriteria = true;
               setDisableFilterComponent(true,'service_area')
               setDisableFilterComponent(false,'county')
               f.selected = true;
@@ -137,8 +139,15 @@ const AutoCompleteDropdown = (
           }
           return f;
         });
-        console.log('filterRequestReset', filterRequestReset);
-        setFilterRequest(filterRequestReset);
+        if (!matchedCriteria) {
+          missing.push({
+            name: l.table === 'CODE_STATE_COUNTY' ? l.name.replace(' County', '') : l.name.replace(' Service Area', ''),
+            type: l.table === 'CODE_STATE_COUNTY' ? 'project_counties' : 'project_service_areas',
+            id: l.id,
+            selected: true
+          })
+        }
+        setFilterRequest([...filterRequestReset, ...missing]);
       }
     } else {
       setLocality(value); // Implemented for WR functionality
