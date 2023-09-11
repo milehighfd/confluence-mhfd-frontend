@@ -111,13 +111,15 @@ const AutoCompleteDropdown = (
     let l = localities.find((p: any) => {
       return p.name === value;
     })
+    console.log('l', l);
+    console.log('localities', localities);
     if (type === WORK_PLAN_TAB) {
       if (year < YEAR_LOGIC_2024) {
         setLocality(value);        
       }else{
         let filterRequestReset = filterRequest.map((f: any) => {
           if (l.table === 'CODE_STATE_COUNTY') {
-            if (f.name === l.name.replace(' County', '')) {
+            if (f.name === l.name.replace(' County', '') && f.type === 'project_counties') {
               setDisableFilterComponent(true,'county')
               setDisableFilterComponent(false,'service_area')
               f.selected = true;
@@ -125,7 +127,7 @@ const AutoCompleteDropdown = (
               f.selected = false;
             }
           } else if (l.table === 'CODE_SERVICE_AREA') {
-            if (f.name === l.name.replace(' Service Area', '')) {
+            if (f.name === l.name.replace(' Service Area', '') && f.type === 'project_service_areas') {
               setDisableFilterComponent(true,'service_area')
               setDisableFilterComponent(false,'county')
               f.selected = true;
@@ -135,6 +137,7 @@ const AutoCompleteDropdown = (
           }
           return f;
         });
+        console.log('filterRequestReset', filterRequestReset);
         setFilterRequest(filterRequestReset);
       }
     } else {
