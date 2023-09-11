@@ -167,6 +167,7 @@
   margin-bottom: 2px;
   z-index: 10;
   overflow: auto;
+  background: transparent;
 
   .scroll-bar {
     height: 6px;
@@ -785,20 +786,9 @@
   }
   .search {
     overflow-x: hidden;
-    height: 100%;
+    height: 97%;
     border-top: 1px solid transparent;
     padding: 0px 0px;
-    .hr-collapse {
-      position: absolute;
-      height: 100vh;
-      z-index: 10;
-      left: 100%;
-      width: 0px;
-      top: -7px;
-      border: none;
-      width: 1px;
-      background: #e3e5e5;
-    }
     .search-body {
       overflow-y: auto;
       height: calc(100vh - 249px);
@@ -818,25 +808,6 @@
     .search-body::-webkit-scrollbar {
       background: transparent;
       width: 1.5px;
-    }
-    .search-head {
-      padding: 0px 10px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      margin-top: 18px;
-      .ant-input {
-        width: 90%;
-      }
-      .ant-input-clear-icon {
-        right: 10px !important;
-      }
-      .ic-dots {
-        margin-top: 2px;
-        content: url('../../../public/Icons/ico-dots.svg');
-      }
     }
     .ant-collapse > .ant-collapse-item > .ant-collapse-header {
       padding: 5px 10px;
@@ -907,6 +878,38 @@
       }
       .title-project:hover {
         text-decoration: underline;
+      }
+    }
+  }
+  .search-bar {
+    .hr-collapse {
+      position: absolute;
+      height: 100vh;
+      z-index: 10;
+      left: 100%;
+      width: 0px;
+      top: -7px;
+      border: none;
+      width: 1px;
+      background: #e3e5e5;
+    }
+    .search-head {
+      padding: 0px 10px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      margin-top: 18px;
+      .ant-input {
+        width: 90%;
+      }
+      .ant-input-clear-icon {
+        right: 10px !important;
+      }
+      .ic-dots {
+        margin-top: 2px;
+        content: url('../../../public/Icons/ico-dots.svg');
       }
     }
   }
@@ -2552,17 +2555,10 @@
     }
   }
   .search {
+    height: calc(100vh - 290px) !important;
     .btn-collapse {
       margin-right: -2.5px !important;
       height: 53px !important;
-    }
-    .search-head {
-      padding: 0px 16px !important;
-      .ic-dots {
-        margin-top: 2px;
-        height: 24px;
-        width: 24px;
-      }
     }
     .text-first {
       height: 53.06px !important;
@@ -2597,6 +2593,16 @@
       padding: 9px 16px !important;
       font-size: 19px !important;
       height: 53.07px !important;
+    }
+  }
+  .search-bar {
+    .search-head {
+      padding: 0px 16px !important;
+      .ic-dots {
+        margin-top: 2px;
+        height: 24px;
+        width: 24px;
+      }
     }
   }
   .table-body {
@@ -2927,6 +2933,7 @@
   }
   .scroll-custom {
     margin-left: 20.4%;
+    height: 8px;
   }
 }
 @media (min-width: 2555px) {
@@ -2950,6 +2957,7 @@
   }
   .scroll-custom {
     margin-left: 20.5%;
+    height: 10px;
   }
   .phase-groups {
     height: calc(100vh - 282px) !important;
@@ -3291,59 +3299,6 @@
     }
   }
 
-  .search {
-    .btn-collapse {
-      // margin-right: -2.5px !important;
-      height: 53px !important;
-    }
-    .search-head {
-      padding: 6px 23px !important;
-      .ic-dots {
-        margin-top: 4px !important;
-        width: 30px;
-        height: 30px;
-      }
-    }
-    .search-body {
-      height: calc(100vh - 322px) !important;
-      margin-top: 23px !important;
-      .tabs-map {
-        .ant-collapse {
-          padding-left: 15px !important;
-        }
-      }
-    }
-    .title-search {
-      width: 110% !important;
-    }
-    p {
-      font-size: 20px !important;
-    }
-    .text-search {
-      padding: 15.4px 22px !important;
-      width: 100% !important;
-      p {
-        font-size: 21px !important;
-      }
-      span {
-        font-size: 20px !important;
-      }
-    }
-    .text-first {
-      height: 63.78px !important;
-    }
-    .ant-collapse > .ant-collapse-item > .ant-collapse-header {
-      padding: 17px 23px !important;
-      font-size: 24.5px !important;
-      height: 63.78px !important;
-      width: 20.853% !important;
-      .ant-collapse-expand-icon {
-        span {
-          font-size: 20px !important;
-        }
-      }
-    }
-  }
   .row-active-table {
     background: #fafafa;
   }
@@ -3569,18 +3524,6 @@
     line-height: 14px;
     color: $purple00;
   }
-  .portafolio-body{
-    .filters {
-      width: 927px !important;
-      padding-left: 0px;
-      .filters-foot {
-        bottom: 37px !important;
-        .btn-filter {
-          font-size: 23px !important;
-        }
-      }
-    }
-  }
 
   .ant-select-selection-item {
     font-size: 20px !important;
@@ -3644,6 +3587,71 @@
     }
     .dashed-line::before {
       background-size: 16px 100% !important;
+    }
+    .filters {
+      width: 927px !important;
+      padding-left: 0px;
+      .filters-foot {
+        bottom: 37px !important;
+        .btn-filter {
+          font-size: 23px !important;
+        }
+      }
+    }
+    .search {
+      height: calc(100vh - 345px) !important;
+      .btn-collapse {
+        // margin-right: -2.5px !important;
+        height: 53px !important;
+      }
+      .search-body {
+        height: calc(100vh - 322px) !important;
+        margin-top: 23px !important;
+        .tabs-map {
+          .ant-collapse {
+            padding-left: 15px !important;
+          }
+        }
+      }
+      .title-search {
+        width: 110% !important;
+      }
+      p {
+        font-size: 20px !important;
+      }
+      .text-search {
+        padding: 15.4px 22px !important;
+        width: 100% !important;
+        p {
+          font-size: 21px !important;
+        }
+        span {
+          font-size: 20px !important;
+        }
+      }
+      .text-first {
+        height: 63.78px !important;
+      }
+      .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+        padding: 17px 23px !important;
+        font-size: 24.5px !important;
+        height: 63.78px !important;
+        .ant-collapse-expand-icon {
+          span {
+            font-size: 20px !important;
+          }
+        }
+      }
+    }
+    .search-bar{
+      .search-head {
+        padding: 6px 23px !important;
+        .ic-dots {
+          margin-top: 4px !important;
+          width: 30px;
+          height: 30px;
+        }
+      }
     }
   }
   .col-name-team-organization {
