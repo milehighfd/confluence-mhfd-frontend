@@ -15,6 +15,8 @@ import { useRequestState } from 'hook/requestHook';
 import { STATUS_NAMES } from 'constants/constants';
 import EditDatesModal from './EditDatesModal';
 import { useProfileState } from 'hook/profileHook';
+import { ArchiveAlert } from 'Components/Alerts/ArchiveAlert';
+import DetailModal from 'routes/detail-page/components/DetailModal';
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -50,6 +52,12 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   const [isHovered, setIsHovered] = useState(false);
   const [completeProjectData, setCompleteProjectData] = useState<any>(null);
   const [showCopyToCurrentYearAlert, setShowCopyToCurrentYearAlert] = useState(false);
+  const [showActivateProject, setShowActivateProject] = useState(false);
+  const [archiveAlert, setArchiveAlert] = useState(false);
+  const [archiveProjectAction , setArchiveProjectAction] = useState(false);
+  const [visibleModal, setVisibleModal] = useState(false);
+  const [selectedProjectData, setSelectedProjectData] = useState<any>(null);
+  const activeProject = project?.projectData?.currentId[0]?.status_name === 'Active';
   const appUser = useProfileState();
   const pageWidth  = document.documentElement.scrollWidth;
   const getCompleteProjectData = async () => {
@@ -116,19 +124,48 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
       });
     }
     if (appUser?.userInformation?.designation === 'admin' ||
-    appUser?.userInformation?.designation === 'staff'){
+      appUser?.userInformation?.designation === 'staff') {
       items.push({
         key: '5',
-        label: <span style={{borderBottom: '1px solid transparent'}}>
+        label: <span style={{ borderBottom: '1px solid transparent' }}>
           <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
           Archive Project
         </span>,
-        onClick: (() => archiveProject(project?.projectData?.project_id))
+        onClick: (() => {
+          setArchiveAlert(true)
+          //archiveProject(project?.projectData?.project_id)
+        })
       });
-    }    
+      if (project?.projectData?.currentId[0]?.status_name !== 'Active'
+        && type === 'WORK_PLAN') {
+        items.push({
+          key: '6',
+          label: <span style={{ borderBottom: '1px solid transparent' }}>
+            <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
+            Make Project Active
+          </span>,
+          onClick: (() => {
+            setShowActivateProject(true)
+          })
+        })
+      }
+    }
+    if (project?.projectData?.currentId[0]?.status_name === 'Active'){
+      items.push({
+        key: '7',
+        label: <span style={{ borderBottom: '1px solid transparent' }}>
+          <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
+          Detail Page
+        </span>,
+        onClick: (() => {
+          setSelectedProjectData(project?.projectData)
+          setVisibleModal(true)
+        })
+      })
+    }
     return (<Menu className="js-mm-00" items={items} />)
   };
-
+  
   const onDragStart = (e: any, id: any) => {
     e.dataTransfer.setData('text', JSON.stringify({id, fromColumnIdx: columnIdx}));
   }
@@ -141,6 +178,13 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   useEffect(() => {
     setAmount(project[`req${columnIdx}`])
   }, [project, columnIdx]);
+
+  useEffect(() => {
+    if (archiveProjectAction) {
+      archiveProject(project?.projectData?.project_id)
+      setArchiveProjectAction(false)
+    }
+  }, [archiveProjectAction])
   
   useEffect(() => {
     if (completeProjectData) {
@@ -207,6 +251,23 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
 
   return (
     <>
+      {
+        visibleModal &&
+        <DetailModal
+          visible={visibleModal}
+          setVisible={setVisibleModal}
+          data={selectedProjectData}
+          type={''}
+        />
+      }
+      {
+        archiveAlert &&
+        <ArchiveAlert
+          visibleAlert={archiveAlert}
+          setVisibleAlert={setArchiveAlert}
+          setArchiveProjectAction={setArchiveProjectAction}
+        />
+      }
     {
       showCopyToCurrentYearAlert &&
       <CopyProjectAlert
@@ -225,15 +286,22 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
         editable= {editable}
     />
     }
-    <AmountModal
+    {showAmountModal && <AmountModal
       project={project}
       visible={showAmountModal}
       setVisible={setShowAmountModal}
-      />
+      />}
       {/* New Modal Edit date */}
-    {/* <EditDatesModal visible={showAmountModal}
-      setVisible={setShowAmountModal} /> */}
-    <div ref={divRef} className="card-wr" style={{ borderLeft: `${pageWidth > 2000? (pageWidth > 3000? '6':'5'):'3'}px solid ${borderColor}`, borderRadius: '4px' }} draggable={editable && !filtered}
+    {showActivateProject && <EditDatesModal visible={showActivateProject}
+      setVisible={setShowActivateProject}
+      project={project?.projectData}
+    />}
+    <div className={activeProject ? 'active-card-wr' : 'inactive-card-wr'}>
+    <div ref={divRef} className="card-wr" 
+      style={{
+        borderLeft: `${pageWidth > 2000? (pageWidth > 3000? '6':'5'):'3'}px solid ${borderColor}`, 
+        borderRadius: '4px'
+      }} draggable={editable && !filtered}
       onDragStart={e => {
         onDragStart(e, project_id);
       }}
@@ -249,7 +317,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
         }
         e.preventDefault();
       }}>
-        <div style={{marginRight:'-10px', width:'100%'}}>
+        <div style={{width:'100%'}}>
           <Popover placement="top" content={<>
             <b>{project_name}</b>
             <br />
@@ -257,27 +325,13 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
             <br />
             <b>Board project: </b> {board_project_id}
             </>}>
-            <h4>{displayName}</h4>
-          </Popover>
-          <div style={{marginRight:'-10px'}}>
-            <h6 style={{marginRight:'-10px'}}>{amount ? formatter.format(amount) : ''}</h6>
-            {
-              type === 'WORK_PLAN' &&
-              <label className="purple-priority"style={{marginRight:'-10px'}}>
-                {
-                  priority === null ? 'Work Plan' :`No. ${priority + 1}`
-                }
-              </label>
-            }
-            <Popover placement="top" content={<>{project.origin}</>} style={{marginRight:'-10px'}}>
-              <label className="purple" >{labelOrigin}</label>
-            </Popover>
-            <label className="yellow" style={{color, backgroundColor,marginRight:'-10px'}}>{status}</label>
-            {
-              !(showAmountModal || showModalProject || showCopyToCurrentYearAlert) &&
-              <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={content} trigger="click" style={{marginRight:'-10px',cursor: 'pointer'}}>
-                <div className="dot-position" onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-                  <MoreOutlined className="menu-wr" style={{marginTop:'3px', width:'3px', cursor: 'pointer'}}>
+              <div style={{display:'flex', justifyContent:'space-between'}}>
+              <h4>{displayName}</h4>
+              {
+              !(showAmountModal || showModalProject || showCopyToCurrentYearAlert || showActivateProject || archiveAlert) &&
+              <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={content} trigger="click" style={{cursor: 'pointer'}}>
+                <div className="" onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+                  <MoreOutlined className="menu-wr" style={{cursor: 'pointer'}}>
                   <defs>
                     <clipPath id="clip-path" style={{cursor: 'pointer'}}>
                       <path id="Trazado_296" data-name="Trazado 296" d="M1.5-3A1.5,1.5,0,0,1,3-1.5,1.5,1.5,0,0,1,1.5,0,1.5,1.5,0,0,1,0-1.5,1.5,1.5,0,0,1,1.5-3Zm0-5A1.5,1.5,0,0,1,3-6.5,1.5,1.5,0,0,1,1.5-5,1.5,1.5,0,0,1,0-6.5,1.5,1.5,0,0,1,1.5-8Zm0-5A1.5,1.5,0,0,1,3-11.5,1.5,1.5,0,0,1,1.5-10,1.5,1.5,0,0,1,0-11.5,1.5,1.5,0,0,1,1.5-13Z" fill="none" clipRule="evenodd"/>
@@ -292,10 +346,31 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
                 </div>
               </Popover>
             }
+              </div>
+            
+          </Popover>
+          <div style={{display:'flex', flexDirection:"column"}}>
+            <div style={{display:'flex', justifyContent:"space-between"}}>
+              <h6 style={{}}>{amount ? formatter.format(amount) : ''}</h6>
+              {
+                type === 'WORK_PLAN' &&
+                <label className="purple-priority"style={{}}>
+                  {
+                    priority === null ? 'Work Plan' :`No. ${priority + 1}`
+                  }
+                </label>
+              }
+              </div>
+            <div style={{display:'flex', justifyContent:"space-between"}}>
+              <Popover placement="top" content={<>{project.origin}</>} style={{}}>
+                <label className="purple" >{labelOrigin}</label>
+              </Popover>
+              <label className="yellow" style={{color, backgroundColor}}>{status}</label>
+            </div>
           </div>
           
-        </div>
-      
+        </div>      
+    </div>
     </div>
     </>
   )

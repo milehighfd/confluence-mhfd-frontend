@@ -15,10 +15,10 @@ const DetailInformationProblem = () => {
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <p>{detailed?.streamname ? detailed?.streamname : 'N/A'}</p>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 4 }} style={{paddingLeft:'10px'}}>
+        <Col xs={{ span: 24 }} lg={{ span: 4 }} style={{paddingLeft:'10px'}} className="mobile-padding">
           <label><i>Priority</i></label>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{paddingLeft:'10px'}}>
+        <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{paddingLeft:'10px'}} className="mobile-padding">
           <p>N/A</p>
         </Col>
       </Row>
@@ -29,10 +29,10 @@ const DetailInformationProblem = () => {
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <p>{detailed?.sourcename ? detailed?.sourcename : 'N/A'}</p>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 4 }} style={{paddingLeft:'10px'}}>
+        <Col xs={{ span: 24 }} lg={{ span: 4 }} style={{paddingLeft:'10px'}} className="mobile-padding">
           <label><i>Source</i></label>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{paddingLeft:'10px'}}>
+        <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{paddingLeft:'10px'}} className="mobile-padding">
           <p>{detailed?.source ? detailed?.source : 'N/A'}</p>
         </Col>
       </Row>

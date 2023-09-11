@@ -154,6 +154,7 @@ const RequestView = ({ type, widthMap }: {
       };
       setLocalities(r.localities);
       setDataAutocomplete(r.localities.map((l: any) => l.name));
+      console.log('r', r)
       if (_year) {
         setYear(_year);
       } else {
@@ -417,7 +418,7 @@ const RequestView = ({ type, widthMap }: {
                       gap: '10px',
                     }}
                   >
-                    {(selectView === 'list' && namespaceId?.projecttype === 'Maintenance') && <MaintenanceTypesDropdown 
+                    {(selectView === 'list' && namespaceId?.projecttype === 'Maintenance' && widthMap != 15) && <MaintenanceTypesDropdown 
                       setMaintenanceSubType={setMaintenanceSubType}
                       maintenanceSubType={maintenanceSubType}
                     />}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect, useLocation } from 'react-router-dom';
-import { Badge, Button, Dropdown, Layout, Menu, Modal, Popover, Tabs } from 'antd';
-import { CaretDownOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { Badge, Button, Dropdown, Input, Layout, Menu, Modal, Popover, Tabs, Tooltip } from 'antd';
+import { CaretDownOutlined, QuestionCircleOutlined, SearchOutlined } from '@ant-design/icons';
 import { GlobalMapHook } from 'utils/globalMapHook';
 import * as datasets from 'Config/datasets';
 import 'Scss/Components/Shared/navbar.scss';
@@ -15,6 +15,7 @@ import moment from 'moment';
 import { SERVER } from 'Config/Server.config';
 import ModalTutorial from '../Sidebar/ModalTutorial';
 import DetailModal from 'routes/detail-page/components/DetailModal';
+import NavBarSearchTooltip from './NavBarSearch/NavBarSearchTooltip';
 
 const { TabPane } = Tabs;
 const { Header } = Layout;
@@ -234,6 +235,10 @@ const NavbarView = ({
     {openProfile && <ModalEditUserView updateUserInformation={updateUserInformation} user={user}
       isVisible={true} hideProfile={hideProfile} groupOrganization={groupOrganization} getGroupOrganization={getGroupOrganization} />}
     <h6>{value}</h6>
+    {/* NAVBAR SEARCH COMPONENT Descomentar cuando se vaya a aplicar el navbar search*/}
+    {/* <Tooltip overlayClassName='tootip-search-responsive' trigger={["focus","click"]} title={NavBarSearchTooltip}>
+      <Input  id='navbar-search' className='navbar-search' placeholder="Search" prefix={<SearchOutlined />} />
+    </Tooltip> */}
     {/* <div className="navbar-options-box">
       <Popover overlayClassName="popoveer-notification-box" placement="bottom" content={notification?.length > 0 ? contentNotification : content}>
         {locationPage.pathname === '/portfolio-list-view' ?

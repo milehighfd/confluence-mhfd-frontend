@@ -1,5 +1,5 @@
 import React from "react";
-import { Input, Row, Col, Popover, Select, Switch } from 'antd';
+import { Input, Row, Col, Popover, Select, Switch, Checkbox } from 'antd';
 import {  MAINTENANCE_ELIGIBILITY, NEW_PROJECT_TYPES, WINDOW_WIDTH } from "../../../constants/constants";
 import { useProjectState } from "hook/projectHook";
 
@@ -10,6 +10,8 @@ interface InformationMaintenanceProps {
   applyOwnership: Function;
   eligibility: string;
   applyEligibility: Function;
+  isRoutine: boolean;
+  setIsRoutine: Function;
 }
 const content03 = (<div className="popver-info">Frequency indicates the number of times per-year that a maintenance activity is requested for routine activities. For example, select 2 for twice-per-year, or select 12 for monthly.</div>);
 const content05 = (<div className="popver-info" style={{ width: '261px' }}> Indicate why this project is eligible for MHFD maintenance. <br /><br /><b>Capital Project</b> – The project was completed as part of a MHFD Capital Improvement Plan
@@ -23,13 +25,29 @@ for (var i = 1; i < 13; i++) {
   selec.push('' + i);
 }
 
-export const InformationMaintenance = ({ frequency, applyFrequency, ownership, applyOwnership, eligibility, applyEligibility }: InformationMaintenanceProps) => {
+export const InformationMaintenance = ({ 
+  frequency, 
+  applyFrequency, 
+  ownership, 
+  applyOwnership, 
+  eligibility, 
+  applyEligibility,
+  isRoutine,
+  setIsRoutine,
+}: InformationMaintenanceProps) => {
   const WINDOW_WIDTH = window.innerWidth;
   const {
     disableFieldsForLG,
   } = useProjectState();
   return (
     <>
+      <Row gutter={[16, 16]} style={{ marginTop: '13px' }}>
+        <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+          <Checkbox checked={isRoutine} onChange={(e) => setIsRoutine(e.target.checked)}>
+            Add project to the routine contract
+          </Checkbox>
+        </Col>
+      </Row>
       <Row gutter={[16, 16]} style={{ marginTop: '13px' }}>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
           <label className="sub-title">Frequency <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>

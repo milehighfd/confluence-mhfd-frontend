@@ -8,6 +8,7 @@ import AmountModalField from "./AmountModalField";
 import useCostDataFormattingHook from "hook/custom/useCostDataFormattingHook";
 import { useAppUserState } from "hook/useAppUser";
 import { useProfileState } from "hook/profileHook";
+import { useProjectDispatch, useProjectState } from "hook/projectHook";
 
 const AmountModal = ({ project, visible, setVisible }: {
   project: any,
@@ -17,6 +18,12 @@ const AmountModal = ({ project, visible, setVisible }: {
   const { board_project_id, projectData } = project;
   const projectsubtype = projectData?.code_project_type?.project_type_name;
   const {
+    getComponentsByProjectId,
+  } = useProjectDispatch();
+  const {
+    listComponents
+  } = useProjectState();
+  const {
     year: startYear,
     tabKey,
     namespaceId
@@ -25,7 +32,8 @@ const AmountModal = ({ project, visible, setVisible }: {
   const isMaintenance = tabKey === 'Maintenance';
   const appUser = useProfileState();
   const [disabled, setDisabled] = useState<boolean>((appUser?.isLocalGovernment || appUser?.userInformation?.designation === 'government_staff') && namespaceId.type === 'WORK_PLAN');
- 
+  const [requestFunding, setRequestFunding] = useState<any>(0);
+
   const [cost, setCost] = useState<any>({
     req1: null,
     req2: null,
@@ -61,12 +69,52 @@ const AmountModal = ({ project, visible, setVisible }: {
   const costDataList = useCostDataFormattingHook(tabKey, projectsubtype, startYear, board_project_id, visible);
 
   const getSumOfcosts = () => {
+    const sumcost = [
+      'req1',
+      'req2',
+      'req3',
+      'req4',
+      'req5',
+      'year1',
+      'year2'
+    ]
     let totalSum = 0;
-    for(let key in cost) {
-      totalSum += cost[key];
+    for(let i = 0; i < sumcost.length; i++) {
+      const key = sumcost[i];
+      if (cost.hasOwnProperty(key)) {
+        totalSum += cost[key];
+      }
     }
     return totalSum;
   }
+
+  useEffect(() => {
+    if (tabKey === 'Capital') {
+      if (projectData?.project_id) {
+        getComponentsByProjectId(projectData?.project_id);
+      }
+    }
+  }, [project])
+
+  useEffect(() => {
+    if (tabKey === 'Capital') {
+      const costComponents = listComponents?.result?.map((item: any) => {
+        return item.original_cost;
+      });
+      const totalComponents = costComponents?.reduce((acc: any, curr: any) => acc + curr, 0);
+      const costProject = cost?.projectData?.currentCost?.map((item: any) => {
+        return item.cost;
+      });
+      const totalProject = costProject?.reduce((acc: any, curr: any) => acc + curr, 0);
+      const totalIndependent = cost?.projectData?.independent_actions.map((item: any) => {
+        return item.cost;
+      });
+      const totalIndependentCost = totalIndependent?.reduce((acc: any, curr: any) => acc + curr, 0);
+      let totalCost = totalComponents + totalProject + totalIndependentCost;
+      setRequestFunding(isNaN(totalCost) ? 0 : totalCost);
+    }
+  }, [listComponents, cost])
+
   useEffect(() => {
     if (!visible) return;
     datasets.getData(SERVER.BOARD_PROJECT_COST(board_project_id))
@@ -77,6 +125,7 @@ const AmountModal = ({ project, visible, setVisible }: {
         console.log(err);
       });
   }, [board_project_id, visible]);
+
   return (
     <Modal
       title="How much funding from MHFD is being requested for the following years:"
@@ -100,6 +149,17 @@ const AmountModal = ({ project, visible, setVisible }: {
       ]}
     >
       {
+        <div
+          style={{
+            marginBottom: '15px',
+            marginTop: '-15px',
+            fontWeight: 'bold'
+          }}
+        >
+          Total Requested Funding: {formatter.format(getSumOfcosts())}
+        </div>
+      }
+      {
         (tabKey === 'Capital') &&
         <div
           style={{
@@ -108,7 +168,7 @@ const AmountModal = ({ project, visible, setVisible }: {
             fontWeight: 'bold'
           }}
         >
-          Estimated Project Cost: {formatter.format(getSumOfcosts())}
+          Estimated Project Cost: {formatter.format(requestFunding)}
         </div>
       }
       {

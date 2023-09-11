@@ -35,6 +35,7 @@ export const saveSpecial = (data: any) => {
       }
       dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_SAVE, status });
+      callArcGisProcess(data, res.project_data.project_id, 'create');
     })
   };
 };
@@ -69,10 +70,34 @@ export const saveAcquisition = (data: any) => {
       }
       dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_SAVE, status });
+      callArcGisProcess(data, res.project_data.project_id, 'create');
     })
   };
 };
+const callArcGisProcess = (data: any, project_id: any, typeprocess: string) => {
+  try {
+    let geomData;
+    if (data.type === 'capital' || data.type === 'maintenance') {
+      geomData = data.geom;
+    } else if (data.type === 'acquisition' || data.type === 'special' || data.type === 'study') {
+      geomData = JSON.stringify(data.geom);
+    }
+    const bodyArcGis = {
+      project_id: project_id,
+      geom: geomData, 
+      type: data.type,
+      ids: data.ids
+    };
 
+    console.log('Body arcgis', bodyArcGis);
+    let URL_to_SEND = typeprocess === 'create' ? SERVER.CREATE_PROJECT_GENERAL_ARCGIS : SERVER.EDIT_PROJECT_ARCGIS;
+    datasets.postData(URL_to_SEND, bodyArcGis, datasets.getToken()).then(res => {
+      console.log('Arcgis status: ', res);
+    });
+  } catch (error) {
+    console.error('Error at arcgis creation', error);
+  }
+}
 export const saveCapital = (data: any) => {
   return ( dispatch: Function, getState: Function) => {
     const { request: { namespaceId } } = getState();
@@ -113,6 +138,7 @@ export const saveCapital = (data: any) => {
       dispatch(loadColumns());
       dispatch(loadFilters())
       dispatch({ type: types.SET_SAVE, status });
+      callArcGisProcess(data, res.project_data.project_id, 'create');
     }).catch((err) => {
       dispatch({ type: types.SET_SAVE, status: -1 });
     })
@@ -151,6 +177,7 @@ export const saveMaintenance = (data: any) => {
       }
       dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_SAVE, status });
+      callArcGisProcess(data, res.project_data.project_id, 'create');
     }).catch((err) => {
       console.log('Here is the error of creationg', err);
     })
@@ -202,6 +229,7 @@ export const saveStudy = (data: any) => {
       }
       dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_SAVE, status });
+      callArcGisProcess(data, res.project_data.project_id, 'create');
     })
   };
 };
@@ -235,6 +263,7 @@ export const editSpecial = (data: any) => {
       }
       dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_EDIT, status });
+      callArcGisProcess(data, data.editProject, 'edit');
     })
   };
 };
@@ -269,6 +298,7 @@ export const editAcquisition = (data: any) => {
       }
       dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_EDIT, status });
+      callArcGisProcess(data, data.editProject, 'edit');
     })
   };
 };
@@ -303,6 +333,7 @@ export const editStudy = (data: any) => {
       }
       dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_EDIT, status });
+      callArcGisProcess(data, data.editProject, 'edit');
     })
   };
 };
@@ -337,6 +368,7 @@ export const editMaintenance = (data: any) => {
       }
       dispatch(loadOneColumn(0));
       dispatch({ type: types.SET_EDIT, status });
+      callArcGisProcess(data, data.editProject, 'edit');
     })
   };
 };
@@ -380,6 +412,7 @@ export const editCapital = (data: any) => {
       dispatch(loadColumns());
       dispatch(loadFilters())
       dispatch({ type: types.SET_EDIT, status });
+      callArcGisProcess(data, data.editProject, 'edit');
     })
   };
 };

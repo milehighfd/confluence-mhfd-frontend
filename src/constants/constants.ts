@@ -133,6 +133,7 @@ export const STREAM_FUNCTION_POINT ='stream_function_point_';
 export const STREAM_FUNCTION_LINE = 'stream_function_line_';
 export const FUTURE_DEVELOPMENT_POLYGON ='future_development_polygon_';
 export const FUTURE_DEVELOPMENT_LINE ='future_development_line_';
+export const FUTURE_DEVELOPMENT_POINT = 'future_development_point_';
 
 export const TEST_LINE ='test_line';
 
@@ -294,6 +295,7 @@ export const FLOOD_HAZARDS = {
     STREAM_FUNCTION_LINE,
     FUTURE_DEVELOPMENT_POLYGON,
     FUTURE_DEVELOPMENT_LINE,
+    FUTURE_DEVELOPMENT_POINT
   ]
 }
 
@@ -1332,14 +1334,16 @@ export const ICON_POPUPS = [
   ['Municipality', "/Icons/ic_municipalities@2x.png"],
   ['SEMSWA Service Area', "/Icons/ic_SEMSWA@2x.png"],
   ['Stream', "/Icons/Filters/ic_streams.png"],
-  ['Stream Management Corridor', "/Icons/ic_SMC_Watershed@2x.png"],
-  ['Stream Condition Polygon',"/Icons/ic-stream-function-poly.png"],
-  ['Flood Hazard Line', '/Icons/ic-flood-hzd-line.png'],
+  ['Stream Management Corridor', "/Icons/ic_StrmMngmtCrdr-Wtrshd.png"],
+  ['Flood Hazard Line', '/Icons/ic-flood-hzd-poly.png'],
   ['Flood Hazard Point', '/Icons/ic-flood-hzd-point.png'],
-  ['Stream Condition Point', '/Icons/ic-stream-function-point.png'],
-  ['Watershed Change Line', '/Icons/ic-watershed-change-line.png'],
-  ['Stream Condition Line', '/Icons/ic-stream-function-line.png'],
   ['Flood Hazard Polygon', '/Icons/ic-flood-hzd-poly.png'],
+  ['Stream Condition Point', '/Icons/ic-stream-function-point.png'],
+  ['Stream Condition Line', '/Icons/ic-stream-function-line.png'],
+  ['Stream Condition Polygon',"/Icons/ic-stream-function-line.png"],
+  ['Watershed Change Line', '/Icons/ic-watershed-change-line.png'],
+  ['Watershed Change Point', '/Icons/ic-watershed-point.png'],
+  ['Watershed Change Polygon', '/Icons/ic-watershed-change-line.png'],
   ['Impervious Surfaces', '/Icons/ic_luluc_impervious_surfaces.png'],
   ['Water', '/Icons/ic_luluc_water.png'],
   ['Tree Canopy', '/Icons/ic_luluc_tree_canopy.png'],

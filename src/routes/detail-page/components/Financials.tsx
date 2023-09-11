@@ -27,6 +27,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
   const [income, setIncome] = useState([0, 0, 0]);
   const [expense, setExpense] = useState([0, 0, 0]);
   const [searchValue, setSearchValue] = useState<any>();
+  const windowWidth: any = window.innerWidth;
 
   useEffect(() => {
     getFinancialData(projectId, {});
@@ -172,20 +173,20 @@ const Financials = ({ projectId }: { projectId: any }) => {
       title: <p>Agreement</p>,
       dataIndex: 'agreement',
       key: 'agreement',
-      width: '10%',
+      width: '12%',
       render: (agreement: any, index: any) => <p className={'table-' + agreement[1]}>{agreement[0]}</p>,
     },
     {
       title: <p>Amendment</p>,
       dataIndex: 'amendment',
       key: 'amendment',
-      width: '15%',
+      width: '14%',
     },
     {
       title: <p>Partner</p>,
       dataIndex: 'partner',
       key: 'partner',
-      width: '10%',
+      width: '17%',
     },
     {
       title: <p>Phase</p>,
@@ -198,28 +199,28 @@ const Financials = ({ projectId }: { projectId: any }) => {
       title: <p style={{ textAlign: 'center' }}>Projected</p>,
       dataIndex: 'projected',
       key: 'projected',
-      width: '14%',
+      width: '12%',
       render: (projected: string[]) => <p className={'table-' + projected[1]}>{projected[0]}</p>,
     },
     {
       title: <p style={{ textAlign: 'center' }}>Encumbered</p>,
       dataIndex: 'encumbered',
       key: 'encumbered',
-      width: '14%',
+      width: '12%',
       render: (encumbered: string[]) => <p className={'table-' + encumbered[1]}>{encumbered[0]}</p>,
     },
     {
       title: <p style={{ textAlign: 'center' }}>Tyler Encumbered</p>,
       dataIndex: 'tyler',
       key: 'tyler',
-      width: '14%',
+      width: '12%',
       render: (tyler: string[]) => <p className={'table-' + tyler[1]}>{tyler[0]}</p>,
     },
     {
       title: <p style={{ textAlign: 'center' }}>Date</p>,
       dataIndex: 'date',
       key: 'date',
-      width: '13%',
+      width: '10%',
       render: (date: string) => <p style={{ textAlign: 'center' }}>{date}</p>,
     },
   ];
@@ -359,126 +360,164 @@ const Financials = ({ projectId }: { projectId: any }) => {
           <div className="line-01" style={{ marginBottom: '15px', marginTop: '20px', width: '73%' }}></div>
         </Col>
       </Row>
-      <Row>
-        <Col xs={{ span: 24 }} lg={{ span: 24 }} className='group-dropdown-financial' style={{ display: 'flex', alignItems:'center' }}>
-          <Dropdown
-            overlayClassName="dropdown-view-menu"
-            overlay={menu}
-            placement="bottomLeft"
-            trigger={['click']}
-            onVisibleChange={() => {
-              setOpenDrop(!openDrop);
-            }}
-            getPopupContainer={(trigger: any) => trigger.parentNode}
-          >
-            <Space
-              className="dropdown-view-income"
-              style={viewDropdown.expense && viewDropdown.income ? { borderLeft: '4px solid #9faeb1' } : {}}
+      <div className='row-mobile-financial'>
+        <Row>
+          <Col xs={{ span: 24 }} lg={{ span: 24 }} className='group-dropdown-financial' style={{ display: 'flex', alignItems:'center' }}>
+            <Dropdown
+              overlayClassName="dropdown-view-menu"
+              overlay={menu}
+              placement="bottomLeft"
+              trigger={['click']}
+              onVisibleChange={() => {
+                setOpenDrop(!openDrop);
+              }}
+              getPopupContainer={(trigger: any) => trigger.parentNode}
             >
-              <div>
-                View:{' '}
-                {viewDropdown.expense && viewDropdown.income ? 'All' : viewDropdown.expense ? 'Expense' : 'Income'}
-              </div>
-              {!openDrop ? <UpOutlined style={{ color: '#251863' }} /> : <DownOutlined style={{ color: '#251863' }} />}
-            </Space>
-          </Dropdown>
-          <Dropdown
-            overlayClassName="dropdown-view-menu"
-            overlay={menu2}
-            placement="bottomLeft"
-            trigger={['click']}
-            onVisibleChange={() => {
-              setOpenPhatner(!openDropPhatner);
-            }}
-            getPopupContainer={(trigger: any) => trigger.parentNode}
-          >
-            <div className="dropdown-view-partner">
-              <div style={{ width: '90%' }}>
-                <div className='body-dropdown-view-partner'>{partner?.partner || 'Partner'}</div>
-              </div>
-              <div style={{ width: '10%', textAlign: 'end', alignItems: 'center', display: 'flex', justifyContent: 'flex-end' }}>
-                {!openDropPhatner ? (
-                  <UpOutlined style={{ color: '#251863', alignItems: 'center', display: 'flex' }} />
-                ) : (
-                  <DownOutlined style={{ color: '#251863', alignItems: 'center', display: 'flex' }} />
-                )}
-              </div>
-            </div>
-          </Dropdown>
-          <Dropdown
-            overlayClassName="dropdown-view-menu"
-            overlay={menu3}
-            placement="bottomLeft"
-            trigger={['click']}
-            onVisibleChange={() => {
-              setOpenDropPhase(!openDropPhase);
-            }}
-            getPopupContainer={(trigger: any) => trigger.parentNode}
-          >
-            <Space className="dropdown-view-phase">
-              <div>{phase?.phase ? phase.phase : 'Phase'}</div>
-              {!openDropPhase ? (
-                <UpOutlined style={{ color: '#251863' }} />
-              ) : (
-                <DownOutlined style={{ color: '#251863' }} />
-              )}
-            </Space>
-          </Dropdown>
-          <div style={{ textAlign: 'right' }}>
-              <div style={{ textAlign: 'end' }}>
-                <Space size="large">
-                  <Input
-                    onChange={handdleSearch}
-                    onKeyUp={checkEnter}
-                    className='search-input'
-                    style={{ maxWidth: '254', height: '34px', borderRadius: '4px' }} 
-                    // addonAfter={<SearchOutlined onClick={search} />} 
-                    placeholder="Search"
-                    allowClear
-                    // suffix={<CloseCircleFilled onClick={handdle}  style={{ color: '#11093c', opacity: '0.5' }} />}
-                    prefix={<SearchOutlined onClick={search} />}
-                    value={searchValue}
-                  />
-                </Space>
-              </div>
-          </div>
-          {(partner || phase || !viewDropdown.expense || !viewDropdown.income) && <p onClick={reset} style={{ color: 'red', margin: '0px 0px 0px 10px' }}>
-            Reset
-          </p>}
-        </Col>
-      </Row>
-      <Row>
-        <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-financials-modal" style={{ paddingRight: '8px' }}>
-          <div className="scroll-table" style={{ width: '100%', overflowX: 'hidden' }}>
-            <div className="body-scroll-table">
-              <Table dataSource={finalData} columns={columns} pagination={{ pageSize: 50 }} scroll={{ y: 350 }} />
-              <div style={{ display: 'flex', paddingTop: '5px', borderTop: '1px solid #d7d3e2', marginTop: '5px' }}>
-                <p style={{ color: '#28c499', fontWeight: '400', width: '45%' }}>Subtotal Income</p>
-                <p style={{ color: '#28c499', fontWeight: '400', width: '14%', textAlign: 'center' }}>{formatter.format(income[0])}</p>
-                <p style={{ color: '#28c499', fontWeight: '400', width: '14%', textAlign: 'center' }}>{formatter.format(income[1])}</p>
-                <p style={{ color: '#28c499', fontWeight: '400', width: '14%', textAlign: 'center' }}>{formatter.format(income[2])}</p>
-                <p style={{ color: '#28c499', fontWeight: '400', width: '13%', textAlign: 'center' }}></p>
-              </div>
-              <div style={{ display: 'flex', paddingTop: '5px' }}>
-                <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '45%' }}>Subtotal Expense</p>
-                <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '14%', textAlign: 'center' }}>{formatter.format(expense[0])}</p>
-                <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '14%', textAlign: 'center' }}>{formatter.format(expense[1])}</p>
-                <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '14%', textAlign: 'center' }}>{formatter.format(expense[2])}</p>
-                <p style={{ color: '#28c499', fontWeight: '400', width: '13%', textAlign: 'center' }}></p>
-              </div>
-              <div
-                style={{ display: 'flex', paddingTop: '5px', borderBottom: '1px solid #d7d3e2', paddingBottom: '5px' }}
+              <Space
+                className="dropdown-view-income"
+                style={viewDropdown.expense && viewDropdown.income ? { borderLeft: '4px solid #9faeb1' } : {}}
               >
-                <p style={{ color: '#11093c', fontWeight: 'bolder', width: '45%' }}>Total</p>
-                <p style={{ color: '#11093c', fontWeight: 'bolder', width: '14%', textAlign: 'center' }}>{formatter.format(income[0] - expense[0])}</p>
-                <p style={{ color: '#11093c', fontWeight: 'bolder', width: '14%', textAlign: 'center' }}>{formatter.format(income[1] - expense[1])}</p>
-                <p style={{ color: '#11093c', fontWeight: 'bolder', width: '14%', textAlign: 'center' }}>{formatter.format(income[2] - expense[2])}</p>
-                <p style={{ color: '#28c499', fontWeight: '400', width: '13%', textAlign: 'center' }}></p>
+                <div>
+                  View:{' '}
+                  {viewDropdown.expense && viewDropdown.income ? 'All' : viewDropdown.expense ? 'Expense' : 'Income'}
+                </div>
+                {!openDrop ? <UpOutlined style={{ color: '#251863' }} /> : <DownOutlined style={{ color: '#251863' }} />}
+              </Space>
+            </Dropdown>
+            <Dropdown
+              overlayClassName="dropdown-view-menu"
+              overlay={menu2}
+              placement="bottomLeft"
+              trigger={['click']}
+              onVisibleChange={() => {
+                setOpenPhatner(!openDropPhatner);
+              }}
+              getPopupContainer={(trigger: any) => trigger.parentNode}
+            >
+              <div className="dropdown-view-partner">
+                <div style={{ width: '90%' }}>
+                  <div className='body-dropdown-view-partner'>{partner?.partner || 'Partner'}</div>
+                </div>
+                <div style={{ width: '10%', textAlign: 'end', alignItems: 'center', display: 'flex', justifyContent: 'flex-end' }}>
+                  {!openDropPhatner ? (
+                    <UpOutlined style={{ color: '#251863', alignItems: 'center', display: 'flex' }} />
+                  ) : (
+                    <DownOutlined style={{ color: '#251863', alignItems: 'center', display: 'flex' }} />
+                  )}
+                </div>
+              </div>
+            </Dropdown>
+            <Dropdown
+              overlayClassName="dropdown-view-menu"
+              overlay={menu3}
+              placement="bottomLeft"
+              trigger={['click']}
+              onVisibleChange={() => {
+                setOpenDropPhase(!openDropPhase);
+              }}
+              getPopupContainer={(trigger: any) => trigger.parentNode}
+            >
+              <Space className="dropdown-view-phase">
+                <div>{phase?.phase ? phase.phase : 'Phase'}</div>
+                {!openDropPhase ? (
+                  <UpOutlined style={{ color: '#251863' }} />
+                ) : (
+                  <DownOutlined style={{ color: '#251863' }} />
+                )}
+              </Space>
+            </Dropdown>
+            <div style={{ textAlign: 'right' }}>
+                <div style={{ textAlign: 'end' }}>
+                  <Space size="large">
+                    <Input
+                      onChange={handdleSearch}
+                      onKeyUp={checkEnter}
+                      className='search-input'
+                      style={{ maxWidth: '254', height: '34px', borderRadius: '4px' }} 
+                      // addonAfter={<SearchOutlined onClick={search} />} 
+                      placeholder="Search"
+                      allowClear
+                      // suffix={<CloseCircleFilled onClick={handdle}  style={{ color: '#11093c', opacity: '0.5' }} />}
+                      prefix={<SearchOutlined onClick={search} />}
+                      value={searchValue}
+                    />
+                  </Space>
+                </div>
+            </div>
+            {(partner || phase || !viewDropdown.expense || !viewDropdown.income) && <p onClick={reset} style={{ color: 'red', margin: '0px 0px 0px 10px' }}>
+              Reset
+            </p>}
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-financials-modal table-financials-modal-mobile" style={{ paddingRight: '8px' }}>
+            <div className="scroll-table" style={{ width: '100%', overflowX: 'hidden' }}>
+              <div className="body-scroll-table">
+                <Table
+                  dataSource={finalData}
+                  columns={columns}
+                  pagination={{ pageSize: 50 }}
+                  scroll={{ y: 350 , x:windowWidth > 1000 ? '140%':'100%'}}
+                  summary={() => (
+                    <Table.Summary fixed={ 'bottom'}  >
+                      <Table.Summary.Row  style={{ borderTop: '1px solid #d7d3e2', marginTop: '5px' }}>
+                        <Table.Summary.Cell index={0} colSpan={4} >
+                          <p style={{ color: '#28c499', fontWeight: '400' }}>Subtotal Income</p>
+                        </Table.Summary.Cell>
+                        <Table.Summary.Cell index={1} >
+                        <p style={{ color: '#28c499', fontWeight: '400', textAlign: 'center' }}>{formatter.format(income[0])}</p>
+                        </Table.Summary.Cell>
+                        <Table.Summary.Cell index={2}>
+                        <p style={{ color: '#28c499', fontWeight: '400', textAlign: 'center' }}>{formatter.format(income[1])}</p>
+                        </Table.Summary.Cell>
+                        <Table.Summary.Cell index={3}>
+                        <p style={{ color: '#28c499', fontWeight: '400', textAlign: 'center' }}>{formatter.format(income[2])}</p>
+                        </Table.Summary.Cell>
+                        
+                      </Table.Summary.Row>
+                      <Table.Summary.Row  style={{  }}>
+                        <Table.Summary.Cell index={0} colSpan={4} >
+                            <p style={{ color: 'rgb(255 55 55)', fontWeight: '400' }}>Subtotal Expense</p>
+                          </Table.Summary.Cell>
+                          <Table.Summary.Cell index={1}  >
+                          <p style={{ color: 'rgb(255 55 55)', fontWeight: '400',  textAlign: 'center' }}>{formatter.format(expense[0])}</p>
+                          </Table.Summary.Cell>
+                          <Table.Summary.Cell index={2}>
+                          <p style={{ color: 'rgb(255 55 55)', fontWeight: '400',  textAlign: 'center' }}>{formatter.format(expense[1])}</p>
+                          </Table.Summary.Cell>
+                          <Table.Summary.Cell index={3}>
+                          <p style={{ color: 'rgb(255 55 55)', fontWeight: '400',  textAlign: 'center' }}>{formatter.format(expense[2])}</p>
+                          </Table.Summary.Cell>
+                          <Table.Summary.Cell index={4}>
+                          <p style={{ color: 'rgb(255 55 55)', fontWeight: '400',  textAlign: 'center' }}></p>
+                        </Table.Summary.Cell>
+                      </Table.Summary.Row>
+                      <Table.Summary.Row  style={{ }}>
+                        <Table.Summary.Cell index={0} colSpan={4} >
+                            <p style={{ color: '#11093c', fontWeight: 'bolder' }}>Total</p>
+                          </Table.Summary.Cell>
+                          <Table.Summary.Cell index={1}  >
+                          <p style={{ color: '#11093c', fontWeight: 'bolder',  textAlign: 'center' }}>{formatter.format(income[0] - expense[0])}</p>
+                          </Table.Summary.Cell>
+                          <Table.Summary.Cell index={2}>
+                          <p style={{ color: '#11093c', fontWeight: 'bolder',  textAlign: 'center' }}>{formatter.format(income[1] - expense[1])}</p>
+                          </Table.Summary.Cell>
+                          <Table.Summary.Cell index={3}>
+                          <p style={{ color: '#11093c', fontWeight: 'bolder',  textAlign: 'center' }}>{formatter.format(income[2] - expense[2])}</p>
+                          </Table.Summary.Cell>
+                          <Table.Summary.Cell index={4}>
+                          <p style={{ color: '#11093c', fontWeight: 'bolder',  textAlign: 'center' }}></p>
+                        </Table.Summary.Cell>
+                      </Table.Summary.Row>
+                    </Table.Summary>
+                )}
+                />
               </div>
             </div>
-          </div>
-        </Col>
-      </Row>
+          </Col>
+        </Row>
+      </div>
+      
     </>
   );
 };

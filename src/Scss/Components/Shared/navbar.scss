@@ -9,7 +9,6 @@
 
 //NAVBAR NOTIFICATIONS
 
-
 //NAVBARLOGO
 .logo-navbar {
   background-image: url('/Icons/logo-02.svg');
@@ -94,6 +93,26 @@
   .ant-menu-dark.ant-menu-horizontal > .ant-menu-item {
     background-color: transparent;
   }
+  .navbar-search {
+    max-width: 250px;
+    background-color: #06242d;
+    input {
+      padding-left: 6px;
+      background-color: #06242d;
+      color: white;
+    }
+    input:hover {
+      color: white;
+    }
+    .ant-input::placeholder {
+      opacity: 0.5;
+    }
+  }
+  .navbar-search:hover,
+  .navbar-search:focus,
+  .navbar-search:active {
+    border-color: white !important;
+  }
 }
 
 .popoveer-notification-box {
@@ -108,8 +127,6 @@
   }
 }
 
-
-
 //NAVBAR TUTORIAL
 .tutorial {
   .ant-modal-mask {
@@ -120,12 +137,18 @@
     height: 24px;
     background: $white;
     padding: 0px 15px;
+    span {
+      .ant-menu-dark .ant-menu-item-selected .anticon {
+        color: white;
+        opacity: 0.6;
+      }
+    }
   }
   .btn-question:hover {
     opacity: 1;
-    -webkit-mask: url('../../../Icons/icon-27.svg') no-repeat center;
-    height: 22px;
-    background: $green !important;
+    //-webkit-mask: url('../../../Icons/icon-27.svg') no-repeat center;
+    //height: 22px;
+    //background: $green !important;
   }
   .logo-00 {
     position: absolute;
@@ -159,7 +182,7 @@
     margin-top: -18px;
     padding-left: 0px;
     border-radius: 6px;
-    height: 540px;
+    height: 100%;
   }
   .ant-tabs .ant-tabs-left-bar .ant-tabs-tab {
     text-align: left;
@@ -303,7 +326,11 @@
     .tuto-48,
     .tuto-49,
     .tuto-50,
-    .tuto-51 {
+    .tuto-51,
+    .tuto-mobile-1,
+    .tuto-mobile-2,
+    .tuto-mobile-3,
+    .tuto-mobile-4 {
       position: absolute;
       text-align: center;
       width: 300px;
@@ -313,6 +340,48 @@
     }
     p {
       color: $white;
+    }
+    .tuto-mobile-1 {
+      top: 45px;
+      left: 45px;
+      text-align: initial;
+      width: 290px;
+      p {
+        padding: 16px 0px 0px 5px;
+      }
+    }
+    .tuto-mobile-2 {
+      bottom: 360px;
+      left: 44px;
+      width: 304px;
+      text-align: initial;
+      p {
+        padding: 0px 0px 0px 50px;
+      }
+      img {
+        transform: rotate(350deg);
+      }
+    }
+    .tuto-mobile-3 {
+      bottom: 295px;
+      left: 44px;
+      width: 304px;
+      text-align: initial;
+      p {
+        padding: 0px 0px 0px 5px;
+      }
+      img {
+        transform: rotate(350deg);
+      }
+    }
+    .tuto-mobile-4 {
+      bottom: 180px;
+      right: 38px;
+      width: 295px;
+      display: flex !important;
+      p {
+        padding: 0px 0px 20px 0px;
+      }
     }
     .tuto-17 {
       top: 96px;
@@ -630,18 +699,100 @@
     }
   }
 }
-// RESPONSIVE MOBILE
+//NAVBAR SEARCH
+.navbar-search-tooltip {
+  width: 234px;
+  display: flex;
+  flex-direction: column;
+  .navbar-search-tooltip-item {
+    h1 {
+      color: #11093c;
+      font-family: 'Ubuntu';
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      margin-bottom: 8px;
+      opacity: 0.6;
+    }
+    .navbar-search-tooltip-card {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      border-radius: 4px;
+      border-left: 3px solid #fdb32b;
+      box-shadow: 0px 2px 4px 0px rgba(6, 36, 45, 0.06);
+      padding: 5px 8px 8px 5px;
+      margin-bottom: 8px;
+      h2 {
+        color: #11093c;
+        font-family: 'Ubuntu';
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 18px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; 
+      }
+      div {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        p {
+          color: rgba(17, 9, 60, 0.5);
+          font-family: 'Ubuntu';
+          font-size: 10px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 16px;
+          margin: 0px;
+        }
+        span {
+          background-color: #fff8cc;
+          color: #ff8938;
+          font-family: 'Ubuntu';
+          font-size: 10px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+          border-radius: 8px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 2px 12px;
+        }
+      }
+    }
+    .navbar-search-tooltip-card:hover{
+      background-color: #F5F7FF;
+    }
+  }
+}
 @media (max-width: 575.98px) {
   .header {
     display: none;
   }
+  .tutorial-carousel {
+    margin-left: 7px;
+  }
 }
 @media (min-width: 1900px) and (max-width: 2549px) {
+  .header {
+    .navbar-search {
+      max-width: 333px;
+      height: 35px;
+      input {
+        padding-left: 8px;
+        font-size: 17px;
+      }
+    }
+  }
   .menu-drop-sub {
     font-size: 16px !important;
     padding: 5px 10px !important;
   }
-  
+
   .menu-drop {
     width: 211px !important;
     .ant-dropdown-menu-item,
@@ -653,7 +804,7 @@
       padding-left: 8px;
     }
   }
-  
+
   .tuto-01 {
     height: 100vh;
     width: 100%;
@@ -901,8 +1052,53 @@
       top: 85px !important;
     }
   }
+  .navbar-search-tooltip {
+    width: 312px;
+    padding: 2px 0px 2px 2px;
+    .navbar-search-tooltip-item {
+      h1 {
+        font-size: 16px;
+      }
+      .navbar-search-tooltip-card {
+        margin-bottom: 14px;
+        border-left: 5px solid #fdb32b;
+        box-shadow: 0px 4px 6px 0px rgba(6, 36, 45, 0.06);
+        padding: 8px 11px 9px 10px;
+        h2 {
+          font-size: 16px;
+          line-height: 24px;
+        }
+        div {
+          p {
+            font-size: 13px;
+            line-height: 21px;
+          }
+          span {
+            font-size: 13px;
+            padding: 3px 16px;
+          }
+        }
+      }
+    }
+  }
+  .tootip-search-responsive{
+    left: 1569px !important;
+    .ant-tooltip-content{
+      width: 333px;
+    }
+  }
 }
-@media (min-width: 2550px){
+@media (min-width: 2550px) {
+  .header {
+    .navbar-search {
+      max-width: 445px;
+      height: 35px;
+      input {
+        padding-left: 10px;
+        font-size: 19px;
+      }
+    }
+  }
   .tutorial {
     .ant-tabs-tab {
       font-size: 22px;
@@ -928,7 +1124,7 @@
     font-size: 20px !important;
     padding: 4.5px 10px !important;
   }
-  
+
   .piney-text {
     .ant-dropdown-menu-title-content {
       span {
@@ -944,7 +1140,7 @@
     font-size: 18px;
     padding: 5.5px 10px;
   }
-  
+
   .menu-drop {
     width: 261px !important;
     .ant-dropdown-menu-item,
@@ -959,7 +1155,7 @@
       }
     }
   }
-  
+
   .tuto-01 {
     .tuto-17,
     .tuto-18,
@@ -1194,6 +1390,41 @@
       right: 65.5vw !important;
       width: 363px !important;
       top: 94px !important;
+    }
+  }
+  .navbar-search-tooltip {
+    width: 416px;
+    padding: 6px 0px 6px 6px;
+    .navbar-search-tooltip-item {
+      h1 {
+        font-size: 21px;
+      }
+      .navbar-search-tooltip-card {
+        border-left: 8px solid #fdb32b;
+        margin-bottom: 19px;
+        box-shadow: 0px 4px 7px 0px rgba(6, 36, 45, 0.06);
+        padding: 9px 15px 14px 10px;
+        h2 {
+          font-size: 21px;
+          line-height: 32px;
+        }
+        div {
+          p {
+            font-size: 18px;
+            line-height: 28px;
+          }
+          span {
+            font-size: 18px;
+            padding: 4px 21px;
+          }
+        }
+      }
+    }
+  }
+  .tootip-search-responsive{
+    left: 2095px !important;
+    .ant-tooltip-content{
+      width: 444px;
     }
   }
 }

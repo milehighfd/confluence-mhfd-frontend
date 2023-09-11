@@ -278,7 +278,7 @@ export const ComponentPopup = ({ id, item, isComponent, maptype, eventFunctions 
             {item.subtype ? <p><i>Subtype:</i>  {item.subtype}</p> : ''}
             {item.estimatedcost ? <p><i>Estimated Cost  {item.layer === 'Components' ? <Tooltip title={
             <div className="popoveer-00">
-            <b>Estimated Cost</b> is the Estimated Cost of implementing or addressing an Action as part of a Capital or Maintenance project.</div>
+            Cost is adjusted for inflation</div>
             }><ExclamationCircleOutlined/></Tooltip>:<></>} 
             : </i>  ${numberWithCommas(item.estimatedcost)}</p> : ''}
             {item.studyyear ? <p><i>Study Year:</i>  {item.studyyear}</p> : ''}
@@ -425,7 +425,7 @@ export const ComponentPopupCreate = ({ id, item, isComponent, isWR, eventFunctio
           {item.subtype ? <p><i>Subtype:</i>  {item.subtype}</p> : ''}
           {item.estimatedcost ? <p><i>Estimated Cost  {item.layer === 'Components' ? <Tooltip title={
             <div className="popoveer-00">
-            <b>Estimated Cost</b> is the Estimated Cost of implementing or addressing an Action as part of a Capital or Maintenance project.</div>
+            Cost is adjusted for inflation</div>
             }><ExclamationCircleOutlined/></Tooltip>:<></>} 
             : </i>  ${numberWithCommas(item.estimatedcost)}</p> : ''}
           {item.studyyear ? <p><i>Study Year:</i>  {item.studyyear}</p> : ''}

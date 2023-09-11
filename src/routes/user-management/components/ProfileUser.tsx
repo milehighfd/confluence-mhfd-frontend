@@ -66,6 +66,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUs
   const [createPhone, setCreatePhone] = useState<any>('');
   const [saveValidation, setSaveValidation] = useState<any>(false);
   const [cleanRecord, setCleanRecord] = useState<any>(false);
+  const [listLocalGovernment, setListLocalGovernment] = useState<any>([]);
   const { openNotification } = useNotifications();
 
   interface Contact {
@@ -209,6 +210,11 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUs
           setDisabledContact(true);
           //setContactData(((dataMenu.find((elm) => +elm.key === +event.key))))
           setContactLabel((dataMenu.find((elm) => +elm.key === +event.key)).label)
+          const business_id = (dataMenu.find((elm) => +elm.key === +event.key)).business_address_id
+          const localGovernmentName = (listLocalGovernment.find((elm: any)=>elm.business_addresses.find((elm:any)=> elm.business_address_id === business_id))?.business_name)
+          if (localGovernmentName) {
+            setZoomArea(localGovernmentName)
+          }
           setContactId((dataMenu.find((elm) => +elm.key === +event.key)).key)
           setCreateContact(false)
         }
@@ -306,6 +312,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUs
 
   useEffect(() => {
     const addressFiltered = listAssociates?.find((elm: any) => elm.business_associates_id === selectAssociate)?.business_addresses;
+    setListLocalGovernment(listAssociates.filter((elm: any) => elm.code_business_associates_type_id === 3))
     if (addressFiltered && Object.keys(addressFiltered).length > 0) {
       const aux = addressFiltered.map((address: any) => {
         return address.business_associate_contacts?.map((contact: any) => {

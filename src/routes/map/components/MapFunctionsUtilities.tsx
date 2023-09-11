@@ -96,6 +96,9 @@ export const getTitleOfProblemsPart = (feature: any) => {
   if (feature.source.includes('development_line')) {
     title = 'Watershed Change Line';
   }
+  if (feature.source.includes('development_point')) {
+    title = 'Watershed Change Point';
+  }
   return title;
 };
 export const getTitleOfLandUse = (feature: any) => {

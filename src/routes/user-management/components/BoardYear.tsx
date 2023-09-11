@@ -87,7 +87,7 @@ const BoardYear = () => {
           <span style={{ color: alert.type === 'success' ? '#28C499' : 'red' }}>&nbsp;&nbsp;{alert.message}</span>
         )}
         <br/>
-        <Button className="btn-purple" style={{marginTop: 20}} onClick={onSave}>
+        <Button className="btn-purple btn-board" style={{marginTop: 20}} onClick={onSave}>
           Save
         </Button>
       </div>

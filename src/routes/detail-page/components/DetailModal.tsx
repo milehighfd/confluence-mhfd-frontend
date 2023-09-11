@@ -40,6 +40,7 @@ import Vendors from './Vendors';
 import ModalTollgate from 'routes/list-view/components/ModalTollgate';
 import { useAttachmentDispatch, useAttachmentState } from 'hook/attachmentHook';
 import { useProfileState } from 'hook/profileHook';
+import StackedBarChart from './StackedBarChart';
 
 const DetailModal = ({
   visible,
@@ -62,7 +63,7 @@ const DetailModal = ({
   const { detailed } = useDetailedState();
   const useQuery = () => new URLSearchParams(useLocation().search);
   const query = useQuery();
-  const project_idS = query.get('project_id') || data?.project_id;
+  const project_idS = query.get('project_id') || data?.project_id || data?.id;
   const problem_idS = query.get('problem_id') || data?.problemid;
   const ciprRef = useRef(null);
   const cipjRef = useRef(null);
@@ -84,6 +85,16 @@ const DetailModal = ({
   let carouselRef = useRef<undefined | any>(undefined);
   const { getAttachmentProjectId } = useAttachmentDispatch();
   const { attachments } = useAttachmentState();
+
+
+
+  useEffect(() => {
+    console.log('project_idS',project_idS)
+  }, [project_idS]);
+
+  useEffect(() => {
+    console.log('data',data)
+  }, [data]);
   useEffect(() => {
     if (detailed?.project_id) {
       getAttachmentProjectId(detailed.project_id);
@@ -128,7 +139,7 @@ const DetailModal = ({
       });
     } else {
       const project_id = project_idS ? +project_idS : +problem_idS ? +problem_idS : 0;
-      getDetailedPageProject(project_id);
+      getDetailedPageProject(project_id ? project_id : data.project_id);
       getComponentsByProblemId({
         id: data?.on_base || project_id || data?.id || data?.cartodb_id,
         typeid: 'projectid',
@@ -501,7 +512,7 @@ const DetailModal = ({
           <Row className="detailed-header" gutter={[16, 8]}>
             <Col xs={{ span: 24 }} lg={typeS === FILTER_PROBLEMS_TRIGGER ? { span: 13 } : { span: 18 }}>
               <div className="detail-header-info">
-                <div style={detailed?.problemtype ? { width: '100%' } : { width: '76%' }}>
+                <div style={detailed?.problemtype ? { width: '100%' } : { width: '76%' }} className='title-detail-mobile'>
                   <h1>{detailed?.problemname ? detailed?.problemname : detailed?.project_name}</h1>
                   <p>
                     <span>
@@ -535,7 +546,7 @@ const DetailModal = ({
                 {detailed?.problemtype ? (
                   <></>
                 ) : (
-                  <div className="status-d" style={{ display: 'flex' }}>
+                  <div className="status-d mobile-no-visibility" style={{ display: 'flex' }}>
                     <p>
                       Status<br></br>
                       <span className="status-active" style={{ marginRight: '20px' }}>
@@ -552,7 +563,7 @@ const DetailModal = ({
                 )}
               </div>
             </Col>
-            <Col xs={{ span: 10 }} lg={typeS === FILTER_PROBLEMS_TRIGGER ? { span: 10 } : { span: 5 }}>
+            <Col xs={{ span: 24 }} lg={typeS === FILTER_PROBLEMS_TRIGGER ? { span: 10 } : { span: 5 }}>
               <div className="detailed-header-button-layout">
                 {detailed?.problemtype ? (
                   <>
@@ -566,7 +577,7 @@ const DetailModal = ({
                       <Progress percent={detailed?.solutionstatus ? detailed.solutionstatus : 0} />
                     </div>
                     <div className="detailed-header-button-margin">
-                      <p className="fix-margin-top">Cost</p>
+                      <p className="fix-margin-top mobile-no-visibility">Cost</p>
                       <b>
                         {detailed?.component_cost != null
                           ? '$' +
@@ -578,8 +589,21 @@ const DetailModal = ({
                     </div>
                   </>
                 ) : (
+                  <>
+                  <div className="status-d status-d-mobile" style={{ display: 'none' }}>
+                    <p>
+                      <span className="status-active" style={{ marginRight: '20px' }}>
+                        {getCurrentProjectStatus(detailed)?.code_phase_type?.code_status_type?.status_name || 'N/A'}
+                      </span>
+                    </p>
+                    <p style={{}}>
+                      <span className="status-final">
+                        {getCurrentProjectStatus(detailed)?.code_phase_type?.phase_name || 'N/A'}
+                      </span>
+                    </p>
+                  </div>
                   <div className="detailed-header-button-margin">
-                    <p className="fix-margin-top">Estimated Cost</p>
+                    <p className="fix-margin-top mobile-no-visibility">Estimated Cost</p>
                     <b>
                       {getTotalEstimatedCost(detailed?.project_costs || []) != null
                         ? '$' +
@@ -588,9 +612,9 @@ const DetailModal = ({
                           )
                         : 'No Cost Data'}
                     </b>
-                  </div>
+                  </div></>
                 )}
-                <Button className="detailed-header-button-circle" onClick={downloadPdf}>
+                <Button className="detailed-header-button-circle mobile-no-visibility" onClick={downloadPdf}>
                   <img src="/Icons/icon-01.svg" alt="" style={{ margin: '1px -10px', height: '17px' }} />
                 </Button>
                 <Button className="detailed-header-button-circle fix-margin-left" onClick={copyUrl}>
@@ -598,14 +622,18 @@ const DetailModal = ({
                 </Button>
               </div>
             </Col>
-            <Col xs={{ span: 4 }} lg={{ span: 1 }} style={{ textAlign: 'right' }}>
+            <Col xs={{ span: 4 }} lg={{ span: 1 }} style={{ textAlign: 'right' }} className='mobile-no-visibility'>
               <Tooltip title="Close Window">
                 <Button className="detailed-header-button-transparent" onClick={() => setVisible(false)}>
                   <img src="/Icons/icon-62.svg" alt="" height="15px" />
                 </Button>
               </Tooltip>
             </Col>
+              <Button className="detailed-header-button-transparent" onClick={() => setVisible(false)} style={{display:'none'}}>
+                <img src="/Icons/icon-62.svg" alt="" height="15px" />
+              </Button>
           </Row>
+         
           {!detailed?.problemtype && (
             <div className="detailed-tabs-layout">
               <p
@@ -904,7 +932,7 @@ const DetailModal = ({
               </Carousel>
               {typeS === FILTER_PROJECTS_TRIGGER && (
                 <>
-                  <div className="img-carousel-detail">
+                  <div className="img-carousel-detail  mobile-no-visibility">
                     <img
                       src="/picture/map-denver.png"
                       alt=""
@@ -959,6 +987,7 @@ const DetailModal = ({
                       updateAction={updateAction}
                       setUpdateAction={setUpdateAction}
                     />
+                    <StackedBarChart />
                     <br></br>
                     {appUser &&
                       appUser.designation &&
@@ -978,6 +1007,7 @@ const DetailModal = ({
               </div>
             </Col>
             <Col
+              xs={{ span: 0}}
               span={7}
               className="pm-sidebar-graphics-display"
               style={{ height: 'calc(100vh - 183px)', overflowY: 'auto', scrollBehavior: 'smooth' }}

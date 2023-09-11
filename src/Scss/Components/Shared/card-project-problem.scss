@@ -131,6 +131,24 @@
   }
 }
 
+@media (max-width: 875px){
+  .card-map{
+    margin: 0px !important;
+    padding: 0px;
+    .ant-card{
+      margin: 0px;
+      padding: 0px;
+    }
+    .infinite-scroll-component{
+      padding: 0px;
+      overflow-y: auto !important;
+      .ant-col{
+        padding: 0px !important;
+      }
+    }
+  }
+}
+
 @media (min-width: 1900px) and (max-width: 2499px) {
   .card-map {
     padding: 0px 8px 0px 0px;
