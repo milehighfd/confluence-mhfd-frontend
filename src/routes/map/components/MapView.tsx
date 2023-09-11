@@ -12,7 +12,8 @@ import {
   PROJECTS_TRIGGER,
   COMPONENTS_TRIGGER,
   SELECT_ALL_FILTERS,
-  MAINTENANCE_IDS
+  MAINTENANCE_IDS,
+  GOVERNMENT_STAFF
 } from 'constants/constants';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
 import { capitalLetter, elementCost, getStatus } from 'utils/utils';
@@ -209,10 +210,16 @@ const MapView = () => {
         const auxData = { ...data };
         auxData.type = type;
         auxData.projectid = projectid;
-        setData(auxData);
+        setData(auxData); 
       }
     }
-    setNameZoomArea(zoomarea);
+    const initialZoom = groupOrganization.find((x: any) => x.name === zoomarea);
+    if (initialZoom) {
+      setNameZoomArea(initialZoom.name);
+    }else{
+      setNameZoomArea('Mile High Flood District');
+    }
+    //setNameZoomArea(zoomarea);
     const controllers = getFilterLabels();
     return () => {
       const user = userInformation;

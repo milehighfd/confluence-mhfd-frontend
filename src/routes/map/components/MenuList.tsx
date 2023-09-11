@@ -12,6 +12,7 @@ import { getAlertNameAndIcon } from "utils/utils";
 
 export const MenuList = ({menu, popups, index, showPopup, ids} : {menu: any, popups: any, index: any, showPopup: any, ids: any}) => {
   const popup = popups[index];
+  console.log('menu', menu, popup);
   let icon;
   ICON_POPUPS.forEach(element => {
     if (element[0] === menu) {
@@ -57,13 +58,16 @@ export const MenuList = ({menu, popups, index, showPopup, ids} : {menu: any, pop
       iconLocation = '/Icons/icon_restoration.png';
       break;
     case menu === 'Project' && popup.projecctype !== undefined && popup.name.includes('FHAD'):
-      iconLocation = '/Icons/ic_Project_FHAD@2x.png';
+      iconLocation = '/Icons/icon_fhad.png';
       break;
     case menu === 'Project' && popup.projecctype !== undefined && popup.projecctype.includes('Study'):
-      iconLocation = '/Icons/ic_Project_MasterPlan@2x.png';
+      iconLocation = '/Icons/icon_master_plan.png';
       break;
     case menu === 'Project' && popup.projecctype !== undefined && popup.projecctype.includes('CIP'):
       iconLocation = '/Icons/icon_capital.png';
+      break;
+    case menu === 'Project' && popup.projecctype !== undefined && popup.projecctype.includes('R & D'):
+      iconLocation = '/Icons/ic_rdallprojects.png';
       break;
     case menu === 'NCRS Soils' && popup.hydgrpdcd !== undefined && popup.hydgrpdcd === 'A':
       iconLocation = '/Icons/ic_NRCS_GroupA@2x.png';
@@ -94,16 +98,19 @@ export const MenuList = ({menu, popups, index, showPopup, ids} : {menu: any, pop
       iconLocation = '/Icons/ic_FEMA_ZoneAO@2x.png';
       break;
     case menu === 'Active Stream Corridor' && popup.scale !== undefined && popup.scale === 'Stream Corridor':
-      iconLocation = '/Icons/ic_SMC_StreamCorridor@2x.png';
+      iconLocation = '/Icons/ic_ActvStrmCrdr-StmCrdr.png';
       break;
     case menu === 'Fluvial Hazard Buffer' && popup.scale !== undefined && popup.scale === 'Stream Corridor':
-      iconLocation = '/Icons/ic-pattern2.png';
+      iconLocation = '/Icons/ic_FldHzrdBfr-StmCrdr.png';
       break;
     case menu === 'Active Stream Corridor' && popup.scale !== undefined && popup.scale === 'Watershed':
-      iconLocation = '/Icons/ic_SMC_Watershed@2x.png';
+      iconLocation = '/Icons/ic_ActvStrmCrdr-Wtrshd.png';
       break;
     case menu === 'Fluvial Hazard Buffer' && popup.scale !== undefined && popup.scale === 'Watershed':
-      iconLocation = '/Icons/ic-pattern3.png';
+      iconLocation = '/Icons/ic_FldHzrdBfr-Wtrshd.png';
+      break;
+    case menu === 'Stream Management Corridor' && popup.scale !== undefined && popup.scale === 'Watershed':
+      iconLocation = '/Icons/ic_StrmMngmtCrdr-Wtrshd.png';
       break;
     case menu === 'LOMCs' && popup.status !== undefined && popup.status === 'Active':
       iconLocation = '/Icons/lomcs_active.png';
