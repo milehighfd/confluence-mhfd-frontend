@@ -11,8 +11,6 @@ import ConfirmPasswordLayout from 'routes/confirm-password';
 import PortfolioView from 'routes/portfolio-view';
 import UserManagement from 'routes/user-management';
 import MyProfile from 'routes/my-profile';
-import ListView from 'routes/list-view';
-import DetailPage from 'routes/detail-page';
 import PreSignUpLayout from 'routes/sign-up/components/PreSignUpLayout';
 const LoginRoute = lazy(() => import('./routes/login'));
 const SignUpRoute = lazy(() => import('./routes/sign-up'));
@@ -45,10 +43,8 @@ const App = () => {
         <Route path={`/maptest`} component={maptest} />
         <Route path={`/user-settings`} component={UserManagement} />
         <Route path={`/my-profile-edit-search`} component={MyProfile} />
-        <Route path={`/list-view`} component={ListView} />
         {(appUser.designation === 'admin' ||
           appUser.designation === 'staff' || appUser.designation === 'government_staff') && (appUser.status === 'approved') && <Route path={`/pm-tools`} component={PortfolioView} />}
-        <Route path={`/detail-page`} component={DetailPage} />
         <Route path={`/pre-signup`} component={PreSignUpLayout} />
         <Route exact path="/" render={() => (
           <Redirect to="/login" />

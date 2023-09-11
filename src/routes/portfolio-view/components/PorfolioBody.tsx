@@ -4,7 +4,6 @@ import { CheckCircleFilled, CheckCircleOutlined, DownOutlined, HeartFilled, Hear
 import TablePortafolio from 'routes/portfolio-view/components/TablePortfolio';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
 import Filters from 'routes/portfolio-view/components/Filters';
-import ModalFields from 'routes/list-view/components/ModalFields';
 import ModalTollgate from 'routes/list-view/components/ModalTollgate';
 import ModalGraphic from 'routes/portfolio-view/components/ModalGraphic';
 import { FilterByGroupName } from 'routes/portfolio-view/components/FilterByGroupField';
@@ -49,7 +48,7 @@ const PortafolioBody = () => {
   const [openFilters, setOpenFilters] = useState(false);
   const [myTeams, setMyTeams] = useState(false);
   const [openFavorites, setOpenFavorites] = useState(false);
-  const [openModalTable, setOpenModalTable] = useState(false);
+  const [openModalTable, setOpenModalTable] = useState(true);
   let displayedTabKey = tabKeys;
   const [openDrop, setOpenDrop] = useState(false);
   const [newData, setNewData] = useState<any>([]);
@@ -249,7 +248,6 @@ const PortafolioBody = () => {
 
   return <>
     {graphicOpen && <ModalGraphic/>}
-    {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
     {visible && <ModalTollgate />}
     <div>
       <div className="portafolio-head">
