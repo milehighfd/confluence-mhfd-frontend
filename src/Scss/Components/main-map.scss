@@ -1003,6 +1003,7 @@ hr.filters-line {
     padding-right: 8px;
     border-bottom: 1px solid #f0f0f0;
     border-top: 1px solid transparent;
+    border-left: 1px solid transparent;
     white-space: nowrap; 
     overflow: hidden;
     text-overflow: ellipsis; 
@@ -1010,15 +1011,16 @@ hr.filters-line {
   }
   .row-geometry-body-selected{
     td {
-      border-bottom: 1px solid $green !important;
-      border-top: 1px solid $green !important;
+      border-bottom: 2px solid $green !important;
+      border-top: 2px solid $green !important;
     }
     td:first-child {
-      border-left: 1px solid $green !important;
+      border: 2px solid $green !important;
+      border-right: 0px !important;
       border-radius: 3px 0px 0px 3px;
     }
     td:last-child{
-      border-right: 1px solid $green !important;
+      border-right: 2px solid $green !important;
       border-radius: 0px 3px 3px 0px;
     }
   }
@@ -1768,6 +1770,9 @@ hr.filters-line {
       height: calc(100vh - 421px) !important;
       max-height: calc(100vh - 421px) !important;
     }
+    .ant-table-tbody > tr > td{
+      line-height: 20px;
+    }
     .ant-table-column-sorters {
       display: inline-flex;
       font-size: 20px;
@@ -1943,7 +1948,6 @@ hr.filters-line {
   }
   .table-list-map .project-name {
     font-size: 16px;
-    line-height: 20px;
   }
   .table-scroll-map-list{
     height: calc(100vh - 350px);

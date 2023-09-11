@@ -1638,6 +1638,11 @@
   .action-tabpane {
     height: calc(100vh - 250px);
   }
+  .btn-board{
+    height: 64px;
+    width: 120px;
+    font-size: 21px;
+  }
 }
 // @media (min-width: 3800px) and (max-width: 5999px) {
 //   .ant-dropdown-menu-title-content {
