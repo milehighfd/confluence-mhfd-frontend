@@ -36,9 +36,7 @@ const cardData3 = [
 const NavBarSearchTooltip = () => {
   return (
     <div className="navbar-search-tooltip">
-      <NavBarSearchTooltipItem title="PM Tools > Detail Page" cards={cardData} />
-      <NavBarSearchTooltipItem title="Work Request" cards={cardData2} />
-      <NavBarSearchTooltipItem title="Work Plan" cards={cardData3} />
+      
     </div>
   );
 };

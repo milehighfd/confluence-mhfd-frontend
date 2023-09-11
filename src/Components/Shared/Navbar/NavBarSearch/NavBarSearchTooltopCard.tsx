@@ -1,8 +1,8 @@
 import React from 'react';
 
-const NavBarSearchTooltopCard = ({ name, type, state }: { name: string; type: string; state: string }) => {
+const NavBarSearchTooltopCard = ({ name, type, state, onClick }: { name: string; type: string; state: string, onClick: any }) => {
   return (
-    <div className="navbar-search-tooltip-card">
+    <div className="navbar-search-tooltip-card" onClick={onClick}>
       <h2>{name}</h2>
       <div>
         <p>{type}</p>
