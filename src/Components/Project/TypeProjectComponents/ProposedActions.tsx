@@ -37,7 +37,8 @@ export const ProposedActions = (props: ProposedActionsProps) => {
 
   const {
     setHighlightedComponent, 
-    getZoomGeomComp
+    getZoomGeomComp,
+    setComponentIntersected
   } = useProjectDispatch();
   const [groupParsed, setGroupParsed] = useState<any[]>([]);
   const {
@@ -251,6 +252,11 @@ export const ProposedActions = (props: ProposedActionsProps) => {
         <img src="" className="icon-draw active" style={{ WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat' }} />
         <p>Click on the icon above and draw a polygon to select action items</p>
       </div>
+      {((keys && keys !== 0 && keys.length && groups && Object.keys(groups).length > 0)) &&
+        <p className='requiered-text'>
+            <span className='requiered' onClick={()=> setComponentIntersected([])}>Clear Table</span>
+          </p>
+      }
       {((keys && keys !== 0 && keys.length && groups && Object.keys(groups).length > 0)) &&
         <>
           <Table pagination={false} dataSource={groupParsed} columns={columns} className='table-project' />

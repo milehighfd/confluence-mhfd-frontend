@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Menu, MenuProps, Popover, Table } from 'antd';
 import type { ColumnsType } from 'antd/lib/table';
-import { ADMIN, NEW_PROJECT_TYPES, STAFF, STATUS_NAMES, WINDOW_WIDTH, WORK_PLAN } from 'constants/constants';
+import { ADMIN, BOARD_STATUS_TYPES, NEW_PROJECT_TYPES, STAFF, STATUS_NAMES, WINDOW_WIDTH, WORK_PLAN } from 'constants/constants';
 import { MoreOutlined } from '@ant-design/icons';
 import { getData, getToken } from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
@@ -313,6 +313,7 @@ const TableListView = ({
       })
     }, {
       key: '1',
+      disabled: boardStatus === BOARD_STATUS_TYPES.APPROVED,
       label: <span style={{borderBottom: '1px solid transparent'}}>
         <img src="/Icons/icon-90.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px', marginRight: '4px' }} />
         Edit Amount
