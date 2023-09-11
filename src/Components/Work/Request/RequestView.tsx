@@ -87,18 +87,18 @@ const RequestView = ({ type, widthMap }: {
   const [isInitMap, setIsInitMap] = useState(true);
   const [showCreateProject, setShowCreateProject] = useState(false);
   const history = useHistory();
-  const { setZoomProject, setComponentsFromMap, setStreamIntersected, setComponentIntersected } = useProjectDispatch();
+  const { setZoomProject, setComponentsFromMap, setStreamIntersected, setComponentIntersected, setGlobalSearch } = useProjectDispatch();
   const wrtRef = useRef(null);
   const { userInformation, groupOrganization, isLocalGovernment, locality: profileLocality } = useProfileState();
   const { saveBoardProjecttype } = useProfileDispatch();
   const users = useMyUser();
   const fakeLoading = useFakeLoadingHook(tabKey);
   const [selectView, setSelectView] = useState('card');
-  const {status} = useProjectState();
+  const {status, globalSearch} = useProjectState();
   const { openNotification } = useNotifications();
   const [maintenanceSubType, setMaintenanceSubType] = useState<any>(NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management);
-
-
+  const [scrollTo, setScrollTo] = useState(0);
+  
   const {  
     tabActiveNavbar
   } = useMapState();
@@ -174,7 +174,7 @@ const RequestView = ({ type, widthMap }: {
       if (!_locality && r.localities.length > 0) {
         _locality = r.localities[0].name;
       }
-      if (_locality) {
+      if (_locality && !globalSearch) {
         setLocality(_locality)
         setIsOnSelected(false);
         setLocalityFilter(_locality)
@@ -236,6 +236,7 @@ const RequestView = ({ type, widthMap }: {
     initLoading();
     setZoomProject(undefined);
     setIsInitMap(true);
+    setGlobalSearch(false);
     return () => {
       setLocality(undefined);
       setIsInitMap(true);

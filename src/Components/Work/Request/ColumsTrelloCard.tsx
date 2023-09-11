@@ -26,7 +26,7 @@ const ColumsTrelloCard = ({
   const { userInformation } = useProfileState();
   const { clear } = useAttachmentDispatch();
   const { setStreamsIds, setComponentsFromMap } = useProjectDispatch();
-  const divRef = useRef(null);
+  const cardRefs = useRef<HTMLDivElement[][]>([]);
   let scrollValuesInit: any = [0, 0, 0, 0, 0, 0];
   const [onScrollValue, setOnScrollValue] = useState(scrollValuesInit);
 
@@ -58,7 +58,22 @@ const ColumsTrelloCard = ({
     setStreamsIds([]);
     setComponentsFromMap([]);
   };
-
+  const scrollTo = (column: any, index: any) => {
+    const results = columns.map((x: any, index: number) => {
+      const row = x.projects.findIndex((y: any) => y.project_id === 200171);
+      return { column: index, index: row };
+    });    
+    results.forEach((x: any, index: number) => {
+      if (x.index !== -1) {
+        setTimeout(() => {
+          cardRefs.current[x.column][x.index]?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+          });
+        }, index * 500);
+      }
+    });
+  };
   const getColumnProjectType = (code_project_type_id: number) => {
     switch (code_project_type_id) {
       case 8:
@@ -133,7 +148,7 @@ const ColumsTrelloCard = ({
           });
         }
       }}
-    >
+    >      
       {columns.map((column: any, columnIdx: number) => (
         <div className="container-drag" id={`container_${tabKey}`} key={columnIdx}>
           <h3 className="title-panel">{column.title === 'Debris Management' ? 'Trash & Debris mngt' : column.title}</h3>
@@ -166,6 +181,9 @@ const ColumsTrelloCard = ({
                   </Button>
                 )}
                 {column.projects.map((p: any, i: number, arr: any[]) => {
+                  if (!cardRefs.current[columnIdx]) {
+                    cardRefs.current[columnIdx] = [];
+                  }
                   columDragAction = fixedDragAction;
                   const valuePosition: number = Number(columDragAction[2]);
                   const valuePositionx: number = Number(columDragAction[1]);
@@ -200,7 +218,7 @@ const ColumsTrelloCard = ({
                                 <TrelloLikeCard
                                   key={i}
                                   year={year}
-                                  type={type === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN'}
+                                  type={type === 'WORK_REQUEST' ? 'WORK_REQUEST' : 'WORK_PLAN'}
                                   namespaceId={namespaceId}
                                   project={p}
                                   columnIdx={columnIdx}
@@ -211,8 +229,9 @@ const ColumsTrelloCard = ({
                                     userInformation.designation === ADMIN || userInformation.designation === STAFF
                                   }
                                   locality={locality}
-                                  borderColor={ColorService.getColor(type === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN', p, arr, columnIdx)}
-                                  divRef={divRef}
+                                  borderColor={ColorService.getColor(type === 'WORK_REQUEST' ? 'WORK_REQUEST' : 'WORK_PLAN', p, arr, columnIdx)}
+                                  divRef={(el:any) => { cardRefs.current[columnIdx][i] = el; }}
+                                  cardRefs={cardRefs}
                                 />
                               </div>
                             )}
@@ -256,7 +275,7 @@ const ColumsTrelloCard = ({
                                   }
                                   locality={locality}
                                   borderColor={ColorService.getColor(type === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN', p, arr, columnIdx)}
-                                  divRef={divRef}
+                                  divRef={(el:any) => { cardRefs.current[columnIdx][i] = el; }}
                                 />
                               </div>
                             )}
@@ -291,7 +310,7 @@ const ColumsTrelloCard = ({
                                   }
                                   locality={locality}
                                   borderColor={ColorService.getColor(type === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN', p, arr, columnIdx)}
-                                  divRef={divRef}
+                                  divRef={(el:any) => { cardRefs.current[columnIdx][i] = el; }}
                                 />
                               </div>
                             )}
