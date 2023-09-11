@@ -17,7 +17,6 @@ const SignUpRoute = lazy(() => import('./routes/sign-up'));
 const ResetPasswordRoute = lazy(() => import('./routes/reset-password'));
 const MapRoute = lazy(() => import('./routes/map'));
 const Unauthorized = lazy(() => import('./Components/Unauthorized/Unauthorized'));
-const maptest = lazy(() => import('./routes/maptest'));
 const DetailedModal = lazy(() => import('./routes/detail-page/components/DetailModal'));
 declare const BUILD_DATE: string;
 
@@ -40,7 +39,6 @@ const App = () => {
         <Route path={`/confirm-password`} component={ConfirmPasswordLayout} />
         <Route path={'/404'} component={Unauthorized} />
         <Route path={`/detailed-modal`} component={DetailedModal} />
-        <Route path={`/maptest`} component={maptest} />
         <Route path={`/user-settings`} component={UserManagement} />
         <Route path={`/my-profile-edit-search`} component={MyProfile} />
         {(appUser.designation === 'admin' ||
