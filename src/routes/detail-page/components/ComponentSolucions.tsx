@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Carousel, Col, Modal, Progress, Row, Table, Tooltip } from 'antd';
 import TeamCollaborator from '../../../Components/Shared/Modals/TeamCollaborator';
-import { DATA_SOLUTIONS } from '../constants';
 import { ArrowDownOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { useDetailedState } from 'hook/detailedHook';
 import { useMapState } from 'hook/mapHook';
