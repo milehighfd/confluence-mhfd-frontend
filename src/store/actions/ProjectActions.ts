@@ -862,3 +862,9 @@ export const setDisableFieldsForLg = (disableFieldsForLG: boolean) => {
     dispatch({type: types.SET_DISABLE_FIELDS_FOR_LG, disableFieldsForLG});
   }
 }
+
+export const setGlobalSearch = (globalSearch: boolean) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.SET_GLOBAL_SEARCH, globalSearch});
+  }
+}

@@ -101,7 +101,8 @@ const initState = {
   infiniteScrollHasMoreItems: true,
   isEdit: false,
   deleteAttachmentsIds: [],
-  disableFieldsForLG: false
+  disableFieldsForLG: false,
+  globalSearch: false
 }
 
 const projectReducer = (state = initState, action: any) => {
@@ -420,6 +421,12 @@ const projectReducer = (state = initState, action: any) => {
       return {
         ...state,
         disableFieldsForLG: action.disableFieldsForLG
+      }
+    }
+    case types.SET_GLOBAL_SEARCH: {
+      return {
+        ...state,
+        globalSearch: action.globalSearch
       }
     }
     default: 

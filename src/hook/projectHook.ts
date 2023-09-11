@@ -68,7 +68,8 @@ import {
   setDeleteAttachmentsIds,
   setZoomGeomCreateMap,
   archiveProject,
-  setDisableFieldsForLg
+  setDisableFieldsForLg,
+  setGlobalSearch
 } from '../store/actions/ProjectActions';
 
 export const useProjectState = () => useSelector(
@@ -284,6 +285,9 @@ export const useProjectDispatch = () => {
     },
     setDisableFieldsForLg: (disableFieldsForLG: boolean) => {
       dispatch(setDisableFieldsForLg(disableFieldsForLG))
+    },
+    setGlobalSearch: (globalSearch: boolean) => {
+      dispatch(setGlobalSearch(globalSearch))
     }
   };
 };
