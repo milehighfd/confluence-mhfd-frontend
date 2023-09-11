@@ -61,6 +61,7 @@ import {
   STREAM_FUNCTION_LINE,
   FUTURE_DEVELOPMENT_POLYGON,
   FUTURE_DEVELOPMENT_LINE,
+  FUTURE_DEVELOPMENT_POINT,
   STREAM_IMPROVEMENT_MEASURE,
   USE_LAND_COVER,
   TEST_LINE,
@@ -5186,36 +5187,36 @@ export const tileStyles = {
         // "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false],
     },
 
-  ],
-  // FUTURE DEVELOPMENT POINT
-      // {
-    //     // "id": "FutrDev-point shadow",
-    //     "type": "circle",
-    //     "metadata": {"mapbox:group": "1f5c94b77c56b90acd5d4a9b81969905"},
-    //     "source-layer": "pluto15v1",
-    //     "paint": {
-    //         "circle-radius": 15,
-    //         "circle-opacity": 0.33,
-    //         "circle-blur": 0.3
-    //     },
-    //     "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
-    // },
+  ],[FUTURE_DEVELOPMENT_POINT]: [
+    {
+      // "id": "FutrDev-point shadow",
+      "type": "circle",
+      "metadata": {"mapbox:group": "1f5c94b77c56b90acd5d4a9b81969905"},
+      "source-layer": "pluto15v1",
+      "paint": {
+          "circle-radius": 15,
+          "circle-opacity": 0.33,
+          "circle-blur": 0.3
+      },
+      "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
+    },
     
 
-    // {
-    //     // "id": "FutrDev-point",
-    //     "type": "symbol",
-    //     "metadata": {"mapbox:group": "1f5c94b77c56b90acd5d4a9b81969905"},
-    //     "source-layer": "pluto15v1",
-    //     "layout": {
-    //         "icon-image": "watershedchangepoint_small",
-    //         "icon-size": 0.4,
-    //         "icon-ignore-placement": true,
-    //         "icon-allow-overlap": true
-    //     },
-    //     "paint": {},
-    //     "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
-    // },
+    {
+      // "id": "FutrDev-point",
+      "type": "symbol",
+      "metadata": {"mapbox:group": "1f5c94b77c56b90acd5d4a9b81969905"},
+      "source-layer": "pluto15v1",
+      "layout": {
+          "icon-image": "watershedchangepoint_small",
+          "icon-size": 0.4,
+          "icon-ignore-placement": true,
+          "icon-allow-overlap": true
+      },
+      "paint": {},
+      "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
+    },
+  ],
 
   [STUDIES]: [
     {
@@ -8083,6 +8084,35 @@ export const tileStylesDetailPage = {
         'line-width': 7,
         'line-opacity': 0,
       },
+    },
+  ],[FUTURE_DEVELOPMENT_POINT]: [
+    {
+      // "id": "FutrDev-point shadow",
+      "type": "circle",
+      "metadata": {"mapbox:group": "1f5c94b77c56b90acd5d4a9b81969905"},
+      "source-layer": "pluto15v1",
+      "paint": {
+          "circle-radius": 15,
+          "circle-opacity": 0.33,
+          "circle-blur": 0.3
+      },
+      "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
+    },
+    
+
+    {
+      // "id": "FutrDev-point",
+      "type": "symbol",
+      "metadata": {"mapbox:group": "1f5c94b77c56b90acd5d4a9b81969905"},
+      "source-layer": "pluto15v1",
+      "layout": {
+          "icon-image": "watershedchangepoint_small",
+          "icon-size": 0.4,
+          "icon-ignore-placement": true,
+          "icon-allow-overlap": true
+      },
+      "paint": {},
+      "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
     },
   ],
   [STUDIES]: [
@@ -10987,6 +11017,35 @@ export const tileStyles_WR = {
         'line-width': 7,
         'line-opacity': 0,
       },
+    },
+  ],[FUTURE_DEVELOPMENT_POINT]: [
+    {
+      // "id": "FutrDev-point shadow",
+      "type": "circle",
+      "metadata": {"mapbox:group": "1f5c94b77c56b90acd5d4a9b81969905"},
+      "source-layer": "pluto15v1",
+      "paint": {
+          "circle-radius": 15,
+          "circle-opacity": 0.33,
+          "circle-blur": 0.3
+      },
+      "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
+    },
+    
+
+    {
+      // "id": "FutrDev-point",
+      "type": "symbol",
+      "metadata": {"mapbox:group": "1f5c94b77c56b90acd5d4a9b81969905"},
+      "source-layer": "pluto15v1",
+      "layout": {
+          "icon-image": "watershedchangepoint_small",
+          "icon-size": 0.4,
+          "icon-ignore-placement": true,
+          "icon-allow-overlap": true
+      },
+      "paint": {},
+      "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
     },
   ],
   [STUDIES]: [

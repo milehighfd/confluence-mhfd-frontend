@@ -6,7 +6,6 @@ import profile from './ProfileReducer'
 import project from './ProjectReducer'
 
 import mapReducer from './mapReducer';
-import carouselImages from './carouselImagesReducer';
 import uploadAttachment from './uploadAttachmentReducer';
 import detailedReducer from './detailedReducer'; 
 import notesReducer from './notesReducer';
@@ -21,7 +20,6 @@ const appReducer = (history: any, config: any) => {
     appUser,
     users,
     profile,
-    carouselImages,
     uploadAttachment,
     project,
     notes: notesReducer,

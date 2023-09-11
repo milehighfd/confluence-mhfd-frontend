@@ -537,6 +537,9 @@
     .ant-table-summary>tr>td, .ant-table-summary>tr>th {
       border-bottom: none;
     }
+    .ant-table-body{
+      margin-bottom: 1px;
+    }
   }
 }
 .detail-body-carousel {
@@ -620,10 +623,6 @@
 .detailed-body-info {
   padding: 20px 40px 0px 40px;
   font-size: 14px;
-  ::-webkit-scrollbar{
-    width: 7px;
-  }
-
   .map-pop-00 h4 {
     font-size: 14px !important;
   }
@@ -2255,6 +2254,11 @@
 }
 
 @media (min-width: 2500px){
+  .table-financials-modal{
+    .ant-table-body{
+      margin-bottom: 2px;
+    }
+  }
   .detailed-modal {
     width: 1850px !important;
 
