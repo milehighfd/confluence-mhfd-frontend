@@ -16,6 +16,7 @@ import { SERVER } from 'Config/Server.config';
 import ModalTutorial from '../Sidebar/ModalTutorial';
 import DetailModal from 'routes/detail-page/components/DetailModal';
 import NavBarSearchTooltip from './NavBarSearch/NavBarSearchTooltip';
+import NavBarSearchTooltipItem from './NavBarSearch/NavBarSearchTooltipItem';
 
 const { TabPane } = Tabs;
 const { Header } = Layout;
@@ -50,6 +51,8 @@ const NavbarView = ({
   const { getTimesLogin, resetTimesLogin } = useProfileDispatch();
   const { timesLogged } = useUsersState();
   const { deleteMaps } = GlobalMapHook();
+  const [activeSearch, setActiveSearch] = useState(false);
+  const [tabActiveSearch, setTabActiveSearch] = useState('Detail Page');
   const appUser = useAppUserState();
   let displayedTabKey = tabKeys;
   const contentNotification = (
@@ -180,6 +183,72 @@ const NavbarView = ({
   } else if (location[2] === ROUTERS.PROJECT_STUDY_FHAD && location[1] === 'project-study' && location.length === 4) {
     value = ROUTER_TITLE.PROJECT_STUDY_FHAD;
   }
+  const cardData = [
+    {
+      name: 'West Tollgate Creek @ 15th and Clemtine @ 15th and Clemtine',
+      type: 'CIP Project · Construction Phase',
+      state: 'Draft',
+    },
+    {
+      name: 'West Tollgate Creek @ 15th and Clemtine @ 15th and Clemtine',
+      type: 'CIP Project · Construction Phase',
+      state: 'Draft',
+    },
+    {
+      name: 'West Tollgate Creek @ 15th and Clemtine @ 15th and Clemtine',
+      type: 'CIP Project · Construction Phase',
+      state: 'Draft',
+    },
+    {
+      name: 'West Tollgate Creek @ 15th and Clemtine @ 15th and Clemtine',
+      type: 'CIP Project · Construction Phase',
+      state: 'Draft',
+    },
+    {
+      name: 'West Tollgate Creek @ 15th and Clemtine @ 15th and Clemtine',
+      type: 'CIP Project · Construction Phase',
+      state: 'Draft',
+    },
+    {
+      name: 'West Tollgate Creek @ 15th and Clemtine @ 15th and Clemtine',
+      type: 'CIP Project · Construction Phase',
+      state: 'Draft',
+    },
+    {
+      name: 'West Tollgate Creek @ 15th and Clemtine @ 15th and Clemtine',
+      type: 'CIP Project · Construction Phase',
+      state: 'Draft',
+    },
+  ];
+  const cardData2 = [
+    {
+      name: 'West Tollgate Creek @ 15th and Clemtine 15th and Clemtine 15th and Clemtine',
+      type: '2023 Work Request · R&D',
+      state: 'Draft',
+    },
+    {
+      name:"West Tollgate Creek @ 15th and Clemtine 15th and Clemtine 15th and Clemtine",
+      type:"2023 Work Request · Maintenance",
+      state:"Draft"
+    }
+  ];
+  const cardData3 = [
+    {
+      name: 'West Tollgate Creek @ 15th and Clemtine 15th and Clemtine 15th and Clemtine',
+      type: '2023 Work Plan · Acquisition',
+      state: 'Draft',
+    },
+    {
+      name:"West Tollgate Creek @ 15th and Clemtine 15th and Clemtine 15th and Clemtine",
+      type:"2023 Work Plan · Study",
+      state:"Draft"
+    },
+    {
+      name:"West Tollgate Creek @ 15th and Clemtine 15th and Clemtine 15th and Clemtine",
+      type:"2023 Work Plan · Study",
+      state:"Draft"
+    },
+  ];
   const logout = () => {
     datasets.logout();
     setRedirect(true);
@@ -236,6 +305,25 @@ const NavbarView = ({
       isVisible={true} hideProfile={hideProfile} groupOrganization={groupOrganization} getGroupOrganization={getGroupOrganization} />}
     <h6>{value}</h6>
     {/* NAVBAR SEARCH COMPONENT Descomentar cuando se vaya a aplicar el navbar search*/}
+    <Input  id='navbar-search' className='navbar-search' placeholder="Search" prefix={<SearchOutlined onClick={()=>{setActiveSearch(!activeSearch)}}/>} />
+    {activeSearch && <div style={{position:'absolute'}} className='navbar-search-content'>
+      <div className="navbar-search-tooltip">
+        <div className='tab-navbar-search'>
+          <p className={tabActiveSearch === 'Detail Page'? 'active':''} onClick={()=>{setTabActiveSearch('Detail Page')}}>Detail Page</p>
+          <p className={tabActiveSearch === 'Work Request'? 'active':''} onClick={()=>{setTabActiveSearch('Work Request')}}>Work Request</p>
+          <p className={tabActiveSearch === 'Work Plan'? 'active':''} onClick={()=>{setTabActiveSearch('Work Plan')}}>Work  Plan</p>
+        </div>
+        {tabActiveSearch === 'Detail Page' && 
+          <NavBarSearchTooltipItem title={tabActiveSearch} cards={cardData} />
+        }
+        {tabActiveSearch === 'Work Request' && 
+          <NavBarSearchTooltipItem title={tabActiveSearch} cards={cardData2} />
+        }
+        {tabActiveSearch === 'Work Plan' && 
+          <NavBarSearchTooltipItem title={tabActiveSearch} cards={cardData3} />
+        }
+      </div>
+    </div> }
     {/* <Tooltip overlayClassName='tootip-search-responsive' trigger={["focus","click"]} title={NavBarSearchTooltip}>
       <Input  id='navbar-search' className='navbar-search' placeholder="Search" prefix={<SearchOutlined />} />
     </Tooltip> */}
