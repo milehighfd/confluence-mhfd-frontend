@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { Menu, MenuProps, Popover } from 'antd';
 import AmountModal from './AmountModal';
-import { useProjectDispatch } from '../../../hook/projectHook';
+import { useProjectDispatch, useProjectState } from '../../../hook/projectHook';
 import ModalProjectView from 'Components/ProjectModal/ModalProjectView'
 import { getToken, postData, getData } from '../../../Config/datasets';
 import { SERVER } from '../../../Config/Server.config';
@@ -41,6 +41,10 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
 }) => {
   const { showFilters: filtered } = useRequestState();
   const {setZoomProject, updateSelectedLayers, archiveProject} = useProjectDispatch();
+  const {
+    globalSearch,
+    globalProjectData
+  } = useProjectState();
   const { project_id } = project;
   const project_name = project?.projectData?.project_name;
   const proj_status_type_id: any = project?.code_status_type_id ?? 1;
@@ -59,6 +63,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   const [visibleModal, setVisibleModal] = useState(false);
   const [selectedProjectData, setSelectedProjectData] = useState<any>(null);
   const activeProject = project?.projectData?.currentId[0]?.status_name === 'Active';
+  const [globalProject, setGlobalProject] = useState(globalProjectData.project_id === project?.projectData?.project_id);
   const appUser = useProfileState();
   const pageWidth  = document.documentElement.scrollWidth;
   const getCompleteProjectData = async () => {
@@ -181,6 +186,14 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   }, [project, columnIdx]);
 
   useEffect(() => {
+    if (globalProject) {
+      setTimeout(() => {
+        setGlobalProject(false);
+      }, 5000);
+    }
+  }, [globalProject]);
+
+  useEffect(() => {
     if (archiveProjectAction) {
       archiveProject(project?.projectData?.project_id)
       setArchiveProjectAction(false)
@@ -297,7 +310,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
       setVisible={setShowActivateProject}
       project={project?.projectData}
     />}
-    <div className={activeProject ? 'active-card-wr' : 'inactive-card-wr'}>
+    <div className={globalProject ? 'global-active-wr' : (activeProject ? 'active-card-wr' : 'inactive-card-wr')}>
     <div ref={divRef} className="card-wr" 
       style={{
         borderLeft: `${pageWidth > 2000? (pageWidth > 3000? '6':'5'):'3'}px solid ${borderColor}`, 

@@ -94,7 +94,10 @@ const RequestView = ({ type, widthMap }: {
   const users = useMyUser();
   const fakeLoading = useFakeLoadingHook(tabKey);
   const [selectView, setSelectView] = useState('card');
-  const {status, globalSearch} = useProjectState();
+  const {
+    status, 
+    globalSearch,
+  } = useProjectState();
   const { openNotification } = useNotifications();
   const [maintenanceSubType, setMaintenanceSubType] = useState<any>(NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management);
   const [scrollTo, setScrollTo] = useState(0);
@@ -154,7 +157,6 @@ const RequestView = ({ type, widthMap }: {
       };
       setLocalities(r.localities);
       setDataAutocomplete(r.localities.map((l: any) => l.name));
-      console.log('r', r)
       if (_year) {
         setYear(_year);
       } else {
@@ -235,8 +237,7 @@ const RequestView = ({ type, widthMap }: {
     }
     initLoading();
     setZoomProject(undefined);
-    setIsInitMap(true);
-    setGlobalSearch(false);
+    setIsInitMap(true);    
     return () => {
       setLocality(undefined);
       setIsInitMap(true);

@@ -2,12 +2,13 @@ import React, { useState, useEffect, useRef, Fragment } from 'react';
 import { Button } from 'antd';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { useAttachmentDispatch } from 'hook/attachmentHook';
-import { useProjectDispatch } from 'hook/projectHook';
+import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { useProfileState } from 'hook/profileHook';
 import TrelloLikeCard from 'Components/Work/Request/TrelloLikeCard';
 import { ADMIN, STAFF } from 'constants/constants';
 import ColorService from 'Components/Work/Request/ColorService';
+import useFakeLoadingHook from 'hook/custom/useFakeLoadingHook';
 
 let columDragAction = [false, 0, 0];
 let fixedDragAction = [false, 0, 0];
@@ -25,7 +26,11 @@ const ColumsTrelloCard = ({
   const { setVisibleCreateProject, moveProjectsManual, handleMoveFromColumnToColumn } = useRequestDispatch();
   const { userInformation } = useProfileState();
   const { clear } = useAttachmentDispatch();
-  const { setStreamsIds, setComponentsFromMap } = useProjectDispatch();
+  const { setStreamsIds, setComponentsFromMap, setGlobalSearch } = useProjectDispatch();
+  const {
+    globalProjectData, 
+    globalSearch,
+  } = useProjectState();
   const cardRefs = useRef<HTMLDivElement[][]>([]);
   let scrollValuesInit: any = [0, 0, 0, 0, 0, 0];
   const [onScrollValue, setOnScrollValue] = useState(scrollValuesInit);
@@ -58,11 +63,17 @@ const ColumsTrelloCard = ({
     setStreamsIds([]);
     setComponentsFromMap([]);
   };
-  const scrollTo = (column: any, index: any) => {
+  
+  useEffect(() => {
+    if (globalSearch && globalProjectData.project_id) {
+      scrollTo(globalProjectData.project_id);
+    }
+  }, [globalProjectData, columns]);
+  const scrollTo = (globalProjectId: any) => {
     const results = columns.map((x: any, index: number) => {
-      const row = x.projects.findIndex((y: any) => y.project_id === 200171);
+      const row = x.projects.findIndex((y: any) => y.project_id === globalProjectId);
       return { column: index, index: row };
-    });    
+    });
     results.forEach((x: any, index: number) => {
       if (x.index !== -1) {
         setTimeout(() => {
@@ -71,8 +82,9 @@ const ColumsTrelloCard = ({
             block: 'nearest',
           });
         }, index * 500);
+        setGlobalSearch(false);
       }
-    });
+    });    
   };
   const getColumnProjectType = (code_project_type_id: number) => {
     switch (code_project_type_id) {
