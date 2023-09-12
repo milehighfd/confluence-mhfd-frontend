@@ -96,7 +96,6 @@ const NavbarView = ({
     getTimesLogin();
   }, []);
   useEffect(() => {
-    console.log(' AWARE OF THIS POSIBLE LOOP');
     setNotification(userInformation.notifications);
   },[userInformation.notifications]);
   useEffect(() => {

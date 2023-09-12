@@ -25,14 +25,20 @@ const SidebarMenuDown = ({
   const [redirect, setRedirect] = useState(false);
   const tabKeys = ['Unread', 'All'];
   const [tabKey, setTabKey] = useState<any>('Unread');
-  const user = userInformation;
+  
   const [notification, setNotification] = useState<any>([]);
   const { deleteMaps } = GlobalMapHook();
   const location = useLocation();
   let displayedTabKey = tabKeys;
   const indexOf = '' + ROUTERS_SIDEBAR.indexOf(location.pathname);
-  const name = user.firstName;
-  const initialName = user?.firstName?.charAt(0) + user?.lastName?.charAt(0);
+  const [name, setName] = useState('');
+  const [initialName, setInitialName] = useState('');
+  useEffect(() => {
+    if (userInformation.firstName) {
+      setName(userInformation?.firstName);
+      setInitialName(userInformation?.firstName?.charAt(0) + userInformation?.lastName?.charAt(0));
+    }
+  },[userInformation]);
   const content = <div className="none-notification">No Notifications</div>;
   const logout = () => {
     datasets.logout();
@@ -92,10 +98,10 @@ const SidebarMenuDown = ({
   );
   const optionsLabel = (
     <div className="menu-back-layout">
-      {user.photo ? (
-        <img src={user.photo} className={'ll-img anticon' + (collapsed ? ' img-profile-collapsed' : '')} alt="profile" />
+      {userInformation.photo ? (
+        <img src={userInformation.photo} className={'ll-img anticon' + (collapsed ? ' img-profile-collapsed' : '')} alt="profile" />
       ) : (
-        <label className="ll-00">{initialName}</label>
+        <label className="ll-00">{`${initialName}`}</label>
       )}
       <span className={collapsed ? 'menu-down-sidebar-colapse' : 'menu-down-sidebar'}>{name}</span>
     </div>
@@ -109,7 +115,6 @@ const SidebarMenuDown = ({
     });
   }
   useEffect(() => {
-    console.log('Same loop', userInformation);
     setNotification(userInformation.notifications);
   }, [userInformation.notifications]);
 

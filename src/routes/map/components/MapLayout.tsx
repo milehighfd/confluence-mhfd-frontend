@@ -122,7 +122,7 @@ const MapLayout = () => {
   }
 
   useEffect(() => {
-    getUserInformation();
+    // getUserInformation();
     const promises: Promise<any>[] = [];
     const controllers: AbortController[] = [];
     SELECT_ALL_FILTERS.forEach((layer) => {

@@ -99,6 +99,7 @@ export const resetAppUser = () => {
 
 export const addNotifications = (notifications : any) => {
   return (dispatch : Function) => {
+    console.log('Here are the notification', notifications);
       dispatch({ type: types.ADD_NOTIFICATION, notifications });
   }
 }

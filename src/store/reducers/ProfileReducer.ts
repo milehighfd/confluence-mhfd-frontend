@@ -102,15 +102,20 @@ const profile = (state = initProfile, action: any) => {
           userInformation: initProfile.userInformation
         }
     case types.ADD_NOTIFICATION:
+      console.log('Notifications ', action.notifications);
         return {
           ...state,
+          // concat action.notifications inside userinformation.notifications
           userInformation:{
+            ...state.userInformation,
             notifications: action.notifications
           }
+
         }
     case types.DELETE_NOTIFICATION:
         return {...state, 
           userInformation:{
+            ...state.userInformation,
             notifications: state.userInformation.notifications?.filter((_: any) => _.notification_id !== action.id)}
           }
     default:
