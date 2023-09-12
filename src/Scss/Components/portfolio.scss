@@ -1164,6 +1164,9 @@
       margin-top: 0px;
     }
     .table-portafolio {
+      .ant-table table {
+        border-collapse: collapse;
+      }
       .ant-table-thead {
         height: 39px;
         border-radius: 7px 7px 0px 0px;
@@ -2196,7 +2199,9 @@
   background: #fafafa;
   transition: background 0.3s;
 }
-
+.row-active-global {
+  border: 1px solid #e768d2;
+}
 @media (min-width: 1900px) and (max-width: 2549px) {
   .team-item {
     display: flex;

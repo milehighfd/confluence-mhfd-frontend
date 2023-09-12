@@ -12,9 +12,11 @@ import {
 } from 'routes/portfolio-view/constants/tableHeader';
 import SearchDropdown from 'routes/portfolio-view/components/SearchDropdown';
 import TableGroups from 'routes/portfolio-view/components/TableGroups';
-import { usePortflioState } from 'hook/portfolioHook';
+import { usePortflioState, usePortfolioDispatch } from 'hook/portfolioHook';
 import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
+import { useProjectState } from 'hook/projectHook';
+import { setGlobalSearch } from 'store/actions/ProjectActions';
 
 const TablePortafolio = ({
     tabKey,
@@ -28,6 +30,11 @@ const TablePortafolio = ({
   const {
     currentGroup
   } = usePortflioState();
+  const {
+    globalProjectData,
+    globalSearch
+  } = useProjectState(); 
+  const { setOpenGroups } = usePortfolioDispatch();
   const [detailGroup, setDetailGroup] = useState<any>(null);
   const headerRef = useRef<null | HTMLDivElement>(null);
   const scrollRef = useRef<null | HTMLDivElement>(null);
@@ -80,11 +87,21 @@ const TablePortafolio = ({
       controller.signal
     ).then((valuesGroups) => {
       setDetailGroup(valuesGroups.groups)
+      if (globalSearch && valuesGroups.groups.map((elem: any) => elem.id).includes(globalProjectData?.status)) {
+        const openGroupsGlobal = valuesGroups.groups.map((elem: any) => {
+          if (elem.id === globalProjectData?.status) {
+            return true
+          } else {
+            return null
+          }
+        });
+        setOpenGroups(openGroupsGlobal);
+      }
     })
     return () => {
       controller.abort();
     };
-  }, [currentGroup]);
+  }, [currentGroup, globalSearch, globalProjectData]);
   let drr =tableHeaderRef.current;
   let widthMax = drr? drr.offsetWidth : 0;
   let myDiv = drr?.querySelector('.ant-table-thead');
