@@ -145,6 +145,7 @@ export const SERVER = (function () {
     const BOARD_PROJECT = 'board-project';
     const CREATE_PROJECT_GENERAL = 'createproject';
     const EDIT_PROJECT = 'editproject';
+    const PAGE = 'page';
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
@@ -161,6 +162,7 @@ export const SERVER = (function () {
         UPLOAD_FILE: `${URL_BASE.BASE}/${ATTACHMENT}/${UPLOAD_FILE}`,
         PROJECT: `${URL_BASE.BASE}/${PROJECT}`,
         SEARCH_GLOBAL_PROJECTS: `${URL_BASE.BASE}/${PROJECT}/${SEARCH}`,
+        GET_PAGE_PROJECT_PM_TOOLS: `${URL_BASE.BASE}/${PROJECT}/${PAGE}`,
         FILTER_PROJECT: `${URL_BASE.BASE}/${PROJECT}/${FILTER_PROJECT}`,
         FILTER_PROJECT_CREATORS: `${URL_BASE.BASE}/${PROJECT}/${CREATORS}`,
         FILTER_BY_FIELD: `${URL_BASE.BASE}/${PROJECT}/${FILTER_BY_FIELD}`,
