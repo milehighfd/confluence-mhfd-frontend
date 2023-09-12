@@ -31,7 +31,6 @@ import { deletefirstnumbersmhfdcode } from 'utils/utils';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 import { DiscussionCreateProject } from '../TypeProjectComponents/DiscussionCreateProject';
 import { ActivitiCreateProject } from '../TypeProjectComponents/ActivityCreateProject';
-import { useAppUserState } from 'hook/useAppUser';
 import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
 
 const { Option } = Select;

@@ -23,19 +23,22 @@ export const useAppUserDispatch = () => {
 
   return {
     resetAppUser: _resetAppUser,
-    resetProfile: _resetProfile,
     replaceAppUser: _replaceAppUser,
-    saveUserInformation: (user: User) => {
-      dispatch(saveUserInformation(user));
-    },
-    getUserInformation: () => {
-      dispatch(getUserInformation());
-    },
+    
     addNotifications: (notification: any) => {
       dispatch(addNotifications(notification));
     },
     deleteNotification: (id: any) => {
       dispatch(deleteNotification(id));
-    }
+    },
+
+    resetProfile: _resetProfile,
+    getUserInformation: () => {
+      dispatch(getUserInformation());
+    },
+    saveUserInformation: (user: User) => {
+      dispatch(saveUserInformation(user));
+    },
+    
   }
 };

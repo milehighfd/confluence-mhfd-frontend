@@ -5,13 +5,13 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import * as datasets from 'Config/datasets';
 import LoadingView from 'Components/Loading/LoadingView';
 import useLogin from 'hook/custom/useLogin';
-import { useAppUserState } from 'hook/useAppUser';
 import useInitializeApp from 'hook/custom/useInitializeApp';
 import ConfirmPasswordLayout from 'routes/confirm-password';
 import PortfolioView from 'routes/portfolio-view';
 import UserManagement from 'routes/user-management';
 import MyProfile from 'routes/my-profile';
 import PreSignUpLayout from 'routes/sign-up/components/PreSignUpLayout';
+import { useProfileState } from 'hook/profileHook';
 const LoginRoute = lazy(() => import('./routes/login'));
 const SignUpRoute = lazy(() => import('./routes/sign-up'));
 const ResetPasswordRoute = lazy(() => import('./routes/reset-password'));
@@ -25,7 +25,7 @@ const App = () => {
   //console.log('Aug 21 13:14 version');
   console.log(`${BUILD_DATE} version`);
 
-  const appUser = useAppUserState();
+  const { userInformation} = useProfileState();
   const { loading } = useLogin();
 
   useInitializeApp();
@@ -41,16 +41,16 @@ const App = () => {
         <Route path={`/detailed-modal`} component={DetailedModal} />
         <Route path={`/user-settings`} component={UserManagement} />
         <Route path={`/my-profile-edit-search`} component={MyProfile} />
-        {(appUser.designation === 'admin' ||
-          appUser.designation === 'staff' || appUser.designation === 'government_staff') && (appUser.status === 'approved') && <Route path={`/pm-tools`} component={PortfolioView} />}
+        {(userInformation.designation === 'admin' ||
+          userInformation.designation === 'staff' || userInformation.designation === 'government_staff') && (userInformation.status === 'approved') && <Route path={`/pm-tools`} component={PortfolioView} />}
         <Route path={`/pre-signup`} component={PreSignUpLayout} />
         <Route exact path="/" render={() => (
           <Redirect to="/login" />
         )} />
         <Route path={`/map`} component={MapRoute} />
-        {datasets.getToken() && appUser.email && <Route path={`/profile-view`} component={MyProfile} />}
-        {(appUser.designation === 'admin' ||
-          appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/user`} component={UserManagement} />}
+        {datasets.getToken() && userInformation.email && <Route path={`/profile-view`} component={MyProfile} />}
+        {(userInformation.designation === 'admin' ||
+          userInformation.designation === 'staff') && (userInformation.status === 'approved') && <Route path={`/user`} component={UserManagement} />}
         {(loading && <Route path={`/`} component={LoadingView} />)}
       </Suspense>
     </Switch>

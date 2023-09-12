@@ -4,8 +4,7 @@ import TabPaneView from "./TabPaneView";
 import UserInformationView from "./UserInformationView";
 
 import { useMapDispatch, useMapState } from "../../../hook/mapHook";
-import { useProfileState } from "../../../hook/profileHook";
-import { useAppUserDispatch } from "../../../hook/useAppUser";
+import { useProfileDispatch, useProfileState } from "../../../hook/profileHook";
 
 const content = (<div className="popoveer-00">View Problems within the Area of Interest, as defined by the "Default Map Zoom Area" in the "Edit Profile" section</div>);
 const content00 = (<div className="popoveer-00">View Projects within the Area of Interest, as defined by the "Default Map Zoom Area" in the "Edit Profile" section</div>);
@@ -15,7 +14,7 @@ const ProfileBody = () => {
   const { userInformation: user } = useProfileState();
   const {
     getUserInformation
-  } = useAppUserDispatch();
+  } = useProfileDispatch();
   const [filter, setFilter] = useState('');
   const { favoriteCards } = useMapDispatch();
   const { favoriteProblemCards, favoriteProjectCards, favoritesLoader } = useMapState();

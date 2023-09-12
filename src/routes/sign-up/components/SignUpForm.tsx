@@ -7,15 +7,15 @@ import * as datasets from "../../../Config/datasets";
 import { useFormik } from "formik";
 import { VALIDATION_SIGN_UP } from "../../../constants/validation";
 import { GoogleReCaptcha } from "react-google-recaptcha-v3";
-import { useAppUserDispatch } from "../../../hook/useAppUser";
 import { MILE_HIGH_FLOOD_DISTRICT, STAFF_CONSTANT, COLOR } from "./constantsSignUp";
 import { useSignup } from '../hooks/useSignup';
+import { useProfileDispatch } from "hook/profileHook";
 
 const SignUpForm = () => {
   const {
     replaceAppUser,
     getUserInformation
-  } = useAppUserDispatch();
+  } = useProfileDispatch();
   const params = useParams();
   const id = (params as any).id; 
   const roles = ROLES;

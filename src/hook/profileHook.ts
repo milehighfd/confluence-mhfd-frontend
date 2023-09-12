@@ -7,7 +7,14 @@ import {
    getGroupOrganization,
    getGroupOrganizationNoGeom,
    uploadImage,
-   spinValue
+   spinValue,
+   // From App user state
+   replaceAppUser,
+   resetAppUser,
+   addNotifications,
+   deleteNotification,
+   resetProfile,
+   getUserInformation
 } from 'store/actions/ProfileActions';
 import {
    getTimesLogin,
@@ -32,7 +39,15 @@ export const useProfileDispatch = () => {
    const _saveUserInformation = useCallback((user: User) => {
       dispatch(saveUserInformation(user));
    }, [dispatch]);
-
+  const _replaceAppUser = useCallback((appUser : User) => {
+    dispatch(replaceAppUser(appUser));
+  }, [dispatch]);
+  const _resetAppUser = useCallback(() => {
+    dispatch(resetAppUser());
+  }, [dispatch]);
+  const _resetProfile = useCallback(() => {
+    dispatch(resetProfile());
+  }, [dispatch]);
    return {
       getGroupOrganization: _getGroupOrganization,
       saveUserInformation: _saveUserInformation,
@@ -56,6 +71,18 @@ export const useProfileDispatch = () => {
       },
       saveBoardProjecttype: (projecttype: string) => {
          dispatch(saveBoardProjecttype(projecttype));
-      }
+      },
+      replaceAppUser: _replaceAppUser,
+      resetAppUser: _resetAppUser,
+      addNotifications: (notification: any) => {
+        dispatch(addNotifications(notification));
+      },
+      deleteNotification: (id: any) => {
+        dispatch(deleteNotification(id));
+      },
+      resetProfile: _resetProfile,
+      getUserInformation: () => {
+        dispatch(getUserInformation());
+      },
    };
 };

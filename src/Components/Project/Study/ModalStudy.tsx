@@ -17,7 +17,7 @@ import { DownOutlined, HeartFilled, HeartOutlined, UpOutlined } from '@ant-desig
 import TypeProjectsFilter from 'Components/FiltersProject/TypeProjectsFilter/TypeProjectsFilter';
 import { Option } from 'antd/lib/mentions';
 import { COLUMNS_GEOMEOTRY, DATA_SOURCE_GEOMEOTRY } from '../Constants/Constants';
-import { useAppUserState } from 'hook/useAppUser';
+
 const { Panel } = Collapse;
 const content = (<div className="popver-info">Master plans that set goals for the watershed and stream corridor, identify problems, and recommend improvements.</div>);
 
@@ -55,7 +55,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
     setIsEdit,
   } = useProjectDispatch();
   const { streamsIntersectedIds, isDraw , deleteAttachmentsIds} = useProjectState();
-  const { groupOrganization } = useProfileState();
+  const { groupOrganization, userInformation } = useProfileState();
   const { listStreams } = useProjectState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -82,13 +82,11 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   const [studyreason, setStudyReason] = useState<any>();
   const history = useHistory();
   const { toggleAttachmentCover,removeAttachment} = useAttachmentDispatch();
-  const appUser = useAppUserState();
-  const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
+  const showCheckBox = userInformation.designation === ADMIN || userInformation.designation === STAFF;
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
   const pageWidth  = document.documentElement.scrollWidth;
   const { tabActiveNavbar } = useMapState();
   const isWorkPlan = tabActiveNavbar === WORK_PLAN_TAB;
-  const { userInformation } = useProfileState();
   const [favorite, setFavorite] = useState(false);
   const [activeTabBodyProject, setActiveTabBodyProject] = useState('Details');
   const [openDropdownTypeProject, setOpenDropdownTypeProject] = useState(false);

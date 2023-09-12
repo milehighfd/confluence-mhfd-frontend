@@ -10,7 +10,6 @@ import { useMapDispatch, useMapState } from 'hook/mapHook';
 import { useProfileDispatch, useProfileState } from 'hook/profileHook';
 import { useUsersState } from 'hook/usersHook';
 import ModalEditUserView from 'Components/Profile/ProfileComponents/ModalEditUserView';
-import { useAppUserDispatch, useAppUserState } from 'hook/useAppUser';
 import moment from 'moment';
 import { SERVER } from 'Config/Server.config';
 import ModalTutorial from '../Sidebar/ModalTutorial';
@@ -28,7 +27,7 @@ const NavbarView = ({
   tabActive?: string,
   // setTabActive?: React.Dispatch<React.SetStateAction<string>>
 }) => {
-  const { deleteNotification } = useAppUserDispatch();
+  const { deleteNotification } = useProfileDispatch();
   const [key, setKey] = useState('1');
   const [tabKey, setTabKey] = useState<any>('Unread');
   const [openProfile, setOpenProfile] = useState(false);
@@ -40,7 +39,6 @@ const NavbarView = ({
   }
   const [projectData, setProjectData] = useState<any>({});
   const {userInformation, groupOrganization} = useProfileState ();
-  const user =userInformation;
   const {updateUserInformation, getGroupOrganization} = useProfileDispatch();
   const [state, setState] = useState(stateValue);
   const [visibleTutorial, setVisibleTutorial] = useState(false);
@@ -50,7 +48,6 @@ const NavbarView = ({
   const { getTimesLogin, resetTimesLogin } = useProfileDispatch();
   const { timesLogged } = useUsersState();
   const { deleteMaps } = GlobalMapHook();
-  const appUser = useAppUserState();
   let displayedTabKey = tabKeys;
   const contentNotification = (
     <div className="popoveer-00 notification-popoveer">
@@ -99,8 +96,9 @@ const NavbarView = ({
     getTimesLogin();
   }, []);
   useEffect(() => {
-    setNotification(appUser.notifications);
-  },[appUser.notifications]);
+    console.log(' AWARE OF THIS POSIBLE LOOP');
+    setNotification(userInformation.notifications);
+  },[userInformation.notifications]);
   useEffect(() => {
     let currentRef = window.location.href?window.location.href:"none";
     if (timesLogged !== -1) {
@@ -139,8 +137,8 @@ const NavbarView = ({
    };
 
   const [redirect, setRedirect] = useState(false);
-  const name = user.firstName;
-  const initialName = user.firstName.charAt(0) + user.lastName.charAt(0);
+  const name = userInformation?.firstName;
+  const initialName = userInformation?.firstName?.charAt(0) + userInformation?.lastName?.charAt(0);
   const location = useLocation().pathname.split('/');
   let value = '';
   if(location[1] === ROUTERS.PROFILE_VIEW && location.length === 2) {
@@ -232,7 +230,7 @@ const NavbarView = ({
       data={projectData}
       type={FILTER_PROJECTS_TRIGGER}
     />}
-    {openProfile && <ModalEditUserView updateUserInformation={updateUserInformation} user={user}
+    {openProfile && <ModalEditUserView updateUserInformation={updateUserInformation} user={userInformation}
       isVisible={true} hideProfile={hideProfile} groupOrganization={groupOrganization} getGroupOrganization={getGroupOrganization} />}
     <h6>{value}</h6>
     {/* NAVBAR SEARCH COMPONENT Descomentar cuando se vaya a aplicar el navbar search*/}

@@ -5,14 +5,13 @@ import SidebarView from '../../../Components/Shared/Sidebar/SidebarView';
 import ProfileBody from './ProfileBody';
 
 import { useMapDispatch } from '../../../hook/mapHook';
-import { useProfileState } from '../../../hook/profileHook';
-import { useAppUserDispatch } from '../../../hook/useAppUser';
+import { useProfileDispatch, useProfileState } from '../../../hook/profileHook';
 
 const ProfileView = () => {
   const { userInformation: user } = useProfileState();
   const {
     getUserInformation
-  } = useAppUserDispatch();
+  } = useProfileDispatch();
   const { favoriteCards } = useMapDispatch();
   useEffect(() => {
     favoriteCards(user.email, false, { keyword: "", column: 'projectname', order: "asc"});
