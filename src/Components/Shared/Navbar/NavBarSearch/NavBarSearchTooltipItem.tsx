@@ -14,6 +14,7 @@ interface NavBarSearchTooltipCardProps {
     year?: number;
     locality?: string;
     projectType?: string;
+    status?: number;
   }
 const NavBarSearchTooltipItem = ({ title, cards, tabActiveSearch }: { title: string; cards: NavBarSearchTooltipCardProps[]; tabActiveSearch: string }) => {
   const history = useHistory();
@@ -27,7 +28,9 @@ const NavBarSearchTooltipItem = ({ title, cards, tabActiveSearch }: { title: str
     setLocalityFilter
   } = useRequestDispatch();
   const {
-    setGlobalSearch
+    setGlobalSearch,
+    setGlobalProjectId,
+    setGlobalStatusId
   } = useProjectDispatch();
   return (
     <div className="navbar-search-tooltip-item">
@@ -50,6 +53,7 @@ const NavBarSearchTooltipItem = ({ title, cards, tabActiveSearch }: { title: str
             }
             if (type === WORK_REQUEST) {
               setGlobalSearch(true)
+              setGlobalProjectId(card?.id || 0);
               setTabActiveNavbar(WORK_REQUEST);
               let projectType = '';
               if (card?.projectType === 'CIP') {
@@ -67,6 +71,7 @@ const NavBarSearchTooltipItem = ({ title, cards, tabActiveSearch }: { title: str
               });
             } else if (type === WORK_PLAN) {
               setGlobalSearch(true)
+              setGlobalProjectId(card?.id || 0);
               setTabActiveNavbar(WORK_PLAN);
               let projectType = '';
               if (card?.projectType === 'CIP') {
@@ -83,7 +88,12 @@ const NavBarSearchTooltipItem = ({ title, cards, tabActiveSearch }: { title: str
                 search: `?year=${card?.year}&locality=${card?.locality}&tabKey=${projectType}`,
               });
             } else{
-              console.log('go to pm tools?')
+              setGlobalSearch(true)
+              setGlobalStatusId(card?.status || 0);
+              setGlobalProjectId(card?.id || 0);
+              history.push({
+                pathname: "pm-tools"
+              });
             }
           }}
         />
