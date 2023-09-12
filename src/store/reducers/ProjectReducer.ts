@@ -102,7 +102,11 @@ const initState = {
   isEdit: false,
   deleteAttachmentsIds: [],
   disableFieldsForLG: false,
-  globalSearch: false
+  globalSearch: false,
+  globalProjectData: {
+    project_id: 0,
+    status: 0
+  }
 }
 
 const projectReducer = (state = initState, action: any) => {
@@ -427,6 +431,24 @@ const projectReducer = (state = initState, action: any) => {
       return {
         ...state,
         globalSearch: action.globalSearch
+      }
+    }
+    case types.SET_GLOBAL_PROJECT_ID: {
+      return {
+        ...state,
+        globalProjectData: {
+          ...state.globalProjectData,
+          project_id: action.globalProjectId
+        }
+      }
+    }
+    case types.SET_GLOBAL_STATUS_ID: {
+      return {
+        ...state,
+        globalProjectData: {
+          ...state.globalProjectData,
+          status: action.globalStatusId
+        }
       }
     }
     default: 

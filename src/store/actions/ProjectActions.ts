@@ -868,3 +868,15 @@ export const setGlobalSearch = (globalSearch: boolean) => {
     dispatch({type: types.SET_GLOBAL_SEARCH, globalSearch});
   }
 }
+
+export const setGlobalProjectId = (globalProjectId: any) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.SET_GLOBAL_PROJECT_ID, globalProjectId});
+  }
+}
+
+export const setGlobalStatusId = (globalStatusId: any) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.SET_GLOBAL_STATUS_ID, globalStatusId});
+  }
+}

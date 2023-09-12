@@ -69,7 +69,9 @@ import {
   setZoomGeomCreateMap,
   archiveProject,
   setDisableFieldsForLg,
-  setGlobalSearch
+  setGlobalSearch,
+  setGlobalProjectId,
+  setGlobalStatusId
 } from '../store/actions/ProjectActions';
 
 export const useProjectState = () => useSelector(
@@ -288,6 +290,12 @@ export const useProjectDispatch = () => {
     },
     setGlobalSearch: (globalSearch: boolean) => {
       dispatch(setGlobalSearch(globalSearch))
+    },
+    setGlobalProjectId: (globalProjectId: any) => {
+      dispatch(setGlobalProjectId(globalProjectId))
+    },
+    setGlobalStatusId: (globalStatusId: any) => {
+      dispatch(setGlobalStatusId(globalStatusId))
     }
   };
 };
