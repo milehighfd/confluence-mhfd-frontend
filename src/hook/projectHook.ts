@@ -21,6 +21,7 @@ import {
   getStreamsList,
   setStreamsList,
   setUserPolygon,
+  setIsGeomDrawn,
   getListComponentsByComponentsAndPolygon,
   getStreamsByComponentsList,
   getAllComponentsByProblemId,
@@ -146,6 +147,9 @@ export const useProjectDispatch = () => {
     },
     setUserPolygon: (userPolygon: any) => {
       dispatch(setUserPolygon(userPolygon));
+    },
+    setIsGeomDrawn: (isGeomDrawn: boolean) => {
+      dispatch(setIsGeomDrawn(isGeomDrawn));
     },
     getStreamsByComponentsList: (components: any) => {
       dispatch(getStreamsByComponentsList(components));

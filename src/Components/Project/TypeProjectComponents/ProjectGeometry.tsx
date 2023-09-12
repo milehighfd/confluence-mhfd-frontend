@@ -35,7 +35,8 @@ export const ProjectGeometry = ({
     setHighlightedStream,
     setStreamsIds,
     setStreamsList,
-    setStreamIntersected
+    setStreamIntersected,
+    setIsGeomDrawn
   } = useProjectDispatch();
   const formatterIntegers = new Intl.NumberFormat('en-US', {
     minimumFractionDigits: 0,
@@ -243,6 +244,7 @@ export const ProjectGeometry = ({
 
   const clearTableAndGeom = () => {
     setStreamIntersected({ geom: null });
+    setIsGeomDrawn(false);
     setStreamsList([]);
     setStreamsIds([]);
   }

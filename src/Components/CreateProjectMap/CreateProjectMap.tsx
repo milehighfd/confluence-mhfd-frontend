@@ -151,6 +151,7 @@ const CreateProjectMap = (type: any) => {
     getServiceAreaStreams,
     getStreamsList,
     setUserPolygon,
+    setIsGeomDrawn,
     changeDrawState,
     changeDrawStateCapital,
     getListComponentsByComponentsAndPolygon,
@@ -701,6 +702,7 @@ const CreateProjectMap = (type: any) => {
         geom = cg;
         thisStreamIntersected.geom = componentGeom.geom;
         drawStream = false;
+        setIsGeomDrawn(false);
       } else if (geom.coordinates?.length == 0) {
         setShowIntersectionError(true);
         setLoading(false);
@@ -729,6 +731,7 @@ const CreateProjectMap = (type: any) => {
         }
       }
       if (geom && drawStream) {
+        setIsGeomDrawn(true);
         map.isStyleLoaded(() => {
           map.removeLayer('streamIntersected');
           map.removeSource('streamIntersected');

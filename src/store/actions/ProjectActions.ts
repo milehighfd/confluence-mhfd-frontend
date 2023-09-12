@@ -578,6 +578,12 @@ export const setUserPolygon = (userPolygon: any) => {
   }
 }
 
+export const setIsGeomDrawn = (isGeomDrawn: any) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.IS_GEOM_DRAWN, isGeomDrawn});
+  }
+}
+
 export const getListComponentsByComponentsAndPolygon = (components: any, geom: any) => {
   return (dispatch: Function) => {
     datasets.postData(SERVER.GET_COMPONENTS_WITH_GEOM, {components, geom}, datasets.getToken()).then(listComponents => {
