@@ -245,6 +245,7 @@ const NavbarView = ({
                   type: `${item?.code_project_type?.project_type_name} · ${item?.currentId[0]?.code_phase_type?.phase_name}`,
                   state: item?.currentId[0]?.code_phase_type?.phase_name,
                   id: item?.project_id,
+                  status: item?.currentId[0]?.code_phase_type?.code_status_type?.code_status_type_id,
                 };
               })
             );
