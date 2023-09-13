@@ -880,3 +880,9 @@ export const setGlobalStatusId = (globalStatusId: any) => {
     dispatch({type: types.SET_GLOBAL_STATUS_ID, globalStatusId});
   }
 }
+
+export const setGlobalLocality = (globalLocality: any) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.SET_GLOBAL_LOCALITY, globalLocality});
+  }
+}

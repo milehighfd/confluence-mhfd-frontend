@@ -105,7 +105,8 @@ const initState = {
   globalSearch: false,
   globalProjectData: {
     project_id: 0,
-    status: 0
+    status: 0,
+    locality : ''
   }
 }
 
@@ -443,6 +444,15 @@ const projectReducer = (state = initState, action: any) => {
       }
     }
     case types.SET_GLOBAL_STATUS_ID: {
+      return {
+        ...state,
+        globalProjectData: {
+          ...state.globalProjectData,
+          status: action.globalStatusId
+        }
+      }
+    }
+    case types.SET_GLOBAL_LOCALITY: {
       return {
         ...state,
         globalProjectData: {

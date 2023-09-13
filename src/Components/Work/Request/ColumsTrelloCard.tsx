@@ -22,7 +22,7 @@ const ColumsTrelloCard = ({
   flagforScroll: any
   type: string
 }) => {
-  const { columns2: columns, tabKey, locality, year, namespaceId, boardStatus } = useRequestState();
+  const { columns2: columns, tabKey, locality, year, namespaceId, boardStatus, loadingColumns } = useRequestState();
   const { setVisibleCreateProject, moveProjectsManual, handleMoveFromColumnToColumn } = useRequestDispatch();
   const { userInformation } = useProfileState();
   const { clear } = useAttachmentDispatch();
@@ -63,17 +63,28 @@ const ColumsTrelloCard = ({
     setStreamsIds([]);
     setComponentsFromMap([]);
   };
+  const fakeLoading = useFakeLoadingHook(tabKey);
   
   useEffect(() => {
-    if (globalSearch && globalProjectData.project_id) {
+    if (globalSearch && globalProjectData.project_id  && namespaceId.locality === globalProjectData.locality) {
       scrollTo(globalProjectData.project_id);
     }
-  }, [globalProjectData, columns]);
+  }, [globalProjectData, loadingColumns, namespaceId]);
+  
   const scrollTo = (globalProjectId: any) => {
+    console.log('scrolling')
     const results = columns.map((x: any, index: number) => {
       const row = x.projects.findIndex((y: any) => y.project_id === globalProjectId);
       return { column: index, index: row };
     });
+  
+    if (results.every((x: any) => x.index === -1)) {
+      setGlobalSearch(false);
+      return;
+    }
+  
+    const lastValidIndex = results.reduce((maxIndex:any, x:any, index:any) => x.index !== -1 ? index : maxIndex, -1);
+  
     results.forEach((x: any, index: number) => {
       if (x.index !== -1) {
         setTimeout(() => {
@@ -81,10 +92,12 @@ const ColumsTrelloCard = ({
             behavior: 'smooth',
             block: 'nearest',
           });
-        }, index * 500);
-        setGlobalSearch(false);
+          if (index === lastValidIndex) {
+            setGlobalSearch(false);
+          }
+        }, index * 1000);
       }
-    });    
+    });
   };
   const getColumnProjectType = (code_project_type_id: number) => {
     switch (code_project_type_id) {

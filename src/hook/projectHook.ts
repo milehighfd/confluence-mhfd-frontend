@@ -71,7 +71,8 @@ import {
   setDisableFieldsForLg,
   setGlobalSearch,
   setGlobalProjectId,
-  setGlobalStatusId
+  setGlobalStatusId,
+  setGlobalLocality
 } from '../store/actions/ProjectActions';
 
 export const useProjectState = () => useSelector(
@@ -296,6 +297,9 @@ export const useProjectDispatch = () => {
     },
     setGlobalStatusId: (globalStatusId: any) => {
       dispatch(setGlobalStatusId(globalStatusId))
+    },
+    setGlobalLocality: (globalLocality: any) => {
+      dispatch(setGlobalLocality(globalLocality))
     }
   };
 };
