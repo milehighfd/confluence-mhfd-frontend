@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Redirect, useLocation } from 'react-router-dom';
 import { Badge, Button, Dropdown, Input, Layout, Menu, Modal, Popover, Tabs, Tooltip } from 'antd';
 import { CaretDownOutlined, QuestionCircleOutlined, SearchOutlined } from '@ant-design/icons';
@@ -219,7 +219,21 @@ const NavbarView = ({
     />
   );
 
-  useEffect(() => {
+  const debounce = (func: any, delay: number) => {
+    let timeoutId: any;
+    return (...args: any[]) => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      timeoutId = setTimeout(() => {
+        func(...args);
+        timeoutId = null;
+      }, delay);
+    };
+  };
+
+  const handleSearch = useCallback(
+    debounce((keyword:any) => {
     let type = 'PROJECT';
     switch (tabActiveSearch) {
       case 'Work Request':
@@ -266,12 +280,33 @@ const NavbarView = ({
           }
         });
     }
-  }, [tabActiveSearch, activeSearch]);
+    }, 500),
+    [tabActiveSearch, activeSearch]
+  );
+
+  useEffect(() => {
+    handleSearch(keyword);
+  }, [keyword, handleSearch]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: any) => {
+      if (activeSearch && event.target.closest('.navbar-search-content') === null) {
+        setActiveSearch(false);
+      }
+    };
+  
+    document.addEventListener('mousedown', handleClickOutside);
+  
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [activeSearch]);
+  
   const setDetailOpen = (value: boolean) => {
     if (!value) {
-      setProjectData({})
+      setActiveSearch(false);
     }
-  }
+  };
   if (redirect) {
     return <Redirect to="/login" />
   }
@@ -293,7 +328,10 @@ const NavbarView = ({
       placeholder="Search"
       prefix={<SearchOutlined onClick={() => setActiveSearch(!activeSearch)} />}
       value={keyword}
-      onChange={(e) => setKeyword(e.target.value)}
+      onChange={(e) => {
+        setKeyword(e.target.value)          
+        setActiveSearch(true);
+      }}
     />
     {activeSearch && <div style={{position:'absolute'}} className='navbar-search-content'>
       <div className="navbar-search-tooltip">
