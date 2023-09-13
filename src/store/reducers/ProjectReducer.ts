@@ -57,6 +57,7 @@ const initState = {
   specialLocation: [],
   acquisitionLocation: [],
   userPolygon: [],
+  isGeomDrawn: false,
   streamIntersected: [],
   isDraw: false,
   isDrawCapital: false,
@@ -264,6 +265,12 @@ const projectReducer = (state = initState, action: any) => {
       return {
         ...state, 
         userPolygon: action.userPolygon
+      }
+    }
+    case types.IS_GEOM_DRAWN: {
+      return {
+        ...state, 
+        isGeomDrawn: action.isGeomDrawn
       }
     }
     case types.SET_COMPONENTS_MAP: {

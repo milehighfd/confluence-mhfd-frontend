@@ -7,7 +7,6 @@ import * as Yup from 'yup';
 import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import { useProfileDispatch } from 'hook/profileHook';
-import { useAppUserDispatch } from 'hook/useAppUser';
 import { useMapDispatch } from 'hook/mapHook';
 import { REQUIRED } from 'routes/login/components/constantsLogin';
 import { GlobalMapHook } from 'utils/globalMapHook';
@@ -32,7 +31,7 @@ const LoginView = () => {
     resetAppUser,
     resetProfile,
     addNotifications
-  } = useAppUserDispatch();
+  } = useProfileDispatch();
   const [emailModal, setEmailModal] = useState(false);
   const { resetMap } = useMapDispatch();
   const [emailOnBlur, setEmailOnBlur] = useState(false);

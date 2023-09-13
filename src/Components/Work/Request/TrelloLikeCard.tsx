@@ -12,7 +12,7 @@ import { boardType } from './RequestTypes';
 import { MoreOutlined } from '@ant-design/icons';
 import { CopyProjectAlert } from './CopyProjectAlert';
 import { useRequestState } from 'hook/requestHook';
-import { STATUS_NAMES } from 'constants/constants';
+import { BOARD_STATUS_TYPES, STATUS_NAMES } from 'constants/constants';
 import EditDatesModal from './EditDatesModal';
 import { useProfileState } from 'hook/profileHook';
 import { ArchiveAlert } from 'Components/Alerts/ArchiveAlert';
@@ -39,7 +39,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   divRef:any,
   cardRefs?:any
 }) => {
-  const { showFilters: filtered, loadingColumns } = useRequestState();
+  const { showFilters: filtered, loadingColumns, boardStatus } = useRequestState();
   const {setZoomProject, updateSelectedLayers, archiveProject, setGlobalSearch} = useProjectDispatch();
   const {
     globalSearch,
@@ -110,6 +110,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
       onClick: (() => getCompleteProjectData())
     }, {
       key: '1',
+      disabled: boardStatus === BOARD_STATUS_TYPES.APPROVED,
       label: <span style={{borderBottom: '1px solid transparent'}}>
         <img src="/Icons/icon-90.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px', marginRight: '4px' }} />
         Edit Amount

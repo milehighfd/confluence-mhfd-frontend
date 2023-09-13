@@ -6,7 +6,7 @@ import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { useProfileState } from 'hook/profileHook';
 import TrelloLikeCard from 'Components/Work/Request/TrelloLikeCard';
-import { ADMIN, STAFF } from 'constants/constants';
+import { ADMIN, BOARD_STATUS_TYPES, STAFF } from 'constants/constants';
 import ColorService from 'Components/Work/Request/ColorService';
 import useFakeLoadingHook from 'hook/custom/useFakeLoadingHook';
 
@@ -157,7 +157,7 @@ const ColumsTrelloCard = ({
     <DragDropContext
       onDragEnd={result => {
         const { source, destination } = result;
-        if (!destination) {
+        if (!destination || boardStatus === BOARD_STATUS_TYPES.APPROVED) {
           return;
         }
         const sourceColumn = +source.droppableId;

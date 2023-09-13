@@ -5,14 +5,14 @@ import { ArrowRightOutlined } from '@ant-design/icons';
  
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
-import { useAppUserDispatch } from '../../../hook/useAppUser';
 import { Redirect } from 'react-router-dom';
+import { useProfileDispatch } from 'hook/profileHook';
 
 const ContinueAsGuest = () => {
   const {
     replaceAppUser,
     saveUserInformation
-  } = useAppUserDispatch();
+  } = useProfileDispatch();
   const [redirect, setRedirect] = useState(false);
 
   const redirectGuest = () => {

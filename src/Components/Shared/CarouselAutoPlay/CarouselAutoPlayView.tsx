@@ -2,18 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Col, Carousel, Anchor, Button } from "antd";
 import { SERVER } from "../../../Config/Server.config";
 import { ArrowRightOutlined } from '@ant-design/icons';
-import { useCarouselImagesDispatch, useCarouselImagesState } from "../../../hook/carouselHook";
 import * as datasets from "../../../Config/datasets";
-import { useAppUserDispatch } from "../../../hook/useAppUser";
 import { Redirect } from "react-router-dom";
+import { useProfileDispatch } from "hook/profileHook";
 
 const CarouselAutoPlayView = () => {
-  const { getCarouselImages } = useCarouselImagesDispatch();
-  const { images } = useCarouselImagesState();
+  const [images, setImages] = useState<any>([]);  
   const {
     replaceAppUser,
     saveUserInformation
-  } = useAppUserDispatch();
+  } = useProfileDispatch();
   const [redirect, setRedirect] = useState(false);
   const { Link } = Anchor;
   const redirectGuest = () => {
@@ -29,7 +27,11 @@ const CarouselAutoPlayView = () => {
     })
   };
   useEffect(() => {
-    getCarouselImages();
+    datasets.getData(SERVER.GET_IMAGE_DRIVE, datasets.getToken()).then(images => {
+      if(images) {
+        setImages(images);
+      }
+    });
   }, []);
   if (redirect) {
     return <Redirect to="/map" />
@@ -68,8 +70,8 @@ const CarouselAutoPlayView = () => {
         </Anchor>
       </div>
     </div>
-    <Carousel autoplay autoplaySpeed={6000}>
-      {images.map((image: string, index: number) => {
+    {images.length && <Carousel autoplay autoplaySpeed={6000}>
+      {images?.map((image: string, index: number) => {
         if (!image) return null;
         return <div key={index}>
           <img src={SERVER.BASE_URL_IMAGES + encodeURI(image)} className={"img-banner"} alt="" />
@@ -79,7 +81,8 @@ const CarouselAutoPlayView = () => {
           </div>
         </div>
       })}
-    </Carousel>
+    </Carousel>}
+    
   </Col>
 };
 

@@ -17,7 +17,6 @@ import { UploadImagesDocuments } from 'Components/Project/TypeProjectComponents/
 import { useMapState } from 'hook/mapHook';
 import { DownOutlined, HeartFilled, HeartOutlined, UpOutlined } from '@ant-design/icons';
 import TypeProjectsFilter from 'Components/FiltersProject/TypeProjectsFilter/TypeProjectsFilter';
-import { useAppUserState } from 'hook/useAppUser';
 
 const { Option } = Select;
 const content = (<div className="popver-info">The purchase of property that is shown to have high flood risk or is needed to implement master plan improvements.</div>);
@@ -78,14 +77,13 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
   var year = date.getFullYear();
   const [currentYear, setCurrentYear] = useState(2023);
   const [lengthName, setlengthName] = useState(0);
-  const appUser = useAppUserState();
-  const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
+  const {userInformation} = useProfileState();
+  const showCheckBox = userInformation.designation === ADMIN || userInformation.designation === STAFF;
   const { toggleAttachmentCover, removeAttachment } = useAttachmentDispatch();
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
   const pageWidth  = document.documentElement.scrollWidth;
   const { tabActiveNavbar } = useMapState();
   const isWorkPlan = tabActiveNavbar === WORK_PLAN_TAB;
-  const { userInformation } = useProfileState();
   const [isEditingPosition,setIsEditingPosition ]= useState(false)
   const [openDropdownTypeProject, setOpenDropdownTypeProject] = useState(false);
   const [activeTabBodyProject, setActiveTabBodyProject] = useState('Details');

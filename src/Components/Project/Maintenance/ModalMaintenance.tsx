@@ -16,7 +16,6 @@ import { useMapState } from 'hook/mapHook';
 import TypeProjectsFilter from 'Components/FiltersProject/TypeProjectsFilter/TypeProjectsFilter';
 import { DownOutlined, HeartFilled, HeartOutlined, UpOutlined } from '@ant-design/icons';
 import { COLUMNS_GEOMEOTRY, DATA_SOURCE_GEOMEOTRY } from '../Constants/Constants';
-import { useAppUserState } from 'hook/useAppUser';
 
 const { Option } = Select;
 const content = (<div className="popver-info"> Projects that repair or restore existing infrastructure and are eligible for MHFD participation.</div>);
@@ -75,14 +74,13 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   const [lengthName, setlengthName] = useState(0);
   const history = useHistory();
   const textRef = useRef<any>(null);
-  const appUser = useAppUserState();
-  const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
+  const {userInformation} = useProfileState();
+  const showCheckBox = userInformation.designation === ADMIN || userInformation.designation === STAFF;
   const { toggleAttachmentCover, removeAttachment } = useAttachmentDispatch();
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
   const pageWidth  = document.documentElement.scrollWidth;
   const { tabActiveNavbar } = useMapState();
   const isWorkPlan = tabActiveNavbar === WORK_PLAN_TAB;
-  const { userInformation } = useProfileState();
   const [favorite, setFavorite] = useState(false);
   const [activeTabBodyProject, setActiveTabBodyProject] = useState('Details');
   const [openDropdownTypeProject, setOpenDropdownTypeProject] = useState(false);

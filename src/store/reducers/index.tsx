@@ -1,12 +1,10 @@
 import {combineReducers} from 'redux'
 import { connectRouter } from 'connected-react-router';
 import users from './usersReducer';
-import appUser from './appUser';
 import profile from './ProfileReducer'
 import project from './ProjectReducer'
 
 import mapReducer from './mapReducer';
-import carouselImages from './carouselImagesReducer';
 import uploadAttachment from './uploadAttachmentReducer';
 import detailedReducer from './detailedReducer'; 
 import notesReducer from './notesReducer';
@@ -18,10 +16,8 @@ const appReducer = (history: any, config: any) => {
   return combineReducers({
     router: connectRouter(history),
     map: mapReducer,
-    appUser,
     users,
     profile,
-    carouselImages,
     uploadAttachment,
     project,
     notes: notesReducer,

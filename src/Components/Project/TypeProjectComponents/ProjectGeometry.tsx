@@ -34,7 +34,9 @@ export const ProjectGeometry = ({
     setHighlightedStreams,
     setHighlightedStream,
     setStreamsIds,
-    setStreamsList
+    setStreamsList,
+    setStreamIntersected,
+    setIsGeomDrawn
   } = useProjectDispatch();
   const formatterIntegers = new Intl.NumberFormat('en-US', {
     minimumFractionDigits: 0,
@@ -240,6 +242,13 @@ export const ProjectGeometry = ({
     
   }
 
+  const clearTableAndGeom = () => {
+    setStreamIntersected({ geom: null });
+    setIsGeomDrawn(false);
+    setStreamsList([]);
+    setStreamsIds([]);
+  }
+
   const [columnsGeometry, setColumnsGeometry] = useState(columnsGeometryDefault);
   useEffect(() => {
     if (type !== 'study') {
@@ -259,6 +268,11 @@ export const ProjectGeometry = ({
             <img src="/Icons/icon-08.svg" className="icon-draw" style={{ WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat' }} />
             <p className='text-body-project'>Click on the icon above and draw a polygon to define the project feature</p>
           </div>
+        )}
+        {Object.keys(listStreams).length > 0 && (
+          <p className='requiered-text'>
+            <span className='requiered' onClick={()=> clearTableAndGeom()}>Clear Table</span>
+          </p>
         )}
         {streamListdata.length > 0 && (
           <Table
