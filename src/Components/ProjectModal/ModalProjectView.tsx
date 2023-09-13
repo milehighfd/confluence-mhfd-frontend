@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Input, Row, Col, Popover } from 'antd';
 import { ModalCapital } from 'Components/Project/Capital/ModalCapital';
-import { ModalAcquisition } from 'Components/Project/Acquisition/ModalAcquisition';
-import { ModalMaintenance } from 'Components/Project/Maintenance/ModalMaintenance';
-import { ModalSpecial } from 'Components/Project/Special/ModalSpecial';
-import { ModalStudy } from 'Components/Project/Study/ModalStudy';
 import { NEW_PROJECT_TYPES, MAINTENANCE_IDS, MAINTENANCE } from 'constants/constants';
 import { useProjectDispatch } from 'hook/projectHook';
 import { getAllowedBasedOnLocality } from 'Components/Work/Request/RequestViewUtil';
@@ -223,51 +219,6 @@ const ModalProjectView = ({
       problemId= {problemId}
       subTypeInit={subType}
      />}
-     {/* {visibleAcquisition && <ModalAcquisition
-      visibleAcquisition = {visibleAcquisition} 
-      setVisibleAcquisition = {setVisibleAcquisition}
-      nameProject = {nameProject}
-      setNameProject = {setNameProject}
-      typeProject = {typeProject}
-      setVisible = {setVisible}
-      locality = {locality}
-      data={data}
-      editable= {editable}
-     />}
-     {visibleMaintenance && <ModalMaintenance
-      visibleMaintenance = {visibleMaintenance} 
-      setVisibleMaintenance = {setVisibleMaintenance}
-      nameProject = {nameProject}
-      setNameProject = {setNameProject}
-      subType = {subType}
-      typeProject = {typeProject}
-      setVisible = {setVisible}
-      locality = {locality}
-      data={data}
-      editable= {editable}
-     />}
-     {visibleSpecial && <ModalSpecial
-      visibleSpecial = {visibleSpecial} 
-      setVisibleSpecial = {setVisibleSpecial}
-      nameProject = {nameProject}
-      setNameProject = {setNameProject}
-      typeProject = {typeProject}
-      setVisible = {setVisible}
-      locality = {locality}
-      data={data}
-      editable= {editable}
-     />}
-     {visibleStudy && <ModalStudy
-      visibleStudy = {visibleStudy} 
-      setVisibleStudy = {setVisibleStudy}
-      nameProject = {nameProject}
-      setNameProject = {setNameProject}
-      typeProject = {typeProject}
-      setVisible = {setVisible}
-      locality = {locality}
-      data={data}
-      editable= {editable}
-     />} */}
      {visibleModal && <Modal
        title="Create Project"
        centered
