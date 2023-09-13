@@ -64,12 +64,12 @@ const ColumsTrelloCard = ({
     setComponentsFromMap([]);
   };
   const fakeLoading = useFakeLoadingHook(tabKey);
-  
   useEffect(() => {
-    if (globalSearch && globalProjectData.project_id  && namespaceId.locality === globalProjectData.locality) {
+    const nameSpaceLocality = namespaceId.locality === 'MHFD District Work Plan' ? 'Mile High Flood District' : namespaceId.locality;
+    if (globalSearch && globalProjectData.project_id  && nameSpaceLocality === globalProjectData.locality && !fakeLoading && !loadingColumns) {
       scrollTo(globalProjectData.project_id);
     }
-  }, [globalProjectData, loadingColumns, namespaceId]);
+  }, [globalProjectData, loadingColumns, namespaceId, fakeLoading]);
   
   const scrollTo = (globalProjectId: any) => {
     console.log('scrolling')
@@ -92,9 +92,9 @@ const ColumsTrelloCard = ({
             behavior: 'smooth',
             block: 'nearest',
           });
-          if (index === lastValidIndex) {
-            setGlobalSearch(false);
-          }
+          // if (index === lastValidIndex) {
+          //   setGlobalSearch(false);
+          // }
         }, index * 1000);
       }
     });

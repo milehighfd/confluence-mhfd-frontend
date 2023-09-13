@@ -457,7 +457,7 @@ const projectReducer = (state = initState, action: any) => {
         ...state,
         globalProjectData: {
           ...state.globalProjectData,
-          status: action.globalStatusId
+          locality: action.globalLocality
         }
       }
     }

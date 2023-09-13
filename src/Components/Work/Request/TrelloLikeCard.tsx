@@ -28,7 +28,7 @@ const formatter = new Intl.NumberFormat('en-US', {
 const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, tabKey, editable, locality, borderColor, divRef, cardRefs }: {
   year: number,
   type: boardType,
-  namespaceId: string,
+  namespaceId: any,
   project: any,
   columnIdx: number,
   rowIdx: number,
@@ -39,8 +39,8 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   divRef:any,
   cardRefs?:any
 }) => {
-  const { showFilters: filtered } = useRequestState();
-  const {setZoomProject, updateSelectedLayers, archiveProject} = useProjectDispatch();
+  const { showFilters: filtered, loadingColumns } = useRequestState();
+  const {setZoomProject, updateSelectedLayers, archiveProject, setGlobalSearch} = useProjectDispatch();
   const {
     globalSearch,
     globalProjectData
@@ -63,7 +63,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   const [visibleModal, setVisibleModal] = useState(false);
   const [selectedProjectData, setSelectedProjectData] = useState<any>(null);
   const activeProject = project?.projectData?.currentId[0]?.status_name === 'Active';
-  const [globalProject, setGlobalProject] = useState(globalProjectData.project_id === project?.projectData?.project_id);
+  const [globalProject, setGlobalProject] = useState(false);
   const appUser = useProfileState();
   const pageWidth  = document.documentElement.scrollWidth;
   const getCompleteProjectData = async () => {
@@ -71,6 +71,14 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
     const dataFromDB = await getData(SERVER.V2_DETAILED_PAGE(dataForBoard.project_id), getToken());
     setCompleteProjectData({...dataFromDB, tabKey}); 
   }
+
+  useEffect(() => {
+    const localityValue = namespaceId.locality === 'MHFD District Work Plan' ? 'Mile High Flood District' : namespaceId.locality;
+    if ((globalProjectData.project_id === project?.projectData?.project_id) && globalProjectData.locality === localityValue){
+      setGlobalProject(true);
+      setGlobalSearch(false);
+    }
+  }, [globalProjectData]);
 
   const copyProjectToCurrent = () => {
     postData(
@@ -192,6 +200,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
       }, 10000);
     }
   }, [globalProject]);
+  
 
   useEffect(() => {
     if (archiveProjectAction) {
