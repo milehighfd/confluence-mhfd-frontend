@@ -18,7 +18,6 @@ import { formatPhoneNumber } from 'utils/utils';
 import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
 import { useProfileDispatch } from 'hook/profileHook';
 
-
 const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUser: Function, setExpandedRow: React.Dispatch<React.SetStateAction<boolean>> }) => {
   const [organization, setOrganization] = useState('');
   const [zoomarea, setZoomArea] = useState('');
@@ -583,7 +582,6 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUs
   }
   return (
     <>
-    {/* <ConfirmationSave visible={confirmation} setVisible={setConfirmation} /> */}
     <Alert save={result} visible={{visible:saveAlert}} setVisible={setSaveAlert} message={message}/>
       <div className="profile-user">
         <Row>
