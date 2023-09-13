@@ -5,75 +5,6 @@ import { loadColumns, loadFilters, loadOneColumn } from 'store/actions/requestAc
 import * as turf from '@turf/turf';
 import { depth } from 'routes/map/components/MapFunctionsUtilities';
 
-export const saveSpecial = (data: any) => {
-  return ( dispatch: Function, getState: Function) => {
-    const { request: { namespaceId } } = getState();
-    const formData = new FormData();
-    let covername = '';
-    Object.keys(data).forEach((key: string) => {
-      if (key === 'geom') {
-        formData.append(key, JSON.stringify(data[key]));
-      } else if (key === 'files') {
-        data[key].forEach((o: any, i: number) => {          
-          if (o.is_cover || o.cover) {
-            covername = o.file_name;
-          }
-          formData.append(key, o.file);
-        });
-      } else if (key === 'cover') {
-        formData.append(key, covername);
-      } else {
-        formData.append(key, data[key]);
-      }
-    })
-    datasets.postDataMultipart(SERVER.CREATE_PROJECT_GENERAL, formData, datasets.getToken()).then(res => {
-      let status ; 
-      if(res && res.total_rows && res.total_rows > 0 ){
-        status = 1;
-      }else{
-        status = 0;
-      }
-      dispatch(loadOneColumn(0));
-      dispatch({ type: types.SET_SAVE, status });
-      callArcGisProcess(data, res.project_data.project_id, 'create');
-    })
-  };
-};
-
-export const saveAcquisition = (data: any) => {
-  return ( dispatch: Function, getState: Function) => {
-    const { request: { namespaceId } } = getState();
-    const formData = new FormData();
-    let covername = '';
-    Object.keys(data).forEach((key: string) => {
-      if (key === 'geom') {
-        formData.append(key, JSON.stringify(data[key]));
-      } else if (key === 'files') {
-        data[key].forEach((o: any, i: number) => {          
-          if (o.is_cover || o.cover) {
-            covername = o.file_name;
-          }
-          formData.append(key, o.file);
-        });
-      } else if (key === 'cover') {
-        formData.append(key, covername);
-      } else {
-        formData.append(key, data[key]);
-      }
-    });
-    datasets.postDataMultipart(SERVER.CREATE_PROJECT_GENERAL, formData, datasets.getToken()).then(res => {
-      let status ; 
-      if(res && res.total_rows && res.total_rows > 0 ){
-        status = 1;
-      }else{
-        status = 0;
-      }
-      dispatch(loadOneColumn(0));
-      dispatch({ type: types.SET_SAVE, status });
-      callArcGisProcess(data, res.project_data.project_id, 'create');
-    })
-  };
-};
 const callArcGisProcess = (data: any, project_id: any, typeprocess: string) => {
   try {
     let geomData;
@@ -144,234 +75,6 @@ export const saveCapital = (data: any) => {
     })
   };
 };
-export const saveMaintenance = (data: any) => {
-  return ( dispatch: Function, getState: Function) => {
-    const { request: { namespaceId } } = getState();
-    const formData = new FormData();
-    let covername = '';
-    Object.keys(data).forEach((key: string) => {
-      if (key === 'geom') {
-        formData.append(key, data[key]);
-      } else if (key === 'files') {
-        data[key].forEach((o: any, i: number) => {          
-          if (o.is_cover || o.cover) {
-            covername = o.file_name;
-          }
-          formData.append(key, o.file);
-        });
-      } else if (key === 'cover') {
-        formData.append(key, covername);
-      } else {
-        if (key === 'frequency' && data[key] === 'None') {
-          data[key] = 0;
-        }
-        formData.append(key, data[key]);
-      }
-    })
-    datasets.postDataMultipart(SERVER.CREATE_PROJECT_GENERAL, formData, datasets.getToken()).then(res => {
-      let status ; 
-      if(res && res.total_rows && res.total_rows > 0 ){
-        status = 1;
-      }else{
-        status = 0;
-      }
-      dispatch(loadOneColumn(0));
-      dispatch({ type: types.SET_SAVE, status });
-      callArcGisProcess(data, res.project_data.project_id, 'create');
-    }).catch((err) => {
-      console.log('Here is the error of creationg', err);
-    })
-  };
-};
-export const saveOverheadCost = (data: any) => {
-  return ( dispatch: Function, getState: Function) => {
-    const { request: { namespaceId } } = getState();
-    console.log('FORMDATA', data)
-    datasets.postDataMultipart(SERVER.PROJECT_COST_OVERHEAD, data, datasets.getToken()).then(res => {
-      let status ; 
-      if(res && res.total_rows && res.total_rows > 0 ){
-        status = 1;
-      }else{
-        status = 0;
-      }
-      dispatch(loadOneColumn(0));
-      dispatch({ type: types.SET_SAVE, status });
-    })
-  };
-};
-export const saveStudy = (data: any) => {
-  return ( dispatch: Function, getState: Function) => {
-    const { request: { namespaceId } } = getState();
-    const formData = new FormData();
-    let covername = '';
-    Object.keys(data).forEach((key: string) => {
-      if (key === 'geom' || key === 'ids' || key === 'streams') {
-        formData.append(key, JSON.stringify(data[key]));
-      } else if (key === 'files') {
-        data[key].forEach((o: any, i: number) => {          
-          if (o.is_cover || o.cover) {
-            covername = o.file_name;
-          }
-          formData.append(key, o.file);
-        });
-      } else if (key === 'cover') {
-        formData.append(key, covername);
-      } else {
-        formData.append(key, data[key]);
-      }
-    });
-    datasets.postDataMultipart(SERVER.CREATE_PROJECT_GENERAL, formData, datasets.getToken()).then(res => {
-      let status ; 
-      if(res && res.total_rows && res.total_rows > 0 ){
-        status = 1;
-      }else{
-        status = 0;
-      }
-      dispatch(loadOneColumn(0));
-      dispatch({ type: types.SET_SAVE, status });
-      callArcGisProcess(data, res.project_data.project_id, 'create');
-    })
-  };
-};
-export const editSpecial = (data: any) => {
-  return ( dispatch: Function, getState: Function) => {
-    const { request: { namespaceId } } = getState();
-    const formData = new FormData();
-    let covername = '';
-    Object.keys(data).forEach((key: string) => {
-      if (key === 'geom') {
-        formData.append(key, JSON.stringify(data[key]));
-      } else if (key === 'files') {
-        data[key].forEach((o: any, i: number) => {          
-          if (o.is_cover || o.cover) {
-            covername = o.file_name;
-          }
-          formData.append(key, o.file);
-        });
-      } else if (key === 'cover') {
-        formData.append(key, covername);
-      } else {
-        formData.append(key, data[key]);
-      }
-    })
-    datasets.postDataMultipart(SERVER.EDIT_PROJECT(data.editProject), formData, datasets.getToken()).then(res => {
-      let status ; 
-      if(res && res.total_rows && res.total_rows > 0 ){
-        status = 1;
-      }else{
-        status = 0;
-      }
-      dispatch(loadOneColumn(0));
-      dispatch({ type: types.SET_EDIT, status });
-      callArcGisProcess(data, data.editProject, 'edit');
-    })
-  };
-};
-export const editAcquisition = (data: any) => {
-  return ( dispatch: Function, getState: Function) => {
-    const { request: { namespaceId } } = getState();
-    const formData = new FormData();
-    let covername = '';
-    Object.keys(data).forEach((key: string) => {
-      if (key === 'geom') {
-        formData.append(key, JSON.stringify(data[key]));
-      } else if (key === 'files') {
-        data[key].forEach((o: any, i: number) => {          
-          if (o.is_cover || o.cover) {
-            covername = o.file_name;
-          }
-          formData.append(key, o.file);
-        });
-      } else if (key === 'cover') {
-        formData.append(key, covername);
-      } else {
-        formData.append(key, data[key]);
-      }
-    })
-    datasets.postDataMultipart(SERVER.EDIT_PROJECT(data.editProject), formData, datasets.getToken()).then(res => {
-      
-      let status ; 
-      if(res && res.total_rows && res.total_rows > 0 ){
-        status = 1;
-      }else{
-        status = 0;
-      }
-      dispatch(loadOneColumn(0));
-      dispatch({ type: types.SET_EDIT, status });
-      callArcGisProcess(data, data.editProject, 'edit');
-    })
-  };
-};
-export const editStudy = (data: any) => {
-  return ( dispatch: Function, getState: Function) => {
-    const { request: { namespaceId } } = getState();
-    const formData = new FormData();
-    let covername = '';
-    Object.keys(data).forEach((key: string) => {
-      if (key === 'geom' || key === 'ids' || key === 'streams') {
-        formData.append(key, JSON.stringify(data[key]));
-      } else if (key === 'files') {
-        data[key].forEach((o: any, i: number) => {          
-          if (o.is_cover || o.cover) {
-            covername = o.file_name;
-          }
-          formData.append(key, o.file);
-        });
-      } else if (key === 'cover') {
-        formData.append(key, covername);
-      } else {
-        formData.append(key, data[key]);
-      }
-    })
-    datasets.postDataMultipart(SERVER.EDIT_PROJECT(data.editProject), formData, datasets.getToken()).then(res => {
-      
-      let status ; 
-      if(res && res.total_rows && res.total_rows > 0 ){
-        status = 1;
-      }else{
-        status = 0;
-      }
-      dispatch(loadOneColumn(0));
-      dispatch({ type: types.SET_EDIT, status });
-      callArcGisProcess(data, data.editProject, 'edit');
-    })
-  };
-};
-export const editMaintenance = (data: any) => {
-  return ( dispatch: Function, getState: Function) => {
-    const { request: { namespaceId } } = getState();
-    const formData = new FormData();
-    let covername = '';
-    Object.keys(data).forEach((key: string) => {
-      if (key === 'geom') {
-        formData.append(key, data[key]);
-      } else if (key === 'files') {
-        data[key].forEach((o: any, i: number) => {          
-          if (o.is_cover || o.cover) {
-            covername = o.file_name;
-          }
-          formData.append(key, o.file);
-        });
-      } else if (key === 'cover') {
-        formData.append(key, covername);
-      } else {
-        formData.append(key, data[key]);
-      }
-    })
-    datasets.postDataMultipart(SERVER.EDIT_PROJECT(data.editProject), formData, datasets.getToken()).then(res => {
-      
-      let status ; 
-      if(res && res.total_rows && res.total_rows > 0 ){
-        status = 1;
-      }else{
-        status = 0;
-      }
-      dispatch(loadOneColumn(0));
-      dispatch({ type: types.SET_EDIT, status });
-      callArcGisProcess(data, data.editProject, 'edit');
-    })
-  };
-};
 export const editCapital = (data: any) => {
   return ( dispatch: Function, getState: Function) => {
     const { request: { namespaceId } } = getState();
@@ -438,15 +141,6 @@ export const saveAcquisitionLocation = (acquisitionLocation: any) => {
   };
 };
 
-export const getStreamIntersection = (geom: any) => {
-  return ( dispatch: Function) => {
-    datasets.postData(SERVER.GET_STREAM_INTERSECTION, {geom: geom}, datasets.getToken()).then(res => {
-      let streamIntersected = res;
-        dispatch({type: types.SET_STREAM_INTERSECTED, streamIntersected});
-    });
-  }
-}
-
 // get clipped streams
 export const getStreamIntersectionPolygon = (geom: any) => {
   return ( dispatch: Function) => {
@@ -487,15 +181,6 @@ export const changeDrawStateCapital = (isDrawCapital: boolean) => {
 export const changeAddLocationState = (isAddLocation: boolean) => {
   return (dispatch: Function) => {
     dispatch({type: types.ADD_LOCATION, isAddLocation});
-  }
-}
-export const getComponentsIntersected = (geom: any) => {
-  
-  return (dispatch: Function) => {
-    datasets.postData(SERVER.GET_LIST_COMPONENTS, {geom:geom}, datasets.getToken()).then(res => {
-      let listComponents = res;
-      dispatch({type: types.SET_LIST_COMPONENTS, listComponents});
-    });  
   }
 }
 
@@ -651,13 +336,6 @@ export const setZoomGeom = (zoomGeom: any) => {
     dispatch({type: types.SET_ZOOM_GEOM, zoomGeom})
   }
 }
-export const getStreamsByComponentsList = (components: any) => {
-  return (dispatch: Function) => {
-    datasets.postData(SERVER.GET_STREAMS_BY_COMPONENTS, {components, geom:null}, datasets.getToken()).then( streamIntersected => {
-      dispatch({type: types.SET_STREAM_INTERSECTED, streamIntersected});
-    } )
-  }
-}
 
 export const getAllComponentsByProblemId = (problemId: any) => {
   return (dispatch: Function) => {
@@ -758,16 +436,6 @@ export const setHighlightedStream = (highlightedStream: any) => {
 export const setHighlightedStreams = (highlightedStreams: any) => {
   return (dispatch: Function) => {
     dispatch({type: types.SET_HIGHLIGHTED_STREAMS, highlightedStreams});
-  }
-}
-export const setHighlightedProblem = (highlightedProblem: any) => {
-  return (dispatch: Function) => {
-    dispatch({ type: types.SET_HIGHLIGHTED_PROB, highlightedProblem});
-  }
-}
-export const setBoardProjects = (boardProjects: any) => {
-  return (dispatch: Function) => {
-    dispatch({type: types.SET_BOARD_PROJECTS, boardProjects});
   }
 }
 export const setBoardProjectsCreate = (boardProjectsCreate: any) => {
