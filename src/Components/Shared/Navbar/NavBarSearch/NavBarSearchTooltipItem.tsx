@@ -19,18 +19,20 @@ interface NavBarSearchTooltipCardProps {
 const NavBarSearchTooltipItem = ({ title, cards, tabActiveSearch }: { title: string; cards: NavBarSearchTooltipCardProps[]; tabActiveSearch: string }) => {
   const history = useHistory();
   const { 
-    setTabActiveNavbar 
+    setTabActiveNavbar,
+    resetFilterProjectOptionsEmpty
   } =  useMapDispatch();
   const {
     setLocality,
     setTabKey,
     setYear,
-    setLocalityFilter
+    setLocalityFilter,
   } = useRequestDispatch();
   const {
     setGlobalSearch,
     setGlobalProjectId,
-    setGlobalStatusId
+    setGlobalStatusId,    
+    setGlobalLocality,
   } = useProjectDispatch();
   return (
     <div className="navbar-search-tooltip-item">
@@ -62,8 +64,13 @@ const NavBarSearchTooltipItem = ({ title, cards, tabActiveSearch }: { title: str
                 projectType = card?.projectType || '';
               }
               setYear(card?.year || 0);
-              setLocality(card?.locality || '');
-              setLocalityFilter(card?.locality || '');
+              let _locality = card?.locality || '';
+              if (_locality === 'MHFD District Work Plan') {
+                _locality = 'Mile High Flood District';
+              }
+              setGlobalLocality(_locality || '');
+              setLocality(_locality || '');
+              setLocalityFilter(_locality || '');
               setTabKey(projectType);
               history.push({
                 pathname: "map",
@@ -72,6 +79,7 @@ const NavBarSearchTooltipItem = ({ title, cards, tabActiveSearch }: { title: str
             } else if (type === WORK_PLAN) {
               setGlobalSearch(true)
               setGlobalProjectId(card?.id || 0);
+              console.log(card)
               setTabActiveNavbar(WORK_PLAN);
               let projectType = '';
               if (card?.projectType === 'CIP') {
@@ -80,14 +88,20 @@ const NavBarSearchTooltipItem = ({ title, cards, tabActiveSearch }: { title: str
                 projectType = card?.projectType || '';
               }
               setYear(card?.year || 0);
-              setLocality(card?.locality || '');
-              setLocalityFilter(card?.locality || '');
+              let _locality = card?.locality || '';
+              if (_locality === 'MHFD District Work Plan') {
+                _locality = 'Mile High Flood District';
+              }
+              setLocality(_locality || '');
+              setGlobalLocality(_locality || '');
+              setLocalityFilter(_locality || '');
               setTabKey(projectType);
               history.push({
                 pathname: "map",
                 search: `?year=${card?.year}&locality=${card?.locality}&tabKey=${projectType}`,
               });
-            } else{
+            } else{              
+              resetFilterProjectOptionsEmpty();
               setGlobalSearch(true)
               setGlobalStatusId(card?.status || 0);
               setGlobalProjectId(card?.id || 0);
