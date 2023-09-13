@@ -1231,7 +1231,7 @@
       .ant-table tfoot > tr > td,
       .ant-table tfoot > tr > th {
         padding: 8px 14px;
-        height: 39px;
+        height: 39.1px;
         color: $purple !important;
       }
       .ant-table-column-sorter-down.active,
@@ -2220,17 +2220,17 @@
   0% {
     border-top: 1px solid rgba(231, 104, 210, 0.6);
     border-bottom: 1px solid rgba(231, 104, 210, 0.6);
-    box-shadow: 0 0 10px #e768d2;
+    box-shadow: -5px 0 10px #e768d2;
   }
   50% {
     border-top: 1px solid rgba(231, 104, 210, 1);
     border-bottom: 1px solid rgba(231, 104, 210, 1);
-    box-shadow: 0 0 20px #e768d2, 0 0 30px #e768d2;
+    box-shadow: -10px 0 20px #e768d2, -10px 0 30px #e768d2;
   }
   100% {
     border-top: 1px solid rgba(231, 104, 210, 0.6);
     border-bottom: 1px solid rgba(231, 104, 210, 0.6);
-    box-shadow: 0 0 10px #e768d2;
+    box-shadow: -5px 0 10px #e768d2;
   }
 }
 .row-active-global {
