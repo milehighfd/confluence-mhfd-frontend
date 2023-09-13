@@ -189,7 +189,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
     if (globalProject) {
       setTimeout(() => {
         setGlobalProject(false);
-      }, 5000);
+      }, 10000);
     }
   }, [globalProject]);
 

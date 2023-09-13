@@ -891,6 +891,23 @@
     .text-first {
       height: 39px;
     }
+    @keyframes glow {
+      0% {
+        border-top: 1px solid rgba(231, 104, 210, 0.6);
+        border-bottom: 1px solid rgba(231, 104, 210, 0.6);
+        box-shadow: 0 0 10px #e768d2;
+      }
+      50% {
+        border-top: 1px solid rgba(231, 104, 210, 1);
+        border-bottom: 1px solid rgba(231, 104, 210, 1);
+        box-shadow: 0 0 20px #e768d2, 0 0 30px #e768d2;
+      }
+      100% {
+        border-top: 1px solid rgba(231, 104, 210, 0.6);
+        border-bottom: 1px solid rgba(231, 104, 210, 0.6);
+        box-shadow: 0 0 10px #e768d2;
+      }
+    }
     .text-search {
       display: flex;
       flex-direction: row;
@@ -2199,8 +2216,27 @@
   background: #fafafa;
   transition: background 0.3s;
 }
+@keyframes glow {
+  0% {
+    border-top: 1px solid rgba(231, 104, 210, 0.6);
+    border-bottom: 1px solid rgba(231, 104, 210, 0.6);
+    box-shadow: 0 0 10px #e768d2;
+  }
+  50% {
+    border-top: 1px solid rgba(231, 104, 210, 1);
+    border-bottom: 1px solid rgba(231, 104, 210, 1);
+    box-shadow: 0 0 20px #e768d2, 0 0 30px #e768d2;
+  }
+  100% {
+    border-top: 1px solid rgba(231, 104, 210, 0.6);
+    border-bottom: 1px solid rgba(231, 104, 210, 0.6);
+    box-shadow: 0 0 10px #e768d2;
+  }
+}
 .row-active-global {
-  border: 1px solid #e768d2;
+  animation: glow 1s infinite;
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
 }
 @media (min-width: 1900px) and (max-width: 2549px) {
   .team-item {

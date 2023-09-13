@@ -222,7 +222,8 @@ const TableBody = ({
       setActiveBorder(true);
       setTimeout(() => {
         setActiveBorder(false);
-      }, 5000);
+        setGlobalSearch(false);
+      }, 10000);
     }
   },[globalSearch])
 
@@ -290,13 +291,11 @@ const TableBody = ({
                 onMouseLeave={(e: any) => {
                   setRowActive(-20);
                 }}
-                style={
-                  {
-                    background: rowActive === d.project_id ? '#fafafa' : 'transparent',
-                    transition: 'background .3s',
-                    border: activeBorder && globalProjectData?.project_id === d.project_id ? '1px solid #e768d2' : ''
-                  }
-                }
+                style={{
+                  background: rowActive === d.project_id ? '#fafafa' : 'transparent',
+                  transition: 'background .3s',
+                  animation: activeBorder && globalProjectData?.project_id === d.project_id ? 'glow 1s infinite' : '',
+                }}
               >
                 <Tooltip placement="top" title={d.rowLabel}>
                   <p onClick={() => {
