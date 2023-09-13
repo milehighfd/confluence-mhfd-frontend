@@ -1,15 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
 import {
   clear,
-  deleteAttachment,
   getAllAttachment,
   getAttachment,
-  getAttachmentByProject,
   removeAttachment,
-  setLoading,
-  toggleAttachment,
   toggleAttachmentCover,
-  uploadFile,
   setProjectId
 } from '../store/actions/uploadAttachmentActions';
 
@@ -26,32 +21,17 @@ export const useAttachmentDispatch = () => {
     getAttachmentProjectId: (projectid: any) => {
       dispatch(getAttachment(projectid));
     },
-    deleteAttachment: (index: number, _id: string) => {
-      dispatch(deleteAttachment(index, _id));
-    },
-    toggleAttachment: (index: number, _id: string) => {
-      dispatch(toggleAttachment(index, _id));
+    getAttachment: (projectid: any) => {
+      dispatch(getAllAttachment(projectid));
     },
     toggleAttachmentCover: (index:number, id: string, value: boolean) => {
       dispatch(toggleAttachmentCover(index, id, value));
     },
-    getAttachment: (projectid: any) => {
-      dispatch(getAllAttachment(projectid));
-    },
     getAllAttachment: (projectid: any) => {
       dispatch(getAllAttachment(projectid));
     },
-    getAttachmentByProject: (projectid: any) => {
-      dispatch(getAttachmentByProject(projectid));
-    },
-    uploadFile(files: any, url: string) {
-      dispatch(uploadFile(files, url))
-    },
     removeAttachment(ids: Array<any>) {
       dispatch(removeAttachment(ids))
-    },
-    setLoading(loading: boolean) {
-      dispatch(setLoading(loading))
     },
     setProjectId(project_id: any) {
       dispatch(setProjectId(project_id))

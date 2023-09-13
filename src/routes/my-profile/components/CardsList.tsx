@@ -6,8 +6,6 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { SORTED_PROBLEMS, SORTED_PROJECTS } from '../../../constants/constants';
 import { useMapDispatch } from '../../../hook/mapHook';
 import { useDetailedState } from '../../../hook/detailedHook';
-import CardsView from 'routes/profile-view/components/CardsView';
-import CardsViewProfile from './CardViewProfile';
 import CardInformationView from 'Components/Shared/CardInformation/CardInformationView';
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from 'Config/Server.config';

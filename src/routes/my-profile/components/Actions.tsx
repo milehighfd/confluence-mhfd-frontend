@@ -1,7 +1,6 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Col, Dropdown, Popover, Row, Select, Tabs } from "antd";
 import React, { useEffect, useState } from "react";
-import CardSearch from "./CardSearch";
 
 const { TabPane } = Tabs;
 const { Option } = Select;
