@@ -40,7 +40,6 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
     setJurisdictionSponsor, 
     setIsEdit,
   } = useProjectDispatch();
-  const {getAttachmentByProject} = useAttachmentDispatch();
   const { organization, groupOrganization } = useProfileState();
   const { deleteAttachmentsIds } = useProjectState();
   const [state, setState] = useState(stateValue);
