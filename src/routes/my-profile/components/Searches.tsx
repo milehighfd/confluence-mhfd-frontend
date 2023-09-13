@@ -5,9 +5,7 @@ import { useMapDispatch, useMapState } from "hook/mapHook";
 import { useProfileState } from "hook/profileHook";
 import React, { useEffect, useState } from "react";
 import { getUserInformation } from "store/actions/ProfileActions";
-import CardSearch from "./CardSearch";
 import CardsList from "./CardsList";
-import ModalEditSearch from "./ModalEditSearch";
 
 const { TabPane } = Tabs;
 const { Option } = Select;
@@ -39,7 +37,6 @@ const Searches = ({
   ]
   return (
   <>     
-    {openModal && <ModalEditSearch visible={openModal} setVisible={setOpenModal}/>}
     <div className="searches-myprofile">
       <Tabs defaultActiveKey={displayedTabKey[0]}
         destroyInactiveTabPane={true}
