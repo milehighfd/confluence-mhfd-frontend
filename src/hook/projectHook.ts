@@ -85,21 +85,6 @@ export const useProjectDispatch = () => {
     setIsEdit: (isEdit: boolean) => {
       dispatch(setIsEdit(isEdit));
     },
-    saveProjectSpecial: (special: any) => {
-      dispatch(saveSpecial(special));
-    },
-    saveProjectAcquisition: (acquisition: any) => {
-      dispatch(saveAcquisition(acquisition));
-    },
-    saveProjectMaintenance: (maintenance: any) => {
-      dispatch(saveMaintenance(maintenance));
-    },
-    saveOverheadCost: (cost: any) => {
-      dispatch(saveOverheadCost(cost));
-    },
-    saveProjectStudy: (study: any) => {
-      dispatch(saveStudy(study));
-    },
     saveProjectCapital: (capital: any) => {
       dispatch(saveCapital(capital));
     },
@@ -108,9 +93,6 @@ export const useProjectDispatch = () => {
     },
     saveAcquisitionLocation: (location: any) => {
       dispatch(saveAcquisitionLocation(location))
-    },
-    getStreamIntersectionSave: (geom: any) => {
-      dispatch(getStreamIntersection(geom));
     },
     getStreamIntersectionPolygon: (geom: any) => {
       dispatch(getStreamIntersectionPolygon(geom));
@@ -126,9 +108,6 @@ export const useProjectDispatch = () => {
     },
     changeAddLocationState: (isAddLocation: boolean) => {
       dispatch(changeAddLocationState(isAddLocation));
-    },
-    getListComponentsIntersected: (geom: any) => {
-      dispatch(getComponentsIntersected(geom));
     },
     setComponentIntersected: (listComponents: any) => {
       dispatch(setComponentIntersected(listComponents));
@@ -150,9 +129,6 @@ export const useProjectDispatch = () => {
     },
     setIsGeomDrawn: (isGeomDrawn: boolean) => {
       dispatch(setIsGeomDrawn(isGeomDrawn));
-    },
-    getStreamsByComponentsList: (components: any) => {
-      dispatch(getStreamsByComponentsList(components));
     },
     getListComponentsByComponentsAndPolygon: (components: any, geom: any) => {
       dispatch(getListComponentsByComponentsAndPolygon(components, geom));
