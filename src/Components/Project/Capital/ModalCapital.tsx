@@ -14,7 +14,6 @@ import { useHistory } from 'react-router-dom';
 import { UploadImagesDocuments } from 'Components/Project/TypeProjectComponents/UploadImagesDocuments';
 import { getProjectOverheadCost } from 'utils/parsers';
 import { useMapState } from 'hook/mapHook';
-import TypeProjectsFilter from 'Components/FiltersProject/TypeProjectsFilter/TypeProjectsFilter';
 import { Header } from '../TypeProjectComponents/Header';
 import FinancialInformation from '../TypeProjectComponents/FinancialInformation';
 import { DropPin } from '../TypeProjectComponents/DropPin';
