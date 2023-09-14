@@ -76,7 +76,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
     const localityValue = namespaceId.locality === 'MHFD District Work Plan' ? 'Mile High Flood District' : namespaceId.locality;
     if ((globalProjectData.project_id === project?.projectData?.project_id) && globalProjectData.locality === localityValue){
       setGlobalProject(true);
-      setGlobalSearch(false);
+      //setGlobalSearch(false);
     }
   }, [globalProjectData]);
 

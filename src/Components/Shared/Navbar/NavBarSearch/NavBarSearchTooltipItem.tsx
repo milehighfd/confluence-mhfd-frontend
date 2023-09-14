@@ -16,7 +16,17 @@ interface NavBarSearchTooltipCardProps {
     projectType?: string;
     status?: number;
   }
-const NavBarSearchTooltipItem = ({ title, cards, tabActiveSearch }: { title: string; cards: NavBarSearchTooltipCardProps[]; tabActiveSearch: string }) => {
+const NavBarSearchTooltipItem = ({
+  title,
+  cards,
+  tabActiveSearch,
+  setActiveSearch,
+}: {
+  title: string;
+  cards: NavBarSearchTooltipCardProps[];
+  tabActiveSearch: string;
+  setActiveSearch: Function;
+}) => {
   const history = useHistory();
   const { 
     setTabActiveNavbar,
@@ -72,6 +82,7 @@ const NavBarSearchTooltipItem = ({ title, cards, tabActiveSearch }: { title: str
               setLocality(_locality || '');
               setLocalityFilter(_locality || '');
               setTabKey(projectType);
+              setActiveSearch(false);
               history.push({
                 pathname: "map",
                 search: `?year=${card?.year}&locality=${card?.locality}&tabKey=${projectType}`,
@@ -79,7 +90,6 @@ const NavBarSearchTooltipItem = ({ title, cards, tabActiveSearch }: { title: str
             } else if (type === WORK_PLAN) {
               setGlobalSearch(true)
               setGlobalProjectId(card?.id || 0);
-              console.log(card)
               setTabActiveNavbar(WORK_PLAN);
               let projectType = '';
               if (card?.projectType === 'CIP') {
@@ -96,6 +106,7 @@ const NavBarSearchTooltipItem = ({ title, cards, tabActiveSearch }: { title: str
               setGlobalLocality(_locality || '');
               setLocalityFilter(_locality || '');
               setTabKey(projectType);
+              setActiveSearch(false);
               history.push({
                 pathname: "map",
                 search: `?year=${card?.year}&locality=${card?.locality}&tabKey=${projectType}`,

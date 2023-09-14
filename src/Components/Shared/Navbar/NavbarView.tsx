@@ -290,10 +290,8 @@ const NavbarView = ({
       if (activeSearch && event.target.closest('.navbar-search-content') === null) {
         setActiveSearch(false);
       }
-    };
-  
-    document.addEventListener('mousedown', handleClickOutside);
-  
+    };  
+    document.addEventListener('mousedown', handleClickOutside);  
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
@@ -337,7 +335,12 @@ const NavbarView = ({
           <p className={tabActiveSearch === 'Work Request'? 'active':''} onClick={()=>{setTabActiveSearch('Work Request')}}>Work Request</p>
           <p className={tabActiveSearch === 'Work Plan'? 'active':''} onClick={()=>{setTabActiveSearch('Work Plan')}}>Work  Plan</p>
         </div>
-        <NavBarSearchTooltipItem title={tabActiveSearch} cards={searchGlobalData} tabActiveSearch={tabActiveSearch}/>
+        <NavBarSearchTooltipItem
+          title={tabActiveSearch}
+          cards={searchGlobalData}
+          tabActiveSearch={tabActiveSearch}
+          setActiveSearch={setActiveSearch}
+        />
       </div>
     </div> }
     {/* <Tooltip overlayClassName='tootip-search-responsive' trigger={["focus","click"]} title={NavBarSearchTooltip}>
