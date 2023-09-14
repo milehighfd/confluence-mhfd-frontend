@@ -39,7 +39,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   divRef:any,
   cardRefs?:any
 }) => {
-  const { showFilters: filtered, loadingColumns, boardStatus } = useRequestState();
+  const { showFilters: filtered, loadingColumns, boardStatus, loadColumns } = useRequestState();
   const {setZoomProject, updateSelectedLayers, archiveProject, setGlobalSearch} = useProjectDispatch();
   const {
     globalSearch,
@@ -74,11 +74,11 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
 
   useEffect(() => {
     const localityValue = namespaceId.locality === 'MHFD District Work Plan' ? 'Mile High Flood District' : namespaceId.locality;
-    if ((globalProjectData.project_id === project?.projectData?.project_id) && globalProjectData.locality === localityValue){
+    if ((globalProjectData.project_id === project?.projectData?.project_id) && globalProjectData.locality === localityValue && globalSearch && !loadColumns){
       setGlobalProject(true);
       //setGlobalSearch(false);
     }
-  }, [globalProjectData]);
+  }, [globalProjectData, loadColumns]);
 
   const copyProjectToCurrent = () => {
     postData(

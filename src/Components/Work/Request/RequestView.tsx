@@ -306,7 +306,6 @@ const RequestView = ({ type, widthMap }: {
     parent.scroll(parent.scrollWidth, 0);
   }
   useEffect(() => {
-    console.log('Locality filter', localityFilter);
     if (localityFilter) {
       onSelect(localityFilter, isInitMap ? 'isinit' : undefined);
     }

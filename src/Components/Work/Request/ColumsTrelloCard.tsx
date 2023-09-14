@@ -72,7 +72,6 @@ const ColumsTrelloCard = ({
   }, [globalProjectData, loadingColumns, namespaceId, fakeLoading]);
   
   const scrollTo = (globalProjectId: any) => {
-    console.log('scrolling')
     const results = columns.map((x: any, index: number) => {
       const row = x.projects.findIndex((y: any) => y.project_id === globalProjectId);
       return { column: index, index: row };
@@ -82,22 +81,15 @@ const ColumsTrelloCard = ({
       setGlobalSearch(false);
       return;
     }
-  
-    const lastValidIndex = results.reduce((maxIndex:any, x:any, index:any) => x.index !== -1 ? index : maxIndex, -1);
-  
     results.forEach((x: any, index: number) => {
       if (x.index !== -1) {
-        setTimeout(() => {
-          cardRefs.current[x.column][x.index]?.scrollIntoView({
-            behavior: 'smooth',
-            block: 'nearest',
-          });
-          // if (index === lastValidIndex) {
-          //   setGlobalSearch(false);
-          // }
-        }, index * 1000);
+        cardRefs.current[x.column][x.index]?.scrollIntoView({
+          behavior: 'auto',
+          block: 'nearest',
+        });        
       }
     });
+    setGlobalSearch(false);
   };
   const getColumnProjectType = (code_project_type_id: number) => {
     switch (code_project_type_id) {
