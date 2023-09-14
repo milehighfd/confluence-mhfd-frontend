@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Redirect, useLocation } from 'react-router-dom';
 import { Badge, Button, Dropdown, Input, Layout, Menu, Modal, Popover, Tabs, Tooltip } from 'antd';
-import { CaretDownOutlined, QuestionCircleOutlined, SearchOutlined } from '@ant-design/icons';
+import { CaretDownOutlined, CloseCircleFilled, CloseCircleOutlined, QuestionCircleOutlined, SearchOutlined } from '@ant-design/icons';
 import { GlobalMapHook } from 'utils/globalMapHook';
 import * as datasets from 'Config/datasets';
 import 'Scss/Components/Shared/navbar.scss';
@@ -240,7 +240,7 @@ const NavbarView = ({
         type = WORK_PLAN_TAB;
         break;
     }
-    if (activeSearch) {
+    if (activeSearch && keyword !== '') {
       datasets
         .postData(
           SERVER.SEARCH_GLOBAL_PROJECTS,
@@ -254,7 +254,7 @@ const NavbarView = ({
                 return {
                   name: item?.project_name,
                   type: `${item?.code_project_type?.project_type_name} · ${item?.currentId[0]?.code_phase_type?.phase_name}`,
-                  state: item?.currentId[0]?.code_phase_type?.phase_name,
+                  state: item?.currentId[0]?.code_phase_type?.code_status_type?.status_name,
                   id: item?.project_id,
                   status: item?.currentId[0]?.code_phase_type?.code_status_type?.code_status_type_id,
                 };
@@ -287,10 +287,10 @@ const NavbarView = ({
 
   useEffect(() => {
     const handleClickOutside = (event: any) => {
-      if (activeSearch && event.target.closest('.navbar-search-content') === null) {
+      if (activeSearch && event.target.closest('.navbar-search-content') === null && event.target.id !== 'navbar-search' && !event.target.closest('#navbar-search')) {
         setActiveSearch(false);
       }
-    };  
+    };
     document.addEventListener('mousedown', handleClickOutside);  
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
@@ -322,10 +322,15 @@ const NavbarView = ({
       className='navbar-search'
       placeholder="Search"
       prefix={<SearchOutlined onClick={() => setActiveSearch(!activeSearch)} />}
+      suffix={keyword && <CloseCircleFilled onClick={() => setKeyword('')} />}  
       value={keyword}
       onChange={(e) => {
-        setKeyword(e.target.value)          
-        setActiveSearch(true);
+        setKeyword(e.target.value)
+        if (e.target.value === ''){
+          setActiveSearch(false);
+        }else{
+          setActiveSearch(true);
+        }
       }}
     />
     {activeSearch && <div style={{position:'absolute'}} className='navbar-search-content'>
