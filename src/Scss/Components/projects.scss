@@ -547,6 +547,24 @@
         margin-top: 3px;
       }
     }
+    .edit-amount-create-project{
+      width: 100%;
+      overflow: auto;
+      .edit-amount-content{
+        display: flex;
+        width: 125%;
+      }
+      .edit-amount-content-maintenance{
+        display: flex;
+        // width: 125%;
+      }
+      .edit-amount{
+        width: 22%;
+        margin-right: 2%;
+        margin-bottom: 8px;
+      }
+    }
+    
     .ant-select-selection-selected-value {
       max-width: 97%;
     }

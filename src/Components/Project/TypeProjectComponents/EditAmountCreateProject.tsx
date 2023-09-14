@@ -19,38 +19,32 @@ const EditAmountCreateProject = ({
       <b>Total Requested Funding: $0</b>
       <br/>
       <b>Estimated Project Cost: $0</b>
-    <Row className="cost-project">
-      <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 6 }}>
-      <label className="sub-title">2021 </label>
-      <Input className='input-amount' value='$' allowClear/> 
-      </Col>
-    </Row>
-    <Row className="cost-project">
-      <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 6 }}>
-      <label className="sub-title">2022 </label>
-      <Input className='input-amount' value='$' allowClear /> 
-      </Col>
-    </Row>
-    <Row className="cost-project">
-      <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 6 }}>
-      <label className="sub-title">2023 </label>
-      <Input className='input-amount' value='$' allowClear/> 
-      </Col>
-    </Row>
-    {type !== 'maintenance' && <>
-      <Row className="cost-project">
-        <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 6 }}>
-        <label className="sub-title">2024 </label>
-        <Input className='input-amount' value='$' allowClear/> 
-        </Col>
-      </Row>
-      <Row className="cost-project">
-        <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 6 }}>
-        <label className="sub-title">2025 </label>
-        <Input className='input-amount' value='$' allowClear/> 
-        </Col>
-      </Row>
-    </>}
+    <div className='edit-amount-create-project'>
+      <div className={type === 'maintenance' ?'edit-amount-content-maintenance':'edit-amount-content'}>
+        <div className='edit-amount'>
+          <label className="sub-title">2021 </label>
+          <Input className='input-amount' value='$' allowClear/> 
+        </div>
+        <div className='edit-amount'>
+          <label className="sub-title">2022 </label>
+          <Input className='input-amount' value='$' allowClear/> 
+        </div>
+        <div className='edit-amount'>
+          <label className="sub-title">2023 </label>
+          <Input className='input-amount' value='$' allowClear/> 
+        </div>
+        {type !== 'maintenance' && <>
+          <div className='edit-amount'>
+            <label className="sub-title">2024 </label>
+            <Input className='input-amount' value='$' allowClear/> 
+          </div>
+          <div className='edit-amount'>
+            <label className="sub-title">2025 </label>
+            <Input className='input-amount' value='$' allowClear/> 
+          </div>
+        </>}
+      </div>
+    </div>
   </div>
   )
 };
