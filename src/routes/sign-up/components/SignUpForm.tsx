@@ -62,7 +62,7 @@ const SignUpForm = () => {
         values.organization = other.value;
       }
       setTitle(title);
-      values.zoomarea = values.designation === GOVERNMENT_STAFF ? values.organization : MILE_HIGH_FLOOD_DISTRICT;
+      values.zoomarea = MILE_HIGH_FLOOD_DISTRICT;
       datasets.postData(SERVER.SIGN_UP, {...values, tokenId: id}).then(res => {
         if (res?.token) {
           const auxMessage = { ...message };
