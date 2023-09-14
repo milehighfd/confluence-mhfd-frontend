@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import moment from 'moment';
 import { Button, Col, Dropdown, Input, Menu, MenuProps, Radio, Row } from 'antd';
-import { CheckCircleFilled, DownOutlined } from '@ant-design/icons';
+import { DownOutlined } from '@ant-design/icons';
 import * as datasets from 'Config/datasets';
 import { COUNTIES, RADIO_ITEMS, STATES_NAME } from 'constants/constants';
 import { VALIDATION_USER } from 'constants/validation';
@@ -10,15 +10,13 @@ import MenuAreaView from 'Components/User/UserComponents/MenuAreaView';
 import { SERVER } from 'Config/Server.config';
 import SelectServiceArea from 'routes/Utils/SelectServiceArea';
 import SelectZoomArea from 'routes/Utils/SelectZoomArea';
-import { User } from 'Classes/TypeList';
 import Alert from 'Components/Shared/Alert';
 import SelectJurisdiction from 'routes/Utils/SelectJurisdiction';
 import { BusinessAssociatesDropdownMemoized } from 'routes/user-management/components/BusinessAssociateDropdown';
 import RadioDesignation from 'routes/user-management/components/RadioDesignation';
 import { formatPhoneNumber } from 'utils/utils';
-import { useAppUserDispatch } from "../../../hook/useAppUser";
 import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
-
+import { useProfileDispatch } from 'hook/profileHook';
 
 const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUser: Function, setExpandedRow: React.Dispatch<React.SetStateAction<boolean>> }) => {
   const [organization, setOrganization] = useState('');
@@ -87,9 +85,8 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUs
   }
 
   const {
-    replaceAppUser,
     getUserInformation
-  } = useAppUserDispatch();
+  } = useProfileDispatch();
 
   const menuAdressAssociate = () => {
     const itemMenu: MenuProps['items'] = [];   
@@ -585,7 +582,6 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUs
   }
   return (
     <>
-    {/* <ConfirmationSave visible={confirmation} setVisible={setConfirmation} /> */}
     <Alert save={result} visible={{visible:saveAlert}} setVisible={setSaveAlert} message={message}/>
       <div className="profile-user">
         <Row>

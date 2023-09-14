@@ -11,8 +11,7 @@ import { MAP_TAB, MAP, MEDIUM_SCREEN_RIGHT, PROBLEMS_TRIGGER, WORK_PLAN, WORK_RE
 import { useMapDispatch, useMapState } from 'hook/mapHook';
 import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { useNotesState } from 'hook/notesHook';
-import { useProfileState } from 'hook/profileHook';
-import { useAppUserDispatch } from 'hook/useAppUser';
+import { useProfileDispatch, useProfileState } from 'hook/profileHook';
 import { SELECT_ALL_FILTERS } from 'constants/constants';
 import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
@@ -41,14 +40,19 @@ const MapLayout = () => {
     galleryProjectsV2,
     tabActiveNavbar,
   } = useMapState();
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
   const {
     userInformation: {
-      coordinates: {
-        latitude,
-        longitude
-      }
+      coordinates
     }
   } = useProfileState();
+  useEffect(() => {
+    if (coordinates) {
+      setLatitude(coordinates.latitude);
+      setLongitude(coordinates.longitude);
+    }
+  }, [coordinates]);
   const emptyStyle: React.CSSProperties = {};
   const [loaded, setLoaded] = useState(false);
   const [rotationStyle, setRotationStyle] = useState(emptyStyle);
@@ -59,7 +63,7 @@ const MapLayout = () => {
   const { status } = useProjectState();
   const { open } = useNotesState();
   const { setSave } = useProjectDispatch();
-  const { getUserInformation } = useAppUserDispatch();
+  const { getUserInformation } = useProfileDispatch();
   const [safeLoading, setSafeLoading] = useState(false);
 
   const {
@@ -118,7 +122,7 @@ const MapLayout = () => {
   }
 
   useEffect(() => {
-    getUserInformation();
+    // getUserInformation();
     const promises: Promise<any>[] = [];
     const controllers: AbortController[] = [];
     SELECT_ALL_FILTERS.forEach((layer) => {

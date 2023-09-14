@@ -5,21 +5,21 @@ import { ROUTERS_SIDEBAR } from "./constants/layout.constants";
 import '../../../Scss/Components/Shared/sidebar.scss';
 import { useMapDispatch, useMapState } from "hook/mapHook";
 import { MAP, WORK_PLAN, WORK_REQUEST } from "constants/constants";
-import { useAppUserState } from "hook/useAppUser";
 import { QuestionCircleOutlined } from "@ant-design/icons";
+import { useProfileState } from 'hook/profileHook';
 
 const SidebarMenu = ({ collapsed, setVisibleTutorial, }: { collapsed: boolean, setVisibleTutorial: React.Dispatch<React.SetStateAction<boolean>> }) => {
   const location = useLocation();
   const history = useHistory();
   const { search } = history.location;
-  const appUser = useAppUserState();
+  const { userInformation } = useProfileState();
   const { setTabActiveNavbar } =  useMapDispatch();
   const { tabActiveNavbar } = useMapState();
   const indexOf = '' + (ROUTERS_SIDEBAR.indexOf(location.pathname) === 1 ? (tabActiveNavbar === MAP? '1': (tabActiveNavbar === WORK_REQUEST ? '4':'3')):ROUTERS_SIDEBAR.indexOf(location.pathname));
-  const showWorkRequestPlan = (appUser?.designation?.toLocaleLowerCase() !== 'guest' && (appUser.designation === 'admin' || appUser.designation === 'staff' || appUser.designation === 'government_staff'))
-  const showWorkRequest = (appUser.designation === 'government_staff' && !appUser?.business_associate_contact?.business_address?.business_associate?.business_name)
-  const userApproved = appUser.status === 'approved';
-  const pmToolsAccess = (appUser?.designation?.toLocaleLowerCase() !== 'guest' && (appUser.designation === 'admin' || appUser.designation === 'staff' || appUser.designation === 'government_staff') && appUser.status === 'approved');
+  const showWorkRequestPlan = (userInformation?.designation?.toLocaleLowerCase() !== 'guest' && (userInformation.designation === 'admin' || userInformation.designation === 'staff' || userInformation.designation === 'government_staff'))
+  const showWorkRequest = (userInformation.designation === 'government_staff' && !userInformation?.business_associate_contact?.business_address?.business_associate?.business_name)
+  const userApproved = userInformation.status === 'approved';
+  const pmToolsAccess = (userInformation?.designation?.toLocaleLowerCase() !== 'guest' && (userInformation.designation === 'admin' || userInformation.designation === 'staff' || userInformation.designation === 'government_staff') && userInformation.status === 'approved');
   
   const itemMenuSidebar: MenuProps['items'] = [{
     className: Number(indexOf) === 0 ? 'menu-sidebar-hover':'',
@@ -111,13 +111,13 @@ const SidebarMenu = ({ collapsed, setVisibleTutorial, }: { collapsed: boolean, s
       itemMenuSidebar.splice(index, 1);
     }
   };
-  if (!((appUser.designation === 'admin') && (appUser.status === 'approved'))) {
+  if (!((userInformation.designation === 'admin') && (userInformation.status === 'approved'))) {
     removeItemArray('8');
   }
-  if (!((appUser.designation === 'admin' || appUser.designation === 'staff') && (appUser.status === 'approved'))) {
+  if (!((userInformation.designation === 'admin' || userInformation.designation === 'staff') && (userInformation.status === 'approved'))) {
     removeItemArray('6');
   }
-  if (!(appUser?.designation?.toLocaleLowerCase() !== 'guest')) {
+  if (!(userInformation?.designation?.toLocaleLowerCase() !== 'guest')) {
     removeItemArray('0');
     removeItemArray('2');
     removeItemArray('5');

@@ -5,11 +5,10 @@ import { ROUTERS_SIDEBAR } from './constants/layout.constants';
 import '../../../Scss/Components/Shared/sidebar.scss';
 import '../../../Scss/Theme/scroll.scss';
 import * as datasets from 'Config/datasets';
-import { useProfileState } from 'hook/profileHook';
+import { useProfileDispatch, useProfileState } from 'hook/profileHook';
 import { GlobalMapHook } from 'utils/globalMapHook';
 import { SERVER } from 'Config/Server.config';
 import moment from 'moment';
-import { useAppUserDispatch, useAppUserState } from 'hook/useAppUser';
 
 const SidebarMenuDown = ({
   collapsed,
@@ -20,21 +19,26 @@ const SidebarMenuDown = ({
   setVisibleTutorial: React.Dispatch<React.SetStateAction<boolean>>;
   setVisibleIntroduction: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const { deleteNotification } = useAppUserDispatch();
+  const { deleteNotification } = useProfileDispatch();
   const { TabPane } = Tabs;
   const { userInformation } = useProfileState();
   const [redirect, setRedirect] = useState(false);
   const tabKeys = ['Unread', 'All'];
   const [tabKey, setTabKey] = useState<any>('Unread');
-  const user = userInformation;
+  
   const [notification, setNotification] = useState<any>([]);
   const { deleteMaps } = GlobalMapHook();
   const location = useLocation();
   let displayedTabKey = tabKeys;
-  const appUser = useAppUserState();
   const indexOf = '' + ROUTERS_SIDEBAR.indexOf(location.pathname);
-  const name = user.firstName;
-  const initialName = user.firstName.charAt(0) + user.lastName.charAt(0);
+  const [name, setName] = useState('');
+  const [initialName, setInitialName] = useState('');
+  useEffect(() => {
+    if (userInformation.firstName) {
+      setName(userInformation?.firstName);
+      setInitialName(userInformation?.firstName?.charAt(0) + userInformation?.lastName?.charAt(0));
+    }
+  },[userInformation]);
   const content = <div className="none-notification">No Notifications</div>;
   const logout = () => {
     datasets.logout();
@@ -94,10 +98,10 @@ const SidebarMenuDown = ({
   );
   const optionsLabel = (
     <div className="menu-back-layout">
-      {user.photo ? (
-        <img src={user.photo} className={'ll-img anticon' + (collapsed ? ' img-profile-collapsed' : '')} alt="profile" />
+      {userInformation.photo ? (
+        <img src={userInformation.photo} className={'ll-img anticon' + (collapsed ? ' img-profile-collapsed' : '')} alt="profile" />
       ) : (
-        <label className="ll-00">{initialName}</label>
+        <label className="ll-00">{`${initialName}`}</label>
       )}
       <span className={collapsed ? 'menu-down-sidebar-colapse' : 'menu-down-sidebar'}>{name}</span>
     </div>
@@ -111,8 +115,8 @@ const SidebarMenuDown = ({
     });
   }
   useEffect(() => {
-    setNotification(appUser.notifications);
-  }, [appUser.notifications]);
+    setNotification(userInformation.notifications);
+  }, [userInformation.notifications]);
 
   if (redirect) {
     return <Redirect to="/login" />;

@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Result, Button } from 'antd';
 import { getToken } from '../../Config/datasets'
 import { Redirect } from "react-router-dom";
-import { useAppUserState } from "hook/useAppUser";
+import { useProfileState } from "hook/profileHook";
 
 const Unauthorized = () => {
     const [redirect, setRedirect] = useState<boolean>(false);
     const [second, ] = useState<number>(10);
-    const user = useAppUserState();
+    const {userInformation} = useProfileState();
     useEffect(() => {
         const timer = setTimeout(() => {
             setRedirect(true);
@@ -15,7 +15,7 @@ const Unauthorized = () => {
         return () => clearTimeout(timer);
       }, []);
     if(redirect) {
-        if(getToken() && user.activated) {
+        if(getToken() && userInformation.activated) {
             return <Redirect to="/profile-view" />
         } else {
             return <Redirect to="/login" />

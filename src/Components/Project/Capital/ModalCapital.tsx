@@ -31,7 +31,6 @@ import { deletefirstnumbersmhfdcode } from 'utils/utils';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 import { DiscussionCreateProject } from '../TypeProjectComponents/DiscussionCreateProject';
 import { ActivitiCreateProject } from '../TypeProjectComponents/ActivityCreateProject';
-import { useAppUserState } from 'hook/useAppUser';
 import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
 
 const { Option } = Select;
@@ -134,11 +133,13 @@ export const ModalCapital = ({
     saveSpecialLocation,
     saveAcquisitionLocation,
     setDisableFieldsForLg,
+    setIsGeomDrawn
   } = useProjectDispatch();
   const {
     listComponents, 
     componentsFromMap, 
     userPolygon, 
+    isGeomDrawn,
     streamIntersected, 
     independentComponents, 
     status,
@@ -239,6 +240,7 @@ export const ModalCapital = ({
     setStreamIntersected({ geom: null });
     setStreamsIds([]);
     setStreamsList([]);
+    setIsGeomDrawn(false);
     return () => {
       setIndependentComponents([]);
       setComponentsFromMap([]);
@@ -580,7 +582,7 @@ export const ModalCapital = ({
           const isGeom = (selectedTypeProject === 'capital' || selectedTypeProject === 'maintenance');
           const isPin = (selectedTypeProject === 'acquisition' || selectedTypeProject === 'special');
           let geomLengthFlag = false;
-          if (geom?.coordinates || streamIntersected?.geom) {
+          if ((geom?.coordinates || streamIntersected?.geom) && isGeomDrawn===true) {
             geomLengthFlag = true;
           } else {
             geomLengthFlag = false;
@@ -702,12 +704,12 @@ export const ModalCapital = ({
   
   useEffect(() => {
     if (selectedTypeProject === 'capital' || selectedTypeProject === 'maintenance' || selectedTypeProject === 'study') {
-      setGeom(userPolygon);
+            setGeom(userPolygon);
     }
   }, [userPolygon, selectedTypeProject]);
 
   useEffect(()=>{
-    if(listComponents && listComponents.groups && listComponents.result.length > 0){
+        if(listComponents && listComponents.groups && listComponents.result.length > 0){
       const myset = new Set(keys);
       Object.keys(listComponents.groups).forEach((key:any, id:any) => {
         if(!groups[key]){
@@ -724,6 +726,7 @@ export const ModalCapital = ({
       setComponentsToSave(newC);
     } else {
       setGroups({});
+      setComponentsToSave([]);
     }
   },[listComponents]);  
 

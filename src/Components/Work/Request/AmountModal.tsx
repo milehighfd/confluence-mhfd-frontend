@@ -6,7 +6,6 @@ import { SERVER } from "Config/Server.config";
 import { useRequestDispatch, useRequestState } from "hook/requestHook";
 import AmountModalField from "./AmountModalField";
 import useCostDataFormattingHook from "hook/custom/useCostDataFormattingHook";
-import { useAppUserState } from "hook/useAppUser";
 import { useProfileState } from "hook/profileHook";
 import { useProjectDispatch, useProjectState } from "hook/projectHook";
 

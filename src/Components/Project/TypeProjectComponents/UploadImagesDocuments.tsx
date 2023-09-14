@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Row, Col, Table, Tag } from 'antd';
-import { useAttachmentDispatch, useAttachmentState } from "../../../hook/attachmentHook";
+import { useAttachmentState } from "../../../hook/attachmentHook";
 import { saveAs } from 'file-saver';
 import b64ToBlob from "b64-to-blob";
 import { CloudDownloadOutlined } from "@ant-design/icons";
@@ -36,7 +36,6 @@ export const UploadImagesDocuments = ({isCapital, setFiles, index }: {
   const [toDelete, setToDelete] = useState<any[]>([]);
   const [toDeleteFiles, setToDeleteFiles] = useState<any[]>([]);
   const { attachments, project_id } = useAttachmentState();
-  const { deleteAttachment } = useAttachmentDispatch();
   const getTypeImage = (mime_type: any) => {
     if ( mime_type.includes('png') ) {
       return 'png';

@@ -1,4 +1,4 @@
-import { List, Menu, MenuProps, Popover, Row, Table } from "antd";
+import { Menu, MenuProps, Popover, Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import { useProjectDispatch, useProjectState } from "hook/projectHook";
 import { WINDOW_WIDTH } from "constants/constants";
@@ -11,7 +11,6 @@ import { useProfileState } from "hook/profileHook";
 import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import { MHFD_PROJECTS } from "constants/constants";
-import { Console } from "console";
 import { MoreOutlined } from "@ant-design/icons";
 import DetailModal from "routes/detail-page/components/DetailModal";
 
