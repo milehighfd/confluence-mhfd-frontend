@@ -3,7 +3,6 @@ import { Row, Col, Popover } from 'antd';
 
 import { useMapDispatch, useMapState } from "../../../hook/mapHook";
 import TreeMapComponent from "../NewProblemsFilter/TreeMapComponent";
-import { CheckBoxFilters } from '../CheckboxFiltersComponent';
 import { CheckBoxFilters as CheckBoxFiltersProblem } from "../CheckboxFiltersProblem";
 import { DropdownFilters } from "../DropdownFilters";
 import { DropdownFiltersYearsMax } from "../DropdownFilterMax";
