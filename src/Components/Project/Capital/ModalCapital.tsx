@@ -32,6 +32,7 @@ import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 import { DiscussionCreateProject } from '../TypeProjectComponents/DiscussionCreateProject';
 import { ActivitiCreateProject } from '../TypeProjectComponents/ActivityCreateProject';
 import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
+import EditAmountCreateProject from '../TypeProjectComponents/EditAmountCreateProject';
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -1285,11 +1286,17 @@ export const ModalCapital = ({
                   changeValue={changeValue}
                   index={indexForm++}
                 />
-              }                        
+              }       
+              <EditAmountCreateProject 
+                index={indexForm++}
+                type={selectedTypeProject}
+              />                 
               <UploadImagesDocuments
                 isCapital={true}
                 setFiles={setFiles}
                 index={indexForm++}
+                type={''}
+                visibleCapital={visibleCapital}
               />
             </div>
           {/* </>}

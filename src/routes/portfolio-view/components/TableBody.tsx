@@ -297,7 +297,7 @@ const TableBody = ({
                   animation: activeBorder && globalProjectData?.project_id === d.project_id ? 'glow 1s infinite' : '',
                 }}
               >
-                <Tooltip placement="top" title={d.rowLabel}>
+                <Tooltip placement="top" title={<p className="main-map-list-name-popover-text"> <b>{d.rowLabel}</b> <br /> <b>Project ID: </b> {d.project_id} <br /> <b>OnBase Project Number: </b> {d.on_base?d.on_base:"-"}</p>}>
                   <p onClick={() => {
                     setDetailOpen(true);
                     setDataDetail(d)

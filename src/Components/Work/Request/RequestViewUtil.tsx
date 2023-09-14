@@ -1,6 +1,7 @@
 import { boardType } from 'Components/Work/Request/RequestTypes';
 import { NEW_PROJECT_TYPES } from 'constants/constants';
 import { STATUS_NAMES } from 'constants/constants';
+import ConfigurationService from 'services/ConfigurationService';
 
 export const defaultColumns: any[] = [
   {
@@ -365,4 +366,25 @@ export const mergeTotalByGroupMaps = (totals: any[]) => {
     }
     return acc;
   }, {});
+};
+
+export const getYearList = async (increaseYears: number = 0) => {
+  let config;
+  try {
+    config = await ConfigurationService.getConfiguration('BOARD_YEAR');
+  } catch (e) {
+    console.log(e);
+  }
+  const configuredYear = +config.value;
+  const minYear = 2022;
+  const maxYear = configuredYear + increaseYears;
+  const yearList = [];
+  const yearListWithIncrease = [];
+  for (let year = minYear; year <= maxYear ; year++) {
+    if (year <= configuredYear) {
+      yearList.push(year);
+    }
+    yearListWithIncrease.push(year);
+  }
+  return [configuredYear, yearListWithIncrease, yearList];
 };

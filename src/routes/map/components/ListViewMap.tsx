@@ -300,7 +300,7 @@ const ListViewMap = ({
       },
       render: (name: any, record: any) => (
         <div className="content-project-name">
-          <Popover placement="top" content={<p className="main-map-list-name-popover-text"><b>Project ID: </b> {record.project_id} <br /> <b>OnBase Project Number: </b> {record.onBase?record.onBase:"-"}</p>}>
+          <Popover placement="top" content={<p className="main-map-list-name-popover-text"> <b>{name}</b> <br /> <b>Project ID: </b> {record.project_id} <br /> <b>OnBase Project Number: </b> {record.onBase?record.onBase:"-"}</p>}>
             <p className="project-name">{name}</p>
           </Popover>
           <Popover
@@ -412,7 +412,7 @@ const ListViewMap = ({
         return 0
       },
       render: (text: any, record: any) => <div className="content-project-name">
-        <Popover placement="top" content={<p className="main-map-list-name-popover-text"><b>Problem ID: </b> {record.problemid}</p>}>
+        <Popover placement="top" content={<p className="main-map-list-name-popover-text"><b> { text }</b> <br /><b>Problem ID: </b> {record.problemid}</p>}>
             <p className="project-name">{text}</p>
           </Popover>
       <Popover

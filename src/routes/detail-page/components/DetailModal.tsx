@@ -499,6 +499,7 @@ const DetailModal = ({
         deleteCallback={deleteCallback}
         addCallback={addCallback}
         addFavorite={addFavorite}
+        visibleCapital={false}
       />
       <Modal
         className="detailed-modal"
