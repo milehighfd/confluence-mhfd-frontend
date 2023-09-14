@@ -284,6 +284,11 @@
         }
       }
     }
+    .sub-titble-column-flex{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
     .sub-title-project-upload {
       align-items: baseline;
       .group-btn {
