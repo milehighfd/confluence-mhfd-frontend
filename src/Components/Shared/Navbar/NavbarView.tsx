@@ -9,7 +9,6 @@ import { FILTER_PROJECTS_TRIGGER, ROUTERS, ROUTER_TITLE, MAP_TAB, WORK_REQUEST_T
 import { useMapDispatch, useMapState } from 'hook/mapHook';
 import { useProfileDispatch, useProfileState } from 'hook/profileHook';
 import { useUsersState } from 'hook/usersHook';
-import ModalEditUserView from 'Components/Profile/ProfileComponents/ModalEditUserView';
 import moment from 'moment';
 import { SERVER } from 'Config/Server.config';
 import ModalTutorial from '../Sidebar/ModalTutorial';
@@ -229,8 +228,6 @@ const NavbarView = ({
       data={projectData}
       type={FILTER_PROJECTS_TRIGGER}
     />}
-    {openProfile && <ModalEditUserView updateUserInformation={updateUserInformation} user={userInformation}
-      isVisible={true} hideProfile={hideProfile} groupOrganization={groupOrganization} getGroupOrganization={getGroupOrganization} />}
     <h6>{value}</h6>
     {/* NAVBAR SEARCH COMPONENT Descomentar cuando se vaya a aplicar el navbar search*/}
     {/* <Tooltip overlayClassName='tootip-search-responsive' trigger={["focus","click"]} title={NavBarSearchTooltip}>
