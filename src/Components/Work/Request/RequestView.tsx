@@ -8,7 +8,7 @@ import { useMyUser, useProfileDispatch, useProfileState } from 'hook/profileHook
 import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 import { boardType } from 'Components/Work/Request/RequestTypes';
-import { defaultColumns } from 'Components/Work/Request/RequestViewUtil';
+import { defaultColumns, getYearList } from 'Components/Work/Request/RequestViewUtil';
 import ColumsTrelloCard from 'Components/Work/Request/ColumsTrelloCard';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import Toolbar from 'routes/work-request/components/Toolbar';
@@ -23,7 +23,6 @@ import TableListView from './Toolbar/TableListView';
 import { GOVERNMENT_STAFF, NEW_PROJECT_TYPES, WORK_REQUEST, YEAR_LOGIC_2024 } from 'constants/constants';
 import MaintenanceTypesDropdown from '../../../routes/work-request/components/MaintenanceTypesDropdown';
 import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
-import ConfigurationService from 'services/ConfigurationService';
 
 const { TabPane } = Tabs;
 
@@ -154,22 +153,12 @@ const RequestView = ({ type, widthMap }: {
       };
       setLocalities(r.localities);
       setDataAutocomplete(r.localities.map((l: any) => l.name));
-      console.log('r', r)
       if (_year) {
         setYear(_year);
       } else {
-        let config;
-        try {
-          config = await ConfigurationService.getConfiguration('BOARD_YEAR');
-        } catch (e) {
-          console.log(e);
-        }
-        setYear(+config.value);
-        const yearList = [];
-        for (let i = 0; i < 5; i++) {
-          yearList.push((+config.value) - i);
-        }
-        setYearList(yearList);
+        const [configuredYear, generatedYearList] = await getYearList();
+        setYear(configuredYear);
+        setYearList(generatedYearList);
       }
       if (!_locality && r.localities.length > 0) {
         _locality = r.localities[0].name;
