@@ -11,7 +11,7 @@ const EditAmountCreateProject = ({
 }) => {
   console.log(type, 'TYPE')
   return (
-    <div>
+  <div className='sec-edit-amount'>
     <div className="sub-title-project">
       <h5 className="requestor-information">{index}. Edit Amount </h5>
     </div>
