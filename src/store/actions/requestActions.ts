@@ -716,3 +716,8 @@ export const setConfiguredYear = (payload: any) => ({
   type: types.REQUEST_SET_CONFIGURED_YEAR,
   payload
 });
+
+export const startLoadingColumns = () => ({
+  type: types.REQUEST_START_LOADING_COLUMNS_2
+});
+

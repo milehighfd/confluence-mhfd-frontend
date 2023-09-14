@@ -55,6 +55,7 @@ import {
   setListView,
   setFilterYear,
   setConfiguredYear,
+  startLoadingColumns
 } from 'store/actions/requestActions';
 import { DragAndDropCards } from 'store/types/requestTypes';
 
@@ -225,6 +226,9 @@ export const useRequestDispatch = () => {
   const _setConfiguredYear = useCallback((configuredYear: any) => {
     dispatch(setConfiguredYear(configuredYear));
   }, [dispatch]);
+  const _startLoadingColumns = useCallback(() => {
+    dispatch(startLoadingColumns());
+  }, [dispatch]);
   return {
     setShowModalProject: _setShowModalProject,
     setCompleteProjectData: _setCompleteProjectData,
@@ -280,5 +284,6 @@ export const useRequestDispatch = () => {
     setIsListView: _setIsListView,
     setFilterYear: _setFilterYear,
     setConfiguredYear: _setConfiguredYear,
+    startLoadingColumns: _startLoadingColumns,
   };
 };
