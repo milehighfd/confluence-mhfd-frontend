@@ -20,32 +20,32 @@ const EditAmountCreateProject = ({
       <br/>
       <b>Estimated Project Cost: $0</b>
     <Row className="cost-project">
-      <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 12 }}>
+      <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 6 }}>
       <label className="sub-title">2021 </label>
       <Input className='input-amount' value='$' allowClear/> 
       </Col>
     </Row>
     <Row className="cost-project">
-      <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 12 }}>
+      <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 6 }}>
       <label className="sub-title">2022 </label>
       <Input className='input-amount' value='$' allowClear /> 
       </Col>
     </Row>
     <Row className="cost-project">
-      <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 12 }}>
+      <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 6 }}>
       <label className="sub-title">2023 </label>
       <Input className='input-amount' value='$' allowClear/> 
       </Col>
     </Row>
     {type !== 'maintenance' && <>
       <Row className="cost-project">
-        <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 12 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 6 }}>
         <label className="sub-title">2024 </label>
         <Input className='input-amount' value='$' allowClear/> 
         </Col>
       </Row>
       <Row className="cost-project">
-        <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 12 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 6 }}>
         <label className="sub-title">2025 </label>
         <Input className='input-amount' value='$' allowClear/> 
         </Col>
