@@ -537,7 +537,15 @@
       margin-bottom: 0px;
     }
     .ant-input {
-      border: solid 1px $opacity04;
+      // border: solid 1px $opacity04;
+    }
+    .input-amount {
+      .ant-input-clear-icon {
+        position: initial;
+      }
+      .ant-input-suffix{
+        margin-top: 3px;
+      }
     }
     .ant-select-selection-selected-value {
       max-width: 97%;
