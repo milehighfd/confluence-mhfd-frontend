@@ -245,8 +245,9 @@ export const ProposedActions = (props: ProposedActionsProps) => {
 
   return (
     <>
-      <div className="sub-title-project">
-        <h5 className="requestor-information">{index}. PROPOSED ACTIONS&nbsp;*</h5>
+      <div className="sub-title-project sub-titble-column-flex">
+        <h5 className="requestor-information">{index}. PROPOSED SCOPE OF WORK *</h5>
+        <p className="text-default">You are required to select actions from the map or add independent actions in order to save your project.</p>
       </div>
       <div className={"draw " + (isDrawState ? 'active' : '')} onClick={disableFieldsForLG ? null : onClickDraw}>
         <img src="" className="icon-draw active" style={{ WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat' }} />
