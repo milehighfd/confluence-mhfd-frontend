@@ -23,16 +23,18 @@ const ImageModal = ({
   deleteCallback,
   addCallback,
   addFavorite,
+  visibleCapital
 }: {
   visible: boolean;
   setVisible: React.Dispatch<React.SetStateAction<boolean>>;
   type: any;
   active: any;
   setActive: React.Dispatch<React.SetStateAction<number>>;
-  copyUrl: any;
+  copyUrl?: any;
   deleteCallback?: any;
   addCallback?: any;
   addFavorite?: any;
+  visibleCapital: boolean
 }) => {
   const { detailed } = useDetailedState();
   let carouselRef = useRef<undefined | any>(undefined);
@@ -148,26 +150,26 @@ const ImageModal = ({
             >
               Photos
             </span>
-            <span
+            {!visibleCapital&&(<span
               className={active === 1 ? 'detail-image-tab-active detail-image-tab-title' : 'detail-image-tab-title'}
               onClick={() => {
                 setActive(1);
               }}
             >
               3D Component View
-            </span>
-            <span
+            </span>)}
+            {!visibleCapital&&(<span
               className={active === 2 ? 'detail-image-tab-active detail-image-tab-title' : 'detail-image-tab-title'}
               onClick={() => {
                 setActive(2);
               }}
             >
               Map View
-            </span>
+            </span>)}
           </Col>
           <Col xs={{ span: 12 }} lg={{ span: 12 }} className="detailed-image-header-right">
             <div>
-              <Button
+            {!visibleCapital&&(<Button
                 className="detail-image-btn-filter-k"
                 onClick={
                   favorite
@@ -177,10 +179,12 @@ const ImageModal = ({
               >
                 {favorite ? <HeartFilled /> : <HeartOutlined />} &nbsp; &nbsp;Favorite
               </Button>
+              )}
               &nbsp; &nbsp;
-              <Button className="detail-image-btn-filter-k" onClick={copyUrl}>
+              {!visibleCapital&&(<Button className="detail-image-btn-filter-k" onClick={copyUrl}>
                 <ShareAltOutlined /> &nbsp; &nbsp;Share
               </Button>
+              )}
               &nbsp; &nbsp;
               <Button className="detail-image-btn-transparent" onClick={() => setVisible(false)}>
                 <img src="/Icons/icon-62.svg" alt="" height="15px" />
