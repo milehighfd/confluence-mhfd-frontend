@@ -1295,6 +1295,8 @@ export const ModalCapital = ({
                 isCapital={true}
                 setFiles={setFiles}
                 index={indexForm++}
+                type={''}
+                visibleCapital={visibleCapital}
               />
             </div>
           {/* </>}
