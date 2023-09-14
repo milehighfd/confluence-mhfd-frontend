@@ -270,7 +270,7 @@ const TableBody = ({
                 }}
                 style={rowActive === d.project_id ? {background:'#fafafa', transition: 'background .3s'}:{transition: 'background .3s'}}
                 >
-                <Tooltip placement="top" title={d.rowLabel}>
+                <Tooltip placement="top" title={<p className="main-map-list-name-popover-text"> <b>{d.rowLabel}</b> <br /> <b>Project ID: </b> {d.project_id} <br /> <b>OnBase Project Number: </b> {d.on_base?d.on_base:"-"}</p>}>
                   <p onClick={() => {
                     setDetailOpen(true); 
                     setDataDetail(d) 
