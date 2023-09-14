@@ -37,6 +37,7 @@ const NavBarSearchTooltipItem = ({
     setTabKey,
     setYear,
     setLocalityFilter,
+    startLoadingColumns,
   } = useRequestDispatch();
   const {
     setGlobalSearch,
@@ -63,10 +64,11 @@ const NavBarSearchTooltipItem = ({
                 type = WORK_PLAN;
                 break;
             }
-            if (type === WORK_REQUEST) {
+            if (type === WORK_REQUEST || type === WORK_PLAN) {
+              startLoadingColumns();
               setGlobalSearch(true)
               setGlobalProjectId(card?.id || 0);
-              setTabActiveNavbar(WORK_REQUEST);
+              setTabActiveNavbar(type);
               let projectType = '';
               if (card?.projectType === 'CIP') {
                 projectType = 'Capital';
@@ -80,30 +82,6 @@ const NavBarSearchTooltipItem = ({
               }
               setGlobalLocality(_locality || '');
               setLocality(_locality || '');
-              setLocalityFilter(_locality || '');
-              setTabKey(projectType);
-              setActiveSearch(false);
-              history.push({
-                pathname: "map",
-                search: `?year=${card?.year}&locality=${card?.locality}&tabKey=${projectType}`,
-              });
-            } else if (type === WORK_PLAN) {
-              setGlobalSearch(true)
-              setGlobalProjectId(card?.id || 0);
-              setTabActiveNavbar(WORK_PLAN);
-              let projectType = '';
-              if (card?.projectType === 'CIP') {
-                projectType = 'Capital';
-              }else{
-                projectType = card?.projectType || '';
-              }
-              setYear(card?.year || 0);
-              let _locality = card?.locality || '';
-              if (_locality === 'MHFD District Work Plan') {
-                _locality = 'Mile High Flood District';
-              }
-              setLocality(_locality || '');
-              setGlobalLocality(_locality || '');
               setLocalityFilter(_locality || '');
               setTabKey(projectType);
               setActiveSearch(false);
@@ -116,6 +94,7 @@ const NavBarSearchTooltipItem = ({
               setGlobalSearch(true)
               setGlobalStatusId(card?.status || 0);
               setGlobalProjectId(card?.id || 0);
+              setActiveSearch(false);
               history.push({
                 pathname: "pm-tools"
               });
