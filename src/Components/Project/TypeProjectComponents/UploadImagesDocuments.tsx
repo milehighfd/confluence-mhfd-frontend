@@ -338,9 +338,9 @@ const mimeToExtension = (mimeType:any) => {
             <Button disabled={disableFieldsForLG} className="bottomn-heder" onClick={() => (setModal(true))}>
               <span className="ic-document"/>Add Image
             </Button>
-            <Button className="bottomn-heder" onClick={() => (setOpenImage(true))}>
+            {/* <Button className="bottomn-heder" onClick={() => (setOpenImage(true))}>
               <PictureOutlined />See Images
-            </Button>
+            </Button> */}
             {isEdit?<Button className="bottomn-heder" onClick={() => downloadZip(true)} disabled={!dataImages.length}>
               <CloudDownloadOutlined />Download All 
             </Button>:<></>}

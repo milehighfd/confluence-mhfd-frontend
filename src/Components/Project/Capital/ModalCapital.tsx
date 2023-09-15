@@ -1286,10 +1286,10 @@ export const ModalCapital = ({
                   index={indexForm++}
                 />
               }       
-              <EditAmountCreateProject 
+              {/* <EditAmountCreateProject 
                 index={indexForm++}
                 type={selectedTypeProject}
-              />                 
+              />                  */}
               <UploadImagesDocuments
                 isCapital={true}
                 setFiles={setFiles}
