@@ -342,15 +342,16 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
         e.preventDefault();
       }}>
         <div style={{width:'100%'}}>
-          <Popover placement="top" content={<>
+          <div style={{display:'flex', justifyContent:'space-between'}}>
+            <Popover placement="top" content={<>
             <b>{project_name}</b>
             <br />
             <b>Project: </b> {project_id}
             <br />
             <b>Board project: </b> {board_project_id}
             </>}>
-              <div style={{display:'flex', justifyContent:'space-between'}}>
               <h4>{displayName}</h4>
+            </Popover>
               {
               !(showAmountModal || showModalProject || showCopyToCurrentYearAlert || showActivateProject || archiveAlert) &&
               <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={content} trigger="click" style={{cursor: 'pointer'}}>
@@ -370,9 +371,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
                 </div>
               </Popover>
             }
-              </div>
-            
-          </Popover>
+          </div>
           <div style={{display:'flex', flexDirection:"column"}}>
             <div style={{display:'flex', justifyContent:"space-between"}}>
               <h6 style={{}}>{amount ? formatter.format(amount) : ''}</h6>
