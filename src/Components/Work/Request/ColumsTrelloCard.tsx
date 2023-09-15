@@ -18,12 +18,14 @@ let scrollByIds: any = [];
 const ColumsTrelloCard = ({
   flagforScroll,
   type,
+  selectView
 }: {
   flagforScroll: any
-  type: string
+  type: string,
+  selectView: string
 }) => {
   const { columns2: columns, tabKey, locality, year, namespaceId, boardStatus, loadingColumns } = useRequestState();
-  const { setVisibleCreateProject, moveProjectsManual, handleMoveFromColumnToColumn } = useRequestDispatch();
+  const { setVisibleCreateProject, moveProjectsManual, handleMoveFromColumnToColumn, stopLoadingColumns } = useRequestDispatch();
   const { userInformation } = useProfileState();
   const { clear } = useAttachmentDispatch();
   const { setStreamsIds, setComponentsFromMap, setGlobalSearch } = useProjectDispatch();
@@ -66,10 +68,10 @@ const ColumsTrelloCard = ({
   const fakeLoading = useFakeLoadingHook(tabKey);
   useEffect(() => {
     const nameSpaceLocality = namespaceId.locality === 'MHFD District Work Plan' ? 'Mile High Flood District' : namespaceId.locality;
-    if (globalSearch && globalProjectData.project_id  && nameSpaceLocality === globalProjectData.locality && !fakeLoading && !loadingColumns) {
+    if (globalSearch && globalProjectData.project_id  && nameSpaceLocality === globalProjectData.locality && !fakeLoading && !loadingColumns && selectView === 'card') {
       scrollTo(globalProjectData.project_id);
     }
-  }, [globalProjectData, loadingColumns, namespaceId, fakeLoading]);
+  }, [globalProjectData, loadingColumns, namespaceId, fakeLoading, selectView]);
   
   const scrollTo = (globalProjectId: any) => {
     const results = columns.map((x: any, index: number) => {
@@ -90,6 +92,7 @@ const ColumsTrelloCard = ({
       }
     });
     setGlobalSearch(false);
+    stopLoadingColumns();
   };
   const getColumnProjectType = (code_project_type_id: number) => {
     switch (code_project_type_id) {

@@ -74,6 +74,7 @@ const RequestView = ({ type, widthMap }: {
     loadFilters,
     setTotalCountyBudget,
     setIsListView,
+    startLoadingColumns,
   } = useRequestDispatch();
   const {
     setOpacityLayer,
@@ -131,6 +132,13 @@ const RequestView = ({ type, widthMap }: {
   useEffect(() => {
     saveBoardProjecttype(tabKey);
   }, [tabKey]);
+
+  useEffect(() => {
+    if(globalSearch && selectView === 'list'){
+      setSelectView('card');
+      startLoadingColumns();
+    }
+  }, [globalSearch]);
 
   useEffect(() => {
     const initLoading = async () => {
@@ -457,7 +465,9 @@ const RequestView = ({ type, widthMap }: {
                         ref={wrtRef}>
                         <ColumsTrelloCard
                           flagforScroll={flagforScroll} 
-                          type={type}/>
+                          type={type}
+                          selectView={selectView}
+                        />
                       </div>
                       <RequestCostRows />
                       </div>}
