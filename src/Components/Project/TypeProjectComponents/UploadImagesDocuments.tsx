@@ -117,7 +117,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles, index, type, visible
       dataIndex: "type",
       className: "user-type",
       render: (text:string) => (
-        <Tag className="type">
+        <Tag className="type uppercase">
           {text}
         </Tag>
       ),
@@ -192,7 +192,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles, index, type, visible
       dataIndex: "type",
       className: "user-type",
       render: (text:string) => (
-        <Tag className="type">
+        <Tag className="type uppercase">
           {text}
         </Tag>
       ),

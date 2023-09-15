@@ -1643,7 +1643,9 @@ tr > .ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
   line-height: 1.29;
   letter-spacing: 0.27px;
   color: #28c499;
-
+  .uppercase{
+    text-transform: uppercase;
+  }
   .type {
     color: #28c499;
     background-color: hsla(163, 66%, 46%, 0.078);
