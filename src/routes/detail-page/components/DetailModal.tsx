@@ -988,7 +988,7 @@ const DetailModal = ({
                       updateAction={updateAction}
                       setUpdateAction={setUpdateAction}
                     />
-                    <StackedBarChart />
+                    {/* <StackedBarChart /> */}
                     <br></br>
                     {appUser &&
                       appUser.designation &&
