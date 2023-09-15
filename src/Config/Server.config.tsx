@@ -223,6 +223,7 @@ export const SERVER = (function () {
         GROUP_ORGANIZATION_NO_GEOM: `${URL_BASE.BASE}/v2/locality/all-localities?nogeom=1`,
         ALL_GROUP_ORGANIZATION: `${URL_BASE.BASE}/v2/locality/${ALL_ORGANIZATION}`,
         PHASE_TYPE: `${URL_BASE.BASE}/phasetype`,
+        PROJECT_CHECKLIST : `${URL_BASE.BASE}/checklistitem`,
         STATUS: `${URL_BASE.BASE}/${STATUS}`,
         STATUSCOMMENT: `${URL_BASE.BASE}/${STATUS}/comment`,
         CREATE_STATUS_GROUP: `${URL_BASE.BASE}/${STATUS}/create-group`,

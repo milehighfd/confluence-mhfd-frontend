@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Checkbox, Col, DatePicker, Menu, Progress, Row, Steps} from 'antd';
+import { Button, Checkbox, Col, DatePicker, Input, Menu, Progress, Row, Steps} from 'antd';
 import { ClockCircleOutlined, CloseOutlined, InfoCircleOutlined, PlusCircleFilled} from "@ant-design/icons";
 import moment from 'moment';
 import TextArea from "antd/lib/input/TextArea";
@@ -43,6 +43,8 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
   const [remaining,setRemaining] = useState<any>()
   // const [addActionItem, setAddActionItem] = useState<any>([]);
   const [disabledLG, setDisabledLG] = useState(appUser?.isLocalGovernment || appUser?.userInformation?.designation === 'government_staff');
+  const [createdActions, setCreatedActions] = useState<any>([]);
+  const [updateActionItem, setUpdateActionItem] = useState(false);
   const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"];
   const formatter = new Intl.NumberFormat('en-US', {
@@ -78,6 +80,20 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
       })
    
   }, [updateList,note])
+
+  useEffect(() => {
+    datasets.postData(`${SERVER.PROJECT_CHECKLIST}`, { phase_type_id: data.phase_id, project_id: data.project_id })
+      .then((rows) => {
+        setCreatedActions(rows)
+      })
+  }, [updateActionItem])
+
+  const handleAddTask = () => {
+    datasets.postData(`${SERVER.PROJECT_CHECKLIST}/create`, { phase_type_id: data.phase_id, project_id: data.project_id }, datasets.getToken())
+      .then((rows) => {
+        setCreatedActions([...createdActions, rows]);
+      })
+  };
   
   useEffect(() => {
     const scrollPosition = document.getElementById('pineyBody')
@@ -214,7 +230,35 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
       setNewNote(e.target.value)
     }
   }
-
+  
+  const debounce = (func: Function, delay: number) => {
+    let timeoutId: ReturnType<typeof setTimeout>;
+  
+    return (...args: any[]) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func.apply(null, args);
+      }, delay);
+    };
+  };
+  
+  const handleInputChange = (actionName: string, data: any) => {
+    datasets.putData(`${SERVER.PROJECT_CHECKLIST}/updateName`, { id: data.id, checklist_todo_name: actionName }, datasets.getToken())
+      .then((rows) => {
+        if (rows) {
+          setUpdateActionItem(!updateActionItem);
+        }
+      })
+  };
+  
+  const debouncedHandleInputChange = React.useCallback(
+    debounce(handleInputChange, 1000),
+    [handleInputChange]
+  );
+  
+  const handleChange = (actionName: string, data: any) => {
+    debouncedHandleInputChange(actionName, data);
+  };
   const openTollModal = () => {
     setOpenModalTollgate(true);
     if(isDetail){
@@ -355,16 +399,20 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
               <Checkbox checked={x.isChecked}></Checkbox>
             </div>)
           })}
-          {/* <div className="add-checkbox-item">
-            <div className="checkbox-select-active checkbox-select">
-              <p>Pay Invoice</p>
-              <Checkbox ></Checkbox>
-            </div>
-            <CloseOutlined />
-          </div>
-          <div className="add-checkbox">
+          {createdActions.map((x: any) => {
+            return (
+              <div key={x.code_rule_action_item_id} className="add-checkbox-item">
+                <div className={x.is_completed ? "checkbox-select-active checkbox-select" : "checkbox-select"}>
+                  <Input defaultValue={x.checklist_todo_name} onChange={(e) => handleChange(e.target.value, x)} />
+                  <Checkbox checked={x.is_completed}></Checkbox>
+                </div>
+                <CloseOutlined />
+              </div>
+            );
+          })}
+          <div className="add-checkbox" onClick={handleAddTask}>
             <p><PlusCircleFilled />&nbsp;&nbsp;  Create another task</p>
-          </div> */}
+          </div>
         </div>
       </div>
     </>
