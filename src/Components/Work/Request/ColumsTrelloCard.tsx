@@ -38,6 +38,7 @@ const ColumsTrelloCard = ({
   const [onScrollValue, setOnScrollValue] = useState(scrollValuesInit);
 
   useEffect(() => {
+    if (!globalSearch) {
     setTimeout(() => {
       if (document.getElementById(`column_${tabKey}_1`)) {
         scrollValues.forEach((element: any, index: any) => {
@@ -46,17 +47,7 @@ const ColumsTrelloCard = ({
         });
       }
     }, 1000);
-  }, []);
-
-  useEffect(() => {
-    setTimeout(() => {
-      if (document.getElementById(`column_${tabKey}_1`)) {
-        scrollValues.forEach((element: any, index: any) => {
-          scrollByIds[index] = document.getElementById(`column_${tabKey}_${index}`);
-          scrollByIds[index].scrollTop = onScrollValue[index];
-        });
-      }
-    }, 1000);
+    }
   }, [flagforScroll]);
 
   const onClickNewProject = () => {
@@ -92,7 +83,6 @@ const ColumsTrelloCard = ({
       }
     });
     setGlobalSearch(false);
-    stopLoadingColumns();
   };
   const getColumnProjectType = (code_project_type_id: number) => {
     switch (code_project_type_id) {
