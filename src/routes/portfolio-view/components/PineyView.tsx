@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Checkbox, Col, DatePicker, Menu, Progress, Row, Steps} from 'antd';
-import { ClockCircleOutlined, InfoCircleOutlined, PlusCircleFilled} from "@ant-design/icons";
+import { ClockCircleOutlined, CloseOutlined, InfoCircleOutlined, PlusCircleFilled} from "@ant-design/icons";
 import moment from 'moment';
 import TextArea from "antd/lib/input/TextArea";
 import * as datasets from "../../../Config/datasets";
@@ -355,20 +355,15 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
               <Checkbox checked={x.isChecked}></Checkbox>
             </div>)
           })}
-          
-        {/* <div className="checkbox-select-active checkbox-select"
-        >
-          <p>Pay Invoice</p>
-          <Checkbox ></Checkbox>
-        </div>
-          <div onClick={()=>{
-            let addActionItemeCopy = addActionItem;
-            console.log(addActionItemeCopy);
-            addActionItemeCopy.push('Pay Invoice');
-            setAddActionItem(addActionItemeCopy);
-          }
-            }>
-            <PlusCircleFilled /> Create another task
+          {/* <div className="add-checkbox-item">
+            <div className="checkbox-select-active checkbox-select">
+              <p>Pay Invoice</p>
+              <Checkbox ></Checkbox>
+            </div>
+            <CloseOutlined />
+          </div>
+          <div className="add-checkbox">
+            <p><PlusCircleFilled />&nbsp;&nbsp;  Create another task</p>
           </div> */}
         </div>
       </div>
