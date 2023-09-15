@@ -1,32 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Input, Row } from "antd";
 import { CloseCircleFilled } from '@ant-design/icons';
-import { useRequestState } from 'hook/requestHook';
+import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import useCostDataFormattingHook from 'hook/custom/useCostDataFormattingHook';
 import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import { formatter } from 'Components/Work/Request/RequestViewUtil';
+import AmountNumericInput from './AmountNumericInput';
+import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 
 const EditAmountCreateProject = ({
   index,
   type,
   project_id,
+  getTotalCost,
+  save
 }:{
   index: number,
   type: string,
   project_id: any,
+  getTotalCost: any,
+  save: any
 }) => {
-
-  const { columns2: columns } = useRequestState();
   const {
+    columns2: columns,
     year: startYear,
     tabKey,
     namespaceId
   } = useRequestState();
+  const { loadOneColumn } = useRequestDispatch();
+  const { status } = useProjectState();
+
   const [project, setProject] = useState<any>({})
   const [projectsubtype, setProjectsubtype] = useState<any>()
   const [board_project_id, setBoard_project_id] = useState<any>()
   const [value, setValue] = useState('');
+  const isMaintenance = tabKey === 'Maintenance'
 
   // const projectsubtype = projectData?.code_project_type?.project_type_name;
 
@@ -63,6 +72,34 @@ const EditAmountCreateProject = ({
     return totalSum;
   }
 
+  const handleOk = () => {
+    const send = { ...cost, isMaintenance };
+    datasets.putData(
+      SERVER.BOARD_PROJECT_COST(board_project_id),
+      send,
+      datasets.getToken()
+    ).then((res: any) => {
+      setCost(res.newCost);
+      res.columnsChanged.forEach((columnNumber: number) => {
+        loadOneColumn(columnNumber);
+      });
+    })
+      .catch((err: any) => {
+        console.log(err);
+      });
+    // setVisible(false);
+  };
+
+  useEffect(() => {
+    console.log(save, 'SAVE')
+    if(save === true){
+      handleOk();
+    }
+  }, [save]);
+
+  useEffect(() => {
+    console.log(status, 'STATUS')
+  }, [status]);
   useEffect(() => {
     let dataProject: any = {};
     const results = columns.map((x: any, index: number) => {
@@ -104,40 +141,6 @@ const EditAmountCreateProject = ({
     const costDataList = useCostDataFormattingHook(tabKey, projectsubtype, startYear, board_project_id, true);
 
     // console.log(costDataList, 'costDataList')
-
-    const NumericInput = (props: any) => {
-      const { value, onChange } = props;
-    
-      const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { value: inputValue } = e.target;
-        const reg = /^-?\d*(\.\d*)?$/;
-        if (reg.test(inputValue) || inputValue === '' || inputValue === '-') {
-
-          onChange(+inputValue);
-        }
-      };
-    
-      // '.' at the end or only '-' in the input box.
-      const handleBlur = () => {
-        let valueTemp = value;
-        if (value.charAt(value.length - 1) === '.' || value === '-') {
-          valueTemp = value.slice(0, -1);
-        }
-        onChange(valueTemp.replace(/0*(\d+)/, '$1'));
-      };
-    
-      return (
-          <Input
-            {...props}
-
-            className='input-amount'
-            onChange={handleChange}
-            onBlur={handleBlur}
-            placeholder=""
-            maxLength={16}
-          />
-      );
-    };
       
   return (
   <div className='sec-edit-amount'>
@@ -147,7 +150,7 @@ const EditAmountCreateProject = ({
     <p>How much funding from MHFD is being requested for the following years:</p>
       <b>Total Requested Funding: {formatter.format(getSumOfcosts())}</b>
       <br/>
-      <b>Estimated Project Cost: $0</b>
+      <b>Estimated Project Cost: {formatter.format(getTotalCost() ? getTotalCost() : 0)}</b>
     <div className='edit-amount-create-project'>
       <div className={type === 'maintenance' ?'edit-amount-content-maintenance':'edit-amount-content'}>
       {
@@ -158,7 +161,7 @@ const EditAmountCreateProject = ({
             
             <div className='edit-amount'>
               <label className="sub-title">{item.label} </label>
-              <NumericInput key={item.key} style={{ width: 120 }} value={cost[item.key]} onChange={(value: any) => setCost({ ...cost, [item.key]: value })} />
+              <AmountNumericInput key={item.key} value={cost[item.key]} onChange={(value: any) => setCost({ ...cost, [item.key]: value })} />
             </div>
             // <AmountModalField
             //   key={item.key}
