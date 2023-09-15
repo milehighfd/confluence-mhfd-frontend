@@ -383,7 +383,7 @@
     border-radius: 6px;
     margin-bottom: 5px;
   }
-  @keyframes glow {
+  @keyframes glow-card {
     0% {
       box-shadow: 0 0 10px #e768d2;
     }
@@ -396,7 +396,7 @@
   }
   .global-active-wr {
     border: 2px solid #e768d2;
-    animation: glow 1s infinite;
+    animation: glow-card 1s infinite;
     border-radius: 6px;
     margin-bottom: 5px;
   }
@@ -466,6 +466,7 @@
   .menu-wr {
     float: right;
     font-size: 15px;
+    margin-top: 2px;
   }
   .purple {
     background: $light-purple;
@@ -2324,6 +2325,7 @@
     }
     .menu-wr {
       font-size: 18px;
+      margin-top: 3px;
     }
   }
   .work-head {
@@ -2741,7 +2743,9 @@
       padding: 0px 10px !important;
     }
     .menu-wr {
-      font-size: 30px;
+      font-size: 26px;
+      margin-top: 0px;
+      margin-right: -7px;
     }
     .active-card-wr {
       margin-bottom: 10px;

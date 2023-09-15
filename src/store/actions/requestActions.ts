@@ -721,3 +721,7 @@ export const startLoadingColumns = () => ({
   type: types.REQUEST_START_LOADING_COLUMNS_2
 });
 
+export const stopLoadingColumns = () => ({
+  type: types.REQUEST_STOP_LOADING_COLUMNS_2
+});
+
