@@ -200,3 +200,26 @@ export const getActionsDone = () => {
     });
   }
 };
+
+export const getCreatedActions = () => {
+  return (dispatch: Function) => {
+    const controller = new AbortController();
+    datasets.getData(
+      `${SERVER.PROJECT_CHECKLIST}`,
+      datasets.getToken(),
+      controller.signal
+    ).then((res) => {
+      const sortedRes: any = {};
+      for (const item of res) {
+        const projectId = item.project_id;
+        if (!sortedRes[projectId]) {
+          sortedRes[projectId] = [];
+        }
+        sortedRes[projectId].push(item);
+      }
+      dispatch({ type: types.GET_CREATED_ACTIONS, payload: sortedRes });
+    }).catch((error: any) => {
+      console.log('Error on action done', error);
+    });
+  }
+}

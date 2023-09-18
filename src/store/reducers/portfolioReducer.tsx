@@ -27,6 +27,7 @@ const initState = {
   pineyData: {},
   isFromDetailPage: false,
   actionsDone: [],
+  createdActions: [],
 }
 
 const portfolioReducer = (state = initState, action: any) => {
@@ -172,7 +173,11 @@ const portfolioReducer = (state = initState, action: any) => {
         ...state,
         actionsDone: action.payload,
       };
-      
+    case types.GET_CREATED_ACTIONS:
+      return {
+        ...state,
+        createdActions: action.payload,
+      };      
     default:
       return state;
   }

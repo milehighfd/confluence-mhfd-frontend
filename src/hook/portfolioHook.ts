@@ -24,7 +24,8 @@ import {
   setDatesData,
   setPineyData,
   setIsFromDetailPage,
-  getActionsDone
+  getActionsDone,
+  getCreatedActions
 } from 'store/actions/portfolioActions';
 
 export const usePortflioState = () => useSelector(
@@ -106,6 +107,9 @@ export const usePortfolioDispatch = () => {
   const _getActionsDone = useCallback(() => {
     dispatch(getActionsDone());
   }, [dispatch]);
+  const _getCreatedActions = useCallback(() => {
+    dispatch(getCreatedActions());
+  }, [dispatch]);  
 
   return {
     setSearchWord: _setSearchWord,
@@ -131,6 +135,7 @@ export const usePortfolioDispatch = () => {
     setDatesData: _setDatesData,
     setPineyData: _setPineyData,
     setIsFromDetailPage: _setIsFromDetailPage,
-    getActionsDone: _getActionsDone
+    getActionsDone: _getActionsDone,
+    getCreatedActions: _getCreatedActions
   };
 };
