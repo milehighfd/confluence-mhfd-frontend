@@ -51,7 +51,7 @@ const PhaseBody = ({
   const {
     filterProjectOptions,
   } = useMapState();
-  const { currentGroup, favorites, scheduleList, phaseList, statusCounter, updateGroup, actionsDone } = usePortflioState();
+  const { currentGroup, favorites, scheduleList, phaseList, statusCounter, updateGroup, actionsDone, createdActions } = usePortflioState();
   const { 
     deleteFavorite, 
     addFavorite, 
@@ -380,24 +380,46 @@ const PhaseBody = ({
               let counterdown = 0;
               const projectId = d.project_id;
               const arrayToCompare = actionsDone[projectId]
+              const createdActionsData = createdActions[projectId]
+              let createdTasks = 0
+              let createdTasksCompleted = 0              
+              if (createdActionsData !== undefined) {
+                for (let i = 0; i < Object.keys(createdActionsData).length; i++) {
+                  if (scheduleList[r].phase_id === createdActionsData[i].phase_type_id) {
+                    createdTasks += 1;
+                    createdTasksCompleted += createdActionsData[i].is_completed ? 1 : 0;
+                  }
+                }
+              }
               if (arrayToCompare !== undefined) {
                 for (let i = 0; i < Object.keys(arrayToCompare).length; i++) {
                   counterdown += scheduleList[r].tasksData.some((option: any) => option.code_rule_action_item_id === arrayToCompare[i].code_rule_action_item_id);
                 }
               }
-              return scheduleList[r].tasks - counterdown
+              return scheduleList[r].tasks + createdTasks - counterdown - createdTasksCompleted;
             })
             .attr("x", function (d:any) {
               let counterdown = 0;  
               let pendingTasks;         
               const projectId = d.project_id;
               const arrayToCompare = actionsDone[projectId]
+              const createdActionsData = createdActions[projectId]
+              let createdTasks = 0
+              let createdTasksCompleted = 0              
+              if (createdActionsData !== undefined) {
+                for (let i = 0; i < Object.keys(createdActionsData).length; i++) {
+                  if (scheduleList[r].phase_id === createdActionsData[i].phase_type_id) {
+                    createdTasks += 1;
+                    createdTasksCompleted += createdActionsData[i].is_completed ? 1 : 0;
+                  }
+                }
+              }
               if (arrayToCompare !== undefined) {
                 for (let i = 0; i < Object.keys(arrayToCompare).length; i++) {
                   counterdown += scheduleList[r].tasksData.some((option: any) => option.code_rule_action_item_id === arrayToCompare[i].code_rule_action_item_id);
                 }
               }
-              pendingTasks = scheduleList[r].tasks-counterdown;
+              pendingTasks = scheduleList[r].tasks + createdTasks - counterdown - createdTasksCompleted;
               const factorCenter: any = valuesForResolutions('factorCenter');
               let offset = 0;
               offset =
@@ -407,7 +429,18 @@ const PhaseBody = ({
             .attr("y", (d: any) => {
               let ydname: any = y(removeSpaces(d.id));
               return ydname + radius / 3;
-            })
+            }).attr('data-counter-d', (d:any)=>{
+              const createdActionsData = createdActions[d.project_id]            
+              let createdTasks = 0
+              if (createdActionsData !== undefined) {               
+                for (let i = 0; i < Object.keys(createdActionsData).length; i++) {
+                  if (scheduleList[r].phase_id === createdActionsData[i].phase_type_id) {
+                    createdTasks += 1;
+                  }
+                }
+              }
+              return scheduleList[r].tasks + createdTasks
+            });
           circles
             .append("circle")
             .attr('id', (d: any) => { return `${removeSpaces(d.id)}_${scheduleList[r].phase_id}${d.project_id}_outer` })
@@ -466,10 +499,10 @@ const PhaseBody = ({
               setGraphicOpen(true);
               let searchTextId2 = d3.event.target.id.slice(0, -6);
               let actualNumber = d3.selectAll(`#${removeSpaces(searchTextId2)}_text`).text();
-              const lenghtSc = Object.keys(scheduleList[r].tasksData).length
+              let counterD = +d3.select(`#${removeSpaces(searchTextId2)}_text`).attr('data-counter-d'); 
               const phaseSc = (scheduleList[r].phase)
               const phaseId = (scheduleList[r].phase_id)
-              const sendModal = { data: d, actualNumber: actualNumber, scheduleList: lenghtSc, schedulePhase: phaseSc, phase_id: phaseId, to:moment((d?.project_status?.find((x: any) => x.code_phase_type_id === phaseId)?.actual_end_date))}
+              const sendModal = { data: d, actualNumber: actualNumber, scheduleList: counterD, schedulePhase: phaseSc, phase_id: phaseId, to:moment((d?.project_status?.find((x: any) => x.code_phase_type_id === phaseId)?.actual_end_date))}
               setDataModal(sendModal);
               if (popupVisible !== null) {
                 let widthOfPopup: any = document.getElementById('popup-phaseview')?.offsetWidth;

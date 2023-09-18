@@ -39,7 +39,7 @@ const PortafolioBody = () => {
   const {
     searchWord, graphicOpen
   } = usePortflioState();
-  const { setFavorites, getListPMTools, setOpenGroups, getActionsDone } = usePortfolioDispatch();
+  const { setFavorites, getListPMTools, setOpenGroups, getActionsDone, getCreatedActions } = usePortfolioDispatch();
   const { openModalTollgate: visible, } = usePortflioState();
   const [filterby, setFilterby] = useState('');
   const [filterValue, setFilterValue] = useState(-1);
@@ -206,9 +206,9 @@ const PortafolioBody = () => {
     if (currentId == 0) {
       apply([], 'projecttype', '');
     } else {
-      console.log('antes de action')
       getListPMTools(currentId)
       getActionsDone()
+      getCreatedActions()
       apply([currentId], 'projecttype', '');
     }
   } ,[ tabKey ]);

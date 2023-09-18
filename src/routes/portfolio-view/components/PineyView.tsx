@@ -31,6 +31,8 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
   const [actionList, setActionList] = useState<any>([])
   const [updateList, setupdateList] = useState(true)
   const [percent, setPercent] = useState(0)
+  const [lengthActions, setLengthActions] = useState(0)
+  const [lengthCreatedActions, setLengthCreatedActions] = useState(0)
   const [note,setNote] =useState('')
   const [newNote,setNewNote] =useState('')
   const [actualStartDate,setActualStartDate] = useState<any>()
@@ -53,18 +55,14 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
     minimumFractionDigits: 0,
     maximumFractionDigits: 0
   });
-  useEffect(() => {    
-    let counter = 0;
-    let lengthActions = 0;
+  useEffect(() => {   
     datasets.postData(`${SERVER.PHASE_TYPE}/phases`, { code_phase_type_id: data.phase_id, project_id: data.project_id })
       .then((rows) => {
         setActionList(rows.map((x: any) => {
           let isChecked = false;
           if (Object.keys(x.project_action_items)?.length > 0) {
             isChecked = true;
-            counter = counter + 1;
           }
-          lengthActions = rows.length;
           return { 
             action_item_name: x.action_item_name, 
             code_phase_type_id: x.code_phase_type_id, 
@@ -73,7 +71,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
           }
         }
         ))
-        setPercent(Math.floor(counter / lengthActions * 100))
+        setLengthActions(rows.length)
       })
       .catch((e) => {
         console.log(e);
@@ -85,16 +83,40 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
     datasets.postData(`${SERVER.PROJECT_CHECKLIST}`, { phase_type_id: data.phase_id, project_id: data.project_id })
       .then((rows) => {
         setCreatedActions(rows)
+        setLengthCreatedActions(rows.length)
       })
   }, [updateActionItem])
+
+  useEffect(() => {
+    if (actionList.length > 0 || createdActions.length > 0) {
+      let totalLength = lengthActions + lengthCreatedActions
+      let counterActions = actionList.filter((x: any) => x.isChecked === true).length + createdActions.filter((x: any) => x.is_completed === true).length
+      setPercent(Math.floor(counterActions / totalLength * 100))
+    }
+  }, [createdActions, actionList])
 
   const handleAddTask = () => {
     datasets.postData(`${SERVER.PROJECT_CHECKLIST}/create`, { phase_type_id: data.phase_id, project_id: data.project_id }, datasets.getToken())
       .then((rows) => {
         setCreatedActions([...createdActions, rows]);
+        updatePopup(true)
+        updateGraph(true);
       })
   };
-  
+
+  const deleteCreatedAction = (item: any) => {
+    datasets.deleteDataWithBody(`${SERVER.PROJECT_CHECKLIST}`, { id: item.id }, datasets.getToken())
+      .then((rows) => {
+        if (rows) {
+          setUpdateActionItem(!updateActionItem);
+          updatePopup(false)
+          if (!item.is_completed) {
+            updateGraph(false)
+          }
+        }
+      })
+  };
+
   useEffect(() => {
     const scrollPosition = document.getElementById('pineyBody')
     if(scrollPosition){
@@ -157,7 +179,39 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
     }
   }, [editView])
 
-  const saveData = (item: any) => {   
+  const updateGraph = (add: boolean) => {
+    if(add){
+      setupdateList(!updateList) 
+      d3.selectAll(`#${data.d3_pos}_text`).text(+counterD+1);
+      if(+counterD===9){
+        let xPos = d3.select(`#${data.d3_pos}_text`).attr('x')
+        d3.select(`#${data.d3_pos}_text`).attr('x', +xPos-3.3)
+      }
+      setCounterD(counterD+1);
+    }else{
+      setupdateList(!updateList) 
+      d3.selectAll(`#${data.d3_pos}_text`).text(+counterD-1);
+      if(+counterD===10){
+        let xPos = d3.select(`#${data.d3_pos}_text`).attr('x')
+        d3.select(`#${data.d3_pos}_text`).attr('x', +xPos+3.3)
+      }
+      setCounterD(counterD-1);
+    }
+  }
+
+  const updatePopup = (add: boolean) => {
+    if (add) {
+      let newCounter = +d3.select(`#${data.d3_pos}_text`).attr('data-counter-d') + 1;
+      console.log(newCounter);
+      d3.selectAll(`#${data.d3_pos}_text`).attr('data-counter-d', newCounter).text(newCounter);
+    } else {
+      let newCounter = +d3.select(`#${data.d3_pos}_text`).attr('data-counter-d') - 1;
+      console.log(newCounter);
+      d3.selectAll(`#${data.d3_pos}_text`).attr('data-counter-d', newCounter).text(newCounter);
+    }
+  }
+
+  const saveActionData = (item: any) => {   
     const formatTime = moment().format('YYYY-MM-DD HH:mm:ss');
     datasets.postData(`${SERVER.PROJECT_ACTION_ITEM}`, {
       code_rule_action_item_id: item.code_rule_action_item_id,
@@ -168,29 +222,17 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
       completed_date: formatTime,
       created_date: formatTime
     }).then((e) => { 
-      setupdateList(!updateList) 
-      d3.selectAll(`#${data.d3_pos}_text`).text(+counterD-1);
-      if(+counterD===10){
-        let xPos = d3.select(`#${data.d3_pos}_text`).attr('x')
-        d3.select(`#${data.d3_pos}_text`).attr('x', +xPos+3.3)
-      }
-      setCounterD(counterD-1);
+      updateGraph(false)
     }).catch((e) => {
       console.log(e);
     })
   };
-  const deleteData = (item: any) => {
+  const deleteActionData = (item: any) => {
     datasets.deleteDataWithBody(`${SERVER.PROJECT_ACTION_ITEM}`, {
       code_rule_action_item_id: item.code_rule_action_item_id,
       project_id: data.project_id
     }).then((e) => { 
-      setupdateList(!updateList) 
-      d3.selectAll(`#${data.d3_pos}_text`).text(+counterD+1);
-      if(+counterD===9){
-        let xPos = d3.select(`#${data.d3_pos}_text`).attr('x')
-        d3.select(`#${data.d3_pos}_text`).attr('x', +xPos-3.3)
-      }
-      setCounterD(counterD+1);
+      updateGraph(true)
     }).catch((e) => {
       console.log(e);
     }) 
@@ -250,7 +292,22 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
         }
       })
   };
-  
+
+  const toggleCreatedAction = (item: any) => {
+    datasets.putData(`${SERVER.PROJECT_CHECKLIST}/toggle`, { id: item.id, is_completed: !item.is_completed }, datasets.getToken())
+      .then((rows) => {
+        if (rows) {
+          setUpdateActionItem(!updateActionItem);
+          if (item.is_completed) {
+            updateGraph(true)
+          }else{
+            updateGraph(false)
+          }
+        }
+      }
+     )
+  };  
+
   const debouncedHandleInputChange = React.useCallback(
     debounce(handleInputChange, 1000),
     [handleInputChange]
@@ -389,9 +446,9 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
             return (<div key={x.code_rule_action_item_id} className={x.isChecked ? "checkbox-select-active checkbox-select" : "checkbox-select"}
               onClick={disabledLG ? undefined : (e) => {
                 if (x.isChecked) {
-                  deleteData(x)
+                  deleteActionData(x)
                 } else {
-                  saveData(x)
+                  saveActionData(x)
                 }
               }}
             >
@@ -401,12 +458,25 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
           })}
           {createdActions.map((x: any) => {
             return (
-              <div key={x.code_rule_action_item_id} className="add-checkbox-item">
+              <div key={x.id} className="add-checkbox-item"
+                onClick={(e) => {
+                  toggleCreatedAction(x)
+                }
+                }>
                 <div className={x.is_completed ? "checkbox-select-active checkbox-select" : "checkbox-select"}>
-                  <Input defaultValue={x.checklist_todo_name} onChange={(e) => handleChange(e.target.value, x)} />
+                  <Input
+                    defaultValue={x.checklist_todo_name}
+                    onChange={(e) => {
+                      handleChange(e.target.value, x)
+                    }}
+                    onClick={(e) => e.stopPropagation()}
+                  />
                   <Checkbox checked={x.is_completed}></Checkbox>
                 </div>
-                <CloseOutlined />
+                <CloseOutlined onClick={(e) => {
+                  e.stopPropagation();
+                  deleteCreatedAction(x)
+                }} />
               </div>
             );
           })}

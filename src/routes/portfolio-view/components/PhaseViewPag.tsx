@@ -18,7 +18,7 @@ const PhaseViewPag = ({
   phaseList,
   statusList,
   } = usePortflioState();
-  const { getActionsDone } = usePortfolioDispatch();
+  const { getActionsDone, getCreatedActions } = usePortfolioDispatch();
   const [availableStatusList, setAvailableStatusList] = useState<any>([]);
   const [detailGroup, setDetailGroup] = useState<any>(null);
   const [updateAction,setUpdateAction] = useState(false);
@@ -33,6 +33,7 @@ const PhaseViewPag = ({
 
   useEffect(() => {
     getActionsDone();
+    getCreatedActions();
   }, [tabKey, updateAction])
 
   useEffect(() => {
