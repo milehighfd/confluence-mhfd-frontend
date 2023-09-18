@@ -450,7 +450,7 @@ const TableListView = ({
             key: 'name',
             title: 'Project Name',
             dataIndex: 'name',
-            width: '276px',
+            width: '255px',
             fixed: 'left',
             render: (name: any, record:any) =>            
               <div className='name-project-sec'>

@@ -486,6 +486,10 @@ const DetailModal = ({
       }, 1850);
     }
   };
+  useEffect(() => {
+     console.log(appUser.firstName)
+    console.log('openPiney', openPiney);
+  }, [openPiney]);
   return (
     <>
       <ModalTollgate setOpenPiney={setOpenPiney} />
@@ -1008,7 +1012,7 @@ const DetailModal = ({
               </div>
             </Col>
             <Col
-              xs={{ span: 0}}
+              // xs={{ span: 0}} 
               span={7}
               className="pm-sidebar-graphics-display"
               style={{ height: 'calc(100vh - 183px)', overflowY: 'auto', scrollBehavior: 'smooth' }}

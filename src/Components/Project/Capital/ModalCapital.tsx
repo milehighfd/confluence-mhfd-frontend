@@ -1289,6 +1289,9 @@ export const ModalCapital = ({
               <EditAmountCreateProject 
                 index={indexForm++}
                 type={selectedTypeProject}
+                project_id={data?.project_id}
+                getTotalCost={getTotalCost}
+                save={save}
               />                 
               <UploadImagesDocuments
                 isCapital={true}
