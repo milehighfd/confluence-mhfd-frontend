@@ -108,7 +108,8 @@ const initState = {
     project_id: 0,
     status: 0,
     locality : ''
-  }
+  },
+  createdProject:{}
 }
 
 const projectReducer = (state = initState, action: any) => {
@@ -466,6 +467,12 @@ const projectReducer = (state = initState, action: any) => {
           ...state.globalProjectData,
           locality: action.globalLocality
         }
+      }
+    }
+    case types.SET_CREATED_PROJECT: {
+      return {
+        ...state,
+        createdProject: action.createdProject
       }
     }
     default: 

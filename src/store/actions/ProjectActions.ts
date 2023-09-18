@@ -63,6 +63,8 @@ export const saveCapital = (data: any) => {
       let status ; 
       if(res && res.project_data){
         status = 1;
+        console.log(res)
+        dispatch(setCreatedProject(res.project_data));
       }else{
         status = 0;
       }
@@ -109,6 +111,8 @@ export const editCapital = (data: any) => {
       let status ; 
       if(res && res.project_update){
         status = 1;
+        console.log(res)
+        dispatch(setCreatedProject(res.project_update));
       }else{
         status = 0;
       }
@@ -123,6 +127,11 @@ export const editCapital = (data: any) => {
 export const setSave = (status: any) => {
   return ( dispatch: Function ) => {
     dispatch({type: types.SET_SAVE, status});
+  };
+}
+export const setCreatedProject = (createdProject: any) => {
+  return ( dispatch: Function ) => {
+    dispatch({type: types.SET_CREATED_PROJECT, createdProject});
   };
 }
 export const setIsEdit = (isEdit: boolean) => {

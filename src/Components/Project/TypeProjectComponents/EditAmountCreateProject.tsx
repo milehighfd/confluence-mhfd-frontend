@@ -29,8 +29,8 @@ const EditAmountCreateProject = ({
     namespaceId
   } = useRequestState();
   const { loadOneColumn } = useRequestDispatch();
-  const { status } = useProjectState();
-
+  const { status, createdProject } = useProjectState();
+  const { setCreatedProject } = useProjectDispatch();
   const [project, setProject] = useState<any>({})
   const [projectsubtype, setProjectsubtype] = useState<any>()
   const [board_project_id, setBoard_project_id] = useState<any>()
@@ -74,6 +74,8 @@ const EditAmountCreateProject = ({
 
   const handleOk = () => {
     const send = { ...cost, isMaintenance };
+    console.log(send, 'SEND')
+    console.log(board_project_id, 'BOARD PROJECT ID')
     datasets.putData(
       SERVER.BOARD_PROJECT_COST(board_project_id),
       send,
@@ -91,16 +93,27 @@ const EditAmountCreateProject = ({
   };
 
   useEffect(() => {
+    console.log(createdProject, 'CREATED PROJECT')
+    console.log(columns)
+  }, [createdProject]);
+
+  useEffect(() => {
     console.log(save, 'SAVE')
-    if(save === true){
+    if(save === true && board_project_id !== undefined){
       handleOk();
     }
-  }, [save]);
+  }, [save, board_project_id]);
 
   useEffect(() => {
     console.log(status, 'STATUS')
   }, [status]);
   useEffect(() => {
+    console.log(type, 'TYPE')
+    console.log(project_id, 'PROJECT')
+  }, []);
+
+  useEffect(() => {
+      console.log(columns, 'COLUMNS aaa')
     let dataProject: any = {};
     const results = columns.map((x: any, index: number) => {
       const row = x.projects.find((y: any) => y.project_id === project_id);
@@ -111,16 +124,16 @@ const EditAmountCreateProject = ({
     });
     setProject(dataProject);
     console.log(results, 'RESULTS')
-    console.log(type, 'TYPE')
-    console.log(project_id, 'PROJECT')
-  }, []);
+ }, [columns]);
 
   useEffect(() => {
+    console.log(project, 'PROJECT')
     if(Object.keys(project).length !== 0){
       console.log('project',project)
       setProjectsubtype(project?.projectData?.code_project_type?.project_type_name);
       setBoard_project_id(project?.board_project_id);
     }
+    
   }, [project]);
 
   useEffect(() => {

@@ -59,7 +59,8 @@ import {
   setGlobalSearch,
   setGlobalProjectId,
   setGlobalStatusId,
-  setGlobalLocality
+  setGlobalLocality,
+  setCreatedProject
 } from '../store/actions/ProjectActions';
 
 export const useProjectState = () => useSelector(
@@ -248,6 +249,9 @@ export const useProjectDispatch = () => {
     },
     setGlobalLocality: (globalLocality: any) => {
       dispatch(setGlobalLocality(globalLocality))
+    },
+    setCreatedProject: (createdProject: any) => {
+      dispatch(setCreatedProject(createdProject))
     }
   };
 };
