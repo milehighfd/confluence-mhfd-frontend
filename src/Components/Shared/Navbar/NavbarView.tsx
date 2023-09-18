@@ -314,7 +314,7 @@ const NavbarView = ({
       type={FILTER_PROJECTS_TRIGGER}
     />}
     <h6>{value}</h6>
-    {/* <Input
+    <Input
       id='navbar-search'
       className='navbar-search'
       placeholder="Search"
@@ -329,7 +329,7 @@ const NavbarView = ({
           setActiveSearch(true);
         }
       }}
-    /> */}
+    />
     {activeSearch && <div style={{position:'absolute'}} className='navbar-search-content'>
       <div className="navbar-search-tooltip">
         <div className='tab-navbar-search'>
