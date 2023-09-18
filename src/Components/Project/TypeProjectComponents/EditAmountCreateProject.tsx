@@ -12,13 +12,15 @@ const EditAmountCreateProject = ({
   type,
   project_id,
   getTotalCost,
-  save
+  save,
+  subType
 }:{
   index: number,
   type: string,
   project_id: any,
   getTotalCost: any,
   save: any
+  subType: any
 }) => {
   const {
     columns2: columns,
@@ -29,7 +31,6 @@ const EditAmountCreateProject = ({
   const { status, createdProject } = useProjectState();
   const { setCreatedProject } = useProjectDispatch();
   const [project, setProject] = useState<any>({})
-  const [projectsubtype, setProjectsubtype] = useState<any>()
   const [board_project_id, setBoard_project_id] = useState<any>()
   const isMaintenance = tabKey === 'Maintenance'
   
@@ -107,7 +108,6 @@ const EditAmountCreateProject = ({
 
   useEffect(() => {
     if(Object.keys(project).length !== 0){
-      setProjectsubtype(project?.projectData?.code_project_type?.project_type_name);
       setBoard_project_id(project?.board_project_id);
     }
   }, [project]);
@@ -123,7 +123,7 @@ const EditAmountCreateProject = ({
       });
   }, [board_project_id]);
 
-    const costDataList = useCostDataFormattingHook(tabKey, projectsubtype, startYear, board_project_id, true);
+    const costDataList = useCostDataFormattingHook(tabKey, subType, startYear, board_project_id, true);
 
   return (
   <div className='sec-edit-amount'>

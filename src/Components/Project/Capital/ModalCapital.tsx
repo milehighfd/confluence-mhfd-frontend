@@ -1292,6 +1292,7 @@ export const ModalCapital = ({
                 project_id={data?.project_id}
                 getTotalCost={getTotalCost}
                 save={save}
+                subType={subType}
               />                 
               <UploadImagesDocuments
                 isCapital={true}
