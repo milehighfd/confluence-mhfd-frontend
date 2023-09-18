@@ -1029,8 +1029,7 @@ const DetailModal = ({
                   />
                 </div>
               ) : (
-                ''
-                // <TeamCollaborator />
+                <TeamCollaborator />
               )}
             </Col>
           </Row>
