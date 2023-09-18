@@ -10,6 +10,7 @@ import { PAGE_USER, WINDOW_WIDTH } from 'constants/constants';
 import { useUsersDispatch } from 'hook/usersHook';
 import ProfileUser from 'routes/user-management/components/ProfileUser';
 import UserMngFilters from 'routes/user-management/components/UserMngFilters';
+import { capitalizeWords } from 'utils/utils';
 
 const titleCase = (str:any)=> {
   str = str.replaceAll('_', ' ');
@@ -84,7 +85,7 @@ const UserList = () => {
           {designation === 'admin' ? 'MHFD Senior Manager':
           designation === 'consultant' ? 'Consultant/Contractor':
           designation === 'government_staff' ? 'Local Government':
-          designation === 'staff' ? 'MHFD Staff': designation
+          designation === 'staff' ? 'MHFD Staff': capitalizeWords(designation)
           }
         </span> 
       ),
