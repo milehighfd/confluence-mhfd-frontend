@@ -98,7 +98,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
   const handleAddTask = () => {
     datasets.postData(`${SERVER.PROJECT_CHECKLIST}/create`, { phase_type_id: data.phase_id, project_id: data.project_id }, datasets.getToken())
       .then((rows) => {
-        setCreatedActions([...createdActions, rows]);
+        setUpdateActionItem(!updateActionItem);
         updatePopup(true)
         updateGraph(true);
       })
