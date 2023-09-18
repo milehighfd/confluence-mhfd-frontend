@@ -64,7 +64,7 @@ export const saveCapital = (data: any) => {
       if(res && res.project_data){
         status = 1;
         console.log(res)
-        dispatch(setCreatedProject(res.project_data));
+        dispatch(setCreatedProject(res));
       }else{
         status = 0;
       }
