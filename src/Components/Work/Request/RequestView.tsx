@@ -74,7 +74,7 @@ const RequestView = ({ type, widthMap }: {
     loadFilters,
     setTotalCountyBudget,
     setIsListView,
-    startLoadingColumns,
+    stopLoadingColumns,
   } = useRequestDispatch();
   const {
     setOpacityLayer,
@@ -134,9 +134,10 @@ const RequestView = ({ type, widthMap }: {
   }, [tabKey]);
 
   useEffect(() => {
+    console.log(globalSearch)
     if(globalSearch && selectView === 'list'){
       setSelectView('card');
-      startLoadingColumns();
+      stopLoadingColumns();
     }
   }, [globalSearch]);
 
