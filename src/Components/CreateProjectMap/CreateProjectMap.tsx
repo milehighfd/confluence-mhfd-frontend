@@ -996,8 +996,8 @@ const CreateProjectMap = (type: any) => {
         hideHighlighted();
         showHoverComponents();
         getStreamIntersectionPolygon(userPolygon.geometry);
+        getStreamsList(userPolygon.geometry, currentType);
       }
-      getStreamsList(userPolygon.geometry, currentType);
     } else if (currentType === 'MAINTENANCE') {
       getStreamIntersectionPolygon(userPolygon.geometry);
       getStreamsList(userPolygon.geometry, currentType);
