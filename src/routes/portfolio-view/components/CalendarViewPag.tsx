@@ -17,7 +17,18 @@ const CalendarViewPag = ({
   tabKey: any,
 }) => {
   const { currentGroup, zoomTimeline, zoomTimelineAux, zoomSelected, isLoading } = usePortflioState();
-  const { setZoomTimeline, setZoomTimelineAux, setIsZoomWeekly,setIsZoomMonthly, setZoomSelected, setOpenModalTollgate, setIsLoading, setDatesData, getActionsDone} = usePortfolioDispatch();
+  const { 
+    setZoomTimeline, 
+    setZoomTimelineAux, 
+    setIsZoomWeekly,
+    setIsZoomMonthly, 
+    setZoomSelected, 
+    setOpenModalTollgate, 
+    setIsLoading, 
+    setDatesData, 
+    getActionsDone,
+    getCreatedActions,
+  } = usePortfolioDispatch();
   const [detailGroup, setDetailGroup] = useState<any>(null);
   const [updateAction, setUpdateAction] = useState(false);
   const [editData,setEditData] = useState<any>({});
@@ -32,6 +43,7 @@ const CalendarViewPag = ({
   const marginReducerHeaderAxis = windowWidth >= 3001 && windowWidth <= 3999 ? '-5.3px' : '-5.9px';  
   useEffect(() => {
     getActionsDone();
+    getCreatedActions();
   }, [tabKey, updateAction])
 
   useEffect(() => {

@@ -53,7 +53,7 @@ const CalendarBody = ({
   groupName = groupName === '?' ? '#questionMark' : groupName;
   const svgDivWrapperId = `#timeline-chart-${startsWithNumber(groupName)? groupName.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') : groupName.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}`;
   const svgAxisDivWrapperId = `#timeline-chart-axis`;
-  const { currentGroup, favorites, zoomTimeline, zoomTimelineAux, zoomSelected, updateGroup, actionsDone } = usePortflioState();
+  const { currentGroup, favorites, zoomTimeline, zoomTimelineAux, zoomSelected, updateGroup, actionsDone, createdActions } = usePortflioState();
   const { 
     deleteFavorite, 
     addFavorite, 
@@ -622,11 +622,23 @@ const CalendarBody = ({
               counterdown += scheduleData.tasksData.some((option: any) => option.code_rule_action_item_id === arrayToCompare[i].code_rule_action_item_id);
             }
           }
-          const lenghtSc = Object.keys(scheduleData.tasksData).length
+          const createdActionsData = createdActions[projectId]
+          let createdTasks = 0
+          let createdTasksCompleted = 0
+          if (createdActionsData !== undefined) {
+            for (let i = 0; i < Object.keys(createdActionsData).length; i++) {
+              createdTasks += 1;
+              if (scheduleData.code_phase_type_id === createdActionsData[i].phase_type_id) {
+                createdTasksCompleted += createdActionsData[i].is_completed ? 1 : 0;
+              }
+            }
+          }
+          const totalDone = counterdown + createdTasksCompleted;
+          const totalTasks = Object.keys(scheduleData.tasksData).length + createdTasks;
           const phaseSc = scheduleData.phase
           const phaseId = scheduleData.phase_id
           const dataProject = d.project_data;
-          const sendModal = { data: dataProject, actualNumber: counterdown, scheduleList: lenghtSc, schedulePhase: phaseSc, phase_id: phaseId, to:d.to }
+          const sendModal = { data: dataProject, actualNumber: totalDone, scheduleList: totalTasks, schedulePhase: phaseSc, phase_id: phaseId, to:d.to }
           setDataModal(sendModal);
           setGraphicOpen(true);
           let widthOfPopup: any = document.getElementById('popup-phaseview')?.offsetWidth;
