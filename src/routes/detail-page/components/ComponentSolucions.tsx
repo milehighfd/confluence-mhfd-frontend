@@ -1,5 +1,8 @@
-import React from 'react';
-import { Col, Row, Table, Tooltip } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Button, Carousel, Col, Modal, Progress, Row, Table, Tooltip } from 'antd';
+import TeamCollaborator from '../../../Components/Shared/Modals/TeamCollaborator';
+import { ArrowDownOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { useDetailedState } from 'hook/detailedHook';
 import { useMapState } from 'hook/mapHook';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
@@ -29,7 +32,7 @@ const ComponentSolucions = () => {
     },
     {
       title: <>Cost  <Tooltip title={
-        <div style={{zIndex:"1000"}}><b>Cost</b> is the estimated total cost of the project based on the cost of the underlying components.</div>
+        <div style={{zIndex:"1000"}}>Cost is adjusted for inflation.</div>
       }><ExclamationCircleOutlined style={{opacity:"0.4"}}/></Tooltip></>,
       dataIndex: 'cost',
       key: 'cost',
@@ -66,14 +69,17 @@ const ComponentSolucions = () => {
         </Col>
       </Row>
       <Row>
-        <Col xs={{ span: 24 }} lg={{ span: 24 }} className="detail-problems-component-table">
-          <Table dataSource={componentsOfProblems ? dataSolution : {}} columns={columns} pagination={false} />
-          {componentsOfProblems.length > 0 && (
-            <div className="table-value-total">
-              <p className="table-total-font table-total-adjust">{`Total Proposed Cost (${totalComponents})`}</p>
-              <p style={{ width: 'calc(20% + 0px)' }}>${new Intl.NumberFormat('en-EN').format(total)}</p>
-            </div>
-          )}
+        <Col xs={{ span: 24 }} lg={{ span: 24 }} className="detail-problems-component-table table-mobile-proposed">
+          <div className='mobile-table-proposed'>
+            <Table dataSource={componentsOfProblems ? dataSolution : {}} columns={columns} pagination={false} />
+            {componentsOfProblems.length > 0 && (
+              <div className="table-value-total">
+                <p className="table-total-font table-total-adjust">{`Total Proposed Cost (${totalComponents})`}</p>
+                <p style={{ width: 'calc(20% + 0px)' }}>${new Intl.NumberFormat('en-EN').format(total)}</p>
+              </div>
+            )}
+          </div>
+          
         </Col>
       </Row>
     </>

@@ -1,28 +1,22 @@
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  saveAcquisition,
   saveCapital,
-  saveMaintenance,
-  saveSpecial,
-  saveStudy,
   saveSpecialLocation,
   saveAcquisitionLocation,
-  getStreamIntersection,
   changeDrawState,
   changeDrawStateCapital,
   getStreamIntersectionPolygon,
   getStreamsIntersectedPolygon,
   changeAddLocationState,
   setSave,
-  getComponentsIntersected,
   setComponentIntersected,
   getServiceAreaPoint,
   getServiceAreaStreams,
   getStreamsList,
   setStreamsList,
   setUserPolygon,
+  setIsGeomDrawn,
   getListComponentsByComponentsAndPolygon,
-  getStreamsByComponentsList,
   getAllComponentsByProblemId,
   setStreamIntersected,
   setComponentsFromMap,
@@ -30,21 +24,16 @@ import {
   setHighlightedComponent,
   updateSelectedLayersWR,
   updateSelectedLayersCP,
-  setBoardProjects,
   setBoardProjectsCreate,
   setZoomProject,
   setStreamsIds,
-  editSpecial,
-  editAcquisition,
   setEditLocation,
-  editMaintenance,
   getStreamsByProjectId,
   getIndependentComponentsByProjectId,
   getComponentsByProjectId,
   setIndComponents,
   getGEOMByProjectId,
   editCapital,
-  editStudy,
   setServiceAreaCounty,
   getJurisdictionPolygon,
   getServiceAreaPolygonofStreams,
@@ -53,11 +42,9 @@ import {
   getZoomGeomComp,
   getZoomGeomProblem,
   setZoomGeom,
-  setHighlightedProblem,
   setComponentGeom,
   setHighlightedStream,
   setHighlightedStreams,
-  saveOverheadCost,
   setNextPageOfCards,
   resetNextPageOfCards,
   setInfiniteScrollItems,
@@ -68,7 +55,12 @@ import {
   setDeleteAttachmentsIds,
   setZoomGeomCreateMap,
   archiveProject,
-  setDisableFieldsForLg
+  setDisableFieldsForLg,
+  setGlobalSearch,
+  setGlobalProjectId,
+  setGlobalStatusId,
+  setGlobalLocality,
+  setCreatedProject
 } from '../store/actions/ProjectActions';
 
 export const useProjectState = () => useSelector(
@@ -84,21 +76,6 @@ export const useProjectDispatch = () => {
     setIsEdit: (isEdit: boolean) => {
       dispatch(setIsEdit(isEdit));
     },
-    saveProjectSpecial: (special: any) => {
-      dispatch(saveSpecial(special));
-    },
-    saveProjectAcquisition: (acquisition: any) => {
-      dispatch(saveAcquisition(acquisition));
-    },
-    saveProjectMaintenance: (maintenance: any) => {
-      dispatch(saveMaintenance(maintenance));
-    },
-    saveOverheadCost: (cost: any) => {
-      dispatch(saveOverheadCost(cost));
-    },
-    saveProjectStudy: (study: any) => {
-      dispatch(saveStudy(study));
-    },
     saveProjectCapital: (capital: any) => {
       dispatch(saveCapital(capital));
     },
@@ -107,9 +84,6 @@ export const useProjectDispatch = () => {
     },
     saveAcquisitionLocation: (location: any) => {
       dispatch(saveAcquisitionLocation(location))
-    },
-    getStreamIntersectionSave: (geom: any) => {
-      dispatch(getStreamIntersection(geom));
     },
     getStreamIntersectionPolygon: (geom: any) => {
       dispatch(getStreamIntersectionPolygon(geom));
@@ -125,9 +99,6 @@ export const useProjectDispatch = () => {
     },
     changeAddLocationState: (isAddLocation: boolean) => {
       dispatch(changeAddLocationState(isAddLocation));
-    },
-    getListComponentsIntersected: (geom: any) => {
-      dispatch(getComponentsIntersected(geom));
     },
     setComponentIntersected: (listComponents: any) => {
       dispatch(setComponentIntersected(listComponents));
@@ -147,8 +118,8 @@ export const useProjectDispatch = () => {
     setUserPolygon: (userPolygon: any) => {
       dispatch(setUserPolygon(userPolygon));
     },
-    getStreamsByComponentsList: (components: any) => {
-      dispatch(getStreamsByComponentsList(components));
+    setIsGeomDrawn: (isGeomDrawn: boolean) => {
+      dispatch(setIsGeomDrawn(isGeomDrawn));
     },
     getListComponentsByComponentsAndPolygon: (components: any, geom: any) => {
       dispatch(getListComponentsByComponentsAndPolygon(components, geom));
@@ -174,9 +145,6 @@ export const useProjectDispatch = () => {
     setHighlightedComponent: (highlightedComponent: any) => {
       dispatch(setHighlightedComponent(highlightedComponent));
     },
-    setBoardProjects: (boardProjects: any) => {
-      dispatch(setBoardProjects(boardProjects));
-    },
     setBoardProjectsCreate: (boardProjectsCreate: any) => {
       dispatch(setBoardProjectsCreate(boardProjectsCreate));
     },
@@ -186,20 +154,8 @@ export const useProjectDispatch = () => {
     setStreamsIds: (streamsIntersectedIds: any) => {
       dispatch(setStreamsIds(streamsIntersectedIds));
     },
-    editProjectSpecial: (data: any) => {
-      dispatch(editSpecial(data));
-    },
-    editProjectAcquisition: (data: any) => {
-      dispatch(editAcquisition(data));
-    },
-    editProjectMainetnance: (data: any) => {
-      dispatch(editMaintenance(data));
-    },
     editProjectCapital: (data: any) => {
       dispatch(editCapital(data));
-    },
-    editProjectStudy: (data: any) => {
-      dispatch(editStudy(data));
     },
     setEditLocation: (editLocation: any) => {
       dispatch(setEditLocation(editLocation));
@@ -246,9 +202,6 @@ export const useProjectDispatch = () => {
     setZoomGeom: (zoomGeom: any) => {
       dispatch(setZoomGeom(zoomGeom));
     },
-    setHighlightedProblem: (highlightedProblem: any) => {
-      dispatch(setHighlightedProblem(highlightedProblem));
-    },
     setHighlightedStream: (highlightedStream: any) => {
       dispatch(setHighlightedStream(highlightedStream));
     },
@@ -284,6 +237,21 @@ export const useProjectDispatch = () => {
     },
     setDisableFieldsForLg: (disableFieldsForLG: boolean) => {
       dispatch(setDisableFieldsForLg(disableFieldsForLG))
+    },
+    setGlobalSearch: (globalSearch: boolean) => {
+      dispatch(setGlobalSearch(globalSearch))
+    },
+    setGlobalProjectId: (globalProjectId: any) => {
+      dispatch(setGlobalProjectId(globalProjectId))
+    },
+    setGlobalStatusId: (globalStatusId: any) => {
+      dispatch(setGlobalStatusId(globalStatusId))
+    },
+    setGlobalLocality: (globalLocality: any) => {
+      dispatch(setGlobalLocality(globalLocality))
+    },
+    setCreatedProject: (createdProject: any) => {
+      dispatch(setCreatedProject(createdProject))
     }
   };
 };

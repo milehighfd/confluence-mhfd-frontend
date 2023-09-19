@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Menu, MenuProps, Popover, Table } from 'antd';
 import type { ColumnsType } from 'antd/lib/table';
-import { ADMIN, NEW_PROJECT_TYPES, STAFF, STATUS_NAMES, WINDOW_WIDTH, WORK_PLAN } from 'constants/constants';
+import { ADMIN, BOARD_STATUS_TYPES, NEW_PROJECT_TYPES, STAFF, STATUS_NAMES, WINDOW_WIDTH, WORK_PLAN } from 'constants/constants';
 import { MoreOutlined } from '@ant-design/icons';
 import { getData, getToken } from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
@@ -12,6 +12,9 @@ import { useProfileState } from 'hook/profileHook';
 import AmountModal from '../AmountModal';
 import ModalProjectView from 'Components/ProjectModal/ModalProjectView';
 import { postData } from 'Config/datasets';
+import { ArchiveAlert } from 'Components/Alerts/ArchiveAlert';
+import DetailModal from 'routes/detail-page/components/DetailModal';
+import EditDatesModal from '../EditDatesModal';
 
 const TableListView = ({
   maintenanceSubType
@@ -37,7 +40,14 @@ const TableListView = ({
   const [filteredColumns, setFilteredColumns] = useState<any[]>([]);
   const [showCopyToCurrentYearAlert, setShowCopyToCurrentYearAlert] = useState(false);
   const [boardProjectIds, setBoardProjectIds] = useState<any[]>([]);
+  const [showActivateProject, setShowActivateProject] = useState(false);
+  const [archiveAlert, setArchiveAlert] = useState(false);
+  const [archiveProjectAction , setArchiveProjectAction] = useState(false);
+  const [archiveProjectId, setArchiveProjectId] = useState(0);
+  const [visibleModal, setVisibleModal] = useState(false);
+  const [selectedProjectData, setSelectedProjectData] = useState<any>(null);
   const windowWidthSize: any = window.innerWidth;
+  const [hoveredRow, setHoveredRow] = useState<any>(null);
   const appUser = useProfileState();
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -64,12 +74,14 @@ const TableListView = ({
               };              
               return {
                 ...item,
-                costs: costMapping[subtype] || item.costs
+                costs: costMapping[subtype] || item.costs,
+                visible :false
               };
             } else {
               return {
                 ...item,
-                costs: [0, 0, 0]
+                costs: [0, 0, 0],
+                visible :false
               }
             }            
           })
@@ -268,6 +280,17 @@ const TableListView = ({
         }
         return text;
     }
+
+  const hidePopover = () => {
+    setParsedData(
+      parsedData.map((item: any) => {
+        return {
+          ...item,
+          visible: false
+        }
+      })
+    )
+  }
     interface DataType {
         key: React.Key;
         name: string;
@@ -277,23 +300,28 @@ const TableListView = ({
         actions: number;
         type: string;
     }
-    const content = (record:any) => {
+    const content = (record:any) => {      
     const items: MenuProps['items'] = [{
       key: '0',
       label: <span style={{borderBottom: '1px solid transparent'}}>
         <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
         Edit Project
       </span>,
-      onClick: (() => getCompleteProjectData(record))
+      onClick: (() => {
+        hidePopover();
+        getCompleteProjectData(record);        
+      })
     }, {
       key: '1',
+      disabled: boardStatus === BOARD_STATUS_TYPES.APPROVED,
       label: <span style={{borderBottom: '1px solid transparent'}}>
         <img src="/Icons/icon-90.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px', marginRight: '4px' }} />
         Edit Amount
       </span>,
       onClick: (() => {
+        hidePopover();
         setSelectedProject(record);
-        setShowAmountModal(true)
+        setShowAmountModal(true);
       })
     }, {
       key: '2',
@@ -301,7 +329,10 @@ const TableListView = ({
         <img src="/Icons/icon-13.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px', marginRight: '4.6px' }} />
         Zoom to
       </span>,
-      onClick: (() => { setZoomProject(record.projectData);})
+      onClick: (() => { 
+        hidePopover();
+        setZoomProject(record.projectData);
+      })
     }];
     if (!editable) {
       items.pop();
@@ -314,35 +345,151 @@ const TableListView = ({
           <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
           Copy to Current Year
         </span>,
-        onClick: (() => setShowCopyToCurrentYearAlert(true))
+        onClick: (() => {
+          hidePopover();
+          setShowCopyToCurrentYearAlert(true)
+        })
       });
     }
     if (appUser?.userInformation?.designation === 'admin' ||
-    appUser?.userInformation?.designation === 'staff'){
+      appUser?.userInformation?.designation === 'staff') {
       items.push({
         key: '5',
-        label: <span style={{borderBottom: '1px solid transparent'}}>
+        label: <span style={{ borderBottom: '1px solid transparent' }}>
           <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
           Archive Project
         </span>,
-        onClick: (() => archiveProject(record?.projectData?.project_id))
+        onClick: (() => {
+          hidePopover();
+          setArchiveAlert(true)
+          setArchiveProjectId(record?.projectData?.project_id)
+        })
       });
-    }    
+      if (record?.projectData?.currentId[0]?.status_name !== 'Active'
+        ) {
+          //add work plan
+        items.push({
+          key: '6',
+          label: <span style={{ borderBottom: '1px solid transparent' }}>
+            <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
+            Make Project Active
+          </span>,
+          onClick: (() => {
+            hidePopover();
+            setSelectedProjectData(record?.projectData)
+            setShowActivateProject(true)
+          })
+        })
+      }
+    }
+    if (record?.projectData?.currentId[0]?.status_name === 'Active'){
+      items.push({
+        key: '7',
+        label: <span style={{ borderBottom: '1px solid transparent' }}>
+          <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
+          Detail Page
+        </span>,
+        onClick: (() => {
+          setSelectedProjectData(record?.projectData)
+          setVisibleModal(true)
+          hidePopover();
+        })
+      })
+    }
     return (<Menu className="js-mm-00" items={items} />)
   };
+  const getStyleForStatus =(status: string) => {
+    let color = null, backgroundColor = null;
+    switch(status) {
+      case 'Requested':
+        backgroundColor = 'rgba(94, 61, 255, 0.15)';
+        color = '#9309EA';
+        break;
+      case 'Approved':
+        // backgroundColor = 'rgba(97, 158, 234, 0.15)';
+        // color = '#497BF3';
+        backgroundColor = 'rgba(143, 252, 83, 0.3)';
+        color = '#139660';
+        break;
+      case 'Initiated':
+        backgroundColor = 'rgba(41, 196, 153, 0.08)';
+        color = '#139660';
+        break;
+      case 'Cancelled':
+        backgroundColor = 'rgba(255, 0, 0, 0.08)';
+        color = '#FF0000';
+        break;
+      case 'Complete':
+        backgroundColor = 'rgba(41, 196, 153, 0.08)';
+        color = '#06242D';
+        break;
+      case 'Active': 
+        // backgroundColor = 'rgba(65, 110, 218, 0.08)';
+        // color = '#416EDA';
+        backgroundColor = 'rgba(143, 252, 83, 0.3)';
+        color = '#139660';
+        break;
+      case 'Inactive':
+        // backgroundColor = 'rgba(164, 1688, 248, 0.08)';
+        // color = '#A4BCF8';
+        backgroundColor = 'rgba(255, 0, 0, 0.08)';
+        color = '#FF0000';
+        break;
+      case 'Closed':
+        backgroundColor = 'rgba(204, 146, 240, 0.2)';
+        color = '#9309EA';
+        break;
+      default:
+        color= '#FF8938';
+        backgroundColor = 'rgba(255, 221, 0, 0.3)';
+    }
+    return {color, backgroundColor};
+  }
     const columns: ColumnsType<DataType> = [
         {
             key: 'name',
             title: 'Project Name',
             dataIndex: 'name',
-            width: '276px',
+            width: '255px',
             fixed: 'left',
-            render: (name: any, record:any) =>
+            render: (name: any, record:any) =>            
               <div className='name-project-sec'>
-                <span className='name'>{name}</span>
-                <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={content(record)} trigger="click" style={{marginRight:'-10px',cursor: 'pointer'}}>
-                  <MoreOutlined onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} className='dots-table'/>
-                </Popover>
+                <Popover placement="top" content={<>
+                  <b>{name}</b>
+                  <br />
+                  <b>Project: </b> {record.projectData.project_id} 
+                  <br />
+                  <b>Board project: </b> {record.board_project_id}
+                  </>}>
+                  <p className='project-name'>{name}</p>
+                </Popover>                
+                <Popover
+                  placement="bottom"
+                  overlayClassName="work-popover menu-item-custom dots-menu"
+                  content={content(record)}
+                  trigger="click"
+                  visible={record.visible}
+                  onVisibleChange={isVisible => {
+                    setParsedData(
+                      parsedData.map((item: any) => {
+                        if (item.key === record.key) {
+                          return {
+                            ...item,
+                            visible: isVisible
+                          }
+                        }else{
+                          return {
+                            ...item,
+                            visible: false
+                          }
+                        }
+                      }
+                    ))
+                  }}
+                  style={{ marginRight: '-10px', cursor: 'pointer' }}
+                >
+                  <MoreOutlined onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} className='dots-table' />
+                </Popover>    
               </div>,
             sorter: {
                 compare: (a: { name: string; }, b: { name: string; }) => a.name.localeCompare(b.name),
@@ -353,8 +500,8 @@ const TableListView = ({
             title: 'Status',
             dataIndex: 'status',
             width: windowWidthSize > 1900 ? (windowWidthSize > 2500 ? '120px':'100px'): '80px',
-            render: (status: any) =>
-                    <span className={typeStatus(status)}>{status}</span>,
+            render: (status: any) => 
+                    <span className={typeStatus(status)} style={getStyleForStatus(status)}>{status}</span>,
             sorter: {
                 compare: (a: { status: string; }, b: { status: string; }) => a?.status?.localeCompare(b?.status),
             },
@@ -468,6 +615,13 @@ const TableListView = ({
       };
 
     useEffect(() => {
+      if (archiveProjectAction) {
+        archiveProject(archiveProjectId)
+        setArchiveProjectAction(false)
+      }
+    }, [archiveProjectAction])
+
+    useEffect(() => {
         window.addEventListener('resize', updateWindowSize);
         return () => {
           window.removeEventListener('resize', updateWindowSize);
@@ -475,6 +629,23 @@ const TableListView = ({
       }, [])
     return (
       <>
+        {
+          visibleModal &&
+          <DetailModal
+            visible={visibleModal}
+            setVisible={setVisibleModal}
+            data={selectedProjectData}
+            type={''}
+          />
+        }
+        {
+          archiveAlert &&
+          <ArchiveAlert
+            visibleAlert={archiveAlert}
+            setVisibleAlert={setArchiveAlert}
+            setArchiveProjectAction={setArchiveProjectAction}
+          />
+        }
         {
           showModalProject &&
           <ModalProjectView
@@ -486,6 +657,10 @@ const TableListView = ({
             editable={editable}
           />
         }
+        {showActivateProject && <EditDatesModal visible={showActivateProject}
+          setVisible={setShowActivateProject}
+          project={selectedProjectData}
+        />}
         {
           showAmountModal && <AmountModal
             project={selectedProject}
@@ -494,7 +669,46 @@ const TableListView = ({
           />
         }
         <div className='table-map-list'>
-            <Table columns={filteredColumns} dataSource={parsedData} pagination={false} scroll={{ x:  windowWidthSize > 1900 ? (windowWidthSize > 2500 ? 1766:1406) : 1166, y: 'calc(100vh - 270px)' }} summary={() => (
+            <Table
+              columns={filteredColumns}
+              dataSource={parsedData}
+              pagination={false}
+              onRow={(record, rowIndex) => {
+                return {
+                  onMouseEnter: (e) =>  {
+                    let valueInData:any  
+                    if(record.key){
+                      valueInData = record.key;
+                    }
+                    e.stopPropagation()
+                    setHoveredRow(valueInData)
+                  },
+                };
+              }} 
+              onHeaderRow={(record, rowIndex) => {
+                return {
+                  onMouseEnter: (e) =>  {
+                    setHoveredRow(-1)
+                  },
+                }
+              }}
+              rowClassName={(record, index) => {                
+                if(hoveredRow !== -1 && hoveredRow === record.key){
+                  return ('row-color-onhover')
+                }else if (record?.projectData?.currentId[0]?.status_name === 'Active') {       
+                  return ('row-color-active');                  
+                }
+                return ('')
+              }}
+              scroll={{ x:  windowWidthSize > 1900 ? (windowWidthSize > 2500 ? 1766:1406) : 1166, y: 'calc(100vh - 270px)' }}
+              // rowClassName={(record, index) => {
+              //   if (record?.projectData?.currentId[0]?.status_name === 'Active') {
+              //     return 'row-color';
+              //   }else{
+              //     return '';
+              //   }
+              // }}
+              summary={() => (
                 <Table.Summary fixed={ 'bottom'}  >
                   <Table.Summary.Row  style={{ height: '40px' }}>
                       <Table.Summary.Cell index={0}  >

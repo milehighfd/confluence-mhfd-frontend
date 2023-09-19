@@ -11,6 +11,7 @@ import { useMapState } from 'hook/mapHook';
 import { handleAbortError } from 'store/actions/mapActions';
 import DetailModal from 'routes/detail-page/components/DetailModal';
 import { useProfileState } from 'hook/profileHook';
+import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 
 const TableBody = ({
   dataId,
@@ -50,6 +51,15 @@ const TableBody = ({
   const {
     filterProjectOptions,
   } = useMapState();
+
+  const {
+    globalSearch,
+    globalProjectData
+  } = useProjectState();
+
+  const{
+    setGlobalSearch
+  } = useProjectDispatch();
   
   const appUser = useProfileState();
   const email = appUser.userInformation?.email;
@@ -58,8 +68,10 @@ const TableBody = ({
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState();
+  const [activeBorder, setActiveBorder] = useState(false);
   const [rowActive, setRowActive] = useState(-20)
   let limitPage = Number(counter) % LIMIT_PAGINATION > 0 ?  Math.floor(Number(counter) / LIMIT_PAGINATION + 1) : Number(counter) / LIMIT_PAGINATION;
+
   useEffect(() => {
     if (next && page < limitPage) {
       setPage(page + 1)
@@ -198,6 +210,7 @@ const TableBody = ({
       controller.signal
     ).then((res: any) => {
       setDataBody(res);
+      setGlobalSearch(false);
     }).catch(handleAbortError);
     return () => {
       controller.abort();
@@ -205,7 +218,17 @@ const TableBody = ({
   }, [ filterProjectOptions, page])
 
   useEffect(() => {
-    if (page != 1) {
+    if (globalSearch) {
+      setActiveBorder(true);
+      setTimeout(() => {
+        setActiveBorder(false);
+        setGlobalSearch(false);
+      }, 10000);
+    }
+  },[globalSearch])
+
+  useEffect(() => {
+    if (page != 1 && !globalSearch) {
       setPage(1);
     }
   }, [filterProjectOptions])
@@ -268,12 +291,16 @@ const TableBody = ({
                 onMouseLeave={(e: any) => {
                   setRowActive(-20);
                 }}
-                style={rowActive === d.project_id ? {background:'#fafafa', transition: 'background .3s'}:{transition: 'background .3s'}}
-                >
-                <Tooltip placement="top" title={d.rowLabel}>
+                style={{
+                  background: rowActive === d.project_id ? '#fafafa' : 'transparent',
+                  transition: 'background .3s',
+                  animation: activeBorder && globalProjectData?.project_id === d.project_id ? 'glow 1s infinite' : '',
+                }}
+              >
+                <Tooltip placement="top" title={<p className="main-map-list-name-popover-text"> <b>{d.rowLabel}</b> <br /> <b>Project ID: </b> {d.project_id} <br /> <b>OnBase Project Number: </b> {d.on_base?d.on_base:"-"}</p>}>
                   <p onClick={() => {
-                    setDetailOpen(true); 
-                    setDataDetail(d) 
+                    setDetailOpen(true);
+                    setDataDetail(d)
                   }} className="title-project" >{d.rowLabel}</p>
                 </Tooltip>
                 {d.isFavorite ? <HeartFilled style={{ marginLeft: '7px', color: '#F5575C', marginRight: '10px' }} onClick={() => (deleteFunction(d.project_id, email, ''))} /> : <HeartOutlined style={{ marginLeft: '7px', color: '#706B8A', marginRight: '10px' }} onClick={() => addFunction(email, d.project_id, '')} />}
@@ -319,11 +346,15 @@ const TableBody = ({
                       },
                     };
                   }}
-                  rowClassName={(record, index) => {
-                    if (record.project_id === rowActive) {
-                      return 'row-active-table';
-                    } else {
-                      return '';
+                  rowClassName={(record, index) => {   
+                    if (activeBorder && record.project_id === globalProjectData?.project_id) {
+                      return 'row-active-global'; 
+                    }else {
+                      if (record.project_id === rowActive) {                        
+                        return 'row-active-table';
+                      } else {
+                        return '';
+                      }
                     }
                   }}
                   onHeaderRow={(record, rowIndex) => {

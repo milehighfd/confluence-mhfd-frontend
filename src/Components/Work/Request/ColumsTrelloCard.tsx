@@ -2,12 +2,13 @@ import React, { useState, useEffect, useRef, Fragment } from 'react';
 import { Button } from 'antd';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { useAttachmentDispatch } from 'hook/attachmentHook';
-import { useProjectDispatch } from 'hook/projectHook';
+import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { useProfileState } from 'hook/profileHook';
 import TrelloLikeCard from 'Components/Work/Request/TrelloLikeCard';
-import { ADMIN, STAFF } from 'constants/constants';
+import { ADMIN, BOARD_STATUS_TYPES, STAFF } from 'constants/constants';
 import ColorService from 'Components/Work/Request/ColorService';
+import useFakeLoadingHook from 'hook/custom/useFakeLoadingHook';
 
 let columDragAction = [false, 0, 0];
 let fixedDragAction = [false, 0, 0];
@@ -17,20 +18,27 @@ let scrollByIds: any = [];
 const ColumsTrelloCard = ({
   flagforScroll,
   type,
+  selectView
 }: {
   flagforScroll: any
-  type: string
+  type: string,
+  selectView: string
 }) => {
-  const { columns2: columns, tabKey, locality, year, namespaceId, boardStatus } = useRequestState();
-  const { setVisibleCreateProject, moveProjectsManual, handleMoveFromColumnToColumn } = useRequestDispatch();
+  const { columns2: columns, tabKey, locality, year, namespaceId, boardStatus, loadingColumns } = useRequestState();
+  const { setVisibleCreateProject, moveProjectsManual, handleMoveFromColumnToColumn, stopLoadingColumns } = useRequestDispatch();
   const { userInformation } = useProfileState();
   const { clear } = useAttachmentDispatch();
-  const { setStreamsIds, setComponentsFromMap } = useProjectDispatch();
-  const divRef = useRef(null);
+  const { setStreamsIds, setComponentsFromMap, setGlobalSearch } = useProjectDispatch();
+  const {
+    globalProjectData, 
+    globalSearch,
+  } = useProjectState();
+  const cardRefs = useRef<HTMLDivElement[][]>([]);
   let scrollValuesInit: any = [0, 0, 0, 0, 0, 0];
   const [onScrollValue, setOnScrollValue] = useState(scrollValuesInit);
 
   useEffect(() => {
+    if (!globalSearch) {
     setTimeout(() => {
       if (document.getElementById(`column_${tabKey}_1`)) {
         scrollValues.forEach((element: any, index: any) => {
@@ -39,17 +47,7 @@ const ColumsTrelloCard = ({
         });
       }
     }, 1000);
-  }, []);
-
-  useEffect(() => {
-    setTimeout(() => {
-      if (document.getElementById(`column_${tabKey}_1`)) {
-        scrollValues.forEach((element: any, index: any) => {
-          scrollByIds[index] = document.getElementById(`column_${tabKey}_${index}`);
-          scrollByIds[index].scrollTop = onScrollValue[index];
-        });
-      }
-    }, 1000);
+    }
   }, [flagforScroll]);
 
   const onClickNewProject = () => {
@@ -58,7 +56,34 @@ const ColumsTrelloCard = ({
     setStreamsIds([]);
     setComponentsFromMap([]);
   };
-
+  const fakeLoading = useFakeLoadingHook(tabKey);
+  useEffect(() => {
+    const nameSpaceLocality = namespaceId.locality === 'MHFD District Work Plan' ? 'Mile High Flood District' : namespaceId.locality;
+    if (globalSearch && globalProjectData.project_id  && nameSpaceLocality === globalProjectData.locality && !fakeLoading && !loadingColumns && selectView === 'card') {
+      scrollTo(globalProjectData.project_id);
+    }
+  }, [globalProjectData, loadingColumns, namespaceId, fakeLoading, selectView]);
+  
+  const scrollTo = (globalProjectId: any) => {
+    const results = columns.map((x: any, index: number) => {
+      const row = x.projects.findIndex((y: any) => y.project_id === globalProjectId);
+      return { column: index, index: row };
+    });
+  
+    if (results.every((x: any) => x.index === -1)) {
+      setGlobalSearch(false);
+      return;
+    }
+    results.forEach((x: any, index: number) => {
+      if (x.index !== -1) {
+        cardRefs.current[x.column][x.index]?.scrollIntoView({
+          behavior: 'auto',
+          block: 'nearest',
+        });        
+      }
+    });
+    setGlobalSearch(false);
+  };
   const getColumnProjectType = (code_project_type_id: number) => {
     switch (code_project_type_id) {
       case 8:
@@ -117,7 +142,7 @@ const ColumsTrelloCard = ({
     <DragDropContext
       onDragEnd={result => {
         const { source, destination } = result;
-        if (!destination) {
+        if (!destination || boardStatus === BOARD_STATUS_TYPES.APPROVED) {
           return;
         }
         const sourceColumn = +source.droppableId;
@@ -133,7 +158,7 @@ const ColumsTrelloCard = ({
           });
         }
       }}
-    >
+    >      
       {columns.map((column: any, columnIdx: number) => (
         <div className="container-drag" id={`container_${tabKey}`} key={columnIdx}>
           <h3 className="title-panel">{column.title === 'Debris Management' ? 'Trash & Debris mngt' : column.title}</h3>
@@ -166,6 +191,9 @@ const ColumsTrelloCard = ({
                   </Button>
                 )}
                 {column.projects.map((p: any, i: number, arr: any[]) => {
+                  if (!cardRefs.current[columnIdx]) {
+                    cardRefs.current[columnIdx] = [];
+                  }
                   columDragAction = fixedDragAction;
                   const valuePosition: number = Number(columDragAction[2]);
                   const valuePositionx: number = Number(columDragAction[1]);
@@ -200,7 +228,7 @@ const ColumsTrelloCard = ({
                                 <TrelloLikeCard
                                   key={i}
                                   year={year}
-                                  type={type === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN'}
+                                  type={type === 'WORK_REQUEST' ? 'WORK_REQUEST' : 'WORK_PLAN'}
                                   namespaceId={namespaceId}
                                   project={p}
                                   columnIdx={columnIdx}
@@ -211,8 +239,9 @@ const ColumsTrelloCard = ({
                                     userInformation.designation === ADMIN || userInformation.designation === STAFF
                                   }
                                   locality={locality}
-                                  borderColor={ColorService.getColor(type === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN', p, arr, columnIdx)}
-                                  divRef={divRef}
+                                  borderColor={ColorService.getColor(type === 'WORK_REQUEST' ? 'WORK_REQUEST' : 'WORK_PLAN', p, arr, columnIdx)}
+                                  divRef={(el:any) => { cardRefs.current[columnIdx][i] = el; }}
+                                  cardRefs={cardRefs}
                                 />
                               </div>
                             )}
@@ -256,7 +285,7 @@ const ColumsTrelloCard = ({
                                   }
                                   locality={locality}
                                   borderColor={ColorService.getColor(type === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN', p, arr, columnIdx)}
-                                  divRef={divRef}
+                                  divRef={(el:any) => { cardRefs.current[columnIdx][i] = el; }}
                                 />
                               </div>
                             )}
@@ -291,7 +320,7 @@ const ColumsTrelloCard = ({
                                   }
                                   locality={locality}
                                   borderColor={ColorService.getColor(type === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN', p, arr, columnIdx)}
-                                  divRef={divRef}
+                                  divRef={(el:any) => { cardRefs.current[columnIdx][i] = el; }}
                                 />
                               </div>
                             )}

@@ -23,6 +23,8 @@ export const CheckBoxFilters = ({
         }
       });
       setSelectedData(temporal);
+    }else{
+      setSelectedData([]);
     }
   }, [selected]);
 

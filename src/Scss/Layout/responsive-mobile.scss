@@ -210,21 +210,6 @@
     position: fixed !important;
     top:18px !important;
   }
-  .filter-map {
-    max-height: inherit;
-    width: 100vw;
-
-    .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
-      left: 32px;
-    }
-    .ant-collapse-content > .ant-collapse-content-box {
-      padding: 10px 30px 0px 30px;
-    }
-    p {
-      width: auto;
-      margin-bottom: 12px;
-    }
-  }
   .title-filter-map{
     display: inline-block;
     text-align: center;
@@ -260,14 +245,37 @@
       text-transform: uppercase;
     }
   }
-  .filter-coll-header {
-    width: 95vw;
-    padding: 0px 40px !important;
-
-    .ant-switch {
-      right: 23px;
+  .filter-map {
+    max-height: inherit;
+    width: 100vw;
+    .ant-collapse>.ant-collapse-item>.ant-collapse-header {
+      padding: 10px 30px;
+      .ant-collapse-arrow {
+        left: 32px;
+      }
+      .ant-collapse-extra {
+        margin: 0px;
+      }
+    }
+    .ant-collapse-content > .ant-collapse-content-box {
+      padding: 10px 30px 0px 30px;
+    }
+    p {
+      width: auto;
+      margin-bottom: 12px;
     }
   }
+  .filter-coll-header {
+    width: 100%;
+    padding: 0px;
+    position: relative;
+    justify-content: space-between;
+    margin-left: 0px;
+    .ant-switch {
+      right: 0px;
+    }
+  }
+
   .popover-filter-map{
     .popoveer-00{
       max-width: 200px;
@@ -563,7 +571,7 @@
     margin: 1px 0px;
   }
   .scroll-infinite-mobile{
-    height: 455px !important;
+    height: 580px !important;
   }
   .card-map .btn-card{
     display: none;

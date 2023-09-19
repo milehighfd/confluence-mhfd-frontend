@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Redirect, useLocation } from 'react-router-dom';
-import { Badge, Button, Dropdown, Layout, Menu, Modal, Popover, Tabs } from 'antd';
-import { CaretDownOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { Badge, Button, Dropdown, Input, Layout, Menu, Modal, Popover, Tabs, Tooltip } from 'antd';
+import { CaretDownOutlined, CloseCircleFilled, CloseCircleOutlined, QuestionCircleOutlined, SearchOutlined } from '@ant-design/icons';
 import { GlobalMapHook } from 'utils/globalMapHook';
 import * as datasets from 'Config/datasets';
 import 'Scss/Components/Shared/navbar.scss';
@@ -9,12 +9,11 @@ import { FILTER_PROJECTS_TRIGGER, ROUTERS, ROUTER_TITLE, MAP_TAB, WORK_REQUEST_T
 import { useMapDispatch, useMapState } from 'hook/mapHook';
 import { useProfileDispatch, useProfileState } from 'hook/profileHook';
 import { useUsersState } from 'hook/usersHook';
-import ModalEditUserView from 'Components/Profile/ProfileComponents/ModalEditUserView';
-import { useAppUserDispatch, useAppUserState } from 'hook/useAppUser';
 import moment from 'moment';
 import { SERVER } from 'Config/Server.config';
 import ModalTutorial from '../Sidebar/ModalTutorial';
 import DetailModal from 'routes/detail-page/components/DetailModal';
+import NavBarSearchTooltipItem from './NavBarSearch/NavBarSearchTooltipItem';
 
 const { TabPane } = Tabs;
 const { Header } = Layout;
@@ -27,7 +26,7 @@ const NavbarView = ({
   tabActive?: string,
   // setTabActive?: React.Dispatch<React.SetStateAction<string>>
 }) => {
-  const { deleteNotification } = useAppUserDispatch();
+  const { deleteNotification } = useProfileDispatch();
   const [key, setKey] = useState('1');
   const [tabKey, setTabKey] = useState<any>('Unread');
   const [openProfile, setOpenProfile] = useState(false);
@@ -39,7 +38,6 @@ const NavbarView = ({
   }
   const [projectData, setProjectData] = useState<any>({});
   const {userInformation, groupOrganization} = useProfileState ();
-  const user =userInformation;
   const {updateUserInformation, getGroupOrganization} = useProfileDispatch();
   const [state, setState] = useState(stateValue);
   const [visibleTutorial, setVisibleTutorial] = useState(false);
@@ -49,7 +47,10 @@ const NavbarView = ({
   const { getTimesLogin, resetTimesLogin } = useProfileDispatch();
   const { timesLogged } = useUsersState();
   const { deleteMaps } = GlobalMapHook();
-  const appUser = useAppUserState();
+  const [activeSearch, setActiveSearch] = useState(false);
+  const [tabActiveSearch, setTabActiveSearch] = useState('Detail Page');
+  const [keyword, setKeyword] = useState('');
+  const [searchGlobalData, setSearchGlobalData] = useState<any>([]);
   let displayedTabKey = tabKeys;
   const contentNotification = (
     <div className="popoveer-00 notification-popoveer">
@@ -98,8 +99,8 @@ const NavbarView = ({
     getTimesLogin();
   }, []);
   useEffect(() => {
-    setNotification(appUser.notifications);
-  },[appUser.notifications]);
+    setNotification(userInformation.notifications);
+  },[userInformation.notifications]);
   useEffect(() => {
     let currentRef = window.location.href?window.location.href:"none";
     if (timesLogged !== -1) {
@@ -138,8 +139,8 @@ const NavbarView = ({
    };
 
   const [redirect, setRedirect] = useState(false);
-  const name = user.firstName;
-  const initialName = user.firstName.charAt(0) + user.lastName.charAt(0);
+  const name = userInformation?.firstName;
+  const initialName = userInformation?.firstName?.charAt(0) + userInformation?.lastName?.charAt(0);
   const location = useLocation().pathname.split('/');
   let value = '';
   if(location[1] === ROUTERS.PROFILE_VIEW && location.length === 2) {
@@ -214,11 +215,92 @@ const NavbarView = ({
     />
   );
 
+  const debounce = (func: any, delay: number) => {
+    let timeoutId: any;
+    return (...args: any[]) => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      timeoutId = setTimeout(() => {
+        func(...args);
+        timeoutId = null;
+      }, delay);
+    };
+  };
+
+  const handleSearch = useCallback(
+    debounce((keyword:any) => {
+    let type = 'PROJECT';
+    switch (tabActiveSearch) {
+      case 'Work Request':
+        type = WORK_REQUEST_TAB;
+        break;
+      case 'Work Plan':
+        type = WORK_PLAN_TAB;
+        break;
+    }
+    if (activeSearch && keyword !== '') {
+      datasets
+        .postData(
+          SERVER.SEARCH_GLOBAL_PROJECTS,
+          { keyword: keyword, type: type },
+          datasets.getToken()
+        )
+        .then((data) => {
+          if (type === 'PROJECT') {
+            setSearchGlobalData(
+              data.projects?.map((item: any) => {
+                return {
+                  name: item?.project_name,
+                  type: `${item?.code_project_type?.project_type_name} · ${item?.currentId[0]?.code_phase_type?.phase_name}`,
+                  state: item?.currentId[0]?.code_phase_type?.code_status_type?.status_name,
+                  id: item?.project_id,
+                  status: item?.currentId[0]?.code_phase_type?.code_status_type?.code_status_type_id,
+                };
+              })
+            );
+          } else {
+            setSearchGlobalData(
+              data.projects?.map((item: any) => {
+                return {
+                  name: item?.project_name,
+                  type: `${item?.board?.year} ${tabActiveSearch} · ${item?.board?.projecttype}`,
+                  state: item?.code_status_type?.status_name,
+                  id: item?.project_id,
+                  year: item?.board?.year,
+                  locality: item?.board?.locality,
+                  projectType: item?.board?.projecttype,
+                };
+              })
+            );
+          }
+        });
+    }
+    }, 500),
+    [tabActiveSearch, activeSearch]
+  );
+
+  useEffect(() => {
+    handleSearch(keyword);
+  }, [keyword, handleSearch]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: any) => {
+      if (activeSearch && event.target.closest('.navbar-search-content') === null && event.target.id !== 'navbar-search' && !event.target.closest('#navbar-search')) {
+        setActiveSearch(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);  
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [activeSearch]);
+  
   const setDetailOpen = (value: boolean) => {
     if (!value) {
-      setProjectData({})
+      setActiveSearch(false);
     }
-  }
+  };
   if (redirect) {
     return <Redirect to="/login" />
   }
@@ -231,9 +313,41 @@ const NavbarView = ({
       data={projectData}
       type={FILTER_PROJECTS_TRIGGER}
     />}
-    {openProfile && <ModalEditUserView updateUserInformation={updateUserInformation} user={user}
-      isVisible={true} hideProfile={hideProfile} groupOrganization={groupOrganization} getGroupOrganization={getGroupOrganization} />}
     <h6>{value}</h6>
+    <Input
+      id='navbar-search'
+      className='navbar-search'
+      placeholder="Search"
+      prefix={<SearchOutlined onClick={() => setActiveSearch(!activeSearch)} />}
+      suffix={keyword && <CloseCircleFilled onClick={() => setKeyword('')} />}  
+      value={keyword}
+      onChange={(e) => {
+        setKeyword(e.target.value)
+        if (e.target.value === ''){
+          setActiveSearch(false);
+        }else{
+          setActiveSearch(true);
+        }
+      }}
+    />
+    {activeSearch && <div style={{position:'absolute'}} className='navbar-search-content'>
+      <div className="navbar-search-tooltip">
+        <div className='tab-navbar-search'>
+          <p className={tabActiveSearch === 'Detail Page'? 'active':''} onClick={()=>{setTabActiveSearch('Detail Page')}}>Detail Page</p>
+          <p className={tabActiveSearch === 'Work Request'? 'active':''} onClick={()=>{setTabActiveSearch('Work Request')}}>Work Request</p>
+          <p className={tabActiveSearch === 'Work Plan'? 'active':''} onClick={()=>{setTabActiveSearch('Work Plan')}}>Work  Plan</p>
+        </div>
+        <NavBarSearchTooltipItem
+          title={tabActiveSearch}
+          cards={searchGlobalData}
+          tabActiveSearch={tabActiveSearch}
+          setActiveSearch={setActiveSearch}
+        />
+      </div>
+    </div> }
+    {/* <Tooltip overlayClassName='tootip-search-responsive' trigger={["focus","click"]} title={NavBarSearchTooltip}>
+      <Input  id='navbar-search' className='navbar-search' placeholder="Search" prefix={<SearchOutlined />} />
+    </Tooltip> */}
   </Header>
 
 };

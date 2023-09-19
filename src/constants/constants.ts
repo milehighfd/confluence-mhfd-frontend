@@ -133,6 +133,7 @@ export const STREAM_FUNCTION_POINT ='stream_function_point_';
 export const STREAM_FUNCTION_LINE = 'stream_function_line_';
 export const FUTURE_DEVELOPMENT_POLYGON ='future_development_polygon_';
 export const FUTURE_DEVELOPMENT_LINE ='future_development_line_';
+export const FUTURE_DEVELOPMENT_POINT = 'future_development_point_';
 
 export const TEST_LINE ='test_line';
 
@@ -294,6 +295,7 @@ export const FLOOD_HAZARDS = {
     STREAM_FUNCTION_LINE,
     FUTURE_DEVELOPMENT_POLYGON,
     FUTURE_DEVELOPMENT_LINE,
+    FUTURE_DEVELOPMENT_POINT
   ]
 }
 
@@ -1181,7 +1183,7 @@ export const popUps = {
   nrcs_soils: 'This layer displays the USDA Natural Resources Conservation Service (NRCS) Soil Survey within MHFD. Map units delineate the extent of different soils. Data for each map unit contains descriptions of the soil’s components, productivity, unique properties, and suitability interpretations.',
   bcz_prebels_meadow: 'Block Clearance Zone -  Preble’s Meadow Jumping Mouse. These layers show areas that have been block cleared where there is sufficient information to indicate endangered/threatened species are absent from large acreages. In designating a block clearance zone, the requirement that individuals and agencies coordinate with the U.S Fish and Wildlife Service before impacting potential riparian habitats inside the zone is eliminated. ',
   bcz_ute_ladies: 'Block Clearance Zone - Ute Ladies Tresses Orchid. These layers show areas that have been block cleared where there is sufficient information to indicate endangered/threatened species are absent from large acreages. In designating a block clearance zone, the requirement that individuals and agencies coordinate with the U.S Fish and Wildlife Service before impacting potential riparian habitats inside the zone is eliminated. ',
-  block_clearence_zones: 'Block Clearance Zone – Preble’s Meadow Jumping Mouse and Ute Ladies Tresses Orchid. Block Clearance Zone - Preble’s Meadow Jumping Mouse. These layers show areas that have been block cleared where there is sufficient information to indicate endangered/threatened species are absent from large acreages. In designating a block clearance zone, the requirement that individuals and agencies coordinate with the U.S Fish and Wildlife Service before impacting potential riparian habitats inside the zone is eliminated. Block Clearance Zone - Ute Ladies Tresses Orchid. These layers show areas that have been block cleared where there is sufficient information to indicate endangered/threatened species are absent from large acreages. In designating a block clearance zone, the requirement that individuals and agencies coordinate with the U.S Fish and Wildlife Service before impacting potential riparian habitats inside the zone is eliminated.',
+  block_clearence_zones: 'Preble’s Meadow Jumping Mouse and Ute Ladies Tresses Orchid have been block cleared by the U.S. Fish and Wildlife Service in the corresponding areas where there is sufficient information to indicate endangered/threatened species are absent from these large acreages.',
   semswa_service_area: 'Southeast Metro Stormwater Authority Boundary. SEMSWA covers the entire City of Centennial, the developed areas of unincorporated Arapahoe County, and a small portion of Douglas County. Their boundary is an outgrowth of the partnership (IGA) between the City of Centennial, Arapahoe County, the Arapahoe County Water and Wastewater Authority, East Cherry Creek Valley Water and Sanitation District, and the Inverness Water and Sanitation District.',
   borders: 'A thin border surrounding the selected work request or work plan area.',
   area_based_mask: 'An opacity mask surrounding the selected work request or work plan area.',
@@ -1332,14 +1334,16 @@ export const ICON_POPUPS = [
   ['Municipality', "/Icons/ic_municipalities@2x.png"],
   ['SEMSWA Service Area', "/Icons/ic_SEMSWA@2x.png"],
   ['Stream', "/Icons/Filters/ic_streams.png"],
-  ['Stream Management Corridor', "/Icons/ic_SMC_Watershed@2x.png"],
-  ['Stream Condition Polygon',"/Icons/ic-stream-function-poly.png"],
-  ['Flood Hazard Line', '/Icons/ic-flood-hzd-line.png'],
+  ['Stream Management Corridor', "/Icons/smc.png"],
+  ['Flood Hazard Line', '/Icons/ic-flood-hzd-poly.png'],
   ['Flood Hazard Point', '/Icons/ic-flood-hzd-point.png'],
-  ['Stream Condition Point', '/Icons/ic-stream-function-point.png'],
-  ['Watershed Change Line', '/Icons/ic-watershed-change-line.png'],
-  ['Stream Condition Line', '/Icons/ic-stream-function-line.png'],
   ['Flood Hazard Polygon', '/Icons/ic-flood-hzd-poly.png'],
+  ['Stream Condition Point', '/Icons/ic-stream-function-point.png'],
+  ['Stream Condition Line', '/Icons/ic-stream-function-line.png'],
+  ['Stream Condition Polygon',"/Icons/ic-stream-function-line.png"],
+  ['Watershed Change Line', '/Icons/ic-watershed-change-line.png'],
+  ['Watershed Change Point', '/Icons/ic-watershed-point.png'],
+  ['Watershed Change Polygon', '/Icons/ic-watershed-change-line.png'],
   ['Impervious Surfaces', '/Icons/ic_luluc_impervious_surfaces.png'],
   ['Water', '/Icons/ic_luluc_water.png'],
   ['Tree Canopy', '/Icons/ic_luluc_tree_canopy.png'],
@@ -1477,3 +1481,8 @@ export const LAYERS_LABELS: any = {
   }
 
   export const MAINTENANCE_IDS = [7, 8, 9, 11, 17];
+
+export const BOARD_STATUS_TYPES = {
+  APPROVED: 'Approved',
+  UNDER_REVIEW: 'Under Review',
+};

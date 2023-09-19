@@ -43,7 +43,7 @@ const SelectAssociate = ({
             value: uniqueIds[index],
             label: elem,        
           }
-        })      
+        }).sort((a, b) => a.label.localeCompare(b.label));      
         setOptionAssociate(uniqueValuesAndIds);        
       }      
     });

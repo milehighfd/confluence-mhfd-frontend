@@ -76,7 +76,7 @@ const Toolbar = ({
   return (
     <Fragment>
       <div className='work-header-buttons'>
-        <div style={{ display: showSearch ? 'inline-block' : 'none' }} className='input-search-wr-wp'>
+        <div style={{ display: 'inline-block' }} className='input-search-wr-wp'>
           <Space size="large">
             <Input
               onChange={handdleSearch}
@@ -91,7 +91,7 @@ const Toolbar = ({
           </Space>
         </div>
         <Button
-          style={{ display: showSearch ? 'none' : 'inline-block' }}
+          style={{ display: 'none' }}
           className='buttons1'
           type='link'
         >
@@ -106,7 +106,7 @@ const Toolbar = ({
         </Button>
           
         {
-          (locality === 'Mile High Flood District' || type === 'WORK_REQUEST') &&
+          (locality === 'Mile High Flood District' || locality === 'MHFD District Work Plan' || type === 'WORK_REQUEST') &&
           <Popover className='buttons-header' content={<div className='popover-text'>Status:<br />Submit the board for Mile High's review.</div>} placement="bottomLeft" overlayClassName='popover-work-header' >
             <Button
               className='buttons'

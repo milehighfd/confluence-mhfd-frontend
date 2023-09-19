@@ -4,7 +4,6 @@ import { ADMIN, STAFF } from 'constants/constants';
 import { getBoardStatus } from 'dataFetching/workRequest';
 import { useRequestState } from 'hook/requestHook';
 import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
-import { useAppUserState } from 'hook/useAppUser';
 import { useProfileState } from 'hook/profileHook';
 
 const stateValue = {
@@ -42,8 +41,8 @@ export const AlertView = ({
 }) => {
   const [state, setState] = useState(stateValue);
   const [isUnderReview, setIsUnderReview] = useState(false);
-  const appUser = useProfileState();
-  const showCheckBox = appUser?.userInformation?.designation === ADMIN || appUser?.userInformation?.designation === STAFF;
+  const userInfo = useProfileState();
+  const showCheckBox = userInfo?.userInformation?.designation === ADMIN || userInfo?.userInformation?.designation === STAFF;
   const [workPlanString, setWorkPlanString] = useState('');
   const { year } = useRequestState();
   const { openNotification } = useNotifications();

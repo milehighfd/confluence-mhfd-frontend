@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Button, Row, Col, Table, Tag } from 'antd';
-import { useAttachmentDispatch, useAttachmentState } from "../../../hook/attachmentHook";
+import { useAttachmentState } from "../../../hook/attachmentHook";
 import { saveAs } from 'file-saver';
 import b64ToBlob from "b64-to-blob";
-import { CloudDownloadOutlined } from "@ant-design/icons";
+import { CloudDownloadOutlined, PictureOutlined } from "@ant-design/icons";
 import { UploaderModal } from "./UploaderModal";
 import { SERVER } from "Config/Server.config";
 import { getDataNoJSON } from '../../../Config/datasets';
 import { useProjectDispatch, useProjectState } from "hook/projectHook";
-
+import ImageModal from 'Components/Shared/Modals/ImageModal';
+import { useLocation } from "react-router";
 interface DataType {
   key: React.Key;
   name: string;
   age: number;
   address: string;
 }
-export const UploadImagesDocuments = ({isCapital, setFiles, index }: {
-  isCapital?: any, setFiles: any, index?: any
+export const UploadImagesDocuments = ({isCapital, setFiles, index, type, visibleCapital}: {
+  isCapital?: any, setFiles: any, index?: any, type: string, visibleCapital: boolean;
 }) => {
   const {
     setDeleteAttachmentsIds,
@@ -25,9 +26,14 @@ export const UploadImagesDocuments = ({isCapital, setFiles, index }: {
     deleteAttachmentsIds,
     disableFieldsForLG,
   } = useProjectState();
-  const {isEdit} = useProjectState(); 
+  const {isEdit} = useProjectState();
+  const useQuery = () => new URLSearchParams(useLocation().search);
+  const query = useQuery(); 
   const [modal, setModal] = useState(false);
   const [modal02, setModal02] = useState(false);
+  const [openImage, setOpenImage] = useState(false);
+  const typeS = query.get('type') || type;
+  const [active, setActive] = useState(0);
   const [dataImages, setDataImages] = useState<any[]>([
   ]);
   const [dataFiles, setDataFiles] = useState<any[]>([
@@ -36,7 +42,6 @@ export const UploadImagesDocuments = ({isCapital, setFiles, index }: {
   const [toDelete, setToDelete] = useState<any[]>([]);
   const [toDeleteFiles, setToDeleteFiles] = useState<any[]>([]);
   const { attachments, project_id } = useAttachmentState();
-  const { deleteAttachment } = useAttachmentDispatch();
   const getTypeImage = (mime_type: any) => {
     if ( mime_type.includes('png') ) {
       return 'png';
@@ -112,7 +117,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles, index }: {
       dataIndex: "type",
       className: "user-type",
       render: (text:string) => (
-        <Tag className="type">
+        <Tag className="type uppercase">
           {text}
         </Tag>
       ),
@@ -187,7 +192,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles, index }: {
       dataIndex: "type",
       className: "user-type",
       render: (text:string) => (
-        <Tag className="type">
+        <Tag className="type uppercase">
           {text}
         </Tag>
       ),
@@ -333,6 +338,9 @@ const mimeToExtension = (mimeType:any) => {
             <Button disabled={disableFieldsForLG} className="bottomn-heder" onClick={() => (setModal(true))}>
               <span className="ic-document"/>Add Image
             </Button>
+            <Button className="bottomn-heder" onClick={() => (setOpenImage(true))}>
+              <PictureOutlined />See Images
+            </Button>
             {isEdit?<Button className="bottomn-heder" onClick={() => downloadZip(true)} disabled={!dataImages.length}>
               <CloudDownloadOutlined />Download All 
             </Button>:<></>}
@@ -350,6 +358,16 @@ const mimeToExtension = (mimeType:any) => {
           />
         {modal &&
           <UploaderModal  modal={modal} setModal={setModal} addFile={addFile} type="images"/>
+        }
+        {
+          <ImageModal
+          visible={openImage}
+          setVisible={setOpenImage}
+          type={typeS}
+          active={active}
+          setActive={setActive}
+          visibleCapital={visibleCapital}
+        />
         }
       </div>
       <div className="upload-documents">
@@ -386,3 +404,4 @@ const mimeToExtension = (mimeType:any) => {
     </>
   );
 }
+

@@ -37,6 +37,7 @@ export const DropPin = ({
   const {specialLocation, acquisitionLocation, isAddLocation, disableFieldsForLG} = useProjectState();
   const [location, setLocation] =useState();
   const [isLocation, setIsLocation] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
   const {changeAddLocationState} = useProjectDispatch();
   const dataSource = [
     {
@@ -59,9 +60,9 @@ export const DropPin = ({
 
   }
   useEffect(()=>{
-    if(specialLocation.geom) {
-      setLatitude( parseFloat(specialLocation.geom.coordinates[0][0][1]).toFixed(2) );
-      setLongitude( parseFloat(specialLocation.geom.coordinates[0][0][0]).toFixed(2) );
+    if(specialLocation.geom && typeProject === 'special') {
+      setLatitude( parseFloat(specialLocation.geom.coordinates[0][0][1]).toFixed(4) );
+      setLongitude( parseFloat(specialLocation.geom.coordinates[0][0][0]).toFixed(4) );
       setLocation(specialLocation.geom);
       setGeom(specialLocation.geom);
     } else {
@@ -70,12 +71,11 @@ export const DropPin = ({
       setLongitude('--');
     }
   }, [specialLocation]);
-
   useEffect(()=>{
-    if(acquisitionLocation.geom) {
-      setLatitude(parseFloat(acquisitionLocation.geom.coordinates[0][0][1]).toFixed(2)    );
-      setLongitude(parseFloat(acquisitionLocation.geom.coordinates[0][0][0]).toFixed(2)   );
-      setLocation(acquisitionLocation.geom);
+    if(acquisitionLocation.geom && typeProject === 'acquisition') {
+      setLatitude(parseFloat(acquisitionLocation.geom.coordinates[0][0][1]).toFixed(4)    );
+      setLongitude(parseFloat(acquisitionLocation.geom.coordinates[0][0][0]).toFixed(4)   );
+      // setLocation(acquisitionLocation.geom);
       setGeom(acquisitionLocation.geom);
     } else {
       setLocation(undefined);
@@ -86,11 +86,20 @@ export const DropPin = ({
   useEffect(()=>{
     setGeom(location);
   },[location]);
+
+  useEffect(()=>{
+    if(isEdit === true ){
+      setGeom('');
+    }
+  },[isEdit]);
+
   useEffect(()=>{
     if(isAddLocation === true ){
       setIsEditingPosition(true);
+      setIsEdit(true);
     } else {
       setIsEditingPosition(false);
+      setIsEdit(false);
     }
     if(!isAddLocation) {
       setIsLocation(isAddLocation);

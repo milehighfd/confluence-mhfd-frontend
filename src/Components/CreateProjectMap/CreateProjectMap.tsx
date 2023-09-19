@@ -49,15 +49,10 @@ import {
   STREAM_FUNCTION_LINE,
   FUTURE_DEVELOPMENT_POLYGON,
   FUTURE_DEVELOPMENT_LINE,
+  FUTURE_DEVELOPMENT_POINT,
   NEARMAP_TOKEN,
   STREAMS_POINT,
   PROJECTS_DRAFT,
-  XSTREAMS,
-  MEP_PROJECTS,
-  AREA_BASED_MASK,
-  BORDER,
-  FLOODPLAINS,
-  FEMA_FLOOD_HAZARD,
   MENU_OPTIONS,
   MAPTYPES,
   MAINTENANCE_TRAILS,
@@ -156,6 +151,7 @@ const CreateProjectMap = (type: any) => {
     getServiceAreaStreams,
     getStreamsList,
     setUserPolygon,
+    setIsGeomDrawn,
     changeDrawState,
     changeDrawStateCapital,
     getListComponentsByComponentsAndPolygon,
@@ -230,6 +226,7 @@ const CreateProjectMap = (type: any) => {
     STREAM_FUNCTION_LINE,
     FUTURE_DEVELOPMENT_POLYGON,
     FUTURE_DEVELOPMENT_LINE,
+    FUTURE_DEVELOPMENT_POINT,
     PIPE_APPURTENANCES,
     GRADE_CONTROL_STRUCTURE,
     STREAM_IMPROVEMENT_MEASURE,
@@ -705,6 +702,7 @@ const CreateProjectMap = (type: any) => {
         geom = cg;
         thisStreamIntersected.geom = componentGeom.geom;
         drawStream = false;
+        setIsGeomDrawn(false);
       } else if (geom.coordinates?.length == 0) {
         setShowIntersectionError(true);
         setLoading(false);
@@ -733,6 +731,7 @@ const CreateProjectMap = (type: any) => {
         }
       }
       if (geom && drawStream) {
+        setIsGeomDrawn(true);
         map.isStyleLoaded(() => {
           map.removeLayer('streamIntersected');
           map.removeSource('streamIntersected');
@@ -997,8 +996,8 @@ const CreateProjectMap = (type: any) => {
         hideHighlighted();
         showHoverComponents();
         getStreamIntersectionPolygon(userPolygon.geometry);
+        getStreamsList(userPolygon.geometry, currentType);
       }
-      getStreamsList(userPolygon.geometry, currentType);
     } else if (currentType === 'MAINTENANCE') {
       getStreamIntersectionPolygon(userPolygon.geometry);
       getStreamsList(userPolygon.geometry, currentType);

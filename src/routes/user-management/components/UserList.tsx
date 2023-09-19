@@ -10,6 +10,7 @@ import { PAGE_USER, WINDOW_WIDTH } from 'constants/constants';
 import { useUsersDispatch } from 'hook/usersHook';
 import ProfileUser from 'routes/user-management/components/ProfileUser';
 import UserMngFilters from 'routes/user-management/components/UserMngFilters';
+import { capitalizeWords } from 'utils/utils';
 
 const titleCase = (str:any)=> {
   str = str.replaceAll('_', ' ');
@@ -67,7 +68,7 @@ const UserList = () => {
           <div style={{marginRight:'5px'}}>
             <img src={name[2] !== null ? name[2] :"/picture/Avatar1.svg"} alt="" height="34px" />
           </div>
-          <div>
+          <div className='user-dates'>
             <p className="name-user-list">{name[0]}</p>
             <p className="oganization-user-list">{name[1]}</p>
           </div>
@@ -84,7 +85,7 @@ const UserList = () => {
           {designation === 'admin' ? 'MHFD Senior Manager':
           designation === 'consultant' ? 'Consultant/Contractor':
           designation === 'government_staff' ? 'Local Government':
-          designation === 'staff' ? 'MHFD Staff': designation
+          designation === 'staff' ? 'MHFD Staff': capitalizeWords(designation)
           }
         </span> 
       ),

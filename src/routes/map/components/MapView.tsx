@@ -12,7 +12,8 @@ import {
   PROJECTS_TRIGGER,
   COMPONENTS_TRIGGER,
   SELECT_ALL_FILTERS,
-  MAINTENANCE_IDS
+  MAINTENANCE_IDS,
+  GOVERNMENT_STAFF
 } from 'constants/constants';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
 import { capitalLetter, elementCost, getStatus } from 'utils/utils';
@@ -209,10 +210,16 @@ const MapView = () => {
         const auxData = { ...data };
         auxData.type = type;
         auxData.projectid = projectid;
-        setData(auxData);
+        setData(auxData); 
       }
     }
-    setNameZoomArea(zoomarea);
+    const initialZoom = groupOrganization.find((x: any) => x.name === zoomarea);
+    if (initialZoom) {
+      setNameZoomArea(initialZoom.name);
+    }else{
+      setNameZoomArea('Mile High Flood District');
+    }
+    //setNameZoomArea(zoomarea);
     const controllers = getFilterLabels();
     return () => {
       const user = userInformation;
@@ -1027,6 +1034,15 @@ const MapView = () => {
   };
 
   const onResetClick = () => {
+    if (tabActive === '0') {
+      setKeywordProblem('');
+      setProblemKeyword('');
+      getGalleryProblems();
+    } else {
+      setKeywordProject('');
+      setProjectKeyword('');
+      getGalleryProjects();
+    }
     if (toggleModalFilter) {
       switch (filterTabNumber) {
         case PROBLEMS_TRIGGER:
@@ -1040,16 +1056,6 @@ const MapView = () => {
           break;
       }
     } else {
-
-      if (tabActive === '0') {
-        setKeywordProblem('');
-        setProblemKeyword('');
-        getGalleryProblems();
-      } else {
-        setKeywordProject('');
-        setProjectKeyword('');
-        getGalleryProjects();
-      }
       switch(tabCards) {
         case PROBLEMS_TRIGGER:
           resetFilterProblems();
@@ -1290,6 +1296,8 @@ const MapView = () => {
                       id: project.projectId,
                       phase: project?.currentId[0]?.code_phase_type?.phase_name,
                       stream: project?.project_streams,
+                      onBase: project?.onbase_project_number,
+                      code_project_type_id: project?.code_project_type_id,
                       totalComponents: parseInt(
                         project.GRADE_CONTROL_STRUCTURE +
                         project.PIPE_APPURTENANCES +

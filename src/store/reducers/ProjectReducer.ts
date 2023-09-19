@@ -57,6 +57,7 @@ const initState = {
   specialLocation: [],
   acquisitionLocation: [],
   userPolygon: [],
+  isGeomDrawn: false,
   streamIntersected: [],
   isDraw: false,
   isDrawCapital: false,
@@ -101,7 +102,14 @@ const initState = {
   infiniteScrollHasMoreItems: true,
   isEdit: false,
   deleteAttachmentsIds: [],
-  disableFieldsForLG: false
+  disableFieldsForLG: false,
+  globalSearch: false,
+  globalProjectData: {
+    project_id: 0,
+    status: 0,
+    locality : ''
+  },
+  createdProject:{}
 }
 
 const projectReducer = (state = initState, action: any) => {
@@ -258,6 +266,12 @@ const projectReducer = (state = initState, action: any) => {
       return {
         ...state, 
         userPolygon: action.userPolygon
+      }
+    }
+    case types.IS_GEOM_DRAWN: {
+      return {
+        ...state, 
+        isGeomDrawn: action.isGeomDrawn
       }
     }
     case types.SET_COMPONENTS_MAP: {
@@ -420,6 +434,45 @@ const projectReducer = (state = initState, action: any) => {
       return {
         ...state,
         disableFieldsForLG: action.disableFieldsForLG
+      }
+    }
+    case types.SET_GLOBAL_SEARCH: {
+      return {
+        ...state,
+        globalSearch: action.globalSearch
+      }
+    }
+    case types.SET_GLOBAL_PROJECT_ID: {
+      return {
+        ...state,
+        globalProjectData: {
+          ...state.globalProjectData,
+          project_id: action.globalProjectId
+        }
+      }
+    }
+    case types.SET_GLOBAL_STATUS_ID: {
+      return {
+        ...state,
+        globalProjectData: {
+          ...state.globalProjectData,
+          status: action.globalStatusId
+        }
+      }
+    }
+    case types.SET_GLOBAL_LOCALITY: {
+      return {
+        ...state,
+        globalProjectData: {
+          ...state.globalProjectData,
+          locality: action.globalLocality
+        }
+      }
+    }
+    case types.SET_CREATED_PROJECT: {
+      return {
+        ...state,
+        createdProject: action.createdProject
       }
     }
     default: 

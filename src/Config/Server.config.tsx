@@ -145,6 +145,7 @@ export const SERVER = (function () {
     const BOARD_PROJECT = 'board-project';
     const CREATE_PROJECT_GENERAL = 'createproject';
     const EDIT_PROJECT = 'editproject';
+    const PAGE = 'page';
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
@@ -160,6 +161,8 @@ export const SERVER = (function () {
         GRAPHQL:`${URL_BASE.BASE}/${GRAPHQL}`, 
         UPLOAD_FILE: `${URL_BASE.BASE}/${ATTACHMENT}/${UPLOAD_FILE}`,
         PROJECT: `${URL_BASE.BASE}/${PROJECT}`,
+        SEARCH_GLOBAL_PROJECTS: `${URL_BASE.BASE}/${PROJECT}/${SEARCH}`,
+        GET_PAGE_PROJECT_PM_TOOLS: `${URL_BASE.BASE}/${PROJECT}/${PAGE}`,
         FILTER_PROJECT: `${URL_BASE.BASE}/${PROJECT}/${FILTER_PROJECT}`,
         FILTER_PROJECT_CREATORS: `${URL_BASE.BASE}/${PROJECT}/${CREATORS}`,
         FILTER_BY_FIELD: `${URL_BASE.BASE}/${PROJECT}/${FILTER_BY_FIELD}`,
@@ -255,6 +258,8 @@ export const SERVER = (function () {
         CREATE_SPECIAL:`${URL_BASE.BASE}/${CREATE}/${SPECIAL}`,
         CREATE_STUDY:`${URL_BASE.BASE}/${CREATE}/${STUDY}`,
         CREATE_PROJECT_GENERAL: `${URL_BASE.BASE}/${CREATE}/${CREATE_PROJECT_GENERAL}`,
+        CREATE_PROJECT_GENERAL_ARCGIS: `${URL_BASE.BASE}/${CREATE}/${CREATE_PROJECT_GENERAL}/arcgis`,
+        EDIT_PROJECT_ARCGIS: `${URL_BASE.BASE}/${CREATE}/${CREATE_PROJECT_GENERAL}/arcgis-update`,
         GET_COUNTY_DATA_CREATE: `${URL_BASE.BASE}/${CREATE}/${CREATE_PROJECT_GENERAL}/countydata`,
         GET_STUDIES: `${URL_BASE.BASE}/${STUDY}`,
         GET_STREAM_INTERSECTED: `${URL_BASE.BASE}/${CREATE}/${GET_STREAM_INTERSECTED}`,
@@ -286,6 +291,7 @@ export const SERVER = (function () {
         GET_PAST_DATA: `${URL_BASE.BASE}/${BOARD}/get-past-data`,
         GET_COSTS_FOR_MAINTENANCE: `${URL_BASE.BASE}/${BOARD_PROJECT}/getCostsMaintenance`,
         GET_RESET_AND_CONFIRM: `${URL_BASE.BASE}/${USER}/${GET_RESET_AND_CONFIRM}`,        
+        GET_STATUS_BOARD: `${URL_BASE.BASE}/${BOARD}/status-colors`,
         GET_SIGNUP_EMAIL: (token: string) => `${URL_BASE.BASE}/${USER}/${GET_SIGNUP_EMAIL}?token=${token}`,
         GET_LIST_PMTOOLS: (groupname: string) => `${URL_BASE.BASE}/${PMTOOLS}/list?group=${groupname}`,
         GET_COUNT_FOR_PROBLEM: (problemid: string) => `${URL_BASE.BASE}/${GALLERY}/${GET_COUNT_FOR_PROBLEM}/${problemid}`,

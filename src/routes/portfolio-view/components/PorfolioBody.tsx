@@ -40,7 +40,7 @@ const PortafolioBody = () => {
     searchWord, graphicOpen
   } = usePortflioState();
   const { setFavorites, getListPMTools, setOpenGroups, getActionsDone } = usePortfolioDispatch();
-
+  const { openModalTollgate: visible, } = usePortflioState();
   const [filterby, setFilterby] = useState('');
   const [filterValue, setFilterValue] = useState(-1);
   const [filtername, setFiltername] = useState('Mile High Flood District');
@@ -48,6 +48,7 @@ const PortafolioBody = () => {
   const [openFilters, setOpenFilters] = useState(false);
   const [myTeams, setMyTeams] = useState(false);
   const [openFavorites, setOpenFavorites] = useState(false);
+  const [openModalTable, setOpenModalTable] = useState(true);
   let displayedTabKey = tabKeys;
   const [openDrop, setOpenDrop] = useState(false);
   const [newData, setNewData] = useState<any>([]);
@@ -247,7 +248,7 @@ const PortafolioBody = () => {
 
   return <>
     {graphicOpen && <ModalGraphic/>}
-    <ModalTollgate />
+    {visible && <ModalTollgate />}
     <div>
       <div className="portafolio-head">
         <Row>
@@ -317,7 +318,7 @@ const PortafolioBody = () => {
             displayedTabKey.map((tk: string, idx: number) => {
               return (
                 <TabPane style={{ marginBottom: '0px', zIndex: 1 }} tab={<span>{tk}</span>} key={tk} disabled={(tabActiveNavbar === 'Phase') && tk === 'All' ? true : false}>
-                  <div className="protafolio-body">
+                  <div className="portafolio-body">
                     {openFilters && <Filters filtersObject={{ filterby, filterValue, tabKey }} />}
                     {tabActiveNavbar === 'List' && <TablePortafolio
                       tabKey={tabKey}

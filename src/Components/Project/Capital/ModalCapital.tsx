@@ -14,7 +14,6 @@ import { useHistory } from 'react-router-dom';
 import { UploadImagesDocuments } from 'Components/Project/TypeProjectComponents/UploadImagesDocuments';
 import { getProjectOverheadCost } from 'utils/parsers';
 import { useMapState } from 'hook/mapHook';
-import TypeProjectsFilter from 'Components/FiltersProject/TypeProjectsFilter/TypeProjectsFilter';
 import { Header } from '../TypeProjectComponents/Header';
 import FinancialInformation from '../TypeProjectComponents/FinancialInformation';
 import { DropPin } from '../TypeProjectComponents/DropPin';
@@ -31,8 +30,8 @@ import { deletefirstnumbersmhfdcode } from 'utils/utils';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 import { DiscussionCreateProject } from '../TypeProjectComponents/DiscussionCreateProject';
 import { ActivitiCreateProject } from '../TypeProjectComponents/ActivityCreateProject';
-import { useAppUserState } from 'hook/useAppUser';
 import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
+import EditAmountCreateProject from '../TypeProjectComponents/EditAmountCreateProject';
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -120,7 +119,6 @@ export const ModalCapital = ({
  
   const {
     saveProjectCapital,
-    saveOverheadCost, 
     setComponentIntersected, 
     getListComponentsByComponentsAndPolygon, 
     setStreamIntersected, 
@@ -135,11 +133,13 @@ export const ModalCapital = ({
     saveSpecialLocation,
     saveAcquisitionLocation,
     setDisableFieldsForLg,
+    setIsGeomDrawn
   } = useProjectDispatch();
   const {
     listComponents, 
     componentsFromMap, 
     userPolygon, 
+    isGeomDrawn,
     streamIntersected, 
     independentComponents, 
     status,
@@ -205,7 +205,8 @@ export const ModalCapital = ({
   const [frequency, setFrequency] = useState('');
   const [eligibility, setEligibility] = useState('');
   const [ownership, setOwnership] = useState(true);
-  const [subType, setSubType] = useState(subTypeInit||'');
+  const [subType, setSubType] = useState(subTypeInit || '');
+  const [isRoutine, setIsRoutine] = useState(false);
   //study 
   const [studyreason, setStudyReason] = useState<any>('');
   const [otherReason, setOtherReason] = useState('');
@@ -239,6 +240,7 @@ export const ModalCapital = ({
     setStreamIntersected({ geom: null });
     setStreamsIds([]);
     setStreamsList([]);
+    setIsGeomDrawn(false);
     return () => {
       setIndependentComponents([]);
       setComponentsFromMap([]);
@@ -328,7 +330,6 @@ export const ModalCapital = ({
           getData(SERVER.GET_GEOM_BY_PROJECTID(data.project_id), getToken())
             .then(
               (r: any) => {
-                console.log('r', r);
                 let coor = JSON.parse(r.createdCoordinates);
                 let coordinates = coor.coordinates[0];
                 setGeom(coordinates);
@@ -362,12 +363,16 @@ export const ModalCapital = ({
         if (data?.project_details[0]?.maintenance_frequency === null) {
           setFrequency('');
         } else {
-          console.log(data?.project_details[0]?.maintenance_frequency, 'frequency')
           if (data?.project_details[0]?.maintenance_frequency === 0) {
             setFrequency('None');
           } else {
             setFrequency(data?.project_details[0]?.maintenance_frequency);
           }
+        }
+        if (data?.project_details[0]?.is_routine) {
+          setIsRoutine(true);
+        }else{
+          setIsRoutine(false);
         }
         if (data?.project_details[0]?.is_public_ownership === true) {
           console.log(data?.project_details[0]?.is_public_ownership === true);
@@ -488,6 +493,7 @@ export const ModalCapital = ({
       }     
       //maintenance
       if (selectedTypeProject === 'maintenance') {
+        capital.is_routine = isRoutine;
         capital.geom = streamIntersected.geom;
         capital.projectsubtype = subType;
         capital.frequency = frequency === 'None' ? 0 : frequency;
@@ -561,55 +567,80 @@ export const ModalCapital = ({
   const handleOk = (e: any) => {
     datasets.postData(SERVER.CHECK_PROJECT_NAME, { project_name: nameProject }, datasets.getToken()).then(data => {
       if (data.exists && !swSave) {
-        handleRepeatedNotification();
+        handleNotification(`Project name already exists.`);
       } else {
         if (!disable) {
           setVisibleAlert(true);
         } else {
           let missingFields = [];
           if (!description) missingFields.push('Description');
-          if (!county.length) missingFields.push('County');
-          if (!serviceArea.length) missingFields.push('Service Area');
-          if (!jurisdiction.length) missingFields.push('Jurisdiction');
+          if (!county?.length) missingFields.push('County');
+          if (!serviceArea?.length) missingFields.push('Service Area');
+          if (!jurisdiction?.length) missingFields.push('Jurisdiction');
           if (!nameProject) missingFields.push('Project Name');
           if (!sponsor) missingFields.push('Sponsor');
-          const isGeom = (selectedTypeProject === 'capital' || selectedTypeProject === 'maintenance' || selectedTypeProject === 'study');
+          const isGeom = (selectedTypeProject === 'capital' || selectedTypeProject === 'maintenance');
           const isPin = (selectedTypeProject === 'acquisition' || selectedTypeProject === 'special');
-          if (isGeom && !geom?.length && !isCountyWide) missingFields.push('Geometry');
+          let geomLengthFlag = false;
+          if ((geom?.coordinates || streamIntersected?.geom) && isGeomDrawn===true) {
+            geomLengthFlag = true;
+          } else {
+            geomLengthFlag = false;
+          }
+          if (isGeom && !geomLengthFlag && !isCountyWide) missingFields.push('Geometry');
           if (isPin && !geom && !isCountyWide) missingFields.push('Pin');
+          if (selectedTypeProject === 'study' && !streamsIntersectedIds.length && !isCountyWide) missingFields.push('Geometry');
           if (selectedTypeProject === 'study' && !studyreason) missingFields.push('Study Reason');
-          if (selectedTypeProject === 'capital' && !componentsToSave.length && !thisIndependentComponents.length) missingFields.push('Proposed Actions or Independent Actions');
+          if (selectedTypeProject === 'capital' && !componentsToSave?.length && !thisIndependentComponents?.length) missingFields.push('Proposed Actions or Independent Actions');
           if (selectedTypeProject === 'acquisition' && !progress) missingFields.push('Progress');
           if (selectedTypeProject === 'acquisition' && !purchaseDate) missingFields.push('Purchase Date');
-          handleErrorNotification(missingFields);
+          if (selectedTypeProject === 'maintenance' && !frequency) missingFields.push('Frequency');
+          if (selectedTypeProject === 'maintenance' && !eligibility) missingFields.push('Eligibility');
+          if (thisIndependentComponents.length && !checkIfIndependentHaveName()) {
+            missingFields.push('Independent actions name');
+          }
+          if (missingFields.length > 0) {
+            handleErrorNotification(missingFields);
+          }else{
+            handleNotification('Please fill out all required fields.');
+          }
         }
       }
     })
   };
 
-  //Check if required fields are filled to enable save button
-  useEffect(()=>{   
-    const checkIfIndependentHaveName = () => {
+  const checkIfIndependentHaveName = () => {
       let result = true;
       thisIndependentComponents.forEach((comp: any) => {
         if(!comp.name || comp.name === 'Proposed Actions'){
           result = false;
         }
       });
-      // true if all have name 
-      // false if one doesnt have 
       return result;
     }
-    let disableEditForLG = disabledLG && isWorkPlan && swSave;
-    if ((geom || isCountyWide) && !disableEditForLG) {
-      if (description && county.length && serviceArea.length && jurisdiction.length && nameProject && sponsor && nameProject !== 'Add Project Name' && checkIfIndependentHaveName()) {
-        if (selectedTypeProject === 'study' && studyreason) {
+  //Check if required fields are filled to enable save button
+  useEffect(()=>{    
+    let disableEditForLG = disabledLG && isWorkPlan && swSave;    
+    if (!disableEditForLG) {  
+      const pinFlag = (selectedTypeProject === 'acquisition'
+        || selectedTypeProject === 'special')
+        && (geom || isCountyWide);
+      let geomLengthFlag = false;
+      if ((geom?.coordinates || streamIntersected?.geom)) {
+        geomLengthFlag = true;
+      } else {
+        geomLengthFlag = false;
+      }
+      if (description && county?.length && serviceArea?.length && jurisdiction?.length && nameProject && sponsor && nameProject !== 'Add Project Name' && checkIfIndependentHaveName()) {
+        if (selectedTypeProject === 'study' && studyreason && (streamsIntersectedIds.length || isCountyWide)) {
           setDisable(false);
-        } else if (selectedTypeProject === 'capital' && (thisIndependentComponents.length > 0 || componentsToSave.length > 0)) {
+        } else if (selectedTypeProject === 'capital' && (thisIndependentComponents?.length > 0 || componentsToSave?.length > 0) && (geomLengthFlag || isCountyWide)) {
           setDisable(false);
-        } else if (selectedTypeProject === 'special' || selectedTypeProject === 'maintenance') {
+        } else if (selectedTypeProject === 'special' && (pinFlag || isCountyWide)) {
           setDisable(false);
-        } else if (selectedTypeProject === 'acquisition' && progress && purchaseDate) {
+        } else if (selectedTypeProject === 'maintenance' && (geomLengthFlag || isCountyWide) && frequency && eligibility) {
+          setDisable(false);
+        } else if (selectedTypeProject === 'acquisition' && progress && purchaseDate && (pinFlag || isCountyWide)) {
           setDisable(false);
         } else {
           setDisable(true);
@@ -633,6 +664,10 @@ export const ModalCapital = ({
     thisIndependentComponents,
     progress,
     purchaseDate,
+    streamsIntersectedIds,
+    frequency,
+    eligibility,
+    isCountyWide
   ]);
 
   useEffect(() => {
@@ -669,12 +704,12 @@ export const ModalCapital = ({
   
   useEffect(() => {
     if (selectedTypeProject === 'capital' || selectedTypeProject === 'maintenance' || selectedTypeProject === 'study') {
-      setGeom(userPolygon);
+            setGeom(userPolygon);
     }
   }, [userPolygon, selectedTypeProject]);
 
   useEffect(()=>{
-    if(listComponents && listComponents.groups && listComponents.result.length > 0){
+        if(listComponents && listComponents.groups && listComponents.result.length > 0){
       const myset = new Set(keys);
       Object.keys(listComponents.groups).forEach((key:any, id:any) => {
         if(!groups[key]){
@@ -691,6 +726,7 @@ export const ModalCapital = ({
       setComponentsToSave(newC);
     } else {
       setGroups({});
+      setComponentsToSave([]);
     }
   },[listComponents]);  
 
@@ -1052,8 +1088,7 @@ export const ModalCapital = ({
     openNotification(`Warning! Required ${inputText} are missing below.`, "warning", message);
   }
 
-  const handleRepeatedNotification = () => {
-    const message = `Project name already exists.`;
+  const handleNotification = (message: string) => {
     openNotification(`Warning!`, "warning", message);
   }
   
@@ -1135,6 +1170,8 @@ export const ModalCapital = ({
                 setProgress={setProgress}
                 purchaseDate={purchaseDate}
                 setPurchaseDate={setPurchaseDate}
+                isRoutine={isRoutine}
+                setIsRoutine={setIsRoutine}
                 year={year}
                 index= {indexForm++}
               />
@@ -1248,11 +1285,21 @@ export const ModalCapital = ({
                   changeValue={changeValue}
                   index={indexForm++}
                 />
-              }                        
+              }       
+              <EditAmountCreateProject 
+                index={indexForm++}
+                type={selectedTypeProject}
+                project_id={data?.project_id}
+                getTotalCost={getTotalCost}
+                save={save}
+                subType={subType}
+              />                 
               <UploadImagesDocuments
                 isCapital={true}
                 setFiles={setFiles}
                 index={indexForm++}
+                type={''}
+                visibleCapital={visibleCapital}
               />
             </div>
           {/* </>}

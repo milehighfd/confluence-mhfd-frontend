@@ -541,7 +541,7 @@
     justify-content: space-between;
     margin-bottom: 28px;
     .step {
-      width: 163px;
+      width: 180px;
       border-top: 4px solid #d9d9d9;
       padding-top: 8px;
       p {
@@ -555,7 +555,7 @@
       }
     }
     .step-active {
-      width: 163px;
+      width: 180px;
       border-top: 4px solid #28c499;
       padding-top: 8px;
       p {
@@ -643,6 +643,23 @@
       color: #11093c;
       box-shadow: 0px 4px 40px 0px rgba(0, 0, 0, 0.04);
     }
+  }
+  .body-edit-dates-step2 {
+    height: 350px;
+    .tollgate-header {
+      padding: 0px !important;
+      .tollgate-body{
+        height: 311px;
+        padding-top: 2px;
+      }
+    }
+    .duration-toollgate{
+      margin-bottom: 14.5px !important;
+    }
+    .calendar-toollgate {
+      margin-bottom: 14.5px !important;
+    }
+
   }
   .foot-edit-dates {
     text-align: end;
@@ -912,6 +929,56 @@
       }
     }
   }
+  .work-modal-edit-dates{
+    width: 775px !important;
+    .header-step{
+      .step{
+        width: 217px;
+        border-top: 5px solid #d9d9d9;
+        p{
+          font-size: 15px;
+        }
+      }
+      .step-active {
+        width: 217px;
+        border-top: 5px solid #28c499;
+        p{
+          font-size: 15px;
+        }
+      }
+    }
+    .body-edit-dates {
+      .form-edit-dates label {
+        font-size: 14px;
+      }
+    }
+    .body-edit-dates-step2{
+      height: 487px !important;
+      .tollgate-header{
+        .tollgate-body {
+          height: 424px !important;
+          .text-tollgate-title{
+            .name-tollgate{
+              // margin-bottom: 34px !important;
+            }
+          }
+        }   
+      }
+      .calendar-toollgate{
+        margin-bottom: 11px !important;
+      }
+      .duration-toollgate {
+        margin-bottom: 11px !important;
+      }
+    }
+    .body-edit-dates{
+      height: 487px !important;
+    }
+    // height: 1040px !important;
+    .ant-modal-content{
+      height: 803px !important;
+    }
+  }
 }
 @media(min-width: 2550px){
   .edit-amount-modal {
@@ -988,6 +1055,120 @@
   }
   .card-dropdown {
     width: 235px;
+  }
+  .work-modal-edit-dates{
+    width: 983px !important;
+    .name-project{
+      font-size: 18px;
+      h1{
+        font-size: 30px;
+
+      }
+      p{
+        font-size: 20px;
+      }
+    }
+    .img-confetti{
+      font-size: 36px !important;
+    }
+    .header-step{
+      .step{
+        width: 275px;
+        border-top: 7px solid #d9d9d9;
+        p{
+          font-size: 18px;
+        }
+      }
+      .step-active {
+        width: 275px;
+        border-top: 7px solid #28c499;
+        p{
+          font-size: 18px;
+        }
+      }
+    }
+    .body-edit-dates {
+      .form-edit-dates label {
+        font-size: 17px;
+        line-height: 32px;
+      }
+    }
+    .body-edit-dates-step2{
+      height: 656px !important;
+      .tollgate-header{
+        height: 61px !important;
+        .tollgate-body {
+          height: 524px !important;
+          .text-tollgate-title{
+            .name-tollgate{
+              margin-bottom: 22px !important;
+            }
+          }
+        }
+      }
+      .calendar-toollgate{
+        margin-bottom: 11px !important;
+        .ant-picker-input > input {
+          font-size: 19px;
+        }
+      }
+      .duration-toollgate {
+        margin-bottom: 11px !important;
+      }
+      .ant-picker.ant-picker-borderless {
+        height: 42px;
+      }
+    }
+    .body-edit-dates{
+      height: 656px !important;
+      .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+        min-height: 45px;
+      }
+      .ant-select-selection-search{
+        input::placeholder{
+          font-size: 20px !important;
+        }
+      }
+      .ant-select-selection-search-input {
+        font-size: 20px !important;
+        input{
+          font-size: 20px !important;
+        }
+        input::placeholder{
+          font-size: 20px !important;
+        }
+      }
+      .ant-select-selection-search-input::placeholder{
+        font-size: 20px !important;
+      }
+      .ant-select-selection-placeholder{
+        font-size: 20px !important;
+      }
+      .ant-picker{
+        min-height: 45px;
+        height: 45px !important;
+      }
+      .ant-picker-input > input {
+        font-size: 20px;
+      }
+      .ant-picker-input > input::placeholder {
+        font-size: 20px;
+      }
+      .ant-picker-suffix {
+        font-size: 20px;
+      }
+      .ant-select-arrow {
+        font-size: 20px;
+      }
+    }
+    // height: 1040px !important;
+    .ant-modal-content{
+      height: auto !important;
+    }
+    .work-modal-edit-dates .foot-edit-dates button {
+      padding: 16px 61px;
+      font-size: 24px;
+    }
   }
 }
 

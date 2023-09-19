@@ -24,6 +24,14 @@ const VersionNumber = ({visible, setVisible}: {visible: boolean, setVisible: Rea
         </Row>
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
           <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c', overflowY: 'scroll', height: '400px'}} className='scroll-version'>
+            <p style={{ color: '#11093c', fontWeight: '500', paddingBottom: '10px' }}>v2.2 - September 5, 2023</p>
+            <ul>
+              <li>New List Views for the Main Map, Work Request and Work Plan views</li>
+              <li>New Problem cluster design</li>
+              <li>New Search bar in the Work Request and Work Plan</li>
+              <li>Updated Main Map filter</li>
+              <li>Mapping performance and bug fixes</li>              
+            </ul>
             <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>v2.1 - August 4, 2023</p>
             <ul>
                 <li>Refreshed user interface with a new integrated map view that preserves the map state when transitioning between the main map, work request and work plan</li>

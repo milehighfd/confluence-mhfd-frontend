@@ -7,15 +7,15 @@ import * as datasets from "../../../Config/datasets";
 import { useFormik } from "formik";
 import { VALIDATION_SIGN_UP } from "../../../constants/validation";
 import { GoogleReCaptcha } from "react-google-recaptcha-v3";
-import { useAppUserDispatch } from "../../../hook/useAppUser";
 import { MILE_HIGH_FLOOD_DISTRICT, STAFF_CONSTANT, COLOR } from "./constantsSignUp";
 import { useSignup } from '../hooks/useSignup';
+import { useProfileDispatch } from "hook/profileHook";
 
 const SignUpForm = () => {
   const {
     replaceAppUser,
     getUserInformation
-  } = useAppUserDispatch();
+  } = useProfileDispatch();
   const params = useParams();
   const id = (params as any).id; 
   const roles = ROLES;
@@ -62,7 +62,7 @@ const SignUpForm = () => {
         values.organization = other.value;
       }
       setTitle(title);
-      values.zoomarea = values.designation === GOVERNMENT_STAFF ? values.organization : MILE_HIGH_FLOOD_DISTRICT;
+      values.zoomarea = MILE_HIGH_FLOOD_DISTRICT;
       datasets.postData(SERVER.SIGN_UP, {...values, tokenId: id}).then(res => {
         if (res?.token) {
           const auxMessage = { ...message };

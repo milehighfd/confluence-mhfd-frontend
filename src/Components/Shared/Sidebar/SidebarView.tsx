@@ -45,7 +45,9 @@ const SidebarView = () => {
       collapsed={collapsed}
       onCollapse={() => setCollapsed(!collapsed)}
     >
-      <SidebarMenu collapsed={collapsed} />
+      <SidebarMenu 
+      collapsed={collapsed} 
+      setVisibleTutorial={setVisibleTutorial}/>
       <SidebarMenuDown
         collapsed={collapsed}
         setVisibleTutorial={setVisibleTutorial}

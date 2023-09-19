@@ -7,6 +7,7 @@ import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import { useProjectDispatch, useProjectState } from '../../../hook/projectHook';
 import { useProfileState } from 'hook/profileHook';
+import { useHistory } from 'react-router-dom';
 
 interface Props {
   index: number;
@@ -26,7 +27,7 @@ export const RequestorInformation = ({
   cosponsor,
   setCoSponsor,
   originModal,
-  projectId = 0
+  projectId = 0,
 }: Props) => {  
   const [localities, setLocalities] = useState([]);
   const [name, setName] = useState('');
@@ -39,6 +40,7 @@ export const RequestorInformation = ({
   } = useProjectState();
   const { setServiceAreaCounty } = useProjectDispatch();
   const { userInformation: user } = useProfileState();
+  const history = useHistory();
   const isMaintenance = originModal === 'Maintenance';
   const isStudy = originModal === 'Study';
   useEffect(() => {
@@ -76,7 +78,12 @@ export const RequestorInformation = ({
   useEffect(() => {
     datasets.getData(`${SERVER.GET_SPONSOR}`)
       .then((rows) => {
-        const sponsor = rows.map((row:any) => row.business_name);
+        let sponsor = rows.map((row:any) => row.business_name);
+        const params = new URLSearchParams(history.location.search)
+        const _year = params.get('year') || 0;
+        if (+(_year) < 2024){
+          sponsor = sponsor.filter((element:any) => element !== 'MHFD');
+        }
         setLocalities(sponsor);
       }).catch((e) => {
         console.log(e);

@@ -1,4 +1,4 @@
-import { List, Menu, MenuProps, Popover, Row, Table } from "antd";
+import { Menu, MenuProps, Popover, Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import { useProjectDispatch, useProjectState } from "hook/projectHook";
 import { WINDOW_WIDTH } from "constants/constants";
@@ -11,8 +11,8 @@ import { useProfileState } from "hook/profileHook";
 import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import { MHFD_PROJECTS } from "constants/constants";
-import { Console } from "console";
 import { MoreOutlined } from "@ant-design/icons";
+import DetailModal from "routes/detail-page/components/DetailModal";
 
 const ListViewMap = ({
   totalElements,
@@ -26,10 +26,13 @@ const ListViewMap = ({
   const size = 20;
   let totalElement = cardInformation?.length || 0;  
   const [isLoading, setIsLoading] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const [dataSet, setDataSet] = useState<any>([]);
+  const [data, setData] = useState<any>({});
   const [dataProjects, setDataProjects] = useState<any>([]);
   const [dataProblems, setDataProblems] = useState<any>([]);
   const [hoveredRow, setHoveredRow] = useState<any>(null);
+  const [visible, setVisible] = useState(false); 
   let lastScrollLeft = 0;
   let lastScrollTop = 0;
   const [state, setState] = useState({
@@ -123,7 +126,11 @@ const ListViewMap = ({
           sponsor: ci?.sponsor,
           cost: totalCost,
           project_id: ci?.project_id,
-          isFavorite: favorites.some((f: any) => (f.project_id && f.project_id === ci.project_id) || (f.problem_id && f.problem_id === ci.problemid))
+          isFavorite: favorites.some((f: any) => (f.project_id && f.project_id === ci.project_id) || (f.problem_id && f.problem_id === ci.problemid)),
+          onBase: ci?.onBase,
+          project_idS: ci?.project_id,
+          cartodb_id: ci?.cartodb_id,
+          code_project_type_id: ci?.code_project_type_id,
         };
         return output;
       });
@@ -134,16 +141,18 @@ const ListViewMap = ({
   useEffect(() => {
     if (type === FILTER_PROBLEMS_TRIGGER) {
       const z1 = cardInformation?.slice(0, size).map((ci: any) => {
+        let totalCost = ci?.componentCost?.toLocaleString('en-US', { style: 'currency', currency: 'USD',  minimumFractionDigits: 0, maximumFractionDigits: 0 });
         let output = {
           requestName: ci?.requestName,
           type: ci?.type,
           problempriority: ci?.priority,
           problemtype: ci?.problemtype,
-          cost: ci?.estimatedCost,
+          cost: totalCost || 0,
           local_government: ci?.jurisdiction,
           actions: ci?.count,
           percentaje: ci?.percentage,
           problemid: ci?.problemid,
+          problem_idS: ci?.problemid,
           coordinates: ci?.coordinates,
           cartodb: ci?.cartodb_id,
         };
@@ -174,6 +183,12 @@ const ListViewMap = ({
       setItHasComponents(true)
     }
   }, [dropdownIsOpen]);
+  const deleteFavorite = (id: number) => {
+    setTimeout(() => {
+        favoriteList(type === 'Problems');
+    }, 1000);
+}
+
   const stopModal = (e: any) => {
     e.domEvent.stopPropagation();
     e.domEvent.nativeEvent.stopImmediatePropagation();
@@ -270,105 +285,116 @@ const ListViewMap = ({
   },[sortBy, sortOrder])
   
 
-  const columnsProjects: ColumnsType<any>  = [
+  const columnsProjects: ColumnsType<any> = [
     {
       title: 'Project Name',
-      width: windowWidth > 1900 ? windowWidth > 2500 ? '490px':'368px':'220px',
+      width: windowWidth > 1900 ? (windowWidth > 2500 ? '490px' : '368px') : '220px',
       dataIndex: 'name',
+      className: 'project-name',
       key: 'name',
       fixed: 'left',
       sorter: (a, b, sortOrder) => {
-        setSortBy('projectname')
-        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');      
-        return 0
+        setSortBy('projectname');
+        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
+        return 0;
       },
-      render: (text: any, record:any) => <div className="content-project-name"><p className="project-name">{text}</p>
-        <Popover
-          overlayClassName="pop-card-map"
-          content={menu(record)}
-          placement="bottom"
-          trigger="click"
-          visible={openedDropdownKey === record.project_id}
-          onVisibleChange={(visible) => {
-            console.log(record)
-            if (visible) {
-              setOpenedDropdownKey(record.project_id);
-            } else {
-              setOpenedDropdownKey(null);
-            }
-          }}
-        >
-          <MoreOutlined onClick={(e) => {
-            e.stopPropagation();
-          }} className="more-ico" />
-        </Popover></div>,
+      render: (name: any, record: any) => (
+        <div className="content-project-name">
+          <Popover placement="top" content={<p className="main-map-list-name-popover-text"> <b>{name}</b> <br /> <b>Project ID: </b> {record.project_id} <br /> <b>OnBase Project Number: </b> {record.onBase?record.onBase:"-"}</p>}>
+            <p className="project-name">{name}</p>
+          </Popover>
+          <Popover
+            overlayClassName="pop-card-map"
+            content={menu(record)}
+            placement="bottom"
+            trigger="click"
+            visible={openedDropdownKey === record.project_id}
+            onVisibleChange={visible => {
+              console.log(record);
+              if (visible) {
+                setOpenedDropdownKey(record.project_id);
+              } else {
+                setOpenedDropdownKey(null);
+              }
+            }}
+          >
+            <MoreOutlined
+              onClick={e => {
+                e.stopPropagation();
+              }}
+              className="more-ico"
+            />
+          </Popover>
+        </div>
+      ),
     },
     {
       title: 'Type',
-      width: windowWidth > 1900 ? windowWidth > 2500 ? '250px':'200px':'147px',
+      width: windowWidth > 1900 ? (windowWidth > 2500 ? '199px' : '140px') : '86px',
       dataIndex: 'type',
       key: 'type',
+      className: 'project-type',
       sorter: (a, b, sortOrder) => {
-        setSortBy('projecttype')
-        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');      
-        return 0
+        setSortBy('projecttype');
+        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
+        return 0;
       },
     },
     {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
-      width: windowWidth > 1900 ? windowWidth > 2500 ? '199px':'140px':'86px',      
+      className: 'project-status',
+      width: windowWidth > 1900 ? (windowWidth > 2500 ? '199px' : '140px') : '86px',
       sorter: (a, b, sortOrder) => {
-        setSortBy('status')
-        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');      
-        return 0
+        setSortBy('status');
+        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
+        return 0;
       },
-      render: (text: any) => <span className={"status-projects-"+ (text.toLowerCase())}>{text}</span>,
+      render: (text: any) => <span className={'status-projects-' + (text ? text.toLowerCase() : 'draft')}>{text}</span>,
     },
     {
       title: 'Phase',
       dataIndex: 'phase',
       key: 'phase',
-      width: windowWidth > 1900 ? windowWidth > 2500 ? '224px':'159px':'100px',      
+      width: windowWidth > 1900 ? (windowWidth > 2500 ? '224px' : '159px') : '100px',
       sorter: (a, b, sortOrder) => {
-        setSortBy('phase')
-        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');      
-        return 0
+        setSortBy('phase');
+        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
+        return 0;
       },
     },
     {
       title: 'Stream',
       dataIndex: 'stream',
       key: 'stream',
-      width: windowWidth > 1900 ? windowWidth > 2500 ? '261px':'187px':'131px',
+      width: windowWidth > 1900 ? (windowWidth > 2500 ? '261px' : '187px') : '131px',
       sorter: (a, b, sortOrder) => {
-        setSortBy('stream')
-        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');      
-        return 0
+        setSortBy('stream');
+        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
+        return 0;
       },
     },
     {
       title: 'Sponsor',
       dataIndex: 'sponsor',
       key: 'sponsor',
-      width: windowWidth > 1900 ? windowWidth > 2500 ? '224px':'159px':'110px',      
+      width: windowWidth > 1900 ? (windowWidth > 2500 ? '224px' : '159px') : '110px',
       sorter: (a, b, sortOrder) => {
-        setSortBy('project_sponsor')
-        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');      
-        return 0
+        setSortBy('project_sponsor');
+        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
+        return 0;
       },
-
     },
     {
       title: 'Est. Cost',
       dataIndex: 'cost',
-      key: 'cost',      
-      width: windowWidth > 1900 ? windowWidth > 2500 ? '202':'143px':'108px',
+      key: 'cost',
+      width: windowWidth > 1900 ? (windowWidth > 2500 ? '202px' : '143px') : '108px',
       sorter: (a, b, sortOrder) => {
-        setSortBy('estimatedcost')
-        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');      
-        return 0
+        setSortBy('estimatedcost');
+        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
+        return 0;
       },
     },
   ];
@@ -385,7 +411,10 @@ const ListViewMap = ({
         setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
         return 0
       },
-      render: (text: any, record: any) => <div className="content-project-name"><p className="project-name">{text}</p>
+      render: (text: any, record: any) => <div className="content-project-name">
+        <Popover placement="top" content={<p className="main-map-list-name-popover-text"><b> { text }</b> <br /><b>Problem ID: </b> {record.problemid}</p>}>
+            <p className="project-name">{text}</p>
+          </Popover>
       <Popover
         overlayClassName="pop-card-map"
         content={menu(record)}
@@ -403,7 +432,8 @@ const ListViewMap = ({
         <MoreOutlined onClick={(e) => {
             e.stopPropagation();
           }}  className="more-ico" />
-      </Popover></div>,
+      </Popover>
+      </div>,
     },
     {
       title: 'Type',
@@ -416,20 +446,31 @@ const ListViewMap = ({
         return 0
       },
     },
+    // {
+    //   title: 'Priority',
+    //   dataIndex: 'problempriority',
+    //   key: 'problempriority',
+    //   width: windowWidth > 1900 ? windowWidth > 2500 ? '199px':'140px':'86px',
+    //   sorter: (a, b, sortOrder) => {
+    //     setSortBy('problem_severity')
+    //     setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
+    //     return 0
+    //   },
+    // },
     {
-      title: 'Priority',
-      dataIndex: 'problempriority',
-      key: 'problempriority',
-      width: windowWidth > 1900 ? windowWidth > 2500 ? '199px':'140px':'86px',
+      title: 'Actions',
+      dataIndex: 'actions',
+      key: 'actions',
+      width: windowWidth > 1900 ? windowWidth > 2500 ? '224px':'159px':'110px',
       sorter: (a, b, sortOrder) => {
-        setSortBy('problem_severity')
+        setSortBy('component_count')
         setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
         return 0
       },
     },
     {
       title: 'Cost',
-      dataIndex: 'solutioncost',
+      dataIndex: 'cost',
       key: 'cost',
       width: windowWidth > 1900 ? windowWidth > 2500 ? '224px':'159px':'100px',
       sorter: (a, b, sortOrder) => {
@@ -450,18 +491,7 @@ const ListViewMap = ({
       },
     },
     {
-      title: 'Actions',
-      dataIndex: 'actions',
-      key: 'actions',
-      width: windowWidth > 1900 ? windowWidth > 2500 ? '224px':'159px':'110px',
-      sorter: (a, b, sortOrder) => {
-        setSortBy('component_count')
-        setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
-        return 0
-      },
-    },
-    {
-      title: 'Percentaje',
+      title: 'Percentage',
       dataIndex: 'percentaje',
       key: 'percentaje',
       width: windowWidth > 1900 ? windowWidth > 2500 ? '202':'143px':'108px',
@@ -470,7 +500,7 @@ const ListViewMap = ({
         setSortOrder(sortOrder === 'ascend' ? 'asc' : 'desc');
         return 0
       },
-      render: (text: any) => <p>{`${text} %`}</p>,
+      render: (text: any) => <>{`${text} %`}</>,
     },
   ];
   useEffect(() => {
@@ -501,8 +531,25 @@ const fetchMoreData = async () => {
     setTimeout(() => {
       const auxState = { ...state };
       const newItems = Array.from({ length: size }).map((_, index) => cardInformation[state.items.length + index]);
-      auxState.items = state.items.concat(newItems);
-      setDataProblems([...dataProblems, ...newItems]);
+      const newParsedItems = newItems.map((ci: any) => {
+        let totalCost = ci?.componentCost?.toLocaleString('en-US', { style: 'currency', currency: 'USD',  minimumFractionDigits: 0, maximumFractionDigits: 0 });
+        let output = {
+          requestName: ci?.requestName,
+          type: ci?.type,
+          problempriority: ci?.priority,
+          problemtype: ci?.problemtype,
+          cost: totalCost || 0,
+          local_government: ci?.jurisdiction,
+          actions: ci?.count,
+          percentaje: ci?.percentage,
+          problemid: ci?.problemid,
+          coordinates: ci?.coordinates,
+          cartodb: ci?.cartodb_id,
+        };
+        return output;
+      });
+      auxState.items = state.items.concat(newParsedItems);
+      setDataProblems([...dataProblems, ...newParsedItems]);
       setState(auxState);
     }, 500);
   } else {
@@ -548,6 +595,17 @@ const changeCenter = (id:any, coordinateP:any) => {
 }
 
   return (<>
+  {
+    visible &&
+    <DetailModal
+      visible={visible}
+      setVisible={setVisible}
+      data={data}
+      type={type}
+      deleteCallback={deleteFavorite}
+      addFavorite={addFavorite}
+    />
+  }
     {isLoading && <LoadingView />}
     <div className="table-scroll-map-list" onScroll={handleScroll}>
       <InfiniteScroll
@@ -564,7 +622,12 @@ const changeCenter = (id:any, coordinateP:any) => {
           onRow={(record, rowIndex) => {
             return {
               onClick: (event) => {
+                setData(record);
                 // changeCenter(record.project_id, '');
+                setTimeout(() => {
+                  setVisible(true);
+                }, 1500);
+
               },
               onMouseEnter: (e) =>  {
                 let typeInData:any 
@@ -608,20 +671,25 @@ const changeCenter = (id:any, coordinateP:any) => {
           onRow={(record, rowIndex) => {
             return {
               onClick: (event) => {
-                changeCenter('', record.coordinates)
+                setData(record);
+                // changeCenter(record.project_id, '');
+                setTimeout(() => {
+                  setVisible(true);
+                }, 1500);
+                // changeCenter('', record.coordinates)
               },
               onMouseEnter: (e) =>  {
-                // let typeInData:any 
-                // let valueInData:any  
-                // if(record.project_id){
-                //   typeInData = MHFD_PROJECTS;
-                //   valueInData = record.project_id;
-                // } else if(record.problemid){
-                //   typeInData = record.type;
-                //   valueInData = record.cartodb;
-                // }
-                // e.stopPropagation()
-                // setHoveredRow(valueInData)
+                let typeInData:any 
+                let valueInData:any  
+                if(record.project_id){
+                  typeInData = MHFD_PROJECTS;
+                  valueInData = record.project_id;
+                } else if(record.problemid){
+                  typeInData = record.type;
+                  valueInData = record.cartodb;
+                }
+                e.stopPropagation()
+                return setHoveredRow(valueInData)
                 // return setValuesMap(typeInData, valueInData)
               },
             };
@@ -637,7 +705,7 @@ const changeCenter = (id:any, coordinateP:any) => {
           columns={columnsProblem} 
           dataSource={dataProblems} 
           pagination={false} 
-          scroll={{x: windowWidth>1900? 1174: 996, y: 'calc(100vh - 315px)' }}
+          scroll={{x: windowWidth > 1900 ? windowWidth > 2500 ? 1651: 1238: 816, y: 'calc(100vh - 315px)' }}
           rowClassName={(record, index) => {
             if(selectedOnMap.id !== -1 && record.cartodb === selectedOnMap.id){
               return ('row-geometry-body-selected')

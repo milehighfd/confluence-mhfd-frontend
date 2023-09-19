@@ -4,18 +4,8 @@ const initState = {
   attachments: {
     attachments: []
   },
-  loading: false.valueOf,
-  _id: "",
-  value: "",
-  filename: "",
-  mimetype: "",
-  user_id: "",
-  register_date: "",
-  filesize: 0,
   project_id: -1,
-  createdAt: "",
-  updatedAt: "",
-  attachment: [],
+  attachment: []
 };
 
 const attachmentReducer = (state = initState, action : any) => {
@@ -24,23 +14,15 @@ const attachmentReducer = (state = initState, action : any) => {
       return {
         ...state,
         attachments: action.attachments,
-        loading: false
-      }
-    case types.LOADING: 
-      return {
-        ...state,
-        loading: action.loading
       }
     case types.GET_ATTACHMENT: 
       return {
         ...state,
         attachment: action.attachment,
-        loading: false
       }
     case types.REMOVE:
       return {
         ...state,
-        loading: false,
         attachments: {
           attachments: state.attachments.attachments.filter((_: any, i: number) => {
             return i !== action.index;

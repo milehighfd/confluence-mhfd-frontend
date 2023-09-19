@@ -8,6 +8,7 @@ import { usePortflioState, usePortfolioDispatch } from 'hook/portfolioHook';
 import { useMapState } from 'hook/mapHook';
 import { handleAbortError } from 'store/actions/mapActions';
 import { LIMIT_PAGINATION } from 'constants/constants';
+import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 
 const { Panel } = Collapse;
 
@@ -35,6 +36,10 @@ const TableGroups = ({
   const { currentGroup, collapsePhase, openGroups } = usePortflioState();
   const { setCollapsePhase, setOpenGroups } = usePortfolioDispatch();
   const {
+    globalProjectData,
+    globalSearch
+  } = useProjectState();
+  const {
     filterProjectOptions,
   } = useMapState();
   const [next, setNext] = useState(false);
@@ -43,7 +48,7 @@ const TableGroups = ({
   const scrollHeaderScrollRef = useRef<null | HTMLDivElement>(null);
   const [page, setPage] = useState(1);
   const [sendfilter, setSendFilter] = useState(filterProjectOptions); 
-  const [counterParsed, setCounterParsed] = useState('');
+  const [counterParsed, setCounterParsed] = useState('');   
  
   useEffect(() => {
     const sendfiltercopy = {...filterProjectOptions};
@@ -51,6 +56,20 @@ const TableGroups = ({
     delete sendfiltercopy.sortorder;
     setSendFilter(sendfiltercopy);
   }, [filterProjectOptions]);
+
+  useEffect(() => {
+    if (globalSearch && data.id === globalProjectData.status) {
+      const sendData = {
+        status: globalProjectData.status,
+        pageSize: LIMIT_PAGINATION,
+        project_id: globalProjectData.project_id,
+      };
+      datasets.postData(SERVER.GET_PAGE_PROJECT_PM_TOOLS, sendData).then((res: any) => {
+        setPage(res.pageNumber)
+      });
+    }    
+  }, [globalProjectData, globalSearch]);
+
   useEffect(() => {
     const controller = new AbortController();
     datasets.postData(

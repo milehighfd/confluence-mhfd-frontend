@@ -4,7 +4,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useProfileState, useProfileDispatch } from "hook/profileHook";
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
-import { useAppUserDispatch } from "hook/useAppUser";
 import { getGroupList } from "routes/portfolio-view/components/ListUtils";
 import { useMapDispatch } from 'hook/mapHook';
 import SelectOrganization from "routes/Utils/SelectOrganization";
@@ -49,7 +48,7 @@ const Profile = ({
   const {
     replaceAppUser,
     saveUserInformation,   
-  } = useAppUserDispatch();
+  } = useProfileDispatch();
   //console.log(useProfileState()) 
   useEffect(() => {
     getMe();
@@ -147,7 +146,7 @@ const Profile = ({
       datasets.putData(SERVER.USER_UPDATE, {
         email,
         phone,
-        organization,
+        organization: user?.organization,
         city,
         county,
         serviceArea,

@@ -3,12 +3,10 @@ import * as datasets from 'Config/datasets'
 import { SERVER } from 'Config/Server.config';
 import { useMapDispatch } from 'hook/mapHook';
 import { useProfileDispatch } from 'hook/profileHook';
-import { useAppUserDispatch } from 'hook/useAppUser';
 
 const useLogin = () => {
   const { replaceFilterCoordinates } = useMapDispatch();
-  const { replaceAppUser,addNotifications } = useAppUserDispatch();
-  const { saveUserInformation } = useProfileDispatch();
+  const { replaceAppUser,addNotifications, saveUserInformation } = useProfileDispatch();
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     datasets.getData(SERVER.ME, datasets.getToken())

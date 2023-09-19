@@ -6,12 +6,14 @@ import { SERVER } from 'Config/Server.config';
 import { WINDOW_WIDTH } from "constants/constants";
 import { useRequestDispatch } from 'hook/requestHook';
 import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
+import { getYearList } from 'Components/Work/Request/RequestViewUtil';
 
 
 const BoardYear = () => {
   const [api, contextHolder] = notification.useNotification();
   const [openDropYear, setOpenDropYear] = useState(false);
-  const [yearEdit, setYearEdit] = useState('');
+  const [yearEdit, setYearEdit] = useState<any>('');
+  const [yearEditList, setYearEditList] = useState<any>([]);
   const { openNotification } = useNotifications();
   const {
     setYear,
@@ -23,14 +25,16 @@ const BoardYear = () => {
     message: '',
   });
 
+  const loadConfigurationYear = async () => {
+    const [configuredYear, generatedYearListIncreased, generatedYearList] = await getYearList(5);
+    setYear(configuredYear);
+    setYearEdit(configuredYear);
+    setYearList(generatedYearList);
+    setYearEditList(generatedYearListIncreased);
+  }
+
   useEffect(() => {
-    datasets.getData(SERVER.GET_CONFIGURATIONS('BOARD_YEAR'))
-      .then((response: any) => {
-        setYear(response.value);
-        setYearEdit(response.value);
-      }).catch((error: any) => {
-        console.error(error);
-      });
+    loadConfigurationYear();
   }, []);
 
   const changeConfigurationYear = (value: string) => {
@@ -41,12 +45,7 @@ const BoardYear = () => {
     datasets.putData(SERVER.GET_CONFIGURATIONS('BOARD_YEAR'), { value: yearEdit })
       .then(() => {
         openNotification(`Success! The board year has been updated to ${yearEdit}.`, "success");
-        setYear(yearEdit);
-        const yearList = [];
-        for (let i = 0; i < 5; i++) {
-          yearList.push(+yearEdit - i);
-        }
-        setYearList(yearList);
+        loadConfigurationYear();
       }).catch(() => {
         setAlert({ ...alert, show: true, type: 'error', message: `Error saving year ${yearEdit}.` });
       })
@@ -77,17 +76,16 @@ const BoardYear = () => {
           onChange={(e) => {changeConfigurationYear(e)}}
         >
           <Select.Option key={'no'} disabled value={''}>Select a year</Select.Option>
-          <Select.Option key={'2022'} value={'2022'}>2022</Select.Option>
-          <Select.Option key={'2023'} value={'2023'}>2023</Select.Option>
-          <Select.Option key={'2024'} value={'2024'}>2024</Select.Option>
-          <Select.Option key={'2025'} value={'2025'}>2025</Select.Option>
+          {yearEditList.map((item: any) => (
+            <Select.Option key={item} value={item}>{item}</Select.Option>
+          ))}
         </Select>
         <br/>
         {alert.show && (
           <span style={{ color: alert.type === 'success' ? '#28C499' : 'red' }}>&nbsp;&nbsp;{alert.message}</span>
         )}
         <br/>
-        <Button className="btn-purple" style={{marginTop: 20}} onClick={onSave}>
+        <Button className="btn-purple btn-board" style={{marginTop: 20}} onClick={onSave}>
           Save
         </Button>
       </div>

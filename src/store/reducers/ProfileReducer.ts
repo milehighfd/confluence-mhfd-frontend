@@ -8,6 +8,7 @@ const initProfile = {
     designation: "",
     _id: "",
     email: "",
+    notifications: [],
     coordinates: {
       latitude: 0,
       longitude: 0
@@ -89,6 +90,34 @@ const profile = (state = initProfile, action: any) => {
         ...state,
         userInformation: action.user
       }
+    // from user state
+    case types.REPLACE_USER: 
+      return {
+        ...state,
+        userInformation: action.appUser
+      }
+    case types.RESET_APP_USER: 
+        return {
+          ...state,
+          userInformation: initProfile.userInformation
+        }
+    case types.ADD_NOTIFICATION:
+      console.log('Notifications ', action.notifications);
+        return {
+          ...state,
+          // concat action.notifications inside userinformation.notifications
+          userInformation:{
+            ...state.userInformation,
+            notifications: action.notifications
+          }
+
+        }
+    case types.DELETE_NOTIFICATION:
+        return {...state, 
+          userInformation:{
+            ...state.userInformation,
+            notifications: state.userInformation.notifications?.filter((_: any) => _.notification_id !== action.id)}
+          }
     default:
       return state;
   }

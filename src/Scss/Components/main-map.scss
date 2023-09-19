@@ -944,6 +944,15 @@ hr.filters-line {
 //table-style-map
 
 .table-list-map {
+  // .project-name{
+  //   width: 220px;
+  // }
+  // .project-type{
+  //   width: 147px;
+  // }
+  // .project-status{
+  //   width: 86px;
+  // }
   .ant-table {
     color: $purple00;
     font-size: 12px;
@@ -993,19 +1002,25 @@ hr.filters-line {
     padding: 11px 10px;
     padding-right: 8px;
     border-bottom: 1px solid #f0f0f0;
-      border-top: 1px solid transparent;
+    border-top: 1px solid transparent;
+    border-left: 1px solid transparent;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    max-width: 100%; 
   }
   .row-geometry-body-selected{
     td {
-      border-bottom: 1px solid $green !important;
-      border-top: 1px solid $green !important;
+      border-bottom: 2px solid $green !important;
+      border-top: 2px solid $green !important;
     }
     td:first-child {
-      border-left: 1px solid $green !important;
+      border: 2px solid $green !important;
+      border-right: 0px !important;
       border-radius: 3px 0px 0px 3px;
     }
     td:last-child{
-      border-right: 1px solid $green !important;
+      border-right: 2px solid $green !important;
       border-radius: 0px 3px 3px 0px;
     }
   }
@@ -1017,13 +1032,25 @@ hr.filters-line {
   .more-ico{
     font-size: 18px;
   }
-  .project-name{
-    font-size: 14px;
+  .name{
+    font-size: 12px;
     font-weight: 500;
-    line-height: 19px;
+    line-height: 16px;
     margin: 0px;
     color: $purple00;
     width: 95%;
+    white-space: normal;
+    max-width: 100%;
+  }
+  .project-name{
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    margin: 0px;
+    color: $purple00;
+    width: 95%;
+    white-space: normal;
+    max-width: 100%;
   }
   .status-projects-active {
     color: $green;
@@ -1080,6 +1107,33 @@ hr.filters-line {
 
 .main-map-dropdown{
   font-size: 14px;
+}
+.main-map-list-name-popover-text{
+  font-size: 12px;
+  margin: 0px;
+}
+@media (max-width: 875px){
+  .tabs-map .ant-tabs-content-holder{
+    padding: 0px;
+  }
+  .tabs-map .ant-tabs-nav {
+    padding-left: 12px;
+  }
+  .ffoo{
+    padding: 7px 8px 15px 8px !important;
+    .over-00{
+      margin: 0px;
+      .ant-tabs-nav{
+        padding: 0px 4px 0px 4px;
+        .apply-filter-no-effect{
+          padding: 0px;
+        }
+      }
+      .ant-tabs-content-holder{
+        padding: 0px;
+      }
+    }
+  }
 }
 
 @media (min-width: 1900px) and (max-width: 2499px) {
@@ -1382,6 +1436,7 @@ hr.filters-line {
   }
   .infinite-scroll-component{
     height: calc(100vh - 220px) !important;
+    padding-right: 0px;
   }
   .table-list-map {
     .ant-table {
@@ -1397,9 +1452,9 @@ hr.filters-line {
     }
   }
   .table-list-map .project-name {
-    font-size: 16px;
+    font-size: 14px;
     // height: 58px;
-    line-height: 20px;
+    line-height: 17px;
   }
   .main-map-dropdown{
     font-size: 16px;
@@ -1430,10 +1485,13 @@ hr.filters-line {
       }
     }
   }
+  .main-map-list-name-popover-text{
+    font-size: 14px;
+  }
 }
 @media(min-width: 2550px){
   .scroll-filters{
-    padding: 0px 15px 0px 0px;
+    padding: 0px 11px 0px 3px;
     .ant-checkbox-wrapper{
       font-size: 20px !important;
     }
@@ -1713,6 +1771,9 @@ hr.filters-line {
       height: calc(100vh - 421px) !important;
       max-height: calc(100vh - 421px) !important;
     }
+    .ant-table-tbody > tr > td{
+      line-height: 20px;
+    }
     .ant-table-column-sorters {
       display: inline-flex;
       font-size: 20px;
@@ -1887,8 +1948,7 @@ hr.filters-line {
     }
   }
   .table-list-map .project-name {
-    font-size: 19px;
-    line-height: 24px;
+    font-size: 16px;
   }
   .table-scroll-map-list{
     height: calc(100vh - 350px);
@@ -1897,5 +1957,8 @@ hr.filters-line {
     overflow-x: auto;
     overflow-y: hidden;
     height: calc(100vh - 350px);
+  }
+  .main-map-list-name-popover-text{
+    font-size: 16px;
   }
 }

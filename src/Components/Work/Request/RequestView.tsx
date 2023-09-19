@@ -8,7 +8,7 @@ import { useMyUser, useProfileDispatch, useProfileState } from 'hook/profileHook
 import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 import { boardType } from 'Components/Work/Request/RequestTypes';
-import { defaultColumns } from 'Components/Work/Request/RequestViewUtil';
+import { defaultColumns, getYearList } from 'Components/Work/Request/RequestViewUtil';
 import ColumsTrelloCard from 'Components/Work/Request/ColumsTrelloCard';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import Toolbar from 'routes/work-request/components/Toolbar';
@@ -23,7 +23,6 @@ import TableListView from './Toolbar/TableListView';
 import { GOVERNMENT_STAFF, NEW_PROJECT_TYPES, WORK_REQUEST, YEAR_LOGIC_2024 } from 'constants/constants';
 import MaintenanceTypesDropdown from '../../../routes/work-request/components/MaintenanceTypesDropdown';
 import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
-import ConfigurationService from 'services/ConfigurationService';
 
 const { TabPane } = Tabs;
 
@@ -75,6 +74,7 @@ const RequestView = ({ type, widthMap }: {
     loadFilters,
     setTotalCountyBudget,
     setIsListView,
+    stopLoadingColumns,
   } = useRequestDispatch();
   const {
     setOpacityLayer,
@@ -87,18 +87,21 @@ const RequestView = ({ type, widthMap }: {
   const [isInitMap, setIsInitMap] = useState(true);
   const [showCreateProject, setShowCreateProject] = useState(false);
   const history = useHistory();
-  const { setZoomProject, setComponentsFromMap, setStreamIntersected, setComponentIntersected } = useProjectDispatch();
+  const { setZoomProject, setComponentsFromMap, setStreamIntersected, setComponentIntersected, setGlobalSearch } = useProjectDispatch();
   const wrtRef = useRef(null);
   const { userInformation, groupOrganization, isLocalGovernment, locality: profileLocality } = useProfileState();
   const { saveBoardProjecttype } = useProfileDispatch();
   const users = useMyUser();
   const fakeLoading = useFakeLoadingHook(tabKey);
   const [selectView, setSelectView] = useState('card');
-  const {status} = useProjectState();
+  const {
+    status, 
+    globalSearch,
+  } = useProjectState();
   const { openNotification } = useNotifications();
   const [maintenanceSubType, setMaintenanceSubType] = useState<any>(NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management);
-
-
+  const [scrollTo, setScrollTo] = useState(0);
+  
   const {  
     tabActiveNavbar
   } = useMapState();
@@ -131,6 +134,14 @@ const RequestView = ({ type, widthMap }: {
   }, [tabKey]);
 
   useEffect(() => {
+    console.log(globalSearch)
+    if(globalSearch && selectView === 'list'){
+      setSelectView('card');
+      stopLoadingColumns();
+    }
+  }, [globalSearch]);
+
+  useEffect(() => {
     const initLoading = async () => {
       let params = new URLSearchParams(history.location.search)
       let _year = params.get('year');
@@ -157,23 +168,14 @@ const RequestView = ({ type, widthMap }: {
       if (_year) {
         setYear(_year);
       } else {
-        let config;
-        try {
-          config = await ConfigurationService.getConfiguration('BOARD_YEAR');
-        } catch (e) {
-          console.log(e);
-        }
-        setYear(+config.value);
-        const yearList = [];
-        for (let i = 0; i < 5; i++) {
-          yearList.push((+config.value) - i);
-        }
-        setYearList(yearList);
+        const [configuredYear, generatedYearList] = await getYearList();
+        setYear(configuredYear);
+        setYearList(generatedYearList);
       }
       if (!_locality && r.localities.length > 0) {
         _locality = r.localities[0].name;
       }
-      if (_locality) {
+      if (_locality && !globalSearch) {
         setLocality(_locality)
         setIsOnSelected(false);
         setLocalityFilter(_locality)
@@ -234,7 +236,7 @@ const RequestView = ({ type, widthMap }: {
     }
     initLoading();
     setZoomProject(undefined);
-    setIsInitMap(true);
+    setIsInitMap(true);    
     return () => {
       setLocality(undefined);
       setIsInitMap(true);
@@ -303,7 +305,6 @@ const RequestView = ({ type, widthMap }: {
     parent.scroll(parent.scrollWidth, 0);
   }
   useEffect(() => {
-    console.log('Locality filter', localityFilter);
     if (localityFilter) {
       onSelect(localityFilter, isInitMap ? 'isinit' : undefined);
     }
@@ -417,7 +418,7 @@ const RequestView = ({ type, widthMap }: {
                       gap: '10px',
                     }}
                   >
-                    {(selectView === 'list' && namespaceId?.projecttype === 'Maintenance') && <MaintenanceTypesDropdown 
+                    {(selectView === 'list' && namespaceId?.projecttype === 'Maintenance' && widthMap != 15) && <MaintenanceTypesDropdown 
                       setMaintenanceSubType={setMaintenanceSubType}
                       maintenanceSubType={maintenanceSubType}
                     />}
@@ -465,7 +466,9 @@ const RequestView = ({ type, widthMap }: {
                         ref={wrtRef}>
                         <ColumsTrelloCard
                           flagforScroll={flagforScroll} 
-                          type={type}/>
+                          type={type}
+                          selectView={selectView}
+                        />
                       </div>
                       <RequestCostRows />
                       </div>}

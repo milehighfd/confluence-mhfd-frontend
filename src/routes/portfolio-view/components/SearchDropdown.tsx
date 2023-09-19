@@ -47,7 +47,7 @@ const SearchDropdown = () => {
   }
  
   return <>
-    <div className="search" id='searchPortfolio'>
+    <div className="search-bar" id='searchPortfolio'>
       <div className="search-head">
         <Input.Search
           id="search-input-listview"
