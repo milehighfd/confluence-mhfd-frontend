@@ -460,7 +460,9 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
             return (
               <div key={x.id} className="add-checkbox-item"
                 onClick={(e) => {
-                  toggleCreatedAction(x)
+                  if (!disabledLG){
+                    toggleCreatedAction(x)
+                  }                  
                 }
                 }>
                 <div className={x.is_completed ? "checkbox-select-active checkbox-select" : "checkbox-select"}>
@@ -470,12 +472,15 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
                       handleChange(e.target.value, x)
                     }}
                     onClick={(e) => e.stopPropagation()}
+                    disabled={disabledLG}
                   />
-                  <Checkbox checked={x.is_completed}></Checkbox>
+                  <Checkbox disabled={disabledLG} checked={x.is_completed}></Checkbox>
                 </div>
                 <CloseOutlined onClick={(e) => {
-                  e.stopPropagation();
-                  deleteCreatedAction(x)
+                  if (!disabledLG){
+                    e.stopPropagation();
+                    deleteCreatedAction(x);
+                  }
                 }} />
               </div>
             );
