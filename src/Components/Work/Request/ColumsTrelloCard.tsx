@@ -138,11 +138,20 @@ const ColumsTrelloCard = ({
     }
   };
 
+  useEffect(() => {
+    console.log('columns', columns);
+  }, [columns]);
   return (
     <DragDropContext
       onDragEnd={result => {
         const { source, destination } = result;
-        if (!destination || boardStatus === BOARD_STATUS_TYPES.APPROVED) {
+        console.log('result', result);
+        console.log('boardStatus', boardStatus);
+        
+        if (!destination) {
+          return;
+        }
+        if (boardStatus === BOARD_STATUS_TYPES.APPROVED && (userInformation.designation !== ADMIN && userInformation.designation !== STAFF)){
           return;
         }
         const sourceColumn = +source.droppableId;
