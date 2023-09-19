@@ -4,7 +4,6 @@ import TeamCollaborator from '../../../Components/Shared/Modals/TeamCollaborator
 import { ArrowDownOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { useDetailedState } from 'hook/detailedHook';
 import { useMapState } from 'hook/mapHook';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 const ComponentSolucions = () => {
   const { componentsByProblemId: componentsOfProblems } = useMapState();

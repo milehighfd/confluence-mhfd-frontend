@@ -48,7 +48,7 @@ const App = () => {
           <Redirect to="/login" />
         )} />
         <Route path={`/map`} component={MapRoute} />
-        {datasets.getToken() && userInformation.email && <Route path={`/profile-view`} component={MyProfile} />}
+        {getToken() && userInformation.email && <Route path={`/profile-view`} component={MyProfile} />}
         {(userInformation.designation === 'admin' ||
           userInformation.designation === 'staff') && (userInformation.status === 'approved') && <Route path={`/user`} component={UserManagement} />}
         {(loading && <Route path={`/`} component={LoadingView} />)}
