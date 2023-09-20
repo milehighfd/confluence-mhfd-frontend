@@ -5,7 +5,6 @@ import { useMapState } from 'hook/mapHook';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 const ComponentSolucionsByProblems = () => {
-  const { detailed } = useDetailedState();
   const { componentsByProblemId: componentsOfProblems } = useMapState();
   const total = componentsOfProblems.reduce((prev: any, next: any) => prev + next.estimated_cost, 0);
 

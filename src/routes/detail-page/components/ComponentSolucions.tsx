@@ -6,7 +6,6 @@ import { useDetailedState } from 'hook/detailedHook';
 import { useMapState } from 'hook/mapHook';
 
 const ComponentSolucions = () => {
-  const { detailed } = useDetailedState();
   const { componentsByProblemId: componentsOfProblems } = useMapState();
   const dataSolution = componentsOfProblems
     ? componentsOfProblems.map((data: any, index: number) => {

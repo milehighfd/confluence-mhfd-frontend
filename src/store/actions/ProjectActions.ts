@@ -63,7 +63,6 @@ export const saveCapital = (data: any) => {
       let status ; 
       if(res && res.project_data){
         status = 1;
-        console.log(res)
         dispatch(setCreatedProject(res));
       }else{
         status = 0;
@@ -111,7 +110,6 @@ export const editCapital = (data: any) => {
       let status ; 
       if(res && res.project_update){
         status = 1;
-        console.log(res)
         dispatch(setCreatedProject(res.project_update));
       }else{
         status = 0;

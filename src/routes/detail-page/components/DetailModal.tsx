@@ -988,9 +988,7 @@ const DetailModal = ({
                     <Roadmap
                       data={dataRoadmap}
                       setOpenPiney={setOpenPiney}
-                      openPiney={openPiney}
                       updateAction={updateAction}
-                      setUpdateAction={setUpdateAction}
                     />
                     <StackedBarChart />
                     <br></br>

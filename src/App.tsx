@@ -1,8 +1,7 @@
 import React, { lazy, Suspense } from 'react';
-import './App.scss';
 import { Route, Switch, Redirect } from 'react-router-dom';
-
-import * as datasets from 'Config/datasets';
+import './App.scss';
+import { getToken } from 'Config/datasets';
 import LoadingView from 'Components/Loading/LoadingView';
 import useLogin from 'hook/custom/useLogin';
 import useInitializeApp from 'hook/custom/useInitializeApp';
@@ -37,6 +36,7 @@ const App = () => {
         <Route path={`/signup/:id`} component={SignUpRoute} />
         <Route path={`/reset-password`} component={ResetPasswordRoute} />
         <Route path={`/confirm-password`} component={ConfirmPasswordLayout} />
+        <Route path={`/pre-signup`} component={PreSignUpLayout} />
         <Route path={'/404'} component={Unauthorized} />
         <Route path={`/detailed-modal`} component={DetailedModal} />
         <Route path={`/user-settings`} component={UserManagement} />
@@ -48,7 +48,7 @@ const App = () => {
           <Redirect to="/login" />
         )} />
         <Route path={`/map`} component={MapRoute} />
-        {datasets.getToken() && userInformation.email && <Route path={`/profile-view`} component={MyProfile} />}
+        {getToken() && userInformation.email && <Route path={`/profile-view`} component={MyProfile} />}
         {(userInformation.designation === 'admin' ||
           userInformation.designation === 'staff') && (userInformation.status === 'approved') && <Route path={`/user`} component={UserManagement} />}
         {(loading && <Route path={`/`} component={LoadingView} />)}

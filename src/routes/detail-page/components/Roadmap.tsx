@@ -1,26 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Empty, Row } from 'antd';
+import { Col, Row } from 'antd';
 import * as d3 from 'd3';
 import { SERVER } from 'Config/Server.config';
 import moment from 'moment';
 import ModalGraphic from 'routes/portfolio-view/components/ModalGraphic';
-import { colorScale, rawData } from 'routes/portfolio-view/constants/PhaseViewData';
+import { colorScale } from 'routes/portfolio-view/constants/PhaseViewData';
 import { getUserBrowser } from 'utils/utils';
 import * as datasets from 'Config/datasets';
 import { usePortflioState, usePortfolioDispatch } from 'hook/portfolioHook';
 
 const Roadmap = ({
   setOpenPiney,
-  openPiney,
   data,
   updateAction,
-  setUpdateAction,
 }: {
   setOpenPiney: React.Dispatch<React.SetStateAction<boolean>>;
-  openPiney: boolean;
   data: any;
   updateAction: any;
-  setUpdateAction: any;
 }) => {
   const { graphicOpen, statusCounter, updateGroup, actionsDone, createdActions } = usePortflioState();
   const {
@@ -33,7 +29,6 @@ const Roadmap = ({
     getActionsDone,
     getCreatedActions
   } = usePortfolioDispatch();
-  const [timeOpen, setTimeOpen] = useState(true);
   const [phaseList, setPhaseList] = useState<any>([]);
   const [scheduleList, setScheduleList] = useState<any>({});
   const [statusList, setStatusList] = useState<any>([]);
@@ -139,10 +134,6 @@ const Roadmap = ({
         : 0;
   }
   let totalLabelWidth = phaseList.length * labelWidth;
-  const [svgStatePhase, setSvgStatePhase] = useState<any>();
-  let heightDiv1 = document.getElementById(`testing1`)?.offsetHeight;
-  let heightDiv2 = document.getElementById(`testing2`)?.offsetHeight;
-  let heightDiv3 = document.getElementById(`testing3`)?.offsetHeight;
   let svg: any;
 
   const marginLeft =
@@ -239,11 +230,9 @@ const Roadmap = ({
           .append('svg')
           .attr('width', width + margin.left + margin.right)
           .attr('height', height + margin.top + margin.bottom)
-          //.attr("viewBox", `0 0 ${width + 50} ${height - 20}`)
           .append('g')
           .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-        setSvgStatePhase(svg);
         let datas = dataDotchart;
 
         let arrayForCirclesAndLines = [];
@@ -303,25 +292,6 @@ const Roadmap = ({
                 return ydname;
               })
               .attr('height', 2)
-              // .attr("stroke", (d: any) => {
-              //   if(d.phaseId === scheduleList[r].code_phase_type_id){
-              //     return colorScale['Current'];
-              //   }else if(d.project_status[r]?.is_done){
-              //     return colorScale['Done'];
-              //   }else{
-              //     return colorScale['NotStarted'];
-              //   }
-              //   // let colorstroke: any = colorScale[(scheduleList[r].status)];
-              //   // if(d.phaseId === scheduleList[r].code_phase_type_id){
-              //   //   z1 = false;
-              //   //   colorstroke = colorScale['Current'];
-              //   // }else if(z1){
-              //   //   colorstroke = colorScale['Done'];
-              //   // }else{
-              //   //   colorstroke = colorScale['NotStarted'];
-              //   // }
-              //   // return colorstroke;
-              // })
               .attr('stroke', function(d: any) {
                 const endDate = d?.project_status?.find((x: any) => x.code_phase_type_id === d.phaseId)
                   ?.actual_end_date;
@@ -353,7 +323,6 @@ const Roadmap = ({
                   return colorScale['NotStarted'];
                 }
               })
-              // .attr("stroke", "url(#textBg)")
               .attr('stroke-width', '2.5px');
           }
         });
@@ -411,14 +380,6 @@ const Roadmap = ({
               } else {
                 return colorScale['NotStarted'];
               }
-
-              // if(d.phaseId === scheduleList[r].code_phase_type_id){
-              //   return colorScale['Current'];
-              // }else if(d.project_status[r]?.is_done){
-              //   return colorScale['Done'];
-              // }else{
-              //   return colorScale['NotStarted'];
-              // }
             });
           circles
             .append('circle')
@@ -466,14 +427,6 @@ const Roadmap = ({
               } else {
                 return colorScale['NotStarted'];
               }
-
-              // if(d.phaseId === scheduleList[r].code_phase_type_id){
-              //   return colorScale['Current'];
-              // }else if(d.project_status[r]?.is_done){
-              //   return colorScale['Done'];
-              // }else{
-              //   return colorScale['NotStarted'];
-              // }
             });
 
           svg
@@ -912,19 +865,6 @@ const Roadmap = ({
     setAvailableStatusList(counts);
   }, [updatePhaseList]);
 
-  //   useEffect(() => {
-  //       const removeAllChildNodes = (parent: any) => {
-  //         while (parent.firstChild) {
-  //           parent.removeChild(parent.firstChild);
-  //         }
-  //       };
-  //       for (let index = 0; index < 3; index++) {
-  //         const chart = document.getElementById(`dotchart_${index+1}_detailPage`);
-  //           removeAllChildNodes(chart);
-  //       }
-  //           phaseChart(dataDot1);
-
-  // }, [ windowWidth]);
   return (
     <>
       {graphicOpen && <ModalGraphic />}
@@ -945,25 +885,17 @@ const Roadmap = ({
                   <hr className="roadmap-hr2" style={{ width: item[1] / 2 - 48 }}></hr>
                   {item[0]}
                   <hr className="roadmap-hr2" style={{ width: item[1] / 2 - 48 }}></hr>
-                  {/* <hr className="hr2" style={{ width: item[1] / 2 - 60 }}></hr>{item[0]}<hr className="hr2" style={{ width: item[1] / 2 - 60 }}></hr> */}
                 </p>
               );
             })}
           </div>
           <div id="dotchart_detailPage" className="roadmap-detail-page" style={{ marginLeft: marginLeftChart }}></div>
-          {/* <img src="/picture/calendar.png" width='100%' onClick={()=>{setOpenPiney(true)}}/> */}
           <div className="roadmap-title roadmap-title-detail-page" id="phaseviewTitleDetailPage">
             <div
               style={{ width: totalLabelWidth }}
               className="roadmap-title roadmap-title-width"
               id="phaseviewTitlleWidth"
             >
-              {/* <p>Draft</p>
-              <p>
-                Work Request
-                <br />
-                (WR)
-              </p> */}
               {phaseList.map((item: any) => {
                 return (
                   <p style={{ width: labelWidth, fontFamily: 'Ubuntu', fontSize: fontSizeLabels }}>{item.phase_name}</p>
@@ -990,32 +922,7 @@ const Roadmap = ({
             </span>
           </div>
         </div>
-        {/* : 
-        <div className="phaseview-content" id="get-roadmap-content" style={{border:'transparent'}}>
-          <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-        </div> */}
       </Row>
-      {/* <Row style={{opacity:'0.5'}}>
-        <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{display:'flex', alignItems:'center'}}>
-          <h3 style={{paddingBottom:'15px', paddingTop:'20px', marginRight:'35px'}} id="graphical-view">GRAPHICAL VIEW</h3>
-          <div className="line-01" style={{marginBottom:'15px', marginTop:'20px', width:'77%'}}></div>
-        </Col>
-      </Row>
-      <br/>
-      <Row style={{opacity:'0.5'}}>
-        <Col xs={{ span: 24 }} lg={{ span: 24 }} className="roadmap-detail-modal">
-          <div style={{color: '#11093C'}}>
-            <span className={timeOpen ? "span-roadmap-active" :"span-roadmap"} onClick={()=>{setTimeOpen(true)}}>
-              By Time</span> | <span className={!timeOpen ? "span-roadmap-active" :"span-roadmap"} onClick={()=>{setTimeOpen(false)}}>By Phase</span>
-          </div>
-          {timeOpen ? (
-            <>
-              <img src="/picture/time-graft.png" width='100%'/>
-            </>
-            
-          ): (<img src="/picture/phase.png" width='100%'/>)}
-        </Col>
-      </Row> */}
     </>
   );
 };

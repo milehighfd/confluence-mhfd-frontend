@@ -1,20 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Col, Row} from "antd";
-import { useDetailedState } from "hook/detailedHook";
-import { getStreams, getTeam } from '../../../utils/parsers';
+import React, { useEffect, useState } from 'react';
+import { Col, Row} from 'antd';
+import { useDetailedState } from 'hook/detailedHook';
+import { getStreams, getTeam } from 'utils/parsers';
 
 const DetailInformationProject = () => {
   const {detailed,} = useDetailedState();
   const [mhfdManager, setMhfdManager] = useState<any>([{}]);
   const [lgManager, setLgManager] = useState<any>([{}]);
   const streamList = getStreams(detailed?.project_streams || []).join(' , ');
-  const capitalizeWords = (str:any) =>{
-    let words = str.split(" ");
-    for (let i = 0; i < words.length; i++) {
-      words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
-    }
-    return words.join(" ");
-  } 
   useEffect(() => {
     const staffs = (getTeam(detailed?.project_staffs || [])); 
     setMhfdManager(staffs.length > 0? staffs.filter((staffs: { roleId: number; }) => staffs.roleId === 1):[])

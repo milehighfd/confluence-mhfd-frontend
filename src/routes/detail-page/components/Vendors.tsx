@@ -37,8 +37,6 @@ const Vendors = () => {
       </Row>
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="detail-problems-component-table">
-          {/* <Table dataSource={detailed?.contractors.length &&  detailed?.consultants.length ?  problemPartsData : {}} columns={columns} pagination={false}/> */}
-
           <Table dataSource={data} columns={columns} pagination={false} rowKey={record => record.key} />
         </Col>
       </Row>

@@ -1,13 +1,11 @@
-import React from "react";
-import { Button, Carousel, Col, Modal, Progress, Row, Tooltip } from "antd";
-import TeamCollaborator from "../../../Components/Shared/Modals/TeamCollaborator";
-import { useDetailedState } from "hook/detailedHook";
+import React from 'react';
+import { Col, Row } from 'antd';
+import { useDetailedState } from 'hook/detailedHook';
 
 const DetailInformationProblem = () => {
   const {detailed,} = useDetailedState();
   return (
     <>
-      {/* <h3 style={{marginBottom:'15px'}} id="project-basics">PROBLEM BASICS</h3> */}
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
           <label><i>Stream</i></label>
