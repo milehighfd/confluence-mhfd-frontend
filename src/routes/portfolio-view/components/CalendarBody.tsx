@@ -628,8 +628,9 @@ const CalendarBody = ({
           if (createdActionsData !== undefined) {
             for (let i = 0; i < Object.keys(createdActionsData).length; i++) {
               createdTasks += 1;
-              if (scheduleData.code_phase_type_id === createdActionsData[i].phase_type_id) {
-                createdTasksCompleted += createdActionsData[i].is_completed ? 1 : 0;
+              if (scheduleData.code_phase_type_id === createdActionsData[i].code_phase_type_id) {
+                const is_completed = !!(createdActionsData[i].completed_date && createdActionsData[i].completed_user_id)
+                createdTasksCompleted += is_completed ? 1 : 0;
               }
             }
           }

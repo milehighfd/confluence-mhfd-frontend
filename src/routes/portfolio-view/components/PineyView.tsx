@@ -80,7 +80,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
   }, [updateList,note])
 
   useEffect(() => {
-    datasets.postData(`${SERVER.PROJECT_CHECKLIST}`, { phase_type_id: data.phase_id, project_id: data.project_id })
+    datasets.postData(`${SERVER.PROJECT_CHECKLIST}`, { code_phase_type_id: data.phase_id, project_id: data.project_id })
       .then((rows) => {
         setCreatedActions(rows)
         setLengthCreatedActions(rows.length)
@@ -90,29 +90,30 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
   useEffect(() => {
     if (actionList.length > 0 || createdActions.length > 0) {
       let totalLength = lengthActions + lengthCreatedActions
-      let counterActions = actionList.filter((x: any) => x.isChecked === true).length + createdActions.filter((x: any) => x.is_completed === true).length
+      let counterActions = actionList.filter((x: any) => x.isChecked === true).length + createdActions.filter((x: any) => x.completed_date && x.completed_user_id).length
       setPercent(Math.floor(counterActions / totalLength * 100))
     }
   }, [createdActions, actionList])
 
   const handleAddTask = () => {
-    datasets.postData(`${SERVER.PROJECT_CHECKLIST}/create`, { phase_type_id: data.phase_id, project_id: data.project_id }, datasets.getToken())
-      .then((rows) => {
-        setUpdateActionItem(!updateActionItem);
-        updatePopup(true)
+    datasets.postData(`${SERVER.PROJECT_CHECKLIST}/create`, { code_phase_type_id: data.phase_id, project_id: data.project_id }, datasets.getToken())
+      .then((rows) => {        
+        updatePopup(true);
         updateGraph(true);
+        setUpdateActionItem(!updateActionItem);
       })
   };
 
   const deleteCreatedAction = (item: any) => {
-    datasets.deleteDataWithBody(`${SERVER.PROJECT_CHECKLIST}`, { id: item.id }, datasets.getToken())
+    const is_completed = !!(item.completed_date && item.completed_user_id);
+    datasets.deleteDataWithBody(`${SERVER.PROJECT_CHECKLIST}`, { project_checklist_id: item.project_checklist_id }, datasets.getToken())
       .then((rows) => {
-        if (rows) {
-          setUpdateActionItem(!updateActionItem);
+        if (rows) {          
           updatePopup(false)
-          if (!item.is_completed) {
+          if (!is_completed) {
             updateGraph(false)
           }
+          setUpdateActionItem(!updateActionItem);
         }
       })
   };
@@ -203,11 +204,11 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
     if (add) {
       let newCounter = +d3.select(`#${data.d3_pos}_text`).attr('data-counter-d') + 1;
       console.log(newCounter);
-      d3.selectAll(`#${data.d3_pos}_text`).attr('data-counter-d', newCounter).text(newCounter);
+      d3.selectAll(`#${data.d3_pos}_text`).attr('data-counter-d', newCounter).text(counterD);
     } else {
       let newCounter = +d3.select(`#${data.d3_pos}_text`).attr('data-counter-d') - 1;
       console.log(newCounter);
-      d3.selectAll(`#${data.d3_pos}_text`).attr('data-counter-d', newCounter).text(newCounter);
+      d3.selectAll(`#${data.d3_pos}_text`).attr('data-counter-d', newCounter).text(counterD);
     }
   }
 
@@ -285,7 +286,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
   };
   
   const handleInputChange = (actionName: string, data: any) => {
-    datasets.putData(`${SERVER.PROJECT_CHECKLIST}/updateName`, { id: data.id, checklist_todo_name: actionName }, datasets.getToken())
+    datasets.putData(`${SERVER.PROJECT_CHECKLIST}/updateName`, { project_checklist_id: data.project_checklist_id, checklist_todo_name: actionName }, datasets.getToken())
       .then((rows) => {
         if (rows) {
           setUpdateActionItem(!updateActionItem);
@@ -294,11 +295,12 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
   };
 
   const toggleCreatedAction = (item: any) => {
-    datasets.putData(`${SERVER.PROJECT_CHECKLIST}/toggle`, { id: item.id, is_completed: !item.is_completed }, datasets.getToken())
+    const is_completed = !!(item.completed_date && item.completed_user_id);
+    datasets.putData(`${SERVER.PROJECT_CHECKLIST}/toggle`, { project_checklist_id: item.project_checklist_id, is_completed: is_completed }, datasets.getToken())
       .then((rows) => {
         if (rows) {
           setUpdateActionItem(!updateActionItem);
-          if (item.is_completed) {
+          if (is_completed) {
             updateGraph(true)
           }else{
             updateGraph(false)
@@ -458,14 +460,14 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
           })}
           {createdActions.map((x: any) => {
             return (
-              <div key={x.id} className="add-checkbox-item"
+              <div key={x.project_checklist_id} className="add-checkbox-item"
                 onClick={(e) => {
                   if (!disabledLG){
                     toggleCreatedAction(x)
                   }                  
                 }
                 }>
-                <div className={x.is_completed ? "checkbox-select-active checkbox-select" : "checkbox-select"}>
+                <div className={x.completed_date && x.completed_user_id ? "checkbox-select-active checkbox-select" : "checkbox-select"}>
                   <Input
                     defaultValue={x.checklist_todo_name}
                     onChange={(e) => {
@@ -474,7 +476,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
                     onClick={(e) => e.stopPropagation()}
                     disabled={disabledLG}
                   />
-                  <Checkbox disabled={disabledLG} checked={x.is_completed}></Checkbox>
+                  <Checkbox disabled={disabledLG} checked={x.completed_date && x.completed_user_id}></Checkbox>
                 </div>
                 <CloseOutlined onClick={(e) => {
                   if (!disabledLG){

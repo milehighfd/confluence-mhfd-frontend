@@ -465,9 +465,10 @@ const Roadmap = ({
               let createdTasksCompleted = 0              
               if (createdActionsData !== undefined) {
                 for (let i = 0; i < Object.keys(createdActionsData).length; i++) {
-                  if (scheduleList[r].phase_id === createdActionsData[i].phase_type_id) {
+                  if (scheduleList[r].phase_id === createdActionsData[i].code_phase_type_id) {
+                    const is_completed = !!(createdActionsData[i].completed_date && createdActionsData[i].completed_user_id)
                     createdTasks += 1;
-                    createdTasksCompleted += createdActionsData[i].is_completed ? 1 : 0;
+                    createdTasksCompleted += is_completed ? 1 : 0;
                   }
                 }
               }
@@ -490,9 +491,10 @@ const Roadmap = ({
               let createdTasksCompleted = 0              
               if (createdActionsData !== undefined) {
                 for (let i = 0; i < Object.keys(createdActionsData).length; i++) {
-                  if (scheduleList[r].phase_id === createdActionsData[i].phase_type_id) {
+                  if (scheduleList[r].phase_id === createdActionsData[i].code_phase_type_id) {
+                    const is_completed = !!(createdActionsData[i].completed_date && createdActionsData[i].completed_user_id)
                     createdTasks += 1;
-                    createdTasksCompleted += createdActionsData[i].is_completed ? 1 : 0;
+                    createdTasksCompleted += is_completed ? 1 : 0;
                   }
                 }
               }
@@ -528,7 +530,7 @@ const Roadmap = ({
               let createdTasks = 0
               if (createdActionsData !== undefined) {               
                 for (let i = 0; i < Object.keys(createdActionsData).length; i++) {
-                  if (scheduleList[r].phase_id === createdActionsData[i].phase_type_id) {
+                  if (scheduleList[r].phase_id === createdActionsData[i].code_phase_type_id) {
                     createdTasks += 1;
                   }
                 }
