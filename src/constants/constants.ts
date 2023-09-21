@@ -1239,6 +1239,7 @@ export const NEW_PROJECT_TYPES = {
   Acquisition: "Acquisition",
   Maintenance: "Maintenance",
   Special: "Special",
+  RND: 'R&D',
   Study: "Study",
   MAINTENANCE_SUBTYPES: {
     Debris_Management: "Routine Trash and Debris",

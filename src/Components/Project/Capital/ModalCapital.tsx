@@ -192,7 +192,7 @@ export const ModalCapital = ({
   const [activeTabBodyProject, setActiveTabBodyProject] = useState('Details');
   const [favorite, setFavorite] = useState(false);
   const [groupParsed, setGroupParsed] = useState<any>([]);
-  const [selectedTypeProject, setSelectedTypeProject] = useState((typeProject.toLowerCase() === 'r&d' ? 'special' : typeProject.toLowerCase()) || 'capital');
+  const [selectedTypeProject, setSelectedTypeProject] = useState((typeProject.toLowerCase() === 'R&D' ? 'special' : typeProject.toLowerCase()) || 'capital');
   const [selectedLabelProject, setSelectedLabelProject] = useState((subTypeInit === '' ? (typeProject) : subTypeInit) || 'Capital');
   const [lastValue, setLastValue] = useState('');
   const [showDraw, setShowDraw] = useState(true);
@@ -464,7 +464,7 @@ export const ModalCapital = ({
       capital.cover = '';
       capital.sendToWR = sendToWR;
       capital.isWorkPlan = isWorkPlan;
-      capital.type = selectedTypeProject == 'special' ? (+capital.year >= 2024 ? 'r&d': selectedTypeProject): selectedTypeProject;
+      capital.type = selectedTypeProject == 'special' ? (+capital.year >= 2024 ? 'R&D': selectedTypeProject): selectedTypeProject;
       capital.isCountyWide = isCountyWide ? isCountyWide : false;
       capital.isSouthPlate = isSouthPlate ? isSouthPlate : false;
       changeAddLocationState(false);
@@ -580,7 +580,7 @@ export const ModalCapital = ({
           if (!nameProject) missingFields.push('Project Name');
           if (!sponsor) missingFields.push('Sponsor');
           const isGeom = (selectedTypeProject === 'capital' || selectedTypeProject === 'maintenance');
-          const isPin = (selectedTypeProject === 'acquisition' || selectedTypeProject === 'special');
+          const isPin = (selectedTypeProject === 'acquisition' || selectedTypeProject === NEW_PROJECT_TYPES.Special.toLowerCase() || selectedTypeProject === NEW_PROJECT_TYPES.RND.toLowerCase());
           let geomLengthFlag = false;
           if ((geom?.coordinates || streamIntersected?.geom) && isGeomDrawn===true) {
             geomLengthFlag = true;
@@ -599,6 +599,7 @@ export const ModalCapital = ({
           if (thisIndependentComponents.length && !checkIfIndependentHaveName()) {
             missingFields.push('Independent actions name');
           }
+          console.log('MissingField ', missingFields);
           if (missingFields.length > 0) {
             handleErrorNotification(missingFields);
           }else{
@@ -1231,7 +1232,7 @@ export const ModalCapital = ({
                 />              
               }
               {(selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Acquisition.toLowerCase()||
-                selectedTypeProject && selectedTypeProject?.toLowerCase() === 'special') &&
+                selectedTypeProject && (selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Special.toLowerCase() || selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.RND.toLowerCase()) ) &&
                 <DropPin
                   typeProject={selectedTypeProject}
                   geom={geom}

@@ -58,6 +58,7 @@ import {
   MAINTENANCE_TRAILS,
   REMOVAL_AREA,
   REMOVAL_LINE,
+  NEW_PROJECT_TYPES,
 } from '../../constants/constants';
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import { Button, Popover, Modal, Input, AutoComplete, Col, Row } from 'antd';
@@ -1662,6 +1663,7 @@ const CreateProjectMap = (type: any) => {
         ],
       },
     };
+    console.log('Type', type.type);
     if (type.type === 'SPECIAL') {
       saveSpecialLocation(sendLine);
     } else if (type.type === 'ACQUISITION') {
@@ -1686,7 +1688,8 @@ const CreateProjectMap = (type: any) => {
         ],
       },
     };
-    if (type.type === 'SPECIAL') {
+    console.log('Type', type.type);
+    if (type.type.toLowerCase() === NEW_PROJECT_TYPES.Special.toLowerCase() || type.type.toLowerCase() === NEW_PROJECT_TYPES.RND.toLowerCase()) {
       saveSpecialLocation(sendLine);
     } else if (type.type === 'ACQUISITION') {
       saveAcquisitionLocation(sendLine);
