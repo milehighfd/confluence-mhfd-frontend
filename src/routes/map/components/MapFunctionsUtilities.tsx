@@ -31,11 +31,13 @@ export const flytoBoundsCoor = (
     let historicBounds = getCurrent();
     if (historicBounds && historicBounds.bbox && userInformation.isSelect != 'isSelect') {
       globalMapId = historicBounds.id;
+      console.log('Ditt bounds', historicBounds);
       map.fitBounds([
         [historicBounds.bbox[0], historicBounds.bbox[1]],
         [historicBounds.bbox[2], historicBounds.bbox[3]],
       ]);
     } else if (coorBounds[0] && coorBounds[1]) {
+      console.log('Flit bounds ', coorBounds);
       map.fitBounds(coorBounds);
     }
     if (userInformation.isSelect != 'isSelect') {

@@ -342,6 +342,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
             let BBoxPolygon = JSON.parse(r.bbox);
             let bboxBounds = turf.bbox(BBoxPolygon);
             if (map) {
+              console.log('fit boundsxx', bboxBounds);
               map.fitBounds(bboxBounds, { padding: 140 });
             }
           }
@@ -724,6 +725,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
 
   useEffect(() => {
     if (geomCreateMap && map) {
+      console.log('Fit bounds', geomCreateMap);
       map.fitBounds(geomCreateMap);
       setZoomGeomCreateMap(undefined);
     }
@@ -771,6 +773,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
   }, [filterComponentOptions]);
   useEffect(() => {
     if (zoom?.length > 0) {
+      console.log('Fitbounds', zoom);
       map.fitBounds([zoom[0], zoom[2]], { padding: 100 });
     }
   }, [zoom]);
@@ -1908,6 +1911,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     console.log('onSelect:::', value);
     const keyword = value.split('?');
     const coord = keyword[0].split(',');
+    console.log('Fly to ', coord);
     map.flyTo({ center: coord, zoom: 14.5 });
     const placeName = keyword[1];
     setKeyword(placeName);
@@ -2006,6 +2010,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     });
   };
   const flyTo = (longitude: number, latitude: number, zoom?: number) => {
+    console.log('Fluytoss', longitude, latitude);
     map.flyTo({
       center: [longitude, latitude],
       zoom: zoom ?? 15,

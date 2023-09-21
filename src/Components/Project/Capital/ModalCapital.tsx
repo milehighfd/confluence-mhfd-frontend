@@ -441,7 +441,7 @@ export const ModalCapital = ({
       var capital = new Project();
       //general
       capital.locality = _locality;
-      capital.year = _year ?? capital.year;
+      capital.year = _year ? _year : (capital.year ?? '1900');
       let csponsor = "";
       if (cosponsor) {
         cosponsor.forEach((element: any) => {
@@ -464,7 +464,7 @@ export const ModalCapital = ({
       capital.cover = '';
       capital.sendToWR = sendToWR;
       capital.isWorkPlan = isWorkPlan;
-      capital.type = selectedTypeProject;
+      capital.type = selectedTypeProject == 'special' ? (+capital.year >= 2024 ? 'r&d': selectedTypeProject): selectedTypeProject;
       capital.isCountyWide = isCountyWide ? isCountyWide : false;
       capital.isSouthPlate = isSouthPlate ? isSouthPlate : false;
       changeAddLocationState(false);
