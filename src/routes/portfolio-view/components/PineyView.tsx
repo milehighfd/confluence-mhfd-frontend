@@ -11,6 +11,7 @@ import { UseDebouncedEffect } from "routes/Utils/useDebouncedEffect";
 import { usePortflioState, usePortfolioDispatch } from "hook/portfolioHook";
 import DetailModal from 'routes/detail-page/components/DetailModal';
 import { useProfileState } from "hook/profileHook";
+import { useMapState } from "hook/mapHook";
 
 const { Step } = Steps;
 const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }: 
@@ -21,6 +22,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
     }) => {     
   const {setOpenModalTollgate, setDatesData, setIsFromDetailPage} = usePortfolioDispatch();
   const { pineyData, updateGroup } = usePortflioState();
+  const { tabActiveNavbar } = useMapState();
   const data = pineyData;
   const appUser = useProfileState();
   const userName = appUser.userInformation?.name;
@@ -98,9 +100,10 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
   const handleAddTask = () => {
     datasets.postData(`${SERVER.PROJECT_CHECKLIST}/create`, { code_phase_type_id: data.phase_id, project_id: data.project_id }, datasets.getToken())
       .then((rows) => {        
-        updatePopup(true);
+        updatePopupMax(true);
         updateGraph(true);
-        setUpdateActionItem(!updateActionItem);
+        updatePopUpCalendar(true);
+        setUpdateActionItem(!updateActionItem); 
       })
   };
 
@@ -109,9 +112,10 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
     datasets.deleteDataWithBody(`${SERVER.PROJECT_CHECKLIST}`, { project_checklist_id: item.project_checklist_id }, datasets.getToken())
       .then((rows) => {
         if (rows) {          
-          updatePopup(false)
+          updatePopupMax(false)
           if (!is_completed) {
             updateGraph(false)
+            updatePopUpCalendar(false)
           }
           setUpdateActionItem(!updateActionItem);
         }
@@ -180,36 +184,80 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
     }
   }, [editView])
 
-  const updateGraph = (add: boolean) => {
-    if(add){
-      setupdateList(!updateList) 
-      d3.selectAll(`#${data.d3_pos}_text`).text(+counterD+1);
-      if(+counterD===9){
-        let xPos = d3.select(`#${data.d3_pos}_text`).attr('x')
-        d3.select(`#${data.d3_pos}_text`).attr('x', +xPos-3.3)
+  const updateGraph = (add: boolean) => {    
+    if (!pineyData?.idPopUp && !pineyData?.categoryNo) {
+      setupdateList(!updateList)
+      if (add) {
+        d3.selectAll(`#${data.d3_pos}_text`).text(+counterD + 1);
+        if (+counterD === 9) {
+          let xPos = d3.select(`#${data.d3_pos}_text`).attr('x')
+          d3.select(`#${data.d3_pos}_text`).attr('x', +xPos - 3.3)
+        }
+        setCounterD(counterD + 1);
+      } else {
+        d3.selectAll(`#${data.d3_pos}_text`).text(+counterD - 1);
+        if (+counterD === 10) {
+          let xPos = d3.select(`#${data.d3_pos}_text`).attr('x')
+          d3.select(`#${data.d3_pos}_text`).attr('x', +xPos + 3.3)
+        }
+        setCounterD(counterD - 1);
       }
-      setCounterD(counterD+1);
-    }else{
-      setupdateList(!updateList) 
-      d3.selectAll(`#${data.d3_pos}_text`).text(+counterD-1);
-      if(+counterD===10){
-        let xPos = d3.select(`#${data.d3_pos}_text`).attr('x')
-        d3.select(`#${data.d3_pos}_text`).attr('x', +xPos+3.3)
-      }
-      setCounterD(counterD-1);
     }
   }
 
-  const updatePopup = (add: boolean) => {
-    if (add) {
-      let newCounter = +d3.select(`#${data.d3_pos}_text`).attr('data-counter-d') + 1;
-      console.log(newCounter);
-      d3.selectAll(`#${data.d3_pos}_text`).attr('data-counter-d', newCounter).text(counterD);
-    } else {
-      let newCounter = +d3.select(`#${data.d3_pos}_text`).attr('data-counter-d') - 1;
-      console.log(newCounter);
-      d3.selectAll(`#${data.d3_pos}_text`).attr('data-counter-d', newCounter).text(counterD);
+  const updatePopUpCalendar = (add: boolean) => {        
+    setupdateList(!updateList)
+    if (pineyData?.idPopUp && pineyData?.categoryNo) {
+      if (add) {
+        const rectElemId = `#${startsWithNumber(pineyData?.idPopUp) ?
+          pineyData?.idPopUp.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') :
+          pineyData?.idPopUp.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}_${pineyData.categoryNo}`;
+        const elementById = d3.select(rectElemId);
+        const counterDById = + elementById.attr('data-counter-done') + 1;
+        console.log(counterDById)
+        d3.selectAll(rectElemId).attr('data-counter-done', counterDById);
+      } else {
+        const rectElemId = `#${startsWithNumber(pineyData?.idPopUp) ?
+          pineyData?.idPopUp.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') :
+          pineyData?.idPopUp.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}_${pineyData.categoryNo}`;
+        const elementById = d3.select(rectElemId);
+        const counterDById = + elementById.attr('data-counter-done') - 1;
+        d3.selectAll(rectElemId).attr('data-counter-done', counterDById);
+      }
     }
+  }
+
+  function startsWithNumber(str:string) {
+    return /^\d/.test(str);
+  }
+
+  const updatePopupMax = (add: boolean) => {        
+    setupdateList(!updateList)
+    if (pineyData?.idPopUp && pineyData?.categoryNo) {
+      if (add){
+        const rectElemId = `#${startsWithNumber(pineyData?.idPopUp) ?
+          pineyData?.idPopUp.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') :
+          pineyData?.idPopUp.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}_${pineyData.categoryNo}`;
+        const elementById = d3.select(rectElemId);
+        const counterDById = elementById.attr('data-counter-total') ;
+        d3.selectAll(rectElemId).attr('data-counter-total', +counterDById + 1);
+      }else{
+        const rectElemId = `#${startsWithNumber(pineyData?.idPopUp) ?
+          pineyData?.idPopUp.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') :
+          pineyData?.idPopUp.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}_${pineyData.categoryNo}`;
+        const elementById = d3.select(rectElemId);
+        const counterDById = elementById.attr('data-counter-total');
+        d3.selectAll(rectElemId).attr('data-counter-total', +counterDById - 1);
+      }      
+    }else{
+      if (add) {
+        let newCounter = +d3.select(`#${data.d3_pos}_text`).attr('data-counter-d') + 1;
+        d3.selectAll(`#${data.d3_pos}_text`).attr('data-counter-d', newCounter).text(counterD);
+      } else {
+        let newCounter = +d3.select(`#${data.d3_pos}_text`).attr('data-counter-d') - 1;
+        d3.selectAll(`#${data.d3_pos}_text`).attr('data-counter-d', newCounter).text(counterD);
+      }
+    }    
   }
 
   const saveActionData = (item: any) => {   
@@ -224,6 +272,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
       created_date: formatTime
     }).then((e) => { 
       updateGraph(false)
+      updatePopUpCalendar(false)
     }).catch((e) => {
       console.log(e);
     })
@@ -234,6 +283,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
       project_id: data.project_id
     }).then((e) => { 
       updateGraph(true)
+      updatePopUpCalendar(true)
     }).catch((e) => {
       console.log(e);
     }) 
@@ -302,8 +352,10 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
           setUpdateActionItem(!updateActionItem);
           if (is_completed) {
             updateGraph(true)
+            updatePopUpCalendar(true)
           }else{
             updateGraph(false)
+            updatePopUpCalendar(false)
           }
         }
       }

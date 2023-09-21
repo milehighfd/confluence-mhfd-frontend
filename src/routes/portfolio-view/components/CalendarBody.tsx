@@ -515,6 +515,52 @@ const CalendarBody = ({
           })
           .style('visibility', (d: any) => {
             return d.show ? 'visible' : 'hidden'
+          }).attr('data-counter-total', (d: any) => {
+            let scheduleData = (d?.project_data?.code_phase_types?.find((x: any) =>
+              d.phaseId === x.phase_id
+            ));
+            const projectId = d.project_data.project_id;
+            const createdActionsData = createdActions[projectId]
+            let createdTasks = 0
+            let createdTasksCompleted = 0
+            if (createdActionsData !== undefined) {
+              for (let i = 0; i < Object.keys(createdActionsData).length; i++) {
+                createdTasks += 1;
+                if (scheduleData.code_phase_type_id === createdActionsData[i].code_phase_type_id) {
+                  const is_completed = !!(createdActionsData[i].completed_date && createdActionsData[i].completed_user_id)
+                  createdTasksCompleted += is_completed ? 1 : 0;
+                }
+              }
+            }
+            const totalTasks = Object.keys(scheduleData.tasksData).length + createdTasks;
+            return totalTasks
+          }).attr('data-counter-done', (d: any) => {
+            let scheduleData = (d?.project_data?.code_phase_types?.find((x: any) =>
+              d.phaseId === x.phase_id
+            ));
+            let counterdown = 0;
+            const projectId = d.project_data.project_id;
+            const arrayToCompare = actionsDone[projectId]
+            if (arrayToCompare !== undefined) {
+              for (let i = 0; i < Object.keys(arrayToCompare).length; i++) {
+                counterdown += scheduleData.tasksData.some((option: any) => option.code_rule_action_item_id === arrayToCompare[i].code_rule_action_item_id);
+              }
+            }
+            const createdActionsData = createdActions[projectId]
+            let createdTasks = 0
+            let createdTasksCompleted = 0
+            if (createdActionsData !== undefined) {
+              for (let i = 0; i < Object.keys(createdActionsData).length; i++) {
+                createdTasks += 1;
+                if (scheduleData.code_phase_type_id === createdActionsData[i].code_phase_type_id) {
+                  const is_completed = !!(createdActionsData[i].completed_date && createdActionsData[i].completed_user_id)
+                  createdTasksCompleted += is_completed ? 1 : 0;
+                }
+              }
+            }
+            const totalTasks = Object.keys(scheduleData.tasksData).length + createdTasks;
+            const totalDone = totalTasks - counterdown - createdTasksCompleted;
+            return totalDone
           })
         hasDateData = true
 
@@ -610,36 +656,18 @@ const CalendarBody = ({
         };
 
         scheduleRects.on('mousemove', function (d: any) {
-        
+          const rectElemId = `#${startsWithNumber(d.id) ? d.id.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') :d.id.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}_${d.categoryNo}`;
+          const elementById = d3.select(rectElemId);
+          const counterDById = + elementById.attr('data-counter-total');
+          const counterEById = + elementById.attr('data-counter-done');
           let scheduleData = (d?.project_data?.code_phase_types?.find((x: any) =>
             d.phaseId === x.phase_id
           ));
-          let counterdown = 0;
-          const projectId = d.project_data.project_id;
-          const arrayToCompare = actionsDone[projectId]
-          if (arrayToCompare !== undefined) {
-            for (let i = 0; i < Object.keys(arrayToCompare).length; i++) {
-              counterdown += scheduleData.tasksData.some((option: any) => option.code_rule_action_item_id === arrayToCompare[i].code_rule_action_item_id);
-            }
-          }
-          const createdActionsData = createdActions[projectId]
-          let createdTasks = 0
-          let createdTasksCompleted = 0
-          if (createdActionsData !== undefined) {
-            for (let i = 0; i < Object.keys(createdActionsData).length; i++) {
-              createdTasks += 1;
-              if (scheduleData.code_phase_type_id === createdActionsData[i].code_phase_type_id) {
-                const is_completed = !!(createdActionsData[i].completed_date && createdActionsData[i].completed_user_id)
-                createdTasksCompleted += is_completed ? 1 : 0;
-              }
-            }
-          }
-          const totalDone = counterdown + createdTasksCompleted;
-          const totalTasks = Object.keys(scheduleData.tasksData).length + createdTasks;
           const phaseSc = scheduleData.phase
           const phaseId = scheduleData.phase_id
           const dataProject = d.project_data;
-          const sendModal = { data: dataProject, actualNumber: totalDone, scheduleList: totalTasks, schedulePhase: phaseSc, phase_id: phaseId, to:d.to }
+          dataProject.idPopUp = d.id;
+          const sendModal = { data: dataProject, actualNumber: counterEById, scheduleList: counterDById, schedulePhase: phaseSc, phase_id: phaseId, to:d.to }
           setDataModal(sendModal);
           setGraphicOpen(true);
           let widthOfPopup: any = document.getElementById('popup-phaseview')?.offsetWidth;
@@ -696,7 +724,9 @@ const CalendarBody = ({
             mhfd: d.mhfd,
             estimated_cost: d.project_data.estimated_cost,
             data: dataProject,
-            scheduleList: d?.project_data?.code_phase_types
+            scheduleList: d?.project_data?.code_phase_types,
+            idPopUp: d.id,
+            categoryNo: d.categoryNo
           })          
           const sendTollgate1 = { d: dataProject, scheduleList: d?.project_data?.code_phase_types }
           setEditData(sendTollgate1)
@@ -724,7 +754,9 @@ const CalendarBody = ({
             mhfd: d.mhfd,
             estimated_cost: d.project_data.estimated_cost,
             data: dataProject,
-            scheduleList: d?.project_data?.code_phase_types
+            scheduleList: d?.project_data?.code_phase_types,
+            idPopUp: d.id,
+            categoryNo: d.categoryNo
           })          
           const sendTollgate1 = { d: dataProject, scheduleList: d?.project_data?.code_phase_types }
           setEditData(sendTollgate1)   
