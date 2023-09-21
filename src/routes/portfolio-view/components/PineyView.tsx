@@ -127,6 +127,9 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
     if(scrollPosition){
       scrollPosition.scrollTop = 0
     }
+  }, [data])
+
+  useEffect(() => {    
     datasets.postData(`${SERVER.STATUS}`, { code_phase_type_id: data.phase_id, project_id: data.project_id })
       .then((rows) => {
         if (Object.keys(rows).length > 0) {
