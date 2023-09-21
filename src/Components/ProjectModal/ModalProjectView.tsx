@@ -61,6 +61,7 @@ const ModalProjectView = ({
 
   const handleOk = (e: any) => {  
     let dataForBoard = {...currentData};
+    console.log('Data f', dataForBoard);
     dataForBoard.projecttype = typeProject;
     postData(`${SERVER.URL_BASE}/board/`, dataForBoard)
       .then(
@@ -80,21 +81,6 @@ const ModalProjectView = ({
         }
       )
     setVisibleCapital(true);
-    // if(typeProject === NEW_PROJECT_TYPES.Capital ){
-    //   setVisibleCapital(true);
-    // }
-    // if(typeProject === NEW_PROJECT_TYPES.Acquisition ){
-    //   setVisibleAcquisition(true);
-    // }
-    // if(typeProject === NEW_PROJECT_TYPES.Maintenance && subType !== '' ){
-    //   setVisibleMaintenance(true);
-    // }
-    // if(typeProject ===  NEW_PROJECT_TYPES.Special || typeProject === RandD ){
-    //   setVisibleSpecial(true);
-    // }
-    // if(typeProject === NEW_PROJECT_TYPES.Study ){
-    //   setVisibleStudy(true);
-    // }
     setDisable(true);
     setVisibleModal(false);
     setVisibleSubType(false);
@@ -123,6 +109,7 @@ const ModalProjectView = ({
     setVisible(false);
   };
   const chooseSubtypes = (e: any) => {
+    
     setTypeProyect(e);
     if(e === NEW_PROJECT_TYPES.Maintenance){
       setVisibleSubType(true);
@@ -302,7 +289,7 @@ const ModalProjectView = ({
         }
         {
           allowed.includes(NEW_PROJECT_TYPES.Special || RandD) &&  !allowed.includes(NEW_PROJECT_TYPES.Study) &&
-          <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.Special) } style={{padding: '8px'}}>
+          <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.RND) } style={{padding: '8px'}}>
           <Button className={typeProject===NEW_PROJECT_TYPES.Special || typeProject === RandD?(openCollapserd ? "button-project button-project-active open-button-project" : "button-project button-project-active") :(openCollapserd ? "button-project open-button-project":"button-project")}>
             <div className={openCollapserd ? "project-img-rd-open project-img":"project-img-rd project-img"}>
               <img src="/Icons/project/special.svg" alt="" height="30px" />
@@ -318,7 +305,7 @@ const ModalProjectView = ({
       <Row gutter={[16, 16]}>
         {
           allowed.includes(NEW_PROJECT_TYPES.Special || RandD) && allowed.includes(NEW_PROJECT_TYPES.Study) &&
-          <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.Special) } style={{padding: '8px'}}>
+          <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.RND) } style={{padding: '8px'}}>
           <Button className={typeProject===NEW_PROJECT_TYPES.Special || typeProject === RandD?(openCollapserd ? "button-project button-project-active open-button-project" : "button-project button-project-active") :(openCollapserd ? "button-project open-button-project":"button-project")}>
             <div className={openCollapserd ? "project-img-rd-open project-img":"project-img-rd project-img"}>
               <img src="/Icons/project/special.svg" alt="" height="30px" />
