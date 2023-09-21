@@ -219,9 +219,17 @@ export const ModalCapital = ({
   const [isEditingPosition,setIsEditingPosition ]= useState(false)
   //special
   const setTypeAndSubType = (type:string, subType:string, label:string) => {
+    // let selectedType = type.toLowerCase();
+    const params = new URLSearchParams(history.location.search)
+    const _year = params.get('year');
+    const currentYear = _year ?? 1900;
+    let currenttype = type;
+    if (type.toLowerCase() === NEW_PROJECT_TYPES.Special.toLowerCase() && +currentYear >= 2024) {
+      currenttype = NEW_PROJECT_TYPES.RND;
+    }
     setSubType(subType);
     setLastValue(selectedTypeProject);
-    setSelectedTypeProject(type);
+    setSelectedTypeProject(currenttype);
     setSelectedLabelProject(label);
   }; 
 
