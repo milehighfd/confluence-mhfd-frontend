@@ -7,6 +7,7 @@ import { CloudDownloadOutlined, PictureOutlined } from "@ant-design/icons";
 import { UploaderModal } from "./UploaderModal";
 import { SERVER } from "Config/Server.config";
 import { getDataNoJSON } from '../../../Config/datasets';
+import * as datasets from "../../../Config/datasets";
 import { useProjectDispatch, useProjectState } from "hook/projectHook";
 import ImageModal from 'Components/Shared/Modals/ImageModal';
 import { useLocation } from "react-router";
@@ -217,7 +218,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles, index, type, visible
   ];
 
   const downloadZip = (images: boolean) => {
-    getDataNoJSON(`${SERVER.URL_BASE}/attachments/download/${project_id}${images ? '?images=1' : ''}`)
+    getDataNoJSON(`${SERVER.URL_BASE}/attachments/download/${project_id}${images ? '?images=1' : ''}`, datasets.getToken())
       .then((b: any) => b.text()).then((r: any) => {
         const dataBlob = b64ToBlob(r, 'application/zip')
         saveAs(dataBlob, `project_${project_id}.zip`);
