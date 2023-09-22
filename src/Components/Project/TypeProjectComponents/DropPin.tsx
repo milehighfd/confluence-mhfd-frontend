@@ -61,9 +61,7 @@ export const DropPin = ({
 
   }
   useEffect(()=>{
-    console.log('Type project', typeProject, NEW_PROJECT_TYPES.RND, typeProject.toLowerCase() , NEW_PROJECT_TYPES.RND.toLowerCase(), typeProject.toLowerCase() === NEW_PROJECT_TYPES.RND.toLowerCase());
     if(specialLocation.geom && (typeProject === NEW_PROJECT_TYPES.Special || typeProject.toLowerCase() === NEW_PROJECT_TYPES.RND.toLowerCase())) {
-      console.log('Putaaa ');
       setLatitude( parseFloat(specialLocation.geom.coordinates[0][0][1]).toFixed(4) );
       setLongitude( parseFloat(specialLocation.geom.coordinates[0][0][0]).toFixed(4) );
       setLocation(specialLocation.geom);

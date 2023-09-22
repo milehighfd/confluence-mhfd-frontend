@@ -192,7 +192,10 @@ export const ModalCapital = ({
   const [activeTabBodyProject, setActiveTabBodyProject] = useState('Details');
   const [favorite, setFavorite] = useState(false);
   const [groupParsed, setGroupParsed] = useState<any>([]);
-  const [selectedTypeProject, setSelectedTypeProject] = useState((typeProject.toLowerCase() === 'R&D' ? 'special' : typeProject.toLowerCase()) || 'capital');
+  const params = new URLSearchParams(history.location.search)
+  const _year = params.get('year');
+  const currentYear = _year ?? 1900;
+  const [selectedTypeProject, setSelectedTypeProject] = useState((typeProject.toLowerCase() === 'R&D' ? (+currentYear < 2024 ? 'special' : typeProject) : typeProject.toLowerCase()) || 'capital');
   const [selectedLabelProject, setSelectedLabelProject] = useState((subTypeInit === '' ? (typeProject) : subTypeInit) || 'Capital');
   const [lastValue, setLastValue] = useState('');
   const [showDraw, setShowDraw] = useState(true);
@@ -220,9 +223,6 @@ export const ModalCapital = ({
   //special
   const setTypeAndSubType = (type:string, subType:string, label:string) => {
     // let selectedType = type.toLowerCase();
-    const params = new URLSearchParams(history.location.search)
-    const _year = params.get('year');
-    const currentYear = _year ?? 1900;
     let currenttype = type;
     if (type.toLowerCase() === NEW_PROJECT_TYPES.Special.toLowerCase() && +currentYear >= 2024) {
       currenttype = NEW_PROJECT_TYPES.RND;
@@ -238,6 +238,9 @@ export const ModalCapital = ({
     return (<TypeProjectsMenu setTypeAndSubType={setTypeAndSubType} />)
   };
 
+  useEffect(() => {
+    console.log('typeProject', typeProject);
+  }, [typeProject]);
   //Delete all data when opening
   useEffect(() => {
     setServiceAreaCounty({});
@@ -397,6 +400,7 @@ export const ModalCapital = ({
               (r: any) => {
                 let coor = JSON.parse(r.createdCoordinates);
                 let coordinates = coor.coordinates[0];
+                console.log('SET FOR SPECIAL??', coordinates);
                 setGeom(coordinates);
                 setEditLocation(coordinates);
               },
@@ -533,8 +537,10 @@ export const ModalCapital = ({
         capital.acquisitionprogress = progress;
         capital.acquisitionanticipateddate = purchaseDate;
       }
+      console.log('Selected type project', selectedTypeProject, geom);
       //special
       if (selectedTypeProject && (selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Special.toLowerCase() || selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.RND.toLowerCase())) {
+        console.log('Capita lgeom', geom);
         capital.geom = geom;
       }
       files.forEach((file: any) => {

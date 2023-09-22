@@ -9,6 +9,7 @@ import { SERVER } from 'Config/Server.config';
 import { getCurrentProjectStatus } from 'utils/parsers';
 import { useAttachmentDispatch } from 'hook/attachmentHook';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
+import { useRequestState } from 'hook/requestHook';
 
 const content00 = (<div className="popver-info">Collection and removal of trash and debris that could prevent the system from functioning as intended.</div>);
 const content01 = (<div className="popver-info">Planting, seeding, thinning, weed control, adaptive management, and other vegetation-related activities.</div>);
@@ -57,6 +58,7 @@ const ModalProjectView = ({
   const [openCollapserd, setOpenCollapserd] = useState(false);
   const [allowed, setAllowed] = useState<string[]>([]);
   const pageWidth  = document.documentElement.scrollWidth;
+  const { year: yearBoard } = useRequestState();
   const RandD = 'R&D';
 
   const handleOk = (e: any) => {  
@@ -173,9 +175,13 @@ const ModalProjectView = ({
         setVisibleCapital(true);
         setTypeProyect(NEW_PROJECT_TYPES.Acquisition);
       }
-      if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 15 || data.tabKey === 'Special'){
+      if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 15 || data.tabKey === 'Special' || data.tabKey === 'R&D'){
         setVisibleCapital(true);
-        setTypeProyect(NEW_PROJECT_TYPES.Special);
+        if (yearBoard < 2024) {
+          setTypeProyect(NEW_PROJECT_TYPES.Special);
+        } else {
+          setTypeProyect(NEW_PROJECT_TYPES.RND);
+        } 
       }
     }
   },[showDefaultTab]);

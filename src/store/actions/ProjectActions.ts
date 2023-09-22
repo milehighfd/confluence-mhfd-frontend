@@ -37,7 +37,7 @@ export const saveCapital = (data: any) => {
     Object.keys(data).forEach((key: string) => {
       if (key === 'geom' && (data.type === 'capital' || data.type === 'maintenance')) {
         formData.append(key, data[key]);
-      }else if (key === 'geom' && (data.type === 'acquisition' || data.type === 'special')) {
+      }else if (key === 'geom' && (data.type === 'acquisition' || data.type === 'special' || data.type === 'r&d')) {
         formData.append(key, JSON.stringify(data[key]));
       }
       else if (key === 'geom' && data.type === 'study') {
@@ -84,7 +84,7 @@ export const editCapital = (data: any) => {
     Object.keys(data).forEach((key: string) => {
       if (key === 'geom' && (data.type === 'capital' || data.type === 'maintenance')) {
         formData.append(key, data[key]);
-      }else if (key === 'geom' && (data.type === 'acquisition' || data.type === 'special')) {
+      }else if (key === 'geom' && (data.type === 'acquisition' || data.type === 'special' || data.type === 'r&d')) {
         formData.append(key, JSON.stringify(data[key]));
       }
       else if (key === 'geom' && data.type === 'study') {
