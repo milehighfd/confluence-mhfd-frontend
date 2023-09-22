@@ -97,6 +97,11 @@
   }
 }
 //Style Tabs Main Map Old (It's been reused in other parts)
+.hide-bar-tabs{
+  .ant-tabs-nav::before{
+      border-bottom: 0px !important;
+  }
+}
 .tabs-map {
   .ant-tabs-nav {
     padding-left: 16px;

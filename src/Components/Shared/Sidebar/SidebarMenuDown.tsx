@@ -46,7 +46,7 @@ const SidebarMenuDown = ({
     deleteMaps();
   };
   const contentNotification = (
-    <div className="notification-popoveer">
+    <div className="notification-popoveer hide-bar-tabs">
       <div className="notification-header">
         <h2 className="notification-layout">NOTIFICATIONS</h2>
         <span className="clear-notifications">Mark all as read</span>
