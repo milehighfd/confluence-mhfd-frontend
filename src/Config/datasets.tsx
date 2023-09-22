@@ -179,7 +179,7 @@ export const JSONOptions = (token?: any) => {
 }
 export const JSONOptions2 = (token?: any) => {
     let headers = new Headers();
-    headers.append('Content-Type', 'application/zip');
+    headers.append('Content-Type', 'application/json');
     if (token) {
         headers.append('Authorization', 'Bearer ' + token);
     }

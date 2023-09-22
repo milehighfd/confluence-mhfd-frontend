@@ -218,9 +218,9 @@ export const UploadImagesDocuments = ({isCapital, setFiles, index, type, visible
   ];
 
   const downloadZip = (images: boolean) => {
-    getDataNoJSON(`${SERVER.URL_BASE}/attachments/download/${project_id}${images ? '?images=1' : ''}`, datasets.getToken())
-      .then((b: any) => b.text()).then((r: any) => {
-        const dataBlob = b64ToBlob(r, 'application/zip')
+    datasets.getData(`${SERVER.URL_BASE}/attachments/download/${project_id}${images ? '?images=1' : ''}`, datasets.getToken())
+      .then((r: any) => {
+        const dataBlob = b64ToBlob(r.zipData, 'application/zip')
         saveAs(dataBlob, `project_${project_id}.zip`);
       });
   }
