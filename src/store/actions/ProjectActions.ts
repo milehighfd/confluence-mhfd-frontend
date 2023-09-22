@@ -340,6 +340,7 @@ export const setZoomGeomCreateMap = (geomCreateMap: any) => {
 }
 export const setZoomGeom = (zoomGeom: any) => {
   return (dispatch: Function) => {
+    console.trace('Zoom Geom', zoomGeom);
     dispatch({type: types.SET_ZOOM_GEOM, zoomGeom})
   }
 }

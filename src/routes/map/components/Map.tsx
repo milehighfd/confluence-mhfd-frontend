@@ -657,6 +657,8 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
         groupOrganization,
         setCoordinatesJurisdiction,
       );
+      const bounds = map.getBounds();
+      setZoomGeom(bounds);
     });
 
     map.addControl(
@@ -729,42 +731,44 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     }
   }, [geomCreateMap]);
   useEffect(() => {
-    const bounds = map.getBounds();
-    setZoomGeom(bounds);
-    if (markerGeocoder) {
-      let lnglat = markerGeocoder.getLngLat();
-      let swInside = true;
-      let neInside = true;
-      if (lnglat.lat < bounds._sw.lat || lnglat.lng < bounds._sw.lng) {
-        swInside = false;
-      }
-      if (lnglat.lat > bounds._ne.lat || lnglat.lng > bounds._ne.lng) {
-        neInside = false;
-      }
-      if (!(swInside && neInside)) {
-        markerGeocoder.remove();
-        setMarkerGeocoder(undefined);
-        setKeyword('');
-      }
-    }
-    const boundingBox = getMapBoundingBoxTrimmed(map);
-    setBoundMap(boundingBox);
-    let defaultBounds = `${-105.3236683149282},${39.274174328991904},${-104.48895750946532},${40.26156304805423}`;
-    if (toggleModalFilter) {
-      // if tab of filters is open
-      if (filterTabNumber === PROJECTS_TRIGGER) {
-        setFilterCoordinates(applyFilter ? boundingBox : defaultBounds, tabCards);
-        getParamFilterProjects(applyFilter ? boundingBox : defaultBounds, filterProjectOptions);
-      } else if (filterTabNumber === PROBLEMS_TRIGGER) {
-        setFilterCoordinates(applyFilter ? boundingBox : defaultBounds, tabCards);
-        getGalleryProblems();
-        getParamFilterProblems(applyFilter ? boundingBox : defaultBounds, filterProblemOptions);
+    map.once('render', () => {
+      const bounds = map.getBounds();
+      setZoomGeom(bounds);
+      if (markerGeocoder) {
+        let lnglat = markerGeocoder.getLngLat();
+        let swInside = true;
+        let neInside = true;
+        if (lnglat.lat < bounds._sw.lat || lnglat.lng < bounds._sw.lng) {
+          swInside = false;
+        }
+        if (lnglat.lat > bounds._ne.lat || lnglat.lng > bounds._ne.lng) {
+          neInside = false;
+        }
+        if (!(swInside && neInside)) {
+          markerGeocoder.remove();
+          setMarkerGeocoder(undefined);
+          setKeyword('');
+        }
+      };
+      const boundingBox = getMapBoundingBoxTrimmed(map);
+      setBoundMap(boundingBox);
+      let defaultBounds = `${-105.3236683149282},${39.274174328991904},${-104.48895750946532},${40.26156304805423}`;
+      if (toggleModalFilter) {
+        // if tab of filters is open
+        if (filterTabNumber === PROJECTS_TRIGGER) {
+          setFilterCoordinates(applyFilter ? boundingBox : defaultBounds, tabCards);
+          getParamFilterProjects(applyFilter ? boundingBox : defaultBounds, filterProjectOptions);
+        } else if (filterTabNumber === PROBLEMS_TRIGGER) {
+          setFilterCoordinates(applyFilter ? boundingBox : defaultBounds, tabCards);
+          getGalleryProblems();
+          getParamFilterProblems(applyFilter ? boundingBox : defaultBounds, filterProblemOptions);
+        } else {
+          getParamFilterComponents(applyFilter ? boundingBox : defaultBounds, filterComponentOptions);
+        }
       } else {
-        getParamFilterComponents(applyFilter ? boundingBox : defaultBounds, filterComponentOptions);
+        setFilterCoordinates(applyFilter ? boundingBox : defaultBounds, tabCards);
       }
-    } else {
-      setFilterCoordinates(applyFilter ? boundingBox : defaultBounds, tabCards);
-    }
+    });
   }, [applyFilter, zoomEndCounter, dragEndCounter, filterTabNumber]);
   useEffect(() => {
     getParamFilterComponentsDefaultBounds(filterComponentOptions);
@@ -1906,8 +1910,10 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
 
   const onSelect = (value: any) => {
     console.log('onSelect:::', value);
+    
     const keyword = value.split('?');
     const coord = keyword[0].split(',');
+    console.log('GOING TO FLYTO', coord);
     map.flyTo({ center: coord, zoom: 14.5 });
     const placeName = keyword[1];
     setKeyword(placeName);
