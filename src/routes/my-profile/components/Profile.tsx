@@ -313,7 +313,7 @@ const Profile = ({
             }            
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 10 }}>
-            <p className="color-sub" style={{paddingBottom:'15px' }}>Jurisdiction</p>
+            <p className="color-sub" style={{paddingBottom:'15px' }}>Local Government</p>
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 14 }}>
             <Select
