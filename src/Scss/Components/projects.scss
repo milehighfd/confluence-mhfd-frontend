@@ -200,7 +200,7 @@
     display: flex;
     margin: 0px 23px;
     border-bottom: 1px solid #eae8f0;
-    margin-top: 22px;
+    margin-top: 10px;
     .tab {
       color: $purple00;
       margin: 0px;
@@ -218,8 +218,8 @@
   }
   .body-project {
     padding: 10px 20px;
-    // height: calc(100vh - 214px); for tabs in create and edit project
-    height: calc(100vh - 170px);
+    height: calc(100vh - 214px); 
+    // height: calc(100vh - 170px);
     overflow-y: auto;
     h5 {
       font-size: 13px;
@@ -1252,8 +1252,14 @@
         }
       }
     }
+    .header-tab{
+      .tab{
+        font-size: 15px;
+      }
+    }
     .body-project {
-      height: calc(100vh - 191px);
+      // height: calc(100vh - 191px);
+      height: calc(100vh - 247px);
       p {
         font-size: 16px;
         font-style: normal;
@@ -1358,6 +1364,9 @@
         padding: 13.333px 12.999px;
         line-height: 22px;
       }
+      .discussion-input{
+        font-size: 16px;
+      }
     }
     .activiti-item {
       p {
@@ -1402,7 +1411,7 @@
     }
     p {
       font-size: 22px;
-      line-height: 25px;
+      line-height: 31px;
     }
     .head-project {
       padding: 20px 20px 10px 20px;
@@ -1446,8 +1455,14 @@
         }
       }
     }
+    .header-tab{
+      .tab{
+        font-size: 18px;
+      }
+    }
     .body-project {
-      height: calc(100vh - 249px);
+      // height: calc(100vh - 249px);
+      height: calc(100vh - 298px);
       padding: 10px 35px;
       .sub-project .ant-select:not(.ant-select-customize-input) .ant-select-selector {
         width: 100px !important;
@@ -1472,6 +1487,33 @@
         font-size: 22px;
         height: auto;
         padding: 13px 23px;
+      }
+      .discussion-content{
+        .discution-body{
+          .discution-user{
+            .user-information{
+              font-size: 20px;
+            }
+          }
+        }
+        .discussion-input{
+          input{
+            font-size: 20px;
+          }
+        }
+      }
+      .activiti-item{
+        p{
+          font-size: 22px;
+        }
+      }
+      .user-item{
+        font-size: 23px;
+        padding: 14px 14px;
+      }
+      .projects .body-project .user-item {
+        font-size: 23px;
+        padding: 14px 14px;
       }
       .ant-select-selector {
         padding: 6px 13px !important;

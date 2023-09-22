@@ -19,14 +19,14 @@ const TeamCollaborator = () => {
           </div>
         </Col>
         <Col span={16}>
-          {/* <div
+          <div
             className="chart-title"
             onClick={() => {setSelected(false)}}
             role="button"
             tabIndex={1}
           >
             <h5 className={!selected ? 'active-title': ''}>DISCUSSION</h5>
-          </div> */}
+          </div>
         </Col>
         <Col span={3} style={{textAlign:'end'}}>
           {/*<PlusOutlined />*/}

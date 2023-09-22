@@ -256,7 +256,7 @@ const ImageModal = ({
                               src={element.attachment_url}
                               alt=""
                               height="100%"
-                              style={{ marginTop: '28px' }}
+                              // style={{ marginTop: '28px' }}
                             />
                           </div>
                         </>
