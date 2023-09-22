@@ -131,7 +131,7 @@ export const getCsv = (
       row.push('');
       row.push('');
       row2.push('Project Name');
-      row2.push('Jurisdiction');
+      row2.push('Sponsor');
       row2.push('Status');
       row2.push('Cost');
       dataByYear[i] = [];
@@ -142,9 +142,10 @@ export const getCsv = (
           continue;
         }
         const statusArray = project?.projectData?.currentId;
+        const sponsor = project?.projectData?.project_partners.find((sponsor:any) => sponsor.code_partner_type_id === 11);
         dataByYear[i].push([
           project?.projectData?.project_name,
-          project?.projectData?.project_local_governments?.map((e: any) => e.local_government_name).join(","),
+          sponsor ? sponsor.business_associate.business_name : null,
           statusArray && statusArray.length > 0 ? statusArray[0].status_name : null,
           formatter.format(project['req' + i])
         ]);

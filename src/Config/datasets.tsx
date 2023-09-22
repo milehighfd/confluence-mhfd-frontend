@@ -102,7 +102,7 @@ export const getData = (url: any, token?: any, signal?: AbortSignal) => {
 }
 
 export const getDataNoJSON = (url: any, token?: any) => {
-    const headers = token ? JSONOptions(token) : JSONDefault();
+    const headers = token ? JSONOptions2(token) : JSONDefault();
     return fetch(url, {
         method: 'GET',
         headers
@@ -170,6 +170,14 @@ export const JSONOptionsOctet = (token?: any) => {
 }
 
 export const JSONOptions = (token?: any) => {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    if (token) {
+        headers.append('Authorization', 'Bearer ' + token);
+    }
+    return headers;
+}
+export const JSONOptions2 = (token?: any) => {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     if (token) {

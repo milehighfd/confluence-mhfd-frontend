@@ -522,7 +522,10 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
                   }                  
                 }
                 }>
-                <div className={x.completed_date && x.completed_user_id ? "checkbox-select-active checkbox-select" : "checkbox-select"}>
+                <div
+                  className={x.completed_date && x.completed_user_id ? "checkbox-select-active checkbox-select" : "checkbox-select"}
+                  style={{ display: 'flex', alignItems: 'center' }}
+                >
                   <Input
                     defaultValue={x.checklist_todo_name}
                     onChange={(e) => {
@@ -530,15 +533,23 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
                     }}
                     onClick={(e) => e.stopPropagation()}
                     disabled={disabledLG}
+                    style={{ height: '25px', flex: '1' }}
                   />
-                  <Checkbox disabled={disabledLG} checked={x.completed_date && x.completed_user_id}></Checkbox>
+                  <Checkbox
+                    disabled={disabledLG}
+                    checked={x.completed_date && x.completed_user_id}
+                    style={{ marginLeft: '10px' }}
+                  ></Checkbox>
                 </div>
-                <CloseOutlined onClick={(e) => {
-                  if (!disabledLG){
-                    e.stopPropagation();
-                    deleteCreatedAction(x);
-                  }
-                }} />
+                <CloseOutlined
+                  onClick={(e) => {
+                    if (!disabledLG) {
+                      e.stopPropagation();
+                      deleteCreatedAction(x);
+                    }
+                  }}
+                  style={{ lineHeight: '1', padding: '0' }}
+                />
               </div>
             );
           })}

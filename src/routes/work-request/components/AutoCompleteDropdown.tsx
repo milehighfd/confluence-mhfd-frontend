@@ -54,7 +54,7 @@ const AutoCompleteDropdown = (
   } = useRequestDispatch();
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const [inputClassName, setInputClassName] = useState('not-approved');
-  const [localityStatus, setLocalityStatus] = useState([]);
+  const [localityStatus, setLocalityStatus] = useState<{ locality: string, status: string }[]>([]);
   const renderOption = (item: string) => {
     return {
       key: `${item}|${item}`,
@@ -222,9 +222,9 @@ const AutoCompleteDropdown = (
   }, [boardStatus, tabActiveNavbar, year, localityFilter]);
 
   useEffect(() => {
-    const localities = dataAutocomplete.map((l: any) => {
-      if (l.name === 'Mile High Flood District'){
-        return { ...l, name: 'MHFD District Work Plan' };
+    const localities: string[] = dataAutocomplete.map((l: string) => {
+      if (l === 'Mile High Flood District') {
+        return 'MHFD District Work Plan';
       }
       return l;
     });
@@ -234,8 +234,16 @@ const AutoCompleteDropdown = (
       localities: localities,
       projecttype: namespaceId.projecttype,
     }
-    datasets.postData(SERVER.GET_STATUS_BOARD, boardsInfo).then(data => {
-      setLocalityStatus(data);
+    datasets.postData(SERVER.GET_STATUS_BOARD, boardsInfo).then((data: any[]) => {
+      let colorData: { locality: string, status: string }[] = data;
+      const mhfdLocality = data.find((item: { locality: string, status: string }) => item.locality === "MHFD District Work Plan");
+      if ((data.some((item: { locality: string, status: string }) => item.locality === "MHFD District Work Plan")) && year >= YEAR_LOGIC_2024) {
+        colorData = colorData.map((item: { locality: string, status: string }) => ({
+          ...item,
+          status: mhfdLocality.status
+        }));
+      }
+      setLocalityStatus(colorData);
     });
   }, [namespaceId]);
 
