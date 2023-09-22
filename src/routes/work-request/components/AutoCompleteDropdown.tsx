@@ -54,7 +54,7 @@ const AutoCompleteDropdown = (
   } = useRequestDispatch();
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const [inputClassName, setInputClassName] = useState('not-approved');
-  const [localityStatus, setLocalityStatus] = useState([]);
+  const [localityStatus, setLocalityStatus] = useState<{ locality: string, status: string }[]>([]);
   const renderOption = (item: string) => {
     return {
       key: `${item}|${item}`,
@@ -211,7 +211,6 @@ const AutoCompleteDropdown = (
         } catch (error) {
           console.log(error);
         }
-        console.log(mhfdStatus, 'onlycolor')
         if (mhfdStatus.status === 'Approved') {
           setInputClassName('approved');
         } else {
@@ -223,23 +222,23 @@ const AutoCompleteDropdown = (
   }, [boardStatus, tabActiveNavbar, year, localityFilter]);
 
   useEffect(() => {
-    const localities = dataAutocomplete.map((l: any) => {
-      if (l === 'Mile High Flood District'){
+    const localities: string[] = dataAutocomplete.map((l: string) => {
+      if (l === 'Mile High Flood District') {
         return 'MHFD District Work Plan';
       }
       return l;
-    });    
+    });
     const boardsInfo = {
       type: type,
       year: `${year}`,
       localities: localities,
       projecttype: namespaceId.projecttype,
     }
-    datasets.postData(SERVER.GET_STATUS_BOARD, boardsInfo).then(data => {
-      let colorData = data;
-      const mhfdLocality = data.find((item: any) => item.locality === "MHFD District Work Plan");
-      if ((data.some((item : any) => item.locality === "MHFD District Work Plan")) && year >= YEAR_LOGIC_2024) {
-        colorData = colorData.map((item : any) => ({
+    datasets.postData(SERVER.GET_STATUS_BOARD, boardsInfo).then((data: any[]) => {
+      let colorData: { locality: string, status: string }[] = data;
+      const mhfdLocality = data.find((item: { locality: string, status: string }) => item.locality === "MHFD District Work Plan");
+      if ((data.some((item: { locality: string, status: string }) => item.locality === "MHFD District Work Plan")) && year >= YEAR_LOGIC_2024) {
+        colorData = colorData.map((item: { locality: string, status: string }) => ({
           ...item,
           status: mhfdLocality.status
         }));
