@@ -41,6 +41,7 @@ import ModalTollgate from 'routes/list-view/components/ModalTollgate';
 import { useAttachmentDispatch, useAttachmentState } from 'hook/attachmentHook';
 import { useProfileState } from 'hook/profileHook';
 import StackedBarChart from './StackedBarChart';
+import { HighLight } from './HighLight';
 
 const DetailModal = ({
   visible,
@@ -969,6 +970,10 @@ const DetailModal = ({
               <div className="detailed-body-info">
                 {typeS === 'Problems' ? (
                   <>
+                    <HighLight 
+                      boldText={"Prblem Highlight:"} 
+                      text={`Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit."`} 
+                      />
                     <DetailInformationProblem />
                     <br></br>
                     <ProblemParts problemParts={problemPart} />
@@ -981,6 +986,10 @@ const DetailModal = ({
                   </>
                 ) : (
                   <>
+                    <HighLight 
+                      boldText={"Project Highlight:"} 
+                      text={` Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit."`} 
+                      />
                     <DetailInformationProject />
                     <ProblemsProjects />
                     <Vendors />
