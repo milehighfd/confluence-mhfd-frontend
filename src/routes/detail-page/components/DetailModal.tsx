@@ -87,15 +87,6 @@ const DetailModal = ({
   const { getAttachmentProjectId } = useAttachmentDispatch();
   const { attachments } = useAttachmentState();
 
-
-
-  useEffect(() => {
-    console.log('project_idS',project_idS)
-  }, [project_idS]);
-
-  useEffect(() => {
-    console.log('data',data)
-  }, [data]);
   useEffect(() => {
     if (detailed?.project_id) {
       getAttachmentProjectId(detailed.project_id);
@@ -117,7 +108,6 @@ const DetailModal = ({
   useEffect(() => {
     resetDetailed();
     if (typeS === FILTER_PROBLEMS_TRIGGER) {
-      console.log('PROBLEM', problem_idS);
       getDetailedPageProblem(problem_idS);
       getComponentsByProblemId({ id: problem_idS, typeid: 'problemid', sortby: 'type', sorttype: 'asc' });
       datasets.getData(SERVER.PROBLEM_PARTS_BY_ID + '/' + problem_idS, datasets.getToken()).then(data => {
@@ -401,10 +391,8 @@ const DetailModal = ({
       let origin = `${window.location.origin.toString()}/detailed-modal`;
       let url = '';
       if (typeS === FILTER_PROBLEMS_TRIGGER) {
-        console.log('problem');
         url = `type=Problems&problem_id=${problem_idS}`;
       } else {
-        console.log('project');
         url = `type=Projects&project_id=${project_idS}`;
       }
       event.clipboardData.setData('text/plain', origin + '?' + url);
@@ -487,10 +475,7 @@ const DetailModal = ({
       }, 1850);
     }
   };
-  useEffect(() => {
-     console.log(appUser.firstName)
-    console.log('openPiney', openPiney);
-  }, [openPiney]);
+  
   return (
     <>
       <ModalTollgate setOpenPiney={setOpenPiney} />
