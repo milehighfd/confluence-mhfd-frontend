@@ -138,9 +138,6 @@ const ColumsTrelloCard = ({
     }
   };
 
-  useEffect(() => {
-    console.log('columns', columns);
-  }, [columns]);
   return (
     <DragDropContext
       onDragEnd={result => {
