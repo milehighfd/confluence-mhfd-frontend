@@ -6,6 +6,7 @@ const DetailInformationProblem = () => {
   const {detailed,} = useDetailedState();
   return (
     <>
+      <div style={{paddingBottom : '20px'}}></div>
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
           <label><i>Stream</i></label>

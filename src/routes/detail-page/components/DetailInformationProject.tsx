@@ -16,7 +16,7 @@ const DetailInformationProject = () => {
 
   return (
     <>
-      <h3 style={{marginBottom:'15px'}} id="project-basics">PROJECT BASICS</h3>
+      <h3 className='detail-problems-component-title-header' id="project-basics">PROJECT BASICS</h3>
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
           <label><i>Stream</i></label>
