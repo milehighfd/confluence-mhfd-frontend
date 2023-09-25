@@ -59,29 +59,61 @@ const AutoCompleteDropdown = (
     return {
       key: `${item}|${item}`,
       value: item,
-      label: (
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          {localityStatus.find((c: any) => c.locality === item && c.status === 'Approved') ?
-            <div
-              style={{
-                width: '10px',
-                height: '10px',
-                borderRadius: '50%',
-                backgroundColor: '#28c499',
-                marginRight: '10px',
-              }}
-            ></div> : <div
-              style={{
-                width: '10px',
-                height: '10px',
-                borderRadius: '50%',
-                backgroundColor: '#ffdd00',
-                marginRight: '10px',
-              }}
-            ></div>}
-          {item}
-        </div>
-      )
+      label: (() => {
+        const mhfdLocality = localityStatus.find((item: { locality: string, status: string }) => {
+          if (item.locality === "MHFD District Work Plan" && item.status === "Approved") {
+            return true;
+          }
+          return false;
+        });
+        const locality = localityStatus.find((c: any) => c.locality === item);
+        if (mhfdLocality && year >= YEAR_LOGIC_2024 && type === WORK_PLAN_TAB) {
+          return (
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <div
+                style={{
+                  width: '10px',
+                  height: '10px',
+                  borderRadius: '50%',
+                  backgroundColor: '#28c499',
+                  marginRight: '10px',
+                }}
+              ></div>
+              {item}
+            </div>
+          );
+        } else if (locality && locality.status === 'Approved') {
+          return (
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <div
+                style={{
+                  width: '10px',
+                  height: '10px',
+                  borderRadius: '50%',
+                  backgroundColor: '#28c499',
+                  marginRight: '10px',
+                }}
+              ></div>
+              {item}
+            </div>
+          );
+        } else {
+          return (
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <div
+                style={{
+                  width: '10px',
+                  height: '10px',
+                  borderRadius: '50%',
+                  backgroundColor: '#ffdd00',
+                  marginRight: '10px',
+                }}
+              ></div>
+              {item}
+            </div>
+          );
+        }
+      })()
     };
   };
   useEffect(() => {
@@ -236,13 +268,6 @@ const AutoCompleteDropdown = (
     }
     datasets.postData(SERVER.GET_STATUS_BOARD, boardsInfo).then((data: any[]) => {
       let colorData: { locality: string, status: string }[] = data;
-      const mhfdLocality = data.find((item: { locality: string, status: string }) => item.locality === "MHFD District Work Plan");
-      if ((data.some((item: { locality: string, status: string }) => item.locality === "MHFD District Work Plan")) && year >= YEAR_LOGIC_2024) {
-        colorData = colorData.map((item: { locality: string, status: string }) => ({
-          ...item,
-          status: mhfdLocality.status
-        }));
-      }
       setLocalityStatus(colorData);
     });
   }, [namespaceId]);
