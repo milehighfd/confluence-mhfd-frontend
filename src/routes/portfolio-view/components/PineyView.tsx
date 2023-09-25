@@ -45,10 +45,10 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
   const [sendEndDate,setSendEndDate] = useState<any>()
   const [duration,setDuration] = useState<any>()
   const [remaining,setRemaining] = useState<any>()
-  // const [addActionItem, setAddActionItem] = useState<any>([]);
   const [disabledLG, setDisabledLG] = useState(appUser?.isLocalGovernment || appUser?.userInformation?.designation === 'government_staff');
   const [createdActions, setCreatedActions] = useState<any>([]);
   const [updateActionItem, setUpdateActionItem] = useState(false);
+  const [focusedInputs, setFocusedInputs] = useState<any>({});
   const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"];
   const formatter = new Intl.NumberFormat('en-US', {
@@ -528,12 +528,22 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
                 >
                   <Input
                     defaultValue={x.checklist_todo_name}
+                    placeholder="New Checklist Item"
                     onChange={(e) => {
                       handleChange(e.target.value, x)
                     }}
                     onClick={(e) => e.stopPropagation()}
                     disabled={disabledLG}
-                    style={{ height: '25px', flex: '1' }}
+                    style={{
+                      height: '25px',
+                      flex: '1',
+                      border: 'none', 
+                      background: 'transparent', 
+                      outline: 'none', 
+                      borderBottom: focusedInputs[x.project_checklist_id] ? '1px solid black' : '1px solid transparent'
+                    }}
+                    onFocus={() => setFocusedInputs((prevState:any) => ({ ...prevState, [x.project_checklist_id]: true }))}
+                    onBlur={() => setFocusedInputs((prevState:any) => ({ ...prevState, [x.project_checklist_id]: false }))}
                   />
                   <Checkbox
                     disabled={disabledLG}
