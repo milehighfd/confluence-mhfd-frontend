@@ -150,6 +150,7 @@ const DetailModal = ({
     }
   }, []);
   useEffect(() => {
+    console.log('detailed', detailed);
     const projectType = detailed?.code_project_type?.project_type_name;
     setProjecttype(projectType);
     const roadmapData = [];
@@ -914,8 +915,8 @@ const DetailModal = ({
                           ? '/detailed/capital.png'
                           : projectType === 'Study'
                           ? '/detailed/study.png'
-                          : projectType === 'Special'
-                          ? '/detailed/special.png'
+                          : projectType === 'R & D'
+                          ? '/projectImages/rd.png'
                           : projectType === 'Vegetation Management'
                           ? '/detailed/vegetation-management.png'
                           : projectType === 'Sediment Removal'

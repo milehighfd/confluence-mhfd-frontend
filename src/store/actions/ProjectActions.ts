@@ -4,13 +4,14 @@ import { SERVER } from "Config/Server.config";
 import { loadColumns, loadFilters, loadOneColumn } from 'store/actions/requestActions';
 import * as turf from '@turf/turf';
 import { depth } from 'routes/map/components/MapFunctionsUtilities';
+import { NEW_PROJECT_TYPES } from 'constants/constants';
 
 const callArcGisProcess = (data: any, project_id: any, typeprocess: string) => {
   try {
     let geomData;
     if (data.type === 'capital' || data.type === 'maintenance') {
       geomData = data.geom;
-    } else if (data.type === 'acquisition' || data.type === 'special' || data.type === 'study') {
+    } else if (data.type === 'acquisition' || data.type === NEW_PROJECT_TYPES.RND.toLowerCase() || data.type === 'study') {
       geomData = JSON.stringify(data.geom);
     }
     const bodyArcGis = {
@@ -37,7 +38,7 @@ export const saveCapital = (data: any) => {
     Object.keys(data).forEach((key: string) => {
       if (key === 'geom' && (data.type === 'capital' || data.type === 'maintenance')) {
         formData.append(key, data[key]);
-      }else if (key === 'geom' && (data.type === 'acquisition' || data.type === 'special')) {
+      }else if (key === 'geom' && (data.type === 'acquisition' || data.type === NEW_PROJECT_TYPES.RND.toLowerCase())) {
         formData.append(key, JSON.stringify(data[key]));
       }
       else if (key === 'geom' && data.type === 'study') {
@@ -84,7 +85,7 @@ export const editCapital = (data: any) => {
     Object.keys(data).forEach((key: string) => {
       if (key === 'geom' && (data.type === 'capital' || data.type === 'maintenance')) {
         formData.append(key, data[key]);
-      }else if (key === 'geom' && (data.type === 'acquisition' || data.type === 'special')) {
+      }else if (key === 'geom' && (data.type === 'acquisition' || data.type === NEW_PROJECT_TYPES.RND.toLowerCase())) {
         formData.append(key, JSON.stringify(data[key]));
       }
       else if (key === 'geom' && data.type === 'study') {

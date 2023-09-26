@@ -532,7 +532,7 @@ export const ModalCapital = ({
       //special
       if (selectedTypeProject === NEW_PROJECT_TYPES.RND.toLowerCase()) {
         console.log('geomFinal', geom);
-        capital.geom = JSON.stringify(geom);
+        capital.geom = geom;
       }
       files.forEach((file: any) => {
         if (file._id) {

@@ -60,7 +60,7 @@ const CardsList = ({
             image: (
               projectType === 'CIP' ? '/projectImages/capital.png' :
                 projectType === 'Study' ? '/projectImages/study.png' :
-                  projectType === 'Special' ? '/projectImages/special.png' :
+                  projectType === 'R & D' ? '/projectImages/rd.png' :
                     projectType === 'Vegetation Management' ? '/projectImages/vegetation-management.png' :
                       projectType === 'Sediment Removal' ? '/projectImages/sediment-removal.png' :
                         projectType === 'Restoration' ? '/projectImages/restoration.png' :
