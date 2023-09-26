@@ -39,18 +39,18 @@ export const formatter = new Intl.NumberFormat('en-US', {
 });
 
 export const getAllowedBasedOnLocality = (locality: string, year?: number) => {
-  let all = [NEW_PROJECT_TYPES.Capital, NEW_PROJECT_TYPES.Acquisition, NEW_PROJECT_TYPES.Maintenance, NEW_PROJECT_TYPES.Special, NEW_PROJECT_TYPES.Study]; 
+  let all = [NEW_PROJECT_TYPES.Capital, NEW_PROJECT_TYPES.Acquisition, NEW_PROJECT_TYPES.Maintenance, NEW_PROJECT_TYPES.RND, NEW_PROJECT_TYPES.Study]; 
   if (locality.startsWith('Unincorporated') && locality.endsWith('County')) {
     return all;
   } else if (locality.endsWith('County')) {
       if (year && year < 2022) {
         return [NEW_PROJECT_TYPES.Capital, NEW_PROJECT_TYPES.Maintenance];
       } else {
-        return [NEW_PROJECT_TYPES.Capital, NEW_PROJECT_TYPES.Maintenance, NEW_PROJECT_TYPES.Acquisition, NEW_PROJECT_TYPES.Special];
+        return [NEW_PROJECT_TYPES.Capital, NEW_PROJECT_TYPES.Maintenance, NEW_PROJECT_TYPES.Acquisition, NEW_PROJECT_TYPES.RND];
       }
   } else if (locality.endsWith('Service Area')) {
     if (year && year < 2022) {
-      return [NEW_PROJECT_TYPES.Study, NEW_PROJECT_TYPES.Acquisition, NEW_PROJECT_TYPES.Special];
+      return [NEW_PROJECT_TYPES.Study, NEW_PROJECT_TYPES.Acquisition, NEW_PROJECT_TYPES.RND];
     } else {
       return [NEW_PROJECT_TYPES.Study];
     }

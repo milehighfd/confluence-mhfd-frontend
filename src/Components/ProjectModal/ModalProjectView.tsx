@@ -80,21 +80,6 @@ const ModalProjectView = ({
         }
       )
     setVisibleCapital(true);
-    // if(typeProject === NEW_PROJECT_TYPES.Capital ){
-    //   setVisibleCapital(true);
-    // }
-    // if(typeProject === NEW_PROJECT_TYPES.Acquisition ){
-    //   setVisibleAcquisition(true);
-    // }
-    // if(typeProject === NEW_PROJECT_TYPES.Maintenance && subType !== '' ){
-    //   setVisibleMaintenance(true);
-    // }
-    // if(typeProject ===  NEW_PROJECT_TYPES.Special || typeProject === RandD ){
-    //   setVisibleSpecial(true);
-    // }
-    // if(typeProject === NEW_PROJECT_TYPES.Study ){
-    //   setVisibleStudy(true);
-    // }
     setDisable(true);
     setVisibleModal(false);
     setVisibleSubType(false);
@@ -301,34 +286,34 @@ const ModalProjectView = ({
         </Col>
         }
         {
-          allowed.includes(NEW_PROJECT_TYPES.Special || RandD) &&  !allowed.includes(NEW_PROJECT_TYPES.Study) &&
+          allowed.includes(NEW_PROJECT_TYPES.RND) &&  !allowed.includes(NEW_PROJECT_TYPES.Study) &&
           <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.RND) } style={{padding: '8px'}}>
-          <Button className={typeProject===NEW_PROJECT_TYPES.Special || typeProject === RandD?(openCollapserd ? "button-project button-project-active open-button-project" : "button-project button-project-active") :(openCollapserd ? "button-project open-button-project":"button-project")}>
-            <div className={openCollapserd ? "project-img-rd-open project-img":"project-img-rd project-img"}>
-              <img src="/Icons/project/special.svg" alt="" height="30px" />
-            </div>
-            <div className={openCollapserd ? "project-info-rd-open project-info":"project-info-rd project-info"}>
-              <h5>R&D {openCollapserd ? <UpOutlined onClick={()=>{setOpenCollapserd(!openCollapserd)}}/>:<DownOutlined onClick={()=>{setOpenCollapserd(!openCollapserd)}}/>}</h5>
-              <p>Research and Development projects include new stream/rain gages, research, data development, new education and outreach programming, and criteria or guidance development.</p>
-            </div>
-          </Button>
-        </Col>
+            <Button className={typeProject===NEW_PROJECT_TYPES.Special || typeProject === RandD?(openCollapserd ? "button-project button-project-active open-button-project" : "button-project button-project-active") :(openCollapserd ? "button-project open-button-project":"button-project")}>
+              <div className={openCollapserd ? "project-img-rd-open project-img":"project-img-rd project-img"}>
+                <img src="/Icons/project/special.svg" alt="" height="30px" />
+              </div>
+              <div className={openCollapserd ? "project-info-rd-open project-info":"project-info-rd project-info"}>
+                <h5>R&D {openCollapserd ? <UpOutlined onClick={()=>{setOpenCollapserd(!openCollapserd)}}/>:<DownOutlined onClick={()=>{setOpenCollapserd(!openCollapserd)}}/>}</h5>
+                <p>Research and Development projects include new stream/rain gages, research, data development, new education and outreach programming, and criteria or guidance development.</p>
+              </div>
+            </Button>
+          </Col>
         }
       </Row>
       <Row gutter={[16, 16]}>
         {
-          allowed.includes(NEW_PROJECT_TYPES.Special || RandD) && allowed.includes(NEW_PROJECT_TYPES.Study) &&
+          allowed.includes(NEW_PROJECT_TYPES.RND) && allowed.includes(NEW_PROJECT_TYPES.Study) &&
           <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.RND) } style={{padding: '8px'}}>
-          <Button className={typeProject===NEW_PROJECT_TYPES.Special || typeProject === RandD?(openCollapserd ? "button-project button-project-active open-button-project" : "button-project button-project-active") :(openCollapserd ? "button-project open-button-project":"button-project")}>
-            <div className={openCollapserd ? "project-img-rd-open project-img":"project-img-rd project-img"}>
-              <img src="/Icons/project/special.svg" alt="" height="30px" />
-            </div>
-            <div className={openCollapserd ? "project-info-rd-open project-info":"project-info-rd project-info"}>
-              <h5>R&D {openCollapserd ? <UpOutlined onClick={()=>{setOpenCollapserd(!openCollapserd)}}/>:<DownOutlined onClick={()=>{setOpenCollapserd(!openCollapserd)}}/>}</h5>
-              <p>Research and Development projects include new stream/rain gages, research, data development, new education and outreach programming, and criteria or guidance development.</p>
-            </div>
-          </Button>
-        </Col>
+            <Button className={typeProject===NEW_PROJECT_TYPES.Special || typeProject === RandD?(openCollapserd ? "button-project button-project-active open-button-project" : "button-project button-project-active") :(openCollapserd ? "button-project open-button-project":"button-project")}>
+              <div className={openCollapserd ? "project-img-rd-open project-img":"project-img-rd project-img"}>
+                <img src="/Icons/project/special.svg" alt="" height="30px" />
+              </div>
+              <div className={openCollapserd ? "project-info-rd-open project-info":"project-info-rd project-info"}>
+                <h5>R&D {openCollapserd ? <UpOutlined onClick={()=>{setOpenCollapserd(!openCollapserd)}}/>:<DownOutlined onClick={()=>{setOpenCollapserd(!openCollapserd)}}/>}</h5>
+                <p>Research and Development projects include new stream/rain gages, research, data development, new education and outreach programming, and criteria or guidance development.</p>
+              </div>
+            </Button>
+          </Col>
         }
       </Row>
       <br/>
