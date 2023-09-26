@@ -1238,6 +1238,7 @@ export const NEW_PROJECT_TYPES = {
   Capital: "Capital",
   Acquisition: "Acquisition",
   Maintenance: "Maintenance",
+  RND: 'R&D',
   Special: "Special",
   Study: "Study",
   MAINTENANCE_SUBTYPES: {

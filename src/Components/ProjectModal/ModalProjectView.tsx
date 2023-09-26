@@ -188,7 +188,7 @@ const ModalProjectView = ({
       }
       if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 15 || data.tabKey === 'Special'){
         setVisibleCapital(true);
-        setTypeProyect(NEW_PROJECT_TYPES.Special);
+        setTypeProyect(NEW_PROJECT_TYPES.RND);
       }
     }
   },[showDefaultTab]);
@@ -302,7 +302,7 @@ const ModalProjectView = ({
         }
         {
           allowed.includes(NEW_PROJECT_TYPES.Special || RandD) &&  !allowed.includes(NEW_PROJECT_TYPES.Study) &&
-          <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.Special) } style={{padding: '8px'}}>
+          <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.RND) } style={{padding: '8px'}}>
           <Button className={typeProject===NEW_PROJECT_TYPES.Special || typeProject === RandD?(openCollapserd ? "button-project button-project-active open-button-project" : "button-project button-project-active") :(openCollapserd ? "button-project open-button-project":"button-project")}>
             <div className={openCollapserd ? "project-img-rd-open project-img":"project-img-rd project-img"}>
               <img src="/Icons/project/special.svg" alt="" height="30px" />
@@ -318,7 +318,7 @@ const ModalProjectView = ({
       <Row gutter={[16, 16]}>
         {
           allowed.includes(NEW_PROJECT_TYPES.Special || RandD) && allowed.includes(NEW_PROJECT_TYPES.Study) &&
-          <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.Special) } style={{padding: '8px'}}>
+          <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.RND) } style={{padding: '8px'}}>
           <Button className={typeProject===NEW_PROJECT_TYPES.Special || typeProject === RandD?(openCollapserd ? "button-project button-project-active open-button-project" : "button-project button-project-active") :(openCollapserd ? "button-project open-button-project":"button-project")}>
             <div className={openCollapserd ? "project-img-rd-open project-img":"project-img-rd project-img"}>
               <img src="/Icons/project/special.svg" alt="" height="30px" />

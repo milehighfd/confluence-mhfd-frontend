@@ -192,7 +192,7 @@ export const ModalCapital = ({
   const [activeTabBodyProject, setActiveTabBodyProject] = useState('Details');
   const [favorite, setFavorite] = useState(false);
   const [groupParsed, setGroupParsed] = useState<any>([]);
-  const [selectedTypeProject, setSelectedTypeProject] = useState((typeProject.toLowerCase() === 'r&d' ? 'special' : typeProject.toLowerCase()) || 'capital');
+  const [selectedTypeProject, setSelectedTypeProject] = useState(typeProject.toLowerCase() || 'capital');
   const [selectedLabelProject, setSelectedLabelProject] = useState((subTypeInit === '' ? (typeProject) : subTypeInit) || 'Capital');
   const [lastValue, setLastValue] = useState('');
   const [showDraw, setShowDraw] = useState(true);
@@ -382,13 +382,15 @@ export const ModalCapital = ({
           setOwnership(false);
         }
       }   
-      if (selectedTypeProject === 'special') {
+      if (selectedTypeProject === NEW_PROJECT_TYPES.RND.toLowerCase()) {
         setTimeout(() => {
           getData(SERVER.GET_GEOM_BY_PROJECTID(data.project_id), getToken())
             .then(
               (r: any) => {
                 let coor = JSON.parse(r.createdCoordinates);
                 let coordinates = coor.coordinates[0];
+                console.log('r', r)
+                console.log('coordinates', coordinates);
                 setGeom(coordinates);
                 setEditLocation(coordinates);
               },
@@ -405,6 +407,10 @@ export const ModalCapital = ({
       setEditLocation(undefined);
     }
   }, [data]);
+
+  useEffect(() => {
+    console.log('geom', geom);
+  }, [geom]);
   //Send for Create Data or Edit Data
   useEffect(() => {
     let serviceAreaIds: any = [];
@@ -526,8 +532,9 @@ export const ModalCapital = ({
         capital.acquisitionanticipateddate = purchaseDate;
       }
       //special
-      if (selectedTypeProject === 'special') {
-        capital.geom = geom;
+      if (selectedTypeProject === NEW_PROJECT_TYPES.RND.toLowerCase()) {
+        console.log('geomFinal', geom);
+        capital.geom = JSON.stringify(geom);
       }
       files.forEach((file: any) => {
         if (file._id) {
@@ -580,7 +587,7 @@ export const ModalCapital = ({
           if (!nameProject) missingFields.push('Project Name');
           if (!sponsor) missingFields.push('Sponsor');
           const isGeom = (selectedTypeProject === 'capital' || selectedTypeProject === 'maintenance');
-          const isPin = (selectedTypeProject === 'acquisition' || selectedTypeProject === 'special');
+          const isPin = (selectedTypeProject === 'acquisition' || selectedTypeProject === NEW_PROJECT_TYPES.RND.toLowerCase());
           let geomLengthFlag = false;
           if ((geom?.coordinates || streamIntersected?.geom) && isGeomDrawn===true) {
             geomLengthFlag = true;
@@ -623,7 +630,7 @@ export const ModalCapital = ({
     let disableEditForLG = disabledLG && isWorkPlan && swSave;    
     if (!disableEditForLG) {  
       const pinFlag = (selectedTypeProject === 'acquisition'
-        || selectedTypeProject === 'special')
+        || selectedTypeProject === NEW_PROJECT_TYPES.RND.toLowerCase())
         && (geom || isCountyWide);
       let geomLengthFlag = false;
       if ((geom?.coordinates || streamIntersected?.geom)) {
@@ -636,7 +643,7 @@ export const ModalCapital = ({
           setDisable(false);
         } else if (selectedTypeProject === 'capital' && (thisIndependentComponents?.length > 0 || componentsToSave?.length > 0) && (geomLengthFlag || isCountyWide)) {
           setDisable(false);
-        } else if (selectedTypeProject === 'special' && (pinFlag || isCountyWide)) {
+        } else if (selectedTypeProject === NEW_PROJECT_TYPES.RND.toLowerCase() && (pinFlag || isCountyWide)) {
           setDisable(false);
         } else if (selectedTypeProject === 'maintenance' && (geomLengthFlag || isCountyWide) && frequency && eligibility) {
           setDisable(false);
@@ -987,16 +994,16 @@ export const ModalCapital = ({
   }
 
   useEffect(() => {
-    if ((['capital', 'maintenance'].includes(lastValue)) && (['acquisition', 'special'].includes(selectedTypeProject))) {
+    if ((['capital', 'maintenance'].includes(lastValue)) && (['acquisition', NEW_PROJECT_TYPES.RND.toLowerCase()].includes(selectedTypeProject))) {
       RestartLocation();
     }
-    if ((['acquisition', 'special'].includes(lastValue)) && (['capital', 'maintenance'].includes(selectedTypeProject))) {
+    if ((['acquisition', NEW_PROJECT_TYPES.RND.toLowerCase()].includes(lastValue)) && (['capital', 'maintenance'].includes(selectedTypeProject))) {
       RestartLocation();
     }
-    if ((['study'].includes(lastValue)) && (['capital', 'maintenance', 'acquisition', 'special'].includes(selectedTypeProject))) {
+    if ((['study'].includes(lastValue)) && (['capital', 'maintenance', 'acquisition', NEW_PROJECT_TYPES.RND.toLowerCase()].includes(selectedTypeProject))) {
       RestartLocation();
     }
-    if ((['capital', 'maintenance', 'acquisition', 'special'].includes(lastValue)) && (['study'].includes(selectedTypeProject))) {
+    if ((['capital', 'maintenance', 'acquisition', NEW_PROJECT_TYPES.RND.toLowerCase()].includes(lastValue)) && (['study'].includes(selectedTypeProject))) {
       RestartLocation();
     }
   },[selectedTypeProject]);
@@ -1074,7 +1081,7 @@ export const ModalCapital = ({
 
   //acquisition special functions
   useEffect(()=> {
-    if(isEditingPosition && (selectedTypeProject === 'acquisition'|| selectedTypeProject === 'special')){
+    if(isEditingPosition && (selectedTypeProject === 'acquisition'|| selectedTypeProject === NEW_PROJECT_TYPES.RND.toLowerCase())){
       setServiceArea([])
       setCounty([])
       setjurisdiction([])
@@ -1201,7 +1208,7 @@ export const ModalCapital = ({
               }
               {
                 (selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Acquisition.toLowerCase()||
-                selectedTypeProject && selectedTypeProject?.toLowerCase() === 'special') &&
+                selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.RND.toLowerCase()) &&
                 <div className="sub-title-project">
                   <h5 className="requestor-information">
                     {indexForm++}. Drop Pin *
@@ -1231,7 +1238,7 @@ export const ModalCapital = ({
                 />              
               }
               {(selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Acquisition.toLowerCase()||
-                selectedTypeProject && selectedTypeProject?.toLowerCase() === 'special') &&
+                selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.RND.toLowerCase()) &&
                 <DropPin
                   typeProject={selectedTypeProject}
                   geom={geom}

@@ -58,6 +58,7 @@ import {
   MAINTENANCE_TRAILS,
   REMOVAL_AREA,
   REMOVAL_LINE,
+  NEW_PROJECT_TYPES
 } from '../../constants/constants';
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import { Button, Popover, Modal, Input, AutoComplete, Col, Row } from 'antd';
@@ -325,6 +326,7 @@ const CreateProjectMap = (type: any) => {
     );
     hideHighlighted();
     showHoverComponents();
+    console.log('type.type', type.type);
     typeRef.current = type.type
     if((type.type === 'STUDY' && type.projectid === -1) 
     || ((type.type !== 'CAPITAL' && type.type !== 'MAINTENANCE') && (type.lastValue === 'capital' || type.lastValue === 'maintenance'))
@@ -659,7 +661,7 @@ const CreateProjectMap = (type: any) => {
         map.removeDrawController();
       }
       setIsAlreadyDraw(true);
-      if (type.type != 'ACQUISITION' && type.type != 'SPECIAL') {
+      if (type.type != 'ACQUISITION' && type.type != NEW_PROJECT_TYPES.RND) {
         isPopup = false;
         map.addDrawControllerTopLeft();
         let drawEvent = EventService.getRef('oncreatedraw');
@@ -1155,8 +1157,8 @@ const CreateProjectMap = (type: any) => {
     });
     applyFilters(PROBLEMS_TRIGGER, filterProblems);
     let filterProjectsNew = { ...filterProjects };
-    if (type.type === 'SPECIAL') {
-      filterProjectsNew.projecttype = 'Special';
+    if (type.type === NEW_PROJECT_TYPES.RND) {
+      filterProjectsNew.projecttype = NEW_PROJECT_TYPES.RND;
     } else if (type.type === 'STUDY') {
       filterProjectsNew.projecttype = 'Study';
     } else {
@@ -1662,7 +1664,7 @@ const CreateProjectMap = (type: any) => {
         ],
       },
     };
-    if (type.type === 'SPECIAL') {
+    if (type.type === NEW_PROJECT_TYPES.RND) {
       saveSpecialLocation(sendLine);
     } else if (type.type === 'ACQUISITION') {
       saveAcquisitionLocation(sendLine);
@@ -1686,7 +1688,7 @@ const CreateProjectMap = (type: any) => {
         ],
       },
     };
-    if (type.type === 'SPECIAL') {
+    if (type.type === NEW_PROJECT_TYPES.RND) {
       saveSpecialLocation(sendLine);
     } else if (type.type === 'ACQUISITION') {
       saveAcquisitionLocation(sendLine);
