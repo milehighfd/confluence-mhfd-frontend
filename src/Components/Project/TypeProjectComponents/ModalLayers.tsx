@@ -17,6 +17,7 @@ import {
   ALERT_STATION,
   LAYERS_LABELS,
   popUps,
+  NEW_PROJECT_TYPES,
 } from '../../../constants/constants';
 import { useMapState } from "hook/mapHook";
 import { useProjectDispatch, useProjectState } from "hook/projectHook";
@@ -79,7 +80,7 @@ const ModalLayers = ({
   const getLayersOptions = (type:any) => {
    let checkedLayers: any = [];
     switch (type.type) {
-      case 'CAPITAL':
+      case NEW_PROJECT_TYPES.Capital.toUpperCase():
         checkedLayers = [
           { label: <> {LAYERS_LABELS.BORDER} <Popover key="LSWV3bvYghho" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.borders, 'Borders – ')}><InfoCircleOutlined style={{opacity:0.35}} /></Popover></>, value: BORDER },
           { label: <> {LAYERS_LABELS.AREA_BASED_MASK} <Popover key="sdasdasd" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.area_based_mask, 'Area-Based Mask – ')}><InfoCircleOutlined style={{opacity:0.35}} /></Popover></>, value: AREA_BASED_MASK },
@@ -89,7 +90,7 @@ const ModalLayers = ({
           { label: <> {LAYERS_LABELS.STREAMS_FILTERS} <Popover key="LSWVxc3bvYghho" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.streams, 'Streams – ')}><InfoCircleOutlined style={{opacity:0.35}} /></Popover></>, value: STREAMS_FILTERS },
         ]
         break;
-      case 'MAINTENANCE':
+      case NEW_PROJECT_TYPES.Maintenance.toUpperCase():
         checkedLayers = [
           { label: <> {LAYERS_LABELS.BORDER} <Popover key="LSWV3bvYghho" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.borders, 'Borders – ')}><InfoCircleOutlined style={{opacity:0.35}} /></Popover></>, value: BORDER },
           { label: <> {LAYERS_LABELS.AREA_BASED_MASK} <Popover key="sdasdasd" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.area_based_mask, 'Area-Based Mask – ')}><InfoCircleOutlined style={{opacity:0.35}} /></Popover></>, value: AREA_BASED_MASK },
@@ -99,7 +100,7 @@ const ModalLayers = ({
           { label: <> {LAYERS_LABELS.STREAMS_FILTERS} <Popover key="LSWV3bvYtyghho" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.streams, 'Streams – ')}><InfoCircleOutlined style={{opacity:0.35}} /></Popover></>, value: STREAMS_FILTERS },
         ]
         break
-      case 'STUDY':
+      case NEW_PROJECT_TYPES.Study.toUpperCase():
         checkedLayers = [
           { label: <> {LAYERS_LABELS.BORDER} <Popover key="LSWV3bvYgzxhho" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.borders, 'Borders –')}><InfoCircleOutlined style={{opacity:0.35}} /></Popover></>, value: BORDER },
           { label: <> {LAYERS_LABELS.AREA_BASED_MASK} <Popover key="LSqWV3bvYghho" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.area_based_mask, 'Area-Based Mask – ')}><InfoCircleOutlined style={{opacity:0.35}} /></Popover></>, value: AREA_BASED_MASK },
@@ -109,14 +110,14 @@ const ModalLayers = ({
           { label: <> {LAYERS_LABELS.FEMA_FLOOD_HAZARD} <Popover key="LSWVl3bvYghho" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.fema_flood_hazard_zones, 'FEMA Flood Hazard Zones – ')}><InfoCircleOutlined style={{opacity:0.35}} /></Popover></>, value: FEMA_FLOOD_HAZARD },
         ]
         break
-      case 'ACQUISITION':
+      case NEW_PROJECT_TYPES.Acquisition.toUpperCase():
         checkedLayers = [
           { label: <> {LAYERS_LABELS.BORDER} <Popover key="LSWV3bvYghhom" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.borders,  'Borders –')}><InfoCircleOutlined style={{opacity:0.35}} /></Popover></>, value: BORDER },
           { label: <> {LAYERS_LABELS.AREA_BASED_MASK} <Popover key="LSWVk3bvYghho" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.area_based_mask,  'Area-Based Mask – ')}><InfoCircleOutlined style={{opacity:0.35}} /></Popover></>, value: AREA_BASED_MASK },
           { label: <> {LAYERS_LABELS.STREAMS_FILTERS} <Popover key="LSWV3pbvYghho" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.streams,'Streams – ')}><InfoCircleOutlined style={{opacity:0.35}} /></Popover></>, value: STREAMS_FILTERS },
         ]
         break
-      case 'SPECIAL':
+      case NEW_PROJECT_TYPES.RND.toUpperCase():
         checkedLayers = [
           { label: <> {LAYERS_LABELS.BORDER} <Popover key="LSWV3bvYghhpo" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.borders, 'Borders –')}><InfoCircleOutlined style={{opacity:0.35}} /></Popover></>, value: BORDER },
           { label: <> {LAYERS_LABELS.AREA_BASED_MASK} <Popover key="LSWpV3bvYghho" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.area_based_mask, 'Area-Based Mask – ')}><InfoCircleOutlined style={{opacity:0.35}} /></Popover></>, value: AREA_BASED_MASK },
@@ -146,7 +147,7 @@ const ModalLayers = ({
         className="map-modal-layers"
       > 
       <p>
-      Select some or all layers recommended when creating {type.type === 'ACQUISITION' ? 'an':'a'} {type.type === 'SPECIAL' ? 'R&D' : convertToTitleCase(type.type)} Project.
+      Select some or all layers recommended when creating {type.type === 'ACQUISITION' ? 'an':'a'} {convertToTitleCase(type.type)} Project.
       </p>
       <Checkbox.Group
         key={`checkbox-group-${type.type}`}

@@ -480,7 +480,6 @@ export const SWITCHES_MAP = [
   CLIMB_TO_SAFETY,
   SEMSWA_SERVICE_AREA
 ];
-export const PROJECT_TYPES = ['capital', 'study', 'maintenance', 'propertyAcquisition', 'special'];
 
 export const DROPDOWN_ORGANIZATION = {
   REGIONAL_AGENCY_PUBLIC: [
