@@ -21,8 +21,8 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
   useEffect(() => {
     getFinancialData(projectId, {});
     setData([
-      {group: 'Jan-22', funding: '12', income: '1', agreement: '13' , additional: '12'},
-      {group: 'Feb-22', funding: '6', income: '6', agreement: '33' , additional: '6'},
+      {group: 'Jan-22', funding: '100', income:0, mhfd: '250', mhfd2: '250', southsuburdan: 0,  Semswa: '250' , 'wilson&company': '182'},
+      {group: 'Feb-22', funding: '6', income:0, mhfd: '6', Southsububan: '33' , semswa: '6'},
       {group: 'Mar-22', funding: '11', income: '28', agreement: '12' , additional: '3'},
       {group: 'Apr-22', funding: '19', income: '6', agreement: '1' , additional: '30'},
       {group: 'May-22', funding: '12', income: '1', agreement: '13' , additional: '12'},
@@ -50,6 +50,43 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
 
   useEffect(() => {
     console.log(financialInformation);
+    const ATTRIB_GROUP = 'effective_date';
+    const groupedInformation = financialInformation.reduce((prev: any, cur: any) => {
+      if (!prev[cur[ATTRIB_GROUP]]) {
+        prev[cur[ATTRIB_GROUP]] = [];
+      }
+      prev[cur[ATTRIB_GROUP]].push(cur);
+      return prev;
+    }, {});
+    const Keys = Object.keys(groupedInformation);
+    let availableFund = 0;
+    // iterate through the keys and group inside each object by project_partner_name and emcumbered.is_income
+    const newGroupedInformation: any = {};
+    Keys.forEach((key: any) => {
+      const expenditure = groupedInformation[key].filter((item: any) => !item?.encumbered?.is_income);
+      const expenditureSum = expenditure.reduce((prev: any, cur: any) => {
+        return prev + cur?.encumbered?.cost;
+      }, 0);
+      const areIncome = groupedInformation[key].filter((item: any) => item?.encumbered?.is_income);
+      // split areIncome by project_partner_name, one group where project_partner_name = MHFD and other group where project_partner_name != MHFD
+      const mhfdIncome = areIncome.filter((item: any) => item?.project_partner_name === 'MHFD');
+      const otherIncome = areIncome.filter((item: any) => item?.project_partner_name !== 'MHFD');
+      const mhfdIncomeSum = mhfdIncome.reduce((prev: any, cur: any) => {
+        return prev + cur?.encumbered?.cost;
+      }, 0);
+      const otherIncomeSum = otherIncome.reduce((prev: any, cur: any) => {
+        return prev + cur?.encumbered?.cost;
+      }, 0);
+      newGroupedInformation[key] = {
+        availableFund,
+        mhfdfunds: mhfdIncome,
+        localfunds: otherIncome,
+        expenditure
+      }; 
+      console.log('current available before sum', key, availableFund, mhfdIncomeSum,otherIncomeSum, expenditureSum);
+      availableFund = availableFund + mhfdIncomeSum + otherIncomeSum - expenditureSum;
+    });
+    console.log('ORIGINAL', newGroupedInformation);
   }, [financialInformation]);
   const applyBackgroundRect = (type: string, x: any, y:any, d: any, backgroundRect: any, sumGroups: any) => {
     if (type === 'add') {
