@@ -61,7 +61,6 @@ export const DropPin = ({
 
   }
   useEffect(()=>{
-    console.log('specialLocation', specialLocation)
     if(specialLocation.geom && typeProject === NEW_PROJECT_TYPES.RND.toLowerCase()) {
       setLatitude( parseFloat(specialLocation.geom.coordinates[0][0][1]).toFixed(4) );
       setLongitude( parseFloat(specialLocation.geom.coordinates[0][0][0]).toFixed(4) );

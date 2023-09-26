@@ -186,7 +186,7 @@ const ModalProjectView = ({
         setVisibleCapital(true);
         setTypeProyect(NEW_PROJECT_TYPES.Acquisition);
       }
-      if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 15 || data.tabKey === 'Special'){
+      if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 15 || data.tabKey === 'R&D'){
         setVisibleCapital(true);
         setTypeProyect(NEW_PROJECT_TYPES.RND);
       }

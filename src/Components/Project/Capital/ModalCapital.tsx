@@ -407,10 +407,6 @@ export const ModalCapital = ({
       setEditLocation(undefined);
     }
   }, [data]);
-
-  useEffect(() => {
-    console.log('geom', geom);
-  }, [geom]);
   //Send for Create Data or Edit Data
   useEffect(() => {
     let serviceAreaIds: any = [];
