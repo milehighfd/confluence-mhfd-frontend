@@ -264,7 +264,7 @@ const NavbarView = ({
               data.projects?.map((item: any) => {
                 return {
                   name: item?.project_name,
-                  type: `${item?.board?.year} ${tabActiveSearch} · ${item?.board?.projecttype}`,
+                  type: `${item?.board?.year} ${item?.partner?.business_associate?.business_name} · ${item?.board?.projecttype}`,
                   state: item?.code_status_type?.status_name,
                   id: item?.project_id,
                   year: item?.board?.year,
