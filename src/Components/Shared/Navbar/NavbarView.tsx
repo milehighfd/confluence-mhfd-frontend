@@ -314,7 +314,7 @@ const NavbarView = ({
       type={FILTER_PROJECTS_TRIGGER}
     />}
     <h6>{value}</h6>
-    {/* <Input
+    <Input
       id='navbar-search'
       className='navbar-search'
       placeholder="Search"
@@ -344,7 +344,7 @@ const NavbarView = ({
           setActiveSearch={setActiveSearch}
         />
       </div>
-    </div> } */}
+    </div> }
     {/* <Tooltip overlayClassName='tootip-search-responsive' trigger={["focus","click"]} title={NavBarSearchTooltip}>
       <Input  id='navbar-search' className='navbar-search' placeholder="Search" prefix={<SearchOutlined />} />
     </Tooltip> */}

@@ -82,11 +82,11 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
   }, [updateList,note])
 
   useEffect(() => {
-    // datasets.postData(`${SERVER.PROJECT_CHECKLIST}`, { code_phase_type_id: data.phase_id, project_id: data.project_id })
-    //   .then((rows) => {
-    //     setCreatedActions(rows)
-    //     setLengthCreatedActions(rows.length)
-    //   })
+    datasets.postData(`${SERVER.PROJECT_CHECKLIST}`, { code_phase_type_id: data.phase_id, project_id: data.project_id })
+      .then((rows) => {
+        setCreatedActions(rows)
+        setLengthCreatedActions(rows.length)
+      })
   }, [updateActionItem])
 
   useEffect(() => {
@@ -513,7 +513,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
               <Checkbox checked={x.isChecked}></Checkbox>
             </div>)
           })}
-          {/* {createdActions.map((x: any) => {
+          {createdActions.map((x: any) => {
             return (
               <div key={x.project_checklist_id} className="add-checkbox-item"
                 onClick={(e) => {
@@ -565,7 +565,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
           })}
           <div className="add-checkbox" onClick={handleAddTask}>
             <p><PlusCircleFilled />&nbsp;&nbsp;  Create another task</p>
-          </div> */}
+          </div>
         </div>
       </div>
     </>
