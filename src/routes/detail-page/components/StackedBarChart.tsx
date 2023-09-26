@@ -1,8 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import FinancialsPopup from './FinancialsPopup';
+import { useFinancialDispatch, useFinancialState } from 'hook/financialHook';
 
-const StackedBarChart = () => {
+const StackedBarChart = ({ projectId }: { projectId: any }) => {
+  const { financialInformation } = useFinancialState();
+  const { getFinancialData } = useFinancialDispatch();
   const [openPopup, setOpenPopup] = useState(false);
   const [dataPopup, setDataPopup] = useState({});
   const svgRef = useRef<SVGSVGElement>(null);
@@ -16,6 +19,7 @@ const StackedBarChart = () => {
   const height = totalHeight - margin.top - margin.bottom;
 
   useEffect(() => {
+    getFinancialData(projectId, {});
     setData([
       {group: 'Jan-22', funding: '12', income: '1', agreement: '13' , additional: '12'},
       {group: 'Feb-22', funding: '6', income: '6', agreement: '33' , additional: '6'},
@@ -44,7 +48,9 @@ const StackedBarChart = () => {
     ]);
   }, []);
 
-
+  useEffect(() => {
+    console.log(financialInformation);
+  }, [financialInformation]);
   const applyBackgroundRect = (type: string, x: any, y:any, d: any, backgroundRect: any, sumGroups: any) => {
     if (type === 'add') {
       backgroundRect
