@@ -119,7 +119,7 @@ const StackedBarChart = () => {
       // color palette = one color per subgroup
     const color = d3.scaleOrdinal()
       .domain(subGroups)
-      .range(['#5D3DC7','#047CD7','#29C499','#F4BE01']);
+      .range(['#5D3DC7','#29C499','#047CD7','#F4BE01']);
   
     d3.select(".x-axis-stackedbar-chart").selectAll("text").attr("id", function(d:any) { return d});
   
@@ -154,7 +154,7 @@ const StackedBarChart = () => {
           .attr('stroke', 'white')
           .attr('stroke-width', '2')
           .style('stroke-linecap', 'round')
-          .on("click", (d: any) => {
+          .on("mouseover", (d: any) => {
             const selection = d3.select(`#rect-${d.data.group}`);
             if (!selection.empty()) { // true the rect is already there // false the rect is of other or doesnt exist 
               applyBackgroundRect('remove', x , y, d, backgroundRect, sumGroups);
@@ -165,6 +165,13 @@ const StackedBarChart = () => {
               setDataPopup(d.data);
               setOpenPopup(true);
             }
+          })
+          .on("mouseout", (d: any) => {
+            const selection = d3.select(`#rect-${d.data.group}`);
+            if (!selection.empty()) { // true the rect is already there // false the rect is of other or doesnt exist 
+              applyBackgroundRect('remove', x , y, d, backgroundRect, sumGroups);
+              setOpenPopup(false);
+            } 
           });
   }
 
@@ -173,7 +180,7 @@ const StackedBarChart = () => {
       buildChart(data);
     }
   } ,[data]);
-
+ // Agreement
   return (
     <>
       { openPopup && <FinancialsPopup popupData={dataPopup}/>}
@@ -183,6 +190,10 @@ const StackedBarChart = () => {
       <div className='roadmap-body-display ' style={{ paddingTop: '0px' }}>
         <span className="span-dots-roadmap">
           <div className="roadmap-circle" style={{ backgroundColor: '#5D3DC7' }} />
+          <span className='roadmap-dots-leyend'>Available Fund</span> 
+        </span>
+        <span className="span-dots-roadmap">
+          <div className="roadmap-circle" style={{ backgroundColor: '#29C499' }} />
           <span className='roadmap-dots-leyend'>Funding (MHFD Funds)</span>
         </span>
         <span className="span-dots-roadmap">
@@ -190,7 +201,7 @@ const StackedBarChart = () => {
           <span className='roadmap-dots-leyend'>Income (LG Funds)</span>
         </span>
         <span className="span-dots-roadmap">
-          <div className="roadmap-circle" style={{ backgroundColor: '#29C499' }} />
+          <div className="roadmap-circle" style={{ backgroundColor: '#F4BE01' }} />
           <span className='roadmap-dots-leyend'>Agreement</span>
         </span>
       </div>

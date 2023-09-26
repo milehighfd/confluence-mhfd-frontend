@@ -34,7 +34,7 @@ const FinancialsPopup = ({ popupData }: { popupData: any }) => {
           <Row>
             <span className="span-dots-roadmap">
               <div className="roadmap-circle" style={{ backgroundColor: '#5D3DC7' }} />
-              <span className="labels-financials">Funding</span>
+              <span className="labels-financials">Available Fund</span>
             </span>
           </Row>
           <Row>
@@ -46,6 +46,12 @@ const FinancialsPopup = ({ popupData }: { popupData: any }) => {
           <Row>
             <span className="span-dots-roadmap">
               <div className="roadmap-circle" style={{ backgroundColor: '#29C499' }} />
+              <span className="labels-financials">Funding</span>
+            </span>
+          </Row>
+          <Row>
+            <span className="span-dots-roadmap">
+              <div className="roadmap-circle" style={{ backgroundColor: '#F4BE01' }} />
               <span className="labels-financials">Agreement</span>
             </span>
           </Row>
@@ -56,6 +62,9 @@ const FinancialsPopup = ({ popupData }: { popupData: any }) => {
           </Row>
           <Row>
             <span className="labels-financials-numbers">{formatter.format(popupData.income)}</span>
+          </Row>
+          <Row>
+            <span className="labels-financials-numbers">{formatter.format(popupData.agreement)}</span>
           </Row>
           <Row>
             <span className="labels-financials-numbers">{formatter.format(popupData.agreement)}</span>
