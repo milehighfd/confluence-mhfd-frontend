@@ -69,7 +69,8 @@ const TableBody = ({
   const [detailOpen, setDetailOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState();
   const [activeBorder, setActiveBorder] = useState(false);
-  const [rowActive, setRowActive] = useState(-20)
+  const [rowActive, setRowActive] = useState(-20);
+  const [globalId, setGlobalId] = useState(0);
   let limitPage = Number(counter) % LIMIT_PAGINATION > 0 ?  Math.floor(Number(counter) / LIMIT_PAGINATION + 1) : Number(counter) / LIMIT_PAGINATION;
 
   useEffect(() => {
@@ -210,7 +211,10 @@ const TableBody = ({
       controller.signal
     ).then((res: any) => {
       setDataBody(res);
-      setGlobalSearch(false);
+      if (globalSearch){
+        setGlobalSearch(false);
+        setGlobalId(globalProjectData?.project_id);
+      }      
     }).catch(handleAbortError);
     return () => {
       controller.abort();
@@ -218,7 +222,7 @@ const TableBody = ({
   }, [ filterProjectOptions, page])
 
   useEffect(() => {
-    if (globalSearch) {
+    if (globalSearch) {      
       setActiveBorder(true);
       setTimeout(() => {
         setActiveBorder(false);
@@ -226,6 +230,14 @@ const TableBody = ({
       }, 10000);
     }
   },[globalSearch])
+
+  useEffect(() => {
+    if (globalId) {
+      const selectedProject = (dataParsed.filter((d: any) => d.project_id === globalProjectData?.project_id)[0])
+      setDataDetail(selectedProject)
+      setDetailOpen(true);
+    }
+  }, [globalId])
 
   useEffect(() => {
     if (page != 1 && !globalSearch) {
