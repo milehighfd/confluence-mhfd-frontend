@@ -288,7 +288,7 @@ const ModalProjectView = ({
         {
           allowed.includes(NEW_PROJECT_TYPES.RND) &&  !allowed.includes(NEW_PROJECT_TYPES.Study) &&
           <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.RND) } style={{padding: '8px'}}>
-            <Button className={typeProject===NEW_PROJECT_TYPES.Special || typeProject === RandD?(openCollapserd ? "button-project button-project-active open-button-project" : "button-project button-project-active") :(openCollapserd ? "button-project open-button-project":"button-project")}>
+            <Button className={typeProject===NEW_PROJECT_TYPES.RND?(openCollapserd ? "button-project button-project-active open-button-project" : "button-project button-project-active") :(openCollapserd ? "button-project open-button-project":"button-project")}>
               <div className={openCollapserd ? "project-img-rd-open project-img":"project-img-rd project-img"}>
                 <img src="/Icons/project/special.svg" alt="" height="30px" />
               </div>
@@ -304,7 +304,7 @@ const ModalProjectView = ({
         {
           allowed.includes(NEW_PROJECT_TYPES.RND) && allowed.includes(NEW_PROJECT_TYPES.Study) &&
           <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.RND) } style={{padding: '8px'}}>
-            <Button className={typeProject===NEW_PROJECT_TYPES.Special || typeProject === RandD?(openCollapserd ? "button-project button-project-active open-button-project" : "button-project button-project-active") :(openCollapserd ? "button-project open-button-project":"button-project")}>
+            <Button className={typeProject===NEW_PROJECT_TYPES.RND?(openCollapserd ? "button-project button-project-active open-button-project" : "button-project button-project-active") :(openCollapserd ? "button-project open-button-project":"button-project")}>
               <div className={openCollapserd ? "project-img-rd-open project-img":"project-img-rd project-img"}>
                 <img src="/Icons/project/special.svg" alt="" height="30px" />
               </div>

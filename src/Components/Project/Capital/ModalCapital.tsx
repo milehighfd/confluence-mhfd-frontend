@@ -383,6 +383,7 @@ export const ModalCapital = ({
         }
       }   
       if (selectedTypeProject === NEW_PROJECT_TYPES.RND.toLowerCase()) {
+        setLoading(true);
         setTimeout(() => {
           getData(SERVER.GET_GEOM_BY_PROJECTID(data.project_id), getToken())
             .then(
@@ -391,6 +392,7 @@ export const ModalCapital = ({
                 let coordinates = coor.coordinates[0];
                 console.log('r', r)
                 console.log('coordinates', coordinates);
+                setLoading(false);
                 setGeom(coordinates);
                 setEditLocation(coordinates);
               },
