@@ -984,7 +984,7 @@ const DetailModal = ({
                       setOpenPiney={setOpenPiney}
                       updateAction={updateAction}
                     />
-                    {/* <StackedBarChart projectId={project_idS} /> */}
+                    <StackedBarChart projectId={project_idS} />
                     <br></br>
                     {appUser &&
                       appUser.designation &&
