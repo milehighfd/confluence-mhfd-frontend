@@ -12,8 +12,8 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
   const barWidth = 60;
   const totalHeight = 350;
   const [data, setData] = useState<any>([]);
-  const subGroups = ['availableFund', 'mhfdIncomeSum', 'expenditureSum', 'otherIncomeSum'];
-  const colors = ['#5D3DC7', '#29C499', '#F4BE01', '#047CD7'];
+  const [subGroups, setSubGroups] = useState<any>(['availableFund', 'mhfdIncomeSum', 'expenditureSum', 'otherIncomeSum']);
+  const [colors, setColors] = useState<any>(['#5D3DC7', '#29C499', '#F4BE01', '#047CD7']);
   // const subGroups = ['funding', 'income', 'agreement', 'additional'];
   const margin = { top: 10, right: 30, bottom: 20, left: 100 };
   const totalWidth = barWidth * data.length + margin.left + margin.right;
@@ -114,9 +114,9 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
       }, 0);
       newGroupedInformation.push({
         availableFund: Math.abs(availableFund), // purple
-        // mhfdfunds: mhfdIncome,
-        // localfunds: otherIncome,
-        // expenditure,
+        mhfdfunds: mhfdIncome,
+        localfunds: otherIncome,
+        expenditure,
         group: value.date,
         mhfdIncomeSum: mhfdIncomeSum, // green
         otherIncomeSum: otherIncomeSum, // blue
@@ -125,7 +125,53 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
       });
       availableFund = availableFund + mhfdIncomeSum + otherIncomeSum - expenditureSum;
     });
-    setData(newGroupedInformation);
+    let setLocals = new Set(); 
+    let maxMhfdCounter = 0;
+    newGroupedInformation.forEach((element: any) => {
+      element?.localfunds?.forEach((elem: any) => {
+        console.log('Elemen', elem.project_partner_name);
+        setLocals.add(elem.project_partner_name);
+      });
+      if (maxMhfdCounter < element?.mhfdfunds?.length) {  
+        maxMhfdCounter = element.mhfdfunds.length;
+      }
+    });
+    let informationForchart: any = [];
+    newGroupedInformation.forEach((element: any) => {
+      const newParsedData: any = {
+        group: element.group,
+        availableFund: element.availableFund,
+        expenditureSum: element.expenditureSum,
+        mhfdIncomeSum: element.mhfdIncomeSum,
+        otherIncomeSum: element.otherIncomeSum
+        // element
+      };
+      setLocals.forEach((localName: any) => {
+        const valueLocal = element.localfunds.filter((item: any) => item.project_partner_name === localName)[0]?.encumbered?.cost;
+        newParsedData[localName] = valueLocal ?? 0;
+      });
+      for(let i = 0 ; i < maxMhfdCounter; i++) {
+        const valueMhfd = element.mhfdfunds[i]?.encumbered?.cost;
+        newParsedData[`mhfd${i}`] = valueMhfd ?? 0;
+      }
+      informationForchart.push(newParsedData);
+    });
+    let newSubGroups = ['availableFund'];
+    let newColorsGroups = ['#5D3DC7'];
+    setLocals.forEach((localName: any) => {
+      newSubGroups.push(localName);
+      newColorsGroups.push('#047CD7');
+    });
+    for(let i = 0 ; i < maxMhfdCounter; i++) {
+      newSubGroups.push(`mhfd${i}`);
+      newColorsGroups.push('#29C499');
+    }
+    newSubGroups.push('expenditureSum');
+    newColorsGroups.push('#F4BE01');
+    console.log('New Grouped Information', informationForchart);
+    setSubGroups(newSubGroups);
+    setColors(newColorsGroups);
+    setData(informationForchart);
   }, [financialInformation]);
   const applyBackgroundRect = (type: string, x: any, y: any, d: any, backgroundRect: any, sumGroups: any) => {
     if (type === 'add') {
@@ -153,16 +199,19 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
     removeAllChildNodes(removechart);
     const totals: any = {};
     data.forEach((item: any) => {
+      console.log('Item ', item);
       if (!totals[item.group]) {
         totals[item.group] = 0;
       }
       subGroups.forEach((subGroup: any) => {
+        console.log('ITEM MAPSEr', subGroup, item[subGroup]);
         totals[item.group] += parseInt(item[subGroup]);
       });
     });
     let maxValue;
     // let tickValues;
     let sumGroups: any;
+    console.log('Titals ', totals);
     let maxSum = -Infinity;
     for (const group in totals) {
       if (totals[group] > maxSum) {
@@ -294,11 +343,9 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
 
   useEffect(() => {
     if (data.length) {
-      console.log('How many times does this is building', data);
-
       buildChart(data);
     }
-  }, [data]);
+  }, [data, subGroups, colors]);
   // Agreement
   return (
     <>
