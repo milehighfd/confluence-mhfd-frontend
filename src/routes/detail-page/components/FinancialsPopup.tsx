@@ -58,16 +58,17 @@ const FinancialsPopup = ({ popupData }: { popupData: any }) => {
         </Col>
         <Col className="row-financials-popup" style={{ paddingLeft: '35px' }}>
           <Row>
-            <span className="labels-financials-numbers">{formatter.format(popupData.funding)}</span>
+          {/* 'availableFund', 'mhfdIncomeSum', 'expenditureSum', 'otherIncomeSum' */}
+            <span className="labels-financials-numbers">{formatter.format(popupData.availableFund)}</span>
           </Row>
           <Row>
-            <span className="labels-financials-numbers">{formatter.format(popupData.income)}</span>
+            <span className="labels-financials-numbers">{formatter.format(popupData.mhfdIncomeSum)}</span>
           </Row>
           <Row>
-            <span className="labels-financials-numbers">{formatter.format(popupData.agreement)}</span>
+            <span className="labels-financials-numbers">{formatter.format(popupData.otherIncomeSum)}</span>
           </Row>
           <Row>
-            <span className="labels-financials-numbers">{formatter.format(popupData.agreement)}</span>
+            <span className="labels-financials-numbers">{formatter.format(popupData.expenditureSum)}</span>
           </Row>
         </Col>
       </Row>
