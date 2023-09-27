@@ -13,6 +13,7 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
   const totalHeight = 350;
   const [data, setData] = useState<any>([]);
   const subGroups = ['availableFund', 'mhfdIncomeSum', 'expenditureSum', 'otherIncomeSum'];
+  const colors = ['#5D3DC7', '#29C499', '#F4BE01', '#047CD7'];
   // const subGroups = ['funding', 'income', 'agreement', 'additional'];
   const margin = { top: 10, right: 30, bottom: 20, left: 50 };
   const totalWidth = barWidth * data.length + margin.left + margin.right;
@@ -21,26 +22,26 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
 
   useEffect(() => {
     getFinancialData(projectId, {});
-    setData([
-      { availableFund: 0, group: '10-31-2018', mhfdIncomeSum: 50, otherIncomeSum: 50, expenditureSum: 0 },
-      { availableFund: 10, group: '05-02-2019', mhfdIncomeSum: 25, otherIncomeSum: 25, expenditureSum: 0 },
-      { availableFund: 60, group: '03-02-2020', mhfdIncomeSum: 25, otherIncomeSum: 25, expenditureSum: 0 },
-      { availableFund: 11, group: '06-10-2020', mhfdIncomeSum: 0, otherIncomeSum: 0, expenditureSum: 12 },
-      { availableFund: 80, group: '08-11-2020', mhfdIncomeSum: 0, otherIncomeSum: 0, expenditureSum: 87 },
-      { availableFund: 17, group: '02-10-2021', mhfdIncomeSum: 0, otherIncomeSum: 0, expenditureSum: 83 },
-      { availableFund: 90, group: '03-16-2021', mhfdIncomeSum: 0, otherIncomeSum: 0, expenditureSum: 18 },
-      { availableFund: 62, group: '05-03-2021', mhfdIncomeSum: 25, otherIncomeSum: 25, expenditureSum: 0 },
-      { availableFund: 12, group: '08-23-2021', mhfdIncomeSum: 0, otherIncomeSum: 0, expenditureSum: 14 },
-      { availableFund: 48, group: '10-31-2021', mhfdIncomeSum: 0, otherIncomeSum: 0, expenditureSum: 15 },
-      { availableFund: 14, group: '05-13-2022', mhfdIncomeSum: 50, otherIncomeSum: 50, expenditureSum: 0 },
-      { availableFund: 20, group: '09-26-2022', mhfdIncomeSum: 0, otherIncomeSum: 0, expenditureSum: 5 },
-      { availableFund: 11, group: '11-20-2022', mhfdIncomeSum: 0, otherIncomeSum: 0, expenditureSum: 40 },
-      { availableFund: 11, group: '11-30-2022', mhfdIncomeSum: 10, otherIncomeSum: 0, expenditureSum: 0 },
-      { availableFund: 21, group: '01-16-2023', mhfdIncomeSum: 0, otherIncomeSum: 0, expenditureSum: 54 },
-      { availableFund: 20, group: '03-05-2023', mhfdIncomeSum: 0, otherIncomeSum: 0, expenditureSum: 65 },
-      { availableFund: 33, group: '05-18-2023', mhfdIncomeSum: 32, otherIncomeSum: 80, expenditureSum: 0 },
-      { availableFund: 17, group: '06-21-2023', mhfdIncomeSum: 0, otherIncomeSum: 0, expenditureSum: 99 },
-    ]);
+    // setData([
+    //   { availableFund: 0, group: '10-31-2018', mhfdIncomeSum: 50, otherIncomeSum: 50, expenditureSum: 0 },
+    //   { availableFund: 10.213, group: '05-02-2019', mhfdIncomeSum: 25, otherIncomeSum: 25, expenditureSum: 0 },
+    //   { availableFund: 60, group: '03-02-2020', mhfdIncomeSum: 25, otherIncomeSum: 25, expenditureSum: 0 },
+    //   { availableFund: 11.222, group: '06-10-2020', mhfdIncomeSum: 0, otherIncomeSum: 0, expenditureSum: 12 },
+    //   { availableFund: 80, group: '08-11-2020', mhfdIncomeSum: 0, otherIncomeSum: 0, expenditureSum: 87 },
+    //   { availableFund: 17, group: '02-10-2021', mhfdIncomeSum: 0, otherIncomeSum: 0, expenditureSum: 83 },
+    //   { availableFund: 90.6555, group: '03-16-2021', mhfdIncomeSum: 0, otherIncomeSum: 0, expenditureSum: 18 },
+    //   { availableFund: 62, group: '05-03-2021', mhfdIncomeSum: 25, otherIncomeSum: 25, expenditureSum: 0 },
+    //   { availableFund: 12, group: '08-23-2021', mhfdIncomeSum: 0, otherIncomeSum: 0, expenditureSum: 14 },
+    //   { availableFund: 48, group: '10-31-2021', mhfdIncomeSum: 0, otherIncomeSum: 0, expenditureSum: 15 },
+    //   { availableFund: 14, group: '05-13-2022', mhfdIncomeSum: 50, otherIncomeSum: 50, expenditureSum: 0 },
+    //   { availableFund: 20, group: '09-26-2022', mhfdIncomeSum: 0, otherIncomeSum: 0, expenditureSum: 5 },
+    //   { availableFund: 11, group: '11-20-2022', mhfdIncomeSum: 0, otherIncomeSum: 0, expenditureSum: 40 },
+    //   { availableFund: 11, group: '11-30-2022', mhfdIncomeSum: 10, otherIncomeSum: 0, expenditureSum: 0 },
+    //   { availableFund: 21, group: '01-16-2023', mhfdIncomeSum: 0, otherIncomeSum: 0, expenditureSum: 54 },
+    //   { availableFund: 20, group: '03-05-2023', mhfdIncomeSum: 0, otherIncomeSum: 0, expenditureSum: 65 },
+    //   { availableFund: 33, group: '05-18-2023', mhfdIncomeSum: 32, otherIncomeSum: 80, expenditureSum: 0 },
+    //   { availableFund: 17, group: '06-21-2023', mhfdIncomeSum: 0, otherIncomeSum: 0, expenditureSum: 99 },
+    // ]);
     // setData([
     //   {group: 'Jan-22', funding: '100', income:0, mhfd: '250', mhfd2: '250', southsuburdan: 0,  Semswa: '250' , 'wilson&company': '182'},
     //   {group: 'Feb-22', funding: '6', income:0, mhfd: '6', Southsububan: '33' , semswa: '6'},
@@ -70,9 +71,6 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
   }, []);
 
   useEffect(() => {
-    console.log('Data check ', JSON.stringify(data));
-  }, [data]);
-  useEffect(() => {
     console.log(financialInformation);
     const ATTRIB_GROUP = 'effective_date';
     const groupedInformation = financialInformation.reduce((prev: any, cur: any) => {
@@ -94,7 +92,7 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
     }));
     let availableFund = 0;
     const newGroupedInformation: any = [];
-    resultArray.forEach((value: any) => {
+    resultArray.forEach((value: any, index: any) => {
       const dataValue = value.data;
       const expenditure = dataValue.filter((item: any) => !item?.encumbered?.is_income);
       const expenditureSum = expenditure.reduce((prev: any, cur: any) => {
@@ -110,18 +108,18 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
         return prev + cur?.encumbered?.cost;
       }, 0);
       newGroupedInformation.push({
-        availableFund, // purple
+        availableFund: Math.abs(availableFund), // purple
         // mhfdfunds: mhfdIncome,
         // localfunds: otherIncome,
         // expenditure,
-        group: value.date,
-        mhfdIncomeSum, // green
-        otherIncomeSum, // blue
-        expenditureSum, // yellow
+        group: 'hola'+ index,
+        mhfdIncomeSum: mhfdIncomeSum, // green
+        otherIncomeSum: otherIncomeSum, // blue
+        expenditureSum: Math.abs(expenditureSum), // yellow
       });
       availableFund = availableFund + mhfdIncomeSum + otherIncomeSum - expenditureSum;
     });
-    // setData(newGroupedInformation);
+    setData(newGroupedInformation);
   }, [financialInformation]);
   const applyBackgroundRect = (type: string, x: any, y: any, d: any, backgroundRect: any, sumGroups: any) => {
     if (type === 'add') {
@@ -140,6 +138,7 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
     }
   };
   const buildChart = (dataChart: any) => {
+
     const totals: any = {};
     data.forEach((item: any) => {
       if (!totals[item.group]) {
@@ -150,7 +149,7 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
       });
     });
     let maxValue;
-    let tickValues;
+    // let tickValues;
     let sumGroups: any;
     let maxSum = -Infinity;
     for (const group in totals) {
@@ -160,8 +159,9 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
     }
     sumGroups = totals;
     maxValue = maxSum;
-    const tickValue: any = Array.from({ length: Math.ceil(maxSum / 10) + 1 }, (_, i) => i * 10);
-    tickValues = tickValue;
+    console.log('Max Sum', maxSum, totals);
+    // const tickValue: any = Array.from({ length: Math.ceil(maxSum / 10) + 1 }, (_, i) => i * 10);
+    // tickValues = tickValue;
 
     d3.select(svgRef.current)
       .select('.stackedBar-chart')
@@ -195,18 +195,18 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
     // Add Y axis
     const y: any = d3
       .scaleLinear()
-      .domain([0, maxValue])
+      .domain([0, maxValue * 1.1])
       .range([height, 0]);
     svg
       .append('g')
       .attr('class', 'y-axis-stackedbar-chart')
-      .call(d3.axisLeft(y).tickValues(tickValues));
+      .call(d3.axisLeft(y));
 
     // color palette = one color per subgroup
     const color = d3
       .scaleOrdinal()
       .domain(subGroups)
-      .range(['#5D3DC7', '#29C499', '#047CD7', '#F4BE01']);
+      .range(colors);
 
     d3.select('.x-axis-stackedbar-chart')
       .selectAll('text')
@@ -282,6 +282,7 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
 
   useEffect(() => {
     if (data.length) {
+      console.log('How many times does this is building', data);
       buildChart(data);
     }
   }, [data]);
