@@ -149,7 +149,8 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
     }
   };
   const buildChart = (dataChart: any) => {
-
+    const removechart: any = document.getElementById('svg-ref');
+    removeAllChildNodes(removechart);
     const totals: any = {};
     data.forEach((item: any) => {
       if (!totals[item.group]) {
@@ -294,7 +295,7 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
   useEffect(() => {
     if (data.length) {
       console.log('How many times does this is building', data);
-      removeAllChildNodes('stackedBar-chart-container');
+
       buildChart(data);
     }
   }, [data]);
@@ -306,7 +307,7 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
         id="stackedBar-chart-container"
         style={{ overflowY: 'auto', position: 'relative', marginTop: '50px', marginBottom: '10px' }}
       >
-        <svg ref={svgRef} width="100%" height="100%" />
+        <svg id={'svg-ref'} ref={svgRef} width="100%" height="100%" />
       </div>
       <div className="roadmap-body-display " style={{ paddingTop: '0px' }}>
         <span className="span-dots-roadmap">
