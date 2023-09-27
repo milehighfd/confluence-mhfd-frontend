@@ -14,6 +14,21 @@ const FinancialsPopup = ({ popupData }: { popupData: any }) => {
     maximumFractionDigits: 0,
   });
   const [finalLeftPosition, setFinalLeftPosition] = useState(positionLeft + divWidth - 2000);
+
+  const formatDate = (inputDate: string) => {
+    const parts = inputDate.split('-');
+    const months = [
+      'January', 'February', 'March', 'April', 'May', 'June', 'July',
+      'August', 'September', 'October', 'November', 'December'
+    ];
+    const month = months[parseInt(parts[0]) - 1];
+    const day = parseInt(parts[1]);
+    const year = '20' + parts[2];
+    const formattedDate = `${month} ${day}, ${year}`;
+  
+    return formattedDate;
+  }
+
   useEffect(() => {
     setPopupWidth(thisPopup.current.offsetWidth);
   }, []);
@@ -28,47 +43,47 @@ const FinancialsPopup = ({ popupData }: { popupData: any }) => {
       style={{ left: finalLeftPosition, top: positionTop }}
       ref={thisPopup}
     >
-      <p className="title">{popupData.group}</p>
+      <p className="title">{formatDate(popupData.group)}</p>
       <Row>
         <Col className="row-financials-popup">
-          <Row>
-            <span className="span-dots-roadmap">
-              <div className="roadmap-circle" style={{ backgroundColor: '#5D3DC7' }} />
-              <span className="labels-financials">Available Fund</span>
-            </span>
-          </Row>
-          <Row>
-            <span className="span-dots-roadmap">
-              <div className="roadmap-circle" style={{ backgroundColor: '#047CD7' }} />
-              <span className="labels-financials">Income</span>
-            </span>
-          </Row>
-          <Row>
-            <span className="span-dots-roadmap">
-              <div className="roadmap-circle" style={{ backgroundColor: '#29C499' }} />
-              <span className="labels-financials">Funding</span>
-            </span>
-          </Row>
           <Row>
             <span className="span-dots-roadmap">
               <div className="roadmap-circle" style={{ backgroundColor: '#F4BE01' }} />
               <span className="labels-financials">Agreement</span>
             </span>
           </Row>
+          <Row>
+            <span className="span-dots-roadmap">
+              <div className="roadmap-circle" style={{ backgroundColor: '#047CD7' }} />
+              <span className="labels-financials">Income (LG Funds)</span>
+            </span>
+          </Row>
+          <Row>
+            <span className="span-dots-roadmap">
+              <div className="roadmap-circle" style={{ backgroundColor: '#29C499' }} />
+              <span className="labels-financials">Funding (MHFD Funds)</span>
+            </span>
+          </Row>
+          <Row>
+            <span className="span-dots-roadmap">
+              <div className="roadmap-circle" style={{ backgroundColor: '#5D3DC7' }} />
+              <span className="labels-financials">Available Funds</span>
+            </span>
+          </Row>
         </Col>
         <Col className="row-financials-popup" style={{ paddingLeft: '35px' }}>
           <Row>
           {/* 'availableFund', 'mhfdIncomeSum', 'expenditureSum', 'otherIncomeSum' */}
-            <span className="labels-financials-numbers">{formatter.format(popupData.availableFund)}</span>
-          </Row>
-          <Row>
-            <span className="labels-financials-numbers">{formatter.format(popupData.mhfdIncomeSum)}</span>
+            <span className="labels-financials-numbers">{formatter.format(popupData.expenditureSum)}</span>
           </Row>
           <Row>
             <span className="labels-financials-numbers">{formatter.format(popupData.otherIncomeSum)}</span>
           </Row>
           <Row>
-            <span className="labels-financials-numbers">{formatter.format(popupData.expenditureSum)}</span>
+            <span className="labels-financials-numbers">{formatter.format(popupData.mhfdIncomeSum)}</span>
+          </Row>
+          <Row>
+            <span className="labels-financials-numbers">{formatter.format(popupData.availableFund)}</span>
           </Row>
         </Col>
       </Row>
