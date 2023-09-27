@@ -68,6 +68,11 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
     //   {group: 'Nov-23', funding: '11', income: '28', agreement: '12' , additional: '9'},
     //   {group: 'Dec-23', funding: '19', income: '6', agreement: '1' , additional: '3'}
     // ]);
+    return () => {
+      console.log('DELETE');
+      d3.select(svgRef.current)
+      .remove();
+    }
   }, []);
 
   useEffect(() => {
@@ -116,6 +121,7 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
         mhfdIncomeSum: mhfdIncomeSum, // green
         otherIncomeSum: otherIncomeSum, // blue
         expenditureSum: Math.abs(expenditureSum), // yellow
+        dateDisplay: value.date
       });
       availableFund = availableFund + mhfdIncomeSum + otherIncomeSum - expenditureSum;
     });
@@ -135,6 +141,11 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
     } else {
       backgroundRect.attr('class', 'background-rect-hidden').attr('id', 'rect-undefined');
       d3.select(`#${d.data.group}`).attr('class', 'x-axis-stackedbar-chart text');
+    }
+  };
+  const removeAllChildNodes = (parent: any) => {
+    if (parent !== null && parent.firstChild) {
+      parent.removeChild(parent.firstChild);
     }
   };
   const buildChart = (dataChart: any) => {
@@ -283,6 +294,7 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
   useEffect(() => {
     if (data.length) {
       console.log('How many times does this is building', data);
+      removeAllChildNodes('stackedBar-chart-container');
       buildChart(data);
     }
   }, [data]);
