@@ -15,7 +15,7 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
   const subGroups = ['availableFund', 'mhfdIncomeSum', 'expenditureSum', 'otherIncomeSum'];
   const colors = ['#5D3DC7', '#29C499', '#F4BE01', '#047CD7'];
   // const subGroups = ['funding', 'income', 'agreement', 'additional'];
-  const margin = { top: 10, right: 30, bottom: 20, left: 50 };
+  const margin = { top: 10, right: 30, bottom: 20, left: 100 };
   const totalWidth = barWidth * data.length + margin.left + margin.right;
   const width = totalWidth - margin.left - margin.right;
   const height = totalHeight - margin.top - margin.bottom;
