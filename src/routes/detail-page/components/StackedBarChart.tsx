@@ -59,6 +59,15 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
       return prev;
     }, {});
     const Keys = Object.keys(groupedInformation);
+
+    const sortedDates = Object.keys(groupedInformation).sort((a:any, b:any) =>  new Date(b).getTime() - new Date(a).getTime());
+
+    const resultArray = sortedDates.map(date => ({
+      date,
+      data: groupedInformation[date]
+    }));
+    console.log('result', resultArray);
+
     let availableFund = 0;
     // iterate through the keys and group inside each object by project_partner_name and emcumbered.is_income
     const newGroupedInformation: any = {};
