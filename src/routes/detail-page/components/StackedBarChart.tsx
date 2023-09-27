@@ -60,7 +60,7 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
     }, {});
     const Keys = Object.keys(groupedInformation);
 
-    const sortedDates = Object.keys(groupedInformation).sort((a:any, b:any) =>  new Date(b).getTime() - new Date(a).getTime());
+    const sortedDates = Object.keys(groupedInformation).sort((a:any, b:any) =>  new Date(a).getTime() - new Date(b).getTime());
 
     const resultArray = sortedDates.map(date => ({
       date,
@@ -69,15 +69,15 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
     console.log('result', resultArray);
 
     let availableFund = 0;
-    // iterate through the keys and group inside each object by project_partner_name and emcumbered.is_income
-    const newGroupedInformation: any = {};
-    Keys.forEach((key: any) => {
-      const expenditure = groupedInformation[key].filter((item: any) => !item?.encumbered?.is_income);
+    const newGroupedInformation: any = [];
+    resultArray.forEach((value: any) => {
+      const dataValue = value.data;
+      console.log('Data Value', dataValue);
+      const expenditure = dataValue.filter((item: any) => !item?.encumbered?.is_income);
       const expenditureSum = expenditure.reduce((prev: any, cur: any) => {
         return prev + cur?.encumbered?.cost;
       }, 0);
-      const areIncome = groupedInformation[key].filter((item: any) => item?.encumbered?.is_income);
-      // split areIncome by project_partner_name, one group where project_partner_name = MHFD and other group where project_partner_name != MHFD
+      const areIncome = dataValue.filter((item: any) => item?.encumbered?.is_income);
       const mhfdIncome = areIncome.filter((item: any) => item?.project_partner_name === 'MHFD');
       const otherIncome = areIncome.filter((item: any) => item?.project_partner_name !== 'MHFD');
       const mhfdIncomeSum = mhfdIncome.reduce((prev: any, cur: any) => {
@@ -86,16 +86,18 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
       const otherIncomeSum = otherIncome.reduce((prev: any, cur: any) => {
         return prev + cur?.encumbered?.cost;
       }, 0);
-      newGroupedInformation[key] = {
-        availableFund,
+      newGroupedInformation.push({
+        availableFund, // purple
         mhfdfunds: mhfdIncome,
         localfunds: otherIncome,
-        expenditure
-      }; 
-      console.log('current available before sum', key, availableFund, mhfdIncomeSum,otherIncomeSum, expenditureSum);
+        expenditure,
+        group: value.date,
+        mhfdIncomeSum, // green
+        otherIncomeSum, // blue
+        expenditureSum // yellow
+      })
       availableFund = availableFund + mhfdIncomeSum + otherIncomeSum - expenditureSum;
     });
-    console.log('ORIGINAL', newGroupedInformation);
   }, [financialInformation]);
   const applyBackgroundRect = (type: string, x: any, y:any, d: any, backgroundRect: any, sumGroups: any) => {
     if (type === 'add') {
