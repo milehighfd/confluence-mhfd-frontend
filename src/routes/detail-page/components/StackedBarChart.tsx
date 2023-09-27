@@ -117,7 +117,7 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
         // mhfdfunds: mhfdIncome,
         // localfunds: otherIncome,
         // expenditure,
-        group: 'hola'+ index,
+        group: value.date,
         mhfdIncomeSum: mhfdIncomeSum, // green
         otherIncomeSum: otherIncomeSum, // blue
         expenditureSum: Math.abs(expenditureSum), // yellow
@@ -137,10 +137,10 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
         .attr('rx', 5)
         .attr('class', `background-rect-visible`)
         .attr('id', `rect-${d.data.group}`);
-      d3.select(`#${d.data.group}`).attr('class', 'x-axis-selected');
+      d3.select(`#id${d.data.group}`).attr('class', 'x-axis-selected');
     } else {
       backgroundRect.attr('class', 'background-rect-hidden').attr('id', 'rect-undefined');
-      d3.select(`#${d.data.group}`).attr('class', 'x-axis-stackedbar-chart text');
+      d3.select(`#id${d.data.group}`).attr('class', 'x-axis-stackedbar-chart text');
     }
   };
   const removeAllChildNodes = (parent: any) => {
@@ -223,7 +223,7 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
     d3.select('.x-axis-stackedbar-chart')
       .selectAll('text')
       .attr('id', function(d: any) {
-        return d;
+        return 'id'+d;
       });
 
     //stack the data? --> stack per subgroup

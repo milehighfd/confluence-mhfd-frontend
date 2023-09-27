@@ -821,7 +821,7 @@
     color: #858F94;
     text-align: right;
     font-family: Ubuntu;
-    font-size: 12px;
+    font-size: 10px;
     font-style: normal;
     font-weight: 400;
     line-height: 120%; /* 14.4px */
@@ -837,6 +837,7 @@
     visibility: hidden;
   }
   .x-axis-stackedbar-chart-for-background text {
+    font-size: 10px;
     visibility: hidden;
   }
   .x-axis-stackedbar-chart-for-background path {
@@ -854,7 +855,7 @@
     color: #858F94 !important;
     text-align: right !important;
     font-family: Ubuntu !important;
-    font-size: 12px !important;
+    font-size: 10px !important;
     font-style: normal !important;
     font-weight: 700 !important;
     line-height: 120% !important; /* 14.4px */
