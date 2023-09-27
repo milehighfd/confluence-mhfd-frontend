@@ -339,7 +339,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
   };
   
   const handleInputChange = (actionName: string, data: any) => {
-    datasets.putData(`${SERVER.PROJECT_CHECKLIST}/updateName`, { project_checklist_id: data.project_checklist_id, checklist_todo_name: actionName }, datasets.getToken())
+    datasets.putData(`${SERVER.PROJECT_CHECKLIST}/update-name`, { project_checklist_id: data.project_checklist_id, checklist_todo_name: actionName }, datasets.getToken())
       .then((rows) => {
         if (rows) {
           setUpdateActionItem(!updateActionItem);
