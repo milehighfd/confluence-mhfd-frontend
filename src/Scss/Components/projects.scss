@@ -218,8 +218,8 @@
   }
   .body-project {
     padding: 10px 20px;
-    // height: calc(100vh - 214px); 
-    height: calc(100vh - 170px);
+    height: calc(100vh - 214px); 
+    // height: calc(100vh - 170px);
     overflow-y: auto;
     h5 {
       font-size: 13px;
@@ -1258,8 +1258,8 @@
       }
     }
     .body-project {
-      height: calc(100vh - 191px);
-      // height: calc(100vh - 247px);
+      // height: calc(100vh - 191px);
+      height: calc(100vh - 247px);
       p {
         font-size: 16px;
         font-style: normal;
@@ -1461,8 +1461,8 @@
       }
     }
     .body-project {
-      height: calc(100vh - 249px);
-      // height: calc(100vh - 298px);
+      // height: calc(100vh - 249px);
+      height: calc(100vh - 298px);
       padding: 10px 35px;
       .sub-project .ant-select:not(.ant-select-customize-input) .ant-select-selector {
         width: 100px !important;
