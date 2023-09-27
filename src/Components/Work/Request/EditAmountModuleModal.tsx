@@ -1,18 +1,14 @@
 import { Col, Input, Modal, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
 import * as datasets from 'Config/datasets';
-import { SERVER } from "Config/Server.config";
 import { formatter } from "./RequestViewUtil";
 import { useRequestState } from 'hook/requestHook';
 import { useProjectDispatch, useProjectState } from 'hook/projectHook';
+import { BOARD_PROJECT_COST } from 'Config/endpoints/board-project';
 
 const EditAmountModuleModal = ({ project, visible, setVisible }: {project: any; visible: boolean; setVisible: Function }) => {
   
-  const {
-    year: startYear,
-    tabKey,
-    namespaceId
-  } = useRequestState();
+  const { tabKey } = useRequestState();
   const {
     listComponents
   } = useProjectState();
@@ -106,7 +102,10 @@ const EditAmountModuleModal = ({ project, visible, setVisible }: {project: any; 
 
   useEffect(() => {
     if (!visible) return;
-    datasets.getData(SERVER.BOARD_PROJECT_COST(board_project_id))
+    datasets.getData(
+      BOARD_PROJECT_COST(board_project_id),
+      datasets.getToken()
+    )
       .then((res: any) => {
         console.log('cost',res)
         setCost(res);

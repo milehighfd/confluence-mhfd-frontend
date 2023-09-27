@@ -4,7 +4,6 @@ import { MapService as MapServiceCreate } from '../../utils/MapService';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import * as turf from '@turf/turf';
 import { getData, getToken } from '../../Config/datasets';
-import * as datasets from '../../Config/datasets';
 import { SERVER } from '../../Config/Server.config';
 import { addGeojsonSource, removeGeojsonCluster } from './../../routes/map/components/MapFunctionsCluster';
 import { addPopupAndListeners, addPopupsOnClick, measureFunction } from '../../routes/map/components/MapFunctionsPopup';
@@ -14,8 +13,6 @@ import MapService from 'Components/Map/MapService';
 import {
   PROBLEMS_TRIGGER,
   COMPONENT_LAYERS,
-  ROUTINE_MAINTENANCE,
-  MHFD_BOUNDARY_FILTERS,
   SELECT_ALL_FILTERS,
   ROUTINE_NATURAL_AREAS,
   STREAMS_FILTERS,
@@ -69,15 +66,9 @@ import LoadingViewOverall from '../Loading-overall/LoadingViewOverall';
 import { polyMask } from '../../routes/map/components/MapFunctionsUtilities';
 import MapDropdownLayers from 'routes/map/components/MapDropdownLayers';
 import SideMenuTools from 'routes/map/components/SideMenuTools';
-// import SideBarComment from 'Components/Map/SideBarComment';
-// import {   createNoteWithElem,
-//   editNoteWithElem,
-//   handleColor,
-//   openMarkerOfNoteWithoutAdd, } from 'routes/map/components/MapFunctionsNotes';
-// import { useNoteDispatch, useNotesState } from 'hook/notesHook';
-// import { notesPopup } from 'routes/map/components/MapGetters';
 import ModalLayers from 'Components/Project/TypeProjectComponents/ModalLayers';
 import { deletefirstnumbersmhfdcode } from 'utils/utils';
+import { BBOX_PROJECT_ID } from 'Config/endpoints/board';
 
 const windowWidth: any = window.innerWidth;
 
@@ -129,7 +120,6 @@ const CreateProjectMap = (type: any) => {
     componentDetailIds,
     filterComponents,
     projectsids,
-    selectedLayers
   } = useMapState();
 
   const {
@@ -515,7 +505,7 @@ const CreateProjectMap = (type: any) => {
   };
   useEffect(() => {
     if (type.projectid != -1 && type.projectid) {
-      getData(`${SERVER.URL_BASE}/board/bbox/${type.projectid}`).then(
+      getData(BBOX_PROJECT_ID(type.projectid), getToken()).then(
         (r: any) => {
           if (r?.bbox) {
             let BBoxPolygon = JSON.parse(r.bbox);
@@ -1074,7 +1064,7 @@ const CreateProjectMap = (type: any) => {
   };
   const applyProblemClusterLayer = () => {
     const controller = new AbortController();
-    datasets.getData(SERVER.MAP_PROBLEM_TABLES, datasets.getToken(), controller.signal).then((geoj: any) => {
+    getData(SERVER.MAP_PROBLEM_TABLES, getToken(), controller.signal).then((geoj: any) => {
       if (map && !map.map.getSource('clusterproblem')) {
         addGeojsonSource(map.map, geoj.geom, isProblemActive);
       }

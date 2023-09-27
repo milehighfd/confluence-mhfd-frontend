@@ -13,13 +13,7 @@ import * as datasets from "../../../Config/datasets";
 
 const windowWidth: any = window.innerWidth;
 
-const AutoCompleteDropdown = (
-  {
-    type,
-  }: {
-    type: string,
-  }
-) => {
+const AutoCompleteDropdown = ({ type }: { type: string }) => {
   const { userInformation } = useProfileState();
   const {
     dataAutocomplete,
@@ -235,11 +229,15 @@ const AutoCompleteDropdown = (
       const getMhfdDistrictWorkPlan = async () => {
         let mhfdStatus;
         try {
-          mhfdStatus = await postData(GET_STATUS, {
-            type: WORK_PLAN,
-            year: `${year}`,
-            locality: 'MHFD District Work Plan',
-          });
+          mhfdStatus = await postData(
+            GET_STATUS,
+            {
+              type: WORK_PLAN,
+              year: `${year}`,
+              locality: 'MHFD District Work Plan',
+            },
+            datasets.getToken()
+          );
         } catch (error) {
           console.log(error);
         }

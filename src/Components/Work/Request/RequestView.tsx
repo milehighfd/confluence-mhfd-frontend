@@ -2,7 +2,7 @@ import { RightOutlined } from '@ant-design/icons';
 import { Layout, Button, Row, Col, Tabs, Popover } from 'antd';
 import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import { getBoardData3, getLocalitiesByBoardType } from 'dataFetching/workRequest';
+import { getBoardData, getLocalitiesByBoardType } from 'dataFetching/workRequest';
 import useFakeLoadingHook from 'hook/custom/useFakeLoadingHook';
 import { useMyUser, useProfileDispatch, useProfileState } from 'hook/profileHook';
 import { useProjectDispatch, useProjectState } from 'hook/projectHook';
@@ -48,7 +48,6 @@ const RequestView = ({ type, widthMap }: {
     reqManager,
     localityFilter,
     namespaceId,
-    configuredYear,
   } = useRequestState();
   
   const {
@@ -257,7 +256,7 @@ const RequestView = ({ type, widthMap }: {
       setColumns(defaultColumns);
       let board;
       try {
-        board = await getBoardData3(boardKey)
+        board = await getBoardData(boardKey)
       } catch (e) {
         console.log('e', e)
       }
@@ -309,13 +308,6 @@ const RequestView = ({ type, widthMap }: {
       onSelect(localityFilter, isInitMap ? 'isinit' : undefined);
     }
   }, [localityFilter]);
-  // useEffect(() => {
-  //   console.log('Locality', locality);
-  //   if (locality) {
-  //     // reach on initLoading
-  //     onSelect(locality, isInitMap ? 'isinit' : undefined);
-  //   }
-  // }, [locality]);
 
   const onSelect = (value: any, isSelect?: any) => {
     setAutocomplete(value);

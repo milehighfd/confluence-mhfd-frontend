@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import useCostDataFormattingHook from 'hook/custom/useCostDataFormattingHook';
 import * as datasets from 'Config/datasets';
-import { SERVER } from 'Config/Server.config';
 import { formatter } from 'Components/Work/Request/RequestViewUtil';
 import AmountNumericInput from './AmountNumericInput';
 import { useProjectDispatch, useProjectState } from 'hook/projectHook';
+import { BOARD_PROJECT_COST } from 'Config/endpoints/board-project';
 
 const EditAmountCreateProject = ({
   index,
@@ -67,7 +67,7 @@ const EditAmountCreateProject = ({
   const handleOk = () => {
     const send = { ...cost, isMaintenance };
     datasets.putData(
-      SERVER.BOARD_PROJECT_COST(board_project_id),
+      BOARD_PROJECT_COST(board_project_id),
       send,
       datasets.getToken()
     ).then((res: any) => {
@@ -114,7 +114,10 @@ const EditAmountCreateProject = ({
 
   useEffect(() => {
     if (board_project_id === undefined) return;
-    datasets.getData(SERVER.BOARD_PROJECT_COST(board_project_id))
+    datasets.getData(
+      BOARD_PROJECT_COST(board_project_id),
+      datasets.getToken()
+    )
       .then((res: any) => {
         setCost(res);
       })

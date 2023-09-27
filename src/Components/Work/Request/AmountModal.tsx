@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Button } from 'antd';
-import { MaintenanceTypes, formatter } from "./RequestViewUtil";
+import { formatter } from "./RequestViewUtil";
 import * as datasets from 'Config/datasets';
-import { SERVER } from "Config/Server.config";
 import { useRequestDispatch, useRequestState } from "hook/requestHook";
 import AmountModalField from "./AmountModalField";
 import useCostDataFormattingHook from "hook/custom/useCostDataFormattingHook";
 import { useProfileState } from "hook/profileHook";
 import { useProjectDispatch, useProjectState } from "hook/projectHook";
+import { BOARD_PROJECT_COST } from "Config/endpoints/board-project";
 
 const AmountModal = ({ project, visible, setVisible }: {
   project: any,
@@ -46,7 +46,7 @@ const AmountModal = ({ project, visible, setVisible }: {
   const handleOk = (e: any) => {
     const send = { ...cost, isMaintenance };
     datasets.putData(
-      SERVER.BOARD_PROJECT_COST(board_project_id),
+      BOARD_PROJECT_COST(board_project_id),
       send,
       datasets.getToken()
     ).then((res: any) => {
@@ -116,7 +116,10 @@ const AmountModal = ({ project, visible, setVisible }: {
 
   useEffect(() => {
     if (!visible) return;
-    datasets.getData(SERVER.BOARD_PROJECT_COST(board_project_id))
+    datasets.getData(
+      BOARD_PROJECT_COST(board_project_id),
+      datasets.getToken()
+    )
       .then((res: any) => {
         setCost(res);
       })

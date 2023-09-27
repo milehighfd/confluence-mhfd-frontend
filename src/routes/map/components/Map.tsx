@@ -80,6 +80,7 @@ import ModalProjectView from 'Components/ProjectModal/ModalProjectView';
 import DetailModal from 'routes/detail-page/components/DetailModal';
 import MobilePopup from 'Components/MobilePopup/MobilePopup';
 import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
+import { BBOX_PROJECT_ID } from 'Config/endpoints/board';
 
 let map: any = null;
 let searchMarker = new mapboxgl.Marker({ color: '#F4C754', scale: 0.7 });
@@ -336,7 +337,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
   useEffect(() => {
     if (zoomProject && (zoomProject.projectid || zoomProject.project_id)) {
       const projectid = zoomProject.project_id ? zoomProject.project_id : zoomProject.projectid;
-      datasets.getData(`${SERVER.URL_BASE}/board/bbox/${projectid}`).then(
+      datasets.getData(BBOX_PROJECT_ID(projectid), datasets.getToken()).then(
         (r: any) => {
           if (r.bbox) {
             let BBoxPolygon = JSON.parse(r.bbox);

@@ -127,8 +127,6 @@ export const SERVER = (function () {
     const GROUP_TYPE = 'group';
     const COLOR = 'color';
     const NOTE_TYPE = 'note';
-    const PROJECTS_BBOX = 'projects-bbox';
-    const COST = 'cost';
     const SPONSOR_LIST = 'sponsor-list';
     const BY_PROJECT = 'by-project';
     const GET_AVAILABLE_COLORS = 'get-available-colors';
@@ -142,7 +140,6 @@ export const SERVER = (function () {
     const STATUS = 'status';
     const FINANCIAL = 'financial';
     const BOARD = 'board';
-    const BOARD_PROJECT = 'board-project';
     const CREATE_PROJECT_GENERAL = 'createproject';
     const EDIT_PROJECT = 'editproject';
     const PAGE = 'page';
@@ -290,7 +287,6 @@ export const SERVER = (function () {
         CHECK_PROJECT_NAME: `${URL_BASE.BASE}/${PROJECT}/check-project-name`,
         GET_SPONSOR: `${URL_BASE.BASE}/${BUSINESS}/${SPONSOR_LIST}`,
         GET_PAST_DATA: `${URL_BASE.BASE}/${BOARD}/get-past-data`,
-        GET_COSTS_FOR_MAINTENANCE: `${URL_BASE.BASE}/${BOARD_PROJECT}/getCostsMaintenance`,
         GET_RESET_AND_CONFIRM: `${URL_BASE.BASE}/${USER}/${GET_RESET_AND_CONFIRM}`,        
         GET_STATUS_BOARD: `${URL_BASE.BASE}/${BOARD}/status-colors`,
         GET_SIGNUP_EMAIL: (token: string) => `${URL_BASE.BASE}/${USER}/${GET_SIGNUP_EMAIL}?token=${token}`,
@@ -369,14 +365,8 @@ export const SERVER = (function () {
         GET_ATTACHMENTS_BY_PROJECT: (projectId: any) => {
             return `${URL_BASE.BASE}/${ATTACHMENT}/${BY_PROJECT}/${projectId}`
         },
-        GET_BBOX_PROJECTS: `${URL_BASE.BASE}/${BOARD}/${PROJECTS_BBOX}`,
-        BOARD_PROJECT_COST: (board_project_id: string | number) => {
-            return `${URL_BASE.BASE}/${BOARD_PROJECT}/${board_project_id}/${COST}?rnd=${Math.random()}`
-        },
         ARCHIVE_PROJECT: (project_id: number) => {
             return `${URL_BASE.BASE}/${PROJECT}/archive/${project_id}`
-        },
-        BOARD_UPDATE_RANK: (board_project_id: string) => `${URL_BASE.BASE}/${BOARD_PROJECT}/${board_project_id}/update-rank`,
-        BOARD_UPDATE_TARGET_COST: `${URL_BASE.BASE}/${BOARD_PROJECT}/update-target-cost`
+        }
     }
 })();

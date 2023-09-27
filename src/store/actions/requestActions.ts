@@ -1,11 +1,10 @@
-import { SERVER } from 'Config/Server.config';
 import * as types from 'store/types/requestTypes';
 import * as projectTypes from 'store/types/ProjectTypes';
 import { DragAndDropCards } from 'store/types/requestTypes';
 import * as datasets from 'Config/datasets';
 import { buildGeojsonForLabelsProjectsInBoards, getColumnSumAndTotals, getColumnTitle, mergeSumByGroupMaps, mergeTotalByGroupMaps, splitProjectsIdsByStatuses } from 'Components/Work/Request/RequestViewUtil';
 import { BOARD_FOR_POSITIONS, GET_FILTER } from 'Config/endpoints/board';
-import { WORK_PLAN_TAB } from 'constants/constants';
+import { BOARD_UPDATE_RANK, BOARD_UPDATE_TARGET_COST } from 'Config/endpoints/board-project';
 
 export const setShowModalProject = (payload: boolean) => ({
   type: types.REQUEST_SHOW_MODAL_PROJECT,
@@ -211,17 +210,12 @@ export const loadOneColumn = (position: any) => {
       item.type === 'status').map((r: any) => r.id),
       sponsor_board: filterRequest?.filter((item: any, index: number) => item.selected &&
       item.type === 'project_partners').map((r: any) => r.id),
-      // status: filterRequest?.filter((item: any, index: number) => item.selected && 
-      // item.type === 'currentId')?.map((r: any) => r?.id),
-      // isSouthPlatteRiver: isLocatedInSouthPlateRiverFilter?.filter((_: any, index: number) => {
-      //   return isLocatedInSouthPlateRiverSelected[index];
-      // })?.map((r: any) => r?.value),
     };
     
     dispatch({
       type: types.REQUEST_START_LOADING_COLUMNS_2
     });
-    datasets.postData(BOARD_FOR_POSITIONS, { boardId: namespaceId, position, filters })
+    datasets.postData(BOARD_FOR_POSITIONS, { boardId: namespaceId, position, filters }, datasets.getToken())
     .then((projects) => {
       let sumByGroupMap = {}, groupTotal = {};
       if (position !== 0) {
@@ -245,9 +239,6 @@ export const loadOneColumn = (position: any) => {
 export const loadColumns = () => {
   return (dispatch: any, getState: Function) => {
     const {
-      map: {
-        tabActiveNavbar
-      },
       request: {
         namespaceId,
         tabKey,
@@ -270,11 +261,6 @@ export const loadColumns = () => {
       sponsor_board: filterRequest?.filter((item: any, index: number) => item.selected &&
       item.type === 'project_partners').map((r: any) => r.id),
       name: filterRequest?.name?.searchValue || '',
-      // status: filterRequest?.filter((item: any, index: number) => item.selected && 
-      // item.type === 'currentId')?.map((r: any) => r?.id),
-      // isSouthPlatteRiver: isLocatedInSouthPlateRiverFilter?.filter((_: any, index: number) => {
-      //   return isLocatedInSouthPlateRiverSelected[index];
-      // })?.map((r: any) => r?.value),
     };
     dispatch({
       type: types.REQUEST_START_LOADING_COLUMNS_2
@@ -314,15 +300,8 @@ export const loadColumns = () => {
 
       const sumByGroupMapTotal = mergeSumByGroupMaps(sums);
       const totalByGroupMap = mergeTotalByGroupMaps(totals);
-      const allProjects = dataArray.map(r => r[2]).flat();      
-      dispatch(groupProjects(allProjects));        
-      const mainKey = tabActiveNavbar === WORK_PLAN_TAB ? (tabKey === 'Study' ? 'project_service_areas' : 'project_counties') : 'project_counties' ;     
-      // dispatch({
-      //   type: types.REQUEST_SET_SUM_BY_COUNTY,
-      //   payload: Object.keys(sumByGroupMapTotal['project_counties'] || {}).map(
-      //     (key: any) => sumByGroupMapTotal['project_counties'][key]
-      //   )
-      // });
+      const allProjects = dataArray.map(r => r[2]).flat();
+      dispatch(groupProjects(allProjects));
       function dispatchSumByGroup(type: string, key: string) {
         dispatch({
           type,
@@ -397,11 +376,12 @@ export const updateTargetCost = (targetCosts: any) => {
       }
     } = getState();
     datasets.putData(
-      SERVER.BOARD_UPDATE_TARGET_COST,
+      BOARD_UPDATE_TARGET_COST,
       {
         ...targetCosts,
         boardId: namespaceId,
-      }
+      },
+      datasets.getToken()
     );
   }
 }
@@ -434,7 +414,7 @@ export const moveProjectsManual = (payload: DragAndDropCards) => {
       payload: updatedColumns
     });
     datasets.putData(
-      SERVER.BOARD_UPDATE_RANK(projectsUpdated[targetPosition].board_project_id),
+      BOARD_UPDATE_RANK(projectsUpdated[targetPosition].board_project_id),
       {
         before,
         after,
@@ -463,18 +443,9 @@ const handleMoveFromColumnToColumnReducer = (columns2: any[], action: any): any[
     return index;
   }, -1);
 
-  let newRequestValue = sourceProject[`req${action.payload.originColumnPosition}`];
-  if (targetColumnSameProjectIndex !== -1) {
-    const currentRequest = targetColumnProjects[targetColumnSameProjectIndex][`req${action.payload.targetColumnPosition}`];
-    newRequestValue = currentRequest + newRequestValue;
-  }
-  const requestFields = {
-    // [`req${action.payload.targetColumnPosition}`]: newRequestValue,
-    // [`req${action.payload.originColumnPosition}`]: null
-  };
+  const requestFields = {};
   const newProject = {
     ...sourceProject,
-    // ...requestFields
   };
 
   const columns = columns2.map((column: any, columnId: number) => {
@@ -530,7 +501,7 @@ export const handleMoveFromColumnToColumn = (payload: DragAndDropCards) => {
       payload: updatedColumns
     });
     datasets.putData(
-      SERVER.BOARD_UPDATE_RANK(projectsUpdated[projectPosition].board_project_id),
+      BOARD_UPDATE_RANK(projectsUpdated[projectPosition].board_project_id),
       {
         before: !before ? null : before,
         after: !after ? null : after,
@@ -553,7 +524,7 @@ export const handleMoveFromColumnToColumn = (payload: DragAndDropCards) => {
 
 export const recalculateTotals = () => {
   return (dispatch: any, getState: Function) => {
-    const { request: { columns2, tabKey } } = getState();
+    const { request: { columns2 } } = getState();
     const sums: any[] = [];
     const totals: any[] = [];
     const allProjects: any = [];
@@ -566,7 +537,6 @@ export const recalculateTotals = () => {
     dispatch(groupProjects(allProjects));
     const sumByGroupMapTotal = mergeSumByGroupMaps(sums);
     const totalByGroupMap = mergeTotalByGroupMaps(totals);
-    const mainKey = window.location.pathname.includes('work-plan') ? (tabKey === 'Study' ? 'project_service_areas' : 'project_counties') : 'project_local_governments' ;
     console.log('window.location.pathname', window.location.pathname);
     dispatch({
       type: types.REQUEST_SET_SUM_BY_COUNTY,
@@ -605,7 +575,7 @@ export const loadFilters = () => {
         namespaceId
       }
     } = getState();
-    datasets.postData(GET_FILTER, { boardId: namespaceId }).then((res: any) => {
+    datasets.postData(GET_FILTER, { boardId: namespaceId }, datasets.getToken()).then((res: any) => {
       let priorityFilterList =  [
         { name: '1', id: 0, selected: false, type: 'project_priorities' },
         { name: '2', id: 1, selected: false, type: 'project_priorities' },
@@ -724,4 +694,3 @@ export const startLoadingColumns = () => ({
 export const stopLoadingColumns = () => ({
   type: types.REQUEST_STOP_LOADING_COLUMNS_2
 });
-

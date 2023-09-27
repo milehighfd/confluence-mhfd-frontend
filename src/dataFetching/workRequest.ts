@@ -8,19 +8,17 @@ export const getLocalitiesByBoardType = (type: boardType) => {
 };
 
 export const getBoardData = (data: BoardDataRequest) => {
-  return datasets.postData(`${SERVER.URL_BASE}/board/`, data);
-};
-
-export const getBoardData3 = (data: BoardDataRequest) => {
   return datasets.postData(
     GET_OR_CREATE,
-    data
+    data,
+    datasets.getToken()
   );
 };
 
 export const getBoardStatus = (data: any) => {
   return datasets.postData(
     GET_STATUS,
-    data
+    data,
+    datasets.getToken()
   );
 };

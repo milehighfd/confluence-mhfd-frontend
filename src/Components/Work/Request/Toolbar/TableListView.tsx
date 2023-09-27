@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Menu, MenuProps, Popover, Table } from 'antd';
 import type { ColumnsType } from 'antd/lib/table';
-import { ADMIN, BOARD_STATUS_TYPES, NEW_PROJECT_TYPES, STAFF, STATUS_NAMES, WINDOW_WIDTH, WORK_PLAN } from 'constants/constants';
+import { ADMIN, BOARD_STATUS_TYPES, NEW_PROJECT_TYPES, STAFF, STATUS_NAMES } from 'constants/constants';
 import { MoreOutlined } from '@ant-design/icons';
-import { getData, getToken } from 'Config/datasets';
+import { postData, getData, getToken } from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import { useProjectDispatch } from 'hook/projectHook';
 import { useRequestState } from 'hook/requestHook';
-import { useMapState } from 'hook/mapHook';
 import { useProfileState } from 'hook/profileHook';
 import AmountModal from '../AmountModal';
 import ModalProjectView from 'Components/ProjectModal/ModalProjectView';
-import { postData } from 'Config/datasets';
 import { ArchiveAlert } from 'Components/Alerts/ArchiveAlert';
 import DetailModal from 'routes/detail-page/components/DetailModal';
 import EditDatesModal from '../EditDatesModal';
+import { GET_COSTS_FOR_MAINTENANCE } from 'Config/endpoints/board-project';
 
 const TableListView = ({
   maintenanceSubType
@@ -23,10 +22,7 @@ const TableListView = ({
 }) => {
   const [completeProjectData, setCompleteProjectData] = useState<any>(null);
   const [showAmountModal, setShowAmountModal] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(WINDOW_WIDTH);
-  const {setZoomProject, updateSelectedLayers, archiveProject} = useProjectDispatch();
-  const [isHovered, setIsHovered] = useState(false);
-  const { tabActiveNavbar } = useMapState();
+  const {setZoomProject, archiveProject} = useProjectDispatch();
   const { columns2: columnsList, tabKey, locality, year, namespaceId, boardStatus, filterYear } = useRequestState();
   const { userInformation } = useProfileState();
   const [parsedData, setParsedData] = useState<any[]>([]);
@@ -38,7 +34,6 @@ const TableListView = ({
   const [showModalProject, setShowModalProject] = useState(false);
   const [pastCosts, setPastCosts] = useState<any[]>([]);
   const [filteredColumns, setFilteredColumns] = useState<any[]>([]);
-  const [showCopyToCurrentYearAlert, setShowCopyToCurrentYearAlert] = useState(false);
   const [boardProjectIds, setBoardProjectIds] = useState<any[]>([]);
   const [showActivateProject, setShowActivateProject] = useState(false);
   const [archiveAlert, setArchiveAlert] = useState(false);
@@ -58,7 +53,11 @@ const TableListView = ({
 
   useEffect(() => {
     if (namespaceId.projecttype === 'Maintenance') {
-      postData(`${SERVER.GET_COSTS_FOR_MAINTENANCE}`, { board_project_id: boardProjectIds})
+      postData(
+        GET_COSTS_FOR_MAINTENANCE,
+        { board_project_id: boardProjectIds },
+        getToken()
+      )
       .then(
         (r: any) => {
           let addCosts = maintenanceData.map((item: any) => {
@@ -347,7 +346,6 @@ const TableListView = ({
         </span>,
         onClick: (() => {
           hidePopover();
-          setShowCopyToCurrentYearAlert(true)
         })
       });
     }
@@ -488,7 +486,7 @@ const TableListView = ({
                   }}
                   style={{ marginRight: '-10px', cursor: 'pointer' }}
                 >
-                  <MoreOutlined onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} className='dots-table' />
+                  <MoreOutlined className='dots-table' />
                 </Popover>    
               </div>,
             sorter: {
@@ -606,14 +604,6 @@ const TableListView = ({
       }      
     },[namespaceId,yearList]);
 
-    const onChange = (pagination: any, filters: any, sorter: any, extra: any) => {
-        console.log('params', pagination, filters, sorter, extra);
-    };
-
-    const updateWindowSize = () => {
-        setWindowWidth(window.innerWidth);
-      };
-
     useEffect(() => {
       if (archiveProjectAction) {
         archiveProject(archiveProjectId)
@@ -621,12 +611,6 @@ const TableListView = ({
       }
     }, [archiveProjectAction])
 
-    useEffect(() => {
-        window.addEventListener('resize', updateWindowSize);
-        return () => {
-          window.removeEventListener('resize', updateWindowSize);
-        };
-      }, [])
     return (
       <>
         {

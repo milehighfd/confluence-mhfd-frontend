@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Drawer, Button,  List, Popover, Switch } from 'antd';
 import { getToken, putData } from "Config/datasets";
 import { SubmitModal } from "../Request/SubmitModal";
-import { UPDATE_BOARD_BY_ID } from "Config/endpoints/board";
+import { BASE_BOARD_RESOURCE_URL } from "Config/endpoints/board";
 import { useRequestDispatch, useRequestState } from "hook/requestHook";
 import { WrongModal } from "../Request/WrongModal";
 import { useMapState } from "hook/mapHook";
@@ -47,7 +47,7 @@ const Status = () => {
   const APPROVED_STATE = 'Approved';
 
   const save = (status : string) => {
-    putData(UPDATE_BOARD_BY_ID, {
+    putData(BASE_BOARD_RESOURCE_URL, {
       boardId,
       status: status,
       comment: boardComment,
