@@ -549,18 +549,17 @@
     }
     .edit-amount-create-project{
       width: 100%;
-      overflow: auto;
       margin-top: 10px;
       .edit-amount-content{
         display: flex;
-        width: 125%;
+        // width: 125%;
       }
       .edit-amount-content-maintenance{
         display: flex;
         // width: 125%;
       }
       .edit-amount{
-        width: 22%;
+        width: 100%;
         margin-right: 2%;
         margin-bottom: 8px;
       }
