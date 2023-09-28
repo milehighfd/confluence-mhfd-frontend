@@ -3,11 +3,13 @@ import * as d3 from 'd3';
 import FinancialsPopup from './FinancialsPopup';
 import { useFinancialDispatch, useFinancialState } from 'hook/financialHook';
 import { Col, Row } from 'antd';
+import FinancialsClickPopup from '../FinancialsClickPopup';
 
 const StackedBarChart = ({ projectId }: { projectId: any }) => {
   const { financialInformation } = useFinancialState();
   const { getFinancialData } = useFinancialDispatch();
   const [openPopup, setOpenPopup] = useState(false);
+  const [clickOpenPopup, setClickOpenPopup] = useState(false);
   const [dataPopup, setDataPopup] = useState({});
   const svgRef = useRef<SVGSVGElement>(null);
   const yAxisSvgRef = useRef<SVGSVGElement>(null);
@@ -272,6 +274,7 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
       })
       .enter()
       .append('rect')
+      .attr('id', (d: any) => {console.log(d); return `id_${d.data.group}_${d[1]+d[0]}`})
       .attr('x', (d: any): any => {
         return x(d.data.group);
       })
@@ -307,6 +310,15 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
           applyBackgroundRect('remove', x, y, d, backgroundRect, sumGroups);
           setOpenPopup(false);
         }
+      })
+      .on('click', (d: any) => {
+        setOpenPopup(false);
+        console.log('click', d);
+        console.log('sum', d[1]-d[0]);
+        d3.selectAll('.clickedBar').attr('stroke', 'white').attr('class','')
+        console.log('aaa', document.getElementById(`id_${d.data.group}_${d[1]+d[0]}`))
+        d3.select(`#id_${d.data.group}_${d[1]+d[0]}`).attr('stroke', 'white').attr('class','clickedBar');
+        setClickOpenPopup(true);
       });
   };
 
@@ -318,6 +330,7 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
   // Agreement
   return (
     <>
+      {/* {clickOpenPopup && <FinancialsClickPopup popupData={dataPopup} setVisible={setClickOpenPopup}/>} */}
       {openPopup && <FinancialsPopup popupData={dataPopup} />}
       <div
         id="stackedBar-chart-container"
