@@ -25,7 +25,8 @@ import {
   setPineyData,
   setIsFromDetailPage,
   getActionsDone,
-  getCreatedActions
+  getCreatedActions,
+  setUpdateActionItem
 } from 'store/actions/portfolioActions';
 
 export const usePortflioState = () => useSelector(
@@ -110,6 +111,9 @@ export const usePortfolioDispatch = () => {
   const _getCreatedActions = useCallback(() => {
     dispatch(getCreatedActions());
   }, [dispatch]);  
+  const _setUpdateActionItem = useCallback(() => {
+    dispatch(setUpdateActionItem());
+  }, [dispatch]);
 
   return {
     setSearchWord: _setSearchWord,
@@ -136,6 +140,7 @@ export const usePortfolioDispatch = () => {
     setPineyData: _setPineyData,
     setIsFromDetailPage: _setIsFromDetailPage,
     getActionsDone: _getActionsDone,
-    getCreatedActions: _getCreatedActions
+    getCreatedActions: _getCreatedActions,
+    setUpdateActionItem: _setUpdateActionItem
   };
 };

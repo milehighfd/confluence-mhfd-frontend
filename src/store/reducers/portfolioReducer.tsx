@@ -28,6 +28,7 @@ const initState = {
   isFromDetailPage: false,
   actionsDone: [],
   createdActions: [],
+  updateActionItem: false,
 }
 
 const portfolioReducer = (state = initState, action: any) => {
@@ -178,6 +179,11 @@ const portfolioReducer = (state = initState, action: any) => {
         ...state,
         createdActions: action.payload,
       };      
+    case types.SET_UPDATE_ACTION_ITEM:
+      return {
+        ...state,
+        updateActionItem: !state.updateActionItem,
+      };
     default:
       return state;
   }
