@@ -178,6 +178,10 @@ export const setIsFromDetailPage = (value: boolean) => ({
   payload: value
 });
 
+export const setUpdateActionItem = () => ({
+  type: types.SET_UPDATE_ACTION_ITEM,
+});
+
 export const getActionsDone = () => {
   return (dispatch: Function) => {
     const controller = new AbortController();
