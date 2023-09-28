@@ -60,7 +60,8 @@ import {
   setGlobalProjectId,
   setGlobalStatusId,
   setGlobalLocality,
-  setCreatedProject
+  setCreatedProject,
+  sendProjectToBoardYear
 } from '../store/actions/ProjectActions';
 
 export const useProjectState = () => useSelector(
@@ -252,6 +253,9 @@ export const useProjectDispatch = () => {
     },
     setCreatedProject: (createdProject: any) => {
       dispatch(setCreatedProject(createdProject))
+    },
+    sendProjectToBoardYear: (project_id: number, year: number, extraYears: Array<number>, sponsor: string, project_type: string) => {
+      dispatch(sendProjectToBoardYear(project_id, year, extraYears, sponsor, project_type))
     }
   };
 };

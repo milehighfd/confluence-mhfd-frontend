@@ -567,3 +567,9 @@ export const setGlobalLocality = (globalLocality: any) => {
     dispatch({type: types.SET_GLOBAL_LOCALITY, globalLocality});
   }
 }
+
+export const sendProjectToBoardYear = (project_id: number, year: number, extraYears: Array<number>, sponsor: string, project_type: string) => {
+  return (dispatch: Function) => {
+    
+  }
+}
