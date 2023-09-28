@@ -2,20 +2,26 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import FinancialsPopup from './FinancialsPopup';
 import { useFinancialDispatch, useFinancialState } from 'hook/financialHook';
+import { Col, Row } from 'antd';
+import FinancialsClickPopup from '../FinancialsClickPopup';
 
 const StackedBarChart = ({ projectId }: { projectId: any }) => {
   const { financialInformation } = useFinancialState();
   const { getFinancialData } = useFinancialDispatch();
   const [openPopup, setOpenPopup] = useState(false);
+  const [clickOpenPopup, setClickOpenPopup] = useState(false);
   const [dataPopup, setDataPopup] = useState({});
   const svgRef = useRef<SVGSVGElement>(null);
+  const yAxisSvgRef = useRef<SVGSVGElement>(null);
   const barWidth = 60;
   const totalHeight = 350;
   const [data, setData] = useState<any>([]);
   const [subGroups, setSubGroups] = useState<any>(['availableFund', 'mhfdIncomeSum', 'expenditureSum', 'otherIncomeSum']);
   const [colors, setColors] = useState<any>(['#5D3DC7', '#29C499', '#F4BE01', '#047CD7']);
   // const subGroups = ['funding', 'income', 'agreement', 'additional'];
-  const margin = { top: 10, right: 30, bottom: 20, left: 100 };
+  const margin = { top: 10, right: 30, bottom: 20, left: 6 };
+  const marginLeftForAxis = 100;
+  const widthForAxis = 100;
   const totalWidth = barWidth * data.length + margin.left + margin.right;
   const width = totalWidth - margin.left - margin.right;
   const height = totalHeight - margin.top - margin.bottom;
@@ -148,7 +154,9 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
   }
   const buildChart = (dataChart: any) => {
     const removechart: any = document.getElementById('svg-ref');
+    const removeAxis: any = document.getElementById('svg-axis');
     removeAllChildNodes(removechart);
+    removeAllChildNodes(removeAxis)
     const totals: any = {};
     data.forEach((item: any) => {
       if (!totals[item.group]) {
@@ -170,7 +178,7 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
     sumGroups = totals;
     maxValue = maxSum;
 
-    let dollarformat = function(d:any) { return '$' + d3.format(',.2r')(d) };
+    let dollarformat = function(d:any) { return '$' + d3.format(',.0f')(d) };
     // const tickValue: any = Array.from({ length: Math.ceil(maxSum / 10) + 1 }, (_, i) => i * 10);
     // tickValues = tickValue;
 
@@ -184,6 +192,13 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
       .append('g')
       .attr('id', 'stackedBar-chart')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+      const svgAxis = d3
+      .select(yAxisSvgRef.current)
+      .attr('width', widthForAxis)
+      .attr('height', totalHeight)
+      .append('g')
+      .attr('id', 'axis-stackedBar-chart')
+      .attr('transform', 'translate(' + marginLeftForAxis + ',' + margin.top + ')');
     const groups = dataChart.map((d: any) => d.group);
     const x = d3
       .scaleBand()
@@ -210,6 +225,11 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
       .range([height, 0])
   
     svg
+      .append('g')
+      .attr('class', 'y-axis-stackedbar-chart')
+      .call(d3.axisLeft(y).tickFormat(dollarformat));
+
+    svgAxis
       .append('g')
       .attr('class', 'y-axis-stackedbar-chart')
       .call(d3.axisLeft(y).tickFormat(dollarformat));
@@ -254,6 +274,7 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
       })
       .enter()
       .append('rect')
+      .attr('id', (d: any) => {console.log(d); return `id_${d.data.group}_${d[1]+d[0]}`})
       .attr('x', (d: any): any => {
         return x(d.data.group);
       })
@@ -289,6 +310,15 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
           applyBackgroundRect('remove', x, y, d, backgroundRect, sumGroups);
           setOpenPopup(false);
         }
+      })
+      .on('click', (d: any) => {
+        setOpenPopup(false);
+        console.log('click', d);
+        console.log('sum', d[1]-d[0]);
+        d3.selectAll('.clickedBar').attr('stroke', 'white').attr('class','')
+        console.log('aaa', document.getElementById(`id_${d.data.group}_${d[1]+d[0]}`))
+        d3.select(`#id_${d.data.group}_${d[1]+d[0]}`).attr('stroke', 'white').attr('class','clickedBar');
+        setClickOpenPopup(true);
       });
   };
 
@@ -300,12 +330,20 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
   // Agreement
   return (
     <>
+      {/* {clickOpenPopup && <FinancialsClickPopup popupData={dataPopup} setVisible={setClickOpenPopup}/>} */}
       {openPopup && <FinancialsPopup popupData={dataPopup} />}
       <div
         id="stackedBar-chart-container"
-        style={{ overflowY: 'auto', position: 'relative', marginTop: '50px', marginBottom: '10px' }}
+        style={{ position: 'relative', marginTop: '50px', marginBottom: '10px' }}
       >
-        <svg id={'svg-ref'} ref={svgRef} width="100%" height="100%" />
+        <Row>
+          <Col>
+            <svg id={'svg-axis'} ref={yAxisSvgRef} width="100%" height="100%" />
+          </Col>
+          <Col style={{ overflowY: 'auto', width: '88%'}}>
+          <svg id={'svg-ref'} ref={svgRef} width="100%" height="100%" />
+          </Col>
+        </Row>
       </div>
       <div className="roadmap-body-display " style={{ paddingTop: '0px' }}>
         <span className="span-dots-roadmap">

@@ -937,6 +937,91 @@
       gap: 10px;
     }
   }
+  .modal-financialsClickPopup {
+    z-index: 99999999999;
+    position: absolute;
+    width: 290px;
+    height: 260px;
+    padding: 15px 20px;
+    text-align: center;
+    flex-shrink: 0;
+    border-radius: 4px;
+    background: #11093C;
+    p {
+      color: white !important;
+      font-size: 12px;
+      margin-bottom: 1px;
+    }
+    .title {
+      // margin-bottom: -4px;
+      // font-size: 10px;
+      // opacity: 0.6;
+      color: #FFF;
+      text-align: left;
+      font-family: Ubuntu;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 120%;
+      opacity: 0.6;
+      margin-bottom: 8px;
+    }
+    hr {
+      opacity: 0.1;
+      background-color: #ffffff;
+      height: 0.5px;
+    }
+    .labels-financials {
+      color: #FFF;
+      font-family: Ubuntu;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 120%;
+      padding: 1px 4px;
+      text-align: start;
+    }
+    .row-financials-popup {
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 4px;
+    }
+    .labels-financials-numbers {
+      color: #FFF;
+      font-family: Ubuntu;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 120%;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.15);
+      display: inline-flex;
+      padding: 1px 4px;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-transparent{
+      border: none !important;
+      background-color: transparent !important;
+      color: $purple00 !important;
+      box-shadow: none !important;
+      position: relative;
+      top: -8px
+    }
+    .line-financials {
+      // margin-bottom: 15px;
+      // margin-top: 20px;
+      flex: 1;
+      //width: 100%;
+      height: 1px;
+      opacity: 1;
+      background-color: $white;
+      margin: 0px 6px;
+    }
+  }
 }
 
 //IMAGE-MODAL
