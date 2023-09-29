@@ -11,13 +11,26 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
   const [openPopup, setOpenPopup] = useState(false);
   const [clickOpenPopup, setClickOpenPopup] = useState(false);
   const [dataPopup, setDataPopup] = useState({});
+  const [clickDataPopup, setClickDataPopup] = useState({});
   const svgRef = useRef<SVGSVGElement>(null);
   const yAxisSvgRef = useRef<SVGSVGElement>(null);
+  const currentStatePopup = useRef(false);
   const barWidth = 60;
   const totalHeight = 350;
   const [data, setData] = useState<any>([]);
+  const [expenditureArray, setExpenditureArray] = useState<any>([]);
+  const [mhfdIncomeArray, setMhfdIncomeArray] = useState<any>([]);
+  const [otherIncomeArray, setOtherIncomeArray] = useState<any>([]);
+  const [totalSumData, setTotalSumData] = useState<any>([]);
+  const [costType, setCostType] = useState<any>('');
   const [subGroups, setSubGroups] = useState<any>(['availableFund', 'mhfdIncomeSum', 'expenditureSum', 'otherIncomeSum']);
   const [colors, setColors] = useState<any>(['#5D3DC7', '#29C499', '#F4BE01', '#047CD7']);
+  const colorAndGroup:any= {
+    '#5D3DC7' :'availableFund' ,
+    '#29C499' :'mhfdIncomeSum' ,
+    '#F4BE01' :'expenditureSum' ,
+    '#047CD7' :'otherIncomeSum' 
+  }
   // const subGroups = ['funding', 'income', 'agreement', 'additional'];
   const margin = { top: 10, right: 30, bottom: 20, left: 6 };
   const marginLeftForAxis = 100;
@@ -31,6 +44,10 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
   }, []);
 
   useEffect(() => {
+    currentStatePopup.current = clickOpenPopup ;
+  }, [clickOpenPopup]);
+
+  useEffect(() => {
     const ATTRIB_GROUP = 'effective_date';
     const groupedInformation = financialInformation.reduce((prev: any, cur: any) => {
       if (!prev[cur[ATTRIB_GROUP]]) {
@@ -39,7 +56,6 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
       prev[cur[ATTRIB_GROUP]].push(cur);
       return prev;
     }, {});
-    const Keys = Object.keys(groupedInformation);
 
     const sortedDates = Object.keys(groupedInformation).sort(
       (a: any, b: any) => new Date(a).getTime() - new Date(b).getTime(),
@@ -51,21 +67,28 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
     }));
     let availableFund = 0;
     const newGroupedInformation: any = [];
+    let expenditures:any = [];
+    let mhfdIncomes:any = [];
+    let otherIncomes:any = [];
     resultArray.forEach((value: any, index: any) => {
       const dataValue = value.data;
       const expenditure = dataValue.filter((item: any) => !item?.encumbered?.is_income);
+      expenditures = expenditures.concat(expenditure);
       const expenditureSum = expenditure.reduce((prev: any, cur: any) => {
         return prev + cur?.encumbered?.cost;
       }, 0);
       const areIncome = dataValue.filter((item: any) => item?.encumbered?.is_income);
       const mhfdIncome = areIncome.filter((item: any) => item?.project_partner_name === 'MHFD');
+      mhfdIncomes = mhfdIncomes.concat(mhfdIncome);
       const otherIncome = areIncome.filter((item: any) => item?.project_partner_name !== 'MHFD');
+      otherIncomes = otherIncomes.concat(otherIncome);
       const mhfdIncomeSum = mhfdIncome.reduce((prev: any, cur: any) => {
         return prev + cur?.encumbered?.cost;
       }, 0);
       const otherIncomeSum = otherIncome.reduce((prev: any, cur: any) => {
         return prev + cur?.encumbered?.cost;
       }, 0);
+      availableFund -= expenditureSum;
       newGroupedInformation.push({
         availableFund: Math.abs(availableFund), // purple
         mhfdfunds: mhfdIncome,
@@ -77,8 +100,11 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
         expenditureSum: Math.abs(expenditureSum), // yellow
         dateDisplay: value.date
       });
-      availableFund = availableFund + mhfdIncomeSum + otherIncomeSum - expenditureSum;
+      availableFund = availableFund + mhfdIncomeSum + otherIncomeSum ;
     });
+    setExpenditureArray(expenditures);
+    setMhfdIncomeArray(mhfdIncomes);
+    setOtherIncomeArray(otherIncomes);
     let setLocals = new Set(); 
     let maxMhfdCounter = 0;
     newGroupedInformation.forEach((element: any) => {
@@ -152,6 +178,17 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
     var formattedDate = parts[0] + '-' + parts[1] + '-' + parts[2].substring(2);
     return formattedDate;
   }
+
+  const rgbToHex = (rgb: string) => {
+    const rgbValues = rgb?.match(/\d+/g)?.map(Number);
+      const hexValues = rgbValues?.map(value => {
+      const hex = value.toString(16);
+      return hex.length === 1 ? '0' + hex : hex;
+    });
+      const hexColor = '#' + hexValues?.join('');
+    return hexColor.toUpperCase();
+  }
+
   const buildChart = (dataChart: any) => {
     const removechart: any = document.getElementById('svg-ref');
     const removeAxis: any = document.getElementById('svg-axis');
@@ -274,7 +311,7 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
       })
       .enter()
       .append('rect')
-      .attr('id', (d: any) => {console.log(d); return `id_${d.data.group}_${d[1]+d[0]}`})
+      .attr('id', (d: any) => { return `id_${d.data.group}_${(d[1]+d[0]).toString().replace('.','_')}`})
       .attr('x', (d: any): any => {
         return x(d.data.group);
       })
@@ -290,17 +327,19 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
       .attr('stroke', 'white')
       .attr('stroke-width', '2')
       .style('stroke-linecap', 'round')
-      .on('mouseover', (d: any) => {
-        const selection = d3.select(`#rect-${d.data.group}`);
-        if (!selection.empty()) {
-          // true the rect is already there // false the rect is of other or doesnt exist
-          applyBackgroundRect('remove', x, y, d, backgroundRect, sumGroups);
-          setOpenPopup(false);
-        } else {
-          d3.select('.x-axis-selected').attr('class', 'x-axis-stackedbar-chart text');
-          applyBackgroundRect('add', x, y, d, backgroundRect, sumGroups);
-          setDataPopup(d.data);
-          setOpenPopup(true);
+      .on('mouseenter', (d: any) => {
+        if (!currentStatePopup.current) {
+          const selection = d3.select(`#rect-${d.data.group}`);
+          if (!selection.empty()) {
+            // true the rect is already there // false the rect is of other or doesnt exist
+            applyBackgroundRect('remove', x, y, d, backgroundRect, sumGroups);
+            setOpenPopup(false);
+          } else {
+            d3.select('.x-axis-selected').attr('class', 'x-axis-stackedbar-chart text');
+            applyBackgroundRect('add', x, y, d, backgroundRect, sumGroups);
+            setDataPopup(d.data);
+            setOpenPopup(true);
+          }     
         }
       })
       .on('mouseout', (d: any) => {
@@ -313,12 +352,25 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
       })
       .on('click', (d: any) => {
         setOpenPopup(false);
-        console.log('click', d);
-        console.log('sum', d[1]-d[0]);
-        d3.selectAll('.clickedBar').attr('stroke', 'white').attr('class','')
-        console.log('aaa', document.getElementById(`id_${d.data.group}_${d[1]+d[0]}`))
-        d3.select(`#id_${d.data.group}_${d[1]+d[0]}`).attr('stroke', 'white').attr('class','clickedBar');
-        setClickOpenPopup(true);
+
+        d3.selectAll('.clickedBar').attr('opacity', '1').attr('class','')
+        d3.select(`#id_${d.data.group}_${(d[1]+d[0]).toString().replace('.','_')}`).attr('opacity', '0.8').attr('class','clickedBar');
+        const colorInside = rgbToHex(d3.select(`#id_${d.data.group}_${(d[1]+d[0]).toString().replace('.','_')}`).style('fill'))
+        if (colorAndGroup[colorInside] !== 'availableFund') {
+          setCostType(colorAndGroup[colorInside])
+          setTotalSumData(d.data)
+          if (colorAndGroup[colorInside] === 'mhfdIncomeSum') {
+            const filteredMhfdIncomeArray = mhfdIncomeArray.filter((item: any) => reduceYearinDate(item.effective_date) === d.data.group);
+            setClickDataPopup(filteredMhfdIncomeArray)
+          } else if (colorAndGroup[colorInside] === 'expenditureSum') {
+            const filteredExpenditureArray = expenditureArray.filter((item: any) => reduceYearinDate(item.effective_date) === d.data.group);
+            setClickDataPopup(filteredExpenditureArray)
+          } else if (colorAndGroup[colorInside] === 'otherIncomeSum') {
+            const filteredOtherIncomeArray = otherIncomeArray.filter((item: any) => reduceYearinDate(item.effective_date) === d.data.group);
+            setClickDataPopup(filteredOtherIncomeArray)
+          }
+          setClickOpenPopup(true);
+        }
       });
   };
 
@@ -327,14 +379,27 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
       buildChart(data);
     }
   }, [data, subGroups, colors]);
-  // Agreement
+
   return (
     <>
-      {/* {clickOpenPopup && <FinancialsClickPopup popupData={dataPopup} setVisible={setClickOpenPopup}/>} */}
+      <Row>
+        <Col
+          xs={{ span: 24 }}
+          lg={{ span: 24 }}
+          style={{ display: 'flex', alignItems: 'center' }}
+          className="subtitle-detail"
+        >
+          <h3 style={{ paddingBottom: '15px', paddingTop: '20px', marginRight: '35px' }} id="project-financials">
+            PROJECT FINANCIALS
+          </h3>
+          <div className="line-01" style={{ marginBottom: '15px', marginTop: '20px', width: '73%' }}></div>
+        </Col>
+      </Row>
+      {clickOpenPopup && <FinancialsClickPopup popupData={clickDataPopup} totalSumData={totalSumData} type={costType} setVisible={setClickOpenPopup}/>}
       {openPopup && <FinancialsPopup popupData={dataPopup} />}
       <div
         id="stackedBar-chart-container"
-        style={{ position: 'relative', marginTop: '50px', marginBottom: '10px' }}
+        style={{ position: 'relative', marginTop: '-15px', marginBottom: '10px' }}
       >
         <Row>
           <Col>
@@ -360,7 +425,7 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
         </span>
         <span className="span-dots-roadmap">
           <div className="roadmap-circle" style={{ backgroundColor: '#F4BE01' }} />
-          <span className="roadmap-dots-leyend">Agreement</span>
+          <span className="roadmap-dots-leyend">Vendor Agreements</span>
         </span>
       </div>
     </>

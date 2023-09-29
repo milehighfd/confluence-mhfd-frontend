@@ -42,7 +42,7 @@ const EditDatesModal = ({
   
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
   const colorScale: any = {
-    Done: '#5E5FE2',
+    Done: '#5D3DC7',
     Active: '#047CD7',
     NotStarted: '#D4D2D9',
     Current: '#047CD7',
@@ -359,7 +359,7 @@ const EditDatesModal = ({
         <div className="body-edit-dates-step2">
           <div style={{ display: 'flex' }}>
             <span className="span-dots-heder">
-              <div className="circulo" style={{ backgroundColor: '#5E5FE2' }} />
+              <div className="circulo" style={{ backgroundColor: '#5D3DC7' }} />
               <span style={{ marginLeft: '1px', marginRight: '15px' }}>Done</span>
             </span>
             <span className="span-dots-heder">

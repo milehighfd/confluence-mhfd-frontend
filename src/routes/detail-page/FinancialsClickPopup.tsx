@@ -1,8 +1,18 @@
 import { Button, Col, Row } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
-import HorizontalStackedBarChart from './components/HorizontalStackedBarChart';
+import * as d3 from 'd3';
 
-const FinancialsClickPopup = ({ popupData, setVisible }: { popupData: any, setVisible:any }) => {
+const FinancialsClickPopup = ({
+  popupData,
+  totalSumData,
+  type,
+  setVisible,
+}: {
+  popupData: any;
+  totalSumData: any;
+  type: string;
+  setVisible: any;
+}) => {
   let positionTop: any = document.getElementById('stackedBar-chart-container')?.offsetTop;
   let positionLeft: any = document.getElementById('stackedBar-chart-container')?.offsetLeft;
   let divWidth: any = document.getElementById('stackedBar-chart-container')?.offsetWidth;
@@ -15,20 +25,41 @@ const FinancialsClickPopup = ({ popupData, setVisible }: { popupData: any, setVi
     maximumFractionDigits: 0,
   });
   const [finalLeftPosition, setFinalLeftPosition] = useState(positionLeft + divWidth - 2000);
-
+  const subtitleOptions: any = {
+    availableFund: 'Available Funds',
+    mhfdIncomeSum: 'Funding (MHFD Funds)',
+    expenditureSum: 'Vendor Agreements',
+    otherIncomeSum: 'Income (LG Funds)',
+  };
+  const colorAndGroup:any= {
+     'availableFund': '#5D3DC7' ,
+     'mhfdIncomeSum': '#29C499' ,
+     'expenditureSum': '#F4BE01' ,
+     'otherIncomeSum': '#047CD7' 
+  }
   const formatDate = (inputDate: string) => {
     const parts = inputDate.split('-');
     const months = [
-      'January', 'February', 'March', 'April', 'May', 'June', 'July',
-      'August', 'September', 'October', 'November', 'December'
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
     ];
     const month = months[parseInt(parts[0]) - 1];
     const day = parseInt(parts[1]);
     const year = '20' + parts[2];
     const formattedDate = `${month} ${day}, ${year}`;
-  
+
     return formattedDate;
-  }
+  };
 
   useEffect(() => {
     setPopupWidth(thisPopup.current.offsetWidth);
@@ -36,13 +67,88 @@ const FinancialsClickPopup = ({ popupData, setVisible }: { popupData: any, setVi
   useEffect(() => {
     setFinalLeftPosition(positionLeft + divWidth - popupWidth);
   }, [popupWidth]);
-  const sampleData = [
-    { label: 'Test 0 which should not render', value: 0 },
-    { label: 'Group-1', value: 55 },
-    { label: 'Group-2', value: 233 },
-    { label: 'Test 0 AGAIN which should not render', value: 0 },
-    { label: 'Group-3', value: 89 }
-  ]
+
+  useEffect(() => {
+    popupData.forEach((item: any, index: number) => {
+      const chartId = document.getElementById(`HorizontalBar-chart-${index}`);
+      removeAllChildNodes(chartId);
+      buildHorizontalBar([item], `#HorizontalBar-chart-${index}`);
+    });
+  }, [popupData]);
+
+  const removeAllChildNodes = (parent: any) => {
+    if (parent !== null && parent.firstChild) {
+      parent.removeChild(parent.firstChild);
+    }
+  };
+  
+  const buildHorizontalBar = (dataForBar: any, id: string) => {
+    var svg = d3
+      .select(id)
+      .attr('width', '100%')
+      .attr('height', 30)
+      .append('g')
+      .attr('transform', 'translate(' + -10 + ',' + -3 + ')');
+
+    var scale = d3
+      .scaleLinear()
+      .domain([0, totalSumData[type]])
+      .range([0, 240]);
+
+    var background = svg
+      .selectAll(null)
+      .data(dataForBar)
+      .enter()
+      .append('rect')
+      .attr('x', 10)
+      .attr('y', function(d, i) {
+        return 10 + i * 20;
+      })
+      .attr('height', 20)
+      .attr('width', d => {
+        const scaleInside = scale(scale.domain()[1]);
+        return scaleInside ? scaleInside : 0;
+      })
+      .attr('rx', 5)
+      .attr('ry', 5)
+      .style('fill', '#ddd');
+
+    var bars = svg
+      .selectAll(null)
+      .data(dataForBar)
+      .enter()
+      .append('rect')
+      .attr('x', 10)
+      .attr('y', function(d, i) {
+        return 10 + i * 20;
+      })
+      .attr('height', 20)
+      .attr('width', (d: any) => {
+        const costData = scale(d.encumbered.cost);
+        return costData ? costData : 0;
+      })
+      .attr('rx', 5)
+      .attr('ry', 5)
+      .style('fill', colorAndGroup[type]);
+
+    let textInside = svg
+      .selectAll(null)
+      .data(dataForBar)
+      .enter()
+      .append('text')
+      .attr('class', 'text-value')
+      .attr('text-anchor', 'middle')
+      .attr('x', 45)
+      .attr('y', function(d, i) {
+        return 25 + i * 20;
+      })
+      .text((d: any) => {
+        return formatter.format(d.encumbered.cost);
+      })
+      .attr('fill', '#fff')
+      .attr('font-size','12px');
+  };
+
   return (
     <div
       className="modal-financialsClickPopup"
@@ -50,37 +156,46 @@ const FinancialsClickPopup = ({ popupData, setVisible }: { popupData: any, setVi
       style={{ left: finalLeftPosition, top: positionTop }}
       ref={thisPopup}
     >
-        <Row style={{height:'18px'}}>
-            <Col style={{width: '78%'}}>
-                <p className="title">{formatDate(popupData.group)}</p>
-            </Col>
-            <Col
-            xs={{ span: 4 }}
-            lg={{ span: 4 }}
-            style={{textAlign: 'end', width: '5%', paddingLeft: '30px'}}
-            >
-            <Button
-                className="btn-transparent"
-                onClick={() => setVisible(false)}>
-                <img src="/Icons/icon-62gray.svg" alt="" height="15px" />
-            </Button>
-            </Col>
-        </Row>
-      <Row>
-      <p className="labels-financials">{`Total Income (LG Funds): ${formatter.format(popupData.availableFund)}`}</p>
+      <Row style={{ height: '18px' }}>
+        <Col style={{ width: '78%' }}>
+          <p className="title">{formatDate(totalSumData.group)}</p>
+        </Col>
+        <Col xs={{ span: 4 }} lg={{ span: 4 }} style={{ textAlign: 'end', width: '5%', paddingLeft: '30px' }}>
+          <Button className="btn-transparent" onClick={() => setVisible(false)}>
+            <img src="/Icons/icon-62gray.svg" alt="" height="15px" />
+          </Button>
+        </Col>
       </Row>
-
-      
-      <div className="line-financials"></div>
-      <div className='labels-financials'>Agreement: </div>
-      <div className='labels-financials'>Amendment: </div>
-      {/* <HorizontalStackedBarChart bind={'.chart'} data={sampleData} config={''}/> */}
-      <div className='labels-financials'>Partner: </div>
-      <div className='labels-financials'>Phase: </div>
-      <div className='labels-financials'>Projected: </div>
-      <div className='labels-financials'>Encumbered: </div>
-      <div className='labels-financials'>Tyler Encumbered: </div>
-      
+      <Row>
+        <p className="labels-financials">{`Total ${subtitleOptions[type]}: ${formatter.format(totalSumData[type])}`}</p>
+      </Row>
+      {popupData.map((item: any, index: number) => {
+        return (
+          <>
+            <div className="line-financials"></div>
+            <div className="labels-financials">
+              {`Agreement: ${item?.agreement_number ? item?.agreement_number : '-'}`}{' '}
+            </div>
+            <div className="labels-financials">
+              {`Amendment: ${item?.amendment_number ? item?.amendment_number : '-'}`}{' '}
+            </div>
+            <svg id={`HorizontalBar-chart-${index}`}></svg>
+            <div className="labels-financials">
+              {`Partner: ${item?.project_partner_name ? item?.project_partner_name : '-'}`}{' '}
+            </div>
+            <div className="labels-financials">
+              {`Phase: ${item?.code_phase_type_id ? item?.code_phase_type_id : '-'}`}{' '}
+            </div>
+            <div className="labels-financials">{`Projected:`} </div>
+            <div className="labels-financials">
+              {`Encumbered: ${item?.encumbered?.cost ? formatter.format(item?.encumbered?.cost) : '-'}`}{' '}
+            </div>
+            <div className="labels-financials">{`Tyler Encumbered: ${
+              item?.encumbered?.cost ? formatter.format(item?.encumbered?.cost) : '-'
+            }`}</div>
+          </>
+        );
+      })}
     </div>
   );
 };
