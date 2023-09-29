@@ -69,6 +69,7 @@ const FinancialsClickPopup = ({
   }, [popupWidth]);
 
   useEffect(() => {
+    console.log('popupData', popupData)
     popupData.forEach((item: any, index: number) => {
       const chartId = document.getElementById(`HorizontalBar-chart-${index}`);
       removeAllChildNodes(chartId);
@@ -111,7 +112,8 @@ const FinancialsClickPopup = ({
       })
       .attr('rx', 5)
       .attr('ry', 5)
-      .style('fill', '#ddd');
+      .style('fill', colorAndGroup[type])
+      .attr('opacity', 0.6);
 
     var bars = svg
       .selectAll(null)
@@ -151,23 +153,24 @@ const FinancialsClickPopup = ({
 
   return (
     <div
-      className="modal-financialsClickPopup"
+    className="modal-financialsClickPopupOuter"
       id="popup-financials"
       style={{ left: finalLeftPosition, top: positionTop }}
       ref={thisPopup}
     >
-      <Row style={{ height: '18px' }}>
+     <Row style={{ height: '18px' }}>
         <Col style={{ width: '78%' }}>
           <p className="title">{formatDate(totalSumData.group)}</p>
         </Col>
-        <Col xs={{ span: 4 }} lg={{ span: 4 }} style={{ textAlign: 'end', width: '5%', paddingLeft: '30px' }}>
+      </Row>
+      <div style={{ width: '5%', position:'absolute',right: '38px', marginTop: '-28px' }}>
           <Button className="btn-transparent" onClick={() => setVisible(false)}>
             <img src="/Icons/icon-62gray.svg" alt="" height="15px" />
           </Button>
-        </Col>
-      </Row>
+        </div>
+        <div className="modal-financialsClickPopupInner">
       <Row>
-        <p className="labels-financials">{`Total ${subtitleOptions[type]}: ${formatter.format(totalSumData[type])}`}</p>
+        <p className="labels-financials" style={{paddingTop: '0px'}}>{`Total ${subtitleOptions[type]}: ${formatter.format(totalSumData[type])}`}</p>
       </Row>
       {popupData.map((item: any, index: number) => {
         return (
@@ -186,16 +189,19 @@ const FinancialsClickPopup = ({
             <div className="labels-financials">
               {`Phase: ${item?.code_phase_type_id ? item?.code_phase_type_id : '-'}`}{' '}
             </div>
-            <div className="labels-financials">{`Projected:`} </div>
+            <div className="labels-financials">
+              {`Projected: ${item?.projected?.cost ? formatter.format(item?.projected?.cost) : '-' }`} 
+            </div>
             <div className="labels-financials">
               {`Encumbered: ${item?.encumbered?.cost ? formatter.format(item?.encumbered?.cost) : '-'}`}{' '}
             </div>
             <div className="labels-financials">{`Tyler Encumbered: ${
-              item?.encumbered?.cost ? formatter.format(item?.encumbered?.cost) : '-'
+              item?.tyler_encumbered?.cost ? formatter.format(item?.tyler_encumbered?.cost) : '-'
             }`}</div>
           </>
         );
       })}
+              </div>
     </div>
   );
 };
