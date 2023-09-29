@@ -359,17 +359,27 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
         if (colorAndGroup[colorInside] !== 'availableFund') {
           setCostType(colorAndGroup[colorInside])
           setTotalSumData(d.data)
+          let dataToSendPopup: any = [];
+          let sumPriorGroups =d.data.mhfdIncomeSum + d.data.availableFund;
           if (colorAndGroup[colorInside] === 'mhfdIncomeSum') {
             const filteredMhfdIncomeArray = mhfdIncomeArray.filter((item: any) => reduceYearinDate(item.effective_date) === d.data.group);
-            setClickDataPopup(filteredMhfdIncomeArray)
+            dataToSendPopup = filteredMhfdIncomeArray;
           } else if (colorAndGroup[colorInside] === 'expenditureSum') {
             const filteredExpenditureArray = expenditureArray.filter((item: any) => reduceYearinDate(item.effective_date) === d.data.group);
-            setClickDataPopup(filteredExpenditureArray)
+            dataToSendPopup = filteredExpenditureArray;
           } else if (colorAndGroup[colorInside] === 'otherIncomeSum') {
             const filteredOtherIncomeArray = otherIncomeArray.filter((item: any) => reduceYearinDate(item.effective_date) === d.data.group);
-            setClickDataPopup(filteredOtherIncomeArray)
+            dataToSendPopup = filteredOtherIncomeArray;
+            dataToSendPopup.forEach((item: any) => {
+              sumPriorGroups += (sumPriorGroups +item?.encumbered?.cost);
+              d3.select(`#id_${d.data.group}_${sumPriorGroups.toString().replace('.','_')}`).attr('opacity', '0.8').attr('class','clickedBar');
+              sumPriorGroups =d.data.mhfdIncomeSum + d.data.availableFund +item?.encumbered?.cost;
+            });
           }
+          setClickDataPopup(dataToSendPopup);
           setClickOpenPopup(true);
+        } else {
+          setClickOpenPopup(false);
         }
       });
   };

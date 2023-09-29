@@ -69,7 +69,6 @@ const FinancialsClickPopup = ({
   }, [popupWidth]);
 
   useEffect(() => {
-    console.log('popupData', popupData)
     popupData.forEach((item: any, index: number) => {
       const chartId = document.getElementById(`HorizontalBar-chart-${index}`);
       removeAllChildNodes(chartId);
