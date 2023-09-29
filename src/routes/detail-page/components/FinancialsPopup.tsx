@@ -49,7 +49,7 @@ const FinancialsPopup = ({ popupData }: { popupData: any }) => {
           <Row>
             <span className="span-dots-roadmap">
               <div className="roadmap-circle" style={{ backgroundColor: '#F4BE01' }} />
-              <span className="labels-financials">Agreement</span>
+              <span className="labels-financials">Vendor Agreements</span>
             </span>
           </Row>
           <Row>

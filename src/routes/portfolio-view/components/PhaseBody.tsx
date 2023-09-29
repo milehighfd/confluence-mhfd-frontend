@@ -127,7 +127,7 @@ const PhaseBody = ({
       .attr("y2", "0");
     completedtoActive.append("stop")
       .attr("offset", "0%")
-      .attr("stop-color", '#5E5FE2')
+      .attr("stop-color", '#5D3DC7')
     completedtoActive.append("stop")
       .attr("offset", "100%")
       .attr("stop-color", '#047CD7')

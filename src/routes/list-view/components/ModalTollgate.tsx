@@ -28,7 +28,7 @@ const ModalTollgate = ({ saveCB, setOpenPiney }: { saveCB?: any; setOpenPiney?: 
   const [invalidDateIndex, setInvalidDateIndex] = useState(-1);
   const [detailOpen, setDetailOpen] = useState(false);
   const colorScale: any = {
-    Done: '#5E5FE2',
+    Done: '#5D3DC7',
     Active: '#047CD7',
     NotStarted: '#D4D2D9',
     Current: '#047CD7',

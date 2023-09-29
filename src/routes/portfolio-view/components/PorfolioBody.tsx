@@ -293,7 +293,7 @@ const PortafolioBody = () => {
         <div className="legends-porfolio">
           {(tabActiveNavbar === 'Phase' || tabActiveNavbar === 'Schedule') && <div>
                 <span className="span-dots-heder">
-                  <div className="circulo" style={{backgroundColor:'#5E5FE2'}}/>
+                  <div className="circulo" style={{backgroundColor:'#5D3DC7'}}/>
                   <span style={{marginLeft:'1px', marginRight:'12px'}}>Done</span>
                 </span>
                 <span className="span-dots-heder">
