@@ -1,7 +1,8 @@
 import * as types from '../types/financialTypes';
 
 const initState = {
-    financialInformation: []
+    financialInformation: [],
+    clickOpenPopup: false
 };
 
 const financialReducer = (state = initState, action : any) => {
@@ -11,6 +12,11 @@ const financialReducer = (state = initState, action : any) => {
         ...state,
         financialInformation: action.financialInformation
       }
+    case types.SET_CLICK_OPEN_POPUP:
+    return {
+      ...state,
+      clickOpenPopup: action.clickOpenPopup
+    }
     default: 
         return state;
   }

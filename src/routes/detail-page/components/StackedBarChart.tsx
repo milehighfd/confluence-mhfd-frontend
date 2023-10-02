@@ -6,10 +6,9 @@ import { Col, Row } from 'antd';
 import FinancialsClickPopup from '../FinancialsClickPopup';
 
 const StackedBarChart = ({ projectId }: { projectId: any }) => {
-  const { financialInformation } = useFinancialState();
-  const { getFinancialData } = useFinancialDispatch();
+  const { financialInformation, clickOpenPopup } = useFinancialState();
+  const { getFinancialData,setClickOpenPopup } = useFinancialDispatch();
   const [openPopup, setOpenPopup] = useState(false);
-  const [clickOpenPopup, setClickOpenPopup] = useState(false);
   const [dataPopup, setDataPopup] = useState({});
   const [clickDataPopup, setClickDataPopup] = useState({});
   const svgRef = useRef<SVGSVGElement>(null);

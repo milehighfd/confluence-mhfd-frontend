@@ -13,9 +13,10 @@ const FinancialsClickPopup = ({
   type: string;
   setVisible: any;
 }) => {
-  let positionTop: any = document.getElementById('stackedBar-chart-container')?.offsetTop;
-  let positionLeft: any = document.getElementById('stackedBar-chart-container')?.offsetLeft;
-  let divWidth: any = document.getElementById('stackedBar-chart-container')?.offsetWidth;
+  let adjustPositionTop = 50;
+  let positionTop: any = document.getElementById('sidebar-graphics')?.offsetTop;
+  let positionLeft: any = document.getElementById('sidebar-graphics')?.offsetLeft;
+  let divWidth: any = document.getElementById('sidebar-graphics')?.offsetWidth;
   let thisPopup = useRef<any>(null);
   const [popupWidth, setPopupWidth] = useState(0);
   const formatter = new Intl.NumberFormat('en-US', {
@@ -154,7 +155,7 @@ const FinancialsClickPopup = ({
     <div
     className="modal-financialsClickPopupOuter"
       id="popup-financials"
-      style={{ left: finalLeftPosition, top: positionTop }}
+      style={{ left: finalLeftPosition, top: (positionTop+adjustPositionTop) }}
       ref={thisPopup}
     >
      <Row style={{ height: '18px' }}>

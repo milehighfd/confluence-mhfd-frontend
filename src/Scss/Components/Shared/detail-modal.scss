@@ -939,7 +939,7 @@
   }
   .modal-financialsClickPopupOuter {
     z-index: 999;
-    position: absolute;
+    position: fixed;
     overflow: hidden;
     width: 290px;
     padding: 15px 20px;
