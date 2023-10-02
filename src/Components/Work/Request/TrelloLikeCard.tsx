@@ -101,6 +101,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
 
   
   const content = () => {
+    const isAdminStaff = appUser?.userInformation?.designation === 'admin' || appUser?.userInformation?.designation === 'staff';
     const items: MenuProps['items'] = [{
       key: '0',
       label: <span style={{borderBottom: '1px solid transparent'}}>
@@ -128,18 +129,20 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
       items.pop();
       items.splice(1, 1);
     }
-    if (type === 'WORK_PLAN' && year != 2023) {
-      items.splice(2, 0, {
-        key: '4',
-        label: <span style={{borderBottom: '1px solid transparent'}}>
+    if (project?.projectData?.currentId[0]?.status_name === 'Active') {
+      items.push({
+        key: '7',
+        label: <span style={{ borderBottom: '1px solid transparent' }}>
           <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
-          Copy to Current Year
+          Detail Page
         </span>,
-        onClick: (() => setShowCopyToCurrentYearAlert(true))
-      });
+        onClick: (() => {
+          setSelectedProjectData(project?.projectData)
+          setVisibleModal(true)
+        })
+      })
     }
-    if (appUser?.userInformation?.designation === 'admin' ||
-      appUser?.userInformation?.designation === 'staff') {
+    if (isAdminStaff) {
       items.push({
         key: '5',
         label: <span style={{ borderBottom: '1px solid transparent' }}>
@@ -164,20 +167,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
           })
         })
       }
-    }
-    if (project?.projectData?.currentId[0]?.status_name === 'Active'){
-      items.push({
-        key: '7',
-        label: <span style={{ borderBottom: '1px solid transparent' }}>
-          <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
-          Detail Page
-        </span>,
-        onClick: (() => {
-          setSelectedProjectData(project?.projectData)
-          setVisibleModal(true)
-        })
-      })
-    }
+    }    
     return (<Menu className="js-mm-00" items={items} />)
   };
   
