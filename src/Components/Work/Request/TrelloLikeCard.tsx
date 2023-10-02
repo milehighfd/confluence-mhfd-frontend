@@ -17,6 +17,7 @@ import EditDatesModal from './EditDatesModal';
 import { useProfileState } from 'hook/profileHook';
 import { ArchiveAlert } from 'Components/Alerts/ArchiveAlert';
 import DetailModal from 'routes/detail-page/components/DetailModal';
+import EditAmountModuleModal from './EditAmountModuleModal';
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -300,7 +301,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
         editable= {editable}
     />
     }
-    {showAmountModal && <AmountModal
+    {showAmountModal && <EditAmountModuleModal
       project={project}
       visible={showAmountModal}
       setVisible={setShowAmountModal}
