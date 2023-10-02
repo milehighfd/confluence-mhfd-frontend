@@ -856,6 +856,9 @@ export const ModalCapital = ({
         });
         setOverheadValues(newOverheadValue)
       }
+      if ((parsed.every((elem: any) => elem === 0))){
+        setOverheadValues([0, 0, 0, 0, 0, 0, 0, 0, 0])
+      }
     }
     if (subtotalCost === 0) {
       setOverheadValues([0, 5, 0, 0, 5, 15, 5, 10, 25])
@@ -870,7 +873,9 @@ export const ModalCapital = ({
         newOverheadCosts[index] = parseInt(newOverheadCosts[index]);
       });
       setOverheadCosts(newOverheadCosts);
-    }
+  } else {
+    setOverheadCosts([0,0,0,0,0,0,0,0,0]);
+  }
   },[overheadValues, thisIndependentComponents, listComponents]);
 
   
