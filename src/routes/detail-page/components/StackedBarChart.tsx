@@ -71,7 +71,7 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
     let otherIncomes:any = [];
     resultArray.forEach((value: any, index: any) => {
       const dataValue = value.data;
-      const expenditure = dataValue.filter((item: any) => !item?.encumbered?.is_income);
+            const expenditure = dataValue.filter((item: any) => !item?.encumbered?.is_income);
       expenditures = expenditures.concat(expenditure);
       const expenditureSum = expenditure.reduce((prev: any, cur: any) => {
         return prev + cur?.encumbered?.cost;
@@ -89,7 +89,7 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
       }, 0);
       availableFund -= expenditureSum;
       newGroupedInformation.push({
-        availableFund: Math.abs(availableFund), // purple
+        availableFund: availableFund<0 ? 0 : Math.abs(availableFund), // purple
         mhfdfunds: mhfdIncome,
         localfunds: otherIncome,
         expenditure,
@@ -384,6 +384,7 @@ const StackedBarChart = ({ projectId }: { projectId: any }) => {
   };
 
   useEffect(() => {
+    console.log('data', data);
     if (data.length) {
       buildChart(data);
     }

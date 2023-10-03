@@ -148,7 +148,7 @@ const FinancialsClickPopup = ({
         return formatter.format(d.encumbered.cost);
       })
       .attr('fill', '#fff')
-      .attr('font-size','12px');
+      // .attr('font-size','12px');
   };
 
   return (
