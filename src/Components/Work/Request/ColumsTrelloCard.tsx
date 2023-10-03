@@ -107,6 +107,23 @@ const ColumsTrelloCard = ({
     targetPosition: number,
   ) => {
     let moveMaintenance = false;
+    const projectId = columns[originColumnPosition].projects[sourcePosition]?.projectData?.project_id;
+    let projectExistOutsideGivenColumn = false;
+    const doesProjectExistOutsideGivenColumn = (projectId:number, columns:any, excludedColumnPosition:number) => {
+      for (let i = 0; i < columns.length; i++) {
+        if (i !== excludedColumnPosition && columns[i].title !== "Workspace") {
+          for (const project of columns[i].projects) {
+            if (project.project_id === projectId) {
+              return true;
+            }
+          }
+        }
+      }
+      return false;
+    };
+    if (doesProjectExistOutsideGivenColumn(projectId, columns, originColumnPosition)) {
+      projectExistOutsideGivenColumn = true;
+    }
     if (tabKey === 'Maintenance') {
       const currentSubType =
         columns[originColumnPosition].projects[sourcePosition]?.projectData?.code_project_type?.code_project_type_id;
@@ -119,7 +136,7 @@ const ColumsTrelloCard = ({
         moveMaintenance = true;
       }
     }
-    if (tabKey !== 'Maintenance' || moveMaintenance) {
+    if ((tabKey !== 'Maintenance' || moveMaintenance) && !projectExistOutsideGivenColumn) {
       if (originColumnPosition === targetColumnPosition) {
         moveProjectsManual({
           originColumnPosition,
