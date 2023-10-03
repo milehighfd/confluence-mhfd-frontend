@@ -315,6 +315,12 @@ const RequestView = ({ type, widthMap }: {
       setReqManager(mainBudget);
     }
   }, [localityFilter, board, namespaceId]);
+
+  useEffect(() => {
+    if (namespaceId.type === WORK_PLAN && localityFilter === 'Mile High Flood District' && namespaceId.year >= YEAR_LOGIC_2024) {
+      setMainBudget(reqManager);
+    }
+  }, [reqManager,mainBudget]);
   
 
   useEffect(() => {
