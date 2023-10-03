@@ -3,9 +3,11 @@ import { Col, Collapse, InputNumber, Row, Timeline } from 'antd';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { priceFormatter, priceParser, formatter } from 'Components/Work/Request/RequestViewUtil';
 import { UseDebouncedEffect } from 'routes/Utils/useDebouncedEffect';
-import { MAINTENANCE, WORK_SPACE, WORK_REQUEST } from 'constants/constants';
+import { MAINTENANCE, WORK_SPACE, WORK_REQUEST, WORK_PLAN, YEAR_LOGIC_2024 } from 'constants/constants';
 import { useMapState } from 'hook/mapHook';
 import { useProfileState } from 'hook/profileHook';
+import { SERVER } from 'Config/Server.config';
+import * as datasets from "../../../Config/datasets";
 
 const { Panel } = Collapse;
 
@@ -21,7 +23,8 @@ const RequestCostRows = () => {
     sumTotal,
     year,
     columns2,
-    namespaceId
+    namespaceId,
+    localityFilter
   } = useRequestState();
   const { tabActiveNavbar } = useMapState();
 
@@ -42,7 +45,15 @@ const RequestCostRows = () => {
           targetcost4: targetCosts[3],
           targetcost5: targetCosts[4],
         };
-        updateTargetCost(formattedTargetCosts);
+        if (namespaceId.type === WORK_PLAN && localityFilter !== 'Mile High Flood District' && Object.keys(board).length > 0 && namespaceId.year >= YEAR_LOGIC_2024) {
+          datasets.postData(`${SERVER.BUDGET_BOARD_TABLE}/add-or-update`, {
+            boards_id: board.board_id,
+            locality: localityFilter,
+             ...formattedTargetCosts
+            }, datasets.getToken());
+        }else{
+          updateTargetCost(formattedTargetCosts);
+        }
       }
     },
     [targetCosts],
