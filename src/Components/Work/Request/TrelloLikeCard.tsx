@@ -17,6 +17,7 @@ import EditDatesModal from './EditDatesModal';
 import { useProfileState } from 'hook/profileHook';
 import { ArchiveAlert } from 'Components/Alerts/ArchiveAlert';
 import DetailModal from 'routes/detail-page/components/DetailModal';
+import { SPONSOR_ID } from 'constants/databaseConstants';
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -257,10 +258,17 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
       color= '#FF8938';
       backgroundColor = 'rgba(255, 221, 0, 0.3)';
   }
-  
   let labelOrigin = project.origin;
   if (labelOrigin?.length > 9) {
     labelOrigin = labelOrigin.substr(0, 9) + '...';
+  }
+  let sponsor = '';
+  const partner = project?.projectData?.project_partners.find((partner:any) => partner.code_partner_type_id === SPONSOR_ID);
+  if (partner) {
+    sponsor = partner.business_associate.business_name;
+    if (sponsor?.length > 9) {
+      sponsor = sponsor.substr(0, 9) + '...';
+    }
   }
 
   return (
@@ -376,7 +384,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
               </div>
             <div style={{display:'flex', justifyContent:"space-between"}}>
               <Popover placement="top" content={<>{project.origin}</>} style={{}}>
-                <label className="purple" >{labelOrigin}</label>
+                <label className="purple" >{sponsor}</label>
               </Popover>
               <label className="yellow" style={{color, backgroundColor}}>{status}</label>
             </div>
