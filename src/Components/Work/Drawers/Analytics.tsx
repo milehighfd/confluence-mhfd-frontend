@@ -9,6 +9,7 @@ import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { WINDOW_WIDTH, WORK_PLAN, LOCALITIES_TYPES, YEAR_LOGIC_2024 } from 'constants/constants';
 import { useMapState } from 'hook/mapHook';
 import { setShowBoardStatus } from 'store/actions/requestActions';
+import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
 
 const { Option } = Select;
 
@@ -28,6 +29,7 @@ const Analytics = () => {
     localityFilter,
     board
   } = useRequestState();
+  const { openNotification } = useNotifications();
   const { setShowAnalytics, setTotalCountyBudget } = useRequestDispatch();
   const { showAnalytics } = useRequestState();
   const [totalSum, setTotalSum] = useState(0);
@@ -56,12 +58,15 @@ const Analytics = () => {
         boards_id: board.board_id,
         locality: localityFilter,
         ...formattedTargetCosts
-      }, datasets.getToken());
+      }, datasets.getToken()).then((data) => {
+        openNotification('Success! Your budget update was saved!', "success");
+      });
     }else{
       datasets.putData(SERVER.UPDATE_BUDGET, {
         boardId,
         budget: tcb
       },datasets.getToken()).then((data) => {
+        openNotification('Success! Your budget update was saved!', "success");
         setTotalCountyBudget(tcb);
       })
       .catch((e) => {
@@ -73,6 +78,8 @@ const Analytics = () => {
   useEffect(() => {
     if (totalCountyBudget){
       setTcb(totalCountyBudget);
+    }else{
+      setTcb(0);
     }
   }, [totalCountyBudget]);
 
