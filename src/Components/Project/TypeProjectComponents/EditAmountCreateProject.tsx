@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import useCostDataFormattingHook from 'hook/custom/useCostDataFormattingHook';
+import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
 import { formatter } from 'Components/Work/Request/RequestViewUtil';
 import AmountNumericInput from './AmountNumericInput';
 import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { BOARD_PROJECT_COST } from 'Config/endpoints/board-project';
+import { WORK_PLAN } from 'constants/constants';
 
 const EditAmountCreateProject = ({
   index,
@@ -13,25 +15,29 @@ const EditAmountCreateProject = ({
   project_id,
   getTotalCost,
   save,
-  subType
+  subType,
+  sponsor
 }:{
   index: number,
   type: string,
   project_id: any,
   getTotalCost: any,
-  save: any
-  subType: any
+  save: any,
+  subType: any,
+  sponsor: any
 }) => {
   const {
     columns2: columns,
     year: startYear,
-    tabKey
+    tabKey,
+    namespaceId,
   } = useRequestState();
   const { loadOneColumn } = useRequestDispatch();
   const { status, createdProject } = useProjectState();
   const { setCreatedProject } = useProjectDispatch();
   const [project, setProject] = useState<any>({})
   const [board_project_id, setBoard_project_id] = useState<any>()
+  const [createData, setCreatedData] = useState<any>({})
   const isMaintenance = tabKey === 'Maintenance'
   
   const [cost, setCost] = useState<any>({
@@ -79,10 +85,63 @@ const EditAmountCreateProject = ({
       .catch((err: any) => {
         console.log(err);
       });
+    if (namespaceId.type === WORK_PLAN) {
+      let subTypeIndex = 0;
+      switch (subType) {
+        case 'Routine Trash and Debris':
+          subTypeIndex = 1;
+          break;
+        case 'Vegetation Management':
+          subTypeIndex = 2;
+          break;
+        case 'Sediment Removal':
+          subTypeIndex = 3;
+          break;
+        case 'Minor Repair':
+          subTypeIndex = 4;
+          break;
+        case 'Restoration':
+          subTypeIndex = 5;
+          break;
+        default:
+          subTypeIndex = 0;
+          break;
+      }
+      const years = convertObjectToArrays(cost, namespaceId.year);
+      const sendBody = {
+        project_type: namespaceId.projecttype,
+        year: namespaceId.year,
+        extraYears: years.extraYears,
+        sponsor: sponsor,
+        project_id : createData.project_data.project_id,
+        extraYearsAmounts: years.extraYearsAmounts,
+        subType: subTypeIndex,
+      }
+      datasets.postData(SERVER.UPDATE_APPROVED_BOARD, sendBody , datasets.getToken()).then((res: any) => {
+        
+      })
+    }    
   };
+
+  function convertObjectToArrays(input: any, year: number) {
+    const extraYears = [];
+    const extraYearsAmounts = [];
+    for (let i = 1; i <= 5; i++) {
+      const value = input[`req${i}`];
+      if (value !== null && value !== 0) {
+        extraYears.push(+year + i - 1);
+        extraYearsAmounts.push(value);
+      }
+    }
+    return { extraYears, extraYearsAmounts };
+  }
+
+
 
   useEffect(() => {
     if(Object.keys(createdProject).length !== 0){
+      console.log(createdProject, 'createdProject')
+      setCreatedData(createdProject)
       setBoard_project_id(createdProject?.boardProjectId?.board_project_id);
       setCreatedProject({});
     }
