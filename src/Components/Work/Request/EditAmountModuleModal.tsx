@@ -244,94 +244,72 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
             </Col> */}
           </Row>
           <Row>
-            <Col>Prior Funding</Col>
-            <Col>
+          
+          <Col span={3}>
+            {/* <Row>Prior Funding</Row> */}
+            <Row className='rowname'>2023</Row>
+            <Row className='rowname'>2024</Row>
+            <Row className='rowname'>2025</Row>
+            <Row className='rowname'>2026</Row>
+            <Row className='rowname'>2027</Row>
+          </Col>
+          
+          <Col span={3}>
+            <Row>
               <Input prefix="$" value={'100.000'} />
-            </Col>
-            <Col>
+            </Row>
+            <Row>
               <Input prefix="$" value={'500.000'} />
-            </Col>
-            <Col>
+            </Row>
+            <Row>
               <Input prefix="$" value={'500.000'} />
-            </Col>
-            <Col>
+            </Row>
+            <Row>
               <Input prefix="$" value={'500.000'} />
-            </Col>
-          </Row>
-          <Row>
-            <Col>2023</Col>
-            <Col>
-              <Input prefix="$" defaultValue={'100.000'} />
-            </Col>
-            <Col>
-              <Input prefix="$" defaultValue={'250.000'} />
-            </Col>
-            <Col>
-              <Input prefix="$" defaultValue={'250.000'} />
-            </Col>
-            <Col>
-              <Input prefix="$" defaultValue={'250.000'} />
-            </Col>
-          </Row>
-          <Row>
-            <Col>2023</Col>
-            <Col>
-              <Input prefix="$" defaultValue={'100.000'} />
-            </Col>
-            <Col>
-              <Input prefix="$" defaultValue={'250.000'} />
-            </Col>
-            <Col>
-              <Input prefix="$" defaultValue={'250.000'} />
-            </Col>
-            <Col>
-              <Input prefix="$" defaultValue={'250.000'} />
-            </Col>
-          </Row>
-          <Row>
-            <Col>2023</Col>
-            <Col>
-              <Input prefix="$" defaultValue={'100.000'} />
-            </Col>
-            <Col>
-              <Input prefix="$" defaultValue={'100.000'} />
-            </Col>
-            <Col>
-              <Input prefix="$" defaultValue={'100.000'} />
-            </Col>
-            <Col>
-              <Input prefix="$" defaultValue={'100.000'} />
-            </Col>
-          </Row>
-          <Row>
-            <Col>2023</Col>
-            <Col>
-              <Input prefix="$" defaultValue={'100.000'} />
-            </Col>
-            <Col>
-              <Input prefix="$" defaultValue={'100.000'} />
-            </Col>
-            <Col>
-              <Input prefix="$" defaultValue={'100.000'} />
-            </Col>
-            <Col>
-              <Input prefix="$" defaultValue={'100.000'} />
-            </Col>
-          </Row>
-          <Row>
-            <Col>2023</Col>
-            <Col>
-              <Input prefix="$" defaultValue={'100.000'} />
-            </Col>
-            <Col>
-              <Input prefix="$" defaultValue={'100.000'} />
-            </Col>
-            <Col>
-              <Input prefix="$" defaultValue={'100.000'} />
-            </Col>
-            <Col>
-              <Input prefix="$" defaultValue={'100.000'} />
-            </Col>
+            </Row>
+          </Col>
+          <Col span={3}>
+            <Row>
+              <Input prefix="$" value={'100.000'} />
+            </Row>
+            <Row>
+              <Input prefix="$" value={'500.000'} />
+            </Row>
+            <Row>
+              <Input prefix="$" value={'500.000'} />
+            </Row>
+            <Row>
+              <Input prefix="$" value={'500.000'} />
+            </Row>
+          </Col>
+          <Col span={3}>
+            <Row>
+              <Input prefix="$" value={'100.000'} />
+            </Row>
+            <Row>
+              <Input prefix="$" value={'500.000'} />
+            </Row>
+            <Row>
+              <Input prefix="$" value={'500.000'} />
+            </Row>
+            <Row>
+              <Input prefix="$" value={'500.000'} />
+            </Row>
+          </Col>
+          <Col span={3}>
+            <Row>
+              <Input prefix="$" value={'100.000'} />
+            </Row>
+            <Row>
+              <Input prefix="$" value={'500.000'} />
+            </Row>
+            <Row>
+              <Input prefix="$" value={'500.000'} />
+            </Row>
+            <Row>
+              <Input prefix="$" value={'500.000'} />
+            </Row>
+          </Col>
           </Row>
           <Row className="edit-amount-modal-body-table-sum">
             <Col>Total Sum Requested</Col>
