@@ -18,15 +18,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
   const { board_project_id } = project;
   const [requestFunding, setRequestFunding] = useState<any>(0);
   const [tableHeader, setTableHeader] = useState<any>([]);
-  const [cost, setCost] = useState<any>({
-    req1: null,
-    req2: null,
-    req3: null,
-    req4: null,
-    req5: null,
-    year1: null,
-    year2: null,
-  })
+  const [cost, setCost] = useState<any>({})
   const statusColor:any = {
     1: {color: '#FF8938', backgroundColor: 'rgba(255, 221, 0, 0.3)', projectStatus: 'Draft'},
     2: {color: '#9309EA', backgroundColor: 'rgba(94, 61, 255, 0.15)', projectStatus: 'Requested'},
@@ -66,28 +58,6 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
   useEffect(() => {
     console.log('tableHeader',tableHeader);
   }, [tableHeader]);
-
-//   project_partners: [
-//   {business_associate: {business_name: 'Arvada', business_associates_id: 2813},
-//   code_partner_type_id: 12,
-//   code_project_partner_type: {code_partner_type_id: 12, partner_type_name: 'Co-Sponsor', partner_type: 'SPONSOR'},
-//   project_partner_id: 22374,},
-//   {business_associate: {business_name: 'Thornton', business_associates_id: 2838},
-//   code_partner_type_id: 12,
-//   code_project_partner_type: {code_partner_type_id: 12, partner_type_name: 'Co-Sponsor', partner_type: 'SPONSOR'},
-//   project_partner_id: 22375,},
-//   {business_associate: {business_name: 'Westminster', business_associates_id: 2839},
-//   code_partner_type_id: 11,
-//   code_project_partner_type: {code_partner_type_id: 11, partner_type_name: 'Sponsor', partner_type: 'SPONSOR'},
-//   project_partner_id: 22377,},
-//   {business_associate: {business_name: 'MHFD', business_associates_id: 4585},
-//   code_partner_type_id: 88,
-//   code_project_partner_type: {code_partner_type_id: 88, partner_type_name: 'MHFD', partner_type: 'Owner'},
-//   project_partner_id: 22376,}
-// ]
-// ['MHFD','Westminster', 'Arvada','Thornton']
-// [{business_name:'MHFD', code_partner_type_id: 88}, {'Westminster', code_partner_type_id: 88}, {'Arvada', code_partner_type_id: 88}, {'Thornton', code_partner_type_id: 88}]
-
 
   const listCounties = (project: any) => {
     let counties = '';
@@ -162,6 +132,10 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         console.log(err);
       });
     }, [board_project_id, visible]);
+
+    useEffect(() => {
+      console.log('cost', cost)
+    }, [cost]);
 
   return (
     <Modal
@@ -244,7 +218,6 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
             </Col> */}
           </Row>
           <Row>
-          
           <Col span={3}>
             {/* <Row>Prior Funding</Row> */}
             <Row className='rowname'>2023</Row>
@@ -253,7 +226,49 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
             <Row className='rowname'>2026</Row>
             <Row className='rowname'>2027</Row>
           </Col>
-          
+          {Object.keys(cost).length !== 0 && cost?.amounts.map((item: any) => {
+            console.log('item', item.values)
+            return (
+              <Col span={3}>
+              {Object.keys(item?.values).map((amount: any, index:number) => {
+                console.log('amount', amount)
+                return (
+                  <Row>
+                    <Input prefix="$" value={item.values[amount]} />
+                  </Row>
+                )
+              })}
+              </Col>
+            )
+          })}
+          {/* <Col span={3}>
+            <Row>
+              <Input prefix="$" value={'1111.000'} />
+            </Row>
+            <Row>
+              <Input prefix="$" value={'111.000'} />
+            </Row>
+            <Row>
+              <Input prefix="$" value={'5111.000'} />
+            </Row>
+            <Row>
+              <Input prefix="$" value={'1111.000'} />
+            </Row>
+          </Col>
+          <Col span={3}>
+            <Row>
+              <Input prefix="$" value={'100.000'} />
+            </Row>
+            <Row>
+              <Input prefix="$" value={'500.000'} />
+            </Row>
+            <Row>
+              <Input prefix="$" value={'500.000'} />
+            </Row>
+            <Row>
+              <Input prefix="$" value={'500.000'} />
+            </Row>
+          </Col>
           <Col span={3}>
             <Row>
               <Input prefix="$" value={'100.000'} />
@@ -281,35 +296,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
             <Row>
               <Input prefix="$" value={'500.000'} />
             </Row>
-          </Col>
-          <Col span={3}>
-            <Row>
-              <Input prefix="$" value={'100.000'} />
-            </Row>
-            <Row>
-              <Input prefix="$" value={'500.000'} />
-            </Row>
-            <Row>
-              <Input prefix="$" value={'500.000'} />
-            </Row>
-            <Row>
-              <Input prefix="$" value={'500.000'} />
-            </Row>
-          </Col>
-          <Col span={3}>
-            <Row>
-              <Input prefix="$" value={'100.000'} />
-            </Row>
-            <Row>
-              <Input prefix="$" value={'500.000'} />
-            </Row>
-            <Row>
-              <Input prefix="$" value={'500.000'} />
-            </Row>
-            <Row>
-              <Input prefix="$" value={'500.000'} />
-            </Row>
-          </Col>
+          </Col> */}
           </Row>
           <Row className="edit-amount-modal-body-table-sum">
             <Col>Total Sum Requested</Col>
