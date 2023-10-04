@@ -6,17 +6,18 @@ import { useRequestState } from 'hook/requestHook';
 import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { BOARD_PROJECT_COST } from 'Config/endpoints/board-project';
 
-const EditAmountModuleModal = ({ project, visible, setVisible }: {project: any; visible: boolean; setVisible: Function }) => {
+const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisible }: {project: any; completeProjectData:any; visible: boolean; setVisible: Function }) => {
   
   const { tabKey } = useRequestState();
   const {
-    listComponents
+    listComponents,
   } = useProjectState();
   const {
     getComponentsByProjectId,
   } = useProjectDispatch();
   const { board_project_id } = project;
   const [requestFunding, setRequestFunding] = useState<any>(0);
+  const [tableHeader, setTableHeader] = useState<any>([]);
   const [cost, setCost] = useState<any>({
     req1: null,
     req2: null,
@@ -40,6 +41,53 @@ const EditAmountModuleModal = ({ project, visible, setVisible }: {project: any; 
     console.log('project', project);
     console.log(listCounties(project));
   }, [project]);
+
+  useEffect(() => {
+    console.log('completeProjectData', completeProjectData)
+
+    const projectPartners = completeProjectData.project_partners;
+    const desiredOrder = [88, 11, 12];
+
+    projectPartners.sort((a:any, b:any) => {
+      const orderA = desiredOrder.indexOf(a.code_partner_type_id);
+      const orderB = desiredOrder.indexOf(b.code_partner_type_id);
+      if (orderA < orderB) return -1;
+      if (orderA > orderB) return 1;
+      return 0;
+    });
+    const tableHeaderPartners = projectPartners.map((partner:any) => ({
+      business_name: partner.business_associate.business_name,
+      code_partner_type_id: partner.code_partner_type_id
+    }));
+    setTableHeader([{business_name: 'Years', code_partner_type_id: 555},...tableHeaderPartners ])
+
+  }, [completeProjectData]);
+
+  useEffect(() => {
+    console.log('tableHeader',tableHeader);
+  }, [tableHeader]);
+
+//   project_partners: [
+//   {business_associate: {business_name: 'Arvada', business_associates_id: 2813},
+//   code_partner_type_id: 12,
+//   code_project_partner_type: {code_partner_type_id: 12, partner_type_name: 'Co-Sponsor', partner_type: 'SPONSOR'},
+//   project_partner_id: 22374,},
+//   {business_associate: {business_name: 'Thornton', business_associates_id: 2838},
+//   code_partner_type_id: 12,
+//   code_project_partner_type: {code_partner_type_id: 12, partner_type_name: 'Co-Sponsor', partner_type: 'SPONSOR'},
+//   project_partner_id: 22375,},
+//   {business_associate: {business_name: 'Westminster', business_associates_id: 2839},
+//   code_partner_type_id: 11,
+//   code_project_partner_type: {code_partner_type_id: 11, partner_type_name: 'Sponsor', partner_type: 'SPONSOR'},
+//   project_partner_id: 22377,},
+//   {business_associate: {business_name: 'MHFD', business_associates_id: 4585},
+//   code_partner_type_id: 88,
+//   code_project_partner_type: {code_partner_type_id: 88, partner_type_name: 'MHFD', partner_type: 'Owner'},
+//   project_partner_id: 22376,}
+// ]
+// ['MHFD','Westminster', 'Arvada','Thornton']
+// [{business_name:'MHFD', code_partner_type_id: 88}, {'Westminster', code_partner_type_id: 88}, {'Arvada', code_partner_type_id: 88}, {'Thornton', code_partner_type_id: 88}]
+
 
   const listCounties = (project: any) => {
     let counties = '';
@@ -149,9 +197,41 @@ const EditAmountModuleModal = ({ project, visible, setVisible }: {project: any; 
         <Row className="edit-amount-modal-body-title">
           How much funding is the Local Government providing and requesting from MHFD?
         </Row>
+
+
         <div className="edit-amount-modal-body-table">
           <Row className="edit-amount-modal-body-table-title">
-            <Col>Years</Col>
+            {tableHeader.length !==0 && tableHeader.map((item: any) => {
+              if(item.code_partner_type_id === 11){
+                return (
+                  <Col>
+                    {item.business_name} <p>Sponsor</p>
+                  </Col>
+                )
+              } else if(item.code_partner_type_id === 12){
+                return (
+                  <Col>
+                    {item.business_name} <p>Co-Sponsor</p>
+                  </Col>
+                )
+              } else if(item.code_partner_type_id === 88){
+                return (
+                  <Col>
+                    {item.business_name} Funding 
+                  </Col>
+                )
+              }
+              else { 
+                return (
+                  <Col>
+                    {item.business_name}
+                  </Col>
+                )
+              }
+            })
+            }
+            
+            {/* <Col>Years</Col>
             <Col>MHFD Funding</Col>
             <Col>
               Arvada <p>Sponsor</p>
@@ -161,21 +241,36 @@ const EditAmountModuleModal = ({ project, visible, setVisible }: {project: any; 
             </Col>
             <Col>
               Broomfield <p>Co-Sponsor</p>
-            </Col>
+            </Col> */}
           </Row>
           <Row>
             <Col>Prior Funding</Col>
             <Col>
+              <Input prefix="$" value={'100.000'} />
+            </Col>
+            <Col>
+              <Input prefix="$" value={'500.000'} />
+            </Col>
+            <Col>
+              <Input prefix="$" value={'500.000'} />
+            </Col>
+            <Col>
+              <Input prefix="$" value={'500.000'} />
+            </Col>
+          </Row>
+          <Row>
+            <Col>2023</Col>
+            <Col>
               <Input prefix="$" defaultValue={'100.000'} />
             </Col>
             <Col>
-              <Input prefix="$" defaultValue={'500.000'} />
+              <Input prefix="$" defaultValue={'250.000'} />
             </Col>
             <Col>
-              <Input prefix="$" defaultValue={'500.000'} />
+              <Input prefix="$" defaultValue={'250.000'} />
             </Col>
             <Col>
-              <Input prefix="$" defaultValue={'500.000'} />
+              <Input prefix="$" defaultValue={'250.000'} />
             </Col>
           </Row>
           <Row>

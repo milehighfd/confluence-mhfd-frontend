@@ -637,6 +637,7 @@ const TableListView = ({
         {
           showAmountModal && <EditAmountModuleModal
             project={selectedProject}
+            completeProjectData={completeProjectData}
             visible={showAmountModal}
             setVisible={setShowAmountModal}
           />

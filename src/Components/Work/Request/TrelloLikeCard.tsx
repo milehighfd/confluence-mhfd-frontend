@@ -57,6 +57,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   const [showModalProject, setShowModalProject] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [completeProjectData, setCompleteProjectData] = useState<any>(null);
+  const [typeEdition, setTypeEdition] = useState<any>('');
   const [showCopyToCurrentYearAlert, setShowCopyToCurrentYearAlert] = useState(false);
   const [showActivateProject, setShowActivateProject] = useState(false);
   const [archiveAlert, setArchiveAlert] = useState(false);
@@ -109,7 +110,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
         <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
         Edit Project
       </span>,
-      onClick: (() => getCompleteProjectData())
+      onClick: (() => {getCompleteProjectData(); setTypeEdition('editProject')})
     }, {
       key: '1',
       disabled: boardStatus === BOARD_STATUS_TYPES.APPROVED,
@@ -117,7 +118,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
         <img src="/Icons/icon-90.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px', marginRight: '4px' }} />
         Edit Amount
       </span>,
-      onClick: (() => setShowAmountModal(true))
+      onClick: (() => {getCompleteProjectData(); setTypeEdition('editAmount')})
     }, {
       key: '2',
       label: <span style={{borderBottom: '1px solid transparent'}}>
@@ -202,8 +203,11 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   }, [archiveProjectAction])
   
   useEffect(() => {
-    if (completeProjectData) {
+    if (completeProjectData && typeEdition === 'editProject') {
       setShowModalProject(true);
+    }
+    else if (completeProjectData && typeEdition === 'editAmount') {
+      setShowAmountModal(true);
     }
   }, [completeProjectData]);
 
@@ -303,6 +307,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
     }
     {showAmountModal && <EditAmountModuleModal
       project={project}
+      completeProjectData={completeProjectData}
       visible={showAmountModal}
       setVisible={setShowAmountModal}
       />}
