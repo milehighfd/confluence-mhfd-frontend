@@ -9,6 +9,7 @@ import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { WINDOW_WIDTH, WORK_PLAN, LOCALITIES_TYPES, YEAR_LOGIC_2024 } from 'constants/constants';
 import { useMapState } from 'hook/mapHook';
 import { setShowBoardStatus } from 'store/actions/requestActions';
+import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
 
 const { Option } = Select;
 
@@ -42,6 +43,7 @@ const Analytics = () => {
   const [countiesNames, setCountiesNames] = useState('');
   const {tabActiveNavbar} = useMapState();
   const [localityTypeLabel, setLocalityTypeLabel] = useState('County');
+  const { openNotification } = useNotifications();
   const clickUpdate = () => {
     if (namespaceId.type === WORK_PLAN &&
       localityFilter !== 'Mile High Flood District' &&
@@ -56,13 +58,16 @@ const Analytics = () => {
         boards_id: board.board_id,
         locality: localityFilter,
         ...formattedTargetCosts
-      }, datasets.getToken());
+      }, datasets.getToken()).then((data) => {
+        openNotification('Success! Your budget update was saved!', "success");
+      });
     }else{
       datasets.putData(SERVER.UPDATE_BUDGET, {
         boardId,
         budget: tcb
       },datasets.getToken()).then((data) => {
         setTotalCountyBudget(tcb);
+        openNotification('Success! Your budget update was saved!', "success");
       })
       .catch((e) => {
         console.log(e);
