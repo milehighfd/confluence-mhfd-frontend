@@ -73,6 +73,8 @@ const Analytics = () => {
   useEffect(() => {
     if (totalCountyBudget){
       setTcb(totalCountyBudget);
+    }else{
+      setTcb(0);
     }
   }, [totalCountyBudget]);
 

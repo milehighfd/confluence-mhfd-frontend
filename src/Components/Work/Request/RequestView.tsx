@@ -302,7 +302,7 @@ const RequestView = ({ type, widthMap }: {
     if (namespaceId.type === WORK_PLAN && localityFilter !== 'Mile High Flood District' && Object.keys(board).length > 0 && namespaceId.year >= YEAR_LOGIC_2024) {
       datasets.postData(`${SERVER.BUDGET_BOARD_TABLE}/entry`, { locality: localityFilter, boards_id: board.board_id }, datasets.getToken())        
         .then(data => {
-          if (data){
+          if (data.entry){
             if (namespaceId.projecttype === 'Maintenance') {
               setTotalCountyBudget(data?.entry?.targetcost1)
             }else{
