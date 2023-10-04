@@ -5,10 +5,11 @@ import { formatter } from "./RequestViewUtil";
 import { useRequestState } from 'hook/requestHook';
 import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { BOARD_PROJECT_COST } from 'Config/endpoints/board-project';
+import useCostDataFormattingHook from 'hook/custom/useCostDataFormattingHook';
 
 const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisible }: {project: any; completeProjectData:any; visible: boolean; setVisible: Function }) => {
   
-  const { tabKey } = useRequestState();
+  const { tabKey,year: startYear } = useRequestState();
   const {
     listComponents,
   } = useProjectState();
@@ -19,6 +20,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
   const [requestFunding, setRequestFunding] = useState<any>(0);
   const [tableHeader, setTableHeader] = useState<any>([]);
   const [cost, setCost] = useState<any>({})
+  const desiredOrder = [88, 11, 12];
   const statusColor:any = {
     1: {color: '#FF8938', backgroundColor: 'rgba(255, 221, 0, 0.3)', projectStatus: 'Draft'},
     2: {color: '#9309EA', backgroundColor: 'rgba(94, 61, 255, 0.15)', projectStatus: 'Requested'},
@@ -29,35 +31,18 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
   }
   const defaultColor = {color: '#FF8938', backgroundColor: 'rgba(255, 221, 0, 0.3)', projectStatus: ''}
 
-  useEffect(() => {
-    console.log('project', project);
-    console.log(listCounties(project));
-  }, [project]);
+  const orderArrayForCost = (data: any) => {
+    const orderedArray = data.sort((a:any, b:any) => {
 
-  useEffect(() => {
-    console.log('completeProjectData', completeProjectData)
-
-    const projectPartners = completeProjectData.project_partners;
-    const desiredOrder = [88, 11, 12];
-
-    projectPartners.sort((a:any, b:any) => {
       const orderA = desiredOrder.indexOf(a.code_partner_type_id);
       const orderB = desiredOrder.indexOf(b.code_partner_type_id);
+    
       if (orderA < orderB) return -1;
       if (orderA > orderB) return 1;
       return 0;
     });
-    const tableHeaderPartners = projectPartners.map((partner:any) => ({
-      business_name: partner.business_associate.business_name,
-      code_partner_type_id: partner.code_partner_type_id
-    }));
-    setTableHeader([{business_name: 'Years', code_partner_type_id: 555},...tableHeaderPartners ])
-
-  }, [completeProjectData]);
-
-  useEffect(() => {
-    console.log('tableHeader',tableHeader);
-  }, [tableHeader]);
+    return orderedArray;
+  }
 
   const listCounties = (project: any) => {
     let counties = '';
@@ -92,6 +77,22 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
     console.log('totalSum', totalSum)
     return totalSum;
   }
+
+  useEffect(() => {
+    console.log(listCounties(project));
+  }, [project]);
+
+  useEffect(() => {
+    const projectPartners = completeProjectData.project_partners;
+    let projectPartnerOrdered = orderArrayForCost(projectPartners)
+    const tableHeaderPartners = projectPartnerOrdered.map((partner:any) => ({
+      business_name: partner.business_associate.business_name,
+      code_partner_type_id: partner.code_partner_type_id
+    }));
+    setTableHeader([{business_name: 'Years', code_partner_type_id: 555},...tableHeaderPartners ])
+
+  }, [completeProjectData]);
+
   useEffect(() => {
     if (tabKey === 'Capital') {
       getComponentsByProjectId(project?.project_id);
@@ -125,7 +126,8 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
       datasets.getToken()
     )
       .then((res: any) => {
-        console.log('cost',res)
+        let costNotOrdered =orderArrayForCost(res?.amounts);
+        res.amounts = costNotOrdered;
         setCost(res);
       })
       .catch((err: any) => {
@@ -136,6 +138,14 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
     useEffect(() => {
       console.log('cost', cost)
     }, [cost]);
+    useEffect(() => {
+      console.log('completeProjectData', completeProjectData)
+    }, [completeProjectData]);
+    const costDataList = useCostDataFormattingHook(tabKey, 'subType', startYear, board_project_id, true);
+
+    const handleChange = (e: any) => {
+      console.log('e', e)
+    }
 
   return (
     <Modal
@@ -204,22 +214,11 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
               }
             })
             }
-            
-            {/* <Col>Years</Col>
-            <Col>MHFD Funding</Col>
-            <Col>
-              Arvada <p>Sponsor</p>
-            </Col>
-            <Col>
-              Westiminister <p>Co-Sponsor</p>
-            </Col>
-            <Col>
-              Broomfield <p>Co-Sponsor</p>
-            </Col> */}
           </Row>
           <Row>
           <Col span={3}>
             {/* <Row>Prior Funding</Row> */}
+            <Row className='rowname'>--</Row>
             <Row className='rowname'>2023</Row>
             <Row className='rowname'>2024</Row>
             <Row className='rowname'>2025</Row>
@@ -227,14 +226,12 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
             <Row className='rowname'>2027</Row>
           </Col>
           {Object.keys(cost).length !== 0 && cost?.amounts.map((item: any) => {
-            console.log('item', item.values)
             return (
               <Col span={3}>
               {Object.keys(item?.values).map((amount: any, index:number) => {
-                console.log('amount', amount)
                 return (
                   <Row>
-                    <Input prefix="$" value={item.values[amount]} />
+                    <Input prefix="$" value={item.values[`req${index+1}`]} onChange={handleChange} />
                   </Row>
                 )
               })}
