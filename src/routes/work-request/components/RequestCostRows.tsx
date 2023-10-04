@@ -45,13 +45,18 @@ const RequestCostRows = () => {
           targetcost4: targetCosts[3],
           targetcost5: targetCosts[4],
         };
-        if (namespaceId.type === WORK_PLAN && localityFilter !== 'Mile High Flood District' && Object.keys(board).length > 0 && namespaceId.year >= YEAR_LOGIC_2024) {
+        if (namespaceId.type === WORK_PLAN &&
+          localityFilter !== 'Mile High Flood District' &&
+          Object.keys(board).length > 0 &&
+          namespaceId.year >= YEAR_LOGIC_2024 &&
+          namespaceId.projecttype !== 'Maintenance'
+        ) {
           datasets.postData(`${SERVER.BUDGET_BOARD_TABLE}/add-or-update`, {
             boards_id: board.board_id,
             locality: localityFilter,
-             ...formattedTargetCosts
-            }, datasets.getToken());
-        }else{
+            ...formattedTargetCosts
+          }, datasets.getToken());
+        } else {
           updateTargetCost(formattedTargetCosts);
         }
       }
@@ -153,45 +158,49 @@ const RequestCostRows = () => {
                 </Timeline>
               </Row>
             </div>
-            <div className="body-4">
-              <Row>
-                <Col span={4}>Budget</Col>
-                {reqManager.map((val: any, index: number) => (
-                  <Col span={4} className="row-col-4" key={index}>
-                    <InputNumber
-                      placeholder="Enter target cost"
-                      style={{ opacity: isFiltered ? 0.5 : 1 }}
-                      readOnly={isFiltered}
-                      formatter={priceFormatter}
-                      parser={priceParser}
-                      value={val}
-                      disabled={disabled}
-                      onChange={(e: any) => {
-                        let v = e;
-                        let nv = reqManager.map((vl: any, i: number) => {
-                          if (i === index) {
-                            return v;
-                          }
-                          return vl;
-                        });
-                        setReqManager(nv);
-                        setTargetCosts(nv);
-                      }}
-                    />
-                  </Col>
-                ))}
-              </Row>
-            </div>
-            <div className="body-5">
-              <Row>
-                <Col span={4}>Differential</Col>
-                {diff.map((d: any, i: number) => (
-                  <Col key={i} span={4} style={{ opacity: isFiltered ? 0.5 : 1 }} className="row-col-5">
-                    {d ? formatter.format(Math.floor(d)) : '$0'}
-                  </Col>
-                ))}
-              </Row>
-            </div>
+            { (namespaceId.projecttype !== 'Maintenance') &&
+              <>
+                <div className="body-4">
+                  <Row>
+                    <Col span={4}>Budget</Col>
+                    {reqManager.map((val: any, index: number) => (
+                      <Col span={4} className="row-col-4" key={index}>
+                        <InputNumber
+                          placeholder="Enter target cost"
+                          style={{ opacity: isFiltered ? 0.5 : 1 }}
+                          readOnly={isFiltered}
+                          formatter={priceFormatter}
+                          parser={priceParser}
+                          value={val}
+                          disabled={disabled}
+                          onChange={(e: any) => {
+                            let v = e;
+                            let nv = reqManager.map((vl: any, i: number) => {
+                              if (i === index) {
+                                return v;
+                              }
+                              return vl;
+                            });
+                            setReqManager(nv);
+                            setTargetCosts(nv);
+                          }}
+                        />
+                      </Col>
+                    ))}
+                  </Row>
+                </div>
+                <div className="body-5">
+                  <Row>
+                    <Col span={4}>Differential</Col>
+                    {diff.map((d: any, i: number) => (
+                      <Col key={i} span={4} style={{ opacity: isFiltered ? 0.5 : 1 }} className="row-col-5">
+                        {d ? formatter.format(Math.floor(d)) : '$0'}
+                      </Col>
+                    ))}
+                  </Row>
+                </div>
+              </>
+            }
           </div>
         </Panel>
       </Collapse>

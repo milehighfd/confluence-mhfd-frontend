@@ -6,7 +6,7 @@ import { CHART_CONSTANTS } from 'Components/FiltersProject/NewProblemsFilter/Cha
 import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
-import { WINDOW_WIDTH, WORK_PLAN } from 'constants/constants';
+import { WINDOW_WIDTH, WORK_PLAN, LOCALITIES_TYPES, YEAR_LOGIC_2024 } from 'constants/constants';
 import { useMapState } from 'hook/mapHook';
 import { setShowBoardStatus } from 'store/actions/requestActions';
 
@@ -23,11 +23,15 @@ const Analytics = () => {
     showAnalytics: visible,
     sumTotal: totals,
     totalCountyBudget,
+    localityType: localityTypeState,
+    namespaceId,
+    localityFilter,
+    board
   } = useRequestState();
-  const { setShowAnalytics } = useRequestDispatch();
+  const { setShowAnalytics, setTotalCountyBudget } = useRequestDispatch();
   const { showAnalytics } = useRequestState();
   const [totalSum, setTotalSum] = useState(0);
-  const [tcb, setTcb] = useState(totalCountyBudget);
+  const [tcb, setTcb] = useState(totalCountyBudget || 0);
   const [year, setYear] = useState<any>(tabKey === 'Maintenance' ? 2000 : +initialYear);
   const [dataByLocality, setDataByLocality] = useState(dataByCounty);
   const [localityType, setLocalityType] = useState('County');
@@ -37,21 +41,39 @@ const Analytics = () => {
   const [amountData, setAmountData] = useState([]);
   const [countiesNames, setCountiesNames] = useState('');
   const {tabActiveNavbar} = useMapState();
-
+  const [localityTypeLabel, setLocalityTypeLabel] = useState('County');
   const clickUpdate = () => {
-    datasets.putData(SERVER.UPDATE_BUDGET, {
-      boardId,
-      budget: tcb
-    }).then((data) => {
-      console.log(data);
-    })
-    .catch((e) => {
-      console.log(e);
-    });
+    if (namespaceId.type === WORK_PLAN &&
+      localityFilter !== 'Mile High Flood District' &&
+      Object.keys(board).length > 0 &&
+      namespaceId.year >= YEAR_LOGIC_2024 &&
+      namespaceId.projecttype === 'Maintenance'
+    ) {
+      const formattedTargetCosts = {
+        targetcost1: tcb,
+      };
+      datasets.postData(`${SERVER.BUDGET_BOARD_TABLE}/add-or-update`, {
+        boards_id: board.board_id,
+        locality: localityFilter,
+        ...formattedTargetCosts
+      }, datasets.getToken());
+    }else{
+      datasets.putData(SERVER.UPDATE_BUDGET, {
+        boardId,
+        budget: tcb
+      },datasets.getToken()).then((data) => {
+        setTotalCountyBudget(tcb);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    }    
   };
 
   useEffect(() => {
-    setTcb(totalCountyBudget);
+    if (totalCountyBudget){
+      setTcb(totalCountyBudget);
+    }
   }, [totalCountyBudget]);
 
   useEffect(() => {
@@ -157,6 +179,15 @@ const Analytics = () => {
   useEffect(() =>{
     setShowAnalytics(false);
   },[tabActiveNavbar])
+  useEffect(() =>{
+    if (localityTypeState === LOCALITIES_TYPES.CODE_STATE_COUNTY){
+      setLocalityTypeLabel('County');      
+    }else if(localityTypeState === LOCALITIES_TYPES.CODE_SERVICE_AREA){
+      setLocalityTypeLabel('Service Area');
+    }else{
+      setLocalityTypeLabel('');
+    }
+  },[localityTypeState])
   return (
     <Drawer
       title={
@@ -174,7 +205,7 @@ const Analytics = () => {
       {tabActiveNavbar === WORK_PLAN && tabKey === 'Maintenance' &&
         <>
           <div>
-            <h6>Total County Budget</h6>
+            <h6>{`Total ${localityTypeLabel} Budget`}</h6>
             <InputNumber className="rheostat-input" size='large' min={0}
               formatter={priceFormatter}
               parser={priceParser}

@@ -49,7 +49,8 @@ const RequestView = ({ type, widthMap }: {
     reqManager,
     localityFilter,
     namespaceId,
-    board
+    board,
+    totalCountyBudget
   } = useRequestState();
   
   const {
@@ -103,6 +104,7 @@ const RequestView = ({ type, widthMap }: {
   const [maintenanceSubType, setMaintenanceSubType] = useState<any>(NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management);
   const [scrollTo, setScrollTo] = useState(0);
   const [mainBudget, setMainBudget] = useState([0, 0, 0, 0, 0]);
+  const [mainCountyBudget, setMainCountyBudget] = useState(0);
   
   const {  
     tabActiveNavbar
@@ -276,6 +278,7 @@ const RequestView = ({ type, widthMap }: {
       
       setFlagforScroll(Math.random());
       setTotalCountyBudget(board.total_county_budget);
+      setMainCountyBudget(board.total_county_budget);
       setReqManager([
         board.targetcost1, board.targetcost2, board.targetcost3, board.targetcost4, board.targetcost5
       ]);
@@ -300,28 +303,49 @@ const RequestView = ({ type, widthMap }: {
       datasets.postData(`${SERVER.BUDGET_BOARD_TABLE}/entry`, { locality: localityFilter, boards_id: board.board_id }, datasets.getToken())        
         .then(data => {
           if (data){
-            setReqManager([
-              data.entry.targetcost1, data.entry.targetcost2, data.entry.targetcost3, data.entry.targetcost4, data.entry.targetcost5
-            ]);
+            if (namespaceId.projecttype === 'Maintenance') {
+              setTotalCountyBudget(data?.entry?.targetcost1)
+            }else{
+              setReqManager([
+                data.entry.targetcost1, data.entry.targetcost2, data.entry.targetcost3, data.entry.targetcost4, data.entry.targetcost5
+              ]);
+            }            
           }else{
-            setReqManager([0, 0, 0, 0, 0]);
+            if (namespaceId.projecttype === 'Maintenance') {
+              setTotalCountyBudget(0)
+            }else{
+              setReqManager([0, 0, 0, 0, 0]);
+            }
           }
         })
         .catch(error => {
           console.error("Error fetching data:", error);
-          setReqManager([0, 0, 0, 0, 0]);
+          if (namespaceId.projecttype === 'Maintenance') {
+            setTotalCountyBudget(0)
+          }else{
+            setReqManager([0, 0, 0, 0, 0]);
+          }
         });
     } else {
-      setReqManager(mainBudget);
+      if (namespaceId.projecttype === 'Maintenance') {
+        setTotalCountyBudget(mainCountyBudget)
+      }else{
+        setReqManager(mainBudget);
+      }
     }
   }, [localityFilter, board, namespaceId]);
 
   useEffect(() => {
+    if (namespaceId.type === WORK_PLAN && localityFilter === 'Mile High Flood District' && namespaceId.projecttype === 'Maintenance' && namespaceId.year >= YEAR_LOGIC_2024) {
+      setMainCountyBudget(totalCountyBudget);
+    }
+  },[totalCountyBudget]);
+  
+  useEffect(() => {
     if (namespaceId.type === WORK_PLAN && localityFilter === 'Mile High Flood District' && namespaceId.year >= YEAR_LOGIC_2024) {
       setMainBudget(reqManager);
     }
-  }, [reqManager,mainBudget]);
-  
+  }, [reqManager]);
 
   useEffect(() => {
     let diffTmp = []
