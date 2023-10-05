@@ -290,9 +290,22 @@ const NavbarView = ({
     {activeSearch && <div style={{position:'absolute'}} className='navbar-search-content'>
       <div className="navbar-search-tooltip">
         <div className='tab-navbar-search'>
-          <p className={tabActiveSearch === 'Detail Page'? 'active':''} onClick={()=>{setTabActiveSearch('Detail Page')}}>Detail Page</p>
-          {((userInformation.designation === 'admin' ||
-                userInformation.designation === 'staff') && disabledLG) && <p className={tabActiveSearch === 'Work Request'? 'active':''} onClick={()=>{setTabActiveSearch('Work Request')}}>Work Request</p>}
+          <p className={tabActiveSearch === 'Detail Page'? 'active':''} onClick={()=>{setTabActiveSearch('Detail Page')}}>Project Details</p>
+          <p
+            style={
+              userInformation.designation === 'admin' ||
+                userInformation.designation === 'staff' ?
+                {} :
+                { opacity: 0.3, pointerEvents: 'none' }
+            }
+            className={tabActiveSearch === 'Work Request' ? 'active' : ''}
+            onClick={
+              (userInformation.designation === 'admin' ||
+                userInformation.designation === 'staff') ?
+                () => setTabActiveSearch('Work Request') : undefined
+            }
+          >Work Request
+          </p>
           <p className={tabActiveSearch === 'Work Plan'? 'active':''} onClick={()=>{setTabActiveSearch('Work Plan')}}>Work  Plan</p>
         </div>
         <NavBarSearchTooltipItem
