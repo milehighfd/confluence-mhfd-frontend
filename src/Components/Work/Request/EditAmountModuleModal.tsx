@@ -20,6 +20,9 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
   const [requestFunding, setRequestFunding] = useState<any>(0);
   const [tableHeader, setTableHeader] = useState<any>([]);
   const [cost, setCost] = useState<any>({})
+  const startYearInt = parseInt(startYear);
+  const [totalCosts, setTotalCosts] = useState<any>([]);
+  const [totalCombinedSum, setTotalCombinedSum] = useState<any>(0);
   const desiredOrder = [88, 11, 12];
   const statusColor:any = {
     1: {color: '#FF8938', backgroundColor: 'rgba(255, 221, 0, 0.3)', projectStatus: 'Draft'},
@@ -30,6 +33,8 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
     9: {color: '#9309EA', backgroundColor: 'rgba(204, 146, 240, 0.2)', projectStatus: 'Closed'},
   }
   const defaultColor = {color: '#FF8938', backgroundColor: 'rgba(255, 221, 0, 0.3)', projectStatus: ''}
+
+  const completedYears = Array.from({ length: 5 }, (_, index) => startYearInt + index);
 
   const orderArrayForCost = (data: any) => {
     const orderedArray = data.sort((a:any, b:any) => {
@@ -135,8 +140,28 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
     }, [board_project_id, visible]);
 
     useEffect(() => {
-      console.log('cost', cost)
+      const totals:any = [];
+        if(Object.keys(cost).length !== 0) {
+        cost.amounts.forEach((item:any,index:any) => {
+          const { code_partner_type_id, values } = item;
+          const totalCost = Object.values(values).reduce((sum:any, value:any) => (value ? sum + value : sum), 0);
+
+          if (!totals[index]) {
+            totals.push({
+              business_name: item.business_name,
+              code_partner_type_id,
+              totalCost,
+            });
+          } else {
+            totals[index].totalCost += totalCost;
+          }
+        });
+      }
+      setTotalCosts(totals);
+      const totalCombined = totals.reduce((sum:any, item:any) => sum + item.totalCost, 0);
+      setTotalCombinedSum(totalCombined);
     }, [cost]);
+
     useEffect(() => {
       console.log('completeProjectData', completeProjectData)
     }, [completeProjectData]);
@@ -230,19 +255,24 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
           <Row>
           <Col span={3}>
             {/* <Row>Prior Funding</Row> */}
-            <Row className='rowname'>--</Row>
-            <Row className='rowname'>2023</Row>
-            <Row className='rowname'>2024</Row>
-            <Row className='rowname'>2025</Row>
-            <Row className='rowname'>2026</Row>
-            <Row className='rowname'>2027</Row>
+            {/* <Row className='rowname'>--</Row> */}
+            {completedYears.map((year: any) => {
+              return (
+                <Row className='rowname'>{year}</Row>
+              )
+            })}
+            {/*  <Row className='rowname'>2023</Row>
+             <Row className='rowname'>2024</Row>
+             <Row className='rowname'>2025</Row>
+             <Row className='rowname'>2026</Row>
+             <Row className='rowname'>2027</Row> */}
           </Col>
           {Object.keys(cost).length !== 0 && cost?.amounts.map((item: any) => {
             return (
               <Col span={3}>
               {Object.keys(item?.values).map((amount: any, index:number) => {
                 return (
-                  <Row>
+                  <Row className='rowInputContainer'>
                     <Input prefix="$" value={item.values[`req${index+1}`]} onChange={(event:any) => handleChange(event, item, index+1)} />
                   </Row>
                 )
@@ -253,14 +283,17 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
           </Row>
           <Row className="edit-amount-modal-body-table-sum">
             <Col>Total Sum Requested</Col>
-            <Col>$500.000</Col>
-            <Col>$1,050,000</Col>
-            <Col>$1,050,000</Col>
-            <Col>$1,050,000</Col>
+            {
+              totalCosts.map((item: any) => {
+                return (
+                  <Col>{formatter.format(item.totalCost)}</Col>
+                )
+              })
+            }
           </Row>
           <Row className="edit-amount-modal-body-table-total">
             <Col>Total Combined Funding</Col>
-            <Col>$4,320,500</Col>
+            <Col>{formatter.format(totalCombinedSum)}</Col>
             <Col></Col>
             <Col></Col>
             <Col></Col>
