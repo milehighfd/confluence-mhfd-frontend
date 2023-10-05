@@ -65,7 +65,26 @@ const EditAmountCreateProject = ({
   }
 
   const handleOk = () => {
-    const send = { ...cost, isMaintenance };
+    let newCostToSend = 
+      {
+        amounts: [
+          {
+            business_associates_id: 4585,
+            business_name: "MHFD",
+            code_partner_type_id: 88,
+            values: {
+              req1: cost.req1,
+              req2: cost.req2,
+              req3: cost.req3,
+              req4: cost.req4,
+              req5: cost.req5
+            }
+          }
+        ]
+      }
+    ;
+    // const send = { ...cost, isMaintenance };
+    const send = newCostToSend;
     datasets.putData(
       BOARD_PROJECT_COST(board_project_id),
       send,
