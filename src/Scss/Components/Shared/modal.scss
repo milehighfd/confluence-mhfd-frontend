@@ -755,6 +755,7 @@
     }
   }
   .edit-amount-modal-body-table {
+    overflow-x: auto;
     color: #11093c;
     font-family: 'Ubuntu';
     font-size: 14px;
@@ -895,6 +896,7 @@
       }
     }
     .edit-amount-modal-body-table {
+      overflow-x: auto;
       font-size: 19px;
       .ant-input-affix-wrapper{
         padding: 7px 11px;
@@ -1019,6 +1021,7 @@
       }
     }
     .edit-amount-modal-body-table {
+      overflow-x: auto;
       font-size: 24px;
       .ant-input-affix-wrapper{
         padding: 9px 11px;

@@ -101,7 +101,6 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
 
   useEffect(() => {
     if (tabKey === 'Capital') {
-      console.log('listComponents', listComponents)
       const costComponents = listComponents?.result?.map((item: any) => {
         return item.original_cost;
       });
@@ -143,8 +142,21 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
     }, [completeProjectData]);
     const costDataList = useCostDataFormattingHook(tabKey, 'subType', startYear, board_project_id, true);
 
-    const handleChange = (e: any) => {
+    const handleChange = (e: any, item: any, index:any) => {
       console.log('e', e)
+      const { value: inputValue } = e.target;
+      const reg = /^-?\d*(\.\d*)?$/;
+      // if (reg.test(inputValue) || inputValue === '' || inputValue === '-') {
+      //   console.log('inputValue', inputValue);
+      //   values[`req${index}`]=(+inputValue);
+      // }
+      setCost((prev: any) => {
+        const newCost = {...prev};
+        const current_business_name = item.business_name;
+        const indexOfValue = newCost.amounts.findIndex((itemAmount: any) => itemAmount.business_name === current_business_name);
+        newCost.amounts[indexOfValue].values[`req${index}`] = (+inputValue);
+        return newCost;
+      });
     }
 
   return (
@@ -231,69 +243,13 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
               {Object.keys(item?.values).map((amount: any, index:number) => {
                 return (
                   <Row>
-                    <Input prefix="$" value={item.values[`req${index+1}`]} onChange={handleChange} />
+                    <Input prefix="$" value={item.values[`req${index+1}`]} onChange={(event:any) => handleChange(event, item, index+1)} />
                   </Row>
                 )
               })}
               </Col>
             )
           })}
-          {/* <Col span={3}>
-            <Row>
-              <Input prefix="$" value={'1111.000'} />
-            </Row>
-            <Row>
-              <Input prefix="$" value={'111.000'} />
-            </Row>
-            <Row>
-              <Input prefix="$" value={'5111.000'} />
-            </Row>
-            <Row>
-              <Input prefix="$" value={'1111.000'} />
-            </Row>
-          </Col>
-          <Col span={3}>
-            <Row>
-              <Input prefix="$" value={'100.000'} />
-            </Row>
-            <Row>
-              <Input prefix="$" value={'500.000'} />
-            </Row>
-            <Row>
-              <Input prefix="$" value={'500.000'} />
-            </Row>
-            <Row>
-              <Input prefix="$" value={'500.000'} />
-            </Row>
-          </Col>
-          <Col span={3}>
-            <Row>
-              <Input prefix="$" value={'100.000'} />
-            </Row>
-            <Row>
-              <Input prefix="$" value={'500.000'} />
-            </Row>
-            <Row>
-              <Input prefix="$" value={'500.000'} />
-            </Row>
-            <Row>
-              <Input prefix="$" value={'500.000'} />
-            </Row>
-          </Col>
-          <Col span={3}>
-            <Row>
-              <Input prefix="$" value={'100.000'} />
-            </Row>
-            <Row>
-              <Input prefix="$" value={'500.000'} />
-            </Row>
-            <Row>
-              <Input prefix="$" value={'500.000'} />
-            </Row>
-            <Row>
-              <Input prefix="$" value={'500.000'} />
-            </Row>
-          </Col> */}
           </Row>
           <Row className="edit-amount-modal-body-table-sum">
             <Col>Total Sum Requested</Col>
