@@ -90,7 +90,7 @@ const EditAmountCreateProject = ({
       send,
       datasets.getToken()
     ).then((res: any) => {
-      setCost(res.newCost);
+      // setCost(res.newCost);
       res.columnsChanged.forEach((columnNumber: number) => {
         loadOneColumn(columnNumber);
       });
