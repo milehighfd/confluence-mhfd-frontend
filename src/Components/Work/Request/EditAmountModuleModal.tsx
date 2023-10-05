@@ -2,7 +2,7 @@ import { Col, Input, Modal, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
 import * as datasets from 'Config/datasets';
 import { formatter } from "./RequestViewUtil";
-import { useRequestState } from 'hook/requestHook';
+import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { BOARD_PROJECT_COST } from 'Config/endpoints/board-project';
 import useCostDataFormattingHook from 'hook/custom/useCostDataFormattingHook';
@@ -16,6 +16,8 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
   const {
     getComponentsByProjectId,
   } = useProjectDispatch();
+  const { loadOneColumn } = useRequestDispatch();
+  const isMaintenance = tabKey === 'Maintenance';
   const { board_project_id } = project;
   const [requestFunding, setRequestFunding] = useState<any>(0);
   const [tableHeader, setTableHeader] = useState<any>([]);
@@ -168,7 +170,6 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
     const costDataList = useCostDataFormattingHook(tabKey, 'subType', startYear, board_project_id, true);
 
     const handleChange = (e: any, item: any, index:any) => {
-      console.log('e', e)
       const { value: inputValue } = e.target;
       const reg = /^-?\d*(\.\d*)?$/;
       // if (reg.test(inputValue) || inputValue === '' || inputValue === '-') {
@@ -183,6 +184,25 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         return newCost;
       });
     }
+    const handleOkandSave = () => {
+      // const send = { ...cost, isMaintenance };
+      const send =  {amounts:cost.amounts};
+      console.log('send', send)
+      datasets.putData(
+        BOARD_PROJECT_COST(board_project_id),
+        send,
+        datasets.getToken()
+      ).then((res: any) => {
+        // setCost(res.newCost);
+        res.columnsChanged.forEach((columnNumber: number) => {
+          loadOneColumn(columnNumber);
+        });
+      })
+        .catch((err: any) => {
+          console.log(err);
+        });
+      setVisible(false);
+    }
 
   return (
     <Modal
@@ -190,6 +210,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
       centered
       onCancel={() => setVisible(false)}
       className="edit-amount-modal"
+      onOk={() => handleOkandSave()}
       okText="Save"
       cancelText="Clear"
     >
