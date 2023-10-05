@@ -292,13 +292,11 @@ const NavbarView = ({
         <div className='tab-navbar-search'>
           <p className={tabActiveSearch === 'Detail Page'? 'active':''} onClick={()=>{setTabActiveSearch('Detail Page')}}>Project Details</p>
           <p
-            style={
-              userInformation.designation === 'admin' ||
-                userInformation.designation === 'staff' ?
-                {} :
-                { opacity: 0.3, pointerEvents: 'none' }
-            }
-            className={tabActiveSearch === 'Work Request' ? 'active' : ''}
+            className={
+              userInformation.designation === 'admin' || 
+              userInformation.designation === 'staff' ? 
+              (tabActiveSearch === 'Work Request' ? 'active' : '') : 'disabled'
+            } 
             onClick={
               (userInformation.designation === 'admin' ||
                 userInformation.designation === 'staff') ?
