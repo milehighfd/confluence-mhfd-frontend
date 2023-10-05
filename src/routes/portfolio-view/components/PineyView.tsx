@@ -578,7 +578,11 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
               </div>
             );
           })}
-          <div className="add-checkbox" onClick={handleAddTask}>
+          <div className="add-checkbox" onClick={(e)=>{
+            if (!disabledLG) {
+              handleAddTask()
+            }            
+          }}>
             <p><PlusCircleFilled />&nbsp;&nbsp;  Create another task</p>
           </div>
         </div>
