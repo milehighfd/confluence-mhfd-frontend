@@ -7,7 +7,7 @@ import { formatter } from 'Components/Work/Request/RequestViewUtil';
 import AmountNumericInput from './AmountNumericInput';
 import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { BOARD_PROJECT_COST } from 'Config/endpoints/board-project';
-import { WORK_PLAN } from 'constants/constants';
+import { WORK_PLAN, YEAR_LOGIC_2024 } from 'constants/constants';
 
 const EditAmountCreateProject = ({
   index,
@@ -30,11 +30,12 @@ const EditAmountCreateProject = ({
     columns2: columns,
     year: startYear,
     tabKey,
+    boardStatus,
     namespaceId,
   } = useRequestState();
-  const { loadOneColumn } = useRequestDispatch();
+  const { loadOneColumn, loadColumns } = useRequestDispatch();
   const { status, createdProject } = useProjectState();
-  const { setCreatedProject } = useProjectDispatch();
+  const { setCreatedProject, sendProjectToBoardYear } = useProjectDispatch();
   const [project, setProject] = useState<any>({})
   const [board_project_id, setBoard_project_id] = useState<any>()
   const [createData, setCreatedData] = useState<any>({})
@@ -70,6 +71,10 @@ const EditAmountCreateProject = ({
     return totalSum;
   }
 
+  useEffect(() => {
+    console.log(boardStatus, 'nameboardspaceId')
+  },[cost])
+
   const handleOk = () => {
     const send = { ...cost, isMaintenance };
     datasets.putData(
@@ -85,41 +90,33 @@ const EditAmountCreateProject = ({
       .catch((err: any) => {
         console.log(err);
       });
-    if (namespaceId.type === WORK_PLAN) {
-      let subTypeIndex = 0;
-      switch (subType) {
-        case 'Routine Trash and Debris':
-          subTypeIndex = 1;
-          break;
-        case 'Vegetation Management':
-          subTypeIndex = 2;
-          break;
-        case 'Sediment Removal':
-          subTypeIndex = 3;
-          break;
-        case 'Minor Repair':
-          subTypeIndex = 4;
-          break;
-        case 'Restoration':
-          subTypeIndex = 5;
-          break;
-        default:
-          subTypeIndex = 0;
-          break;
-      }
+    if (namespaceId.type === WORK_PLAN 
+      // && boardStatus === 'Approved' && 
+      // namespaceId.year >= YEAR_LOGIC_2024
+    ) {
+      let subTypeName = '';
+      if (namespaceId.projecttype === 'Maintenance'){
+        subTypeName = subType;
+      }      
       const years = convertObjectToArrays(cost, namespaceId.year);
       const sendBody = {
-        project_type: namespaceId.projecttype,
+        project_id : createData.project_data.project_id,
         year: namespaceId.year,
         extraYears: years.extraYears,
-        sponsor: sponsor,
-        project_id : createData.project_data.project_id,
+        sponsor: sponsor,        
+        project_type: namespaceId.projecttype,
         extraYearsAmounts: years.extraYearsAmounts,
-        subType: subTypeIndex,
+        subType: subTypeName,
       }
-      datasets.postData(SERVER.UPDATE_APPROVED_BOARD, sendBody , datasets.getToken()).then((res: any) => {
-        
-      })
+      sendProjectToBoardYear(
+        sendBody.project_id,
+        sendBody.year,
+        sendBody.extraYears,
+        sendBody.sponsor,
+        sendBody.project_type,
+        sendBody.extraYearsAmounts,
+        sendBody.subType
+      );
     }    
   };
 
