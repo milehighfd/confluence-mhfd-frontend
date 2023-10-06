@@ -110,7 +110,7 @@ export const editCapital = (data: any) => {
       let status ; 
       if(res && res.project_update){
         status = 1;
-        dispatch(setCreatedProject(res.project_update));
+        dispatch(setCreatedProject(res));
       }else{
         status = 0;
       }

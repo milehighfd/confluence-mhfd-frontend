@@ -33,7 +33,7 @@ const EditAmountCreateProject = ({
   const [project, setProject] = useState<any>({})
   const [board_project_id, setBoard_project_id] = useState<any>()
   const isMaintenance = tabKey === 'Maintenance'
-  
+  const [completeCosts, setCompleteCosts] = useState<any>({});
   const [cost, setCost] = useState<any>({
     req1: null,
     req2: null,
@@ -65,26 +65,25 @@ const EditAmountCreateProject = ({
   }
 
   const handleOk = () => {
-    let newCostToSend = 
-      {
-        amounts: [
-          {
-            business_associates_id: 4585,
-            business_name: "MHFD",
-            code_partner_type_id: 88,
-            values: {
-              req1: cost.req1,
-              req2: cost.req2,
-              req3: cost.req3,
-              req4: cost.req4,
-              req5: cost.req5
-            }
+    let newCostToSend = [];
+    if(completeCosts?.amounts) {
+      newCostToSend = completeCosts?.amounts.map((x: any) => {
+        if (x.business_name === 'MHFD') {
+          return {
+            ...x,
+            values: cost
           }
-        ]
-      }
-    ;
+        }
+        return x;
+      });
+    }
+    const newCompleteCosts = {
+      ...completeCosts,
+      amounts: newCostToSend
+    }
     // const send = { ...cost, isMaintenance };
-    const send = newCostToSend;
+    const send = newCompleteCosts;
+    console.log('We are sending this: ', send);
     datasets.putData(
       BOARD_PROJECT_COST(board_project_id),
       send,
@@ -99,8 +98,11 @@ const EditAmountCreateProject = ({
         console.log(err);
       });
   };
-
   useEffect(() => {
+    console.log('cost ', cost);
+  } ,[cost]);
+  useEffect(() => {
+    console.log('Created project ', createdProject);
     if(Object.keys(createdProject).length !== 0){
       setBoard_project_id(createdProject?.boardProjectId?.board_project_id);
       setCreatedProject({});
@@ -138,7 +140,9 @@ const EditAmountCreateProject = ({
       datasets.getToken()
     )
       .then((res: any) => {
-        setCost(res);
+        const amountOfMHFD = res.amounts.find((x: any) => x.business_name === 'MHFD');
+        setCost(amountOfMHFD.values);
+        setCompleteCosts(res);
       })
       .catch((err: any) => {
         console.log(err);
