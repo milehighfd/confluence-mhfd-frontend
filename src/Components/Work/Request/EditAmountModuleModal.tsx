@@ -180,7 +180,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         const newCost = {...prev};
         const current_business_name = item.business_name;
         const indexOfValue = newCost.amounts.findIndex((itemAmount: any) => itemAmount.business_name === current_business_name);
-        newCost.amounts[indexOfValue].values[`req${index}`] = (+inputValue);
+        newCost.amounts[indexOfValue].values[`req${index}`] = inputValue ? (+inputValue) : null;
         return newCost;
       });
     }
