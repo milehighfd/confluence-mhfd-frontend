@@ -14,6 +14,7 @@ import { ArchiveAlert } from 'Components/Alerts/ArchiveAlert';
 import DetailModal from 'routes/detail-page/components/DetailModal';
 import EditDatesModal from '../EditDatesModal';
 import { GET_COSTS_FOR_MAINTENANCE } from 'Config/endpoints/board-project';
+import EditAmountModuleModal from '../EditAmountModuleModal';
 
 const TableListView = ({
   maintenanceSubType
@@ -634,8 +635,9 @@ const TableListView = ({
           project={selectedProjectData}
         />}
         {
-          showAmountModal && <AmountModal
+          showAmountModal && <EditAmountModuleModal
             project={selectedProject}
+            completeProjectData={completeProjectData}
             visible={showAmountModal}
             setVisible={setShowAmountModal}
           />
