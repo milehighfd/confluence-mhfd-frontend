@@ -6,6 +6,8 @@ import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { BOARD_PROJECT_COST } from 'Config/endpoints/board-project';
 import useCostDataFormattingHook from 'hook/custom/useCostDataFormattingHook';
+import { useProfileState } from 'hook/profileHook';
+import { GOVERNMENT_ADMIN, GOVERNMENT_STAFF } from 'constants/constants';
 
 const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisible }: {project: any; completeProjectData:any; visible: boolean; setVisible: Function }) => {
   
@@ -17,6 +19,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
     getComponentsByProjectId,
   } = useProjectDispatch();
   const { loadOneColumn } = useRequestDispatch();
+  const { userInformation } = useProfileState();
   const isMaintenance = tabKey === 'Maintenance';
   const { board_project_id } = project;
   const [requestFunding, setRequestFunding] = useState<any>(0);
@@ -74,7 +77,6 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
   
   const getSumOfcosts = () => {
     let totalSum = 0;
-    console.log('costt', cost)
     for(let key in cost) {
       if(key.includes('req')){
         console.log('key', key, cost[key])
@@ -84,10 +86,6 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
     console.log('totalSum', totalSum)
     return totalSum;
   }
-
-  useEffect(() => {
-    console.log(listCounties(project));
-  }, [project]);
 
   useEffect(() => {
     const projectPartners = completeProjectData.project_partners;
@@ -117,7 +115,8 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         return item.original_cost;
       });
       const totalComponents = costComponents?.reduce((acc: any, curr: any) => acc + curr, 0);
-      const costProject = cost?.projectData?.currentCost?.map((item: any) => {
+      const costWithoutMHFD = completeProjectData.project_costs.filter((item:any) => item.code_cost_type_id !== 22)
+      const costProject = costWithoutMHFD.map((item: any) => {
         return item.cost;
       });
       const totalProject = costProject?.reduce((acc: any, curr: any) => acc + curr, 0);
@@ -174,9 +173,6 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
       setTotalCombinedSum(totalCombined);
     }, [cost]);
 
-    useEffect(() => {
-      console.log('completeProjectData', completeProjectData)
-    }, [completeProjectData]);
     const costDataList = useCostDataFormattingHook(tabKey, 'subType', startYear, board_project_id, true);
 
     const handleChange = (e: any, item: any, index:any) => {
@@ -186,11 +182,12 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
       //   console.log('inputValue', inputValue);
       //   values[`req${index}`]=(+inputValue);
       // }
+      const currentValue = inputValue.replace(/,/g, '');
       setCost((prev: any) => {
         const newCost = {...prev};
         const current_business_name = item.business_name;
         const indexOfValue = newCost.amounts.findIndex((itemAmount: any) => itemAmount.business_name === current_business_name);
-        newCost.amounts[indexOfValue].values[`req${index}`] = inputValue ? (+inputValue) : null;
+        newCost.amounts[indexOfValue].values[`req${index}`] = inputValue ? (+currentValue) : null;
         return newCost;
       });
     }
@@ -304,7 +301,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
               {Object.keys(item?.values).map((amount: any, index:number) => {
                 return (
                   <Row className='rowInputContainer'>
-                    <Input prefix="$" value={item.values[`req${index+1}`]} onChange={(event:any) => handleChange(event, item, index+1)} />
+                    <Input disabled={((userInformation.designation === GOVERNMENT_STAFF|| userInformation.designation === GOVERNMENT_ADMIN) && item.code_partner_type_id !== 88) ? true : false} prefix="$" value={item.values[`req${index+1}`]?.toLocaleString('en-US')} onChange={(event:any) => handleChange(event, item, index+1)} />
                   </Row>
                 )
               })}
