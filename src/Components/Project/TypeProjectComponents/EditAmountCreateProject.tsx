@@ -94,7 +94,8 @@ const EditAmountCreateProject = ({
     }
     const newCompleteCosts = {
       ...completeCosts,
-      amounts: newCostToSend
+      amounts: newCostToSend,
+      isMaintenance: false
     }
     // const send = { ...cost, isMaintenance };
     const send = newCompleteCosts;
@@ -185,7 +186,7 @@ const EditAmountCreateProject = ({
             
             <div className='edit-amount'>
               <label className="sub-title">{item.label} </label>
-              <AmountNumericInput key={item.key} value={cost[item.key]} onChange={(value: any) => setCost({ ...cost, [item.key]: value })} />
+              <AmountNumericInput prefix="$" key={item.key} value={cost[item.key]?.toLocaleString()} onChange={(value: any) => setCost({ ...cost, [item.key]: value })} />
             </div>
           )
         })

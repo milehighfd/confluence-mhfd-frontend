@@ -6,9 +6,10 @@ const AmountNumericInput = (props: any) => {
   
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const { value: inputValue } = e.target;
+      const currentValue = inputValue.replace(/,/g, '');
       const reg = /^-?\d*(\.\d*)?$/;
-      if (reg.test(inputValue) || inputValue === '' || inputValue === '-') {
-        const valueToChange = inputValue ? (+inputValue) : null;
+      if (reg.test(currentValue) || currentValue === '' || currentValue === '-') {
+        const valueToChange = inputValue ? (+currentValue) : null;
         onChange(valueToChange);
       }
     };

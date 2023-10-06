@@ -186,11 +186,12 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
       //   console.log('inputValue', inputValue);
       //   values[`req${index}`]=(+inputValue);
       // }
+      const currentValue = inputValue.replace(/,/g, '');
       setCost((prev: any) => {
         const newCost = {...prev};
         const current_business_name = item.business_name;
         const indexOfValue = newCost.amounts.findIndex((itemAmount: any) => itemAmount.business_name === current_business_name);
-        newCost.amounts[indexOfValue].values[`req${index}`] = inputValue ? (+inputValue) : null;
+        newCost.amounts[indexOfValue].values[`req${index}`] = inputValue ? (+currentValue) : null;
         return newCost;
       });
     }
@@ -304,7 +305,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
               {Object.keys(item?.values).map((amount: any, index:number) => {
                 return (
                   <Row className='rowInputContainer'>
-                    <Input prefix="$" value={item.values[`req${index+1}`]} onChange={(event:any) => handleChange(event, item, index+1)} />
+                    <Input prefix="$" value={item.values[`req${index+1}`]?.toLocaleString()} onChange={(event:any) => handleChange(event, item, index+1)} />
                   </Row>
                 )
               })}
