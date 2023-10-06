@@ -121,7 +121,7 @@ const ColumsTrelloCard = ({
       }
       return false;
     };
-    if (doesProjectExistOutsideGivenColumn(projectId, columns, originColumnPosition)) {
+    if (doesProjectExistOutsideGivenColumn(projectId, columns, originColumnPosition) && targetColumnPosition === 0) {
       projectExistOutsideGivenColumn = true;
     }
     let moveMaintenance = false;

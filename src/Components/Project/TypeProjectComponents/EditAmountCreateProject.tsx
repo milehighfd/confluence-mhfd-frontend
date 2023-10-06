@@ -71,10 +71,6 @@ const EditAmountCreateProject = ({
     return totalSum;
   }
 
-  useEffect(() => {
-    console.log(boardStatus, 'nameboardspaceId')
-  },[cost])
-
   const handleOk = () => {
     let newCostToSend:any = [];
     if(completeCosts?.amounts) {
