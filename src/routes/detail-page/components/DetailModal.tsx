@@ -42,6 +42,7 @@ import { useAttachmentDispatch, useAttachmentState } from 'hook/attachmentHook';
 import { useProfileState } from 'hook/profileHook';
 import StackedBarChart from './StackedBarChart';
 import { HighLight } from './HighLight';
+import { useFinancialDispatch } from 'hook/financialHook';
 
 const DetailModal = ({
   visible,
@@ -62,6 +63,7 @@ const DetailModal = ({
 }) => {
   const { getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId, resetDetailed } = useMapDispatch();
   const { detailed } = useDetailedState();
+  const { setClickOpenPopup } = useFinancialDispatch();
   const useQuery = () => new URLSearchParams(useLocation().search);
   const query = useQuery();
   const project_idS = query.get('project_id') || data?.project_id || data?.id;
@@ -81,6 +83,7 @@ const DetailModal = ({
   const [updateAction, setUpdateAction] = useState(false);
   const { userInformation: appUser } = useProfileState();
   const [coverImage, setCoverImage] = useState<any>('');
+  const [scrollPositionTop, setScrollPositionTop] = useState<any>();
 
   let divRef = useRef<null | HTMLDivElement>(null);
   let carouselRef = useRef<undefined | any>(undefined);
@@ -735,6 +738,10 @@ const DetailModal = ({
                   : 'detail-body-carousel detail-body-carousel-proyects'
               }
               onScrollCapture={e => {
+                setScrollPositionTop(divRef.current?.scrollTop);
+                if (divRef.current?.scrollTop !== scrollPositionTop) {
+                  setClickOpenPopup(false);
+                }
                 if (activeScroll) {
                   const projectDiv = document.getElementById('project-basics');
                   const rectProject = projectDiv?.getBoundingClientRect();
@@ -984,12 +991,15 @@ const DetailModal = ({
                       setOpenPiney={setOpenPiney}
                       updateAction={updateAction}
                     />
-                    <StackedBarChart projectId={project_idS} />
                     <br></br>
                     {appUser &&
                       appUser.designation &&
                       (appUser.designation === ADMIN || appUser.designation === STAFF) && (
-                        <Financials projectId={project_idS} />
+                        <>
+                          <StackedBarChart projectId={project_idS} />
+                          <br></br>
+                          <Financials projectId={project_idS} />
+                        </>
                       )}
                     <br></br>
                     {/* <Management /> */}
@@ -1006,6 +1016,7 @@ const DetailModal = ({
             <Col
               // xs={{ span: 0}} 
               span={7}
+              id='sidebar-graphics'
               className="pm-sidebar-graphics-display"
               style={{ height: 'calc(100vh - 183px)', overflowY: 'auto', scrollBehavior: 'smooth' }}
             >

@@ -176,7 +176,7 @@ const Roadmap = ({
     completedtoActive
       .append('stop')
       .attr('offset', '0%')
-      .attr('stop-color', '#5E5FE2');
+      .attr('stop-color', '#5D3DC7');
     completedtoActive
       .append('stop')
       .attr('offset', '100%')
@@ -907,7 +907,7 @@ const Roadmap = ({
           </div>
           <div className='roadmap-body-display ' style={{ paddingTop: paddingTopLegend }}>
             <span className="span-dots-roadmap">
-              <div className="roadmap-circle" style={{ backgroundColor: '#5E5FE2' }} />
+              <div className="roadmap-circle" style={{ backgroundColor: '#5D3DC7' }} />
               <span className='roadmap-dots-leyend'>Done</span>
             </span>
             <span className="span-dots-roadmap">

@@ -11,4 +11,8 @@ export const getFinancialData = (id: number, filters: any) => {
   }
 }
 
-
+export const setClickOpenPopup = (clickOpenPopup: boolean) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.SET_CLICK_OPEN_POPUP, clickOpenPopup });
+  }     
+};

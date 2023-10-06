@@ -1,18 +1,19 @@
-<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M0.25 12C0.25 5.37258 5.62258 0 12.25 0V0C18.8774 0 24.25 5.37258 24.25 12V12C24.25 18.6274 18.8774 24 12.25 24V24C5.62258 24 0.25 18.6274 0.25 12V12Z" fill="#FFDD00"/>
-<mask id="mask0_903_20563" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="25" height="24">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M0.25 12C0.25 5.37258 5.62258 0 12.25 0V0C18.8774 0 24.25 5.37258 24.25 12V12C24.25 18.6274 18.8774 24 12.25 24V24C5.62258 24 0.25 18.6274 0.25 12V12Z" fill="white"/>
+<svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M0 17C0 7.61116 7.61116 0 17 0C26.3888 0 34 7.61116 34 17C34 26.3888 26.3888 34 17 34C7.61116 34 0 26.3888 0 17Z" fill="#FFDD00"/>
+<mask id="mask0_205_14071" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="34" height="34">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M0 17C0 7.61116 7.61116 0 17 0C26.3888 0 34 7.61116 34 17C34 26.3888 26.3888 34 17 34C7.61116 34 0 26.3888 0 17Z" fill="white"/>
 </mask>
-<g mask="url(#mask0_903_20563)">
-<path d="M16.3834 16.8V15.7333C16.3834 14.5551 15.4283 13.6 14.2501 13.6H9.98343C8.80522 13.6 7.8501 14.5551 7.8501 15.7333V16.8" stroke="#251863" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<ellipse cx="12.1167" cy="9.33328" rx="2.13333" ry="2.13333" stroke="#251863" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<g mask="url(#mask0_205_14071)">
+<path d="M22.8565 23.8V22.2889C22.8565 20.6198 21.5034 19.2667 19.8342 19.2667H13.7898C12.1207 19.2667 10.7676 20.6198 10.7676 22.2889V23.8" stroke="#251863" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="16.8113" cy="13.2222" rx="3.02222" ry="3.02222" stroke="#251863" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M0.25 12C0.25 5.37258 5.62258 0 12.25 0V0C18.8774 0 24.25 5.37258 24.25 12V12C24.25 18.6274 18.8774 24 12.25 24V24C5.62258 24 0.25 18.6274 0.25 12V12Z" fill="#443A79"/>
-<mask id="mask1_903_20563" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="25" height="24">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M0.25 12C0.25 5.37258 5.62258 0 12.25 0V0C18.8774 0 24.25 5.37258 24.25 12V12C24.25 18.6274 18.8774 24 12.25 24V24C5.62258 24 0.25 18.6274 0.25 12V12Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M0 17C0 7.61116 7.61116 0 17 0V0C26.3888 0 34 7.61116 34 17V17C34 26.3888 26.3888 34 17 34V34C7.61116 34 0 26.3888 0 17V17Z" fill="#5D3DC7"/>
+<mask id="mask1_205_14071" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="34" height="34">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M0 17C0 7.61116 7.61116 0 17 0V0C26.3888 0 34 7.61116 34 17V17C34 26.3888 26.3888 34 17 34V34C7.61116 34 0 26.3888 0 17V17Z" fill="white"/>
 </mask>
-<g mask="url(#mask1_903_20563)">
-<path d="M16.3834 16.8V15.7333C16.3834 14.5551 15.4283 13.6 14.2501 13.6H9.98343C8.80522 13.6 7.8501 14.5551 7.8501 15.7333V16.8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<ellipse cx="12.1167" cy="9.33328" rx="2.13333" ry="2.13333" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<g mask="url(#mask1_205_14071)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M22.8565 23.8V22.2889C22.8565 20.6198 21.5034 19.2667 19.8342 19.2667H13.7898C12.1207 19.2667 10.7676 20.6198 10.7676 22.2889V23.8" fill="#5D3DC7"/>
+<path d="M22.8565 23.8V22.2889C22.8565 20.6198 21.5034 19.2667 19.8342 19.2667H13.7898C12.1207 19.2667 10.7676 20.6198 10.7676 22.2889V23.8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="16.8113" cy="13.2222" rx="3.02222" ry="3.02222" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </svg>

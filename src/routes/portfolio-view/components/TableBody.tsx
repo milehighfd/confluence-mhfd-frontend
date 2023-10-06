@@ -219,7 +219,7 @@ const TableBody = ({
     return () => {
       controller.abort();
     };
-  }, [ filterProjectOptions, page])
+  }, [ filterProjectOptions, page, globalSearch])
 
   useEffect(() => {
     if (globalSearch) {      

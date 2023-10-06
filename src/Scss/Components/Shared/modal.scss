@@ -755,12 +755,20 @@
     }
   }
   .edit-amount-modal-body-table {
+    overflow-x: auto;
     color: #11093c;
     font-family: 'Ubuntu';
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    .rowname {
+      // border-color: rgba(37, 24, 99, 0.1019607843);
+      padding: 14px 0px;
+    }
+    .rowInputContainer{
+      padding: 4px 0px;
+    }
     .ant-input-affix-wrapper{
       border-color: #2518631A;
       padding: 6px 11px;
@@ -810,7 +818,6 @@
         font-weight: 500;
         padding-top: 6px;
         padding-bottom: 16px;
-        width: 100%;
       }
       .ant-col:not(:first-child){
         padding-left: 12px;
@@ -891,6 +898,7 @@
       }
     }
     .edit-amount-modal-body-table {
+      overflow-x: auto;
       font-size: 19px;
       .ant-input-affix-wrapper{
         padding: 7px 11px;
@@ -1015,6 +1023,7 @@
       }
     }
     .edit-amount-modal-body-table {
+      overflow-x: auto;
       font-size: 24px;
       .ant-input-affix-wrapper{
         padding: 9px 11px;

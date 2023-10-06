@@ -8,7 +8,8 @@ const AmountNumericInput = (props: any) => {
       const { value: inputValue } = e.target;
       const reg = /^-?\d*(\.\d*)?$/;
       if (reg.test(inputValue) || inputValue === '' || inputValue === '-') {
-        onChange(+inputValue);
+        const valueToChange = inputValue ? (+inputValue) : null;
+        onChange(valueToChange);
       }
     };
   

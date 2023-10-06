@@ -20,8 +20,8 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
     updateAction?: any,
     isDetail:boolean
     }) => {     
-  const {setOpenModalTollgate, setDatesData, setIsFromDetailPage} = usePortfolioDispatch();
-  const { pineyData, updateGroup } = usePortflioState();
+  const {setOpenModalTollgate, setDatesData, setIsFromDetailPage, setUpdateActionItem} = usePortfolioDispatch();
+  const { pineyData, updateGroup, updateActionItem } = usePortflioState();
   const { tabActiveNavbar } = useMapState();
   const data = pineyData;
   const appUser = useProfileState();
@@ -47,8 +47,8 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
   const [remaining,setRemaining] = useState<any>()
   const [disabledLG, setDisabledLG] = useState(appUser?.isLocalGovernment || appUser?.userInformation?.designation === 'government_staff');
   const [createdActions, setCreatedActions] = useState<any>([]);
-  const [updateActionItem, setUpdateActionItem] = useState(false);
   const [focusedInputs, setFocusedInputs] = useState<any>({});
+  const [inputValues, setInputValues] = useState<any>([]);
   const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"];
   const formatter = new Intl.NumberFormat('en-US', {
@@ -79,12 +79,13 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
         console.log(e);
       })
    
-  }, [updateList,note])
+  }, [updateActionItem,note])
 
   useEffect(() => {
     datasets.postData(`${SERVER.PROJECT_CHECKLIST}`, { code_phase_type_id: data.phase_id, project_id: data.project_id })
       .then((rows) => {
         setCreatedActions(rows)
+        setInputValues(rows.map((x: any) => x.checklist_todo_name))
         setLengthCreatedActions(rows.length)
       })
   }, [updateActionItem])
@@ -103,7 +104,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
         updatePopupMax(true);
         updateGraph(true);
         updatePopUpCalendar(true);
-        setUpdateActionItem(!updateActionItem); 
+        setUpdateActionItem(); 
       })
   };
 
@@ -117,7 +118,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
             updateGraph(false)
             updatePopUpCalendar(false)
           }
-          setUpdateActionItem(!updateActionItem);
+          setUpdateActionItem();
         }
       })
   };
@@ -170,7 +171,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
       .catch((e) => {
         console.log(e);
       })
-  }, [data, updateList, updateGroup])
+  }, [data, updateActionItem, updateGroup])
 
   useEffect(() => {
     if (newNote !== note || newStartDate !== actualStartDate || newEndDate !== actualEndDate) {
@@ -189,7 +190,8 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
 
   const updateGraph = (add: boolean) => {    
     if (!pineyData?.idPopUp && !pineyData?.categoryNo) {
-      setupdateList(!updateList)
+      //setupdateList(!updateList)
+      setUpdateActionItem();
       if (add) {
         d3.selectAll(`#${data.d3_pos}_text`).text(+counterD + 1);
         if (+counterD === 9) {
@@ -209,7 +211,8 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
   }
 
   const updatePopUpCalendar = (add: boolean) => {        
-    setupdateList(!updateList)
+    //setupdateList(!updateList)
+    setUpdateActionItem();
     if (pineyData?.idPopUp && pineyData?.categoryNo) {
       if (add) {
         const rectElemId = `#${startsWithNumber(pineyData?.idPopUp) ?
@@ -235,7 +238,8 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
   }
 
   const updatePopupMax = (add: boolean) => {        
-    setupdateList(!updateList)
+    //setupdateList(!updateList)
+    setUpdateActionItem();
     if (pineyData?.idPopUp && pineyData?.categoryNo) {
       if (add){
         const rectElemId = `#${startsWithNumber(pineyData?.idPopUp) ?
@@ -342,7 +346,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
     datasets.putData(`${SERVER.PROJECT_CHECKLIST}/update-name`, { project_checklist_id: data.project_checklist_id, checklist_todo_name: actionName }, datasets.getToken())
       .then((rows) => {
         if (rows) {
-          setUpdateActionItem(!updateActionItem);
+          setUpdateActionItem();
         }
       })
   };
@@ -352,7 +356,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
     datasets.putData(`${SERVER.PROJECT_CHECKLIST}/toggle`, { project_checklist_id: item.project_checklist_id, is_completed: is_completed }, datasets.getToken())
       .then((rows) => {
         if (rows) {
-          setUpdateActionItem(!updateActionItem);
+          setUpdateActionItem();
           if (is_completed) {
             updateGraph(true)
             updatePopUpCalendar(true)
@@ -365,13 +369,24 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
      )
   };  
 
-  const debouncedHandleInputChange = React.useCallback(
-    debounce(handleInputChange, 1000),
-    [handleInputChange]
+
+  React.useEffect(() => {
+    handleInputChangeRef.current = handleInputChange;
+  }, [handleInputChange]);
+  const handleInputChangeRef = React.useRef<(value: string, data: any) => void>(handleInputChange);
+
+  type HandleInputChangeArgs = [string, any];
+
+  const debouncedHandleInputChange = React.useMemo(
+    () => debounce((...args: HandleInputChangeArgs) => handleInputChangeRef.current(...args), 1000),
+    []
   );
   
-  const handleChange = (actionName: string, data: any) => {
-    debouncedHandleInputChange(actionName, data);
+  const handleChange = (value: string, data: any, index: number) => {
+    const updatedValues = [...inputValues];
+    updatedValues[index] = value;
+    setInputValues(updatedValues);
+    debouncedHandleInputChange(value, data);
   };
   const openTollModal = () => {
     setOpenModalTollgate(true);
@@ -513,7 +528,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
               <Checkbox checked={x.isChecked}></Checkbox>
             </div>)
           })}
-          {createdActions.map((x: any) => {
+          {createdActions.map((x: any, index: number) => {
             return (
               <div key={x.project_checklist_id} className="add-checkbox-item"
                 onClick={(e) => {
@@ -527,10 +542,10 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
                   style={{ display: 'flex', alignItems: 'center' }}
                 >
                   <Input
-                    defaultValue={x.checklist_todo_name}
+                    value={inputValues[index]}
                     placeholder="New Checklist Item"
                     onChange={(e) => {
-                      handleChange(e.target.value, x)
+                      handleChange(e.target.value, x, index)
                     }}
                     onClick={(e) => e.stopPropagation()}
                     disabled={disabledLG}
@@ -544,6 +559,12 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
                     }}
                     onFocus={() => setFocusedInputs((prevState:any) => ({ ...prevState, [x.project_checklist_id]: true }))}
                     onBlur={() => setFocusedInputs((prevState:any) => ({ ...prevState, [x.project_checklist_id]: false }))}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        (e.target as HTMLInputElement).blur();
+                      }
+                    }}
                   />
                   <Checkbox
                     disabled={disabledLG}
@@ -563,7 +584,11 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
               </div>
             );
           })}
-          <div className="add-checkbox" onClick={handleAddTask}>
+          <div className="add-checkbox" onClick={(e)=>{
+            if (!disabledLG) {
+              handleAddTask()
+            }            
+          }}>
             <p><PlusCircleFilled />&nbsp;&nbsp;  Create another task</p>
           </div>
         </div>

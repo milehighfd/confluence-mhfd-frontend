@@ -9,6 +9,8 @@ import { useProfileDispatch, useProfileState } from 'hook/profileHook';
 import { GlobalMapHook } from 'utils/globalMapHook';
 import { SERVER } from 'Config/Server.config';
 import moment from 'moment';
+import DetailModal from 'routes/detail-page/components/DetailModal';
+import { FILTER_PROJECTS_TRIGGER } from 'constants/constants';
 
 const SidebarMenuDown = ({
   collapsed,
@@ -25,7 +27,8 @@ const SidebarMenuDown = ({
   const [redirect, setRedirect] = useState(false);
   const tabKeys = ['Unread', 'All'];
   const [tabKey, setTabKey] = useState<any>('Unread');
-  
+  const [projectData, setProjectData] = useState<any>({});
+  const [activeSearch, setActiveSearch] = useState(false);
   const [notification, setNotification] = useState<any>([]);
   const { deleteMaps } = GlobalMapHook();
   const location = useLocation();
@@ -110,6 +113,7 @@ const SidebarMenuDown = ({
   function readClick(id: any, notification_id: any) {
     const sendId = { notification_id: notification_id };
     datasets.postData(SERVER.NOTIFICATIONS, sendId, datasets.getToken()).then(async result => {
+      setProjectData({ project_id: id });
       deleteNotification(notification_id);
       console.log(result);
     });
@@ -171,15 +175,25 @@ const SidebarMenuDown = ({
       ]
     }
   ];
+  const setDetailOpen = (value: boolean) => {
+    if (!value) {
+      setActiveSearch(false);
+    }
+  };
 
   return (
-    <Menu
+    <>{projectData?.project_id && <DetailModal
+      visible={projectData?.project_id}
+      setVisible={setDetailOpen}
+      data={projectData}
+      type={FILTER_PROJECTS_TRIGGER}
+    />}<Menu
       theme="dark"
       className="menu-mobile sidebar-down"
       defaultSelectedKeys={[indexOf]}
       mode="vertical"
       items={items}
-    />
+    /></>
   );
 };
 

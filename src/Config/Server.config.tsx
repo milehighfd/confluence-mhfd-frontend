@@ -140,6 +140,7 @@ export const SERVER = (function () {
     const STATUS = 'status';
     const FINANCIAL = 'financial';
     const BOARD = 'board';
+    const BUDGET_BOARD = 'budget-board';
     const CREATE_PROJECT_GENERAL = 'createproject';
     const EDIT_PROJECT = 'editproject';
     const PAGE = 'page';
@@ -290,6 +291,7 @@ export const SERVER = (function () {
         GET_RESET_AND_CONFIRM: `${URL_BASE.BASE}/${USER}/${GET_RESET_AND_CONFIRM}`,        
         GET_STATUS_BOARD: `${URL_BASE.BASE}/${BOARD}/status-colors`,
         UPDATE_APPROVED_BOARD: `${URL_BASE.BASE}/${BOARD}/update-boards-approved`,
+        BUDGET_BOARD_TABLE: `${URL_BASE.BASE}/${BUDGET_BOARD}`,
         GET_SIGNUP_EMAIL: (token: string) => `${URL_BASE.BASE}/${USER}/${GET_SIGNUP_EMAIL}?token=${token}`,
         GET_LIST_PMTOOLS: (groupname: string) => `${URL_BASE.BASE}/${PMTOOLS}/list?group=${groupname}`,
         GET_COUNT_FOR_PROBLEM: (problemid: string) => `${URL_BASE.BASE}/${GALLERY}/${GET_COUNT_FOR_PROBLEM}/${problemid}`,

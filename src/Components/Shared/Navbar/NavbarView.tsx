@@ -36,7 +36,8 @@ const NavbarView = ({
     visible: false,
     visible1:false
   }
-  const [projectData, setProjectData] = useState<any>({});
+  const [projectDataGlobal, setProjectDataGlobal] = useState<any>({});
+  const [visible, setVisible] = useState(false);
   const {userInformation, groupOrganization} = useProfileState ();
   const {updateUserInformation, getGroupOrganization} = useProfileDispatch();
   const [state, setState] = useState(stateValue);
@@ -51,48 +52,9 @@ const NavbarView = ({
   const [tabActiveSearch, setTabActiveSearch] = useState('Detail Page');
   const [keyword, setKeyword] = useState('');
   const [searchGlobalData, setSearchGlobalData] = useState<any>([]);
-  let displayedTabKey = tabKeys;
-  const contentNotification = (
-    <div className="popoveer-00 notification-popoveer">
-      <div className="notification-header">
-        <h2 className='notification-layout'>NOTIFICATIONS</h2>
-      </div>
-      <Tabs defaultActiveKey={displayedTabKey[1]}
-        activeKey={tabKey}
-        onChange={(key) => setTabKey(key)} className="tabs-map">
-        {
-          displayedTabKey.map((tk: string) => (
-            <TabPane className='notification-layout'
-              key={tk}>
-              {notification?.map((item: any) => {
-                let check1 = moment.utc(item?.project_status_notification?.project_status?.planned_end_date, 'YYYY-MM-DD');
-                let monthEnd = check1.format('MM');
-                let dayEnd = check1.format('DD');
-                let yearEnd = check1.format('YYYY');
-                return (
-                  <div key={item.notification_id} className="notification-body" onClick={() => readClick(item?.project?.project_id,item?.notification_id)}>
-                    <img src={"/picture/user03.png"} alt="" height="35px" />
-                    <div className="text-notification">
-                      <p>{item?.project?.project_name}</p>
-                      <p className="date">{`${item?.project_status_notification?.project_status?.code_phase_type?.phase_name} is due on ${monthEnd}/${dayEnd}/${yearEnd}`}</p>
-                    </div>
-                  </div>
-                )
-              })}
-            </TabPane>
-          ))
-        }
-      </Tabs>
-    </div>
-  );
-  function readClick(id: any, notification_id: any) {
-    const sendId = {notification_id: notification_id};
-    datasets.postData(SERVER.NOTIFICATIONS, sendId, datasets.getToken()).then(async result => {
-      setProjectData({ project_id: id });
-      deleteNotification(notification_id);
-      console.log(result)
-    });
-  }
+  const appUser = useProfileState();
+  const [disabledLG, setDisabledLG] = useState(appUser?.isLocalGovernment || appUser?.userInformation?.designation === 'government_staff');
+
   let locationPage = useLocation();
   useEffect(() => {
     resetTimesLogin();
@@ -294,23 +256,18 @@ const NavbarView = ({
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [activeSearch]);
+  }, [activeSearch]);  
   
-  const setDetailOpen = (value: boolean) => {
-    if (!value) {
-      setActiveSearch(false);
-    }
-  };
   if (redirect) {
     return <Redirect to="/login" />
   }
 
   return <Header className="header">
     <div className="logo-navbar"/>
-    {projectData?.project_id && <DetailModal
-      visible={projectData?.project_id}
-      setVisible={setDetailOpen}
-      data={projectData}
+    {visible && <DetailModal
+      visible={visible}
+      setVisible={setVisible}
+      data={projectDataGlobal}
       type={FILTER_PROJECTS_TRIGGER}
     />}
     <h6>{value}</h6>
@@ -333,8 +290,20 @@ const NavbarView = ({
     {activeSearch && <div style={{position:'absolute'}} className='navbar-search-content'>
       <div className="navbar-search-tooltip">
         <div className='tab-navbar-search'>
-          <p className={tabActiveSearch === 'Detail Page'? 'active':''} onClick={()=>{setTabActiveSearch('Detail Page')}}>Detail Page</p>
-          <p className={tabActiveSearch === 'Work Request'? 'active':''} onClick={()=>{setTabActiveSearch('Work Request')}}>Work Request</p>
+          <p className={tabActiveSearch === 'Detail Page'? 'active':''} onClick={()=>{setTabActiveSearch('Detail Page')}}>Project Details</p>
+          <p
+            className={
+              userInformation.designation === 'admin' || 
+              userInformation.designation === 'staff' ? 
+              (tabActiveSearch === 'Work Request' ? 'active' : '') : 'disabled'
+            } 
+            onClick={
+              (userInformation.designation === 'admin' ||
+                userInformation.designation === 'staff') ?
+                () => setTabActiveSearch('Work Request') : undefined
+            }
+          >Work Request
+          </p>
           <p className={tabActiveSearch === 'Work Plan'? 'active':''} onClick={()=>{setTabActiveSearch('Work Plan')}}>Work  Plan</p>
         </div>
         <NavBarSearchTooltipItem
@@ -342,6 +311,8 @@ const NavbarView = ({
           cards={searchGlobalData}
           tabActiveSearch={tabActiveSearch}
           setActiveSearch={setActiveSearch}
+          setProjectData={setProjectDataGlobal}
+          setVisible={setVisible}
         />
       </div>
     </div> }

@@ -14,6 +14,7 @@ import { ArchiveAlert } from 'Components/Alerts/ArchiveAlert';
 import DetailModal from 'routes/detail-page/components/DetailModal';
 import EditDatesModal from '../EditDatesModal';
 import { GET_COSTS_FOR_MAINTENANCE } from 'Config/endpoints/board-project';
+import EditAmountModuleModal from '../EditAmountModuleModal';
 
 const TableListView = ({
   maintenanceSubType
@@ -299,7 +300,8 @@ const TableListView = ({
         actions: number;
         type: string;
     }
-    const content = (record:any) => {      
+    const content = (record:any) => {     
+    const isAdminStaff = appUser?.userInformation?.designation === 'admin' || appUser?.userInformation?.designation === 'staff'; 
     const items: MenuProps['items'] = [{
       key: '0',
       label: <span style={{borderBottom: '1px solid transparent'}}>
@@ -337,20 +339,21 @@ const TableListView = ({
       items.pop();
       items.splice(1, 1);
     }
-    if (namespaceId.type === 'WORK_PLAN' && year != 2023) {
-      items.splice(2, 0, {
-        key: '4',
-        label: <span style={{borderBottom: '1px solid transparent'}}>
+    if (record?.projectData?.currentId[0]?.status_name === 'Active'){
+      items.push({
+        key: '7',
+        label: <span style={{ borderBottom: '1px solid transparent' }}>
           <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
-          Copy to Current Year
+          Detail Page
         </span>,
         onClick: (() => {
+          setSelectedProjectData(record?.projectData)
+          setVisibleModal(true)
           hidePopover();
         })
-      });
+      })
     }
-    if (appUser?.userInformation?.designation === 'admin' ||
-      appUser?.userInformation?.designation === 'staff') {
+    if (isAdminStaff) {
       items.push({
         key: '5',
         label: <span style={{ borderBottom: '1px solid transparent' }}>
@@ -379,21 +382,7 @@ const TableListView = ({
           })
         })
       }
-    }
-    if (record?.projectData?.currentId[0]?.status_name === 'Active'){
-      items.push({
-        key: '7',
-        label: <span style={{ borderBottom: '1px solid transparent' }}>
-          <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
-          Detail Page
-        </span>,
-        onClick: (() => {
-          setSelectedProjectData(record?.projectData)
-          setVisibleModal(true)
-          hidePopover();
-        })
-      })
-    }
+    }    
     return (<Menu className="js-mm-00" items={items} />)
   };
   const getStyleForStatus =(status: string) => {
@@ -646,8 +635,9 @@ const TableListView = ({
           project={selectedProjectData}
         />}
         {
-          showAmountModal && <AmountModal
+          showAmountModal && <EditAmountModuleModal
             project={selectedProject}
+            completeProjectData={completeProjectData}
             visible={showAmountModal}
             setVisible={setShowAmountModal}
           />
