@@ -92,6 +92,11 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
   useEffect(() => {
     const projectPartners = completeProjectData.project_partners;
     let projectPartnerOrdered = orderArrayForCost(projectPartners)
+    projectPartnerOrdered = projectPartnerOrdered.sort((a:any, b:any) => {
+      if(a.code_partner_type_id === 12 && b.code_partner_type_id === 12) {
+        return a.business_associate.business_name.localeCompare(b.business_associate.business_name);
+      }
+    })   
     const tableHeaderPartners = projectPartnerOrdered.map((partner:any) => ({
       business_name: partner.business_associate.business_name,
       code_partner_type_id: partner.code_partner_type_id
@@ -133,6 +138,11 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
     )
       .then((res: any) => {
         let costNotOrdered =orderArrayForCost(res?.amounts);
+        costNotOrdered = costNotOrdered.sort((a:any, b:any) => {
+          if(a.code_partner_type_id === 12 && b.code_partner_type_id === 12) {
+            return a.business_name.localeCompare(b.business_name);
+          }
+        })
         res.amounts = costNotOrdered;
         setCost(res);
       })
