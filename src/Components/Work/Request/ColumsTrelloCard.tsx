@@ -6,9 +6,10 @@ import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { useProfileState } from 'hook/profileHook';
 import TrelloLikeCard from 'Components/Work/Request/TrelloLikeCard';
-import { ADMIN, BOARD_STATUS_TYPES, STAFF } from 'constants/constants';
+import { ADMIN, BOARD_STATUS_TYPES, STAFF, WORK_PLAN } from 'constants/constants';
 import ColorService from 'Components/Work/Request/ColorService';
 import useFakeLoadingHook from 'hook/custom/useFakeLoadingHook';
+import { SPONSOR_ID } from 'constants/databaseConstants';
 
 let columDragAction = [false, 0, 0];
 let fixedDragAction = [false, 0, 0];
@@ -28,7 +29,7 @@ const ColumsTrelloCard = ({
   const { setVisibleCreateProject, moveProjectsManual, handleMoveFromColumnToColumn, stopLoadingColumns } = useRequestDispatch();
   const { userInformation } = useProfileState();
   const { clear } = useAttachmentDispatch();
-  const { setStreamsIds, setComponentsFromMap, setGlobalSearch } = useProjectDispatch();
+  const { setStreamsIds, setComponentsFromMap, setGlobalSearch, sendProjectToBoardYear } = useProjectDispatch();
   const {
     globalProjectData, 
     globalSearch,
@@ -134,6 +135,26 @@ const ColumsTrelloCard = ({
           sourcePosition,
           targetPosition,
         });
+        if (namespaceId.type === WORK_PLAN 
+          // && boardStatus === 'Approved' && 
+          // namespaceId.year >= YEAR_LOGIC_2024
+        ){
+          let extraYears: number[] = [];
+          if (targetColumnPosition !== 0) {
+            extraYears = [+namespaceId.year+ targetColumnPosition - 1];
+          }  
+          console.log(sourcePosition, 'sourcePosition')  ;
+          const sponsor = (columns[originColumnPosition].projects[sourcePosition].projectData?.project_partners.find((x: any) => x.code_partner_type_id === SPONSOR_ID)?.business_associate?.business_name)   
+          sendProjectToBoardYear(
+            columns[originColumnPosition].projects[sourcePosition]?.projectData?.project_id,
+            namespaceId.year,
+            extraYears,
+            sponsor,
+            namespaceId.projecttype,
+            [],
+            ''
+          );
+        }        
       }
     }
   };
@@ -142,9 +163,6 @@ const ColumsTrelloCard = ({
     <DragDropContext
       onDragEnd={result => {
         const { source, destination } = result;
-        console.log('result', result);
-        console.log('boardStatus', boardStatus);
-        
         if (!destination) {
           return;
         }
