@@ -186,7 +186,7 @@ const EditAmountCreateProject = ({
             
             <div className='edit-amount'>
               <label className="sub-title">{item.label} </label>
-              <AmountNumericInput prefix="$" key={item.key} value={cost[item.key]?.toLocaleString()} onChange={(value: any) => setCost({ ...cost, [item.key]: value })} />
+              <AmountNumericInput key={item.key} value={cost[item.key]?.toLocaleString('en-US')} onChange={(value: any) => setCost({ ...cost, [item.key]: value })} />
             </div>
           )
         })

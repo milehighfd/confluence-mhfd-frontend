@@ -117,7 +117,8 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         return item.original_cost;
       });
       const totalComponents = costComponents?.reduce((acc: any, curr: any) => acc + curr, 0);
-      const costProject = cost?.projectData?.currentCost?.map((item: any) => {
+      const costWithoutMHFD = completeProjectData.project_costs.filter((item:any) => item.code_cost_type_id !== 22)
+      const costProject = costWithoutMHFD.map((item: any) => {
         return item.cost;
       });
       const totalProject = costProject?.reduce((acc: any, curr: any) => acc + curr, 0);
@@ -305,7 +306,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
               {Object.keys(item?.values).map((amount: any, index:number) => {
                 return (
                   <Row className='rowInputContainer'>
-                    <Input prefix="$" value={item.values[`req${index+1}`]?.toLocaleString()} onChange={(event:any) => handleChange(event, item, index+1)} />
+                    <Input prefix="$" value={item.values[`req${index+1}`]?.toLocaleString('en-US')} onChange={(event:any) => handleChange(event, item, index+1)} />
                   </Row>
                 )
               })}
