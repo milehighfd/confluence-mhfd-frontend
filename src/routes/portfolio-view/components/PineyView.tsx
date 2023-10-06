@@ -559,6 +559,12 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
                     }}
                     onFocus={() => setFocusedInputs((prevState:any) => ({ ...prevState, [x.project_checklist_id]: true }))}
                     onBlur={() => setFocusedInputs((prevState:any) => ({ ...prevState, [x.project_checklist_id]: false }))}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        (e.target as HTMLInputElement).blur();
+                      }
+                    }}
                   />
                   <Checkbox
                     disabled={disabledLG}
