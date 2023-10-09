@@ -4,15 +4,14 @@ import * as d3 from 'd3';
 
 const FinancialsClickPopup = ({
   popupData,
-  totalSumData,
   type,
   setVisible,
 }: {
   popupData: any;
-  totalSumData: any;
   type: string;
   setVisible: any;
 }) => {
+  const { records, date, value, color } = popupData;
   let adjustPositionTop = 50;
   let positionTop: any = document.getElementById('sidebar-graphics')?.offsetTop;
   let positionLeft: any = document.getElementById('sidebar-graphics')?.offsetLeft;
@@ -32,12 +31,7 @@ const FinancialsClickPopup = ({
     expenditureSum: 'Vendor Agreements',
     otherIncomeSum: 'Income (LG Funds)',
   };
-  const colorAndGroup:any= {
-     'availableFund': '#5D3DC7' ,
-     'mhfdIncomeSum': '#29C499' ,
-     'expenditureSum': '#F4BE01' ,
-     'otherIncomeSum': '#047CD7' 
-  }
+
   const formatDate = (inputDate: string) => {
     const parts = inputDate.split('-');
     const months = [
@@ -70,12 +64,12 @@ const FinancialsClickPopup = ({
   }, [popupWidth]);
 
   useEffect(() => {
-    popupData.forEach((item: any, index: number) => {
+    records.forEach((item: any, index: number) => {
       const chartId = document.getElementById(`HorizontalBar-chart-${index}`);
       removeAllChildNodes(chartId);
       buildHorizontalBar([item], `#HorizontalBar-chart-${index}`);
     });
-  }, [popupData]);
+  }, [records]);
 
   const removeAllChildNodes = (parent: any) => {
     if (parent !== null && parent.firstChild) {
@@ -93,10 +87,10 @@ const FinancialsClickPopup = ({
 
     var scale = d3
       .scaleLinear()
-      .domain([0, totalSumData[type]])
+      .domain([0, value])
       .range([0, 240]);
 
-    var background = svg
+    svg
       .selectAll(null)
       .data(dataForBar)
       .enter()
@@ -112,10 +106,10 @@ const FinancialsClickPopup = ({
       })
       .attr('rx', 5)
       .attr('ry', 5)
-      .style('fill', colorAndGroup[type])
+      .style('fill', color)
       .attr('opacity', 0.6);
 
-    var bars = svg
+    svg
       .selectAll(null)
       .data(dataForBar)
       .enter()
@@ -131,9 +125,9 @@ const FinancialsClickPopup = ({
       })
       .attr('rx', 5)
       .attr('ry', 5)
-      .style('fill', colorAndGroup[type]);
+      .style('fill', color);
 
-    let textInside = svg
+    svg
       .selectAll(null)
       .data(dataForBar)
       .enter()
@@ -160,7 +154,7 @@ const FinancialsClickPopup = ({
     >
      <Row style={{ height: '18px' }}>
         <Col style={{ width: '78%' }}>
-          <p className="title">{formatDate(totalSumData.group)}</p>
+          <p className="title">{formatDate(date)}</p>
         </Col>
       </Row>
       <div style={{ width: '5%', position:'absolute',right: '38px', marginTop: '-28px' }}>
@@ -170,9 +164,9 @@ const FinancialsClickPopup = ({
         </div>
         <div className="modal-financialsClickPopupInner">
       <Row>
-        <p className="labels-financials" style={{paddingTop: '0px'}}>{`Total ${subtitleOptions[type]}: ${formatter.format(totalSumData[type])}`}</p>
+        <p className="labels-financials" style={{paddingTop: '0px'}}>{`Total ${subtitleOptions[type]}: ${formatter.format(value)}`}</p>
       </Row>
-      {popupData.map((item: any, index: number) => {
+      {records.map((item: any, index: number) => {
         return (
           <>
             <div className="line-financials"></div>

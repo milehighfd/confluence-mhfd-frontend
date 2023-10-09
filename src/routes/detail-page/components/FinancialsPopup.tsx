@@ -43,7 +43,7 @@ const FinancialsPopup = ({ popupData }: { popupData: any }) => {
       style={{ left: finalLeftPosition, top: positionTop }}
       ref={thisPopup}
     >
-      <p className="title">{formatDate(popupData.group)}</p>
+      <p className="title">{formatDate(popupData.date)}</p>
       <Row>
         <Col className="row-financials-popup">
           <Row>
@@ -71,9 +71,8 @@ const FinancialsPopup = ({ popupData }: { popupData: any }) => {
             </span>
           </Row>
         </Col>
-        <Col className="row-financials-popup" style={{ paddingLeft: '35px' }}>
+        <Col className="row-financials-popup" style={{ paddingLeft: '32px' }}>
           <Row>
-          {/* 'availableFund', 'mhfdIncomeSum', 'expenditureSum', 'otherIncomeSum' */}
             <span className="labels-financials-numbers">{formatter.format(popupData.expenditureSum)}</span>
           </Row>
           <Row>

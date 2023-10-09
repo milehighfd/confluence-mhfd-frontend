@@ -996,7 +996,7 @@ const DetailModal = ({
                       appUser.designation &&
                       (appUser.designation === ADMIN || appUser.designation === STAFF) && (
                         <>
-                          <StackedBarChart projectId={project_idS} />
+                          <StackedBarChart projectId={project_idS} isRestoration={detailed?.code_project_type?.project_type_name === 'Restoration'}/>
                           <br></br>
                           <Financials projectId={project_idS} />
                         </>
