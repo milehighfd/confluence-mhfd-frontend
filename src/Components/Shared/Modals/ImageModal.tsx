@@ -103,7 +103,7 @@ const ImageModal = ({
   }, [visible]);
   useEffect(() => {
     setTimeout(() => {
-      carouselRef.current.goTo(numberCarousel - 1, false);
+      carouselRef.current?.goTo(numberCarousel - 1, false);
     }, 300);
   }, [numberCarousel]);
   const moveImage = (event: any) => {

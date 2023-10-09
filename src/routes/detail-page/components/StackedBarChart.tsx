@@ -29,43 +29,55 @@ const getCummulativeData = (dataValue: any) => {
   };
 };
 
-const getChartData = (financialInformation: any, isRestoration: boolean) => {
-  const ATTRIB_GROUP = 'effective_date';
-  const groupedInformation = ([
-    ...financialInformation,
-    // {
-    //   "effective_date":"06-07-2023",
-    //   "project_partner_name":"Muller Engineering Company, Inc.",
-    //   "encumbered":{
-    //     "is_income":true,
-    //     "cost":540718
-    //   }
-    // },
-    // {
-    //   "effective_date":"07-07-2023",
-    //   "project_partner_name":"MHFD",
-    //   "encumbered":{
-    //     "is_income":true,
-    //     "cost":10718
-    //   }
-    // }
-  ]).reduce((prev: any, cur: any) => {
-    if (!prev[cur[ATTRIB_GROUP]]) {
-      prev[cur[ATTRIB_GROUP]] = [];
+const getDataForRestorationCharts = (resultArray: any) => {
+  let availableFund = 0;
+  return resultArray.map((value: any, index: any) => {
+    const {
+      expenditure, expenditureSum,
+      mhfdIncome, mhfdIncomeSum,
+      otherIncome, otherIncomeSum
+    } = getCummulativeData(value.data);
+    let mhfdBottom, mhfdTop,
+      otherBottom, otherTop,
+      expenditureBottom, expenditureTop,
+      fundingBottom, fundingTop,
+      bottom, top;
+    
+    bottom = 0;
+    fundingBottom = 0;
+    fundingTop = availableFund;
+    mhfdBottom = fundingTop;
+    mhfdTop = mhfdBottom + mhfdIncomeSum;
+    otherBottom = mhfdTop;
+    otherTop = otherBottom + otherIncomeSum;
+    expenditureBottom = otherTop;
+    expenditureTop = expenditureBottom + expenditureSum;
+    top = expenditureTop;
+
+    return {
+      date: value.date,
+      mhfdBottom,
+      mhfdTop,
+      otherBottom,
+      otherTop,
+      expenditureBottom,
+      expenditureTop,
+      fundingBottom,
+      fundingTop,
+      mhfdIncome,
+      otherIncome,
+      expenditure,
+      bottom,
+      top,
+      mhfdIncomeSum,
+      otherIncomeSum,
+      availableFund,
+      expenditureSum,
     }
-    prev[cur[ATTRIB_GROUP]].push(cur);
-    return prev;
-  }, {});
+  });
+}
 
-  const sortedDates = Object.keys(groupedInformation).sort(
-    (a: any, b: any) => new Date(a).getTime() - new Date(b).getTime(),
-  );
-
-  const resultArray = sortedDates.map(date => ({
-    date,
-    data: groupedInformation[date],
-  }));
-
+const getDataForNormalCharts = (resultArray: any) => {
   let cummulativeFund = 0;
   return resultArray.map((value: any, index: any) => {
     const {
@@ -144,6 +156,50 @@ const getChartData = (financialInformation: any, isRestoration: boolean) => {
       expenditureSum: initialPoint >= 0 ? expenditureSum : Math.abs(cummulativeFund),
     }
   });
+}
+
+const getChartData = (financialInformation: any, isRestoration: boolean) => {
+  const ATTRIB_GROUP = 'effective_date';
+  const groupedInformation = ([
+    ...financialInformation,
+    // {
+    //   "effective_date":"06-07-2023",
+    //   "project_partner_name":"Muller Engineering Company, Inc.",
+    //   "encumbered":{
+    //     "is_income":true,
+    //     "cost":540718
+    //   }
+    // },
+    // {
+    //   "effective_date":"07-07-2023",
+    //   "project_partner_name":"MHFD",
+    //   "encumbered":{
+    //     "is_income":true,
+    //     "cost":10718
+    //   }
+    // }
+  ]).reduce((prev: any, cur: any) => {
+    if (!prev[cur[ATTRIB_GROUP]]) {
+      prev[cur[ATTRIB_GROUP]] = [];
+    }
+    prev[cur[ATTRIB_GROUP]].push(cur);
+    return prev;
+  }, {});
+
+  const sortedDates = Object.keys(groupedInformation).sort(
+    (a: any, b: any) => new Date(a).getTime() - new Date(b).getTime(),
+  );
+
+  const resultArray = sortedDates.map(date => ({
+    date,
+    data: groupedInformation[date],
+  }));
+
+  if (isRestoration) {
+    return getDataForRestorationCharts(resultArray);
+  } else {
+    return getDataForNormalCharts(resultArray);
+  }
 };
 
 const StackedBarChart = ({ projectId, isRestoration }: { projectId: any; isRestoration: boolean }) => {
