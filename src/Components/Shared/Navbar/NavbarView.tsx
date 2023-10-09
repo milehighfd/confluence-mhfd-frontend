@@ -54,6 +54,9 @@ const NavbarView = ({
   const [searchGlobalData, setSearchGlobalData] = useState<any>([]);
   const appUser = useProfileState();
   const [disabledLG, setDisabledLG] = useState(appUser?.isLocalGovernment || appUser?.userInformation?.designation === 'government_staff');
+  const [countWP, setCountWP] = useState(0);
+  const [countWR, setCountWR] = useState(0);
+  const [countPM, setCountPM] = useState(0);
 
   let locationPage = useLocation();
   useEffect(() => {
@@ -190,6 +193,26 @@ const NavbarView = ({
     };
   };
 
+  const handleCountSearch = useCallback(
+    debounce((keyword:any) => {
+      if (activeSearch && keyword !== '') {
+        datasets
+          .postData(
+            SERVER.COUNT_SEARCH_GLOBAL_PROJECTS,
+            { keyword: keyword},
+            datasets.getToken()
+          )
+          .then((data) => {
+            setCountPM(data.PMcount);
+            setCountWR(data.WRcount);
+            setCountWP(data.WPcount);
+          });
+      }
+    }
+    , 200),
+    [activeSearch]
+  );
+
   const handleSearch = useCallback(
     debounce((keyword:any) => {
     let type = 'PROJECT';
@@ -243,9 +266,13 @@ const NavbarView = ({
   );
 
   useEffect(() => {
-    handleSearch(keyword);
+    handleSearch(keyword);    
   }, [keyword, handleSearch]);
 
+  useEffect(() => {
+    handleCountSearch(keyword);    
+  }, [keyword, handleCountSearch]);
+  
   useEffect(() => {
     const handleClickOutside = (event: any) => {
       if (activeSearch && event.target.closest('.navbar-search-content') === null && event.target.id !== 'navbar-search' && !event.target.closest('#navbar-search')) {
@@ -290,21 +317,39 @@ const NavbarView = ({
     {activeSearch && <div style={{position:'absolute'}} className='navbar-search-content'>
       <div className="navbar-search-tooltip">
         <div className='tab-navbar-search'>
-          <p className={tabActiveSearch === 'Detail Page'? 'active':''} onClick={()=>{setTabActiveSearch('Detail Page')}}>Project Details</p>
           <p
             className={
-              userInformation.designation === 'admin' || 
-              userInformation.designation === 'staff' ? 
+              countPM ?
+                (tabActiveSearch === 'Detail Page' ? 'active' : '') : 'disabled'
+            }
+            onClick={countPM ? () => setTabActiveSearch('Detail Page') : undefined}
+          >
+            Project Details
+          </p>
+          <p
+            className={
+              (userInformation.designation === 'admin' || 
+              userInformation.designation === 'staff') &&
+              countWR ? 
               (tabActiveSearch === 'Work Request' ? 'active' : '') : 'disabled'
             } 
             onClick={
               (userInformation.designation === 'admin' ||
-                userInformation.designation === 'staff') ?
+                userInformation.designation === 'staff') &&
+                countWR ?
                 () => setTabActiveSearch('Work Request') : undefined
             }
           >Work Request
           </p>
-          <p className={tabActiveSearch === 'Work Plan'? 'active':''} onClick={()=>{setTabActiveSearch('Work Plan')}}>Work  Plan</p>
+          <p
+            className={
+              countWP ?
+                (tabActiveSearch === 'Work Plan' ? 'active' : '') : 'disabled'
+            }
+            onClick={countWP ? () => setTabActiveSearch('Work Plan') : undefined}
+          >
+            Work Plan
+          </p>
         </div>
         <NavBarSearchTooltipItem
           title={tabActiveSearch}
