@@ -2126,6 +2126,12 @@
   background-color: #FFF8CC;
   padding: 20px 15px;
 }
+
+.highlight-detail > textarea {
+  background: #FFF8CC;
+  border-style: dashed;
+}
+
 @media (min-width: 1900px) and (max-width: 2550px) {
   .detailed-modal {
     width: 1558px !important;

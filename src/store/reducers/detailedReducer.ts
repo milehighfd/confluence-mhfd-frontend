@@ -29,6 +29,14 @@ const filterReducer = (state = initState, action: any) => {
         ...state,
         detailed: {}
       }
+    case types.UPDATE_SHORT_PROJECT_NOTE:
+      return {
+        ...state,
+        detailed: {
+          ...state.detailed,
+          short_project_note: action.short_project_note
+        }
+      };
     default:
       return state;
   }

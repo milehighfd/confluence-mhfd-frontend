@@ -2,6 +2,7 @@ export const REPLACE_DETAILED_PAGE = 'REPLACE_DETAILED_PAGE';
 export const REPLACE_VALUE_SPIN = 'REPLACE_VALUE_SPIN';
 export const DISPLAY_MODAL = 'DISPLAY_MODAL';
 export const RESET_DETAILED = 'RESET_DETAILED';
+export const UPDATE_SHORT_PROJECT_NOTE = 'UPDATE_SHORT_PROJECT_NOTE';
 type Project = {
     cartodb_id: number,
     the_geom: string,
