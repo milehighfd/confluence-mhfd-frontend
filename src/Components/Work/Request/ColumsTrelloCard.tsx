@@ -6,7 +6,7 @@ import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { useProfileState } from 'hook/profileHook';
 import TrelloLikeCard from 'Components/Work/Request/TrelloLikeCard';
-import { ADMIN, BOARD_STATUS_TYPES, STAFF, WORK_PLAN } from 'constants/constants';
+import { ADMIN, BOARD_STATUS_TYPES, STAFF, WORK_PLAN, YEAR_LOGIC_2024 } from 'constants/constants';
 import ColorService from 'Components/Work/Request/ColorService';
 import useFakeLoadingHook from 'hook/custom/useFakeLoadingHook';
 import { SPONSOR_ID } from 'constants/databaseConstants';
@@ -153,8 +153,8 @@ const ColumsTrelloCard = ({
           targetPosition,
         });
         if (namespaceId.type === WORK_PLAN 
-          // && boardStatus === 'Approved' && 
-          // namespaceId.year >= YEAR_LOGIC_2024
+          && boardStatus === 'Approved' && 
+          namespaceId.year >= YEAR_LOGIC_2024
         ){
           let extraYears: number[] = [];
           if (targetColumnPosition !== 0) {

@@ -122,8 +122,8 @@ const EditAmountCreateProject = ({
       });
       setCreatedProject({});
     if (namespaceId.type === WORK_PLAN 
-      // && boardStatus === 'Approved' && 
-      // namespaceId.year >= YEAR_LOGIC_2024
+      && boardStatus === 'Approved' && 
+      namespaceId.year >= YEAR_LOGIC_2024
     ) {
       let subTypeName = '';
       if (namespaceId.projecttype === 'Maintenance'){
