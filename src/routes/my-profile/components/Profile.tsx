@@ -196,7 +196,7 @@ const Profile = ({
 
   return (
     <div className="profile-myprofile">
-      <img src={!user.photo ? "/picture/user-default.svg" : user.photo} height={90} width="90" style={{ marginBottom: '15px', marginTop: '50px' , borderRadius: '50%'}} />
+      <img src={!user.photo ? "/picture/AvatarUser.svg" : user.photo} height={90} width="90" style={{ marginBottom: '15px', marginTop: '50px' , borderRadius: '50%'}} />
       <div className="profile-change-image">
         <Upload showUploadList={false} beforeUpload={beforeUpload} onChange={({ file }: any) => {
           if (fileImage.uid !== file.uid) {
