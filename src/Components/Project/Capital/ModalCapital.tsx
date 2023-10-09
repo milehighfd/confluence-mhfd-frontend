@@ -147,6 +147,7 @@ export const ModalCapital = ({
     listStreams,
     streamsIntersectedIds,
     disableFieldsForLG,
+    createdProject
   } = useProjectState();
   const [loading, setLoading] = useState(false);
   const [state, setState] = useState(stateValue);
@@ -544,7 +545,14 @@ export const ModalCapital = ({
       // setVisible(false);
     }
   }, [save]);
+
   useEffect(() => {
+    if(Object.keys(createdProject).length !== 0){
+      console.log('createdProject', createdProject);
+    }
+  }, [createdProject]);
+
+  useEffect(() => { 
     if(status === 1 || status === 0) {
       setVisible(false);
       setVisibleCapital(false);
@@ -1298,6 +1306,7 @@ export const ModalCapital = ({
                 getTotalCost={getTotalCost}
                 save={save}
                 subType={subType}
+                sponsor={sponsor}
               />                 
               <UploadImagesDocuments
                 isCapital={true}

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import useCostDataFormattingHook from 'hook/custom/useCostDataFormattingHook';
+import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
 import { formatter } from 'Components/Work/Request/RequestViewUtil';
 import AmountNumericInput from './AmountNumericInput';
 import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { BOARD_PROJECT_COST } from 'Config/endpoints/board-project';
+import { WORK_PLAN, YEAR_LOGIC_2024 } from 'constants/constants';
 
 const EditAmountCreateProject = ({
   index,
@@ -13,25 +15,30 @@ const EditAmountCreateProject = ({
   project_id,
   getTotalCost,
   save,
-  subType
+  subType,
+  sponsor
 }:{
   index: number,
   type: string,
   project_id: any,
   getTotalCost: any,
-  save: any
-  subType: any
+  save: any,
+  subType: any,
+  sponsor: any
 }) => {
   const {
     columns2: columns,
     year: startYear,
-    tabKey
+    tabKey,
+    boardStatus,
+    namespaceId,
   } = useRequestState();
-  const { loadOneColumn } = useRequestDispatch();
+  const { loadOneColumn, loadColumns } = useRequestDispatch();
   const { status, createdProject } = useProjectState();
-  const { setCreatedProject } = useProjectDispatch();
+  const { setCreatedProject, sendProjectToBoardYear } = useProjectDispatch();
   const [project, setProject] = useState<any>({})
   const [board_project_id, setBoard_project_id] = useState<any>()
+  const [createData, setCreatedData] = useState<any>({})
   const isMaintenance = tabKey === 'Maintenance'
   const [completeCosts, setCompleteCosts] = useState<any>({});
   const [cost, setCost] = useState<any>({
@@ -114,13 +121,58 @@ const EditAmountCreateProject = ({
         console.log(err);
       });
       setCreatedProject({});
+    if (namespaceId.type === WORK_PLAN 
+      // && boardStatus === 'Approved' && 
+      // namespaceId.year >= YEAR_LOGIC_2024
+    ) {
+      let subTypeName = '';
+      if (namespaceId.projecttype === 'Maintenance'){
+        subTypeName = subType;
+      }      
+      const years = convertObjectToArrays(cost, namespaceId.year);
+      const sendBody = {
+        project_id : createData.project_data.project_id,
+        year: namespaceId.year,
+        extraYears: years.extraYears,
+        sponsor: sponsor,        
+        project_type: namespaceId.projecttype,
+        extraYearsAmounts: years.extraYearsAmounts,
+        subType: subTypeName,
+      }
+      sendProjectToBoardYear(
+        sendBody.project_id,
+        sendBody.year,
+        sendBody.extraYears,
+        sendBody.sponsor,
+        sendBody.project_type,
+        sendBody.extraYearsAmounts,
+        sendBody.subType
+      );
+    }    
   };
+
+  function convertObjectToArrays(input: any, year: number) {
+    const extraYears = [];
+    const extraYearsAmounts = [];
+    for (let i = 1; i <= 5; i++) {
+      const value = input[`req${i}`];
+      if (value !== null && value !== 0) {
+        extraYears.push(+year + i - 1);
+        extraYearsAmounts.push(value);
+      }
+    }
+    return { extraYears, extraYearsAmounts };
+  }
+
+
   useEffect(() => {
     console.log('cost ', cost);
   } ,[cost]);
   useEffect(() => {
     console.log('Created project ', createdProject);
     if(Object.keys(createdProject).length !== 0 && Object.keys(project).length === 0){
+      console.log(createdProject, 'createdProject')
+      setCreatedData(createdProject)
       setBoard_project_id(createdProject?.boardProjectId?.board_project_id);
     }
   }, [createdProject]);

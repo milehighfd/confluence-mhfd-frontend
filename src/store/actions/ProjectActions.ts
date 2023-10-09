@@ -567,3 +567,34 @@ export const setGlobalLocality = (globalLocality: any) => {
     dispatch({type: types.SET_GLOBAL_LOCALITY, globalLocality});
   }
 }
+
+export const sendProjectToBoardYear = (project_id: number, year: number, extraYears: Array<number>, sponsor: string, project_type: string, extraYearsAmounts: Array<number>, subType: string) => {
+  return (dispatch: Function) => {
+    let subTypeIndex = 0;
+    switch (subType) {
+      case 'Routine Trash and Debris':
+        subTypeIndex = 1;
+        break;
+      case 'Vegetation Management':
+        subTypeIndex = 2;
+        break;
+      case 'Sediment Removal':
+        subTypeIndex = 3;
+        break;
+      case 'Minor Repair':
+        subTypeIndex = 4;
+        break;
+      case 'Restoration':
+        subTypeIndex = 5;
+        break;
+      default:
+        subTypeIndex = 0;
+        break;
+    }
+    datasets.postData(SERVER.UPDATE_APPROVED_BOARD, {project_id, year, extraYears, sponsor, project_type, extraYearsAmounts, subTypeIndex}, datasets.getToken()).then(res => {
+      console.log('res', res);
+      dispatch(loadColumns());
+      dispatch(loadFilters());
+    });
+  }
+}
