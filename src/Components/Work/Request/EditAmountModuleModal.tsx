@@ -28,6 +28,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
   const startYearInt = parseInt(startYear);
   const [totalCosts, setTotalCosts] = useState<any>([]);
   const [totalCombinedSum, setTotalCombinedSum] = useState<any>(0);
+  const widthInput = document.getElementById('colInput')?.offsetWidth;
   const desiredOrder = [88, 11, 12];
   const statusColor:any = {
     1: {color: '#FF8938', backgroundColor: 'rgba(255, 221, 0, 0.3)', projectStatus: 'Draft'},
@@ -253,26 +254,26 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
             {tableHeader.length !==0 && tableHeader.map((item: any) => {
               if(item.code_partner_type_id === 11){
                 return (
-                  <Col>
+                  <Col style={{width: widthInput}}>
                     {item.business_name} <p>Sponsor</p>
                   </Col>
                 )
               } else if(item.code_partner_type_id === 12){
                 return (
-                  <Col>
+                  <Col style={{width: widthInput}}>
                     {item.business_name} <p>Co-Sponsor</p>
                   </Col>
                 )
               } else if(item.code_partner_type_id === 88){
                 return (
-                  <Col>
+                  <Col style={{width: widthInput}}>
                     {item.business_name} Funding 
                   </Col>
                 )
               }
               else { 
                 return (
-                  <Col>
+                  <Col style={{width: widthInput}}>
                     {item.business_name}
                   </Col>
                 )
@@ -297,7 +298,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
           </Col>
           {Object.keys(cost).length !== 0 && cost?.amounts.map((item: any) => {
             return (
-              <Col span={3}>
+              <Col span={3} id='colInput'>
               {Object.keys(item?.values).map((amount: any, index:number) => {
                 return (
                   <Row className='rowInputContainer'>
