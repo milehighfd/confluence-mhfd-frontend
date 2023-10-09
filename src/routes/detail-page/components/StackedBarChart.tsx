@@ -168,25 +168,7 @@ const StackedBarChart = ({ projectId, isRestoration }: { projectId: any; isResto
   }, [clickOpenPopup]);
 
   useEffect(() => {
-    const chartData = getChartData([
-      ...financialInformation,
-      {
-        "effective_date":"06-07-2023",
-        "project_partner_name":"Muller Engineering Company, Inc.",
-        "encumbered":{
-          "is_income":true,
-          "cost":540718
-        }
-      },
-      {
-        "effective_date":"07-07-2023",
-        "project_partner_name":"MHFD",
-        "encumbered":{
-          "is_income":true,
-          "cost":10718
-        }
-      }
-    ], isRestoration);
+    const chartData = getChartData(financialInformation, isRestoration);
     buildChart(chartData);
   }, [financialInformation]);
 
