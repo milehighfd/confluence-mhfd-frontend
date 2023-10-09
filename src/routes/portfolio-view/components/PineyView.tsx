@@ -378,7 +378,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
   type HandleInputChangeArgs = [string, any];
 
   const debouncedHandleInputChange = React.useMemo(
-    () => debounce((...args: HandleInputChangeArgs) => handleInputChangeRef.current(...args), 1000),
+    () => debounce((...args: HandleInputChangeArgs) => handleInputChangeRef.current(...args), 500),
     []
   );
   
@@ -585,7 +585,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
             );
           })}
           <div className="add-checkbox" onClick={(e)=>{
-            if (!disabledLG) {
+            if (!disabledLG && !createdActions.some((x: any) => !x.checklist_todo_name)) {
               handleAddTask()
             }            
           }}>
