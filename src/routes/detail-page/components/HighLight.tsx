@@ -56,7 +56,7 @@ export const HighLight = ({
         /> : (
           <>
             <b>{boldText}</b>&nbsp;
-            <span dangerouslySetInnerHTML={{__html: currentValue.replaceAll('\n','<br/>' )}}></span>
+            <span dangerouslySetInnerHTML={{__html: currentValue?.replaceAll('\n','<br/>')}}></span>
           </>
         )
       }
