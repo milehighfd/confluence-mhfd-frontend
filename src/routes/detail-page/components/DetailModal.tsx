@@ -478,7 +478,7 @@ const DetailModal = ({
       }, 1850);
     }
   };
-  
+  console.log('detailed', detailed);
   return (
     <>
       <ModalTollgate setOpenPiney={setOpenPiney} />
@@ -996,7 +996,7 @@ const DetailModal = ({
                       appUser.designation &&
                       (appUser.designation === ADMIN || appUser.designation === STAFF) && (
                         <>
-                          <StackedBarChart projectId={project_idS} isRestoration={detailed?.code_project_type?.project_type_name === 'Restoration'}/>
+                          <StackedBarChart projectId={project_idS} isRestoration={detailed?.code_project_type?.code_project_type_id === 7}/>
                           <br></br>
                           <Financials projectId={project_idS} />
                         </>
