@@ -171,7 +171,7 @@ export const ProjectGeometry = ({
         if (text === undefined) {
           return ('');
         }else{
-          return formatterIntegers.format(+text) + ' acre';
+          return formatterIntegers.format(+text) + ' acres';
         }
       }
     },
