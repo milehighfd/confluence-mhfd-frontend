@@ -109,7 +109,8 @@ const initState = {
     status: 0,
     locality : ''
   },
-  createdProject:{}
+  createdProject:{},
+  globalSearchValue: ''
 }
 
 const projectReducer = (state = initState, action: any) => {
@@ -473,6 +474,12 @@ const projectReducer = (state = initState, action: any) => {
       return {
         ...state,
         createdProject: action.createdProject
+      }
+    }
+    case types.SET_GLOBAL_SEARCH_VALUE: {
+      return {
+        ...state,
+        globalSearchValue: action.globalSearchValue
       }
     }
     default: 

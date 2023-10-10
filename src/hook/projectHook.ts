@@ -61,7 +61,8 @@ import {
   setGlobalStatusId,
   setGlobalLocality,
   setCreatedProject,
-  sendProjectToBoardYear
+  sendProjectToBoardYear,
+  setGlobalSearchValue
 } from '../store/actions/ProjectActions';
 
 export const useProjectState = () => useSelector(
@@ -256,6 +257,9 @@ export const useProjectDispatch = () => {
     },
     sendProjectToBoardYear: (project_id: number, year: number, extraYears: Array<number>, sponsor: string, project_type: string, extraYearsAmounts: Array<number>, subtype: string) => {
       dispatch(sendProjectToBoardYear(project_id, year, extraYears, sponsor, project_type, extraYearsAmounts, subtype))
+    },
+    setGlobalSearchValue: (globalSearchValue: string) => {
+      dispatch(setGlobalSearchValue(globalSearchValue))
     }
   };
 };

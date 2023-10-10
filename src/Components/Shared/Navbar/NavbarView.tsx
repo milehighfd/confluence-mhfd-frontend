@@ -14,6 +14,7 @@ import { SERVER } from 'Config/Server.config';
 import ModalTutorial from '../Sidebar/ModalTutorial';
 import DetailModal from 'routes/detail-page/components/DetailModal';
 import NavBarSearchTooltipItem from './NavBarSearch/NavBarSearchTooltipItem';
+import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 
 const { TabPane } = Tabs;
 const { Header } = Layout;
@@ -44,13 +45,18 @@ const NavbarView = ({
   const [visibleTutorial, setVisibleTutorial] = useState(false);
   const [notification,setNotification] = useState<any>([]);
   const { changeTutorialStatus,getDetailedPageProject, setTabActiveNavbar } = useMapDispatch();
+  const {
+    globalSearchValue
+  } = useProjectState();
+  const {
+    setGlobalSearchValue
+  } = useProjectDispatch();
   const { tabActiveNavbar } = useMapState();
   const { getTimesLogin, resetTimesLogin } = useProfileDispatch();
   const { timesLogged } = useUsersState();
   const { deleteMaps } = GlobalMapHook();
   const [activeSearch, setActiveSearch] = useState(false);
   const [tabActiveSearch, setTabActiveSearch] = useState('Detail Page');
-  const [keyword, setKeyword] = useState('');
   const [searchGlobalData, setSearchGlobalData] = useState<any>([]);
   const appUser = useProfileState();
   const [disabledLG, setDisabledLG] = useState(appUser?.isLocalGovernment || appUser?.userInformation?.designation === 'government_staff');
@@ -266,12 +272,12 @@ const NavbarView = ({
   );
 
   useEffect(() => {
-    handleSearch(keyword);    
-  }, [keyword, handleSearch]);
+    handleSearch(globalSearchValue);    
+  }, [globalSearchValue, handleSearch]);
 
   useEffect(() => {
-    handleCountSearch(keyword);    
-  }, [keyword, handleCountSearch]);
+    handleCountSearch(globalSearchValue);    
+  }, [globalSearchValue, handleCountSearch]);
   
   useEffect(() => {
     const handleClickOutside = (event: any) => {
@@ -303,10 +309,18 @@ const NavbarView = ({
       className='navbar-search'
       placeholder="Search"
       prefix={<SearchOutlined onClick={() => setActiveSearch(!activeSearch)} />}
-      suffix={keyword && <CloseCircleFilled onClick={() => setKeyword('')} />}  
-      value={keyword}
+      suffix={globalSearchValue && <CloseCircleFilled onClick={() => setGlobalSearchValue('')} />}  
+      value={globalSearchValue}
+      onClick={() => {
+        if (globalSearchValue === '') {
+          setActiveSearch(false);
+        } else {
+          setActiveSearch(true);
+        }
+      }
+      }
       onChange={(e) => {
-        setKeyword(e.target.value)
+        setGlobalSearchValue(e.target.value)
         if (e.target.value === ''){
           setActiveSearch(false);
         }else{

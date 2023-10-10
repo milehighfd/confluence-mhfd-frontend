@@ -598,3 +598,9 @@ export const sendProjectToBoardYear = (project_id: number, year: number, extraYe
     });
   }
 }
+
+export const setGlobalSearchValue = (globalSearchValue: string) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.SET_GLOBAL_SEARCH_VALUE, globalSearchValue});
+  }
+}
