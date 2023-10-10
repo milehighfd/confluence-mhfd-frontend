@@ -3,7 +3,7 @@ import { UPDATE_SHORT_NOTE_BY_PROJECT_ID } from 'Config/endpoints/project';
 import { Input } from 'antd'
 import { ADMIN, STAFF } from 'constants/constants';
 import { useDetailedDispatch } from 'hook/detailedHook';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 const TextArea = Input.TextArea;
 
@@ -31,22 +31,50 @@ export const HighLight = ({
   const [inputValue, setInputValue] = useState<string>('');
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [isHovered, setIsHovered] = useState<boolean>(false);
-
+  const projectIdRef = useRef(project_id);
   const boldText="Project Highlight:" 
 
-  const save = async () => {
+  useEffect(() => {
+    projectIdRef.current = project_id;
+  }, [project_id]);
+
+  const save = async (value: string) => {
     let data;
     try {
       data = await putData(
-        UPDATE_SHORT_NOTE_BY_PROJECT_ID(project_id),
-        { short_project_note: inputValue },
+        UPDATE_SHORT_NOTE_BY_PROJECT_ID(projectIdRef.current),
+        { short_project_note: value },
         getToken()
       )
-      updateShortProjectNote(inputValue);
+      updateShortProjectNote(value);
     } catch (error) {
       console.log(error)
     }
-  }
+  };
+
+  const saveRef = useRef<typeof save>(save);
+
+  useEffect(() => {
+    saveRef.current = save;
+  }, [save]);
+
+  const debounce = (func: Function, delay: number) => {
+    let timeoutId: ReturnType<typeof setTimeout>;  
+    return (...args: any[]) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func.apply(null, args);
+      }, delay);
+    };
+  };
+
+  const handleInputChangeRef = React.useRef<(value: string) => void>(save);
+  type HandleInputChangeArgs = [string];
+
+  const debouncedHandleInputChange = React.useMemo(
+    () => debounce((...args: HandleInputChangeArgs) => handleInputChangeRef.current(...args), 500),
+    []
+  );
 
   const rows = useRowsCount(inputValue);
 
@@ -68,12 +96,23 @@ export const HighLight = ({
           value={inputValue}
           placeholder="Project Highlight"
           style={{
-            border: (isFocused || isHovered) ? '1px solid black' : 'none'
+            borderBottom: (isFocused) ? '1px solid black' : 'none',
+            borderLeft: 'none',
+            borderRight: 'none',
+            borderTop: 'none'
           }}
           onChange={(e) => {
-            setInputValue(e.target.value)
+            const value = e.target.value;
+            setInputValue(value);
+            debouncedHandleInputChange(value);
           }}
           onClick={(e) => e.stopPropagation()}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              (e.target as HTMLInputElement).blur();
+            }
+          }}
         /> : (
           <span dangerouslySetInnerHTML={{__html: currentValue?.replaceAll('\n','<br/>')}}></span>
         )

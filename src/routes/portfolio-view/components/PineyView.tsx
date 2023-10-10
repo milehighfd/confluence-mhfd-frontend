@@ -370,9 +370,10 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
   };  
 
 
-  React.useEffect(() => {
+  useEffect(() => {
     handleInputChangeRef.current = handleInputChange;
   }, [handleInputChange]);
+  
   const handleInputChangeRef = React.useRef<(value: string, data: any) => void>(handleInputChange);
 
   type HandleInputChangeArgs = [string, any];
