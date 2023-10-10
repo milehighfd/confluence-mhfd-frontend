@@ -114,10 +114,10 @@ const getDataForNormalCharts = (resultArray: any) => {
         bottom = 0;
         fundingBottom = bottom;
         fundingTop = initialPoint - expenditureSum;
-        expenditureBottom = initialPoint - expenditureSum;
+        expenditureBottom = fundingTop;
         expenditureTop = initialPoint;
-        mhfdBottom = fundingTop;
-        mhfdTop = fundingTop + mhfdIncomeSum;
+        mhfdBottom = expenditureTop;
+        mhfdTop = mhfdBottom + mhfdIncomeSum;
         otherBottom = mhfdTop;
         otherTop = otherBottom + otherIncomeSum;
         top = otherTop;
@@ -297,20 +297,12 @@ const StackedBarChart = ({ projectId, isRestoration }: { projectId: any; isResto
       .attr('class', 'x-axis-stackedbar-chart-for-background')
       .call(d3.axisBottom(x).tickSizeOuter(0));
 
-    const offset = (maxValue - minValue) * 0.1;
+    const offset = (maxValue - minValue) * 0.01;
 
     const y: any = d3
       .scaleLinear()
       .domain([minValue - offset, maxValue + offset])
       .range([height, 0])
-
-    svg.append("line")
-      .attr("x1", 0)
-      .attr("x2", totalWidth)
-      .attr("y1", y(0))
-      .attr("y2", y(0))
-      .attr("stroke", "black")
-      .attr("stroke-width", 1);  
 
     svg
       .append('g')
@@ -381,7 +373,7 @@ const StackedBarChart = ({ projectId, isRestoration }: { projectId: any; isResto
           const currentRect = g.append('rect')
             .attr('x', x(data.date) as any)
             .attr('y', y(topValue))
-            .attr('width', 50)
+            .attr('width', x.bandwidth())
             .attr('rx', 5)
             .attr('stroke', 'white')
             .attr('stroke-width', '2')
@@ -392,11 +384,11 @@ const StackedBarChart = ({ projectId, isRestoration }: { projectId: any; isResto
           currentRect.on('mouseenter', (d: any) => {
             if (!currentStatePopup.current) {
               if (openPopup) {
-                applyBackgroundRect2('remove', data.date, x(data.date), y(data.top), Math.abs(y(data.top) - y(data.bottom)), x.bandwidth(), backgroundRect);
+                applyBackgroundRect('remove', data.date, x(data.date), y(data.top), Math.abs(y(data.top) - y(data.bottom)), x.bandwidth(), backgroundRect);
                 setOpenPopup(false);
               } else {
                 d3.select('.x-axis-selected').attr('class', 'x-axis-stackedbar-chart text');
-                applyBackgroundRect2('add', data.date, x(data.date), y(data.top), Math.abs(y(data.top) - y(data.bottom)), x.bandwidth(), backgroundRect);
+                applyBackgroundRect('add', data.date, x(data.date), y(data.top), Math.abs(y(data.top) - y(data.bottom)), x.bandwidth(), backgroundRect);
                 setDataPopup({
                   date: data.date,
                   expenditureSum: data.expenditureSum,
@@ -409,7 +401,7 @@ const StackedBarChart = ({ projectId, isRestoration }: { projectId: any; isResto
             }
           })
           .on('mouseout', () => {
-            applyBackgroundRect2('remove', data.date, x(data.date), y(data.top), Math.abs(y(data.top) - y(data.bottom)), x.bandwidth(), backgroundRect);
+            applyBackgroundRect('remove', data.date, x(data.date), y(data.top), Math.abs(y(data.top) - y(data.bottom)), x.bandwidth(), backgroundRect);
             setOpenPopup(false);
           })
           .on('click', (d: any) => {
@@ -448,13 +440,20 @@ const StackedBarChart = ({ projectId, isRestoration }: { projectId: any; isResto
           });
         }
       });
-    })
+    });
+    g.append("line")
+      .attr("x1", 0)
+      .attr("x2", totalWidth)
+      .attr("y1", y(0))
+      .attr("y2", y(0))
+      .attr("stroke", "black")
+      .attr("stroke-width", 4);
   };
-  const applyBackgroundRect2 = (type: string, date: any, x: any, y: any, h: any, w: any, backgroundRect: any) => {
+  const applyBackgroundRect = (type: string, date: any, x: any, y: any, h: any, w: any, backgroundRect: any) => {
     if (type === 'add') {
       backgroundRect
-        .attr('y', y - 12)
-        .attr('height', h+6)
+        .attr('y', y - 6)
+        .attr('height', h+12)
         .attr('x', x - 12)
         .attr('width', w+12)
         .attr('rx', 5)
