@@ -24,6 +24,20 @@ const VersionNumber = ({visible, setVisible}: {visible: boolean, setVisible: Rea
         </Row>
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
           <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c', overflowY: 'scroll', height: '400px'}} className='scroll-version'>
+            <p style={{ color: '#11093c', fontWeight: '500', paddingBottom: '10px' }}>v2.3 - October 10, 2023</p>
+            <ul>
+              <li>New Universal Search feature located in the header</li>
+              <li>Updated design for the 'Edit Amount' module that allows users to capture various types of funding requests</li>
+              <li>New 'Edit Amount' section in the Create/Edit Project Form</li>
+              <li>New Action items creation workflow within the Project Management view</li>
+              <li>Mapping updates for Stream Management Corridors, Problems, R&D projects and Studies</li>
+              <li>New Financial Graphic within the project detail page</li>
+              <li>Updated references from "Proposed Actions" to "Proposeed Scope of Work" in the Create Project form for CIP projects</li>   
+              <li>Real-time display of Work Request statuses within the Work Plan</li>   
+              <li>New 'Make Project Active' workflow that transfers a project from the Work Plan to the Project Management view</li>   
+              <li>New 'Project Archive' feature within the card in the board views</li>   
+              <li>New Editable 'Project Highlight' view within the Detail Page</li>                
+            </ul>
             <p style={{ color: '#11093c', fontWeight: '500', paddingBottom: '10px' }}>v2.2 - September 5, 2023</p>
             <ul>
               <li>New List Views for the Main Map, Work Request and Work Plan views</li>
