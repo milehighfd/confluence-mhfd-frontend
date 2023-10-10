@@ -478,7 +478,7 @@ const DetailModal = ({
       }, 1850);
     }
   };
-  console.log('detailed', detailed);
+  
   return (
     <>
       <ModalTollgate setOpenPiney={setOpenPiney} />
