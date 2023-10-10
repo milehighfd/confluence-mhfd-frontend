@@ -93,9 +93,8 @@ const getDataForNormalCharts = (resultArray: any) => {
 
     const initialPoint = cummulativeFund;
     const change = mhfdIncomeSum + otherIncomeSum - expenditureSum;
-    const signChange = (cummulativeFund + change) * cummulativeFund < 0;
-    cummulativeFund += change;
-    if (signChange) {
+    if (change !== 0 && (change + initialPoint) === 0) {
+      cummulativeFund = 0;
       if (change > 0) {
         bottom = initialPoint;
         mhfdBottom = bottom;
@@ -110,28 +109,46 @@ const getDataForNormalCharts = (resultArray: any) => {
         bottom = expenditureBottom;
       }
     } else {
-      if (cummulativeFund >= 0) {
-        bottom = 0;
-        fundingBottom = bottom;
-        fundingTop = initialPoint - expenditureSum;
-        expenditureBottom = fundingTop;
-        expenditureTop = initialPoint;
-        mhfdBottom = expenditureTop;
-        mhfdTop = mhfdBottom + mhfdIncomeSum;
-        otherBottom = mhfdTop;
-        otherTop = otherBottom + otherIncomeSum;
-        top = otherTop;
+      const signChange = (cummulativeFund + change) * cummulativeFund < 0;
+      cummulativeFund += change;
+      if (signChange) {
+        if (change > 0) {
+          bottom = initialPoint;
+          mhfdBottom = bottom;
+          mhfdTop = bottom + mhfdIncomeSum;
+          otherBottom = mhfdTop;
+          otherTop = otherBottom + otherIncomeSum;
+          top = otherTop;
+        } else {
+          top = initialPoint;
+          expenditureTop = top;
+          expenditureBottom = top - expenditureSum;
+          bottom = expenditureBottom;
+        }
       } else {
-        top = 0;
-        mhfdTop = top;
-        mhfdBottom = mhfdTop - mhfdIncomeSum;
-        otherTop = mhfdBottom;
-        otherBottom = otherTop - otherIncomeSum;
-        fundingTop = otherBottom;
-        fundingBottom = initialPoint;
-        expenditureTop = fundingBottom;
-        expenditureBottom = expenditureTop - expenditureSum;
-        bottom = expenditureBottom;
+        if (cummulativeFund >= 0) {
+          bottom = 0;
+          fundingBottom = bottom;
+          fundingTop = initialPoint - expenditureSum;
+          expenditureBottom = fundingTop;
+          expenditureTop = initialPoint;
+          mhfdBottom = expenditureTop;
+          mhfdTop = mhfdBottom + mhfdIncomeSum;
+          otherBottom = mhfdTop;
+          otherTop = otherBottom + otherIncomeSum;
+          top = otherTop;
+        } else {
+          top = 0;
+          mhfdTop = top;
+          mhfdBottom = mhfdTop - mhfdIncomeSum;
+          otherTop = mhfdBottom;
+          otherBottom = otherTop - otherIncomeSum;
+          fundingTop = otherBottom;
+          fundingBottom = initialPoint;
+          expenditureTop = fundingBottom;
+          expenditureBottom = expenditureTop - expenditureSum;
+          bottom = expenditureBottom;
+        }
       }
     }
 
@@ -255,7 +272,7 @@ const StackedBarChart = ({ projectId, isRestoration }: { projectId: any; isResto
 
     let dollarformat = function(d: any) {
       if (d < 0) {
-        d = -d;
+        return '($' + d3.format(',.0f')(-d) + ')';
       }
       return '$' + d3.format(',.0f')(d);
     };
@@ -441,13 +458,15 @@ const StackedBarChart = ({ projectId, isRestoration }: { projectId: any; isResto
         }
       });
     });
-    g.append("line")
-      .attr("x1", 0)
-      .attr("x2", totalWidth)
-      .attr("y1", y(0))
-      .attr("y2", y(0))
-      .attr("stroke", "black")
-      .attr("stroke-width", 4);
+    if (minValue < 0) {
+      g.append("line")
+        .attr("x1", 0)
+        .attr("x2", totalWidth)
+        .attr("y1", y(0))
+        .attr("y2", y(0))
+        .attr("stroke", "gray")
+        .attr("stroke-width", 1);
+    }
   };
   const applyBackgroundRect = (type: string, date: any, x: any, y: any, h: any, w: any, backgroundRect: any) => {
     if (type === 'add') {
