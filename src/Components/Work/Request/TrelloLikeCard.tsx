@@ -114,7 +114,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
       onClick: (() => {getCompleteProjectData(); setTypeEdition('editProject')})
     }, {
       key: '1',
-      disabled: boardStatus === BOARD_STATUS_TYPES.APPROVED,
+      // disabled: boardStatus === BOARD_STATUS_TYPES.APPROVED,
       label: <span style={{borderBottom: '1px solid transparent'}}>
         <img src="/Icons/icon-90.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px', marginRight: '4px' }} />
         Edit Amount

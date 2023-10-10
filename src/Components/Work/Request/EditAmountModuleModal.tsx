@@ -7,11 +7,12 @@ import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { BOARD_PROJECT_COST } from 'Config/endpoints/board-project';
 import useCostDataFormattingHook from 'hook/custom/useCostDataFormattingHook';
 import { useProfileState } from 'hook/profileHook';
-import { GOVERNMENT_ADMIN, GOVERNMENT_STAFF } from 'constants/constants';
+import { BOARD_STATUS_TYPES, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, WORK_PLAN_TAB } from 'constants/constants';
+import { useMapState } from 'hook/mapHook';
 
 const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisible }: {project: any; completeProjectData:any; visible: boolean; setVisible: Function }) => {
   
-  const { tabKey,year: startYear } = useRequestState();
+  const { tabKey,year: startYear, boardStatus } = useRequestState();
   const {
     listComponents,
   } = useProjectState();
@@ -21,6 +22,8 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
   const { loadOneColumn } = useRequestDispatch();
   const { userInformation } = useProfileState();
   const isMaintenance = tabKey === 'Maintenance';
+  const { tabActiveNavbar } = useMapState();
+  const isWorkPlan = tabActiveNavbar === WORK_PLAN_TAB;
   const { board_project_id } = project;
   const [requestFunding, setRequestFunding] = useState<any>(0);
   const [tableHeader, setTableHeader] = useState<any>([]);
@@ -302,7 +305,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
               {Object.keys(item?.values).map((amount: any, index:number) => {
                 return (
                   <Row className='rowInputContainer'>
-                    <Input disabled={((userInformation.designation === GOVERNMENT_STAFF|| userInformation.designation === GOVERNMENT_ADMIN) && item.code_partner_type_id !== 88) ? true : false} prefix="$" value={item.values[`req${index+1}`]?.toLocaleString('en-US')} onChange={(event:any) => handleChange(event, item, index+1)} />
+                    <Input disabled={(!isWorkPlan && item.code_partner_type_id !== 88) || boardStatus === BOARD_STATUS_TYPES.APPROVED ? true : false} prefix="$" value={item.values[`req${index+1}`]?.toLocaleString('en-US')} onChange={(event:any) => handleChange(event, item, index+1)} />
                   </Row>
                 )
               })}

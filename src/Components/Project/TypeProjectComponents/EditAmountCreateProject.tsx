@@ -7,7 +7,7 @@ import { formatter } from 'Components/Work/Request/RequestViewUtil';
 import AmountNumericInput from './AmountNumericInput';
 import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { BOARD_PROJECT_COST } from 'Config/endpoints/board-project';
-import { WORK_PLAN, YEAR_LOGIC_2024 } from 'constants/constants';
+import { BOARD_STATUS_TYPES, WORK_PLAN, YEAR_LOGIC_2024 } from 'constants/constants';
 
 const EditAmountCreateProject = ({
   index,
@@ -238,7 +238,7 @@ const EditAmountCreateProject = ({
             
             <div className='edit-amount'>
               <label className="sub-title">{item.label} </label>
-              <AmountNumericInput key={item.key} value={cost[item.key]?.toLocaleString('en-US')} onChange={(value: any) => setCost({ ...cost, [item.key]: value })} />
+              <AmountNumericInput disabled={boardStatus === BOARD_STATUS_TYPES.APPROVED ? true: false} key={item.key} value={cost[item.key]?.toLocaleString('en-US')} onChange={(value: any) => setCost({ ...cost, [item.key]: value })} />
             </div>
           )
         })
