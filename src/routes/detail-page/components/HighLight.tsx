@@ -26,6 +26,8 @@ export const HighLight = ({
   currentValue: string;
   project_id: any;
 }) => {
+  const MAX_LENGTH_TEXTAREA = 200;
+  const textAreaPlaceholder = `There is ${MAX_LENGTH_TEXTAREA} characters limit`;
   const { updateShortProjectNote } = useDetailedDispatch();
 
   const [inputValue, setInputValue] = useState<string>('');
@@ -87,14 +89,16 @@ export const HighLight = ({
       <>
         <b>{boldText}</b>&nbsp;
       {
-        appUser.designation === ADMIN || appUser.designation === STAFF ? <TextArea
+        appUser.designation === ADMIN || appUser.designation === STAFF ? <><TextArea
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
+          maxLength={MAX_LENGTH_TEXTAREA}
           rows={rows}
-          value={inputValue}
-          placeholder="Project Highlight"
+          value={inputValue }
+          placeholder={textAreaPlaceholder}
+          //showCount={true}
           style={{
             borderBottom: (isFocused) ? '1px solid black' : 'none',
             borderLeft: 'none',
@@ -113,7 +117,11 @@ export const HighLight = ({
               (e.target as HTMLInputElement).blur();
             }
           }}
-        /> : (
+        />{isFocused && (
+          <div style={{ textAlign: 'right', marginTop: '5px' }}>
+            {inputValue.length}/{MAX_LENGTH_TEXTAREA}
+          </div>
+        )}</> : (
           <span dangerouslySetInnerHTML={{__html: currentValue?.replaceAll('\n','<br/>')}}></span>
         )
       }
