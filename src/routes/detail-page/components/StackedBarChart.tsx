@@ -194,11 +194,19 @@ const getChartData = (financialInformation: any, isRestoration: boolean) => {
     date,
     data: groupedInformation[date],
   }));
+  const updatedData = resultArray.map((item:any) => {
+    const [day, month, year] = item.date.split('-');
+    const twoDigitYear = year.slice(-2);
+    return {
+      ...item,
+      date: `${day}-${month}-${twoDigitYear}`
+    };
+  });
 
   if (isRestoration) {
-    return getDataForRestorationCharts(resultArray);
+    return getDataForRestorationCharts(updatedData);
   } else {
-    return getDataForNormalCharts(resultArray);
+    return getDataForNormalCharts(updatedData);
   }
 };
 
@@ -229,7 +237,8 @@ const StackedBarChart = ({ projectId, isRestoration }: { projectId: any; isResto
   }, [financialInformation]);
 
   const buildChart = (dataChart: any) => {
-    const margin = { top: 10, right: 30, bottom: 20, left: 6 };
+    //const margin = { top: 10, right: 30, bottom: 20, left: 6 };
+    const margin = { top: 0, right: 30, bottom: 20, left: 6 };
     const marginLeftForAxis = 100;
     const widthForAxis = 100;
     const totalWidth = barWidth * dataChart.length + margin.left + margin.right;
@@ -244,7 +253,12 @@ const StackedBarChart = ({ projectId, isRestoration }: { projectId: any; isResto
     let maxValue = Math.max(...dataChart.map((item: any) => item.top));
     let minValue = Math.min(...dataChart.map((item: any) => item.bottom));
 
-    let dollarformat = function(d:any) { return '$' + d3.format(',.0f')(d) };
+    let dollarformat = function(d: any) {
+      if (d < 0) {
+        d = -d;
+      }
+      return '$' + d3.format(',.0f')(d);
+    };
 
     d3.select(svgRef.current)
       .select('.stackedBar-chart')
@@ -289,6 +303,14 @@ const StackedBarChart = ({ projectId, isRestoration }: { projectId: any; isResto
       .scaleLinear()
       .domain([minValue - offset, maxValue + offset])
       .range([height, 0])
+
+    svg.append("line")
+      .attr("x1", 0)
+      .attr("x2", totalWidth)
+      .attr("y1", y(0))
+      .attr("y2", y(0))
+      .attr("stroke", "black")
+      .attr("stroke-width", 1);  
 
     svg
       .append('g')
