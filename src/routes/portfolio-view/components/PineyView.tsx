@@ -507,7 +507,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
             </Row>
           </div>
           <p style={{marginTop:'10px', marginBottom:'5px', fontWeight:'700'}}>Action Items</p>
-            <Row>
+            <Row style={{width:'96%'}}>
               <Col xs={{ span: 10 }} lg={{ span: 4 }}>
                 <p style={{fontSize:'12px', fontWeight:'700', paddingTop:'2px'}}>{percent+'%'}</p>
               </Col>
@@ -551,13 +551,9 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
                     onClick={(e) => e.stopPropagation()}
                     disabled={disabledLG}
                     style={{
-                      height: '25px',
-                      flex: '1',
-                      border: 'none', 
-                      background: 'transparent', 
-                      outline: 'none', 
                       borderBottom: focusedInputs[x.project_checklist_id] ? '1px solid black' : '1px solid transparent'
                     }}
+                    className="input-checkbox"
                     onFocus={() => setFocusedInputs((prevState:any) => ({ ...prevState, [x.project_checklist_id]: true }))}
                     onBlur={() => setFocusedInputs((prevState:any) => ({ ...prevState, [x.project_checklist_id]: false }))}
                     onKeyDown={(e) => {
