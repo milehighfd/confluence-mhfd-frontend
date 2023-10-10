@@ -103,7 +103,8 @@ export const HighLight = ({
             borderBottom: (isFocused) ? '1px solid black' : 'none',
             borderLeft: 'none',
             borderRight: 'none',
-            borderTop: 'none'
+            borderTop: 'none',
+            resize: 'none',
           }}
           onChange={(e) => {
             const value = e.target.value;
