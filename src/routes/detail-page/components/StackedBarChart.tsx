@@ -228,6 +228,7 @@ const getChartData = (financialInformation: any, isRestoration: boolean) => {
 };
 
 const StackedBarChart = ({ projectId, isRestoration }: { projectId: any; isRestoration: boolean }) => {
+  const divRef = useRef<HTMLDivElement>(null);
   const { financialInformation, clickOpenPopup } = useFinancialState();
   const { getFinancialData,setClickOpenPopup } = useFinancialDispatch();
   const [openPopup, setOpenPopup] = useState(false);
@@ -254,6 +255,7 @@ const StackedBarChart = ({ projectId, isRestoration }: { projectId: any; isResto
   }, [financialInformation]);
 
   const buildChart = (dataChart: any) => {
+    const containerWidth: number = divRef.current?.clientWidth as number - 50;
     //const margin = { top: 10, right: 30, bottom: 20, left: 6 };
     const margin = { top: 0, right: 30, bottom: 20, left: 6 };
     const marginLeftForAxis = 100;
@@ -261,6 +263,8 @@ const StackedBarChart = ({ projectId, isRestoration }: { projectId: any; isResto
     const totalWidth = barWidth * dataChart.length + margin.left + margin.right;
     const width = totalWidth - margin.left - margin.right;
     const height = totalHeight - margin.top - margin.bottom;
+
+    const largestWidth = Math.max(totalWidth, containerWidth);
 
     const removechart: any = document.getElementById('svg-ref');
     const removeAxis: any = document.getElementById('svg-axis');
@@ -282,7 +286,7 @@ const StackedBarChart = ({ projectId, isRestoration }: { projectId: any; isResto
       .remove();
     const svg = d3
       .select(svgRef.current)
-      .attr('width', totalWidth)
+      .attr('width', largestWidth)
       .attr('height', totalHeight)
       .append('g')
       .attr('id', 'stackedBar-chart')
@@ -302,17 +306,22 @@ const StackedBarChart = ({ projectId, isRestoration }: { projectId: any; isResto
       .range([0, width])
       .padding(0.15);
 
-    svg
-      .append('g')
+    const axisGroup = svg.append('g');
+    axisGroup
       .attr('transform', `translate(0, ${height})`)
       .attr('class', 'x-axis-stackedbar-chart')
       .call(d3.axisBottom(x).tickSizeOuter(0));
 
-    svg
-      .append('g')
+    axisGroup.select(".domain").attr('d', `M0.5,0.5H${largestWidth}`);
+
+    const axisGroupBackground = svg.append('g');
+
+    axisGroupBackground
       .attr('transform', `translate(0, ${height})`)
       .attr('class', 'x-axis-stackedbar-chart-for-background')
       .call(d3.axisBottom(x).tickSizeOuter(0));
+
+    axisGroupBackground.select(".domain").attr('d', `M0.5,0.5H${largestWidth}`);
 
     const offset = (maxValue - minValue) * 0.01;
 
@@ -461,7 +470,7 @@ const StackedBarChart = ({ projectId, isRestoration }: { projectId: any; isResto
     if (minValue < 0) {
       g.append("line")
         .attr("x1", 0)
-        .attr("x2", totalWidth)
+        .attr("x2", largestWidth)
         .attr("y1", y(0))
         .attr("y2", y(0))
         .attr("stroke", "gray")
@@ -515,8 +524,8 @@ const StackedBarChart = ({ projectId, isRestoration }: { projectId: any; isResto
           <Col>
             <svg id={'svg-axis'} ref={yAxisSvgRef} width="100%" height="100%" />
           </Col>
-          <Col style={{ overflowY: 'auto', width: '88%'}}>
-          <svg id={'svg-ref'} ref={svgRef} width="100%" height="100%" />
+          <Col ref={divRef} style={{ overflowY: 'auto', width: '88%'}}>
+            <svg id={'svg-ref'} ref={svgRef} width="100%" height="100%" />
           </Col>
         </Row>
       </div>
