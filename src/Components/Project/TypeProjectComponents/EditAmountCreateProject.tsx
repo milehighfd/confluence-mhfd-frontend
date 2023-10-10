@@ -121,9 +121,11 @@ const EditAmountCreateProject = ({
         console.log(err);
       });
       setCreatedProject({});
+    const disableWP = true;
     if (namespaceId.type === WORK_PLAN 
       && boardStatus === 'Approved' && 
-      namespaceId.year >= YEAR_LOGIC_2024
+      namespaceId.year >= YEAR_LOGIC_2024 && 
+      !disableWP
     ) {
       let subTypeName = '';
       if (namespaceId.projecttype === 'Maintenance'){

@@ -134,7 +134,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
     }
     if (project?.projectData?.currentId[0]?.status_name === 'Active') {
       items.push({
-        key: '7',
+        key: '3',
         label: <span style={{ borderBottom: '1px solid transparent' }}>
           <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
           Detail Page
@@ -147,7 +147,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
     }
     if (isAdminStaff) {
       items.push({
-        key: '5',
+        key: '4',
         label: <span style={{ borderBottom: '1px solid transparent' }}>
           <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
           Archive Project
@@ -160,7 +160,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
       if (project?.projectData?.currentId[0]?.status_name !== 'Active'
         && type === 'WORK_PLAN') {
         items.push({
-          key: '6',
+          key: '5',
           label: <span style={{ borderBottom: '1px solid transparent' }}>
             <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
             Make Project Active
@@ -170,6 +170,16 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
           })
         })
       }
+      // const existInWP = project?.projectData?.board_projects?.find((bp: any) => bp.board.type === 'WORK_PLAN' && +bp.board.year === +year && bp.board.locality === "MHFD District Work Plan");
+      // if (!existInWP) {
+      //   items.push({
+      //     key: '6',
+      //     label: <span style={{ borderBottom: '1px solid transparent' }}>
+      //       <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
+      //       Send To Work Plan
+      //     </span>,
+      //   })
+      // }
     }    
     return (<Menu className="js-mm-00" items={items} />)
   };
