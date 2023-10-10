@@ -1,11 +1,21 @@
 import { getToken, putData } from 'Config/datasets';
 import { UPDATE_SHORT_NOTE_BY_PROJECT_ID } from 'Config/endpoints/project';
-import { Button, Input } from 'antd'
+import { Input } from 'antd'
 import { ADMIN, STAFF } from 'constants/constants';
 import { useDetailedDispatch } from 'hook/detailedHook';
 import React, { useEffect, useState } from 'react'
 
 const TextArea = Input.TextArea;
+
+const useRowsCount = (
+  value: string
+) => {
+  const [rows, setRows] = useState<number>(1);
+  useEffect(() => {
+    setRows(Math.max(2, value?.split('\n').length));
+  }, [value]);
+  return rows;
+};
 
 export const HighLight = ({
   appUser,
@@ -18,8 +28,9 @@ export const HighLight = ({
 }) => {
   const { updateShortProjectNote } = useDetailedDispatch();
 
-  const [isEditing, setIsEditing] = useState<boolean>(false)
   const [inputValue, setInputValue] = useState<string>('');
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
 
   const boldText="Project Highlight:" 
 
@@ -32,11 +43,12 @@ export const HighLight = ({
         getToken()
       )
       updateShortProjectNote(inputValue);
-      setIsEditing(false);
     } catch (error) {
       console.log(error)
     }
   }
+
+  const rows = useRowsCount(inputValue);
 
   useEffect(() => {
     setInputValue(currentValue);
@@ -44,40 +56,29 @@ export const HighLight = ({
 
   return (
     <div className='highlight-detail'>
+      <>
+        <b>{boldText}</b>&nbsp;
       {
-        isEditing ? <TextArea
-          rows={4}
+        appUser.designation === ADMIN || appUser.designation === STAFF ? <TextArea
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          rows={rows}
           value={inputValue}
           placeholder="Project Highlight"
+          style={{
+            border: (isFocused || isHovered) ? '1px solid black' : 'none'
+          }}
           onChange={(e) => {
             setInputValue(e.target.value)
           }}
           onClick={(e) => e.stopPropagation()}
         /> : (
-          <>
-            <b>{boldText}</b>&nbsp;
-            <span dangerouslySetInnerHTML={{__html: currentValue?.replaceAll('\n','<br/>')}}></span>
-          </>
+          <span dangerouslySetInnerHTML={{__html: currentValue?.replaceAll('\n','<br/>')}}></span>
         )
       }
-      <br/>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        {
-          !isEditing && (appUser.designation === ADMIN || appUser.designation === STAFF) && 
-          <Button style={{borderRadius: '8px', marginTop: 10}} onClick={() => setIsEditing(true)}>
-            <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
-            Edit Highlight
-          </Button>
-        }
-        {
-          isEditing && (appUser.designation === ADMIN || appUser.designation === STAFF) && 
-          <Button style={{borderRadius: '8px', marginTop: 10}} onClick={() => {
-            save();
-          }}>
-            Save
-          </Button>
-        }
-      </div>
+      </>
     </div>
   )
 }
