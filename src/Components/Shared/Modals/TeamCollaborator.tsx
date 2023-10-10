@@ -18,7 +18,7 @@ const TeamCollaborator = () => {
             <h5 className={selected ? 'active-title': ''}>Team</h5>
           </div>
         </Col>
-        <Col span={16}>
+        {/* <Col span={16}>
           <div
             className="chart-title"
             onClick={() => {setSelected(false)}}
@@ -27,7 +27,7 @@ const TeamCollaborator = () => {
           >
             <h5 className={!selected ? 'active-title': ''}>DISCUSSION</h5>
           </div>
-        </Col>
+        </Col> */}
         <Col span={3} style={{textAlign:'end'}}>
           {/*<PlusOutlined />*/}
         </Col>
