@@ -320,8 +320,18 @@ const StackedBarChart = ({ projectId, isRestoration }: { projectId: any; isResto
       .attr('transform', `translate(0, ${height})`)
       .attr('class', 'x-axis-stackedbar-chart-for-background')
       .call(d3.axisBottom(x).tickSizeOuter(0));
-
-    axisGroupBackground.select(".domain").attr('d', `M0.5,0.5H${largestWidth}`);
+    axisGroupBackground.select('.domain').remove();
+        let radius = 10;
+      axisGroupBackground.append('rect')
+        .attr('id', 'hack')
+        .attr('x', 0.5)
+        .attr('y', 5)
+        .attr('width', largestWidth-6)
+        .attr('height', 15)
+        .attr('rx', radius)
+        .attr('fill', 'gray')
+        .attr('opacity', 0.1)
+        .attr('ry', radius).raise();
 
     const offset = (maxValue - minValue) * 0.01;
 
