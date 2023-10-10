@@ -32,7 +32,7 @@ const VersionNumber = ({visible, setVisible}: {visible: boolean, setVisible: Rea
               <li>New Action items creation workflow within the Project Management view</li>
               <li>Mapping updates for Stream Management Corridors, Problems, R&D projects and Studies</li>
               <li>New Financial Graphic within the project detail page</li>
-              <li>Updated references from "Proposed Actions" to "Proposeed Scope of Work" in the Create Project form for CIP projects</li>   
+              <li>Updated references from "Proposed Actions" to "Proposed Scope of Work" in the Create Project form for CIP projects</li>   
               <li>Real-time display of Work Request statuses within the Work Plan</li>   
               <li>New 'Make Project Active' workflow that transfers a project from the Work Plan to the Project Management view</li>   
               <li>New 'Project Archive' feature within the card in the board views</li>   
