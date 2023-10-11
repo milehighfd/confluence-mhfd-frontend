@@ -27,7 +27,7 @@ export const HighLight = ({
   project_id: any;
 }) => {
   const MAX_LENGTH_TEXTAREA = 200;
-  const textAreaPlaceholder = `There is ${MAX_LENGTH_TEXTAREA} characters limit`;
+  const textAreaPlaceholder = `There is a ${MAX_LENGTH_TEXTAREA} character limit`;
   const { updateShortProjectNote } = useDetailedDispatch();
 
   const [inputValue, setInputValue] = useState<string>('');
@@ -85,7 +85,7 @@ export const HighLight = ({
       setInputValue(currentValue);
     }
   }, [currentValue]);
-  
+
   return (
     <div className='highlight-detail'>
       <>
