@@ -1789,7 +1789,7 @@
         justify-content: space-between;
         width: 96%;
         border: 1px solid rgba(37, 24, 99, 0.1);
-        border-radius: 50px;
+        border-radius: 20px;
         padding: 5px 10px;
         height: auto;
         margin-bottom: 10px;
@@ -1802,8 +1802,8 @@
         }
         .input-checkbox {
           margin: 0px;
-          padding-left: 5px;
-          line-height: 16px;
+          padding-left: 0px;
+          // line-height: 16px;
           color: #706b8a;
           height: 25px;
           flex: 1;
@@ -1811,6 +1811,7 @@
           background: transparent;
           outline: none;
           // margin-top: 3px;
+          margin-left: 5px;
         }
         .ant-checkbox-wrapper:hover .ant-checkbox-inner,
         .ant-checkbox:hover .ant-checkbox-inner,
@@ -1973,7 +1974,7 @@
     display: flex;
     align-items: center;
     .anticon-close{
-      margin-bottom: 7px;
+      margin-bottom: 7.5px;
       color: #b8b6c5;
       margin-left: 3px;
     }

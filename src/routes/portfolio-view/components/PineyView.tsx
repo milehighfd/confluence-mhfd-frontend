@@ -542,7 +542,8 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
                   className={x.completed_date && x.completed_user_id ? "checkbox-select-active checkbox-select" : "checkbox-select"}
                   style={{ display: 'flex', alignItems: 'center' }}
                 >
-                  <Input
+                  <TextArea
+                    autoSize={{ minRows: 1, maxRows: 6 }}
                     value={inputValues[index]}
                     placeholder="New Checklist Item"
                     onChange={(e) => {
