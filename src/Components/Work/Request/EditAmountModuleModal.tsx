@@ -92,7 +92,8 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
   }
 
   useEffect(() => {
-    const projectPartners = completeProjectData.project_partners;
+    const projectPartnersRaw = completeProjectData.project_partners;
+    const projectPartners = projectPartnersRaw.filter((item:any) => item.code_partner_type_id === 11 || item.code_partner_type_id === 12 || item.code_partner_type_id === 88)
     let projectPartnerOrdered = orderArrayForCost(projectPartners)
     projectPartnerOrdered = projectPartnerOrdered.sort((a:any, b:any) => {
       if(a.code_partner_type_id === 12 && b.code_partner_type_id === 12) {
