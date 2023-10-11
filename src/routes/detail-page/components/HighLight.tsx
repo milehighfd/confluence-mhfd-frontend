@@ -81,9 +81,11 @@ export const HighLight = ({
   const rows = useRowsCount(inputValue);
 
   useEffect(() => {
-    setInputValue(currentValue);
+    if (currentValue){
+      setInputValue(currentValue);
+    }
   }, [currentValue]);
-
+  
   return (
     <div className='highlight-detail'>
       <>
@@ -120,7 +122,7 @@ export const HighLight = ({
           }}
         />{isFocused && (
           <div style={{ textAlign: 'right', marginTop: '5px' }}>
-            {inputValue.length}/{MAX_LENGTH_TEXTAREA}
+            {(inputValue?.length || 0)}/{MAX_LENGTH_TEXTAREA}
           </div>
         )}</> : (
           <span dangerouslySetInnerHTML={{__html: currentValue?.replaceAll('\n','<br/>')}}></span>
