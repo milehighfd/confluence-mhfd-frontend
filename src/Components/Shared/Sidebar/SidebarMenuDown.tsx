@@ -77,7 +77,7 @@ const SidebarMenuDown = ({
                     className="notification-body"
                     onClick={() => readClick(item?.project?.project_id, item?.notification_id)}
                   >
-                    <img src={'/picture/user03.png'} alt="" height="35px" />
+                    <img src={'/Icons/user03.png'} alt="" height="35px" />
                     <div className="text-notification">
                       <p>{item?.project?.project_name}</p>
                       <p className="date">{`${item?.project_status_notification?.project_status?.code_phase_type?.phase_name} is due on ${monthEnd}/${dayEnd}/${yearEnd}`}</p>

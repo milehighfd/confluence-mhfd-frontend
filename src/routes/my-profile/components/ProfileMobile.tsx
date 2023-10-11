@@ -28,7 +28,7 @@ const ProfileMobile = ({
     <div className="profile-myprofile-mobile">
       <div className="profile-myprofile-mobile-header">
         <img
-          src={!user.photo ? '/picture/AvatarUser.svg' : user.photo}
+          src={!user.photo ? '/Icons/AvatarUser.svg' : user.photo}
           height={90}
           width="90"
           className='profile-myprofile-mobile-image'

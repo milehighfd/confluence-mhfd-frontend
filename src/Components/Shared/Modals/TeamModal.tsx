@@ -25,7 +25,7 @@ const TeamModal = () => {
   <div className='body-team-comment'>
     {data.map((item: any)=>(
       <div className='team-item' key={item.key}>
-        <img src="/picture/AvatarUser.svg" alt="" />
+        <img src="/Icons/AvatarUser.svg" alt="" />
         <div className='text-team-item'>
           <h6 style={{ fontWeight:500 }}>{item.fullName}</h6>
           <p>{item.roleType}</p>
@@ -34,7 +34,7 @@ const TeamModal = () => {
       </div>
       // <Row key={item.key}>
     //     <Col span={4}>
-    //     <img src="/picture/AvatarUser.svg" alt="" height="35px" />
+    //     <img src="/Icons/AvatarUser.svg" alt="" height="35px" />
     //   </Col>
     //   <Col span={13}>
     //     <h6 style={{ fontWeight:500 }}>{item.fullName}</h6>

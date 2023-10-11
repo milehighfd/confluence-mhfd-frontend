@@ -932,7 +932,7 @@ const DetailModal = ({
                 <>
                   <div className="img-carousel-detail  mobile-no-visibility">
                     <img
-                      src="/picture/map-denver.png"
+                      src="/Icons/map-denver.png"
                       alt=""
                       style={{ width: '100%', height: '100%', borderRadius: '10px' }}
                       onClick={() => {

@@ -66,7 +66,7 @@ const UserList = () => {
       render: (name) => (
         <div className="user-tab">
           <div style={{marginRight:'5px'}}>
-            <img src={name[2] !== null ? name[2] :"/picture/Avatar1.svg"} alt="" height="34px" />
+            <img src={name[2] !== null ? name[2] :"/Icons/Avatar1.svg"} alt="" height="34px" />
           </div>
           <div className='user-dates'>
             <p className="name-user-list">{name[0]}</p>
