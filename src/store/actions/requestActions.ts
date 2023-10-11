@@ -3,7 +3,7 @@ import * as projectTypes from 'store/types/ProjectTypes';
 import { DragAndDropCards } from 'store/types/requestTypes';
 import * as datasets from 'Config/datasets';
 import { buildGeojsonForLabelsProjectsInBoards, getColumnSumAndTotals, getColumnTitle, mergeSumByGroupMaps, mergeTotalByGroupMaps, splitProjectsIdsByStatuses } from 'Components/Work/Request/RequestViewUtil';
-import { BOARD_FOR_POSITIONS, GET_FILTER } from 'Config/endpoints/board';
+import { BOARD_FOR_POSITIONS, GET_FILTER, SEND_PROJECT_TO_WORK_PLAN } from 'Config/endpoints/board';
 import { BOARD_UPDATE_RANK, BOARD_UPDATE_TARGET_COST } from 'Config/endpoints/board-project';
 
 export const setShowModalProject = (payload: boolean) => ({
@@ -693,4 +693,32 @@ export const startLoadingColumns = () => ({
 
 export const stopLoadingColumns = () => ({
   type: types.REQUEST_STOP_LOADING_COLUMNS_2
+});
+
+export const sendProjectToWorkPlan = (project_type: string, year: number, board_project_id: number) => {
+  return async (dispatch: any) => { 
+    try {
+      const res = await datasets.postData(
+        SEND_PROJECT_TO_WORK_PLAN,
+        {
+          project_type,
+          year,
+          board_project_id,
+        },
+        datasets.getToken()
+      );
+      dispatch({
+        type: types.REQUEST_SET_SENT_TO_WP,
+        payload: true
+      });
+      loadColumns();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const setSentToWP = (payload: boolean) => ({
+  type: types.REQUEST_SET_SENT_TO_WP,
+  payload
 });

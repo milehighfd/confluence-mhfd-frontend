@@ -67,6 +67,7 @@ const initialState = {
   disableFilterServiceArea: false,
   filterYear: [],
   isListView: false,
+  sentToWP: false,
 };
 
 const requestReducer = (state = initialState, action: any) => {
@@ -378,6 +379,11 @@ const requestReducer = (state = initialState, action: any) => {
             }
           }
         })
+      };
+    case types.REQUEST_SET_SENT_TO_WP:
+      return {
+        ...state,
+        sentToWP: action.payload
       };
     default:
       return state;

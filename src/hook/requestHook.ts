@@ -56,7 +56,9 @@ import {
   setFilterYear,
   setConfiguredYear,
   startLoadingColumns,
-  stopLoadingColumns
+  stopLoadingColumns,
+  sendProjectToWorkPlan,
+  setSentToWP
 } from 'store/actions/requestActions';
 import { DragAndDropCards } from 'store/types/requestTypes';
 
@@ -233,6 +235,12 @@ export const useRequestDispatch = () => {
   const _stopLoadingColumns = useCallback(() => {
     dispatch(stopLoadingColumns());
   }, [dispatch]);
+  const _sendProjectToWorkPlan = useCallback((project_type: string, year: number, board_project_id: number) => {
+    dispatch(sendProjectToWorkPlan(project_type, year, board_project_id));
+  }, [dispatch]);
+  const _setSentToWP = useCallback((sentToWP: boolean) => {
+    dispatch(setSentToWP(sentToWP));
+  }, [dispatch]);
   return {
     setShowModalProject: _setShowModalProject,
     setCompleteProjectData: _setCompleteProjectData,
@@ -289,6 +297,8 @@ export const useRequestDispatch = () => {
     setFilterYear: _setFilterYear,
     setConfiguredYear: _setConfiguredYear,
     startLoadingColumns: _startLoadingColumns,
-    stopLoadingColumns: _stopLoadingColumns
+    stopLoadingColumns: _stopLoadingColumns,
+    sendProjectToWorkPlan: _sendProjectToWorkPlan,
+    setSentToWP: _setSentToWP
   };
 };
