@@ -11,14 +11,15 @@ import CardStatService from './CardService';
 import { boardType } from './RequestTypes';
 import { MoreOutlined } from '@ant-design/icons';
 import { CopyProjectAlert } from './CopyProjectAlert';
-import { useRequestState } from 'hook/requestHook';
-import { BOARD_STATUS_TYPES, STATUS_NAMES } from 'constants/constants';
+import { useRequestDispatch, useRequestState } from 'hook/requestHook';
+import { BOARD_STATUS_TYPES, STATUS_NAMES, WORK_REQUEST } from 'constants/constants';
 import EditDatesModal from './EditDatesModal';
 import { useProfileState } from 'hook/profileHook';
 import { ArchiveAlert } from 'Components/Alerts/ArchiveAlert';
 import DetailModal from 'routes/detail-page/components/DetailModal';
 import { SPONSOR_ID } from 'constants/databaseConstants';
 import EditAmountModuleModal from './EditAmountModuleModal';
+import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -41,12 +42,16 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   divRef:any,
   cardRefs?:any
 }) => {
-  const { showFilters: filtered, loadingColumns, boardStatus, loadColumns } = useRequestState();
+  const { showFilters: filtered, loadingColumns, boardStatus, loadColumns, sentToWP } = useRequestState();
   const {setZoomProject, updateSelectedLayers, archiveProject, setGlobalSearch} = useProjectDispatch();
   const {
     globalSearch,
     globalProjectData
   } = useProjectState();
+  const{
+    sendProjectToWorkPlan,
+    setSentToWP
+  } = useRequestDispatch();
   const { project_id } = project;
   const project_name = project?.projectData?.project_name;
   const proj_status_type_id: any = project?.code_status_type_id ?? 1;
@@ -67,6 +72,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   const [selectedProjectData, setSelectedProjectData] = useState<any>(null);
   const activeProject = project?.projectData?.currentId[0]?.status_name === 'Active';
   const [globalProject, setGlobalProject] = useState(false);
+  const { openNotification } = useNotifications();
   const appUser = useProfileState();
   const pageWidth  = document.documentElement.scrollWidth;
   const getCompleteProjectData = async () => {
@@ -82,6 +88,13 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
       //setGlobalSearch(false);
     }
   }, [globalProjectData, loadColumns]);
+
+  useEffect(() => {
+    if (sentToWP){
+      openNotification('Success! Your project was sent to the Work Plan', "success");
+      setSentToWP(false)
+    }
+  }, [sentToWP]);
 
   const copyProjectToCurrent = () => {
     postData(
@@ -170,16 +183,19 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
           })
         })
       }
-      // const existInWP = project?.projectData?.board_projects?.find((bp: any) => bp.board.type === 'WORK_PLAN' && +bp.board.year === +year && bp.board.locality === "MHFD District Work Plan");
-      // if (!existInWP) {
-      //   items.push({
-      //     key: '6',
-      //     label: <span style={{ borderBottom: '1px solid transparent' }}>
-      //       <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
-      //       Send To Work Plan
-      //     </span>,
-      //   })
-      // }
+      const existInWP = project?.projectData?.board_projects?.find((bp: any) => bp.board.type === 'WORK_PLAN' && +bp.board.year === +year && bp.board.locality === "MHFD District Work Plan");
+      if (!existInWP && type === WORK_REQUEST) {
+        items.push({
+          key: '6',
+          label: <span style={{ borderBottom: '1px solid transparent' }}>
+            <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
+            Send To Work Plan
+          </span>,
+          onClick: (() => {
+            sendProjectToWorkPlan(namespaceId.projecttype,namespaceId.year,project.board_project_id)
+          })
+        })
+      }
     }    
     return (<Menu className="js-mm-00" items={items} />)
   };

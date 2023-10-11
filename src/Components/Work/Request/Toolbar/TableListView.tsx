@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Menu, MenuProps, Popover, Table } from 'antd';
 import type { ColumnsType } from 'antd/lib/table';
-import { ADMIN, BOARD_STATUS_TYPES, NEW_PROJECT_TYPES, STAFF, STATUS_NAMES } from 'constants/constants';
+import { ADMIN, BOARD_STATUS_TYPES, NEW_PROJECT_TYPES, STAFF, STATUS_NAMES, WORK_REQUEST } from 'constants/constants';
 import { MoreOutlined } from '@ant-design/icons';
 import { postData, getData, getToken } from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
@@ -341,7 +341,7 @@ const TableListView = ({
     }
     if (record?.projectData?.currentId[0]?.status_name === 'Active'){
       items.push({
-        key: '7',
+        key: '3',
         label: <span style={{ borderBottom: '1px solid transparent' }}>
           <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
           Detail Page
@@ -355,7 +355,7 @@ const TableListView = ({
     }
     if (isAdminStaff) {
       items.push({
-        key: '5',
+        key: '4',
         label: <span style={{ borderBottom: '1px solid transparent' }}>
           <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
           Archive Project
@@ -370,7 +370,7 @@ const TableListView = ({
         ) {
           //add work plan
         items.push({
-          key: '6',
+          key: '5',
           label: <span style={{ borderBottom: '1px solid transparent' }}>
             <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
             Make Project Active
@@ -380,6 +380,16 @@ const TableListView = ({
             setSelectedProjectData(record?.projectData)
             setShowActivateProject(true)
           })
+        })
+      }
+      const existInWP = record?.projectData?.board_projects?.find((bp: any) => bp.board.type === 'WORK_PLAN' && +bp.board.year === +year && bp.board.locality === "MHFD District Work Plan");
+      if (!existInWP && namespaceId.type === WORK_REQUEST) {
+        items.push({
+          key: '6',
+          label: <span style={{ borderBottom: '1px solid transparent' }}>
+            <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
+            Send To Work Plan
+          </span>,
         })
       }
     }    
