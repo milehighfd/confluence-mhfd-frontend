@@ -26,15 +26,16 @@ export const HighLight = ({
   currentValue: string;
   project_id: any;
 }) => {
-  const MAX_LENGTH_TEXTAREA = 200;
+  const MAX_LENGTH_TEXTAREA = 300;
   const textAreaPlaceholder = `There is a ${MAX_LENGTH_TEXTAREA} character limit`;
   const { updateShortProjectNote } = useDetailedDispatch();
-
+  const isAdminOrStaff = appUser.designation === ADMIN || appUser.designation === STAFF;
+  const showForOther = isAdminOrStaff || (!isAdminOrStaff && currentValue);
   const [inputValue, setInputValue] = useState<string>('');
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const projectIdRef = useRef(project_id);
-  const boldText="Project Highlight:" 
+  const boldText="Latest News:" 
 
   useEffect(() => {
     projectIdRef.current = project_id;
@@ -87,48 +88,51 @@ export const HighLight = ({
   }, [currentValue]);
 
   return (
-    <div className='highlight-detail'>
-      <>
-        <b>{boldText}</b>&nbsp;
-      {
-        appUser.designation === ADMIN || appUser.designation === STAFF ? <><TextArea
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          maxLength={MAX_LENGTH_TEXTAREA}
-          rows={rows}
-          value={inputValue }
-          placeholder={textAreaPlaceholder}
-          //showCount={true}
-          style={{
-            borderBottom: (isFocused) ? '1px solid black' : 'none',
-            borderLeft: 'none',
-            borderRight: 'none',
-            borderTop: 'none',
-            resize: 'none',
-          }}
-          onChange={(e) => {
-            const value = e.target.value;
-            setInputValue(value);
-            debouncedHandleInputChange(value);
-          }}
-          onClick={(e) => e.stopPropagation()}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              e.preventDefault();
-              (e.target as HTMLInputElement).blur();
-            }
-          }}
-        />{isFocused && (
-          <div style={{ textAlign: 'right', marginTop: '5px' }}>
-            {(inputValue?.length || 0)}/{MAX_LENGTH_TEXTAREA}
-          </div>
-        )}</> : (
-          <span dangerouslySetInnerHTML={{__html: currentValue?.replaceAll('\n','<br/>')}}></span>
-        )
-      }
-      </>
-    </div>
+    <>{
+      showForOther &&
+      <div className='highlight-detail'>
+        <>
+          {isAdminOrStaff && <b>{boldText}</b>}&nbsp;
+          {
+            isAdminOrStaff ? <><TextArea
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+              maxLength={MAX_LENGTH_TEXTAREA}
+              rows={rows}
+              value={inputValue}
+              placeholder={textAreaPlaceholder}
+              //showCount={true}
+              style={{
+                borderBottom: (isFocused) ? '1px solid black' : 'none',
+                borderLeft: 'none',
+                borderRight: 'none',
+                borderTop: 'none',
+                resize: 'none',
+              }}
+              onChange={(e) => {
+                const value = e.target.value;
+                setInputValue(value);
+                debouncedHandleInputChange(value);
+              }}
+              onClick={(e) => e.stopPropagation()}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  (e.target as HTMLInputElement).blur();
+                }
+              }}
+            />{isFocused && (
+              <div style={{ textAlign: 'right', marginTop: '5px' }}>
+                {(inputValue?.length || 0)}/{MAX_LENGTH_TEXTAREA}
+              </div>
+            )}</> : (
+              <span dangerouslySetInnerHTML={{ __html: currentValue?.replaceAll('\n', '<br/>') }}></span>
+            )
+          }
+        </>
+      </div>
+    }</>
   )
 }
