@@ -363,13 +363,19 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
             <Col>Total Sum Requested</Col>
             {
               totalCosts.map((item: any) => {
-                if (item.code_cost_type_id === 21) {
-                  return;
-                }else {
+                if(isWorkPlan){
+                  if (item.code_cost_type_id === 22 && item.code_partner_type_id === 88) {
+                    return;
+                  }
+                }else{
+                  if (item.code_cost_type_id === 21) {
+                    return;
+                  }
+                }
                   return (
                     <Col>{formatter.format(item.totalCost)}</Col>
                   )
-                }
+                
               })
             }
           </Row>
