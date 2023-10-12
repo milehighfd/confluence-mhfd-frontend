@@ -193,7 +193,8 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
       setCost((prev: any) => {
         const newCost = {...prev};
         const current_business_name = item.business_name;
-        const indexOfValue = newCost.amounts.findIndex((itemAmount: any) => itemAmount.business_name === current_business_name);
+        const current_code_cost_type_id = item.code_cost_type_id;
+        const indexOfValue = newCost.amounts.findIndex((itemAmount: any) => itemAmount.business_name === current_business_name && itemAmount.code_cost_type_id === current_code_cost_type_id);
         newCost.amounts[indexOfValue].values[`req${index}`] = inputValue ? (+currentValue) : null;
         return newCost;
       });
@@ -217,11 +218,6 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         });
       setVisible(false);
     }
-
-    useEffect(() => {
-      console.log('isworkplan', isWorkPlan)
-      console.log('cost', cost)
-    }, [isWorkPlan, cost]);
 
   return (
     <Modal
@@ -279,7 +275,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
                 return (
                   <Col style={{width: widthInput}}>
                     {item.business_name} Funding 
-                    <Tooltip title={
+                    {isWorkPlan && <Tooltip title={
                       <div style={{zIndex:"1000"}}>
                         Requested Amounts: <br/>
                         <Row>
@@ -309,7 +305,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
                           </Col>
                         </Row>
                       </div>
-                    }><ExclamationCircleOutlined style={{opacity:"0.4"}}/></Tooltip>
+                    }><ExclamationCircleOutlined style={{opacity:"0.4"}}/></Tooltip>}
                   </Col>
                 )
               }
@@ -339,9 +335,15 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
              <Row className='rowname'>2027</Row> */}
           </Col>
           {Object.keys(cost).length !== 0 && cost?.amounts.map((item: any) => {
-            if (item.code_cost_type_id === 21) {
-              return;
-            }else {
+            if(isWorkPlan){
+              if (item.code_cost_type_id === 22 && item.code_partner_type_id === 88) {
+                return;
+              }
+            }else{
+              if (item.code_cost_type_id === 21) {
+                return;
+              }
+            }
               return (
                 <Col span={3} id='colInput'>
                 {Object.keys(item?.values).map((amount: any, index:number) => {
@@ -354,7 +356,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
                 })}
                 </Col>
               )
-            }
+            
           })}
           </Row>
           <Row className="edit-amount-modal-body-table-sum">
