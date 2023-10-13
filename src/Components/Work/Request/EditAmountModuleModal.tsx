@@ -201,7 +201,11 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
     }
     const handleOkandSave = () => {
       // const send = { ...cost, isMaintenance };
-      const send =  {amounts:cost.amounts, isWorkPlan: isWorkPlan};
+      const amounts = cost.amounts;
+      const filteredAmounts = amounts.filter((item:any) => {
+        return !(item.business_name === 'MHFD' && item.code_partner_type_id === 11);
+      });
+      const send =  {amounts: filteredAmounts, isWorkPlan: isWorkPlan};
       console.log('send', send)
       datasets.putData(
         BOARD_PROJECT_COST(board_project_id),
