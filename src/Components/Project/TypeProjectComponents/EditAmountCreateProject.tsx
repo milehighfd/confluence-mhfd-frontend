@@ -87,6 +87,7 @@ const EditAmountCreateProject = ({
     } else if (Object.keys(project).length === 0){
       newCostToSend = [
           {
+            code_cost_type_id: namespaceId.type === WORK_PLAN ? 21 : 22,
             business_associates_id: 4585,
             business_name: "MHFD",
             code_partner_type_id: 88,
