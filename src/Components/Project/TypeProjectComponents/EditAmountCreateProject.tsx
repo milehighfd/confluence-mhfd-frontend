@@ -108,7 +108,6 @@ const EditAmountCreateProject = ({
     }
     // const send = { ...cost, isMaintenance };
     const send = {...newCompleteCosts, isWorkPlan};
-    console.log('We are sending this: ', send);
     datasets.putData(
       BOARD_PROJECT_COST(board_project_id),
       send,
@@ -168,14 +167,8 @@ const EditAmountCreateProject = ({
     return { extraYears, extraYearsAmounts };
   }
 
-
   useEffect(() => {
-    console.log('cost ', cost);
-  } ,[cost]);
-  useEffect(() => {
-    console.log('Created project ', createdProject);
     if(Object.keys(createdProject).length !== 0 && Object.keys(project).length === 0){
-      console.log(createdProject, 'createdProject')
       setCreatedData(createdProject)
       setBoard_project_id(createdProject?.boardProjectId?.board_project_id);
     }

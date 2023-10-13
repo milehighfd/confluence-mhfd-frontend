@@ -59,7 +59,6 @@ export const saveCapital = (data: any) => {
       }
     });
     datasets.postDataMultipartWithoutCatch(SERVER.CREATE_PROJECT_GENERAL, formData, datasets.getToken()).then(res => {
-      console.log('result of creation', res);
       let status ; 
       if(res && res.project_data){
         status = 1;
