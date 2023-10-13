@@ -8,6 +8,8 @@ import { SERVER } from "../../../Config/Server.config";
 import { useProjectDispatch, useProjectState } from '../../../hook/projectHook';
 import { useProfileState } from 'hook/profileHook';
 import { useHistory } from 'react-router-dom';
+import { getBoardStatus } from 'dataFetching/workRequest';
+import { useRequestState } from 'hook/requestHook';
 
 interface Props {
   index: number;
@@ -33,12 +35,14 @@ export const RequestorInformation = ({
   const [name, setName] = useState('');
   const [createdDate, setCreatedDate] = useState('');
   const [businessName, setBusinessName] = useState('');
+  const [isBoardInWRUnderReview, setIsBoardInWRUnderReview] = useState(false);
   const [isLocalGovernment, setIsLocalGovernment] = useState(false);
   const {
     isEdit,
     disableFieldsForLG,
   } = useProjectState();
   const { setServiceAreaCounty } = useProjectDispatch();
+  const { year } = useRequestState();
   const { userInformation: user } = useProfileState();
   const history = useHistory();
   const isMaintenance = originModal === 'Maintenance';
@@ -94,6 +98,20 @@ export const RequestorInformation = ({
   }, []);
 
   useEffect(() => {
+    const checkStatus = async () => {
+      const boards = await getBoardStatus({
+        type: 'WORK_REQUEST',
+        year: `${year}`,
+        locality: sponsor
+      });
+      const statuses = boards.status;
+      const isUnderReview = statuses === 'Under Review';
+      setIsBoardInWRUnderReview(isUnderReview);
+    };
+    checkStatus();
+  }, [sponsor]);
+
+  useEffect(() => {
     if (isEdit && projectId > 0) {
       datasets.getData(SERVER.GET_CREATE_DATA(projectId), datasets.getToken())
         .then((rows) => {
@@ -126,7 +144,7 @@ export const RequestorInformation = ({
               placeholder={'Select a Sponsor'}
               value={sponsor === "" ? undefined : sponsor}
               listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-              disabled={isLocalGovernment || disableFieldsForLG}
+              disabled={isLocalGovernment || disableFieldsForLG || !isBoardInWRUnderReview}
               onChange={setSponsor}
               getPopupContainer={() => (document.getElementById("sponsorid") as HTMLElement)}>
               {
