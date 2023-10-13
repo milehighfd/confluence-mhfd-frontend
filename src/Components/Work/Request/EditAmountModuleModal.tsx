@@ -347,7 +347,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
               return (
                 <Col span={3} id='colInput'>
                 {Object.keys(item?.values).map((amount: any, index:number) => {
-                  const conditionUnableInputs = (!isWorkPlan && item.code_partner_type_id !== 88) || boardStatus === BOARD_STATUS_TYPES.APPROVED ? true : false;
+                  const conditionUnableInputs = (!isWorkPlan && (item.code_partner_type_id !== 88 && item.code_partner_type_id !== 11)) || boardStatus === BOARD_STATUS_TYPES.APPROVED ? true : false;
                   return (
                     <Row className='rowInputContainer'>
                       <Input disabled={conditionUnableInputs} prefix="$" value={item.values[`req${index+1}`]?.toLocaleString('en-US')} onChange={(event:any) => handleChange(event, item, index+1)} />
