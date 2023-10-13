@@ -259,7 +259,9 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         <div className="edit-amount-modal-body-table">
           <Row className="edit-amount-modal-body-table-title">
             {tableHeader.length !==0 && tableHeader.map((item: any) => {
-              if(item.code_partner_type_id === 11){
+              if(item.code_partner_type_id === 11 && item.business_name === 'MHFD'){
+                return;
+              }else if(item.code_partner_type_id === 11){
                 return (
                   <Col style={{width: widthInput}}>
                     {item.business_name} <p>Sponsor</p>
@@ -336,6 +338,9 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
           </Col>
           {Object.keys(cost).length !== 0 && cost?.amounts.map((item: any) => {
             if(isWorkPlan){
+              if(item.code_partner_type_id === 11 && item.business_name === 'MHFD'){
+                return;
+              }
               if (item.code_cost_type_id === 22 && item.code_partner_type_id === 88) {
                 return;
               }
@@ -348,6 +353,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
                 <Col span={3} id='colInput'>
                 {Object.keys(item?.values).map((amount: any, index:number) => {
                   const conditionUnableInputs = (!isWorkPlan && (item.code_partner_type_id !== 88 && item.code_partner_type_id !== 11)) || boardStatus === BOARD_STATUS_TYPES.APPROVED ? true : false;
+
                   return (
                     <Row className='rowInputContainer'>
                       <Input disabled={conditionUnableInputs} prefix="$" value={item.values[`req${index+1}`]?.toLocaleString('en-US')} onChange={(event:any) => handleChange(event, item, index+1)} />
@@ -364,6 +370,9 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
             {
               totalCosts.map((item: any) => {
                 if(isWorkPlan){
+                  if(item.code_partner_type_id === 11 && item.business_name === 'MHFD'){
+                    return;
+                  }
                   if (item.code_cost_type_id === 22 && item.code_partner_type_id === 88) {
                     return;
                   }
