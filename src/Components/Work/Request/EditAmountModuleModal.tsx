@@ -311,7 +311,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
                           </Col>
                         </Row>
                       </div>
-                    }><ExclamationCircleOutlined style={{opacity:"0.4"}}/></Tooltip>}
+                    }><ExclamationCircleOutlined style={{opacity:"0.4", paddingTop: '3px'}}/></Tooltip>}
                   </Col>
                 )
               }
