@@ -159,7 +159,12 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
     useEffect(() => {
       const totals:any = [];
         if(Object.keys(cost).length !== 0) {
-        cost.amounts.forEach((item:any,index:any) => {
+          const initialAmounts = cost.amounts;
+          const filteredAmounts = isWorkPlan
+          ? initialAmounts.filter((item:any) => !(item.code_cost_type_id === 22))
+          : initialAmounts.filter((item:any) => !(item.code_cost_type_id === 21));
+        console.log('filteredAmounts', filteredAmounts)
+        filteredAmounts.forEach((item:any,index:any) => {
           const { code_partner_type_id, values } = item;
           const totalCost = Object.values(values).reduce((sum:any, value:any) => (value ? sum + value : sum), 0);
 
@@ -206,7 +211,6 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         return !(item.business_name === 'MHFD' && item.code_partner_type_id === 11);
       });
       const send =  {amounts: filteredAmounts, isWorkPlan: isWorkPlan};
-      console.log('send', send)
       datasets.putData(
         BOARD_PROJECT_COST(board_project_id),
         send,
@@ -268,7 +272,38 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
               }else if(item.code_partner_type_id === 11){
                 return (
                   <Col style={{width: widthInput}}>
-                    {item.business_name} <p>Sponsor</p>
+                    {item.business_name} <p>{'Sponsor '}
+                    {isWorkPlan && <Tooltip title={
+                      <div style={{zIndex:"1000"}}>
+                        Requested Amounts: <br/>
+                        <Row>
+                          <Col>
+                          {completedYears.map((year: any) => {
+                          return (
+                            <Row className='rowname'>{year}:</Row>
+                          )
+                         })}
+                          </Col>
+                          <Col>
+                          {Object.keys(cost).length !== 0 && cost?.amounts.map((item: any) => {
+                            if (item.code_cost_type_id === 22 && item.code_partner_type_id === 11) {
+                              return (
+                                <Col span={3} style={{paddingLeft: '10px'}}>
+                                {Object.keys(item?.values).map((amount: any, index:number) => {
+                                  return (
+                                    <Row className='rowname'>
+                                      ${item.values[`req${index+1}`] ? item.values[`req${index+1}`]?.toLocaleString('en-US') : '0'}
+                                    </Row>
+                                  )
+                                })}
+                                </Col>
+                              )
+                            }
+                          })}
+                          </Col>
+                        </Row>
+                      </div>
+                    }><ExclamationCircleOutlined style={{opacity:"0.4", paddingTop: '3px'}}/></Tooltip>}</p>
                   </Col>
                 )
               } else if(item.code_partner_type_id === 12){
@@ -345,7 +380,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
               if(item.code_partner_type_id === 11 && item.business_name === 'MHFD'){
                 return;
               }
-              if (item.code_cost_type_id === 22 && item.code_partner_type_id === 88) {
+              if (item.code_cost_type_id === 22) {
                 return;
               }
             }else{
@@ -377,7 +412,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
                   if(item.code_partner_type_id === 11 && item.business_name === 'MHFD'){
                     return;
                   }
-                  if (item.code_cost_type_id === 22 && item.code_partner_type_id === 88) {
+                  if (item.code_cost_type_id === 22) {
                     return;
                   }
                 }else{
