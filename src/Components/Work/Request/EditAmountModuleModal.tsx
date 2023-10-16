@@ -161,8 +161,8 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         if(Object.keys(cost).length !== 0) {
           const initialAmounts = cost.amounts;
           const filteredAmounts = isWorkPlan
-          ? initialAmounts.filter((item:any) => !(item.code_cost_type_id === 22))
-          : initialAmounts.filter((item:any) => !(item.code_cost_type_id === 21));
+          ? initialAmounts.filter((item:any) => !(item.code_cost_type_id === 22 && item.code_partner_type_id !== 12))
+          : initialAmounts.filter((item:any) => !(item.code_cost_type_id === 21 && item.code_partner_type_id !== 12));
         console.log('filteredAmounts', filteredAmounts)
         filteredAmounts.forEach((item:any,index:any) => {
           const { code_partner_type_id, values } = item;
@@ -380,11 +380,11 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
               if(item.code_partner_type_id === 11 && item.business_name === 'MHFD'){
                 return;
               }
-              if (item.code_cost_type_id === 22) {
+              if (item.code_cost_type_id === 22 && item.code_partner_type_id !== 12) {
                 return;
               }
             }else{
-              if (item.code_cost_type_id === 21) {
+              if (item.code_cost_type_id === 21 && item.code_partner_type_id !== 12) {
                 return;
               }
             }
@@ -412,11 +412,11 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
                   if(item.code_partner_type_id === 11 && item.business_name === 'MHFD'){
                     return;
                   }
-                  if (item.code_cost_type_id === 22) {
+                  if (item.code_cost_type_id === 22 && item.code_partner_type_id !== 12) {
                     return;
                   }
                 }else{
-                  if (item.code_cost_type_id === 21) {
+                  if (item.code_cost_type_id === 21 && item.code_partner_type_id !== 12) {
                     return;
                   }
                 }
