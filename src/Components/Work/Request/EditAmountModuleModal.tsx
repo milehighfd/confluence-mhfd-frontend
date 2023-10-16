@@ -160,9 +160,21 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
       const totals:any = [];
         if(Object.keys(cost).length !== 0) {
           const initialAmounts = cost.amounts;
-          const filteredAmounts = isWorkPlan
+          let filteredAmounts = isWorkPlan
           ? initialAmounts.filter((item:any) => !(item.code_cost_type_id === 22 && item.code_partner_type_id !== 12))
           : initialAmounts.filter((item:any) => !(item.code_cost_type_id === 21 && item.code_partner_type_id !== 12));
+        filteredAmounts = filteredAmounts.map((item:any) => {
+          if (!isWorkPlan && item.code_partner_type_id === 12) {
+            item.values = {
+              req3: null,
+              req1: null,
+              req2: null,
+              req4: null,
+              req5: null
+            };
+          }
+          return item;
+        });
         console.log('filteredAmounts', filteredAmounts)
         filteredAmounts.forEach((item:any,index:any) => {
           const { code_partner_type_id, values } = item;
