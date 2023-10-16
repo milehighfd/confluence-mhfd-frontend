@@ -315,7 +315,7 @@ export const getColumnSumAndTotals = (columnProjects: any, position: number) => 
   ];
 
   columnProjects.forEach((columnProject: any) => {
-    groupTotal[requestColumnName] = groupTotal[requestColumnName] + columnProject[requestColumnName];
+    groupTotal[requestColumnName] = groupTotal[requestColumnName] + (columnProject[requestColumnName] || 0);
     groupingArray.forEach(([groupProperty, groupPropertyKeyName]) => {
       if (!sumByGroupMap[groupProperty]) sumByGroupMap[groupProperty] = {};
 
@@ -334,7 +334,7 @@ export const getColumnSumAndTotals = (columnProjects: any, position: number) => 
         }
         sumByGroupMap[groupProperty][name] = {
           ...sumByGroupMap[groupProperty][name],
-          [requestColumnName]: sumByGroupMap[groupProperty][name][requestColumnName] + (columnProject[requestColumnName] / elementNumberInGroup),
+          [requestColumnName]: sumByGroupMap[groupProperty][name][requestColumnName] + ((columnProject[requestColumnName] || 0) / elementNumberInGroup),
           [countColumnName]: sumByGroupMap[groupProperty][name][countColumnName] + 1,
         };
       });
