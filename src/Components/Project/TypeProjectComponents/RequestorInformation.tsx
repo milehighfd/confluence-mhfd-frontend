@@ -105,7 +105,9 @@ export const RequestorInformation = ({
         locality: sponsor
       });
       const statuses = boards.status;
+      console.log('statuses', boards, statuses);
       const isUnderReview = statuses === 'Under Review';
+      console.log('isUnderReview', isUnderReview);
       setIsBoardInWRUnderReview(isUnderReview);
     };
     checkStatus();
@@ -130,6 +132,9 @@ export const RequestorInformation = ({
     }
   }, [projectId]);
 
+  useEffect(() => {
+    console.log('isBoardInWRUnderReview', isBoardInWRUnderReview);
+  }, [isBoardInWRUnderReview]);
   return (
     <div>
       <div className="sub-title-project">
@@ -171,7 +176,7 @@ export const RequestorInformation = ({
               disabled={disableFieldsForLG}
               value={cosponsor}
               getPopupContainer={() => (document.getElementById("cosponsorid") as HTMLElement)}>
-              {localities.map((element: string) => {
+              {localities.filter((item:any) => item !== sponsor ).map((element: string) => {
                 return <Option key={element} value={element}>{element}</Option>
               })}
             </Select>
