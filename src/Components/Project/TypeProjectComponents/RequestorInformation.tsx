@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Input, Timeline, Popover, Select } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
-import { WINDOW_WIDTH } from 'constants/constants';
+import { MHFD_ACRONYM, WINDOW_WIDTH } from 'constants/constants';
 import { JURISDICTION, PROJECT_INFORMATION, SERVICE_AREA, GOVERNMENT_STAFF } from "../../../constants/constants";
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
@@ -176,7 +176,8 @@ export const RequestorInformation = ({
               disabled={disableFieldsForLG}
               value={cosponsor}
               getPopupContainer={() => (document.getElementById("cosponsorid") as HTMLElement)}>
-              {localities.filter((item:any) => item !== sponsor ).map((element: string) => {
+              {localities.filter((item:any) => item !== sponsor && item !== MHFD_ACRONYM ).map((element: string) => {
+                console.log('element', element);
                 return <Option key={element} value={element}>{element}</Option>
               })}
             </Select>

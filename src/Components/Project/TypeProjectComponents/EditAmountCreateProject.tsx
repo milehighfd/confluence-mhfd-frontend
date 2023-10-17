@@ -48,8 +48,8 @@ const EditAmountCreateProject = ({
     req3: null,
     req4: null,
     req5: null,
-    year1: null,
-    year2: null,
+    req11: null,
+    req12: null,
   });
 
   const getSumOfcosts = () => {
@@ -59,8 +59,8 @@ const EditAmountCreateProject = ({
       'req3',
       'req4',
       'req5',
-      'year1',
-      'year2'
+      'req11',
+      'req12'
     ]
     let totalSum = 0;
     for(let i = 0; i < sumcost.length; i++) {
@@ -96,7 +96,9 @@ const EditAmountCreateProject = ({
               req2: cost.req2,
               req3: cost.req3,
               req4: cost.req4,
-              req5: cost.req5
+              req5: cost.req5,
+              req11: cost.req11,
+              req12: cost.req12
             }
           }
         ]
@@ -107,7 +109,7 @@ const EditAmountCreateProject = ({
       isMaintenance: false
     }
     // const send = { ...cost, isMaintenance };
-    const send = {...newCompleteCosts, isWorkPlan};
+    const send = {...newCompleteCosts, isWorkPlan, isMaintenance};
     datasets.putData(
       BOARD_PROJECT_COST(board_project_id),
       send,
@@ -215,6 +217,10 @@ const EditAmountCreateProject = ({
   }, [board_project_id]);
 
     const costDataList = useCostDataFormattingHook(tabKey, subType, startYear, board_project_id, true);
+
+useEffect(() => {
+  console.log('cost', cost);
+}, [cost]);
 
   return (
   <div className='sec-edit-amount'>

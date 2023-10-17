@@ -23,6 +23,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
   const { loadOneColumn } = useRequestDispatch();
   const { userInformation } = useProfileState();
   const isMaintenance = tabKey === 'Maintenance';
+  const [maintenanceSubtype, setMaintenanceSubtype] = useState<any>();
   const { tabActiveNavbar } = useMapState();
   const isWorkPlan = tabActiveNavbar === WORK_PLAN_TAB;
   const { board_project_id } = project;
@@ -93,6 +94,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
   }
 
   useEffect(() => {
+    setMaintenanceSubtype(completeProjectData.code_project_type.project_type_name)
     const projectPartnersRaw = completeProjectData.project_partners;
     const projectPartners = projectPartnersRaw.filter((item:any) => item.code_partner_type_id === 11 || item.code_partner_type_id === 12 || item.code_partner_type_id === 88)
     let projectPartnerOrdered = orderArrayForCost(projectPartners)
@@ -196,9 +198,9 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
       setTotalCombinedSum(totalCombined);
     }, [cost]);
 
-    const costDataList = useCostDataFormattingHook(tabKey, 'subType', startYear, board_project_id, true);
+    const costDataList = useCostDataFormattingHook(tabKey, maintenanceSubtype, startYear, board_project_id, true);
 
-    const handleChange = (e: any, item: any, index:any) => {
+    const handleChange = (e: any, item: any, key:any) => {
       const { value: inputValue } = e.target;
       const reg = /^-?\d*(\.\d*)?$/;
       // if (reg.test(inputValue) || inputValue === '' || inputValue === '-') {
@@ -211,7 +213,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         const current_business_name = item.business_name;
         const current_code_cost_type_id = item.code_cost_type_id;
         const indexOfValue = newCost.amounts.findIndex((itemAmount: any) => itemAmount.business_name === current_business_name && itemAmount.code_cost_type_id === current_code_cost_type_id);
-        newCost.amounts[indexOfValue].values[`req${index}`] = inputValue ? (+currentValue) : null;
+        newCost.amounts[indexOfValue].values[key] = inputValue ? (+currentValue) : null;
         return newCost;
       });
     }
@@ -221,7 +223,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
       const filteredAmounts = amounts.filter((item:any) => {
         return !(item.business_name === 'MHFD' && item.code_partner_type_id === 11);
       });
-      const send =  {amounts: filteredAmounts, isWorkPlan: isWorkPlan};
+      const send =  {amounts: filteredAmounts, isWorkPlan: isWorkPlan, isMaintenance};
       datasets.putData(
         BOARD_PROJECT_COST(board_project_id),
         send,
@@ -289,9 +291,9 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
                         Requested Amounts: <br/>
                         <Row>
                           <Col>
-                          {completedYears.map((year: any) => {
+                          {costDataList.map((year: any) => {
                           return (
-                            <Row className='rowname'>{year}:</Row>
+                            year.show && <Row className='rowname'>{year.label}:</Row>
                           )
                          })}
                           </Col>
@@ -300,10 +302,10 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
                             if (item.code_cost_type_id === 22 && item.code_partner_type_id === 11) {
                               return (
                                 <Col span={3} style={{paddingLeft: '10px'}}>
-                                {Object.keys(item?.values).map((amount: any, index:number) => {
+                                {costDataList.map((amount: any, index:number) => {
                                   return (
-                                    <Row className='rowname'>
-                                      ${item.values[`req${index+1}`] ? item.values[`req${index+1}`]?.toLocaleString('en-US') : '0'}
+                                    amount.show && <Row className='rowname'>
+                                      ${item.values[amount.key] ? item.values[amount.key]?.toLocaleString('en-US') : '0'}
                                     </Row>
                                   )
                                 })}
@@ -332,9 +334,9 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
                         Requested Amounts: <br/>
                         <Row>
                           <Col>
-                          {completedYears.map((year: any) => {
+                          {costDataList.map((year: any) => {
                           return (
-                            <Row className='rowname'>{year}:</Row>
+                            year.show && <Row className='rowname'>{year.label}:</Row>
                           )
                          })}
                           </Col>
@@ -343,10 +345,10 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
                             if (item.code_cost_type_id === 22 && item.code_partner_type_id === 88) {
                               return (
                                 <Col span={3} style={{paddingLeft: '10px'}}>
-                                {Object.keys(item?.values).map((amount: any, index:number) => {
+                                {costDataList.map((amount: any, index:number) => {
                                   return (
-                                    <Row className='rowname'>
-                                      ${item.values[`req${index+1}`] ? item.values[`req${index+1}`]?.toLocaleString('en-US') : '0'}
+                                    amount.show && <Row className='rowname'>
+                                      ${item.values[amount.key] ? item.values[amount.key]?.toLocaleString('en-US') : '0'}
                                     </Row>
                                   )
                                 })}
@@ -375,9 +377,9 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
           <Col span={3}>
             {/* <Row>Prior Funding</Row> */}
             {/* <Row className='rowname'>--</Row> */}
-            {completedYears.map((year: any) => {
+            {costDataList.map((year: any) => {
               return (
-                <Row className='rowname'>{year}</Row>
+                year.show && <Row className='rowname'>{year.label}</Row>
               )
             })}
             {/*  <Row className='rowname'>2023</Row>
@@ -401,12 +403,13 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
             }
               return (
                 <Col span={3} id='colInput'>
-                {Object.keys(item?.values).map((amount: any, index:number) => {
+                {/* {Object.keys(item?.values).map((amount: any, index:number) => { */}
+                {costDataList.map((amount: any, index:number) => {
                   const conditionUnableInputs = (!isWorkPlan && (item.code_partner_type_id !== 88 && item.code_partner_type_id !== 11)) || boardStatus === BOARD_STATUS_TYPES.APPROVED ? true : false;
 
                   return (
-                    <Row className='rowInputContainer'>
-                      <Input disabled={conditionUnableInputs} prefix="$" value={item.values[`req${index+1}`]?.toLocaleString('en-US')} onChange={(event:any) => handleChange(event, item, index+1)} />
+                    amount.show && <Row className='rowInputContainer'>
+                      <Input disabled={conditionUnableInputs} prefix="$" value={item.values[amount.key]?.toLocaleString('en-US')} onChange={(event:any) => handleChange(event, item, amount.key)} />
                     </Row>
                   )
                 })}
