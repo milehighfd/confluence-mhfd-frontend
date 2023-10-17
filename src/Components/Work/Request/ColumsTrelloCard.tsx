@@ -6,7 +6,7 @@ import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { useProfileState } from 'hook/profileHook';
 import TrelloLikeCard from 'Components/Work/Request/TrelloLikeCard';
-import { ADMIN, BOARD_STATUS_TYPES, STAFF, WORK_PLAN, YEAR_LOGIC_2024 } from 'constants/constants';
+import { ADMIN, BOARD_STATUS_TYPES, STAFF, WORK_PLAN, WORK_REQUEST, YEAR_LOGIC_2024 } from 'constants/constants';
 import ColorService from 'Components/Work/Request/ColorService';
 import useFakeLoadingHook from 'hook/custom/useFakeLoadingHook';
 import { SPONSOR_ID } from 'constants/databaseConstants';
@@ -137,7 +137,11 @@ const ColumsTrelloCard = ({
         moveMaintenance = true;
       }
     }
-    if ((tabKey !== 'Maintenance' || moveMaintenance) && !projectExistOutsideGivenColumn) {
+    const isNotApprovedWR = boardStatus !== BOARD_STATUS_TYPES.APPROVED && namespaceId.type === WORK_REQUEST;
+    if ((tabKey !== 'Maintenance' || moveMaintenance) 
+      && !projectExistOutsideGivenColumn
+      && (isNotApprovedWR || namespaceId.type === WORK_PLAN)
+    ) {
       if (originColumnPosition === targetColumnPosition) {
         moveProjectsManual({
           originColumnPosition,
@@ -161,8 +165,7 @@ const ColumsTrelloCard = ({
           let extraYears: number[] = [];
           if (targetColumnPosition !== 0) {
             extraYears = [+namespaceId.year+ targetColumnPosition - 1];
-          }  
-          console.log(sourcePosition, 'sourcePosition')  ;
+          }
           const sponsor = (columns[originColumnPosition].projects[sourcePosition].projectData?.project_partners.find((x: any) => x.code_partner_type_id === SPONSOR_ID)?.business_associate?.business_name)   
           sendProjectToBoardYear(
             columns[originColumnPosition].projects[sourcePosition]?.projectData?.project_id,
