@@ -313,6 +313,11 @@
       justify-content: space-between;
       width: 100%;
     }
+    .text-tollgate-body{
+      height: 32px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
   }
 }
 .tollgate-over-title {
@@ -460,6 +465,12 @@
   .modal-tollgate {
     top: 115px !important;
     width: 830px !important;
+    .tollgate-text{
+      margin-bottom: 0px !important;
+    }
+    .text-tollgate-body{
+      height: 35.3px !important;
+    }
   }
   .tollgate-header {
     .dates-title {
@@ -532,6 +543,8 @@
       height: 14px;
     }
   }
+            
+
 }
 @media (min-width: 2550px){
   .modal-tollgate {
@@ -603,7 +616,14 @@
           margin-bottom: 24px !important;
         }
       }
-      
+      .text-tollgate-body{
+        height: 41.2px;
+        align-items: center;
+        margin-bottom: 14px;
+        .tollgate-text{
+          margin-bottom: 0px !important;
+        }
+      }
     }
 
     h1 {

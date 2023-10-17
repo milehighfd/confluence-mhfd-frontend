@@ -538,8 +538,8 @@ const ModalTollgate = ({ saveCB, setOpenPiney }: { saveCB?: any; setOpenPiney?: 
                 <Col xs={{ span: 12 }} lg={{ span: 9 }} className="left-tollgate">
                   {dates?.map((x: any, index: number) => {
                     return (
-                      <div key={x.phase_id} className="text-tollgate-title">
-                        <span className='name-tollgate' style={{ marginBottom: '25px', color: invalidDateIndex === index ? 'red' : undefined }}>
+                      <div key={x.phase_id} className="text-tollgate-title text-tollgate-body">
+                        <span className='name-tollgate tollgate-text' style={{ marginBottom: '0px', color: invalidDateIndex === index ? 'red' : undefined }}>
                           <span className="span-dots-tollgate">
                             <div className="toolgate-circle" style={{ backgroundColor: colorScale[paintCircle(index)] }} />
                           </span>
