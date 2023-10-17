@@ -532,7 +532,7 @@ const CalendarBody = ({
                 }
               }
             }
-            const totalTasks = Object.keys(scheduleData.tasksData).length + createdTasks;
+            const totalTasks = ((scheduleData?.tasksData && Object.keys(scheduleData.tasksData).length) || 0) + createdTasks;
             return totalTasks
           }).attr('data-counter-done', (d: any) => {
             let scheduleData = (d?.project_data?.code_phase_types?.find((x: any) =>
@@ -558,7 +558,7 @@ const CalendarBody = ({
                 }
               }
             }
-            const totalTasks = Object.keys(scheduleData.tasksData).length + createdTasks;
+            const totalTasks = ((scheduleData?.tasksData && Object.keys(scheduleData.tasksData).length) || 0) + createdTasks;
             const totalDone = totalTasks - counterdown - createdTasksCompleted;
             return totalDone
           })
@@ -712,6 +712,7 @@ const CalendarBody = ({
         })
 
         rectNames.on('click', function (d:any) {
+          setOpenPiney(false);
           let dataProject = (calendarData.find((x: any) => x.project_id === d.project_data.project_id))
           setPineyData({
             project_name: d.project_data.rowLabel,
@@ -742,6 +743,7 @@ const CalendarBody = ({
           d3.event.stopPropagation();
         });
         scheduleRects.on('click', function (d:any) {
+          setOpenPiney(false);
           let dataProject = (calendarData.find((x: any) => x.project_id === d.project_data.project_id))
           setPineyData({
             project_name: d.project_data.rowLabel,
