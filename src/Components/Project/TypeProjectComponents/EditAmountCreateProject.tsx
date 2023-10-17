@@ -107,7 +107,7 @@ const EditAmountCreateProject = ({
       isMaintenance: false
     }
     // const send = { ...cost, isMaintenance };
-    const send = {...newCompleteCosts, isWorkPlan};
+    const send = {...newCompleteCosts, isWorkPlan, isMaintenance};
     datasets.putData(
       BOARD_PROJECT_COST(board_project_id),
       send,
