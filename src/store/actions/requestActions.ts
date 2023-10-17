@@ -698,7 +698,7 @@ export const stopLoadingColumns = () => ({
 export const sendProjectToWorkPlan = (project_type: string, year: number, board_project_id: number) => {
   return async (dispatch: any) => { 
     try {
-      const res = await datasets.postData(
+      datasets.postData(
         SEND_PROJECT_TO_WORK_PLAN,
         {
           project_type,
@@ -706,12 +706,15 @@ export const sendProjectToWorkPlan = (project_type: string, year: number, board_
           board_project_id,
         },
         datasets.getToken()
-      );
-      dispatch({
-        type: types.REQUEST_SET_SENT_TO_WP,
-        payload: true
+      ).then((res) => {
+        dispatch({
+          type: types.REQUEST_SET_SENT_TO_WP,
+          payload: true
+        });
+        dispatch(loadColumns());
+      }).catch((error) => {
+        console.error(error);
       });
-      loadColumns();
     } catch (error) {
       console.error(error);
     }
