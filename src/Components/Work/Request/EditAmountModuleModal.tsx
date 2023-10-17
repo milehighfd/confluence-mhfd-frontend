@@ -1,4 +1,4 @@
-import { Col, Input, Modal, Row } from 'antd';
+import { Col, Input, Modal, Row, Tooltip } from 'antd';
 import React, { useEffect, useState } from 'react';
 import * as datasets from 'Config/datasets';
 import { formatter } from "./RequestViewUtil";
@@ -9,6 +9,7 @@ import useCostDataFormattingHook from 'hook/custom/useCostDataFormattingHook';
 import { useProfileState } from 'hook/profileHook';
 import { BOARD_STATUS_TYPES, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, WORK_PLAN_TAB } from 'constants/constants';
 import { useMapState } from 'hook/mapHook';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisible }: {project: any; completeProjectData:any; visible: boolean; setVisible: Function }) => {
   
@@ -92,7 +93,8 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
   }
 
   useEffect(() => {
-    const projectPartners = completeProjectData.project_partners;
+    const projectPartnersRaw = completeProjectData.project_partners;
+    const projectPartners = projectPartnersRaw.filter((item:any) => item.code_partner_type_id === 11 || item.code_partner_type_id === 12 || item.code_partner_type_id === 88)
     let projectPartnerOrdered = orderArrayForCost(projectPartners)
     projectPartnerOrdered = projectPartnerOrdered.sort((a:any, b:any) => {
       if(a.code_partner_type_id === 12 && b.code_partner_type_id === 12) {
@@ -157,12 +159,30 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
     useEffect(() => {
       const totals:any = [];
         if(Object.keys(cost).length !== 0) {
-        cost.amounts.forEach((item:any,index:any) => {
+          const initialAmounts = cost.amounts;
+          let filteredAmounts = isWorkPlan
+          ? initialAmounts.filter((item:any) => !(item.code_cost_type_id === 22 && item.code_partner_type_id !== 12))
+          : initialAmounts.filter((item:any) => !(item.code_cost_type_id === 21 && item.code_partner_type_id !== 12));
+        filteredAmounts = filteredAmounts.map((item:any) => {
+          if (!isWorkPlan && item.code_partner_type_id === 12) {
+            item.values = {
+              req3: null,
+              req1: null,
+              req2: null,
+              req4: null,
+              req5: null
+            };
+          }
+          return item;
+        });
+        console.log('filteredAmounts', filteredAmounts)
+        filteredAmounts.forEach((item:any,index:any) => {
           const { code_partner_type_id, values } = item;
           const totalCost = Object.values(values).reduce((sum:any, value:any) => (value ? sum + value : sum), 0);
 
           if (!totals[index]) {
             totals.push({
+              code_cost_type_id: item.code_cost_type_id,
               business_name: item.business_name,
               code_partner_type_id,
               totalCost,
@@ -190,15 +210,19 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
       setCost((prev: any) => {
         const newCost = {...prev};
         const current_business_name = item.business_name;
-        const indexOfValue = newCost.amounts.findIndex((itemAmount: any) => itemAmount.business_name === current_business_name);
+        const current_code_cost_type_id = item.code_cost_type_id;
+        const indexOfValue = newCost.amounts.findIndex((itemAmount: any) => itemAmount.business_name === current_business_name && itemAmount.code_cost_type_id === current_code_cost_type_id);
         newCost.amounts[indexOfValue].values[`req${index}`] = inputValue ? (+currentValue) : null;
         return newCost;
       });
     }
     const handleOkandSave = () => {
       // const send = { ...cost, isMaintenance };
-      const send =  {amounts:cost.amounts};
-      console.log('send', send)
+      const amounts = cost.amounts;
+      const filteredAmounts = amounts.filter((item:any) => {
+        return !(item.business_name === 'MHFD' && item.code_partner_type_id === 11);
+      });
+      const send =  {amounts: filteredAmounts, isWorkPlan: isWorkPlan};
       datasets.putData(
         BOARD_PROJECT_COST(board_project_id),
         send,
@@ -255,10 +279,43 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         <div className="edit-amount-modal-body-table">
           <Row className="edit-amount-modal-body-table-title">
             {tableHeader.length !==0 && tableHeader.map((item: any) => {
-              if(item.code_partner_type_id === 11){
+              if(item.code_partner_type_id === 11 && item.business_name === 'MHFD'){
+                return;
+              }else if(item.code_partner_type_id === 11){
                 return (
                   <Col style={{width: widthInput}}>
-                    {item.business_name} <p>Sponsor</p>
+                    {item.business_name} <p>{'Sponsor '}
+                    {isWorkPlan && <Tooltip title={
+                      <div style={{zIndex:"1000"}}>
+                        Requested Amounts: <br/>
+                        <Row>
+                          <Col>
+                          {completedYears.map((year: any) => {
+                          return (
+                            <Row className='rowname'>{year}:</Row>
+                          )
+                         })}
+                          </Col>
+                          <Col>
+                          {Object.keys(cost).length !== 0 && cost?.amounts.map((item: any) => {
+                            if (item.code_cost_type_id === 22 && item.code_partner_type_id === 11) {
+                              return (
+                                <Col span={3} style={{paddingLeft: '10px'}}>
+                                {Object.keys(item?.values).map((amount: any, index:number) => {
+                                  return (
+                                    <Row className='rowname'>
+                                      ${item.values[`req${index+1}`] ? item.values[`req${index+1}`]?.toLocaleString('en-US') : '0'}
+                                    </Row>
+                                  )
+                                })}
+                                </Col>
+                              )
+                            }
+                          })}
+                          </Col>
+                        </Row>
+                      </div>
+                    }><ExclamationCircleOutlined style={{opacity:"0.4", paddingTop: '3px'}}/></Tooltip>}</p>
                   </Col>
                 )
               } else if(item.code_partner_type_id === 12){
@@ -271,6 +328,37 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
                 return (
                   <Col style={{width: widthInput}}>
                     {item.business_name} Funding 
+                    {isWorkPlan && <Tooltip title={
+                      <div style={{zIndex:"1000"}}>
+                        Requested Amounts: <br/>
+                        <Row>
+                          <Col>
+                          {completedYears.map((year: any) => {
+                          return (
+                            <Row className='rowname'>{year}:</Row>
+                          )
+                         })}
+                          </Col>
+                          <Col>
+                          {Object.keys(cost).length !== 0 && cost?.amounts.map((item: any) => {
+                            if (item.code_cost_type_id === 22 && item.code_partner_type_id === 88) {
+                              return (
+                                <Col span={3} style={{paddingLeft: '10px'}}>
+                                {Object.keys(item?.values).map((amount: any, index:number) => {
+                                  return (
+                                    <Row className='rowname'>
+                                      ${item.values[`req${index+1}`] ? item.values[`req${index+1}`]?.toLocaleString('en-US') : '0'}
+                                    </Row>
+                                  )
+                                })}
+                                </Col>
+                              )
+                            }
+                          })}
+                          </Col>
+                        </Row>
+                      </div>
+                    }><ExclamationCircleOutlined style={{opacity:"0.4", paddingTop: '3px'}}/></Tooltip>}
                   </Col>
                 )
               }
@@ -300,26 +388,54 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
              <Row className='rowname'>2027</Row> */}
           </Col>
           {Object.keys(cost).length !== 0 && cost?.amounts.map((item: any) => {
-            return (
-              <Col span={3} id='colInput'>
-              {Object.keys(item?.values).map((amount: any, index:number) => {
-                return (
-                  <Row className='rowInputContainer'>
-                    <Input disabled={(!isWorkPlan && item.code_partner_type_id !== 88) || boardStatus === BOARD_STATUS_TYPES.APPROVED ? true : false} prefix="$" value={item.values[`req${index+1}`]?.toLocaleString('en-US')} onChange={(event:any) => handleChange(event, item, index+1)} />
-                  </Row>
-                )
-              })}
-              </Col>
-            )
+            if(isWorkPlan){
+              if(item.code_partner_type_id === 11 && item.business_name === 'MHFD'){
+                return;
+              }
+              if (item.code_cost_type_id === 22 && item.code_partner_type_id !== 12) {
+                return;
+              }
+            }else{
+              if (item.code_cost_type_id === 21 && item.code_partner_type_id !== 12) {
+                return;
+              }
+            }
+              return (
+                <Col span={3} id='colInput'>
+                {Object.keys(item?.values).map((amount: any, index:number) => {
+                  const conditionUnableInputs = (!isWorkPlan && (item.code_partner_type_id !== 88 && item.code_partner_type_id !== 11)) || boardStatus === BOARD_STATUS_TYPES.APPROVED ? true : false;
+
+                  return (
+                    <Row className='rowInputContainer'>
+                      <Input disabled={conditionUnableInputs} prefix="$" value={item.values[`req${index+1}`]?.toLocaleString('en-US')} onChange={(event:any) => handleChange(event, item, index+1)} />
+                    </Row>
+                  )
+                })}
+                </Col>
+              )
+            
           })}
           </Row>
           <Row className="edit-amount-modal-body-table-sum">
             <Col>Total Sum Requested</Col>
             {
               totalCosts.map((item: any) => {
-                return (
-                  <Col>{formatter.format(item.totalCost)}</Col>
-                )
+                if(isWorkPlan){
+                  if(item.code_partner_type_id === 11 && item.business_name === 'MHFD'){
+                    return;
+                  }
+                  if (item.code_cost_type_id === 22 && item.code_partner_type_id !== 12) {
+                    return;
+                  }
+                }else{
+                  if (item.code_cost_type_id === 21 && item.code_partner_type_id !== 12) {
+                    return;
+                  }
+                }
+                  return (
+                    <Col>{formatter.format(item.totalCost)}</Col>
+                  )
+                
               })
             }
           </Row>

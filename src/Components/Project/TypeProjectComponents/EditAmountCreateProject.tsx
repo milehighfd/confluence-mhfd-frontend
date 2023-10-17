@@ -41,6 +41,7 @@ const EditAmountCreateProject = ({
   const [createData, setCreatedData] = useState<any>({})
   const isMaintenance = tabKey === 'Maintenance'
   const [completeCosts, setCompleteCosts] = useState<any>({});
+  const isWorkPlan = namespaceId.type === WORK_PLAN;
   const [cost, setCost] = useState<any>({
     req1: null,
     req2: null,
@@ -75,7 +76,7 @@ const EditAmountCreateProject = ({
     let newCostToSend:any = [];
     if(completeCosts?.amounts) {
       newCostToSend = completeCosts?.amounts.map((x: any) => {
-        if (x.business_name === 'MHFD') {
+        if (x.business_name === 'MHFD' && (namespaceId.type === WORK_PLAN ? x.code_cost_type_id ===21 : x.code_cost_type_id === 22 )) {
           return {
             ...x,
             values: cost
@@ -86,6 +87,7 @@ const EditAmountCreateProject = ({
     } else if (Object.keys(project).length === 0){
       newCostToSend = [
           {
+            code_cost_type_id: namespaceId.type === WORK_PLAN ? 21 : 22,
             business_associates_id: 4585,
             business_name: "MHFD",
             code_partner_type_id: 88,
@@ -105,8 +107,7 @@ const EditAmountCreateProject = ({
       isMaintenance: false
     }
     // const send = { ...cost, isMaintenance };
-    const send = newCompleteCosts;
-    console.log('We are sending this: ', send);
+    const send = {...newCompleteCosts, isWorkPlan};
     datasets.putData(
       BOARD_PROJECT_COST(board_project_id),
       send,
@@ -166,14 +167,8 @@ const EditAmountCreateProject = ({
     return { extraYears, extraYearsAmounts };
   }
 
-
   useEffect(() => {
-    console.log('cost ', cost);
-  } ,[cost]);
-  useEffect(() => {
-    console.log('Created project ', createdProject);
     if(Object.keys(createdProject).length !== 0 && Object.keys(project).length === 0){
-      console.log(createdProject, 'createdProject')
       setCreatedData(createdProject)
       setBoard_project_id(createdProject?.boardProjectId?.board_project_id);
     }
@@ -210,7 +205,7 @@ const EditAmountCreateProject = ({
       datasets.getToken()
     )
       .then((res: any) => {
-        const amountOfMHFD = res.amounts.find((x: any) => x.business_name === 'MHFD');
+        const amountOfMHFD = res.amounts.find((x: any) => x.business_name === 'MHFD' && (namespaceId.type === WORK_PLAN ? x.code_cost_type_id ===21 : x.code_cost_type_id === 22 ));
         setCost(amountOfMHFD.values);
         setCompleteCosts(res);
       })

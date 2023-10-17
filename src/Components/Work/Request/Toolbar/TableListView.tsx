@@ -22,6 +22,7 @@ const TableListView = ({
   maintenanceSubType:string
 }) => {
   const [completeProjectData, setCompleteProjectData] = useState<any>(null);
+  const [ammountProjectData, setAmmountProjectData] = useState<any>(null);
   const [showAmountModal, setShowAmountModal] = useState(false);
   const {setZoomProject, archiveProject} = useProjectDispatch();
   const { columns2: columnsList, tabKey, locality, year, namespaceId, boardStatus, filterYear } = useRequestState();
@@ -42,6 +43,7 @@ const TableListView = ({
   const [archiveProjectId, setArchiveProjectId] = useState(0);
   const [visibleModal, setVisibleModal] = useState(false);
   const [selectedProjectData, setSelectedProjectData] = useState<any>(null);
+  const [loadAmmounts, setLoadAmmounts] = useState(false);
   const windowWidthSize: any = window.innerWidth;
   const [hoveredRow, setHoveredRow] = useState<any>(null);
   const appUser = useProfileState();
@@ -124,7 +126,7 @@ const TableListView = ({
     let allProjects: any[] = [];
     let years: any[] = [];
     let totalByYearObject: any[] = [];
-    columnsList.forEach((item: any) => {
+    columnsList.forEach((item: any) => {      
       totalByYearObject.push(item.groupTotal);
       if (item.title !== 'Workspace') {
         years = years.concat(item.title);
@@ -253,10 +255,21 @@ const TableListView = ({
     }
   },[showModalProject]);
 
+  useEffect(()=>{
+    if(loadAmmounts && selectedProject) {
+      let dataForBoard = {...selectedProject.projectData};
+      const dataFromDB = getData(SERVER.V2_DETAILED_PAGE(dataForBoard.project_id), getToken()).then((res:any)=>{
+        setAmmountProjectData({...res, ...tabKey});
+        setLoadAmmounts(false);
+        setShowAmountModal(true);
+      });
+    }
+  },[loadAmmounts]);
+
   const getCompleteProjectData = async (record:any) => {
     let dataForBoard = {...record.projectData};
     const dataFromDB = await getData(SERVER.V2_DETAILED_PAGE(dataForBoard.project_id), getToken());
-    setCompleteProjectData({...dataFromDB, ...tabKey}); 
+    setCompleteProjectData({...dataFromDB, ...tabKey});     
   }
     const typeStatus = (status: string) => {
         let text = '';
@@ -322,7 +335,7 @@ const TableListView = ({
       onClick: (() => {
         hidePopover();
         setSelectedProject(record);
-        setShowAmountModal(true);
+        setLoadAmmounts(true);
       })
     }, {
       key: '2',
@@ -647,7 +660,7 @@ const TableListView = ({
         {
           showAmountModal && <EditAmountModuleModal
             project={selectedProject}
-            completeProjectData={completeProjectData}
+            completeProjectData={ammountProjectData}
             visible={showAmountModal}
             setVisible={setShowAmountModal}
           />
