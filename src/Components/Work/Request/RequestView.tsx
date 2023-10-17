@@ -50,7 +50,8 @@ const RequestView = ({ type, widthMap }: {
     localityFilter,
     namespaceId,
     board,
-    totalCountyBudget
+    totalCountyBudget,
+    sentToWP,
   } = useRequestState();
   
   const {
@@ -77,6 +78,7 @@ const RequestView = ({ type, widthMap }: {
     setTotalCountyBudget,
     setIsListView,
     stopLoadingColumns,
+    setSentToWP
   } = useRequestDispatch();
   const {
     setOpacityLayer,
@@ -120,6 +122,14 @@ const RequestView = ({ type, widthMap }: {
       resetOnClose();
     }
   }, [showModalProject]);
+
+  useEffect(() => {
+    if (sentToWP){
+      openNotification('Success! Your project was sent to Work Plan', "success");
+      setSentToWP(false)
+    }
+  }, [sentToWP]);
+
   useEffect(() => {
     // console.log('success---------------------------', status);
     if(status === 1){

@@ -175,7 +175,6 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
           }
           return item;
         });
-        console.log('filteredAmounts', filteredAmounts)
         filteredAmounts.forEach((item:any,index:any) => {
           const { code_partner_type_id, values } = item;
           const totalCost = Object.values(values).reduce((sum:any, value:any) => (value ? sum + value : sum), 0);
