@@ -6,7 +6,7 @@ import { MoreOutlined } from '@ant-design/icons';
 import { postData, getData, getToken } from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import { useProjectDispatch } from 'hook/projectHook';
-import { useRequestState } from 'hook/requestHook';
+import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { useProfileState } from 'hook/profileHook';
 import AmountModal from '../AmountModal';
 import ModalProjectView from 'Components/ProjectModal/ModalProjectView';
@@ -25,6 +25,9 @@ const TableListView = ({
   const [ammountProjectData, setAmmountProjectData] = useState<any>(null);
   const [showAmountModal, setShowAmountModal] = useState(false);
   const {setZoomProject, archiveProject} = useProjectDispatch();
+  const{
+    sendProjectToWorkPlan
+  } = useRequestDispatch();
   const { columns2: columnsList, tabKey, locality, year, namespaceId, boardStatus, filterYear } = useRequestState();
   const { userInformation } = useProfileState();
   const [parsedData, setParsedData] = useState<any[]>([]);
@@ -381,7 +384,6 @@ const TableListView = ({
       });
       if (record?.projectData?.currentId[0]?.status_name !== 'Active'
         ) {
-          //add work plan
         items.push({
           key: '5',
           label: <span style={{ borderBottom: '1px solid transparent' }}>
@@ -396,13 +398,16 @@ const TableListView = ({
         })
       }
       const existInWP = record?.projectData?.board_projects?.find((bp: any) => bp.board.type === 'WORK_PLAN' && +bp.board.year === +year && bp.board.locality === "MHFD District Work Plan");
-      if (!existInWP && namespaceId.type === WORK_REQUEST) {
+      if (!existInWP && namespaceId.type === WORK_REQUEST && isAdminStaff && boardStatus === BOARD_STATUS_TYPES.APPROVED) {
         items.push({
           key: '6',
           label: <span style={{ borderBottom: '1px solid transparent' }}>
             <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
             Send To Work Plan
           </span>,
+          onClick: (() => {
+            sendProjectToWorkPlan(namespaceId.projecttype,namespaceId.year,record.board_project_id)
+          })
         })
       }
     }    

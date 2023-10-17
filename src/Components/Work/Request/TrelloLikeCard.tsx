@@ -42,7 +42,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   divRef:any,
   cardRefs?:any
 }) => {
-  const { showFilters: filtered, loadingColumns, boardStatus, loadColumns, sentToWP } = useRequestState();
+  const { showFilters: filtered, loadingColumns, boardStatus, loadColumns, sentToWP} = useRequestState();
   const {setZoomProject, updateSelectedLayers, archiveProject, setGlobalSearch} = useProjectDispatch();
   const {
     globalSearch,
@@ -88,13 +88,6 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
       //setGlobalSearch(false);
     }
   }, [globalProjectData, loadColumns]);
-
-  useEffect(() => {
-    if (sentToWP){
-      openNotification('Success! Your project was sent to the Work Plan', "success");
-      setSentToWP(false)
-    }
-  }, [sentToWP]);
 
   const copyProjectToCurrent = () => {
     postData(
@@ -167,7 +160,6 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
         </span>,
         onClick: (() => {
           setArchiveAlert(true)
-          //archiveProject(project?.projectData?.project_id)
         })
       });
       if (project?.projectData?.currentId[0]?.status_name !== 'Active'
@@ -184,7 +176,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
         })
       }
       const existInWP = project?.projectData?.board_projects?.find((bp: any) => bp.board.type === 'WORK_PLAN' && +bp.board.year === +year && bp.board.locality === "MHFD District Work Plan");
-      if (!existInWP && type === WORK_REQUEST) {
+      if (!existInWP && type === WORK_REQUEST && isAdminStaff && boardStatus === BOARD_STATUS_TYPES.APPROVED) {
         items.push({
           key: '6',
           label: <span style={{ borderBottom: '1px solid transparent' }}>
