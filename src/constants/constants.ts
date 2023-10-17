@@ -77,6 +77,7 @@ export const PROPSPROBLEMTABLES = {
     'estimated_cost'  //17
   ]
 }
+export const MHFD_ACRONYM = 'MHFD';
 export const PROJECTS_TRIGGER = 'projects';
 export const PROJECTS_MODAL = 'Projects';
 export const PROBLEMS_MODAL = 'Problems';
