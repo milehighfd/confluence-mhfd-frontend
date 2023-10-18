@@ -596,7 +596,6 @@ export const loadFilters = () => {
         filterRequest
       }
     } = getState();
-    console.log(filterRequest, 'filterRequest')
     const lastFilterValues = filterRequest;
     datasets.postData(GET_FILTER, { boardId: namespaceId }, datasets.getToken()).then((res: any) => {
       let priorityFilterList =  [
