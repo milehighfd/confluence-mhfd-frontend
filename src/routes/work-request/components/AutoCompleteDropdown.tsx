@@ -178,7 +178,6 @@ const AutoCompleteDropdown = ({ type }: { type: string }) => {
     } else {
       setLocality(value); // Implemented for WR functionality
     }
-    console.log('Locality', l);
     if (l) {
       setLocalityType(l.table);
       if (type === 'WORK_PLAN') {

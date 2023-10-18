@@ -346,7 +346,6 @@ const requestReducer = (state = initialState, action: any) => {
         filterRequest: action.payload
       };
     case types.REQUEST_SET_DISABLE_FILTER_COUNTY:
-      console.log('action.payload', action.payload)
       return {
         ...state,
         disableFilterCounty: action.payload

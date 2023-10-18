@@ -148,7 +148,6 @@ const RequestView = ({ type, widthMap }: {
   }, [tabKey]);
 
   useEffect(() => {
-    console.log(globalSearch)
     if(globalSearch && selectView === 'list'){
       setSelectView('card');
       stopLoadingColumns();
