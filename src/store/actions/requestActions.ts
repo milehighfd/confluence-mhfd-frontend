@@ -619,14 +619,15 @@ export const loadFilters = () => {
         }
       }
       const allData = [...priorityFilterList, ...transformedData];
-      for (let item2 of lastFilterValues) {
-        for (let item1 of allData) {
-          if (item2.id === item1.id && item2.name === item1.name && item2.type === item1.type) {
-            item1.selected = item2.selected;
-            break;
-          }
-        }
-      }     
+      //until tests are done
+      // for (let item2 of lastFilterValues) {
+      //   for (let item1 of allData) {
+      //     if (item2.id === item1.id && item2.name === item1.name && item2.type === item1.type) {
+      //       item1.selected = item2.selected;
+      //       break;
+      //     }
+      //   }
+      // }     
       dispatch({
         type: types.REQUEST_SET_FILTER_REQUEST,
         payload: allData
