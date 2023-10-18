@@ -218,10 +218,6 @@ const EditAmountCreateProject = ({
 
     const costDataList = useCostDataFormattingHook(tabKey, subType, startYear, board_project_id, true);
 
-useEffect(() => {
-  console.log('cost', cost);
-}, [cost]);
-
   return (
   <div className='sec-edit-amount'>
     <div className="sub-title-project">

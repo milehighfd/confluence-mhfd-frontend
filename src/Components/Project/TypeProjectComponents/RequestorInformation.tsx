@@ -105,9 +105,7 @@ export const RequestorInformation = ({
         locality: sponsor
       });
       const statuses = boards.status;
-      console.log('statuses', boards, statuses);
       const isUnderReview = statuses === 'Under Review';
-      console.log('isUnderReview', isUnderReview);
       setIsBoardInWRUnderReview(isUnderReview);
     };
     checkStatus();
@@ -132,9 +130,6 @@ export const RequestorInformation = ({
     }
   }, [projectId]);
 
-  useEffect(() => {
-    console.log('isBoardInWRUnderReview', isBoardInWRUnderReview);
-  }, [isBoardInWRUnderReview]);
   return (
     <div>
       <div className="sub-title-project">
@@ -177,7 +172,6 @@ export const RequestorInformation = ({
               value={cosponsor}
               getPopupContainer={() => (document.getElementById("cosponsorid") as HTMLElement)}>
               {localities.filter((item:any) => item !== sponsor && item !== MHFD_ACRONYM ).map((element: string) => {
-                console.log('element', element);
                 return <Option key={element} value={element}>{element}</Option>
               })}
             </Select>
