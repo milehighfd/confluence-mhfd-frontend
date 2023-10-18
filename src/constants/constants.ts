@@ -763,6 +763,8 @@ export const ROLES = [
   //{ title: 'Public', style: '80px', value: 'other', options: [] }
 ]
 
+export const SOUTH_PLATTE_RIVER = 'South Platte River'
+
 export const SERVICE_AREA = [
   "None",
   "Boulder Service Area",

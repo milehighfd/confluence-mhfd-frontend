@@ -5,6 +5,7 @@ import * as datasets from 'Config/datasets';
 import { buildGeojsonForLabelsProjectsInBoards, getColumnSumAndTotals, getColumnTitle, mergeSumByGroupMaps, mergeTotalByGroupMaps, splitProjectsIdsByStatuses } from 'Components/Work/Request/RequestViewUtil';
 import { BOARD_FOR_POSITIONS, GET_FILTER, SEND_PROJECT_TO_WORK_PLAN } from 'Config/endpoints/board';
 import { BOARD_UPDATE_RANK, BOARD_UPDATE_TARGET_COST } from 'Config/endpoints/board-project';
+import { SOUTH_PLATTE_RIVER, WORK_PLAN } from 'constants/constants';
 
 export const setShowModalProject = (payload: boolean) => ({
   type: types.REQUEST_SHOW_MODAL_PROJECT,
@@ -194,6 +195,7 @@ export const loadOneColumn = (position: any) => {
         year,
         filterRequest,
         namespaceId,
+        localityFilter
       }
     } = getState();
 
@@ -210,8 +212,16 @@ export const loadOneColumn = (position: any) => {
       item.type === 'status').map((r: any) => r.id),
       sponsor_board: filterRequest?.filter((item: any, index: number) => item.selected &&
       item.type === 'project_partners').map((r: any) => r.id),
+      isSouthPlate: false,
+      isMHFD: localityFilter === ('Mile High Flood District' || 'MHFD District Work Plan'),
+      isWorkPlan: namespaceId.type === WORK_PLAN,
     };
-    
+    const isSouthPlate = filterRequest?.filter((item: any, index: number) => item.selected && item.type === 'project_service_areas')
+      .find((r: any) => r.name === SOUTH_PLATTE_RIVER) !== undefined;
+    if (isSouthPlate && namespaceId.type === WORK_PLAN) {
+      filters.isSouthPlate = true;
+      filters.servicearea = [];
+    }
     dispatch({
       type: types.REQUEST_START_LOADING_COLUMNS_2
     });
@@ -243,7 +253,8 @@ export const loadColumns = () => {
         namespaceId,
         tabKey,
         year,
-        filterRequest
+        filterRequest,
+        localityFilter
       }
     } = getState();
 
@@ -261,10 +272,19 @@ export const loadColumns = () => {
       sponsor_board: filterRequest?.filter((item: any, index: number) => item.selected &&
       item.type === 'project_partners').map((r: any) => r.id),
       name: filterRequest?.name?.searchValue || '',
+      isSouthPlate: false,
+      isMHFD: localityFilter === ('Mile High Flood District' || 'MHFD District Work Plan'),
+      isWorkPlan: namespaceId.type === WORK_PLAN,
     };
     dispatch({
       type: types.REQUEST_START_LOADING_COLUMNS_2
     });
+    const isSouthPlate = filterRequest?.filter((item: any, index: number) => item.selected && item.type === 'project_service_areas')
+      .find((r: any) => r.name === SOUTH_PLATTE_RIVER) !== undefined;
+    if (isSouthPlate  && namespaceId.type === WORK_PLAN) {
+      filters.isSouthPlate = true;
+      filters.servicearea = [];
+    }
     const promises = [];
     for (let position = 0; position <= 5; position++) {
       const promise = datasets.postData(
@@ -572,9 +592,12 @@ export const loadFilters = () => {
   return (dispatch: any, getState: Function) => {
     const {
       request: {
-        namespaceId
+        namespaceId,
+        filterRequest
       }
     } = getState();
+    console.log(filterRequest, 'filterRequest')
+    const lastFilterValues = filterRequest;
     datasets.postData(GET_FILTER, { boardId: namespaceId }, datasets.getToken()).then((res: any) => {
       let priorityFilterList =  [
         { name: '1', id: 0, selected: false, type: 'project_priorities' },
@@ -597,7 +620,14 @@ export const loadFilters = () => {
         }
       }
       const allData = [...priorityFilterList, ...transformedData];
-
+      for (let item2 of lastFilterValues) {
+        for (let item1 of allData) {
+          if (item2.id === item1.id && item2.name === item1.name && item2.type === item1.type) {
+            item1.selected = item2.selected;
+            break;
+          }
+        }
+      }     
       dispatch({
         type: types.REQUEST_SET_FILTER_REQUEST,
         payload: allData
@@ -665,7 +695,6 @@ export const setFilterYear = (payload: any) => {
 
 export const setDisableFilterComponent = (disable: any, localityType: any) => {
   if (localityType === 'county') {
-    console.log('setcounty to true')
     return (dispatch: any) => {
       dispatch({
         type: types.REQUEST_SET_DISABLE_FILTER_COUNTY,
