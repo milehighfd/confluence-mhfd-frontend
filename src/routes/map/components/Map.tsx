@@ -2118,7 +2118,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
         )}
 
         <span className="zoomvaluemap">
-          <b>Nearmap: March 19, 2023</b>
+          <b>Nearmap Imagery: 8/16/2023</b>
           <b className='text-zoomlevel'>Zoom Level: {zoomValue}</b>
         </span>
         {!!visible && (
