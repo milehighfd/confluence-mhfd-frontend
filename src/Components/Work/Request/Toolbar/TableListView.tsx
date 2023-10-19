@@ -485,6 +485,7 @@ const TableListView = ({
                   trigger="click"
                   visible={record.visible}
                   onVisibleChange={isVisible => {
+                    console.log('is visible', isVisible, record);
                     setParsedData(
                       parsedData.map((item: any) => {
                         if (item.key === record.key) {
