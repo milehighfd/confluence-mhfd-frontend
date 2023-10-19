@@ -151,7 +151,7 @@ export const RequestorInformation = ({
                 isLocalGovernment ? (
                   <Option value={sponsor + ""}>{sponsor + ""}</Option>
                 ) : (
-                  localities.map((element: string) => {
+                  localities.filter((element: string) => element !== 'Cherry Creek Basin Authority').map((element: string) => {
                     return <Option key={element} value={element}>{element}</Option>
                   })
                 )
