@@ -71,11 +71,11 @@ const TableListView = ({
             if (costs) {
               const subtype = item?.projectData?.code_project_type?.project_type_name;
               const costMapping = {
-                [NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management]: [costs.req1, costs.year1, costs.year2],
-                [NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management]: [costs.req2, costs.year1, costs.year2],
-                [NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal]: [costs.req3, costs.year1, costs.year2],
-                [NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Minor_Repairs]: [costs.req4, costs.year1, costs.year2],
-                [NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Restoration]: [costs.req5, costs.year1, costs.year2],
+                [NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management]: [costs.req1, costs.req11, costs.req12],
+                [NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management]: [costs.req2, costs.req11, costs.req12],
+                [NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal]: [costs.req3, costs.req11, costs.req12],
+                [NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Minor_Repairs]: [costs.req4, costs.req11, costs.req12],
+                [NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Restoration]: [costs.req5, costs.req11, costs.req12],
               };              
               return {
                 ...item,

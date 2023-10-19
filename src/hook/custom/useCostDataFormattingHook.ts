@@ -17,6 +17,7 @@ const useCostDataFormattingHook = (tabKey: any, projectsubtype: any, startYear: 
       showFifth = projectsubtype === MaintenanceTypes[4];
     }
     const costFormat = [
+      { show: true, label: '', key: 'priorFunding', isRequired: false },
       { show: showFirst, label: '', key: 'req1', isRequired: isMaintenance && showFirst },
       { show: showSecond, label: '', key: 'req2', isRequired: isMaintenance && showSecond },
       { show: showThird, label: '', key: 'req3', isRequired: isMaintenance && showThird },
