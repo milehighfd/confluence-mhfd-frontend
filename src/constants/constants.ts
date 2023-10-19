@@ -78,6 +78,7 @@ export const PROPSPROBLEMTABLES = {
   ]
 }
 export const MHFD_ACRONYM = 'MHFD';
+export const CHERRY_CREEK_BASIN_AUTHORITY ='Cherry Creek Basin Authority'
 export const PROJECTS_TRIGGER = 'projects';
 export const PROJECTS_MODAL = 'Projects';
 export const PROBLEMS_MODAL = 'Problems';

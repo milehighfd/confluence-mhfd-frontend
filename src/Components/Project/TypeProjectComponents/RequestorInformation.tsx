@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Input, Timeline, Popover, Select } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
-import { MHFD_ACRONYM, WINDOW_WIDTH } from 'constants/constants';
+import { CHERRY_CREEK_BASIN_AUTHORITY, MHFD_ACRONYM, WINDOW_WIDTH } from 'constants/constants';
 import { JURISDICTION, PROJECT_INFORMATION, SERVICE_AREA, GOVERNMENT_STAFF } from "../../../constants/constants";
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
@@ -151,7 +151,7 @@ export const RequestorInformation = ({
                 isLocalGovernment ? (
                   <Option value={sponsor + ""}>{sponsor + ""}</Option>
                 ) : (
-                  localities.map((element: string) => {
+                  localities.filter((element: string) => element !== CHERRY_CREEK_BASIN_AUTHORITY).map((element: string) => {
                     return <Option key={element} value={element}>{element}</Option>
                   })
                 )
