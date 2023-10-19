@@ -23,6 +23,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
   const { loadOneColumn } = useRequestDispatch();
   const { userInformation } = useProfileState();
   const isMaintenance = tabKey === 'Maintenance';
+  const priorFundingString = 'priorFunding';
   const [maintenanceSubtype, setMaintenanceSubtype] = useState<any>();
   const { tabActiveNavbar } = useMapState();
   const isWorkPlan = tabActiveNavbar === WORK_PLAN_TAB;
@@ -168,6 +169,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         filteredAmounts = filteredAmounts.map((item:any) => {
           if (!isWorkPlan && item.code_partner_type_id === 12) {
             item.values = {
+              priorFunding: item.values.priorFunding,
               req3: null,
               req1: null,
               req2: null,
@@ -293,7 +295,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
                           <Col>
                           {costDataList.map((year: any) => {
                           return (
-                            year.show && <Row className='rowname'>{year.label}:</Row>
+                            (year.show && year.key !== priorFundingString) && <Row className='rowname'>{year.label}:</Row>
                           )
                          })}
                           </Col>
@@ -304,7 +306,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
                                 <Col span={3} style={{paddingLeft: '10px'}}>
                                 {costDataList.map((amount: any, index:number) => {
                                   return (
-                                    amount.show && <Row className='rowname'>
+                                    (amount.show && amount.key !== priorFundingString) && <Row className='rowname'>
                                       ${item.values[amount.key] ? item.values[amount.key]?.toLocaleString('en-US') : '0'}
                                     </Row>
                                   )
@@ -336,7 +338,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
                           <Col>
                           {costDataList.map((year: any) => {
                           return (
-                            year.show && <Row className='rowname'>{year.label}:</Row>
+                            (year.show && year.key !== priorFundingString) && <Row className='rowname'>{year.label}:</Row>
                           )
                          })}
                           </Col>
@@ -347,7 +349,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
                                 <Col span={3} style={{paddingLeft: '10px'}}>
                                 {costDataList.map((amount: any, index:number) => {
                                   return (
-                                    amount.show && <Row className='rowname'>
+                                    (amount.show && amount.key !== priorFundingString) && <Row className='rowname'>
                                       ${item.values[amount.key] ? item.values[amount.key]?.toLocaleString('en-US') : '0'}
                                     </Row>
                                   )
@@ -377,9 +379,10 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
           <Col span={3}>
             {/* <Row>Prior Funding</Row> */}
             {/* <Row className='rowname'>--</Row> */}
+            {/* <Row className='rowname'>Prior Funding</Row> */}
             {costDataList.map((year: any) => {
               return (
-                year.show && <Row className='rowname'>{year.label}</Row>
+                (year.show && year.key !== priorFundingString) && <Row className='rowname'>{year.label}</Row>
               )
             })}
             {/*  <Row className='rowname'>2023</Row>
@@ -405,11 +408,11 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
                 <Col span={3} id='colInput'>
                 {/* {Object.keys(item?.values).map((amount: any, index:number) => { */}
                 {costDataList.map((amount: any, index:number) => {
-                  const conditionUnableInputs = (!isWorkPlan && (item.code_partner_type_id !== 88 && item.code_partner_type_id !== 11)) || boardStatus === BOARD_STATUS_TYPES.APPROVED ? true : false;
-
+                  const conditionUnableInputs = (!isWorkPlan && (item.code_partner_type_id !== 88 && item.code_partner_type_id !== 11)) || boardStatus === BOARD_STATUS_TYPES.APPROVED? true : false; 
+                  const conditionPriorFunding = amount.key === priorFundingString ? true : false;
                   return (
                     amount.show && <Row className='rowInputContainer'>
-                      <Input disabled={conditionUnableInputs} prefix="$" value={item.values[amount.key]?.toLocaleString('en-US')} onChange={(event:any) => handleChange(event, item, amount.key)} />
+                      <Input disabled={conditionUnableInputs || conditionPriorFunding} prefix="$" value={item.values[amount.key]?.toLocaleString('en-US')} onChange={(event:any) => handleChange(event, item, amount.key)} />
                     </Row>
                   )
                 })}
