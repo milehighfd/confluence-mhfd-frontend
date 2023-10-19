@@ -35,7 +35,7 @@ export const RequestorInformation = ({
   const [name, setName] = useState('');
   const [createdDate, setCreatedDate] = useState('');
   const [businessName, setBusinessName] = useState('');
-  const [isBoardInWRUnderReview, setIsBoardInWRUnderReview] = useState(false);
+  const [isBoardInWRUnderReview, setIsBoardInWRUnderReview] = useState(true);
   const [isLocalGovernment, setIsLocalGovernment] = useState(false);
   const {
     isEdit,
@@ -106,10 +106,13 @@ export const RequestorInformation = ({
       });
       const statuses = boards.status;
       const isUnderReview = statuses === 'Under Review';
-      setIsBoardInWRUnderReview(isUnderReview);
+      if(projectId>0){
+        setIsBoardInWRUnderReview(isUnderReview);
+      }
     };
     checkStatus();
-  }, [sponsor]);
+
+  }, [sponsor, projectId]);
 
   useEffect(() => {
     if (isEdit && projectId > 0) {

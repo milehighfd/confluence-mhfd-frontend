@@ -8,6 +8,7 @@ import AmountNumericInput from './AmountNumericInput';
 import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { BOARD_PROJECT_COST } from 'Config/endpoints/board-project';
 import { BOARD_STATUS_TYPES, MHFD_ACRONYM, WORK_PLAN, YEAR_LOGIC_2024 } from 'constants/constants';
+import { getBoardStatus } from 'dataFetching/workRequest';
 
 const EditAmountCreateProject = ({
   index,
@@ -231,6 +232,22 @@ const EditAmountCreateProject = ({
 
     const costDataList = useCostDataFormattingHook(tabKey, subType, startYear, board_project_id, true);
 
+    useEffect(() => {
+      if(!isWorkPlan){
+        const checkStatus = async () => {
+          const boards = await getBoardStatus({
+            type: 'WORK_REQUEST',
+            year: `${startYear}`,
+            locality: sponsor
+          });
+          const statuses = boards.status;
+          const isUnderReview = statuses === 'Under Review';
+          setIsDisabledAmountInput(!isUnderReview);
+        };
+        checkStatus();
+      }
+    }, [sponsor]);
+
   return (
   <div className='sec-edit-amount'>
     <div className="sub-title-project">
@@ -250,7 +267,7 @@ const EditAmountCreateProject = ({
             
             <div className='edit-amount'>
               <label className="sub-title">{item.label} </label>
-              <AmountNumericInput disabled={isDisabledAmountInput || boardStatus === BOARD_STATUS_TYPES.APPROVED ? true: false} key={item.key} value={cost[item.key]?.toLocaleString('en-US')} onChange={(value: any) => setCost({ ...cost, [item.key]: value })} />
+              <AmountNumericInput disabled={(isDisabledAmountInput || boardStatus === BOARD_STATUS_TYPES.APPROVED) ? true: false} key={item.key} value={cost[item.key]?.toLocaleString('en-US')} onChange={(value: any) => setCost({ ...cost, [item.key]: value })} />
             </div>
           )
         })
