@@ -379,7 +379,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
           <Col span={3}>
             {/* <Row>Prior Funding</Row> */}
             {/* <Row className='rowname'>--</Row> */}
-            <Row className='rowname'>Prior Funding</Row>
+            {/* <Row className='rowname'>Prior Funding</Row> */}
             {costDataList.map((year: any) => {
               return (
                 (year.show && year.key !== priorFundingString) && <Row className='rowname'>{year.label}</Row>
