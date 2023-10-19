@@ -169,6 +169,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         filteredAmounts = filteredAmounts.map((item:any) => {
           if (!isWorkPlan && item.code_partner_type_id === 12) {
             item.values = {
+              priorFunding: item.values.priorFunding,
               req3: null,
               req1: null,
               req2: null,
@@ -407,9 +408,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
                 <Col span={3} id='colInput'>
                 {/* {Object.keys(item?.values).map((amount: any, index:number) => { */}
                 {costDataList.map((amount: any, index:number) => {
-                  const conditionUnableInputs = (!isWorkPlan && (item.code_partner_type_id !== 88 && item.code_partner_type_id !== 11)) ? true : false;
-                  // || boardStatus === BOARD_STATUS_TYPES.APPROVED
-
+                  const conditionUnableInputs = (!isWorkPlan && (item.code_partner_type_id !== 88 && item.code_partner_type_id !== 11)) || boardStatus === BOARD_STATUS_TYPES.APPROVED? true : false; 
                   const conditionPriorFunding = amount.key === priorFundingString ? true : false;
                   return (
                     amount.show && <Row className='rowInputContainer'>

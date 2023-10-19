@@ -28,15 +28,19 @@ const useCostDataFormattingHook = (tabKey: any, projectsubtype: any, startYear: 
     ]
     for (let i = 0; i < costFormat.length; i++) {
       let label = startYear;
+      if(costFormat[i].key === 'priorFunding') {
+        label = 'Prior Funding'
+      }else{
       if (!isMaintenance) {
-        label = Number(startYear) + i;
+        label = Number(startYear) + (i-1);
       }
       if (costFormat[i].key === 'req11') {
         label = Number(startYear) + 1;
       } else if (costFormat[i].key === 'req12') {
         label = Number(startYear) + 2;
       }
-      costFormat[i].label = label;
+    }
+    costFormat[i].label = label;
     }
 
     return costFormat;
