@@ -87,15 +87,16 @@ const ColumsTrelloCard = ({
   };
   const getColumnProjectType = (code_project_type_id: number) => {
     switch (code_project_type_id) {
-      case 8:
+      case 8: // Routine trash
         return 1;
-      case 11:
+      case 11: // Vegetation Management
         return 2;
-      case 9:
-        return 3;
-      case 10:
+      case 9: // Sediment Removal
+        return 3; 
+      case 10: // General Maintenance
+      case 17: // Minor Repairs
         return 4;
-      case 7:
+      case 7:  // Restoration
         return 5;
       default:
         return 0;
@@ -129,6 +130,7 @@ const ColumsTrelloCard = ({
       const currentSubType =
         columns[originColumnPosition].projects[sourcePosition]?.projectData?.code_project_type?.code_project_type_id;
       const posibleTargetColumn = getColumnProjectType(currentSubType);
+      console.log('current subtype', currentSubType, 'posibleTargetColumn', posibleTargetColumn, 'originColumnPosition', originColumnPosition, 'targetColumnPosition', targetColumnPosition);
       if (
         (originColumnPosition === 0 &&
           (targetColumnPosition === originColumnPosition || targetColumnPosition === posibleTargetColumn)) || // from 0 to subtype column
@@ -142,6 +144,7 @@ const ColumsTrelloCard = ({
       && !projectExistOutsideGivenColumn
       && (isNotApprovedWR || namespaceId.type === WORK_PLAN)
     ) {
+      console.log('Origin column positions', originColumnPosition, targetColumnPosition);
       if (originColumnPosition === targetColumnPosition) {
         moveProjectsManual({
           originColumnPosition,
