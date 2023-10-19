@@ -7,7 +7,7 @@ import { formatter } from 'Components/Work/Request/RequestViewUtil';
 import AmountNumericInput from './AmountNumericInput';
 import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { BOARD_PROJECT_COST } from 'Config/endpoints/board-project';
-import { BOARD_STATUS_TYPES, WORK_PLAN, YEAR_LOGIC_2024 } from 'constants/constants';
+import { BOARD_STATUS_TYPES, MHFD_ACRONYM, WORK_PLAN, YEAR_LOGIC_2024 } from 'constants/constants';
 
 const EditAmountCreateProject = ({
   index,
@@ -40,6 +40,8 @@ const EditAmountCreateProject = ({
   const [board_project_id, setBoard_project_id] = useState<any>()
   const [createData, setCreatedData] = useState<any>({})
   const isMaintenance = tabKey === 'Maintenance'
+  const priorFundingString = 'priorFunding';
+  const [isDisabledAmountInput, setIsDisabledAmountInput] = useState<boolean>(false);
   const [completeCosts, setCompleteCosts] = useState<any>({});
   const isWorkPlan = namespaceId.type === WORK_PLAN;
   const [cost, setCost] = useState<any>({
@@ -216,6 +218,17 @@ const EditAmountCreateProject = ({
       });
   }, [board_project_id]);
 
+
+  useEffect(() => {
+    if(isWorkPlan){
+      if ((project_id === undefined || board_project_id === undefined) && (sponsor !== MHFD_ACRONYM)){
+        setIsDisabledAmountInput(true);
+      } else {
+        setIsDisabledAmountInput(false);
+      }
+    }
+  }, [project_id,board_project_id,sponsor]);
+
     const costDataList = useCostDataFormattingHook(tabKey, subType, startYear, board_project_id, true);
 
   return (
@@ -232,12 +245,12 @@ const EditAmountCreateProject = ({
       {
         costDataList.map((item: any) => {
           return (
-            item.show &&
+            (item.show && item.key !== priorFundingString) && 
             
             
             <div className='edit-amount'>
               <label className="sub-title">{item.label} </label>
-              <AmountNumericInput disabled={boardStatus === BOARD_STATUS_TYPES.APPROVED ? true: false} key={item.key} value={cost[item.key]?.toLocaleString('en-US')} onChange={(value: any) => setCost({ ...cost, [item.key]: value })} />
+              <AmountNumericInput disabled={isDisabledAmountInput || boardStatus === BOARD_STATUS_TYPES.APPROVED ? true: false} key={item.key} value={cost[item.key]?.toLocaleString('en-US')} onChange={(value: any) => setCost({ ...cost, [item.key]: value })} />
             </div>
           )
         })
