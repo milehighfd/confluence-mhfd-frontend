@@ -52,6 +52,7 @@ const RequestView = ({ type, widthMap }: {
     board,
     totalCountyBudget,
     sentToWP,
+    filterLoading
   } = useRequestState();
   
   const {
@@ -107,6 +108,7 @@ const RequestView = ({ type, widthMap }: {
   const [scrollTo, setScrollTo] = useState(0);
   const [mainBudget, setMainBudget] = useState([0, 0, 0, 0, 0]);
   const [mainCountyBudget, setMainCountyBudget] = useState(0);
+  const [loadNewColumns, setLoadNewColumns] = useState(false);
   
   const {  
     tabActiveNavbar
@@ -257,6 +259,13 @@ const RequestView = ({ type, widthMap }: {
   }, [type]);
 
   useEffect(() => {
+    if (!filterLoading && loadNewColumns){
+      loadColumns();
+      setLoadNewColumns(false);
+    }
+  }, [loadNewColumns,filterLoading]);
+
+  useEffect(() => {
     if (!locality || !tabKey) {
       return;
     }
@@ -277,9 +286,9 @@ const RequestView = ({ type, widthMap }: {
 
       setBoard(board);
       setNamespaceId(boardKey);
-      loadColumns();     
       loadFilters();
-
+      //loadColumns();      
+      setLoadNewColumns(true);
       /* TODO: this should be replaced */
       setBoardStatus(board.status);
       setBoardSubstatus(board.substatus);

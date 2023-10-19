@@ -257,7 +257,6 @@ export const loadColumns = () => {
         localityFilter
       }
     } = getState();
-
     const filters = {
       county:filterRequest?.filter((item: any, index: number) => item.selected && 
       item.type === 'project_counties').map((r: any) => r.id),
@@ -596,6 +595,7 @@ export const loadFilters = () => {
         filterRequest
       }
     } = getState();
+    dispatch(setFilterLoading(true))
     const lastFilterValues = filterRequest;
     datasets.postData(GET_FILTER, { boardId: namespaceId }, datasets.getToken()).then((res: any) => {
       let priorityFilterList =  [
@@ -618,16 +618,15 @@ export const loadFilters = () => {
           });
         }
       }
-      const allData = [...priorityFilterList, ...transformedData];
-      //until tests are done
-      // for (let item2 of lastFilterValues) {
-      //   for (let item1 of allData) {
-      //     if (item2.id === item1.id && item2.name === item1.name && item2.type === item1.type) {
-      //       item1.selected = item2.selected;
-      //       break;
-      //     }
-      //   }
-      // }     
+      const allData = [...priorityFilterList, ...transformedData];     
+      for (let item2 of lastFilterValues) {
+        for (let item1 of allData) {
+          if (item2.id === item1.id && item2.name === item1.name && item2.type === item1.type) {
+            item1.selected = item2.selected;
+            break;
+          }
+        }
+      }
       dispatch({
         type: types.REQUEST_SET_FILTER_REQUEST,
         payload: allData
@@ -636,6 +635,7 @@ export const loadFilters = () => {
         type: types.REQUEST_SET_FILTER_MAP,
         payload: res
       });
+      dispatch(setFilterLoading(false))
     })
     .catch((err: any) => {
         console.log('err', err)
@@ -752,5 +752,10 @@ export const sendProjectToWorkPlan = (project_type: string, year: number, board_
 
 export const setSentToWP = (payload: boolean) => ({
   type: types.REQUEST_SET_SENT_TO_WP,
+  payload
+});
+
+export const setFilterLoading = (payload: boolean) => ({
+  type: types.REQUEST_SET_FILTER_LOADING,
   payload
 });
