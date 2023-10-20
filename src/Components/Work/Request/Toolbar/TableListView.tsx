@@ -123,7 +123,7 @@ const TableListView = ({
         }
       )
     }
-  },[boardProjectIds])
+  },[boardProjectIds, maintenanceData])
 
   useEffect(() => {
     let allProjects: any[] = [];
@@ -485,7 +485,6 @@ const TableListView = ({
                   trigger="click"
                   visible={record.visible}
                   onVisibleChange={isVisible => {
-                    console.log('is visible', isVisible, record);
                     setParsedData(
                       parsedData.map((item: any) => {
                         if (item.key === record.key) {
@@ -620,7 +619,7 @@ const TableListView = ({
       }else{
         setFilteredColumns(columns)
       }      
-    },[namespaceId,yearList]);
+    },[namespaceId,yearList,parsedData]);
 
     useEffect(() => {
       if (archiveProjectAction) {
