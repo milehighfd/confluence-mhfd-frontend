@@ -63,6 +63,7 @@ const initialState = {
   setIsOnSelected: false,
   filterMap: {},
   filterRequest: [],
+  filterLoading : false,
   disableFilterCounty: false,
   disableFilterServiceArea: false,
   filterYear: [],
@@ -383,6 +384,11 @@ const requestReducer = (state = initialState, action: any) => {
       return {
         ...state,
         sentToWP: action.payload
+      };
+    case types.REQUEST_SET_FILTER_LOADING:
+      return {
+        ...state,
+        filterLoading: action.payload
       };
     default:
       return state;
