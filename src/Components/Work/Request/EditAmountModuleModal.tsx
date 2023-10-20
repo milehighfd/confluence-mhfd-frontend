@@ -181,8 +181,10 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         });
         filteredAmounts.forEach((item:any,index:any) => {
           const { code_partner_type_id, values } = item;
-          const totalCost = Object.values(values).reduce((sum:any, value:any) => (value ? sum + value : sum), 0);
 
+          const totalCost = Object.keys(values)
+          .filter(key => key !== 'priorFunding')
+          .reduce((sum, key) => sum + values[key], 0);
           if (!totals[index]) {
             totals.push({
               code_cost_type_id: item.code_cost_type_id,
@@ -195,6 +197,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
           }
         });
       }
+      console.log('totals', totals)
       setTotalCosts(totals);
       const totalCombined = totals.reduce((sum:any, item:any) => sum + item.totalCost, 0);
       setTotalCombinedSum(totalCombined);
