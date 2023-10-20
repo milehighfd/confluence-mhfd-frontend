@@ -379,7 +379,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
           <Col span={3}>
             {/* <Row>Prior Funding</Row> */}
             {/* <Row className='rowname'>--</Row> */}
-            {/* <Row className='rowname'>Prior Funding</Row> */}
+            <Row className='rowname'>Prior Funding</Row>
             {costDataList.map((year: any) => {
               return (
                 (year.show && year.key !== priorFundingString) && <Row className='rowname'>{year.label}</Row>
@@ -408,7 +408,8 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
                 <Col span={3} id='colInput'>
                 {/* {Object.keys(item?.values).map((amount: any, index:number) => { */}
                 {costDataList.map((amount: any, index:number) => {
-                  const conditionUnableInputs = (!isWorkPlan && (item.code_partner_type_id !== 88 && item.code_partner_type_id !== 11)) || boardStatus === BOARD_STATUS_TYPES.APPROVED? true : false; 
+                  const conditionUnableInputs = (!isWorkPlan && (item.code_partner_type_id !== 88 && item.code_partner_type_id !== 11)) ? true : false; 
+                  // || boardStatus === BOARD_STATUS_TYPES.APPROVED
                   const conditionPriorFunding = amount.key === priorFundingString ? true : false;
                   return (
                     amount.show && <Row className='rowInputContainer'>

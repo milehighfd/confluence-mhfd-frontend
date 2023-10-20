@@ -61,7 +61,7 @@ const TableListView = ({
     if (namespaceId.projecttype === 'Maintenance') {
       postData(
         GET_COSTS_FOR_MAINTENANCE,
-        { board_project_id: boardProjectIds },
+        { board_project_id: boardProjectIds, isWorkPlan: namespaceId.type !== WORK_REQUEST },
         getToken()
       )
       .then(
