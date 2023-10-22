@@ -124,6 +124,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
 
   useEffect(() => {
     if (tabKey === 'Capital') {
+      let totalCost=0;
       const costComponents = listComponents?.result?.map((item: any) => {
         return item.original_cost;
       });
@@ -140,7 +141,12 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         return item.cost;
       });
       const totalIndependentCost = totalIndependent?.reduce((acc: any, curr: any) => acc + curr, 0);
-      let totalCost = totalComponents + totalProject + totalIndependentCost;
+      if(totalComponents === 0 && totalIndependentCost === 0){
+        let estimatedCostValue = completeProjectData.project_costs.filter((e: any) => e.code_cost_type_id === 1)[0]
+        totalCost = estimatedCostValue ? parseInt(estimatedCostValue.cost) : 0;
+      } else{
+        totalCost = totalComponents + totalProject + totalIndependentCost;
+      }
       setRequestFunding(isNaN(totalCost) ? 0 : totalCost);
     }
   }, [listComponents, cost])

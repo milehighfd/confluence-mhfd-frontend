@@ -133,7 +133,8 @@ export const ModalCapital = ({
     saveSpecialLocation,
     saveAcquisitionLocation,
     setDisableFieldsForLg,
-    setIsGeomDrawn
+    setIsGeomDrawn,
+    getIndependentComponentsByProjectId
   } = useProjectDispatch();
   const {
     listComponents, 
@@ -243,6 +244,7 @@ export const ModalCapital = ({
     setStreamsList([]);
     setIsGeomDrawn(false);
     return () => {
+      setIndComponents([]);
       setIndependentComponents([]);
       setComponentsFromMap([]);
     }
@@ -312,6 +314,7 @@ export const ModalCapital = ({
       if (selectedTypeProject === 'capital') {        
         const aditionalCostObject = data.project_costs.filter((e: any) => e.code_cost_type_id === 4)[0];
         setComponentIntersected(data.project_proposed_actions || []);
+        getIndependentComponentsByProjectId(data.project_id);
         setAdditionalCost(parseInt(aditionalCostObject?.cost || '0'));
         setAdditionalDescription(aditionalCostObject?.cost_description);
         if (data.project_costs.length > 0) {
@@ -945,7 +948,14 @@ export const ModalCapital = ({
   }
 
   const getTotalCost = () =>{
-    let n = getSubTotalCost() + additionalCost + getOverheadCost();
+    let subTotalCost = getSubTotalCost();
+    let n=0;
+    if(subTotalCost === 0){
+      let estimatedcostValue = data.project_costs.filter((e: any) => e.code_cost_type_id === 1)[0];
+      n = estimatedcostValue ? parseInt(estimatedcostValue.cost) : 0;
+    } else {
+      n = getSubTotalCost() + additionalCost + getOverheadCost();
+    }
     return(n);
   }
     

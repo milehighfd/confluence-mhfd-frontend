@@ -40,7 +40,7 @@ export const formatter = new Intl.NumberFormat('en-US', {
 
 export const getAllowedBasedOnLocality = (locality: string, year?: number) => {
   let all = [NEW_PROJECT_TYPES.Capital, NEW_PROJECT_TYPES.Acquisition, NEW_PROJECT_TYPES.Maintenance, NEW_PROJECT_TYPES.Special, NEW_PROJECT_TYPES.Study]; 
-  if (locality.startsWith('Unincorporated') && locality.endsWith('County')) {
+  if (locality && (locality.startsWith('Unincorporated') && locality.endsWith('County'))) {
     return all;
   } else if (locality.endsWith('County')) {
       if (year && year < 2022) {
