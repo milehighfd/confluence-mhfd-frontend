@@ -128,11 +128,14 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         return item.original_cost;
       });
       const totalComponents = costComponents?.reduce((acc: any, curr: any) => acc + curr, 0);
-      const costWithoutMHFD = completeProjectData.project_costs.filter((item:any) => item.code_cost_type_id !== 22)
-      const costProject = costWithoutMHFD.map((item: any) => {
-        return item.cost;
+
+      const additionalAndOverheadCostIds = [4, 6, 7, 8, 9, 10, 11, 12, 13]
+      const costProject = additionalAndOverheadCostIds.map((id:any) => {
+        const matchingCost = completeProjectData.project_costs.find((cost:any) => cost.code_cost_type_id === id);
+        return matchingCost ? matchingCost.cost : 0;
       });
       const totalProject = costProject?.reduce((acc: any, curr: any) => acc + curr, 0);
+
       const totalIndependent = cost?.projectData?.independent_actions.map((item: any) => {
         return item.cost;
       });
@@ -201,9 +204,23 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
           }
         });
       }
-      console.log('totals', totals)
+
       setTotalCosts(totals);
-      const totalCombined = totals.reduce((sum:any, item:any) => sum + item.totalCost, 0);
+
+      // init: filter added to remove MHFD as cosponsor (code_partner_type_id 12) and remove cosponsor if is also sponsor
+      const totalsFiltered = totals.filter((item:any) => {
+        if (item.business_name === 'MHFD' && item.code_partner_type_id === 12) {
+          return false;
+        } else if (
+          item.code_partner_type_id === 12 &&
+          totals.some((otherItem:any) => otherItem.business_name === item.business_name && otherItem.code_partner_type_id === 11)
+        ) {
+          return false;
+        }
+        return true;
+      });
+      // end of filter
+      const totalCombined = totalsFiltered.reduce((sum:any, item:any) => sum + item.totalCost, 0);
       setTotalCombinedSum(totalCombined);
     }, [cost]);
 
@@ -289,7 +306,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         <div className="edit-amount-modal-body-table">
           <Row className="edit-amount-modal-body-table-title">
             {tableHeader.length !==0 && tableHeader.map((item: any) => {
-              if((item.code_partner_type_id === 11 || item.code_partner_type_id == 12) && item.business_name === 'MHFD'){
+              if((item.code_partner_type_id === 11 || item.code_partner_type_id === 12) && item.business_name === 'MHFD'){
                 return;
               }else if(item.code_partner_type_id === 11){
                 return (
@@ -403,9 +420,6 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
           </Col>
           {Object.keys(cost).length !== 0 && cost?.amounts.map((item: any) => {
             if(isWorkPlan){
-              if((item.code_partner_type_id === 11 || item.code_partner_type_id == 12) && item.business_name === 'MHFD'){
-                return;
-              }
               if (item.code_cost_type_id === 22 && item.code_partner_type_id !== 12) {
                 return;
               }
@@ -413,6 +427,9 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
               if (item.code_cost_type_id === 21 && item.code_partner_type_id !== 12) {
                 return;
               }
+            }
+            if((item.code_partner_type_id === 11 || item.code_partner_type_id === 12) && item.business_name === 'MHFD'){
+              return;
             }
             if (item.code_partner_type_id === 12 && item.business_name === mainSponsor?.business_name) {
               return;
@@ -440,9 +457,6 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
             {
               totalCosts.map((item: any) => {
                 if(isWorkPlan){
-                  if((item.code_partner_type_id === 11 || item.code_partner_type_id == 12) && item.business_name === 'MHFD'){
-                    return;
-                  }
                   if (item.code_cost_type_id === 22 && item.code_partner_type_id !== 12) {
                     return;
                   }
@@ -450,6 +464,9 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
                   if (item.code_cost_type_id === 21 && item.code_partner_type_id !== 12) {
                     return;
                   }
+                }
+                if((item.code_partner_type_id === 11 || item.code_partner_type_id === 12) && item.business_name === 'MHFD'){
+                  return;
                 }
                 if (item.code_partner_type_id === 12 && item.business_name === mainSponsor?.business_name) {
                   return;
