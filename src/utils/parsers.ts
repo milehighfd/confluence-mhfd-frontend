@@ -79,7 +79,8 @@ export const getStreams = (projectStreams: any) => {
 
 export const getTotalEstimatedCost = (projectCosts: any) => {
 if (projectCosts && projectCosts.length > 0) {
-  return projectCosts[0].cost;
+  let estimatedCost = projectCosts.filter((pc: any) => pc.code_cost_type_id === 1);
+  return estimatedCost ? estimatedCost[0]?.cost : 0;
 }
   // return projectCosts?.reduce((accumulator: number, pl: any) => {
   //   let sum = accumulator;
