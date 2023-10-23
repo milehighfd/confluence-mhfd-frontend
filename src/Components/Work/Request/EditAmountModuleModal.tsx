@@ -7,18 +7,20 @@ import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { BOARD_PROJECT_COST } from 'Config/endpoints/board-project';
 import useCostDataFormattingHook from 'hook/custom/useCostDataFormattingHook';
 import { useProfileState } from 'hook/profileHook';
-import { BOARD_STATUS_TYPES, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, WORK_PLAN_TAB } from 'constants/constants';
+import { BOARD_STATUS_TYPES, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, WORK_PLAN, WORK_PLAN_TAB, WORK_REQUEST, YEAR_LOGIC_2024 } from 'constants/constants';
 import { useMapState } from 'hook/mapHook';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { SPONSOR_ID } from 'constants/databaseConstants';
 
 const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisible }: {project: any; completeProjectData:any; visible: boolean; setVisible: Function }) => {
   
-  const { tabKey,year: startYear, boardStatus } = useRequestState();
+  const { tabKey,year: startYear, boardStatus, namespaceId } = useRequestState();
   const {
     listComponents,
   } = useProjectState();
   const {
     getComponentsByProjectId,
+    sendProjectToBoardYear
   } = useProjectDispatch();
   const { loadOneColumn } = useRequestDispatch();
   const { userInformation } = useProfileState();
@@ -249,6 +251,41 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         return newCost;
       });
     }
+
+  function convertObjectToArrays(input: any, year: number) {
+    const extraYears = [];
+    const extraYearsAmounts = [];
+    for (let i = 1; i <= 5; i++) {
+      const value = input[`req${i}`];
+      if (value !== null && value !== 0) {
+        extraYears.push(+year + i - 1);
+        extraYearsAmounts.push(value);
+      }
+    }
+    return { extraYears, extraYearsAmounts };
+  }
+
+  function convertObjectToArraysMaintenance(obj: any, currentYear: number) {
+    const extraYears = [];
+    const extraYearsAmounts = [];
+    const value = obj[`req1`];
+    const valueYear2 = obj[`req11`];
+    const valueYear3 = obj[`req12`];
+    if (value !== null && value !== 0) {
+      extraYears.push(+currentYear + 1 - 1);
+      extraYearsAmounts.push(value);
+    }
+    if (valueYear2 !== null && valueYear2 !== 0) {
+      extraYears.push(+currentYear + 2 - 1);
+      extraYearsAmounts.push(valueYear2);
+    }
+    if (valueYear3 !== null && valueYear3 !== 0) {
+      extraYears.push(+currentYear + 3 - 1);
+      extraYearsAmounts.push(valueYear3);
+    }
+    return { extraYears, extraYearsAmounts };
+  }
+
     const handleOkandSave = () => {
       // const send = { ...cost, isMaintenance };
       const amounts = cost.amounts;
@@ -269,6 +306,39 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         .catch((err: any) => {
           console.log(err);
         });
+
+      if (namespaceId.type === WORK_PLAN
+        && boardStatus === 'Approved' &&
+        namespaceId.year >= YEAR_LOGIC_2024
+      ) {
+        let subTypeSend = '';
+        const MhfdAmmounts = send?.amounts?.find((obj: any) => obj.code_cost_type_id === 21);
+        let years: { extraYears: number[]; extraYearsAmounts: number[] } = {extraYears:[], extraYearsAmounts:[]};  
+        if (namespaceId.projecttype === 'Maintenance') {
+          subTypeSend = maintenanceSubtype;
+          years = convertObjectToArraysMaintenance(MhfdAmmounts?.values, namespaceId.year);
+        }else{
+          years = convertObjectToArrays(MhfdAmmounts?.values, namespaceId.year);
+        }
+        const sendBody = {
+          project_id: project?.projectData?.project_id,
+          year: namespaceId.year,
+          extraYears: years.extraYears,
+          sponsor: project?.projectData?.project_partners.find((x:any)=> x.code_partner_type_id === SPONSOR_ID)?.business_associate.business_name,
+          project_type: namespaceId.projecttype,
+          extraYearsAmounts: years.extraYearsAmounts,
+          subType: subTypeSend,
+        }
+        sendProjectToBoardYear(
+          sendBody.project_id,
+          sendBody.year,
+          sendBody.extraYears,
+          sendBody.sponsor,
+          sendBody.project_type,
+          sendBody.extraYearsAmounts,
+          sendBody.subType
+        );
+      }
       setVisible(false);
     }
 
@@ -445,11 +515,12 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
                 <Col span={3} id='colInput'>
                 {/* {Object.keys(item?.values).map((amount: any, index:number) => { */}
                 {costDataList.map((amount: any, index:number) => {
-                  const conditionUnableInputs = (!isWorkPlan && (item.code_partner_type_id !== 88 && item.code_partner_type_id !== 11)) || boardStatus === BOARD_STATUS_TYPES.APPROVED ? true : false; 
+                  const conditionUnableInputs = (!isWorkPlan && (item.code_partner_type_id !== 88 && item.code_partner_type_id !== 11)); 
+                  const isApprovedWR = boardStatus === BOARD_STATUS_TYPES.APPROVED && namespaceId.type === WORK_REQUEST;
                   const conditionPriorFunding = amount.key === priorFundingString ? true : false;
                   return (
                     amount.show && <Row className='rowInputContainer'>
-                      <Input disabled={conditionUnableInputs || conditionPriorFunding} prefix="$" value={item.values[amount.key]?.toLocaleString('en-US')} onChange={(event:any) => handleChange(event, item, amount.key)} />
+                      <Input disabled={conditionUnableInputs || conditionPriorFunding || isApprovedWR} prefix="$" value={item.values[amount.key]?.toLocaleString('en-US')} onChange={(event:any) => handleChange(event, item, amount.key)} />
                     </Row>
                   )
                 })}
