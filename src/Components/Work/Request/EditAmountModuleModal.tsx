@@ -280,7 +280,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
       className="edit-amount-modal"
       onOk={() => handleOkandSave()}
       okText="Save"
-      cancelText="Clear"
+      cancelText="Cancel"
     >
       <Row className="edit-amount-modal-header">
         <Col className="edit-amount-modal-header-text">

@@ -455,6 +455,7 @@ export const ModalCapital = ({
           csponsor = csponsor.substring(0, csponsor.length - 1)
         }
       }
+      capital.subtotalcost = getSubTotalCost();
       capital.servicearea = serviceAreaIds;
       capital.county = countyIds;
       capital.jurisdiction = jurisdictionIds;

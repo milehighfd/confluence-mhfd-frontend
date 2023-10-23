@@ -47,6 +47,7 @@ export class Project {
     isSouthPlate: boolean | undefined;
     sponsorId: any;
     is_routine: boolean;
+    subtotalcost: any;
     constructor() {
         this.year = '2023';
         this.projectname = "special";
@@ -83,5 +84,6 @@ export class Project {
         this.isSouthPlate = false;
         this.sponsorId = 0;
         this.is_routine = false;
+        this.subtotalcost = 0;
     }
 }
