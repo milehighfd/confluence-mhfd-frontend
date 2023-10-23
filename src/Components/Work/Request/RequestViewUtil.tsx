@@ -42,13 +42,13 @@ export const getAllowedBasedOnLocality = (locality: string, year?: number) => {
   let all = [NEW_PROJECT_TYPES.Capital, NEW_PROJECT_TYPES.Acquisition, NEW_PROJECT_TYPES.Maintenance, NEW_PROJECT_TYPES.Special, NEW_PROJECT_TYPES.Study]; 
   if (locality && (locality.startsWith('Unincorporated') && locality.endsWith('County'))) {
     return all;
-  } else if (locality.endsWith('County')) {
+  } else if (locality && locality.endsWith('County')) {
       if (year && year < 2022) {
         return [NEW_PROJECT_TYPES.Capital, NEW_PROJECT_TYPES.Maintenance];
       } else {
         return [NEW_PROJECT_TYPES.Capital, NEW_PROJECT_TYPES.Maintenance, NEW_PROJECT_TYPES.Acquisition, NEW_PROJECT_TYPES.Special];
       }
-  } else if (locality.endsWith('Service Area')) {
+  } else if (locality && locality.endsWith('Service Area')) {
     if (year && year < 2022) {
       return [NEW_PROJECT_TYPES.Study, NEW_PROJECT_TYPES.Acquisition, NEW_PROJECT_TYPES.Special];
     } else {

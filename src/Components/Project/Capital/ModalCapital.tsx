@@ -134,7 +134,8 @@ export const ModalCapital = ({
     saveAcquisitionLocation,
     setDisableFieldsForLg,
     setIsGeomDrawn,
-    getIndependentComponentsByProjectId
+    getIndependentComponentsByProjectId,
+    getComponentsByProjectId
   } = useProjectDispatch();
   const {
     listComponents, 
@@ -315,6 +316,7 @@ export const ModalCapital = ({
         const aditionalCostObject = data.project_costs.filter((e: any) => e.code_cost_type_id === 4)[0];
         setComponentIntersected(data.project_proposed_actions || []);
         getIndependentComponentsByProjectId(data.project_id);
+        getComponentsByProjectId(data.project_id);
         setAdditionalCost(parseInt(aditionalCostObject?.cost || '0'));
         setAdditionalDescription(aditionalCostObject?.cost_description);
         if (data.project_costs.length > 0) {
