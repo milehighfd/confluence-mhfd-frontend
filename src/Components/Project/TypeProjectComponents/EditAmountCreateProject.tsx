@@ -126,51 +126,8 @@ const EditAmountCreateProject = ({
       .catch((err: any) => {
         console.log(err);
       });
-      setCreatedProject({});
-    const disableWP = true;
-    if (namespaceId.type === WORK_PLAN 
-      && boardStatus === 'Approved' && 
-      namespaceId.year >= YEAR_LOGIC_2024 && 
-      !disableWP
-    ) {
-      let subTypeName = '';
-      if (namespaceId.projecttype === 'Maintenance'){
-        subTypeName = subType;
-      }      
-      const years = convertObjectToArrays(cost, namespaceId.year);
-      const sendBody = {
-        project_id : createData.project_data.project_id,
-        year: namespaceId.year,
-        extraYears: years.extraYears,
-        sponsor: sponsor,        
-        project_type: namespaceId.projecttype,
-        extraYearsAmounts: years.extraYearsAmounts,
-        subType: subTypeName,
-      }
-      sendProjectToBoardYear(
-        sendBody.project_id,
-        sendBody.year,
-        sendBody.extraYears,
-        sendBody.sponsor,
-        sendBody.project_type,
-        sendBody.extraYearsAmounts,
-        sendBody.subType
-      );
-    }    
-  };
-
-  function convertObjectToArrays(input: any, year: number) {
-    const extraYears = [];
-    const extraYearsAmounts = [];
-    for (let i = 1; i <= 5; i++) {
-      const value = input[`req${i}`];
-      if (value !== null && value !== 0) {
-        extraYears.push(+year + i - 1);
-        extraYearsAmounts.push(value);
-      }
-    }
-    return { extraYears, extraYearsAmounts };
-  }
+      setCreatedProject({});      
+  };  
 
   useEffect(() => {
     if(Object.keys(createdProject).length !== 0 && Object.keys(project).length === 0){
