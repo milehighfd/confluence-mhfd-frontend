@@ -6,6 +6,7 @@ import { buildGeojsonForLabelsProjectsInBoards, getColumnSumAndTotals, getColumn
 import { BOARD_FOR_POSITIONS, GET_FILTER, SEND_PROJECT_TO_WORK_PLAN } from 'Config/endpoints/board';
 import { BOARD_UPDATE_RANK, BOARD_UPDATE_TARGET_COST } from 'Config/endpoints/board-project';
 import { SOUTH_PLATTE_RIVER, WORK_PLAN } from 'constants/constants';
+import { sendProjectToBoardYear } from './ProjectActions';
 
 export const setShowModalProject = (payload: boolean) => ({
   type: types.REQUEST_SHOW_MODAL_PROJECT,
@@ -736,6 +737,17 @@ export const sendProjectToWorkPlan = (project_type: string, year: number, board_
         },
         datasets.getToken()
       ).then((res) => {
+        if (res.MhfdBoard.status === 'Approved') {
+          dispatch(sendProjectToBoardYear(
+            res?.newBoardProject?.project_id,
+            res?.MhfdBoard?.year,
+            [],
+            res?.newBoardProject?.origin,
+            res?.MhfdBoard?.projecttype,
+            [],
+            ''
+          ));
+        }
         dispatch({
           type: types.REQUEST_SET_SENT_TO_WP,
           payload: true
