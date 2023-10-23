@@ -951,7 +951,7 @@ export const ModalCapital = ({
     let subTotalCost = getSubTotalCost();
     let n=0;
     if(subTotalCost === 0){
-      let estimatedcostValue = data.project_costs.filter((e: any) => e.code_cost_type_id === 1)[0];
+      let estimatedcostValue = data?.project_costs ? data?.project_costs?.filter((e: any) => e.code_cost_type_id === 1)[0] : 0;
       n = estimatedcostValue ? parseInt(estimatedcostValue.cost) : 0;
     } else {
       n = getSubTotalCost() + additionalCost + getOverheadCost();
