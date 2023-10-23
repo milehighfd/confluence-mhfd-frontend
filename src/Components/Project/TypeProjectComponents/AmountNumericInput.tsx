@@ -19,6 +19,7 @@ const AmountNumericInput = (props: any) => {
           {...props}
           className='input-amount'
           onChange={handleChange}
+          prefix='$'
           allowClear
         />
     );
