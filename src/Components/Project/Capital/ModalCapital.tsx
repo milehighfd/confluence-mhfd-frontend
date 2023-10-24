@@ -701,12 +701,9 @@ export const ModalCapital = ({
   }  
 
   useEffect(()=>{
-    setIndependentComponents(independentComponents);
-  },[independentComponents]);
-
-  useEffect(()=>{
     if(componentsFromMap?.length > 0 ) {
-      if(componentsFromMap.length > 0  && listComponents.length > 0){
+      if(componentsFromMap.length > 0  && listComponents?.length > 0){
+        console.log('[ ...List Components ] ->', listComponents);
         getListComponentsByComponentsAndPolygon([...listComponents, ...componentsFromMap], null);
       } else if(listComponents.length == 0 && componentsFromMap.length > 0) {
         getListComponentsByComponentsAndPolygon([ ...componentsFromMap], null);
@@ -898,6 +895,13 @@ export const ModalCapital = ({
     newoverhead[index] = parseInt(e);
     setOverheadValues(newoverhead);
   }
+
+  useEffect(() => {
+    console.log('list components', listComponents);
+  }, [listComponents]);
+  useEffect(() => {
+    console.log('this inde components 1 ', thisIndependentComponents);
+  }, [thisIndependentComponents]);
 
   const getSubTotalCost = () => {
     let subtotalcost = 0;

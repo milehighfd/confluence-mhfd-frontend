@@ -68,7 +68,7 @@ import {
   EFFECTIVE_REACHES_ENDPOINTS,
   ROUTINE_MAINTENANCES,
   ALERT_STATION,
-  MAINTENANCE_IDS
+  MAINTENANCE_IDS,
 } from './constants';
 
 export const localComponents = {
@@ -1079,244 +1079,148 @@ export const MEP_PROJECTS_STYLES = {
 export const ROUTINE_MAINTENANCE_STYLES = {
   [ROUTINE_MAINTENANCES]: [
     {
-      "type": "line",
-      "source-layer": 'pluto15v1',
-      "maxzoom": 15,
-      "filter": [
-          "match",
-          ["get", "routine_type"],
-          ["Sensitive Area"],
-          true,
-          false
-      ],
-      "paint": {"line-color": "#2e0047", "line-width": 5}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      maxzoom: 15,
+      filter: ['match', ['get', 'routine_type'], ['Sensitive Area'], true, false],
+      paint: { 'line-color': '#2e0047', 'line-width': 5 },
     },
     {
-        "type": "fill",
-        "source-layer": 'pluto15v1',
-        "maxzoom": 15,
-        "filter": [
-            "match",
-            ["get", "routine_type"],
-            ["Sensitive Area"],
-            true,
-            false
-        ],
-        "paint": {
-            "fill-color": "#caa8ff",
-            "fill-outline-color": "#caa8ff",
-            "fill-pattern": "prpl_angl"
-        }
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      maxzoom: 15,
+      filter: ['match', ['get', 'routine_type'], ['Sensitive Area'], true, false],
+      paint: {
+        'fill-color': '#caa8ff',
+        'fill-outline-color': '#caa8ff',
+        'fill-pattern': 'prpl_angl',
+      },
     },
     {
-        "type": "line",
-        "source-layer": 'pluto15v1',
-        "maxzoom": 15,
-        "filter": [
-            "match",
-            ["get", "routine_type"],
-            ["Sensitive Area"],
-            true,
-            false
-        ],
-        "paint": {"line-color": "#caa8ff", "line-width": 2.5}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      maxzoom: 15,
+      filter: ['match', ['get', 'routine_type'], ['Sensitive Area'], true, false],
+      paint: { 'line-color': '#caa8ff', 'line-width': 2.5 },
     },
     {
-        "type": "line",
-        "source-layer": 'pluto15v1',
-        "maxzoom": 15,
-        "filter": [
-            "match",
-            ["get", "routine_type"],
-            ["Vegetation Management"],
-            true,
-            false
-        ],
-        "paint": {"line-color": "#caa8ff", "line-width": 5}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      maxzoom: 15,
+      filter: ['match', ['get', 'routine_type'], ['Vegetation Management'], true, false],
+      paint: { 'line-color': '#caa8ff', 'line-width': 5 },
     },
     {
-        "type": "fill",
-        "source-layer": 'pluto15v1',
-        "maxzoom": 15,
-        "filter": [
-            "match",
-            ["get", "routine_type"],
-            ["Vegetation Management"],
-            true,
-            false
-        ],
-        "paint": {"fill-pattern": "VM_07_sml"}
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      maxzoom: 15,
+      filter: ['match', ['get', 'routine_type'], ['Vegetation Management'], true, false],
+      paint: { 'fill-pattern': 'VM_07_sml' },
     },
     {
-        "type": "line",
-        "source-layer": 'pluto15v1',
-        "maxzoom": 15,
-        "filter": [
-            "match",
-            ["get", "routine_type"],
-            ["Vegetation Management"],
-            true,
-            false
-        ],
-        "paint": {"line-color": "#2e0047", "line-width": 2.5}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      maxzoom: 15,
+      filter: ['match', ['get', 'routine_type'], ['Vegetation Management'], true, false],
+      paint: { 'line-color': '#2e0047', 'line-width': 2.5 },
     },
     {
-        "type": "line",
-        "source-layer": 'pluto15v1',
-        "maxzoom": 15,
-        "filter": [
-            "match",
-            ["get", "routine_type"],
-            ["Debris Management"],
-            true,
-            false
-        ],
-        "layout": {"line-cap": "round", "line-join": "bevel"},
-        "paint": {
-            "line-color": "#2e0047",
-            "line-width": 5,
-            "line-dasharray": [0.5, 1.5]
-        }
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      maxzoom: 15,
+      filter: ['match', ['get', 'routine_type'], ['Debris Management'], true, false],
+      layout: { 'line-cap': 'round', 'line-join': 'bevel' },
+      paint: {
+        'line-color': '#2e0047',
+        'line-width': 5,
+        'line-dasharray': [0.5, 1.5],
+      },
     },
     {
-        "type": "line",
-        "source-layer": 'pluto15v1',
-        "maxzoom": 15,
-        "filter": [
-            "match",
-            ["get", "routine_type"],
-            ["Debris Management"],
-            true,
-            false
-        ],
-        "layout": {"line-cap": "round", "line-join": "bevel"},
-        "paint": {
-            "line-color": "#f994fe",
-            "line-dasharray": [1, 3],
-            "line-width": 2.5
-        }
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      maxzoom: 15,
+      filter: ['match', ['get', 'routine_type'], ['Debris Management'], true, false],
+      layout: { 'line-cap': 'round', 'line-join': 'bevel' },
+      paint: {
+        'line-color': '#f994fe',
+        'line-dasharray': [1, 3],
+        'line-width': 2.5,
+      },
     },
     {
-        "type": "line",
-        "source-layer": 'pluto15v1',
-        "minzoom": 15,
-        "filter": [
-            "match",
-            ["get", "routine_type"],
-            ["Sensitive Area"],
-            true,
-            false
-        ],
-        "paint": {"line-color": "#2e0047", "line-width": 8}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      minzoom: 15,
+      filter: ['match', ['get', 'routine_type'], ['Sensitive Area'], true, false],
+      paint: { 'line-color': '#2e0047', 'line-width': 8 },
     },
     {
-        "type": "fill",
-        "source-layer": 'pluto15v1',
-        "minzoom": 15,
-        "filter": [
-            "match",
-            ["get", "routine_type"],
-            ["Sensitive Area"],
-            true,
-            false
-        ],
-        "paint": {
-            "fill-color": "#caa8ff",
-            "fill-outline-color": "#caa8ff",
-            "fill-pattern": "prpl_angl_thk"
-        }
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      minzoom: 15,
+      filter: ['match', ['get', 'routine_type'], ['Sensitive Area'], true, false],
+      paint: {
+        'fill-color': '#caa8ff',
+        'fill-outline-color': '#caa8ff',
+        'fill-pattern': 'prpl_angl_thk',
+      },
     },
     {
-        "type": "line",
-        "source-layer": 'pluto15v1',
-        "minzoom": 15,
-        "filter": [
-            "match",
-            ["get", "routine_type"],
-            ["Sensitive Area"],
-            true,
-            false
-        ],
-        "paint": {"line-color": "#caa8ff", "line-width": 4}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      minzoom: 15,
+      filter: ['match', ['get', 'routine_type'], ['Sensitive Area'], true, false],
+      paint: { 'line-color': '#caa8ff', 'line-width': 4 },
     },
     {
-        "type": "line",
-        "source-layer": 'pluto15v1',
-        "minzoom": 15,
-        "filter": [
-            "match",
-            ["get", "routine_type"],
-            ["Vegetation Management"],
-            true,
-            false
-        ],
-        "layout": {"line-cap": "round"},
-        "paint": {"line-color": "#caa8ff", "line-width": 8}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      minzoom: 15,
+      filter: ['match', ['get', 'routine_type'], ['Vegetation Management'], true, false],
+      layout: { 'line-cap': 'round' },
+      paint: { 'line-color': '#caa8ff', 'line-width': 8 },
     },
     {
-        "type": "fill",
-        "source-layer": 'pluto15v1',
-        "minzoom": 15,
-        "filter": [
-            "match",
-            ["get", "routine_type"],
-            ["Vegetation Management"],
-            true,
-            false
-        ],
-        "paint": {"fill-pattern": "VM_07_sml"}
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      minzoom: 15,
+      filter: ['match', ['get', 'routine_type'], ['Vegetation Management'], true, false],
+      paint: { 'fill-pattern': 'VM_07_sml' },
     },
     {
-        "type": "line",
-        "source-layer": 'pluto15v1',
-        "minzoom": 15,
-        "filter": [
-            "match",
-            ["get", "routine_type"],
-            ["Vegetation Management"],
-            true,
-            false
-        ],
-        "layout": {"line-cap": "round"},
-        "paint": {"line-color": "#2e0047", "line-width": 5}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      minzoom: 15,
+      filter: ['match', ['get', 'routine_type'], ['Vegetation Management'], true, false],
+      layout: { 'line-cap': 'round' },
+      paint: { 'line-color': '#2e0047', 'line-width': 5 },
     },
     {
-        "type": "line",
-        "source-layer": 'pluto15v1',
-        "minzoom": 15,
-        "filter": [
-            "match",
-            ["get", "routine_type"],
-            ["Debris Management"],
-            true,
-            false
-        ],
-        "layout": {"line-cap": "round", "line-join": "bevel"},
-        "paint": {
-            "line-color": "#2e0047",
-            "line-width": 8,
-            "line-dasharray": [1, 1.5]
-        }
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      minzoom: 15,
+      filter: ['match', ['get', 'routine_type'], ['Debris Management'], true, false],
+      layout: { 'line-cap': 'round', 'line-join': 'bevel' },
+      paint: {
+        'line-color': '#2e0047',
+        'line-width': 8,
+        'line-dasharray': [1, 1.5],
+      },
     },
     {
-        "type": "line",
-        "source-layer": 'pluto15v1',
-        "minzoom": 15,
-        "filter": [
-            "match",
-            ["get", "routine_type"],
-            ["Debris Management"],
-            true,
-            false
-        ],
-        "layout": {"line-cap": "round", "line-join": "bevel"},
-        "paint": {
-            "line-color": "#f994fe",
-            "line-dasharray": [2, 3],
-            "line-width": 4
-        }
-    }
-  ],  
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      minzoom: 15,
+      filter: ['match', ['get', 'routine_type'], ['Debris Management'], true, false],
+      layout: { 'line-cap': 'round', 'line-join': 'bevel' },
+      paint: {
+        'line-color': '#f994fe',
+        'line-dasharray': [2, 3],
+        'line-width': 4,
+      },
+    },
+  ],
   // [ROUTINE_NATURAL_AREAS]: [
   //   {
   //     type: 'fill',
@@ -2438,956 +2342,298 @@ export const PROJECTS_STYLES_WR = {
   ],
   [`${PROJECTS_DRAFT}draft`]: [
     {
-      // "id": "study-MDP_neg_DRAFT_shdw",
-      "type": "line",
-      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1, 2, 3], project_type: [1] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {"line-width": 7, "line-offset": -18, "line-blur": 10}
-    },
-    {
-      // "id": "study-MDP_pos_DRAFT_shdw",
-      "type": "line",
-      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1, 2, 3], project_type: [1] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {"line-width": 7, "line-offset": 18, "line-blur": 10}
-    },
-    {
-      // "id": "study-FHAD_neg_DRAFT_shdw",
-      "type": "line",
-      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1, 2, 3], project_type: [18] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-width": 7,
-          "line-offset": -14,
-          "line-dasharray": [1, 2],
-          "line-blur": 10
-      }
-    },
-    {
-      // "id": "study-FHAD_pos_DRAFT_shdw",
-      "type": "line",
-      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1, 2, 3], project_type: [18] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-width": 7,
-          "line-offset": 14,
-          "line-dasharray": [1, 2],
-          "line-blur": 10
-      }
-    },
-    {
-      // "id": "capital_neg_DRAFT_shdw",
-      "type": "line",
-      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1, 2, 3], project_type: [5] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {"line-offset": -10, "line-width": 7, "line-blur": 10}
-    },
-    {
-      // "id": "capital_pos_DRAFT_shdw",
-      "type": "line",
-      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1, 2, 3], project_type: [5] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {"line-width": 7, "line-offset": 10, "line-blur": 10}
-    },
-    {
-      // "id": "maintenance_neg_DRAFT_shdw",
-      "type": "line",
+      // "id": "allproj_shdw_ACTV",
+      type: 'line',
       metadata: {
         'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5',
-        project_status: [1, 2, 3],
-        project_type: MAINTENANCE_IDS,
+        project_status: [5],
+        project_type: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 17, 18],
       },
       'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {"line-offset": -6, "line-blur": 10, "line-width": 7}
+      minzoom: 13,
+      layout: { 'line-cap': 'round' },
+      paint: {
+        'line-width': 4,
+        'line-gap-width': 15,
+        'line-blur': 10,
+        'line-opacity': 0.4,
+      },
     },
     {
-      // "id": "maintenance_pos_DRAFT_shdw",
-      "type": "line",
+      // "id": "allproj_DRAFT",
+      type: 'line',
       metadata: {
-        'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5',
-        project_status: [1, 2, 3],
-        project_type: MAINTENANCE_IDS,
+        project_status: [1],
+        project_type: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 17, 18],
       },
       'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {"line-offset": 6, "line-blur": 10, "line-width": 7}
-    },
-    {
-      // "id": "propacq_DRAFT copy",
-      "type": "symbol",
-      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1, 2, 3], project_type: [13] },
-      'source-layer': 'pluto15v1',
-      "layout": {
-          "icon-image": "propacq_ORANGE_bold_small",
-          'icon-ignore-placement': true,
-          'text-allow-overlap': true,
-          'icon-allow-overlap': true,
-          'text-ignore-placement': true,
-          "icon-size": 0.5,
+      minzoom: 13,
+      // "filter": ["match", ["get", "teddy_stat"], ["drft"], true, false],
+      layout: { 'line-cap': 'round' },
+      paint: {
+        'line-color': '#ffb914',
+        'line-width': 2.5,
+        'line-dasharray': [3, 1.5],
+        'line-gap-width': 7,
       },
-      "paint": {}
-    },
-    {
-      // "id": "RD_DRAFT copy",
-      "type": "symbol",
-      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1], project_type: [15] },
-      'source-layer': 'pluto15v1',
-      "layout": {
-          "icon-size": 0.6,
-          "icon-image": "RD_orange",
-          'icon-ignore-placement': true,
-          'text-allow-overlap': true,
-          'icon-allow-overlap': true,
-          'text-ignore-placement': true,
-      },
-      "paint": {}
-    },
-    {
-      // "id": "study-MDP_neg_DRAFT_test",
-      "type": "line",
-      metadata: { 'mapbox:group': 'cf08e6682ac5c524c0eb9c365153091e', project_status: [1, 2, 3], project_type: [1] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#c76d00",
-          "line-width": 2.5,
-          "line-offset": -18
-      }
-    },
-    {
-      // "id": "study-MDP_pos_DRAFT_test",
-      "type": "line",
-      metadata: { 'mapbox:group': 'cf08e6682ac5c524c0eb9c365153091e', project_status: [1, 2, 3], project_type: [1] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#c76d00",
-          "line-width": 2.5,
-          "line-offset": 18
-      }
-    },
-    {
-      // "id": "study-FHAD_neg_DRAFT_test",
-      "type": "line",
-      metadata: { 'mapbox:group': 'cf08e6682ac5c524c0eb9c365153091e', project_status: [1, 2, 3], project_type: [18] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#c76d00",
-          "line-width": 2.5,
-          "line-offset": -14,
-          "line-dasharray": [1, 2]
-      }
-    },
-    {
-      // "id": "study-FHAD_pos_DRAFT_test",
-      "type": "line",
-      metadata: { 'mapbox:group': 'cf08e6682ac5c524c0eb9c365153091e', project_status: [1, 2, 3], project_type: [18] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#c76d00",
-          "line-width": 2.5,
-          "line-offset": 14,
-          "line-dasharray": [1, 2]
-      }
-    },
-    {
-      // "id": "capital_neg_DRAFT_test",
-      "type": "line",
-      metadata: { 'mapbox:group': 'cf08e6682ac5c524c0eb9c365153091e', project_status: [1, 2, 3], project_type: [5] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#fdc43f",
-          "line-offset": -10,
-          "line-width": 2.5
-      }
-    },
-    {
-      // "id": "capital_pos_DRAFT_test",
-      "type": "line",
-      metadata: { 'mapbox:group': 'cf08e6682ac5c524c0eb9c365153091e', project_status: [1, 2, 3], project_type: [5] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#fdc43f",
-          "line-width": 2.5,
-          "line-offset": 10
-      }
-    },
-    {
-      // "id": "maintenance_neg_DRAFT_test",
-      "type": "line",
-      metadata: {
-        'mapbox:group': 'cf08e6682ac5c524c0eb9c365153091e',
-        project_status: [1, 2, 3],
-        project_type: MAINTENANCE_IDS,
-      },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#fdc43f",
-          "line-offset": -6,
-          "line-width": 2.5,
-          "line-dasharray": [3, 3]
-      }
-    },
-    {
-      // "id": "maintenance_pos_DRAFT_test",
-      "type": "line",
-      metadata: {
-        'mapbox:group': 'cf08e6682ac5c524c0eb9c365153091e',
-        project_status: [1, 2, 3],
-        project_type: MAINTENANCE_IDS,
-      },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#fdc43f",
-          "line-offset": 6,
-          "line-width": 2.5,
-          "line-dasharray": [3, 3]
-      }
-    },
-    {
-      // "id": "z13_allstudy_neg_DRAFT_test",
-      "type": "line",
-      metadata: { 'mapbox:group': 'cf08e6682ac5c524c0eb9c365153091e', project_status: [1], project_type: [1, 18]  },
-      'source-layer': 'pluto15v1',
-      "maxzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#c76d00",
-          "line-width": 2.5,
-          "line-offset": -4.8
-      }
-    },
-    {
-      // "id": "z13_allstudy_pos_DRAFT_test",
-      "type": "line",
-      metadata: { 'mapbox:group': 'cf08e6682ac5c524c0eb9c365153091e', project_status: [1], project_type: [1, 18] },
-      'source-layer': 'pluto15v1',
-      "maxzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#c76d00",
-          "line-width": 2.5,
-          "line-offset": 4.8
-      }
-    },
-    {
-      // "id": "z13_allproj_neg_DRAFT_test",
-      "type": "line",
-      metadata: {
-        'mapbox:group': 'cf08e6682ac5c524c0eb9c365153091e',
-        project_status: [1, 2, 3],
-        project_type: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 17, 12, 14, 16, 17, 18],
-      },
-      'source-layer': 'pluto15v1',
-      "maxzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#fdc43f",
-          "line-offset": -2,
-          "line-width": 2.5
-      }
     },
     {
       // "id": "z13_allproj_pos_DRAFT_test",
-      "type": "line",
+      type: 'line',
       metadata: {
-        'mapbox:group': 'cf08e6682ac5c524c0eb9c365153091e',
-        project_status: [1, 2, 3],
-        project_type: [1,2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 17, 12, 14, 16, 17,18],
+        project_status: [1],
+        project_type: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 17, 18],
       },
       'source-layer': 'pluto15v1',
-      "maxzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#fdc43f",
-          "line-width": 2.5,
-          "line-offset": 2
-      }
+      maxzoom: 13,
+      // "filter": ["match", ["get", "teddy_stat"], ["drft"], true, false],
+      layout: { 'line-cap': 'round' },
+      paint: {
+        'line-color': '#ffb914',
+        'line-width': 2,
+        'line-gap-width': 1.5,
+      },
     },
     {
-      // "id": "study-MDP_neg_CLSD",
-      "type": "line",
-      metadata: { 'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f', project_status: [2], project_type: [1] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#bd6b00",
-          "line-width": 2.5,
-          "line-offset": -18
-      }
-    },
-    {
-      // "id": "study-MDP_pos_CLSD",
-      "type": "line",
-      metadata: { 'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f', project_status: [2], project_type: [1] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#bd6b00",
-          "line-width": 2.5,
-          "line-offset": 18
-      }
-    },
-    {
-      // "id": "study-FHAD_neg_CLSD",
-      "type": "line",
-      metadata: { 'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f', project_status: [2], project_type: [18] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#bd6b00",
-          "line-width": 2.5,
-          "line-offset": -14,
-          "line-dasharray": [1, 2]
-      }
-    },
-    {
-      // "id": "study-FHAD_pos_CLSD",
-      "type": "line",
-      metadata: { 'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f', project_status: [2], project_type: [18] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#bd6b00",
-          "line-width": 2.5,
-          "line-offset": 14,
-          "line-dasharray": [1, 2]
-      }
-    },
-    {
-      // "id": "capital_neg_CLSD",
-      "type": "line",
-      metadata: { 'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f', project_status: [2], project_type: [5] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-offset": -10,
-          "line-width": 2.5,
-          "line-color": "#f5adff"
-      }
-    },
-    {
-      // "id": "capital_pos_CLSD",
-      "type": "line",
-      metadata: { 'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f', project_status: [2], project_type: [5] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-width": 2.5,
-          "line-offset": 10,
-          "line-color": "#f5adff"
-      }
-    },
-    {
-      // "id": "maintenance_neg_CLSD",
-      "type": "line",
+      // "id": "allproj_CLSD",
+      type: 'line',
       metadata: {
-        'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f',
-        project_status: [2],
-        project_type: MAINTENANCE_IDS,
+        project_status: [9],
+        project_type: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 17, 18],
       },
       'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-offset": -6,
-          "line-width": 2.5,
-          "line-dasharray": [3, 3],
-          "line-color": "#f5adff"
-      }
-    },
-    {
-      // "id": "maintenance_pos_CLSD",
-      "type": "line",
-      metadata: {
-        'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f',
-        project_status: [2],
-        project_type: MAINTENANCE_IDS,
+      minzoom: 13,
+      filter: ['match', ['get', 'teddy_stat'], ['clsd'], true, false],
+      layout: { 'line-cap': 'round' },
+      paint: {
+        'line-width': 2.5,
+        'line-dasharray': [3, 1.5],
+        'line-color': '#e884f6',
+        'line-gap-width': 7,
       },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-width": 2.5,
-          "line-dasharray": [3, 3],
-          "line-offset": 6,
-          "line-color": "#f5adff"
-      }
-    },
-    {
-      // "id": "z13_allstudy_neg_CLSD",
-      "type": "line",
-      metadata: { 'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f', project_status: [2], project_type: [1,18] },
-      'source-layer': 'pluto15v1',
-      "maxzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#bd6b00",
-          "line-width": 2.5,
-          "line-offset": -4.8
-      }
-    },
-    {
-      // "id": "z13_allstudy_pos_CLSD",
-      "type": "line",
-      metadata: { 'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f', project_status: [2], project_type: [1, 18] },
-      'source-layer': 'pluto15v1',
-      "maxzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#bd6b00",
-          "line-width": 2.5,
-          "line-offset": 4.8
-      }
-    },
-    {
-      // "id": "z13_allproj_neg_CLSD",
-      "type": "line",
-      metadata: {
-        'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f',
-        project_status: [2],
-        project_type: [1,18,2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 17, 12, 14, 16, 17],
-      },
-      'source-layer': 'pluto15v1',
-      "maxzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#f5adff",
-          "line-offset": -2,
-          "line-width": 2.5
-      }
     },
     {
       // "id": "z13_allproj_pos_CLSD",
-      "type": "line",
+      type: 'line',
       metadata: {
-        'mapbox:group': '134ad0ebf1081482372fd5c17b6b822f',
-        project_status: [2],
-        project_type: [1,18,2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 17, 12, 14, 16, 17],
+        project_status: [9],
+        project_type: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 17, 18],
       },
       'source-layer': 'pluto15v1',
-      "maxzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#f5adff",
-          "line-width": 2.5,
-          "line-offset": 2
-      }
+      maxzoom: 13,
+      filter: ['match', ['get', 'teddy_stat'], ['clsd'], true, false],
+      layout: { 'line-cap': 'round' },
+      paint: {
+        'line-color': '#e884f6',
+        'line-width': 2,
+        'line-gap-width': 1.5,
+      },
     },
     {
-      // "id": "study-MDP_neg_CNCL",
-      "type": "line",
-      metadata: { 'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda', project_status: [7, 8], project_type: [1] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#a8052e",
-          "line-width": 2.5,
-          "line-offset": -18
-      }
-    },
-    {
-      // "id": "study-MDP_pos_CNCL",
-      "type": "line",
-      metadata: { 'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda', project_status: [7, 8], project_type: [1] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#a8052e",
-          "line-width": 2.5,
-          "line-offset": 18
-      }
-    },
-    {
-      // "id": "study-FHAD_neg_CNCL",
-      "type": "line",
-      metadata: { 'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda', project_status: [7, 8], project_type: [18] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#a8052e",
-          "line-width": 2.5,
-          "line-offset": -14,
-          "line-dasharray": [1, 2]
-      }
-    },
-    {
-      // "id": "study-FHAD_pos_CNCL",
-      "type": "line",
-      metadata: { 'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda', project_status: [7, 8], project_type: [18] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#a8052e",
-          "line-width": 2.5,
-          "line-offset": 14,
-          "line-dasharray": [1, 2]
-      }
-    },
-    {
-      // "id": "capital_neg_CNCL",
-      "type": "line",
-      metadata: { 'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda', project_status: [7, 8], project_type: [5] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-offset": -10,
-          "line-width": 2.5,
-          "line-color": "#fd4e7a"
-      }
-    },
-    {
-      // "id": "capital_pos_CNCL",
-      "type": "line",
-      metadata: { 'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda', project_status: [7, 8], project_type: [5] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-width": 2.5,
-          "line-offset": 10,
-          "line-color": "#fd4e7a"
-      }
-    },
-    {
-      // "id": "maintenance_neg_CNCL",
-      "type": "line",
+      // "id": "allproj_CNCL",
+      type: 'line',
       metadata: {
-        'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda',
-        project_status: [7, 8],
-        project_type: MAINTENANCE_IDS,
+        project_status: [8],
+        project_type: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 17, 18],
       },
       'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-offset": -6,
-          "line-width": 2.5,
-          "line-dasharray": [3, 3],
-          "line-color": "#fd4e7a"
-      }
-    },
-    {
-      // "id": "maintenance_pos_CNCL",
-      "type": "line",
-      metadata: {
-        'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda',
-        project_status: [7, 8],
-        project_type: MAINTENANCE_IDS,
+      minzoom: 13,
+      filter: ['match', ['get', 'teddy_stat'], ['cncld/inactv'], true, false],
+      layout: { 'line-cap': 'round' },
+      paint: {
+        'line-width': 2.5,
+        'line-dasharray': [3, 1.5],
+        'line-color': '#ba0331',
+        'line-gap-width': 7,
       },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-width": 2.5,
-          "line-dasharray": [3, 3],
-          "line-offset": 6,
-          "line-color": "#fd4e7a"
-      }
-    },
-    {
-      // "id": "z13_allstudy_neg_CNCL",
-      "type": "line",
-      metadata: { 'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda', project_status: [7, 8], project_type: [1,18] },
-      'source-layer': 'pluto15v1',
-      "maxzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#a8052e",
-          "line-width": 2.5,
-          "line-offset": -4.8
-      }
-    },
-    {
-      // "id": "z13_allstudy_pos_CNCL",
-      "type": "line",
-      metadata: { 'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda', project_status: [7, 8], project_type: [1, 18] },
-      'source-layer': 'pluto15v1',
-      "maxzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#a8052e",
-          "line-width": 2.5,
-          "line-offset": 4.8
-      }
-    },
-    {
-      // "id": "z13_allproj_neg_CNCL",
-      "type": "line",
-      metadata: {
-        'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda',
-        project_status: [7, 8],
-        project_type: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 17, 12, 14, 16, 17, 18],
-      },
-      'source-layer': 'pluto15v1',
-      "maxzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#fd4e7a",
-          "line-offset": -2,
-          "line-width": 2.5
-      }
     },
     {
       // "id": "z13_allproj_pos_CNCL",
-      "type": "line",
+      type: 'line',
       metadata: {
-        'mapbox:group': '7d739a5929d10c2c1a030d5dc22ffeda',
-        project_status: [7, 8],
-        project_type: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 17, 12, 14, 16, 17, 18],
+        project_status: [8],
+        project_type: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 17, 18],
       },
       'source-layer': 'pluto15v1',
-      "maxzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#fd4e7a",
-          "line-width": 2.5,
-          "line-offset": 2
-      }
-    },
-    {
-      // "id": "study-MDP_neg_ACTV",
-      "type": "line",
-      metadata: { 'mapbox:group': 'ad742fba24a74c724837d82e41ee6880', project_status: [3], project_type: [1] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#00c247",
-          "line-width": 2.5,
-          "line-offset": -18
-      }
-    },
-    {
-      // "id": "study-MDP_pos_ACTV",
-      "type": "line",
-      metadata: { 'mapbox:group': 'ad742fba24a74c724837d82e41ee6880', project_status: [3], project_type: [1] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#00c247",
-          "line-width": 2.5,
-          "line-offset": 18
-      }
-    },
-    {
-      // "id": "study-FHAD_neg_ACTV",
-      "type": "line",
-      metadata: { 'mapbox:group': 'ad742fba24a74c724837d82e41ee6880', project_status: [3], project_type: [18] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#00c247",
-          "line-width": 2.5,
-          "line-offset": -14,
-          "line-dasharray": [1, 2]
-      }
-    },
-    {
-      // "id": "study-FHAD_pos_ACTV",
-      "type": "line",
-      metadata: { 'mapbox:group': 'ad742fba24a74c724837d82e41ee6880', project_status: [3], project_type: [18] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#00c247",
-          "line-width": 2.5,
-          "line-offset": 14,
-          "line-dasharray": [1, 2]
-      }
-    },
-    {
-      // "id": "capital_neg_ACTV",
-      "type": "line",
-      metadata: { 'mapbox:group': 'ad742fba24a74c724837d82e41ee6880', project_status: [3], project_type: [5] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#b5ff3d",
-          "line-offset": -10,
-          "line-width": 2.5
-      }
-    },
-    {
-      // "id": "capital_pos_ACTV",
-      "type": "line",
-      metadata: { 'mapbox:group': 'ad742fba24a74c724837d82e41ee6880', project_status: [3], project_type: [5] },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#b5ff3d",
-          "line-width": 2.5,
-          "line-offset": 10
-      }
-    },
-    {
-      // "id": "maintenance_neg_ACTV",
-      "type": "line",
-      metadata: {
-        'mapbox:group': 'ad742fba24a74c724837d82e41ee6880',
-        project_status: [3],
-        project_type: MAINTENANCE_IDS,
+      maxzoom: 13,
+      filter: ['match', ['get', 'teddy_stat'], ['cncld/inactv'], true, false],
+      layout: { 'line-cap': 'round' },
+      paint: {
+        'line-color': '#ba0331',
+        'line-width': 2,
+        'line-gap-width': 1.5,
       },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#b5ff3d",
-          "line-offset": -6,
-          "line-width": 2.5,
-          "line-dasharray": [3, 3]
-      }
     },
     {
-      // "id": "maintenance_pos_ACTV",
-      "type": "line",
+      // "id": "allproj_ACTV",
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      minzoom: 13,
       metadata: {
-        'mapbox:group': 'ad742fba24a74c724837d82e41ee6880',
-        project_status: [3],
-        project_type: MAINTENANCE_IDS,
+        project_status: [5],
+        project_type: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 17, 18],
       },
-      'source-layer': 'pluto15v1',
-      "minzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#b5ff3d",
-          "line-offset": 6,
-          "line-width": 2.5,
-          "line-dasharray": [3, 3]
-      }
-    },
-    {
-      // "id": "z13_allstudy_neg_ACTV",
-      "type": "line",
-      metadata: { 'mapbox:group': 'ad742fba24a74c724837d82e41ee6880', project_status: [3], project_type: [1] },
-      'source-layer': 'pluto15v1',
-      "maxzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#00c247",
-          "line-width": 2.5,
-          "line-offset": -4.8
-      }
-    },
-    {
-      // "id": "z13_allstudy_pos_ACTV",
-      "type": "line",
-      metadata: { 'mapbox:group': 'ad742fba24a74c724837d82e41ee6880' , project_status: [3], project_type: [1]},
-      'source-layer': 'pluto15v1',
-      "maxzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#00c247",
-          "line-width": 2.5,
-          "line-offset": 4.8
-      }
-    },
-    {
-      // "id": "z13_allproj_neg_ACTV",
-      "type": "line",
-      metadata: {
-        'mapbox:group': 'ad742fba24a74c724837d82e41ee6880',
-        project_status: [3],
-        project_type: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 17, 12, 14, 16, 17, 18],
+      layout: { 'line-cap': 'round' },
+      paint: {
+        'line-color': '#00c210',
+        'line-width': 2.5,
+        'line-dasharray': [3, 1.5],
+        'line-gap-width': 7,
       },
-      'source-layer': 'pluto15v1',
-      "maxzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#b5ff3d",
-          "line-offset": -2,
-          "line-width": 2.5
-      }
     },
     {
       // "id": "z13_allproj_pos_ACTV",
-      "type": "line",
+      type: 'line',
       metadata: {
-        'mapbox:group': 'ad742fba24a74c724837d82e41ee6880',
-        project_status: [3],
-        project_type: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 17, 12, 14, 16, 17, 18],
+        project_status: [5],
+        project_type: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 17, 18],
       },
       'source-layer': 'pluto15v1',
-      "maxzoom": 13,
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#b5ff3d",
-          "line-width": 2.5,
-          "line-offset": 2
-      }
+      maxzoom: 13,
+      // "filter": ["match", ["get", "teddy_stat"], ["actv"], true, false],
+      layout: { 'line-cap': 'round' },
+      paint: {
+        'line-color': '#00c210',
+        'line-width': 2,
+        'line-gap-width': 1.5,
+      },
     },
     {
       // "id": "propacq__cncl",
-      "type": "symbol",
-      metadata: { 'mapbox:group': 'bdf3db001830c897392db56b343f448b', project_status: [7, 8], project_type: [13] },
-      'source-layer': 'pluto15v1',
-      "layout": {
-          "icon-image": "propacq_RED_small",
-          'icon-ignore-placement': true,
-          'text-allow-overlap': true,
-          'icon-allow-overlap': true,
-          'text-ignore-placement': true,
-          "icon-size": 0.5,
-          "icon-padding": 0
+      type: 'symbol',
+      metadata: {
+        project_status: [8],
+        project_type: [13],
       },
-      "paint": {}
+      'source-layer': 'pluto15v1',
+      layout: {
+        'icon-image': 'propacq_RED_small',
+        'icon-size': 0.5,
+        'icon-allow-overlap': true,
+        'icon-padding': 0,
+        'icon-ignore-placement': true,
+      },
+      paint: {},
     },
     {
       // "id": "propacq__draft",
-      "type": "symbol",
-      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1], project_type: [13] },  'source-layer': 'pluto15v1',
-      "layout": {
-          "icon-image": "propacq_ORANGE_bold_small",
-          'icon-ignore-placement': true,
-          'text-allow-overlap': true,
-          'icon-allow-overlap': true,
-          'text-ignore-placement': true,
-          "icon-size": 0.5,
-          "icon-padding": 0
+      type: 'symbol',
+      metadata: {
+        project_status: [1],
+        project_type: [13],
       },
-      "paint": {}
+      'source-layer': 'pluto15v1',
+      layout: {
+        'icon-image': 'propacq_ORANGE_bold_small',
+        'icon-size': 0.5,
+        'icon-allow-overlap': true,
+        'icon-padding': 0,
+        'icon-ignore-placement': true,
+      },
+      paint: {},
     },
     {
       // "id": "propacq__rqst",
-      "type": "symbol",
-      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [2], project_type: [13] },
-      'source-layer': 'pluto15v1',
-      "layout": {
-          "icon-image": "propacq_PINK_bold_small",
-          'icon-ignore-placement': true,
-          'text-allow-overlap': true,
-          'icon-allow-overlap': true,
-          'text-ignore-placement': true,
-          "icon-size": 0.5,
-          "icon-padding": 0
+      type: 'symbol',
+      metadata: {
+        project_status: [2],
+        project_type: [13],
       },
-      "paint": {}
+      'source-layer': 'pluto15v1',
+      layout: {
+        'icon-image': 'propacq_PINK_bold_small',
+        'icon-size': 0.5,
+        'icon-allow-overlap': true,
+        'icon-padding': 0,
+        'icon-ignore-placement': true,
+      },
+      paint: {},
     },
     {
       // "id": "propacq__aprvd",
-      "type": "symbol",
-      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [3], project_type: [13] }, 
-      'source-layer': 'pluto15v1',
-      "layout": {
-          "icon-image": "propacq_GREEN_bold_small",
-          'icon-ignore-placement': true,
-          'text-allow-overlap': true,
-          'icon-allow-overlap': true,
-          'text-ignore-placement': true,
-          "icon-size": 0.5,
-          "icon-padding": 0
+      type: 'symbol',
+      metadata: {
+        project_status: [3],
+        project_type: [13],
       },
-      "paint": {}
+      'source-layer': 'pluto15v1',
+      layout: {
+        'icon-image': 'propacq_GREEN_bold_small',
+        'icon-size': 0.5,
+        'icon-allow-overlap': true,
+        'icon-padding': 0,
+        'icon-ignore-placement': true,
+      },
+      paint: {},
     },
     {
       // "id": "rd__cncl",
-      "type": "symbol",
-      metadata: { 'mapbox:group': 'bdf3db001830c897392db56b343f448b', project_status: [7, 8], project_type: [15] },
-      'source-layer': 'pluto15v1',
-      "layout": {
-          "icon-image": "RD_red",
-          'icon-ignore-placement': true,
-          'text-allow-overlap': true,
-          'icon-allow-overlap': true,
-          'text-ignore-placement': true,
-          "icon-size": 0.5,
-          "icon-padding": 0
+      type: 'symbol',
+      metadata: {
+        project_status: [8],
+        project_type: [15, 16],
       },
-      "paint": {}
+      'source-layer': 'pluto15v1',
+      layout: {
+        'icon-image': 'RD_Red_New',
+        'icon-size': 0.5,
+        'icon-allow-overlap': true,
+        'icon-padding': 0,
+        'icon-ignore-placement': true,
+      },
+      paint: {},
     },
     {
       // "id": "rd__draft",
-      "type": "symbol",
-      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1], project_type: [15] },
-      'source-layer': 'pluto15v1',
-      "layout": {
-          "icon-image": "RD_orange",
-          'icon-ignore-placement': true,
-          'text-allow-overlap': true,
-          'icon-allow-overlap': true,
-          'text-ignore-placement': true,
-          "icon-size": 0.5,
-          "icon-padding": 0
+      type: 'symbol',
+      metadata: {
+        project_status: [1],
+        project_type: [15, 16],
       },
-      "paint": {}
+      'source-layer': 'pluto15v1',
+      layout: {
+        'icon-image': 'RD_Orange_New',
+        'icon-size': 0.5,
+        'icon-allow-overlap': true,
+        'icon-padding': 0,
+        'icon-ignore-placement': true,
+      },
+      paint: {},
     },
     {
       // "id": "rd__rqst",
-      "type": "symbol",
-      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [2], project_type: [15] }, 
-      'source-layer': 'pluto15v1',
-      "layout": {
-          "icon-image": "RD_pink",
-          'icon-ignore-placement': true,
-          'text-allow-overlap': true,
-          'icon-allow-overlap': true,
-          'text-ignore-placement': true,
-          "icon-size": 0.5,
-          "icon-padding": 0
+      type: 'symbol',
+      metadata: {
+        project_status: [2],
+        project_type: [15, 16],
       },
-      "paint": {}
+      'source-layer': 'pluto15v1',
+      layout: {
+        'icon-image': 'RD_Pink_New',
+        'icon-size': 0.5,
+        'icon-allow-overlap': true,
+        'icon-padding': 0,
+        'icon-ignore-placement': true,
+      },
+      paint: {},
     },
     {
       // "id": "rd__aprvd",
-      "type": "symbol",
-      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [3], project_type: [15] },
-      'source-layer': 'pluto15v1',
-      "layout": {
-          "icon-image": "RD_green",
-          'icon-ignore-placement': true,
-          'text-allow-overlap': true,
-          'icon-allow-overlap': true,
-          'text-ignore-placement': true,
-          "icon-size": 0.5,
-          "icon-padding": 0
+      type: 'symbol',
+      metadata: {
+        project_status: [3],
+        project_type: [15, 16],
       },
-      "paint": {}
-    }
+      'source-layer': 'pluto15v1',
+      layout: {
+        'icon-allow-overlap': true,
+        'icon-padding': 0,
+        'icon-image': 'RD_Green_New',
+        'icon-size': 0.5,
+        'icon-ignore-placement': true,
+      },
+      paint: {},
+    },
   ],
 };
 
@@ -3421,7 +2667,13 @@ export const tileStyles = {
       // id: 'nonfema_500yr',
       type: 'fill',
       'source-layer': 'pluto15v1',
-      filter: ['match', ['get', 'floodplain_type'], ['500-Year Floodplain (0.2% Annual Chance)', 'Floodway'], true, false],
+      filter: [
+        'match',
+        ['get', 'floodplain_type'],
+        ['500-Year Floodplain (0.2% Annual Chance)', 'Floodway'],
+        true,
+        false,
+      ],
       paint: {
         'fill-opacity': 0.6,
         'fill-color': '#73b2ff',
@@ -3567,155 +2819,148 @@ export const tileStyles = {
   [EFFECTIVE_REACHES]: [
     {
       // "id": "effectivereaches_unknw_shdw",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": ["match", ["get", "studyname"], ["unknown"], true, false],
-      "paint": {"line-width": 10, "line-blur": 11, "line-offset": 2}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      filter: ['match', ['get', 'studyname'], ['unknown'], true, false],
+      paint: { 'line-width': 10, 'line-blur': 11, 'line-offset': 2 },
     },
     {
       // "id": "effectivereaches_known_shdw",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": ["match", ["get", "studyname"], ["unknown"], false, true],
-      "paint": {"line-width": 10, "line-blur": 11}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      filter: ['match', ['get', 'studyname'], ['unknown'], false, true],
+      paint: { 'line-width': 10, 'line-blur': 11 },
     },
     {
       // "id": "effectivereaches_known copy",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": ["match", ["get", "studyname"], ["unknown"], false, true],
-      "paint": {"line-color": "rgb(71, 250, 0)", "line-width": 2.5}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      filter: ['match', ['get', 'studyname'], ['unknown'], false, true],
+      paint: { 'line-color': 'rgb(71, 250, 0)', 'line-width': 2.5 },
     },
     {
       // "id": "effectivereaches_unknown",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": ["match", ["get", "studyname"], ["unknown"], true, false],
-      "paint": {
-          "line-color": "rgb(250, 0, 0)",
-          "line-width": 2.5,
-          "line-offset": 2
-      }
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      filter: ['match', ['get', 'studyname'], ['unknown'], true, false],
+      paint: {
+        'line-color': 'rgb(250, 0, 0)',
+        'line-width': 2.5,
+        'line-offset': 2,
+      },
     },
   ],
   [EFFECTIVE_REACHES_ENDPOINTS]: [
     {
       // "id": "effectivereaches_startend_shadow",
-      "type": "circle",
-      "source-layer": "pluto15v1",
-      "minzoom": 11,
-      "paint": {
-          "circle-color": "rgb(0, 0, 0)",
-          "circle-radius": 12,
-          "circle-blur": 1.8
-      }
+      type: 'circle',
+      'source-layer': 'pluto15v1',
+      minzoom: 11,
+      paint: {
+        'circle-color': 'rgb(0, 0, 0)',
+        'circle-radius': 12,
+        'circle-blur': 1.8,
+      },
     },
     {
-        // "id": "effectivereaches_startend_shadow copy",
-        "type": "circle",
-        "source-layer": "pluto15v1",
-        "maxzoom": 11,
-        "paint": {
-            "circle-color": "rgb(0, 0, 0)",
-            "circle-radius": 9,
-            "circle-blur": 1.8
-        }
+      // "id": "effectivereaches_startend_shadow copy",
+      type: 'circle',
+      'source-layer': 'pluto15v1',
+      maxzoom: 11,
+      paint: {
+        'circle-color': 'rgb(0, 0, 0)',
+        'circle-radius': 9,
+        'circle-blur': 1.8,
+      },
     },
     {
-        // "id": "kn_efctvrch_startend_z11",
-        "type": "circle",
-        "source-layer": "pluto15v1",
-        "minzoom": 11,
-        "filter": ["match", ["get", "studyname"], ["unknown"], false, true],
-        "paint": {"circle-color": "#47fa00", "circle-radius": 6}
+      // "id": "kn_efctvrch_startend_z11",
+      type: 'circle',
+      'source-layer': 'pluto15v1',
+      minzoom: 11,
+      filter: ['match', ['get', 'studyname'], ['unknown'], false, true],
+      paint: { 'circle-color': '#47fa00', 'circle-radius': 6 },
     },
     {
-        // "id": "kn_efctvrch_startend_z0",
-        "type": "circle",
-        "source-layer": "pluto15v1",
-        "maxzoom": 11,
-        "filter": ["match", ["get", "studyname"], ["unknown"], false, true],
-        "paint": {"circle-color": "#47fa00", "circle-radius": 4.5}
+      // "id": "kn_efctvrch_startend_z0",
+      type: 'circle',
+      'source-layer': 'pluto15v1',
+      maxzoom: 11,
+      filter: ['match', ['get', 'studyname'], ['unknown'], false, true],
+      paint: { 'circle-color': '#47fa00', 'circle-radius': 4.5 },
     },
     {
-        // "id": "unkn_efctvrchs_startend_z11 copy",
-        "type": "circle",
-        "source-layer": "pluto15v1",
-        "minzoom": 11,
-        "filter": ["match", ["get", "studyname"], ["unknown"], true, false],
-        "paint": {"circle-color": "#fa0000", "circle-radius": 4}
+      // "id": "unkn_efctvrchs_startend_z11 copy",
+      type: 'circle',
+      'source-layer': 'pluto15v1',
+      minzoom: 11,
+      filter: ['match', ['get', 'studyname'], ['unknown'], true, false],
+      paint: { 'circle-color': '#fa0000', 'circle-radius': 4 },
     },
     {
-        // "id": "unkn_efctvrch_startend_z0 ",
-        "type": "circle",
-        "source-layer": "pluto15v1",
-        "maxzoom": 11,
-        "filter": ["match", ["get", "studyname"], ["unknown"], true, false],
-        "paint": {"circle-color": "#fa0000", "circle-radius": 3}
-    }
+      // "id": "unkn_efctvrch_startend_z0 ",
+      type: 'circle',
+      'source-layer': 'pluto15v1',
+      maxzoom: 11,
+      filter: ['match', ['get', 'studyname'], ['unknown'], true, false],
+      paint: { 'circle-color': '#fa0000', 'circle-radius': 3 },
+    },
   ],
   [FEMA_FLOOD_HAZARD]: [
     {
       // "id": "nfhl_500y",
-      "type": "fill",
+      type: 'fill',
       'source-layer': 'pluto15v1',
-      "filter": [
-          "all",
-          ["match", ["get", "fld_zone"], ["X"], true, false],
+      filter: [
+        'all',
+        ['match', ['get', 'fld_zone'], ['X'], true, false],
+        [
+          'match',
+          ['get', 'zone_subty'],
           [
-              "match",
-              ["get", "zone_subty"],
-              [
-                  "0.2 PCT ANNUAL CHANCE FLOOD HAZARD CONTAINED IN STRUCTURE",
-                  "0.2 PCT ANNUAL CHANCE FLOOD HAZARD",
-                  "1 PCT DEPTH LESS THAN 1 FOOT"
-                  
-              ],
-              true,
-              false
-          ]
+            '0.2 PCT ANNUAL CHANCE FLOOD HAZARD CONTAINED IN STRUCTURE',
+            '0.2 PCT ANNUAL CHANCE FLOOD HAZARD',
+            '1 PCT DEPTH LESS THAN 1 FOOT',
+          ],
+          true,
+          false,
+        ],
       ],
-      "paint": {
-          "fill-color": "rgb(255, 128, 0)",
-          "fill-opacity": 0.4,
-          "fill-outline-color": "#ff8000"
-      }
+      paint: {
+        'fill-color': 'rgb(255, 128, 0)',
+        'fill-opacity': 0.4,
+        'fill-outline-color': '#ff8000',
+      },
     },
     {
       // "id": "nfhl_100y",
-      "type": "fill",
+      type: 'fill',
       'source-layer': 'pluto15v1',
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "fld_zone"],
-              ["A", "AE", "AH", "AO"],
-              true,
-              false
-          ],
-          ["match", ["get", "zone_subty"], ["FLOODWAY"], false, true]
+      filter: [
+        'all',
+        ['match', ['get', 'fld_zone'], ['A', 'AE', 'AH', 'AO'], true, false],
+        ['match', ['get', 'zone_subty'], ['FLOODWAY'], false, true],
       ],
-      "paint": {
-          "fill-color": "rgb(0, 230, 255)",
-          "fill-opacity": 0.4,
-          "fill-outline-color": "#00e6ff"
-      }
+      paint: {
+        'fill-color': 'rgb(0, 230, 255)',
+        'fill-opacity': 0.4,
+        'fill-outline-color': '#00e6ff',
+      },
     },
     {
       // "id": "nfhl_floodway",
-      "type": "fill",
+      type: 'fill',
       'source-layer': 'pluto15v1',
-      "filter": [
-          "all",
-          ["match", ["get", "zone_subty"], ["FLOODWAY"], true, false],
-          ["match", ["get", "fld_zone"], ["AE"], true, false]
+      filter: [
+        'all',
+        ['match', ['get', 'zone_subty'], ['FLOODWAY'], true, false],
+        ['match', ['get', 'fld_zone'], ['AE'], true, false],
       ],
-      "paint": {
-          "fill-color": "rgb(255, 0, 0)",
-          "fill-opacity": 0.4,
-          "fill-pattern": "floodway43"
-      }
+      paint: {
+        'fill-color': 'rgb(255, 0, 0)',
+        'fill-opacity': 0.4,
+        'fill-pattern': 'floodway43',
+      },
     },
   ],
   [WATERSHED_FILTERS]: [
@@ -3979,150 +3224,72 @@ export const tileStyles = {
     // },
     {
       // "id": "stream shadow new",
-      "type": "line",
-      "source-layer": 'pluto15v1',
-      "layout": {
-          "line-join": "round",
-          "line-round-limit": 0.5,
-          "line-cap": "round"
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {
+        'line-join': 'round',
+        'line-round-limit': 0.5,
+        'line-cap': 'round',
       },
-      "paint": {
-          "line-width": [
-              "interpolate",
-              ["linear"],
-              ["get", "catch_sum"],
-              640,
-              5,
-              6400,
-              10,
-              568906,
-              18,
-              1131411.08001002,
-              21
-          ],
-          "line-opacity": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              0,
-              0,
-              11.28,
-              0.1,
-              12,
-              0.4,
-              22,
-              0.4
-          ],
-          "line-blur": 5
-      }
-  },
-  {
+      paint: {
+        'line-width': [
+          'interpolate',
+          ['linear'],
+          ['get', 'catch_sum'],
+          640,
+          5,
+          6400,
+          10,
+          568906,
+          18,
+          1131411.08001002,
+          21,
+        ],
+        'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 11.28, 0.1, 12, 0.4, 22, 0.4],
+        'line-blur': 5,
+      },
+    },
+    {
       // "id": "stream new",
-      "type": "line",
-      "source-layer": 'pluto15v1',
-      "layout": {
-          "line-join": "round",
-          "line-round-limit": 0.5,
-          "line-cap": "round"
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {
+        'line-join': 'round',
+        'line-round-limit': 0.5,
+        'line-cap': 'round',
       },
-      "paint": {
-          "line-color": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              0,
-              "hsla(0, 0%, 0%, 0)",
-              8,
-              "#508fce",
-              13,
-              "#0882fd",
-              14.121,
-              "#0882fd"
-          ],
-          "line-width": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              0,
-              [
-                  "interpolate",
-                  ["linear"],
-                  ["get", "catch_sum"],
-                  640,
-                  0,
-                  6400,
-                  0,
-                  1131411.08001002,
-                  0
-              ],
-              9,
-              [
-                  "interpolate",
-                  ["linear"],
-                  ["get", "catch_sum"],
-                  640,
-                  0,
-                  6400,
-                  3,
-                  568906,
-                  5,
-                  1131411.08001002,
-                  7
-              ],
-              12,
-              [
-                  "interpolate",
-                  ["linear"],
-                  ["get", "catch_sum"],
-                  640,
-                  1.5,
-                  6400,
-                  6,
-                  568906,
-                  12,
-                  1131411.08001002,
-                  16
-              ],
-              15,
-              [
-                  "interpolate",
-                  ["linear"],
-                  ["get", "catch_sum"],
-                  640,
-                  2,
-                  6400,
-                  6,
-                  568906,
-                  12,
-                  1131411.08001002,
-                  16
-              ],
-              22,
-              [
-                  "interpolate",
-                  ["linear"],
-                  ["get", "catch_sum"],
-                  640,
-                  2.5,
-                  6400,
-                  6,
-                  1131411.08001002,
-                  16
-              ]
-          ],
-          "line-opacity": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              8,
-              1,
-              12,
-              1,
-              22,
-              0.5
-          ]
-      }
-  },
+      paint: {
+        'line-color': [
+          'interpolate',
+          ['linear'],
+          ['zoom'],
+          0,
+          'hsla(0, 0%, 0%, 0)',
+          8,
+          '#508fce',
+          13,
+          '#0882fd',
+          14.121,
+          '#0882fd',
+        ],
+        'line-width': [
+          'interpolate',
+          ['linear'],
+          ['zoom'],
+          0,
+          ['interpolate', ['linear'], ['get', 'catch_sum'], 640, 0, 6400, 0, 1131411.08001002, 0],
+          9,
+          ['interpolate', ['linear'], ['get', 'catch_sum'], 640, 0, 6400, 3, 568906, 5, 1131411.08001002, 7],
+          12,
+          ['interpolate', ['linear'], ['get', 'catch_sum'], 640, 1.5, 6400, 6, 568906, 12, 1131411.08001002, 16],
+          15,
+          ['interpolate', ['linear'], ['get', 'catch_sum'], 640, 2, 6400, 6, 568906, 12, 1131411.08001002, 16],
+          22,
+          ['interpolate', ['linear'], ['get', 'catch_sum'], 640, 2.5, 6400, 6, 1131411.08001002, 16],
+        ],
+        'line-opacity': ['interpolate', ['linear'], ['zoom'], 8, 1, 12, 1, 22, 0.5],
+      },
+    },
   ],
   [MHFD_STREAMS_FILTERS]: [
     {
@@ -5169,7 +4336,6 @@ export const tileStyles = {
     },
   ],
   [FUTURE_DEVELOPMENT_LINE]: [
-
     {
       // "id": "FutrDev-line shadow",
       "type": "line",
@@ -5179,7 +4345,6 @@ export const tileStyles = {
       // "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
     },
 
-  
     {
       // "id": "FutrDev-line",
       "type": "line",
@@ -5340,158 +4505,111 @@ export const tileStyles = {
     },
   ],
   [ALERT_STATION]: [
-  {
+    {
       // "id": "Wthr Shadow",
-      "type": "circle",
+      type: 'circle',
       'source-layer': 'pluto15v1',
-      "filter": [
-          "match",
-          ["get", "station_type"],
-          ["Repeater, Weather", "Weather, Stage", "Weather"],
-          true,
-          false
-      ],
-      "paint": {
-          "circle-stroke-opacity": 0,
-          "circle-opacity": 0.5,
-          "circle-blur": 1,
-          "circle-radius": 20
-      }
-  },
-  {
+      filter: ['match', ['get', 'station_type'], ['Repeater, Weather', 'Weather, Stage', 'Weather'], true, false],
+      paint: {
+        'circle-stroke-opacity': 0,
+        'circle-opacity': 0.5,
+        'circle-blur': 1,
+        'circle-radius': 20,
+      },
+    },
+    {
       // "id": "Prcp Shadow",
-      "type": "circle",
+      type: 'circle',
       'source-layer': 'pluto15v1',
-      "filter": [
-          "match",
-          ["get", "station_type"],
-          [
-              "Precipitation",
-              "Precipitation, Stage",
-              "Repeater, Precipitation",
-              "Precipitation, Dual Stage"
-          ],
-          true,
-          false
+      filter: [
+        'match',
+        ['get', 'station_type'],
+        ['Precipitation', 'Precipitation, Stage', 'Repeater, Precipitation', 'Precipitation, Dual Stage'],
+        true,
+        false,
       ],
-      "paint": {
-          "circle-stroke-opacity": 0,
-          "circle-blur": 1,
-          "circle-radius": 15
-      }
-  },
-  {
+      paint: {
+        'circle-stroke-opacity': 0,
+        'circle-blur': 1,
+        'circle-radius': 15,
+      },
+    },
+    {
       // "id": "Stage Shadow",
-      "type": "circle",
+      type: 'circle',
       'source-layer': 'pluto15v1',
-      "filter": [
-          "match",
-          ["get", "station_type"],
-          ["Stage", "Dual Stage"],
-          true,
-          false
-      ],
-      "paint": {
-          "circle-stroke-opacity": 0,
-          "circle-blur": 1,
-          "circle-radius": 10
-      }
-  },
-  {
+      filter: ['match', ['get', 'station_type'], ['Stage', 'Dual Stage'], true, false],
+      paint: {
+        'circle-stroke-opacity': 0,
+        'circle-blur': 1,
+        'circle-radius': 10,
+      },
+    },
+    {
       // "id": "Weather",
-      "type": "symbol",
+      type: 'symbol',
       'source-layer': 'pluto15v1',
-      "filter": [
-          "match",
-          ["get", "station_type"],
-          ["Repeater, Weather", "Weather"],
-          true,
-          false
-      ],
-      "layout": {
-          "icon-image": "Weather",
-          "icon-size": 0.1,
-          "icon-allow-overlap": true,
-          "icon-ignore-placement": true
+      filter: ['match', ['get', 'station_type'], ['Repeater, Weather', 'Weather'], true, false],
+      layout: {
+        'icon-image': 'Weather',
+        'icon-size': 0.1,
+        'icon-allow-overlap': true,
+        'icon-ignore-placement': true,
       },
-      "paint": {}
-  },
-  {
+      paint: {},
+    },
+    {
       // "id": "Precip",
-      "type": "symbol",
+      type: 'symbol',
       'source-layer': 'pluto15v1',
-      "filter": [
-          "match",
-          ["get", "station_type"],
-          ["Precipitation", "Repeater, Precipitation"],
-          true,
-          false
-      ],
-      "layout": {
-          "icon-image": "Precip",
-          "icon-size": 0.1,
-          "icon-ignore-placement": true,
-          "icon-allow-overlap": true
+      filter: ['match', ['get', 'station_type'], ['Precipitation', 'Repeater, Precipitation'], true, false],
+      layout: {
+        'icon-image': 'Precip',
+        'icon-size': 0.1,
+        'icon-ignore-placement': true,
+        'icon-allow-overlap': true,
       },
-      "paint": {}
-  },
-  {
+      paint: {},
+    },
+    {
       // "id": "Stage",
-      "type": "symbol",
+      type: 'symbol',
       'source-layer': 'pluto15v1',
-      "filter": [
-          "match",
-          ["get", "station_type"],
-          ["Stage", "Dual Stage"],
-          true,
-          false
-      ],
-      "layout": {
-          "icon-image": "Stage",
-          "icon-size": 0.1,
-          "icon-allow-overlap": true,
-          "icon-ignore-placement": true
+      filter: ['match', ['get', 'station_type'], ['Stage', 'Dual Stage'], true, false],
+      layout: {
+        'icon-image': 'Stage',
+        'icon-size': 0.1,
+        'icon-allow-overlap': true,
+        'icon-ignore-placement': true,
       },
-      "paint": {}
-  },
-  {
+      paint: {},
+    },
+    {
       // "id": "Weather Stage",
-      "type": "symbol",
+      type: 'symbol',
       'source-layer': 'pluto15v1',
-      "filter": [
-          "match",
-          ["get", "station_type"],
-          ["Weather, Stage"],
-          true,
-          false
-      ],
-      "layout": {
-          "icon-image": "WeatherStage",
-          "icon-size": 0.1,
-          "icon-allow-overlap": true,
-          "icon-ignore-placement": true
+      filter: ['match', ['get', 'station_type'], ['Weather, Stage'], true, false],
+      layout: {
+        'icon-image': 'WeatherStage',
+        'icon-size': 0.1,
+        'icon-allow-overlap': true,
+        'icon-ignore-placement': true,
       },
-      "paint": {}
-  },
-  {
+      paint: {},
+    },
+    {
       // "id": "Precip Stage",
-      "type": "symbol",
+      type: 'symbol',
       'source-layer': 'pluto15v1',
-      "filter": [
-          "match",
-          ["get", "station_type"],
-          ["Precipitation, Stage", "Precipitation, Dual Stage"],
-          true,
-          false
-      ],
-      "layout": {
-          "icon-image": "PrecipStage",
-          "icon-size": 0.1,
-          "icon-ignore-placement": true,
-          "icon-allow-overlap": true
+      filter: ['match', ['get', 'station_type'], ['Precipitation, Stage', 'Precipitation, Dual Stage'], true, false],
+      layout: {
+        'icon-image': 'PrecipStage',
+        'icon-size': 0.1,
+        'icon-ignore-placement': true,
+        'icon-allow-overlap': true,
       },
-      "paint": {}
-  }
+      paint: {},
+    },
   ],
   [DWR_DAM_SAFETY]: [
     {
@@ -5523,194 +4641,84 @@ export const tileStyles = {
   [STREAM_MANAGEMENT_CORRIDORS]: [
     {
       // "id": "all corridor shadows",
-      "type": "line",
-      "source-layer": 'pluto15v1',
-      "paint": {"line-blur": 5, "line-width": 10, "line-opacity": 0.4}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      paint: { 'line-blur': 5, 'line-width': 10, 'line-opacity': 0.4 },
     },
     {
       // "id": "FldHzrdBfr-Wtrshd",
-      "type": "fill",
-      "source-layer": 'pluto15v1',
-      "filter": [
-        "all",
-        [
-          "match",
-          ["get", "smc_type"],
-          ["Fluvial Hazard Buffer"],
-          true,
-          false
-        ],
-        ["match", ["get", "scale"], ["Watershed"], true, false]
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      filter: [
+        'all',
+        ['match', ['get', 'smc_type'], ['Fluvial Hazard Buffer'], true, false],
+        ['match', ['get', 'scale'], ['Watershed'], true, false],
       ],
-      "paint": {
-        "fill-color": "#0aa347",
-        "fill-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0.8,
-          12.31,
-          0.8,
-          13,
-          1,
-          14,
-          1,
-          15,
-          0.6,
-          17,
-          0.4
-        ],
-        "fill-pattern": "SMC_medgreen"
-      }
+      paint: {
+        'fill-color': '#0aa347',
+        'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0.8, 12.31, 0.8, 13, 1, 14, 1, 15, 0.6, 17, 0.4],
+        'fill-pattern': 'SMC_medgreen',
+      },
     },
     {
-        // "id": "StrmMngmtCrdr-Wtrshd",
-        "type": "fill",
-        "source-layer": 'pluto15v1',
-        "filter": [
-            "all",
-            [
-                "match",
-                ["get", "smc_type"],
-                ["Stream Management Corridor"],
-                true,
-                false
-            ],
-            ["match", ["get", "scale"], ["Watershed"], true, false]
-        ],
-        "paint": {
-            "fill-color": "#0aa347",
-            "fill-outline-color": "rgba(118, 218, 98, 0)",
-            "fill-opacity": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                0,
-                0.8,
-                12.31,
-                0.8,
-                13,
-                1,
-                14,
-                1,
-                15,
-                0.6,
-                17,
-                0.4
-            ]
-        }
+      // "id": "StrmMngmtCrdr-Wtrshd",
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      filter: [
+        'all',
+        ['match', ['get', 'smc_type'], ['Stream Management Corridor'], true, false],
+        ['match', ['get', 'scale'], ['Watershed'], true, false],
+      ],
+      paint: {
+        'fill-color': '#0aa347',
+        'fill-outline-color': 'rgba(118, 218, 98, 0)',
+        'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0.8, 12.31, 0.8, 13, 1, 14, 1, 15, 0.6, 17, 0.4],
+      },
     },
     {
-        // "id": "ActvStrmCrdr-Wtrshd",
-        "type": "fill",
-        "source-layer": 'pluto15v1',
-        "filter": [
-            "all",
-            [
-                "match",
-                ["get", "smc_type"],
-                ["Active Stream Corridor"],
-                true,
-                false
-            ],
-            ["match", ["get", "scale"], ["Watershed"], true, false]
-        ],
-        "paint": {
-            "fill-color": "#0aa347",
-            "fill-opacity": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                0,
-                0.8,
-                12.31,
-                0.8,
-                13,
-                1,
-                14,
-                1,
-                15,
-                0.6,
-                17,
-                0.4
-            ],
-            "fill-outline-color": "rgba(0, 0, 0, 0)"
-        }
+      // "id": "ActvStrmCrdr-Wtrshd",
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      filter: [
+        'all',
+        ['match', ['get', 'smc_type'], ['Active Stream Corridor'], true, false],
+        ['match', ['get', 'scale'], ['Watershed'], true, false],
+      ],
+      paint: {
+        'fill-color': '#0aa347',
+        'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0.8, 12.31, 0.8, 13, 1, 14, 1, 15, 0.6, 17, 0.4],
+        'fill-outline-color': 'rgba(0, 0, 0, 0)',
+      },
     },
     {
-        // "id": "FldHzrdBfr-StmCrdr",
-        "type": "fill",
-        "source-layer": 'pluto15v1',
-        "filter": [
-            "all",
-            [
-                "match",
-                ["get", "smc_type"],
-                ["Fluvial Hazard Buffer"],
-                true,
-                false
-            ],
-            ["match", ["get", "scale"], ["Stream Corridor"], true, false]
-        ],
-        "paint": {
-            "fill-color": "#92d050",
-            "fill-opacity": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                0,
-                0.8,
-                12.31,
-                0.8,
-                13,
-                1,
-                14,
-                1,
-                15,
-                0.6,
-                17,
-                0.4
-            ],
-            "fill-pattern": "SMC_lightgreen"
-        }
+      // "id": "FldHzrdBfr-StmCrdr",
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      filter: [
+        'all',
+        ['match', ['get', 'smc_type'], ['Fluvial Hazard Buffer'], true, false],
+        ['match', ['get', 'scale'], ['Stream Corridor'], true, false],
+      ],
+      paint: {
+        'fill-color': '#92d050',
+        'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0.8, 12.31, 0.8, 13, 1, 14, 1, 15, 0.6, 17, 0.4],
+        'fill-pattern': 'SMC_lightgreen',
+      },
     },
     {
-        // "id": "ActvStrmCrdr-StmCrdr",
-        "type": "fill",
-        "source-layer": 'pluto15v1',
-        "filter": [
-            "all",
-            [
-                "match",
-                ["get", "smc_type"],
-                ["Active Stream Corridor"],
-                true,
-                false
-            ],
-            ["match", ["get", "scale"], ["Stream Corridor"], true, false]
-        ],
-        "paint": {
-            "fill-color": "#92d050",
-            "fill-opacity": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                0,
-                0.8,
-                12.31,
-                0.8,
-                13,
-                1,
-                14,
-                1,
-                15,
-                0.6,
-                17,
-                0.4
-            ]
-        }
-    }
+      // "id": "ActvStrmCrdr-StmCrdr",
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      filter: [
+        'all',
+        ['match', ['get', 'smc_type'], ['Active Stream Corridor'], true, false],
+        ['match', ['get', 'scale'], ['Stream Corridor'], true, false],
+      ],
+      paint: {
+        'fill-color': '#92d050',
+        'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0.8, 12.31, 0.8, 13, 1, 14, 1, 15, 0.6, 17, 0.4],
+      },
+    },
   ],
   [BLOCK_CLEARANCE_ZONES_LAYERS]: [
     {
@@ -6205,7 +5213,7 @@ export const tileStyles = {
   ...MEP_PROJECTS_STYLES,
   ...ROUTINE_MAINTENANCE_STYLES,
   ...PROJECTS_STYLES,
-  ...PROJECTS_STYLES_WR
+  ...PROJECTS_STYLES_WR,
 };
 
 export const tileStylesDetailPage = {
@@ -6238,7 +5246,13 @@ export const tileStylesDetailPage = {
       // id: 'nonfema_500yr',
       type: 'fill',
       'source-layer': 'pluto15v1',
-      filter: ['match', ['get', 'floodplain_type'], ['500-Year Floodplain (0.2% Annual Chance)', 'Floodway'], true, false],
+      filter: [
+        'match',
+        ['get', 'floodplain_type'],
+        ['500-Year Floodplain (0.2% Annual Chance)', 'Floodway'],
+        true,
+        false,
+      ],
       paint: {
         'fill-opacity': 0.6,
         'fill-color': '#73b2ff',
@@ -6442,65 +5456,58 @@ export const tileStylesDetailPage = {
   [FEMA_FLOOD_HAZARD]: [
     {
       // "id": "nfhl_500y",
-      "type": "fill",
+      type: 'fill',
       'source-layer': 'pluto15v1',
-      "filter": [
-          "all",
-          ["match", ["get", "fld_zone"], ["X"], true, false],
+      filter: [
+        'all',
+        ['match', ['get', 'fld_zone'], ['X'], true, false],
+        [
+          'match',
+          ['get', 'zone_subty'],
           [
-              "match",
-              ["get", "zone_subty"],
-              [
-                  "0.2 PCT ANNUAL CHANCE FLOOD HAZARD CONTAINED IN STRUCTURE",
-                  "0.2 PCT ANNUAL CHANCE FLOOD HAZARD",
-                  "1 PCT DEPTH LESS THAN 1 FOOT"
-                  
-              ],
-              true,
-              false
-          ]
+            '0.2 PCT ANNUAL CHANCE FLOOD HAZARD CONTAINED IN STRUCTURE',
+            '0.2 PCT ANNUAL CHANCE FLOOD HAZARD',
+            '1 PCT DEPTH LESS THAN 1 FOOT',
+          ],
+          true,
+          false,
+        ],
       ],
-      "paint": {
-          "fill-color": "rgb(255, 128, 0)",
-          "fill-opacity": 0.4,
-          "fill-outline-color": "#ff8000"
-      }
+      paint: {
+        'fill-color': 'rgb(255, 128, 0)',
+        'fill-opacity': 0.4,
+        'fill-outline-color': '#ff8000',
+      },
     },
     {
-      "id": "nfhl_100y",
-      "type": "fill",
+      id: 'nfhl_100y',
+      type: 'fill',
       'source-layer': 'pluto15v1',
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "fld_zone"],
-              ["A", "AE", "AH", "AO"],
-              true,
-              false
-          ],
-          ["match", ["get", "zone_subty"], ["FLOODWAY"], false, true]
+      filter: [
+        'all',
+        ['match', ['get', 'fld_zone'], ['A', 'AE', 'AH', 'AO'], true, false],
+        ['match', ['get', 'zone_subty'], ['FLOODWAY'], false, true],
       ],
-      "paint": {
-          "fill-color": "rgb(0, 230, 255)",
-          "fill-opacity": 0.4,
-          "fill-outline-color": "#00e6ff"
-      }
+      paint: {
+        'fill-color': 'rgb(0, 230, 255)',
+        'fill-opacity': 0.4,
+        'fill-outline-color': '#00e6ff',
+      },
     },
     {
       // "id": "nfhl_floodway",
-      "type": "fill",
+      type: 'fill',
       'source-layer': 'pluto15v1',
-      "filter": [
-          "all",
-          ["match", ["get", "zone_subty"], ["FLOODWAY"], true, false],
-          ["match", ["get", "fld_zone"], ["AE"], true, false]
+      filter: [
+        'all',
+        ['match', ['get', 'zone_subty'], ['FLOODWAY'], true, false],
+        ['match', ['get', 'fld_zone'], ['AE'], true, false],
       ],
-      "paint": {
-          "fill-color": "rgb(255, 0, 0)",
-          "fill-opacity": 0.4,
-          "fill-pattern": "floodway43"
-      }
+      paint: {
+        'fill-color': 'rgb(255, 0, 0)',
+        'fill-opacity': 0.4,
+        'fill-pattern': 'floodway43',
+      },
     },
   ],
   [WATERSHED_FILTERS]: [
@@ -8115,34 +7122,34 @@ export const tileStylesDetailPage = {
         'line-opacity': 0,
       },
     },
-  ],[FUTURE_DEVELOPMENT_POINT]: [
+  ],
+  [FUTURE_DEVELOPMENT_POINT]: [
     {
       // "id": "FutrDev-point shadow",
-      "type": "circle",
-      "metadata": {"mapbox:group": "1f5c94b77c56b90acd5d4a9b81969905"},
-      "source-layer": "pluto15v1",
-      "paint": {
-          "circle-radius": 15,
-          "circle-opacity": 0.33,
-          "circle-blur": 0.3
+      type: 'circle',
+      metadata: { 'mapbox:group': '1f5c94b77c56b90acd5d4a9b81969905' },
+      'source-layer': 'pluto15v1',
+      paint: {
+        'circle-radius': 15,
+        'circle-opacity': 0.33,
+        'circle-blur': 0.3,
       },
-      "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
+      filter: ['match', ['get', 'problem_type'], ['Watershed Change'], true, false],
     },
-    
 
     {
       // "id": "FutrDev-point",
-      "type": "symbol",
-      "metadata": {"mapbox:group": "1f5c94b77c56b90acd5d4a9b81969905"},
-      "source-layer": "pluto15v1",
-      "layout": {
-          "icon-image": "watershedchangepoint_small",
-          "icon-size": 0.4,
-          "icon-ignore-placement": true,
-          "icon-allow-overlap": true
+      type: 'symbol',
+      metadata: { 'mapbox:group': '1f5c94b77c56b90acd5d4a9b81969905' },
+      'source-layer': 'pluto15v1',
+      layout: {
+        'icon-image': 'watershedchangepoint_small',
+        'icon-size': 0.4,
+        'icon-ignore-placement': true,
+        'icon-allow-overlap': true,
       },
-      "paint": {},
-      "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
+      paint: {},
+      filter: ['match', ['get', 'problem_type'], ['Watershed Change'], true, false],
     },
   ],
   [STUDIES]: [
@@ -8266,194 +7273,84 @@ export const tileStylesDetailPage = {
   [STREAM_MANAGEMENT_CORRIDORS]: [
     {
       // "id": "all corridor shadows",
-      "type": "line",
-      "source-layer": 'pluto15v1',
-      "paint": {"line-blur": 5, "line-width": 10, "line-opacity": 0.4}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      paint: { 'line-blur': 5, 'line-width': 10, 'line-opacity': 0.4 },
     },
     {
       // "id": "FldHzrdBfr-Wtrshd",
-      "type": "fill",
-      "source-layer": 'pluto15v1',
-      "filter": [
-        "all",
-        [
-          "match",
-          ["get", "smc_type"],
-          ["Fluvial Hazard Buffer"],
-          true,
-          false
-        ],
-        ["match", ["get", "scale"], ["Watershed"], true, false]
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      filter: [
+        'all',
+        ['match', ['get', 'smc_type'], ['Fluvial Hazard Buffer'], true, false],
+        ['match', ['get', 'scale'], ['Watershed'], true, false],
       ],
-      "paint": {
-        "fill-color": "#0aa347",
-        "fill-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0.8,
-          12.31,
-          0.8,
-          13,
-          1,
-          14,
-          1,
-          15,
-          0.6,
-          17,
-          0.4
-        ],
-        "fill-pattern": "SMC_medgreen"
-      }
+      paint: {
+        'fill-color': '#0aa347',
+        'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0.8, 12.31, 0.8, 13, 1, 14, 1, 15, 0.6, 17, 0.4],
+        'fill-pattern': 'SMC_medgreen',
+      },
     },
     {
-        // "id": "StrmMngmtCrdr-Wtrshd",
-        "type": "fill",
-        "source-layer": 'pluto15v1',
-        "filter": [
-            "all",
-            [
-                "match",
-                ["get", "smc_type"],
-                ["Stream Management Corridor"],
-                true,
-                false
-            ],
-            ["match", ["get", "scale"], ["Watershed"], true, false]
-        ],
-        "paint": {
-            "fill-color": "#0aa347",
-            "fill-outline-color": "rgba(118, 218, 98, 0)",
-            "fill-opacity": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                0,
-                0.8,
-                12.31,
-                0.8,
-                13,
-                1,
-                14,
-                1,
-                15,
-                0.6,
-                17,
-                0.4
-            ]
-        }
+      // "id": "StrmMngmtCrdr-Wtrshd",
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      filter: [
+        'all',
+        ['match', ['get', 'smc_type'], ['Stream Management Corridor'], true, false],
+        ['match', ['get', 'scale'], ['Watershed'], true, false],
+      ],
+      paint: {
+        'fill-color': '#0aa347',
+        'fill-outline-color': 'rgba(118, 218, 98, 0)',
+        'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0.8, 12.31, 0.8, 13, 1, 14, 1, 15, 0.6, 17, 0.4],
+      },
     },
     {
-        // "id": "ActvStrmCrdr-Wtrshd",
-        "type": "fill",
-        "source-layer": 'pluto15v1',
-        "filter": [
-            "all",
-            [
-                "match",
-                ["get", "smc_type"],
-                ["Active Stream Corridor"],
-                true,
-                false
-            ],
-            ["match", ["get", "scale"], ["Watershed"], true, false]
-        ],
-        "paint": {
-            "fill-color": "#0aa347",
-            "fill-opacity": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                0,
-                0.8,
-                12.31,
-                0.8,
-                13,
-                1,
-                14,
-                1,
-                15,
-                0.6,
-                17,
-                0.4
-            ],
-            "fill-outline-color": "rgba(0, 0, 0, 0)"
-        }
+      // "id": "ActvStrmCrdr-Wtrshd",
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      filter: [
+        'all',
+        ['match', ['get', 'smc_type'], ['Active Stream Corridor'], true, false],
+        ['match', ['get', 'scale'], ['Watershed'], true, false],
+      ],
+      paint: {
+        'fill-color': '#0aa347',
+        'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0.8, 12.31, 0.8, 13, 1, 14, 1, 15, 0.6, 17, 0.4],
+        'fill-outline-color': 'rgba(0, 0, 0, 0)',
+      },
     },
     {
-        // "id": "FldHzrdBfr-StmCrdr",
-        "type": "fill",
-        "source-layer": 'pluto15v1',
-        "filter": [
-            "all",
-            [
-                "match",
-                ["get", "smc_type"],
-                ["Fluvial Hazard Buffer"],
-                true,
-                false
-            ],
-            ["match", ["get", "Scale"], ["Stream Corridor"], true, false]
-        ],
-        "paint": {
-            "fill-color": "#92d050",
-            "fill-opacity": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                0,
-                0.8,
-                12.31,
-                0.8,
-                13,
-                1,
-                14,
-                1,
-                15,
-                0.6,
-                17,
-                0.4
-            ],
-            "fill-pattern": "SMC_lightgreen"
-        }
+      // "id": "FldHzrdBfr-StmCrdr",
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      filter: [
+        'all',
+        ['match', ['get', 'smc_type'], ['Fluvial Hazard Buffer'], true, false],
+        ['match', ['get', 'Scale'], ['Stream Corridor'], true, false],
+      ],
+      paint: {
+        'fill-color': '#92d050',
+        'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0.8, 12.31, 0.8, 13, 1, 14, 1, 15, 0.6, 17, 0.4],
+        'fill-pattern': 'SMC_lightgreen',
+      },
     },
     {
-        // "id": "ActvStrmCrdr-StmCrdr",
-        "type": "fill",
-        "source-layer": 'pluto15v1',
-        "filter": [
-            "all",
-            [
-                "match",
-                ["get", "smc_type"],
-                ["Active Stream Corridor"],
-                true,
-                false
-            ],
-            ["match", ["get", "scale"], ["Stream Corridor"], true, false]
-        ],
-        "paint": {
-            "fill-color": "#92d050",
-            "fill-opacity": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                0,
-                0.8,
-                12.31,
-                0.8,
-                13,
-                1,
-                14,
-                1,
-                15,
-                0.6,
-                17,
-                0.4
-            ]
-        }
-    }
+      // "id": "ActvStrmCrdr-StmCrdr",
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      filter: [
+        'all',
+        ['match', ['get', 'smc_type'], ['Active Stream Corridor'], true, false],
+        ['match', ['get', 'scale'], ['Stream Corridor'], true, false],
+      ],
+      paint: {
+        'fill-color': '#92d050',
+        'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0.8, 12.31, 0.8, 13, 1, 14, 1, 15, 0.6, 17, 0.4],
+      },
+    },
   ],
   [BLOCK_CLEARANCE_ZONES_LAYERS]: [
     {
@@ -9171,7 +8068,13 @@ export const tileStyles_WR = {
       // id: 'nonfema_500yr',
       type: 'fill',
       'source-layer': 'pluto15v1',
-      filter: ['match', ['get', 'floodplain_type'], ['500-Year Floodplain (0.2% Annual Chance)', 'Floodway'], true, false],
+      filter: [
+        'match',
+        ['get', 'floodplain_type'],
+        ['500-Year Floodplain (0.2% Annual Chance)', 'Floodway'],
+        true,
+        false,
+      ],
       paint: {
         'fill-opacity': 0.6,
         'fill-color': '#73b2ff',
@@ -9375,65 +8278,58 @@ export const tileStyles_WR = {
   [FEMA_FLOOD_HAZARD]: [
     {
       // "id": "nfhl_500y",
-      "type": "fill",
+      type: 'fill',
       'source-layer': 'pluto15v1',
-      "filter": [
-          "all",
-          ["match", ["get", "fld_zone"], ["X"], true, false],
+      filter: [
+        'all',
+        ['match', ['get', 'fld_zone'], ['X'], true, false],
+        [
+          'match',
+          ['get', 'zone_subty'],
           [
-              "match",
-              ["get", "zone_subty"],
-              [
-                  "0.2 PCT ANNUAL CHANCE FLOOD HAZARD CONTAINED IN STRUCTURE",
-                  "0.2 PCT ANNUAL CHANCE FLOOD HAZARD",
-                  "1 PCT DEPTH LESS THAN 1 FOOT"
-                  
-              ],
-              true,
-              false
-          ]
+            '0.2 PCT ANNUAL CHANCE FLOOD HAZARD CONTAINED IN STRUCTURE',
+            '0.2 PCT ANNUAL CHANCE FLOOD HAZARD',
+            '1 PCT DEPTH LESS THAN 1 FOOT',
+          ],
+          true,
+          false,
+        ],
       ],
-      "paint": {
-          "fill-color": "rgb(255, 128, 0)",
-          "fill-opacity": 0.4,
-          "fill-outline-color": "#ff8000"
-      }
+      paint: {
+        'fill-color': 'rgb(255, 128, 0)',
+        'fill-opacity': 0.4,
+        'fill-outline-color': '#ff8000',
+      },
     },
     {
       // "id": "nfhl_100y",
-      "type": "fill",
+      type: 'fill',
       'source-layer': 'pluto15v1',
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "fld_zone"],
-              ["A", "AE", "AH", "AO"],
-              true,
-              false
-          ],
-          ["match", ["get", "zone_subty"], ["FLOODWAY"], false, true]
+      filter: [
+        'all',
+        ['match', ['get', 'fld_zone'], ['A', 'AE', 'AH', 'AO'], true, false],
+        ['match', ['get', 'zone_subty'], ['FLOODWAY'], false, true],
       ],
-      "paint": {
-          "fill-color": "rgb(0, 230, 255)",
-          "fill-opacity": 0.4,
-          "fill-outline-color": "#00e6ff"
-      }
+      paint: {
+        'fill-color': 'rgb(0, 230, 255)',
+        'fill-opacity': 0.4,
+        'fill-outline-color': '#00e6ff',
+      },
     },
     {
       // "id": "nfhl_floodway",
-      "type": "fill",
+      type: 'fill',
       'source-layer': 'pluto15v1',
-      "filter": [
-          "all",
-          ["match", ["get", "zone_subty"], ["FLOODWAY"], true, false],
-          ["match", ["get", "fld_zone"], ["AE"], true, false]
+      filter: [
+        'all',
+        ['match', ['get', 'zone_subty'], ['FLOODWAY'], true, false],
+        ['match', ['get', 'fld_zone'], ['AE'], true, false],
       ],
-      "paint": {
-          "fill-color": "rgb(255, 0, 0)",
-          "fill-opacity": 0.4,
-          "fill-pattern": "floodway43"
-      }
+      paint: {
+        'fill-color': 'rgb(255, 0, 0)',
+        'fill-opacity': 0.4,
+        'fill-pattern': 'floodway43',
+      },
     },
   ],
   [WATERSHED_FILTERS]: [
@@ -11048,34 +9944,34 @@ export const tileStyles_WR = {
         'line-opacity': 0,
       },
     },
-  ],[FUTURE_DEVELOPMENT_POINT]: [
+  ],
+  [FUTURE_DEVELOPMENT_POINT]: [
     {
       // "id": "FutrDev-point shadow",
-      "type": "circle",
-      "metadata": {"mapbox:group": "1f5c94b77c56b90acd5d4a9b81969905"},
-      "source-layer": "pluto15v1",
-      "paint": {
-          "circle-radius": 15,
-          "circle-opacity": 0.33,
-          "circle-blur": 0.3
+      type: 'circle',
+      metadata: { 'mapbox:group': '1f5c94b77c56b90acd5d4a9b81969905' },
+      'source-layer': 'pluto15v1',
+      paint: {
+        'circle-radius': 15,
+        'circle-opacity': 0.33,
+        'circle-blur': 0.3,
       },
-      "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
+      filter: ['match', ['get', 'problem_type'], ['Watershed Change'], true, false],
     },
-    
 
     {
       // "id": "FutrDev-point",
-      "type": "symbol",
-      "metadata": {"mapbox:group": "1f5c94b77c56b90acd5d4a9b81969905"},
-      "source-layer": "pluto15v1",
-      "layout": {
-          "icon-image": "watershedchangepoint_small",
-          "icon-size": 0.4,
-          "icon-ignore-placement": true,
-          "icon-allow-overlap": true
+      type: 'symbol',
+      metadata: { 'mapbox:group': '1f5c94b77c56b90acd5d4a9b81969905' },
+      'source-layer': 'pluto15v1',
+      layout: {
+        'icon-image': 'watershedchangepoint_small',
+        'icon-size': 0.4,
+        'icon-ignore-placement': true,
+        'icon-allow-overlap': true,
       },
-      "paint": {},
-      "filter": ['match', ['get', 'problem_type'], ['Watershed Change'], true, false]
+      paint: {},
+      filter: ['match', ['get', 'problem_type'], ['Watershed Change'], true, false],
     },
   ],
   [STUDIES]: [
@@ -11199,194 +10095,84 @@ export const tileStyles_WR = {
   [STREAM_MANAGEMENT_CORRIDORS]: [
     {
       // "id": "all corridor shadows",
-      "type": "line",
-      "source-layer": 'pluto15v1',
-      "paint": {"line-blur": 5, "line-width": 10, "line-opacity": 0.4}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      paint: { 'line-blur': 5, 'line-width': 10, 'line-opacity': 0.4 },
     },
     {
       // "id": "FldHzrdBfr-Wtrshd",
-      "type": "fill",
-      "source-layer": 'pluto15v1',
-      "filter": [
-        "all",
-        [
-          "match",
-          ["get", "smc_type"],
-          ["Fluvial Hazard Buffer"],
-          true,
-          false
-        ],
-        ["match", ["get", "scale"], ["Watershed"], true, false]
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      filter: [
+        'all',
+        ['match', ['get', 'smc_type'], ['Fluvial Hazard Buffer'], true, false],
+        ['match', ['get', 'scale'], ['Watershed'], true, false],
       ],
-      "paint": {
-        "fill-color": "#0aa347",
-        "fill-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0.8,
-          12.31,
-          0.8,
-          13,
-          1,
-          14,
-          1,
-          15,
-          0.6,
-          17,
-          0.4
-        ],
-        "fill-pattern": "SMC_medgreen"
-      }
+      paint: {
+        'fill-color': '#0aa347',
+        'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0.8, 12.31, 0.8, 13, 1, 14, 1, 15, 0.6, 17, 0.4],
+        'fill-pattern': 'SMC_medgreen',
+      },
     },
     {
-        // "id": "StrmMngmtCrdr-Wtrshd",
-        "type": "fill",
-        "source-layer": 'pluto15v1',
-        "filter": [
-            "all",
-            [
-                "match",
-                ["get", "smc_type"],
-                ["Stream Management Corridor"],
-                true,
-                false
-            ],
-            ["match", ["get", "scale"], ["Watershed"], true, false]
-        ],
-        "paint": {
-            "fill-color": "#0aa347",
-            "fill-outline-color": "rgba(118, 218, 98, 0)",
-            "fill-opacity": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                0,
-                0.8,
-                12.31,
-                0.8,
-                13,
-                1,
-                14,
-                1,
-                15,
-                0.6,
-                17,
-                0.4
-            ]
-        }
+      // "id": "StrmMngmtCrdr-Wtrshd",
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      filter: [
+        'all',
+        ['match', ['get', 'smc_type'], ['Stream Management Corridor'], true, false],
+        ['match', ['get', 'scale'], ['Watershed'], true, false],
+      ],
+      paint: {
+        'fill-color': '#0aa347',
+        'fill-outline-color': 'rgba(118, 218, 98, 0)',
+        'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0.8, 12.31, 0.8, 13, 1, 14, 1, 15, 0.6, 17, 0.4],
+      },
     },
     {
-        // "id": "ActvStrmCrdr-Wtrshd",
-        "type": "fill",
-        "source-layer": 'pluto15v1',
-        "filter": [
-            "all",
-            [
-                "match",
-                ["get", "smc_type"],
-                ["Active Stream Corridor"],
-                true,
-                false
-            ],
-            ["match", ["get", "scale"], ["Watershed"], true, false]
-        ],
-        "paint": {
-            "fill-color": "#0aa347",
-            "fill-opacity": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                0,
-                0.8,
-                12.31,
-                0.8,
-                13,
-                1,
-                14,
-                1,
-                15,
-                0.6,
-                17,
-                0.4
-            ],
-            "fill-outline-color": "rgba(0, 0, 0, 0)"
-        }
+      // "id": "ActvStrmCrdr-Wtrshd",
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      filter: [
+        'all',
+        ['match', ['get', 'smc_type'], ['Active Stream Corridor'], true, false],
+        ['match', ['get', 'scale'], ['Watershed'], true, false],
+      ],
+      paint: {
+        'fill-color': '#0aa347',
+        'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0.8, 12.31, 0.8, 13, 1, 14, 1, 15, 0.6, 17, 0.4],
+        'fill-outline-color': 'rgba(0, 0, 0, 0)',
+      },
     },
     {
-        // "id": "FldHzrdBfr-StmCrdr",
-        "type": "fill",
-        "source-layer": 'pluto15v1',
-        "filter": [
-            "all",
-            [
-                "match",
-                ["get", "smc_type"],
-                ["Fluvial Hazard Buffer"],
-                true,
-                false
-            ],
-            ["match", ["get", "Scale"], ["Stream Corridor"], true, false]
-        ],
-        "paint": {
-            "fill-color": "#92d050",
-            "fill-opacity": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                0,
-                0.8,
-                12.31,
-                0.8,
-                13,
-                1,
-                14,
-                1,
-                15,
-                0.6,
-                17,
-                0.4
-            ],
-            "fill-pattern": "SMC_lightgreen"
-        }
+      // "id": "FldHzrdBfr-StmCrdr",
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      filter: [
+        'all',
+        ['match', ['get', 'smc_type'], ['Fluvial Hazard Buffer'], true, false],
+        ['match', ['get', 'Scale'], ['Stream Corridor'], true, false],
+      ],
+      paint: {
+        'fill-color': '#92d050',
+        'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0.8, 12.31, 0.8, 13, 1, 14, 1, 15, 0.6, 17, 0.4],
+        'fill-pattern': 'SMC_lightgreen',
+      },
     },
     {
-        // "id": "ActvStrmCrdr-StmCrdr",
-        "type": "fill",
-        "source-layer": 'pluto15v1',
-        "filter": [
-            "all",
-            [
-                "match",
-                ["get", "smc_type"],
-                ["Active Stream Corridor"],
-                true,
-                false
-            ],
-            ["match", ["get", "scale"], ["Stream Corridor"], true, false]
-        ],
-        "paint": {
-            "fill-color": "#92d050",
-            "fill-opacity": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                0,
-                0.8,
-                12.31,
-                0.8,
-                13,
-                1,
-                14,
-                1,
-                15,
-                0.6,
-                17,
-                0.4
-            ]
-        }
-    }
+      // "id": "ActvStrmCrdr-StmCrdr",
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      filter: [
+        'all',
+        ['match', ['get', 'smc_type'], ['Active Stream Corridor'], true, false],
+        ['match', ['get', 'scale'], ['Stream Corridor'], true, false],
+      ],
+      paint: {
+        'fill-color': '#92d050',
+        'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0.8, 12.31, 0.8, 13, 1, 14, 1, 15, 0.6, 17, 0.4],
+      },
+    },
   ],
   [BLOCK_CLEARANCE_ZONES_LAYERS]: [
     {

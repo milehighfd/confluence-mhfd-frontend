@@ -192,6 +192,7 @@ export const changeAddLocationState = (isAddLocation: boolean) => {
 
 export const setComponentIntersected = (listComponents: any) => {
   return (dispatch: Function) => {
+    console.trace('Setting listcomponents 2 ', listComponents);
     dispatch({type: types.SET_LIST_COMPONENTS, listComponents});
   }
 } 
@@ -278,6 +279,7 @@ export const setIsGeomDrawn = (isGeomDrawn: any) => {
 export const getListComponentsByComponentsAndPolygon = (components: any, geom: any) => {
   return (dispatch: Function) => {
     datasets.postData(SERVER.GET_COMPONENTS_WITH_GEOM, {components, geom}, datasets.getToken()).then(listComponents => {
+      console.trace('Setting listcomponents', listComponents);
       dispatch({type: types.SET_LIST_COMPONENTS, listComponents});
     });
   }

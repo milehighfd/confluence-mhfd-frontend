@@ -64,7 +64,7 @@ const initState = {
   streamsIntersectedIds: [],
   isAddLocation: false,
   status: 2,
-  listComponents: [],
+  listComponents: {},
   currentServiceAreaCounty: {},
   listStreams: [],
   componentsFromMap: [],
