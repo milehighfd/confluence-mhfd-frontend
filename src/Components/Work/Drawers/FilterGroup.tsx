@@ -29,7 +29,7 @@ const FilterGroup = ({
         {
           filterList?.map((cn: any, index: number) => (
             <div key={`filter-ps${index}`} className='filter-00'>
-              <Checkbox disabled={disabled} className='check-filter' checked={cn?.selected} onChange={e => {
+              <Checkbox disabled={disabled || cn.disabled} className='check-filter' checked={cn?.selected} onChange={e => {
                 if(label === 'Funding Year' && setYearFilter) {
                   setYearFilter(filterList.map((f: any) => {
                     const selected = f.selected;
