@@ -4,6 +4,8 @@ import { useRequestDispatch, useRequestState } from "hook/requestHook";
 import FilterGroup from "./FilterGroup";
 import { useMapState } from "hook/mapHook";
 import { YEAR_LOGIC_2024, WORK_PLAN } from 'constants/constants';
+import * as datasets from 'Config/datasets';
+import { SERVER } from 'Config/Server.config';
 
 const Filter = () => {
   const {
@@ -49,6 +51,7 @@ const Filter = () => {
   const [priorityFilter, setPriorityFilter] = useState<any[]>([]);
   const [resetFilter, setResetFilter] = useState(true);
   const [yearFilter, setYearFilter] = useState<any[]>([]);
+  const [completeFilter, setCompleteFilter] = useState<any[]>([]);
 
   useEffect(() => {
     if (year >= YEAR_LOGIC_2024 ) {
@@ -71,18 +74,42 @@ const Filter = () => {
   }, [columns2]);
 
   useEffect(() => {
-    const orderForStatus = ['Draft', 'Requested','Under Review', 'Approved', 'Cancelled', 'Inactive'];
-    const statusFilter = filterRequest.filter((f: any) => f.type === 'status').sort((a:any, b:any) => {
+    datasets.getData(SERVER.GET_FILTER_BOARD).then((res: any) => {
+      setCompleteFilter(res);
+    });
+  }, []);
+
+  useEffect(() => {
+    const orderForStatus = ['Draft', 'Requested', 'Under Review', 'Approved', 'Cancelled', 'Inactive'];
+    const sortedFilterRequest = [...filterRequest].sort((a, b) => a.name.localeCompare(b.name));
+    setPriorityFilter(sortedFilterRequest.filter((f: any) => f.type === 'project_priorities').map((f: any) => ({ ...f, disabled: false })));
+    const result = completeFilter.map((bObj: any) => {
+      const matchingAObj = sortedFilterRequest.find(aObj =>
+        aObj.name === bObj.name &&
+        aObj.id === bObj.id &&
+        aObj.type === bObj.type
+      );
+      let disabled = false;
+      if (matchingAObj) {
+        disabled = false;
+      } else {
+        disabled = true;
+      }
+      return {
+        ...bObj,
+        disabled: disabled,
+        selected: matchingAObj ? (matchingAObj.selected ? matchingAObj.selected : false) : false
+      };
+    });
+    const statusFilter = result.filter((f: any) => f.type === 'status').sort((a: any, b: any) => {
       return orderForStatus.indexOf(a.name) - orderForStatus.indexOf(b.name);
     });
-    const sortedFilterRequest = [...filterRequest].sort((a, b) => a.name.localeCompare(b.name));  
-    setServiceAreaFilter(sortedFilterRequest.filter((f: any) => f.type === 'project_service_areas'));
-    setCountyFilter(sortedFilterRequest.filter((f: any) => f.type === 'project_counties'));
-    setJurisdictionFilter(sortedFilterRequest.filter((f: any) => f.type === 'project_local_governments'));
+    setServiceAreaFilter(result.filter((f: any) => f.type === 'project_service_areas'));
+    setCountyFilter(result.filter((f: any) => f.type === 'project_counties'));
+    setJurisdictionFilter(result.filter((f: any) => f.type === 'project_local_governments'));
+    setSponsorFilter(result.filter((f: any) => f.type === 'project_partners'));
     setProjectStatusFilter(statusFilter);
-    setSponsorFilter(sortedFilterRequest.filter((f: any) => f.type === 'project_partners'));
-    setPriorityFilter(sortedFilterRequest.filter((f: any) => f.type === 'project_priorities'));    
-  }, [filterRequest,resetFilter]);
+  }, [filterRequest, resetFilter, completeFilter]);
 
   useEffect(() => {
     const year = +namespaceId.year;

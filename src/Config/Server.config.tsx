@@ -291,6 +291,7 @@ export const SERVER = (function () {
         GET_PAST_DATA: `${URL_BASE.BASE}/${BOARD}/get-past-data`,
         GET_RESET_AND_CONFIRM: `${URL_BASE.BASE}/${USER}/${GET_RESET_AND_CONFIRM}`,        
         GET_STATUS_BOARD: `${URL_BASE.BASE}/${BOARD}/status-colors`,
+        GET_FILTER_BOARD: `${URL_BASE.BASE}/${BOARD}/filters`,
         UPDATE_APPROVED_BOARD: `${URL_BASE.BASE}/${BOARD}/update-boards-approved`,
         BUDGET_BOARD_TABLE: `${URL_BASE.BASE}/${BUDGET_BOARD}`,
         GET_SIGNUP_EMAIL: (token: string) => `${URL_BASE.BASE}/${USER}/${GET_SIGNUP_EMAIL}?token=${token}`,

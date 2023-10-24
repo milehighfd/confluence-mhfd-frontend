@@ -619,15 +619,17 @@ export const loadFilters = () => {
           });
         }
       }
-      const allData = [...priorityFilterList, ...transformedData];     
-      for (let item2 of lastFilterValues) {
-        for (let item1 of allData) {
-          if (item2.id === item1.id && item2.name === item1.name && item2.type === item1.type) {
-            item1.selected = item2.selected;
-            break;
-          }
+      const allData = [...priorityFilterList, ...transformedData];
+      lastFilterValues.forEach((filterItem:any) => {
+        const index = allData.findIndex(dataItem =>
+          filterItem.id === dataItem.id && filterItem.name === dataItem.name && filterItem.type === dataItem.type
+        );
+        if (index !== -1) {
+          allData[index].selected = filterItem.selected;
+        } else if (filterItem.selected) {
+          allData.push(filterItem);
         }
-      }
+      });
       dispatch({
         type: types.REQUEST_SET_FILTER_REQUEST,
         payload: allData
