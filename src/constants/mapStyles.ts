@@ -1721,7 +1721,7 @@ export const PROJECTS_STYLES = {
       // ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#ffe83d',
+        'line-color': '#ffff3d',
         'line-offset': -10,
         'line-width': 3,
       },
@@ -1739,7 +1739,7 @@ export const PROJECTS_STYLES = {
       // ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#ffe83d',
+        'line-color': '#ffff3d',
         'line-width': 3,
         'line-offset': 10,
       },
@@ -1757,7 +1757,7 @@ export const PROJECTS_STYLES = {
       // ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#ffe83d',
+        'line-color': '#ffff3d',
         'line-offset': -6,
         'line-width': 3,
         'line-dasharray': [1, 1.7],
@@ -1776,7 +1776,7 @@ export const PROJECTS_STYLES = {
       // ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#ffe83d',
+        'line-color': '#ffff3d',
         'line-offset': 6,
         'line-width': 3,
         'line-dasharray': [1, 1.7],
@@ -1796,7 +1796,7 @@ export const PROJECTS_STYLES = {
       // ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#db7c00',
+        'line-color': '#bd6b00',
         'line-width': 3,
         'line-offset': -18,
       },
@@ -1815,7 +1815,7 @@ export const PROJECTS_STYLES = {
       // ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#db7c00',
+        'line-color': '#bd6b00',
         'line-width': 3,
         'line-offset': 18,
       },
@@ -1835,7 +1835,7 @@ export const PROJECTS_STYLES = {
       // ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#db7c00',
+        'line-color': '#bd6b00',
         'line-width': 3,
         'line-offset': -14,
         'line-dasharray': [2.5, 2],
@@ -1856,7 +1856,7 @@ export const PROJECTS_STYLES = {
       // ],
       layout: { 'line-cap': 'round' },
       paint: {
-        "line-color": "#db7c00",
+        "line-color": "#bd6b00",
         "line-width": 3,
         "line-offset": 14,
         "line-dasharray": [2.5, 2]
@@ -1877,7 +1877,7 @@ export const PROJECTS_STYLES = {
       // ],
       layout: { 'line-cap': 'round' },
       paint: {
-        "line-color": "#db7c00",
+        "line-color": "#bd6b00",
         "line-width": 2,
         "line-offset": -4.8
       },
@@ -1896,7 +1896,7 @@ export const PROJECTS_STYLES = {
       // ],
       layout: { 'line-cap': 'round' },
       paint: {
-        "line-color": "#db7c00",
+        "line-color": "#bd6b00",
         "line-width": 2,
         "line-offset": 4.8
       }
@@ -1915,7 +1915,7 @@ export const PROJECTS_STYLES = {
       // ],
       layout: { 'line-cap': 'round' },
       paint: {
-        "line-color": "#ffe83d",
+        "line-color": "#ffff3d",
         "line-width": 2,
         "line-offset": -2
       },
@@ -1934,7 +1934,7 @@ export const PROJECTS_STYLES = {
       // ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#ffe83d',
+        'line-color': '#ffff3d',
         'line-width': 2,
         'line-offset': 2,
       },
@@ -1953,7 +1953,7 @@ export const PROJECTS_STYLES = {
       // ],
       layout: { 'line-cap': 'round' },
       paint: {
-        "line-color": "#db7c00",
+        "line-color": "#bd6b00",
         "line-offset": -3.6,
         "line-width": 3
       }
@@ -1971,7 +1971,7 @@ export const PROJECTS_STYLES = {
       //   ['match', ['get', 'status'], ['Approved', 'Requested', 'Permit Monitoring', 'Active', 'Draft'], true, false],
       // ],
       layout: { 'line-cap': 'round' },
-      paint: { 'line-color': '#ffe83d', 'line-width': 3 },
+      paint: { 'line-color': '#ffff3d', 'line-width': 3 },
     },
     {
       type: 'line',
@@ -1979,7 +1979,7 @@ export const PROJECTS_STYLES = {
       metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [999] },
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#ffe83d',
+        'line-color': '#ffff3d',
         'line-width': ['interpolate', ['linear'], ['zoom'], 0, 3, 10, 3, 14, 7],
       },
     },
@@ -2167,7 +2167,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#ffe83d',
+        'line-color': '#ffff3d',
         'line-offset': -10,
         'line-width': 2.5,
       },
@@ -2184,7 +2184,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#ffe83d',
+        'line-color': '#ffff3d',
         'line-width': 2.5,
         'line-offset': 10,
       },
@@ -2201,7 +2201,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#ffe83d',
+        'line-color': '#ffff3d',
         'line-offset': -6,
         'line-width': 2.5,
         'line-dasharray': [1, 1.5],
@@ -2219,7 +2219,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#ffe83d',
+        'line-color': '#ffff3d',
         'line-offset': 6,
         'line-width': 2.5,
         'line-dasharray': [1, 1.5],
@@ -2238,7 +2238,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#e629ff',
+        'line-color': '#bd6b00',
         'line-width': 2.5,
         'line-offset': -18,
       },
@@ -2256,7 +2256,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#e629ff',
+        'line-color': '#bd6b00',
         'line-width': 2.5,
         'line-offset': 18,
       },
@@ -2274,7 +2274,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#e629ff',
+        'line-color': '#bd6b00',
         'line-width': 2.5,
         'line-offset': -14,
         'line-dasharray': [2.5, 1.5],
@@ -2293,7 +2293,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#e629ff',
+        'line-color': '#bd6b00',
         'line-width': 2.5,
         'line-offset': 14,
         'line-dasharray': [2.5, 1.5],
@@ -2312,7 +2312,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#e629ff',
+        'line-color': '#bd6b00',
         'line-width': 2,
         'line-offset': -4.5,
       },
@@ -2330,7 +2330,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#e629ff',
+        'line-color': '#bd6b00',
         'line-width': 2,
         'line-offset': 4.5,
       },
@@ -2348,7 +2348,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#ffe83d',
+        'line-color': '#ffff3d',
         'line-width': 2,
         'line-offset': -2,
       },
@@ -2366,7 +2366,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#ffe83d',
+        'line-color': '#ffff3d',
         'line-width': 2,
         'line-offset': 2,
       },
@@ -2384,7 +2384,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#e629ff',
+        'line-color': '#bd6b00',
         'line-offset': -3.6,
         'line-width': 3,
       },
@@ -2401,7 +2401,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
         ['match', ['get', 'status'], ['Approved', 'Requested', 'Permit Monitoring', 'Active', 'Draft'], true, false],
       ],
       layout: { 'line-cap': 'round' },
-      paint: { 'line-color': '#ffe83d', 'line-width': 3 },
+      paint: { 'line-color': '#ffff3d', 'line-width': 3 },
     },
     {
       type: 'line',
@@ -2409,7 +2409,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [999] },
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#ffe83d',
+        'line-color': '#ffff3d',
         'line-width': ['interpolate', ['linear'], ['zoom'], 0, 3, 10, 3, 14, 7],
       },
     },
@@ -2741,7 +2741,7 @@ export const PROJECTS_STYLES_WR = {
       "minzoom": 13,
       "layout": {"line-cap": "round"},
       "paint": {
-          "line-color": "#e629ff",
+          "line-color": "#bd6b00",
           "line-width": 2.5,
           "line-offset": -18
       }
@@ -2754,7 +2754,7 @@ export const PROJECTS_STYLES_WR = {
       "minzoom": 13,
       "layout": {"line-cap": "round"},
       "paint": {
-          "line-color": "#e629ff",
+          "line-color": "#bd6b00",
           "line-width": 2.5,
           "line-offset": 18
       }
@@ -2767,7 +2767,7 @@ export const PROJECTS_STYLES_WR = {
       "minzoom": 13,
       "layout": {"line-cap": "round"},
       "paint": {
-          "line-color": "#e629ff",
+          "line-color": "#bd6b00",
           "line-width": 2.5,
           "line-offset": -14,
           "line-dasharray": [1, 2]
@@ -2781,7 +2781,7 @@ export const PROJECTS_STYLES_WR = {
       "minzoom": 13,
       "layout": {"line-cap": "round"},
       "paint": {
-          "line-color": "#e629ff",
+          "line-color": "#bd6b00",
           "line-width": 2.5,
           "line-offset": 14,
           "line-dasharray": [1, 2]
@@ -2857,7 +2857,7 @@ export const PROJECTS_STYLES_WR = {
       "maxzoom": 13,
       "layout": {"line-cap": "round"},
       "paint": {
-          "line-color": "#e629ff",
+          "line-color": "#bd6b00",
           "line-width": 2.5,
           "line-offset": -4.8
       }
@@ -2870,7 +2870,7 @@ export const PROJECTS_STYLES_WR = {
       "maxzoom": 13,
       "layout": {"line-cap": "round"},
       "paint": {
-          "line-color": "#e629ff",
+          "line-color": "#bd6b00",
           "line-width": 2.5,
           "line-offset": 4.8
       }
@@ -8896,7 +8896,7 @@ export const tileStyles_WR = {
       ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#ffe83d',
+        'line-color': '#ffff3d',
         'line-offset': -10,
         'line-width': 2.5,
       },
@@ -8913,7 +8913,7 @@ export const tileStyles_WR = {
       ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#ffe83d',
+        'line-color': '#ffff3d',
         'line-width': 2.5,
         'line-offset': 10,
       },
@@ -8930,7 +8930,7 @@ export const tileStyles_WR = {
       ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#ffe83d',
+        'line-color': '#ffff3d',
         'line-offset': -6,
         'line-width': 2.5,
         'line-dasharray': [1, 1.5],
@@ -8948,7 +8948,7 @@ export const tileStyles_WR = {
       ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#ffe83d',
+        'line-color': '#ffff3d',
         'line-offset': 6,
         'line-width': 2.5,
         'line-dasharray': [1, 1.5],
@@ -8967,7 +8967,7 @@ export const tileStyles_WR = {
       ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#e629ff',
+        'line-color': '#bd6b00',
         'line-width': 2.5,
         'line-offset': -18,
       },
@@ -8985,7 +8985,7 @@ export const tileStyles_WR = {
       ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#e629ff',
+        'line-color': '#bd6b00',
         'line-width': 2.5,
         'line-offset': 18,
       },
@@ -9003,7 +9003,7 @@ export const tileStyles_WR = {
       ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#e629ff',
+        'line-color': '#bd6b00',
         'line-width': 2.5,
         'line-offset': -14,
         'line-dasharray': [2.5, 1.5],
@@ -9022,7 +9022,7 @@ export const tileStyles_WR = {
       ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#e629ff',
+        'line-color': '#bd6b00',
         'line-width': 2.5,
         'line-offset': 14,
         'line-dasharray': [2.5, 1.5],
@@ -9041,7 +9041,7 @@ export const tileStyles_WR = {
       ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#e629ff',
+        'line-color': '#bd6b00',
         'line-width': 2,
         'line-offset': -4.5,
       },
@@ -9059,7 +9059,7 @@ export const tileStyles_WR = {
       ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#e629ff',
+        'line-color': '#bd6b00',
         'line-width': 2,
         'line-offset': 4.5,
       },
@@ -9077,7 +9077,7 @@ export const tileStyles_WR = {
       ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#ffe83d',
+        'line-color': '#ffff3d',
         'line-width': 2,
         'line-offset': -2,
       },
@@ -9095,7 +9095,7 @@ export const tileStyles_WR = {
       ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#ffe83d',
+        'line-color': '#ffff3d',
         'line-width': 2,
         'line-offset': 2,
       },
@@ -9113,7 +9113,7 @@ export const tileStyles_WR = {
       ],
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#e629ff',
+        'line-color': '#bd6b00',
         'line-offset': -3.6,
         'line-width': 3,
       },
@@ -9130,7 +9130,7 @@ export const tileStyles_WR = {
         ['match', ['get', 'status'], ['Approved', 'Requested', 'Permit Monitoring', 'Active', 'Draft'], true, false],
       ],
       layout: { 'line-cap': 'round' },
-      paint: { 'line-color': '#ffe83d', 'line-width': 3 },
+      paint: { 'line-color': '#ffff3d', 'line-width': 3 },
     },
     {
       type: 'line',
@@ -9138,7 +9138,7 @@ export const tileStyles_WR = {
       metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [999] },
       layout: { 'line-cap': 'round' },
       paint: {
-        'line-color': '#ffe83d',
+        'line-color': '#ffff3d',
         'line-width': ['interpolate', ['linear'], ['zoom'], 0, 3, 10, 3, 14, 7],
       },
     },

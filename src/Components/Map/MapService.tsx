@@ -358,10 +358,10 @@ class MapService {
       this.map.moveLayer('mhfd_flow_points_2');
     }
   };
-  topStreamLabels () {
-    this.map.moveLayer('streams_4');
-    this.map.moveLayer('streams_5');
-  };
+  // topStreamLabels () {
+  //   this.map.moveLayer('streams_4');
+  //   this.map.moveLayer('streams_5');
+  // };
   applyTileSetLayer() {
     const sourceNameTile = 'milehighfd.create';
     const tileName = 'Adams1_LULC';
@@ -509,7 +509,7 @@ class MapService {
       this.topAddLayers();
       this.topProblems();
       this.topHovereableLayers();
-      this.topStreamLabels();
+      // this.topStreamLabels();
       this.topLabels();
       if (this.map.getLayer('area_based_maskMASK')) {
         this.map.moveLayer('area_based_maskMASK');
