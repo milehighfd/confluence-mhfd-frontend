@@ -2500,140 +2500,131 @@ export const PROJECTS_STYLES_WR = {
     },
     {
       // "id": "propacq__cncl",
-      type: 'symbol',
-      metadata: {
-        project_status: [8],
-        project_type: [13],
-      },
+      "type": "symbol",
+      metadata: { 'mapbox:group': 'bdf3db001830c897392db56b343f448b', project_status: [7, 8], project_type: [13] },
       'source-layer': 'pluto15v1',
-      layout: {
-        'icon-image': 'propacq_RED_small',
-        'icon-size': 0.5,
-        'icon-allow-overlap': true,
-        'icon-padding': 0,
-        'icon-ignore-placement': true,
+      "layout": {
+          "icon-image": "propacq_RED_small",
+          'icon-ignore-placement': true,
+          'text-allow-overlap': true,
+          'icon-allow-overlap': true,
+          'text-ignore-placement': true,
+          "icon-size": 0.5,
+          "icon-padding": 0
       },
-      paint: {},
+      "paint": {}
     },
     {
       // "id": "propacq__draft",
-      type: 'symbol',
-      metadata: {
-        project_status: [1],
-        project_type: [13],
+      "type": "symbol",
+      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1], project_type: [13] },  'source-layer': 'pluto15v1',
+      "layout": {
+          "icon-image": "propacq_ORANGE_bold_small",
+          'icon-ignore-placement': true,
+          'text-allow-overlap': true,
+          'icon-allow-overlap': true,
+          'text-ignore-placement': true,
+          "icon-size": 0.5,
+          "icon-padding": 0
       },
-      'source-layer': 'pluto15v1',
-      layout: {
-        'icon-image': 'propacq_ORANGE_bold_small',
-        'icon-size': 0.5,
-        'icon-allow-overlap': true,
-        'icon-padding': 0,
-        'icon-ignore-placement': true,
-      },
-      paint: {},
+      "paint": {}
     },
     {
       // "id": "propacq__rqst",
-      type: 'symbol',
-      metadata: {
-        project_status: [2],
-        project_type: [13],
-      },
+      "type": "symbol",
+      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [2], project_type: [13] },
       'source-layer': 'pluto15v1',
-      layout: {
-        'icon-image': 'propacq_PINK_bold_small',
-        'icon-size': 0.5,
-        'icon-allow-overlap': true,
-        'icon-padding': 0,
-        'icon-ignore-placement': true,
+      "layout": {
+          "icon-image": "propacq_PINK_bold_small",
+          'icon-ignore-placement': true,
+          'text-allow-overlap': true,
+          'icon-allow-overlap': true,
+          'text-ignore-placement': true,
+          "icon-size": 0.5,
+          "icon-padding": 0
       },
-      paint: {},
+      "paint": {}
     },
     {
       // "id": "propacq__aprvd",
-      type: 'symbol',
-      metadata: {
-        project_status: [3],
-        project_type: [13],
-      },
+      "type": "symbol",
+      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [3], project_type: [13] }, 
       'source-layer': 'pluto15v1',
-      layout: {
-        'icon-image': 'propacq_GREEN_bold_small',
-        'icon-size': 0.5,
-        'icon-allow-overlap': true,
-        'icon-padding': 0,
-        'icon-ignore-placement': true,
+      "layout": {
+          "icon-image": "propacq_GREEN_bold_small",
+          'icon-ignore-placement': true,
+          'text-allow-overlap': true,
+          'icon-allow-overlap': true,
+          'text-ignore-placement': true,
+          "icon-size": 0.5,
+          "icon-padding": 0
       },
-      paint: {},
+      "paint": {}
     },
     {
       // "id": "rd__cncl",
-      type: 'symbol',
-      metadata: {
-        project_status: [8],
-        project_type: [15, 16],
-      },
+      "type": "symbol",
+      metadata: { 'mapbox:group': 'bdf3db001830c897392db56b343f448b', project_status: [7, 8], project_type: [15, 16] },
       'source-layer': 'pluto15v1',
-      layout: {
-        'icon-image': 'RD_Red_New',
-        'icon-size': 0.5,
-        'icon-allow-overlap': true,
-        'icon-padding': 0,
-        'icon-ignore-placement': true,
+      "layout": {
+          "icon-image": "RD_red",
+          'icon-ignore-placement': true,
+          'text-allow-overlap': true,
+          'icon-allow-overlap': true,
+          'text-ignore-placement': true,
+          "icon-size": 0.5,
+          "icon-padding": 0
       },
-      paint: {},
+      "paint": {}
     },
     {
       // "id": "rd__draft",
-      type: 'symbol',
-      metadata: {
-        project_status: [1],
-        project_type: [15, 16],
-      },
+      "type": "symbol",
+      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1], project_type: [15, 16] },
       'source-layer': 'pluto15v1',
-      layout: {
-        'icon-image': 'RD_Orange_New',
-        'icon-size': 0.5,
-        'icon-allow-overlap': true,
-        'icon-padding': 0,
-        'icon-ignore-placement': true,
+      "layout": {
+          "icon-image": "RD_orange",
+          'icon-ignore-placement': true,
+          'text-allow-overlap': true,
+          'icon-allow-overlap': true,
+          'text-ignore-placement': true,
+          "icon-size": 0.5,
+          "icon-padding": 0
       },
-      paint: {},
+      "paint": {}
     },
     {
       // "id": "rd__rqst",
-      type: 'symbol',
-      metadata: {
-        project_status: [2],
-        project_type: [15, 16],
-      },
+      "type": "symbol",
+      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [2], project_type: [15, 16] }, 
       'source-layer': 'pluto15v1',
-      layout: {
-        'icon-image': 'RD_Pink_New',
-        'icon-size': 0.5,
-        'icon-allow-overlap': true,
-        'icon-padding': 0,
-        'icon-ignore-placement': true,
+      "layout": {
+          "icon-image": "RD_pink",
+          'icon-ignore-placement': true,
+          'text-allow-overlap': true,
+          'icon-allow-overlap': true,
+          'text-ignore-placement': true,
+          "icon-size": 0.5,
+          "icon-padding": 0
       },
-      paint: {},
+      "paint": {}
     },
     {
       // "id": "rd__aprvd",
-      type: 'symbol',
-      metadata: { 
-        project_status: [3],
-        project_type: [15, 16],
-      },
+      "type": "symbol",
+      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [3], project_type: [15, 16] },
       'source-layer': 'pluto15v1',
-      layout: {
-        'icon-allow-overlap': true,
-        'icon-padding': 0,
-        'icon-image': 'RD_Green_New',
-        'icon-size': 0.5,
-        'icon-ignore-placement': true,
+      "layout": {
+          "icon-image": "RD_green",
+          'icon-ignore-placement': true,
+          'text-allow-overlap': true,
+          'icon-allow-overlap': true,
+          'text-ignore-placement': true,
+          "icon-size": 0.5,
+          "icon-padding": 0
       },
-      paint: {},
-    },
+      "paint": {}
+    }
   ],
 };
 
