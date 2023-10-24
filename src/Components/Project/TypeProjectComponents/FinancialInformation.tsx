@@ -88,7 +88,7 @@ export const FinancialInformation = ({
         <h5 className="requestor-information">{index}. FINANCIAL INFORMATION </h5>
       </div>
       <Row className="cost-project">
-        <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>SUBTOTAL PROPOSED ACTIONS COST</Col>
+        <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>PROPOSED ACTIONS SUBTOTAL COST</Col>
         <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>{formatter.format( getSubTotalCost())}</b></Col>
       </Row>
       <hr/>
