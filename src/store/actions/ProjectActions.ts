@@ -192,7 +192,6 @@ export const changeAddLocationState = (isAddLocation: boolean) => {
 
 export const setComponentIntersected = (listComponents: any) => {
   return (dispatch: Function) => {
-    console.trace('Setting listcomponents 2 ', listComponents);
     dispatch({type: types.SET_LIST_COMPONENTS, listComponents});
   }
 } 

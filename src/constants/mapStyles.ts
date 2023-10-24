@@ -2620,7 +2620,7 @@ export const PROJECTS_STYLES_WR = {
     {
       // "id": "rd__aprvd",
       type: 'symbol',
-      metadata: {
+      metadata: { 
         project_status: [3],
         project_type: [15, 16],
       },
