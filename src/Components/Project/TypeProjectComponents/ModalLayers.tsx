@@ -17,6 +17,7 @@ import {
   ALERT_STATION,
   LAYERS_LABELS,
   popUps,
+  PROPOSED_ACTIONS,
 } from '../../../constants/constants';
 import { useMapState } from "hook/mapHook";
 import { useProjectDispatch, useProjectState } from "hook/projectHook";
@@ -71,6 +72,11 @@ const ModalLayers = ({
     .map((layer:any) => layer.value);
 
     const layersResult = layers.filter(item => !uncheckedResult.includes(item));
+    if(layersResult.includes(COMPONENT_LAYERS)){
+      layersResult.push(PROPOSED_ACTIONS)
+    } else {
+      layersResult.splice(layersResult.indexOf(PROPOSED_ACTIONS), 1)
+    }
     selectCheckboxes(layersResult);
   }
   const contentPopOver = (text: string, title?:string) => {

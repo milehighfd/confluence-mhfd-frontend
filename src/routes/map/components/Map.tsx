@@ -1001,6 +1001,11 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
           layerExcluded.tiles.forEach((subKey: string) => {
             hideLayerAfterRender(subKey);
           });
+          if(layerExcluded === COMPONENT_LAYERS){
+            PROPOSED_ACTIONS.tiles.forEach((subKey: string) => {
+              hideLayerAfterRender(subKey);
+            });
+          }
         } else {
           hideLayerAfterRender(layerExcluded);
         }
