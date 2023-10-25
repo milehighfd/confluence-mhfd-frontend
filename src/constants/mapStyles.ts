@@ -2324,899 +2324,141 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
 };
 export const PROPOSED_ACTIONS = {
   [PROPOSED_ACTIONS_LINES] :[
-
-    {
-      // "id": "PA-Line-Removal SHADOW",
-      "type": "line",
-  
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          ["match", ["get", "type"], ["Removal Lin"], true, false],
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "round"},
-      "paint": {"line-width": 15, "line-opacity": 0.4, "line-blur": 5}
-  },
   {
-      // "id": "PA-Line-ChnlImprvmnt SHADOW",
-      "type": "line",
-  
+      // "id": "PA-Line-Heat",
+      "type": "heatmap",
       "source-layer": "pluto15v1",
       "filter": [
-          "all",
-          ["match", ["get", "type"], ["Channel Imp"], true, false],
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
+          "match",
+          ["get", "status"],
+          ["Constructed", "TBD", "Proposed"],
+          true,
+          false
       ],
-      "layout": {"line-cap": "square"},
-      "paint": {"line-opacity": 0.4, "line-blur": 5, "line-width": 8}
-  },
-  {
-      // "id": "PA-Line-StrmImprvmnt SHADOW",
-      "type": "line",
-  
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "type"],
-              [
-                  "Circular",
-                  "Pedestrian",
-                  "Box",
-                  "16x3 Box",
-                  "Emergency O",
-                  "Wall"
-              ],
-              true,
-              false
+      "paint": {
+          "heatmap-color": [
+              "interpolate",
+              ["linear"],
+              ["heatmap-density"],
+              0,
+              "rgba(0, 0, 255, 0)",
+              0.1,
+              "#035b63",
+              0.3,
+              "#04b99b",
+              0.5,
+              "#1cab1c",
+              0.7,
+              "#2b912b",
+              1,
+              "#05fa05"
           ],
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
+          "heatmap-radius": 7,
+          "heatmap-opacity": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              0,
+              0.7,
+              10.55,
+              0.85,
+              11.4,
+              0
           ]
-      ],
-      "layout": {"line-cap": "round"},
-      "paint": {"line-opacity": 0.4, "line-blur": 5, "line-width": 8}
-  },
-  {
-      // "id": "PA-Line-MaintTrail SHADOW",
-      "type": "line",
-  
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          ["match", ["get", "type"], ["Maintenance"], true, false],
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "round"},
-      "paint": {"line-opacity": 0.4, "line-blur": 5, "line-width": 8}
-  },
-  {
-      // "id": "PA-Line-Special SHADOW",
-      "type": "line",
-  
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          ["match", ["get", "type"], ["Special Ite"], true, false],
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "round"},
-      "paint": {"line-opacity": 0.4, "line-blur": 5, "line-width": 8}
-  },
-  {
-      // "id": "PA-Line-StormDrn SHADOW",
-      "type": "line",
-  
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          ["match", ["get", "type"], ["Storm Drain"], true, false],
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "round"},
-      "paint": {"line-opacity": 0.4, "line-blur": 5, "line-width": 8}
-  },
-  {
-      // "id": "PA-Line-ChnlImprvmnt BASE",
-      "type": "line",
-  
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          ["match", ["get", "type"], ["Channel Imp"], true, false],
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-width": 2,
-          "line-color": "#2a4328",
-          "line-gap-width": 2
       }
-  },
-  {
-      // "id": "PA-Line-ChnlImprvmnt LINE",
-      "type": "line",
-  
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          ["match", ["get", "type"], ["Channel Imp"], true, false],
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "round"},
-      "paint": {"line-color": "#00e07b", "line-gap-width": 3}
-  },
-  {
-      // "id": "PA-Line-StrmImprvmnt BASE",
-      "type": "line",
-  
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "type"],
-              [
-                  "Circular",
-                  "Pedestrian",
-                  "Box",
-                  "16x3 Box",
-                  "Emergency O",
-                  "Wall"
-              ],
-              true,
-              false
-          ],
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#2a4328",
-          "line-gap-width": 2,
-          "line-width": 2
-      }
-  },
-  {
-      // "id": "PA-Line-StrmImprvmnt LINE",
-      "type": "line",
-  
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "type"],
-              [
-                  "Circular",
-                  "Pedestrian",
-                  "Box",
-                  "16x3 Box",
-                  "Emergency O",
-                  "Wall"
-              ],
-              true,
-              false
-          ],
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "round"},
-      "paint": {"line-color": "#38e000", "line-gap-width": 3}
-  },
-  {
-      // "id": "PA-Line-Removal LINE",
-      "type": "line",
-  
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          ["match", ["get", "type"], ["Removal Lin"], true, false],
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "paint": {"line-color": "#38e000", "line-width": 2}
-  },
-  {
-      // "id": "PA-Line-Removal DASH",
-      "type": "line",
-  
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          ["match", ["get", "type"], ["Removal Lin"], true, false],
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "paint": {
-          "line-color": "#38e000",
-          "line-dasharray": [0.15, 0.2],
-          "line-width": 7
-      }
-  },
-  {
-      // "id": "PA-Line-MaintTrail LINE BASE",
-      "type": "line",
-  
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          ["match", ["get", "type"], ["Maintenance"], true, false],
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "round"},
-      "paint": {"line-color": "#2a4328", "line-width": 4}
-  },
-  {
-      // "id": "PA-Line-MaintTrail DASH",
-      "type": "line",
-  
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          ["match", ["get", "type"], ["Maintenance"], true, false],
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#38e000",
-          "line-width": 2,
-          "line-dasharray": [1, 3]
-      }
-  },
-  {
-      // "id": "PA-Line-Special LINE BASE",
-      "type": "line",
-  
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          ["match", ["get", "type"], ["Special Ite"], true, false],
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "round"},
-      "paint": {"line-color": "#2a4328", "line-width": 4}
-  },
-  {
-      // "id": "PA-Line-Special DASH",
-      "type": "line",
-  
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          ["match", ["get", "type"], ["Special Ite"], true, false],
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "paint": {
-          "line-color": "#28af76",
-          "line-dasharray": [0.8, 0.8],
-          "line-width": 4
-      }
-  },
-  {
-      // "id": "PA-Line-StormDrn BASE",
-      "type": "line",
-  
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          ["match", ["get", "type"], ["Storm Drain"], true, false],
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "round"},
-      "paint": {"line-color": "#2a4328", "line-width": 4}
-  },
-  {
-      // "id": "PA-Line-StormDrn LINE",
-      "type": "line",
-  
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          ["match", ["get", "type"], ["Storm Drain"], true, false],
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "round"},
-      "paint": {"line-color": "#28af76", "line-width": 2.5}
-  },
+  }
+   
   ], 
   [PROPOSED_ACTIONS_POLYS] :[
-    {    
-      // "id": "PA-Poly-LandAcq SHADOW",
-              "type": "line",
-              "source-layer": "pluto15v1",
-              "filter": [
-                  "all",
-                  ["match", ["get", "type"], ["Land Acquisition"], true, false],
-                  [
-                      "match",
-                      ["get", "status"],
-                      ["Constructed", "TBD", "Proposed"],
-                      true,
-                      false
-                  ]
-              ],
-              "layout": {"line-cap": "square"},
-              "paint": {"line-width": 8, "line-opacity": 0.4, "line-blur": 5}
-              },
-          {
-              // "id": "PA-Poly-DetnFaclt SHADOW",
-              "type": "line",
-          
-              "source-layer": "pluto15v1",
-              "filter": [
-                  "all",
-                  [
-                      "match",
-                      ["get", "type"],
-                      ["Detention Facilit", "Medium (haul away"],
-                      true,
-                      false
-                  ],
-                  [
-                      "match",
-                      ["get", "status"],
-                      ["Constructed", "TBD", "Proposed"],
-                      true,
-                      false
-                  ]
-              ],
-              "layout": {"line-cap": "square"},
-              "paint": {"line-width": 8, "line-opacity": 0.4, "line-blur": 5}
-          },
-          {
-              // "id": "PA-Poly-ChnlImprvmnt SHADOW",
-              "type": "line",
-          
-              "source-layer": "pluto15v1",
-              "filter": [
-                  "all",
-                  [
-                      "match",
-                      ["get", "type"],
-                      ["Channel Improveme", "Excavation, Mid R"],
-                      true,
-                      false
-                  ],
-                  [
-                      "match",
-                      ["get", "status"],
-                      ["Constructed", "TBD", "Proposed"],
-                      true,
-                      false
-                  ]
-              ],
-              "layout": {"line-cap": "square"},
-              "paint": {"line-width": 8, "line-opacity": 0.4, "line-blur": 5}
-          },
-          {
-              // "id": "PA-Poly-Removal SHADOW",
-              "type": "line",
-          
-              "source-layer": "pluto15v1",
-              "filter": [
-                  "all",
-                  ["match", ["get", "type"], ["Removal Area"], true, false],
-                  [
-                      "match",
-                      ["get", "status"],
-                      ["Constructed", "TBD", "Proposed"],
-                      true,
-                      false
-                  ]
-              ],
-              "layout": {"line-cap": "square"},
-              "paint": {"line-width": 8, "line-opacity": 0.4, "line-blur": 5}
-          },
-          {
-              // "id": "PA-Poly-SpeciaL SHADOW",
-              "type": "line",
-          
-              "source-layer": "pluto15v1",
-              "filter": [
-                  "all",
-                  [
-                      "match",
-                      ["get", "type"],
-                      ["Special Item Area", "Potential Berm"],
-                      true,
-                      false
-                  ],
-                  [
-                      "match",
-                      ["get", "status"],
-                      ["Constructed", "TBD", "Proposed"],
-                      true,
-                      false
-                  ]
-              ],
-              "layout": {"line-cap": "square"},
-              "paint": {"line-width": 8, "line-opacity": 0.4, "line-blur": 5}
-          },
-          {
-              // "id": "PA-Poly-Landscape SHADOW",
-              "type": "line",
-          
-              "source-layer": "pluto15v1",
-              "filter": [
-                  "all",
-                  ["match", ["get", "type"], ["Landscaping Area"], true, false],
-                  [
-                      "match",
-                      ["get", "status"],
-                      ["Constructed", "TBD", "Proposed"],
-                      true,
-                      false
-                  ]
-              ],
-              "layout": {"line-cap": "square"},
-              "paint": {"line-width": 8, "line-opacity": 0.4, "line-blur": 5}
-          },
-          {
-              // "id": "PA-Poly-LandAcq FILL",
-              "type": "fill",
-          
-              "source-layer": "pluto15v1",
-              "filter": [
-                  "all",
-                  ["match", ["get", "type"], ["Land Acquisition"], true, false],
-                  [
-                      "match",
-                      ["get", "status"],
-                      ["Constructed", "TBD", "Proposed"],
-                      true,
-                      false
-                  ]
-              ],
-              "paint": {"fill-color": "#359d01", "fill-opacity": 0.6}
-          },
-          {
-              // "id": "PA-Poly-LandAcq OUTLINE",
-              "type": "line",
-          
-              "source-layer": "pluto15v1",
-              "filter": [
-                  "all",
-                  ["match", ["get", "type"], ["Land Acquisition"], true, false],
-                  [
-                      "match",
-                      ["get", "status"],
-                      ["Constructed", "TBD", "Proposed"],
-                      true,
-                      false
-                  ]
-              ],
-              "paint": {"line-color": "#2d7709", "line-width": 3}
-          },
-          {
-              // "id": "PA-Poly-DetnFaclt FILL",
-              "type": "fill",
-          
-              "source-layer": "pluto15v1",
-              "filter": [
-                  "all",
-                  [
-                      "match",
-                      ["get", "type"],
-                      ["Detention Facilit", "Medium (haul away"],
-                      true,
-                      false
-                  ],
-                  [
-                      "match",
-                      ["get", "status"],
-                      ["Constructed", "TBD", "Proposed"],
-                      true,
-                      false
-                  ]
-              ],
-              "paint": {
-                  "fill-color": "#16c51c",
-                  "fill-outline-color": "#004d04",
-                  "fill-opacity": 0.7,
-                  "fill-pattern": "HEX-dbl-green-darker-superrrrsmall"
-              }
-          },
-          {
-              // "id": "PA-Poly-DetnFaclt OUTLINE",
-              "type": "line",
-          
-              "source-layer": "pluto15v1",
-              "filter": [
-                  "all",
-                  [
-                      "match",
-                      ["get", "type"],
-                      ["Detention Facilit", "Medium (haul away"],
-                      true,
-                      false
-                  ],
-                  [
-                      "match",
-                      ["get", "status"],
-                      ["Constructed", "TBD", "Proposed"],
-                      true,
-                      false
-                  ]
-              ],
-              "paint": {"line-color": "#14730d", "line-width": 3}
-          },
-          {
-              // "id": "PA-Poly-ChnlImprvmnt FILL",
-              "type": "fill",
-          
-              "source-layer": "pluto15v1",
-              "filter": [
-                  "all",
-                  [
-                      "match",
-                      ["get", "type"],
-                      ["Channel Improveme", "Excavation, Mid R"],
-                      true,
-                      false
-                  ],
-                  [
-                      "match",
-                      ["get", "status"],
-                      ["Constructed", "TBD", "Proposed"],
-                      true,
-                      false
-                  ]
-              ],
-              "paint": {
-                  "fill-color": "#0d591c",
-                  "fill-pattern": "darkgreenhatchfill",
-                  "fill-opacity": 0.8
-              }
-          },
-          {
-              // "id": "PA-Poly-ChnlImprvmnt OUTLINE",
-              "type": "line",
-          
-              "source-layer": "pluto15v1",
-              "filter": [
-                  "all",
-                  [
-                      "match",
-                      ["get", "type"],
-                      ["Channel Improveme", "Excavation, Mid R"],
-                      true,
-                      false
-                  ],
-                  [
-                      "match",
-                      ["get", "status"],
-                      ["Constructed", "TBD", "Proposed"],
-                      true,
-                      false
-                  ]
-              ],
-              "paint": {"line-color": "#054d13", "line-width": 3}
-          },
-          {
-              // "id": "PA-Poly-Removal FILL",
-              "type": "fill",
-          
-              "source-layer": "pluto15v1",
-              "filter": [
-                  "all",
-                  ["match", ["get", "type"], ["Removal Area"], true, false],
-                  [
-                      "match",
-                      ["get", "status"],
-                      ["Constructed", "TBD", "Proposed"],
-                      true,
-                      false
-                  ]
-              ],
-              "paint": {
-                  "fill-color": "#63e637",
-                  "fill-pattern": "lightgreenhatchfill-backwrd-lesssmall",
-                  "fill-opacity": 0.8
-              }
-          },
-          {
-              // "id": "PA-Poly-Removal OUTLINE",
-              "type": "line",
-          
-              "source-layer": "pluto15v1",
-              "filter": [
-                  "all",
-                  ["match", ["get", "type"], ["Removal Area"], true, false],
-                  [
-                      "match",
-                      ["get", "status"],
-                      ["Constructed", "TBD", "Proposed"],
-                      true,
-                      false
-                  ]
-              ],
-              "paint": {"line-color": "#64ff33", "line-width": 3}
-          },
-          {
-              // "id": "PA-Poly-Special FILL",
-              "type": "fill",
-          
-              "source-layer": "pluto15v1",
-              "filter": [
-                  "all",
-                  [
-                      "match",
-                      ["get", "type"],
-                      ["Special Item Area", "Potential Berm"],
-                      true,
-                      false
-                  ],
-                  [
-                      "match",
-                      ["get", "status"],
-                      ["Constructed", "TBD", "Proposed"],
-                      true,
-                      false
-                  ]
-              ],
-              "paint": {
-                  "fill-color": "#00e07b",
-                  "fill-pattern": "SQR-teal-supersml",
-                  "fill-opacity": 0.6
-              }
-          },
-          {
-              // "id": "PA-Poly-Special OUTLINE",
-              "type": "line",
-          
-              "source-layer": "pluto15v1",
-              "filter": [
-                  "all",
-                  [
-                      "match",
-                      ["get", "type"],
-                      ["Special Item Area", "Potential Berm"],
-                      true,
-                      false
-                  ],
-                  [
-                      "match",
-                      ["get", "status"],
-                      ["Constructed", "TBD", "Proposed"],
-                      true,
-                      false
-                  ]
-              ],
-              "paint": {"line-color": "#28af76", "line-width": 3}
-          },
-          {
-              // "id": "PA-Poly-Landscape FILL",
-              "type": "fill",
-          
-              "source-layer": "pluto15v1",
-              "filter": [
-                  "all",
-                  ["match", ["get", "type"], ["Landscaping Area"], true, false],
-                  [
-                      "match",
-                      ["get", "status"],
-                      ["Constructed", "TBD", "Proposed"],
-                      true,
-                      false
-                  ]
-              ],
-              "paint": {
-                  "fill-color": "#2da215",
-                  "fill-pattern": "dots-small_olive",
-                  "fill-opacity": 0.8
-              }
-          },
-          {
-              // "id": "PA-Poly-Landscape OUTLINE",
-              "type": "line",
-          
-              "source-layer": "pluto15v1",
-              "filter": [
-                  "all",
-                  ["match", ["get", "type"], ["Landscaping Area"], true, false],
-                  [
-                      "match",
-                      ["get", "status"],
-                      ["Constructed", "TBD", "Proposed"],
-                      true,
-                      false
-                  ]
-              ],
-              "paint": {"line-color": "#a9d18e", "line-width": 3}
-          },
+    {
+      // "id": "PA-Poly-Heat",
+      "type": "heatmap",
+      "source-layer": "pluto15v1",
+      "filter": [
+          "match",
+          ["get", "status"],
+          ["Constructed", "TBD", "Proposed"],
+          true,
+          false
+      ],
+      "paint": {
+          "heatmap-color": [
+              "interpolate",
+              ["linear"],
+              ["heatmap-density"],
+              0,
+              "rgba(0, 0, 255, 0)",
+              0.1,
+              "#035b63",
+              0.3,
+              "#04b99b",
+              0.5,
+              "#1cab1c",
+              0.7,
+              "#2b912b",
+              1,
+              "#05fa05"
+          ],
+          "heatmap-radius": 7,
+          "heatmap-opacity": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              0,
+              0.7,
+              10.55,
+              0.85,
+              11.4,
+              0
+          ]
+      }
+  },
   ],
   [PROPOSED_ACTIONS_POINTS]: [
-
     {
-      // "id": "PA-Point-Special",
-      "type": "symbol",
-  
+      // "id": "PA-Point-Heat",
+      "type": "heatmap",
       "source-layer": "pluto15v1",
       "filter": [
-          "all",
-          [
-              "match",
-              ["get", "type"],
-              ["Special Item Point", "Modify Manhole"],
-              true,
-              false
-          ],
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
+          "match",
+          ["get", "status"],
+          ["Constructed", "TBD", "Proposed"],
+          true,
+          false
       ],
-      "layout": {
-          "icon-image": "SpecialPt_small",
-          "icon-allow-overlap": true,
-          "icon-ignore-placement": true,
-          "icon-size": 0.25
-      },
-      "paint": {}
+      "paint": {
+          "heatmap-radius": 7,
+          "heatmap-color": [
+              "interpolate",
+              ["linear"],
+              ["heatmap-density"],
+              0,
+              "rgba(0, 0, 255, 0)",
+              0.1,
+              "#035b63",
+              0.3,
+              "#04b99b",
+              0.5,
+              "#1cab1c",
+              0.7,
+              "#2b912b",
+              1,
+              "#05fa05"
+          ],
+          "heatmap-opacity": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              0,
+              0.7,
+              10.55,
+              0.85,
+              11.4,
+              0
+          ]
+      }
   },
-  {
-      // "id": "PA-Point-GradeCtrl",
-      "type": "symbol",
-  
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "type"],
-              ["Grade Control Stru", "Sloping Drop Struc"],
-              true,
-              false
-          ],
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {
-          "icon-image": "GradeCtrl_small",
-          "icon-size": 0.2,
-          "icon-allow-overlap": true,
-          "icon-ignore-placement": true
-      },
-      "paint": {}
-  },
-  {
-      // "id": "PA-Point-PipeApp",
-      "type": "symbol",
-  
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "type"],
-              ["Pipe Appurtenances", "Manhole"],
-              true,
-              false
-          ],
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"icon-image": "PipeApp_small", "icon-size": 0.2},
-      "paint": {"text-color": "#2a4328"}
-  }
+    
   ]
 }
 export const PROJECTS_STYLES_WR = {
@@ -6114,6 +5356,7 @@ export const tileStyles = {
   ...ROUTINE_MAINTENANCE_STYLES,
   ...PROJECTS_STYLES,
   ...PROJECTS_STYLES_WR,
+  ...PROPOSED_ACTIONS
 };
 
 export const tileStylesDetailPage = {
@@ -8529,6 +7772,7 @@ export const tileStylesDetailPage = {
   ...COMPONENT_LAYERS_STYLE,
   ...MEP_PROJECTS_STYLES,
   ...ROUTINE_MAINTENANCE_STYLES,
+  ...PROPOSED_ACTIONS
 };
 export const tileStyles_WR = {
   ...LAND_OBJECT,
@@ -11351,6 +10595,7 @@ export const tileStyles_WR = {
   ...MEP_PROJECTS_STYLES,
   ...ROUTINE_MAINTENANCE_STYLES,
   ...PROJECTS_STYLES_WR,
+  ...PROPOSED_ACTIONS
 };
 
 export const USER_POLYGON_FILL_STYLES = {

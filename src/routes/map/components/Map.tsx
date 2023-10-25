@@ -33,7 +33,8 @@ import {
   PROJECTS_DRAFT_MAP_STYLES,
   PROJECTS_DRAFT,
   MAP_TAB,
-  MAINTENANCE_IDS
+  MAINTENANCE_IDS,
+  PROPOSED_ACTIONS
 } from 'constants/constants';
 import {
   tileStyles,
@@ -628,7 +629,45 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     applyFilters(MHFD_PROJECTS, filterProjectOptions);
   }, [groupedProjectIdsType, zoomEndCounter, dragEndCounter]);
 
+  const areObjectsEqual = (obj1:any, obj2:any) => {
+    const keys1 = Object.keys(obj1);
+    const keys2 = Object.keys(obj2);
+    if (keys1.length !== keys2.length) {
+      return false;
+    }
+    for (const key of keys1) {
+      if (obj1[key] !== obj2[key]) {
+        if(Array.isArray(obj1[key]) && Array.isArray(obj2[key])){
+          if(obj1[key].length !== obj2[key].length){
+            return false;
+          }
+        }else {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
   useEffect(() => {
+    const emptyFilterComponent = {component_type:"",
+      status:"",
+      yearofstudy: "",
+      estimatedcost:[],
+      jurisdiction:"",
+      county:"",
+      mhfdmanager:"",
+      servicearea:"",}
+    if(selectedLayers.includes(PROPOSED_ACTIONS)){
+      if(areObjectsEqual(filterComponentOptions,emptyFilterComponent)){
+        PROPOSED_ACTIONS.tiles.forEach((layer: any) => {
+          showLayers(layer);
+        })
+      }else{
+        PROPOSED_ACTIONS.tiles.forEach((layer: any) => {
+          hideLayers(layer);
+        })
+      }
+    }
     for (const component of COMPONENT_LAYERS.tiles) {
       applyFilters(component, filterComponentOptions);
     }

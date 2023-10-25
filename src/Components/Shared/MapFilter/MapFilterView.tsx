@@ -33,7 +33,8 @@ import {
   FLOOD_HAZARDS,
   USE_LAND_COVER_LABEL,
   USE_LAND_COVER,
-  ALERT_STATION
+  ALERT_STATION,
+  PROPOSED_ACTIONS
 } from '../../../constants/constants';
 
 
@@ -223,7 +224,8 @@ const MapFilterView = ({
           PROJECTS_MAP_STYLES,
           MEP_PROJECTS,
           ROUTINE_MAINTENANCE,
-          COMPONENT_LAYERS], 'MHFDData'
+          COMPONENT_LAYERS,
+          PROPOSED_ACTIONS], 'MHFDData'
       )} }/>
     </div>)
   };
@@ -327,10 +329,17 @@ const MapFilterView = ({
     }
     let switchSelected: any[] = [...selectedLayers];
     if (value) {
+      if(item === COMPONENT_LAYERS){
+        switchSelected.push(PROPOSED_ACTIONS);
+      }
       switchSelected.push(item);
     } else {
       switchSelected = switchSelected.filter((element) => {
-        return element !== item;
+        if(item === COMPONENT_LAYERS){
+          return element !== PROPOSED_ACTIONS && element !== item;
+        }else{
+          return element !== item;
+        }
       });
     }
     selectCheckboxes(switchSelected);
