@@ -132,7 +132,18 @@ class MapService {
       'custom-sprite/RD_pink.png',
       'custom-sprite/RD_orange.png',
       'custom-sprite/RD_yellow.png',
-      'custom-sprite/RD_green.png'
+      'custom-sprite/RD_green.png',
+      'custom-sprite/floodhazardpoint_small.png',
+      'custom-sprite/watershedchangepoint_small.png',
+      'custom-sprite/streamconditionpoint_small.png',
+      'custom-sprite/darkgreenhatchfill.png',
+      'custom-sprite/dots-small_olive.png',
+      'custom-sprite/SQR-teal-supersml.png',
+      'custom-sprite/SpecialPt_small.png',
+      'custom-sprite/PipeApp_small.png',
+      'custom-sprite/lightgreenhatchfill-backwrd-lesssmall.png',
+      'custom-sprite/HEX-dbl-green-darker-superrrrsmall.png',
+      'custom-sprite/GradeCtrl_small.png'
     ];
     imagesPaths.forEach((imagePath: string) => {
       this.map.loadImage(imagePath, (error: any, image: any) => {
