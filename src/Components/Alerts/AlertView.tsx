@@ -72,8 +72,8 @@ export const AlertView = ({
   };
 
   const labels = {
-    title: isEdit ? 'Confirm your project' : 'Confirm your project',
-    confirmationText: isEdit ? 'Save changes to Project?' : 'This project will be routed to the following boards:',
+    title: 'Confirm your project',
+    confirmationText: isEdit ? 'Save changes to Project?' : 'This project will be routed to the following board:',
     actionText: isEdit ? 'Save Project':'Submit Project'
   };
 
@@ -150,45 +150,45 @@ export const AlertView = ({
                   lg={{ span: 12 }}
                   style={{
                     color: '#11093c',
-                    opacity: isWorkPlan ? (isUnderReview ? 1 : 0.5) : 1,
+                    // opacity: isWorkPlan ? (isUnderReview ? 1 : 0.5) : 1,
                   }}
                 >
                   <p className="title">
-                    Work Request
+                      {sponsor.toUpperCase() === 'MHFD' ? 'Work Plan' : 'Work Request'}
                   </p>
                   <p className={`information ${(isWorkPlan && !sendToWr && showCheckBox && isUnderReview) ? 'disabled' : ''}`}>
-                    {/* {jurisdictions.join(', ')} */}
-                    {sponsor}
+                    {sponsor.toUpperCase() === 'MHFD' ? 'MHFD District' : sponsor}
                   </p>
                 </Col>
               }
               {
-                !isEdit &&
-                <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c'}}>
-                  <p className="title">
-                    Work Plan ({type} Project)
-                  </p>
-                  <p className={`information ${!showCheckBox ? 'disabled': ''}`}>
-                    {isWorkPlan?workPlanString:'--'}
-                  </p>
-                </Col>
-              }
+                // !isEdit &&
+                // <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c'}}>
+                //   <p className="title">
+                //     Work Plan ({type} Project)
+                //   </p>
+                //   <p className={`information ${!showCheckBox ? 'disabled': ''}`}>
+                //     {isWorkPlan?workPlanString:'--'}
+                //   </p>
+                // </Col>
+                !isEdit && <Col></Col>
+              }              
               {
-                (isWorkPlan && showCheckBox && !isEdit && isUnderReview) &&
-                <Col
-                  xs={{ span: 48 }}
-                  lg={{ span: 24 }}
-                  style={{color: '#11093c'}}
-                >
-                  <div>
-                    <Checkbox
-                      style={{paddingRight:'10px', paddingTop:'10px'}}
-                      checked={sendToWr}
-                      onChange={() => setsendToWR(!sendToWr)}
-                    />
-                    Send this project to the Work Request board
-                  </div>
-                </Col>
+                 (isWorkPlan && showCheckBox && !isEdit && isUnderReview) && <Col></Col>
+                // <Col
+                //   xs={{ span: 48 }}
+                //   lg={{ span: 24 }}
+                //   style={{color: '#11093c'}}
+                // >
+                //   <div>
+                //     <Checkbox
+                //       style={{paddingRight:'10px', paddingTop:'10px'}}
+                //       checked={sendToWr}
+                //       onChange={() => setsendToWR(!sendToWr)}
+                //     />
+                //     Send this project to the Work Request board
+                //   </div>
+                // </Col>
               }
               <Col
                 xs={{ span: 24 }}
