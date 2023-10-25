@@ -69,6 +69,9 @@ import {
   ROUTINE_MAINTENANCES,
   ALERT_STATION,
   MAINTENANCE_IDS,
+  PROPOSED_ACTIONS_LINES,
+  PROPOSED_ACTIONS_POINTS,
+  PROPOSED_ACTIONS_POLYS,
 } from './constants';
 
 export const localComponents = {
@@ -124,731 +127,664 @@ export const opacityLayer = {
 export const COMPONENT_LAYERS_STYLE = {
   [GRADE_CONTROL_STRUCTURE]: [
     {
-      // "id": "PA-Point-GradeCtrl",
-      "type": "symbol",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {
-          "icon-image": "GradeCtrl_small",
-          "icon-size": 0.2,
-          "icon-allow-overlap": true,
-          "icon-ignore-placement": true
+      type: 'symbol',
+      'source-layer': 'pluto15v1',
+      layout: {
+        'icon-image': 'Frame21C',
+        'icon-size': ['interpolate', ['linear'], ['zoom'], 0, 0, 11, 0, 13, 0.1, 15, 0.4, 17, 0.5, 22, 0.4],
+        'symbol-avoid-edges': true,
+        'icon-rotation-alignment': 'viewport',
       },
-      "paint": {}
+      paint: {
+        'icon-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 12, 0, 22, 1],
+      },
     },
   ],
   [PIPE_APPURTENANCES]: [
     {
-      // "id": "PA-Point-PipeApp",
-      "type": "symbol",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"icon-image": "PipeApp_small", "icon-size": 0.2},
-      "paint": {"text-color": "#2a4328"}
+      type: 'circle',
+      'source-layer': 'pluto15v1',
+      paint: {
+        'circle-radius': ['interpolate', ['linear'], ['zoom'], 9, 0, 11, 0, 13, 1, 16, 6, 22, 10],
+        'circle-color': ['interpolate', ['linear'], ['zoom'], 15, 'hsl(100, 88%, 42%)', 22, 'hsl(183, 88%, 42%)'],
+        'circle-stroke-width': 1,
+        'circle-stroke-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 12, 0, 13, 1, 22, 1],
+        'circle-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 12, 0, 13, 1, 22, 1],
+      },
     },
   ],
   [SPECIAL_ITEM_POINT]: [
     {
-      // "id": "PA-Point-Special",
-      "type": "symbol",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {
-          "icon-image": "SpecialPt_small",
-          "icon-allow-overlap": true,
-          "icon-ignore-placement": true,
-          "icon-size": 0.25
+      type: 'circle',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'circle-color': 'hsl(98, 80%, 53%)',
+        'circle-stroke-width': ['interpolate', ['linear'], ['zoom'], 0, 1, 12, 1, 14, 2, 22, 2],
+        'circle-stroke-color': 'hsl(295, 88%, 40%)',
+        'circle-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 8.5, 0, 9, 0.72, 15, 1, 22, 1],
+        'circle-radius': 3,
+        'circle-stroke-opacity': ['interpolate', ['linear'], ['zoom'], 11, 0, 22, 1],
       },
-      "paint": {}
+    },
+    {
+      type: 'circle',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'circle-color': 'hsl(98, 80%, 53%)',
+        'circle-stroke-width': 2,
+        'circle-stroke-color': 'hsl(295, 88%, 40%)',
+        'circle-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 8.5, 0, 9, 0.72, 15, 1, 22, 1],
+        'circle-stroke-opacity': ['step', ['zoom'], 0, 12, 0.37, 22, 1],
+        'circle-radius': ['interpolate', ['linear'], ['zoom'], 0, 3, 12, 2, 22, 3],
+      },
     },
   ],
   [SPECIAL_ITEM_LINEAR]: [
     {
-      // "id": "PA-Line-Special SHADOW",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "round"},
-      "paint": {"line-opacity": 0.4, "line-blur": 5, "line-width": 8}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'line-width': ['interpolate', ['linear'], ['zoom'], 12, 2, 22, 6],
+        'line-gap-width': ['interpolate', ['linear'], ['zoom'], 0, 1, 12.07, 3, 22, 3],
+        'line-blur': 8,
+        'line-color': 'hsl(137, 82%, 55%)',
+        'line-opacity': ['interpolate', ['linear'], ['zoom'], 12, 0, 13, 1, 22, 1],
+      },
     },
     {
-      // "id": "PA-Line-Special LINE BASE",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "round"},
-      "paint": {"line-color": "#2a4328", "line-width": 4}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'line-color': 'hsl(51, 82%, 22%)',
+        'line-width': 3,
+        'line-dasharray': [6, 1],
+        'line-opacity': ['interpolate', ['linear'], ['zoom'], 12, 0, 13, 1, 22, 1],
+      },
     },
     {
-      // "id": "PA-Line-Special DASH",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "paint": {
-          "line-color": "#28af76",
-          "line-dasharray": [0.8, 0.8],
-          "line-width": 4
-      }
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'line-color': 'hsl(87, 82%, 51%)',
+        'line-width': ['interpolate', ['linear'], ['zoom'], 0, 0.5, 12, 1, 22, 3],
+        'line-dasharray': [6, 2],
+        'line-opacity': ['interpolate', ['linear'], ['zoom'], 12, 0, 13, 1, 22, 1],
+      },
     },
   ],
   [SPECIAL_ITEM_AREA]: [
     {
-      // "id": "PA-Poly-SpeciaL SHADOW",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "square"},
-      "paint": {"line-width": 8, "line-opacity": 0.4, "line-blur": 5}
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'fill-color': 'hsl(98, 50%, 51%)',
+        'fill-opacity': ['step', ['zoom'], 0, 12, 0.25, 22, 1],
+      },
     },
     {
-      // "id": "PA-Poly-Special FILL",
-      "type": "fill",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "paint": {
-          "fill-color": "#00e07b",
-          "fill-pattern": "SQR-teal-supersml",
-          "fill-opacity": 0.6
-      }
-    },
-    {
-      // "id": "PA-Poly-Special OUTLINE",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "paint": {"line-color": "#28af76", "line-width": 3}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'line-color': 'red',
+        'line-width': 12,
+        'line-opacity': 0,
+      },
     },
   ],
   [CHANNEL_IMPROVEMENTS_LINEAR]: [
     {
-      // "id": "PA-Line-ChnlImprvmnt SHADOW",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "square"},
-      "paint": {"line-opacity": 0.4, "line-blur": 5, "line-width": 8}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'line-color': [
+          'step',
+          ['zoom'],
+          'hsla(127, 89%, 45%, 0)',
+          12,
+          'hsla(127, 89%, 45%, 0.52)',
+          22,
+          'hsl(127, 89%, 45%)',
+        ],
+        'line-gap-width': ['interpolate', ['linear'], ['zoom'], 0, 0, 10, 4, 22, 16],
+        'line-width': ['interpolate', ['linear'], ['zoom'], 13, 1, 22, 6],
+        'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 12.5, 0, 13, 1, 22, 1],
+      },
     },
     {
-      // "id": "PA-Line-ChnlImprvmnt BASE",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-width": 2,
-          "line-color": "#2a4328",
-          "line-gap-width": 2
-      }
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 12.5, 0, 13, 1, 22, 1],
+        'line-width': ['interpolate', ['linear'], ['zoom'], 0, 1, 22, 4],
+        'line-color': '#93ecf0',
+      },
     },
     {
-      // "id": "PA-Line-ChnlImprvmnt LINE",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "round"},
-      "paint": {"line-color": "#00e07b", "line-gap-width": 3}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'line-color': 'red',
+        'line-width': 12,
+        'line-opacity': 0,
+      },
     },
   ],
   [CHANNEL_IMPROVEMENTS_AREA]: [
     {
-      // "id": "PA-Poly-ChnlImprvmnt SHADOW",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "square"},
-      "paint": {"line-width": 8, "line-opacity": 0.4, "line-blur": 5}
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'fill-color': 'hsl(120, 76%, 22%)',
+        'fill-opacity': ['step', ['zoom'], 0, 12, 0.43, 22, 0],
+      },
     },
     {
-      // "id": "PA-Poly-ChnlImprvmnt FILL",
-      "type": "fill",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "paint": {
-          "fill-color": "#0d591c",
-          "fill-pattern": "darkgreenhatchfill",
-          "fill-opacity": 0.8
-      }
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'line-dasharray': [1, 1],
+        'line-color': 'hsl(128, 78%, 16%)',
+        'line-width': 4,
+        'line-translate': [1, 1],
+        'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 12, 0, 12.5, 0.41, 13, 1, 22, 1],
+      },
     },
     {
-      // "id": "PA-Poly-ChnlImprvmnt OUTLINE",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "paint": {"line-color": "#054d13", "line-width": 3}
-    }
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'line-dasharray': [1, 1],
+        'line-color': 'hsl(120, 49%, 50%)',
+        'line-width': 2,
+        'line-opacity': ['step', ['zoom'], 0, 12, 1, 22, 1],
+      },
+    },
   ],
   [REMOVAL_LINE]: [
     {
-      // "id": "PA-Line-Removal SHADOW",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "round"},
-      "paint": {"line-width": 15, "line-opacity": 0.4, "line-blur": 5}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'line-color': '#c6cecf',
+        'line-width': 3,
+        'line-opacity': 1,
+      },
     },
     {
-      // "id": "PA-Line-Removal LINE",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "paint": {"line-color": "#38e000", "line-width": 2}
-    },
-    {
-      // "id": "PA-Line-Removal DASH",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "paint": {
-          "line-color": "#38e000",
-          "line-dasharray": [0.15, 0.2],
-          "line-width": 7
-      }
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'line-color': 'red',
+        'line-width': 12,
+        'line-opacity': 0,
+      },
     },
   ],
   [REMOVAL_AREA]: [
     {
-      // "id": "PA-Poly-Removal SHADOW",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "square"},
-      "paint": {"line-width": 8, "line-opacity": 0.4, "line-blur": 5}
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'fill-color': '#c6cecf',
+        'fill-opacity': 0.4,
+      },
     },
     {
-      // "id": "PA-Poly-Removal FILL",
-      "type": "fill",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "paint": {
-          "fill-color": "#63e637",
-          "fill-pattern": "lightgreenhatchfill-backwrd-lesssmall",
-          "fill-opacity": 0.8
-      }
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'line-width': 4,
+        'line-color': '#c6cecf',
+        'line-opacity': 1,
+        'line-dasharray': [4, 4, 1],
+      },
     },
     {
-      // "id": "PA-Poly-Removal OUTLINE",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "paint": {"line-color": "#64ff33", "line-width": 3}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'line-color': 'red',
+        'line-width': 12,
+        'line-opacity': 0,
+      },
     },
   ],
   [STORM_DRAIN]: [
     {
-      // "id": "PA-Line-StormDrn SHADOW",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "round"},
-      "paint": {"line-opacity": 0.4, "line-blur": 5, "line-width": 8}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'line-width': ['step', ['zoom'], 0, 12, 1, 13, 1.5, 14, 4, 22, 12],
+        'line-opacity': ['step', ['zoom'], 0, 10, 0.3, 13, 1, 22, 1],
+        'line-translate': [0.5, 0.5],
+        'line-color': 'hsl(0, 0%, 0%)',
+      },
     },
     {
-      // "id": "PA-Line-StormDrn BASE",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "round"},
-      "paint": {"line-color": "#2a4328", "line-width": 4}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'line-color': ['step', ['zoom'], 'hsla(163, 76%, 45%, 0)', 13, 'hsl(163, 76%, 37%)', 22, 'hsl(163, 73%, 51%)'],
+        'line-width': ['step', ['zoom'], 0, 12, 0, 13, 1.5, 14, 4, 22, 12],
+        'line-opacity': ['step', ['zoom'], 0, 12, 0, 13, 1, 22, 1],
+      },
     },
     {
-      // "id": "PA-Line-StormDrn LINE",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "round"},
-      "paint": {"line-color": "#28af76", "line-width": 2.5}
+      type: 'circle',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'circle-radius': ['step', ['zoom'], 0, 13, 1.5, 14, 2.5],
+        'circle-color': ['interpolate', ['linear'], ['zoom'], 0, 'hsl(0, 96%, 65%)', 14, 'hsl(176, 83%, 51%)'],
+        'circle-stroke-width': ['step', ['zoom'], 0, 13, 1, 22, 12],
+        'circle-stroke-color': [
+          'interpolate',
+          ['linear'],
+          ['zoom'],
+          0,
+          'hsla(176, 83%, 77%, 0)',
+          13,
+          'hsl(176, 83%, 77%)',
+          22,
+          'hsl(176, 83%, 77%)',
+        ],
+        'circle-opacity': ['interpolate', ['linear'], ['zoom'], 12, 0, 13, 1, 22, 1],
+        'circle-stroke-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 12, 0, 13, 1, 22, 1],
+      },
+    },
+    {
+      type: 'circle',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'circle-radius': ['step', ['zoom'], 0, 13, 3, 14, 4, 22, 12],
+        'circle-color': ['interpolate', ['linear'], ['zoom'], 0, 'hsl(0, 96%, 65%)', 14, 'hsl(176, 83%, 51%)'],
+        'circle-stroke-width': ['interpolate', ['linear'], ['zoom'], 0, 1, 13, 0.5, 22, 6],
+        'circle-stroke-color': 'hsl(0, 3%, 91%)',
+        'circle-translate': [-1, -1],
+        'circle-opacity': ['interpolate', ['linear'], ['zoom'], 12, 0, 13, 1, 22, 1],
+        'circle-stroke-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 12, 0, 13, 1, 22, 1],
+      },
+    },
+    {
+      type: 'circle',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'circle-radius': ['step', ['zoom'], 0, 13, 3, 14, 4, 22, 12],
+        'circle-color': ['interpolate', ['linear'], ['zoom'], 0, 'hsl(0, 96%, 65%)', 14, 'hsl(176, 83%, 51%)'],
+        'circle-stroke-width': ['interpolate', ['linear'], ['zoom'], 0, 1, 13, 0.5, 22, 6],
+        'circle-stroke-color': ['interpolate', ['linear'], ['zoom'], 0, 'hsl(176, 3%, 20%)', 22, 'hsl(176, 4%, 20%)'],
+        'circle-opacity': ['interpolate', ['linear'], ['zoom'], 12, 0, 13, 1, 22, 1],
+        'circle-stroke-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 12, 0, 13, 1, 22, 1],
+      },
+    },
+    {
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'line-color': 'red',
+        'line-width': 12,
+        'line-opacity': 0,
+      },
     },
   ],
   [DETENTION_FACILITIES]: [
     {
-      // "id": "PA-Poly-DetnFaclt SHADOW",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "square"},
-      "paint": {"line-width": 8, "line-opacity": 0.4, "line-blur": 5}
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'fill-color': ['step', ['zoom'], 'hsla(181, 66%, 51%, 0)', 12, 'hsl(181, 66%, 51%)', 22, 'hsl(181, 66%, 51%)'],
+      },
     },
     {
-      // "id": "PA-Poly-DetnFaclt FILL",
-      "type": "fill",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "paint": {
-          "fill-color": "#16c51c",
-          "fill-outline-color": "#004d04",
-          "fill-opacity": 0.7,
-          "fill-pattern": "HEX-dbl-green-darker-superrrrsmall"
-      }
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'line-color': [
+          'step',
+          ['zoom'],
+          'hsla(180, 76%, 84%, 0)',
+          12,
+          'hsla(180, 76%, 84%, 0.87)',
+          22,
+          'hsl(180, 76%, 84%)',
+        ],
+        'line-width': 4,
+      },
     },
     {
-      // "id": "PA-Poly-DetnFaclt OUTLINE",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "paint": {"line-color": "#14730d", "line-width": 3}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'line-color': [
+          'step',
+          ['zoom'],
+          'hsla(180, 76%, 36%, 0.02)',
+          12,
+          'hsl(180, 76%, 35%)',
+          22,
+          'hsl(180, 76%, 36%)',
+        ],
+        'line-translate': [1, 1],
+        'line-width': 2,
+      },
+    },
+    {
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'line-color': 'red',
+        'line-width': 12,
+        'line-opacity': 0,
+      },
     },
   ],
   [MAINTENANCE_TRAILS]: [
     {
-      // "id": "PA-Line-MaintTrail SHADOW",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "round"},
-      "paint": {"line-opacity": 0.4, "line-blur": 5, "line-width": 8}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'line-color': 'hsl(137, 82%, 55%)',
+        'line-gap-width': 3,
+        'line-blur': 8,
+        'line-width': 6,
+      },
     },
     {
-      // "id": "PA-Line-MaintTrail LINE BASE",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "round"},
-      "paint": {"line-color": "#2a4328", "line-width": 4}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'line-color': 'hsl(51, 82%, 22%)',
+        'line-dasharray': [6, 1],
+        'line-width': 3,
+        'line-translate': [1, 1],
+      },
     },
     {
-      // "id": "PA-Line-MaintTrail DASH",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#38e000",
-          "line-width": 2,
-          "line-dasharray": [1, 3]
-      }
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'line-color': 'hsl(51, 82%, 51%)',
+        'line-dasharray': [6, 1],
+        'line-width': 3,
+      },
+    },
+    {
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'line-color': 'red',
+        'line-width': 12,
+        'line-opacity': 0,
+      },
     },
   ],
   [LAND_ACQUISITION]: [
     {
-      // "id": "PA-Poly-LandAcq SHADOW",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "square"},
-      "paint": {"line-width": 8, "line-opacity": 0.4, "line-blur": 5}
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'fill-color': '#85bb65',
+        'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 12, 0, 13, 0, 15, 0.2, 22, 0.57],
+        'fill-pattern': 'dollar',
+      },
     },
     {
-      // "id": "PA-Poly-LandAcq FILL",
-      "type": "fill",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "paint": {"fill-color": "#359d01", "fill-opacity": 0.6}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: { 'line-join': 'round' },
+      paint: {
+        'line-color': 'hsl(99, 88%, 10%)',
+        'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 12, 0, 13, 0, 15, 0.2, 22, 1],
+        'line-width': 2,
+      },
     },
     {
-      // "id": "PA-Poly-LandAcq OUTLINE",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "paint": {"line-color": "#2d7709", "line-width": 3}
-    }
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: { 'line-join': 'round' },
+      paint: {
+        'line-color': '#85bb65',
+        'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 12, 0, 13, 0, 15, 0.2, 22, 1],
+        'line-dasharray': [2, 4],
+      },
+    },
+    {
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: { 'line-join': 'round' },
+      paint: {
+        'line-color': 'hsl(20, 91%, 72%)',
+        'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 12, 0, 13, 0, 15, 1, 22, 1],
+        'line-dasharray': [2, 4],
+        'line-translate': [-1, -1],
+        'line-width': ['interpolate', ['linear'], ['zoom'], 0, 0, 12, 1, 22, 3],
+      },
+    },
   ],
   [LANDSCAPING_AREA]: [
     {
-      // "id": "PA-Poly-Landscape SHADOW",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "square"},
-      "paint": {"line-width": 8, "line-opacity": 0.4, "line-blur": 5}
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'fill-color': '#76efd5',
+        'fill-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 8.5, 0, 9, 0.72, 15, 1, 22, 1],
+        'fill-outline-color': 'hsl(58, 94%, 51%)',
+      },
     },
     {
-      // "id": "PA-Poly-Landscape FILL",
-      "type": "fill",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "paint": {
-          "fill-color": "#2da215",
-          "fill-pattern": "dots-small_olive",
-          "fill-opacity": 0.8
-      }
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: { 'line-join': 'round', 'line-round-limit': 0.5 },
+      paint: {
+        'line-color': ['interpolate', ['linear'], ['zoom'], 0, 'hsl(298, 87%, 84%)', 22, 'hsl(298, 87%, 84%)'],
+        'line-blur': 12,
+        'line-width': 12,
+        'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 8.5, 0, 9, 0.72, 15, 1, 22, 1],
+      },
     },
     {
-      // "id": "PA-Poly-Landscape OUTLINE",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "paint": {"line-color": "#a9d18e", "line-width": 3}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: { 'line-join': 'round', 'line-round-limit': 0.5 },
+      paint: {
+        'line-color': 'hsl(123, 87%, 40%)',
+        'line-width': 2,
+        'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0, 8.5, 0, 9, 0.72, 15, 1, 22, 1],
+      },
     },
   ],
   [STREAM_IMPROVEMENT_MEASURE]: [
     {
-      // "id": "PA-Line-StrmImprvmnt SHADOW",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "round"},
-      "paint": {"line-opacity": 0.4, "line-blur": 5, "line-width": 8}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {
+        'line-cap': 'butt',
+        'line-join': 'miter',
+        'line-miter-limit': 2,
+      },
+      paint: {
+        'line-width': 1,
+        'line-opacity': 1,
+        'line-color': [
+          'match',
+          ['get', 'component_part_subcategory'],
+          ['Continuous Improvement'],
+          'hsl(141, 81%, 45%)',
+          'hsla(141, 81%, 45%, 0)',
+        ],
+      },
     },
     {
-      // "id": "PA-Line-StrmImprvmnt BASE",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "round"},
-      "paint": {
-          "line-color": "#2a4328",
-          "line-gap-width": 2,
-          "line-width": 2
-      }
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {
+        'line-cap': 'butt',
+        'line-join': 'miter',
+        'line-miter-limit': 2,
+      },
+      paint: {
+        'line-offset': -3,
+        'line-width': 1,
+        'line-opacity': 1,
+        'line-color': [
+          'match',
+          ['get', 'component_part_subcategory'],
+          ['Continuous Improvement'],
+          'hsl(141, 81%, 45%)',
+          'hsla(141, 81%, 45%, 0)',
+        ],
+      },
     },
     {
-      // "id": "PA-Line-StrmImprvmnt LINE",
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "filter": [
-          "all",
-          [
-              "match",
-              ["get", "status"],
-              ["Constructed", "TBD", "Proposed"],
-              true,
-              false
-          ]
-      ],
-      "layout": {"line-cap": "round"},
-      "paint": {"line-color": "#38e000", "line-gap-width": 3}
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {
+        'line-cap': 'butt',
+        'line-join': 'miter',
+        'line-miter-limit': 2,
+      },
+      paint: {
+        'line-offset': 3,
+        'line-width': 1,
+        'line-opacity': 1,
+        'line-color': [
+          'match',
+          ['get', 'component_part_subcategory'],
+          ['Continuous Improvement'],
+          'hsl(141, 81%, 45%)',
+          'hsla(141, 81%, 45%, 0)',
+        ],
+      },
+    },
+    {
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {
+        'line-cap': 'butt',
+        'line-join': 'miter',
+        'line-miter-limit': 2,
+      },
+      paint: {
+        'line-offset': -4,
+        'line-width': 2.5,
+        'line-opacity': 1,
+        'line-dasharray': [2, 2],
+        'line-color': [
+          'match',
+          ['get', 'component_part_subcategory'],
+          ['Bank Stabilization'],
+          ['match', ['get', 'bank_location'], ['', 'All'], 'hsl(141, 81%, 45%)', 'hsla(141, 81%, 45%, 0)'],
+          'hsla(141, 81%, 45%, 0)',
+        ],
+      },
+    },
+    {
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {
+        'line-cap': 'butt',
+        'line-join': 'miter',
+        'line-miter-limit': 2,
+      },
+      paint: {
+        'line-offset': 4,
+        'line-width': 2.5,
+        'line-opacity': 1,
+        'line-dasharray': [2, 2],
+        'line-color': [
+          'match',
+          ['get', 'component_part_subcategory'],
+          ['Bank Stabilization'],
+          ['match', ['get', 'bank_location'], ['', 'All'], 'hsl(141, 81%, 45%)', 'hsla(141, 81%, 45%, 0)'],
+          'hsla(141, 81%, 45%, 0)',
+        ],
+      },
+    },
+    {
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {
+        'line-cap': 'butt',
+        'line-join': 'miter',
+        'line-miter-limit': 2,
+      },
+      paint: {
+        'line-offset': -4,
+        'line-width': 2.5,
+        'line-opacity': 1,
+        'line-dasharray': [2, 2],
+        'line-color': [
+          'match',
+          ['get', 'component_part_subcategory'],
+          ['Bank Stabilization'],
+          ['match', ['get', 'bank_location'], ['Right'], 'hsl(141, 81%, 45%)', 'hsla(141, 81%, 45%, 0)'],
+          'hsla(141, 81%, 45%, 0)',
+        ],
+      },
+    },
+    {
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {
+        'line-cap': 'butt',
+        'line-join': 'miter',
+        'line-miter-limit': 2,
+      },
+      paint: {
+        'line-offset': 4,
+        'line-width': 2.5,
+        'line-opacity': 1,
+        'line-dasharray': [2, 2],
+        'line-color': [
+          'match',
+          ['get', 'component_part_subcategory'],
+          ['Bank Stabilization'],
+          ['match', ['get', 'bank_location'], ['Left'], 'hsl(141, 81%, 45%)', 'hsla(141, 81%, 45%, 0)'],
+          'hsla(141, 81%, 45%, 0)',
+        ],
+      },
+    },
+    {
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'line-width': 4.5,
+        'line-opacity': 0,
+      },
     },
   ],
 };
@@ -2386,6 +2322,903 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
     },
   ],
 };
+export const PROPOSED_ACTIONS = {
+  [PROPOSED_ACTIONS_LINES] :[
+
+    {
+      // "id": "PA-Line-Removal SHADOW",
+      "type": "line",
+  
+      "source-layer": "pluto15v1",
+      "filter": [
+          "all",
+          ["match", ["get", "type"], ["Removal Lin"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              ["Constructed", "TBD", "Proposed"],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {"line-width": 15, "line-opacity": 0.4, "line-blur": 5}
+  },
+  {
+      // "id": "PA-Line-ChnlImprvmnt SHADOW",
+      "type": "line",
+  
+      "source-layer": "pluto15v1",
+      "filter": [
+          "all",
+          ["match", ["get", "type"], ["Channel Imp"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              ["Constructed", "TBD", "Proposed"],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "square"},
+      "paint": {"line-opacity": 0.4, "line-blur": 5, "line-width": 8}
+  },
+  {
+      // "id": "PA-Line-StrmImprvmnt SHADOW",
+      "type": "line",
+  
+      "source-layer": "pluto15v1",
+      "filter": [
+          "all",
+          [
+              "match",
+              ["get", "type"],
+              [
+                  "Circular",
+                  "Pedestrian",
+                  "Box",
+                  "16x3 Box",
+                  "Emergency O",
+                  "Wall"
+              ],
+              true,
+              false
+          ],
+          [
+              "match",
+              ["get", "status"],
+              ["Constructed", "TBD", "Proposed"],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {"line-opacity": 0.4, "line-blur": 5, "line-width": 8}
+  },
+  {
+      // "id": "PA-Line-MaintTrail SHADOW",
+      "type": "line",
+  
+      "source-layer": "pluto15v1",
+      "filter": [
+          "all",
+          ["match", ["get", "type"], ["Maintenance"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              ["Constructed", "TBD", "Proposed"],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {"line-opacity": 0.4, "line-blur": 5, "line-width": 8}
+  },
+  {
+      // "id": "PA-Line-Special SHADOW",
+      "type": "line",
+  
+      "source-layer": "pluto15v1",
+      "filter": [
+          "all",
+          ["match", ["get", "type"], ["Special Ite"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              ["Constructed", "TBD", "Proposed"],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {"line-opacity": 0.4, "line-blur": 5, "line-width": 8}
+  },
+  {
+      // "id": "PA-Line-StormDrn SHADOW",
+      "type": "line",
+  
+      "source-layer": "pluto15v1",
+      "filter": [
+          "all",
+          ["match", ["get", "type"], ["Storm Drain"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              ["Constructed", "TBD", "Proposed"],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {"line-opacity": 0.4, "line-blur": 5, "line-width": 8}
+  },
+  {
+      // "id": "PA-Line-ChnlImprvmnt BASE",
+      "type": "line",
+  
+      "source-layer": "pluto15v1",
+      "filter": [
+          "all",
+          ["match", ["get", "type"], ["Channel Imp"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              ["Constructed", "TBD", "Proposed"],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-width": 2,
+          "line-color": "#2a4328",
+          "line-gap-width": 2
+      }
+  },
+  {
+      // "id": "PA-Line-ChnlImprvmnt LINE",
+      "type": "line",
+  
+      "source-layer": "pluto15v1",
+      "filter": [
+          "all",
+          ["match", ["get", "type"], ["Channel Imp"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              ["Constructed", "TBD", "Proposed"],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {"line-color": "#00e07b", "line-gap-width": 3}
+  },
+  {
+      // "id": "PA-Line-StrmImprvmnt BASE",
+      "type": "line",
+  
+      "source-layer": "pluto15v1",
+      "filter": [
+          "all",
+          [
+              "match",
+              ["get", "type"],
+              [
+                  "Circular",
+                  "Pedestrian",
+                  "Box",
+                  "16x3 Box",
+                  "Emergency O",
+                  "Wall"
+              ],
+              true,
+              false
+          ],
+          [
+              "match",
+              ["get", "status"],
+              ["Constructed", "TBD", "Proposed"],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#2a4328",
+          "line-gap-width": 2,
+          "line-width": 2
+      }
+  },
+  {
+      // "id": "PA-Line-StrmImprvmnt LINE",
+      "type": "line",
+  
+      "source-layer": "pluto15v1",
+      "filter": [
+          "all",
+          [
+              "match",
+              ["get", "type"],
+              [
+                  "Circular",
+                  "Pedestrian",
+                  "Box",
+                  "16x3 Box",
+                  "Emergency O",
+                  "Wall"
+              ],
+              true,
+              false
+          ],
+          [
+              "match",
+              ["get", "status"],
+              ["Constructed", "TBD", "Proposed"],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {"line-color": "#38e000", "line-gap-width": 3}
+  },
+  {
+      // "id": "PA-Line-Removal LINE",
+      "type": "line",
+  
+      "source-layer": "pluto15v1",
+      "filter": [
+          "all",
+          ["match", ["get", "type"], ["Removal Lin"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              ["Constructed", "TBD", "Proposed"],
+              true,
+              false
+          ]
+      ],
+      "paint": {"line-color": "#38e000", "line-width": 2}
+  },
+  {
+      // "id": "PA-Line-Removal DASH",
+      "type": "line",
+  
+      "source-layer": "pluto15v1",
+      "filter": [
+          "all",
+          ["match", ["get", "type"], ["Removal Lin"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              ["Constructed", "TBD", "Proposed"],
+              true,
+              false
+          ]
+      ],
+      "paint": {
+          "line-color": "#38e000",
+          "line-dasharray": [0.15, 0.2],
+          "line-width": 7
+      }
+  },
+  {
+      // "id": "PA-Line-MaintTrail LINE BASE",
+      "type": "line",
+  
+      "source-layer": "pluto15v1",
+      "filter": [
+          "all",
+          ["match", ["get", "type"], ["Maintenance"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              ["Constructed", "TBD", "Proposed"],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {"line-color": "#2a4328", "line-width": 4}
+  },
+  {
+      // "id": "PA-Line-MaintTrail DASH",
+      "type": "line",
+  
+      "source-layer": "pluto15v1",
+      "filter": [
+          "all",
+          ["match", ["get", "type"], ["Maintenance"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              ["Constructed", "TBD", "Proposed"],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#38e000",
+          "line-width": 2,
+          "line-dasharray": [1, 3]
+      }
+  },
+  {
+      // "id": "PA-Line-Special LINE BASE",
+      "type": "line",
+  
+      "source-layer": "pluto15v1",
+      "filter": [
+          "all",
+          ["match", ["get", "type"], ["Special Ite"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              ["Constructed", "TBD", "Proposed"],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {"line-color": "#2a4328", "line-width": 4}
+  },
+  {
+      // "id": "PA-Line-Special DASH",
+      "type": "line",
+  
+      "source-layer": "pluto15v1",
+      "filter": [
+          "all",
+          ["match", ["get", "type"], ["Special Ite"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              ["Constructed", "TBD", "Proposed"],
+              true,
+              false
+          ]
+      ],
+      "paint": {
+          "line-color": "#28af76",
+          "line-dasharray": [0.8, 0.8],
+          "line-width": 4
+      }
+  },
+  {
+      // "id": "PA-Line-StormDrn BASE",
+      "type": "line",
+  
+      "source-layer": "pluto15v1",
+      "filter": [
+          "all",
+          ["match", ["get", "type"], ["Storm Drain"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              ["Constructed", "TBD", "Proposed"],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {"line-color": "#2a4328", "line-width": 4}
+  },
+  {
+      // "id": "PA-Line-StormDrn LINE",
+      "type": "line",
+  
+      "source-layer": "pluto15v1",
+      "filter": [
+          "all",
+          ["match", ["get", "type"], ["Storm Drain"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              ["Constructed", "TBD", "Proposed"],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {"line-color": "#28af76", "line-width": 2.5}
+  },
+  ], 
+  [PROPOSED_ACTIONS_POLYS] :[
+    {    
+      // "id": "PA-Poly-LandAcq SHADOW",
+              "type": "line",
+              "source-layer": "pluto15v1",
+              "filter": [
+                  "all",
+                  ["match", ["get", "type"], ["Land Acquisition"], true, false],
+                  [
+                      "match",
+                      ["get", "status"],
+                      ["Constructed", "TBD", "Proposed"],
+                      true,
+                      false
+                  ]
+              ],
+              "layout": {"line-cap": "square"},
+              "paint": {"line-width": 8, "line-opacity": 0.4, "line-blur": 5}
+              },
+          {
+              // "id": "PA-Poly-DetnFaclt SHADOW",
+              "type": "line",
+          
+              "source-layer": "pluto15v1",
+              "filter": [
+                  "all",
+                  [
+                      "match",
+                      ["get", "type"],
+                      ["Detention Facilit", "Medium (haul away"],
+                      true,
+                      false
+                  ],
+                  [
+                      "match",
+                      ["get", "status"],
+                      ["Constructed", "TBD", "Proposed"],
+                      true,
+                      false
+                  ]
+              ],
+              "layout": {"line-cap": "square"},
+              "paint": {"line-width": 8, "line-opacity": 0.4, "line-blur": 5}
+          },
+          {
+              // "id": "PA-Poly-ChnlImprvmnt SHADOW",
+              "type": "line",
+          
+              "source-layer": "pluto15v1",
+              "filter": [
+                  "all",
+                  [
+                      "match",
+                      ["get", "type"],
+                      ["Channel Improveme", "Excavation, Mid R"],
+                      true,
+                      false
+                  ],
+                  [
+                      "match",
+                      ["get", "status"],
+                      ["Constructed", "TBD", "Proposed"],
+                      true,
+                      false
+                  ]
+              ],
+              "layout": {"line-cap": "square"},
+              "paint": {"line-width": 8, "line-opacity": 0.4, "line-blur": 5}
+          },
+          {
+              // "id": "PA-Poly-Removal SHADOW",
+              "type": "line",
+          
+              "source-layer": "pluto15v1",
+              "filter": [
+                  "all",
+                  ["match", ["get", "type"], ["Removal Area"], true, false],
+                  [
+                      "match",
+                      ["get", "status"],
+                      ["Constructed", "TBD", "Proposed"],
+                      true,
+                      false
+                  ]
+              ],
+              "layout": {"line-cap": "square"},
+              "paint": {"line-width": 8, "line-opacity": 0.4, "line-blur": 5}
+          },
+          {
+              // "id": "PA-Poly-SpeciaL SHADOW",
+              "type": "line",
+          
+              "source-layer": "pluto15v1",
+              "filter": [
+                  "all",
+                  [
+                      "match",
+                      ["get", "type"],
+                      ["Special Item Area", "Potential Berm"],
+                      true,
+                      false
+                  ],
+                  [
+                      "match",
+                      ["get", "status"],
+                      ["Constructed", "TBD", "Proposed"],
+                      true,
+                      false
+                  ]
+              ],
+              "layout": {"line-cap": "square"},
+              "paint": {"line-width": 8, "line-opacity": 0.4, "line-blur": 5}
+          },
+          {
+              // "id": "PA-Poly-Landscape SHADOW",
+              "type": "line",
+          
+              "source-layer": "pluto15v1",
+              "filter": [
+                  "all",
+                  ["match", ["get", "type"], ["Landscaping Area"], true, false],
+                  [
+                      "match",
+                      ["get", "status"],
+                      ["Constructed", "TBD", "Proposed"],
+                      true,
+                      false
+                  ]
+              ],
+              "layout": {"line-cap": "square"},
+              "paint": {"line-width": 8, "line-opacity": 0.4, "line-blur": 5}
+          },
+          {
+              // "id": "PA-Poly-LandAcq FILL",
+              "type": "fill",
+          
+              "source-layer": "pluto15v1",
+              "filter": [
+                  "all",
+                  ["match", ["get", "type"], ["Land Acquisition"], true, false],
+                  [
+                      "match",
+                      ["get", "status"],
+                      ["Constructed", "TBD", "Proposed"],
+                      true,
+                      false
+                  ]
+              ],
+              "paint": {"fill-color": "#359d01", "fill-opacity": 0.6}
+          },
+          {
+              // "id": "PA-Poly-LandAcq OUTLINE",
+              "type": "line",
+          
+              "source-layer": "pluto15v1",
+              "filter": [
+                  "all",
+                  ["match", ["get", "type"], ["Land Acquisition"], true, false],
+                  [
+                      "match",
+                      ["get", "status"],
+                      ["Constructed", "TBD", "Proposed"],
+                      true,
+                      false
+                  ]
+              ],
+              "paint": {"line-color": "#2d7709", "line-width": 3}
+          },
+          {
+              // "id": "PA-Poly-DetnFaclt FILL",
+              "type": "fill",
+          
+              "source-layer": "pluto15v1",
+              "filter": [
+                  "all",
+                  [
+                      "match",
+                      ["get", "type"],
+                      ["Detention Facilit", "Medium (haul away"],
+                      true,
+                      false
+                  ],
+                  [
+                      "match",
+                      ["get", "status"],
+                      ["Constructed", "TBD", "Proposed"],
+                      true,
+                      false
+                  ]
+              ],
+              "paint": {
+                  "fill-color": "#16c51c",
+                  "fill-outline-color": "#004d04",
+                  "fill-opacity": 0.7,
+                  "fill-pattern": "HEX-dbl-green-darker-superrrrsmall"
+              }
+          },
+          {
+              // "id": "PA-Poly-DetnFaclt OUTLINE",
+              "type": "line",
+          
+              "source-layer": "pluto15v1",
+              "filter": [
+                  "all",
+                  [
+                      "match",
+                      ["get", "type"],
+                      ["Detention Facilit", "Medium (haul away"],
+                      true,
+                      false
+                  ],
+                  [
+                      "match",
+                      ["get", "status"],
+                      ["Constructed", "TBD", "Proposed"],
+                      true,
+                      false
+                  ]
+              ],
+              "paint": {"line-color": "#14730d", "line-width": 3}
+          },
+          {
+              // "id": "PA-Poly-ChnlImprvmnt FILL",
+              "type": "fill",
+          
+              "source-layer": "pluto15v1",
+              "filter": [
+                  "all",
+                  [
+                      "match",
+                      ["get", "type"],
+                      ["Channel Improveme", "Excavation, Mid R"],
+                      true,
+                      false
+                  ],
+                  [
+                      "match",
+                      ["get", "status"],
+                      ["Constructed", "TBD", "Proposed"],
+                      true,
+                      false
+                  ]
+              ],
+              "paint": {
+                  "fill-color": "#0d591c",
+                  "fill-pattern": "darkgreenhatchfill",
+                  "fill-opacity": 0.8
+              }
+          },
+          {
+              // "id": "PA-Poly-ChnlImprvmnt OUTLINE",
+              "type": "line",
+          
+              "source-layer": "pluto15v1",
+              "filter": [
+                  "all",
+                  [
+                      "match",
+                      ["get", "type"],
+                      ["Channel Improveme", "Excavation, Mid R"],
+                      true,
+                      false
+                  ],
+                  [
+                      "match",
+                      ["get", "status"],
+                      ["Constructed", "TBD", "Proposed"],
+                      true,
+                      false
+                  ]
+              ],
+              "paint": {"line-color": "#054d13", "line-width": 3}
+          },
+          {
+              // "id": "PA-Poly-Removal FILL",
+              "type": "fill",
+          
+              "source-layer": "pluto15v1",
+              "filter": [
+                  "all",
+                  ["match", ["get", "type"], ["Removal Area"], true, false],
+                  [
+                      "match",
+                      ["get", "status"],
+                      ["Constructed", "TBD", "Proposed"],
+                      true,
+                      false
+                  ]
+              ],
+              "paint": {
+                  "fill-color": "#63e637",
+                  "fill-pattern": "lightgreenhatchfill-backwrd-lesssmall",
+                  "fill-opacity": 0.8
+              }
+          },
+          {
+              // "id": "PA-Poly-Removal OUTLINE",
+              "type": "line",
+          
+              "source-layer": "pluto15v1",
+              "filter": [
+                  "all",
+                  ["match", ["get", "type"], ["Removal Area"], true, false],
+                  [
+                      "match",
+                      ["get", "status"],
+                      ["Constructed", "TBD", "Proposed"],
+                      true,
+                      false
+                  ]
+              ],
+              "paint": {"line-color": "#64ff33", "line-width": 3}
+          },
+          {
+              // "id": "PA-Poly-Special FILL",
+              "type": "fill",
+          
+              "source-layer": "pluto15v1",
+              "filter": [
+                  "all",
+                  [
+                      "match",
+                      ["get", "type"],
+                      ["Special Item Area", "Potential Berm"],
+                      true,
+                      false
+                  ],
+                  [
+                      "match",
+                      ["get", "status"],
+                      ["Constructed", "TBD", "Proposed"],
+                      true,
+                      false
+                  ]
+              ],
+              "paint": {
+                  "fill-color": "#00e07b",
+                  "fill-pattern": "SQR-teal-supersml",
+                  "fill-opacity": 0.6
+              }
+          },
+          {
+              // "id": "PA-Poly-Special OUTLINE",
+              "type": "line",
+          
+              "source-layer": "pluto15v1",
+              "filter": [
+                  "all",
+                  [
+                      "match",
+                      ["get", "type"],
+                      ["Special Item Area", "Potential Berm"],
+                      true,
+                      false
+                  ],
+                  [
+                      "match",
+                      ["get", "status"],
+                      ["Constructed", "TBD", "Proposed"],
+                      true,
+                      false
+                  ]
+              ],
+              "paint": {"line-color": "#28af76", "line-width": 3}
+          },
+          {
+              // "id": "PA-Poly-Landscape FILL",
+              "type": "fill",
+          
+              "source-layer": "pluto15v1",
+              "filter": [
+                  "all",
+                  ["match", ["get", "type"], ["Landscaping Area"], true, false],
+                  [
+                      "match",
+                      ["get", "status"],
+                      ["Constructed", "TBD", "Proposed"],
+                      true,
+                      false
+                  ]
+              ],
+              "paint": {
+                  "fill-color": "#2da215",
+                  "fill-pattern": "dots-small_olive",
+                  "fill-opacity": 0.8
+              }
+          },
+          {
+              // "id": "PA-Poly-Landscape OUTLINE",
+              "type": "line",
+          
+              "source-layer": "pluto15v1",
+              "filter": [
+                  "all",
+                  ["match", ["get", "type"], ["Landscaping Area"], true, false],
+                  [
+                      "match",
+                      ["get", "status"],
+                      ["Constructed", "TBD", "Proposed"],
+                      true,
+                      false
+                  ]
+              ],
+              "paint": {"line-color": "#a9d18e", "line-width": 3}
+          },
+  ],
+  [PROPOSED_ACTIONS_POINTS]: [
+
+    {
+      // "id": "PA-Point-Special",
+      "type": "symbol",
+  
+      "source-layer": "pluto15v1",
+      "filter": [
+          "all",
+          [
+              "match",
+              ["get", "type"],
+              ["Special Item Point", "Modify Manhole"],
+              true,
+              false
+          ],
+          [
+              "match",
+              ["get", "status"],
+              ["Constructed", "TBD", "Proposed"],
+              true,
+              false
+          ]
+      ],
+      "layout": {
+          "icon-image": "SpecialPt_small",
+          "icon-allow-overlap": true,
+          "icon-ignore-placement": true,
+          "icon-size": 0.25
+      },
+      "paint": {}
+  },
+  {
+      // "id": "PA-Point-GradeCtrl",
+      "type": "symbol",
+  
+      "source-layer": "pluto15v1",
+      "filter": [
+          "all",
+          [
+              "match",
+              ["get", "type"],
+              ["Grade Control Stru", "Sloping Drop Struc"],
+              true,
+              false
+          ],
+          [
+              "match",
+              ["get", "status"],
+              ["Constructed", "TBD", "Proposed"],
+              true,
+              false
+          ]
+      ],
+      "layout": {
+          "icon-image": "GradeCtrl_small",
+          "icon-size": 0.2,
+          "icon-allow-overlap": true,
+          "icon-ignore-placement": true
+      },
+      "paint": {}
+  },
+  {
+      // "id": "PA-Point-PipeApp",
+      "type": "symbol",
+  
+      "source-layer": "pluto15v1",
+      "filter": [
+          "all",
+          [
+              "match",
+              ["get", "type"],
+              ["Pipe Appurtenances", "Manhole"],
+              true,
+              false
+          ],
+          [
+              "match",
+              ["get", "status"],
+              ["Constructed", "TBD", "Proposed"],
+              true,
+              false
+          ]
+      ],
+      "layout": {"icon-image": "PipeApp_small", "icon-size": 0.2},
+      "paint": {"text-color": "#2a4328"}
+  }
+  ]
+}
 export const PROJECTS_STYLES_WR = {
   [PROJECTS_POLYGONS]: [
     {
@@ -2567,131 +3400,140 @@ export const PROJECTS_STYLES_WR = {
     },
     {
       // "id": "propacq__cncl",
-      "type": "symbol",
-      metadata: { 'mapbox:group': 'bdf3db001830c897392db56b343f448b', project_status: [7, 8], project_type: [13] },
-      'source-layer': 'pluto15v1',
-      "layout": {
-          "icon-image": "propacq_RED_small",
-          'icon-ignore-placement': true,
-          'text-allow-overlap': true,
-          'icon-allow-overlap': true,
-          'text-ignore-placement': true,
-          "icon-size": 0.5,
-          "icon-padding": 0
+      type: 'symbol',
+      metadata: {
+        project_status: [8],
+        project_type: [13],
       },
-      "paint": {}
+      'source-layer': 'pluto15v1',
+      layout: {
+        'icon-image': 'propacq_RED_small',
+        'icon-size': 0.5,
+        'icon-allow-overlap': true,
+        'icon-padding': 0,
+        'icon-ignore-placement': true,
+      },
+      paint: {},
     },
     {
       // "id": "propacq__draft",
-      "type": "symbol",
-      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1], project_type: [13] },  'source-layer': 'pluto15v1',
-      "layout": {
-          "icon-image": "propacq_ORANGE_bold_small",
-          'icon-ignore-placement': true,
-          'text-allow-overlap': true,
-          'icon-allow-overlap': true,
-          'text-ignore-placement': true,
-          "icon-size": 0.5,
-          "icon-padding": 0
+      type: 'symbol',
+      metadata: {
+        project_status: [1],
+        project_type: [13],
       },
-      "paint": {}
+      'source-layer': 'pluto15v1',
+      layout: {
+        'icon-image': 'propacq_ORANGE_bold_small',
+        'icon-size': 0.5,
+        'icon-allow-overlap': true,
+        'icon-padding': 0,
+        'icon-ignore-placement': true,
+      },
+      paint: {},
     },
     {
       // "id": "propacq__rqst",
-      "type": "symbol",
-      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [2], project_type: [13] },
-      'source-layer': 'pluto15v1',
-      "layout": {
-          "icon-image": "propacq_PINK_bold_small",
-          'icon-ignore-placement': true,
-          'text-allow-overlap': true,
-          'icon-allow-overlap': true,
-          'text-ignore-placement': true,
-          "icon-size": 0.5,
-          "icon-padding": 0
+      type: 'symbol',
+      metadata: {
+        project_status: [2],
+        project_type: [13],
       },
-      "paint": {}
+      'source-layer': 'pluto15v1',
+      layout: {
+        'icon-image': 'propacq_PINK_bold_small',
+        'icon-size': 0.5,
+        'icon-allow-overlap': true,
+        'icon-padding': 0,
+        'icon-ignore-placement': true,
+      },
+      paint: {},
     },
     {
       // "id": "propacq__aprvd",
-      "type": "symbol",
-      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [3], project_type: [13] }, 
-      'source-layer': 'pluto15v1',
-      "layout": {
-          "icon-image": "propacq_GREEN_bold_small",
-          'icon-ignore-placement': true,
-          'text-allow-overlap': true,
-          'icon-allow-overlap': true,
-          'text-ignore-placement': true,
-          "icon-size": 0.5,
-          "icon-padding": 0
+      type: 'symbol',
+      metadata: {
+        project_status: [3],
+        project_type: [13],
       },
-      "paint": {}
+      'source-layer': 'pluto15v1',
+      layout: {
+        'icon-image': 'propacq_GREEN_bold_small',
+        'icon-size': 0.5,
+        'icon-allow-overlap': true,
+        'icon-padding': 0,
+        'icon-ignore-placement': true,
+      },
+      paint: {},
     },
     {
       // "id": "rd__cncl",
-      "type": "symbol",
-      metadata: { 'mapbox:group': 'bdf3db001830c897392db56b343f448b', project_status: [7, 8], project_type: [15, 16] },
-      'source-layer': 'pluto15v1',
-      "layout": {
-          "icon-image": "RD_red",
-          'icon-ignore-placement': true,
-          'text-allow-overlap': true,
-          'icon-allow-overlap': true,
-          'text-ignore-placement': true,
-          "icon-size": 0.5,
-          "icon-padding": 0
+      type: 'symbol',
+      metadata: {
+        project_status: [8],
+        project_type: [15, 16],
       },
-      "paint": {}
+      'source-layer': 'pluto15v1',
+      layout: {
+        'icon-image': 'RD_Red_New',
+        'icon-size': 0.5,
+        'icon-allow-overlap': true,
+        'icon-padding': 0,
+        'icon-ignore-placement': true,
+      },
+      paint: {},
     },
     {
       // "id": "rd__draft",
-      "type": "symbol",
-      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [1], project_type: [15, 16] },
-      'source-layer': 'pluto15v1',
-      "layout": {
-          "icon-image": "RD_orange",
-          'icon-ignore-placement': true,
-          'text-allow-overlap': true,
-          'icon-allow-overlap': true,
-          'text-ignore-placement': true,
-          "icon-size": 0.5,
-          "icon-padding": 0
+      type: 'symbol',
+      metadata: {
+        project_status: [1],
+        project_type: [15, 16],
       },
-      "paint": {}
+      'source-layer': 'pluto15v1',
+      layout: {
+        'icon-image': 'RD_Orange_New',
+        'icon-size': 0.5,
+        'icon-allow-overlap': true,
+        'icon-padding': 0,
+        'icon-ignore-placement': true,
+      },
+      paint: {},
     },
     {
       // "id": "rd__rqst",
-      "type": "symbol",
-      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [2], project_type: [15, 16] }, 
-      'source-layer': 'pluto15v1',
-      "layout": {
-          "icon-image": "RD_pink",
-          'icon-ignore-placement': true,
-          'text-allow-overlap': true,
-          'icon-allow-overlap': true,
-          'text-ignore-placement': true,
-          "icon-size": 0.5,
-          "icon-padding": 0
+      type: 'symbol',
+      metadata: {
+        project_status: [2],
+        project_type: [15, 16],
       },
-      "paint": {}
+      'source-layer': 'pluto15v1',
+      layout: {
+        'icon-image': 'RD_Pink_New',
+        'icon-size': 0.5,
+        'icon-allow-overlap': true,
+        'icon-padding': 0,
+        'icon-ignore-placement': true,
+      },
+      paint: {},
     },
     {
       // "id": "rd__aprvd",
-      "type": "symbol",
-      metadata: { 'mapbox:group': 'c953f4f9eab20c7654f1d85461b346e5', project_status: [3], project_type: [15, 16] },
-      'source-layer': 'pluto15v1',
-      "layout": {
-          "icon-image": "RD_green",
-          'icon-ignore-placement': true,
-          'text-allow-overlap': true,
-          'icon-allow-overlap': true,
-          'text-ignore-placement': true,
-          "icon-size": 0.5,
-          "icon-padding": 0
+      type: 'symbol',
+      metadata: { 
+        project_status: [3],
+        project_type: [15, 16],
       },
-      "paint": {}
-    }
+      'source-layer': 'pluto15v1',
+      layout: {
+        'icon-allow-overlap': true,
+        'icon-padding': 0,
+        'icon-image': 'RD_Green_New',
+        'icon-size': 0.5,
+        'icon-ignore-placement': true,
+      },
+      paint: {},
+    },
   ],
 };
 

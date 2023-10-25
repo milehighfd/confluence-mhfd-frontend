@@ -623,7 +623,8 @@ class MapService {
       });
     } else {
       const styles = { ...(tileStyles as any) };
-      styles[key].forEach((style: LayerStylesType, index: number) => {
+      console.log('styles ', key, styles[key]);
+      styles[key]?.forEach((style: LayerStylesType, index: number) => {
         if (key.includes(PROJECTS_DRAFT + 'draft')) {
           if (this.map.getLayer(key + '_' + index)) {
             return;

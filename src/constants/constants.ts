@@ -96,6 +96,18 @@ export const EFFECTIVE_REACHES_LAYERS = {
     EFFECTIVE_REACHES_ENDPOINTS
   ]
 } 
+// make the following three lines to constants with upper case 
+export const PROPOSED_ACTIONS_POLYS = 'proposedactions_polys';
+export const PROPOSED_ACTIONS_POINTS = 'proposedactions_points';
+export const PROPOSED_ACTIONS_LINES = 'proposedactions_lines';
+export const PROPOSED_ACTIONS = {
+  name: 'proposed_actions',
+  tiles: [
+    PROPOSED_ACTIONS_POLYS,
+    PROPOSED_ACTIONS_POINTS,
+    PROPOSED_ACTIONS_LINES
+  ]
+};
 export const FEMA_FLOOD_HAZARD = 'fema_flood_hazard_zones';
 export const WATERSHED_FILTERS = 'mhfd_catchments_simple_v1';
 export const STREAMS_FILTERS = 'streams';
@@ -452,7 +464,8 @@ export const SELECT_ALL_FILTERS = [
   STREAMS_POINT,
   BORDER,
   AREA_BASED_MASK,
-  TEST_LINE
+  TEST_LINE,
+  PROPOSED_ACTIONS
 ];
 export const SWITCHES_MAP = [
   BORDER,
