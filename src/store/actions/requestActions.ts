@@ -199,7 +199,6 @@ export const loadOneColumn = (position: any) => {
         localityFilter
       }
     } = getState();
-
     const filters = {
       county:filterRequest?.filter((item: any, index: number) => item.selected && 
       item.type === 'project_counties').map((r: any) => r.id),
@@ -213,6 +212,7 @@ export const loadOneColumn = (position: any) => {
       item.type === 'status').map((r: any) => r.id),
       sponsor_board: filterRequest?.filter((item: any, index: number) => item.selected &&
       item.type === 'project_partners').map((r: any) => r.id),
+      name: filterRequest?.find((item: any, index: number) => item.type === 'search_name')?.name || '',
       isSouthPlate: false,
       isMHFD: localityFilter === ('Mile High Flood District' || 'MHFD District Work Plan'),
       isWorkPlan: namespaceId.type === WORK_PLAN,
@@ -271,7 +271,7 @@ export const loadColumns = () => {
       item.type === 'status').map((r: any) => r.id),
       sponsor_board: filterRequest?.filter((item: any, index: number) => item.selected &&
       item.type === 'project_partners').map((r: any) => r.id),
-      name: filterRequest?.name?.searchValue || '',
+      name: filterRequest?.find((item: any, index: number) => item.type === 'search_name')?.name || '',
       isSouthPlate: false,
       isMHFD: localityFilter === ('Mile High Flood District' || 'MHFD District Work Plan'),
       isWorkPlan: namespaceId.type === WORK_PLAN,
@@ -630,6 +630,12 @@ export const loadFilters = () => {
           allData.push(filterItem);
         }
       });
+      const index = filterRequest.findIndex((item: any) => item.type === 'search_name');
+      if (index !== -1) {
+        allData[index].name = filterRequest?.find((item: any, index: number) => item.type === 'search_name')?.name;
+      } else {
+        allData.push({ id: 1, type: 'search_name', name: '', selected: false });
+      }      
       dispatch({
         type: types.REQUEST_SET_FILTER_REQUEST,
         payload: allData

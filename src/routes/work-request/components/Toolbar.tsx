@@ -29,6 +29,7 @@ const Toolbar = ({
     setShowAnalytics,
     setShowFilters,
     loadColumns,
+    setFilterRequest
   } = useRequestDispatch();
 
   const [showSearch, setShowSearch] = useState(false);
@@ -56,16 +57,30 @@ const Toolbar = ({
     setSearchValue(e.target.value);
   };
 
+  const updateOrAddSearchFilter = (newValue: string) => {
+    const index = filterRequest.findIndex((item: any) => item.type === 'search_name');
+    if (index !== -1) {
+      filterRequest[index].name = newValue;
+    } else {
+      filterRequest.push({ id: 1, type: 'search_name', name: newValue, selected: false });
+    }
+    return [...filterRequest];
+  };
+
   const search = () => {
-    filterRequest.name = {searchValue, type: 'search_name'}
+    const updatedFilterRequest = updateOrAddSearchFilter(searchValue);
+    setFilterRequest(updatedFilterRequest);
     loadColumns();
   };
+
   const handdleClose = () => {
+    const updatedFilterRequest = updateOrAddSearchFilter('');
     setSearchValue('');
-    filterRequest.name = {searchValue : '', type: 'search_name'}
+    setFilterRequest(updatedFilterRequest);
     loadColumns();
     setShowSearch(!showSearch);
   };
+
 
   const checkEnter = (e: any) => {
     if (e.key === 'Enter') {
