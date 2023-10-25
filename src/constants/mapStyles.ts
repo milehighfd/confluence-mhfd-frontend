@@ -130,7 +130,7 @@ export const COMPONENT_LAYERS_STYLE = {
       // "id": "PA-Point-GradeCtrl",
       "type": "symbol",
       "source-layer": "pluto15v1",
-      minzoom: 11,
+      minzoom: 10,
       "filter": [
           "all",
           [
@@ -155,7 +155,7 @@ export const COMPONENT_LAYERS_STYLE = {
       // "id": "PA-Point-PipeApp",
       "type": "symbol",
       "source-layer": "pluto15v1",
-      minzoom: 11,
+      minzoom: 10,
       "filter": [
           "all",
           [
@@ -175,7 +175,7 @@ export const COMPONENT_LAYERS_STYLE = {
       // "id": "PA-Point-Special",
       "type": "symbol",
       "source-layer": "pluto15v1",
-      minzoom: 11,
+      minzoom: 10,
       "filter": [
           "all",
           [
