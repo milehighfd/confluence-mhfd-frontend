@@ -631,11 +631,12 @@ export const loadFilters = () => {
         }
       });
       const index = filterRequest.findIndex((item: any) => item.type === 'search_name');
-      if (index !== -1) {
-        allData[index].name = filterRequest?.find((item: any, index: number) => item.type === 'search_name')?.name;
+      const searchNameItem = filterRequest?.find((item: any) => item.type === 'search_name');
+      if (index !== -1 && allData[index] && searchNameItem) {
+        allData[index].name = searchNameItem.name;
       } else {
         allData.push({ id: 1, type: 'search_name', name: '', selected: false });
-      }      
+      }   
       dispatch({
         type: types.REQUEST_SET_FILTER_REQUEST,
         payload: allData
