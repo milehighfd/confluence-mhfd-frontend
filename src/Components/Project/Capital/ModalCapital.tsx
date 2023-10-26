@@ -8,7 +8,7 @@ import { LocationInformation } from 'Components/Project/TypeProjectComponents/Lo
 import { useProjectState, useProjectDispatch } from 'hook/projectHook';
 import { useAttachmentDispatch } from 'hook/attachmentHook';
 import { Project } from 'Classes/Project';
-import { useProfileState } from 'hook/profileHook';
+import { useProfileDispatch, useProfileState } from 'hook/profileHook';
 import { ADMIN, NEW_PROJECT_TYPES, STAFF, WINDOW_WIDTH, WORK_PLAN_TAB } from 'constants/constants';
 import { useHistory } from 'react-router-dom';
 import { UploadImagesDocuments } from 'Components/Project/TypeProjectComponents/UploadImagesDocuments';
@@ -137,6 +137,7 @@ export const ModalCapital = ({
     getIndependentComponentsByProjectId,
     getComponentsByProjectId
   } = useProjectDispatch();
+  const { getGroupOrganization } = useProfileDispatch();
   const {
     listComponents, 
     componentsFromMap, 
@@ -244,6 +245,7 @@ export const ModalCapital = ({
     setStreamIntersected({ geom: null });
     setStreamsIds([]);
     setStreamsList([]);
+    getGroupOrganization();
     setIsGeomDrawn(false);
     return () => {
       setIndComponents([]);
@@ -552,13 +554,7 @@ export const ModalCapital = ({
       // setVisible(false);
     }
   }, [save]);
-
-  useEffect(() => {
-    if(Object.keys(createdProject).length !== 0){
-      console.log('createdProject', createdProject);
-    }
-  }, [createdProject]);
-
+  
   useEffect(() => { 
     if(status === 1 || status === 0) {
       setVisible(false);
