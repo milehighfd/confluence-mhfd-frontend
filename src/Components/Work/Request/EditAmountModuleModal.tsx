@@ -234,6 +234,23 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
 
     const costDataList = useCostDataFormattingHook(tabKey, maintenanceSubtype, startYear, board_project_id, true);
 
+    function updateMhfdBasedOnOthers(data: any, updatedReqField: string) {
+      const CODE_COST_TYPE = namespaceId.type === WORK_PLAN ? 21 : 22;
+      const nonMhfdEntries = data.filter((entry: any) => entry.business_name !== "MHFD");
+      const mhfdEntries = data.filter((entry: any) => entry.code_cost_type_id === CODE_COST_TYPE && entry.business_name === "MHFD");    
+      mhfdEntries.forEach((mhfdEntry: any) => {
+        const isAnyNonMhfdValuePresent = nonMhfdEntries.some((nonMhfdEntry: any) => 
+          nonMhfdEntry.values[updatedReqField] !== null
+        );    
+        if (!isAnyNonMhfdValuePresent && mhfdEntry.values[updatedReqField] === 0) {
+          mhfdEntry.values[updatedReqField] = null;
+        } else if (isAnyNonMhfdValuePresent && mhfdEntry.values[updatedReqField] === null) {
+          mhfdEntry.values[updatedReqField] = 0;
+        }
+      });    
+      return data;
+    }
+    
     const handleChange = (e: any, item: any, key:any) => {
       const { value: inputValue } = e.target;
       const reg = /^-?\d*(\.\d*)?$/;
@@ -248,6 +265,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         const current_code_cost_type_id = item.code_cost_type_id;
         const indexOfValue = newCost.amounts.findIndex((itemAmount: any) => itemAmount.business_name === current_business_name && itemAmount.code_cost_type_id === current_code_cost_type_id);
         newCost.amounts[indexOfValue].values[key] = inputValue ? (+currentValue) : null;
+        updateMhfdBasedOnOthers(newCost.amounts, key);
         return newCost;
       });
     }
