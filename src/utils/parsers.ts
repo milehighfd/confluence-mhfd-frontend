@@ -132,7 +132,7 @@ export const getCurrentProjectStatus = (project:any) => {
 }
 
   export const getProjectOverheadCost = (costs: any) => {
-  const currentOverheadIds = [2,6,7,8,9,10,11,12,13];
+  const currentOverheadIds = [5,6,7,8,9,10,11,12,13];
   const filteredDataOverhead = costs.filter((element: any) => currentOverheadIds.includes(element.code_cost_type_id));
   //validator for all values
   const validator = currentOverheadIds.map( (element: any)=> {

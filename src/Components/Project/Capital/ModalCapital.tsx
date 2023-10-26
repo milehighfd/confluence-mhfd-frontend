@@ -863,7 +863,7 @@ export const ModalCapital = ({
       let newOverheadValue: any = [];
       if (listComponents && listComponents.result && subtotalCost !== 0 && !(parsed.every((elem: any) => elem === 0))) {
         parsed.forEach((overheadcost: any, index: number) => {
-          if (index > 0) {
+          if (index >= 0) {
             newOverheadValue[index] = Math.round((overheadcost * 100) / subtotalCost)
           } else {
             newOverheadValue[index] = 0

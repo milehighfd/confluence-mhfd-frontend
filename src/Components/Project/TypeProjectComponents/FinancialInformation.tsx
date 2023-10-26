@@ -46,6 +46,7 @@ export const FinancialInformation = ({
     disableFieldsForLG,
     } = useProjectState();
   const timelineItems = [
+    { label: 'Dewatering', index: 0 },
     { label: 'Mobilization', index: 1 },
     { label: 'Traffic Control', index: 2 },
     { label: 'Utility Coordination / Relocation', index: 3 },
