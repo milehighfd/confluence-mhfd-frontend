@@ -172,7 +172,7 @@ export const ModalCapital = ({
   const [geom, setGeom] = useState<any>();
   const [visibleUnnamedComponent, setVisibleUnnamedComponent] = useState(false)
   const [thisIndependentComponents, setThisIndependentComponents] = useState<any[]>(independentComponents);
-  const [overheadValues, setOverheadValues] = useState<any>([0,5,0,0,5,15,5,10,25]);
+  const [overheadValues, setOverheadValues] = useState<any>([5,5,0,0,5,15,5,10,25]);
   const [overheadCosts, setOverheadCosts] = useState<any>([0,0,0,0,0,0,0,0,0]);
   const [keys, setKeys] = useState<any>(['-false']);
   const [additionalCost, setAdditionalCost] = useState<number>(0);
@@ -894,7 +894,7 @@ export const ModalCapital = ({
       }
     }
     if (subtotalCost === 0) {
-      setOverheadValues([0, 5, 0, 0, 5, 15, 5, 10, 25])
+      setOverheadValues([5, 5, 0, 0, 5, 15, 5, 10, 25])
     }
   }, [listComponents, thisIndependentComponents])
 
