@@ -171,7 +171,7 @@ export const ModalCapital = ({
   const [componentsToSave, setComponentsToSave] = useState([]);
   const [geom, setGeom] = useState<any>();
   const [visibleUnnamedComponent, setVisibleUnnamedComponent] = useState(false)
-  const [thisIndependentComponents, setIndependentComponents] = useState<any[]>([]);
+  const [thisIndependentComponents, setThisIndependentComponents] = useState<any[]>(independentComponents);
   const [overheadValues, setOverheadValues] = useState<any>([0,5,0,0,5,15,5,10,25]);
   const [overheadCosts, setOverheadCosts] = useState<any>([0,0,0,0,0,0,0,0,0]);
   const [keys, setKeys] = useState<any>(['-false']);
@@ -246,7 +246,7 @@ export const ModalCapital = ({
     setIsGeomDrawn(false);
     return () => {
       setIndComponents([]);
-      setIndependentComponents([]);
+      setThisIndependentComponents([]);
       setComponentsFromMap([]);
     }
   }, []);
@@ -407,7 +407,7 @@ export const ModalCapital = ({
     } else {
       setStreamIntersected([]);
       setIndComponents([]);
-      setIndependentComponents([]);
+      setThisIndependentComponents([]);
       setEditLocation(undefined);
     }
   }, [data]);
@@ -701,6 +701,10 @@ export const ModalCapital = ({
   }  
 
   useEffect(()=>{
+    setThisIndependentComponents(independentComponents);
+  },[independentComponents]);
+
+  useEffect(()=>{
     if(componentsFromMap?.length > 0 ) {
       if(componentsFromMap.length > 0  && listComponents?.length > 0){
         console.log('[ ...List Components ] ->', listComponents);
@@ -836,7 +840,7 @@ export const ModalCapital = ({
       status:'Proposed',
       cost:0,
     };
-    setIndependentComponents([...thisIndependentComponents,component]);
+    setThisIndependentComponents([...thisIndependentComponents,component]);
   };
   const removeComponent = (component: any) => {
     let newComponents: any = [];
@@ -896,13 +900,6 @@ export const ModalCapital = ({
     setOverheadValues(newoverhead);
   }
 
-  useEffect(() => {
-    console.log('list components', listComponents);
-  }, [listComponents]);
-  useEffect(() => {
-    console.log('this inde components 1 ', thisIndependentComponents);
-  }, [thisIndependentComponents]);
-
   const getSubTotalCost = () => {
     let subtotalcost = 0;
     if(listComponents && listComponents.result) {
@@ -945,13 +942,13 @@ export const ModalCapital = ({
         ic = newIC;
       }
     }
-    setIndependentComponents([...currentComponents]);
+    setThisIndependentComponents([...currentComponents]);
   }
 
   const removeIndComponent = (indComp: any) => {
     let currentComponents = [...thisIndependentComponents];
     currentComponents = currentComponents.filter( (comp: any) => ( comp.index !== indComp.index ) );
-    setIndependentComponents([...currentComponents]);
+    setThisIndependentComponents([...currentComponents]);
   }
 
   const getTotalCost = () =>{
@@ -1212,7 +1209,7 @@ export const ModalCapital = ({
                   removeIndComponent={removeIndComponent}
                   removeComponent={removeComponent}
                   thisIndependentComponents={thisIndependentComponents}
-                  setThisIndependentComponents={setIndependentComponents}
+                  setThisIndependentComponents={setThisIndependentComponents}
                   visibleUnnamedComponent={visibleUnnamedComponent}
                   isDrawState={isDrawState}
                   onClickDraw={onClickDraw}
