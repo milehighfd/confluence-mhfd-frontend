@@ -37,15 +37,15 @@ const attachmentReducer = (state = initState, action : any) => {
         project_id: action.project_id,
       }
     case types.DELETE_ATTACHMENT:
+      if (!Array.isArray(state.attachment)) {
+        return state;
+      }
       return {
         ...state,
-        attachment: {
-          ...state.attachment,
-          attachment: state.attachment.filter((i: any) => {
-            return !action.ids.includes(i.project_attachment_id);
-          })
-        },
-      }
+        attachment: state.attachment.filter((item: any) => {
+          return !action.ids.includes(item.project_attachment_id);
+        }),
+      };
     case types.TOGGLE:
       return {
         ...state,
