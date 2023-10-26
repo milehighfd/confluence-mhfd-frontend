@@ -1940,7 +1940,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
         value: `${item.center[0]},${item.center[1]}?${item.text}|${item.place_name}`,
         label: (
           <div className="global-search-item">
-            <h6 style={{ whiteSpace: 'normal' }}>{firstText}</h6>
+            <h6 className="wraptext">{firstText}</h6>
             <h5 className="wraptext" style={{ whiteSpace: 'normal' }}>{secondText.join(',')}</h5>
           </div>
         ),
