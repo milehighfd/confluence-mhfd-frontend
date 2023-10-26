@@ -630,13 +630,15 @@ export const loadFilters = () => {
           allData.push(filterItem);
         }
       });
-      const index = filterRequest.findIndex((item: any) => item.type === 'search_name');
-      const searchNameItem = filterRequest?.find((item: any) => item.type === 'search_name');
-      if (index !== -1 && allData[index] && searchNameItem) {
+      const searchNameItem = lastFilterValues?.find((item: any) => item.type === 'search_name');
+      const index = allData.findIndex(item => item.type === 'search_name');
+      if (searchNameItem && index !== -1) {
         allData[index].name = searchNameItem.name;
+      } else if (searchNameItem) {
+        allData.push({ ...searchNameItem, id: 1, selected: false });
       } else {
-        allData.push({ id: 1, type: 'search_name', name: '', selected: false });
-      }   
+        allData.push({ ...searchNameItem, name: '', id: 1, selected: false });
+      }
       dispatch({
         type: types.REQUEST_SET_FILTER_REQUEST,
         payload: allData
