@@ -220,6 +220,7 @@ export const ModalCapital = ({
   const [progress, setProgress] = useState('');
   const [purchaseDate, setPurchaseDate] = useState('');
   const [isEditingPosition,setIsEditingPosition ]= useState(false)
+  const [initSubtotalCost, setInitSubtotalCost] = useState<any>(null);
   //special
   const setTypeAndSubType = (type:string, subType:string, label:string) => {
     setSubType(subType);
@@ -823,11 +824,28 @@ export const ModalCapital = ({
   },[thisIndependentComponents]);
 
   useEffect(()=>{
-    if((((listComponents && listComponents.groups && listComponents.result.length > 0)) || thisIndependentComponents.length > 0) && !flagInit) {
+    if((((listComponents && listComponents?.result?.length > 0)) || thisIndependentComponents?.length > 0) && !flagInit && listComponents?.groups) {
       flagInit = true;
     }
   },[thisIndependentComponents, listComponents])
 
+  useEffect(() => {
+    if (flagInit) {
+      let subtotalcost = 0;
+      if(listComponents && listComponents.result) {
+        let totalcomponents = listComponents.result;
+        for( let component of totalcomponents) {
+          subtotalcost += component.original_cost;
+        }
+      }
+      if(thisIndependentComponents.length > 0) {
+        for( let comp of thisIndependentComponents) {
+          subtotalcost += parseFloat(comp.cost) ;
+        }
+      }
+      setInitSubtotalCost(subtotalcost);
+    }
+  }, [flagInit]);
   const applyIndependentComponent = () => {
     let index = 0;
     if(thisIndependentComponents.length > 0) {      
@@ -912,6 +930,11 @@ export const ModalCapital = ({
       for( let comp of thisIndependentComponents) {
         subtotalcost += parseFloat(comp.cost) ;
       }
+    }
+    const subtotalInData = data.project_costs.filter((d:any) => d.code_cost_type_id == 14);
+    // console.log('init subtotal', initSubtotalCost, 'subtotalcost', subtotalcost, 'subtotalInData', subtotalInData[0].cost);
+    if (initSubtotalCost === subtotalcost && subtotalInData[0]?.cost) {
+      subtotalcost = subtotalInData[0].cost;
     }
     return subtotalcost;
   }
@@ -1136,7 +1159,7 @@ export const ModalCapital = ({
       isEdit={swSave}
       sendToWr={sendToWR}
       setsendToWR={setsendToWR}
-      locality={[locality.replace(' Work Plan', '')]}
+      locality={[locality?.replace(' Work Plan', '')]}
       sponsor = {sponsor}
     />}
      <Modal

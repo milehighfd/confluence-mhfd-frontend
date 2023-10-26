@@ -5,6 +5,29 @@ import { loadColumns, loadFilters, loadOneColumn } from 'store/actions/requestAc
 import * as turf from '@turf/turf';
 import { depth } from 'routes/map/components/MapFunctionsUtilities';
 
+
+const getAndDispatchAbortableCtrl = (dispatch: Function, key: string): AbortController => {
+  const controller = new AbortController();
+  dispatch({
+    type: types.ABORTABLE_REQUEST,
+    payload: {
+      abortableController: controller,
+      abortableKey: key,
+    },
+  });
+  return controller;
+};
+
+const isAbortError = (error: any) => {
+  return error instanceof DOMException && error.message === 'The user aborted a request.';
+};
+
+export const handleAbortError = (error: any) => {
+  if (!isAbortError(error)) {
+    console.log(`Error`, error);
+  }
+};
+
 const callArcGisProcess = (data: any, project_id: any, typeprocess: string) => {
   try {
     let geomData;
@@ -277,9 +300,14 @@ export const setIsGeomDrawn = (isGeomDrawn: any) => {
 
 export const getListComponentsByComponentsAndPolygon = (components: any, geom: any) => {
   return (dispatch: Function) => {
-    datasets.postData(SERVER.GET_COMPONENTS_WITH_GEOM, {components, geom}, datasets.getToken()).then(listComponents => {
+    const controller = getAndDispatchAbortableCtrl(dispatch, 'getListComponentsByComponentsAndPolygon');
+    datasets.postData(SERVER.GET_COMPONENTS_WITH_GEOM, {components, geom}, datasets.getToken(), controller.signal).then(listComponents => {
       // console.trace('Setting listcomponents', listComponents);
       dispatch({type: types.SET_LIST_COMPONENTS, listComponents});
+    }).catch(err => {
+      if (!isAbortError) {
+        console.log('getListComponentsByComponentsAndPolygon', err);
+      }
     });
   }
 }
@@ -390,16 +418,26 @@ export const getStreamsByProjectId = (projectId: any, typeProjectId: any) => {
 }
 export const getComponentsByProjectId = (projectId: any) => {
   return (dispatch: Function) => {
-    datasets.getData(SERVER.GET_COMPONENTS_BY_PROJECT(projectId), datasets.getToken()).then( res => {
+    const controller = getAndDispatchAbortableCtrl(dispatch, 'getcomponentsbyprojectid');
+    datasets.getData(SERVER.GET_COMPONENTS_BY_PROJECT(projectId), datasets.getToken(), controller.signal).then( res => {
       dispatch(getListComponentsByComponentsAndPolygon(res, null));
-    })
+    }).catch(err => {
+      if (!isAbortError) {
+        console.log('getcomponentsbyprojectid', err);
+      }
+    });
   }
 }
 export const getIndependentComponentsByProjectId = (projectId: any) => {
   return (dispatch: Function) => {
-    datasets.getData(SERVER.GET_INDEPENDENTCOMPONENTS_BY_PROJECT(projectId), datasets.getToken()).then( res => {
+    const controller = getAndDispatchAbortableCtrl(dispatch, 'getindependentcomponentsbyprojectid');
+    datasets.getData(SERVER.GET_INDEPENDENTCOMPONENTS_BY_PROJECT(projectId), datasets.getToken(), controller.signal).then( res => {
       dispatch(setIndComponents(res));
-    })
+    }).catch(err => {
+      if (!isAbortError) {
+        console.log('getindependentcomponentsbyprojectid', err);
+      }
+    });
   }
 }
 
