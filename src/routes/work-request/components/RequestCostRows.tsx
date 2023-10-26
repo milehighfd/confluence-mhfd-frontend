@@ -67,10 +67,18 @@ const RequestCostRows = () => {
   useEffect(() => {
     if ((appUser?.isLocalGovernment || appUser?.userInformation?.designation === 'government_staff') && namespaceId.type === 'WORK_PLAN') {
       setDisabled(true);
-    }else{
-      setDisabled(false);
-    }
-  }, [appUser, namespaceId]);
+    } else {
+      if ((localityFilter === 'Mile High Flood District' ||
+        localityFilter === 'MHFD Flood District') &&
+        namespaceId.type === WORK_PLAN &&
+        (namespaceId.projecttype === 'Maintenance' ||
+          namespaceId.projecttype === 'Capital')) {
+        setDisabled(true);
+      } else {
+        setDisabled(false);
+      }
+    }    
+  }, [appUser, namespaceId, localityFilter]);
   
   const [isCollapseOpen, setIsCollapseOpen] = useState(false);
   const handleCollapseChange = (key: string | string[]) => {

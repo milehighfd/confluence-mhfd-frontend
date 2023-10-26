@@ -10,6 +10,7 @@ import { WINDOW_WIDTH, WORK_PLAN, LOCALITIES_TYPES, YEAR_LOGIC_2024 } from 'cons
 import { useMapState } from 'hook/mapHook';
 import { setShowBoardStatus } from 'store/actions/requestActions';
 import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
+import { useProfileState } from 'hook/profileHook';
 
 const { Option } = Select;
 
@@ -32,6 +33,7 @@ const Analytics = () => {
   const { openNotification } = useNotifications();
   const { setShowAnalytics, setTotalCountyBudget } = useRequestDispatch();
   const { showAnalytics } = useRequestState();
+  const appUser = useProfileState();
   const [totalSum, setTotalSum] = useState(0);
   const [tcb, setTcb] = useState(totalCountyBudget || 0);
   const [year, setYear] = useState<any>(tabKey === 'Maintenance' ? 2000 : +initialYear);
@@ -44,6 +46,7 @@ const Analytics = () => {
   const [countiesNames, setCountiesNames] = useState('');
   const {tabActiveNavbar} = useMapState();
   const [localityTypeLabel, setLocalityTypeLabel] = useState('County');
+  const [disabled,setDisabled] = useState(false);
   const clickUpdate = () => {
     if (namespaceId.type === WORK_PLAN &&
       localityFilter !== 'Mile High Flood District' &&
@@ -74,6 +77,18 @@ const Analytics = () => {
       });
     }    
   };
+
+  useEffect(() => {
+    if ((localityFilter === 'Mile High Flood District' ||
+      localityFilter === 'MHFD Flood District') &&
+      namespaceId.type === WORK_PLAN &&
+      (namespaceId.projecttype === 'Maintenance' ||
+        namespaceId.projecttype === 'Capital')) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, [appUser, namespaceId, localityFilter]);
 
   useEffect(() => {
     if (totalCountyBudget){
@@ -219,6 +234,7 @@ const Analytics = () => {
               value={tcb} onChange={(e: any) => {
                 setTcb(e);
               }}
+              disabled={disabled}
             />
             <Row style={{ marginTop: '10px' }}>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
@@ -237,6 +253,7 @@ const Analytics = () => {
                 className="btn-purple btn-maintenence"
                 style={{ marginTop: '10px'}}
                 onClick={clickUpdate}
+                disabled={disabled}
               >
                 Save Total County Budget
               </Button>

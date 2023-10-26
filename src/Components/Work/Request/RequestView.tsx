@@ -133,10 +133,8 @@ const RequestView = ({ type, widthMap }: {
   }, [sentToWP]);
 
   useEffect(() => {
-    // console.log('success---------------------------', status);
     if(status === 1){
       openNotification('Success! Your project was saved!', "success");
-      console.log('success');
     }
   }, [status]);
   useEffect(() => {
@@ -286,9 +284,10 @@ const RequestView = ({ type, widthMap }: {
 
       setBoard(board);
       setNamespaceId(boardKey);
+      setLoadNewColumns(true);
       loadFilters();
       //loadColumns();      
-      setLoadNewColumns(true);
+      
       /* TODO: this should be replaced */
       setBoardStatus(board.status);
       setBoardSubstatus(board.substatus);
@@ -346,9 +345,24 @@ const RequestView = ({ type, widthMap }: {
         });
     } else {
       if (namespaceId.projecttype === 'Maintenance') {
-        setTotalCountyBudget(mainCountyBudget)
+        if (namespaceId.type === WORK_PLAN  && localityFilter === 'Mile High Flood District') {
+          datasets.postData(`${SERVER.BUDGET_BOARD_TABLE}/sum`, { boards_id: board.board_id }, datasets.getToken())        
+          .then(data => {
+            setTotalCountyBudget(data?.sum[0])
+          })
+        }else{
+          setTotalCountyBudget(mainCountyBudget)
+        }    
       }else{
         setReqManager(mainBudget);
+        if (namespaceId.type === WORK_PLAN  && localityFilter === 'Mile High Flood District') {
+          datasets.postData(`${SERVER.BUDGET_BOARD_TABLE}/sum`, { boards_id: board.board_id }, datasets.getToken())        
+          .then(data => {
+            setReqManager(data?.sum);
+          })
+        }else{
+          setReqManager(mainBudget);
+        }        
       }
     }
   }, [localityFilter, board, namespaceId]);
