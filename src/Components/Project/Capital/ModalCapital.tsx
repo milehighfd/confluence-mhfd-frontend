@@ -45,7 +45,6 @@ const content05 = (<div className="popver-info" style={{ width: '261px' }}> Indi
   <br /><b>Grandfathered</b> – Development occurred before MHFD’s Maintenance Eligibility Program started in 1980
   <br /><b>Not Eligible</b> – The project does not meet any of the above criteria
   <br /><b>Unknown</b>  – Maintenance eligibility status is unknown</div>);
-let flagInit = false;
 const stateValue = {
   visibleCapital: false
 }
@@ -222,6 +221,7 @@ export const ModalCapital = ({
   const [purchaseDate, setPurchaseDate] = useState('');
   const [isEditingPosition,setIsEditingPosition ]= useState(false)
   const [initSubtotalCost, setInitSubtotalCost] = useState<any>(null);
+  const  flagInit = useRef(false);
   //special
   const setTypeAndSubType = (type:string, subType:string, label:string) => {
     setSubType(subType);
@@ -820,13 +820,13 @@ export const ModalCapital = ({
   },[thisIndependentComponents]);
 
   useEffect(()=>{
-    if((((listComponents && listComponents?.result?.length > 0)) || thisIndependentComponents?.length > 0) && !flagInit && listComponents?.groups) {
-      flagInit = true;
+    if((((listComponents && listComponents?.result?.length > 0)) || thisIndependentComponents?.length > 0) && !flagInit.current && listComponents?.groups) {
+      flagInit.current = true;
     }
   },[thisIndependentComponents, listComponents])
 
   useEffect(() => {
-    if (flagInit) {
+    if (flagInit.current) {
       let subtotalcost = 0;
       if(listComponents && listComponents.result) {
         let totalcomponents = listComponents.result;
@@ -841,7 +841,7 @@ export const ModalCapital = ({
       }
       setInitSubtotalCost(subtotalcost);
     }
-  }, [flagInit]);
+  }, [flagInit.current]);
   const applyIndependentComponent = () => {
     let index = 0;
     if(thisIndependentComponents.length > 0) {      
