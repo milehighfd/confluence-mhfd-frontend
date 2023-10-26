@@ -106,9 +106,12 @@ const EditAmountCreateProject = ({
           }
         ]
     }
+    const filteredAmounts = newCostToSend.filter((item:any) => {
+      return !(item.business_name === 'MHFD' && item.code_partner_type_id === 11);
+    });
     const newCompleteCosts = {
       ...completeCosts,
-      amounts: newCostToSend,
+      amounts: filteredAmounts,
       isMaintenance: false
     }
     // const send = { ...cost, isMaintenance };

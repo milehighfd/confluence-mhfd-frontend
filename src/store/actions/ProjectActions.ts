@@ -161,7 +161,7 @@ export const getStreamsIntersectedPolygon = (geom: any) => {
   return ( dispatch: Function) => {
     datasets.postData(SERVER.GET_STREAM_INTERSECTED, {geom: geom}, datasets.getToken()).then(res => {
       let streamsIntersectedIds = res;
-      console.trace('streamsIntersectedIds', streamsIntersectedIds);
+      // console.trace('streamsIntersectedIds', streamsIntersectedIds);
         dispatch({type: types.SET_STREAMS_IDS_ADD, streamsIntersectedIds});
     });
   }
@@ -278,7 +278,7 @@ export const setIsGeomDrawn = (isGeomDrawn: any) => {
 export const getListComponentsByComponentsAndPolygon = (components: any, geom: any) => {
   return (dispatch: Function) => {
     datasets.postData(SERVER.GET_COMPONENTS_WITH_GEOM, {components, geom}, datasets.getToken()).then(listComponents => {
-      console.trace('Setting listcomponents', listComponents);
+      // console.trace('Setting listcomponents', listComponents);
       dispatch({type: types.SET_LIST_COMPONENTS, listComponents});
     });
   }
@@ -369,7 +369,7 @@ export const getStreamsByProjectId = (projectId: any, typeProjectId: any) => {
       for(let i = 0; i < independentStreams.length; ++i) {
         setMHFD.add(independentStreams[i])
       }
-      console.log('completeMhfdList', completeMhfdList);
+      // console.log('completeMhfdList', completeMhfdList);
       dispatch({type: types.SET_LIST_STREAMS, listStreams});
       let setArray = [...setMHFD];
       let streamsIntersectedIds: any = [];
