@@ -927,7 +927,7 @@ export const ModalCapital = ({
         subtotalcost += parseFloat(comp.cost) ;
       }
     }
-    const subtotalInData = data.project_costs.filter((d:any) => d.code_cost_type_id == 14);
+    const subtotalInData = data?.project_costs?.filter((d:any) => d.code_cost_type_id == 14);
     // console.log('init subtotal', initSubtotalCost, 'subtotalcost', subtotalcost, 'subtotalInData', subtotalInData[0].cost);
     if (initSubtotalCost === subtotalcost && subtotalInData[0]?.cost) {
       subtotalcost = subtotalInData[0].cost;
