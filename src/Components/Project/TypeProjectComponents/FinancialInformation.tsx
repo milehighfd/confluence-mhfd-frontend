@@ -118,7 +118,7 @@ export const FinancialInformation = ({
       <p>Last updated by {lastmodifiedBy} on {lastmodifiedDate} </p>
       <div >
         <Button  className="btn-borde" onClick={hide}>Close</Button>
-        <Button className="btn-purple" onClick={() => confirmEstimatecost}><span className="text-color-disable">Confirm</span></Button>
+        <Button className="btn-purple" onClick={confirmEstimatecost}><span className="text-color-disable">Confirm</span></Button>
       </div >
     </div>
   )
