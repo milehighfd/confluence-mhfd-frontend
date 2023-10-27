@@ -37,6 +37,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
   const startYearInt = parseInt(startYear);
   const [totalCosts, setTotalCosts] = useState<any>([]);
   const [totalCombinedSum, setTotalCombinedSum] = useState<any>(0);
+  const [estimatedCostFromDB, setEstimatedCostFromDB] = useState(0);
   const widthInput = document.getElementById('colInput')?.offsetWidth;
   const desiredOrder = [88, 11, 12];
   const statusColor:any = {
@@ -98,6 +99,8 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
   }
 
   useEffect(() => {
+    let estimatedCostDB = completeProjectData.project_costs.filter((e: any) => e.code_cost_type_id === 1)[0];
+    setEstimatedCostFromDB(estimatedCostDB ? estimatedCostDB.cost : 0);
     setMaintenanceSubtype(completeProjectData.code_project_type.project_type_name)
     const projectPartnersRaw = completeProjectData.project_partners;
     const projectPartners = projectPartnersRaw.filter((item:any) => item.code_partner_type_id === 11 || item.code_partner_type_id === 12 || item.code_partner_type_id === 88)
@@ -388,7 +391,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         </Col>
         <Col>
           <p>Estimated Cost</p>
-          <h1>{formatter.format(requestFunding)}</h1>
+          <h1>{formatter.format(estimatedCostFromDB)}</h1>
         </Col>
       </Row>
       <Col className="edit-amount-modal-body">
