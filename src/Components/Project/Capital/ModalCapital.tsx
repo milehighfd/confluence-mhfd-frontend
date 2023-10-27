@@ -1183,12 +1183,12 @@ export const ModalCapital = ({
             isEdit = {swSave}
           />          
           {/* { tabs- options } */}
-          {/* <div className='header-tab'>
+          <div className='header-tab'>
             <p className={activeTabBodyProject ===  'Details'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Details')}}>Details</p>
             <p className={activeTabBodyProject ===  'Discussion'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Discussion')}}>Discussion</p>
             <p className={activeTabBodyProject ===  'Activity'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Activity')}}>Activity</p>
-          </div> */}
-          {/* {activeTabBodyProject === 'Details' && <> */}
+          </div>
+          {activeTabBodyProject === 'Details' && <>
             <div className="body-project">
               {
                 (isWorkPlan && showCheckBox && !swSave) &&  
@@ -1349,7 +1349,7 @@ export const ModalCapital = ({
                 visibleCapital={visibleCapital}
               />
             </div>
-          {/* </>} */}
+          </>}
           {activeTabBodyProject === 'Discussion' &&
           <DiscussionCreateProject/>}
           {activeTabBodyProject === 'Activity' &&
