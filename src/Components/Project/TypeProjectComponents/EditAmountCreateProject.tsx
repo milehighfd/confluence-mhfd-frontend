@@ -35,15 +35,15 @@ const EditAmountCreateProject = ({
     namespaceId,
   } = useRequestState();
   const { loadOneColumn, loadColumns } = useRequestDispatch();
-  const { status, createdProject } = useProjectState();
-  const { setCreatedProject, sendProjectToBoardYear } = useProjectDispatch();
+  const { status, createdProject, completeCosts } = useProjectState();
+  const { setCreatedProject, sendProjectToBoardYear, setCompleteCosts } = useProjectDispatch();
   const [project, setProject] = useState<any>({})
   const [board_project_id, setBoard_project_id] = useState<any>()
   const [createData, setCreatedData] = useState<any>({})
   const isMaintenance = tabKey === 'Maintenance'
   const priorFundingString = 'priorFunding';
   const [isDisabledAmountInput, setIsDisabledAmountInput] = useState<boolean>(false);
-  const [completeCosts, setCompleteCosts] = useState<any>({});
+  // const [completeCosts, setCompleteCosts] = useState<any>({});
   const isWorkPlan = namespaceId.type === WORK_PLAN;
   const [cost, setCost] = useState<any>({
     req1: null,

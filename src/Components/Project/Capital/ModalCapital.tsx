@@ -1314,6 +1314,7 @@ export const ModalCapital = ({
               />
               {selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Capital.toLowerCase() &&
                 <FinancialInformation
+                  data={data}
                   formatter={formatter}
                   getSubTotalCost={getSubTotalCost}
                   getOverheadCost={getOverheadCost}

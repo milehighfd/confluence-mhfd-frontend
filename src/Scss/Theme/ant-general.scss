@@ -396,6 +396,22 @@
 .ant-popover-inner ,.ant-popover-inner-content{
   width: fit-content;
 }
+.footer-popover-estimatedCost {
+  text-align: right;
+  background: $white;
+  padding: 10px 0px;
+  border-top: solid 1px $opacity01;
+  border-radius: 0px 0px 4px 0px;
+
+  button {
+    height: 44px;
+    margin-left: 10px;
+  }
+  .btn-purple:hover,
+  .btn-purple:focus {
+    border-bottom: 4px solid $green !important;
+  }
+}
 @media (max-width: 575.98px) {
   .ant-layout-sider {
     flex: auto !important;

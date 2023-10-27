@@ -62,7 +62,8 @@ import {
   setGlobalLocality,
   setCreatedProject,
   sendProjectToBoardYear,
-  setGlobalSearchValue
+  setGlobalSearchValue,
+  setCompleteCosts
 } from '../store/actions/ProjectActions';
 
 export const useProjectState = () => useSelector(
@@ -260,6 +261,9 @@ export const useProjectDispatch = () => {
     },
     setGlobalSearchValue: (globalSearchValue: string) => {
       dispatch(setGlobalSearchValue(globalSearchValue))
+    },
+    setCompleteCosts: (completeCosts: any) => {
+      dispatch(setCompleteCosts(completeCosts))
     }
   };
 };

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { Row, Col, Input, Timeline, Popover, Select } from 'antd';
-import { InfoCircleOutlined } from '@ant-design/icons';
+import React, { useEffect, useState } from 'react';
+import { Row, Col, Input, Timeline, Popover, Select, Button } from 'antd';
+import { ExclamationCircleOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import {  WINDOW_WIDTH } from 'constants/constants';
 import { useProjectState } from 'hook/projectHook';
 
 interface Props {
+  data:any;
   formatter: any;
   getSubTotalCost: any;
   getOverheadCost: any;
@@ -25,6 +26,7 @@ interface Props {
 const { Option } = Select;
 
 export const FinancialInformation = ({
+  data,
   formatter,
   getSubTotalCost,
   getOverheadCost,  
@@ -42,6 +44,11 @@ export const FinancialInformation = ({
   changeValue,
   index
 }:Props) => {
+  const [open, setOpen] = useState(false);
+  const [estimatedCostFromDB, setEstimatedCostFromDB] = useState(0);
+  const [lastmodifiedBy, setLastmodifiedBy] = useState('');
+  const [lastmodifiedDate, setLastmodifiedDate] = useState('');
+  const { completeCosts } = useProjectState();
   const { 
     disableFieldsForLG,
     } = useProjectState();
@@ -82,6 +89,43 @@ export const FinancialInformation = ({
       </Timeline.Item>
     );
   }
+  const hide = () => {
+    setOpen(false);
+  };
+
+  const contentPopOver = (
+    <div className="footer-popover-estimatedCost">
+      <Input value={estimatedCostFromDB} />
+      <p>Last updated by {lastmodifiedBy} on {lastmodifiedDate} </p>
+      <div >
+        <Button  className="btn-borde" onClick={hide}>Close</Button>
+        <Button className="btn-purple" onClick={() => console.log('click')}><span className="text-color-disable">Confirm</span></Button>
+      </div >
+    </div>
+  )
+
+  const formatDate = (dateStr: string) => {
+    const date = new Date(dateStr);
+
+    const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+    const day = String(date.getUTCDate()).padStart(2, "0");
+    const year = String(date.getUTCFullYear()).substring(2);
+    const hours = String(date.getUTCHours()).padStart(2, "0");
+    const minutes = String(date.getUTCMinutes()).padStart(2, "0");
+    
+    const filteredDate = `${month}/${day}/${year} ${hours}:${minutes}`;
+    return filteredDate;
+  }
+  useEffect(() => {
+    let estimatedCostFromData = data?.project_costs.filter((e: any) => e.code_cost_type_id === 1)[0];
+    setEstimatedCostFromDB(estimatedCostFromData ? estimatedCostFromData.cost : 0);
+  }, [data]);
+
+  useEffect(() => {
+    let lastModify = completeCosts?.projectData?.currentCost.filter((e: any) => e.code_cost_type_id === 1)[0]
+    setLastmodifiedBy(lastModify ? lastModify?.modified_by : '');
+    setLastmodifiedDate(lastModify ? formatDate(lastModify?.last_modified) : '');
+  }, [completeCosts]);
 
   return (
     <div>
@@ -128,8 +172,18 @@ export const FinancialInformation = ({
       </Row>
       <hr/>
       <Row className="cost-project">
-        <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>TOTAL COST</Col>
-        <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>{formatter.format(getTotalCost() ? getTotalCost() : 0)}</b></Col>
+        <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>`TOTAL COST`</Col>
+        <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>{`${formatter.format(getTotalCost() ? getTotalCost() : 0)} `}</b>
+        <Popover
+          content={contentPopOver}
+          title="The Estimated Cost:"
+          // trigger={'click'}
+          visible={open}
+          style={{display: 'flex'}}
+        >
+          <ExclamationCircleOutlined onClick={()=> setOpen(true)} style={{opacity:"0.4", paddingTop: '3px'}}/>
+        </Popover>
+        </Col>
       </Row>
     </div>
   );

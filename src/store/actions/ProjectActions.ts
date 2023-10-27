@@ -642,3 +642,9 @@ export const setGlobalSearchValue = (globalSearchValue: string) => {
     dispatch({type: types.SET_GLOBAL_SEARCH_VALUE, globalSearchValue});
   }
 }
+
+export const setCompleteCosts = (completeCosts: any) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.COMPLETE_COSTS, completeCosts});
+  }
+}
