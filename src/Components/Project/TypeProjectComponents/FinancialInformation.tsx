@@ -145,7 +145,8 @@ export const FinancialInformation = ({
     console.log('completeCosts', completeCosts)
     if(completeCosts?.projectData?.currentCost.length !== 0){
       let lastModify = completeCosts?.projectData?.currentCost.filter((e: any) => e.code_cost_type_id === 1)[0]
-      setLastmodifiedBy(lastModify ? lastModify?.modified_by : '');
+      let completeName = completeCosts?.estimatedCostUser;
+      setLastmodifiedBy(completeName ? `${completeName?.firstName} ${completeName?.lastName}` : '');
       setLastmodifiedDate(lastModify ? formatDate(lastModify?.last_modified) : '');
     }
   }, [completeCosts]);
