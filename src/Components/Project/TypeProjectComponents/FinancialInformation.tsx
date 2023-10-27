@@ -9,6 +9,8 @@ interface Props {
   formatter: any;
   getSubTotalCost: any;
   getOverheadCost: any;
+  estimatedCostInput: any;
+  setEstimatedCostInput: any;
   onChangeOverheadDescription: any;
   overheadDescription: string;
   onChangeAdditionalCost: any;
@@ -29,7 +31,9 @@ export const FinancialInformation = ({
   data,
   formatter,
   getSubTotalCost,
-  getOverheadCost,  
+  getOverheadCost,
+  estimatedCostInput,
+  setEstimatedCostInput,
   onChangeOverheadDescription,
   overheadDescription,
   onChangeAdditionalCost,
@@ -92,10 +96,20 @@ export const FinancialInformation = ({
   const hide = () => {
     setOpen(false);
   };
+  
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value: inputValue } = e.target;
+    const currentValue = inputValue.replace(/,/g, '');
+    const reg = /^-?\d*(\.\d*)?$/;
+    if (reg.test(currentValue) || currentValue === '' || currentValue === '-') {
+      const valueToChange:any = inputValue ? (+currentValue) : null;
+      setEstimatedCostFromDB(valueToChange);
+    }
+  };
 
   const contentPopOver = (
     <div className="footer-popover-estimatedCost">
-      <Input value={estimatedCostFromDB} />
+      <Input prefix='$' value={estimatedCostFromDB ? estimatedCostFromDB.toLocaleString('en-US') : 0} onChange={handleChange}/>
       <p>Last updated by {lastmodifiedBy} on {lastmodifiedDate} </p>
       <div >
         <Button  className="btn-borde" onClick={hide}>Close</Button>
@@ -110,10 +124,8 @@ export const FinancialInformation = ({
     const month = String(date.getUTCMonth() + 1).padStart(2, "0");
     const day = String(date.getUTCDate()).padStart(2, "0");
     const year = String(date.getUTCFullYear()).substring(2);
-    const hours = String(date.getUTCHours()).padStart(2, "0");
-    const minutes = String(date.getUTCMinutes()).padStart(2, "0");
     
-    const filteredDate = `${month}/${day}/${year} ${hours}:${minutes}`;
+    const filteredDate = `${month}/${day}/${year}`;
     return filteredDate;
   }
   useEffect(() => {
