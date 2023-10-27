@@ -107,13 +107,18 @@ export const FinancialInformation = ({
     }
   };
 
+  const confirmEstimatecost = () => {
+    setEstimatedCostInput(estimatedCostFromDB);
+    setOpen(false);
+  }
+
   const contentPopOver = (
     <div className="footer-popover-estimatedCost">
       <Input prefix='$' value={estimatedCostFromDB ? estimatedCostFromDB.toLocaleString('en-US') : 0} onChange={handleChange}/>
       <p>Last updated by {lastmodifiedBy} on {lastmodifiedDate} </p>
       <div >
         <Button  className="btn-borde" onClick={hide}>Close</Button>
-        <Button className="btn-purple" onClick={() => console.log('click')}><span className="text-color-disable">Confirm</span></Button>
+        <Button className="btn-purple" onClick={() => confirmEstimatecost}><span className="text-color-disable">Confirm</span></Button>
       </div >
     </div>
   )
