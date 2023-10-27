@@ -211,7 +211,7 @@ const getChartData = (financialInformation: any, isRestoration: boolean) => {
     date,
     data: groupedInformation[date],
   }));
-  const resultArrayFiltered = resultArray.filter((item: any) => item.date !== 'null');
+  const resultArrayFiltered:any = resultArray.filter((item: any) => item.date !== 'null');
   const updatedData = resultArrayFiltered.map((item:any) => {
     const [day, month, year] = item.date.split('-');
     const twoDigitYear = year.slice(-2);
