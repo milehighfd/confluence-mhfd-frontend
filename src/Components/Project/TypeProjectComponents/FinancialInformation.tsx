@@ -119,7 +119,7 @@ export const FinancialInformation = ({
   const contentPopOver = (
     <div className="popover-estimatedCost">
       <p className='title'>
-      The Estimated Cost:
+      Stored Estimated Cost:
       </p>
       <Input prefix='$' value={estimatedCostFromDB ? estimatedCostFromDB.toLocaleString('en-US') : 0} onChange={handleChange}/>
       {(lastmodifiedBy && lastmodifiedDate) ? <p className='last-updated'>Last updated by {lastmodifiedBy} on {lastmodifiedDate} </p>: <p> </p>}
@@ -202,7 +202,7 @@ export const FinancialInformation = ({
       </Row>
       <hr/>
       <Row className="cost-project">
-        <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>`TOTAL COST`</Col>
+        <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>TOTAL CALCULATED ESTIMATED COST</Col>
         <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>{`${formatter.format(getTotalCost() ? getTotalCost() : 0)} `}</b>
         <Popover
           content={contentPopOver}

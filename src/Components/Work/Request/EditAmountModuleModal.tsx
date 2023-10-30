@@ -262,15 +262,19 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
       //   values[`req${index}`]=(+inputValue);
       // }
       const currentValue = inputValue.replace(/,/g, '');
-      setCost((prev: any) => {
-        const newCost = {...prev};
-        const current_business_name = item.business_name;
-        const current_code_cost_type_id = item.code_cost_type_id;
-        const indexOfValue = newCost.amounts.findIndex((itemAmount: any) => itemAmount.business_name === current_business_name && itemAmount.code_cost_type_id === current_code_cost_type_id);
-        newCost.amounts[indexOfValue].values[key] = inputValue ? (+currentValue) : null;
-        updateMhfdBasedOnOthers(newCost.amounts, key);
-        return newCost;
-      });
+      if (reg.test(currentValue) || currentValue === '' || currentValue === '-') {
+        setCost((prev: any) => {
+          const newCost = {...prev};
+          const current_business_name = item.business_name;
+          const current_code_cost_type_id = item.code_cost_type_id;
+          const indexOfValue = newCost.amounts.findIndex((itemAmount: any) => itemAmount.business_name === current_business_name && itemAmount.code_cost_type_id === current_code_cost_type_id);
+          newCost.amounts[indexOfValue].values[key] = inputValue ? (+currentValue) : null;
+          updateMhfdBasedOnOthers(newCost.amounts, key);
+          return newCost;
+        });
+      }else{
+        return;
+      }
     }
 
   function convertObjectToArrays(input: any, year: number) {
