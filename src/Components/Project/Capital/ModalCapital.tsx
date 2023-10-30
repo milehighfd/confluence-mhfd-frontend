@@ -879,16 +879,19 @@ export const ModalCapital = ({
     if (data !== 'no data') {
       const parsed = getProjectOverheadCost(data.project_costs);
       let newOverheadValue: any = [];
-      if (listComponents && listComponents.result && subtotalCost !== 0 && !(parsed.every((elem: any) => elem === 0))) {
-        parsed.forEach((overheadcost: any, index: number) => {
-          if (index >= 0) {
-            newOverheadValue[index] = Math.round((overheadcost * 100) / subtotalCost)
-          } else {
-            newOverheadValue[index] = 0
-          }
-        });
-        setOverheadValues(newOverheadValue)
+      if(initSubtotalCost === subtotalCost){
+        if (listComponents && listComponents.result && subtotalCost !== 0 && !(parsed.every((elem: any) => elem === 0))) {
+          parsed.forEach((overheadcost: any, index: number) => {
+            if (index >= 0) {
+              newOverheadValue[index] = Math.round((overheadcost * 100) / initSubtotalCost)
+            } else {
+              newOverheadValue[index] = 0
+            }
+          });
+          setOverheadValues(newOverheadValue)
+        }
       }
+      
       if ((parsed.every((elem: any) => elem === 0))){
         setOverheadValues([0, 0, 0, 0, 0, 0, 0, 0, 0])
       }
@@ -896,7 +899,7 @@ export const ModalCapital = ({
     if (subtotalCost === 0) {
       setOverheadValues([5, 5, 0, 0, 5, 15, 5, 10, 25])
     }
-  }, [listComponents, thisIndependentComponents])
+  }, [listComponents, thisIndependentComponents, initSubtotalCost])
 
   useEffect(()=>{
     if(!(overheadValues.every((elem:any)=> elem ===0))){
