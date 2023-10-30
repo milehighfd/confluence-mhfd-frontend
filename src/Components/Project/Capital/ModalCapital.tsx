@@ -1137,7 +1137,6 @@ export const ModalCapital = ({
   const handleNotification = (message: string) => {
     openNotification(`Warning!`, "warning", message);
   }
-  
   let indexForm = 1;
 
     return (
@@ -1185,7 +1184,7 @@ export const ModalCapital = ({
           {/* { tabs- options } */}
           <div className='header-tab'>
             <p className={activeTabBodyProject ===  'Details'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Details')}}>Details</p>
-            <p className={activeTabBodyProject ===  'Discussion'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Discussion')}}>Discussion</p>
+            {swSave && <p className={activeTabBodyProject ===  'Discussion'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Discussion')}}>Discussion</p>}
             <p className={activeTabBodyProject ===  'Activity'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Activity')}}>Activity</p>
           </div>
           {activeTabBodyProject === 'Details' && <>
@@ -1350,8 +1349,10 @@ export const ModalCapital = ({
               />
             </div>
           </>}
-          {activeTabBodyProject === 'Discussion' &&
-          <DiscussionCreateProject/>}
+          {(activeTabBodyProject === 'Discussion' && swSave) &&
+          <DiscussionCreateProject
+            project_id = {projectid}
+          />}
           {activeTabBodyProject === 'Activity' &&
           <ActivitiCreateProject/>}
           <div className="footer-project">
