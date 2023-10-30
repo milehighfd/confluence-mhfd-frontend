@@ -64,7 +64,8 @@ import {
   sendProjectToBoardYear,
   setGlobalSearchValue,
   setProjectDiscussion,
-  addDiscussionMessage
+  addDiscussionMessage,
+  resetDiscussion
 } from '../store/actions/ProjectActions';
 
 export const useProjectState = () => useSelector(
@@ -268,6 +269,9 @@ export const useProjectDispatch = () => {
     },
     addDiscussionMessage: (project_id: number, topic_place: string, message: string) => {
       dispatch(addDiscussionMessage(project_id, topic_place, message))
+    },
+    resetDiscussion: () => {
+      dispatch(resetDiscussion())
     }
   };
 };

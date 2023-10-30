@@ -43,6 +43,7 @@ import { useProfileState } from 'hook/profileHook';
 import StackedBarChart from './StackedBarChart';
 import { HighLight } from './HighLight';
 import { useFinancialDispatch } from 'hook/financialHook';
+import { useProjectDispatch } from 'hook/projectHook';
 
 const DetailModal = ({
   visible,
@@ -64,6 +65,7 @@ const DetailModal = ({
   const { getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId, resetDetailed } = useMapDispatch();
   const { detailed } = useDetailedState();
   const { setClickOpenPopup } = useFinancialDispatch();
+  const { resetDiscussion } = useProjectDispatch();
   const useQuery = () => new URLSearchParams(useLocation().search);
   const query = useQuery();
   const project_idS = query.get('project_id') || data?.project_id || data?.id;
@@ -110,6 +112,7 @@ const DetailModal = ({
   }, [attachments]);
   useEffect(() => {
     resetDetailed();
+    resetDiscussion();
     if (typeS === FILTER_PROBLEMS_TRIGGER) {
       getDetailedPageProblem(problem_idS);
       getComponentsByProblemId({ id: problem_idS, typeid: 'problemid', sortby: 'type', sorttype: 'asc' });
