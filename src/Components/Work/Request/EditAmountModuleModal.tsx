@@ -239,7 +239,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
 
     function updateMhfdBasedOnOthers(data: any, updatedReqField: string) {
       const CODE_COST_TYPE = namespaceId.type === WORK_PLAN ? 21 : 22;
-      const nonMhfdEntries = data.filter((entry: any) => entry.business_name !== "MHFD");
+      const nonMhfdEntries = data.filter((entry: any) =>  entry.code_cost_type_id === CODE_COST_TYPE && entry.business_name !== "MHFD");
       const mhfdEntries = data.filter((entry: any) => entry.code_cost_type_id === CODE_COST_TYPE && entry.business_name === "MHFD");    
       mhfdEntries.forEach((mhfdEntry: any) => {
         const isAnyNonMhfdValuePresent = nonMhfdEntries.some((nonMhfdEntry: any) => 

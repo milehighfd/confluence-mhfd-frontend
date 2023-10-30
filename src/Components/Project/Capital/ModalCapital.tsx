@@ -284,6 +284,8 @@ export const ModalCapital = ({
       const counties = data.project_counties.map((e: any) => e?.CODE_STATE_COUNTY?.county_name);
       const serviceAreas = data.project_service_areas.map((e: any) => e?.CODE_SERVICE_AREA?.service_area_name);
       const localJurisdiction = data.project_local_governments.map((e: any) => e?.CODE_LOCAL_GOVERNMENT?.local_government_name);
+      const estimatedCostFromData = data?.project_costs.filter((e: any) => e.code_cost_type_id === 1)[0];
+      setEstimatedCostInput(estimatedCostFromData.cost);
       setCounty(counties);
       setServiceArea(serviceAreas);
       setjurisdiction(localJurisdiction);
