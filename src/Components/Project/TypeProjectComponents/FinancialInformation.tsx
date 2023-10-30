@@ -3,6 +3,7 @@ import { Row, Col, Input, Timeline, Popover, Select, Button } from 'antd';
 import { ExclamationCircleOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import {  WINDOW_WIDTH } from 'constants/constants';
 import { useProjectState } from 'hook/projectHook';
+import { log } from 'console';
 
 interface Props {
   data:any;
@@ -24,6 +25,8 @@ interface Props {
   overheadCosts: any;
   changeValue: any;
   index: number;
+  setOpen:any;
+  open:boolean;
 }
 const { Option } = Select;
 
@@ -46,9 +49,10 @@ export const FinancialInformation = ({
   overheadValues,
   overheadCosts,
   changeValue,
-  index
+  index,
+  setOpen,
+  open,
 }:Props) => {
-  const [open, setOpen] = useState(false);
   const [estimatedCostFromDB, setEstimatedCostFromDB] = useState(0);
   const [lastmodifiedBy, setLastmodifiedBy] = useState('');
   const [lastmodifiedDate, setLastmodifiedDate] = useState('');
@@ -113,10 +117,13 @@ export const FinancialInformation = ({
   }
 
   const contentPopOver = (
-    <div className="footer-popover-estimatedCost">
+    <div className="popover-estimatedCost">
+      <p className='title'>
+      The Estimated Cost:
+      </p>
       <Input prefix='$' value={estimatedCostFromDB ? estimatedCostFromDB.toLocaleString('en-US') : 0} onChange={handleChange}/>
-      {(lastmodifiedBy && lastmodifiedDate) ? <p>Last updated by {lastmodifiedBy} on {lastmodifiedDate} </p>: <p> </p>}
-      <div >
+      {(lastmodifiedBy && lastmodifiedDate) ? <p className='last-updated'>Last updated by {lastmodifiedBy} on {lastmodifiedDate} </p>: <p> </p>}
+      <div className="popover-estimatedCost-footer">
         <Button  className="btn-borde" onClick={hide}>Close</Button>
         <Button className="btn-purple" onClick={confirmEstimatecost}><span className="text-color-disable">Confirm</span></Button>
       </div >
@@ -150,6 +157,7 @@ export const FinancialInformation = ({
       setLastmodifiedDate(lastModify ? formatDate(lastModify?.last_modified) : '');
     }
   }, [completeCosts]);
+
 
   return (
     <div>
@@ -200,10 +208,8 @@ export const FinancialInformation = ({
         <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>{`${formatter.format(getTotalCost() ? getTotalCost() : 0)} `}</b>
         <Popover
           content={contentPopOver}
-          title="The Estimated Cost:"
           // trigger={'click'}
           visible={open}
-          style={{display: 'flex'}}
         >
           <ExclamationCircleOutlined onClick={()=> setOpen(true)} style={{opacity:"0.4", paddingTop: '3px'}}/>
         </Popover>

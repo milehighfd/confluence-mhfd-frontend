@@ -1144,6 +1144,7 @@ export const ModalCapital = ({
   
   let indexForm = 1;
 
+  const [open, setOpen] = useState(false)
     return (
     <>
     {loading && <LoadingViewOverall></LoadingViewOverall>}
@@ -1193,7 +1194,7 @@ export const ModalCapital = ({
             <p className={activeTabBodyProject ===  'Activity'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Activity')}}>Activity</p>
           </div> */}
           {/* {activeTabBodyProject === 'Details' && <> */}
-            <div className="body-project">
+            <div className="body-project" onScroll={()=>{setOpen(false)}}>
               {
                 (isWorkPlan && showCheckBox && !swSave) &&  
                 <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
@@ -1318,6 +1319,8 @@ export const ModalCapital = ({
               />
               {selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Capital.toLowerCase() &&
                 <FinancialInformation
+                  open={open}
+                  setOpen={setOpen}
                   data={data}
                   formatter={formatter}
                   getSubTotalCost={getSubTotalCost}

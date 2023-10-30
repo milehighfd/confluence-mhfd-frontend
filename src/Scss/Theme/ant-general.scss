@@ -396,20 +396,40 @@
 .ant-popover-inner ,.ant-popover-inner-content{
   width: fit-content;
 }
-.footer-popover-estimatedCost {
-  text-align: right;
+.popover-estimatedCost {
+  text-align: left;
   background: $white;
-  padding: 10px 0px;
+  padding: 8px 8px;
+  width: 321px;
   border-top: solid 1px $opacity01;
   border-radius: 0px 0px 4px 0px;
-
-  button {
-    height: 44px;
-    margin-left: 10px;
+  .title{
+    color: #11093C;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 12px;
   }
-  .btn-purple:hover,
-  .btn-purple:focus {
-    border-bottom: 4px solid $green !important;
+  .last-updated{
+    color: #11093C;
+    font-size: 12px;
+    letter-spacing: 0.171px;
+    opacity: 0.7;
+  }
+  .ant-input-affix-wrapper {
+    margin-bottom: 8px;
+  }
+  .popover-estimatedCost-footer {
+    text-align: right;
+    height: 40px;
+    button {
+      height: 100%;
+      padding: 0px 24px;
+      margin-left: 10px;
+    }
+    .btn-purple:hover,
+    .btn-purple:focus {
+      border-bottom: 4px solid $green !important;
+    }
   }
 }
 @media (max-width: 575.98px) {
@@ -545,6 +565,35 @@
   .ant-dropdown-menu-item-only-child{
     // padding: 4px 0px !important;
   }
+  .popover-estimatedCost {
+    padding: 8px 8px;
+    width: 421px;
+    border-top: solid 1px $opacity01;
+    border-radius: 0px 0px 4px 0px;
+    .title{
+      font-size: 21px;
+      margin-bottom: 12px;
+    }
+    .last-updated{
+      font-size: 17px;
+    }
+    .ant-input-affix-wrapper {
+      margin-bottom: 8px;
+    }
+    .popover-estimatedCost-footer {
+      height: 60px;
+      button {
+        padding: 0px 24px;
+        margin-left: 10px;
+        font-size: 19px;
+      }
+      .btn-purple:hover,
+      .btn-purple:focus {
+        border-bottom: 4px solid $green !important;
+      }
+    }
+  }
+
   .ant-dropdown-menu-item {
     font-size: 16px !important;
     .ant-dropdown-menu-title-content {
