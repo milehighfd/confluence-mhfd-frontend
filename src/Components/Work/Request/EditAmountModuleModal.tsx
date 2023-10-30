@@ -11,6 +11,7 @@ import { BOARD_STATUS_TYPES, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, WORK_PLAN, WORK
 import { useMapState } from 'hook/mapHook';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { SPONSOR_ID } from 'constants/databaseConstants';
+import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
 
 const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisible }: {project: any; completeProjectData:any; visible: boolean; setVisible: Function }) => {
   
@@ -23,6 +24,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
     sendProjectToBoardYear
   } = useProjectDispatch();
   const { loadOneColumn } = useRequestDispatch();
+  const { openNotification } = useNotifications();
   const { userInformation } = useProfileState();
   const isMaintenance = tabKey === 'Maintenance';
   const priorFundingString = 'priorFunding';
@@ -327,6 +329,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         res.columnsChanged.forEach((columnNumber: number) => {
           loadOneColumn(columnNumber);
         });
+        openNotification('Success! Your project was saved!', "success");
       })
         .catch((err: any) => {
           console.log(err);
