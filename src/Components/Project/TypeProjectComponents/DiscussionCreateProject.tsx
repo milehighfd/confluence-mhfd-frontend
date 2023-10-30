@@ -58,9 +58,9 @@ export const DiscussionCreateProject = (
                   {
                     item?.user?.photo
                       ? <img className='user-img' src={item.user.photo} alt="User" />
-                      : <div className="user-item">(item?.user?.firstName?.charAt(0) || '') + (item?.user?.lastName?.charAt(0) || '')</div>
+                      : <div className="user-item">{(item?.user?.firstName?.charAt(0) || '') + (item?.user?.lastName?.charAt(0) || '')}</div>
                   }
-                  <div>
+                  <div style={{width: '100%'}}>
                     <div className='user-information'>
                       {`${item?.user?.firstName} ${item?.user?.lastName}`} <span className="user-date">{convertTimestampWithMoment(item?.created_date)}</span>
                     </div>
