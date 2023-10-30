@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Checkbox, Col, DatePicker, Input, Menu, Progress, Row, Steps} from 'antd';
 import { ClockCircleOutlined, CloseOutlined, InfoCircleOutlined, PlusCircleFilled} from "@ant-design/icons";
 import moment from 'moment';
@@ -49,6 +49,9 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
   const [createdActions, setCreatedActions] = useState<any>([]);
   const [focusedInputs, setFocusedInputs] = useState<any>({});
   const [inputValues, setInputValues] = useState<any>([]);
+  const [actionInProgress, setActionInProgress] = useState(false);
+  const actionInProgressRef = useRef(false);
+
   const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"];
   const formatter = new Intl.NumberFormat('en-US', {
@@ -278,9 +281,11 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
       completed_date: formatTime,
       created_date: formatTime
     }).then((e) => { 
+      actionInProgressRef.current = false;
       updateGraph(false)
       updatePopUpCalendar(false)
     }).catch((e) => {
+      actionInProgressRef.current = false;
       console.log(e);
     })
   };
@@ -289,9 +294,11 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
       code_rule_action_item_id: item.code_rule_action_item_id,
       project_id: data.project_id
     }).then((e) => { 
+      actionInProgressRef.current = false;
       updateGraph(true)
       updatePopUpCalendar(true)
     }).catch((e) => {
+      actionInProgressRef.current = false;
       console.log(e);
     }) 
   };
@@ -389,6 +396,17 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
     setInputValues(updatedValues);
     debouncedHandleInputChange(value, data);
   };
+
+  const handleOnClick = (e: React.MouseEvent, x: any) => {
+    if (actionInProgressRef.current) return;
+    actionInProgressRef.current = true; 
+    if (x.isChecked) {
+      deleteActionData(x);
+    } else {
+      saveActionData(x);
+    }
+  };  
+  const debouncedOnClick = debounce(handleOnClick, 300);  
   const openTollModal = () => {
     setOpenModalTollgate(true);
     if(isDetail){
@@ -517,13 +535,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
           </Row>
           {actionList.map((x: any) => {
             return (<div key={x.code_rule_action_item_id} className={x.isChecked ? "checkbox-select-active checkbox-select" : "checkbox-select"}
-              onClick={disabledLG ? undefined : (e) => {
-                if (x.isChecked) {
-                  deleteActionData(x)
-                } else {
-                  saveActionData(x)
-                }
-              }}
+              onClick={disabledLG ? undefined : (e) => debouncedOnClick(e, x)}
             >
               <p>{x.action_item_name}</p>
               <Checkbox checked={x.isChecked}></Checkbox>
