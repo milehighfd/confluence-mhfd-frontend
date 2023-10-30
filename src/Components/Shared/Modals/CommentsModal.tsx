@@ -20,7 +20,8 @@ const CommentsModal = () => {
       </div>
       <div className='comment'>
         <div className='header-comment'>
-          <div className='user-item-comment'>RS</div>
+          {/* <div className='user-item-comment'>RS</div> */}
+          <img className='user-item-comment-img' src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" alt=''/>
           <div>
             <p>Ricardo Saavedra</p>
             <p className='comment-date'>Oct 6, 2022 at 1:12 AM</p>

@@ -1613,6 +1613,14 @@
     letter-spacing: 0.171px;
     border-radius: 50%;
   }
+  .user-item-comment-img{
+    border-radius: 50%;
+    width: 37px;
+    height: 37px;
+    margin-right: 8px;
+    margin-top: 0px;
+    object-fit: cover;
+  }
   .content-comment {
     border-radius: 16px;
     background: #f5f7ff;
@@ -2261,6 +2269,10 @@
         font-size: 19px;
         padding: 9.333px 9.999px;
         line-height: 22px;
+      }
+      .user-item-comment-img{
+        width: 42px;
+        height: 42px;
       }
     }
     .body-team-comment {
@@ -3060,6 +3072,10 @@
     .user-item-comment{
       font-size: 23px;
       padding: 14px 14px;
+    }
+    .user-item-comment-img{
+      width: 54px !important;
+      height: 54px !important;
     }
     .header-comment{
       margin-bottom: 14px;
