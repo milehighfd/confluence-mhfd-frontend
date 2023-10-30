@@ -53,9 +53,9 @@ const CommentsModal = () => {
                 {
                   item?.user?.photo                    
                     ? <img className='user-item-comment-img' src={item.user.photo} alt=''/>
-                    : <div className='user-item-comment'>(item?.user?.firstName?.charAt(0) || '') + (item?.user?.lastName?.charAt(0) || '')</div>
+                    : <div className='user-item-comment'>{(item?.user?.firstName?.charAt(0) || '') + (item?.user?.lastName?.charAt(0) || '')}</div>
                 }
-                <div>
+                <div style={{width: '100%'}}>
                   <p>{`${item?.user?.firstName} ${item?.user?.lastName}`}</p>
                   <p className='comment-date'>{convertTimestampWithMoment(item?.created_date)}</p>
                 </div>
