@@ -285,6 +285,8 @@ export const ModalCapital = ({
       const serviceAreas = data.project_service_areas.map((e: any) => e?.CODE_SERVICE_AREA?.service_area_name);
       const localJurisdiction = data.project_local_governments.map((e: any) => e?.CODE_LOCAL_GOVERNMENT?.local_government_name);
       const estimatedCostFromData = data?.project_costs.filter((e: any) => e.code_cost_type_id === 1)[0];
+      const overheadCostDesc = data?.project_costs.filter((e: any) => e.code_cost_type_id === 5)[0];
+      setOverheadDescription(!overheadCostDesc || overheadCostDesc?.cost_description === null ? '' : overheadCostDesc?.cost_description);
       setEstimatedCostInput(estimatedCostFromData ? estimatedCostFromData.cost : 0);
       setCounty(counties);
       setServiceArea(serviceAreas);
