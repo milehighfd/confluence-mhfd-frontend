@@ -263,8 +263,11 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
       //   console.log('inputValue', inputValue);
       //   values[`req${index}`]=(+inputValue);
       // }
+      console.log('Valyee', inputValue);
       const currentValue = inputValue.replace(/,/g, '');
+      console.log('CURRENT VALUE', currentValue, reg.test(currentValue), currentValue === '',  currentValue === '-');
       if (reg.test(currentValue) || currentValue === '' || currentValue === '-') {
+        console.log('CURRENT VALUE ENTERs', currentValue);
         setCost((prev: any) => {
           const newCost = {...prev};
           const current_business_name = item.business_name;
@@ -275,6 +278,15 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
           return newCost;
         });
       }else{
+        // setCost((prev: any) => {
+        //   const newCost = {...prev};
+        //   const current_business_name = item.business_name;
+        //   const current_code_cost_type_id = item.code_cost_type_id;
+        //   const indexOfValue = newCost.amounts.findIndex((itemAmount: any) => itemAmount.business_name === current_business_name && itemAmount.code_cost_type_id === current_code_cost_type_id);
+        //   newCost.amounts[indexOfValue].values[key] = 0 ;
+        //   updateMhfdBasedOnOthers(newCost.amounts, key);
+        //   return newCost;
+        // });
         return;
       }
     }
@@ -548,7 +560,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
                   const conditionPriorFunding = amount.key === priorFundingString ? true : false;
                   return (
                     amount.show && <Row className='rowInputContainer'>
-                      <Input disabled={conditionUnableInputs || conditionPriorFunding || isApprovedWR} prefix="$" value={item.values[amount.key]?.toLocaleString('en-US')} onChange={(event:any) => handleChange(event, item, amount.key)} />
+                      <Input disabled={conditionUnableInputs || conditionPriorFunding || isApprovedWR} prefix="$" value={item.values[amount.key] ? item.values[amount.key]?.toLocaleString('en-US') : null } onChange={(event:any) => handleChange(event, item, amount.key)} />
                     </Row>
                   )
                 })}
