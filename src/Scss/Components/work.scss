@@ -1544,10 +1544,33 @@
     height: calc(100vh - 294px);
     overflow: auto;
   }
-  .input-comment {
+  .input-comment-sec{
+    padding: 13px 16px 13px 20px;
     border-radius: 60px;
     background: #f5f7ff;
-    padding: 20px 20px 19px 20px;
+    display: flex;
+    align-items: center;
+    .btn-purple{
+      color: white !important;
+      border-radius: 32px !important;
+      padding: 8px 12px 8px 12px;
+      height: auto !important;
+      display: flex;
+      align-items: center;
+      span{
+        color: white !important;
+        margin-bottom: 0px !important;
+        font-size: 14px;
+        line-height: normal;
+      }
+      .icon-send{
+        margin-top:0px;
+        margin-right: 8px;
+      }
+    }
+  }
+  .input-comment {
+    background: #f5f7ff;
     display: flex;
     align-items: center;
     border: none;
@@ -1555,6 +1578,7 @@
     font-size: 14px;
     font-style: normal;
     width: 100%;
+    margin-right: 8px;
   }
   .header-comment {
     display: flex;
@@ -3043,9 +3067,22 @@
     .body-team-comment{
       height: calc(100vh - 391px);
     }
-    .input-comment{
-      font-size: 20px;
+    .input-comment-sec{
+      .input-comment{
+        font-size: 20px;
+      }
+      .btn-purple{
+        padding: 15px 18px;
+        span{
+          font-size: 21px !important;
+        }
+        .icon-send{
+          height: 25px !important;
+          margin-right: 8px;
+        }
+      }
     }
+    
   }
   .chat-00 {
     height: 710px !important;

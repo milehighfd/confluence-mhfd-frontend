@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, Button } from 'antd';
 import { DownOutlined, SearchOutlined, SendOutlined, UpOutlined } from '@ant-design/icons';
 import { getTeam } from '../../../utils/parsers';
 import { useDetailedState } from "hook/detailedHook";
@@ -8,7 +8,16 @@ const CommentsModal = () => {
   const [openChat, setOpenChat] = useState(true);  
   return <>
     <div className='body-team-comment'>
-      <input type="text" placeholder="Write a comment..." className="input-comment" />
+      <div className="input-comment-sec">
+        <input
+          type="text"
+          placeholder="Write a comment..."
+          className="input-comment"
+        />
+        <Button className="btn-purple" >
+          <img src='/Icons/ic-send-white.svg' alt='' className='icon-send'/> Send
+        </Button>
+      </div>
       <div className='comment'>
         <div className='header-comment'>
           <div className='user-item-comment'>RS</div>

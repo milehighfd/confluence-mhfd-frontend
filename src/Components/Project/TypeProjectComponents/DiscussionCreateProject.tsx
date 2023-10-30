@@ -9,7 +9,12 @@ export const DiscussionCreateProject = () => {
           <div className="user-item">
             RS
           </div>
-          <input placeholder="Write a comment..."/>
+          <div className="input-discussion-sec">
+            <input placeholder="Write a comment..."/>
+            <Button className="btn-purple" >
+            <img src='/Icons/ic-send-white.svg' alt='' className='icon-send'/> Send
+            </Button>
+          </div>
         </div>
         <div className='discution-body'>
           <div className='discution-user'>
