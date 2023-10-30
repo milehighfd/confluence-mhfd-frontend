@@ -110,7 +110,8 @@ const initState = {
     locality : ''
   },
   createdProject:{},
-  globalSearchValue: ''
+  globalSearchValue: '',
+  discussion: []
 }
 
 const projectReducer = (state = initState, action: any) => {
@@ -478,6 +479,12 @@ const projectReducer = (state = initState, action: any) => {
       return {
         ...state,
         globalSearchValue: action.globalSearchValue
+      }
+    }
+    case types.SET_DISCUSSIONS:{
+      return {
+        ...state,
+        discussion: action.discussion
       }
     }
     default: 

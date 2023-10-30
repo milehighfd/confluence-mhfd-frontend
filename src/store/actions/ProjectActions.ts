@@ -642,3 +642,21 @@ export const setGlobalSearchValue = (globalSearchValue: string) => {
     dispatch({type: types.SET_GLOBAL_SEARCH_VALUE, globalSearchValue});
   }
 }
+
+export const setProjectDiscussion = (project_id: number, topic_place: string) => {
+  return (dispatch: Function) => {
+    datasets.postData(SERVER.DISCUSSION,{project_id, topic_place}, datasets.getToken()).then(res => {
+      console.log('res', res.threads)
+      dispatch({type: types.SET_DISCUSSIONS, discussion: res?.threads ?? []});
+    });
+  }
+}
+
+export const addDiscussionMessage = (project_id: number, topic_place: string, message: string) => {
+  return (dispatch: Function) => {
+    datasets.putData(SERVER.DISCUSSION,{project_id, topic_place, message}, datasets.getToken()).then(res => {
+      console.log('res', res)
+      dispatch(setProjectDiscussion(project_id, topic_place));
+    });
+  }
+}

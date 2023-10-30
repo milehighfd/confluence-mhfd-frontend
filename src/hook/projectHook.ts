@@ -62,7 +62,9 @@ import {
   setGlobalLocality,
   setCreatedProject,
   sendProjectToBoardYear,
-  setGlobalSearchValue
+  setGlobalSearchValue,
+  setProjectDiscussion,
+  addDiscussionMessage
 } from '../store/actions/ProjectActions';
 
 export const useProjectState = () => useSelector(
@@ -260,6 +262,12 @@ export const useProjectDispatch = () => {
     },
     setGlobalSearchValue: (globalSearchValue: string) => {
       dispatch(setGlobalSearchValue(globalSearchValue))
+    },
+    setProjectDiscussion: (project_id: number, topic_place: string) => {
+      dispatch(setProjectDiscussion(project_id, topic_place))
+    },
+    addDiscussionMessage: (project_id: number, topic_place: string, message: string) => {
+      dispatch(addDiscussionMessage(project_id, topic_place, message))
     }
   };
 };
