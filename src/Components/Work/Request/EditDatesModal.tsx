@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, DatePicker, Dropdown, InputNumber, Menu, Modal, Row, Select } from "antd";
+import { Button, Col, DatePicker, Dropdown, Input, InputNumber, Menu, Modal, Radio, Row, Select } from "antd";
 import { WINDOW_WIDTH } from "constants/constants";
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
@@ -36,6 +36,7 @@ const EditDatesModal = ({
   const [overlapping, setOverlapping] = useState(false);
   const [emptyDatesAlert, setEmptyDatesAlert] = useState(false);
   const { openNotification } = useNotifications();
+  const [onBaseNumber, setOnBaseNumber] = useState('yes');
   const {
     loadColumns, 
   } = useRequestDispatch();
@@ -329,7 +330,7 @@ const EditDatesModal = ({
       {step === 1 && (
         <div className="body-edit-dates">
           <div className="form-edit-dates">
-            <label>The current phase for my project is:</label><br/>
+            <label>1. The current phase for my project is:</label><br/>
             <Select
               placeholder="Select phase"
               style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
@@ -346,12 +347,52 @@ const EditDatesModal = ({
                 </Option>
               ))}
             </Select>
-            <label>It’s start date is:</label><br />
+            <label>2. It’s start date is:</label><br />
             <DatePicker
               value = {startDate}
-              style={{ width: '100%', borderRadius: '5px', height: '36px' }}
+              style={{ width: '100%', borderRadius: '5px', height: '36px', marginBottom: '16px' }}
               onChange={(date: any) => setStartDate(date)}
             />
+            <div style={{display:'flex'}}>
+              <div>
+                <label>3. Is an OnBase number available?</label><br />
+                <Radio.Group
+                  name="designation"
+                  style={{ marginBottom: '16px' }}
+                  onChange={(e)=>setOnBaseNumber(e.target.value)}
+                  value={onBaseNumber}
+                >
+                  <Radio value={'yes'} >Yes</Radio>
+                  <Radio value={'no'} >No</Radio>
+                </Radio.Group><br />
+              </div>
+              {onBaseNumber==='yes' && <div style={{marginLeft:'26px'}}>
+                <p className="text-min">The following number will be associated</p>
+                <Input placeholder="OnBase number" style={{ width: '100%', borderRadius: '5px', height: '36px' }} value='108881' />
+              </div>}
+            </div>
+            <label>4. The primary stream is:</label><br />
+            <Select
+              placeholder="Select primary stream"
+              style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
+              listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+            >
+              <Option key={'test'} value={'test'}>
+                test
+              </Option>
+            </Select>
+            <label>5. The MHFD lead is::</label><br />
+            <Select
+              placeholder="Select lead"
+              style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
+              listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+            >
+              <Option key={'test'} value={'test'}>
+                test
+              </Option>
+            </Select>
+            <label>6. The location is:</label><br />
+            <Input placeholder="Type a location" style={{ width: '100%', borderRadius: '5px', height: '36px' }} />
           </div>
         </div>
       )}

@@ -608,6 +608,9 @@
     }
     .form-edit-dates {
       text-align: left;
+      height: calc(100vh - 348px);
+      overflow: auto;
+      padding-right: 10px;
       label {
         margin-top: 16px;
         color: #11093c;
@@ -616,6 +619,14 @@
         font-style: normal;
         font-weight: 400;
         line-height: normal;
+      }
+      .text-min{
+        font-size: 10px;
+        color: #11093c;
+        margin-top:3px;
+      }
+      input::placeholder{
+        color: #11093c;
       }
     }
     .ant-picker-input > input {
@@ -1101,6 +1112,10 @@
       .form-edit-dates label {
         font-size: 17px;
         line-height: 32px;
+      }
+      .text-min{
+        font-size: 14px !important;
+        margin-top: 6px !important;
       }
     }
     .body-edit-dates-step2{
