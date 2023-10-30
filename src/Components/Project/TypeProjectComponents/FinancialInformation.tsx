@@ -49,7 +49,7 @@ export const FinancialInformation = ({
   index
 }:Props) => {
   const [open, setOpen] = useState(false);
-  const [estimatedCostFromDB, setEstimatedCostFromDB] = useState(0);
+  const [estimatedCostFromDB, setEstimatedCostFromDB] = useState(estimatedCostInput);
   const [lastmodifiedBy, setLastmodifiedBy] = useState('');
   const [lastmodifiedDate, setLastmodifiedDate] = useState('');
   const { completeCosts } = useProjectState();
@@ -134,7 +134,6 @@ export const FinancialInformation = ({
     return filteredDate;
   }
   useEffect(() => {
-    console.log('data', data)
     if(data !== 'no data' || data === undefined){
       let estimatedCostFromData = data?.project_costs.filter((e: any) => e.code_cost_type_id === 1)[0];
       setEstimatedCostFromDB(estimatedCostFromData ? estimatedCostFromData.cost : 0);
@@ -142,7 +141,6 @@ export const FinancialInformation = ({
   }, [data]);
 
   useEffect(() => {
-    console.log('completeCosts', completeCosts)
     if(completeCosts?.projectData?.currentCost.length !== 0){
       let lastModify = completeCosts?.projectData?.currentCost.filter((e: any) => e.code_cost_type_id === 1)[0]
       let completeName = completeCosts?.estimatedCostUser;
