@@ -4,6 +4,8 @@ import {  WINDOW_WIDTH } from 'constants/constants';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useProfileState } from 'hook/profileHook';
 import { useProjectState } from 'hook/projectHook';
+import * as datasets from "../../../Config/datasets";
+import { SERVER } from "../../../Config/Server.config";
 
 interface Props {
   county: string;
@@ -45,17 +47,16 @@ export const Countywide = ({
   }, [isCountyWide, isSouthPlate])
 
   useEffect(() => {
-    if (groupOrganization.length > 0) {
-      let countyListGen: any = [];
-      groupOrganization.forEach((item: any) => {
-        if (item.table === 'CODE_STATE_COUNTY') {
-          item.name = item.name.replace(' County', '');
-          countyListGen.push(item.name);
-        }
-      });
-      setCountyList(countyListGen);
-    }
-  },[groupOrganization])
+    datasets.getData(`${SERVER.ALL_GROUP_ORGANIZATION}`)
+      .then((rows) => {
+        setCountyList(rows.county.map((item: any) => {
+          return { key: item.state_county_id, value: item.county_name, label: item.county_name }
+        }).filter((data: any) => !!data.value));
+      })
+      .catch((e) => {
+        console.log(e);
+      })       
+  },[])
   
   const filterName = (name: string) => {
     if (!name) {
@@ -103,8 +104,8 @@ export const Countywide = ({
               disabled={disableFieldsForLG}
               onChange={(county: any) => setCounty(county)}
               getPopupContainer={() => (document.getElementById("countyid") as HTMLElement)}>
-              {countyList.map((element:any) => {
-                return <Option key={element} value={element}>{filterName(element)}</Option>
+              {countyList.map((element: any) => {
+                return <Option key={element.key} value={element.value}>{filterName(element.label)}</Option>
               })}
             </Select>
             </>}
