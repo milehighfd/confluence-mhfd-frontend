@@ -26,7 +26,6 @@ const CommentsModal = () => {
   }, [detailed]);
 
   useEffect(() => {
-    console.log(discussion?.project_discussion_threads, 'discussion')
     if (discussion && discussion?.project_discussion_threads?.length > 0){  
       setProjectChat(discussion?.project_discussion_threads);      
     }    
