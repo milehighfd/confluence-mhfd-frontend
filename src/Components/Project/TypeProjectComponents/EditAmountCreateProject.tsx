@@ -225,7 +225,7 @@ const EditAmountCreateProject = ({
             (item.show && item.key !== priorFundingString) && 
             
             
-            <div className='edit-amount'>
+            <div className='edit-amount' key={item.key}>
               <label className="sub-title">{item.label} </label>
               <AmountNumericInput disabled={(isDisabledAmountInput || boardStatus === BOARD_STATUS_TYPES.APPROVED) ? true: false} key={item.key} value={cost[item.key]?.toLocaleString('en-US')} onChange={(value: any) => setCost({ ...cost, [item.key]: value })} />
             </div>
