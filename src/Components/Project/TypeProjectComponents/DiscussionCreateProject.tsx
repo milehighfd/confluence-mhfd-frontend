@@ -14,7 +14,7 @@ export const DiscussionCreateProject = (
 ) => {
   const [openChat, setOpenChat] = useState(true);
   const [projectChat, setProjectChat] = useState<any>([]);
-  const { setProjectDiscussion, addDiscussionMessage } = useProjectDispatch();
+  const { setProjectDiscussion, addDiscussionMessage, deleteDiscussionMessage } = useProjectDispatch();
   const { discussion } = useProjectState();
   const [message, setMessage] = useState('');
 
@@ -23,7 +23,14 @@ export const DiscussionCreateProject = (
   }  
 
   function handleAddMessage(message: any) {
+    if (message === '') return;
     addDiscussionMessage(project_id, 'create', message);
+    setMessage('');
+  }
+
+  function deleteMessage(message_id: number) {
+    setProjectChat(projectChat.filter((item: any) => item.project_discussion_thread_id !== message_id));
+    deleteDiscussionMessage(project_id, 'create', message_id);
   }
 
   useEffect(() => {
@@ -44,7 +51,7 @@ export const DiscussionCreateProject = (
             RS
           </div>
           <div className="input-discussion-sec">
-            <input placeholder="Write a comment..." onChange={(e) => setMessage(e.target.value)}/>
+            <input value={message} placeholder="Write a comment..." onChange={(e) => setMessage(e.target.value)}/>
             <Button className="btn-purple" onClick={(e) => handleAddMessage(message)}>
             <img src='/Icons/ic-send-white.svg' alt='' className='icon-send'/> Send
             </Button>
@@ -53,7 +60,7 @@ export const DiscussionCreateProject = (
         {
           projectChat?.map((item: any, index: number) => {
             return (
-              <div className='discution-body'>
+              <div className='discution-body' key={item?.project_discussion_thread_id}>
                 <div className='discution-user'>
                   {
                     item?.user?.photo
@@ -67,6 +74,7 @@ export const DiscussionCreateProject = (
                     <div className='discution'>
                       <p>{item?.message}</p>
                     </div>
+                    <div onClick={(e)=>deleteMessage(item?.project_discussion_thread_id)}>Delete</div>
                   </div>
                 </div>
               </div>
