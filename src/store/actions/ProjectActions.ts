@@ -660,6 +660,14 @@ export const addDiscussionMessage = (project_id: number, topic_place: string, me
   }
 }
 
+export const deleteDiscussionMessage = (project_id: number, topic_place: string, message_id: number) => {
+  return (dispatch: Function) => {
+    datasets.deleteDataWithBody(SERVER.DISCUSSION,{ message_id}, datasets.getToken()).then(res => {
+      dispatch(setProjectDiscussion(project_id, topic_place));
+    });
+  }
+}
+
 export const resetDiscussion = () => {
   return (dispatch: Function) => {
     dispatch({type: types.SET_DISCUSSIONS, discussion: []});

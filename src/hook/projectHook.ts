@@ -65,7 +65,8 @@ import {
   setGlobalSearchValue,
   setProjectDiscussion,
   addDiscussionMessage,
-  resetDiscussion
+  resetDiscussion,
+  deleteDiscussionMessage
 } from '../store/actions/ProjectActions';
 
 export const useProjectState = () => useSelector(
@@ -269,6 +270,9 @@ export const useProjectDispatch = () => {
     },
     addDiscussionMessage: (project_id: number, topic_place: string, message: string) => {
       dispatch(addDiscussionMessage(project_id, topic_place, message))
+    },
+    deleteDiscussionMessage: (project_id: number, topic_place: string, message_id: number) => {
+      dispatch(deleteDiscussionMessage(project_id, topic_place, message_id))
     },
     resetDiscussion: () => {
       dispatch(resetDiscussion())
