@@ -107,9 +107,14 @@ const SidebarMenuDown = ({
                     <div
                       key={item.notification_id}
                       className="notification-body"
-                      onClick={() => item?.subject === 'DETAILS' ?
-                        readClick(item?.project?.project_id, item?.notification_id) :
-                        getCompleteProjectData(item?.project)}
+                      onClick={() => {
+                        if (item?.subject === 'DETAILS') {
+                          readClick(item?.project?.project_id, item?.notification_id);
+                        } else {
+                          getCompleteProjectData(item?.project);
+                          removeNotification(item?.notification_id);
+                        }
+                      }}
                     >
                       <img src={'/Icons/user03.png'} alt="" height="35px" />
                       <div className="text-notification">
@@ -144,15 +149,17 @@ const SidebarMenuDown = ({
       <span className={collapsed ? 'menu-down-sidebar-colapse' : 'menu-down-sidebar'}>{name}</span>
     </div>
   );
-
-  function readClick(id: any, notification_id: any) {
+  function removeNotification(notification_id: any) {
     const sendId = { notification_id: notification_id };
     datasets.postData(SERVER.NOTIFICATIONS, sendId, datasets.getToken()).then(async result => {
-      setProjectData({ project_id: id });
-      setIsVisible(true);
       deleteNotification(notification_id);
-      console.log(result);
     });
+  }
+
+  function readClick(id: any, notification_id: any) {
+    setProjectData({ project_id: id });
+    setIsVisible(true);
+    removeNotification(notification_id);
   }
   useEffect(() => {
     setNotification(userInformation.notifications);
