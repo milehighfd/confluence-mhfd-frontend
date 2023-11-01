@@ -1178,8 +1178,6 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
 
   useEffect(() => {
     getIdByProjectType();
-    console.log(groupedProjectIdsType)
-    console.log(projectsids)
   }, [projectsids]);
 
   const applyFilters = useCallback(
