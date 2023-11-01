@@ -1595,7 +1595,7 @@
       font-weight: 400;
       opacity: 0.5;
       margin-top: 3px;
-    }
+    }    
   }
   .user-item-comment {
     font-size: 14px;
@@ -1620,6 +1620,11 @@
     margin-right: 8px;
     margin-top: 0px;
     object-fit: cover;
+  }
+  .delete-edit-comment{
+    font-weight: 300;
+    opacity: 0.5;
+    font-size: 12px;
   }
   .content-comment {
     border-radius: 16px;

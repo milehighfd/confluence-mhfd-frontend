@@ -1012,6 +1012,11 @@
           align-items: flex-start;
           margin-top: 16px;
           margin-bottom: 8px;
+          .delete-edit-comment{
+            font-weight: 300;
+            opacity: 0.5;
+            font-size: 12px;
+          }
           .user-information {
             color: #11093c;
             font-size: 14px;
