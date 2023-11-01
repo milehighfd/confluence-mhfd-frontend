@@ -1650,7 +1650,7 @@ export const PROJECTS_STYLES = {
       type: 'line',
       'source-layer': 'pluto15v1',
       minzoom: 14.01,
-      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [4] },
+      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [18] },
       // filter: [
       //   'all',
       //   ['match', ['get', 'projecttype'], ['Study'], true, false],
@@ -1670,7 +1670,7 @@ export const PROJECTS_STYLES = {
       type: 'line',
       'source-layer': 'pluto15v1',
       minzoom: 14.01,
-      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [4] },
+      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [18] },
       // filter: [
       //   'all',
       //   ['match', ['get', 'projecttype'], ['Study'], true, false],
@@ -1803,7 +1803,7 @@ export const PROJECTS_STYLES = {
       'source-layer': 'pluto15v1',
       minzoom: 14.01,
       // TODO: verify this is the FHAD study project with DB manager
-      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [4] },
+      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [18] },
       // filter: [
       //   'all',
       //   ['match', ['get', 'projecttype'], ['Study'], true, false],
@@ -1824,7 +1824,7 @@ export const PROJECTS_STYLES = {
       'source-layer': 'pluto15v1',
       minzoom: 14.01,
       // TODO: verify this is the FHAD study project with DB manager
-      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [4] },
+      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [18] },
       // filter: [
       //   'all',
       //   ['match', ['get', 'projecttype'], ['Study'], true, false],
@@ -1846,7 +1846,7 @@ export const PROJECTS_STYLES = {
       minzoom: 12,
       maxzoom: 14.01,
       // TODO: verify this is the FHAD study project with DB manager
-      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [1, 4] },
+      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [1, 18] },
       // filter: [
       //   'all',
       //   ['match', ['get', 'projecttype'], ['Study'], true, false],
@@ -1865,7 +1865,7 @@ export const PROJECTS_STYLES = {
       'source-layer': 'pluto15v1',
       minzoom: 12,
       maxzoom: 14.01,
-      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [1, 4] },
+      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [1, 18] },
       // filter: [
       //   'all',
       //   ['match', ['get', 'projecttype'], ['Study'], true, false],
@@ -1922,7 +1922,7 @@ export const PROJECTS_STYLES = {
       'source-layer': 'pluto15v1',
       minzoom: 0,
       maxzoom: 12,
-      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [1, 4] },
+      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [1, 18] },
       // filter: [
       //   'all',
       //   ['match', ['get', 'projecttype'], ['Study'], true, false],
@@ -2098,7 +2098,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       type: 'line',
       'source-layer': 'pluto15v1',
       minzoom: 14.01,
-      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [4] },
+      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [18] },
       filter: [
         'all',
         ['match', ['get', 'projecttype'], ['Study'], true, false],
@@ -2117,7 +2117,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       type: 'line',
       'source-layer': 'pluto15v1',
       minzoom: 14.01,
-      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [4] },
+      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [18] },
       filter: [
         'all',
         ['match', ['get', 'projecttype'], ['Study'], true, false],
@@ -2242,7 +2242,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       type: 'line',
       'source-layer': 'pluto15v1',
       minzoom: 14.01,
-      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [4] },
+      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [18] },
       filter: [
         'all',
         ['match', ['get', 'projecttype'], ['Study'], true, false],
@@ -2261,7 +2261,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       type: 'line',
       'source-layer': 'pluto15v1',
       minzoom: 14.01,
-      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [4] },
+      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [18] },
       filter: [
         'all',
         ['match', ['get', 'projecttype'], ['Study'], true, false],
@@ -2281,7 +2281,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       'source-layer': 'pluto15v1',
       minzoom: 12,
       maxzoom: 14.01,
-      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [1, 4] },
+      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [1, 18] },
       filter: [
         'all',
         ['match', ['get', 'projecttype'], ['Study'], true, false],
@@ -2299,7 +2299,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       'source-layer': 'pluto15v1',
       minzoom: 12,
       maxzoom: 14.01,
-      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [1, 4] },
+      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [1, 18] },
       filter: [
         'all',
         ['match', ['get', 'projecttype'], ['Study'], true, false],
@@ -2353,7 +2353,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       'source-layer': 'pluto15v1',
       minzoom: 0,
       maxzoom: 12,
-      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [1, 4] },
+      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [1, 18] },
       filter: [
         'all',
         ['match', ['get', 'projecttype'], ['Study'], true, false],
@@ -7961,7 +7961,7 @@ export const tileStyles_WR = {
       type: 'line',
       'source-layer': 'pluto15v1',
       minzoom: 14.01,
-      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [4] },
+      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [18] },
       filter: [
         'all',
         ['match', ['get', 'projecttype'], ['Study'], true, false],
@@ -7980,7 +7980,7 @@ export const tileStyles_WR = {
       type: 'line',
       'source-layer': 'pluto15v1',
       minzoom: 14.01,
-      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [4] },
+      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [18] },
       filter: [
         'all',
         ['match', ['get', 'projecttype'], ['Study'], true, false],
@@ -8105,7 +8105,7 @@ export const tileStyles_WR = {
       type: 'line',
       'source-layer': 'pluto15v1',
       minzoom: 14.01,
-      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [4] },
+      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [18] },
       filter: [
         'all',
         ['match', ['get', 'projecttype'], ['Study'], true, false],
@@ -8124,7 +8124,7 @@ export const tileStyles_WR = {
       type: 'line',
       'source-layer': 'pluto15v1',
       minzoom: 14.01,
-      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [4] },
+      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [18] },
       filter: [
         'all',
         ['match', ['get', 'projecttype'], ['Study'], true, false],
@@ -8144,7 +8144,7 @@ export const tileStyles_WR = {
       'source-layer': 'pluto15v1',
       minzoom: 12,
       maxzoom: 14.01,
-      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [1, 4] },
+      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [1, 18] },
       filter: [
         'all',
         ['match', ['get', 'projecttype'], ['Study'], true, false],
@@ -8162,7 +8162,7 @@ export const tileStyles_WR = {
       'source-layer': 'pluto15v1',
       minzoom: 12,
       maxzoom: 14.01,
-      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [1, 4] },
+      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [1, 18] },
       filter: [
         'all',
         ['match', ['get', 'projecttype'], ['Study'], true, false],
@@ -8216,7 +8216,7 @@ export const tileStyles_WR = {
       'source-layer': 'pluto15v1',
       minzoom: 0,
       maxzoom: 12,
-      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [1, 4] },
+      metadata: { project_status: [5, 7, 8, 9, 10, 11], projecttype: [1, 18] },
       filter: [
         'all',
         ['match', ['get', 'projecttype'], ['Study'], true, false],
