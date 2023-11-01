@@ -455,7 +455,7 @@ const MapFilterView = ({
             </p>
 
             <p>
-              <img key="QqgTFRdHgd5n" src="/Icons/Filters/ic_components.png" width="18px" alt="" />
+              <img key="QqgTFRdHgd5n" src="/Icons/ic_actions.png" width="18px" alt="" />
                   Proposed Actions
                   <Popover key="5ffS4gi9r6YK" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.component, 'Proposed Actions – ')}>
                 <img key="VZmgIIaj8ECL" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
