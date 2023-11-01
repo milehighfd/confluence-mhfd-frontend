@@ -1199,8 +1199,8 @@ export const ModalCapital = ({
             <p className={activeTabBodyProject ===  'Details'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Details')}}>Details</p>
             {swSave && <p className={activeTabBodyProject ===  'Discussion'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Discussion')}}>Discussion</p>}
             <p className={activeTabBodyProject ===  'Activity'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Activity')}}>Activity</p>
-          </div> */}
-          {/* {activeTabBodyProject === 'Details' && <> */}
+          </div> 
+          {activeTabBodyProject === 'Details' && <>
             <div className="body-project" onScroll={()=>{setOpen(false)}}>
               {
                 (isWorkPlan && showCheckBox && !swSave) &&  
