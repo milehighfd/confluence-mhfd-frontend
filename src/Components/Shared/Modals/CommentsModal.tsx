@@ -5,13 +5,23 @@ import { getTeam } from '../../../utils/parsers';
 import { useDetailedState } from "hook/detailedHook";
 import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import moment from 'moment';
+import { useProfileState } from 'hook/profileHook';
 
 const CommentsModal = () => {
   const [projectChat, setProjectChat] = useState<any>([]);
   const { detailed } = useDetailedState();
-  const { setProjectDiscussion, addDiscussionMessage } = useProjectDispatch();
+  const { 
+    setProjectDiscussion, 
+    addDiscussionMessage,
+    deleteDiscussionMessage,  
+  } = useProjectDispatch();
   const { discussion } = useProjectState();
   const [message, setMessage] = useState('');
+  const {userInformation} = useProfileState();
+  const sponsorProject = detailed?.project_staffs?.map((item: any) => item?.business_associate_contact_id);
+  const businessAssociateId = userInformation?.business_associate_contact?.business_address?.business_associate_id;
+  const isAdminOrStaff = userInformation?.designation === 'admin' || userInformation?.designation === 'staff'
+  const canAddDiscussion = ((sponsorProject?.includes(businessAssociateId))) || isAdminOrStaff    
 
   function convertTimestampWithMoment(timestamp: string): string {
     return moment.utc(timestamp).format('MMM D, YYYY [at] h:mm A');
@@ -31,9 +41,14 @@ const CommentsModal = () => {
     }    
   }, [discussion]);
 
+  function deleteMessage(message_id: number) {
+    setProjectChat(projectChat.filter((item: any) => item.project_discussion_thread_id !== message_id));
+    deleteDiscussionMessage(detailed.project_id, 'create', message_id);
+  }
+
   return <>
     <div className='body-team-comment'>
-      <div className="input-comment-sec">
+      {canAddDiscussion && <div className="input-comment-sec">
         <input
           type="text"
           placeholder="Write a comment..."
@@ -43,7 +58,7 @@ const CommentsModal = () => {
         <Button className="btn-purple" onClick={(e) => handleAddMessage(message)} >
           <img src='/Icons/ic-send-white.svg' alt='' className='icon-send' /> Send
         </Button>
-      </div>
+      </div>}
       {
         projectChat?.map((item: any, index: number) => {
           return (
@@ -62,6 +77,12 @@ const CommentsModal = () => {
               <div className='content-comment'>
                 <p className='text-comment'>{item?.message}</p>
               </div>
+              {isAdminOrStaff && <p
+                className='delete-edit-comment'
+                onClick={(e) => deleteMessage(item?.project_discussion_thread_id)}
+              >
+                Delete
+              </p>}
             </div>)
         })
       }
