@@ -63,6 +63,10 @@ import {
   setCreatedProject,
   sendProjectToBoardYear,
   setGlobalSearchValue,
+  setProjectDiscussion,
+  addDiscussionMessage,
+  resetDiscussion,
+  deleteDiscussionMessage,
   setCompleteCosts
 } from '../store/actions/ProjectActions';
 
@@ -261,6 +265,18 @@ export const useProjectDispatch = () => {
     },
     setGlobalSearchValue: (globalSearchValue: string) => {
       dispatch(setGlobalSearchValue(globalSearchValue))
+    },
+    setProjectDiscussion: (project_id: number, topic_place: string) => {
+      dispatch(setProjectDiscussion(project_id, topic_place))
+    },
+    addDiscussionMessage: (project_id: number, topic_place: string, message: string) => {
+      dispatch(addDiscussionMessage(project_id, topic_place, message))
+    },
+    deleteDiscussionMessage: (project_id: number, topic_place: string, message_id: number) => {
+      dispatch(deleteDiscussionMessage(project_id, topic_place, message_id))
+    },
+    resetDiscussion: () => {
+      dispatch(resetDiscussion())
     },
     setCompleteCosts: (completeCosts: any) => {
       dispatch(setCompleteCosts(completeCosts))

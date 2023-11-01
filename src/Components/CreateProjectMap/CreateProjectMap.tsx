@@ -400,7 +400,7 @@ const CreateProjectMap = (type: any) => {
     let mask;
     setTimeout(() => {
       map.isStyleLoaded(() => {
-        if (coordinatesJurisdiction.length > 0) {
+        if (coordinatesJurisdiction?.length > 0) {
           const DEPTH = depth(coordinatesJurisdiction);
           if (DEPTH == 4) {
             mask = turf.multiPolygon(coordinatesJurisdiction);
@@ -951,25 +951,7 @@ const CreateProjectMap = (type: any) => {
       // updateSelectedLayersCP(selectedLayers);
     });
   };
-  const removeProjectLayer = () => {
-    let filterLayers = selectedLayersCP.filter((Layer: any) => {
-      // if (Layer.name) {
-      //   return !(Layer.name == 'projects');
-      // } else {
-        return true;
-      // }
-    });
-    const deleteLayers = selectedLayersCP.filter((layer: any) => !filterLayers.includes(layer as string));
-    deleteLayers.forEach((layer: LayersType) => {
-      if (layer === 'border' || layer === 'area_based_mask') {
-        map.removeLayerMask(layer);
-      } else {
-        removeTilesHandler(layer);
-      }
-    });
-    updateSelectedLayersCP(filterLayers);
-    updateSelectedLayers(filterLayers);
-  };
+ 
   const onCreateDraw = (event: any) => {
     if (firstCallDraw) {
       return;
@@ -2073,7 +2055,6 @@ const CreateProjectMap = (type: any) => {
   //     popup.remove();
   //   }
   // }, [commentVisible]);
-
   return (
     <div className="map createmap" id='create-map'>
       {/* {commentVisible && (

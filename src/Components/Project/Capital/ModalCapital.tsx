@@ -134,7 +134,8 @@ export const ModalCapital = ({
     setDisableFieldsForLg,
     setIsGeomDrawn,
     getIndependentComponentsByProjectId,
-    getComponentsByProjectId
+    getComponentsByProjectId,
+    resetDiscussion,
   } = useProjectDispatch();
   const { getGroupOrganization } = useProfileDispatch();
   const {
@@ -279,6 +280,7 @@ export const ModalCapital = ({
   }, [showDraw]);
   //Load Data if is Edit
   useEffect(() => {
+    resetDiscussion();
     setIsEdit(false);
     if (data !== 'no data') {
       const counties = data.project_counties.map((e: any) => e?.CODE_STATE_COUNTY?.county_name);
@@ -1148,9 +1150,7 @@ export const ModalCapital = ({
   const handleNotification = (message: string) => {
     openNotification(`Warning!`, "warning", message);
   }
-  
   let indexForm = 1;
-
   const [open, setOpen] = useState(false)
     return (
     <>
@@ -1195,12 +1195,12 @@ export const ModalCapital = ({
             isEdit = {swSave}
           />          
           {/* { tabs- options } */}
-          {/* <div className='header-tab'>
+          <div className='header-tab'>
             <p className={activeTabBodyProject ===  'Details'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Details')}}>Details</p>
-            <p className={activeTabBodyProject ===  'Discussion'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Discussion')}}>Discussion</p>
+            {swSave && <p className={activeTabBodyProject ===  'Discussion'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Discussion')}}>Discussion</p>}
             <p className={activeTabBodyProject ===  'Activity'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Activity')}}>Activity</p>
-          </div> */}
-          {/* {activeTabBodyProject === 'Details' && <> */}
+          </div> 
+          {activeTabBodyProject === 'Details' && <>
             <div className="body-project" onScroll={()=>{setOpen(false)}}>
               {
                 (isWorkPlan && showCheckBox && !swSave) &&  
@@ -1366,9 +1366,12 @@ export const ModalCapital = ({
                 visibleCapital={visibleCapital}
               />
             </div>
-          {/* </>} */}
-          {activeTabBodyProject === 'Discussion' &&
-          <DiscussionCreateProject/>}
+          </>}
+          {(activeTabBodyProject === 'Discussion' && swSave) &&
+          <DiscussionCreateProject
+            project_id = {projectid}
+            sponsor = {sponsor}
+          />}
           {activeTabBodyProject === 'Activity' &&
           <ActivitiCreateProject/>}
           <div className="footer-project">

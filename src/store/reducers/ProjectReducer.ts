@@ -111,6 +111,7 @@ const initState = {
   },
   createdProject:{},
   globalSearchValue: '',
+  discussion: [],
   completeCosts: {}
 }
 
@@ -479,6 +480,12 @@ const projectReducer = (state = initState, action: any) => {
       return {
         ...state,
         globalSearchValue: action.globalSearchValue
+      }
+    }
+    case types.SET_DISCUSSIONS:{
+      return {
+        ...state,
+        discussion: action.discussion
       }
     }
     case types.COMPLETE_COSTS: {

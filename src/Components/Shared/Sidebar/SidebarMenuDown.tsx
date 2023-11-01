@@ -11,6 +11,8 @@ import { SERVER } from 'Config/Server.config';
 import moment from 'moment';
 import DetailModal from 'routes/detail-page/components/DetailModal';
 import { FILTER_PROJECTS_TRIGGER } from 'constants/constants';
+import { postData, getData, getToken } from 'Config/datasets';
+import ModalProjectView from 'Components/ProjectModal/ModalProjectView';
 
 const SidebarMenuDown = ({
   collapsed,
@@ -35,13 +37,21 @@ const SidebarMenuDown = ({
   let displayedTabKey = tabKeys;
   const indexOf = '' + ROUTERS_SIDEBAR.indexOf(location.pathname);
   const [name, setName] = useState('');
-  const [initialName, setInitialName] = useState('');
+  const [initialName, setInitialName] = useState('');  
+  const [showModalProject, setShowModalProject] = useState(false);
+  const [completeProjectData, setCompleteProjectData] = useState<any>(null);
+  const [isVisible , setIsVisible] = useState(false);
   useEffect(() => {
     if (userInformation.firstName) {
       setName(userInformation?.firstName);
       setInitialName(userInformation?.firstName?.charAt(0) + userInformation?.lastName?.charAt(0));
     }
   },[userInformation]);
+  const getCompleteProjectData = async (record:any) => {
+    const dataFromDB = await getData(SERVER.V2_DETAILED_PAGE(record.project_id), getToken());
+    setCompleteProjectData({...dataFromDB, tabKey: record?.code_project_type?.project_type_name});   
+    setShowModalProject(true);  
+  }
   const content = <div className="none-notification">No Notifications</div>;
   const logout = () => {
     datasets.logout();
@@ -64,26 +74,56 @@ const SidebarMenuDown = ({
           <TabPane className="notification-layout" key={tk}>
             <div className='notification-layout-body'>
               {notification?.map((item: any) => {
-                let check1 = moment.utc(
-                  item?.project_status_notification?.project_status?.planned_end_date,
-                  'YYYY-MM-DD',
-                );
-                let monthEnd = check1.format('MM');
-                let dayEnd = check1.format('DD');
-                let yearEnd = check1.format('YYYY');
-                return (
-                  <div
-                    key={item.notification_id}
-                    className="notification-body"
-                    onClick={() => readClick(item?.project?.project_id, item?.notification_id)}
-                  >
-                    <img src={'/Icons/user03.png'} alt="" height="35px" />
-                    <div className="text-notification">
-                      <p>{item?.project?.project_name}</p>
-                      <p className="date">{`${item?.project_status_notification?.project_status?.code_phase_type?.phase_name} is due on ${monthEnd}/${dayEnd}/${yearEnd}`}</p>
+                if (!item?.subject && item.project_status_notification !== null){
+                  let check1 = moment.utc(
+                    item?.project_status_notification?.project_status?.planned_end_date,
+                    'YYYY-MM-DD',
+                  );
+                  let monthEnd = check1.format('MM');
+                  let dayEnd = check1.format('DD');
+                  let yearEnd = check1.format('YYYY');
+                  return (
+                    <div
+                      key={item.notification_id}
+                      className="notification-body"
+                      onClick={() => readClick(item?.project?.project_id, item?.notification_id)}
+                    >
+                      <img src={'/Icons/user03.png'} alt="" height="35px" />
+                      <div className="text-notification">
+                        <p>{item?.project?.project_name}</p>
+                        <p className="date">{`${item?.project_status_notification?.project_status?.code_phase_type?.phase_name} is due on ${monthEnd}/${dayEnd}/${yearEnd}`}</p>
+                      </div>
                     </div>
-                  </div>
-                );
+                  );
+                } else{
+                  let check1 = moment.utc(
+                    item?.created_date,
+                    'YYYY-MM-DD',
+                  );
+                  let monthEnd = check1.format('MM');
+                  let dayEnd = check1.format('DD');
+                  let yearEnd = check1.format('YYYY');
+                  return (
+                    <div
+                      key={item.notification_id}
+                      className="notification-body"
+                      onClick={() => {
+                        if (item?.subject === 'DETAILS') {
+                          readClick(item?.project?.project_id, item?.notification_id);
+                        } else {
+                          getCompleteProjectData(item?.project);
+                          removeNotification(item?.notification_id);
+                        }
+                      }}
+                    >
+                      <img src={'/Icons/user03.png'} alt="" height="35px" />
+                      <div className="text-notification">
+                        <p>{item?.project?.project_name}</p>
+                        <p className="date">{`New comment from ${item?.user?.name} on ${monthEnd}/${dayEnd}/${yearEnd}`}</p>
+                      </div>
+                    </div>
+                  );
+                }                
               })}
             </div>
           </TabPane>
@@ -109,14 +149,17 @@ const SidebarMenuDown = ({
       <span className={collapsed ? 'menu-down-sidebar-colapse' : 'menu-down-sidebar'}>{name}</span>
     </div>
   );
-
-  function readClick(id: any, notification_id: any) {
+  function removeNotification(notification_id: any) {
     const sendId = { notification_id: notification_id };
     datasets.postData(SERVER.NOTIFICATIONS, sendId, datasets.getToken()).then(async result => {
-      setProjectData({ project_id: id });
       deleteNotification(notification_id);
-      console.log(result);
     });
+  }
+
+  function readClick(id: any, notification_id: any) {
+    setProjectData({ project_id: id });
+    setIsVisible(true);
+    removeNotification(notification_id);
   }
   useEffect(() => {
     setNotification(userInformation.notifications);
@@ -125,7 +168,7 @@ const SidebarMenuDown = ({
   if (redirect) {
     return <Redirect to="/login" />;
   }
-
+  
   const items: MenuProps['items'] = [
     {
       key: 'sub1',
@@ -178,22 +221,35 @@ const SidebarMenuDown = ({
   const setDetailOpen = (value: boolean) => {
     if (!value) {
       setActiveSearch(false);
+      setIsVisible(false);
     }
   };
-
   return (
-    <>{projectData?.project_id && <DetailModal
-      visible={projectData?.project_id}
-      setVisible={setDetailOpen}
-      data={projectData}
-      type={FILTER_PROJECTS_TRIGGER}
-    />}<Menu
-      theme="dark"
-      className="menu-mobile sidebar-down"
-      defaultSelectedKeys={[indexOf]}
-      mode="vertical"
-      items={items}
-    /></>
+    <>
+      {
+        (isVisible && projectData?.project_id) && <DetailModal
+          visible={projectData?.project_id}
+          setVisible={setDetailOpen}
+          data={projectData}
+          type={FILTER_PROJECTS_TRIGGER}
+        />}
+      {
+        showModalProject && <ModalProjectView
+          visible={showModalProject}
+          setVisible={setShowModalProject}
+          data={completeProjectData}
+          showDefaultTab={true}
+          editable={true}
+          locality={undefined}
+        />
+      }
+      <Menu
+        theme="dark"
+        className="menu-mobile sidebar-down"
+        defaultSelectedKeys={[indexOf]}
+        mode="vertical"
+        items={items}
+      /></>
   );
 };
 

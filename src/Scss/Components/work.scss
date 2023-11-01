@@ -1544,10 +1544,33 @@
     height: calc(100vh - 294px);
     overflow: auto;
   }
-  .input-comment {
+  .input-comment-sec{
+    padding: 13px 16px 13px 20px;
     border-radius: 60px;
     background: #f5f7ff;
-    padding: 20px 20px 19px 20px;
+    display: flex;
+    align-items: center;
+    .btn-purple{
+      color: white !important;
+      border-radius: 32px !important;
+      padding: 8px 12px 8px 12px;
+      height: auto !important;
+      display: flex;
+      align-items: center;
+      span{
+        color: white !important;
+        margin-bottom: 0px !important;
+        font-size: 14px;
+        line-height: normal;
+      }
+      .icon-send{
+        margin-top:0px;
+        margin-right: 8px;
+      }
+    }
+  }
+  .input-comment {
+    background: #f5f7ff;
     display: flex;
     align-items: center;
     border: none;
@@ -1555,6 +1578,7 @@
     font-size: 14px;
     font-style: normal;
     width: 100%;
+    margin-right: 8px;
   }
   .header-comment {
     display: flex;
@@ -1571,7 +1595,7 @@
       font-weight: 400;
       opacity: 0.5;
       margin-top: 3px;
-    }
+    }    
   }
   .user-item-comment {
     font-size: 14px;
@@ -1588,6 +1612,19 @@
     line-height: normal;
     letter-spacing: 0.171px;
     border-radius: 50%;
+  }
+  .user-item-comment-img{
+    border-radius: 50%;
+    width: 37px;
+    height: 37px;
+    margin-right: 8px;
+    margin-top: 0px;
+    object-fit: cover;
+  }
+  .delete-edit-comment{
+    font-weight: 300;
+    opacity: 0.5;
+    font-size: 12px;
   }
   .content-comment {
     border-radius: 16px;
@@ -2237,6 +2274,10 @@
         font-size: 19px;
         padding: 9.333px 9.999px;
         line-height: 22px;
+      }
+      .user-item-comment-img{
+        width: 42px;
+        height: 42px;
       }
     }
     .body-team-comment {
@@ -3037,15 +3078,32 @@
       font-size: 23px;
       padding: 14px 14px;
     }
+    .user-item-comment-img{
+      width: 54px !important;
+      height: 54px !important;
+    }
     .header-comment{
       margin-bottom: 14px;
     }
     .body-team-comment{
       height: calc(100vh - 391px);
     }
-    .input-comment{
-      font-size: 20px;
+    .input-comment-sec{
+      .input-comment{
+        font-size: 20px;
+      }
+      .btn-purple{
+        padding: 15px 18px;
+        span{
+          font-size: 21px !important;
+        }
+        .icon-send{
+          height: 25px !important;
+          margin-right: 8px;
+        }
+      }
     }
+    
   }
   .chat-00 {
     height: 710px !important;

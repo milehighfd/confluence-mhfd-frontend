@@ -643,6 +643,37 @@ export const setGlobalSearchValue = (globalSearchValue: string) => {
   }
 }
 
+export const setProjectDiscussion = (project_id: number, topic_place: string) => {
+  return (dispatch: Function) => {
+    datasets.postData(SERVER.DISCUSSION,{project_id, topic_place}, datasets.getToken()).then(res => {
+      dispatch({type: types.SET_DISCUSSIONS, discussion: res?.threads ?? []});
+    });
+  }
+}
+
+export const addDiscussionMessage = (project_id: number, topic_place: string, message: string) => {
+  return (dispatch: Function) => {
+    datasets.putData(SERVER.DISCUSSION,{project_id, topic_place, message}, datasets.getToken()).then(res => {
+      console.log('res', res)
+      dispatch(setProjectDiscussion(project_id, topic_place));
+    });
+  }
+}
+
+export const deleteDiscussionMessage = (project_id: number, topic_place: string, message_id: number) => {
+  return (dispatch: Function) => {
+    datasets.deleteDataWithBody(SERVER.DISCUSSION,{ message_id}, datasets.getToken()).then(res => {
+      dispatch(setProjectDiscussion(project_id, topic_place));
+    });
+  }
+}
+
+export const resetDiscussion = () => {
+  return (dispatch: Function) => {
+    dispatch({type: types.SET_DISCUSSIONS, discussion: []});
+  }
+}
+
 export const setCompleteCosts = (completeCosts: any) => {
   return (dispatch: Function) => {
     dispatch({type: types.COMPLETE_COSTS, completeCosts});

@@ -218,8 +218,8 @@
   }
   .body-project {
     padding: 10px 20px;
-    // height: calc(100vh - 214px); 
-    height: calc(100vh - 170px);
+    height: calc(100vh - 214px); 
+    // height: calc(100vh - 170px);
     overflow-y: auto;
     h5 {
       font-size: 13px;
@@ -972,13 +972,37 @@
       .discussion-input {
         display: flex;
         align-items: center;
-        input {
+        .input-discussion-sec{
+          padding: 13px 16px 13px 20px;
           border-radius: 60px;
           background: #f5f7ff;
-          border: none;
-          padding: 20px 20px 19px 20px;
+          display: flex;
+          align-items: center;
           width: -webkit-fill-available;
+          input {
+            background: #f5f7ff;
+            border: none;
+            width: -webkit-fill-available;
+          }
+          .btn-purple{
+            color: white !important;
+            border-radius: 32px !important;
+            padding: 8px 12px 8px 12px;
+            height: auto !important;
+            display: flex;
+            align-items: center;
+            span{
+              color: white !important;
+              margin-bottom: 0px !important;
+              font-size: 14px;
+              line-height: normal;
+            }
+            .icon-send{
+              margin-right: 8px;
+            }
+          }
         }
+        
       }
       .discution-body {
         height: calc(100% - 50px);
@@ -988,6 +1012,11 @@
           align-items: flex-start;
           margin-top: 16px;
           margin-bottom: 8px;
+          .delete-edit-comment{
+            font-weight: 300;
+            opacity: 0.5;
+            font-size: 12px;
+          }
           .user-information {
             color: #11093c;
             font-size: 14px;
@@ -1044,6 +1073,14 @@
       line-height: normal;
       letter-spacing: 0.171px;
       border-radius: 50%;
+    }
+    .user-img{
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      margin-right: 16px;
+      margin-top: 0px;
+      object-fit: cover;
     }
     .activiti-item {
       display: flex;
@@ -1258,8 +1295,8 @@
       }
     }
     .body-project {
-      height: calc(100vh - 191px);
-      // height: calc(100vh - 247px);
+      // height: calc(100vh - 191px);
+      height: calc(100vh - 247px);
       p {
         font-size: 16px;
         font-style: normal;
@@ -1367,6 +1404,13 @@
       .discussion-input{
         font-size: 16px;
       }
+      //DISCUTIOM
+      .discussion-content {
+        .user-img{
+          width: 51px;
+          height: 51px;
+        }
+      }
     }
     .activiti-item {
       p {
@@ -1461,8 +1505,8 @@
       }
     }
     .body-project {
-      height: calc(100vh - 249px);
-      // height: calc(100vh - 298px);
+      // height: calc(100vh - 249px);
+      height: calc(100vh - 298px);
       padding: 10px 35px;
       .sub-project .ant-select:not(.ant-select-customize-input) .ant-select-selector {
         width: 100px !important;
@@ -1500,6 +1544,21 @@
           input{
             font-size: 20px;
           }
+          .btn-purple{
+            padding: 15px 18px;
+            span{
+              font-size: 21px !important;
+              margin-left: 10px !important;
+            }
+            .icon-send{
+              height: 25px !important;
+              margin-right: 0px;
+            }
+          }
+        }
+        .user-img{
+          width: 55px;
+          height: 55px;
         }
       }
       .activiti-item{

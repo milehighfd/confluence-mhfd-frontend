@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import { Row, Col } from 'antd';
 import TeamModal from './TeamModal';
 import CommentsModal from './CommentsModal';
+import { useProfileState } from 'hook/profileHook';
 
 const TeamCollaborator = () => {
   const [selected, setSelected] = useState(true);
+  const {userInformation} = useProfileState();
+  const isOther = userInformation?.designation === 'other'
   return (
     <div className="chat-r">
       <Row style={{paddingBottom: '15px'}}>
@@ -18,16 +21,16 @@ const TeamCollaborator = () => {
             <h5 className={selected ? 'active-title': ''}>Team</h5>
           </div>
         </Col>
-        {/* <Col span={16}>
+        <Col span={16}>
           <div
             className="chart-title"
             onClick={() => {setSelected(false)}}
             role="button"
             tabIndex={1}
           >
-            <h5 className={!selected ? 'active-title': ''}>DISCUSSION</h5>
+            {!isOther && <h5 className={!selected ? 'active-title': ''}>DISCUSSION</h5>}
           </div>
-        </Col> */}
+        </Col>
         <Col span={3} style={{textAlign:'end'}}>
           {/*<PlusOutlined />*/}
         </Col>
