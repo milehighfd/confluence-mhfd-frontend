@@ -177,6 +177,7 @@ export const ModalCapital = ({
   const [overheadCosts, setOverheadCosts] = useState<any>([0,0,0,0,0,0,0,0,0]);
   const [keys, setKeys] = useState<any>(['-false']);
   const [additionalCost, setAdditionalCost] = useState<number>(0);
+  const [estimatedCostInput, setEstimatedCostInput] = useState<number>(0);
   const [additionalDescription, setAdditionalDescription] = useState("");
   const [overheadDescription, setOverheadDescription] = useState("");
   const [swSave, setSwSave] = useState(false);
@@ -285,6 +286,10 @@ export const ModalCapital = ({
       const counties = data.project_counties.map((e: any) => e?.CODE_STATE_COUNTY?.county_name);
       const serviceAreas = data.project_service_areas.map((e: any) => e?.CODE_SERVICE_AREA?.service_area_name);
       const localJurisdiction = data.project_local_governments.map((e: any) => e?.CODE_LOCAL_GOVERNMENT?.local_government_name);
+      const estimatedCostFromData = data?.project_costs.filter((e: any) => e.code_cost_type_id === 1)[0];
+      const overheadCostDesc = data?.project_costs.filter((e: any) => e.code_cost_type_id === 5)[0];
+      setOverheadDescription(!overheadCostDesc || overheadCostDesc?.cost_description === null ? '' : overheadCostDesc?.cost_description);
+      setEstimatedCostInput(estimatedCostFromData ? estimatedCostFromData.cost : 0);
       setCounty(counties);
       setServiceArea(serviceAreas);
       setjurisdiction(localJurisdiction);
@@ -490,6 +495,7 @@ export const ModalCapital = ({
         capital.components = componentsToSave ? JSON.stringify(componentsToSave, null, 2) : [];
         capital.independentComponent = JSON.stringify(thisIndependentComponents, null, 2);
         capital.estimatedcost = getTotalCost();
+        capital.estimatedcostInput = estimatedCostInput;
         capital.componentcost = getSubTotalCost();
         capital.componentcount = (
           componentsToSave?.length > 0 ?
@@ -877,16 +883,19 @@ export const ModalCapital = ({
     if (data !== 'no data') {
       const parsed = getProjectOverheadCost(data.project_costs);
       let newOverheadValue: any = [];
-      if (listComponents && listComponents.result && subtotalCost !== 0 && !(parsed.every((elem: any) => elem === 0))) {
-        parsed.forEach((overheadcost: any, index: number) => {
-          if (index >= 0) {
-            newOverheadValue[index] = Math.round((overheadcost * 100) / subtotalCost)
-          } else {
-            newOverheadValue[index] = 0
-          }
-        });
-        setOverheadValues(newOverheadValue)
+      if(initSubtotalCost === subtotalCost){
+        if (listComponents && listComponents.result && subtotalCost !== 0 && !(parsed.every((elem: any) => elem === 0))) {
+          parsed.forEach((overheadcost: any, index: number) => {
+            if (index >= 0) {
+              newOverheadValue[index] = Math.round((overheadcost * 100) / initSubtotalCost)
+            } else {
+              newOverheadValue[index] = 0
+            }
+          });
+          setOverheadValues(newOverheadValue)
+        }
       }
+      
       if ((parsed.every((elem: any) => elem === 0))){
         setOverheadValues([0, 0, 0, 0, 0, 0, 0, 0, 0])
       }
@@ -894,7 +903,7 @@ export const ModalCapital = ({
     if (subtotalCost === 0) {
       setOverheadValues([5, 5, 0, 0, 5, 15, 5, 10, 25])
     }
-  }, [listComponents, thisIndependentComponents])
+  }, [listComponents, thisIndependentComponents, initSubtotalCost])
 
   useEffect(()=>{
     if(!(overheadValues.every((elem:any)=> elem ===0))){
@@ -929,10 +938,12 @@ export const ModalCapital = ({
         subtotalcost += parseFloat(comp.cost) ;
       }
     }
-    const subtotalInData = data?.project_costs?.filter((d:any) => d.code_cost_type_id == 14);
-    // console.log('init subtotal', initSubtotalCost, 'subtotalcost', subtotalcost, 'subtotalInData', subtotalInData[0].cost);
-    if (initSubtotalCost === subtotalcost && subtotalInData[0]?.cost) {
-      subtotalcost = subtotalInData[0].cost;
+    if(data !== 'no data') {
+      const subtotalInData = data?.project_costs?.filter((d:any) => d.code_cost_type_id == 14);
+      // console.log('init subtotal', initSubtotalCost, 'subtotalcost', subtotalcost, 'subtotalInData', subtotalInData[0].cost);
+      if (initSubtotalCost === subtotalcost && subtotalInData[0]?.cost) {
+        subtotalcost = subtotalInData[0].cost;
+      }
     }
     return subtotalcost;
   }
@@ -1140,6 +1151,7 @@ export const ModalCapital = ({
     openNotification(`Warning!`, "warning", message);
   }
   let indexForm = 1;
+  const [open, setOpen] = useState(false)
     return (
     <>
     {loading && <LoadingViewOverall></LoadingViewOverall>}
@@ -1187,9 +1199,9 @@ export const ModalCapital = ({
             <p className={activeTabBodyProject ===  'Details'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Details')}}>Details</p>
             {swSave && <p className={activeTabBodyProject ===  'Discussion'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Discussion')}}>Discussion</p>}
             <p className={activeTabBodyProject ===  'Activity'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Activity')}}>Activity</p>
-          </div>
-          {activeTabBodyProject === 'Details' && <>
-            <div className="body-project">
+          </div> */}
+          {/* {activeTabBodyProject === 'Details' && <> */}
+            <div className="body-project" onScroll={()=>{setOpen(false)}}>
               {
                 (isWorkPlan && showCheckBox && !swSave) &&  
                 <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
@@ -1314,9 +1326,14 @@ export const ModalCapital = ({
               />
               {selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Capital.toLowerCase() &&
                 <FinancialInformation
+                  open={open}
+                  setOpen={setOpen}
+                  data={data}
                   formatter={formatter}
                   getSubTotalCost={getSubTotalCost}
                   getOverheadCost={getOverheadCost}
+                  estimatedCostInput = {estimatedCostInput}
+                  setEstimatedCostInput = {setEstimatedCostInput}
                   onChangeOverheadDescription={onChangeOverheadDescription}
                   overheadDescription={overheadDescription}
                   onChangeAdditionalCost={onChangeAdditionalCost}

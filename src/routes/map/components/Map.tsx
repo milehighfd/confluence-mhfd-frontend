@@ -1150,7 +1150,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
       .filter((project: any) => project.code_project_type_id === 1)
       .map((project: any) => project.project_id);
     const studyProjectsFHAD = projectsids
-      .filter((project: any) => project.code_project_type_id === 4)
+      .filter((project: any) => project.code_project_type_id === 18)
       .map((project: any) => project.project_id);
     // const acquisitionProjects = projectsids.filter((project:any) => project.code_project_type_id === 13).map((project:any) => project.project_id);
     // const developementImprProjects = projectsids.filter((project:any) => project.code_project_type_id === 6).map((project:any) => project.project_id);
@@ -1159,7 +1159,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
         (project: any) =>
           project.code_project_type_id !== 5 &&
           project.code_project_type_id !== 1 &&
-          project.code_project_type_id !== 4 &&
+          project.code_project_type_id !== 18 &&
           !(project.code_project_type_id >= 7 && project.code_project_type_id <= 11) &&
           project.code_project_type_id !== 17,
       )
@@ -1168,7 +1168,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
       5: capitalProjects,
       7: maintenanceProjects,
       1: studyProjects,
-      4: studyProjectsFHAD,
+      18: studyProjectsFHAD,
       999: projectsWithoutStyle,
       // 13: acquisitionProjects,
       // 6: developementImprProjects

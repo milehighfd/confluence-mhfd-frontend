@@ -66,7 +66,8 @@ import {
   setProjectDiscussion,
   addDiscussionMessage,
   resetDiscussion,
-  deleteDiscussionMessage
+  deleteDiscussionMessage,
+  setCompleteCosts
 } from '../store/actions/ProjectActions';
 
 export const useProjectState = () => useSelector(
@@ -276,6 +277,9 @@ export const useProjectDispatch = () => {
     },
     resetDiscussion: () => {
       dispatch(resetDiscussion())
+    },
+    setCompleteCosts: (completeCosts: any) => {
+      dispatch(setCompleteCosts(completeCosts))
     }
   };
 };

@@ -673,3 +673,9 @@ export const resetDiscussion = () => {
     dispatch({type: types.SET_DISCUSSIONS, discussion: []});
   }
 }
+
+export const setCompleteCosts = (completeCosts: any) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.COMPLETE_COSTS, completeCosts});
+  }
+}

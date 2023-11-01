@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
-import { Row, Col, Input, Timeline, Popover, Select } from 'antd';
-import { InfoCircleOutlined } from '@ant-design/icons';
+import React, { useEffect, useState } from 'react';
+import { Row, Col, Input, Timeline, Popover, Select, Button } from 'antd';
+import { ExclamationCircleOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import {  WINDOW_WIDTH } from 'constants/constants';
 import { useProjectState } from 'hook/projectHook';
+import { log } from 'console';
 
 interface Props {
+  data:any;
   formatter: any;
   getSubTotalCost: any;
   getOverheadCost: any;
+  estimatedCostInput: any;
+  setEstimatedCostInput: any;
   onChangeOverheadDescription: any;
   overheadDescription: string;
   onChangeAdditionalCost: any;
@@ -21,13 +25,18 @@ interface Props {
   overheadCosts: any;
   changeValue: any;
   index: number;
+  setOpen:any;
+  open:boolean;
 }
 const { Option } = Select;
 
 export const FinancialInformation = ({
+  data,
   formatter,
   getSubTotalCost,
-  getOverheadCost,  
+  getOverheadCost,
+  estimatedCostInput,
+  setEstimatedCostInput,
   onChangeOverheadDescription,
   overheadDescription,
   onChangeAdditionalCost,
@@ -40,8 +49,14 @@ export const FinancialInformation = ({
   overheadValues,
   overheadCosts,
   changeValue,
-  index
+  index,
+  setOpen,
+  open,
 }:Props) => {
+  const [estimatedCostFromDB, setEstimatedCostFromDB] = useState(estimatedCostInput);
+  const [lastmodifiedBy, setLastmodifiedBy] = useState('');
+  const [lastmodifiedDate, setLastmodifiedDate] = useState('');
+  const { completeCosts } = useProjectState();
   const { 
     disableFieldsForLG,
     } = useProjectState();
@@ -82,6 +97,65 @@ export const FinancialInformation = ({
       </Timeline.Item>
     );
   }
+  const hide = () => {
+    setOpen(false);
+  };
+  
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value: inputValue } = e.target;
+    const currentValue = inputValue.replace(/,/g, '');
+    const reg = /^-?\d*(\.\d*)?$/;
+    if (reg.test(currentValue) || currentValue === '' || currentValue === '-') {
+      const valueToChange:any = inputValue ? (+currentValue) : null;
+      setEstimatedCostFromDB(valueToChange);
+    }
+  };
+
+  const confirmEstimatecost = () => {
+    setEstimatedCostInput(estimatedCostFromDB);
+    setOpen(false);
+  }
+
+  const contentPopOver = (
+    <div className="popover-estimatedCost">
+      <p className='title'>
+      Stored Estimated Cost:
+      </p>
+      <Input prefix='$' value={estimatedCostFromDB ? estimatedCostFromDB.toLocaleString('en-US') : 0} onChange={handleChange}/>
+      {(lastmodifiedBy && lastmodifiedDate) ? <p className='last-updated'>Last updated by {lastmodifiedBy} on {lastmodifiedDate} </p>: <p> </p>}
+      <div className="popover-estimatedCost-footer">
+        <Button  className="btn-borde" onClick={hide}>Close</Button>
+        <Button className="btn-purple" onClick={confirmEstimatecost}><span className="text-color-disable">Confirm</span></Button>
+      </div >
+    </div>
+  )
+
+  const formatDate = (dateStr: string) => {
+    const date = new Date(dateStr);
+
+    const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+    const day = String(date.getUTCDate()).padStart(2, "0");
+    const year = String(date.getUTCFullYear()).substring(2);
+    
+    const filteredDate = `${month}/${day}/${year}`;
+    return filteredDate;
+  }
+  useEffect(() => {
+    if(data !== 'no data' || data === undefined){
+      let estimatedCostFromData = data?.project_costs.filter((e: any) => e.code_cost_type_id === 1)[0];
+      setEstimatedCostFromDB(estimatedCostFromData ? estimatedCostFromData.cost : 0);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if(completeCosts?.projectData?.currentCost.length !== 0){
+      let lastModify = completeCosts?.projectData?.currentCost.filter((e: any) => e.code_cost_type_id === 1)[0]
+      let completeName = completeCosts?.estimatedCostUser;
+      setLastmodifiedBy(completeName ? `${completeName?.firstName} ${completeName?.lastName}` : '');
+      setLastmodifiedDate(lastModify ? formatDate(lastModify?.last_modified) : '');
+    }
+  }, [completeCosts]);
+
 
   return (
     <div>
@@ -128,8 +202,16 @@ export const FinancialInformation = ({
       </Row>
       <hr/>
       <Row className="cost-project">
-        <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>TOTAL COST</Col>
-        <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>{formatter.format(getTotalCost() ? getTotalCost() : 0)}</b></Col>
+        <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>TOTAL CALCULATED ESTIMATED COST</Col>
+        <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>{`${formatter.format(getTotalCost() ? getTotalCost() : 0)} `}</b>
+        <Popover
+          content={contentPopOver}
+          // trigger={'click'}
+          visible={open}
+        >
+          <ExclamationCircleOutlined onClick={()=> setOpen(true)} style={{opacity:"0.4", paddingTop: '3px'}}/>
+        </Popover>
+        </Col>
       </Row>
     </div>
   );

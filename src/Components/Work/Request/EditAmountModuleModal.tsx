@@ -11,6 +11,7 @@ import { BOARD_STATUS_TYPES, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, WORK_PLAN, WORK
 import { useMapState } from 'hook/mapHook';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { SPONSOR_ID } from 'constants/databaseConstants';
+import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
 
 const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisible }: {project: any; completeProjectData:any; visible: boolean; setVisible: Function }) => {
   
@@ -23,6 +24,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
     sendProjectToBoardYear
   } = useProjectDispatch();
   const { loadOneColumn } = useRequestDispatch();
+  const { openNotification } = useNotifications();
   const { userInformation } = useProfileState();
   const isMaintenance = tabKey === 'Maintenance';
   const priorFundingString = 'priorFunding';
@@ -37,6 +39,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
   const startYearInt = parseInt(startYear);
   const [totalCosts, setTotalCosts] = useState<any>([]);
   const [totalCombinedSum, setTotalCombinedSum] = useState<any>(0);
+  const [estimatedCostFromDB, setEstimatedCostFromDB] = useState(0);
   const widthInput = document.getElementById('colInput')?.offsetWidth;
   const desiredOrder = [88, 11, 12];
   const statusColor:any = {
@@ -98,6 +101,8 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
   }
 
   useEffect(() => {
+    let estimatedCostDB = completeProjectData.project_costs.filter((e: any) => e.code_cost_type_id === 1)[0];
+    setEstimatedCostFromDB(estimatedCostDB ? estimatedCostDB.cost : 0);
     setMaintenanceSubtype(completeProjectData.code_project_type.project_type_name)
     const projectPartnersRaw = completeProjectData.project_partners;
     const projectPartners = projectPartnersRaw.filter((item:any) => item.code_partner_type_id === 11 || item.code_partner_type_id === 12 || item.code_partner_type_id === 88)
@@ -236,7 +241,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
 
     function updateMhfdBasedOnOthers(data: any, updatedReqField: string) {
       const CODE_COST_TYPE = namespaceId.type === WORK_PLAN ? 21 : 22;
-      const nonMhfdEntries = data.filter((entry: any) => entry.business_name !== "MHFD");
+      const nonMhfdEntries = data.filter((entry: any) =>  entry.code_cost_type_id === CODE_COST_TYPE && entry.business_name !== "MHFD");
       const mhfdEntries = data.filter((entry: any) => entry.code_cost_type_id === CODE_COST_TYPE && entry.business_name === "MHFD");    
       mhfdEntries.forEach((mhfdEntry: any) => {
         const isAnyNonMhfdValuePresent = nonMhfdEntries.some((nonMhfdEntry: any) => 
@@ -258,16 +263,32 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
       //   console.log('inputValue', inputValue);
       //   values[`req${index}`]=(+inputValue);
       // }
+      console.log('Valyee', inputValue);
       const currentValue = inputValue.replace(/,/g, '');
-      setCost((prev: any) => {
-        const newCost = {...prev};
-        const current_business_name = item.business_name;
-        const current_code_cost_type_id = item.code_cost_type_id;
-        const indexOfValue = newCost.amounts.findIndex((itemAmount: any) => itemAmount.business_name === current_business_name && itemAmount.code_cost_type_id === current_code_cost_type_id);
-        newCost.amounts[indexOfValue].values[key] = inputValue ? (+currentValue) : null;
-        updateMhfdBasedOnOthers(newCost.amounts, key);
-        return newCost;
-      });
+      console.log('CURRENT VALUE', currentValue, reg.test(currentValue), currentValue === '',  currentValue === '-');
+      if (reg.test(currentValue) || currentValue === '' || currentValue === '-') {
+        console.log('CURRENT VALUE ENTERs', currentValue);
+        setCost((prev: any) => {
+          const newCost = {...prev};
+          const current_business_name = item.business_name;
+          const current_code_cost_type_id = item.code_cost_type_id;
+          const indexOfValue = newCost.amounts.findIndex((itemAmount: any) => itemAmount.business_name === current_business_name && itemAmount.code_cost_type_id === current_code_cost_type_id);
+          newCost.amounts[indexOfValue].values[key] = inputValue ? (+currentValue) : null;
+          updateMhfdBasedOnOthers(newCost.amounts, key);
+          return newCost;
+        });
+      }else{
+        // setCost((prev: any) => {
+        //   const newCost = {...prev};
+        //   const current_business_name = item.business_name;
+        //   const current_code_cost_type_id = item.code_cost_type_id;
+        //   const indexOfValue = newCost.amounts.findIndex((itemAmount: any) => itemAmount.business_name === current_business_name && itemAmount.code_cost_type_id === current_code_cost_type_id);
+        //   newCost.amounts[indexOfValue].values[key] = 0 ;
+        //   updateMhfdBasedOnOthers(newCost.amounts, key);
+        //   return newCost;
+        // });
+        return;
+      }
     }
 
   function convertObjectToArrays(input: any, year: number) {
@@ -320,6 +341,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         res.columnsChanged.forEach((columnNumber: number) => {
           loadOneColumn(columnNumber);
         });
+        openNotification('Success! Your project was saved!', "success");
       })
         .catch((err: any) => {
           console.log(err);
@@ -388,7 +410,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         </Col>
         <Col>
           <p>Estimated Cost</p>
-          <h1>{formatter.format(requestFunding)}</h1>
+          <h1>{formatter.format(estimatedCostFromDB)}</h1>
         </Col>
       </Row>
       <Col className="edit-amount-modal-body">
@@ -538,7 +560,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
                   const conditionPriorFunding = amount.key === priorFundingString ? true : false;
                   return (
                     amount.show && <Row className='rowInputContainer'>
-                      <Input disabled={conditionUnableInputs || conditionPriorFunding || isApprovedWR} prefix="$" value={item.values[amount.key]?.toLocaleString('en-US')} onChange={(event:any) => handleChange(event, item, amount.key)} />
+                      <Input disabled={conditionUnableInputs || conditionPriorFunding || isApprovedWR} prefix="$" value={item.values[amount.key] ? item.values[amount.key]?.toLocaleString('en-US') : null } onChange={(event:any) => handleChange(event, item, amount.key)} />
                     </Row>
                   )
                 })}
