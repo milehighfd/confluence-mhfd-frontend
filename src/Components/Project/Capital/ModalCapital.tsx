@@ -1353,6 +1353,7 @@ export const ModalCapital = ({
           {(activeTabBodyProject === 'Discussion' && swSave) &&
           <DiscussionCreateProject
             project_id = {projectid}
+            sponsor = {sponsor}
           />}
           {activeTabBodyProject === 'Activity' &&
           <ActivitiCreateProject/>}
