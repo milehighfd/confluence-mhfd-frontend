@@ -4,6 +4,7 @@ import { useProfileState } from "hook/profileHook";
 import { useProjectDispatch, useProjectState } from "hook/projectHook";
 import moment from "moment";
 import React, { useEffect, useState } from "react"
+import DiscussionTextBox from "./DiscussionTextBox";
 
 interface DiscussionCreateProjectProps {
   project_id: number;
@@ -86,24 +87,11 @@ export const DiscussionCreateProject = (
                     <div className='user-information'>
                       {`${item?.user?.firstName} ${item?.user?.lastName}`} <span className="user-date">{convertTimestampWithMoment(item?.created_date)}</span>
                     </div>
-                    <div className='discution'>
-                      <TextArea readOnly value={item?.message} autoSize></TextArea>
-                    </div>
-                    {isAdminOrStaff && 
-                      <div style={{display: 'flex'}} >
-                        <p
-                          className='delete-edit-comment'
-                        >
-                          Edit
-                        </p>
-                        <p
-                          className='delete-edit-comment'
-                          onClick={(e) => deleteMessage(item?.project_discussion_thread_id)}
-                        >
-                          Delete
-                        </p>
-                    </div>
-                      }
+                    <DiscussionTextBox 
+                      id={item?.project_discussion_thread_id} 
+                      message={item?.message}
+                      deleteMessage={deleteMessage}
+                      isAdminOrStaff={isAdminOrStaff}/>
                   </div>
                 </div>
               </div>

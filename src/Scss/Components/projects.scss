@@ -1069,6 +1069,17 @@
               margin: 0px 3px;
             }
           }
+          .discution-on-edit{
+            border: 2px solid $purple;
+          }
+          .button-discussion-on-edit{
+            padding: 5px;
+            display: flex;
+            button{
+              padding: 4px 15px;
+              margin-left: 5px;
+            }
+          }
         }
       }
     }
@@ -1551,6 +1562,11 @@
           .discution-user{
             .user-information{
               font-size: 20px;
+            }
+            .button-discussion-on-edit{
+              button{
+                height: auto;
+              }
             }
           }
         }
