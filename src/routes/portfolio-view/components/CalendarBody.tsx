@@ -93,91 +93,92 @@ const CalendarBody = ({
     switch (value) {
       case 'heigthOfHeaderAxis':
         return (windowWidth >= 3001 && windowWidth <= 3999 ? 60:
-          (windowWidth >= 2550 && windowWidth <= 3000 ? 70 :
+          (windowWidth >= 2540 && windowWidth <= 3000 ? 70 :
             (windowWidth >= 1450 && windowWidth <= 1500 ? 93.06 :
               (windowWidth >= 1501 && windowWidth <= 2000 ? 50 :
-                (windowWidth >= 2001 && windowWidth <= 2549 ? 100 :
+                (windowWidth >= 2001 && windowWidth <= 2539 ? 100 :
                   (windowWidth >= 1199 && windowWidth <= 1449 ? 50 : 79))))))
       case 'separationHeaderAxisYear':
         return (windowWidth >= 3001 && windowWidth <= 3999 ? 3 : 
-          (windowWidth >= 2550 && windowWidth <= 3000 ? 6 : 0))
+          (windowWidth >= 2540 && windowWidth <= 3000 ? 6 : 0))
       case 'separationHeaderAxisMonth':
         return (windowWidth >= 3001 && windowWidth <= 3999 ? 10 : 
-          (windowWidth >= 2550 && windowWidth <= 3000 ? 13 : 0))
+          (windowWidth >= 2540 && windowWidth <= 3000 ? 13 : 0))
       case 'separationHeaderAxisInFunction':
-        return (windowWidth >= 2550 && windowWidth <= 3000 ? 25 : 20)
+        return (windowWidth >= 2540 && windowWidth <= 3000 ? 25 : 20)
       case 'marginTopFactor':
         return (windowWidth >= 3001 && windowWidth <= 3999 ? '-55px' : 
-          (windowWidth >= 2550 && windowWidth <= 3000 ? '-45px' : 
+          (windowWidth >= 2540 && windowWidth <= 3000 ? '-45px' : 
             (windowWidth >= 1450 && windowWidth <= 2000 ? '-40px' : 
-              (windowWidth >= 2001 && windowWidth <= 2549 ? '-28px' : '-45px'))))
+              (windowWidth >= 2001 && windowWidth <= 2539 ? '-28px' : '-45px'))))
       case 'barHeightDefault': 
         return (windowWidth >= 3001 && windowWidth <= 3999 ? 42 : 
-          (windowWidth >= 2550 && windowWidth <= 3000 ? 40 : 
-            (windowWidth >= 2001 && windowWidth <= 2549 ? 36 : 
+          (windowWidth >= 2540 && windowWidth <= 3000 ? 40 : 
+            (windowWidth >= 2001 && windowWidth <= 2539 ? 36 : 
               (windowWidth >= 1450 && windowWidth <= 2000 ? 30 : 15))))
       case 'screenOffset':
         return (windowWidth >= 3001 && windowWidth <= 3999 ? 24 : 
-          (windowWidth >= 2550 && windowWidth <= 3000 ? 12 : 
-            (windowWidth >= 2001 && windowWidth <= 2549 ? 64 : 
+          (windowWidth >= 2540 && windowWidth <= 3000 ? 12 : 
+            (windowWidth >= 2001 && windowWidth <= 2539 ? 64 : 
               (windowWidth >= 1450 && windowWidth <= 2000 ? 6 : 5))))
       case 'xAddButtonRect':
         return (windowWidth >= 3001 && windowWidth <= 3999 ? 28 : 
-          (windowWidth >= 2001 && windowWidth <= 2549 ? 25 : 
-            (windowWidth >= 2550 && windowWidth <= 3000 ? 25 : 
+          (windowWidth >= 2001 && windowWidth <= 2539 ? 25 : 
+            (windowWidth >= 2540 && windowWidth <= 3000 ? 25 : 
               (windowWidth >= 1450 && windowWidth <= 2000 ? 18 : 16))))
       case 'widthAddButtonRect':
         return (windowWidth >= 3001 && windowWidth <= 3999 ? 190 : 
-          (windowWidth >= 2001 && windowWidth <= 2549 ? 130 : 
-            (windowWidth >= 2550 && windowWidth <= 3000 ? 140 : 
+          (windowWidth >= 2001 && windowWidth <= 2539 ? 130 : 
+            (windowWidth >= 2540 && windowWidth <= 3000 ? 140 : 
               (windowWidth >= 1450 && windowWidth <= 2000 ? 120 : 100))))
       case 'yAddButtonRect':
         return (windowWidth >= 3001 && windowWidth <= 3999 ? 12 : 
-          (windowWidth >= 2001 && windowWidth <= 2549 ? 11 : 
-            (windowWidth >= 2550 && windowWidth <= 3000 ? 12 : 
+          (windowWidth >= 2001 && windowWidth <= 2539 ? 11 : 
+            (windowWidth >= 2540 && windowWidth <= 3000 ? 12 : 
               (windowWidth >= 1450 && windowWidth <= 2000 ? 9 : 2))));
       case 'heightAddButtonRect':
         return (windowWidth >= 3001 && windowWidth <= 3999 ? 45 : 
-          (windowWidth >= 2001 && windowWidth <= 2549 ? 36 : 
-            (windowWidth >= 2550 && windowWidth <= 3000 ? 38 : 
+          (windowWidth >= 2001 && windowWidth <= 2539 ? 36 : 
+            (windowWidth >= 2540 && windowWidth <= 3000 ? 38 : 
               (windowWidth >= 1450 && windowWidth <= 2000 ? 30 : 25))))
       case 'xAddButtonText':
         return (windowWidth >= 3001 && windowWidth <= 3999 ? 55 : 
-          (windowWidth >= 2001 && windowWidth <= 2549 ? 50 : 
-            (windowWidth >= 2550 && windowWidth <= 3000 ? 45 : 35)))
+          (windowWidth >= 2001 && windowWidth <= 2539 ? 50 : 
+            (windowWidth >= 2540 && windowWidth <= 3000 ? 45 : 35)))
       case 'yAddButtonText':
         return (windowWidth >= 3001 && windowWidth <= 3999 ? 46 : 
-          (windowWidth >= 2001 && windowWidth <= 2549 ? 45 : 
-            (windowWidth >= 2550 && windowWidth <= 3000 ? 37 : 
+          (windowWidth >= 2001 && windowWidth <= 2539 ? 45 : 
+            (windowWidth >= 2540 && windowWidth <= 3000 ? 37 : 
               (windowWidth >= 1450 && windowWidth <= 2000 ? 30 : 18))))
       case 'fontSizeAddButtonText':
         return (windowWidth >= 3001 && windowWidth <= 3999 ? 26 : 
-          (windowWidth >= 2001 && windowWidth <= 2549 ? 23 : 
-            (windowWidth >= 2550 && windowWidth <= 3000 ? 21 : 
+          (windowWidth >= 2001 && windowWidth <= 2539 ? 23 : 
+            (windowWidth >= 2540 && windowWidth <= 3000 ? 21 : 
               (windowWidth >= 1450 && windowWidth <= 2000 ? 18 : 13))))
       case 'yearOffset':
-        return (windowWidth >= 2550 && windowWidth <= 3999 ? 15 : 
-            (windowWidth >= 2001 && windowWidth <= 2549 ? 17 : 
+        return (windowWidth >= 2540 && windowWidth <= 3999 ? 15 : 
+            (windowWidth >= 2001 && windowWidth <= 2539 ? 17 : 
               (windowWidth >= 1450 && windowWidth <= 2000 ? 16 : 15)))
       case 'factorTranslateMonthly':
         return (windowWidth >= 3001 && windowWidth <= 3999 ? -527 : 
           (windowWidth >= 2550 && windowWidth <= 3000 ? -358 : 
-            (windowWidth >= 2001 && windowWidth <= 2549 ? -300 : 
-              (windowWidth >= 1450 && windowWidth <= 2000 ? -265 : -196))))
+            (windowWidth >= 2540 && windowWidth <= 2549 ? -355 :
+             (windowWidth >= 2001 && windowWidth <= 2539 ? -300 : 
+              (windowWidth >= 1450 && windowWidth <= 2000 ? -265 : -196)))))
       case 'factorTranslateDaily':
         return (windowWidth >= 3001 && windowWidth <= 3999 ? -230 : 
-          (windowWidth >= 2550 && windowWidth <= 3000 ? -157 : 
-            (windowWidth >= 2001 && windowWidth <= 2549 ? -229 : 
+          (windowWidth >= 2540 && windowWidth <= 3000 ? -157 : 
+            (windowWidth >= 2001 && windowWidth <= 2539 ? -229 : 
               (windowWidth >= 1450 && windowWidth <= 2000 ? -116 : -85))))
       case 'factorToShowTodaylineDaily':
         return (windowWidth >= 3001 && windowWidth <= 3999 ? 1500 : 
-          (windowWidth >= 2550 && windowWidth <= 3000 ? 1000 : 
-            (windowWidth >= 2001 && windowWidth <= 2549 ? -229 : 
+          (windowWidth >= 2540 && windowWidth <= 3000 ? 1000 : 
+            (windowWidth >= 2001 && windowWidth <= 2539 ? -229 : 
               (windowWidth >= 1450 && windowWidth <= 2000 ? 800 : 500))))
       case 'factorToShowTodaylineMonthly':
         return (windowWidth >= 3001 && windowWidth <= 3999 ? 1500 : 
-          (windowWidth >= 2550 && windowWidth <= 3000 ? 1000 : 
-            (windowWidth >= 2001 && windowWidth <= 2549 ? -229 : 
+          (windowWidth >= 2540 && windowWidth <= 3000 ? 1000 : 
+            (windowWidth >= 2001 && windowWidth <= 2539 ? -229 : 
               (windowWidth >= 1450 && windowWidth <= 2000 ? 800 : 600))))
     }
   }
@@ -1239,6 +1240,14 @@ const CalendarBody = ({
     setZoomTimelineAux(zoomTimeline)
     const svg = d3.select(svgDivWrapperId).select('svg');
     const svgAx = d3.select(svgAxisDivWrapperId).select('svg');
+    let todayLineDiv: any = document.getElementById('todayLineDiv')
+    var styleDiv = window.getComputedStyle(todayLineDiv);
+    var matrix = new WebKitCSSMatrix(styleDiv.transform);
+
+    let factorTranslateMonthly = valuesForResolutions('factorTranslateMonthly');
+    let factorTranslateDaily = valuesForResolutions('factorTranslateDaily');
+    let factorToShowTodaylineDaily:any = valuesForResolutions('factorToShowTodaylineDaily');
+    let factorToShowTodaylineMonthly:any = valuesForResolutions('factorToShowTodaylineMonthly');
     if (!svg.empty()) {
       let viewBox = svg.attr('viewBox');
       let viewBoxAx = svgAx.attr('viewBox');
@@ -1248,20 +1257,16 @@ const CalendarBody = ({
       svgAx.attr('viewBox', `${zoomTimeline} ${initYax} ${boxWidthax} ${boxHeightax}`);
       d3.selectAll('#buttonText').attr('transform', 'translate(' + zoomTimeline + ',0)')
       d3.selectAll('#buttonRect').attr('transform', 'translate(' + zoomTimeline + ',0)')
-      let todayLineDiv: any = document.getElementById('todayLineDiv')
-      var styleDiv = window.getComputedStyle(todayLineDiv);
-      var matrix = new WebKitCSSMatrix(styleDiv.transform);
-
-      let factorTranslateMonthly = valuesForResolutions('factorTranslateMonthly');
-      let factorTranslateDaily = valuesForResolutions('factorTranslateDaily');
-      let factorToShowTodaylineDaily:any = valuesForResolutions('factorToShowTodaylineDaily');
-      let factorToShowTodaylineMonthly:any = valuesForResolutions('factorToShowTodaylineMonthly');
 
       let translateYTodayline = (currentZScale===0.9 ? factorTranslateDaily :factorTranslateMonthly) + (currentZScale===0.9 ? zoomTimeline >= factorToShowTodaylineDaily ? 3000 : zoomTimeline  : factorToShowTodaylineMonthly <= zoomTimeline ? 3000 : zoomTimeline)
       d3.select('.dashed-line').attr('style', `transform: rotate(90deg) translate(${matrix.m42}px,${translateYTodayline}px)`)
     }
     setIsLoading(false)
-  }, [zoomTimeline]);
+    if(zoomTimeline === 0 && windowWidth > 2540 && windowWidth < 2555){
+      let translateYTodayline = (currentZScale===0.9 ? factorTranslateDaily :factorTranslateMonthly) + (currentZScale===0.9 ? zoomTimeline >= factorToShowTodaylineDaily ? 3000 : zoomTimeline  : factorToShowTodaylineMonthly <= zoomTimeline ? 3000 : zoomTimeline)
+      d3.select('.dashed-line').attr('style', `transform: rotate(90deg) translate(${matrix.m42}px,${translateYTodayline}px)`)
+    }
+  }, [zoomTimeline ]);
 
   useEffect(() => {
     setIsLoading(true)
