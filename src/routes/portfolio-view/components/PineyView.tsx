@@ -555,7 +555,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
                   style={{ display: 'flex', alignItems: 'center' }}
                 >
                   <TextArea
-                    autoSize={{ minRows: 1, maxRows: 6 }}
+                    autoSize
                     value={inputValues[index]}
                     placeholder="New Checklist Item"
                     onChange={(e) => {
