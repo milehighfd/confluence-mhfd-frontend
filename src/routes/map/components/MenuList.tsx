@@ -55,16 +55,16 @@ export const MenuList = ({menu, popups, index, showPopup, ids} : {menu: any, pop
         popup.projecctype.includes(NEW_PROJECT_TYPES.Maintenance) ||
         popup.projecctype.includes('Capital') ||
         popup.projecctype === 'Fee in Lieu'):
-      iconLocation = '/Icons/icon_restoration.png';
+      iconLocation = '/Icons/ic_projects_maintenance.png';
       break;
-    case menu === 'Project' && popup.projecctype !== undefined && popup.name.includes('FHAD'):
-      iconLocation = '/Icons/icon_fhad.png';
+    case menu === 'Project' && popup.projecctype !== undefined && popup.code_project_type === 18:
+      iconLocation = '/Icons/ic_projects_studies_fhad.png';
       break;
-    case menu === 'Project' && popup.projecctype !== undefined && popup.projecctype.includes('Study'):
-      iconLocation = '/Icons/icon_master_plan.png';
+    case menu === 'Project' && popup.projecctype !== undefined && popup.code_project_type === 1:
+      iconLocation = '/Icons/ic_projects_studies_mdp.png';
       break;
     case menu === 'Project' && popup.projecctype !== undefined && popup.projecctype.includes('CIP'):
-      iconLocation = '/Icons/icon_capital.png';
+      iconLocation = '/Icons/ic_projects_capital.png';
       break;
     case menu === 'Project' && popup.projecctype !== undefined && popup.projecctype.includes('R & D'):
       iconLocation = '/Icons/ic_rdallprojects.png';

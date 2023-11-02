@@ -50,9 +50,9 @@ const useInitializeApp = () => {
   useEffect(() => {
     if (!isLatestVersion && !shownRef.current) {
       shownRef.current = true;
-      if (window.confirm("There is a new version available, update?")) {
+      // if (window.confirm("There is a new version available, update?")) {
         emptyCacheStorage();
-      }
+      // }
     }
   }, [emptyCacheStorage, isLatestVersion]);
 };
