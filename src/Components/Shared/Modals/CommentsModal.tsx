@@ -7,6 +7,7 @@ import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import moment from 'moment';
 import { useProfileState } from 'hook/profileHook';
 import TextArea from 'antd/lib/input/TextArea';
+import DiscussionTextBox from 'Components/Project/TypeProjectComponents/DiscussionTextBox';
 
 const CommentsModal = () => {
   const [projectChat, setProjectChat] = useState<any>([]);
@@ -75,24 +76,11 @@ const CommentsModal = () => {
                   <p className='comment-date'>{convertTimestampWithMoment(item?.created_date)}</p>
                 </div>
               </div >
-              <div className='content-comment'>
-                <TextArea className='text-comment' value={item?.message} readOnly autoSize />
-              </div>
-              {isAdminOrStaff && 
-                <div style={{display: 'flex'}} >
-                  <p
-                    className='delete-edit-comment'
-                  >
-                    Edit
-                  </p>
-                  <p
-                    className='delete-edit-comment'
-                    onClick={(e) => deleteMessage(item?.project_discussion_thread_id)}
-                  >
-                    Delete
-                  </p>
-              </div>
-                }
+              <DiscussionTextBox 
+                  id={item?.project_discussion_thread_id} 
+                  message={item?.message}
+                  deleteMessage={deleteMessage}
+                  isAdminOrStaff={isAdminOrStaff}/>
             </div>)
         })
       }

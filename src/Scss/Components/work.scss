@@ -1671,6 +1671,48 @@
       margin: 0px 4px;
     }
   }
+  .discution {
+    border-radius: 16px;
+    background: #f5f7ff;
+    padding: 12px;
+    margin-top: 10px;
+    color: #11093c;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    textarea {
+      color: #84809e;
+      border: none;
+      background: transparent;
+      resize: none;
+    }
+    .tag-name-user {
+      border-radius: 25px;
+      background: #fcfdff;
+      color: #635e80;
+      // opacity: 0.65;
+      margin-right: 4px;
+      padding: 3px 8px;
+    }
+    .tag-ref-user {
+      background: #5e63e4;
+      color: white;
+      padding: 2.5px 8px;
+      border-radius: 9px;
+      margin: 0px 3px;
+    }
+  }
+  .discution-on-edit{
+    border: 2px solid $purple;
+  }
+  .button-discussion-on-edit{
+    padding: 5px;
+    display: flex;
+    button{
+      padding: 4px 15px;
+      margin-left: 5px;
+    }
+  }
 }
 .chat-00 {
   width: 100%;
@@ -3074,6 +3116,13 @@
     }
   }
   .chat-r {
+    .button-discussion-on-edit{
+      button{
+        span{
+          margin-left: 0px !important;
+        }
+      }
+    }
     h6 {
       font-size: 24px !important;
       margin-left: 20px !important;
