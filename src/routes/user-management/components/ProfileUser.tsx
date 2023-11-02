@@ -469,6 +469,12 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUs
       city: city,
       zip: zip,
     };
+    if (designation === 'other'){
+      updateUserData(newUser, record);
+      setSaveAlert(false)
+      setSaveValidation(false);
+      return;
+    }
     if (city && state && zip && addressLine1 && createFullName && createMail) {
       if (createAdress && !createContact) {
         datasets.postData(SERVER.UPDATE_ADDRESS + '/' + contactId, {
@@ -542,8 +548,8 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUs
   }
 
   const updateUserData = (newUser: any, res: any) => {
-    datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(resUser => { 
-      handleSuccess(res);
+    datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, { ...newUser }, datasets.getToken()).then(resUser => {
+      handleSuccess(resUser);
     })
   }
 

@@ -14,6 +14,7 @@ import CalendarViewPag from 'routes/portfolio-view/components/CalendarViewPag';
 import { usePortflioState, usePortfolioDispatch } from 'hook/portfolioHook';
 import { handleAbortError } from 'store/actions/mapActions';
 import { useProfileState } from 'hook/profileHook';
+import { useProjectState } from 'hook/projectHook';
 
 const { TabPane } = Tabs;
 let isInit = true;
@@ -40,6 +41,9 @@ const PortafolioBody = () => {
     searchWord, graphicOpen
   } = usePortflioState();
   const { setFavorites, getListPMTools, setOpenGroups, getActionsDone, getCreatedActions } = usePortfolioDispatch();
+  const {
+    globalSearch
+  } = useProjectState();
   const { openModalTollgate: visible, } = usePortflioState();
   const [filterby, setFilterby] = useState('');
   const [filterValue, setFilterValue] = useState(-1);
@@ -92,6 +96,12 @@ const PortafolioBody = () => {
     setFilterProjectOptions(filterProjectOptions)
     setUpdateFilter(filterProjectOptions);    
   }, []);
+
+  useEffect(() => {
+    if (globalSearch){
+      setTabKey('All')
+    }
+  }, [globalSearch]);
 
   const menu = (
     <FilterByGroupName 
