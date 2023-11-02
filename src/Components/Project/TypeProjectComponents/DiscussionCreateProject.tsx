@@ -88,12 +88,21 @@ export const DiscussionCreateProject = (
                     <div className='discution'>
                       <p>{item?.message}</p>
                     </div>
-                    {isAdminOrStaff && <div
-                      className="delete-edit-comment"
-                      onClick={(e) => deleteMessage(item?.project_discussion_thread_id)}
-                    >
-                      Delete
-                    </div>}
+                    {isAdminOrStaff && 
+                      <div style={{display: 'flex'}} >
+                        <p
+                          className='delete-edit-comment'
+                        >
+                          Edit
+                        </p>
+                        <p
+                          className='delete-edit-comment'
+                          onClick={(e) => deleteMessage(item?.project_discussion_thread_id)}
+                        >
+                          Delete
+                        </p>
+                    </div>
+                      }
                   </div>
                 </div>
               </div>

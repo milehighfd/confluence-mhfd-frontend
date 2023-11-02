@@ -77,12 +77,21 @@ const CommentsModal = () => {
               <div className='content-comment'>
                 <p className='text-comment'>{item?.message}</p>
               </div>
-              {isAdminOrStaff && <p
-                className='delete-edit-comment'
-                onClick={(e) => deleteMessage(item?.project_discussion_thread_id)}
-              >
-                Delete
-              </p>}
+              {isAdminOrStaff && 
+                <div style={{display: 'flex'}} >
+                  <p
+                    className='delete-edit-comment'
+                  >
+                    Edit
+                  </p>
+                  <p
+                    className='delete-edit-comment'
+                    onClick={(e) => deleteMessage(item?.project_discussion_thread_id)}
+                  >
+                    Delete
+                  </p>
+              </div>
+                }
             </div>)
         })
       }

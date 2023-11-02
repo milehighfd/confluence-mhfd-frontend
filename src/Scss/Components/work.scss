@@ -1625,6 +1625,13 @@
     font-weight: 300;
     opacity: 0.5;
     font-size: 12px;
+    padding-top: 8px;
+    margin-right: 5px;
+    margin-left: 5px;
+    &:hover{
+      cursor: pointer;
+      border-bottom: 1px solid $purple;
+    }
   }
   .content-comment {
     border-radius: 16px;
