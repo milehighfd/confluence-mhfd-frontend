@@ -212,7 +212,6 @@ const TableBody = ({
     ).then((res: any) => {
       setDataBody(res);
       if (globalSearch){
-        setGlobalSearch(false);
         setGlobalId(globalProjectData?.project_id);
       }      
     }).catch(handleAbortError);
@@ -226,18 +225,19 @@ const TableBody = ({
       setActiveBorder(true);
       setTimeout(() => {
         setActiveBorder(false);
-        setGlobalSearch(false);
       }, 10000);
     }
   },[globalSearch])
-
+  
   useEffect(() => {
-    if (globalId) {
+    const openProjectInList = dataParsed?.filter((d: any) => d.project_id === globalProjectData?.project_id)[0]
+    if (globalId && globalSearch && openProjectInList) {
       const selectedProject = (dataParsed.filter((d: any) => d.project_id === globalProjectData?.project_id)[0])
       setDataDetail(selectedProject)
       setDetailOpen(true);
+      setGlobalSearch(false);
     }
-  }, [globalId])
+  }, [globalId, globalSearch, dataParsed])
 
   useEffect(() => {
     if (page != 1 && !globalSearch) {
@@ -282,7 +282,7 @@ const TableBody = ({
   }
 
   return <>
-    {detailOpen && <DetailModal
+    {detailOpen && dataDetail && <DetailModal
       visible={detailOpen}
       setVisible={setDetailOpen}
       data={dataDetail}
