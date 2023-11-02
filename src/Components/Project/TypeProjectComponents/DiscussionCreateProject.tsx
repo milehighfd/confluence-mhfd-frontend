@@ -1,4 +1,5 @@
 import { Button } from "antd"
+import TextArea from "antd/lib/input/TextArea";
 import { useProfileState } from "hook/profileHook";
 import { useProjectDispatch, useProjectState } from "hook/projectHook";
 import moment from "moment";
@@ -64,7 +65,7 @@ export const DiscussionCreateProject = (
                 : <div className="user-item">{(userInformation?.firstName?.charAt(0) || '') + (userInformation?.lastName?.charAt(0) || '')}</div>
             }
             <div className="input-discussion-sec">
-              <input value={message} placeholder="Write a comment..." onChange={(e) => setMessage(e.target.value)} />
+              <TextArea  value={message} placeholder="Write a comment..." onChange={(e) => setMessage(e.target.value)} autoSize />
               <Button className="btn-purple" onClick={(e) => handleAddMessage(message)}>
                 <img src='/Icons/ic-send-white.svg' alt='' className='icon-send' /> Send
               </Button>
@@ -86,7 +87,7 @@ export const DiscussionCreateProject = (
                       {`${item?.user?.firstName} ${item?.user?.lastName}`} <span className="user-date">{convertTimestampWithMoment(item?.created_date)}</span>
                     </div>
                     <div className='discution'>
-                      <p>{item?.message}</p>
+                      <TextArea readOnly value={item?.message} autoSize></TextArea>
                     </div>
                     {isAdminOrStaff && 
                       <div style={{display: 'flex'}} >

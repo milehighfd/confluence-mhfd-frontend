@@ -6,6 +6,7 @@ import { useDetailedState } from "hook/detailedHook";
 import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import moment from 'moment';
 import { useProfileState } from 'hook/profileHook';
+import TextArea from 'antd/lib/input/TextArea';
 
 const CommentsModal = () => {
   const [projectChat, setProjectChat] = useState<any>([]);
@@ -49,11 +50,11 @@ const CommentsModal = () => {
   return <>
     <div className='body-team-comment'>
       {canAddDiscussion && <div className="input-comment-sec">
-        <input
-          type="text"
+        <TextArea
           placeholder="Write a comment..."
           className="input-comment"
           onChange={(e) => setMessage(e.target.value)}
+          autoSize
         />
         <Button className="btn-purple" onClick={(e) => handleAddMessage(message)} >
           <img src='/Icons/ic-send-white.svg' alt='' className='icon-send' /> Send
@@ -75,7 +76,7 @@ const CommentsModal = () => {
                 </div>
               </div >
               <div className='content-comment'>
-                <p className='text-comment'>{item?.message}</p>
+                <TextArea className='text-comment' value={item?.message} readOnly autoSize />
               </div>
               {isAdminOrStaff && 
                 <div style={{display: 'flex'}} >

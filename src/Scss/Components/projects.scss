@@ -979,10 +979,14 @@
           display: flex;
           align-items: center;
           width: -webkit-fill-available;
-          input {
+          textarea {
             background: #f5f7ff;
             border: none;
             width: -webkit-fill-available;
+            resize: none;
+            &:focus{
+              min-height: 108px;
+            }
           }
           .btn-purple{
             color: white !important;
@@ -1043,8 +1047,11 @@
             font-size: 14px;
             font-style: normal;
             font-weight: 400;
-            p {
+            textarea {
               color: #84809e;
+              border: none;
+              background: transparent;
+              resize: none;
             }
             .tag-name-user {
               border-radius: 25px;
