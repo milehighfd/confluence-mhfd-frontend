@@ -253,9 +253,14 @@ const NavbarView = ({
           } else {
             setSearchGlobalData(
               data.projects?.map((item: any) => {
+                const boardName = type === WORK_PLAN_TAB ? 'MHFD' : item?.partner?.business_associate?.business_name
+                let sponsor = '';
+                if (item?.board?.year < 2024 && type === WORK_PLAN_TAB && item?.board?.locality !== 'MHFD District Work Plan') {
+                  sponsor = item?.board?.locality;
+                }
                 return {
                   name: item?.project_name,
-                  type: `${item?.board?.year} ${item?.partner?.business_associate?.business_name} · ${item?.board?.projecttype}`,
+                  type: `${item?.board?.year} ${boardName} · ${item?.board?.projecttype} ${sponsor ? `(${sponsor})` : ''}`,
                   state: item?.code_status_type?.status_name,
                   id: item?.project_id,
                   year: item?.board?.year,
