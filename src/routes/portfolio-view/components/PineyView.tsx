@@ -280,7 +280,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
       last_modified_date: formatTime,
       completed_date: formatTime,
       created_date: formatTime
-    }).then((e) => { 
+    }, datasets.getToken()).then((e) => { 
       actionInProgressRef.current = false;
       updateGraph(false)
       updatePopUpCalendar(false)
@@ -293,7 +293,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
     datasets.deleteDataWithBody(`${SERVER.PROJECT_ACTION_ITEM}`, {
       code_rule_action_item_id: item.code_rule_action_item_id,
       project_id: data.project_id
-    }).then((e) => { 
+    }, datasets.getToken()).then((e) => { 
       actionInProgressRef.current = false;
       updateGraph(true)
       updatePopUpCalendar(true)
