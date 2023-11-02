@@ -368,6 +368,7 @@ export const addPopupsOnClick = async (
           jurisdiction: getJurisdictions(dataFromDB.project_local_governments),
           value: estimatedcost ? estimatedcost : componentcost ? componentcost : 0,
           projecctype: dataFromDB?.code_project_type?.project_type_name,
+          code_project_type: dataFromDB?.code_project_type?.code_project_type_id,
           status: getCurrentProjectStatus(dataFromDB)?.code_phase_type?.code_status_type?.status_name,
           objectid: dataFromDB?.codeStateCounty?.objectid,
           // TODO component_count
