@@ -99,11 +99,13 @@ const NavBarSearchTooltipItem = ({
                   search: `?year=${card?.year}&locality=${card?.locality}&tabKey=${projectType}`,
                 });
               } else {
-                resetFilterProjectOptionsEmpty();
-                setGlobalSearch(true)
+                resetFilterProjectOptionsEmpty();   
+                setTabActiveNavbar('List')             
                 setGlobalStatusId(card?.status || 0);
                 setGlobalProjectId(card?.id || 0);
+                setProjectData({project_id: card?.id || 0});
                 setActiveSearch(false);
+                setGlobalSearch(true)
                 if (userInformation.designation === 'admin' ||
                 userInformation.designation === 'staff' || disabledLG){
                   history.push({
