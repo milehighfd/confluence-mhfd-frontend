@@ -87,11 +87,15 @@ export const DiscussionCreateProject = (
                     <div className='user-information'>
                       {`${item?.user?.firstName} ${item?.user?.lastName}`} <span className="user-date">{convertTimestampWithMoment(item?.created_date)}</span>
                     </div>
-                    <DiscussionTextBox 
-                      id={item?.project_discussion_thread_id} 
+                    <DiscussionTextBox
+                      id={item?.project_discussion_thread_id}
                       message={item?.message}
                       deleteMessage={deleteMessage}
-                      isAdminOrStaff={isAdminOrStaff}/>
+                      isAdminOrStaff={isAdminOrStaff}
+                      user={item?.user}
+                      origin='create'
+                      project_id={project_id}
+                    />
                   </div>
                 </div>
               </div>

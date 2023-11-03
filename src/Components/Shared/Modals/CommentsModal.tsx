@@ -45,7 +45,7 @@ const CommentsModal = () => {
 
   function deleteMessage(message_id: number) {
     setProjectChat(projectChat.filter((item: any) => item.project_discussion_thread_id !== message_id));
-    deleteDiscussionMessage(detailed.project_id, 'create', message_id);
+    deleteDiscussionMessage(detailed.project_id, 'details', message_id);
   }
 
   return <>
@@ -76,11 +76,15 @@ const CommentsModal = () => {
                   <p className='comment-date'>{convertTimestampWithMoment(item?.created_date)}</p>
                 </div>
               </div >
-              <DiscussionTextBox 
-                  id={item?.project_discussion_thread_id} 
-                  message={item?.message}
-                  deleteMessage={deleteMessage}
-                  isAdminOrStaff={isAdminOrStaff}/>
+              <DiscussionTextBox
+                id={item?.project_discussion_thread_id}
+                message={item?.message}
+                deleteMessage={deleteMessage}
+                isAdminOrStaff={isAdminOrStaff}
+                user={item?.user}
+                origin='details'
+                project_id={detailed.project_id}
+              />
             </div>)
         })
       }
