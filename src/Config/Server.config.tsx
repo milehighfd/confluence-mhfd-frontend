@@ -296,6 +296,7 @@ export const SERVER = (function () {
         UPDATE_APPROVED_BOARD: `${URL_BASE.BASE}/${BOARD}/update-boards-approved`,
         BUDGET_BOARD_TABLE: `${URL_BASE.BASE}/${BUDGET_BOARD}`,
         DISCUSSION : `${URL_BASE.BASE}/${DISCUSSION}`,
+        EDIT_DISCUSSION: `${URL_BASE.BASE}/${DISCUSSION}/edit-thread`,
         GET_SIGNUP_EMAIL: (token: string) => `${URL_BASE.BASE}/${USER}/${GET_SIGNUP_EMAIL}?token=${token}`,
         GET_LIST_PMTOOLS: (groupname: string) => `${URL_BASE.BASE}/${PMTOOLS}/list?group=${groupname}`,
         GET_COUNT_FOR_PROBLEM: (problemid: string) => `${URL_BASE.BASE}/${GALLERY}/${GET_COUNT_FOR_PROBLEM}/${problemid}`,
