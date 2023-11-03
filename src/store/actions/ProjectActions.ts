@@ -674,6 +674,14 @@ export const resetDiscussion = () => {
   }
 }
 
+export const editDiscussionMessage = (message_id: number, message: string, project_id: number, topic_place: string) => {
+  return (dispatch: Function) => {
+    datasets.postData(SERVER.EDIT_DISCUSSION,{ message_id, message}, datasets.getToken()).then(res => {
+      dispatch(setProjectDiscussion(project_id, topic_place));
+    });
+  }
+}
+
 export const setCompleteCosts = (completeCosts: any) => {
   return (dispatch: Function) => {
     dispatch({type: types.COMPLETE_COSTS, completeCosts});

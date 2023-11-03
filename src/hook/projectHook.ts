@@ -67,7 +67,8 @@ import {
   addDiscussionMessage,
   resetDiscussion,
   deleteDiscussionMessage,
-  setCompleteCosts
+  setCompleteCosts,
+  editDiscussionMessage
 } from '../store/actions/ProjectActions';
 
 export const useProjectState = () => useSelector(
@@ -280,6 +281,9 @@ export const useProjectDispatch = () => {
     },
     setCompleteCosts: (completeCosts: any) => {
       dispatch(setCompleteCosts(completeCosts))
+    },
+    editDiscussionMessage: (message_id: number, message: string, project_id: number, topic_place: string) => {
+      dispatch(editDiscussionMessage(message_id, message, project_id, topic_place))
     }
   };
 };
