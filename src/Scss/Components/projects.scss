@@ -1652,7 +1652,8 @@
           .input-discussion-sec{
             textarea{
               &:focus{
-                padding-bottom: 41px;
+                min-height: 150px;
+                padding-bottom: 65px;
               }
             }
           }
