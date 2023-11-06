@@ -821,56 +821,62 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
 
   useEffect(() => {
     let mask;
-    if (groupOrganization[0] && map.loaded()) {
-      let coorMHFD = groupOrganization[0].coordinates.coordinates;
-      const DEPTH = depth(coorMHFD);
-      if (DEPTH == 4) {
-        mask = turf.multiPolygon(coorMHFD);
-      } else {
-        mask = turf.polygon(coorMHFD);
-      }
-      // PREVIOUS SQUARE OF MHFD
-      // let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
-      // LARGER BECAUSE SOME COUNTIES AND SERVICE AREAS ARE BIGGER
-      let misbounds =
-        -111.10771487514684 + ',' + 34.094858978187546 + ',' + -98.58537218284262 + ',' + 45.470609601267824;
-      var arrayBounds = misbounds.split(',');
-      let poly = polyMask(mask, arrayBounds);
-      setOpacityLayer(true);
-      if (map.getLayer('maskInit')) {
-        map.removeLayer('maskInit');
-      }
-      if (map.getSource('maskInit')) {
-        map.getSource('maskInit').setData(poly);
-      } else {
-        map.addSource('maskInit', {
-          type: 'geojson',
-          data: poly,
-        });
-      }
-      if (!map.getLayer('maskInit')) {
-        map.addLayer({
-          id: 'maskInit',
-          source: 'maskInit',
-          type: 'fill',
-          paint: {
-            'fill-color': 'black',
-            'fill-opacity': 0.8,
-          },
-        });
-      }
-      if (!map.getLayer('borderInit')) {
-        map.addLayer({
-          id: 'borderInit',
-          source: 'maskInit',
-          type: 'line',
-          paint: {
-            'line-color': '#28c499',
-            'line-width': 1,
-          },
-        });
-      }
-      map.moveLayer('borderInit');
+    if (groupOrganization[0]) {
+      const [intervalId, promise] = waitingInterval(map);
+      promise.then(() => {
+        let coorMHFD = groupOrganization[0].coordinates.coordinates;
+        const DEPTH = depth(coorMHFD);
+        if (DEPTH == 4) {
+          mask = turf.multiPolygon(coorMHFD);
+        } else {
+          mask = turf.polygon(coorMHFD);
+        }
+        // PREVIOUS SQUARE OF MHFD
+        // let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
+        // LARGER BECAUSE SOME COUNTIES AND SERVICE AREAS ARE BIGGER
+        let misbounds =
+          -111.10771487514684 + ',' + 34.094858978187546 + ',' + -98.58537218284262 + ',' + 45.470609601267824;
+        var arrayBounds = misbounds.split(',');
+        let poly = polyMask(mask, arrayBounds);
+        setOpacityLayer(true);
+        if (map.getLayer('maskInit')) {
+          map.removeLayer('maskInit');
+        }
+        if (map.getSource('maskInit')) {
+          map.getSource('maskInit').setData(poly);
+        } else {
+          map.addSource('maskInit', {
+            type: 'geojson',
+            data: poly,
+          });
+        }
+        if (!map.getLayer('maskInit')) {
+          map.addLayer({
+            id: 'maskInit',
+            source: 'maskInit',
+            type: 'fill',
+            paint: {
+              'fill-color': 'black',
+              'fill-opacity': 0.8,
+            },
+          });
+        }
+        if (!map.getLayer('borderInit')) {
+          map.addLayer({
+            id: 'borderInit',
+            source: 'maskInit',
+            type: 'line',
+            paint: {
+              'line-color': '#28c499',
+              'line-width': 1,
+            },
+          });
+        }
+        map.moveLayer('borderInit');
+      });
+      return () => {
+        clearInterval(intervalId);
+      };
     }
   }, [groupOrganization]);
 

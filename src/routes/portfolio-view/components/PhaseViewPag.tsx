@@ -130,7 +130,7 @@ const PhaseViewPag = ({
                 {
                   availableStatusList.map((item: any, index: number) => (
                     <div className='text-p' key={item[2]} style={index === 0 ? { display: 'flex', width: item[1], border: 'transparent' } : { display: 'flex', width: item[1] }}>
-                      <hr className="hr2" style={{ width: item[1] / 2 - 48 }}></hr>{item[0]}<hr className="hr2" style={{ width: item[1] / 2 - 48 }}></hr>
+                      <hr className="hr2" style={{ width: (item[1]-item[2] <100 ? 0 : item[1] / 2 - 48) }}></hr>{item[0]}<hr className="hr2" style={{ width: (item[1]-item[2] <100 ? 0 : item[1] / 2 - 48) }}></hr>
                     </div>
                   ))
                 }

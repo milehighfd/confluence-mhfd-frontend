@@ -869,6 +869,12 @@ export class MapService {
       if (this.map.getLayer('streams-intersects')) {
         this.map.moveLayer('streams-intersects');
       }
+      if (this.map.getLayer('maskInit')) {
+        this.map.moveLayer('maskInit');
+      }
+      if (this.map.getLayer('borderInit')) {
+        this.map.moveLayer('borderInit');
+      }
       setTimeout(() => {
         if (this.map.getLayer('area_based_mask')) {
           this.map.moveLayer('area_based_mask');
