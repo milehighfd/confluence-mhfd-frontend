@@ -3,7 +3,7 @@ import TextArea from 'antd/lib/input/TextArea'
 import { useDetailedState } from 'hook/detailedHook'
 import { useProfileState } from 'hook/profileHook'
 import { useProjectDispatch } from 'hook/projectHook'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function DiscussionTextBox(props: any) {
   const { message, id, deleteMessage, isAdminOrStaff, origin, project_id, user } = props
@@ -11,6 +11,9 @@ export default function DiscussionTextBox(props: any) {
   const [newMessage, setNewMessage] = useState(message)  
   const { userInformation } = useProfileState();
   const enableEdit = userInformation?.user_id === user?.user_id
+  useEffect(() => {
+    setNewMessage(message)
+  }, [message])
   const { 
     editDiscussionMessage 
   } = useProjectDispatch();
