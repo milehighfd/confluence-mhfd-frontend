@@ -176,11 +176,11 @@ const Financials = ({ projectId }: { projectId: any }) => {
       render: (agreement: any, index: any) => <p className={'table-' + agreement[1]}>{agreement[0]}</p>,
     },
     {
-      title: <p>Amendment</p>,
+      title: <p style={{textAlign:'center'}}>Amendment</p>,
       dataIndex: 'amendment',
       key: 'amendment',
       width: '10%',
-      render: (Amendment: any, index: any) => <p>{Amendment}</p>,
+      render: (Amendment: any, index: any) => <p style={{textAlign:'center'}}>{Amendment}</p>,
     },
     {
       title: <p>Partner</p>,

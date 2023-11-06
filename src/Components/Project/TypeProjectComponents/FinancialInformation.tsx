@@ -4,6 +4,7 @@ import { ExclamationCircleOutlined, InfoCircleOutlined } from '@ant-design/icons
 import {  WINDOW_WIDTH } from 'constants/constants';
 import { useProjectState } from 'hook/projectHook';
 import { log } from 'console';
+import TextArea from 'antd/lib/input/TextArea';
 
 interface Props {
   data:any;
@@ -30,7 +31,6 @@ interface Props {
   open:boolean;
 }
 const { Option } = Select;
-
 export const FinancialInformation = ({
   data,
   formatter,
@@ -60,7 +60,7 @@ export const FinancialInformation = ({
   const [lastmodifiedDate, setLastmodifiedDate] = useState('');
   const [estimatedCostDescription, setEstimatedCostDescription] = useState('');
   const { completeCosts } = useProjectState();
-  const { 
+  const {
     disableFieldsForLG,
     } = useProjectState();
   const timelineItems = [
@@ -74,7 +74,7 @@ export const FinancialInformation = ({
     { label: 'Legal / Administrative', index: 7 },
     { label: 'Contingency', index: 8 },
   ];
-  function renderTimelineItem(label: string, index: number) {    
+  function renderTimelineItem(label: string, index: number) {
     return (
       <Timeline.Item color="purple" key={index}>
         <Row>
@@ -103,7 +103,6 @@ export const FinancialInformation = ({
   const hide = () => {
     setOpen(false);
   };
-  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value: inputValue } = e.target;
     const currentValue = inputValue.replace(/,/g, '');
@@ -114,9 +113,9 @@ export const FinancialInformation = ({
     }
   };
 
-  const handleChangeEstimatedCostDescription = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value: inputValue } = e.target;
-    setEstimatedCostDescription(inputValue);
+  const handleChangeEstimatedCostDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      const { value: inputValue } = e.target;
+      setEstimatedCostDescription(inputValue);
   }
 
   const confirmEstimatecost = () => {
@@ -141,14 +140,11 @@ export const FinancialInformation = ({
       </div >
     </div>
   )
-
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
-
     const month = String(date.getUTCMonth() + 1).padStart(2, "0");
     const day = String(date.getUTCDate()).padStart(2, "0");
     const year = String(date.getUTCFullYear()).substring(2);
-    
     const filteredDate = `${month}/${day}/${year}`;
     return filteredDate;
   }
@@ -158,7 +154,6 @@ export const FinancialInformation = ({
       setEstimatedCostFromDB(estimatedCostFromData ? estimatedCostFromData.cost : 0);
     }
   }, [data]);
-
   useEffect(() => {
     if(completeCosts?.projectData?.currentCost.length !== 0){
       let lastModify = completeCosts?.projectData?.currentCost.filter((e: any) => e.code_cost_type_id === 1)[0]
@@ -167,8 +162,6 @@ export const FinancialInformation = ({
       setLastmodifiedDate(lastModify ? formatDate(lastModify?.last_modified) : '');
     }
   }, [completeCosts]);
-
-
   return (
     <div>
       <div className="sub-title-project">
@@ -181,20 +174,18 @@ export const FinancialInformation = ({
       <hr/>
       <Row className="sub-project">
         <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}>
-          <p className='title-sub-project'>Overhead Cost &nbsp;&nbsp;<Popover content={contentOverheadCost}><InfoCircleOutlined style={{color:'#c5c2d5'}} /></Popover></p>
+          <p className='title-sub-project'>Overhead Cost &nbsp;&nbsp;<Popover content={contentOverheadCost}><InfoCircleOutlined style={{color:'#C5C2D5'}} /></Popover></p>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><p className='title-sub-project'>{formatter.format(getOverheadCost())}</p></Col>
       </Row>
-
       <Timeline className="sub-project" style={{marginTop:'10px'}}>
-        {timelineItems.map(({ label, index }) => renderTimelineItem(label, index))}              
+        {timelineItems.map(({ label, index }) => renderTimelineItem(label, index))}
       </Timeline>
-
         <Row className="sub-project input-width">
           <Col xs={{ span: 20 }} lg={{ span: 18 }} xxl={{ span: 18 }}>
-            <Input className='financial-input' disabled={disableFieldsForLG} placeholder={overheadDescription!==""? overheadDescription  +"": "Include Overhead Cost Description"} onChange={onChangeOverheadDescription} value={overheadDescription}/>
+            <TextArea autoSize={{ minRows: 1, maxRows: 3 }} className='financial-input' disabled={disableFieldsForLG} placeholder={overheadDescription!==""? overheadDescription  +"": "Include Overhead Cost Description"} onChange={onChangeOverheadDescription} value={overheadDescription}/>
           </Col>
         </Row>
         <br/>
@@ -208,13 +199,13 @@ export const FinancialInformation = ({
         </Row>
         <Row className="sub-project input-width">
           <Col xs={{ span: 24 }} lg={{ span: 18}} xxl={{ span: 18 }}>
-            <Input className='financial-input' disabled={disableFieldsForLG} placeholder={additionalDescription!==""? additionalDescription  +"":"Include Cost Description"} onChange={(description) => onChangeAdditionalDescription(description)} value={additionalDescription}/>
+            <TextArea autoSize={{ minRows: 1, maxRows: 3 }}  className='financial-input' disabled={disableFieldsForLG} placeholder={additionalDescription!==""? additionalDescription  +"":"Include Cost Description"} onChange={(description) => { description.target.value.length <= 500 &&onChangeAdditionalDescription(description)}} value={additionalDescription}/>
           </Col>
         </Row>
         <br/>
         <Row className="sub-project">
           <Col xs={{ span: 18 }} lg={{ span: 13 }} xxl={{ span: 13 }}>
-            <p className='title-sub-project recomended-margin'>RECOMMENDED PROJECT BUDGET &nbsp;&nbsp;<Popover content={contentRecommendedBudget}><InfoCircleOutlined style={{color:'#c5c2d5'}} /></Popover></p>
+            <p className='title-sub-project recomended-margin'>RECOMMENDED PROJECT BUDGET &nbsp;&nbsp;<Popover content={contentRecommendedBudget}><InfoCircleOutlined style={{color:'#C5C2D5'}} /></Popover></p>
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 8 }} xxl={{ span: 8 }} className='col-input-badget'>
             <Input className='bold-text input-reverse' disabled={disableFieldsForLG} style={{paddingLeft:'0px'}} placeholder="$0" value={formatter.format(getTotalCost() ? getTotalCost() : 0)}/>
@@ -223,7 +214,7 @@ export const FinancialInformation = ({
         <div className='budget-container'>
           <Row className="sub-project">
             <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 18 }}>
-              <p className='title-sub-project'>ACTUAL PROJECT ESTIMATED COST &nbsp;&nbsp;<Popover content={contentRecommendedBudget}><InfoCircleOutlined style={{color:'#c5c2d5'}} /></Popover></p>
+              <p className='title-sub-project'>ACTUAL PROJECT ESTIMATED COST &nbsp;&nbsp;<Popover content={contentRecommendedBudget}><InfoCircleOutlined style={{color:'#C5C2D5'}} /></Popover></p>
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 6 }}>
               <Input className='budget-input bold-text input-reverse-badget' disabled={disableFieldsForLG} style={{paddingLeft:'0px'}} placeholder="$0" onChange={handleChange} value={estimatedCostFromDB ? estimatedCostFromDB.toLocaleString('en-US') : 0}/>
@@ -231,12 +222,13 @@ export const FinancialInformation = ({
           </Row>
           <Row className="sub-project">
             <Col xs={{ span: 24 }} lg={{ span: 24 }} xxl={{ span: 24 }}>
-              <p>This value represents the most recent cost estimate based on current project conditions. The value displayed may be sourced from OnBase or manually updated in this screen.</p>
+              <p style={{marginBottom: '8px'}}>This value represents the most recent cost estimate based on current project conditions. The value displayed may be sourced from OnBase or manually updated in this screen.</p>
             </Col>
           </Row>
           <Row className="sub-project">
             <Col xs={{ span: 24 }} lg={{ span: 23 }} xxl={{ span: 23 }}>
-              <Input className='financial-input budget-input-color' disabled={disableFieldsForLG} placeholder={estimatedCostDescription!==""? estimatedCostDescription  +"":"Include Cost Description"} onChange={handleChangeEstimatedCostDescription} value={estimatedCostDescription}/>
+              <TextArea autoSize={{ minRows: 1, maxRows: 3 }} className='financial-input budget-input-color' disabled={disableFieldsForLG} placeholder={estimatedCostDescription!==""? estimatedCostDescription  +"":"Include Cost Description"} onChange={handleChangeEstimatedCostDescription} value={estimatedCostDescription}/>
+              {/* <TextArea autoSize={{ minRows: 1, maxRows: 3 }}  className='financial-input budget-input-color' disabled={disableFieldsForLG} placeholder={additionalDescription!==""? additionalDescription  +"":"Include Cost Description"} onChange={(description) => { description.target.value.length <= 500 && onChangeAdditionalDescription(description)}} value={additionalDescription}/> */}
             </Col>
           </Row>
         </div>
@@ -256,5 +248,4 @@ export const FinancialInformation = ({
     </div>
   );
 };
-
 export default FinancialInformation;

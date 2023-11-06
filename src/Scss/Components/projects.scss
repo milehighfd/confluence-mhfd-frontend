@@ -1024,6 +1024,10 @@
               min-height: 108px;
               padding-bottom: 32px;
             }
+            &:not(:empty){
+              min-height: 108px;
+              padding-bottom: 32px;
+            }
           }
           .btn-purple{
             position: absolute;
@@ -1490,6 +1494,11 @@
           .input-discussion-sec{
             textarea {
               &:focus{
+                min-height: 115px;
+                padding-bottom: 38px;
+              }
+              &:not(:empty){
+                min-height: 115px;
                 padding-bottom: 38px;
               }
             }
@@ -1652,7 +1661,11 @@
           .input-discussion-sec{
             textarea{
               &:focus{
-                min-height: 150px;
+                min-height: 159px;
+                padding-bottom: 65px;
+              }
+              &:not(:empty){
+                min-height: 159px;
                 padding-bottom: 65px;
               }
             }
@@ -1924,7 +1937,7 @@
         width: 110%;
       }
       .budget-container{
-        width: 88.3% !important;
+        width: 89.3% !important;
         .input-reverse-badget{
           // padding-right: 0% !important;
         }
