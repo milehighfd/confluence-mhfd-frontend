@@ -179,19 +179,21 @@ const Financials = ({ projectId }: { projectId: any }) => {
       title: <p>Amendment</p>,
       dataIndex: 'amendment',
       key: 'amendment',
-      width: '14%',
+      width: '10%',
+      render: (Amendment: any, index: any) => <p>{Amendment}</p>,
     },
     {
       title: <p>Partner</p>,
       dataIndex: 'partner',
       key: 'partner',
-      width: '17%',
+      width: '24%',
+      render: (Partner: any, index: any) => <p>{Partner}</p>,
     },
     {
       title: <p>Phase</p>,
       dataIndex: 'phase',
       key: 'phase',
-      width: '10%',
+      width: '8%',
       render: (phase: any) => <span className={phase !== '' ? 'span-Phase' : 'span'}>{phase}</span>,
     },
     {
@@ -441,7 +443,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
                   dataSource={finalData}
                   columns={columns}
                   pagination={{ pageSize: 50 }}
-                  scroll={{ y: 350 , x:windowWidth > 1000 ? '140%':'100%'}}
+                  scroll={{ y: 350 , x:windowWidth > 1000 ? '120%':'100%'}}
                   summary={() => (
                     <Table.Summary fixed={ 'bottom'}  >
                       <Table.Summary.Row  style={{ borderTop: '1px solid #d7d3e2', marginTop: '5px' }}>
