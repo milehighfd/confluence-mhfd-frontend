@@ -1545,12 +1545,17 @@
     overflow: auto;
   }
   .input-comment-sec{
+    position: relative;
     padding: 13px 16px 13px 20px;
-    border-radius: 60px;
+    border-radius: 16px;
     background: #f5f7ff;
     display: flex;
     align-items: center;
+    flex-direction: column;
     .btn-purple{
+      position: absolute;
+      bottom: 13px;
+      right: 16px;
       color: white !important;
       border-radius: 32px !important;
       padding: 8px 12px 8px 12px;
@@ -1581,6 +1586,7 @@
     margin-right: 8px;
     &:focus{
       min-height: 108px;
+      padding-bottom: 32px;
     }
   }
   .header-comment {
@@ -2345,7 +2351,10 @@
       }
     }
     .input-comment{
-      font-size: 16px;
+      font-size: 16px;    
+      &:focus{
+        padding-bottom: 38px;
+      }
     }
   }
   .chat-00 {
@@ -3154,11 +3163,14 @@
     .input-comment-sec{
       .input-comment{
         font-size: 20px;
+        &:focus{
+          padding-bottom: 41px;
+        }
       }
       .btn-purple{
-        padding: 15px 18px;
         span{
           font-size: 21px !important;
+          margin-left: 10px !important;
         }
         .icon-send{
           height: 25px !important;

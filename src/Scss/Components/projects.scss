@@ -973,8 +973,9 @@
         display: flex;
         align-items: center;
         .input-discussion-sec{
+          position: relative;
           padding: 13px 16px 13px 20px;
-          border-radius: 60px;
+          border-radius: 16px;
           background: #f5f7ff;
           display: flex;
           align-items: center;
@@ -986,9 +987,13 @@
             resize: none;
             &:focus{
               min-height: 108px;
+              padding-bottom: 32px;
             }
           }
           .btn-purple{
+            position: absolute;
+            bottom: 13px;
+            right: 16px;
             color: white !important;
             border-radius: 32px !important;
             padding: 8px 12px 8px 12px;
@@ -1420,6 +1425,15 @@
           font-size: 16px !important;
           font-style: normal !important;
         }
+        .discussion-input {
+          .input-discussion-sec{
+            textarea {
+              &:focus{
+                padding-bottom: 38px;
+              }
+            }
+          }
+        }
       }
       .user-item {
         font-size: 21px;
@@ -1571,6 +1585,13 @@
           }
         }
         .discussion-input{
+          .input-discussion-sec{
+            textarea{
+              &:focus{
+                padding-bottom: 41px;
+              }
+            }
+          }
           input{
             font-size: 20px;
           }
