@@ -39,6 +39,7 @@ const content = (<div className="popver-info">Projects identified in a MHFD mast
 const contentIndComp = (<div className="popver-info">Independent Actions should be added to represent any known project actions that are not already shown in the Actions layer. Independent Action costs should reflect only the cost of construction; they will have Overhead Costs applied to them</div>);
 const contentOverheadCost = (<div className="popver-info"> Overhead Cost includes all costs beyond the costs of physical construction (Subtotal Cost). The default values shown here can and should be changed when different percentages are anticipated, such as in urban settings. Please add a description explaining any changes from default values. </div>);
 const contentAdditionalCost = (<div className="popver-info"> Enter any additional costs here that were not captured previously as Actions, Independent Actions, or Overhead Costs. Additional Costs (unlike Independent Actions) will NOT have Overhead Costs applied to them. </div>);
+const contentRecommendedBudget = (<div className="popver-info"> The cost estimate was last updated by Jon Villines on November 3, 2023. </div>);
 const content10 = (<div className="popver-info">The Action Status indicates whether or not the Action has already been built (Complete) or still needs to be built (Proposed).</div>);
 const content05 = (<div className="popver-info" style={{ width: '261px' }}> Indicate why this project is eligible for MHFD maintenance. <br /><br /><b>Capital Project</b> – The project was completed as part of a MHFD Capital Improvement Plan
   <br /> <b>MEP</b> – The project has been accepted through development review as part of MHFD's Maintenance Eligibility Program (MEP)
@@ -1341,6 +1342,7 @@ export const ModalCapital = ({
                   additionalDescription={additionalDescription}
                   contentOverheadCost={contentOverheadCost}
                   contentAdditionalCost={contentAdditionalCost}
+                  contentRecommendedBudget={contentRecommendedBudget}
                   getTotalCost={getTotalCost}
                   onChangeAdditionalDescription={onChangeAdditionalDescription}
                   overheadValues={overheadValues}

@@ -339,6 +339,22 @@
         font-weight: 600;
       }
     }
+    .financial-input{
+      border-bottom: 1.5px solid #28C499 !important;
+    }
+    .bold-text{
+      font-weight: bold;
+    }
+    .budget-input{
+      background: #F2F2F2;
+      margin-left: 10px;  
+    }
+    .budget-container{
+      border-radius: 3px;
+      background: #F2F2F2;  
+      padding: 10px 10px 12px 10px;
+      margin-left: -10px;
+    }
     .location-information {
       #required-location {
         color: #df3232;
@@ -553,6 +569,7 @@
       margin-top: 10px;
       .edit-amount-content{
         display: flex;
+        column-gap: 2%;
         // width: 125%;
       }
       .edit-amount-content-maintenance{
@@ -561,7 +578,6 @@
       }
       .edit-amount{
         width: 100%;
-        margin-right: 2%;
         margin-bottom: 8px;
       }
     }
@@ -1961,6 +1977,13 @@
       }
       .ant-switch-checked .ant-switch-inner {
         margin: 0 32px 0 7px;
+      }
+      .financial-input{
+        border-bottom: 2px solid #28C499 !important;
+      }
+      .budget-container{
+        padding: 10px 10px 12px 20px;
+        margin-left: -20px;
       }
     }
     .footer-project {
