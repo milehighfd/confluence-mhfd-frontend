@@ -489,7 +489,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
       const promises: Promise<any>[] = [];
       promises.push(postDataAsyn(SERVER.MAP_TABLES, requestData, getToken()));
       Promise.all(promises).then(tiles => {
-        if (tiles.length > 0) {
+        if (tiles.length > 0 && tabActiveNavbar !== MAP_TAB) {
           updateLayerSource(PROJECTS_DRAFT + 'draft', tiles[0]);
           showLayers(PROJECTS_DRAFT + 'draft');
         }
