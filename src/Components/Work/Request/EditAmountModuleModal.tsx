@@ -417,6 +417,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         <Row className="edit-amount-modal-body-title">
           How much funding is the Local Government providing and requesting from MHFD?
         </Row>
+        <p className='text-modal-amount'>A value of $0 will allow you to request a project with an unknown funding amount. No value will result in no request being made. No value for "Total Sum Requested" will place the project card in the Workspace.</p>
 
 
         <div className="edit-amount-modal-body-table">
