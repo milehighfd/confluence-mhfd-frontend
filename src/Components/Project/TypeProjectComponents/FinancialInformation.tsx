@@ -208,7 +208,7 @@ export const FinancialInformation = ({
           </Row>
           <Row className="sub-project">
             <Col xs={{ span: 24 }} lg={{ span: 24 }} xxl={{ span: 24 }}>
-              <p>This value represents the most recent cost estimate based on current project conditions. The value displayed may be sourced from OnBase or manually updated in this screen.</p>
+              <p style={{marginBottom: '8px'}}>This value represents the most recent cost estimate based on current project conditions. The value displayed may be sourced from OnBase or manually updated in this screen.</p>
             </Col>
           </Row>
           <Row className="sub-project">
