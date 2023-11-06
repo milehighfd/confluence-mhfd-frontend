@@ -1352,7 +1352,7 @@ export const ICON_POPUPS = [
   ['Municipality', "/Icons/ic_municipalities@2x.png"],
   ['SEMSWA Service Area', "/Icons/ic_SEMSWA@2x.png"],
   ['Stream', "/Icons/Filters/ic_streams.png"],
-  ['Stream Management Corridor', "/Icons/smc.png"],
+  ['Stream Management Corridor', "/Icons/ic_smc.png"],
   ['Flood Hazard Line', '/Icons/ic_problems_line_fldhaz.png'],
   ['Flood Hazard Point', '/Icons/ic_problems_point_fldhaz.png'],
   ['Flood Hazard Polygon', '/Icons/ic_problems_polygon_fldhaz.png'],
