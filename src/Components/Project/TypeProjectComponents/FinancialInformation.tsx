@@ -4,6 +4,8 @@ import { ExclamationCircleOutlined, InfoCircleOutlined } from '@ant-design/icons
 import {  WINDOW_WIDTH } from 'constants/constants';
 import { useProjectState } from 'hook/projectHook';
 import { log } from 'console';
+import TextArea from 'antd/lib/input/TextArea';
+
 interface Props {
   data:any;
   formatter: any;
@@ -171,7 +173,7 @@ export const FinancialInformation = ({
       </Timeline>
         <Row className="sub-project input-width">
           <Col xs={{ span: 20 }} lg={{ span: 18 }} xxl={{ span: 18 }}>
-            <Input className='financial-input' disabled={disableFieldsForLG} placeholder={overheadDescription!==""? overheadDescription  +"": "Include Overhead Cost Description"} onChange={onChangeOverheadDescription} value={overheadDescription}/>
+            <TextArea autoSize={{ minRows: 1, maxRows: 3 }} className='financial-input' disabled={disableFieldsForLG} placeholder={overheadDescription!==""? overheadDescription  +"": "Include Overhead Cost Description"} onChange={onChangeOverheadDescription} value={overheadDescription}/>
           </Col>
         </Row>
         <br/>
@@ -185,7 +187,7 @@ export const FinancialInformation = ({
         </Row>
         <Row className="sub-project input-width">
           <Col xs={{ span: 24 }} lg={{ span: 18}} xxl={{ span: 18 }}>
-            <Input className='financial-input' disabled={disableFieldsForLG} placeholder={additionalDescription!==""? additionalDescription  +"":"Include Cost Description"} onChange={(description) => onChangeAdditionalDescription(description)} value={additionalDescription}/>
+            <TextArea autoSize={{ minRows: 1, maxRows: 3 }}  className='financial-input' disabled={disableFieldsForLG} placeholder={additionalDescription!==""? additionalDescription  +"":"Include Cost Description"} onChange={(description) => onChangeAdditionalDescription(description)} value={additionalDescription}/>
           </Col>
         </Row>
         <br/>
@@ -213,7 +215,7 @@ export const FinancialInformation = ({
           </Row>
           <Row className="sub-project">
             <Col xs={{ span: 24 }} lg={{ span: 23 }} xxl={{ span: 23 }}>
-              <Input className='financial-input budget-input-color' disabled={disableFieldsForLG} placeholder={additionalDescription!==""? additionalDescription  +"":"Include Cost Description"} onChange={(description) => onChangeAdditionalDescription(description)} value={additionalDescription}/>
+              <TextArea autoSize={{ minRows: 1, maxRows: 3 }}  className='financial-input budget-input-color' disabled={disableFieldsForLG} placeholder={additionalDescription!==""? additionalDescription  +"":"Include Cost Description"} onChange={(description) => onChangeAdditionalDescription(description)} value={additionalDescription}/>
             </Col>
           </Row>
         </div>
