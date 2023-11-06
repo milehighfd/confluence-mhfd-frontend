@@ -268,48 +268,46 @@
 // 2560x1440 DISPLAY
 @media (min-width: 2500px){
   .new-project{
-    width: 1422px !important;
-    height: 931;
-    scale: 0.7;
+    width: 995px !important;
 
     .ant-modal-header{
-      padding: 37px 24px !important;
+      padding: 26px 17px !important;
     }
     .ant-modal-title{
-      font-size: 35px !important;
+      font-size: 24px !important;
     }
     .ant-modal-body{
-      padding: 15px 184px 80px 184px !important;
+      padding: 10px 129px 56px 129px !important;
     }
     h4{
-      font-size: 32px !important;
+      font-size: 22px !important;
     }
     .ant-input{
-      height: 78px !important;
-      font-size: 24px !important;
-      padding: 0px 30px !important;
+      height: 54px !important;
+      font-size: 17px !important;
+      padding: 0px 21px !important;
     }
     .button-project{
-      height: 130px !important;
+      height: 91px !important;
 
       .project-img{
-        width: 158px !important;
-        min-width: 158px !important;
-        padding: 37.5px 0px !important;
+        width: 111px !important;
+        min-width: 111px !important;
+        padding: 27px 0px !important;
 
         img{
-          height: 53px !important;
+          height: 37px !important;
         }
       }
       .project-info{
-        padding: 15px !important;
+        padding: 10px !important;
 
         h5{
-          font-size: 28px !important;
-          margin-bottom: 5px;
+          font-size: 20px !important;
+          margin-bottom: 4px;
         }
         p{
-          font-size: 18px !important;
+          font-size: 12px !important;
         }
       }
     }
@@ -317,23 +315,23 @@
       height: auto !important;
     }
     .btn-opacity{
-      height: 64px !important;
-      font-size: 24px !important;
+      height: 45px !important;
+      font-size: 17px !important;
     }
     .ant-modal-footer{
-      padding: 25px;
+      padding: 18px;
 
       button{
-        width: 300px !important;
-        height: 78px !important;
-        font-size: 24px !important;
-        margin-left: 25px;
+        width: 210px !important;
+        height: 55px !important;
+        font-size: 17px !important;
+        margin-left: 18px;
       }
     }
   }
   .popver-info{
-    width: 335px !important;
-    font-size: 18px !important;
+    width: 235px !important;
+    font-size: 12px !important;
   }
 }
 
