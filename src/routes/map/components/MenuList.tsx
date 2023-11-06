@@ -110,7 +110,7 @@ export const MenuList = ({menu, popups, index, showPopup, ids} : {menu: any, pop
       iconLocation = '/Icons/ic_FldHzrdBfr-Wtrshd.png';
       break;
     case menu === 'Stream Management Corridor' && popup.scale !== undefined && popup.scale === 'Watershed':
-      iconLocation = '/Icons/smc.png';
+      iconLocation = '/Icons/ic_smc.png';
       break;
     case menu === 'LOMCs' && popup.status !== undefined && popup.status === 'Active':
       iconLocation = '/Icons/lomcs_active.png';

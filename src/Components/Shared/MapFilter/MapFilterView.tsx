@@ -576,7 +576,7 @@ const MapFilterView = ({
           <Panel header="" key="4" extra={genExtra03()}>
 
             <p>
-              <img key="Bp89Di5Bmf75" src="/Icons/smc.png" width="18px" alt="" style={{borderRadius:'2px'}}  />
+              <img key="Bp89Di5Bmf75" src="/Icons/ic_smc.png" width="18px" alt="" style={{borderRadius:'2px'}}  />
                   Stream Management Corridors
                   <Popover key="7yY6UlvTQHOL" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOverWithLink(popUps.stream_mang_corridors, 'SMC_info_sheet.pdf',  'Stream Management Corridors – ')}>
                 <img key="RU9fQZXZNdhY" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />

@@ -756,13 +756,17 @@
   .edit-amount-modal-body {
     padding: 24px 30px 4px 30px;
     .edit-amount-modal-body-title {
-      padding-bottom: 24px;
+      padding-bottom: 0px;
       color: #000;
       font-family: 'Ubuntu';
       font-size: 20px;
       font-style: normal;
       font-weight: 400;
       line-height: 160%; /* 32px */
+    }
+    .text-modal-amount{
+      color: $purple00;
+      opacity: 0.6;
     }
   }
   .edit-amount-modal-body-table {
@@ -904,9 +908,12 @@
     .edit-amount-modal-body {
       padding: 40px 40px 4px 40px;
       .edit-amount-modal-body-title {
-        padding-bottom: 31px;
+        padding-bottom: 0px;
         font-size: 27px;
         line-height: 160%; /* 43px */
+      }
+      .text-modal-amount{
+        padding-bottom: 10px;
       }
     }
     .edit-amount-modal-body-table {
@@ -1029,9 +1036,13 @@
     .edit-amount-modal-body {
       padding: 53px 53px 4px 53px;
       .edit-amount-modal-body-title {
-        padding-bottom: 42px;
+        padding-bottom: 0px;
         font-size: 35px;
         line-height: 160%; /* 57px */
+      }
+      .text-modal-amount{
+        padding-bottom: 10px;
+        font-size: 20px;
       }
     }
     .edit-amount-modal-body-table {
