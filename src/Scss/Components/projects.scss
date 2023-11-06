@@ -347,13 +347,23 @@
     }
     .budget-input{
       background: #F2F2F2;
-      margin-left: 10px;  
+    }
+    .budget-input-color{
+      background: #F2F2F2;
     }
     .budget-container{
       border-radius: 3px;
       background: #F2F2F2;  
       padding: 10px 10px 12px 10px;
       margin-left: -10px;
+    }
+    .budget-section{
+    }
+    .input-reverse{
+      direction: rtl;
+    }
+    .section-width{
+
     }
     .location-information {
       #required-location {
