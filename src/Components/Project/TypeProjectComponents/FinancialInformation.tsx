@@ -58,6 +58,7 @@ export const FinancialInformation = ({
   const [estimatedCostFromDB, setEstimatedCostFromDB] = useState(estimatedCostInput);
   const [lastmodifiedBy, setLastmodifiedBy] = useState('');
   const [lastmodifiedDate, setLastmodifiedDate] = useState('');
+  const [estimatedCostDescription, setEstimatedCostDescription] = useState('');
   const { completeCosts } = useProjectState();
   const { 
     disableFieldsForLG,
@@ -113,10 +114,19 @@ export const FinancialInformation = ({
     }
   };
 
+  const handleChangeEstimatedCostDescription = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value: inputValue } = e.target;
+    setEstimatedCostDescription(inputValue);
+  }
+
   const confirmEstimatecost = () => {
     setEstimatedCostInput(estimatedCostFromDB);
     setOpen(false);
   }
+
+  useEffect(() => {
+    setEstimatedCostInput(estimatedCostFromDB);
+  }, [estimatedCostFromDB]);
 
   const contentPopOver = (
     <div className="popover-estimatedCost">
@@ -207,7 +217,7 @@ export const FinancialInformation = ({
             <p className='title-sub-project recomended-margin'>RECOMMENDED PROJECT BUDGET &nbsp;&nbsp;<Popover content={contentRecommendedBudget}><InfoCircleOutlined style={{color:'#c5c2d5'}} /></Popover></p>
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 8 }} xxl={{ span: 8 }} className='col-input-badget'>
-            <Input className='bold-text input-reverse' disabled={disableFieldsForLG} style={{paddingLeft:'0px'}} placeholder="$0" onChange={onChangeAdditionalCost} value={formatter.format(additionalCost ? additionalCost : 0)}/>
+            <Input className='bold-text input-reverse' disabled={disableFieldsForLG} style={{paddingLeft:'0px'}} placeholder="$0" value={formatter.format(getTotalCost() ? getTotalCost() : 0)}/>
           </Col>
         </Row>
         <div className='budget-container'>
@@ -216,7 +226,7 @@ export const FinancialInformation = ({
               <p className='title-sub-project'>ACTUAL PROJECT ESTIMATED COST &nbsp;&nbsp;<Popover content={contentRecommendedBudget}><InfoCircleOutlined style={{color:'#c5c2d5'}} /></Popover></p>
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 6 }}>
-              <Input className='budget-input bold-text input-reverse-badget' disabled={disableFieldsForLG} style={{paddingLeft:'0px'}} placeholder="$0" onChange={onChangeAdditionalCost} value={formatter.format(additionalCost ? additionalCost : 0)}/>
+              <Input className='budget-input bold-text input-reverse-badget' disabled={disableFieldsForLG} style={{paddingLeft:'0px'}} placeholder="$0" onChange={handleChange} value={estimatedCostFromDB ? estimatedCostFromDB.toLocaleString('en-US') : 0}/>
             </Col>
           </Row>
           <Row className="sub-project">
@@ -226,7 +236,7 @@ export const FinancialInformation = ({
           </Row>
           <Row className="sub-project">
             <Col xs={{ span: 24 }} lg={{ span: 23 }} xxl={{ span: 23 }}>
-              <Input className='financial-input budget-input-color' disabled={disableFieldsForLG} placeholder={additionalDescription!==""? additionalDescription  +"":"Include Cost Description"} onChange={(description) => onChangeAdditionalDescription(description)} value={additionalDescription}/>
+              <Input className='financial-input budget-input-color' disabled={disableFieldsForLG} placeholder={estimatedCostDescription!==""? estimatedCostDescription  +"":"Include Cost Description"} onChange={handleChangeEstimatedCostDescription} value={estimatedCostDescription}/>
             </Col>
           </Row>
         </div>
