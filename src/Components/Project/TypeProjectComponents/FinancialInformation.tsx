@@ -187,7 +187,7 @@ export const FinancialInformation = ({
         </Row>
         <Row className="sub-project input-width">
           <Col xs={{ span: 24 }} lg={{ span: 18}} xxl={{ span: 18 }}>
-            <TextArea autoSize={{ minRows: 1, maxRows: 3 }}  className='financial-input' disabled={disableFieldsForLG} placeholder={additionalDescription!==""? additionalDescription  +"":"Include Cost Description"} onChange={(description) => onChangeAdditionalDescription(description)} value={additionalDescription}/>
+            <TextArea autoSize={{ minRows: 1, maxRows: 3 }}  className='financial-input' disabled={disableFieldsForLG} placeholder={additionalDescription!==""? additionalDescription  +"":"Include Cost Description"} onChange={(description) => { description.target.value.length <= 500 &&onChangeAdditionalDescription(description)}} value={additionalDescription}/>
           </Col>
         </Row>
         <br/>
@@ -215,7 +215,7 @@ export const FinancialInformation = ({
           </Row>
           <Row className="sub-project">
             <Col xs={{ span: 24 }} lg={{ span: 23 }} xxl={{ span: 23 }}>
-              <TextArea autoSize={{ minRows: 1, maxRows: 3 }}  className='financial-input budget-input-color' disabled={disableFieldsForLG} placeholder={additionalDescription!==""? additionalDescription  +"":"Include Cost Description"} onChange={(description) => onChangeAdditionalDescription(description)} value={additionalDescription}/>
+              <TextArea autoSize={{ minRows: 1, maxRows: 3 }}  className='financial-input budget-input-color' disabled={disableFieldsForLG} placeholder={additionalDescription!==""? additionalDescription  +"":"Include Cost Description"} onChange={(description) => { description.target.value.length <= 500 && onChangeAdditionalDescription(description)}} value={additionalDescription}/>
             </Col>
           </Row>
         </div>
