@@ -182,56 +182,55 @@ export const FinancialInformation = ({
         {timelineItems.map(({ label, index }) => renderTimelineItem(label, index))}              
       </Timeline>
 
-        <Row className="sub-project">
-          <Col xs={{ span: 24 }} lg={{ span: 24 }} xxl={{ span: 24 }}>
-            <Input className='financial-input' disabled={disableFieldsForLG} placeholder={overheadDescription!==""? overheadDescription  +"": "Include Overhead Cost Description"} onChange={onChangeOverheadDescription} value={overheadDescription}/>
-          </Col>
-        </Row>
-        <br/>
+      <Row className="sub-project">
+        <Col xs={{ span: 24 }} lg={{ span: 24 }} xxl={{ span: 24 }}>
+          <Input className='financial-input' disabled={disableFieldsForLG} placeholder={overheadDescription!==""? overheadDescription  +"": "Include Overhead Cost Description"} onChange={onChangeOverheadDescription} value={overheadDescription}/>
+        </Col>
+      </Row>
+      <br/>
+      <Row className="sub-project">
+        <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>
+          <p>Additional Cost <Popover content={contentAdditionalCost}><img src="/Icons/icon-19.svg" alt="" height="10px" className='icon-cost'/></Popover></p>
+        </Col>
+        <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>
+          <Input className='bold-text input-reverse' disabled={disableFieldsForLG} style={{paddingLeft:'0px'}} placeholder="$0" onChange={onChangeAdditionalCost} value={formatter.format(additionalCost ? additionalCost : 0)}/>
+        </Col>
+      </Row>
+      <Row className="sub-project">
+        <Col xs={{ span: 24 }} lg={{ span: 24 }} xxl={{ span: 24 }}>
+          <Input className='financial-input' disabled={disableFieldsForLG} placeholder={additionalDescription!==""? additionalDescription  +"":"Include Cost Description"} onChange={(description) => onChangeAdditionalDescription(description)} value={additionalDescription}/>
+        </Col>
+      </Row>
+      <br/>
+      <Row className="sub-project section-width">
+        <Col xs={{ span: 18 }} lg={{ span: 18 }} xxl={{ span: 18 }}>
+          <p className='title-sub-project recomended-margin'>RECOMMENDED PROJECT BUDGET &nbsp;&nbsp;<Popover content={contentRecommendedBudget}><InfoCircleOutlined style={{color:'#c5c2d5'}} /></Popover></p>
+        </Col>
+        <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>
+          <Input className='bold-text input-reverse' disabled={disableFieldsForLG} style={{paddingLeft:'0px'}} placeholder="$0" onChange={onChangeAdditionalCost} value={formatter.format(additionalCost ? additionalCost : 0)}/>
+        </Col>
+      </Row>
+      <div className='budget-container'>
         <Row className="sub-project">
           <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>
-            <p>Additional Cost <Popover content={contentAdditionalCost}><img src="/Icons/icon-19.svg" alt="" height="10px" className='icon-cost'/></Popover></p>
+            <p className='title-sub-project'>ACTUAL PROJECT ESTIMATED COST &nbsp;&nbsp;<Popover content={contentRecommendedBudget}><InfoCircleOutlined style={{color:'#c5c2d5'}} /></Popover></p>
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>
-            <Input className='bold-text input-reverse' disabled={disableFieldsForLG} style={{paddingLeft:'0px'}} placeholder="$0" onChange={onChangeAdditionalCost} value={formatter.format(additionalCost ? additionalCost : 0)}/>
+            <Input className='budget-input bold-text input-reverse' disabled={disableFieldsForLG} style={{paddingLeft:'0px'}} placeholder="$0" onChange={onChangeAdditionalCost} value={formatter.format(additionalCost ? additionalCost : 0)}/>
           </Col>
         </Row>
         <Row className="sub-project">
           <Col xs={{ span: 24 }} lg={{ span: 24 }} xxl={{ span: 24 }}>
-            <Input className='financial-input' disabled={disableFieldsForLG} placeholder={additionalDescription!==""? additionalDescription  +"":"Include Cost Description"} onChange={(description) => onChangeAdditionalDescription(description)} value={additionalDescription}/>
+            <p>This value represents the most recent cost estimate based on current project conditions. The value displayed may be sourced from OnBase or manually updated in this screen.</p>
           </Col>
         </Row>
-        <br/>
-        <Row className="sub-project section-width">
-          <Col xs={{ span: 18 }} lg={{ span: 18 }} xxl={{ span: 18 }}>
-            <p className='title-sub-project'>RECOMMENDED PROJECT BUDGET &nbsp;&nbsp;<Popover content={contentRecommendedBudget}><InfoCircleOutlined style={{color:'#c5c2d5'}} /></Popover></p>
-          </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>
-            <Input className='bold-text input-reverse' disabled={disableFieldsForLG} style={{paddingLeft:'0px'}} placeholder="$0" onChange={onChangeAdditionalCost} value={formatter.format(additionalCost ? additionalCost : 0)}/>
+        <Row className="sub-project">
+          <Col xs={{ span: 24 }} lg={{ span: 24 }} xxl={{ span: 24 }}>
+            <Input className='financial-input budget-input-color' disabled={disableFieldsForLG} placeholder={additionalDescription!==""? additionalDescription  +"":"Include Cost Description"} onChange={(description) => onChangeAdditionalDescription(description)} value={additionalDescription}/>
           </Col>
         </Row>
-        <div className='budget-container'>
-          <Row className="sub-project">
-            <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>
-              <p className='title-sub-project'>ACTUAL PROJECT ESTIMATED COST &nbsp;&nbsp;<Popover content={contentRecommendedBudget}><InfoCircleOutlined style={{color:'#c5c2d5'}} /></Popover></p>
-            </Col>
-            <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>
-              <Input className='budget-input bold-text input-reverse' disabled={disableFieldsForLG} style={{paddingLeft:'0px'}} placeholder="$0" onChange={onChangeAdditionalCost} value={formatter.format(additionalCost ? additionalCost : 0)}/>
-            </Col>
-          </Row>
-          <Row className="sub-project">
-            <Col xs={{ span: 24 }} lg={{ span: 24 }} xxl={{ span: 24 }}>
-              <p>This value represents the most recent cost estimate based on current project conditions. The value displayed may be sourced from OnBase or manually updated in this screen.</p>
-            </Col>
-          </Row>
-          <Row className="sub-project">
-            <Col xs={{ span: 24 }} lg={{ span: 24 }} xxl={{ span: 24 }}>
-              <Input className='financial-input budget-input-color' disabled={disableFieldsForLG} placeholder={additionalDescription!==""? additionalDescription  +"":"Include Cost Description"} onChange={(description) => onChangeAdditionalDescription(description)} value={additionalDescription}/>
-            </Col>
-          </Row>
-        </div>
-      <hr/>
-      <Row className="cost-project">
+      </div>
+      <Row className="cost-project" style={{display: 'none'}}>
         <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>TOTAL CALCULATED ESTIMATED COST</Col>
         <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>{`${formatter.format(getTotalCost() ? getTotalCost() : 0)} `}</b>
         <Popover
