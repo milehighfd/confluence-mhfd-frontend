@@ -119,7 +119,7 @@ const SidebarMenuDown = ({
                       <img src={'/Icons/user03.png'} alt="" height="35px" />
                       <div className="text-notification">
                         <p>{item?.project?.project_name}</p>
-                        <p className="date">{`New comment from ${item?.user?.name} on ${monthEnd}/${dayEnd}/${yearEnd}`}</p>
+                        <p className="date">{`New comment from ${item?.firstName} ${item?.lastName} on ${monthEnd}/${dayEnd}/${yearEnd}`}</p>
                       </div>
                     </div>
                   );
