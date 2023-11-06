@@ -1661,11 +1661,11 @@
           .input-discussion-sec{
             textarea{
               &:focus{
-                min-height: 150px;
+                min-height: 159px;
                 padding-bottom: 65px;
               }
               &:not(:empty){
-                min-height: 150px;
+                min-height: 159px;
                 padding-bottom: 65px;
               }
             }
