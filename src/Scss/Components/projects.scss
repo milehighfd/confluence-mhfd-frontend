@@ -1359,6 +1359,9 @@
     .body-project {
       // height: calc(100vh - 191px);
       height: calc(100vh - 247px);
+      .recomended-margin{
+        margin-bottom: 18px !important;
+      }
       p {
         font-size: 16px;
         font-style: normal;
@@ -1579,6 +1582,9 @@
       // height: calc(100vh - 249px);
       height: calc(100vh - 298px);
       padding: 10px 35px;
+      .recomended-margin{
+        margin-bottom: 20px !important;
+      }
       .sub-project .ant-select:not(.ant-select-customize-input) .ant-select-selector {
         width: 100px !important;
       }
@@ -1990,7 +1996,7 @@
         border-bottom: 2px solid #28C499 !important;
       }
       .budget-container{
-        padding: 20px 20px 24px 20px;
+        padding: 10px 20px 24px 20px;
         margin-left: -20px;
       }
     }
