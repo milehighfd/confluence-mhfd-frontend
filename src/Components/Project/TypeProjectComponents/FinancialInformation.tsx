@@ -59,7 +59,7 @@ export const FinancialInformation = ({
   setOpen,
   open,
 }:Props) => {
-  const [estimatedCostFromDB, setEstimatedCostFromDB] = useState(estimatedCostInput);
+  const [estimatedCostFromDB, setEstimatedCostFromDB] = useState<number>(estimatedCostInput);
   const [lastmodifiedBy, setLastmodifiedBy] = useState('');
   const [lastmodifiedDate, setLastmodifiedDate] = useState('');
   const [dataSourceName, setDataSourceName] = useState('');
@@ -118,14 +118,23 @@ export const FinancialInformation = ({
     setOpen(false);
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value: inputValue } = e.target;
-    const currentValue = inputValue.replace(/,/g, '');
-    let cleanValue = currentValue.replace("$", "");
-    const reg = /^-?\d*(\.\d*)?$/;
-    if (reg.test(cleanValue) || cleanValue === '' || cleanValue === '-') {
-      const valueToChange:any = inputValue ? (+cleanValue) : 0;
-      console.log('About to ser estimated cost from DB', valueToChange);
-      setEstimatedCostFromDB(valueToChange);
+    // const { value: inputValue } = e.target;
+    // const currentValue = inputValue.replace(/,/g, '');
+    // let cleanValue = currentValue.replace("$", "");
+    // const reg = /^-?\d*(\.\d*)?$/;
+    // if (reg.test(cleanValue) || cleanValue === '' || cleanValue === '-') {
+    //   const valueToChange:any = inputValue ? (+cleanValue) : 0;
+    //   console.log('About to ser estimated cost from DB', valueToChange);
+    //   setEstimatedCostFromDB(valueToChange);
+    // }
+    let newValue = e.target.value
+    newValue = newValue.replace(/-/g, '');
+    let value = newValue.replace("$", "");
+    value = value.replace(",", "");
+    if (value) {
+      setEstimatedCostFromDB(parseInt(value));
+    } else {
+      setEstimatedCostFromDB(parseInt('0'));
     }
   };
 
@@ -168,7 +177,7 @@ export const FinancialInformation = ({
   useEffect(() => {
     if(data !== 'no data' || data === undefined){
       let estimatedCostFromData = data?.project_costs.filter((e: any) => e.code_cost_type_id === 1)[0];
-      setEstimatedCostFromDB(estimatedCostFromData ? estimatedCostFromData.cost : 0);
+      setEstimatedCostFromDB(estimatedCostFromData ? parseInt(estimatedCostFromData.cost) : 0);
     }
   }, [data]);
   useEffect(() => {
@@ -236,7 +245,7 @@ export const FinancialInformation = ({
               <p className='title-sub-project'>ACTUAL PROJECT ESTIMATED COST &nbsp;&nbsp;<Popover content={contentActualEstimatedCost}><InfoCircleOutlined style={{color:'#C5C2D5'}} /></Popover></p>
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 6 }}>
-              <Input className='budget-input bold-text input-reverse-badget' disabled={disableFieldsForLG} style={{paddingLeft:'0px'}} placeholder="$0" onChange={handleChange} value={estimatedCostFromDB ? `$${estimatedCostFromDB}` : '$0'}/>
+              <Input className='budget-input bold-text input-reverse-badget' disabled={disableFieldsForLG} style={{paddingLeft:'0px'}} placeholder="$0" onChange={handleChange} value={formatter.format(estimatedCostFromDB ? estimatedCostFromDB : 0)}/>
             </Col>
           </Row>
           <Row className="sub-project">
