@@ -1665,16 +1665,16 @@
         }
         .discussion-input{
           .input-discussion-sec{
-            textarea{
-              &:focus{
+            // textarea{
+              .input-comment-focus{
                 min-height: 159px;
                 padding-bottom: 65px;
               }
-              &:not(:empty){
-                min-height: 159px;
-                padding-bottom: 65px;
-              }
-            }
+            //   &:not(:empty){
+            //     min-height: 159px;
+            //     padding-bottom: 65px;
+            //   }
+            // }
           }
           input{
             font-size: 20px;

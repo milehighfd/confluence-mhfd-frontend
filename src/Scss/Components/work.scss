@@ -2368,8 +2368,11 @@
     .input-comment{
       font-size: 16px;    
       // &:focus{
-      //   padding-bottom: 38px;
+      //   
       // }
+    }
+    .input-comment-focus{
+      padding-bottom: 38px;
     }
   }
   .chat-00 {
@@ -3178,9 +3181,12 @@
     .input-comment-sec{
       .input-comment{
         font-size: 20px;
-        &:focus{
-          padding-bottom: 41px;
-        }
+        // &:focus{
+          
+        // }
+      }
+      .input-comment-focus{
+        padding-bottom: 41px;
       }
       .btn-purple{
         span{
