@@ -72,7 +72,6 @@ const SidebarMenuDown = ({
         <h2 className="notification-layout" style={{marginBottom:'0px'}}>NOTIFICATIONS</h2>
         <span
           className="clear-notifications"
-          style={{ background: 'red', cursor: 'pointer' }}
           onClick={() => {
             toggleAllNotifications();
           }}
