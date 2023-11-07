@@ -1593,11 +1593,15 @@
     font-style: normal;
     width: 100%;
     margin-right: 8px;
-    transition: 0.5s;
-    &:focus{
-      min-height: 108px;
-      padding-bottom: 32px;
-    }
+    // transition: 0.5s;
+    // &:focus{
+    //   min-height: 108px;
+    //   padding-bottom: 32px;
+    // }
+  }
+  .input-comment-focus{
+    min-height: 108px;
+    padding-bottom: 32px;
   }
   .header-comment {
     display: flex;
@@ -2363,9 +2367,9 @@
     }
     .input-comment{
       font-size: 16px;    
-      &:focus{
-        padding-bottom: 38px;
-      }
+      // &:focus{
+      //   padding-bottom: 38px;
+      // }
     }
   }
   .chat-00 {

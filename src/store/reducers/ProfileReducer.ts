@@ -118,6 +118,14 @@ const profile = (state = initProfile, action: any) => {
             ...state.userInformation,
             notifications: state.userInformation.notifications?.filter((_: any) => _.notification_id !== action.id)}
           }
+    case types.DELETE_ALL_NOTIFICATIONS:
+      return {
+        ...state,
+        userInformation: {
+          ...state.userInformation,
+          notifications: []
+        }
+      }
     default:
       return state;
   }

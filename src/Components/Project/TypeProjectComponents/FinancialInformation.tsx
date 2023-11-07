@@ -59,7 +59,7 @@ export const FinancialInformation = ({
   setOpen,
   open,
 }:Props) => {
-  const [estimatedCostFromDB, setEstimatedCostFromDB] = useState(`${estimatedCostInput}`);
+  const [estimatedCostFromDB, setEstimatedCostFromDB] = useState(estimatedCostInput);
   const [lastmodifiedBy, setLastmodifiedBy] = useState('');
   const [lastmodifiedDate, setLastmodifiedDate] = useState('');
   const [dataSourceName, setDataSourceName] = useState('');
@@ -123,7 +123,8 @@ export const FinancialInformation = ({
     let cleanValue = currentValue.replace("$", "");
     const reg = /^-?\d*(\.\d*)?$/;
     if (reg.test(cleanValue) || cleanValue === '' || cleanValue === '-') {
-      const valueToChange:any = inputValue ? (+cleanValue) : null;
+      const valueToChange:any = inputValue ? (+cleanValue) : 0;
+      console.log('About to ser estimated cost from DB', valueToChange);
       setEstimatedCostFromDB(valueToChange);
     }
   };
@@ -139,6 +140,7 @@ export const FinancialInformation = ({
   }
 
   useEffect(() => {
+    console.log('ESTIMATED COST', estimatedCostFromDB);
     setEstimatedCostInput(estimatedCostFromDB);
   }, [estimatedCostFromDB]);
 

@@ -1016,21 +1016,24 @@
           display: flex;
           align-items: center;
           width: -webkit-fill-available;
-          transition: 0.5s;
-          textarea {
+          .input-comment {
             background: #f5f7ff;
             border: none;
             width: -webkit-fill-available;
             resize: none;
-            &:focus{
-              min-height: 108px;
-              padding-bottom: 32px;
-            }
-            &:not(:empty){
-              min-height: 108px;
-              padding-bottom: 32px;
-            }
+            // &:focus{
+            //   min-height: 108px;
+            //   padding-bottom: 32px;
+            // }
+            // &:not(:empty){
+            //   min-height: 108px;
+            //   padding-bottom: 32px;
+            // }
           }
+          .input-comment-focus{
+              min-height: 108px;
+              padding-bottom: 32px;
+            }
           .btn-purple{
             position: absolute;
             bottom: 13px;
@@ -1495,16 +1498,16 @@
         }
         .discussion-input {
           .input-discussion-sec{
-            textarea {
-              &:focus{
+            .input-comment-focus {
+              
                 min-height: 115px;
                 padding-bottom: 38px;
               }
-              &:not(:empty){
-                min-height: 115px;
-                padding-bottom: 38px;
-              }
-            }
+              // &:not(:empty){
+              //   min-height: 115px;
+              //   padding-bottom: 38px;
+              // }
+            // }
           }
         }
       }

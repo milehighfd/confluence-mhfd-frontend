@@ -157,6 +157,7 @@ export const SERVER = (function () {
         GUEST: `${URL_BASE.BASE}/${AUTH}/${GUEST}`,
         ME: `${URL_BASE.BASE}/${USER}/${ME}`,
         NOTIFICATIONS: `${URL_BASE.BASE}/${NOTIFICATIONS}`,
+        READ_NOTIFICATION: `${URL_BASE.BASE}/${NOTIFICATIONS}/read-all`,
         GRAPHQL:`${URL_BASE.BASE}/${GRAPHQL}`, 
         UPLOAD_FILE: `${URL_BASE.BASE}/${ATTACHMENT}/${UPLOAD_FILE}`,
         PROJECT: `${URL_BASE.BASE}/${PROJECT}`,
