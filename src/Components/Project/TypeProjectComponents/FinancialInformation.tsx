@@ -18,6 +18,8 @@ interface Props {
   onChangeAdditionalCost: any;
   additionalCost: number;
   additionalDescription: string;
+  estimatedCostDescription: any;
+  setEstimatedCostDescription: any;
   contentOverheadCost: any;
   contentRecommendedBudget: any;
   contentAdditionalCost: any;
@@ -43,6 +45,8 @@ export const FinancialInformation = ({
   onChangeAdditionalCost,
   additionalCost,
   additionalDescription,
+  estimatedCostDescription,
+  setEstimatedCostDescription,
   contentOverheadCost,
   contentRecommendedBudget,
   contentAdditionalCost,
@@ -55,10 +59,9 @@ export const FinancialInformation = ({
   setOpen,
   open,
 }:Props) => {
-  const [estimatedCostFromDB, setEstimatedCostFromDB] = useState(estimatedCostInput);
+  const [estimatedCostFromDB, setEstimatedCostFromDB] = useState(`${estimatedCostInput}`);
   const [lastmodifiedBy, setLastmodifiedBy] = useState('');
   const [lastmodifiedDate, setLastmodifiedDate] = useState('');
-  const [estimatedCostDescription, setEstimatedCostDescription] = useState('');
   const { completeCosts } = useProjectState();
   const {
     disableFieldsForLG,
@@ -74,6 +77,7 @@ export const FinancialInformation = ({
     { label: 'Legal / Administrative', index: 7 },
     { label: 'Contingency', index: 8 },
   ];
+  const contentActualEstimatedCost = (<div className="popver-info"> {(lastmodifiedBy && lastmodifiedDate) ? `Last updated by ${lastmodifiedBy} on ${lastmodifiedDate}` : `Not created yet`}</div>);
   function renderTimelineItem(label: string, index: number) {
     return (
       <Timeline.Item color="purple" key={index}>
@@ -106,9 +110,10 @@ export const FinancialInformation = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value: inputValue } = e.target;
     const currentValue = inputValue.replace(/,/g, '');
+    let cleanValue = currentValue.replace("$", "");
     const reg = /^-?\d*(\.\d*)?$/;
-    if (reg.test(currentValue) || currentValue === '' || currentValue === '-') {
-      const valueToChange:any = inputValue ? (+currentValue) : null;
+    if (reg.test(cleanValue) || cleanValue === '' || cleanValue === '-') {
+      const valueToChange:any = inputValue ? (+cleanValue) : null;
       setEstimatedCostFromDB(valueToChange);
     }
   };
@@ -132,7 +137,7 @@ export const FinancialInformation = ({
       <p className='title'>
       Stored Estimated Cost:
       </p>
-      <Input prefix='$' value={estimatedCostFromDB ? estimatedCostFromDB.toLocaleString('en-US') : 0} onChange={handleChange}/>
+      <Input prefix='$' value={estimatedCostFromDB ? estimatedCostFromDB : 0} onChange={handleChange}/>
       {(lastmodifiedBy && lastmodifiedDate) ? <p className='last-updated'>Last updated by {lastmodifiedBy} on {lastmodifiedDate} </p>: <p> </p>}
       <div className="popover-estimatedCost-footer">
         <Button  className="btn-borde" onClick={hide}>Close</Button>
@@ -214,10 +219,10 @@ export const FinancialInformation = ({
         <div className='budget-container'>
           <Row className="sub-project">
             <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 18 }}>
-              <p className='title-sub-project'>ACTUAL PROJECT ESTIMATED COST &nbsp;&nbsp;<Popover content={contentRecommendedBudget}><InfoCircleOutlined style={{color:'#C5C2D5'}} /></Popover></p>
+              <p className='title-sub-project'>ACTUAL PROJECT ESTIMATED COST &nbsp;&nbsp;<Popover content={contentActualEstimatedCost}><InfoCircleOutlined style={{color:'#C5C2D5'}} /></Popover></p>
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 6 }}>
-              <Input className='budget-input bold-text input-reverse-badget' disabled={disableFieldsForLG} style={{paddingLeft:'0px'}} placeholder="$0" onChange={handleChange} value={estimatedCostFromDB ? estimatedCostFromDB.toLocaleString('en-US') : 0}/>
+              <Input className='budget-input bold-text input-reverse-badget' disabled={disableFieldsForLG} style={{paddingLeft:'0px'}} placeholder="$0" onChange={handleChange} value={estimatedCostFromDB ? `$${estimatedCostFromDB}` : '$0'}/>
             </Col>
           </Row>
           <Row className="sub-project">

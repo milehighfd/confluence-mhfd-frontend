@@ -37,6 +37,7 @@ export class Project {
     cover: any;
     estimatedcost?: any;
     estimatedcostInput?: any;
+    estimatedcostDescription?: any;
     studyreason: number;
     sendToWR: boolean;
     componentcost?: any;
@@ -77,6 +78,7 @@ export class Project {
         this.streams = [];
         this.estimatedcost = 0;
         this.estimatedcostInput = 0;
+        this.estimatedcostDescription = '';
         this.otherReason = '';
         this.studyreason = 1;
         this.sendToWR = false;
