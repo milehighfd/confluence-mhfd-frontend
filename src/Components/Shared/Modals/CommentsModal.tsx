@@ -30,7 +30,9 @@ const CommentsModal = () => {
   }
 
   function handleAddMessage(message: any) {
+    if (!message) return;    
     addDiscussionMessage(detailed.project_id, 'details', message);
+    setMessage('');
   }
 
   useEffect(() => {
@@ -54,6 +56,7 @@ const CommentsModal = () => {
         <TextArea
           placeholder="Write a comment..."
           className="input-comment"
+          value={message}
           onChange={(e) => setMessage(e.target.value)}
           autoSize
         />

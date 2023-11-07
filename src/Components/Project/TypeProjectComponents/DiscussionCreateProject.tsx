@@ -65,8 +65,13 @@ export const DiscussionCreateProject = (
                 ? <img className='user-img' src={userInformation?.photo} alt="User" />
                 : <div className="user-item">{(userInformation?.firstName?.charAt(0) || '') + (userInformation?.lastName?.charAt(0) || '')}</div>
             }
-            <div className="input-discussion-sec">
-              <TextArea  value={message} placeholder="Write a comment..." onChange={(e) => setMessage(e.target.value)} autoSize />
+              <div className="input-discussion-sec">
+                <TextArea
+                  value={message}
+                  placeholder="Write a comment..."
+                  onChange={(e) => setMessage(e.target.value)}
+                  autoSize
+                />
               <Button className="btn-purple" onClick={(e) => handleAddMessage(message)}>
                 <img src='/Icons/ic-send-white.svg' alt='' className='icon-send' /> Send
               </Button>
