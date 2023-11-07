@@ -61,9 +61,10 @@ const SidebarMenuDown = ({
   const contentNotification = (
     <div className="notification-popoveer hide-bar-tabs">
       <div className="notification-header">
-        <h2 className="notification-layout">NOTIFICATIONS</h2>
+        <h2 className="notification-layout" style={{marginBottom:'0px'}}>NOTIFICATIONS</h2>
         <span className="clear-notifications">Mark all as read</span>
       </div>
+      <hr style={{opacity:'0.5'}}/>
       <Tabs
         defaultActiveKey={displayedTabKey[1]}
         activeKey={tabKey}
