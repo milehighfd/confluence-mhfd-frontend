@@ -1007,6 +1007,7 @@
       .discussion-input {
         display: flex;
         align-items: center;
+        padding-bottom: 15px;
         .input-discussion-sec{
           position: relative;
           padding: 13px 16px 13px 20px;
@@ -1015,6 +1016,7 @@
           display: flex;
           align-items: center;
           width: -webkit-fill-available;
+          transition: 0.5s;
           textarea {
             background: #f5f7ff;
             border: none;

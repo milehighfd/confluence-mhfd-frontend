@@ -1552,6 +1552,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    margin-bottom: 20px;
     .btn-purple{
       position: absolute;
       bottom: 13px;
@@ -1592,6 +1593,7 @@
     font-style: normal;
     width: 100%;
     margin-right: 8px;
+    transition: 0.5s;
     &:focus{
       min-height: 108px;
       padding-bottom: 32px;
