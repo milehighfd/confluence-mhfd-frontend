@@ -1007,7 +1007,7 @@
       .discussion-input {
         display: flex;
         align-items: center;
-        padding-bottom: 15px;
+        padding-bottom: 25px;
         .input-discussion-sec{
           position: relative;
           padding: 13px 16px 13px 20px;
@@ -1077,6 +1077,7 @@
             padding-top: 8px;
             margin-right: 5px;
             margin-left: 5px;
+            margin-bottom: 0px;
             &:hover{
               cursor: pointer;
               border-bottom: 1px solid $purple;
