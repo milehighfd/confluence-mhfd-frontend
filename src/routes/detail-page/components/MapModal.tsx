@@ -12,6 +12,7 @@ import React, { useEffect, useState } from 'react';
 import { addPopupAndListeners, addPopupsOnClick } from 'routes/map/components/MapFunctionsPopup';
 import { MapService } from 'utils/MapService';
 import * as datasets from 'Config/datasets';
+import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 
 var map: any;
 let coordX = -1;
@@ -24,6 +25,7 @@ const MapModal = ({
   type: any,
   activeTab:any
 }) => {
+  const { tabKey, namespaceId } = useRequestState();
   const { detailed } = useDetailedState();
   const { setSelectedPopup, getComponentsByProjid } = useMapDispatch();
   const { galleryProjectsV2, layers } = useMapState();
@@ -290,6 +292,7 @@ const eventclick = async (e: any) => {
     getComponentsByProjid,
     () => {},
     [],
+    namespaceId,
     'DETAIL_MAP'
   );
 

@@ -174,7 +174,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     tabActiveNavbar,
     galleryProblems
   } = useMapState();
-  const { tabKey } = useRequestState();
+  const { tabKey, namespaceId } = useRequestState();
   const { setCompleteProjectData, setShowModalProject } = useRequestDispatch();
   const { boardProjects, zoomProject, geomCreateMap } = useProjectState();
   const { setZoomGeom, updateSelectedLayersCP, setZoomGeomCreateMap } = useProjectDispatch();
@@ -1734,6 +1734,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
           () => { },
           () => { },
           [],
+          namespaceId,
           MAPTYPES.MAINMAP,
         );
       }

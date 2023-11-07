@@ -69,6 +69,7 @@ import SideMenuTools from 'routes/map/components/SideMenuTools';
 import ModalLayers from 'Components/Project/TypeProjectComponents/ModalLayers';
 import { deletefirstnumbersmhfdcode } from 'utils/utils';
 import { BBOX_PROJECT_ID } from 'Config/endpoints/board';
+import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 
 const windowWidth: any = window.innerWidth;
 
@@ -175,6 +176,7 @@ const CreateProjectMap = (type: any) => {
     highlightedStream,
     highlightedStreams,
   } = useProjectState();
+  const { tabKey, namespaceId } = useRequestState();
   const { groupOrganization, userInformation: user } = useProfileState();
   // const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
   // const { notes, availableColors } = useNotesState();
@@ -1769,6 +1771,7 @@ const CreateProjectMap = (type: any) => {
           getComponentsByProjid,
           setCounterPopup,
           componentsList,
+          namespaceId,
           MAPTYPES.CREATEPROJECTMAP,
         );
       }

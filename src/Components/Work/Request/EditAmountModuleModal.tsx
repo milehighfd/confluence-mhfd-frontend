@@ -263,11 +263,8 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
       //   console.log('inputValue', inputValue);
       //   values[`req${index}`]=(+inputValue);
       // }
-      console.log('Valyee', inputValue);
       const currentValue = inputValue.replace(/,/g, '');
-      console.log('CURRENT VALUE', currentValue, reg.test(currentValue), currentValue === '',  currentValue === '-');
       if (reg.test(currentValue) || currentValue === '' || currentValue === '-') {
-        console.log('CURRENT VALUE ENTERs', currentValue);
         setCost((prev: any) => {
           const newCost = {...prev};
           const current_business_name = item.business_name;

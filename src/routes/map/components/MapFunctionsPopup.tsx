@@ -248,6 +248,7 @@ export const addPopupsOnClick = async (
   getComponentsByProjid: any,
   setCounterPopup: any,
   componentsList: any,
+  namespaceId: any,
   mapType?: any,
 ) => {
   let features = map.queryRenderedFeatures(bbox, { layers: allLayers });

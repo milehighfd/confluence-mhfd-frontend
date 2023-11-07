@@ -32,6 +32,7 @@ export const MenuList = ({menu, popups, index, showPopup, ids} : {menu: any, pop
     return icon;
   }
   let iconLocation = '';
+  console.log('poup menu', popup);
   switch (true) {
     case menu.includes('roblem'):
       iconLocation = '/Icons/ic_problems.png';

@@ -18,6 +18,7 @@ import { NEARMAP_STYLE, tileStylesDetailPage as tileStyles } from 'constants/map
 import { useDetailedState } from 'hook/detailedHook';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
 import { useProfileState } from 'hook/profileHook';
+import { useRequestState } from 'hook/requestHook';
 import { addPopupAndListeners, addPopupsOnClick } from 'routes/map/components/MapFunctionsPopup';
 import { MapService } from 'utils/MapService';
 import * as datasets from 'Config/datasets';
@@ -28,6 +29,7 @@ let coordY = -1;
 let popup = new mapboxgl.Popup({ closeButton: true });
 const Map = forwardRef(({ type }: { type: any }, ref) => {
   const { detailed } = useDetailedState();
+  const { namespaceId } = useRequestState();
   const { resetDetailed, setSelectedPopup, getMapTables, getComponentsByProjid } = useMapDispatch();
   const { layers, layers: layerFilters } = useMapState();
   const [, setZoomValue] = useState(0);
@@ -240,6 +242,7 @@ const Map = forwardRef(({ type }: { type: any }, ref) => {
       getComponentsByProjid,
       () => {},
       [],
+      namespaceId,
       'DETAIL_MAP'
     );
 
