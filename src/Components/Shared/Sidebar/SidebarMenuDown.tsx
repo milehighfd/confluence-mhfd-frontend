@@ -23,7 +23,7 @@ const SidebarMenuDown = ({
   setVisibleTutorial: React.Dispatch<React.SetStateAction<boolean>>;
   setVisibleIntroduction: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const { deleteNotification } = useProfileDispatch();
+  const { deleteNotification, deleteAllNotifications } = useProfileDispatch();
   const { TabPane } = Tabs;
   const { userInformation } = useProfileState();
   const [redirect, setRedirect] = useState(false);
@@ -58,11 +58,27 @@ const SidebarMenuDown = ({
     setRedirect(true);
     deleteMaps();
   };
+  const toggleAllNotifications = () => {
+    datasets.postData(SERVER.READ_NOTIFICATION, {}, datasets.getToken()).then(result => {
+      if (result.message === 'SUCCESS') {
+        setNotification([]);
+        deleteAllNotifications();
+      }
+    });
+  };
   const contentNotification = (
     <div className="notification-popoveer hide-bar-tabs">
       <div className="notification-header">
         <h2 className="notification-layout" style={{marginBottom:'0px'}}>NOTIFICATIONS</h2>
-        <span className="clear-notifications">Mark all as read</span>
+        <span
+          className="clear-notifications"
+          style={{ background: 'red', cursor: 'pointer' }}
+          onClick={() => {
+            toggleAllNotifications();
+          }}
+        >
+          Mark all as read
+        </span>
       </div>
       <hr style={{opacity:'0.5'}}/>
       <Tabs
@@ -162,7 +178,7 @@ const SidebarMenuDown = ({
     setIsVisible(true);
     removeNotification(notification_id);
   }
-  useEffect(() => {
+  useEffect(() => {    
     setNotification(userInformation.notifications);
   }, [userInformation.notifications]);
 
