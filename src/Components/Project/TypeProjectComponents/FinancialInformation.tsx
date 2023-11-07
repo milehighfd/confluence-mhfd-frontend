@@ -62,6 +62,7 @@ export const FinancialInformation = ({
   const [estimatedCostFromDB, setEstimatedCostFromDB] = useState(`${estimatedCostInput}`);
   const [lastmodifiedBy, setLastmodifiedBy] = useState('');
   const [lastmodifiedDate, setLastmodifiedDate] = useState('');
+  const [dataSourceName, setDataSourceName] = useState('');
   const { completeCosts } = useProjectState();
   const {
     disableFieldsForLG,
@@ -77,7 +78,16 @@ export const FinancialInformation = ({
     { label: 'Legal / Administrative', index: 7 },
     { label: 'Contingency', index: 8 },
   ];
-  const contentActualEstimatedCost = (<div className="popver-info"> {(lastmodifiedBy && lastmodifiedDate) ? `Last updated by ${lastmodifiedBy} on ${lastmodifiedDate}` : `Not created yet`}</div>);
+  const dataSourceCodes:any = {1: 'Confluence User',
+  2: 'OnBase',
+  3: 'Integration Engine',
+  4: 'Tyler',
+  5: 'Workview',
+  6: 'SharePoint',
+  7: 'Confluence Sys',
+  99: 'Unknown Source'}
+
+  const contentActualEstimatedCost = (<div className="popver-info"> {(lastmodifiedBy && lastmodifiedDate) ? `Last updated by ${lastmodifiedBy} in ${dataSourceName} on ${lastmodifiedDate}` : `Not created yet`}</div>);
   function renderTimelineItem(label: string, index: number) {
     return (
       <Timeline.Item color="purple" key={index}>
@@ -163,8 +173,10 @@ export const FinancialInformation = ({
     if(completeCosts?.projectData?.currentCost.length !== 0){
       let lastModify = completeCosts?.projectData?.currentCost.filter((e: any) => e.code_cost_type_id === 1)[0]
       let completeName = completeCosts?.estimatedCostUser;
+      let dataSourceCode:any = lastModify?.code_data_source_type_id
       setLastmodifiedBy(completeName ? `${completeName?.firstName} ${completeName?.lastName}` : '');
       setLastmodifiedDate(lastModify ? formatDate(lastModify?.last_modified) : '');
+      setDataSourceName(lastModify ? dataSourceCodes[dataSourceCode] : '');
     }
   }, [completeCosts]);
   return (
