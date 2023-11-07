@@ -378,9 +378,6 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
       }
       setVisible(false);
     }
-    useEffect(() => {
-      console.log('costDataList', cost);
-    },[cost]);
 
   return (
     <Modal
