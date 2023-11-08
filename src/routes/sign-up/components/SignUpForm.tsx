@@ -63,6 +63,13 @@ const SignUpForm = () => {
       }
       setTitle(title);
       values.zoomarea = MILE_HIGH_FLOOD_DISTRICT;
+      if (values.designation === CONSULTANT && (!values.organization || values.organization === MILE_HIGH_FLOOD_DISTRICT)) {
+        const auxMessage = { ...message };
+        auxMessage.message = 'Missing Field: Organization.';
+        auxMessage.color = 'red';
+        setMessage(auxMessage);
+        return;
+      }
       datasets.postData(SERVER.SIGN_UP, {...values, tokenId: id}).then(res => {
         if (res?.token) {
           const auxMessage = { ...message };
