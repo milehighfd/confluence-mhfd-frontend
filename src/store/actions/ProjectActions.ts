@@ -113,7 +113,9 @@ export const editCapital = (data: any) => {
         formData.append(key, JSON.stringify(data[key]));
       }else if (key === 'ids' || key === 'streams'){
         formData.append(key, JSON.stringify(data[key]));
-      } else if (key === 'files') {
+      }else if( key === 'userChangedOverhead' ) {
+        formData.append(key, JSON.stringify(data[key]));
+      }else if (key === 'files') {
         data[key].forEach((o: any, i: number) => {          
           console.log(o, 'O')                
           if (o.is_cover || o.cover) {

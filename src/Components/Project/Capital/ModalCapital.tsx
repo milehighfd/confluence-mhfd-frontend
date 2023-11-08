@@ -226,6 +226,7 @@ export const ModalCapital = ({
   const [isEditingPosition,setIsEditingPosition ]= useState(false)
   const [initSubtotalCost, setInitSubtotalCost] = useState<any>(null);
   const  flagInit = useRef(false);
+  const [userChangedOverhead, setUserChangedOverhead] = useState([false, false, false, false, false, false, false, false, false]);
   //special
   const setTypeAndSubType = (type:string, subType:string, label:string) => {
     setSubType(subType);
@@ -487,6 +488,7 @@ export const ModalCapital = ({
       capital.type = selectedTypeProject;
       capital.isCountyWide = isCountyWide ? isCountyWide : false;
       capital.isSouthPlate = isSouthPlate ? isSouthPlate : false;
+      capital.userChangedOverhead = userChangedOverhead;
       changeAddLocationState(false);
       //capital 
       if (selectedTypeProject === 'capital') {
@@ -927,6 +929,12 @@ export const ModalCapital = ({
     let newoverhead = [...overheadValues];
     newoverhead[index] = parseInt(e);
     setOverheadValues(newoverhead);
+    console.log('UPDATED OVERHEAD', index, e);
+    setUserChangedOverhead((olduserchanged: any)  => {
+      const newuserchanged = [...olduserchanged];
+      newuserchanged[index] = true;
+      return newuserchanged;
+    });
   }
 
   const getSubTotalCost = () => {

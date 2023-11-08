@@ -50,6 +50,7 @@ export class Project {
     sponsorId: any;
     is_routine: boolean;
     subtotalcost: any;
+    userChangedOverhead: any;
     constructor() {
         this.year = '2023';
         this.projectname = "special";
@@ -89,5 +90,6 @@ export class Project {
         this.sponsorId = 0;
         this.is_routine = false;
         this.subtotalcost = 0;
+        this.userChangedOverhead = [false, false, false, false, false, false, false, false, false]
     }
 }
