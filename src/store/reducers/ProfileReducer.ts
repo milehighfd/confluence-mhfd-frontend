@@ -26,7 +26,8 @@ const initProfile = {
   spin: false,
   groupOrganization: [],
   allUserProjects: [],
-  isLocalGovernment: false
+  isLocalGovernment: false,
+  openDiscussion: false,
 }
 
 const profile = (state = initProfile, action: any) => {
@@ -125,6 +126,11 @@ const profile = (state = initProfile, action: any) => {
           ...state.userInformation,
           notifications: []
         }
+      }
+    case types.OPEN_DISCUSSION_TAB:
+      return {
+        ...state,
+        openDiscussion: action.value
       }
     default:
       return state;
