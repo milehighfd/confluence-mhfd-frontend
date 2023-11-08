@@ -311,7 +311,6 @@ export const addPopupsOnClick = async (
       }
       //TO DO: create endpoint to get data for project draft from db if necessary
       let item;
-
       const dataFromDB = await datasets.getData(SERVER.V2_DETAILED_PAGE(projectidfeature), datasets.getToken());
       const sponsors = dataFromDB?.project_partners
         .filter((pp: any) => {
@@ -331,6 +330,7 @@ export const addPopupsOnClick = async (
           organization: sponsors.join(','),
           value: estimatedcost ? estimatedcost : componentcost ? componentcost : 0,
           projecctype: dataFromDB?.code_project_type?.project_type_name,
+          status_displayed: feature.layer.metadata.project_status,
           status: getCurrentProjectStatus(dataFromDB)?.code_phase_type?.code_status_type?.status_name,
           objectid: dataFromDB?.codeStateCounty?.objectid,
           // TODO component_count
