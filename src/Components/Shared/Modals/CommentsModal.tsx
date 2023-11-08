@@ -38,7 +38,9 @@ const CommentsModal = () => {
   }
 
   useEffect(() => {
-    setProjectDiscussion(detailed.project_id, 'details');
+    if (detailed?.project_id){
+      setProjectDiscussion(detailed.project_id, 'details');
+    }    
   }, [detailed]);
 
   useEffect(() => {

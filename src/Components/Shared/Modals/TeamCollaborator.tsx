@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'antd';
 import TeamModal from './TeamModal';
 import CommentsModal from './CommentsModal';
-import { useProfileState } from 'hook/profileHook';
+import { useProfileDispatch, useProfileState } from 'hook/profileHook';
 
 const TeamCollaborator = () => {
   const [selected, setSelected] = useState(true);
-  const {userInformation} = useProfileState();
+  const {userInformation, openDiscussion} = useProfileState();
+  const { openDiscussionTab } = useProfileDispatch();
   const isOther = userInformation?.designation === 'other'
+  useEffect(() => {
+    if (openDiscussion) {
+      setSelected(false)
+      openDiscussionTab(false)
+    }
+  }, [openDiscussion])
   return (
     <div className="chat-r">
       <Row style={{paddingBottom: '15px'}}>

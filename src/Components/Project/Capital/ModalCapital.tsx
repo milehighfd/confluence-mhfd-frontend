@@ -138,7 +138,7 @@ export const ModalCapital = ({
     getComponentsByProjectId,
     resetDiscussion,
   } = useProjectDispatch();
-  const { getGroupOrganization } = useProfileDispatch();
+  const { getGroupOrganization, openDiscussionTab } = useProfileDispatch();
   const {
     listComponents, 
     componentsFromMap, 
@@ -194,7 +194,7 @@ export const ModalCapital = ({
   const pageWidth  = document.documentElement.scrollWidth;
   const { tabActiveNavbar } = useMapState();
   const isWorkPlan = tabActiveNavbar === WORK_PLAN_TAB;
-  const { groupOrganization, userInformation} = useProfileState();
+  const { groupOrganization, userInformation, openDiscussion} = useProfileState();
   const [openDropdownTypeProject, setOpenDropdownTypeProject] = useState(false);
   const [activeTabBodyProject, setActiveTabBodyProject] = useState('Details');
   const [favorite, setFavorite] = useState(false);
@@ -270,6 +270,15 @@ export const ModalCapital = ({
       }
     }       
   }, [userInformation]);
+
+  useEffect(() => {
+    console.log(openDiscussion, 'openDiscussion')
+    if (openDiscussion){
+      setActiveTabBodyProject('Discussion');
+      openDiscussionTab(false);
+    }
+  },[openDiscussion]);
+
   useEffect(() => {
     if(!showDraw) {
       setStreamIntersected({ geom: null });

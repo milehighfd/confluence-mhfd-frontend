@@ -46,7 +46,9 @@ export const DiscussionCreateProject = (
   }
 
   useEffect(() => {
-    setProjectDiscussion(project_id, 'create');
+    if (project_id){
+      setProjectDiscussion(project_id, 'create');
+    }
   }, [project_id]);
 
   useEffect(() => {   
