@@ -23,7 +23,7 @@ const SidebarMenuDown = ({
   setVisibleTutorial: React.Dispatch<React.SetStateAction<boolean>>;
   setVisibleIntroduction: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const { deleteNotification, deleteAllNotifications } = useProfileDispatch();
+  const { deleteNotification, deleteAllNotifications, openDiscussionTab } = useProfileDispatch();
   const { TabPane } = Tabs;
   const { userInformation } = useProfileState();
   const [redirect, setRedirect] = useState(false);
@@ -124,6 +124,7 @@ const SidebarMenuDown = ({
                       key={item.notification_id}
                       className="notification-body"
                       onClick={() => {
+                        openDiscussionTab(true);
                         if (item?.subject === 'DETAILS') {
                           readClick(item?.project?.project_id, item?.notification_id);
                         } else {
