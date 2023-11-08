@@ -488,6 +488,7 @@ export const ModalCapital = ({
       capital.type = selectedTypeProject;
       capital.isCountyWide = isCountyWide ? isCountyWide : false;
       capital.isSouthPlate = isSouthPlate ? isSouthPlate : false;
+      console.log('userCHANGED OVERHEAD', userChangedOverhead);
       capital.userChangedOverhead = userChangedOverhead;
       changeAddLocationState(false);
       //capital 
