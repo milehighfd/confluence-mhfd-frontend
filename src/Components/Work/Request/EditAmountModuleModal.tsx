@@ -53,7 +53,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
   const defaultColor = {color: '#FF8938', backgroundColor: 'rgba(255, 221, 0, 0.3)', projectStatus: ''}
 
   const completedYears = Array.from({ length: 5 }, (_, index) => startYearInt + index);
-
+  const [amountsTouched, setAmountsTouched] = useState<any>({req1: true, req2: true, req3: true, req4: true, req5: true});
   const orderArrayForCost = (data: any) => {
     const orderedArray = data.sort((a:any, b:any) => {
 
@@ -248,9 +248,11 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
           nonMhfdEntry.values[updatedReqField] !== null
         );   
         if (!isAnyNonMhfdValuePresent && mhfdEntry.values[updatedReqField] === 0) {
-          mhfdEntry.values[updatedReqField] = 0;
+          mhfdEntry.values[updatedReqField] = 0; 
+          setAmountsTouched((oldamounts: any) => ({...oldamounts, [updatedReqField]: false}));
         } else if (isAnyNonMhfdValuePresent && mhfdEntry.values[updatedReqField] === null) {
           mhfdEntry.values[updatedReqField] = 0;
+          setAmountsTouched((oldamounts: any) => ({...oldamounts, [updatedReqField]: false}));
         }
       });    
       return data;
@@ -269,8 +271,12 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
           const newCost = {...prev};
           const current_business_name = item.business_name;
           const current_code_cost_type_id = item.code_cost_type_id;
+          const current_code_partner_type_id = item.code_partner_type_id;
           const indexOfValue = newCost.amounts.findIndex((itemAmount: any) => itemAmount.business_name === current_business_name && itemAmount.code_cost_type_id === current_code_cost_type_id);
           newCost.amounts[indexOfValue].values[key] = inputValue ? (+currentValue) : null;
+          if (current_code_partner_type_id == 88) {
+            setAmountsTouched((oldamounts: any) => ({...oldamounts, [key]: true}));
+          }
           updateMhfdBasedOnOthers(newCost.amounts, key);
           return newCost;
         });
@@ -328,7 +334,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
       const filteredAmounts = amounts.filter((item:any) => {
         return !(item.business_name === 'MHFD' && item.code_partner_type_id === 11);
       });
-      const send =  {amounts: filteredAmounts, isWorkPlan: isWorkPlan, isMaintenance};
+      const send =  {amounts: filteredAmounts, isWorkPlan: isWorkPlan, isMaintenance, amountsTouched};
       datasets.putData(
         BOARD_PROJECT_COST(board_project_id),
         send,
