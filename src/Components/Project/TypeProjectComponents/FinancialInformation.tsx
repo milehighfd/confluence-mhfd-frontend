@@ -128,9 +128,9 @@ export const FinancialInformation = ({
     //   setEstimatedCostFromDB(valueToChange);
     // }
     let newValue = e.target.value
-    newValue = newValue.replace(/-/g, '');
-    let value = newValue.replace("$", "");
-    value = value.replace(",", "");
+    newValue = newValue.replaceAll(/-/g, '');
+    let value = newValue.replaceAll("$", "");
+    value = value.replaceAll(",", "");
     if (value) {
       setEstimatedCostFromDB(parseInt(value));
     } else {
@@ -236,7 +236,7 @@ export const FinancialInformation = ({
             <p className='title-sub-project recomended-margin'>RECOMMENDED PROJECT BUDGET &nbsp;&nbsp;<Popover content={contentRecommendedBudget}><InfoCircleOutlined style={{color:'#C5C2D5'}} /></Popover></p>
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 8 }} xxl={{ span: 8 }} className='col-input-badget'>
-            <Input className='bold-text input-reverse' disabled={disableFieldsForLG} style={{paddingLeft:'0px'}} placeholder="$0" value={formatter.format(getTotalCost() ? getTotalCost() : 0)}/>
+            <p className='bold-text input-reverse' style={{paddingLeft:'0px', display:'flex'}} placeholder="$0">{formatter.format(getTotalCost() ? getTotalCost() : 0)}</p>
           </Col>
         </Row>
         <div className='budget-container'>
@@ -245,7 +245,7 @@ export const FinancialInformation = ({
               <p className='title-sub-project'>ACTUAL PROJECT ESTIMATED COST &nbsp;&nbsp;<Popover content={contentActualEstimatedCost}><InfoCircleOutlined style={{color:'#C5C2D5'}} /></Popover></p>
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 6 }}>
-              <Input className='budget-input bold-text input-reverse-badget' disabled={disableFieldsForLG} style={{paddingLeft:'0px'}} placeholder="$0" onChange={handleChange} value={formatter.format(estimatedCostFromDB ? estimatedCostFromDB : 0)}/>
+              <Input className='budget-input bold-text input-reverse-badget' disabled={disableFieldsForLG} style={{paddingLeft:'0px'}} placeholder="$0" onChange={handleChange} maxLength={40} value={formatter.format(estimatedCostFromDB ? estimatedCostFromDB : 0)}/>
             </Col>
           </Row>
           <Row className="sub-project">

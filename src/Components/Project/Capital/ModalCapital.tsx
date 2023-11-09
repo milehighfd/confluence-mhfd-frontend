@@ -53,7 +53,7 @@ const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
   minimumFractionDigits: 0,
-  maximumFractionDigits: 0
+  maximumFractionDigits: 2
 });
 
 const genExtra05 = (totalIndependentComp: any) => (
@@ -770,7 +770,7 @@ export const ModalCapital = ({
     let newValue = e.target.value
     newValue = newValue.replace(/-/g, '');
     let value = newValue.replace("$", "");
-    value = value.replace(",", "");
+    value = value.replaceAll(",", "");
     if (value) {
       setAdditionalCost(parseInt(value));
     } else {
