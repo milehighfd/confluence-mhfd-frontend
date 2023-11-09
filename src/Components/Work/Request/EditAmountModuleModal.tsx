@@ -53,7 +53,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
   const defaultColor = {color: '#FF8938', backgroundColor: 'rgba(255, 221, 0, 0.3)', projectStatus: ''}
 
   const completedYears = Array.from({ length: 5 }, (_, index) => startYearInt + index);
-  const [amountsTouched, setAmountsTouched] = useState<any>({req1: true, req2: true, req3: true, req4: true, req5: true});
+  const [amountsTouched, setAmountsTouched] = useState<any>({req1: true, req2: true, req3: true, req4: true, req5: true, req11: true, req12: true});
   const orderArrayForCost = (data: any) => {
     const orderedArray = data.sort((a:any, b:any) => {
 
