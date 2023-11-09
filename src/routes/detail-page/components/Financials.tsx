@@ -169,11 +169,11 @@ const Financials = ({ projectId }: { projectId: any }) => {
 
   const columns = [
     {
-      title: <p>Agreement</p>,
+      title: <p style={{textAlign:'center'}}>Agreement</p>,
       dataIndex: 'agreement',
       key: 'agreement',
-      width: '12%',
-      render: (agreement: any, index: any) => <p className={'table-' + agreement[1]}>{agreement[0]}</p>,
+      width: '8.5%',
+      render: (agreement: any, index: any) => <p className={'table-' + agreement[1]} style={{textAlign:'center'}}>{agreement[0]}</p>,
     },
     {
       title: <p style={{textAlign:'center'}}>Amendment</p>,
@@ -186,7 +186,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
       title: <p>Partner</p>,
       dataIndex: 'partner',
       key: 'partner',
-      width: '24%',
+      width: '24.5%',
       render: (Partner: any, index: any) => <p>{Partner}</p>,
     },
     {
@@ -214,7 +214,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
       title: <p style={{ textAlign: 'center' }}>Tyler Encumbered</p>,
       dataIndex: 'tyler',
       key: 'tyler',
-      width: '12%',
+      width: '15%',
       render: (tyler: string[]) => <p className={'table-' + tyler[1]}>{tyler[0]}</p>,
     },
     {
