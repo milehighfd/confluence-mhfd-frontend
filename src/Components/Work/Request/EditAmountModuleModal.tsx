@@ -384,7 +384,9 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
       }
       setVisible(false);
     }
-
+    const formatNumberWithComas = (numero: any) => {
+      return numero.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
   return (
     <Modal
       visible={visible}
@@ -564,7 +566,12 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
                   const conditionPriorFunding = amount.key === priorFundingString ? true : false;
                   return (
                     amount.show && <Row className='rowInputContainer'>
-                      <Input disabled={conditionUnableInputs || conditionPriorFunding || isApprovedWR} prefix="$" value={(item.values[amount.key] || item.values[amount.key] == 0) ? item.values[amount.key] : '' } onChange={(event:any) => handleChange(event, item, amount.key)} />
+                      <Input 
+                        disabled={conditionUnableInputs || conditionPriorFunding || isApprovedWR}
+                        prefix="$"
+                        value={(item.values[amount.key] || item.values[amount.key] == 0) ? formatNumberWithComas(item.values[amount.key]) : '' }
+                        onChange={(event:any) => handleChange(event, item, amount.key)} 
+                      />
                     </Row>
                   )
                 })}
