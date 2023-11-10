@@ -363,7 +363,7 @@
       }
     }
     .recomended-margin{
-      margin-bottom: 14px;
+      margin-bottom: 14px !important;
     }
     .col-input-badget{
       padding-right: 10% !important;
@@ -1623,6 +1623,9 @@
       // height: calc(100vh - 249px);
       height: calc(100vh - 298px);
       padding: 10px 35px;
+      .sub-title-footer{
+        font-size: 17px !important;
+      }
       .recomended-margin{
         margin-bottom: 20px !important;
       }
