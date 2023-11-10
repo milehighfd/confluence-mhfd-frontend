@@ -276,8 +276,9 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
           newCost.amounts[indexOfValue].values[key] = inputValue ? (+currentValue) : null;
           if (current_code_partner_type_id == 88) {
             setAmountsTouched((oldamounts: any) => ({...oldamounts, [key]: true}));
+          } else {
+            updateMhfdBasedOnOthers(newCost.amounts, key);
           }
-          updateMhfdBasedOnOthers(newCost.amounts, key);
           return newCost;
         });
       }else{
@@ -293,7 +294,6 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         return;
       }
     }
-
   function convertObjectToArrays(input: any, year: number) {
     const extraYears = [];
     const extraYearsAmounts = [];
