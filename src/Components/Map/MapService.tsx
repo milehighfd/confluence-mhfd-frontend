@@ -143,7 +143,10 @@ class MapService {
       'custom-sprite/PipeApp_small.png',
       'custom-sprite/lightgreenhatchfill-backwrd-lesssmall.png',
       'custom-sprite/HEX-dbl-green-darker-superrrrsmall.png',
-      'custom-sprite/GradeCtrl_small.png'
+      'custom-sprite/GradeCtrl_small.png',
+      'custom-sprite/crossfill_sml.png',
+      'custom-sprite/Hex_DetBasin.png',
+      'custom-sprite/Checker_Special.png',
     ];
     imagesPaths.forEach((imagePath: string) => {
       this.map.loadImage(imagePath, (error: any, image: any) => {

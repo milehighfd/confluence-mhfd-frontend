@@ -109,3 +109,15 @@ export const deleteNotification = (id : any) => {
       dispatch({ type: types.DELETE_NOTIFICATION, id });
   }
 }
+
+export const deleteAllNotifications = () => {
+  return (dispatch : Function) => {
+      dispatch({ type: types.DELETE_ALL_NOTIFICATIONS });
+  }
+}
+
+export const openDiscussionTab = (value : boolean) => {
+  return (dispatch : Function) => {
+    dispatch({ type: types.OPEN_DISCUSSION_TAB, value });
+  }
+}

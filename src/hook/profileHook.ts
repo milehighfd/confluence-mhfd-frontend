@@ -14,7 +14,9 @@ import {
    addNotifications,
    deleteNotification,
    resetProfile,
-   getUserInformation
+   getUserInformation,
+   deleteAllNotifications,
+   openDiscussionTab
 } from 'store/actions/ProfileActions';
 import {
    getTimesLogin,
@@ -79,6 +81,12 @@ export const useProfileDispatch = () => {
       },
       deleteNotification: (id: any) => {
         dispatch(deleteNotification(id));
+      },
+      deleteAllNotifications: () => {
+        dispatch(deleteAllNotifications());
+      },
+      openDiscussionTab : (value : boolean) => {
+         dispatch(openDiscussionTab(value));
       },
       resetProfile: _resetProfile,
       getUserInformation: () => {

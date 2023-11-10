@@ -23,6 +23,7 @@ export const DiscussionCreateProject = (
   const { discussion } = useProjectState();
   const [message, setMessage] = useState('');
   const {userInformation} = useProfileState();
+  const [inputFocus, setInputFocus] = useState<boolean>(false);
   const appUser = useProfileState();
   const isLocalGovernment = useState(appUser?.isLocalGovernment || appUser?.userInformation?.designation === 'government_staff');
   const localGovernment = userInformation?.business_associate_contact?.business_address?.business_associate.business_name
@@ -45,7 +46,9 @@ export const DiscussionCreateProject = (
   }
 
   useEffect(() => {
-    setProjectDiscussion(project_id, 'create');
+    if (project_id){
+      setProjectDiscussion(project_id, 'create');
+    }
   }, [project_id]);
 
   useEffect(() => {   
@@ -71,8 +74,17 @@ export const DiscussionCreateProject = (
                   placeholder="Write a comment..."
                   onChange={(e) => setMessage(e.target.value)}
                   autoSize
+                  onMouseEnter={()=> setInputFocus(true)}
+                  className={inputFocus ? "input-comment input-comment-focus":"input-comment"}
                 />
-              <Button className="btn-purple" onClick={(e) => handleAddMessage(message)}>
+              <Button
+                className="btn-purple"
+                onClick={(e) => {
+                  handleAddMessage(message)
+                  setTimeout(() => {
+                    setInputFocus(false);
+                  }, 1000);
+                }}>
                 <img src='/Icons/ic-send-white.svg' alt='' className='icon-send' /> Send
               </Button>
             </div>
@@ -81,7 +93,7 @@ export const DiscussionCreateProject = (
         {
           projectChat?.map((item: any, index: number) => {
             return (
-              <div className='discution-body' key={item?.project_discussion_thread_id}>
+              <div className='discution-body' key={item?.project_discussion_thread_id} onMouseEnter={()=>setInputFocus(false)}>
                 <div className='discution-user'>
                   {
                     item?.user?.photo

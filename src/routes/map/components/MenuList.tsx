@@ -9,10 +9,29 @@ import {
 import { getAlertNameAndIcon } from "utils/utils";
 
 
-
+const getIconWRWPProjects = (popup: any) => {
+  const statuses = popup.status_displayed;
+  let iconLocation = '';
+  if (statuses.length) {
+    switch (true) {
+      case statuses.some((st:any) => st === 3):
+        iconLocation = '/Icons/ic_projects_approved.png';
+        break;
+      case statuses.some((st:any) => st === 8):
+        iconLocation = '/Icons/ic_projects_cancelled.png';
+        break;
+      case statuses.some((st:any) => st === 2):
+        iconLocation = '/Icons/ic_projects_requested.png';
+        break;
+      default:
+        iconLocation = '/Icons/ic_projects_draft.png';
+        break;
+    };
+  }
+  return iconLocation;
+}
 export const MenuList = ({menu, popups, index, showPopup, ids} : {menu: any, popups: any, index: any, showPopup: any, ids: any}) => {
   const popup = popups[index];
-  console.log('menu', menu, popup);
   let icon;
   ICON_POPUPS.forEach(element => {
     if (element[0] === menu) {
@@ -33,6 +52,9 @@ export const MenuList = ({menu, popups, index, showPopup, ids} : {menu: any, pop
   }
   let iconLocation = '';
   switch (true) {
+    case popup?.status_displayed?.length > 0:
+      iconLocation = getIconWRWPProjects(popup);
+      break;
     case menu.includes('roblem'):
       iconLocation = '/Icons/ic_problems.png';
       break;

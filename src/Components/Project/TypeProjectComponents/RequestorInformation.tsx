@@ -145,7 +145,7 @@ export const RequestorInformation = ({
             <Select
               style={{ width: '100%' }}
               placeholder={'Select a Sponsor'}
-              value={sponsor === "" ? undefined : sponsor}
+              value={sponsor === "" ? undefined : (sponsor === 'Mhfd' ? sponsor.toUpperCase(): sponsor)}
               listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
               disabled={isLocalGovernment || disableFieldsForLG || !isBoardInWRUnderReview}
               onChange={setSponsor}

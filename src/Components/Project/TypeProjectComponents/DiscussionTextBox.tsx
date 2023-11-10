@@ -35,7 +35,7 @@ export default function DiscussionTextBox(props: any) {
           onChange={(e) => setNewMessage(e.target.value)}
         ></TextArea>
       </div>
-      {isAdminOrStaff && (!isEdit ?
+      {(isAdminOrStaff && enableEdit) && (!isEdit ?
         <div style={{ display: 'flex' }} >
           <p className='delete-edit-comment'
             onClick={() => {

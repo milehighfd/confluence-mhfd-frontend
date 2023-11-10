@@ -10,6 +10,7 @@ import { GoogleReCaptcha } from "react-google-recaptcha-v3";
 import { MILE_HIGH_FLOOD_DISTRICT, STAFF_CONSTANT, COLOR } from "./constantsSignUp";
 import { useSignup } from '../hooks/useSignup';
 import { useProfileDispatch } from "hook/profileHook";
+import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
 
 const SignUpForm = () => {
   const {
@@ -27,6 +28,7 @@ const SignUpForm = () => {
   const [other, setOther] = useState({ value: '', visible: false });
   const [isValidSignup, setIsValidSignup] = useState(true);
   const { email, setEmail } = useSignup();
+  const { openNotification } = useNotifications();
 
   useEffect(() => {
     if (id) {
@@ -41,6 +43,13 @@ const SignUpForm = () => {
       });
     }
   }, [id]);
+
+  const handleErrorNotification = (emptyFields: any[]) => {
+    const inputLength = emptyFields.length;
+    const inputText = inputLength>1?"inputs":"input";
+    const message = `Missing ${inputText}: ${emptyFields.join(', ')}.`;
+    openNotification(`Warning! Required ${inputText} are missing below.`, "warning", message);
+  }
 
   const { values, handleSubmit, handleChange, errors, touched } = useFormik({
     initialValues: {
@@ -83,7 +92,6 @@ const SignUpForm = () => {
   });
 
   useEffect(() => {
-    console.log(email);
     values.email = email;
   }, [email, values]);
 
@@ -96,7 +104,23 @@ const SignUpForm = () => {
   }
 
   return (
-    <Form className="login-form" onFinish={handleSubmit} autoComplete="off">
+    <Form className="login-form" onFinish={()=> {
+      handleSubmit();
+      const isOrgRequired = (values.designation === CONSULTANT || values.designation === GOVERNMENT_STAFF);
+      const fieldsAreEmpty = !values.designation || !values.firstName || !values.lastName || !values.email || !values.password;
+      console.log(values.designation)
+      console.log(isOrgRequired)
+      if (fieldsAreEmpty || (isOrgRequired && !values.organization)) {
+        const emptyFields = [];
+        if (!values.designation) emptyFields.push("Designation");
+        if (isOrgRequired && !values.organization) emptyFields.push("Organization"); // Check organization only if required
+        if (!values.firstName) emptyFields.push("First Name");
+        if (!values.lastName) emptyFields.push("Last Name");
+        if (!values.email) emptyFields.push("Email");
+        if (!values.password) emptyFields.push("Password");
+        handleErrorNotification(emptyFields);
+      }
+      }} autoComplete="off">
       <h1>
         Sign Up!
       </h1>
@@ -148,7 +172,7 @@ const SignUpForm = () => {
           <div id="sign-up-organization">
             <input placeholder={"Enter Organization"} type="text" name="organization"
               onChange={handleChange}
-              style={{ paddingLeft: '10px' }} />
+              style={(errors.organization && touched.organization) ? { borderBottom: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} />
             <span className="highlight"></span>
             <span className="bar"></span>
           </div>

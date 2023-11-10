@@ -53,7 +53,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
   const defaultColor = {color: '#FF8938', backgroundColor: 'rgba(255, 221, 0, 0.3)', projectStatus: ''}
 
   const completedYears = Array.from({ length: 5 }, (_, index) => startYearInt + index);
-
+  const [amountsTouched, setAmountsTouched] = useState<any>({req1: true, req2: true, req3: true, req4: true, req5: true, req11: true, req12: true});
   const orderArrayForCost = (data: any) => {
     const orderedArray = data.sort((a:any, b:any) => {
 
@@ -246,11 +246,13 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
       mhfdEntries.forEach((mhfdEntry: any) => {
         const isAnyNonMhfdValuePresent = nonMhfdEntries.some((nonMhfdEntry: any) => 
           nonMhfdEntry.values[updatedReqField] !== null
-        );    
+        );   
         if (!isAnyNonMhfdValuePresent && mhfdEntry.values[updatedReqField] === 0) {
-          mhfdEntry.values[updatedReqField] = null;
+          mhfdEntry.values[updatedReqField] = 0; 
+          setAmountsTouched((oldamounts: any) => ({...oldamounts, [updatedReqField]: false}));
         } else if (isAnyNonMhfdValuePresent && mhfdEntry.values[updatedReqField] === null) {
           mhfdEntry.values[updatedReqField] = 0;
+          setAmountsTouched((oldamounts: any) => ({...oldamounts, [updatedReqField]: false}));
         }
       });    
       return data;
@@ -263,18 +265,20 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
       //   console.log('inputValue', inputValue);
       //   values[`req${index}`]=(+inputValue);
       // }
-      console.log('Valyee', inputValue);
       const currentValue = inputValue.replace(/,/g, '');
-      console.log('CURRENT VALUE', currentValue, reg.test(currentValue), currentValue === '',  currentValue === '-');
       if (reg.test(currentValue) || currentValue === '' || currentValue === '-') {
-        console.log('CURRENT VALUE ENTERs', currentValue);
         setCost((prev: any) => {
           const newCost = {...prev};
           const current_business_name = item.business_name;
           const current_code_cost_type_id = item.code_cost_type_id;
+          const current_code_partner_type_id = item.code_partner_type_id;
           const indexOfValue = newCost.amounts.findIndex((itemAmount: any) => itemAmount.business_name === current_business_name && itemAmount.code_cost_type_id === current_code_cost_type_id);
           newCost.amounts[indexOfValue].values[key] = inputValue ? (+currentValue) : null;
-          updateMhfdBasedOnOthers(newCost.amounts, key);
+          if (current_code_partner_type_id == 88) {
+            setAmountsTouched((oldamounts: any) => ({...oldamounts, [key]: true}));
+          } else {
+            updateMhfdBasedOnOthers(newCost.amounts, key);
+          }
           return newCost;
         });
       }else{
@@ -290,7 +294,6 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         return;
       }
     }
-
   function convertObjectToArrays(input: any, year: number) {
     const extraYears = [];
     const extraYearsAmounts = [];
@@ -331,7 +334,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
       const filteredAmounts = amounts.filter((item:any) => {
         return !(item.business_name === 'MHFD' && item.code_partner_type_id === 11);
       });
-      const send =  {amounts: filteredAmounts, isWorkPlan: isWorkPlan, isMaintenance};
+      const send =  {amounts: filteredAmounts, isWorkPlan: isWorkPlan, isMaintenance, amountsTouched};
       datasets.putData(
         BOARD_PROJECT_COST(board_project_id),
         send,
@@ -381,7 +384,9 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
       }
       setVisible(false);
     }
-
+    const formatNumberWithComas = (numero: any) => {
+      return numero.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
   return (
     <Modal
       visible={visible}
@@ -417,7 +422,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         <Row className="edit-amount-modal-body-title">
           How much funding is the Local Government providing and requesting from MHFD?
         </Row>
-        <p className='text-modal-amount'>A value of $0 will allow you to request a project with an unknown funding amount. No value will result in no request being made. No value for "Total Sum Requested" will place the project card in the Workspace.</p>
+        <p className='text-modal-amount'>A value of $0 will allow you to request a project with an unknown funding amount for that year. No value will result in no request being made. No value for "Total Sum Requested" will place the project card in the Workspace.</p>
 
 
         <div className="edit-amount-modal-body-table">
@@ -561,7 +566,12 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
                   const conditionPriorFunding = amount.key === priorFundingString ? true : false;
                   return (
                     amount.show && <Row className='rowInputContainer'>
-                      <Input disabled={conditionUnableInputs || conditionPriorFunding || isApprovedWR} prefix="$" value={item.values[amount.key] ? item.values[amount.key]?.toLocaleString('en-US') : null } onChange={(event:any) => handleChange(event, item, amount.key)} />
+                      <Input 
+                        disabled={conditionUnableInputs || conditionPriorFunding || isApprovedWR}
+                        prefix="$"
+                        value={(item.values[amount.key] || item.values[amount.key] == 0) ? formatNumberWithComas(item.values[amount.key]) : '' }
+                        onChange={(event:any) => handleChange(event, item, amount.key)} 
+                      />
                     </Row>
                   )
                 })}

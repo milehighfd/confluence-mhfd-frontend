@@ -43,6 +43,7 @@ const EditAmountCreateProject = ({
   const isMaintenance = tabKey === 'Maintenance'
   const priorFundingString = 'priorFunding';
   const [isDisabledAmountInput, setIsDisabledAmountInput] = useState<boolean>(false);
+  const [amountsTouched, setAmountsTouched] = useState<any>({req1: true, req2: true, req3: true, req4: true, req5: true, req11: true, req12: true});
   // const [completeCosts, setCompleteCosts] = useState<any>({});
   const isWorkPlan = namespaceId.type === WORK_PLAN;
   const [cost, setCost] = useState<any>({
@@ -115,7 +116,7 @@ const EditAmountCreateProject = ({
       isMaintenance: false
     }
     // const send = { ...cost, isMaintenance };
-    const send = {...newCompleteCosts, isWorkPlan, isMaintenance};
+    const send = {...newCompleteCosts, isWorkPlan, isMaintenance, amountsTouched};
     datasets.putData(
       BOARD_PROJECT_COST(board_project_id),
       send,

@@ -37,6 +37,7 @@ export class Project {
     cover: any;
     estimatedcost?: any;
     estimatedcostInput?: any;
+    estimatedcostDescription?: any;
     studyreason: number;
     sendToWR: boolean;
     componentcost?: any;
@@ -49,6 +50,8 @@ export class Project {
     sponsorId: any;
     is_routine: boolean;
     subtotalcost: any;
+    userChangedOverhead: any;
+    userChangedAdditional: any;
     constructor() {
         this.year = '2023';
         this.projectname = "special";
@@ -77,6 +80,7 @@ export class Project {
         this.streams = [];
         this.estimatedcost = 0;
         this.estimatedcostInput = 0;
+        this.estimatedcostDescription = '';
         this.otherReason = '';
         this.studyreason = 1;
         this.sendToWR = false;
@@ -87,5 +91,7 @@ export class Project {
         this.sponsorId = 0;
         this.is_routine = false;
         this.subtotalcost = 0;
+        this.userChangedOverhead = [false, false, false, false, false, false, false, false, false];
+        this.userChangedAdditional = false
     }
 }

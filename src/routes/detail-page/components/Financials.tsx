@@ -169,52 +169,45 @@ const Financials = ({ projectId }: { projectId: any }) => {
 
   const columns = [
     {
-      title: <p>Agreement</p>,
+      title: <p style={{textAlign:'center'}}>Agreement</p>,
       dataIndex: 'agreement',
       key: 'agreement',
-      width: '12%',
-      render: (agreement: any, index: any) => <p className={'table-' + agreement[1]}>{agreement[0]}</p>,
+      width: '9.5%',
+      render: (agreement: any, index: any) => <p className={'table-' + agreement[1]} style={{textAlign:'center'}}>{agreement[0]}</p>,
     },
     {
-      title: <p style={{textAlign:'center'}}>Amendment</p>,
+      title: <p style={{textAlign:'center'}}>Amend</p>,
       dataIndex: 'amendment',
       key: 'amendment',
-      width: '10%',
+      width: '8%',
       render: (Amendment: any, index: any) => <p style={{textAlign:'center'}}>{Amendment}</p>,
     },
     {
       title: <p>Partner</p>,
       dataIndex: 'partner',
       key: 'partner',
-      width: '24%',
+      width: '23.5%',
       render: (Partner: any, index: any) => <p>{Partner}</p>,
-    },
-    {
-      title: <p>Phase</p>,
-      dataIndex: 'phase',
-      key: 'phase',
-      width: '8%',
-      render: (phase: any) => <span className={phase !== '' ? 'span-Phase' : 'span'}>{phase}</span>,
-    },
+    },    
     {
       title: <p style={{ textAlign: 'center' }}>Projected</p>,
       dataIndex: 'projected',
       key: 'projected',
-      width: '12%',
+      width: '13%',
       render: (projected: string[]) => <p className={'table-' + projected[1]}>{projected[0]}</p>,
     },
     {
       title: <p style={{ textAlign: 'center' }}>Encumbered</p>,
       dataIndex: 'encumbered',
       key: 'encumbered',
-      width: '12%',
+      width: '13%',
       render: (encumbered: string[]) => <p className={'table-' + encumbered[1]}>{encumbered[0]}</p>,
     },
     {
       title: <p style={{ textAlign: 'center' }}>Tyler Encumbered</p>,
       dataIndex: 'tyler',
       key: 'tyler',
-      width: '12%',
+      width: '15%',
       render: (tyler: string[]) => <p className={'table-' + tyler[1]}>{tyler[0]}</p>,
     },
     {
@@ -224,6 +217,13 @@ const Financials = ({ projectId }: { projectId: any }) => {
       width: '10%',
       render: (date: string) => <p style={{ textAlign: 'center' }}>{date}</p>,
     },
+    {
+      title: <p>Phase</p>,
+      dataIndex: 'phase',
+      key: 'phase',
+      width: '8%',
+      render: (phase: any) => <span className={phase !== '' ? 'span-Phase' : 'span'}>{phase}</span>,
+    }
   ];
   const reset = () => {
     resetIcomeExpense()
@@ -443,7 +443,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
                   dataSource={finalData}
                   columns={columns}
                   pagination={{ pageSize: 50 }}
-                  scroll={{ y: 350 , x:windowWidth > 1000 ? '120%':'100%'}}
+                  scroll={{ y: 350 , x:windowWidth > 1000 ? '115%':'100%'}}
                   summary={() => (
                     <Table.Summary fixed={ 'bottom'}  >
                       <Table.Summary.Row  style={{ borderTop: '1px solid #d7d3e2', marginTop: '5px' }}>

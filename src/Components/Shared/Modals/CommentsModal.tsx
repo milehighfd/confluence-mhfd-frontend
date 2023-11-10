@@ -12,6 +12,8 @@ import DiscussionTextBox from 'Components/Project/TypeProjectComponents/Discussi
 const CommentsModal = () => {
   const [projectChat, setProjectChat] = useState<any>([]);
   const { detailed } = useDetailedState();
+  const [inputFocus, setInputFocus] = useState<boolean>(false);
+
   const { 
     setProjectDiscussion, 
     addDiscussionMessage,
@@ -36,7 +38,9 @@ const CommentsModal = () => {
   }
 
   useEffect(() => {
-    setProjectDiscussion(detailed.project_id, 'details');
+    if (detailed?.project_id){
+      setProjectDiscussion(detailed.project_id, 'details');
+    }    
   }, [detailed]);
 
   useEffect(() => {
@@ -49,25 +53,33 @@ const CommentsModal = () => {
     setProjectChat(projectChat.filter((item: any) => item.project_discussion_thread_id !== message_id));
     deleteDiscussionMessage(detailed.project_id, 'details', message_id);
   }
-
   return <>
     <div className='body-team-comment'>
       {canAddDiscussion && <div className="input-comment-sec">
         <TextArea
           placeholder="Write a comment..."
-          className="input-comment"
+          className={inputFocus ? "input-comment input-comment-focus":"input-comment"}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           autoSize
+          onMouseEnter={()=> setInputFocus(true)}
         />
-        <Button className="btn-purple" onClick={(e) => handleAddMessage(message)} >
+        <Button
+          className="btn-purple"
+          onClick={(e) => {
+            handleAddMessage(message);
+            setTimeout(() => {
+            setInputFocus(false);
+            }, 1000);
+          }}
+        >
           <img src='/Icons/ic-send-white.svg' alt='' className='icon-send' /> Send
         </Button>
       </div>}
       {
         projectChat?.map((item: any, index: number) => {
           return (
-            <div className='comment' key={index}>
+            <div className='comment' key={index} onMouseEnter={()=>setInputFocus(false)}>
               <div className='header-comment'>
                 {
                   item?.user?.photo                    

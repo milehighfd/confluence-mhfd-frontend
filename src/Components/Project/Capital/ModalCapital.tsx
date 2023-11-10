@@ -39,7 +39,7 @@ const content = (<div className="popver-info">Projects identified in a MHFD mast
 const contentIndComp = (<div className="popver-info">Independent Actions should be added to represent any known project actions that are not already shown in the Actions layer. Independent Action costs should reflect only the cost of construction; they will have Overhead Costs applied to them</div>);
 const contentOverheadCost = (<div className="popver-info"> Overhead Cost includes all costs beyond the costs of physical construction (Subtotal Cost). The default values shown here can and should be changed when different percentages are anticipated, such as in urban settings. Please add a description explaining any changes from default values. </div>);
 const contentAdditionalCost = (<div className="popver-info"> Enter any additional costs here that were not captured previously as Actions, Independent Actions, or Overhead Costs. Additional Costs (unlike Independent Actions) will NOT have Overhead Costs applied to them. </div>);
-const contentRecommendedBudget = (<div className="popver-info"> The cost estimate was last updated by Jon Villines on November 3, 2023. </div>);
+const contentRecommendedBudget = (<div className="popver-info"> The <b>Recommended Project Budget</b> is the sum of all proposed action costs, independent action costs, overhead costs and additional costs. </div>);
 const content10 = (<div className="popver-info">The Action Status indicates whether or not the Action has already been built (Complete) or still needs to be built (Proposed).</div>);
 const content05 = (<div className="popver-info" style={{ width: '261px' }}> Indicate why this project is eligible for MHFD maintenance. <br /><br /><b>Capital Project</b> – The project was completed as part of a MHFD Capital Improvement Plan
   <br /> <b>MEP</b> – The project has been accepted through development review as part of MHFD's Maintenance Eligibility Program (MEP)
@@ -53,7 +53,7 @@ const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
   minimumFractionDigits: 0,
-  maximumFractionDigits: 0
+  maximumFractionDigits: 2
 });
 
 const genExtra05 = (totalIndependentComp: any) => (
@@ -138,7 +138,7 @@ export const ModalCapital = ({
     getComponentsByProjectId,
     resetDiscussion,
   } = useProjectDispatch();
-  const { getGroupOrganization } = useProfileDispatch();
+  const { getGroupOrganization, openDiscussionTab } = useProfileDispatch();
   const {
     listComponents, 
     componentsFromMap, 
@@ -178,9 +178,10 @@ export const ModalCapital = ({
   const [overheadCosts, setOverheadCosts] = useState<any>([0,0,0,0,0,0,0,0,0]);
   const [keys, setKeys] = useState<any>(['-false']);
   const [additionalCost, setAdditionalCost] = useState<number>(0);
-  const [estimatedCostInput, setEstimatedCostInput] = useState<number>(0);
+  const [estimatedCostInput, setEstimatedCostInput] = useState<any>(null);
   const [additionalDescription, setAdditionalDescription] = useState("");
   const [overheadDescription, setOverheadDescription] = useState("");
+  const [estimatedCostDescription, setEstimatedCostDescription] = useState('');
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
   const [jurisdiction, setjurisdiction] = useState<any>([]);
@@ -193,7 +194,7 @@ export const ModalCapital = ({
   const pageWidth  = document.documentElement.scrollWidth;
   const { tabActiveNavbar } = useMapState();
   const isWorkPlan = tabActiveNavbar === WORK_PLAN_TAB;
-  const { groupOrganization, userInformation} = useProfileState();
+  const { groupOrganization, userInformation, openDiscussion} = useProfileState();
   const [openDropdownTypeProject, setOpenDropdownTypeProject] = useState(false);
   const [activeTabBodyProject, setActiveTabBodyProject] = useState('Details');
   const [favorite, setFavorite] = useState(false);
@@ -225,6 +226,8 @@ export const ModalCapital = ({
   const [isEditingPosition,setIsEditingPosition ]= useState(false)
   const [initSubtotalCost, setInitSubtotalCost] = useState<any>(null);
   const  flagInit = useRef(false);
+  const [userChangedOverhead, setUserChangedOverhead] = useState([false, false, false, false, false, false, false, false, false]);
+  const [userChangedAdditional, setUserChangedAdditional] = useState(false);
   //special
   const setTypeAndSubType = (type:string, subType:string, label:string) => {
     setSubType(subType);
@@ -268,6 +271,15 @@ export const ModalCapital = ({
       }
     }       
   }, [userInformation]);
+
+  useEffect(() => {
+    console.log(openDiscussion, 'openDiscussion')
+    if (openDiscussion){
+      setActiveTabBodyProject('Discussion');
+      openDiscussionTab(false);
+    }
+  },[openDiscussion]);
+
   useEffect(() => {
     if(!showDraw) {
       setStreamIntersected({ geom: null });
@@ -291,6 +303,7 @@ export const ModalCapital = ({
       const overheadCostDesc = data?.project_costs.filter((e: any) => e.code_cost_type_id === 5)[0];
       setOverheadDescription(!overheadCostDesc || overheadCostDesc?.cost_description === null ? '' : overheadCostDesc?.cost_description);
       setEstimatedCostInput(estimatedCostFromData ? estimatedCostFromData.cost : 0);
+      setEstimatedCostDescription(estimatedCostFromData ? estimatedCostFromData.cost_description : '')
       setCounty(counties);
       setServiceArea(serviceAreas);
       setjurisdiction(localJurisdiction);
@@ -485,6 +498,9 @@ export const ModalCapital = ({
       capital.type = selectedTypeProject;
       capital.isCountyWide = isCountyWide ? isCountyWide : false;
       capital.isSouthPlate = isSouthPlate ? isSouthPlate : false;
+      console.log('userCHANGED OVERHEAD', userChangedOverhead);
+      capital.userChangedOverhead = userChangedOverhead;
+      capital.userChangedAdditional = userChangedAdditional;
       changeAddLocationState(false);
       //capital 
       if (selectedTypeProject === 'capital') {
@@ -497,6 +513,7 @@ export const ModalCapital = ({
         capital.independentComponent = JSON.stringify(thisIndependentComponents, null, 2);
         capital.estimatedcost = getTotalCost();
         capital.estimatedcostInput = estimatedCostInput;
+        capital.estimatedcostDescription = estimatedCostDescription;
         capital.componentcost = getSubTotalCost();
         capital.componentcount = (
           componentsToSave?.length > 0 ?
@@ -755,12 +772,13 @@ export const ModalCapital = ({
     let newValue = e.target.value
     newValue = newValue.replace(/-/g, '');
     let value = newValue.replace("$", "");
-    value = value.replace(",", "");
+    value = value.replaceAll(",", "");
     if (value) {
       setAdditionalCost(parseInt(value));
     } else {
       setAdditionalCost(parseInt('0'));
     }
+    setUserChangedAdditional(true);
   };
   const onChangeAdditionalDescription = (e: any) =>{
     setAdditionalDescription(e.target.value);
@@ -924,6 +942,12 @@ export const ModalCapital = ({
     let newoverhead = [...overheadValues];
     newoverhead[index] = parseInt(e);
     setOverheadValues(newoverhead);
+    console.log('UPDATED OVERHEAD', index, e);
+    setUserChangedOverhead((olduserchanged: any)  => {
+      const newuserchanged = [...olduserchanged];
+      newuserchanged[index] = true;
+      return newuserchanged;
+    });
   }
 
   const getSubTotalCost = () => {
@@ -1338,6 +1362,8 @@ export const ModalCapital = ({
                   onChangeOverheadDescription={onChangeOverheadDescription}
                   overheadDescription={overheadDescription}
                   onChangeAdditionalCost={onChangeAdditionalCost}
+                  estimatedCostDescription={estimatedCostDescription}
+                  setEstimatedCostDescription={setEstimatedCostDescription}
                   additionalCost={additionalCost}
                   additionalDescription={additionalDescription}
                   contentOverheadCost={contentOverheadCost}

@@ -197,7 +197,7 @@ export const COMPONENT_LAYERS_STYLE = {
   ],
   [SPECIAL_ITEM_LINEAR]: [
     {
-      // "id": "PA-Line-Special SHADOW",
+      // "id": "~ PA-Line-Special SHADOW",
       "type": "line",
       "source-layer": "pluto15v1",
       "filter": [
@@ -211,10 +211,10 @@ export const COMPONENT_LAYERS_STYLE = {
           ]
       ],
       "layout": {"line-cap": "round"},
-      "paint": {"line-opacity": 0.4, "line-blur": 5, "line-width": 8}
+      "paint": {"line-opacity": 0.4, "line-blur": 5, "line-width": 12}
     },
     {
-      // "id": "PA-Line-Special LINE BASE",
+      // "id": "~ PA-Line-Special LINE BASE",
       "type": "line",
       "source-layer": "pluto15v1",
       "filter": [
@@ -228,10 +228,24 @@ export const COMPONENT_LAYERS_STYLE = {
           ]
       ],
       "layout": {"line-cap": "round"},
-      "paint": {"line-color": "#2a4328", "line-width": 4}
+      "paint": {
+          "line-color": "#2a4328",
+          "line-opacity": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              0,
+              0,
+              10,
+              0.11,
+              11,
+              1
+          ],
+          "line-width": 6.5
+      }
     },
     {
-      // "id": "PA-Line-Special DASH",
+      // "id": "~ PA-Line-Special DASH",
       "type": "line",
       "source-layer": "pluto15v1",
       "filter": [
@@ -247,7 +261,18 @@ export const COMPONENT_LAYERS_STYLE = {
       "paint": {
           "line-color": "#28af76",
           "line-dasharray": [0.8, 0.8],
-          "line-width": 4
+          "line-width": 6.5,
+          "line-opacity": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              0,
+              0,
+              10,
+              0.11,
+              11,
+              1
+          ]
       }
     },
   ],
@@ -270,7 +295,7 @@ export const COMPONENT_LAYERS_STYLE = {
       "paint": {"line-width": 8, "line-opacity": 0.4, "line-blur": 5}
     },
     {
-      // "id": "PA-Poly-Special FILL",
+      // "id": "~ PA-Poly-Special FILL",
       "type": "fill",
       "source-layer": "pluto15v1",
       "filter": [
@@ -285,7 +310,7 @@ export const COMPONENT_LAYERS_STYLE = {
       ],
       "paint": {
           "fill-color": "#00e07b",
-          "fill-pattern": "SQR-teal-supersml",
+          "fill-pattern": "Checker_Special",
           "fill-opacity": 0.6
       }
     },
@@ -308,7 +333,7 @@ export const COMPONENT_LAYERS_STYLE = {
   ],
   [CHANNEL_IMPROVEMENTS_LINEAR]: [
     {
-      // "id": "PA-Line-ChnlImprvmnt SHADOW",
+      // "id": "~ PA-Line-ChnlImprvmnt SHADOW",
       "type": "line",
       "source-layer": "pluto15v1",
       "filter": [
@@ -322,10 +347,15 @@ export const COMPONENT_LAYERS_STYLE = {
           ]
       ],
       "layout": {"line-cap": "square"},
-      "paint": {"line-opacity": 0.4, "line-blur": 5, "line-width": 8}
+      "paint": {
+          "line-opacity": 0.1,
+          "line-blur": 5,
+          "line-width": 8,
+          "line-gap-width": 3
+      }
     },
     {
-      // "id": "PA-Line-ChnlImprvmnt BASE",
+      // "id": "~ PA-Line-ChnlImprvmnt BASE",
       "type": "line",
       "source-layer": "pluto15v1",
       "filter": [
@@ -340,13 +370,24 @@ export const COMPONENT_LAYERS_STYLE = {
       ],
       "layout": {"line-cap": "round"},
       "paint": {
-          "line-width": 2,
           "line-color": "#2a4328",
-          "line-gap-width": 2
+          "line-opacity": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              0,
+              0,
+              10,
+              0.11,
+              11,
+              1
+          ],
+          "line-gap-width": 4,
+          "line-width": 3
       }
     },
     {
-      // "id": "PA-Line-ChnlImprvmnt LINE",
+      // "id": "~ PA-Line-ChnlImprvmnt LINE",
       "type": "line",
       "source-layer": "pluto15v1",
       "filter": [
@@ -360,7 +401,23 @@ export const COMPONENT_LAYERS_STYLE = {
           ]
       ],
       "layout": {"line-cap": "round"},
-      "paint": {"line-color": "#00e07b", "line-gap-width": 3}
+      "paint": {
+          "line-color": "#00e07b",
+          "line-gap-width": 5,
+          "line-opacity": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              0,
+              0,
+              10,
+              0.11,
+              11,
+              1
+          ],
+          "line-dasharray": [3, 3],
+          "line-width": 1.5
+      }
     },
   ],
   [CHANNEL_IMPROVEMENTS_AREA]: [
@@ -530,7 +587,7 @@ export const COMPONENT_LAYERS_STYLE = {
   ],
   [STORM_DRAIN]: [
     {
-      // "id": "PA-Line-StormDrn SHADOW",
+      // "id": "~ PA-Line-StormDrn SHADOW",
       "type": "line",
       "source-layer": "pluto15v1",
       "filter": [
@@ -544,10 +601,15 @@ export const COMPONENT_LAYERS_STYLE = {
           ]
       ],
       "layout": {"line-cap": "round"},
-      "paint": {"line-opacity": 0.4, "line-blur": 5, "line-width": 8}
+      "paint": {
+          "line-opacity": 0.1,
+          "line-blur": 5,
+          "line-width": 8,
+          "line-gap-width": 3
+      }
     },
     {
-      // "id": "PA-Line-StormDrn BASE",
+      // "id": "~ PA-Line-StormDrn BASE",
       "type": "line",
       "source-layer": "pluto15v1",
       "filter": [
@@ -561,10 +623,25 @@ export const COMPONENT_LAYERS_STYLE = {
           ]
       ],
       "layout": {"line-cap": "round"},
-      "paint": {"line-color": "#2a4328", "line-width": 4}
+      "paint": {
+          "line-color": "#2a4328",
+          "line-width": 3,
+          "line-opacity": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              0,
+              0,
+              10,
+              0.11,
+              11,
+              1
+          ],
+          "line-gap-width": 4
+      }
     },
     {
-      // "id": "PA-Line-StormDrn LINE",
+      // "id": "~ PA-Line-StormDrn LINE",
       "type": "line",
       "source-layer": "pluto15v1",
       "filter": [
@@ -578,7 +655,22 @@ export const COMPONENT_LAYERS_STYLE = {
           ]
       ],
       "layout": {"line-cap": "round"},
-      "paint": {"line-color": "#28af76", "line-width": 2.5}
+      "paint": {
+          "line-color": "#53fd9d",
+          "line-width": 1.5,
+          "line-opacity": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              0,
+              0,
+              10,
+              0.11,
+              11,
+              1
+          ],
+          "line-gap-width": 5
+      }
     },
   ],
   [DETENTION_FACILITIES]: [
@@ -600,7 +692,27 @@ export const COMPONENT_LAYERS_STYLE = {
       "paint": {"line-width": 8, "line-opacity": 0.4, "line-blur": 5}
     },
     {
-      // "id": "PA-Poly-DetnFaclt FILL",
+      // "id": "~ PA-Poly-DetnFaclt FILL BG",
+      "type": "fill",
+      "source-layer": "pluto15v1",
+      "filter": [
+          "all",
+          [
+              "match",
+              ["get", "status"],
+              ["Constructed", "TBD", "Proposed"],
+              true,
+              false
+          ]
+      ],
+      "paint": {
+          "fill-color": "#14ff1c",
+          "fill-outline-color": "#004d04",
+          "fill-opacity": 0.5
+      }
+    },
+    {
+      // "id": "~ PA-Poly-DetnFaclt FILL",
       "type": "fill",
       "source-layer": "pluto15v1",
       "filter": [
@@ -616,8 +728,7 @@ export const COMPONENT_LAYERS_STYLE = {
       "paint": {
           "fill-color": "#16c51c",
           "fill-outline-color": "#004d04",
-          "fill-opacity": 0.7,
-          "fill-pattern": "HEX-dbl-green-darker-superrrrsmall"
+          "fill-pattern": "Hex_DetBasin"
       }
     },
     {
@@ -713,7 +824,7 @@ export const COMPONENT_LAYERS_STYLE = {
       "paint": {"line-width": 8, "line-opacity": 0.4, "line-blur": 5}
     },
     {
-      // "id": "PA-Poly-LandAcq FILL",
+      // "id": "~ PA-Poly-LandAcq FILL",
       "type": "fill",
       "source-layer": "pluto15v1",
       "filter": [
@@ -726,10 +837,14 @@ export const COMPONENT_LAYERS_STYLE = {
               false
           ]
       ],
-      "paint": {"fill-color": "#359d01", "fill-opacity": 0.6}
+      "paint": {
+          "fill-color": "#359d01",
+          "fill-opacity": 0.8,
+          "fill-pattern": "crossfill_sml"
+      }
     },
     {
-      // "id": "PA-Poly-LandAcq OUTLINE",
+      // "id": "~ PA-Poly-LandAcq OUTLINE",
       "type": "line",
       "source-layer": "pluto15v1",
       "filter": [
@@ -742,7 +857,7 @@ export const COMPONENT_LAYERS_STYLE = {
               false
           ]
       ],
-      "paint": {"line-color": "#2d7709", "line-width": 3}
+      "paint": {"line-color": "#73ce46", "line-width": 3}
     }
   ],
   [LANDSCAPING_AREA]: [
@@ -802,7 +917,7 @@ export const COMPONENT_LAYERS_STYLE = {
   ],
   [STREAM_IMPROVEMENT_MEASURE]: [
     {
-      // "id": "PA-Line-StrmImprvmnt SHADOW",
+      // "id": "~ PA-Line-StrmImprvmnt SHADOW",
       "type": "line",
       "source-layer": "pluto15v1",
       "filter": [
@@ -816,10 +931,15 @@ export const COMPONENT_LAYERS_STYLE = {
           ]
       ],
       "layout": {"line-cap": "round"},
-      "paint": {"line-opacity": 0.4, "line-blur": 5, "line-width": 8}
+      "paint": {
+          "line-opacity": 0.1,
+          "line-blur": 5,
+          "line-width": 8,
+          "line-gap-width": 3
+      }
     },
     {
-      // "id": "PA-Line-StrmImprvmnt BASE",
+      // "id": "~ PA-Line-StrmImprvmnt BASE",
       "type": "line",
       "source-layer": "pluto15v1",
       "filter": [
@@ -835,12 +955,23 @@ export const COMPONENT_LAYERS_STYLE = {
       "layout": {"line-cap": "round"},
       "paint": {
           "line-color": "#2a4328",
-          "line-gap-width": 2,
-          "line-width": 2
+          "line-width": 3,
+          "line-opacity": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              0,
+              0,
+              10,
+              0.11,
+              11,
+              1
+          ],
+          "line-gap-width": 4
       }
     },
     {
-      // "id": "PA-Line-StrmImprvmnt LINE",
+      // "id": "~ PA-Line-StrmImprvmnt LINE",
       "type": "line",
       "source-layer": "pluto15v1",
       "filter": [
@@ -854,7 +985,23 @@ export const COMPONENT_LAYERS_STYLE = {
           ]
       ],
       "layout": {"line-cap": "round"},
-      "paint": {"line-color": "#38e000", "line-gap-width": 3}
+      "paint": {
+          "line-color": "#38e000",
+          "line-opacity": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              0,
+              0,
+              10,
+              0.11,
+              11,
+              1
+          ],
+          "line-gap-width": 5,
+          "line-dasharray": [9, 3],
+          "line-width": 1.5
+      }
     },
   ],
 };
@@ -2441,7 +2588,7 @@ export const PROPOSED_ACTIONS = {
   ], 
   [PROPOSED_ACTIONS_POLYS] :[
     {
-      // "id": "PA-Poly-Heat",
+      // "id": "~ PA-Poly-Heat",
       "type": "heatmap",
       "source-layer": "pluto15v1",
       "filter": [
@@ -2459,17 +2606,16 @@ export const PROPOSED_ACTIONS = {
               0,
               "rgba(0, 0, 255, 0)",
               0.1,
-              "#035b63",
+              "#022d31",
               0.3,
-              "#04b99b",
+              "#074a3f",
               0.5,
-              "#1cab1c",
+              "#177d17",
               0.7,
-              "#2b912b",
+              "#187218",
               1,
               "#05fa05"
           ],
-          "heatmap-radius": 7,
           "heatmap-opacity": [
               "interpolate",
               ["linear"],
@@ -2480,13 +2626,15 @@ export const PROPOSED_ACTIONS = {
               0.85,
               11.4,
               0
-          ]
+          ],
+          "heatmap-radius": 9,
+          "heatmap-intensity": 0.4
       }
-  },
+    },
   ],
   [PROPOSED_ACTIONS_POINTS]: [
     {
-      // "id": "PA-Point-Heat",
+      // "id": "~ PA-Point-Heat",
       "type": "heatmap",
       "source-layer": "pluto15v1",
       "filter": [
@@ -2497,7 +2645,6 @@ export const PROPOSED_ACTIONS = {
           false
       ],
       "paint": {
-          "heatmap-radius": 7,
           "heatmap-color": [
               "interpolate",
               ["linear"],
@@ -2505,13 +2652,13 @@ export const PROPOSED_ACTIONS = {
               0,
               "rgba(0, 0, 255, 0)",
               0.1,
-              "#035b63",
+              "#022d31",
               0.3,
-              "#04b99b",
+              "#074a3f",
               0.5,
-              "#1cab1c",
+              "#177d17",
               0.7,
-              "#2b912b",
+              "#187218",
               1,
               "#05fa05"
           ],
@@ -2525,10 +2672,11 @@ export const PROPOSED_ACTIONS = {
               0.85,
               11.4,
               0
-          ]
+          ],
+          "heatmap-radius": 9,
+          "heatmap-intensity": 0.4
       }
-  },
-    
+    },
   ]
 }
 export const PROJECTS_STYLES_WR = {
