@@ -230,16 +230,27 @@ export const COMPONENT_LAYERS_STYLE = {
       "layout": {"line-cap": "round"},
       "paint": {
           "line-color": "#2a4328",
-          "line-opacity": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              0,
-              0,
-              10,
-              0.11,
-              11,
-              1
+          // "line-opacity": [
+          //     "interpolate",
+          //     ["linear"],
+          //     ["zoom"],
+          //     0,
+          //     0,
+          //     10,
+          //     0.11,
+          //     11,
+          //     1
+          // ],
+          'line-opacity': [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0.7,
+            10.55,
+            0.85,
+            11.4,
+            1
           ],
           "line-width": 6.5
       }
@@ -262,17 +273,28 @@ export const COMPONENT_LAYERS_STYLE = {
           "line-color": "#28af76",
           "line-dasharray": [0.8, 0.8],
           "line-width": 6.5,
-          "line-opacity": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              0,
-              0,
-              10,
-              0.11,
-              11,
-              1
-          ]
+          // "line-opacity": [
+          //     "interpolate",
+          //     ["linear"],
+          //     ["zoom"],
+          //     0,
+          //     0,
+          //     10,
+          //     0.11,
+          //     11,
+          //     1
+          // ]
+          'line-opacity': [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0.7,
+            10.55,
+            0.85,
+            11.4,
+            1
+          ],
       }
     },
   ],
@@ -311,7 +333,18 @@ export const COMPONENT_LAYERS_STYLE = {
       "paint": {
           "fill-color": "#00e07b",
           "fill-pattern": "Checker_Special",
-          "fill-opacity": 0.6
+          // "fill-opacity": 0.6
+          'fill-opacity': [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0.7,
+            10.55,
+            0.85,
+            11.4,
+            1
+          ],
       }
     },
     {
@@ -328,7 +361,19 @@ export const COMPONENT_LAYERS_STYLE = {
               false
           ]
       ],
-      "paint": {"line-color": "#28af76", "line-width": 3}
+      "paint": {"line-color": "#28af76", "line-width": 3,
+      'line-opacity': [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        0.7,
+        10.55,
+        0.85,
+        11.4,
+        0
+      ],
+      }
     },
   ],
   [CHANNEL_IMPROVEMENTS_LINEAR]: [
@@ -371,16 +416,27 @@ export const COMPONENT_LAYERS_STYLE = {
       "layout": {"line-cap": "round"},
       "paint": {
           "line-color": "#2a4328",
-          "line-opacity": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              0,
-              0,
-              10,
-              0.11,
-              11,
-              1
+          // "line-opacity": [
+          //     "interpolate",
+          //     ["linear"],
+          //     ["zoom"],
+          //     0,
+          //     0,
+          //     10,
+          //     0.11,
+          //     11,
+          //     1
+          // ],
+          'line-opacity': [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0.7,
+            10.55,
+            0.85,
+            11.4,
+            1
           ],
           "line-gap-width": 4,
           "line-width": 3
@@ -404,16 +460,27 @@ export const COMPONENT_LAYERS_STYLE = {
       "paint": {
           "line-color": "#00e07b",
           "line-gap-width": 5,
-          "line-opacity": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              0,
-              0,
-              10,
-              0.11,
-              11,
-              1
+          // "line-opacity": [
+          //     "interpolate",
+          //     ["linear"],
+          //     ["zoom"],
+          //     0,
+          //     0,
+          //     10,
+          //     0.11,
+          //     11,
+          //     1
+          // ],
+          'line-opacity': [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0.7,
+            10.55,
+            0.85,
+            11.4,
+            1
           ],
           "line-dasharray": [3, 3],
           "line-width": 1.5
@@ -455,7 +522,18 @@ export const COMPONENT_LAYERS_STYLE = {
       "paint": {
           "fill-color": "#0d591c",
           "fill-pattern": "darkgreenhatchfill",
-          "fill-opacity": 0.8
+          // "fill-opacity": 0.8,
+          'fill-opacity': [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0.7,
+            10.55,
+            0.85,
+            11.4,
+            1
+          ],
       }
     },
     {
@@ -472,7 +550,19 @@ export const COMPONENT_LAYERS_STYLE = {
               false
           ]
       ],
-      "paint": {"line-color": "#054d13", "line-width": 3}
+      "paint": {"line-color": "#054d13", "line-width": 3,
+      'line-opacity': [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        0.7,
+        10.55,
+        0.85,
+        11.4,
+        0
+      ],
+      }
     }
   ],
   [REMOVAL_LINE]: [
@@ -507,7 +597,19 @@ export const COMPONENT_LAYERS_STYLE = {
               false
           ]
       ],
-      "paint": {"line-color": "#38e000", "line-width": 2}
+      "paint": {"line-color": "#38e000", "line-width": 2,
+      'line-opacity': [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        0.7,
+        10.55,
+        0.85,
+        11.4,
+        0
+      ],
+      }
     },
     {
       // "id": "PA-Line-Removal DASH",
@@ -526,7 +628,18 @@ export const COMPONENT_LAYERS_STYLE = {
       "paint": {
           "line-color": "#38e000",
           "line-dasharray": [0.15, 0.2],
-          "line-width": 7
+          "line-width": 7,
+          'line-opacity': [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0.7,
+            10.55,
+            0.85,
+            11.4,
+            1
+          ],
       }
     },
   ],
@@ -565,7 +678,18 @@ export const COMPONENT_LAYERS_STYLE = {
       "paint": {
           "fill-color": "#63e637",
           "fill-pattern": "lightgreenhatchfill-backwrd-lesssmall",
-          "fill-opacity": 0.8
+          // "fill-opacity": 0.8,
+          'fill-opacity': [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0.7,
+            10.55,
+            0.85,
+            11.4,
+            1
+          ],
       }
     },
     {
@@ -582,7 +706,19 @@ export const COMPONENT_LAYERS_STYLE = {
               false
           ]
       ],
-      "paint": {"line-color": "#64ff33", "line-width": 3}
+      "paint": {"line-color": "#64ff33", "line-width": 3,
+      'line-opacity': [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        0.7,
+        10.55,
+        0.85,
+        11.4,
+        0
+      ],
+      }
     },
   ],
   [STORM_DRAIN]: [
@@ -626,16 +762,27 @@ export const COMPONENT_LAYERS_STYLE = {
       "paint": {
           "line-color": "#2a4328",
           "line-width": 3,
-          "line-opacity": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              0,
-              0,
-              10,
-              0.11,
-              11,
-              1
+          // "line-opacity": [
+          //     "interpolate",
+          //     ["linear"],
+          //     ["zoom"],
+          //     0,
+          //     0,
+          //     10,
+          //     0.11,
+          //     11,
+          //     1
+          // ],
+          'line-opacity': [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0.7,
+            10.55,
+            0.85,
+            11.4,
+            1
           ],
           "line-gap-width": 4
       }
@@ -658,16 +805,27 @@ export const COMPONENT_LAYERS_STYLE = {
       "paint": {
           "line-color": "#53fd9d",
           "line-width": 1.5,
-          "line-opacity": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              0,
-              0,
-              10,
-              0.11,
-              11,
-              1
+          // "line-opacity": [
+          //     "interpolate",
+          //     ["linear"],
+          //     ["zoom"],
+          //     0,
+          //     0,
+          //     10,
+          //     0.11,
+          //     11,
+          //     1
+          // ],
+          'line-opacity': [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0.7,
+            10.55,
+            0.85,
+            11.4,
+            1
           ],
           "line-gap-width": 5
       }
@@ -708,7 +866,18 @@ export const COMPONENT_LAYERS_STYLE = {
       "paint": {
           "fill-color": "#14ff1c",
           "fill-outline-color": "#004d04",
-          "fill-opacity": 0.5
+          // "fill-opacity": 0.5,
+          'fill-opacity': [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0.7,
+            10.55,
+            0.85,
+            11.4,
+            1
+          ],
       }
     },
     {
@@ -728,7 +897,18 @@ export const COMPONENT_LAYERS_STYLE = {
       "paint": {
           "fill-color": "#16c51c",
           "fill-outline-color": "#004d04",
-          "fill-pattern": "Hex_DetBasin"
+          "fill-pattern": "Hex_DetBasin",
+          'fill-opacity': [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0.7,
+            10.55,
+            0.85,
+            11.4,
+            1
+          ],
       }
     },
     {
@@ -745,7 +925,19 @@ export const COMPONENT_LAYERS_STYLE = {
               false
           ]
       ],
-      "paint": {"line-color": "#14730d", "line-width": 3}
+      "paint": {"line-color": "#14730d", "line-width": 3,
+      'line-opacity': [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        0.7,
+        10.55,
+        0.85,
+        11.4,
+        0
+      ],
+      }
     },
   ],
   [MAINTENANCE_TRAILS]: [
@@ -781,7 +973,19 @@ export const COMPONENT_LAYERS_STYLE = {
           ]
       ],
       "layout": {"line-cap": "round"},
-      "paint": {"line-color": "#2a4328", "line-width": 4}
+      "paint": {"line-color": "#2a4328", "line-width": 4,
+      'line-opacity': [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        0.7,
+        10.55,
+        0.85,
+        11.4,
+        0
+      ],
+      }
     },
     {
       // "id": "PA-Line-MaintTrail DASH",
@@ -801,7 +1005,18 @@ export const COMPONENT_LAYERS_STYLE = {
       "paint": {
           "line-color": "#38e000",
           "line-width": 2,
-          "line-dasharray": [1, 3]
+          "line-dasharray": [1, 3],
+          'line-opacity': [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0.7,
+            10.55,
+            0.85,
+            11.4,
+            1
+          ],
       }
     },
   ],
@@ -839,8 +1054,19 @@ export const COMPONENT_LAYERS_STYLE = {
       ],
       "paint": {
           "fill-color": "#359d01",
-          "fill-opacity": 0.8,
-          "fill-pattern": "crossfill_sml"
+          // "fill-opacity": 0.8,
+          "fill-pattern": "crossfill_sml",
+          'fill-opacity': [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0.7,
+            10.55,
+            0.85,
+            11.4,
+            1
+          ],
       }
     },
     {
@@ -857,7 +1083,19 @@ export const COMPONENT_LAYERS_STYLE = {
               false
           ]
       ],
-      "paint": {"line-color": "#73ce46", "line-width": 3}
+      "paint": {"line-color": "#73ce46", "line-width": 3,
+      'line-opacity': [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        0.7,
+        10.55,
+        0.85,
+        11.4,
+        0
+      ],
+      }
     }
   ],
   [LANDSCAPING_AREA]: [
@@ -895,7 +1133,18 @@ export const COMPONENT_LAYERS_STYLE = {
       "paint": {
           "fill-color": "#2da215",
           "fill-pattern": "dots-small_olive",
-          "fill-opacity": 0.8
+          // "fill-opacity": 0.8,
+          'fill-opacity': [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0.7,
+            10.55,
+            0.85,
+            11.4,
+            1
+          ],
       }
     },
     {
@@ -912,7 +1161,19 @@ export const COMPONENT_LAYERS_STYLE = {
               false
           ]
       ],
-      "paint": {"line-color": "#a9d18e", "line-width": 3}
+      "paint": {"line-color": "#a9d18e", "line-width": 3,
+      'line-opacity': [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        0.7,
+        10.55,
+        0.85,
+        11.4,
+        0
+      ],
+      }
     },
   ],
   [STREAM_IMPROVEMENT_MEASURE]: [
@@ -956,18 +1217,29 @@ export const COMPONENT_LAYERS_STYLE = {
       "paint": {
           "line-color": "#2a4328",
           "line-width": 3,
-          "line-opacity": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              0,
-              0,
-              10,
-              0.11,
-              11,
-              1
+          // "line-opacity": [
+          //     "interpolate",
+          //     ["linear"],
+          //     ["zoom"],
+          //     0,
+          //     0,
+          //     10,
+          //     0.11,
+          //     11,
+          //     1
+          // ],
+          "line-gap-width": 4,
+          'line-opacity': [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0.7,
+            10.55,
+            0.85,
+            11.4,
+            1
           ],
-          "line-gap-width": 4
       }
     },
     {
@@ -987,16 +1259,27 @@ export const COMPONENT_LAYERS_STYLE = {
       "layout": {"line-cap": "round"},
       "paint": {
           "line-color": "#38e000",
-          "line-opacity": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              0,
-              0,
-              10,
-              0.11,
-              11,
-              1
+          // "line-opacity": [
+          //     "interpolate",
+          //     ["linear"],
+          //     ["zoom"],
+          //     0,
+          //     0,
+          //     10,
+          //     0.11,
+          //     11,
+          //     1
+          // ],
+          'line-opacity': [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0.7,
+            10.55,
+            0.85,
+            11.4,
+            1
           ],
           "line-gap-width": 5,
           "line-dasharray": [9, 3],
