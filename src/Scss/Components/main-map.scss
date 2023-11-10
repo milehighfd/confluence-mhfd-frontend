@@ -103,7 +103,9 @@
   }
 }
 .tabs-map {
-
+  .ant-tabs-nav {
+    padding-left: 16px;
+  }
   .ant-tabs-content-holder {
     padding-left: 16px;
   }
