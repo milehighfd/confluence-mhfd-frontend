@@ -188,14 +188,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
       key: 'partner',
       width: '23.5%',
       render: (Partner: any, index: any) => <p>{Partner}</p>,
-    },
-    {
-      title: <p>Phase</p>,
-      dataIndex: 'phase',
-      key: 'phase',
-      width: '8%',
-      render: (phase: any) => <span className={phase !== '' ? 'span-Phase' : 'span'}>{phase}</span>,
-    },
+    },    
     {
       title: <p style={{ textAlign: 'center' }}>Projected</p>,
       dataIndex: 'projected',
@@ -224,6 +217,13 @@ const Financials = ({ projectId }: { projectId: any }) => {
       width: '10%',
       render: (date: string) => <p style={{ textAlign: 'center' }}>{date}</p>,
     },
+    {
+      title: <p>Phase</p>,
+      dataIndex: 'phase',
+      key: 'phase',
+      width: '8%',
+      render: (phase: any) => <span className={phase !== '' ? 'span-Phase' : 'span'}>{phase}</span>,
+    }
   ];
   const reset = () => {
     resetIcomeExpense()
