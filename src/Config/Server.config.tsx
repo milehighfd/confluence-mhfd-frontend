@@ -376,6 +376,9 @@ export const SERVER = (function () {
         },
         ARCHIVE_PROJECT: (project_id: number) => {
             return `${URL_BASE.BASE}/${PROJECT}/archive/${project_id}`
+        },
+        GET_HISTORIC_COSTS_BY_PROJECT: (projectId: any) => {
+          return `${URL_BASE.BASE}/projects/complete/projectCost/${projectId}`;
         }
     }
 })();

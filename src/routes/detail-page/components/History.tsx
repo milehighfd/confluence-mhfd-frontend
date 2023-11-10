@@ -1,8 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col,  Row, } from 'antd';
-
-const History = () => {
-  const [editedDates] = useState(['Test'])
+import * as datasets from 'Config/datasets';
+import { SERVER } from 'Config/Server.config';
+import moment from 'moment';
+const History = ({projectId}: {projectId: any}) => {
+  const [editedDates] = useState(['Test']);
+  const [historicCosts, setHistoricCosts] = useState([]);
+  useEffect(() => {
+    if(projectId){
+      datasets.getData(SERVER.GET_HISTORIC_COSTS_BY_PROJECT(projectId)).then((historicValues)=>{
+        setHistoricCosts(historicValues);
+      });
+    }
+  } ,[projectId]);
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  });
   return (
     <>
       <Row>
@@ -14,61 +30,31 @@ const History = () => {
       <Row className="history-detailed-layout">
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className='history-detailed-body'>
         <ul className="list-history">
-          {
-            editedDates.map((element: string) => {
-              return(
-                // <></>
-                // <li key={element}><p>{element}</p></li>
-                <>
-                  <div className="activiti-item">
-                    <div className="user-item">
-                      RS
-                    </div>
-                    <div>
-                      <p>Ricardo Saavedra <span>moved this card from MHFD Verified to Closed - March 2023</span></p>
-                      <p className="opacity-date">Apr 4 at 11:41 AM</p>
-                    </div>
-                  </div>
-                  <div className="activiti-item">
-                    <div className="user-item" style={{background:'#23CBA1'}}>
-                      JV
-                    </div>
-                    <div>
-                      <p>Jon Vilines <span>moved this card from Ready for Review to MHFD Reviewed</span></p>
-                      <p className="opacity-date">Mar 20 at 12:45 AM</p>
-                    </div>
-                  </div>
-                  <div className="activiti-item">
-                    <div className="user-item">
-                      RS
-                    </div>
-                    <div>
-                      <p>Ricardo Saavedra <span>mmoved this card from Done to Ready for Review</span></p>
-                      <p className="opacity-date">Mar 9 at 4:28 AM</p>
-                    </div>
-                  </div>
-                  <div className="activiti-item">
-                    <div className="user-item">
-                      RS
-                    </div>
-                    <div>
-                      <p>Ricardo Saavedra <span>moved this card from Dev In Progress to Done</span></p>
-                      <p className="opacity-date">Mar 7 at 7:40 AM</p>
-                    </div>
-                  </div>
-                  <div className="activiti-item">
-                    <div className="user-item">
-                      RS
-                    </div>
-                    <div>
-                      <p>Ricardo Saavedra <span>moved this card from Ready for Review  to Dev In Progress</span></p>
-                      <p className="opacity-date">Mar 7 at 7:37 AM</p>
-                    </div>
-                  </div>
-                </>
-              )
-            })
+        {
+        historicCosts.map((element: any) => {
+          console.log('element', element);
+          let prefix = '';
+          let boldLegend = '';
+          let code_data_source_id = element?.codeSourceData?.code_data_source_type_id;
+          if(code_data_source_id === 1 ) {
+            boldLegend = `${element?.userModified?.firstName} ${element?.userModified?.lastName}`;
+          } else if (code_data_source_id === 7) {
+            boldLegend = `Confluence`;
+          } else if (code_data_source_id === 99) {
+            prefix = 'An '
+            boldLegend = `Unknown Source`;
+          } else if (code_data_source_id >= 2 && code_data_source_id <= 6) {
+            boldLegend = `${element?.codeSourceData?.update_source}`;
           }
+          const code_cost_type_name = element?.code_cost_type?.cost_type_name;
+          const dateParsed = moment(element?.last_modified).format('MM/DD/YY');
+          return (<div className="activiti-item">
+            <div>
+              <p><span>{prefix}</span>{boldLegend} <span>changed the {code_cost_type_name} Cost to {formatter.format(element.cost)} on {dateParsed}.</span></p>
+            </div>
+          </div>)
+        })
+      }
           </ul>
         </Col>
       </Row>

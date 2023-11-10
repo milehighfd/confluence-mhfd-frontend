@@ -1401,7 +1401,7 @@ export const ModalCapital = ({
             sponsor = {sponsor}
           />}
           {activeTabBodyProject === 'Activity' &&
-          <ActivitiCreateProject/>}
+          <ActivitiCreateProject projectId={projectid}/>}
           <div className="footer-project">
             <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>
             <Button className="btn-purple" onClick={handleOk}><span className="text-color-disable">Save Draft Project</span></Button>

@@ -1015,7 +1015,7 @@ const DetailModal = ({
                     <GalleryDetail />
                     <br></br>
                     <Documents />
-                    <History />
+                    <History projectId={detailed.project_id}/>
                   </>
                 )}
               </div>
