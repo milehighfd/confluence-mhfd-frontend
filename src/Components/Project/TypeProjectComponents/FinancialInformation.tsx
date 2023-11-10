@@ -167,7 +167,7 @@ export const FinancialInformation = ({
       <div className="sub-title-project">
         <h5 className="requestor-information">{index}. FINANCIAL INFORMATION </h5>
       </div>
-      <Row className="cost-project">
+      <Row className="cost-project" gutter={8}>
         <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>PROPOSED ACTIONS SUBTOTAL COST</Col>
         <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>{formatter.format( getSubTotalCost())}</b></Col>
       </Row>
@@ -188,7 +188,6 @@ export const FinancialInformation = ({
             <TextArea autoSize={{ minRows: 1, maxRows: 3 }} className='financial-input' disabled={disableFieldsForLG} placeholder={overheadDescription!==""? overheadDescription  +"": "Include Overhead Cost Description"} onChange={onChangeOverheadDescription} value={overheadDescription}/>
           </Col>
         </Row>
-        <br/>
         <Row className="sub-project">
           <Col xs={{ span: 24 }} lg={{ span: 13}} xxl={{ span: 13}}>
             <p>Additional Cost <Popover content={contentAdditionalCost}><img src="/Icons/icon-19.svg" alt="" height="10px" className='icon-cost'/></Popover></p>

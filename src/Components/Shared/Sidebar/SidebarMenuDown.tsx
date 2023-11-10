@@ -65,14 +65,7 @@ const SidebarMenuDown = ({
         <span className="clear-notifications">Mark all as read</span>
       </div>
       <hr style={{opacity:'0.5'}}/>
-      <Tabs
-        defaultActiveKey={displayedTabKey[1]}
-        activeKey={tabKey}
-        onChange={key => setTabKey(key)}
-        className="tabs-map"
-      >
-        {displayedTabKey.map((tk: string) => (
-          <TabPane className="notification-layout" key={tk}>
+      <div className="tabs-map" >
             <div className='notification-layout-body'>
               {notification?.map((item: any) => {
                 if (!item?.subject && item.project_status_notification !== null){
@@ -127,9 +120,7 @@ const SidebarMenuDown = ({
                 }                
               })}
             </div>
-          </TabPane>
-        ))}
-      </Tabs>
+      </div>
     </div>
   );
   const notificationLabel = (
