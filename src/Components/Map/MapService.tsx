@@ -213,13 +213,20 @@ class MapService {
   };
   topComponents () {
     const styles = { ...(COMPONENT_LAYERS_STYLE as any) };
-    for (const component of COMPONENT_LAYERS.tiles) {
-      styles[component].forEach((style: LayerStylesType, index: number) => {
-        if (this.map.getLayer(`${component}_${index}`)) {
-          this.map.moveLayer(`${component}_${index}`);
-        }
-      });
-    }
+    // setTimeout(() => {
+      for (const component of COMPONENT_LAYERS.tiles) {
+        styles[component].forEach((style: LayerStylesType, index: number) => {
+          if (this.map.getLayer(`${component}_${index}`)) {
+            console.log('This should be the order', `${component}_${index}`);
+            this.map.moveLayer(`${component}_${index}`);
+          }
+        });
+      }
+      // setTimeout(()=> {
+        console.log('this.map.getStyle().layers;', this.map.getStyle().layers);
+      // }, 8000)
+    // }, 20000);
+    
   };
 
   topMEPproject () {
