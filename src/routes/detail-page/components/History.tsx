@@ -38,7 +38,6 @@ const History = ({projectId}: {projectId: any}) => {
           if (!element.codeSourceData) {
             prefix = 'Missing source type attribute: ';
           } else if(code_data_source_id === 1 ) {
-            console.log('eeent', element);
             if (element.userModified) {
               boldLegend = `${element?.userModified?.firstName} ${element?.userModified?.lastName}`;
             } else {

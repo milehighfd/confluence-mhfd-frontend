@@ -29,12 +29,18 @@ export const ActivitiCreateProject = ({projectId}: {projectId: any}) => {
       </Select> */}
       {
         historicCosts.map((element: any) => {
-          console.log('element', element);
           let prefix = '';
           let boldLegend = '';
           let code_data_source_id = element?.codeSourceData?.code_data_source_type_id;
-          if(code_data_source_id === 1 ) {
-            boldLegend = `${element?.userModified?.firstName} ${element?.userModified?.lastName}`;
+          if (!element.codeSourceData) {
+            prefix = 'Missing source type attribute: ';
+          } else if(code_data_source_id === 1 ) {
+            if (element.userModified) {
+              boldLegend = `${element?.userModified?.firstName} ${element?.userModified?.lastName}`;
+            } else {
+              boldLegend = `${element?.modified_by}`;
+            }
+            
           } else if (code_data_source_id === 7) {
             boldLegend = `Confluence`;
           } else if (code_data_source_id === 99) {
