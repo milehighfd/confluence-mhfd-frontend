@@ -18,14 +18,14 @@ const TeamCollaborator = () => {
   return (
     <div className="chat-r">
       <Row style={{paddingBottom: '15px'}}>
-        <Col span={5}>
+        <Col span={7}>
           <div
             className="chart-title"
             onClick={() => {setSelected(true)}}
             role="button"
             tabIndex={0}
           >
-            <h5 className={selected ? 'active-title': ''}>Team</h5>
+            <h5 className={selected ? 'active-title': ''}>Partners</h5>
           </div>
         </Col>
         <Col span={16}>
