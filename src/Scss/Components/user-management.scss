@@ -1142,6 +1142,12 @@
   }
   // BODDY MANAGEMENT
   .user-management-body {
+    .col-table-board{
+      padding: 16px 37px !important;
+    }
+    .img-dowload{
+      right: 65px !important;
+    }
     .list-view-head {
       width: 375.88px !important;
       .ant-select-single.ant-select-show-arrow .ant-select-selection-item,
@@ -1468,8 +1474,22 @@
     }
   }
   .user-management-body {
+    .board-table-year-p{
+      font-size: 18px !important;
+    }
     h2 {
       font-size: 28px;
+    }
+    .table-board-year{
+      .ant-table{
+        font-size: 20px !important;
+      }
+      .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
+        padding: 18px;
+      }
+      .tag-table{
+        font-size: 18px;
+      }
     }
     .list-view-head {
       width: 482.48px !important;
