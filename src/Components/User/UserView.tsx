@@ -206,7 +206,7 @@ const UserView = () => {
                           <Table columns={COLUMNS_USER_ACTIVITY} rowKey={record => record.registerDate} dataSource={userActivity.data}
                             pagination={pagination} onChange={(pagination, filters, sort) => handleTableChange(pagination, filters, sort)}/>
                     </TabPane>
-                    <TabPane tab="Board Year" key="5">
+                    <TabPane tab="Board Access" key="5">
                       <UserFilterYear />
                     </TabPane>
                   </Tabs>

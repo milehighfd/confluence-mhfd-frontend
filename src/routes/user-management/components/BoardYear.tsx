@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Row, Select, notification } from 'antd';
+import { Button, Col, Row, Select, Table, notification } from 'antd';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
@@ -15,6 +15,157 @@ const BoardYear = () => {
   const [yearEdit, setYearEdit] = useState<any>('');
   const [yearEditList, setYearEditList] = useState<any>([]);
   const { openNotification } = useNotifications();
+  const dataSource = [
+    {
+      key: '1',
+      name: 'Board Availability (up to most recent year)',
+      title: true,
+    },
+    {
+      key: '2',
+      name: 'Work Request',
+      admin: '2024',
+      government: '2024',
+      consultants: '2024',
+      other: 'Not Available',
+      title: false,
+    },
+    {
+      key: '3',
+      name: 'Work Plan',
+      admin: '2024',
+      government: '2024',
+      consultants: '2024',
+      other: 'Not Available',
+      title: false,
+    },
+    {
+      key: '4',
+      name: 'Default Settings',
+      title: true,
+    },
+    {
+      key: '5',
+      name: 'Work Request',
+      admin: '2024',
+      government: '2024',
+      consultants: '2024',
+      other: 'Not Available',
+      title: false,
+    },
+    {
+      key: '6',
+      name: 'Work Plan',
+      admin: '2024',
+      government: '2024',
+      consultants: '2024',
+      other: 'Not Available',
+      title: false,
+    },
+  ];
+  
+  const columns = [
+    {
+      title: '',
+      dataIndex: 'name',
+      key: 'name',
+      render: (text: any, record:any) => {
+        if(record.title){
+          return (
+            <span style={{textDecoration:'underline'}}>{text}</span>
+          )
+        }
+        return <span>{text}</span>
+      }
+    },
+    {
+      title: 'MHFD Staff & Admin',
+      dataIndex: 'admin',
+      key: 'admin',
+      render: (text: any, record:any) => {
+        if(record.title){
+          return ('')
+        }
+        return (
+          <div style={{textAlign:'center', width:'100%'}}>
+            <Select
+              defaultValue={text}
+              style={{ width: 120, textAlign:'left'}}
+              options={[
+                { value: '2022', label: '2022' },
+                { value: '2023', label: '2023' },
+                { value: '2024', label: '2024' },
+                { value: '2025', label: '2025' },
+              ]}
+            />
+          </div>
+        )
+      }
+    },
+    {
+      title: 'Local Government',
+      dataIndex: 'government',
+      key: 'government',
+      render: (text: any, record:any) => {
+        if(record.title){
+          return ('')
+        }
+        return (
+          <div style={{textAlign:'center', width:'100%'}}>
+            <Select
+              defaultValue={text}
+              style={{ width: 120, textAlign:'left'}}
+              options={[
+                { value: '2022', label: '2022' },
+                { value: '2023', label: '2023' },
+                { value: '2024', label: '2024' },
+                { value: '2025', label: '2025' },
+              ]}
+            />
+          </div>
+        )
+      }
+    },
+    {
+      title: 'Consultants & Contractors',
+      dataIndex: 'consultants',
+      key: 'consultants',
+      render: (text: any, record:any) => {
+        if(record.title){
+          return ('')
+        }
+        return (
+          <div style={{textAlign:'center', width:'100%'}}>
+            <Select
+              defaultValue={text}
+              style={{ width: 120, textAlign:'left'}}
+              options={[
+                { value: '2022', label: '2022' },
+                { value: '2023', label: '2023' },
+                { value: '2024', label: '2024' },
+                { value: '2025', label: '2025' },
+              ]}
+            />
+          </div>
+        )
+      }
+    },
+    {
+      title: 'Other',
+      dataIndex: 'other',
+      key: 'other',
+      render: (text: any, record:any) => {
+        if(record.title){
+          return ('')
+        }
+        return (
+          <div style={{textAlign:'center', width:'100%'}}>
+            <span className='tag-table'>{text}</span>
+          </div>
+        )
+      }
+    },
+  ];
   const {
     setYear,
     setYearList,
@@ -60,13 +211,31 @@ const BoardYear = () => {
     <div>
       {contextHolder}
       <Row>
-        <Col xs={{ span: 9}} lg={{ span: 5 }}>
-          <div className="list-view-head" style={{paddingTop:'10px', paddingLeft:'15px'}} >
-            <h2 style={{color:'rgb(29, 22, 70)'}}className="title">Board Year</h2>
+        <Col xs={{ span: 24}} lg={{ span: 24 }} style={{paddingLeft: '37px', paddingRight:'37px'}}>
+          <div className="list-view-head" style={{paddingTop:'10px', }} >
+            <h2 style={{color:'rgb(29, 22, 70)'}}className="title">Board Access</h2>
+          </div>
+          <div style={{ }} >
+            <p>These settings limit which boards are available and set as the default , according to user type. </p>
+          </div>
+          <br />
+          <div className='table-board-year'>
+            <Table
+              dataSource={dataSource}
+              columns={columns}
+              pagination={false}
+              rowClassName={(record, index) => {
+                
+                if (record.title) {
+                  return 'title-board-year';
+                }
+                return '';
+              }}
+            />
           </div>
         </Col>
       </Row>
-      <div className="table-user-management" style={{paddingLeft:'15px'}}>
+      {/* <div className="table-user-management" style={{paddingLeft:'15px'}}>
         <span style={{color: 'rgb(17, 9, 60)', paddingRight: '10px'}}>Most recent board year:</span>
         <Select
           value={yearEdit}
@@ -88,7 +257,7 @@ const BoardYear = () => {
         <Button className="btn-purple btn-board" style={{marginTop: 20}} onClick={onSave}>
           Save
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 };

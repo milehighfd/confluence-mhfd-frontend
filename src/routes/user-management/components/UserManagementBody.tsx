@@ -6,7 +6,7 @@ import UserList from 'routes/user-management/components/UserList';
 
 const USER_MANAGEMENT = 'Users Management';
 const USER_ACTIVITY = 'User Activity';
-const BOARD_YEAR = 'Board Year';
+const BOARD_YEAR = 'Board Access';
   
 const tabKeyComponentMap = {
   [USER_MANAGEMENT]: UserList,
