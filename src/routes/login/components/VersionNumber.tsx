@@ -24,6 +24,13 @@ const VersionNumber = ({visible, setVisible}: {visible: boolean, setVisible: Rea
         </Row>
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
           <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c', overflowY: 'scroll', height: '400px'}} className='scroll-version'>
+            <p style={{ color: '#11093c', fontWeight: '500', paddingBottom: '10px' }}>v2.4 - November 13, 2023</p>
+            <ul>
+              <li>New Project Discussion within the Create Project module and Project Profile</li>
+              <li>New In-App and Email Notifications sent to Project Partners whose projects receive a discussion update</li>
+              <li>New manually updated 'Actual Project Estimated Cost' within the Create Project module</li>
+              <li>Update layer symbology for Streams; Projects; Projects in the Work Request & Work Plan; Problems; Proposed Actions; and Stream Management Corridors</li>              
+            </ul>
             <p style={{ color: '#11093c', fontWeight: '500', paddingBottom: '10px' }}>v2.3 - October 10, 2023</p>
             <ul>
               <li>New Universal Search feature located in the header</li>
