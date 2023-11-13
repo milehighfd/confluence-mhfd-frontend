@@ -56,7 +56,7 @@ const History = ({projectId}: {projectId: any}) => {
           const dateParsed = moment(element?.last_modified).format('MM/DD/YY');
           return (<div className="activiti-item">
             <div>
-              <p><span>{prefix}</span>{boldLegend} <span>changed the <b>{code_cost_type_name}</b> Cost to {formatter.format(element.cost)} on {dateParsed}.</span></p>
+              <p><span>{prefix}</span>{boldLegend} <span>changed the <b>{code_cost_type_name} Cost </b> to {formatter.format(element.cost)} on {dateParsed}.</span></p>
             </div>
           </div>)
         })
