@@ -371,7 +371,7 @@ export const COMPONENT_LAYERS_STYLE = {
         10.55,
         0.85,
         11.4,
-        0
+        1
       ],
       }
     },
@@ -560,7 +560,7 @@ export const COMPONENT_LAYERS_STYLE = {
         10.55,
         0.85,
         11.4,
-        0
+        1
       ],
       }
     }
@@ -607,7 +607,7 @@ export const COMPONENT_LAYERS_STYLE = {
         10.55,
         0.85,
         11.4,
-        0
+        1
       ],
       }
     },
@@ -716,7 +716,7 @@ export const COMPONENT_LAYERS_STYLE = {
         10.55,
         0.85,
         11.4,
-        0
+        1
       ],
       }
     },
@@ -935,7 +935,7 @@ export const COMPONENT_LAYERS_STYLE = {
         10.55,
         0.85,
         11.4,
-        0
+        1
       ],
       }
     },
@@ -983,7 +983,7 @@ export const COMPONENT_LAYERS_STYLE = {
         10.55,
         0.85,
         11.4,
-        0
+        1
       ],
       }
     },
@@ -1093,7 +1093,7 @@ export const COMPONENT_LAYERS_STYLE = {
         10.55,
         0.85,
         11.4,
-        0
+        1
       ],
       }
     }
@@ -1171,7 +1171,7 @@ export const COMPONENT_LAYERS_STYLE = {
         10.55,
         0.85,
         11.4,
-        0
+        1
       ],
       }
     },
