@@ -149,16 +149,16 @@ export const COMPONENT_LAYERS_STYLE = {
       },
       "paint": {
         'icon-opacity': [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            0,
-            0,
-            11,
-            0,
-            11.4,
-            1
-        ],
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          11,
+          0,
+          11.4,
+          1
+        ]
       }
     },
   ],
@@ -190,7 +190,7 @@ export const COMPONENT_LAYERS_STYLE = {
         0,
         11.4,
         1
-      ],
+      ]
       }
     },
   ],
@@ -227,7 +227,7 @@ export const COMPONENT_LAYERS_STYLE = {
           0,
           11.4,
           1
-        ],
+        ]
       }
     },
   ],

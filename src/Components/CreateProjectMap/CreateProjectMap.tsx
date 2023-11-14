@@ -55,6 +55,7 @@ import {
   MAINTENANCE_TRAILS,
   REMOVAL_AREA,
   REMOVAL_LINE,
+  PROPOSED_ACTIONS,
 } from '../../constants/constants';
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import { Button, Popover, Modal, Input, AutoComplete, Col, Row } from 'antd';
@@ -1109,6 +1110,9 @@ const CreateProjectMap = (type: any) => {
       if (layer === 'border' || layer === 'area_based_mask') {
         map.removeLayerMask(layer);
       } else {
+        if(layer === COMPONENT_LAYERS){
+          removeTilesHandler(PROPOSED_ACTIONS)
+        }
         removeTilesHandler(layer);
       }
     });
@@ -1314,6 +1318,9 @@ const CreateProjectMap = (type: any) => {
       if (layer === 'border' || layer === 'area_based_mask') {
         map.removeLayerMask(layer);
       } else {
+        if(layer === COMPONENT_LAYERS){
+          removeTilesHandler(PROPOSED_ACTIONS)
+        }
         removeTilesHandler(layer);
       }
     });

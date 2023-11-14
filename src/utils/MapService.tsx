@@ -27,9 +27,11 @@ import {
   RESEARCH_MONITORING,
   CLIMB_TO_SAFETY,
   EFFECTIVE_REACHES_ENDPOINTS,
+  PROPOSED_ACTIONS
 } from 'constants/constants';
 import {
   COMPONENT_LAYERS_STYLE,
+  PROPOSED_ACTIONS as PROPOSED_ACTIONS_STYLE,
   ROUTINE_MAINTENANCE_STYLES,
   MEP_PROJECTS_STYLES,
   tileStyles,
@@ -393,6 +395,19 @@ export class MapService {
       'custom-sprite/Stage.png',
       'custom-sprite/SMC_medgreen.png',
       'custom-sprite/SMC_lightgreen.png',
+      'custom-sprite/GradeCtrl_small.png',
+      'custom-sprite/crossfill_sml.png',
+      'custom-sprite/Hex_DetBasin.png',
+      'custom-sprite/Checker_Special.png',
+      'custom-sprite/floodhazardpoint_small.png',
+      'custom-sprite/watershedchangepoint_small.png',
+      'custom-sprite/streamconditionpoint_small.png',
+      'custom-sprite/darkgreenhatchfill.png',
+      'custom-sprite/dots-small_olive.png',
+      'custom-sprite/SQR-teal-supersml.png',
+      'custom-sprite/SpecialPt_small.png',
+      'custom-sprite/PipeApp_small.png',
+      'custom-sprite/lightgreenhatchfill-backwrd-lesssmall.png',
     ];
     imagesPaths.forEach((imagePath: string) => {
       this.map.loadImage(imagePath, (error: any, image: any) => {
@@ -667,7 +682,16 @@ export class MapService {
       });
     }
   };
-
+  topProposedActions () {
+    const styles = { ...(PROPOSED_ACTIONS_STYLE as any) };
+    for (const component of PROPOSED_ACTIONS.tiles) {
+      styles[component].forEach((style: LayerStylesType, index: number) => {
+        if (this.map.getLayer(`${component}_${index}`)) {
+          this.map.moveLayer(`${component}_${index}`);
+        }
+      });
+    }
+  };
   topMEPproject () {
     const styles = { ...(MEP_PROJECTS_STYLES as any) };
     for (const component of MEP_PROJECTS.tiles) {
@@ -857,6 +881,7 @@ export class MapService {
       this.topMEPproject();
       this.topProjects();
       this.topComponents();
+      this.topProposedActions();
       this.topProblemParts();
       this.topAddLayers();
       this.topProblems();
