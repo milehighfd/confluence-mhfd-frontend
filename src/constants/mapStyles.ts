@@ -2824,8 +2824,8 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
 };
 export const PROPOSED_ACTIONS = {
   [PROPOSED_ACTIONS_LINES] :[
-  {
-      // "id": "PA-Line-Heat",
+    {
+      // "id": "~ PA-Line-Heat",
       "type": "heatmap",
       "source-layer": "pluto15v1",
       "filter": [
@@ -2843,17 +2843,16 @@ export const PROPOSED_ACTIONS = {
               0,
               "rgba(0, 0, 255, 0)",
               0.1,
-              "#035b63",
+              "#022d31",
               0.3,
-              "#04b99b",
+              "#074a3f",
               0.5,
-              "#1cab1c",
+              "#177d17",
               0.7,
-              "#2b912b",
+              "#187218",
               1,
               "#05fa05"
           ],
-          "heatmap-radius": 7,
           "heatmap-opacity": [
               "interpolate",
               ["linear"],
@@ -2864,10 +2863,11 @@ export const PROPOSED_ACTIONS = {
               0.85,
               11.4,
               0
-          ]
+          ],
+          "heatmap-radius": 9,
+          "heatmap-intensity": 0.4
       }
-  }
-   
+    },
   ], 
   [PROPOSED_ACTIONS_POLYS] :[
     {
