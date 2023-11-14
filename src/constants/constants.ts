@@ -1326,7 +1326,7 @@ export const ICON_POPUPS = [
   ["Removal Line", "/Icons/ic_actions_line_removal.png"],
   ["Removal Area", "/Icons/ic_actions_polygon_removal.png"],
   ["Pipe Appurtenances", "/Icons/ic_actions_point_pipeappurtenances.png"],
-  ["Channel Improvements Linear", "/Icons/ic_actions_line_streamimprovement.png"], 
+  ["Channel Improvements Linear", "/Icons/ic_actions_line_channelimprovement.png"], 
   ["Channel Improvements Area", "/Icons/ic_actions_polygon_channelimprovement.png"],
   ["Maintenance Trails", "/Icons/ic_actions_line_maintenancetrail.png"],
   ["Landscaping Area", "/Icons/ic_actions_polygon_landscape.png"],
