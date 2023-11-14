@@ -130,7 +130,7 @@ export const COMPONENT_LAYERS_STYLE = {
       // "id": "PA-Point-GradeCtrl",
       "type": "symbol",
       "source-layer": "pluto15v1",
-      minzoom: 10,
+      // minzoom: 10,
       "filter": [
           "all",
           [
@@ -147,7 +147,19 @@ export const COMPONENT_LAYERS_STYLE = {
           "icon-allow-overlap": true,
           "icon-ignore-placement": true
       },
-      "paint": {}
+      "paint": {
+        'icon-opacity': [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0,
+            11,
+            0,
+            11.4,
+            1
+        ],
+      }
     },
   ],
   [PIPE_APPURTENANCES]: [
@@ -155,7 +167,7 @@ export const COMPONENT_LAYERS_STYLE = {
       // "id": "PA-Point-PipeApp",
       "type": "symbol",
       "source-layer": "pluto15v1",
-      minzoom: 10,
+      // minzoom: 10,
       "filter": [
           "all",
           [
@@ -167,7 +179,19 @@ export const COMPONENT_LAYERS_STYLE = {
           ]
       ],
       "layout": {"icon-image": "PipeApp_small", "icon-size": 0.2},
-      "paint": {"text-color": "#2a4328"}
+      "paint": {"text-color": "#2a4328",
+      'icon-opacity': [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        0,
+        11,
+        0,
+        11.4,
+        1
+      ],
+      }
     },
   ],
   [SPECIAL_ITEM_POINT]: [
@@ -175,7 +199,7 @@ export const COMPONENT_LAYERS_STYLE = {
       // "id": "PA-Point-Special",
       "type": "symbol",
       "source-layer": "pluto15v1",
-      minzoom: 10,
+      // minzoom: 10,
       "filter": [
           "all",
           [
@@ -192,7 +216,19 @@ export const COMPONENT_LAYERS_STYLE = {
           "icon-ignore-placement": true,
           "icon-size": 0.25
       },
-      "paint": {}
+      "paint": {
+        'icon-opacity': [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          11,
+          0,
+          11.4,
+          1
+        ],
+      }
     },
   ],
   [SPECIAL_ITEM_LINEAR]: [
@@ -872,11 +908,11 @@ export const COMPONENT_LAYERS_STYLE = {
             ["linear"],
             ["zoom"],
             0,
-            0.7,
+            0,
             10.55,
-            0.85,
+            0.5,
             11.4,
-            1
+            0.5
           ],
       }
     },
@@ -903,11 +939,11 @@ export const COMPONENT_LAYERS_STYLE = {
             ["linear"],
             ["zoom"],
             0,
-            0.7,
+            0,
             10.55,
-            0.85,
+            0.5,
             11.4,
-            1
+            0.5
           ],
       }
     },
