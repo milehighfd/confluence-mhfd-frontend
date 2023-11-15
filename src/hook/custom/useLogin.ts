@@ -6,7 +6,7 @@ import { useProfileDispatch } from 'hook/profileHook';
 
 const useLogin = () => {
   const { replaceFilterCoordinates } = useMapDispatch();
-  const { replaceAppUser,addNotifications, saveUserInformation } = useProfileDispatch();
+  const { replaceAppUser,addNotifications, saveUserInformation, getBoardYears } = useProfileDispatch();
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     datasets.getData(SERVER.ME, datasets.getToken())
@@ -42,6 +42,7 @@ const useLogin = () => {
           datasets.getData(SERVER.NOTIFICATIONS, datasets.getToken()).then(async result => {
             addNotifications(result);
           });
+          getBoardYears();
         }
       }).catch((e) => {
         console.error('error', e);
