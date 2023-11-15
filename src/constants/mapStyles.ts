@@ -266,28 +266,28 @@ export const COMPONENT_LAYERS_STYLE = {
       "layout": {"line-cap": "round"},
       "paint": {
           "line-color": "#2a4328",
-          // "line-opacity": [
-          //     "interpolate",
-          //     ["linear"],
-          //     ["zoom"],
-          //     0,
-          //     0,
-          //     10,
-          //     0.11,
-          //     11,
-          //     1
-          // ],
-          'line-opacity': [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            0,
-            0.7,
-            10.55,
-            0.85,
-            11.4,
-            1
+          "line-opacity": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              0,
+              0,
+              10,
+              0.11,
+              11,
+              1
           ],
+          // 'line-opacity': [
+          //   "interpolate",
+          //   ["linear"],
+          //   ["zoom"],
+          //   0,
+          //   0.7,
+          //   10.55,
+          //   0.85,
+          //   11.4,
+          //   1
+          // ],
           "line-width": 6.5
       }
     },
@@ -309,28 +309,28 @@ export const COMPONENT_LAYERS_STYLE = {
           "line-color": "#28af76",
           "line-dasharray": [0.8, 0.8],
           "line-width": 6.5,
-          // "line-opacity": [
-          //     "interpolate",
-          //     ["linear"],
-          //     ["zoom"],
-          //     0,
-          //     0,
-          //     10,
-          //     0.11,
-          //     11,
-          //     1
-          // ]
-          'line-opacity': [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            0,
-            0.7,
-            10.55,
-            0.85,
-            11.4,
-            1
-          ],
+          "line-opacity": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              0,
+              0,
+              10,
+              0.11,
+              11,
+              1
+          ]
+          // 'line-opacity': [
+          //   "interpolate",
+          //   ["linear"],
+          //   ["zoom"],
+          //   0,
+          //   0.7,
+          //   10.55,
+          //   0.85,
+          //   11.4,
+          //   1
+          // ],
       }
     },
   ],
@@ -375,11 +375,11 @@ export const COMPONENT_LAYERS_STYLE = {
             ["linear"],
             ["zoom"],
             0,
-            0.7,
+            0.6,
             10.55,
-            0.85,
+            0.6,
             11.4,
-            1
+            0.6
           ],
       }
     },
@@ -452,28 +452,28 @@ export const COMPONENT_LAYERS_STYLE = {
       "layout": {"line-cap": "round"},
       "paint": {
           "line-color": "#2a4328",
-          // "line-opacity": [
-          //     "interpolate",
-          //     ["linear"],
-          //     ["zoom"],
-          //     0,
-          //     0,
-          //     10,
-          //     0.11,
-          //     11,
-          //     1
-          // ],
-          'line-opacity': [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            0,
-            0.7,
-            10.55,
-            0.85,
-            11.4,
-            1
+          "line-opacity": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              0,
+              0,
+              10,
+              0.11,
+              11,
+              1
           ],
+          // 'line-opacity': [
+          //   "interpolate",
+          //   ["linear"],
+          //   ["zoom"],
+          //   0,
+          //   0.7,
+          //   10.55,
+          //   0.85,
+          //   11.4,
+          //   1
+          // ],
           "line-gap-width": 4,
           "line-width": 3
       }
@@ -496,28 +496,28 @@ export const COMPONENT_LAYERS_STYLE = {
       "paint": {
           "line-color": "#00e07b",
           "line-gap-width": 5,
-          // "line-opacity": [
-          //     "interpolate",
-          //     ["linear"],
-          //     ["zoom"],
-          //     0,
-          //     0,
-          //     10,
-          //     0.11,
-          //     11,
-          //     1
-          // ],
-          'line-opacity': [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            0,
-            0.7,
-            10.55,
-            0.85,
-            11.4,
-            1
+          "line-opacity": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              0,
+              0,
+              10,
+              0.11,
+              11,
+              1
           ],
+          // 'line-opacity': [
+          //   "interpolate",
+          //   ["linear"],
+          //   ["zoom"],
+          //   0,
+          //   0.7,
+          //   10.55,
+          //   0.85,
+          //   11.4,
+          //   1
+          // ],
           "line-dasharray": [3, 3],
           "line-width": 1.5
       }
@@ -634,17 +634,28 @@ export const COMPONENT_LAYERS_STYLE = {
           ]
       ],
       "paint": {"line-color": "#38e000", "line-width": 2,
-      'line-opacity': [
+      "line-opacity": [
         "interpolate",
         ["linear"],
         ["zoom"],
         0,
-        0.7,
-        10.55,
-        0.85,
-        11.4,
+        0,
+        10,
+        0.11,
+        11,
         1
       ],
+      // 'line-opacity': [
+      //   "interpolate",
+      //   ["linear"],
+      //   ["zoom"],
+      //   0,
+      //   0.7,
+      //   10.55,
+      //   0.85,
+      //   11.4,
+      //   1
+      // ],
       }
     },
     {
@@ -665,17 +676,28 @@ export const COMPONENT_LAYERS_STYLE = {
           "line-color": "#38e000",
           "line-dasharray": [0.15, 0.2],
           "line-width": 7,
-          'line-opacity': [
+          "line-opacity": [
             "interpolate",
             ["linear"],
             ["zoom"],
             0,
-            0.7,
-            10.55,
-            0.85,
-            11.4,
+            0,
+            10,
+            0.11,
+            11,
             1
           ],
+          // 'line-opacity': [
+          //   "interpolate",
+          //   ["linear"],
+          //   ["zoom"],
+          //   0,
+          //   0.7,
+          //   10.55,
+          //   0.85,
+          //   11.4,
+          //   1
+          // ],
       }
     },
   ],
@@ -798,28 +820,28 @@ export const COMPONENT_LAYERS_STYLE = {
       "paint": {
           "line-color": "#2a4328",
           "line-width": 3,
-          // "line-opacity": [
-          //     "interpolate",
-          //     ["linear"],
-          //     ["zoom"],
-          //     0,
-          //     0,
-          //     10,
-          //     0.11,
-          //     11,
-          //     1
-          // ],
-          'line-opacity': [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            0,
-            0.7,
-            10.55,
-            0.85,
-            11.4,
-            1
+          "line-opacity": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              0,
+              0,
+              10,
+              0.11,
+              11,
+              1
           ],
+          // 'line-opacity': [
+          //   "interpolate",
+          //   ["linear"],
+          //   ["zoom"],
+          //   0,
+          //   0.7,
+          //   10.55,
+          //   0.85,
+          //   11.4,
+          //   1
+          // ],
           "line-gap-width": 4
       }
     },
@@ -841,28 +863,28 @@ export const COMPONENT_LAYERS_STYLE = {
       "paint": {
           "line-color": "#53fd9d",
           "line-width": 1.5,
-          // "line-opacity": [
-          //     "interpolate",
-          //     ["linear"],
-          //     ["zoom"],
-          //     0,
-          //     0,
-          //     10,
-          //     0.11,
-          //     11,
-          //     1
-          // ],
-          'line-opacity': [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            0,
-            0.7,
-            10.55,
-            0.85,
-            11.4,
-            1
+          "line-opacity": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              0,
+              0,
+              10,
+              0.11,
+              11,
+              1
           ],
+          // 'line-opacity': [
+          //   "interpolate",
+          //   ["linear"],
+          //   ["zoom"],
+          //   0,
+          //   0.7,
+          //   10.55,
+          //   0.85,
+          //   11.4,
+          //   1
+          // ],
           "line-gap-width": 5
       }
     },
@@ -1010,17 +1032,28 @@ export const COMPONENT_LAYERS_STYLE = {
       ],
       "layout": {"line-cap": "round"},
       "paint": {"line-color": "#2a4328", "line-width": 4,
-      'line-opacity': [
+      "line-opacity": [
         "interpolate",
         ["linear"],
         ["zoom"],
         0,
-        0.7,
-        10.55,
-        0.85,
-        11.4,
+        0,
+        10,
+        0.11,
+        11,
         1
       ],
+      // 'line-opacity': [
+      //   "interpolate",
+      //   ["linear"],
+      //   ["zoom"],
+      //   0,
+      //   0.7,
+      //   10.55,
+      //   0.85,
+      //   11.4,
+      //   1
+      // ],
       }
     },
     {
@@ -1042,17 +1075,28 @@ export const COMPONENT_LAYERS_STYLE = {
           "line-color": "#38e000",
           "line-width": 2,
           "line-dasharray": [1, 3],
-          'line-opacity': [
+          "line-opacity": [
             "interpolate",
             ["linear"],
             ["zoom"],
             0,
-            0.7,
-            10.55,
-            0.85,
-            11.4,
+            0,
+            10,
+            0.11,
+            11,
             1
           ],
+          // 'line-opacity': [
+          //   "interpolate",
+          //   ["linear"],
+          //   ["zoom"],
+          //   0,
+          //   0.7,
+          //   10.55,
+          //   0.85,
+          //   11.4,
+          //   1
+          // ],
       }
     },
   ],
@@ -1253,29 +1297,29 @@ export const COMPONENT_LAYERS_STYLE = {
       "paint": {
           "line-color": "#2a4328",
           "line-width": 3,
-          // "line-opacity": [
-          //     "interpolate",
-          //     ["linear"],
-          //     ["zoom"],
-          //     0,
-          //     0,
-          //     10,
-          //     0.11,
-          //     11,
-          //     1
-          // ],
-          "line-gap-width": 4,
-          'line-opacity': [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            0,
-            0.7,
-            10.55,
-            0.85,
-            11.4,
-            1
+          "line-opacity": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              0,
+              0,
+              10,
+              0.11,
+              11,
+              1
           ],
+          "line-gap-width": 4,
+          // 'line-opacity': [
+          //   "interpolate",
+          //   ["linear"],
+          //   ["zoom"],
+          //   0,
+          //   0.7,
+          //   10.55,
+          //   0.85,
+          //   11.4,
+          //   1
+          // ],
       }
     },
     {
@@ -1295,28 +1339,28 @@ export const COMPONENT_LAYERS_STYLE = {
       "layout": {"line-cap": "round"},
       "paint": {
           "line-color": "#38e000",
-          // "line-opacity": [
-          //     "interpolate",
-          //     ["linear"],
-          //     ["zoom"],
-          //     0,
-          //     0,
-          //     10,
-          //     0.11,
-          //     11,
-          //     1
-          // ],
-          'line-opacity': [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            0,
-            0.7,
-            10.55,
-            0.85,
-            11.4,
-            1
+          "line-opacity": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              0,
+              0,
+              10,
+              0.11,
+              11,
+              1
           ],
+          // 'line-opacity': [
+          //   "interpolate",
+          //   ["linear"],
+          //   ["zoom"],
+          //   0,
+          //   0.7,
+          //   10.55,
+          //   0.85,
+          //   11.4,
+          //   1
+          // ],
           "line-gap-width": 5,
           "line-dasharray": [9, 3],
           "line-width": 1.5
@@ -2894,14 +2938,30 @@ export const PROPOSED_ACTIONS = {
               ["linear"],
               ["zoom"],
               0,
-              0.7,
-              10.55,
-              0.85,
+              0,
+              9,
+              0.2,
+              11,
+              0.8,
               11.4,
               0
           ],
           "heatmap-radius": 9,
-          "heatmap-intensity": 0.4
+          "heatmap-intensity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0,
+            8,
+            0.05,
+            9,
+            0.2,
+            11,
+            0.4,
+            11.4,
+            0
+        ],
       }
     },
   ], 
@@ -2947,7 +3007,21 @@ export const PROPOSED_ACTIONS = {
               0
           ],
           "heatmap-radius": 9,
-          "heatmap-intensity": 0.4
+          "heatmap-intensity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0,
+            8,
+            0.05,
+            9,
+            0.2,
+            11,
+            0.4,
+            11.4,
+            0
+        ],
       }
     },
   ],
