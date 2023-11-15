@@ -306,6 +306,9 @@ export const SERVER = (function () {
         GET_CREATE_DATA: (projectId: number) => `${URL_BASE.BASE}/${CREATE}/${CREATE_PROJECT_GENERAL}/createdata?project_id=${projectId}`,
         GET_LIST_GROUPS: (groupname: string) => `${URL_BASE.BASE}/${PMTOOLS}/groups/${groupname}`,
         UPDATE_BUDGET: `${URL_BASE.BASE}/${BOARD}/update-budget`,
+        GET_ALL_CONFIGURATIONS: `${URL_BASE.BASE}/${CONFIGURATIONS}/get/years`,
+        UPDATE_CREATE_CONF: `${URL_BASE.BASE}/${CONFIGURATIONS}/update-create`,
+        GET_CONFIGURATION_USER: `${URL_BASE.BASE}/${CONFIGURATIONS}/get/config-user`,
         GET_CONFIGURATIONS: (key: string) => {
             return `${URL_BASE.BASE}/${CONFIGURATIONS}/${key}?rnd=${Math.random()}`;
         },
