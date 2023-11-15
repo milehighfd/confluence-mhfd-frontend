@@ -16,7 +16,8 @@ import {
    resetProfile,
    getUserInformation,
    deleteAllNotifications,
-   openDiscussionTab
+   openDiscussionTab,
+   getBoardYears
 } from 'store/actions/ProfileActions';
 import {
    getTimesLogin,
@@ -92,5 +93,8 @@ export const useProfileDispatch = () => {
       getUserInformation: () => {
         dispatch(getUserInformation());
       },
+      getBoardYears: () => {
+        dispatch(getBoardYears());
+      }
    };
 };
