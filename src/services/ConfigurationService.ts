@@ -13,6 +13,10 @@ class ConfigurationService {
     });
   }
 
+  getAllConfigurationsYears() {
+    return datasets.postData(SERVER.GET_ALL_CONFIGURATIONS,{},datasets.getToken())
+  }
+
 }
 
 export default new ConfigurationService();
