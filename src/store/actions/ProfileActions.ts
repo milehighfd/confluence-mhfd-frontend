@@ -24,7 +24,7 @@ export const getUserInformation = () => {
 }
 
 export const saveUserInformation = (user: User) => {
-  return (dispatch: Function) => {
+  return (dispatch: Function) => {    
     dispatch({ type: types.GET_USER_INFORMATION, user });
   }
 }
@@ -119,5 +119,32 @@ export const deleteAllNotifications = () => {
 export const openDiscussionTab = (value : boolean) => {
   return (dispatch : Function) => {
     dispatch({ type: types.OPEN_DISCUSSION_TAB, value });
+  }
+}
+
+export const getBoardYears = () => {
+  return (dispatch: Function) => {
+    datasets.getData(SERVER.GET_CONFIGURATION_USER, datasets.getToken()).then(result => {
+      const years = {
+        workRequestYears: { max: 2027, default: 2022 },
+        workPlanYears: { max: 2027, default: 2022 },
+      };
+      result.forEach((item: any) => {
+        if (item.type === 'WORK_REQUEST') {
+          if (item.description === 'MAX') {
+            years.workRequestYears.max = parseInt(item.value);
+          } else if (item.description === 'DEFAULT') {
+            years.workRequestYears.default = parseInt(item.value);
+          }
+        } else if (item.type === 'WORK_PLAN') {
+          if (item.description === 'MAX') {
+            years.workPlanYears.max = parseInt(item.value);
+          } else if (item.description === 'DEFAULT') {
+            years.workPlanYears.default = parseInt(item.value);
+          }
+        }
+      });
+      dispatch({ type: types.GET_BOARD_YEARS, workRequestYear: years.workRequestYears, workPlanYear: years.workPlanYears });
+    })
   }
 }

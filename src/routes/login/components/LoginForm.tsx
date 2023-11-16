@@ -30,7 +30,8 @@ const LoginView = () => {
     saveUserInformation,
     resetAppUser,
     resetProfile,
-    addNotifications
+    addNotifications,
+    getBoardYears
   } = useProfileDispatch();
   const [emailModal, setEmailModal] = useState(false);
   const { resetMap } = useMapDispatch();
@@ -72,6 +73,7 @@ const LoginView = () => {
           await datasets.getData(SERVER.ME, datasets.getToken()).then(async result => {
             replaceAppUser(result);
             saveUserInformation(result)
+            getBoardYears();
           });
           await datasets.getData(SERVER.NOTIFICATIONS, datasets.getToken()).then(async result => {
             addNotifications(result);

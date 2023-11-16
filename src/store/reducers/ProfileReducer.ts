@@ -28,6 +28,8 @@ const initProfile = {
   allUserProjects: [],
   isLocalGovernment: false,
   openDiscussion: false,
+  workRequestYears: {max: 0, default: 0},
+  workPlanYear: {max: 0, default: 0}
 }
 
 const profile = (state = initProfile, action: any) => {
@@ -131,6 +133,12 @@ const profile = (state = initProfile, action: any) => {
       return {
         ...state,
         openDiscussion: action.value
+      }
+    case types.GET_BOARD_YEARS:
+      return {
+        ...state,
+        workRequestYear: action.workRequestYear,
+        workPlanYear: action.workPlanYear
       }
     default:
       return state;
