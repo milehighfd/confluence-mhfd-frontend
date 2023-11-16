@@ -4,8 +4,9 @@ import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import moment from "moment";
 
-export const ActivitiCreateProject = ({projectId}: {projectId: any}) => {
+export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: any}) => {
   const [historicCosts, setHistoricCosts] = useState([]);
+  const [historicIndaction, setHistoricIndaction] = useState([]);
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -13,12 +14,24 @@ export const ActivitiCreateProject = ({projectId}: {projectId: any}) => {
     maximumFractionDigits: 0
   });
   useEffect(() => {
+    console.log('projectId',projectId);
     if(projectId){
       datasets.getData(SERVER.GET_HISTORIC_COSTS_BY_PROJECT(projectId)).then((historicValues)=>{
         setHistoricCosts(historicValues);
       });
+      datasets.getData(SERVER.GET_HISTORIC_INDACTION_BY_PROJECT(projectId)).then((historicValues)=>{
+        setHistoricIndaction(historicValues);
+      });
     }
   } ,[projectId]);
+  useEffect(() => {
+    if(data !== 'no data'){
+      console.log('data',data);
+    }
+  }, [data]);
+  useEffect(() => {
+    console.log('historicIndaction',historicIndaction);
+  }, [historicIndaction]);
   return (
     <div className="body-project">
       {/* <label className="sub-title">Filter project activity by</label>
@@ -27,6 +40,19 @@ export const ActivitiCreateProject = ({projectId}: {projectId: any}) => {
         <Select.Option value="Filter project activity by">Filter project activity by</Select.Option>
         <Select.Option value="Filter project activity by">Filter project activity by</Select.Option>
       </Select> */}
+      {
+        historicIndaction.map((element: any) => {
+          let prefix = '';
+          let boldLegend = `${element?.userModified?.firstName} ${element?.userModified?.lastName}`;;
+          const indaction_name = element?.action_name;
+          const dateParsed = moment(element?.modified_date).format('MM/DD/YY');
+          return (<div className="activiti-item">
+            <div>
+              <p><span>{prefix}</span>{boldLegend} <span>updated Independent Action <b>{indaction_name} </b> to {formatter.format(element.cost)} on {dateParsed}.</span></p>
+            </div>
+          </div>)
+        })
+      }
       {
         historicCosts.map((element: any) => {
           let prefix = '';

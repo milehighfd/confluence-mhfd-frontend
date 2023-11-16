@@ -379,6 +379,9 @@ export const SERVER = (function () {
         },
         GET_HISTORIC_COSTS_BY_PROJECT: (projectId: any) => {
           return `${URL_BASE.BASE}/projects/complete/projectCost/${projectId}`;
+        },
+        GET_HISTORIC_INDACTION_BY_PROJECT: (projectId: any) => {
+            return `${URL_BASE.BASE}/projects/complete/independentActionHistory/${projectId}`;
         }
     }
 })();

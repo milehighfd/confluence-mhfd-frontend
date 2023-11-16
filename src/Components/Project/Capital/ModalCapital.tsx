@@ -876,7 +876,7 @@ export const ModalCapital = ({
     }
     let component = {
       key: index + 1,
-      index: index + 1,
+      // index: index + 1,
       name:undefined,
       status:'Proposed',
       cost:0,
@@ -1401,7 +1401,7 @@ export const ModalCapital = ({
             sponsor = {sponsor}
           />}
           {activeTabBodyProject === 'Activity' &&
-          <ActivitiCreateProject projectId={projectid}/>}
+          <ActivitiCreateProject projectId={projectid} data={data}/>}
           <div className="footer-project">
             <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>
             <Button className="btn-purple" onClick={handleOk}><span className="text-color-disable">Save Draft Project</span></Button>
