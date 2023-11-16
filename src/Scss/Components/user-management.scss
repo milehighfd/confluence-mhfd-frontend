@@ -71,6 +71,67 @@
 }
 
 .user-management-body {
+  .row-board-year{
+    border: 1px solid #eceaf2;
+    border-radius: 4px;
+    background: #fbfafc;
+    font-size: 16px;
+    .title-board-year{
+      padding: 18px 0px;
+      text-align: center;
+      color: black;
+      font-family: Ubuntu;
+      // font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+    }
+    .sub-title-board-year{
+      background: #f4f3f7;
+      padding: 11px 16px;
+      color: #000;
+      font-family: Ubuntu;
+      // font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      text-decoration-line: underline;
+      border-top: 1px solid #e2dfea;
+    }
+    .body-board-year{
+      padding: 11px 0px;
+      border-top: 1px solid #eae7f0;
+      color: #000;
+      font-family: Ubuntu;
+      // font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      .label-board-year{
+        padding-left: 16px;
+        display: flex;
+        align-self: center;
+      }
+      .select-board-year{
+        text-align: center;
+        justify-content: center;
+        display: flex;
+        align-self: center;
+        .tag-board-year{
+          background: #eae8f0;
+          color: #251863;
+          text-align: center;
+          font-family: Ubuntu;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+          padding: 7px 15px;
+          border-radius: 4px;
+        }
+      }
+    }
+  }
   .btn-profile-list-transparent {
     background: transparent;
     border-color: transparent;
@@ -1147,6 +1208,7 @@
   .user-management-body {
     .col-table-board{
       padding: 16px 37px !important;
+
     }
     .img-dowload{
       right: 65px !important;
@@ -1477,6 +1539,25 @@
     }
   }
   .user-management-body {
+    .row-board-year{
+      font-size: 20px;
+      .title-board-year{
+        padding: 25px 0px;
+      }
+      .sub-title-board-year{
+        padding: 18px 20px;
+      }
+      .body-board-year{
+        padding: 18px 0px;
+        .label-board-year{
+          padding-left: 20px;
+        }
+        .tag-board-year{
+          font-size: 18px !important;
+          padding: 8px 18px !important
+        }
+      }
+    }
     .board-table-year-p{
       font-size: 18px !important;
     }

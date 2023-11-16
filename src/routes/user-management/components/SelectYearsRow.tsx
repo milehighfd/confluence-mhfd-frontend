@@ -54,18 +54,21 @@ const SelectYearsRow = ({ data, type, yearType }: SelectRowProps) => {
   }
 
   return (
-    <Row>
-      <Col xs={{ span: 8 }} lg={{ span: 8 }}>{label}</Col>
+    <Row className='body-board-year'>
+      <Col xs={{ span: 8 }} lg={{ span: 8 }} className='label-board-year'>{label}</Col>
       {displayItems.map((item: any) => (
-        <Col xs={{ span: 4 }} lg={{ span: 4 }} key={item.id}>
+        <Col xs={{ span: 4 }} lg={{ span: 4 }} key={item.id} className='select-board-year'>
           <Select
             defaultValue={item.value}
-            style={{ width: 120, textAlign: 'left' }}
+            style={{ width: 140, textAlign: 'left' }}
             options={options}
             onChange={(value: any) => {createOrUpdate(value, item.key, type, yearType)}}
           />
         </Col>
       ))}
+      <Col xs={{ span: 4 }} lg={{ span: 4 }} className='select-board-year'>
+        <span className='tag-board-year'>Not Available</span>
+      </Col>
     </Row>
   );
 };

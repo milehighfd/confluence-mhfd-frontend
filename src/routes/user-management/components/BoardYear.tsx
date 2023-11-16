@@ -36,43 +36,45 @@ const BoardYear = () => {
             <p className='board-table-year-p' style={{color: '#11093C', opacity:0.6}}>These settings limit which boards are available and set as the default , according to user type. </p>
           </div>
           <br />
-          <Row>
-            <Col xs={{ span: 8}} lg={{ span: 8 }}></Col>
-            <Col xs={{ span: 4}} lg={{ span: 4 }}>MHFD Staff & Admin</Col>
-            <Col xs={{ span: 4}} lg={{ span: 4 }}>Local Government</Col>
-            <Col xs={{ span: 4}} lg={{ span: 4 }}>Consultants & Contractors</Col>
-            <Col xs={{ span: 4}} lg={{ span: 4 }}>Other</Col>
-          </Row>    
-          <Row>
-            <Col>
-              Board Availability (up to most recent year)
-            </Col>
-          </Row>
-          <SelectYearsRow
-            data={yearData}
-            type={WORK_REQUEST}
-            yearType = {typesOfYear.MAX}
-          />
-          <SelectYearsRow
-            data={yearData}
-            type={WORK_PLAN}
-            yearType = {typesOfYear.MAX}
-          />
-          <Row>
-            <Col>
-              Default Settings
-            </Col>
-          </Row>
-          <SelectYearsRow
-            data={yearData}
-            type={WORK_REQUEST}
-            yearType = {typesOfYear.DEFAULT}
-          />
-          <SelectYearsRow
-            data={yearData}
-            type={WORK_PLAN}
-            yearType = {typesOfYear.DEFAULT}
-          />
+          <div className='row-board-year'>
+            <Row>
+              <Col xs={{ span: 8}} lg={{ span: 8 }}></Col>
+              <Col xs={{ span: 4}} lg={{ span: 4 }} className='title-board-year'>MHFD Staff & Admin</Col>
+              <Col xs={{ span: 4}} lg={{ span: 4 }} className='title-board-year'>Local Government</Col>
+              <Col xs={{ span: 4}} lg={{ span: 4 }} className='title-board-year'>Consultants & Contractors</Col>
+              <Col xs={{ span: 4}} lg={{ span: 4 }} className='title-board-year'>Other</Col>
+            </Row>    
+            <Row className='sub-title-board-year'>
+              <Col>
+                Board Availability (up to most recent year)
+              </Col>
+            </Row>
+            <SelectYearsRow
+              data={yearData}
+              type={WORK_REQUEST}
+              yearType = {typesOfYear.MAX}
+            />
+            <SelectYearsRow
+              data={yearData}
+              type={WORK_PLAN}
+              yearType = {typesOfYear.MAX}
+            />
+            <Row className='sub-title-board-year'>
+              <Col>
+                Default Settings
+              </Col>
+            </Row>
+            <SelectYearsRow
+              data={yearData}
+              type={WORK_REQUEST}
+              yearType = {typesOfYear.DEFAULT}
+            />
+            <SelectYearsRow
+              data={yearData}
+              type={WORK_PLAN}
+              yearType = {typesOfYear.DEFAULT}
+            />
+          </div>
         </Col>
       </Row>
     </div>
