@@ -7,6 +7,7 @@ import moment from "moment";
 export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: any}) => {
   const [historicCosts, setHistoricCosts] = useState([]);
   const [historicIndaction, setHistoricIndaction] = useState([]);
+  const [historicAttachment, setHistoricAttachment] = useState([]);
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -21,6 +22,9 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
       });
       datasets.getData(SERVER.GET_HISTORIC_INDACTION_BY_PROJECT(projectId)).then((historicValues)=>{
         setHistoricIndaction(historicValues);
+      });
+      datasets.getData(SERVER.GET_HISTORIC_ATTACHMENT_BY_PROJECT(projectId)).then((historicValues)=>{
+        setHistoricAttachment(historicValues);
       });
     }
   } ,[projectId]);
@@ -41,6 +45,19 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
         <Select.Option value="Filter project activity by">Filter project activity by</Select.Option>
       </Select> */}
       {
+        historicAttachment.map((element: any) => {
+          let prefix = '';
+          let boldLegend = element.userModified !== null ? `${element?.userModified?.firstName} ${element?.userModified?.lastName}`: `${element?.created_by}`;
+          const indaction_name = element?.attachment_reference_key;
+          const dateParsed = moment(element?.last_modified_date).format('MM/DD/YY');
+          return (<div className="activiti-item">
+            <div>
+              <p><span>{prefix}</span>{boldLegend} <span> added a new Attachment <b>({indaction_name}) </b> on {dateParsed}.</span></p>
+            </div>
+          </div>)
+        })
+      }
+      {
         historicIndaction.map((element: any) => {
           let prefix = '';
           let boldLegend = `${element?.userModified?.firstName} ${element?.userModified?.lastName}`;;
@@ -48,7 +65,7 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
           const dateParsed = moment(element?.modified_date).format('MM/DD/YY');
           return (<div className="activiti-item">
             <div>
-              <p><span>{prefix}</span>{boldLegend} <span>updated Independent Action <b>{indaction_name} </b> to {formatter.format(element.cost)} on {dateParsed}.</span></p>
+              <p><span>{prefix}</span>{boldLegend} <span>added a new Independent Action <b>{indaction_name} </b> to {formatter.format(element.cost)} on {dateParsed}.</span></p>
             </div>
           </div>)
         })

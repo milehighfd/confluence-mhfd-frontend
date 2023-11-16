@@ -382,6 +382,9 @@ export const SERVER = (function () {
         },
         GET_HISTORIC_INDACTION_BY_PROJECT: (projectId: any) => {
             return `${URL_BASE.BASE}/projects/complete/independentActionHistory/${projectId}`;
+        },
+        GET_HISTORIC_ATTACHMENT_BY_PROJECT: (projectId: any) => {
+            return `${URL_BASE.BASE}/projects/complete/attachmentHistory/${projectId}`;
         }
     }
 })();
