@@ -45,7 +45,7 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
     let listToSort: any = [];
     const hProjectValues = historicProject.map((element: any) => {
       let prefix = '';
-      let boldLegend = element.userModified !== null ? `${element?.userModified?.firstName} ${element?.userModified?.lastName}`: `${element?.last_modified_by}`;
+      let boldLegend = element?.userModified !== null ? `${element?.userModified?.firstName} ${element?.userModified?.lastName}`: `${element?.last_modified_by}`;
       const dateParsed = moment(element?.last_modified_date).format('MM/DD/YY');
       return ({
         date: moment(element?.last_modified_date),
@@ -59,7 +59,7 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
     // make variables like hprojectvalues with this other ones: called historicIndaction, historicAttachment, historicCosts, historicDetail
     const hIndactionValues = historicIndaction.map((element: any) => {
       let prefix = '';
-      let boldLegend = element.userModified !== null ? `${element?.userModified?.firstName} ${element?.userModified?.lastName}`: `${element?.created_by}`;
+      let boldLegend = element?.userModified !== null ? `${element?.userModified?.firstName} ${element?.userModified?.lastName}`: `${element?.created_by}`;
       const indaction_name = element?.action_name;
       const dateParsed = moment(element?.modified_date).format('MM/DD/YY');
       return ({
@@ -87,7 +87,7 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
     
     const hAttachment = historicAttachment.map((element: any) => {
       let prefix = '';
-      let boldLegend = element.userModified !== null ? `${element?.userModified?.firstName} ${element?.userModified?.lastName}`: `${element?.last_modified_by}`;
+      let boldLegend = element?.userModified !== null ? `${element?.userModified?.firstName} ${element?.userModified?.lastName}`: `${element?.last_modified_by}`;
       const indaction_name = element?.attachment_reference_key;
       const dateParsed = moment(element?.last_modified_date).format('MM/DD/YY');
       return ({
