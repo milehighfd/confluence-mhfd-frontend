@@ -10,6 +10,7 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
   const [historicAttachment, setHistoricAttachment] = useState([]);
   const [historicDetail, setHistoricDetail] = useState([]);
   const [historicProject, setHistoricProject] = useState([]);
+  const [historicProposedAction, setHistoricProposedAction] = useState([]);
   const [renderList, setRenderList] = useState([]);
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -34,21 +35,17 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
       datasets.getData(SERVER.GET_HISTORIC_BY_PROJECT(projectId)).then((historicValues)=>{
         setHistoricProject(historicValues);
       });
+      datasets.getData(SERVER.GET_HISTORIC_PROPOSEDACTION_BY_PROJECT(projectId)).then((historicValues)=>{
+        setHistoricProposedAction(historicValues);
+      });
     }
   } ,[projectId]);
-  useEffect(() => {
-    if(data !== 'no data'){
-      console.log('data',data);
-    }
-  }, [data]);
-  useEffect(() => {
-    console.log('historicIndaction',historicIndaction);
-  }, [historicIndaction]);
+
   useEffect(() => {
     let listToSort: any = [];
     const hProjectValues = historicProject.map((element: any) => {
       let prefix = '';
-      let boldLegend = element.userModified !== null ? `${element?.userModified?.firstName} ${element?.userModified?.lastName}`: `${element?.created_by}`;
+      let boldLegend = element.userModified !== null ? `${element?.userModified?.firstName} ${element?.userModified?.lastName}`: `${element?.last_modified_by}`;
       const dateParsed = moment(element?.last_modified_date).format('MM/DD/YY');
       return ({
         date: moment(element?.last_modified_date),
@@ -62,7 +59,7 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
     // make variables like hprojectvalues with this other ones: called historicIndaction, historicAttachment, historicCosts, historicDetail
     const hIndactionValues = historicIndaction.map((element: any) => {
       let prefix = '';
-      let boldLegend = `${element?.userModified?.firstName} ${element?.userModified?.lastName}`;;
+      let boldLegend = element.userModified !== null ? `${element?.userModified?.firstName} ${element?.userModified?.lastName}`: `${element?.created_by}`;
       const indaction_name = element?.action_name;
       const dateParsed = moment(element?.modified_date).format('MM/DD/YY');
       return ({
@@ -74,6 +71,20 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
         </div>)
       });
     });
+    const mainproposedaction: any = historicProposedAction[0];
+    let prefix = '';
+    let boldLegend = mainproposedaction.userModified=null ? `${mainproposedaction?.userModified?.firstName} ${mainproposedaction?.userModified?.lastName}`: `${mainproposedaction?.last_modified_by}` ;
+    const dateParsed = moment(mainproposedaction?.modified_date).format('MM/DD/YY');
+    const hProposedActionValues = {
+      date: moment(mainproposedaction?.modified_date),
+      display: (<div className="activiti-item">
+          <div>
+            <p><span>{prefix}</span>{boldLegend} <span>modified the proposed action list on {dateParsed}.</span></p>
+          </div>
+        </div>)
+    }
+    
+    
     const hAttachment = historicAttachment.map((element: any) => {
       let prefix = '';
       let boldLegend = element.userModified !== null ? `${element?.userModified?.firstName} ${element?.userModified?.lastName}`: `${element?.created_by}`;
@@ -121,7 +132,7 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
       })
     });
     // merge all the h arrays in listToSort and then sort it by date 
-    listToSort = listToSort.concat(hProjectValues, hIndactionValues, hAttachment, hCosts);
+    listToSort = listToSort.concat(hProjectValues, hIndactionValues, hAttachment, hCosts, hProposedActionValues);
     listToSort.sort((a: any, b: any) => b.date - a.date);
     setRenderList(listToSort);
 
@@ -130,7 +141,8 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
     historicCosts,
     historicDetail,
     historicIndaction,
-    historicProject
+    historicProject,
+    historicProposedAction
   ]);
   return (
     <div className="body-project">

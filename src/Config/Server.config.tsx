@@ -394,6 +394,9 @@ export const SERVER = (function () {
         },
         GET_HISTORIC_BY_PROJECT: (projectId: any) => {
           return `${URL_BASE.BASE}/projects/complete/projectHistory/${projectId}`;
-        }
+        },
+        GET_HISTORIC_PROPOSEDACTION_BY_PROJECT: (projectId: any) => {
+          return `${URL_BASE.BASE}/projects/complete/proposedActionHistory/${projectId}`;
+        },
     }
 })();
