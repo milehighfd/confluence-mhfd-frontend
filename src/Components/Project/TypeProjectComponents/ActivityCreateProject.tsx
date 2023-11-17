@@ -72,18 +72,21 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
       });
     });
     const mainproposedaction: any = historicProposedAction[0];
-    let prefix = '';
-    let boldLegend = mainproposedaction?.userModified !== null ? `${mainproposedaction?.userModified?.firstName} ${mainproposedaction?.userModified?.lastName}`: `${mainproposedaction?.last_modified_by}` ;
-    const dateParsed = moment(mainproposedaction?.modified_date).format('MM/DD/YY');
-    const hProposedActionValues = {
-      date: moment(mainproposedaction?.modified_date),
-      display: (<div className="activiti-item">
-          <div>
-            <p><span>{prefix}</span>{boldLegend} <span>modified the proposed action list on {dateParsed}.</span></p>
-          </div>
-        </div>)
+    let hProposedActionValues: any = [];
+    if (mainproposedaction) {
+      let prefix = '';
+      let boldLegend = mainproposedaction?.userModified !== null ? `${mainproposedaction?.userModified?.firstName} ${mainproposedaction?.userModified?.lastName}`: `${mainproposedaction?.last_modified_by}` ;
+      const dateParsed = moment(mainproposedaction?.modified_date).format('MM/DD/YY');
+       hProposedActionValues = {
+        date: moment(mainproposedaction?.modified_date),
+        display: (<div className="activiti-item">
+            <div>
+              <p><span>{prefix}</span>{boldLegend} <span>modified the proposed action list on {dateParsed}.</span></p>
+            </div>
+          </div>)
+      }
+      
     }
-    
     
     const hAttachment = historicAttachment.map((element: any) => {
       let prefix = '';
