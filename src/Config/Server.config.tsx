@@ -388,6 +388,12 @@ export const SERVER = (function () {
         },
         GET_HISTORIC_ATTACHMENT_BY_PROJECT: (projectId: any) => {
             return `${URL_BASE.BASE}/projects/complete/attachmentHistory/${projectId}`;
+        },
+        GET_HISTORIC_DETAIL_BY_PROJECT: (projectId: any) => {
+          return `${URL_BASE.BASE}/projects/complete/detailHistory/${projectId}`;
+        },
+        GET_HISTORIC_BY_PROJECT: (projectId: any) => {
+          return `${URL_BASE.BASE}/projects/complete/projectHistory/${projectId}`;
         }
     }
 })();

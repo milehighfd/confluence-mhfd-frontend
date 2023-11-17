@@ -8,6 +8,8 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
   const [historicCosts, setHistoricCosts] = useState([]);
   const [historicIndaction, setHistoricIndaction] = useState([]);
   const [historicAttachment, setHistoricAttachment] = useState([]);
+  const [historicDetail, setHistoricDetail] = useState([]);
+  const [historicProject, setHistoricProject] = useState([]);
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -15,7 +17,6 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
     maximumFractionDigits: 0
   });
   useEffect(() => {
-    console.log('projectId',projectId);
     if(projectId){
       datasets.getData(SERVER.GET_HISTORIC_COSTS_BY_PROJECT(projectId)).then((historicValues)=>{
         setHistoricCosts(historicValues);
@@ -25,6 +26,12 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
       });
       datasets.getData(SERVER.GET_HISTORIC_ATTACHMENT_BY_PROJECT(projectId)).then((historicValues)=>{
         setHistoricAttachment(historicValues);
+      });
+      datasets.getData(SERVER.GET_HISTORIC_DETAIL_BY_PROJECT(projectId)).then((historicValues)=>{
+        setHistoricDetail(historicValues);
+      });
+      datasets.getData(SERVER.GET_HISTORIC_BY_PROJECT(projectId)).then((historicValues)=>{
+        setHistoricProject(historicValues);
       });
     }
   } ,[projectId]);
@@ -44,6 +51,43 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
         <Select.Option value="Filter project activity by">Filter project activity by</Select.Option>
         <Select.Option value="Filter project activity by">Filter project activity by</Select.Option>
       </Select> */}
+       {
+        historicProject.map((element: any) => {
+          let prefix = '';
+          let boldLegend = element.userModified !== null ? `${element?.userModified?.firstName} ${element?.userModified?.lastName}`: `${element?.created_by}`;
+          const dateParsed = moment(element?.last_modified_date).format('MM/DD/YY');
+          return (<div className="activiti-item">
+            <div>
+              <p><span>{prefix}</span>{boldLegend} <span> modified the project on {dateParsed}.</span></p>
+            </div>
+          </div>)
+        })
+      }
+      {
+        historicDetail.map((element: any) => {
+          let prefix = '';
+          let boldLegend = element.userModified !== null ? `${element?.userModified?.firstName} ${element?.userModified?.lastName}`: `${element?.created_by}`;
+          const dateParsed = moment(element?.last_modified_date).format('MM/DD/YY');
+          return (<div className="activiti-item">
+            <div>
+              <p><span>{prefix}</span>{boldLegend} <span> modified the project on {dateParsed}.</span></p>
+            </div>
+          </div>)
+        })
+      }
+       {
+        historicAttachment.map((element: any) => {
+          let prefix = '';
+          let boldLegend = element.userModified !== null ? `${element?.userModified?.firstName} ${element?.userModified?.lastName}`: `${element?.created_by}`;
+          const indaction_name = element?.attachment_reference_key;
+          const dateParsed = moment(element?.last_modified_date).format('MM/DD/YY');
+          return (<div className="activiti-item">
+            <div>
+              <p><span>{prefix}</span>{boldLegend} <span> added a new Attachment <b>({indaction_name}) </b> on {dateParsed}.</span></p>
+            </div>
+          </div>)
+        })
+      }
       {
         historicAttachment.map((element: any) => {
           let prefix = '';
