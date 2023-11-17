@@ -34,7 +34,7 @@ const History = ({projectId}: {projectId: any}) => {
     let listToSort: any = [];
     const hProjectValues = historicProject.map((element: any) => {
       let prefix = '';
-      let boldLegend = element.userModified !== null ? `${element?.userModified?.firstName} ${element?.userModified?.lastName}`: `${element?.last_modified_by}`;
+      let boldLegend = element?.userModified !== null ? `${element?.userModified?.firstName} ${element?.userModified?.lastName}`: `${element?.last_modified_by}`;
       const dateParsed = moment(element?.last_modified_date).format('MM/DD/YY');
       return ({
         date: moment(element?.last_modified_date),
@@ -49,7 +49,7 @@ const History = ({projectId}: {projectId: any}) => {
     
     const hAttachment = historicAttachment.map((element: any) => {
       let prefix = '';
-      let boldLegend = element.userModified !== null ? `${element?.userModified?.firstName} ${element?.userModified?.lastName}`: `${element?.created_by}`;
+      let boldLegend = element?.userModified !== null ? `${element?.userModified?.firstName} ${element?.userModified?.lastName}`: `${element?.created_by}`;
       const indaction_name = element?.attachment_reference_key;
       const dateParsed = moment(element?.last_modified_date).format('MM/DD/YY');
       return ({
@@ -68,7 +68,7 @@ const History = ({projectId}: {projectId: any}) => {
       if (!element.codeSourceData) {
         prefix = 'Missing source type attribute: ';
       } else if(code_data_source_id === 1 ) {
-        if (element.userModified) {
+        if (element?.userModified) {
           boldLegend = `${element?.userModified?.firstName} ${element?.userModified?.lastName}`;
         } else {
           boldLegend = `${element?.modified_by}`;
