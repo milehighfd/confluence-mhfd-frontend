@@ -49,7 +49,7 @@ const History = ({projectId}: {projectId: any}) => {
     
     const hAttachment = historicAttachment.map((element: any) => {
       let prefix = '';
-      let boldLegend = element?.userModified !== null ? `${element?.userModified?.firstName} ${element?.userModified?.lastName}`: `${element?.created_by}`;
+      let boldLegend = element?.userModified !== null ? `${element?.userModified?.firstName} ${element?.userModified?.lastName}`: `${element?.last_modified_by}`;
       const indaction_name = element?.attachment_reference_key;
       const dateParsed = moment(element?.last_modified_date).format('MM/DD/YY');
       return ({
