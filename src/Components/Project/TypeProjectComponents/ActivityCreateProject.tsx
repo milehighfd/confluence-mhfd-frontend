@@ -21,28 +21,6 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
   useEffect(() => {
     if(projectId){
       datasets.getData(SERVER.GET_HISTORIC_COSTS_BY_PROJECT(projectId)).then((historicValues)=>{
-        console.log('Historic costs', historicValues);
-        // group hictoricvalues based on projectpartnerdata group by code_partner_type_id 
-        const groupedHistoricValues: any = {};
-        historicValues.forEach((element: any) => {
-          if (!groupedHistoricValues[element.projectPartnerData.code_partner_type_id]) {
-            groupedHistoricValues[element.projectPartnerData.code_partner_type_id] = [];
-          }
-          groupedHistoricValues[element.projectPartnerData.code_partner_type_id].push(element);
-        });
-        console.log('groupedHistoricValues', groupedHistoricValues);
-        // group groups in historic values based on boardProjectCostData and req_position
-        const groupedHistoricValuesByBoardProjectCostData: any = {};
-        Object.keys(groupedHistoricValues).forEach((key: any) => {
-          groupedHistoricValuesByBoardProjectCostData[key] = {};
-          groupedHistoricValues[key].forEach((element: any) => {
-            if (!groupedHistoricValuesByBoardProjectCostData[key][element.boardProjectCostData.req_position]) {
-              groupedHistoricValuesByBoardProjectCostData[key][element.boardProjectCostData.req_position] = [];
-            }
-            groupedHistoricValuesByBoardProjectCostData[key][element.boardProjectCostData.req_position].push(element);
-          });
-        });
-        console.log('groupedHistoricValuesByBoardProjectCostData', groupedHistoricValuesByBoardProjectCostData);
         setHistoricCosts(historicValues);
       });
       datasets.getData(SERVER.GET_HISTORIC_INDACTION_BY_PROJECT(projectId)).then((historicValues)=>{
@@ -63,6 +41,63 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
     }
   } ,[projectId]);
 
+  const getHistoricCostRender = (historicValues: any) => {
+    const arrayOfHistoric = historicCosts.map((element: any) => {
+      let prefix = '';
+      let boldLegend = '';
+      let code_data_source_id = element?.codeSourceData?.code_data_source_type_id;
+      if (!element.codeSourceData) {
+        prefix = 'Missing source type attribute: ';
+      } else if(code_data_source_id === 1 ) {
+        if (element.userModified) {
+          boldLegend = `${element?.userModified?.firstName} ${element?.userModified?.lastName}`;
+        } else {
+          boldLegend = `${element?.modified_by}`;
+        }
+        
+      } else if (code_data_source_id === 7) {
+        boldLegend = `Confluence`;
+      } else if (code_data_source_id === 99) {
+        prefix = 'An '
+        boldLegend = `Unknown Source`;
+      } else if (code_data_source_id >= 2 && code_data_source_id <= 6) {
+        boldLegend = `${element?.codeSourceData?.update_source}`;
+      }
+      const code_cost_type_name = element?.code_cost_type?.cost_type_name;
+      const dateParsed = moment(element?.last_modified).format('MM/DD/YY');
+      return ({
+        date: moment(element?.last_modified),
+        display: (<div className="activiti-item">
+        <div>
+          <p><span>{prefix}</span>{boldLegend} <span>changed the <b>{code_cost_type_name} Cost</b> to {formatter.format(element.cost)} on {dateParsed}.</span></p>
+        </div>
+      </div>)
+      })
+    });
+    console.log('Historic costs', historicValues);
+    // group hictoricvalues based on projectpartnerdata group by code_partner_type_id 
+    const groupedHistoricValues: any = {};
+    historicValues.forEach((element: any) => {
+      if (!groupedHistoricValues[element.projectPartnerData.code_partner_type_id]) {
+        groupedHistoricValues[element.projectPartnerData.code_partner_type_id] = [];
+      }
+      groupedHistoricValues[element.projectPartnerData.code_partner_type_id].push(element);
+    });
+    console.log('groupedHistoricValues', groupedHistoricValues);
+    // group groups in historic values based on boardProjectCostData and req_position
+    const groupedHistoricValuesByBoardProjectCostData: any = {};
+    Object.keys(groupedHistoricValues).forEach((key: any) => {
+      groupedHistoricValuesByBoardProjectCostData[key] = {};
+      groupedHistoricValues[key].forEach((element: any) => {
+        if (!groupedHistoricValuesByBoardProjectCostData[key][element.boardProjectCostData.req_position]) {
+          groupedHistoricValuesByBoardProjectCostData[key][element.boardProjectCostData.req_position] = [];
+        }
+        groupedHistoricValuesByBoardProjectCostData[key][element.boardProjectCostData.req_position].push(element);
+      });
+    });
+    console.log('groupedHistoricValuesByBoardProjectCostData', groupedHistoricValuesByBoardProjectCostData);
+    return arrayOfHistoric;
+  }
   useEffect(() => {
     let listToSort: any = [];
     const hProjectValues = historicProject.map((element: any) => {
@@ -124,38 +159,7 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
       </div>)
       })
     });
-    const hCosts = historicCosts.map((element: any) => {
-      let prefix = '';
-      let boldLegend = '';
-      let code_data_source_id = element?.codeSourceData?.code_data_source_type_id;
-      if (!element.codeSourceData) {
-        prefix = 'Missing source type attribute: ';
-      } else if(code_data_source_id === 1 ) {
-        if (element.userModified) {
-          boldLegend = `${element?.userModified?.firstName} ${element?.userModified?.lastName}`;
-        } else {
-          boldLegend = `${element?.modified_by}`;
-        }
-        
-      } else if (code_data_source_id === 7) {
-        boldLegend = `Confluence`;
-      } else if (code_data_source_id === 99) {
-        prefix = 'An '
-        boldLegend = `Unknown Source`;
-      } else if (code_data_source_id >= 2 && code_data_source_id <= 6) {
-        boldLegend = `${element?.codeSourceData?.update_source}`;
-      }
-      const code_cost_type_name = element?.code_cost_type?.cost_type_name;
-      const dateParsed = moment(element?.last_modified).format('MM/DD/YY');
-      return ({
-        date: moment(element?.last_modified),
-        display: (<div className="activiti-item">
-        <div>
-          <p><span>{prefix}</span>{boldLegend} <span>changed the <b>{code_cost_type_name} Cost</b> to {formatter.format(element.cost)} on {dateParsed}.</span></p>
-        </div>
-      </div>)
-      })
-    });
+    const hCosts = getHistoricCostRender(historicCosts);
     // merge all the h arrays in listToSort and then sort it by date 
     listToSort = listToSort.concat(hProjectValues, hIndactionValues, hAttachment, hCosts, hProposedActionValues);
     listToSort.sort((a: any, b: any) => b.date - a.date);
