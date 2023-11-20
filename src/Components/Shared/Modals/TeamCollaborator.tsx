@@ -8,7 +8,7 @@ const TeamCollaborator = () => {
   const [selected, setSelected] = useState(true);
   const {userInformation, openDiscussion} = useProfileState();
   const { openDiscussionTab } = useProfileDispatch();
-  const isOther = userInformation?.designation === 'other'
+  const isOther = userInformation?.designation === 'other' || userInformation?.firstName === 'guest'
   useEffect(() => {
     if (openDiscussion) {
       setSelected(false)
@@ -35,7 +35,7 @@ const TeamCollaborator = () => {
             role="button"
             tabIndex={1}
           >
-            {!isOther && <h5 className={!selected ? 'active-title': ''}>DISCUSSION</h5>}
+            {(!isOther) && <h5 className={!selected ? 'active-title': ''}>DISCUSSION</h5>}
           </div>
         </Col>
         <Col span={3} style={{textAlign:'end'}}>

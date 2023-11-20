@@ -114,7 +114,8 @@ export const getTeam = (projectStaffs: any) => {
         roleType: STAFF_ROL_MAP[ps.code_project_staff_role_type_id],
         key: ps?.project_staff_id,
         organization: ps?.business_associate_contact?.business_address?.business_associate?.business_name || 'N/A',
-        roleId: ps?.code_project_staff_role_type_id
+        roleId: ps?.code_project_staff_role_type_id,
+        user: ps?.user
       }
     });
   return sortStaffs.sort((a: any, b: any) => {

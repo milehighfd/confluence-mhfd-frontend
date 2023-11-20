@@ -1028,7 +1028,7 @@ const DetailModal = ({
               style={{ height: 'calc(100vh - 183px)', overflowY: 'auto', scrollBehavior: 'smooth' }}
             >
               {appUser.firstName === '' || appUser.firstName === 'guest' ? (
-                ''
+                <TeamCollaborator />
               ) : openPiney ? (
                 <div className="piney-modal-detail">
                   <PineyView
