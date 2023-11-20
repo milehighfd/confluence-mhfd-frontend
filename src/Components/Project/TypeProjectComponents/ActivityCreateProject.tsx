@@ -74,7 +74,7 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
     const mainproposedaction: any = historicProposedAction[0];
     let hProposedActionValues: any = [];
     if (mainproposedaction) {
-      let prefix = '';
+    let prefix = '';
       let boldLegend = mainproposedaction?.userModified !== null ? `${mainproposedaction?.userModified?.firstName} ${mainproposedaction?.userModified?.lastName}`: `${mainproposedaction?.last_modified_by}` ;
       const dateParsed = moment(mainproposedaction?.modified_date).format('MM/DD/YY');
        hProposedActionValues = {

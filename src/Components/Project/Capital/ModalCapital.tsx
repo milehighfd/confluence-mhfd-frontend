@@ -636,6 +636,9 @@ export const ModalCapital = ({
           if (thisIndependentComponents.length && !checkIfIndependentHaveName()) {
             missingFields.push('Independent actions name');
           }
+          if (nameProject === 'Add Project Name') {
+            missingFields.push('Change Project Name');
+          }
           if (missingFields.length > 0) {
             handleErrorNotification(missingFields);
           }else{
@@ -730,7 +733,6 @@ export const ModalCapital = ({
   useEffect(()=>{
     if(componentsFromMap?.length > 0 ) {
       if(componentsFromMap.length > 0  && listComponents?.length > 0){
-        console.log('[ ...List Components ] ->', listComponents);
         getListComponentsByComponentsAndPolygon([...listComponents, ...componentsFromMap], null);
       } else if(listComponents.length == 0 && componentsFromMap.length > 0) {
         getListComponentsByComponentsAndPolygon([ ...componentsFromMap], null);
