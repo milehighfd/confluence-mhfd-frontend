@@ -186,7 +186,8 @@ const ModalProjectView = ({
         setVisibleCapital(true);
         setTypeProyect(NEW_PROJECT_TYPES.Acquisition);
       }
-      if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 15 || data.tabKey === 'Special'){
+      // R&D WAS ADDED TO AVOID THE ERROR WHEN OPENING A PROJECT
+      if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 15 || data.tabKey === 'Special' || data.tabKey === 'R&D'){
         setVisibleCapital(true);
         setTypeProyect(NEW_PROJECT_TYPES.Special);
       }
