@@ -78,10 +78,10 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
     // group hictoricvalues based on projectpartnerdata group by code_partner_type_id 
     const groupedHistoricValues: any = {};
     historicValues.forEach((element: any) => {
-      if (!groupedHistoricValues[element.projectPartnerData.code_partner_type_id]) {
-        groupedHistoricValues[element.projectPartnerData.code_partner_type_id] = [];
+      if (!groupedHistoricValues[element?.projectPartnerData?.code_partner_type_id]) {
+        groupedHistoricValues[element?.projectPartnerData?.code_partner_type_id] = [];
       }
-      groupedHistoricValues[element.projectPartnerData.code_partner_type_id].push(element);
+      groupedHistoricValues[element?.projectPartnerData?.code_partner_type_id].push(element);
     });
     console.log('groupedHistoricValues', groupedHistoricValues);
     // group groups in historic values based on boardProjectCostData and req_position
@@ -89,10 +89,10 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
     Object.keys(groupedHistoricValues).forEach((key: any) => {
       groupedHistoricValuesByBoardProjectCostData[key] = {};
       groupedHistoricValues[key].forEach((element: any) => {
-        if (!groupedHistoricValuesByBoardProjectCostData[key][element.boardProjectCostData.req_position]) {
-          groupedHistoricValuesByBoardProjectCostData[key][element.boardProjectCostData.req_position] = [];
+        if (!groupedHistoricValuesByBoardProjectCostData[key][element?.boardProjectCostData?.req_position]) {
+          groupedHistoricValuesByBoardProjectCostData[key][element?.boardProjectCostData?.req_position] = [];
         }
-        groupedHistoricValuesByBoardProjectCostData[key][element.boardProjectCostData.req_position].push(element);
+        groupedHistoricValuesByBoardProjectCostData[key][element?.boardProjectCostData?.req_position].push(element);
       });
     });
     console.log('groupedHistoricValuesByBoardProjectCostData', groupedHistoricValuesByBoardProjectCostData);
