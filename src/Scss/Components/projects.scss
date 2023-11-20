@@ -1303,6 +1303,106 @@
   border-bottom: 1.6px solid $green !important;
   border-radius: 0px;
 }
+.create-projects-modal{
+  margin-bottom: -30px;
+  .subtitle-project-modal{
+    font-size: 16px;
+    display: flex;
+    color: rgba(0, 0, 0, 0.50);
+    font-family: Ubuntu;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    align-items: center;
+    margin: 16px 0px;
+    .circle{
+      width: 8px;
+      height: 8px;
+      background-color: #29C499;
+      border-radius: 50%;
+    }
+    .subtitle-location{
+      color: $purple00;
+      font-weight: 600;
+    }
+  }
+  .new-project-sec{
+    display: inline-flex;
+    padding: 16px;
+    align-items: center;
+    border-radius: 8px;
+    border: 1px solid #D7D7D9;
+    background: rgba(196, 203, 209, 0.20);
+    width: 100%;
+    cursor: pointer;
+    .text-new-project-sec{
+      color: $purple00;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 4px;
+      margin-left: 14px;
+      p{
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        margin-bottom: 0px;
+      }
+      .description-new-project-sec{
+        color: #11093C;
+        font-size: 11px;
+        font-style: normal;
+        font-weight: 400;
+      }
+    }
+  }
+  .new-project-sec:hover{
+    opacity: 0.8;
+  }
+  .existing-project{
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    p{
+      color: #11093C;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      margin-bottom: 0px;
+      margin-left: 8px;
+    }
+  }
+  .input-search{
+    margin-bottom: 30px;
+    padding: 0px 10px;
+    border-radius: 4px;
+  }
+  .body-create-projects{
+    margin-right: -10px;
+    padding-right: 5px;
+    max-height: calc(100vh - 505px);
+    height: auto;
+    overflow: auto;
+    color: #11093C;
+    font-family: Ubuntu;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    .row-detail-project{
+      padding: 10px 0px
+    }
+  }
+  .title-list{
+    color: #000;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    opacity: 0.8;
+  }
+}
 
 // 1920x1080 DISPLAY
 @media (min-width: 900px) and (max-width: 1899px) {
@@ -1543,6 +1643,18 @@
     .ant-btn {
       font-size: 16px;
       font-weight: 500;
+    }
+  }
+  .create-projects-modal{
+    .input-search{
+      padding: 0px 18px;
+      .ant-input {
+        padding: 0px 7px !important;
+        height: 44px !important;
+      }
+    }
+    .body-create-projects{
+      max-height: calc(100vh - 630px);
     }
   }
 }
@@ -2089,6 +2201,66 @@
   }
   .ant-modal .new-project {
     width: 1500px !important;
+  }
+  .create-projects-modal{
+    margin-bottom: -30px;
+    .subtitle-project-modal{
+      font-size: 21px !important;
+      margin: 16px 0px;
+      .circle{
+        width: 12px;
+        height: 12px;
+      }
+    }
+    .new-project-sec{
+      padding: 21px;
+      .text-new-project-sec{
+        font-size: 21px;
+        align-items: flex-start;
+        gap: 4px;
+        margin-left: 14px;
+        p{
+          font-size: 21px;
+        }
+        .description-new-project-sec{
+          font-size: 17px;
+        }
+        img{
+          height: 21px;
+        }
+      }
+    }
+    .new-project-sec:hover{
+      opacity: 0.8;
+    }
+    .existing-project{
+      padding: 21px;
+      img{
+        height: 44px;
+      }
+      p{
+        font-size: 21px;
+      }
+    }
+    .input-search{
+      padding: 0px 21px;
+    }
+    .ant-input {
+      font-size: 20px !important;
+      padding: 0px 21px !important;
+    }
+    .body-create-projects{
+      max-height: calc(100vh - 699px);
+      margin-right: 19px;
+      padding-right: 6px;
+      .row-detail-project{
+        padding: 10px 0px;
+        font-size: 19px;
+      }
+    }
+    .title-list{
+      font-size: 17px;
+    }
   }
 }
 // @media (min-width: 3000px) and (max-width: 5999px){
