@@ -4,6 +4,7 @@ import { SERVER } from "Config/Server.config";
 import { loadColumns, loadFilters, loadOneColumn } from 'store/actions/requestActions';
 import * as turf from '@turf/turf';
 import { depth } from 'routes/map/components/MapFunctionsUtilities';
+import { MAP_TAB } from 'constants/constants';
 
 
 const getAndDispatchAbortableCtrl = (dispatch: Function, key: string): AbortController => {
@@ -91,8 +92,10 @@ export const saveCapital = (data: any) => {
       }else{
         status = 0;
       }
-      dispatch(loadColumns());
-      dispatch(loadFilters())
+      if(data.fromTab !== MAP_TAB){
+        dispatch(loadColumns());
+        dispatch(loadFilters())
+      }
       dispatch({ type: types.SET_SAVE, status });
       callArcGisProcess(data, res.project_data.project_id, 'create');
     }).catch((err) => {

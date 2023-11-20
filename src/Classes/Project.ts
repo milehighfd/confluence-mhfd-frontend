@@ -52,6 +52,7 @@ export class Project {
     subtotalcost: any;
     userChangedOverhead: any;
     userChangedAdditional: any;
+    fromTab: any;
     constructor() {
         this.year = '2023';
         this.projectname = "special";
@@ -92,6 +93,7 @@ export class Project {
         this.is_routine = false;
         this.subtotalcost = 0;
         this.userChangedOverhead = [false, false, false, false, false, false, false, false, false];
-        this.userChangedAdditional = false
+        this.userChangedAdditional = false;
+        this.fromTab = '';
     }
 }

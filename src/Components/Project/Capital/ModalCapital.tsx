@@ -470,6 +470,7 @@ export const ModalCapital = ({
       const _locality = params.get('locality');
       var capital = new Project();
       //general
+      capital.fromTab = tabActiveNavbar;
       capital.locality = _locality;
       capital.year = _year ?? capital.year;
       let csponsor = "";
