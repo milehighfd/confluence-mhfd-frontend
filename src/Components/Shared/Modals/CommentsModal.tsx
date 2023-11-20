@@ -8,6 +8,7 @@ import moment from 'moment';
 import { useProfileState } from 'hook/profileHook';
 import TextArea from 'antd/lib/input/TextArea';
 import DiscussionTextBox from 'Components/Project/TypeProjectComponents/DiscussionTextBox';
+import { useNotifications } from '../Notifications/NotificationsProvider';
 
 const CommentsModal = () => {
   const [projectChat, setProjectChat] = useState<any>([]);
@@ -22,6 +23,7 @@ const CommentsModal = () => {
   const { discussion } = useProjectState();
   const [message, setMessage] = useState('');
   const {userInformation} = useProfileState();
+  const { openNotification } = useNotifications();
   const sponsorProject = detailed?.project_staffs?.map((item: any) => item?.business_associate_contact_id);
   const businessAssociateId = userInformation?.business_associate_contact?.business_address?.business_associate_id;
   const isAdminOrStaff = userInformation?.designation === 'admin' || userInformation?.designation === 'staff'
@@ -31,9 +33,18 @@ const CommentsModal = () => {
     return moment.utc(timestamp).format('MMM D, YYYY [at] h:mm A');
   }
 
-  function handleAddMessage(message: any) {
+  function handleAddMessage(message: string) {
     if (!message) return;    
-    addDiscussionMessage(detailed.project_id, 'details', message);
+    addDiscussionMessage(detailed?.project_id, 'details', message);
+    let projectStaff = detailed?.project_staffs || [];
+    if (projectStaff.length > 0) {
+      const invalidUser = projectStaff.filter((item: any) => !item.user);
+      if (invalidUser.length > 0) {
+        const messageWarning = `The following recipients are not registered in Confluence and will 
+        not receive a notification: ${invalidUser.map((item: any) => item?.business_associate_contact?.contact_name).join(', ')}`;
+        openNotification(`Warning! Recipients not registered.`, "warning", messageWarning);
+      }
+    }
     setMessage('');
   }
 

@@ -1,3 +1,4 @@
+import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider'
 import { Button } from 'antd'
 import TextArea from 'antd/lib/input/TextArea'
 import { useDetailedState } from 'hook/detailedHook'
@@ -11,6 +12,8 @@ export default function DiscussionTextBox(props: any) {
   const [newMessage, setNewMessage] = useState(message)  
   const { userInformation } = useProfileState();
   const enableEdit = userInformation?.user_id === user?.user_id
+  const { detailed } = useDetailedState();
+  const { openNotification } = useNotifications();
   useEffect(() => {
     setNewMessage(message)
   }, [message])
@@ -20,6 +23,15 @@ export default function DiscussionTextBox(props: any) {
   const handleEditMessage = () => {
     setIsEdit(false)
     editDiscussionMessage(id, newMessage, project_id, origin)
+    let projectStaff = detailed?.project_staffs || [];
+    if (projectStaff.length > 0 && origin === 'details') {
+      const invalidUser = projectStaff.filter((item: any) => !item.user);
+      if (invalidUser.length > 0) {
+        const messageWarning = `The following recipients are not registered in Confluence and will 
+        not receive a notification: ${invalidUser.map((item: any) => item?.business_associate_contact?.contact_name).join(', ')}`;
+        openNotification(`Warning! Recipients not registered.`, "warning", messageWarning);
+      }
+    }
   }
   const handleDiscardChanges = () => {
     setIsEdit(false)
