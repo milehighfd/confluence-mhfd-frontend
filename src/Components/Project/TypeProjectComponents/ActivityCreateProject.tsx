@@ -21,6 +21,28 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
   useEffect(() => {
     if(projectId){
       datasets.getData(SERVER.GET_HISTORIC_COSTS_BY_PROJECT(projectId)).then((historicValues)=>{
+        console.log('Historic costs', historicValues);
+        // group hictoricvalues based on projectpartnerdata group by code_partner_type_id 
+        const groupedHistoricValues: any = {};
+        historicValues.forEach((element: any) => {
+          if (!groupedHistoricValues[element.projectPartnerData.code_partner_type_id]) {
+            groupedHistoricValues[element.projectPartnerData.code_partner_type_id] = [];
+          }
+          groupedHistoricValues[element.projectPartnerData.code_partner_type_id].push(element);
+        });
+        console.log('groupedHistoricValues', groupedHistoricValues);
+        // group groups in historic values based on boardProjectCostData and req_position
+        const groupedHistoricValuesByBoardProjectCostData: any = {};
+        Object.keys(groupedHistoricValues).forEach((key: any) => {
+          groupedHistoricValuesByBoardProjectCostData[key] = {};
+          groupedHistoricValues[key].forEach((element: any) => {
+            if (!groupedHistoricValuesByBoardProjectCostData[key][element.boardProjectCostData.req_position]) {
+              groupedHistoricValuesByBoardProjectCostData[key][element.boardProjectCostData.req_position] = [];
+            }
+            groupedHistoricValuesByBoardProjectCostData[key][element.boardProjectCostData.req_position].push(element);
+          });
+        });
+        console.log('groupedHistoricValuesByBoardProjectCostData', groupedHistoricValuesByBoardProjectCostData);
         setHistoricCosts(historicValues);
       });
       datasets.getData(SERVER.GET_HISTORIC_INDACTION_BY_PROJECT(projectId)).then((historicValues)=>{
