@@ -1266,6 +1266,10 @@ const MapView = () => {
                       project?.project_attachments?.length > 0 ? `${SERVER.BASE_URL_IMAGES}/${project?.project_attachments[0]?.attachment_url}`:
                           projectType === 'CIP'
                           ? '/projectImages/capital.png'
+                          : projectType === 'Development Improvement Project'
+                          ? '/projectImages/dip.png'
+                          : projectType === 'Research and Development'
+                          ? '/projectImages/rd.png'
                           : projectType === 'Study'
                           ? '/projectImages/study.png'
                           : projectType === 'Special'

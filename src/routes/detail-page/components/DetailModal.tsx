@@ -923,6 +923,10 @@ const DetailModal = ({
                           ? '/detailed/minor-repairs.png'
                           : projectType === 'Routine Trash and Debris'
                           ? '/detailed/debris-management.png'
+                          : projectType === 'Development Improvement Project'
+                          ? '/projectImages/detail-dip.png'
+                          : projectType === 'Research and Development'
+                          ? '/projectImages/detail-rd.png'
                           : '/detailed/watershed-change.png'
                       }
                     />{' '}
