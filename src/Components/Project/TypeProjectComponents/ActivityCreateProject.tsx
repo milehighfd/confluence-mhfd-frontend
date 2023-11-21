@@ -11,6 +11,7 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
   const [historicDetail, setHistoricDetail] = useState([]);
   const [historicProject, setHistoricProject] = useState([]);
   const [historicProposedAction, setHistoricProposedAction] = useState([]);
+  const [historicAmountCost, setHistoricAmountCost] = useState([]);
   const [renderList, setRenderList] = useState([]);
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -21,7 +22,7 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
   useEffect(() => {
     if(projectId){
       datasets.getData(SERVER.GET_HISTORIC_COSTS_BY_PROJECT(projectId)).then((historicValues)=>{
-        setHistoricCosts(historicValues);
+        setHistoricAmountCost(historicValues);
       });
       datasets.getData(SERVER.GET_HISTORIC_INDACTION_BY_PROJECT(projectId)).then((historicValues)=>{
         setHistoricIndaction(historicValues);
@@ -37,6 +38,9 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
       });
       datasets.getData(SERVER.GET_HISTORIC_PROPOSEDACTION_BY_PROJECT(projectId)).then((historicValues)=>{
         setHistoricProposedAction(historicValues);
+      });
+      datasets.getData(SERVER.GET_HISTORIC_AMOUNTCOST_BY_PROJECT(projectId)).then((historicValues)=>{
+        setHistoricCosts(historicValues);
       });
     }
   } ,[projectId]);
@@ -125,6 +129,41 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
     return renderValue;
   }
   const getHistoricCostRender = (historicValues: any) => {
+    const hCosts = historicValues.map((element: any) => {
+      let prefix = '';
+      let boldLegend = '';
+      let code_data_source_id = element?.codeSourceData?.code_data_source_type_id;
+      if (!element.codeSourceData) {
+        prefix = 'Missing source type attribute: ';
+      } else if(code_data_source_id === 1 ) {
+        if (element.userModified) {
+          boldLegend = `${element?.userModified?.firstName} ${element?.userModified?.lastName}`;
+        } else {
+          boldLegend = `${element?.modified_by}`;
+        }
+        
+      } else if (code_data_source_id === 7) {
+        boldLegend = `Confluence`;
+      } else if (code_data_source_id === 99) {
+        prefix = 'An '
+        boldLegend = `Unknown Source`;
+      } else if (code_data_source_id >= 2 && code_data_source_id <= 6) {
+        boldLegend = `${element?.codeSourceData?.update_source}`;
+      }
+      const code_cost_type_name = element?.code_cost_type?.cost_type_name;
+      const dateParsed = moment(element?.last_modified).format('MM/DD/YY');
+      return ({
+        date: moment(element?.last_modified),
+        display: (<div className="activiti-item">
+        <div>
+          <p><span>{prefix}</span>{boldLegend} <span>changed the <b>{code_cost_type_name} Cost</b> to {formatter.format(element.cost)} on {dateParsed}.</span></p>
+        </div>
+      </div>)
+      })
+    });
+    return hCosts;
+  }
+  const getHistoricAmountsCostRender = (historicValues: any) => {
     const newArrayOfHistoric: any = [];
     // group hictoricvalues based on projectpartnerdata group by code_partner_type_id 
     const groupedHistoricValues: any = {};
@@ -307,15 +346,17 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
       </div>)
       })
     });
-    const hCosts = getHistoricCostRender(historicCosts);
+    const hCosts = getHistoricAmountsCostRender(historicAmountCost);
+    const historicCost = getHistoricCostRender(historicCosts);
     // merge all the h arrays in listToSort and then sort it by date 
-    listToSort = listToSort.concat(hProjectValues, hIndactionValues, hAttachment, hCosts, hProposedActionValues);
+    listToSort = listToSort.concat(hProjectValues, hIndactionValues, hAttachment, hCosts, historicCost, hProposedActionValues);
     listToSort.sort((a: any, b: any) => b.date - a.date);
     setRenderList(listToSort);
 
   } ,[
     historicAttachment,
     historicCosts,
+    historicAmountCost,
     historicDetail,
     historicIndaction,
     historicProject,

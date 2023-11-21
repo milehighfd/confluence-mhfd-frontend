@@ -398,5 +398,8 @@ export const SERVER = (function () {
         GET_HISTORIC_PROPOSEDACTION_BY_PROJECT: (projectId: any) => {
           return `${URL_BASE.BASE}/projects/complete/proposedActionHistory/${projectId}`;
         },
+        GET_HISTORIC_AMOUNTCOST_BY_PROJECT: (projectId: any) => {
+          return `${URL_BASE.BASE}/projects/complete/amountCostHistory/${projectId}`;
+        }
     }
 })();
