@@ -1,4 +1,4 @@
-import { Col, Input, Modal, Row, Tooltip } from 'antd';
+import { Button, Col, Input, Modal, Popover, Row, Tooltip } from 'antd';
 import React, { useEffect, useState } from 'react';
 import * as datasets from 'Config/datasets';
 import { formatter } from "./RequestViewUtil";
@@ -528,7 +528,11 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
           <Col span={3}>
             {/* <Row>Prior Funding</Row> */}
             {/* <Row className='rowname'>--</Row> */}
-            <Row className='rowname'>Prior Funding</Row>
+            <Row className='rowname' style={{display: 'flex',alignItems: 'center'}}>Prior Funding&nbsp; 
+              <Popover placement="top" content={<p style={{marginBottom:'0px'}}>Prior Funding is the total amount approved by MHFD on past Work Plans in Confluence.</p>}>
+              <ExclamationCircleOutlined style={{opacity:0.4, transform: 'scale(0.9)', cursor:'pointer'}}/>
+            </Popover>
+            </Row>
             {costDataList.map((year: any) => {
               return (
                 (year.show && year.key !== priorFundingString) && <Row className='rowname'>{year.label}</Row>

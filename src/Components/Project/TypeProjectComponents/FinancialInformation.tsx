@@ -211,12 +211,12 @@ export const FinancialInformation = ({
       <Timeline className="sub-project" style={{marginTop:'10px'}}>
         {timelineItems.map(({ label, index }) => renderTimelineItem(label, index))}
       </Timeline>
-        <Row className="sub-project input-width">
+        <Row className="sub-project input-width" style={{paddingBottom:'10px'}}>
           <Col xs={{ span: 20 }} lg={{ span: 18 }} xxl={{ span: 18 }}>
             <TextArea autoSize={{ minRows: 1, maxRows: 3 }} className='financial-input' disabled={disableFieldsForLG} placeholder={overheadDescription!==""? overheadDescription  +"": "Include Overhead Cost Description"} onChange={onChangeOverheadDescription} value={overheadDescription}/>
           </Col>
         </Row>
-        <Row className="sub-project">
+        <Row className="sub-project" style={{alignItems:'center'}}>
           <Col xs={{ span: 24 }} lg={{ span: 13}} xxl={{ span: 13}}>
             <p>Additional Cost <Popover content={contentAdditionalCost}><img src="/Icons/icon-19.svg" alt="" height="10px" className='icon-cost'/></Popover></p>
           </Col>

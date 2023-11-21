@@ -1584,7 +1584,8 @@
         font-size: 14px;
       }
       .ant-select-selector {
-        height: 40px;
+        min-height: 40px;
+        height: auto;
         font-size: 14px;
       }
       .discussion-content {
