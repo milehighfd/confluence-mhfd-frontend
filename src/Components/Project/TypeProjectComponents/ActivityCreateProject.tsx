@@ -163,6 +163,60 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
     });
     return hCosts;
   }
+  const formatElementAddOrUpdate = (valuesByReq: any, key: any, index: any) => {
+    const newArrayOfHistoric: any = [];
+    const typeList = addOrUpdate(valuesByReq);
+    const element = valuesByReq[0];
+    const dateParsed = moment(element?.last_modified).format('MM/DD/YY');
+    let boldLegend = '';
+    let prefix = '';
+    let code_data_source_id = element?.codeSourceData?.code_data_source_type_id;
+    if (!element.codeSourceData) {
+      prefix = 'Missing source type attribute: ';
+    } else if(code_data_source_id === 1 ) {
+      if (element?.userModified) {
+        boldLegend = `${element?.userModified?.firstName} ${element?.userModified?.lastName} `;
+      } else {
+        boldLegend = `${element?.modified_by} `;
+      }
+      
+    } else if (code_data_source_id === 7) {
+      boldLegend = `Confluence `;
+    } else if (code_data_source_id === 99) {
+      prefix = 'An '
+      boldLegend = `Unknown Source `;
+    } else if (code_data_source_id >= 2 && code_data_source_id <= 6) {
+      boldLegend = `${element?.codeSourceData?.update_source}`;
+    }
+    const boardYear = element?.boardProjectCostData.boardProjectData.board.year;
+    const yearOfChange = +boardYear + (index - 1);
+    const code_cost_type_id = element?.code_cost_type_id;
+    let labelCodeCostType = 'Work Request Cost';
+    if (code_cost_type_id === 21 || code_cost_type_id === 41) {
+      labelCodeCostType = 'Work Plan Cost';
+    }
+    console.log('About to add element', element, 'with', labelCodeCostType);
+    if (typeList === 'added') {
+      const costAdded = element.cost;
+      const display = {
+        date: moment(element?.last_modified),
+        display: getRenderAddByKey(key, prefix,boldLegend, yearOfChange, boardYear, labelCodeCostType, costAdded, dateParsed, element?.projectPartnerData?.businessAssociateData[0].business_name)
+      };
+      newArrayOfHistoric.push(display);
+    } else if (typeList === 'updated') {
+      const previousValue = valuesByReq[1];
+      const costAdded = element?.cost;
+      const costUpdated = previousValue?.cost;
+      const display = {
+        date: moment(element?.last_modified),
+        display: getRenderUpdateByKey(key, prefix, boldLegend, yearOfChange, boardYear, labelCodeCostType, costAdded, costUpdated, dateParsed, element?.projectPartnerData?.businessAssociateData[0].business_name)
+      };
+      newArrayOfHistoric.push(display);
+    } else {
+      console.log('now inserting value', typeList, element);
+    }
+    return newArrayOfHistoric;
+  }
   const getHistoricAmountsCostRender = (historicValues: any) => {
     const newArrayOfHistoric: any = [];
     // group hictoricvalues based on projectpartnerdata group by code_partner_type_id 
@@ -217,7 +271,7 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
                 if (!item.is_active) {
                   const board_year= item.boardProjectCostData.boardProjectData.board.year;
                   const year = +board_year + (+element) - 1;
-                  const type_of_board = item.code_cost_type_id === 22 || item.code_cost_type_id === 42 ? 'Work Request' : 'Work Plan';
+                  const type_of_board = (item.code_cost_type_id === 22 || item.code_cost_type_id === 42) ? 'Work Request' : 'Work Plan';
                   const partner_type = +partnerKey === 88 ? 'MHFD Funding' : (+partnerKey === 11 ?`${item.projectPartnerData.businessAssociateData[0].business_name} (Sponsor)` : `${item.projectPartnerData.businessAssociateData[0].business_name} (Co-Sponsor)` );
                   const dateParsed = moment(item?.last_modified).format('MM/DD/YY');
                   newArrayOfHistoric.push(formatElement(item, prefix, boldLegend, board_year, year, type_of_board, partner_type, dateParsed));
@@ -230,59 +284,24 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
     // ADDED 
     Object.keys(groupedHistoricValuesByBoardProjectCostData).forEach((key: any) => {
         // {first, last} added the {year} cost value in the {board year} WR/WP Cost for MHFD Funding to {y} on 10/14/23.
-    for(let i = 1; i <= 5; i++) {
-      const valuesByReq = groupedHistoricValuesByBoardProjectCostData[key][i];
-      if (valuesByReq) {
-        const typeList = addOrUpdate(valuesByReq);
-        const element = valuesByReq[0];
-        const dateParsed = moment(element?.last_modified).format('MM/DD/YY');
-        let boldLegend = '';
-        let prefix = '';
-        let code_data_source_id = element?.codeSourceData?.code_data_source_type_id;
-        if (!element.codeSourceData) {
-          prefix = 'Missing source type attribute: ';
-        } else if(code_data_source_id === 1 ) {
-          if (element?.userModified) {
-            boldLegend = `${element?.userModified?.firstName} ${element?.userModified?.lastName} `;
-          } else {
-            boldLegend = `${element?.modified_by} `;
-          }
-          
-        } else if (code_data_source_id === 7) {
-          boldLegend = `Confluence `;
-        } else if (code_data_source_id === 99) {
-          prefix = 'An '
-          boldLegend = `Unknown Source `;
-        } else if (code_data_source_id >= 2 && code_data_source_id <= 6) {
-          boldLegend = `${element?.codeSourceData?.update_source}`;
+      for(let i = 1; i <= 5; i++) {
+        const workrequestValues = groupedHistoricValuesByBoardProjectCostData[key][i] ? groupedHistoricValuesByBoardProjectCostData[key][i].filter((element: any) => element.code_cost_type_id === 22 || element.code_cost_type_id === 42) : [];
+        const workplanValues = groupedHistoricValuesByBoardProjectCostData[key][i] ? groupedHistoricValuesByBoardProjectCostData[key][i].filter((element: any) => element.code_cost_type_id === 21 || element.code_cost_type_id === 41) : [];
+        console.log('work request values', workrequestValues);
+        console.log('work plan values', workplanValues);
+        if (workrequestValues.length > 0) {
+          const newValues = formatElementAddOrUpdate(workrequestValues, key, i);
+          newValues.forEach((element: any) => {
+            newArrayOfHistoric.push(element);
+          });
         }
-        const boardYear = element?.boardProjectCostData.boardProjectData.board.year;
-        const yearOfChange = +boardYear + (i - 1);
-        const code_cost_type_id = element?.code_cost_type_id;
-        let labelCodeCostType = 'Work Request Cost';
-        if (code_cost_type_id === 21 || code_cost_type_id === 41) {
-          labelCodeCostType = 'Work Plan Cost';
-        }
-        if (typeList === 'added') {
-          const costAdded = element.cost;
-          const display = {
-            date: moment(element?.last_modified),
-            display: getRenderAddByKey(key, prefix,boldLegend, yearOfChange, boardYear, labelCodeCostType, costAdded, dateParsed, element?.projectPartnerData?.businessAssociateData[0].business_name)
-          };
-          newArrayOfHistoric.push(display);
-        } else if (typeList === 'updated') {
-          const previousValue = valuesByReq[1];
-          const costAdded = element?.cost;
-          const costUpdated = previousValue?.cost;
-          const display = {
-            date: moment(element?.last_modified),
-            display: getRenderUpdateByKey(key, prefix, boldLegend, yearOfChange, boardYear, labelCodeCostType, costAdded, costUpdated, dateParsed, element?.projectPartnerData?.businessAssociateData[0].business_name)
-          };
-          newArrayOfHistoric.push(display);
-        } else {
+        if (workplanValues.length > 0) {
+          const newValues = formatElementAddOrUpdate(workplanValues, key, i);
+          newValues.forEach((element: any) => {
+            newArrayOfHistoric.push(element);
+          });
         }
       }
-    }
     });
     console.log('New Array of historic', newArrayOfHistoric);
     return newArrayOfHistoric;
