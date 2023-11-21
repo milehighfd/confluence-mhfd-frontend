@@ -5,25 +5,33 @@
   display: flex;
   align-items: center;
     margin-bottom: 9px;  
+    .organization{
+      display: grid;
+      width: 54%;
+      justify-content: end;
+    }
     .user-status {
       border-radius: 4px;
-      font-size: 1rem;
       // font-weight: bold;
       white-space: nowrap; 
       margin-bottom: 0px;
       text-align: center;
       // min-width: 60px; 
       // max-width: 100px;
+      margin-bottom: 0px !important;
+      margin-left: 0px !important;
     }
     .user-status.active {
       // background-color: #e0e0e0;
       color: $purple00;
       opacity: 0.6;
+      text-align: right;
     }
     .user-status.inactive {
       background-color: #feeeea;
       color: #F3522B;
       padding: 3px 8px;
+      font-size: 14px;
     }  
     img {
     margin-right: 0.8pc;

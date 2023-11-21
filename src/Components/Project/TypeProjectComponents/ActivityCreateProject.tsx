@@ -41,7 +41,24 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
     }
   } ,[projectId]);
 
+  const formatElement = (element:any, boldLegend:any, board_year:any, year:any, type_of_board:any, partner_type:any, dateParsed:any) => ({
+    date: moment(element?.last_modified),
+    display: (
+      <div className="activiti-item">
+        <div>
+          <p>
+            {`${boldLegend} `}
+            <span>
+              removed the {year} cost value in the {board_year} {type_of_board} Cost for {partner_type} previously at {element.cost} on {dateParsed}.
+            </span>
+          </p>
+        </div>
+      </div>
+    ),
+  });
+
   const getHistoricCostRender = (historicValues: any) => {
+    const removedCosts:any = [];
     const arrayOfHistoric = historicCosts.map((element: any) => {
       let prefix = '';
       let boldLegend = '';
@@ -96,7 +113,34 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
       });
     });
     console.log('groupedHistoricValuesByBoardProjectCostData', groupedHistoricValuesByBoardProjectCostData);
-    return arrayOfHistoric;
+    const partnerKeys = Object.keys(groupedHistoricValuesByBoardProjectCostData);
+    partnerKeys.forEach((partnerKey:any) => {
+      if (groupedHistoricValuesByBoardProjectCostData[partnerKey]) {
+        const reqsPositionsMHFDString = Object.keys(groupedHistoricValuesByBoardProjectCostData[partnerKey]);
+        const reqsPositionsMHFD = reqsPositionsMHFDString.map(element => +element);
+          reqsPositionsMHFD.forEach((element:any) => {
+              groupedHistoricValuesByBoardProjectCostData[partnerKey][element].forEach((item:any) => {
+                let userName = item?.modified_by;
+                if(item?.userModified){
+                   userName = `${item.userModified.firstName} ${item.userModified.lastName}`;
+                }
+                if (!item.is_active) {
+                  const board_year= item.boardProjectCostData.boardProjectData.board.year;
+                  const year = +board_year + (+element) - 1;
+                  const type_of_board = item.code_cost_type_id === 22 || item.code_cost_type_id === 42 ? 'Work Request' : 'Work Plan';
+                  const partner_type = +partnerKey === 88 ? 'MHFD Funding' : (+partnerKey === 11 ?`${item.projectPartnerData.businessAssociateData[0].business_name} (Sponsor)` : `${item.projectPartnerData.businessAssociateData[0].business_name} (Co-Sponsor)` );
+                  const dateParsed = moment(item?.last_modified).format('MM/DD/YY');
+                  removedCosts.push(formatElement(item, userName, board_year, year, type_of_board, partner_type, dateParsed));
+                }
+              });
+          });
+      }
+    });
+
+    console.log('removedCosts', removedCosts);
+    console.log('arrayOfHistoric', arrayOfHistoric);
+    return removedCosts;
+    // return arrayOfHistoric;
   }
   useEffect(() => {
     let listToSort: any = [];
