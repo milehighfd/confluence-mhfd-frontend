@@ -161,7 +161,7 @@ export const ModalCapital = ({
   const [serviceArea, setServiceArea] = useState<any>([]);
   const [isDrawState, setIsDraw] = useState(false);
   const [isDrawStateCapital, setIsDrawCapital] = useState(false);
-  const {changeDrawState, changeDrawStateCapital, setEditLocation,setComponentsFromMap, changeAddLocationState } = useProjectDispatch();
+  const {changeDrawState, changeDrawStateCapital, setEditLocation,setComponentsFromMap, changeAddLocationState, setCompleteCosts } = useProjectDispatch();
   const [sponsor, setSponsor] = useState("");
   const [cosponsor, setCosponsor] = useState<any>([]);
   const [county, setCounty] = useState<any>([]);
@@ -253,6 +253,7 @@ export const ModalCapital = ({
     setStreamsList([]);
     getGroupOrganization();
     setIsGeomDrawn(false);
+    setCompleteCosts({});
     return () => {
       setIndComponents([]);
       setThisIndependentComponents([]);
