@@ -22,7 +22,7 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
   useEffect(() => {
     if(projectId){
       datasets.getData(SERVER.GET_HISTORIC_COSTS_BY_PROJECT(projectId)).then((historicValues)=>{
-        setHistoricAmountCost(historicValues);
+        setHistoricCosts(historicValues);
       });
       datasets.getData(SERVER.GET_HISTORIC_INDACTION_BY_PROJECT(projectId)).then((historicValues)=>{
         setHistoricIndaction(historicValues);
@@ -40,7 +40,7 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
         setHistoricProposedAction(historicValues);
       });
       datasets.getData(SERVER.GET_HISTORIC_AMOUNTCOST_BY_PROJECT(projectId)).then((historicValues)=>{
-        setHistoricCosts(historicValues);
+        setHistoricAmountCost(historicValues);
       });
     }
   } ,[projectId]);
@@ -175,6 +175,7 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
     });
     // group groups in historic values based on boardProjectCostData and req_position
     const groupedHistoricValuesByBoardProjectCostData: any = {};
+    console.log('groupedHistoricValues', groupedHistoricValues);
     Object.keys(groupedHistoricValues).forEach((key: any) => {
       groupedHistoricValuesByBoardProjectCostData[key] = {};
       groupedHistoricValues[key].forEach((element: any) => {
@@ -191,7 +192,7 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
         const reqsPositionsMHFDString = Object.keys(groupedHistoricValuesByBoardProjectCostData[partnerKey]);
         const reqsPositionsMHFD = reqsPositionsMHFDString.map(element => +element);
           reqsPositionsMHFD.forEach((element:any) => {
-              groupedHistoricValuesByBoardProjectCostData[partnerKey][element].forEach((item:any) => {
+                groupedHistoricValuesByBoardProjectCostData[partnerKey][element].forEach((item:any) => {
 
                 let boldLegend = '';
                 let prefix = '';
@@ -229,7 +230,7 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
     // ADDED 
     Object.keys(groupedHistoricValuesByBoardProjectCostData).forEach((key: any) => {
         // {first, last} added the {year} cost value in the {board year} WR/WP Cost for MHFD Funding to {y} on 10/14/23.
-    for(let i = 1; i < 5; i++) {
+    for(let i = 1; i <= 5; i++) {
       const valuesByReq = groupedHistoricValuesByBoardProjectCostData[key][i];
       if (valuesByReq) {
         const typeList = addOrUpdate(valuesByReq);
@@ -265,7 +266,7 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
         if (typeList === 'added') {
           const costAdded = element.cost;
           const display = {
-            date: dateParsed,
+            date: moment(element?.last_modified),
             display: getRenderAddByKey(key, prefix,boldLegend, yearOfChange, boardYear, labelCodeCostType, costAdded, dateParsed, element?.projectPartnerData?.businessAssociateData[0].business_name)
           };
           newArrayOfHistoric.push(display);
@@ -274,10 +275,11 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
           const costAdded = element?.cost;
           const costUpdated = previousValue?.cost;
           const display = {
-            date: dateParsed,
+            date: moment(element?.last_modified),
             display: getRenderUpdateByKey(key, prefix, boldLegend, yearOfChange, boardYear, labelCodeCostType, costAdded, costUpdated, dateParsed, element?.projectPartnerData?.businessAssociateData[0].business_name)
           };
           newArrayOfHistoric.push(display);
+        } else {
         }
       }
     }
