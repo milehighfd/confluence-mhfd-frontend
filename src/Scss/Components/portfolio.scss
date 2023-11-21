@@ -43,8 +43,8 @@
       margin-bottom: 0px !important;
       margin-left: 0px !important;
       margin-top: 1px;
-      // display: block;
       width: min-content;
+      display: inline-block;
     }  
     img {
     margin-right: 0.8pc;
@@ -2330,6 +2330,9 @@
       margin-bottom: -2px;
       margin-top: -2px;
     }
+    .user-status-inactive-min {
+      font-size: 12px;
+    }  
   }
   .col-name-team-organization {
     line-height: 20px;
@@ -3072,6 +3075,9 @@
     .text-team-item {
       width: 83% !important;
     }
+    .user-status-inactive-min {
+      font-size: 16px !important;
+    }  
   }
   .scroll-custom {
     margin-left: 20.5%;

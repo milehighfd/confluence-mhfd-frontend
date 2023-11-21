@@ -27,18 +27,20 @@ const TeamModal = () => {
         <div className='team-item' key={item.key}>
           <img src="/Icons/AvatarUser.svg" alt="" />
           <div className='text-team-item'>
-            <h6 style={{ fontWeight: 500 }}>{item.fullName}</h6>
+            <h6 style={{ fontWeight: 500 }}>
+              {item.fullName}
+            </h6>
             <p>{item.roleType}</p>
           </div>
           <div className='organization'>
             {item?.organization ? 
               (item?.user?.user_id ? (
-                  <span className={`user-status active`}>
+                  <p className={`user-status active`}>
                     {item.organization}
-                  </span>
+                  </p>
                 ):(
                   <>
-                    <p className={`user-status active`}>
+                    <p className={`user-status active`} style={{paddingTop: '14px'}}>
                       {item.organization}
                     </p>
                       <span className={`user-status-inactive-min`}>
