@@ -22,18 +22,20 @@ const TeamModal = () => {
   }, [detailed]);
   
   return <>
-  <div className='body-team-comment'>
-    {data.map((item: any)=>(
-      <div className='team-item' key={item.key}>
-        <img src="/Icons/AvatarUser.svg" alt="" />
-        <div className='text-team-item'>
-          <h6 style={{ fontWeight:500 }}>{item.fullName}</h6>
-          <p>{item.roleType}</p>
-          <span >{item?.user?.user_id ? item.organization : 'No User'}</span>
+    <div className='body-team-comment'>
+      {data.map((item: any) => (
+        <div className='team-item' key={item.key}>
+          <img src="/Icons/AvatarUser.svg" alt="" />
+          <div className='text-team-item'>
+            <h6 style={{ fontWeight: 500 }}>{item.fullName}</h6>
+            <p>{item.roleType}</p>
+          </div>
+          <span className={`user-status ${item?.user?.user_id ? 'active' : 'inactive'}`}>
+            {item?.user?.user_id ? item.organization : 'No User'}
+          </span>
         </div>
-      </div>
-    ))}
-  </div>
+      ))}
+    </div>
   </>
 };
 

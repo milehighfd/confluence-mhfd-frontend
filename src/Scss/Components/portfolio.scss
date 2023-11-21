@@ -4,8 +4,27 @@
 .team-item {
   display: flex;
   align-items: center;
-  margin-bottom: 9px;
-  img {
+    margin-bottom: 9px;  
+    .user-status {
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-weight: bold;
+      white-space: nowrap; 
+      text-align: center;
+      min-width: 60px; 
+      max-width: 100px;
+    }
+    .user-status.active {
+      background-color: #e0e0e0;
+      color: #686363;
+    }
+  
+    .user-status.inactive {
+      background-color: #fcefeb;
+      color: #e7886f;
+    }  
+    img {
     margin-right: 0.8pc;
     height: 35px;
     margin-top: 0px;
