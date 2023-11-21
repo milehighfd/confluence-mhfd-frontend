@@ -6,9 +6,10 @@
   align-items: center;
     margin-bottom: 9px;  
     .organization{
-      display: grid;
+      display: block;
       width: 54%;
       justify-content: end;
+      text-align: right;
     }
     .user-status {
       border-radius: 4px;
@@ -32,6 +33,18 @@
       color: #F3522B;
       padding: 3px 8px;
       font-size: 14px;
+    }  
+    .user-status-inactive-min {
+      background-color: #feeeea;
+      color: #F3522B;
+      font-size: 10px;
+      padding: 0px 4px;
+      text-align: center;
+      margin-bottom: 0px !important;
+      margin-left: 0px !important;
+      margin-top: 1px;
+      // display: block;
+      width: min-content;
     }  
     img {
     margin-right: 0.8pc;

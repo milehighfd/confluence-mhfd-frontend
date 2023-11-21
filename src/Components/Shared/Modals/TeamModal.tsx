@@ -38,14 +38,12 @@ const TeamModal = () => {
                   </span>
                 ):(
                   <>
-                    <span className={`user-status active`}>
+                    <p className={`user-status active`}>
                       {item.organization}
-                    </span>
-                    <div style={{marginTop:'3%', transform:'scale(0.9)', display:'flex', marginRight:'-8%'}}>
-                      <span className={`user-status inactive`}>
+                    </p>
+                      <span className={`user-status-inactive-min`}>
                         No User
                       </span>
-                    </div>
                   </>
                 ))
               :(item?.user?.user_id ? (
