@@ -257,13 +257,13 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
                   if (item?.userModified) {
                     boldLegend = `${item?.userModified?.firstName} ${item?.userModified?.lastName} `;
                   } else {
-                    boldLegend = `${item?.modified_by}`;
+                    boldLegend = `${item?.modified_by} `;
                   }
                 } else if (code_data_source_id === 7) {
-                  boldLegend = `Confluence`;
+                  boldLegend = `Confluence `;
                 } else if (code_data_source_id === 99) {
                   prefix = 'An '
-                  boldLegend = `Unknown Source`;
+                  boldLegend = `Unknown Source `;
                 } else if (code_data_source_id >= 2 && code_data_source_id <= 6) {
                   boldLegend = `${item?.codeSourceData?.update_source}`;
                 }
