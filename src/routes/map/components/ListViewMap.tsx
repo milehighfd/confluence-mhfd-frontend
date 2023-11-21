@@ -7,7 +7,7 @@ import { FILTER_PROBLEMS_TRIGGER, PROBLEMS_TRIGGER } from "../constants/tabs.con
 import { useMapDispatch, useMapState } from "hook/mapHook";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import LoadingView from "Components/Loading/LoadingView";
-import { useProfileState } from "hook/profileHook";
+import { useProfileDispatch, useProfileState } from "hook/profileHook";
 import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import { MHFD_PROJECTS } from "constants/constants";
@@ -50,12 +50,14 @@ const ListViewMap = ({
   } = useProjectDispatch();
   const { userInformation: user } = useProfileState();
   const { nextPageOfCards, infiniteScrollHasMoreItems, infiniteScrollItems } = useProjectState();
+  const { openDiscussionTab } = useProfileDispatch();
   const [windowWidth, setWindowWidth] = useState(WINDOW_WIDTH)
   const [sortBy, setSortBy] = useState<any>(null);
   const [sortOrder, setSortOrder] = useState<any>(null);
   const [openedDropdownKey, setOpenedDropdownKey] = useState<string | null>(null);
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const [itHasComponents, setItHasComponents] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const {
     favorites,
     selectedOnMap,
@@ -201,6 +203,17 @@ const ListViewMap = ({
       // }
    });    
   }
+  const openCommentProject = (record: any) => {
+    setData(record);
+    setOpenModal(true);
+  }
+  useEffect(() => {    
+    if (data && openModal) {
+      setOpenModal(false);
+      setVisible(true);
+    }
+  }, [data, openModal]);
+
   const menu = (record:any) => {
     const onClickPopupCard = (e: any) => {
       stopModal(e);
@@ -223,6 +236,12 @@ const ListViewMap = ({
           setDropdownIsOpen(false);
           setOpenedDropdownKey(null);
           favoriteList(type === FILTER_PROBLEMS_TRIGGER);
+          return;
+        case 'popup-comment':
+          openCommentProject(record);
+          setDropdownIsOpen(false);
+          setOpenedDropdownKey(null);
+          openDiscussionTab(true);
           return;
         default:
           break;
@@ -250,7 +269,7 @@ const ListViewMap = ({
       },
       {
         key: 'popup-comment',
-        label: <span className="menu-item-text" style={{ cursor: 'auto', opacity: 0.5 }}>Comment</span>
+        label: <span className="menu-item-text" >Add a Comment</span>
       },
       {
         key: 'popup-add-team',
@@ -310,7 +329,6 @@ const ListViewMap = ({
             trigger="click"
             visible={openedDropdownKey === record.project_id}
             onVisibleChange={visible => {
-              console.log(record);
               if (visible) {
                 setOpenedDropdownKey(record.project_id);
               } else {
@@ -623,7 +641,7 @@ const changeCenter = (id:any, coordinateP:any) => {
             return {
               onClick: (event) => {
                 setData(record);
-                // changeCenter(record.project_id, '');
+                // changeCenter(record.project_id, '');                
                 setTimeout(() => {
                   setVisible(true);
                 }, 1500);

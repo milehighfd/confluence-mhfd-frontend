@@ -6,7 +6,7 @@ import { COMPONENT_LAYERS, MENU_OPTIONS, MHFD_PROJECTS } from 'constants/constan
 import { useMapDispatch } from 'hook/mapHook';
 import { getTotalEstimatedCost } from 'utils/parsers';
 import * as datasets from 'Config/datasets';
-import { useProfileState } from 'hook/profileHook';
+import { useProfileDispatch, useProfileState } from 'hook/profileHook';
 import DetailModal from 'routes/detail-page/components/DetailModal';
 
 const CardInformationView = ({
@@ -33,6 +33,7 @@ const CardInformationView = ({
     setHighlighted
   } = useMapDispatch();
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
+  const { openDiscussionTab } = useProfileDispatch();
   useEffect(() => {
     if(dropdownIsOpen){
       if (data.totalComponents === 0){
@@ -43,7 +44,6 @@ const CardInformationView = ({
     }
   }, [dropdownIsOpen]);
   const showComponents = () => {
-    console.log('data',data)
     const id = data.type === MENU_OPTIONS.PROBLEMS_BOUNDARY ? data.problemid : data.project_id;
     getBBOXComponents(data.type === MENU_OPTIONS.PROBLEMS_BOUNDARY ? MENU_OPTIONS.PROBLEMS_BOUNDARY : MHFD_PROJECTS, id);
   }
@@ -105,6 +105,11 @@ const CardInformationView = ({
           changeFavorite();
           setDropdownIsOpen(false);
           return;
+        case 'popup-comment':
+          setVisible(true);  
+          openDiscussionTab(true);
+          setDropdownIsOpen(false);
+          break;
         default:
           break;
       }
@@ -131,7 +136,7 @@ const CardInformationView = ({
       },
       {
         key: 'popup-comment',
-        label: <span className="menu-item-text" style={{ cursor: 'auto', opacity: 0.5 }}>Comment</span>
+        label: <span className="menu-item-text" >Add a Comment</span>
       },
       {
         key: 'popup-add-team',
