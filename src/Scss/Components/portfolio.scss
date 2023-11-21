@@ -6,23 +6,24 @@
   align-items: center;
     margin-bottom: 9px;  
     .user-status {
-      padding: 4px 8px;
       border-radius: 4px;
       font-size: 1rem;
-      font-weight: bold;
+      // font-weight: bold;
       white-space: nowrap; 
+      margin-bottom: 0px;
       text-align: center;
-      min-width: 60px; 
-      max-width: 100px;
+      // min-width: 60px; 
+      // max-width: 100px;
     }
     .user-status.active {
-      background-color: #e0e0e0;
-      color: #686363;
+      // background-color: #e0e0e0;
+      color: $purple00;
+      opacity: 0.6;
     }
-  
     .user-status.inactive {
-      background-color: #fcefeb;
-      color: #e7886f;
+      background-color: #feeeea;
+      color: #F3522B;
+      padding: 3px 8px;
     }  
     img {
     margin-right: 0.8pc;

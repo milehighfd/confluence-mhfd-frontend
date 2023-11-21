@@ -30,9 +30,17 @@ const TeamModal = () => {
             <h6 style={{ fontWeight: 500 }}>{item.fullName}</h6>
             <p>{item.roleType}</p>
           </div>
-          <span className={`user-status ${item?.user?.user_id ? 'active' : 'inactive'}`}>
-            {item?.user?.user_id ? item.organization : 'No User'}
-          </span>
+          <div style={{display:'flex'}}>
+            {item?.user?.user_id ? (
+              <span className={`user-status active`}>
+                {item?.user?.user_id ? item.organization : 'No User'}
+              </span>
+            ):(
+              <span className={`user-status inactive`}>
+                No User
+              </span>
+            )}
+          </div>
         </div>
       ))}
     </div>
