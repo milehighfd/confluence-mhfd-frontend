@@ -41,15 +41,14 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
     }
   } ,[projectId]);
 
-  const formatElement = (element:any, boldLegend:any, board_year:any, year:any, type_of_board:any, partner_type:any, dateParsed:any) => ({
+  const formatElement = (element:any,prefix:any, boldLegend:any, board_year:any, year:any, type_of_board:any, partner_type:any, dateParsed:any) => ({
     date: moment(element?.last_modified),
     display: (
       <div className="activiti-item">
         <div>
-          <p>
-            {`${boldLegend} `}
+          <p><span>{prefix}</span><b>{boldLegend}</b> 
             <span>
-              removed the {year} cost value in the {board_year} {type_of_board} Cost for {partner_type} previously at {element.cost} on {dateParsed}.
+              removed the {year} cost value in the {board_year} {type_of_board} Cost for {partner_type} previously at {formatter.format(element.cost)} on {dateParsed}.
             </span>
           </p>
         </div>
@@ -154,17 +153,34 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
         const reqsPositionsMHFD = reqsPositionsMHFDString.map(element => +element);
           reqsPositionsMHFD.forEach((element:any) => {
               groupedHistoricValuesByBoardProjectCostData[partnerKey][element].forEach((item:any) => {
-                let userName = item?.modified_by;
-                if(item?.userModified){
-                   userName = `${item.userModified.firstName} ${item.userModified.lastName}`;
+
+                let boldLegend = '';
+                let prefix = '';
+                let code_data_source_id = item?.codeSourceData?.code_data_source_type_id;
+                if (!item.codeSourceData) {
+                  prefix = 'Missing source type attribute: ';
+                } else if(code_data_source_id === 1 ) {
+                  if (item?.userModified) {
+                    boldLegend = `${item?.userModified?.firstName} ${item?.userModified?.lastName} `;
+                  } else {
+                    boldLegend = `${item?.modified_by}`;
+                  }
+                } else if (code_data_source_id === 7) {
+                  boldLegend = `Confluence`;
+                } else if (code_data_source_id === 99) {
+                  prefix = 'An '
+                  boldLegend = `Unknown Source`;
+                } else if (code_data_source_id >= 2 && code_data_source_id <= 6) {
+                  boldLegend = `${item?.codeSourceData?.update_source}`;
                 }
+
                 if (!item.is_active) {
                   const board_year= item.boardProjectCostData.boardProjectData.board.year;
                   const year = +board_year + (+element) - 1;
                   const type_of_board = item.code_cost_type_id === 22 || item.code_cost_type_id === 42 ? 'Work Request' : 'Work Plan';
                   const partner_type = +partnerKey === 88 ? 'MHFD Funding' : (+partnerKey === 11 ?`${item.projectPartnerData.businessAssociateData[0].business_name} (Sponsor)` : `${item.projectPartnerData.businessAssociateData[0].business_name} (Co-Sponsor)` );
                   const dateParsed = moment(item?.last_modified).format('MM/DD/YY');
-                  newArrayOfHistoric.push(formatElement(item, userName, board_year, year, type_of_board, partner_type, dateParsed));
+                  newArrayOfHistoric.push(formatElement(item, prefix, boldLegend, board_year, year, type_of_board, partner_type, dateParsed));
                 }
               });
           });
