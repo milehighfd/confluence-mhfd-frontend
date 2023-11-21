@@ -56,42 +56,77 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
       </div>
     ),
   });
-
-  const getHistoricCostRender = (historicValues: any) => {
-    const removedCosts:any = [];
-    const arrayOfHistoric = historicCosts.map((element: any) => {
-      let prefix = '';
-      let boldLegend = '';
-      let code_data_source_id = element?.codeSourceData?.code_data_source_type_id;
-      if (!element.codeSourceData) {
-        prefix = 'Missing source type attribute: ';
-      } else if(code_data_source_id === 1 ) {
-        if (element.userModified) {
-          boldLegend = `${element?.userModified?.firstName} ${element?.userModified?.lastName}`;
-        } else {
-          boldLegend = `${element?.modified_by}`;
-        }
-        
-      } else if (code_data_source_id === 7) {
-        boldLegend = `Confluence`;
-      } else if (code_data_source_id === 99) {
-        prefix = 'An '
-        boldLegend = `Unknown Source`;
-      } else if (code_data_source_id >= 2 && code_data_source_id <= 6) {
-        boldLegend = `${element?.codeSourceData?.update_source}`;
+  const addOrUpdate = (values: any) => {
+    let answer = '';
+    if (values.length === 1 ) {
+      answer = values[0].is_active === true ? 'added': ''
+    } else if (values.length > 0) {
+      const hasActive = values.filter((element: any) => element.is_active === true);
+      if (hasActive.length > 0) {
+        answer = 'updated';
+      } else {
+        answer = '';
       }
-      const code_cost_type_name = element?.code_cost_type?.cost_type_name;
-      const dateParsed = moment(element?.last_modified).format('MM/DD/YY');
-      return ({
-        date: moment(element?.last_modified),
-        display: (<div className="activiti-item">
+    }
+    return answer;
+  }
+  const getRenderAddByKey = (
+    key:any,
+    prefix: any,
+    boldLegend: any,
+    yearOfChange: any, 
+    boardYear: any,
+    labelCodeCostType: any,
+    costAdded: any,
+    dateParsed: any,
+    partner: any = 'MHFD Funding'
+  ) => {
+    let renderValue = undefined;
+    if ( key === '88') { 
+      renderValue = <div className="activiti-item">
         <div>
-          <p><span>{prefix}</span>{boldLegend} <span>changed the <b>{code_cost_type_name} Cost</b> to {formatter.format(element.cost)} on {dateParsed}.</span></p>
+          <p><span>{prefix}</span><b>{boldLegend}</b> <span>added the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for MHFD Funding to {formatter.format(costAdded)} on {dateParsed}.</span></p>
         </div>
-      </div>)
-      })
-    });
-    console.log('Historic costs', historicValues);
+      </div>
+    } else if ( key === '11' || key === '12') {
+      renderValue = <div className="activiti-item">
+        <div>
+          <p><span>{prefix}</span><b>{boldLegend}</b> <span>added the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for {partner} ({ key === '11' ? 'Sponsor': 'Co-Sponsor'}) to {formatter.format(costAdded)} on {dateParsed}.</span></p>
+        </div>
+      </div>
+    }
+    return renderValue;
+  }
+  const getRenderUpdateByKey = (
+    key:any,
+    prefix: any,
+    boldLegend: any,
+    yearOfChange: any, 
+    boardYear: any,
+    labelCodeCostType: any,
+    costAdded: any,
+    costUpdated: any,
+    dateParsed: any,
+    partner: any = 'MHFD Funding'
+  ) => {
+    let renderValue = undefined;
+    if (key === '88') {
+      renderValue = <div className="activiti-item">
+        <div>
+          <p><span>{prefix}</span><b>{boldLegend}</b> <span>changed the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for MHFD Funding from {formatter.format(costUpdated)} to {formatter.format(costAdded)} on {dateParsed}.</span></p>
+        </div>
+      </div>;
+    } else if ( key === '11' || key === '12') {
+      renderValue = <div className="activiti-item">
+        <div>
+          <p><span>{prefix}</span><b>{boldLegend}</b> <span>changed the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for {partner} ({ key === '11' ? 'Sponsor': 'Co-Sponsor'}) from {formatter.format(costUpdated)} to {formatter.format(costAdded)} on {dateParsed}.</span></p>
+        </div>
+      </div>
+    }
+    return renderValue;
+  }
+  const getHistoricCostRender = (historicValues: any) => {
+    const newArrayOfHistoric: any = [];
     // group hictoricvalues based on projectpartnerdata group by code_partner_type_id 
     const groupedHistoricValues: any = {};
     historicValues.forEach((element: any) => {
@@ -100,7 +135,6 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
       }
       groupedHistoricValues[element?.projectPartnerData?.code_partner_type_id].push(element);
     });
-    console.log('groupedHistoricValues', groupedHistoricValues);
     // group groups in historic values based on boardProjectCostData and req_position
     const groupedHistoricValuesByBoardProjectCostData: any = {};
     Object.keys(groupedHistoricValues).forEach((key: any) => {
@@ -130,17 +164,71 @@ export const ActivitiCreateProject = ({projectId, data}: {projectId: any, data: 
                   const type_of_board = item.code_cost_type_id === 22 || item.code_cost_type_id === 42 ? 'Work Request' : 'Work Plan';
                   const partner_type = +partnerKey === 88 ? 'MHFD Funding' : (+partnerKey === 11 ?`${item.projectPartnerData.businessAssociateData[0].business_name} (Sponsor)` : `${item.projectPartnerData.businessAssociateData[0].business_name} (Co-Sponsor)` );
                   const dateParsed = moment(item?.last_modified).format('MM/DD/YY');
-                  removedCosts.push(formatElement(item, userName, board_year, year, type_of_board, partner_type, dateParsed));
+                  newArrayOfHistoric.push(formatElement(item, userName, board_year, year, type_of_board, partner_type, dateParsed));
                 }
               });
           });
       }
     });
-
-    console.log('removedCosts', removedCosts);
-    console.log('arrayOfHistoric', arrayOfHistoric);
-    return removedCosts;
     // return arrayOfHistoric;
+    // ADDED 
+    Object.keys(groupedHistoricValuesByBoardProjectCostData).forEach((key: any) => {
+        // {first, last} added the {year} cost value in the {board year} WR/WP Cost for MHFD Funding to {y} on 10/14/23.
+    for(let i = 1; i < 5; i++) {
+      const valuesByReq = groupedHistoricValuesByBoardProjectCostData[key][i];
+      if (valuesByReq) {
+        const typeList = addOrUpdate(valuesByReq);
+        const element = valuesByReq[0];
+        const dateParsed = moment(element?.last_modified).format('MM/DD/YY');
+        let boldLegend = '';
+        let prefix = '';
+        let code_data_source_id = element?.codeSourceData?.code_data_source_type_id;
+        if (!element.codeSourceData) {
+          prefix = 'Missing source type attribute: ';
+        } else if(code_data_source_id === 1 ) {
+          if (element?.userModified) {
+            boldLegend = `${element?.userModified?.firstName} ${element?.userModified?.lastName}`;
+          } else {
+            boldLegend = `${element?.modified_by}`;
+          }
+          
+        } else if (code_data_source_id === 7) {
+          boldLegend = `Confluence`;
+        } else if (code_data_source_id === 99) {
+          prefix = 'An '
+          boldLegend = `Unknown Source`;
+        } else if (code_data_source_id >= 2 && code_data_source_id <= 6) {
+          boldLegend = `${element?.codeSourceData?.update_source}`;
+        }
+        const boardYear = element?.boardProjectCostData.boardProjectData.board.year;
+        const yearOfChange = +boardYear + (i - 1);
+        const code_cost_type_id = element?.code_cost_type_id;
+        let labelCodeCostType = 'Work Request Cost';
+        if (code_cost_type_id === 21 || code_cost_type_id === 41) {
+          labelCodeCostType = 'Work Plan Cost';
+        }
+        if (typeList === 'added') {
+          const costAdded = element.cost;
+          const display = {
+            date: dateParsed,
+            display: getRenderAddByKey(key, prefix,boldLegend, yearOfChange, boardYear, labelCodeCostType, costAdded, dateParsed, element?.projectPartnerData?.businessAssociateData[0].business_name)
+          };
+          newArrayOfHistoric.push(display);
+        } else if (typeList === 'updated') {
+          const previousValue = valuesByReq[1];
+          const costAdded = element?.cost;
+          const costUpdated = previousValue?.cost;
+          const display = {
+            date: dateParsed,
+            display: getRenderUpdateByKey(key, prefix, boldLegend, yearOfChange, boardYear, labelCodeCostType, costAdded, costUpdated, dateParsed, element?.projectPartnerData?.businessAssociateData[0].business_name)
+          };
+          newArrayOfHistoric.push(display);
+        }
+      }
+    }
+    });
+    console.log('New Array of historic', newArrayOfHistoric);
+    return newArrayOfHistoric;
   }
   useEffect(() => {
     let listToSort: any = [];
