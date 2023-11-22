@@ -99,7 +99,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
     return renderValue;
   }
   const getRenderUpdateByKey = (
-    key:any,
+    codePartnerID:any,
     prefix: any,
     boldLegend: any,
     yearOfChange: any, 
@@ -111,16 +111,16 @@ const ListHistory = ({projectId}: {projectId: any}) => {
     partner: any = 'MHFD Funding'
   ) => {
     let renderValue = undefined;
-    if (key === 88) {
+    if (codePartnerID === 88) {
       renderValue = <div className="activiti-item">
         <div>
           <p><span>{prefix} {boldLegend} changed the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for MHFD Funding from {formatter.format(costUpdated)} to {formatter.format(costAdded)} on {dateParsed}.</span></p>
         </div>
       </div>;
-    } else if ( key === 11 || key === 12) {
+    } else if ( codePartnerID === 11 || codePartnerID === 12) {
       renderValue = <div className="activiti-item">
         <div>
-          <p><span>{prefix} {boldLegend} changed the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for {partner} ({ key === '11' ? 'Sponsor': 'Co-Sponsor'}) from {formatter.format(costUpdated)} to {formatter.format(costAdded)} on {dateParsed}.</span></p>
+          <p><span>{prefix} {boldLegend} changed the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for {partner} ({ codePartnerID === 11 ? 'Sponsor': 'Co-Sponsor'}) from {formatter.format(costUpdated)} to {formatter.format(costAdded)} on {dateParsed}.</span></p>
         </div>
       </div>
     }
