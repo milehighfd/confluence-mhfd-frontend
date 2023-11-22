@@ -162,6 +162,40 @@ const ListHistory = ({projectId}: {projectId: any}) => {
     });
     return hCosts;
   }
+  const getChangedValuesToDisplay = (valuesToFormat: any, codePartnerId: any, prefix: any, boldLegend: any, dateParsed: any) => {
+    const arrayHistoricValues = [];
+    for(let i = 1; i < valuesToFormat.length - 1 ;++i) {
+      const currentValue = valuesToFormat[i];
+      const previousValue = valuesToFormat[i+1];
+      const code_cost_type_id = currentValue?.code_cost_type_id;
+      let labelCodeCostType = 'Work Request Cost';
+      if (code_cost_type_id === 21 || code_cost_type_id === 41) {
+        labelCodeCostType = 'Work Plan Cost';
+      }
+      const costAdded = currentValue?.cost;
+      const costUpdated = previousValue?.cost;
+      const currentBoardYear = currentValue?.boardProjectCostData.boardProjectData.board.year;
+      const currentYearOfChange = +currentBoardYear + (i - 1);
+      const display = {
+        date: moment(currentValue?.created).format('YYYY-MM-DD HH:mm:ss'),
+        dateOriginal: currentValue?.created,
+        display: getRenderUpdateByKey(codePartnerId, prefix, boldLegend, currentYearOfChange, currentBoardYear, labelCodeCostType, costAdded, costUpdated, dateParsed, currentValue?.projectPartnerData?.businessAssociateData[0].business_name)
+      };
+      arrayHistoricValues.push(display);
+    }
+    return arrayHistoricValues;
+  }
+  const getValuesToAddDisplay = (addValue: any, index: any, codePartnerId: any, prefix: any, boldLegend: any, labelCodeCostType: any, dateParsed: any) => {
+    const costAdded = addValue.cost;
+    const currentBoardYear = addValue?.boardProjectCostData.boardProjectData.board.year;
+    const currentYearOfChange = +currentBoardYear + (index - 1);
+    const display = {
+      date: moment(addValue?.created).format('YYYY-MM-DD HH:mm:ss'),
+      dateOriginal: addValue?.created,
+      display: getRenderAddByKey(codePartnerId, prefix,boldLegend, currentYearOfChange, currentBoardYear, labelCodeCostType, costAdded, dateParsed, addValue?.projectPartnerData?.businessAssociateData[0].business_name)
+    };
+    return display;
+  }
   const formatElementAddOrUpdate = (valuesByReq: any, codePartnerId: any, index: any) => {
     const newArrayOfHistoric: any = [];
     const typeList = addOrUpdate(valuesByReq);
@@ -222,31 +256,12 @@ const ListHistory = ({projectId}: {projectId: any}) => {
         newArrayOfHistoric.push(formatElement(removeValue, prefix, boldLegend, boardYear, yearOfChange, type_of_board, partner_type, dateParsed));
       } 
       if (valuesToFormat.length > 1) {
-        for(let i = 1; i < valuesToFormat.length - 1 ;++i) {
-          const currentValue = valuesToFormat[i];
-          const previousValue = valuesToFormat[i+1];
-          const costAdded = currentValue?.cost;
-          const costUpdated = previousValue?.cost;
-          const currentBoardYear = currentValue?.boardProjectCostData.boardProjectData.board.year;
-          const currentYearOfChange = +currentBoardYear + (index - 1);
-          const display = {
-            date: moment(element?.created).format('YYYY-MM-DD HH:mm:ss'),
-            dateOriginal: element?.created,
-            display: getRenderUpdateByKey(codePartnerId, prefix, boldLegend, currentYearOfChange, currentBoardYear, labelCodeCostType, costAdded, costUpdated, dateParsed, element?.projectPartnerData?.businessAssociateData[0].business_name)
-          };
-          newArrayOfHistoric.push(display);
-        }
+        let arrayValues = getChangedValuesToDisplay(valuesToFormat, codePartnerId, prefix, boldLegend, dateParsed);
+        newArrayOfHistoric.push(...arrayValues);
       }
       const addValue = valuesToFormat[valuesToFormat.length - 1];
       if (addValue) {
-        const costAdded = addValue.cost;
-        const currentBoardYear = addValue?.boardProjectCostData.boardProjectData.board.year;
-        const currentYearOfChange = +currentBoardYear + (index - 1);
-        const display = {
-          date: moment(addValue?.created).format('YYYY-MM-DD HH:mm:ss'),
-          dateOriginal: addValue?.created,
-          display: getRenderAddByKey(codePartnerId, prefix,boldLegend, currentYearOfChange, currentBoardYear, labelCodeCostType, costAdded, dateParsed, addValue?.projectPartnerData?.businessAssociateData[0].business_name)
-        };
+        const display = getValuesToAddDisplay(addValue, index, codePartnerId, prefix, boldLegend, labelCodeCostType, dateParsed);
         newArrayOfHistoric.push(display);
       } 
     }
