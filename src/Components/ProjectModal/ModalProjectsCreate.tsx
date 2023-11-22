@@ -46,7 +46,7 @@ const ModalProjectsCreate = ({visible, setVisible}
           </div>
         </div>
         <div className='existing-project'>
-          <img src="/Icons/ic-search-green.svg" alt="plus-green" />
+          <img src="/Icons/ic-files-green.svg" alt="plus-green" />
           <p className='text'>Existing Project</p>
         </div>
         <Input className='input-search' placeholder="Search for existing project" prefix={<SearchOutlined />} />
