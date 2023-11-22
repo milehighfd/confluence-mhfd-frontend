@@ -52,7 +52,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
         <div>
           <p><span>{prefix}</span><b>{boldLegend}</b> 
             <span>
-              removed the {year} cost value in the {board_year} {type_of_board} Cost for {partner_type} previously at {formatter.format(element.cost)} on {dateParsed}.
+              removed the {year} cost value in the {board_year} <b>{type_of_board} Cost</b> for {partner_type} previously at {formatter.format(element.cost)} on {dateParsed}.
             </span>
           </p>
         </div>
@@ -88,13 +88,13 @@ const ListHistory = ({projectId}: {projectId: any}) => {
     if ( key === '88') { 
       renderValue = <div className="activiti-item">
         <div>
-          <p><span>{prefix}</span><b>{boldLegend}</b> <span>added the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for MHFD Funding to {formatter.format(costAdded)} on {dateParsed}.</span></p>
+          <p><span>{prefix}</span><b>{boldLegend}</b> <span>added the {yearOfChange} cost value in the {boardYear} <b>{labelCodeCostType}</b> for MHFD Funding to {formatter.format(costAdded)} on {dateParsed}.</span></p>
         </div>
       </div>
     } else if ( key === '11' || key === '12') {
       renderValue = <div className="activiti-item">
         <div>
-          <p><span>{prefix}</span><b>{boldLegend}</b> <span>added the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for {partner} ({ key === '11' ? 'Sponsor': 'Co-Sponsor'}) to {formatter.format(costAdded)} on {dateParsed}.</span></p>
+          <p><span>{prefix}</span><b>{boldLegend}</b> <span>added the {yearOfChange} cost value in the {boardYear} <b>{labelCodeCostType}</b> for {partner} ({ key === '11' ? 'Sponsor': 'Co-Sponsor'}) to {formatter.format(costAdded)} on {dateParsed}.</span></p>
         </div>
       </div>
     }
@@ -116,13 +116,13 @@ const ListHistory = ({projectId}: {projectId: any}) => {
     if (key === '88') {
       renderValue = <div className="activiti-item">
         <div>
-          <p><span>{prefix}</span><b>{boldLegend}</b> <span>changed the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for MHFD Funding from {formatter.format(costUpdated)} to {formatter.format(costAdded)} on {dateParsed}.</span></p>
+          <p><span>{prefix}</span><b>{boldLegend}</b> <span>changed the {yearOfChange} cost value in the {boardYear} ,<b>{labelCodeCostType}</b> for MHFD Funding from {formatter.format(costUpdated)} to {formatter.format(costAdded)} on {dateParsed}.</span></p>
         </div>
       </div>;
     } else if ( key === '11' || key === '12') {
       renderValue = <div className="activiti-item">
         <div>
-          <p><span>{prefix}</span><b>{boldLegend}</b> <span>changed the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for {partner} ({ key === '11' ? 'Sponsor': 'Co-Sponsor'}) from {formatter.format(costUpdated)} to {formatter.format(costAdded)} on {dateParsed}.</span></p>
+          <p><span>{prefix}</span><b>{boldLegend}</b> <span>changed the {yearOfChange} cost value in the {boardYear} <b>{labelCodeCostType}</b> for {partner} ({ key === '11' ? 'Sponsor': 'Co-Sponsor'}) from {formatter.format(costUpdated)} to {formatter.format(costAdded)} on {dateParsed}.</span></p>
         </div>
       </div>
     }
