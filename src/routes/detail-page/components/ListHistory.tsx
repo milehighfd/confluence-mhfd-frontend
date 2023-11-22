@@ -50,9 +50,9 @@ const ListHistory = ({projectId}: {projectId: any}) => {
     display: (
       <div className="activiti-item">
         <div>
-          <p><span>{prefix}</span><b>{boldLegend}</b> 
+          <p><span>{prefix}</span>{boldLegend} 
             <span>
-              removed the {year} cost value in the {board_year} <b>{type_of_board} Cost</b> for {partner_type} previously at {formatter.format(element.cost)} on {dateParsed}.
+              removed the {year} cost value in the {board_year} {type_of_board} Cost for {partner_type} previously at {formatter.format(element.cost)} on {dateParsed}.
             </span>
           </p>
         </div>
@@ -88,13 +88,13 @@ const ListHistory = ({projectId}: {projectId: any}) => {
     if ( key === '88') { 
       renderValue = <div className="activiti-item">
         <div>
-          <p><span>{prefix}</span><b>{boldLegend}</b> <span>added the {yearOfChange} cost value in the {boardYear} <b>{labelCodeCostType}</b> for MHFD Funding to {formatter.format(costAdded)} on {dateParsed}.</span></p>
+          <p><span>{prefix}</span>{boldLegend} <span>added the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for MHFD Funding to {formatter.format(costAdded)} on {dateParsed}.</span></p>
         </div>
       </div>
     } else if ( key === '11' || key === '12') {
       renderValue = <div className="activiti-item">
         <div>
-          <p><span>{prefix}</span><b>{boldLegend}</b> <span>added the {yearOfChange} cost value in the {boardYear} <b>{labelCodeCostType}</b> for {partner} ({ key === '11' ? 'Sponsor': 'Co-Sponsor'}) to {formatter.format(costAdded)} on {dateParsed}.</span></p>
+          <p><span>{prefix}</span>{boldLegend} <span>added the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for {partner} ({ key === '11' ? 'Sponsor': 'Co-Sponsor'}) to {formatter.format(costAdded)} on {dateParsed}.</span></p>
         </div>
       </div>
     }
@@ -116,13 +116,13 @@ const ListHistory = ({projectId}: {projectId: any}) => {
     if (key === '88') {
       renderValue = <div className="activiti-item">
         <div>
-          <p><span>{prefix}</span><b>{boldLegend}</b> <span>changed the {yearOfChange} cost value in the {boardYear} ,<b>{labelCodeCostType}</b> for MHFD Funding from {formatter.format(costUpdated)} to {formatter.format(costAdded)} on {dateParsed}.</span></p>
+          <p><span>{prefix}</span>{boldLegend} <span>changed the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for MHFD Funding from {formatter.format(costUpdated)} to {formatter.format(costAdded)} on {dateParsed}.</span></p>
         </div>
       </div>;
     } else if ( key === '11' || key === '12') {
       renderValue = <div className="activiti-item">
         <div>
-          <p><span>{prefix}</span><b>{boldLegend}</b> <span>changed the {yearOfChange} cost value in the {boardYear} <b>{labelCodeCostType}</b> for {partner} ({ key === '11' ? 'Sponsor': 'Co-Sponsor'}) from {formatter.format(costUpdated)} to {formatter.format(costAdded)} on {dateParsed}.</span></p>
+          <p><span>{prefix}</span>{boldLegend} <span>changed the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for {partner} ({ key === '11' ? 'Sponsor': 'Co-Sponsor'}) from {formatter.format(costUpdated)} to {formatter.format(costAdded)} on {dateParsed}.</span></p>
         </div>
       </div>
     }
@@ -157,7 +157,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
         dateOriginal: element?.last_modified,
         display: (<div className="activiti-item">
         <div>
-          <p><span>{prefix}</span>{boldLegend} <span>changed the <b>{code_cost_type_name} Cost</b> to {formatter.format(element.cost)} on {dateParsed}.</span></p>
+          <p><span>{prefix}</span>{boldLegend} <span>changed the {code_cost_type_name} Cost to {formatter.format(element.cost)} on {dateParsed}.</span></p>
         </div>
       </div>)
       })
@@ -248,7 +248,8 @@ const ListHistory = ({projectId}: {projectId: any}) => {
         const reqsPositionsMHFDString = Object.keys(groupedHistoricValuesByBoardProjectCostData[partnerKey]);
         const reqsPositionsMHFD = reqsPositionsMHFDString.map(element => +element);
           reqsPositionsMHFD.forEach((element:any) => {
-                groupedHistoricValuesByBoardProjectCostData[partnerKey][element].forEach((item:any) => {
+            if(groupedHistoricValuesByBoardProjectCostData[partnerKey][element]){
+              groupedHistoricValuesByBoardProjectCostData[partnerKey][element].forEach((item:any) => {
 
                 let boldLegend = '';
                 let prefix = '';
@@ -279,6 +280,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
                   newArrayOfHistoric.push(formatElement(item, prefix, boldLegend, board_year, year, type_of_board, partner_type, dateParsed));
                 }
               });
+            }
           });
       }
     });
@@ -317,7 +319,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
         dateOriginal: element?.modified_date,
         display: (<div className="activiti-item">
         <div>
-          <p><span>{prefix}</span>{boldLegend} <span> modified <b>the project</b> on {dateParsed}.</span></p>
+          <p><span>{prefix}</span>{boldLegend} <span> modified the project on {dateParsed}.</span></p>
         </div>
       </div>)
       })
@@ -333,7 +335,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
           dateOriginal: element?.modified_date,
           display: (<div className="activiti-item">
           <div>
-            <p><span>{prefix}</span>{boldLegend} <span>added a new Independent Action <b>{indaction_name} </b> to {formatter.format(element.cost)} on {dateParsed}.</span></p>
+            <p><span>{prefix}</span>{boldLegend} <span>added a new Independent Action {indaction_name}  to {formatter.format(element.cost)} on {dateParsed}.</span></p>
           </div>
         </div>)
       });
@@ -349,7 +351,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
         dateOriginal: mainproposedaction?.modified_date,
         display: (<div className="activiti-item">
             <div>
-              <p><span>{prefix}</span>{boldLegend} <span>modified the proposed action list on {dateParsed}.</span></p>
+              <p><span>{prefix} {boldLegend} modified the proposed action list on {dateParsed}.</span></p>
             </div>
           </div>)
       }
@@ -366,7 +368,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
         dateOriginal: element?.last_modified_date,
         display: (<div className="activiti-item">
         <div>
-          <p><span>{prefix}</span>{boldLegend} <span> added a new Attachment <b>({indaction_name}) </b> on {dateParsed}.</span></p>
+          <p><span>{prefix}</span>{boldLegend} <span> added a new Attachment ({indaction_name})  on {dateParsed}.</span></p>
         </div>
       </div>)
       })
