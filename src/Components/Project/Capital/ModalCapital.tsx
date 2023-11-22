@@ -1386,6 +1386,7 @@ export const ModalCapital = ({
                 type={selectedTypeProject}
                 project_id={data?.project_id}
                 getTotalCost={getTotalCost}
+                estimatedCostInput={estimatedCostInput}
                 save={save}
                 subType={subType}
                 sponsor={sponsor}

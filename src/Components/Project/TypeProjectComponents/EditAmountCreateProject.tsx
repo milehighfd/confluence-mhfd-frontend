@@ -17,7 +17,8 @@ const EditAmountCreateProject = ({
   getTotalCost,
   save,
   subType,
-  sponsor
+  sponsor,
+  estimatedCostInput
 }:{
   index: number,
   type: string,
@@ -25,7 +26,8 @@ const EditAmountCreateProject = ({
   getTotalCost: any,
   save: any,
   subType: any,
-  sponsor: any
+  sponsor: any,
+  estimatedCostInput: any
 }) => {
   const {
     columns2: columns,
@@ -217,7 +219,8 @@ const EditAmountCreateProject = ({
     <p>How much funding from MHFD is being requested for the following years:</p>
       <b>Total Requested Funding: {formatter.format(getSumOfcosts())}</b>
       <br/>
-      <b>Estimated Project Cost: {formatter.format(getTotalCost() ? getTotalCost() : 0)}</b>
+      {/* <b>Estimated Project Cost: {formatter.format(getTotalCost() ? getTotalCost() : 0)}</b> */}
+      <b>Estimated Project Cost: {formatter.format(estimatedCostInput ? estimatedCostInput : 0)}</b>
     <div className='edit-amount-create-project'>
       <div className={type === 'maintenance' ?'edit-amount-content-maintenance':'edit-amount-content'}>
       {
