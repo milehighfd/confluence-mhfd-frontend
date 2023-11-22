@@ -119,9 +119,9 @@ const MobileMenu = () => {
                         project?.project_attachments?.length > 0 ? `${SERVER.BASE_URL_IMAGES}/${project?.project_attachments[0]?.attachment_url}`:
                             projectType === 'CIP'
                             ? '/projectImages/capital.png'
-                            : projectType === 'Development Improvement Project'
+                            : projectType === 'Development Improvement Project' || projectType === 'DIP'
                             ? '/projectImages/dip.png'
-                            : projectType === 'Research and Development'
+                            : projectType === 'Research and Development' || projectType === 'R&D'
                             ? '/projectImages/rd.png'
                             : projectType === 'Study'
                             ? '/projectImages/study.png'
