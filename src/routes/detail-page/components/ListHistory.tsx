@@ -115,13 +115,13 @@ const ListHistory = ({projectId}: {projectId: any}) => {
     if (key === 88) {
       renderValue = <div className="activiti-item">
         <div>
-          <p><span>{prefix}</span>{boldLegend} <span>changed the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for MHFD Funding from {formatter.format(costUpdated)} to {formatter.format(costAdded)} on {dateParsed}.</span></p>
+          <p><span>{prefix} {boldLegend} changed the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for MHFD Funding from {formatter.format(costUpdated)} to {formatter.format(costAdded)} on {dateParsed}.</span></p>
         </div>
       </div>;
     } else if ( key === 11 || key === 12) {
       renderValue = <div className="activiti-item">
         <div>
-          <p><span>{prefix} {boldLegend} changed the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for {partner} ({ key === 11 ? 'Sponsor': 'Co-Sponsor'}) from {formatter.format(costUpdated)} to {formatter.format(costAdded)} on {dateParsed}.</span></p>
+          <p><span>{prefix} {boldLegend} changed the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for {partner} ({ key === '11' ? 'Sponsor': 'Co-Sponsor'}) from {formatter.format(costUpdated)} to {formatter.format(costAdded)} on {dateParsed}.</span></p>
         </div>
       </div>
     }
@@ -317,7 +317,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
         dateOriginal: element?.modified_date,
         display: (<div className="activiti-item">
         <div>
-          <p><span>{prefix}</span>{boldLegend} <span> modified the project on {dateParsed}.</span></p>
+          <p><span>{prefix} {boldLegend} modified the project on {dateParsed}.</span></p>
         </div>
       </div>)
       })
@@ -392,13 +392,13 @@ const ListHistory = ({projectId}: {projectId: any}) => {
     historicProposedAction
   ]);
   return (
-    <>
+    <div style={{marginTop:'24px'}}>
       {
         renderList.map((element: any) => {
           return element.display;
         })
       }
-    </>
+    </div>
   )
 }
 
