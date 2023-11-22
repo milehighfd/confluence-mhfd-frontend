@@ -60,13 +60,13 @@ const ListHistory = ({projectId}: {projectId: any}) => {
   const addOrUpdate = (values: any) => {
     let answer = '';
     if (values.length === 1 ) {
-      answer = values[0].is_active === true ? 'added': ''
+      answer = values[0].is_active === true ? 'added': 'removed'
     } else if (values.length > 0) {
       const hasActive = values.filter((element: any) => element.is_active === true);
       if (hasActive.length > 0) {
         answer = 'updated';
       } else {
-        answer = '';
+        answer = 'removed';
       }
     }
     return answer;
@@ -82,7 +82,6 @@ const ListHistory = ({projectId}: {projectId: any}) => {
     dateParsed: any,
     partner: any = 'MHFD Funding'
   ) => {
-    console.log('CodePartnerId', codePartnerId);
     let renderValue = undefined;
     if ( codePartnerId === 88) { 
       renderValue = <div className="activiti-item">
@@ -166,7 +165,8 @@ const ListHistory = ({projectId}: {projectId: any}) => {
   const formatElementAddOrUpdate = (valuesByReq: any, codePartnerId: any, index: any) => {
     const newArrayOfHistoric: any = [];
     const typeList = addOrUpdate(valuesByReq);
-    const element = valuesByReq[0];
+    const valuesToFormat = [...valuesByReq];
+    const element = valuesToFormat[0];
     const dateParsed = moment(element?.last_modified).format('MM/DD/YY');
     let boldLegend = '';
     let prefix = '';
@@ -204,7 +204,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
       };
       newArrayOfHistoric.push(display);
     } else if (typeList === 'updated') {
-      const previousValue = valuesByReq[1];
+      const previousValue = valuesToFormat[1];
       const costAdded = element?.cost;
       const costUpdated = previousValue?.cost;
       const display = {
@@ -213,8 +213,42 @@ const ListHistory = ({projectId}: {projectId: any}) => {
         display: getRenderUpdateByKey(codePartnerId, prefix, boldLegend, yearOfChange, boardYear, labelCodeCostType, costAdded, costUpdated, dateParsed, element?.projectPartnerData?.businessAssociateData[0].business_name)
       };
       newArrayOfHistoric.push(display);
-    } else {
-      console.log('now inserting value', typeList, element);
+    } else if (typeList === 'removed') {
+      const removeValue = valuesToFormat[0];
+      if ( removeValue ) {
+        const type_of_board = (removeValue.code_cost_type_id === 22 || removeValue.code_cost_type_id === 42) ? 'Work Request' : 'Work Plan';
+        const partner_type = +codePartnerId === 88 ? 'MHFD Funding' : (+codePartnerId === 11 ?`${removeValue?.projectPartnerData?.businessAssociateData[0]?.business_name} (Sponsor)` : `${removeValue?.projectPartnerData?.businessAssociateData[0]?.business_name} (Co-Sponsor)` );
+        const dateParsed = moment(removeValue?.last_modified).format('MM/DD/YY');
+        newArrayOfHistoric.push(formatElement(removeValue, prefix, boldLegend, boardYear, yearOfChange, type_of_board, partner_type, dateParsed));
+      } 
+      if (valuesToFormat.length > 1) {
+        for(let i = 1; i < valuesToFormat.length - 1 ;++i) {
+          const currentValue = valuesToFormat[i];
+          const previousValue = valuesToFormat[i+1];
+          const costAdded = currentValue?.cost;
+          const costUpdated = previousValue?.cost;
+          const currentBoardYear = currentValue?.boardProjectCostData.boardProjectData.board.year;
+          const currentYearOfChange = +currentBoardYear + (index - 1);
+          const display = {
+            date: moment(element?.created).format('YYYY-MM-DD HH:mm:ss'),
+            dateOriginal: element?.created,
+            display: getRenderUpdateByKey(codePartnerId, prefix, boldLegend, currentYearOfChange, currentBoardYear, labelCodeCostType, costAdded, costUpdated, dateParsed, element?.projectPartnerData?.businessAssociateData[0].business_name)
+          };
+          newArrayOfHistoric.push(display);
+        }
+      }
+      const addValue = valuesToFormat[valuesToFormat.length - 1];
+      if (addValue) {
+        const costAdded = addValue.cost;
+        const currentBoardYear = addValue?.boardProjectCostData.boardProjectData.board.year;
+        const currentYearOfChange = +currentBoardYear + (index - 1);
+        const display = {
+          date: moment(addValue?.created).format('YYYY-MM-DD HH:mm:ss'),
+          dateOriginal: addValue?.created,
+          display: getRenderAddByKey(codePartnerId, prefix,boldLegend, currentYearOfChange, currentBoardYear, labelCodeCostType, costAdded, dateParsed, addValue?.projectPartnerData?.businessAssociateData[0].business_name)
+        };
+        newArrayOfHistoric.push(display);
+      } 
     }
     return newArrayOfHistoric;
   }
@@ -239,50 +273,6 @@ const ListHistory = ({projectId}: {projectId: any}) => {
         groupedHistoricValuesByBoardProjectCostData[key][element?.boardProjectCostData?.req_position].push(element);
       });
     });
-    const partnerKeys = Object.keys(groupedHistoricValuesByBoardProjectCostData);
-    partnerKeys.forEach((partnerKey:any) => {
-      if (groupedHistoricValuesByBoardProjectCostData[partnerKey]) {
-        const reqsPositionsMHFDString = Object.keys(groupedHistoricValuesByBoardProjectCostData[partnerKey]);
-        const reqsPositionsMHFD = reqsPositionsMHFDString.map(element => +element);
-          reqsPositionsMHFD.forEach((element:any) => {
-            if(groupedHistoricValuesByBoardProjectCostData[partnerKey][element]){
-              groupedHistoricValuesByBoardProjectCostData[partnerKey][element].forEach((item:any) => {
-
-                let boldLegend = '';
-                let prefix = '';
-                let code_data_source_id = item?.codeSourceData?.code_data_source_type_id;
-                if (!item.codeSourceData) {
-                  prefix = 'Missing source type attribute: ';
-                } else if(code_data_source_id === 1 ) {
-                  if (item?.userModified) {
-                    boldLegend = `${item?.userModified?.firstName} ${item?.userModified?.lastName} `;
-                  } else {
-                    boldLegend = `${item?.modified_by} `;
-                  }
-                } else if (code_data_source_id === 7) {
-                  boldLegend = `Confluence `;
-                } else if (code_data_source_id === 99) {
-                  prefix = 'An '
-                  boldLegend = `Unknown Source `;
-                } else if (code_data_source_id >= 2 && code_data_source_id <= 6) {
-                  boldLegend = `${item?.codeSourceData?.update_source}`;
-                }
-
-                if (!item.is_active) {
-                  const board_year= item.boardProjectCostData.boardProjectData.board.year;
-                  const year = +board_year + (+element) - 1;
-                  const type_of_board = (item.code_cost_type_id === 22 || item.code_cost_type_id === 42) ? 'Work Request' : 'Work Plan';
-                  const partner_type = +partnerKey === 88 ? 'MHFD Funding' : (+partnerKey === 11 ?`${item?.projectPartnerData?.businessAssociateData[0]?.business_name} (Sponsor)` : `${item?.projectPartnerData?.businessAssociateData[0]?.business_name} (Co-Sponsor)` );
-                  const dateParsed = moment(item?.last_modified).format('MM/DD/YY');
-                  newArrayOfHistoric.push(formatElement(item, prefix, boldLegend, board_year, year, type_of_board, partner_type, dateParsed));
-                }
-              });
-            }
-          });
-      }
-    });
-    // return arrayOfHistoric;
-    // ADDED 
     Object.keys(groupedHistoricValuesByBoardProjectCostData).forEach((key: any) => {
         // {first, last} added the {year} cost value in the {board year} WR/WP Cost for MHFD Funding to {y} on 10/14/23.
       for(let i = 1; i <= 5; i++) {
@@ -303,7 +293,6 @@ const ListHistory = ({projectId}: {projectId: any}) => {
         }
       }
     });
-    console.log('New Array of historic', newArrayOfHistoric);
     return newArrayOfHistoric;
   }
   useEffect(() => {
@@ -379,7 +368,6 @@ const ListHistory = ({projectId}: {projectId: any}) => {
     listToSort.sort((a: any, b: any) => {
       return new Date(b.date).getTime() - new Date(a.date).getTime()
     });
-    console.log('listToSort', listToSort);
     setRenderList(listToSort);
 
   } ,[
