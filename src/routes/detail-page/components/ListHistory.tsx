@@ -50,9 +50,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
     display: (
       <div className="activiti-item">
         <div>
-          <p><span>{prefix}</span>{boldLegend} 
-            <span>
-              removed the {year} cost value in the {board_year} {type_of_board} Cost for {partner_type} previously at {formatter.format(element.cost)} on {dateParsed}.
+          <p><span>{prefix} {boldLegend} removed the {year} cost value in the {board_year} {type_of_board} Cost for {partner_type} previously at {formatter.format(element.cost)} on {dateParsed}.
             </span>
           </p>
         </div>
@@ -88,13 +86,13 @@ const ListHistory = ({projectId}: {projectId: any}) => {
     if ( key === '88') { 
       renderValue = <div className="activiti-item">
         <div>
-          <p><span>{prefix}</span>{boldLegend} <span>added the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for MHFD Funding to {formatter.format(costAdded)} on {dateParsed}.</span></p>
+          <p><span>{prefix} {boldLegend} added the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for MHFD Funding to {formatter.format(costAdded)} on {dateParsed}.</span></p>
         </div>
       </div>
     } else if ( key === '11' || key === '12') {
       renderValue = <div className="activiti-item">
         <div>
-          <p><span>{prefix}</span>{boldLegend} <span>added the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for {partner} ({ key === '11' ? 'Sponsor': 'Co-Sponsor'}) to {formatter.format(costAdded)} on {dateParsed}.</span></p>
+          <p><span>{prefix} {boldLegend} added the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for {partner} ({ key === '11' ? 'Sponsor': 'Co-Sponsor'}) to {formatter.format(costAdded)} on {dateParsed}.</span></p>
         </div>
       </div>
     }
@@ -157,7 +155,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
         dateOriginal: element?.last_modified,
         display: (<div className="activiti-item">
         <div>
-          <p><span>{prefix}</span>{boldLegend} <span>changed the {code_cost_type_name} Cost to {formatter.format(element.cost)} on {dateParsed}.</span></p>
+          <p><span>{prefix} {boldLegend} changed the {code_cost_type_name} Cost to {formatter.format(element.cost)} on {dateParsed}.</span></p>
         </div>
       </div>)
       })
@@ -335,7 +333,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
           dateOriginal: element?.modified_date,
           display: (<div className="activiti-item">
           <div>
-            <p><span>{prefix}</span>{boldLegend} <span>added a new Independent Action {indaction_name}  to {formatter.format(element.cost)} on {dateParsed}.</span></p>
+            <p><span>{prefix} {boldLegend} added a new Independent Action {indaction_name}  to {formatter.format(element.cost)} on {dateParsed}.</span></p>
           </div>
         </div>)
       });
@@ -368,7 +366,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
         dateOriginal: element?.last_modified_date,
         display: (<div className="activiti-item">
         <div>
-          <p><span>{prefix}</span>{boldLegend} <span> added a new Attachment ({indaction_name})  on {dateParsed}.</span></p>
+          <p><span>{prefix} {boldLegend} added a new Attachment ({indaction_name})  on {dateParsed}.</span></p>
         </div>
       </div>)
       })
