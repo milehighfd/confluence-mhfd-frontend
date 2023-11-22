@@ -72,7 +72,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
     return answer;
   }
   const getRenderAddByKey = (
-    key:any,
+    codePartnerId:any,
     prefix: any,
     boldLegend: any,
     yearOfChange: any, 
@@ -82,17 +82,18 @@ const ListHistory = ({projectId}: {projectId: any}) => {
     dateParsed: any,
     partner: any = 'MHFD Funding'
   ) => {
+    console.log('CodePartnerId', codePartnerId);
     let renderValue = undefined;
-    if ( key === '88') { 
+    if ( codePartnerId === 88) { 
       renderValue = <div className="activiti-item">
         <div>
           <p><span>{prefix} {boldLegend} added the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for MHFD Funding to {formatter.format(costAdded)} on {dateParsed}.</span></p>
         </div>
       </div>
-    } else if ( key === '11' || key === '12') {
+    } else if ( codePartnerId === 11 || codePartnerId === 12) {
       renderValue = <div className="activiti-item">
         <div>
-          <p><span>{prefix} {boldLegend} added the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for {partner} ({ key === '11' ? 'Sponsor': 'Co-Sponsor'}) to {formatter.format(costAdded)} on {dateParsed}.</span></p>
+          <p><span>{prefix} {boldLegend} added the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for {partner} ({ codePartnerId === 11 ? 'Sponsor': 'Co-Sponsor'}) to {formatter.format(costAdded)} on {dateParsed}.</span></p>
         </div>
       </div>
     }
@@ -111,16 +112,16 @@ const ListHistory = ({projectId}: {projectId: any}) => {
     partner: any = 'MHFD Funding'
   ) => {
     let renderValue = undefined;
-    if (key === '88') {
+    if (key === 88) {
       renderValue = <div className="activiti-item">
         <div>
           <p><span>{prefix}</span>{boldLegend} <span>changed the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for MHFD Funding from {formatter.format(costUpdated)} to {formatter.format(costAdded)} on {dateParsed}.</span></p>
         </div>
       </div>;
-    } else if ( key === '11' || key === '12') {
+    } else if ( key === 11 || key === 12) {
       renderValue = <div className="activiti-item">
         <div>
-          <p><span>{prefix}</span>{boldLegend} <span>changed the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for {partner} ({ key === '11' ? 'Sponsor': 'Co-Sponsor'}) from {formatter.format(costUpdated)} to {formatter.format(costAdded)} on {dateParsed}.</span></p>
+          <p><span>{prefix} {boldLegend} changed the {yearOfChange} cost value in the {boardYear} {labelCodeCostType} for {partner} ({ key === 11 ? 'Sponsor': 'Co-Sponsor'}) from {formatter.format(costUpdated)} to {formatter.format(costAdded)} on {dateParsed}.</span></p>
         </div>
       </div>
     }
@@ -162,7 +163,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
     });
     return hCosts;
   }
-  const formatElementAddOrUpdate = (valuesByReq: any, key: any, index: any) => {
+  const formatElementAddOrUpdate = (valuesByReq: any, codePartnerId: any, index: any) => {
     const newArrayOfHistoric: any = [];
     const typeList = addOrUpdate(valuesByReq);
     const element = valuesByReq[0];
@@ -199,7 +200,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
       const display = {
         date: moment(element?.created).format('YYYY-MM-DD HH:mm:ss'),
         dateOriginal: element?.created,
-        display: getRenderAddByKey(key, prefix,boldLegend, yearOfChange, boardYear, labelCodeCostType, costAdded, dateParsed, element?.projectPartnerData?.businessAssociateData[0].business_name)
+        display: getRenderAddByKey(codePartnerId, prefix,boldLegend, yearOfChange, boardYear, labelCodeCostType, costAdded, dateParsed, element?.projectPartnerData?.businessAssociateData[0].business_name)
       };
       newArrayOfHistoric.push(display);
     } else if (typeList === 'updated') {
@@ -209,7 +210,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
       const display = {
         date: moment(element?.created).format('YYYY-MM-DD HH:mm:ss'),
         dateOriginal: element?.created,
-        display: getRenderUpdateByKey(key, prefix, boldLegend, yearOfChange, boardYear, labelCodeCostType, costAdded, costUpdated, dateParsed, element?.projectPartnerData?.businessAssociateData[0].business_name)
+        display: getRenderUpdateByKey(codePartnerId, prefix, boldLegend, yearOfChange, boardYear, labelCodeCostType, costAdded, costUpdated, dateParsed, element?.projectPartnerData?.businessAssociateData[0].business_name)
       };
       newArrayOfHistoric.push(display);
     } else {
@@ -222,14 +223,13 @@ const ListHistory = ({projectId}: {projectId: any}) => {
     // group hictoricvalues based on projectpartnerdata group by code_partner_type_id 
     const groupedHistoricValues: any = {};
     historicValues.forEach((element: any) => {
-      if (!groupedHistoricValues[element?.projectPartnerData?.code_partner_type_id]) {
-        groupedHistoricValues[element?.projectPartnerData?.code_partner_type_id] = [];
+      if (!groupedHistoricValues[element?.projectPartnerData?.businessAssociateData[0]?.business_name]) {
+        groupedHistoricValues[element?.projectPartnerData?.businessAssociateData[0]?.business_name] = [];
       }
-      groupedHistoricValues[element?.projectPartnerData?.code_partner_type_id].push(element);
+      groupedHistoricValues[element?.projectPartnerData?.businessAssociateData[0]?.business_name].push(element);
     });
     // group groups in historic values based on boardProjectCostData and req_position
     const groupedHistoricValuesByBoardProjectCostData: any = {};
-    console.log('groupedHistoricValues', groupedHistoricValues);
     Object.keys(groupedHistoricValues).forEach((key: any) => {
       groupedHistoricValuesByBoardProjectCostData[key] = {};
       groupedHistoricValues[key].forEach((element: any) => {
@@ -239,7 +239,6 @@ const ListHistory = ({projectId}: {projectId: any}) => {
         groupedHistoricValuesByBoardProjectCostData[key][element?.boardProjectCostData?.req_position].push(element);
       });
     });
-    console.log('groupedHistoricValuesByBoardProjectCostData', groupedHistoricValuesByBoardProjectCostData);
     const partnerKeys = Object.keys(groupedHistoricValuesByBoardProjectCostData);
     partnerKeys.forEach((partnerKey:any) => {
       if (groupedHistoricValuesByBoardProjectCostData[partnerKey]) {
@@ -287,16 +286,17 @@ const ListHistory = ({projectId}: {projectId: any}) => {
     Object.keys(groupedHistoricValuesByBoardProjectCostData).forEach((key: any) => {
         // {first, last} added the {year} cost value in the {board year} WR/WP Cost for MHFD Funding to {y} on 10/14/23.
       for(let i = 1; i <= 5; i++) {
+        const codePartnerTypeId = groupedHistoricValuesByBoardProjectCostData[key][i] ? groupedHistoricValuesByBoardProjectCostData[key][i][0]?.projectPartnerData?.code_partner_type_id : '';
         const workrequestValues = groupedHistoricValuesByBoardProjectCostData[key][i] ? groupedHistoricValuesByBoardProjectCostData[key][i].filter((element: any) => element.code_cost_type_id === 22 || element.code_cost_type_id === 42) : [];
         const workplanValues = groupedHistoricValuesByBoardProjectCostData[key][i] ? groupedHistoricValuesByBoardProjectCostData[key][i].filter((element: any) => element.code_cost_type_id === 21 || element.code_cost_type_id === 41) : [];
         if (workrequestValues.length > 0) {
-          const newValues = formatElementAddOrUpdate(workrequestValues, key, i);
+          const newValues = formatElementAddOrUpdate(workrequestValues, codePartnerTypeId, i);
           newValues.forEach((element: any) => {
             newArrayOfHistoric.push(element);
           });
         }
         if (workplanValues.length > 0) {
-          const newValues = formatElementAddOrUpdate(workplanValues, key, i);
+          const newValues = formatElementAddOrUpdate(workplanValues, codePartnerTypeId, i);
           newValues.forEach((element: any) => {
             newArrayOfHistoric.push(element);
           });
