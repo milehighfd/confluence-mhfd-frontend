@@ -59,8 +59,8 @@ const CardsList = ({
             // Research and Development (RD)
             image: (
               projectType === 'CIP' ? '/projectImages/capital.png' :
-                projectType === 'Development Improvement Project' ? '/projectImages/dip.png' :
-                  projectType === 'Research and Development' ? '/projectImages/rd.png' :
+                projectType === 'Development Improvement Project' || projectType === 'DIP' ? '/projectImages/dip.png' :
+                  projectType === 'Research and Development' || projectType === 'R&D' ? '/projectImages/rd.png' :
                     projectType === 'Study' ? '/projectImages/study.png' :
                       projectType === 'Special' ? '/projectImages/special.png' :
                         projectType === 'Vegetation Management' ? '/projectImages/vegetation-management.png' :
