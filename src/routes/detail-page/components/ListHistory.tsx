@@ -45,8 +45,8 @@ const ListHistory = ({projectId}: {projectId: any}) => {
   } ,[projectId]);
 
   const formatElement = (element:any,prefix:any, boldLegend:any, board_year:any, year:any, type_of_board:any, partner_type:any, dateParsed:any) => ({
-    date: moment(element?.created).format('YYYY-MM-DD HH:mm:ss'),
-    dateOriginal: element?.created,
+    date: moment(element?.last_modified).format('YYYY-MM-DD HH:mm:ss'),
+    dateOriginal: element?.last_modified,
     display: (
       <div className="activiti-item">
         <div>
