@@ -238,15 +238,29 @@ const ListHistory = ({projectId}: {projectId: any}) => {
       };
       newArrayOfHistoric.push(display);
     } else if (typeList === 'updated') {
-      const previousValue = valuesToFormat[1];
-      const costAdded = element?.cost;
-      const costUpdated = previousValue?.cost;
-      const display = {
-        date: moment(element?.created).format('YYYY-MM-DD HH:mm:ss'),
-        dateOriginal: element?.created,
-        display: getRenderUpdateByKey(codePartnerId, prefix, boldLegend, yearOfChange, boardYear, labelCodeCostType, costAdded, costUpdated, dateParsed, element?.projectPartnerData?.businessAssociateData[0].business_name)
-      };
-      newArrayOfHistoric.push(display);
+      let currentEntry:any;
+      let previousEntry:any;
+      for (let i = 1; i < valuesToFormat.length; i++) {
+        currentEntry = valuesToFormat[i];
+        previousEntry = valuesToFormat[i - 1];
+        let costAdded = previousEntry.cost;
+        let costUpdated = currentEntry.cost;
+
+        // const previousValue = valuesToFormat[1];
+        // const costAdded = element?.cost;
+        // const costUpdated = previousValue?.cost;
+        const display = {
+          date: moment(element?.created).format('YYYY-MM-DD HH:mm:ss'),
+          dateOriginal: element?.created,
+          display: getRenderUpdateByKey(codePartnerId, prefix, boldLegend, yearOfChange, boardYear, labelCodeCostType, costAdded, costUpdated, dateParsed, element?.projectPartnerData?.businessAssociateData[0].business_name)
+        };
+        newArrayOfHistoric.push(display);
+      }
+      const addValue = valuesToFormat[valuesToFormat.length - 1];
+      if (addValue) {
+        const display = getValuesToAddDisplay(addValue, index, codePartnerId, prefix, boldLegend, labelCodeCostType, dateParsed);
+        newArrayOfHistoric.push(display);
+      } 
     } else if (typeList === 'removed') {
       const removeValue = valuesToFormat[0];
       if ( removeValue ) {
