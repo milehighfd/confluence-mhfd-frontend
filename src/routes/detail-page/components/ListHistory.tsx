@@ -269,10 +269,24 @@ const ListHistory = ({projectId}: {projectId: any}) => {
         const dateParsed = moment(removeValue?.last_modified).format('MM/DD/YY');
         newArrayOfHistoric.push(formatElement(removeValue, prefix, boldLegend, boardYear, yearOfChange, type_of_board, partner_type, dateParsed));
       } 
-      if (valuesToFormat.length > 1) {
-        let arrayValues = getChangedValuesToDisplay(valuesToFormat, codePartnerId, prefix, boldLegend, dateParsed);
-        newArrayOfHistoric.push(...arrayValues);
+        let currentEntry:any;
+        let previousEntry:any;
+      for (let i = 1; i < valuesToFormat.length; i++) {
+        currentEntry = valuesToFormat[i];
+        previousEntry = valuesToFormat[i - 1];
+        let costAdded = previousEntry.cost;
+        let costUpdated = currentEntry.cost;
+        const display = {
+          date: moment(element?.created).format('YYYY-MM-DD HH:mm:ss'),
+          dateOriginal: element?.created,
+          display: getRenderUpdateByKey(codePartnerId, prefix, boldLegend, yearOfChange, boardYear, labelCodeCostType, costAdded, costUpdated, dateParsed, element?.projectPartnerData?.businessAssociateData[0].business_name)
+        };
+        newArrayOfHistoric.push(display);
       }
+      // if (valuesToFormat.length > 1) {
+      //   let arrayValues = getChangedValuesToDisplay(valuesToFormat, codePartnerId, prefix, boldLegend, dateParsed);
+      //   newArrayOfHistoric.push(...arrayValues);
+      // }
       const addValue = valuesToFormat[valuesToFormat.length - 1];
       if (addValue) {
         const display = getValuesToAddDisplay(addValue, index, codePartnerId, prefix, boldLegend, labelCodeCostType, dateParsed);
