@@ -50,7 +50,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
     display: (
       <div className="activiti-item">
         <div>
-          <p><span>{prefix} {boldLegend} removed the {year} cost value in the {board_year} {type_of_board} Cost for {partner_type} previously at {formatter.format(element.cost)} on {dateParsed}.
+          <p><span>{prefix} {boldLegend} removed the {year} cost value in the {board_year} {type_of_board} for {partner_type} previously at {formatter.format(element.cost)} on {dateParsed}.
             </span>
           </p>
         </div>
@@ -225,9 +225,9 @@ const ListHistory = ({projectId}: {projectId: any}) => {
     const boardYear = element?.boardProjectCostData.boardProjectData.board.year;
     const yearOfChange = +boardYear + (index - 1);
     const code_cost_type_id = element?.code_cost_type_id;
-    let labelCodeCostType = 'Work Request Cost';
+    let labelCodeCostType = 'Work Request ';
     if (code_cost_type_id === 21 || code_cost_type_id === 41) {
-      labelCodeCostType = 'Work Plan Cost';
+      labelCodeCostType = 'Work Plan ';
     }
     if (typeList === 'added') {
       const costAdded = element.cost;
