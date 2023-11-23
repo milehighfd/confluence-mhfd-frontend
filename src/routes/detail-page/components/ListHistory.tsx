@@ -149,10 +149,10 @@ const ListHistory = ({projectId}: {projectId: any}) => {
         boldLegend = `${element?.codeSourceData?.update_source}`;
       }
       const code_cost_type_name = element?.code_cost_type?.cost_type_name;
-      const dateParsed = moment(element?.last_modified).format('MM/DD/YY');
+      const dateParsed = moment(element?.created).format('MM/DD/YY');
       return ({
-        date: moment(element?.last_modified).format('YYYY-MM-DD HH:mm:ss'),
-        dateOriginal: element?.last_modified,
+        date: moment(element?.created).format('YYYY-MM-DD HH:mm:ss'),
+        dateOriginal: element?.created,
         display: (<div className="activiti-item">
         <div>
           <p><span>{prefix} {boldLegend} changed the {code_cost_type_name} Cost to {formatter.format(element.cost)} on {dateParsed}.</span></p>
@@ -359,10 +359,10 @@ const ListHistory = ({projectId}: {projectId: any}) => {
       let prefix = '';
       let boldLegend = element?.userModified !== null ? `${element?.userModified?.firstName} ${element?.userModified?.lastName}`: `${element?.created_by}`;
       const indaction_name = element?.action_name;
-      const dateParsed = moment(element?.modified_date).format('MM/DD/YY');
+      const dateParsed = moment(element?.created_date).format('MM/DD/YY');
       return ({
-          date: moment(element?.modified_date).format('YYYY-MM-DD HH:mm:ss'),
-          dateOriginal: element?.modified_date,
+          date: moment(element?.created_date).format('YYYY-MM-DD HH:mm:ss'),
+          dateOriginal: element?.created_date,
           display: (<div className="activiti-item">
           <div>
             <p><span>{prefix} {boldLegend} added a new Independent Action {indaction_name}  to {formatter.format(element.cost)} on {dateParsed}.</span></p>
@@ -392,10 +392,10 @@ const ListHistory = ({projectId}: {projectId: any}) => {
       let prefix = '';
       let boldLegend = element?.userModified !== null ? `${element?.userModified?.firstName} ${element?.userModified?.lastName}`: `${element?.last_modified_by}`;
       const indaction_name = element?.attachment_reference_key;
-      const dateParsed = moment(element?.last_modified_date).format('MM/DD/YY');
+      const dateParsed = moment(element?.created_date).format('MM/DD/YY');
       return ({
-        date: moment(element?.last_modified_date).format('YYYY-MM-DD HH:mm:ss'),
-        dateOriginal: element?.last_modified_date,
+        date: moment(element?.created_date).format('YYYY-MM-DD HH:mm:ss'),
+        dateOriginal: element?.created_date,
         display: (<div className="activiti-item">
         <div>
           <p><span>{prefix} {boldLegend} added a new Attachment ({indaction_name})  on {dateParsed}.</span></p>
