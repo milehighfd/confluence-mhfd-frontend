@@ -206,6 +206,10 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   }, [project, columnIdx]);
 
   useEffect(() => {
+    console.log('amount', amount)
+  }, [amount]);
+
+  useEffect(() => {
     if (globalProject) {
       setTimeout(() => {
         setGlobalProject(false);
@@ -396,7 +400,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
           </div>
           <div style={{display:'flex', flexDirection:"column"}}>
             <div style={{display:'flex', justifyContent:"space-between"}}>
-              <h6 style={{}}>{amount ? formatter.format(amount) : ''}</h6>
+              <h6 style={{}}>{amount === 0 ? '$0' : amount ? formatter.format(amount) : ''}</h6>
               {
                 type === 'WORK_PLAN' &&
                 <label className="purple-priority"style={{}}>
