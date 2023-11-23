@@ -45,7 +45,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
   } ,[projectId]);
 
   const formatElement = (element:any,prefix:any, boldLegend:any, board_year:any, year:any, type_of_board:any, partner_type:any, dateParsed:any) => ({
-    date: moment(element?.last_modified).format('YYYY-MM-DD HH:mm:ss'),
+    date: moment(element?.last_modified).format('YYYY-MM-DD HH:mm:ss.SSS'),
     dateOriginal: element?.last_modified,
     display: (
       <div className="activiti-item">
@@ -151,7 +151,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
       const code_cost_type_name = element?.code_cost_type?.cost_type_name;
       const dateParsed = moment(element?.created).format('MM/DD/YY');
       return ({
-        date: moment(element?.created).format('YYYY-MM-DD HH:mm:ss'),
+        date: moment(element?.created).format('YYYY-MM-DD HH:mm:ss.SSS'),
         dateOriginal: element?.created,
         display: (<div className="activiti-item">
         <div>
@@ -177,7 +177,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
       const currentBoardYear = currentValue?.boardProjectCostData.boardProjectData.board.year;
       const currentYearOfChange = +currentBoardYear + (i - 1);
       const display = {
-        date: moment(currentValue?.created).format('YYYY-MM-DD HH:mm:ss'),
+        date: moment(currentValue?.created).format('YYYY-MM-DD HH:mm:ss.SSS'),
         dateOriginal: currentValue?.created,
         display: getRenderUpdateByKey(codePartnerId, prefix, boldLegend, currentYearOfChange, currentBoardYear, labelCodeCostType, costAdded, costUpdated, dateParsed, currentValue?.projectPartnerData?.businessAssociateData[0].business_name)
       };
@@ -190,7 +190,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
     const currentBoardYear = addValue?.boardProjectCostData.boardProjectData.board.year;
     const currentYearOfChange = +currentBoardYear + (index - 1);
     const display = {
-      date: moment(addValue?.created).format('YYYY-MM-DD HH:mm:ss'),
+      date: moment(addValue?.created).format('YYYY-MM-DD HH:mm:ss.SSS'),
       dateOriginal: addValue?.created,
       display: getRenderAddByKey(codePartnerId, prefix,boldLegend, currentYearOfChange, currentBoardYear, labelCodeCostType, costAdded, dateParsed, addValue?.projectPartnerData?.businessAssociateData[0].business_name)
     };
@@ -232,7 +232,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
     if (typeList === 'added') {
       const costAdded = element.cost;
       const display = {
-        date: moment(element?.created).format('YYYY-MM-DD HH:mm:ss'),
+        date: moment(element?.created).format('YYYY-MM-DD HH:mm:ss.SSS'),
         dateOriginal: element?.created,
         display: getRenderAddByKey(codePartnerId, prefix,boldLegend, yearOfChange, boardYear, labelCodeCostType, costAdded, dateParsed, element?.projectPartnerData?.businessAssociateData[0].business_name)
       };
@@ -249,9 +249,10 @@ const ListHistory = ({projectId}: {projectId: any}) => {
         // const previousValue = valuesToFormat[1];
         // const costAdded = element?.cost;
         // const costUpdated = previousValue?.cost;
+        console.log('currententry', currentEntry, costAdded, 'previousEntry', previousEntry, costUpdated);
         const display = {
-          date: moment(element?.created).format('YYYY-MM-DD HH:mm:ss'),
-          dateOriginal: element?.created,
+          date: moment(previousEntry?.created).format('YYYY-MM-DD HH:mm:ss.SSS'),
+          dateOriginal: previousEntry?.created,
           display: getRenderUpdateByKey(codePartnerId, prefix, boldLegend, yearOfChange, boardYear, labelCodeCostType, costAdded, costUpdated, dateParsed, element?.projectPartnerData?.businessAssociateData[0].business_name)
         };
         newArrayOfHistoric.push(display);
@@ -277,8 +278,8 @@ const ListHistory = ({projectId}: {projectId: any}) => {
         let costAdded = previousEntry.cost;
         let costUpdated = currentEntry.cost;
         const display = {
-          date: moment(element?.created).format('YYYY-MM-DD HH:mm:ss'),
-          dateOriginal: element?.created,
+          date: moment(previousEntry?.created).format('YYYY-MM-DD HH:mm:ss.SSS'),
+          dateOriginal: previousEntry?.created,
           display: getRenderUpdateByKey(codePartnerId, prefix, boldLegend, yearOfChange, boardYear, labelCodeCostType, costAdded, costUpdated, dateParsed, element?.projectPartnerData?.businessAssociateData[0].business_name)
         };
         newArrayOfHistoric.push(display);
@@ -345,7 +346,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
       let boldLegend = element?.userModified !== null ? `${element?.userModified?.firstName} ${element?.userModified?.lastName}`: `${element?.last_modified_by}`;
       const dateParsed = moment(element?.modified_date).format('MM/DD/YY');
       return ({
-        date: moment(element?.modified_date).format('YYYY-MM-DD HH:mm:ss'),
+        date: moment(element?.modified_date).format('YYYY-MM-DD HH:mm:ss.SSS'),
         dateOriginal: element?.modified_date,
         display: (<div className="activiti-item">
         <div>
@@ -361,7 +362,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
       const indaction_name = element?.action_name;
       const dateParsed = moment(element?.created_date).format('MM/DD/YY');
       return ({
-          date: moment(element?.created_date).format('YYYY-MM-DD HH:mm:ss'),
+          date: moment(element?.created_date).format('YYYY-MM-DD HH:mm:ss.SSS'),
           dateOriginal: element?.created_date,
           display: (<div className="activiti-item">
           <div>
@@ -377,7 +378,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
       let boldLegend = mainproposedaction?.userModified !== null ? `${mainproposedaction?.userModified?.firstName} ${mainproposedaction?.userModified?.lastName}`: `${mainproposedaction?.last_modified_by}` ;
       const dateParsed = moment(mainproposedaction?.modified_date).format('MM/DD/YY');
        hProposedActionValues = {
-        date: moment(mainproposedaction?.modified_date).format('YYYY-MM-DD HH:mm:ss'),
+        date: moment(mainproposedaction?.modified_date).format('YYYY-MM-DD HH:mm:ss.SSS'),
         dateOriginal: mainproposedaction?.modified_date,
         display: (<div className="activiti-item">
             <div>
@@ -394,7 +395,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
       const indaction_name = element?.attachment_reference_key;
       const dateParsed = moment(element?.created_date).format('MM/DD/YY');
       return ({
-        date: moment(element?.created_date).format('YYYY-MM-DD HH:mm:ss'),
+        date: moment(element?.created_date).format('YYYY-MM-DD HH:mm:ss.SSS'),
         dateOriginal: element?.created_date,
         display: (<div className="activiti-item">
         <div>
@@ -411,6 +412,7 @@ const ListHistory = ({projectId}: {projectId: any}) => {
     listToSort.sort((a: any, b: any) => {
       return new Date(b.date).getTime() - new Date(a.date).getTime()
     });
+    console.log('List To Sort', listToSort);
     setRenderList(listToSort);
 
   } ,[
