@@ -685,7 +685,7 @@ const DetailModal = ({
                 Project Roadmap
               </p>
               {/* <p style={{opacity:'0.25'}} className={openSecction === 5 ? "detailed-tab detailed-tab-active" : "detailed-tab"} >Graph</p> */}
-              {(appUser && appUser.designation && (appUser.designation === ADMIN || appUser.designation === STAFF)) || isPartner && (
+              {((appUser && appUser.designation && (appUser.designation === ADMIN || appUser.designation === STAFF)) || isPartner) && (
                 <p
                   onClick={() => {
                     activeTab(6, '#project-financials');
@@ -1006,9 +1006,9 @@ const DetailModal = ({
                       updateAction={updateAction}
                     />
                     <br></br>
-                    {(appUser &&
+                    {((appUser &&
                       appUser.designation &&
-                      (appUser.designation === ADMIN || appUser.designation === STAFF)) || isPartner && (
+                      (appUser.designation === ADMIN || appUser.designation === STAFF)) || isPartner) && (
                         <>
                           {
                             detailed && detailed.code_project_type_id &&
