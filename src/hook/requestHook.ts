@@ -32,6 +32,7 @@ import {
   setCsaSelected,
   setLocalityType,
   setVisibleCreateProject,
+  setVisibleCreateOrImport,
   setLeftWidth,
   setLocalities,
   setColumns,
@@ -157,8 +158,11 @@ export const useRequestDispatch = () => {
   const _setLocalityType = useCallback((localityType: any) => {
     dispatch(setLocalityType(localityType));
   }, [dispatch]);
-  const _setVisibleCreateProject = useCallback((visibleCreateProject: any) => {
+  const _setVisibleCreateProject = useCallback((visibleCreateProject: boolean) => {
     dispatch(setVisibleCreateProject(visibleCreateProject));
+  }, [dispatch]);
+  const _setVisibleCreateOrImport = useCallback((importOrCreated: any) => {
+    dispatch(setVisibleCreateOrImport(importOrCreated));
   }, [dispatch]);
   const _setLeftWidth = useCallback((leftWidth: any) => {
     dispatch(setLeftWidth(leftWidth));
@@ -273,6 +277,7 @@ export const useRequestDispatch = () => {
     setCsaSelected: _setCsaSelected,
     setLocalityType: _setLocalityType,
     setVisibleCreateProject: _setVisibleCreateProject,
+    setVisibleCreateOrImport: _setVisibleCreateOrImport,
     setLeftWidth: _setLeftWidth,
     setLocalities: _setLocalities,
     setColumns: _setColumns,

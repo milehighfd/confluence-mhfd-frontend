@@ -49,6 +49,7 @@ const initialState = {
   csaSelected: [],
   localityType: '',
   visibleCreateProject: false,
+  visibleCreateOrImport: false,
   leftWidth: MEDIUM_SCREEN_RIGHT - 1,
   localities: [],
   columns: defaultColumns,
@@ -237,6 +238,11 @@ const requestReducer = (state = initialState, action: any) => {
       return {
         ...state,
         visibleCreateProject: action.payload
+      };
+    case types.REQUEST_SET_VISIBLE_CREATE_OR_IMPORT:
+      return {
+        ...state,
+        visibleCreateOrImport: action.payload
       };
     case types.REQUEST_SET_LEFT_WIDTH:
       return {

@@ -163,6 +163,11 @@ export const setVisibleCreateProject = (payload: any) => ({
   payload
 });
 
+export const setVisibleCreateOrImport = (payload: any) => ({
+  type: types.REQUEST_SET_VISIBLE_CREATE_OR_IMPORT,
+  payload
+});
+
 export const setLeftWidth = (payload: any) => ({
   type: types.REQUEST_SET_LEFT_WIDTH,
   payload
