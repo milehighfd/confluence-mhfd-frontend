@@ -86,17 +86,29 @@ const DetailModal = ({
   const { userInformation: appUser } = useProfileState();
   const [coverImage, setCoverImage] = useState<any>('');
   const [scrollPositionTop, setScrollPositionTop] = useState<any>();
-  const [isPartner, setIsPartner] = useState(false);
+  const [isPartnerLG, setIsPartnerLG] = useState(false);
 
   let divRef = useRef<null | HTMLDivElement>(null);
   let carouselRef = useRef<undefined | any>(undefined);
   const { getAttachmentProjectId } = useAttachmentDispatch();
   const { attachments } = useAttachmentState();
+useEffect(() => {
+  const CODE_LOCAL_GOVERNMENT = 3;
+  
+  const existInStaff = detailed?.project_staffs?.find(
+    (staff: any) => 
+      staff?.business_associate_contact_id === 
+      appUser?.business_associate_contact?.business_associate_contact_id
+  );
+  
+  const isLocalGovernment = 
+    appUser?.business_associate_contact?.business_address?.business_associate?.code_business_associates_type_id === 
+    CODE_LOCAL_GOVERNMENT;
 
-  useEffect(() => {    
-    const existInStaff = detailed?.project_staffs?.find((staff: any) => staff?.business_associate_contact_id === appUser?.business_associate_contact?.business_associate_contact_id);
-    setIsPartner(existInStaff ? true : false);
-  }, [detailed]);
+  const showFinancials = existInStaff && isLocalGovernment;
+  
+  setIsPartnerLG(showFinancials);
+}, [detailed]);
 
   useEffect(() => {
     if (detailed?.project_id) {
@@ -685,7 +697,7 @@ const DetailModal = ({
                 Project Roadmap
               </p>
               {/* <p style={{opacity:'0.25'}} className={openSecction === 5 ? "detailed-tab detailed-tab-active" : "detailed-tab"} >Graph</p> */}
-              {((appUser && appUser.designation && (appUser.designation === ADMIN || appUser.designation === STAFF)) || isPartner) && (
+              {((appUser && appUser.designation && (appUser.designation === ADMIN || appUser.designation === STAFF)) || isPartnerLG) && (
                 <p
                   onClick={() => {
                     activeTab(6, '#project-financials');
@@ -1008,7 +1020,7 @@ const DetailModal = ({
                     <br></br>
                     {((appUser &&
                       appUser.designation &&
-                      (appUser.designation === ADMIN || appUser.designation === STAFF)) || isPartner) && (
+                      (appUser.designation === ADMIN || appUser.designation === STAFF)) || isPartnerLG) && (
                         <>
                           {
                             detailed && detailed.code_project_type_id &&
