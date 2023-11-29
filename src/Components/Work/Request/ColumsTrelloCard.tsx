@@ -130,7 +130,6 @@ const ColumsTrelloCard = ({
       const currentSubType =
         columns[originColumnPosition].projects[sourcePosition]?.projectData?.code_project_type?.code_project_type_id;
       const posibleTargetColumn = getColumnProjectType(currentSubType);
-      console.log('current subtype', currentSubType, 'posibleTargetColumn', posibleTargetColumn, 'originColumnPosition', originColumnPosition, 'targetColumnPosition', targetColumnPosition);
       if (
         (originColumnPosition === 0 &&
           (targetColumnPosition === originColumnPosition || targetColumnPosition === posibleTargetColumn)) || // from 0 to subtype column

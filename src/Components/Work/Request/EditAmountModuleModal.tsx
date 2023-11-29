@@ -88,18 +88,6 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
     return <span style={{color, backgroundColor}}>{projectStatus}</span>;
   }
   
-  const getSumOfcosts = () => {
-    let totalSum = 0;
-    for(let key in cost) {
-      if(key.includes('req')){
-        console.log('key', key, cost[key])
-        totalSum += cost[key];
-      }
-    }
-    console.log('totalSum', totalSum)
-    return totalSum;
-  }
-
   useEffect(() => {
     let estimatedCostDB = completeProjectData.project_costs.filter((e: any) => e.code_cost_type_id === 1)[0];
     setEstimatedCostFromDB(estimatedCostDB ? estimatedCostDB.cost : 0);

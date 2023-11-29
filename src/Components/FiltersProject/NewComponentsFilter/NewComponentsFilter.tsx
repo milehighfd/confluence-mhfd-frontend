@@ -34,7 +34,6 @@ export const NewComponentsFilter = () => {
     } = useMapState();
 
     const apply = (values: any, field: string) => {
-        console.log('value: ' + values + ", field: " + field, 'yearofstudy' == field);
         const options = { ...filterComponentOptions };
         if ('component_type' === field || 'status' === field || 'yearofstudy' === field
         || 'jurisdiction' === field || 'mhfdmanager' === field) {
@@ -66,11 +65,6 @@ export const NewComponentsFilter = () => {
         // getComponentsCounter(boundsMap, options);
     }
 
-    useEffect(() => {
-      console.log('paramComponents', paramComponents);
-    } ,[
-      paramComponents
-    ]);
     const filterFunction = (r: any) => {
         return r.value !== null && r.value !== '';
     }

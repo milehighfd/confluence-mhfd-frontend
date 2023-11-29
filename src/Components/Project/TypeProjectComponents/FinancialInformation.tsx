@@ -149,7 +149,6 @@ export const FinancialInformation = ({
   }
 
   useEffect(() => {
-    console.log('ESTIMATED COST', estimatedCostFromDB);
     setEstimatedCostInput(estimatedCostFromDB);
   }, [estimatedCostFromDB]);
 

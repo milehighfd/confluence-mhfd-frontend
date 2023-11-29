@@ -500,7 +500,6 @@ export const ModalCapital = ({
       capital.type = selectedTypeProject;
       capital.isCountyWide = isCountyWide ? isCountyWide : false;
       capital.isSouthPlate = isSouthPlate ? isSouthPlate : false;
-      console.log('userCHANGED OVERHEAD', userChangedOverhead);
       capital.userChangedOverhead = userChangedOverhead;
       capital.userChangedAdditional = userChangedAdditional;
       changeAddLocationState(false);
@@ -969,7 +968,6 @@ export const ModalCapital = ({
     }
     if(data !== 'no data') {
       const subtotalInData = data?.project_costs?.filter((d:any) => d.code_cost_type_id == 14);
-      // console.log('init subtotal', initSubtotalCost, 'subtotalcost', subtotalcost, 'subtotalInData', subtotalInData[0].cost);
       if (initSubtotalCost === subtotalcost && subtotalInData[0]?.cost) {
         subtotalcost = subtotalInData[0].cost;
       }

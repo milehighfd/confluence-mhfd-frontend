@@ -50,7 +50,6 @@ const MapModal = ({
   }, []);
   const showComponents = (bboxComp: any) => {
       if (bboxComp) {
-        console.log('bboxCompon', bboxComp)
         if (map.getLayer('mapboxArcs2')) {
           map.removeLayer('mapboxArcs2');
         }
@@ -58,7 +57,6 @@ const MapModal = ({
           map.removeLayer('arcs2');
         }
         if (bboxComp.centroids && bboxComp.centroids.length === 0) {
-          console.log('bboxComp', bboxComp)
           setTimeout(() => {
             map.setPitch(0, {duration: 2000});
           }, 3000);

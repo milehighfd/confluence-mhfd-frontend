@@ -28,10 +28,6 @@ export const CheckBoxFilters = ({
     }
   }, [selected]);
 
-  // useEffect(()=>{
-  //   console.log('data',data)
-  // },[data])
-
   const apply = () => {
     onSelect(selectedData)
   }

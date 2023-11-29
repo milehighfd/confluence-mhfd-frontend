@@ -78,7 +78,6 @@ export const ProposedActions = (props: ProposedActionsProps) => {
   }, [groups]);
 
   const onClickActions = (action:any) => {
-    console.log('click', action);
     setHighlightedComponent(action);
     getZoomGeomComp(action.table, action.objectid);
   }
