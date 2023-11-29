@@ -27,6 +27,7 @@ import NavbarView from 'Components/Shared/Navbar/NavbarView';
 import RequestView from 'Components/Work/Request/RequestView';
 import Map from 'routes/map/components/Map';
 import MapView from 'routes/map/components/MapView';
+import ModalProjectsCreate from 'Components/ProjectModal/ModalProjectsCreate';
 
 const MapLayout = () => {
   const {
@@ -79,12 +80,14 @@ const MapLayout = () => {
     leftWidth,
     showFilters,
     visibleCreateProject,
+    visibleCreateOrImport
   } = useRequestState();
   const {
     setShowModalProject,
     setShowCreateProject,
     setShowBoardStatus,
     setVisibleCreateProject,
+    setVisibleCreateOrImport,
     setLeftWidth,
     setShowFilters,
   } = useRequestDispatch();
@@ -95,7 +98,6 @@ const MapLayout = () => {
     projecttype: tabKey ? tabKey : tabKeys[0],
     position: ''
   };
-
   // END WORK REQUEST-WORK-PLAN
 
   const loadData = (trigger: any, name?: string): any => {
@@ -284,6 +286,12 @@ const MapLayout = () => {
           editable={true}
           currentData={currentDataForBoard}
           year={year}
+        />
+      }
+      {
+        visibleCreateOrImport && <ModalProjectsCreate
+        visible= {visibleCreateOrImport}
+        setVisible= {setVisibleCreateOrImport}
         />
       }
      {/* END-WORK-PLAN-ComPONMENTS */}
