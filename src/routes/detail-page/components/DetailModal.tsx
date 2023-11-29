@@ -86,11 +86,17 @@ const DetailModal = ({
   const { userInformation: appUser } = useProfileState();
   const [coverImage, setCoverImage] = useState<any>('');
   const [scrollPositionTop, setScrollPositionTop] = useState<any>();
+  const [isPartner, setIsPartner] = useState(false);
 
   let divRef = useRef<null | HTMLDivElement>(null);
   let carouselRef = useRef<undefined | any>(undefined);
   const { getAttachmentProjectId } = useAttachmentDispatch();
   const { attachments } = useAttachmentState();
+
+  useEffect(() => {    
+    const existInStaff = detailed?.project_staffs?.find((staff: any) => staff?.business_associate_contact_id === appUser?.business_associate_contact?.business_associate_contact_id);
+    setIsPartner(existInStaff ? true : false);
+  }, [detailed]);
 
   useEffect(() => {
     if (detailed?.project_id) {
@@ -679,7 +685,7 @@ const DetailModal = ({
                 Project Roadmap
               </p>
               {/* <p style={{opacity:'0.25'}} className={openSecction === 5 ? "detailed-tab detailed-tab-active" : "detailed-tab"} >Graph</p> */}
-              {appUser && appUser.designation && (appUser.designation === ADMIN || appUser.designation === STAFF) && (
+              {(appUser && appUser.designation && (appUser.designation === ADMIN || appUser.designation === STAFF)) || isPartner && (
                 <p
                   onClick={() => {
                     activeTab(6, '#project-financials');
@@ -1000,9 +1006,9 @@ const DetailModal = ({
                       updateAction={updateAction}
                     />
                     <br></br>
-                    {appUser &&
+                    {(appUser &&
                       appUser.designation &&
-                      (appUser.designation === ADMIN || appUser.designation === STAFF) && (
+                      (appUser.designation === ADMIN || appUser.designation === STAFF)) || isPartner && (
                         <>
                           {
                             detailed && detailed.code_project_type_id &&
