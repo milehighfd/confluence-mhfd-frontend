@@ -32,6 +32,7 @@ import { DiscussionCreateProject } from '../TypeProjectComponents/DiscussionCrea
 import { ActivitiCreateProject } from '../TypeProjectComponents/ActivityCreateProject';
 import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
 import EditAmountCreateProject from '../TypeProjectComponents/EditAmountCreateProject';
+import { useRequestDispatch } from 'hook/requestHook';
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -149,10 +150,11 @@ export const ModalCapital = ({
     status,
     deleteAttachmentsIds,
     listStreams,
-    streamsIntersectedIds,
-    disableFieldsForLG,
-    createdProject
+    streamsIntersectedIds
   } = useProjectState();
+  const {
+    setVisibleCreateProject
+  } = useRequestDispatch();
   const [loading, setLoading] = useState(false);
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
@@ -195,7 +197,6 @@ export const ModalCapital = ({
   const { tabActiveNavbar } = useMapState();
   const isWorkPlan = tabActiveNavbar === WORK_PLAN_TAB;
   const { groupOrganization, userInformation, openDiscussion} = useProfileState();
-  const [openDropdownTypeProject, setOpenDropdownTypeProject] = useState(false);
   const [activeTabBodyProject, setActiveTabBodyProject] = useState('Details');
   const [favorite, setFavorite] = useState(false);
   const [groupParsed, setGroupParsed] = useState<any>([]);
@@ -801,6 +802,7 @@ export const ModalCapital = ({
   const handleCancel = (e: any) => {
     const auxState = {...state};
     setVisibleCapital (false);
+    setVisibleCreateProject(true);
     setState(auxState);
     setVisible(false);
   };

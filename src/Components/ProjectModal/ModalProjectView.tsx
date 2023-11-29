@@ -9,6 +9,7 @@ import { getCurrentProjectStatus } from 'utils/parsers';
 import { useAttachmentDispatch } from 'hook/attachmentHook';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import { BASE_BOARD_RESOURCE_URL } from 'Config/endpoints/board';
+import { useRequestDispatch } from 'hook/requestHook';
 
 const content00 = (<div className="popver-info">Collection and removal of trash and debris that could prevent the system from functioning as intended.</div>);
 const content01 = (<div className="popver-info">Planting, seeding, thinning, weed control, adaptive management, and other vegetation-related activities.</div>);
@@ -46,6 +47,9 @@ const ModalProjectView = ({
     setBoardProjectsCreate,
     setDeleteAttachmentsIds
   } = useProjectDispatch();
+  const {
+    setVisibleCreateOrImport
+  } = useRequestDispatch();
   const {getAttachmentProjectId,setProjectId} = useAttachmentDispatch();
   const [typeProject, setTypeProyect] = useState('');
   const [subType, setSubType] = useState('');
@@ -119,6 +123,7 @@ const ModalProjectView = ({
     }
   };
   const handleCancel = (e: any) => {
+    setVisibleCreateOrImport(true)
     setVisibleModal(false);
     setVisible(false);
   };
