@@ -1322,6 +1322,12 @@
       background-color: #29C499;
       border-radius: 50%;
     }
+    .circle-pending{
+      width: 8px;
+      height: 8px;
+      background-color: #F2C94C;
+      border-radius: 50%;
+    }
     .subtitle-location{
       color: $purple00;
       font-weight: 600;
@@ -1394,7 +1400,10 @@
     font-style: normal;
     font-weight: 400;
     .row-detail-project{
-      padding: 10px 0px
+      padding: 10px
+    }
+    .row-detail-project.selected {
+      border: 1px solid #000;
     }
   }
   .title-list{
