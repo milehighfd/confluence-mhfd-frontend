@@ -249,7 +249,6 @@ const ListHistory = ({projectId}: {projectId: any}) => {
         // const previousValue = valuesToFormat[1];
         // const costAdded = element?.cost;
         // const costUpdated = previousValue?.cost;
-        console.log('currententry', currentEntry, costAdded, 'previousEntry', previousEntry, costUpdated);
         const display = {
           date: moment(previousEntry?.created).format('YYYY-MM-DD HH:mm:ss.SSS'),
           dateOriginal: previousEntry?.created,
@@ -412,7 +411,6 @@ const ListHistory = ({projectId}: {projectId: any}) => {
     listToSort.sort((a: any, b: any) => {
       return new Date(b.date).getTime() - new Date(a.date).getTime()
     });
-    console.log('List To Sort', listToSort);
     setRenderList(listToSort);
 
   } ,[

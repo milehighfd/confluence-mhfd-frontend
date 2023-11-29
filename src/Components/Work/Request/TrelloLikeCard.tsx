@@ -205,9 +205,6 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
     setAmount(project[`req${columnIdx}`])
   }, [project, columnIdx]);
 
-  useEffect(() => {
-    console.log('amount', amount)
-  }, [amount]);
 
   useEffect(() => {
     if (globalProject) {
