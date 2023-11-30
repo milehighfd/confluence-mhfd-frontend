@@ -180,7 +180,7 @@ const MapLayout = () => {
       setLeftWidthMap(MEDIUM_SCREEN_LEFT);
       setRotationStyle(emptyStyle);
     }
-  }, [tutorialStatus])
+  }, [tutorialStatus,visibleCreateProject, visibleCreateOrImport])
   const closeWidth = () => {
     setLeftWidthMap(COMPLETE_SCREEN);
     setRotationStyle({ transform: 'rotate(180deg)', marginRight: '-4px', right: '4px', position: 'relative' });
@@ -238,6 +238,7 @@ const MapLayout = () => {
     setShowBoardStatus(false);
     setShowFilters(false);
   },[tabActiveNavbar])
+
   return (
     <>
     {/* WORK-PLAN-ComPONMENTS */}

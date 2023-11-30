@@ -26,7 +26,11 @@ const ColumsTrelloCard = ({
   selectView: string
 }) => {
   const { columns2: columns, tabKey, locality, year, namespaceId, boardStatus, loadingColumns } = useRequestState();
-  const { setVisibleCreateProject, moveProjectsManual, handleMoveFromColumnToColumn, setVisibleCreateOrImport } = useRequestDispatch();
+  const { 
+    moveProjectsManual, 
+    handleMoveFromColumnToColumn, 
+    setVisibleCreateOrImport
+  } = useRequestDispatch();
   const { userInformation } = useProfileState();
   const { clear } = useAttachmentDispatch();
   const { setStreamsIds, setComponentsFromMap, setGlobalSearch, sendProjectToBoardYear } = useProjectDispatch();
@@ -53,7 +57,7 @@ const ColumsTrelloCard = ({
 
   const onClickNewProject = () => {
     clear();
-    //setVisibleCreateProject(true);
+    //setVisibleCreateProject(true);   
     setVisibleCreateOrImport(true);
     setStreamsIds([]);
     setComponentsFromMap([]);

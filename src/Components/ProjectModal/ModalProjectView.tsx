@@ -9,7 +9,7 @@ import { getCurrentProjectStatus } from 'utils/parsers';
 import { useAttachmentDispatch } from 'hook/attachmentHook';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import { BASE_BOARD_RESOURCE_URL } from 'Config/endpoints/board';
-import { useRequestDispatch } from 'hook/requestHook';
+import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 
 const content00 = (<div className="popver-info">Collection and removal of trash and debris that could prevent the system from functioning as intended.</div>);
 const content01 = (<div className="popver-info">Planting, seeding, thinning, weed control, adaptive management, and other vegetation-related activities.</div>);
@@ -48,8 +48,13 @@ const ModalProjectView = ({
     setDeleteAttachmentsIds
   } = useProjectDispatch();
   const {
-    setVisibleCreateOrImport
+    setVisibleCreateOrImport,
+    setVisibleCreateProject,
+    setIsCreatedFromBoard
   } = useRequestDispatch();
+  const {
+    isCreatedFromBoard
+  } = useRequestState();
   const {getAttachmentProjectId,setProjectId} = useAttachmentDispatch();
   const [typeProject, setTypeProyect] = useState('');
   const [subType, setSubType] = useState('');
@@ -84,23 +89,11 @@ const ModalProjectView = ({
         }
       )
     setVisibleCapital(true);
-    // if(typeProject === NEW_PROJECT_TYPES.Capital ){
-    //   setVisibleCapital(true);
-    // }
-    // if(typeProject === NEW_PROJECT_TYPES.Acquisition ){
-    //   setVisibleAcquisition(true);
-    // }
-    // if(typeProject === NEW_PROJECT_TYPES.Maintenance && subType !== '' ){
-    //   setVisibleMaintenance(true);
-    // }
-    // if(typeProject ===  NEW_PROJECT_TYPES.Special || typeProject === RandD ){
-    //   setVisibleSpecial(true);
-    // }
-    // if(typeProject === NEW_PROJECT_TYPES.Study ){
-    //   setVisibleStudy(true);
-    // }
     setDisable(true);
-    setVisibleModal(false);
+    if (!isCreatedFromBoard) {
+      console.log('here from board')
+      setVisibleModal(false);
+    }
     setVisibleSubType(false);
   };
   const onChange = (e: any)=>{
@@ -124,6 +117,7 @@ const ModalProjectView = ({
   };
   const handleCancel = (e: any) => {
     setVisibleCreateOrImport(true)
+    setIsCreatedFromBoard(false);
     setVisibleModal(false);
     setVisible(false);
   };
@@ -205,11 +199,12 @@ const ModalProjectView = ({
       getAttachmentProjectId(data.project_id);
       setProjectId(data.project_id);
     }    
-  }, [data]);
+  }, [data,visibleCapital]);
 
   useEffect(() => {
     setAllowed(getAllowedBasedOnLocality(locality, year));
   }, [locality]);
+
   return (
     <div id='modalProjectView'>
      {visibleCapital && <ModalCapital
