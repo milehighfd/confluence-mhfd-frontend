@@ -1959,12 +1959,9 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     mapSearchQuery(value);
   };
 
-  const onSelect = (value: any) => {
-    console.log('onSelect:::', value);
-    
+  const onSelect = (value: any) => {    
     const keyword = value.split('?');
     const coord = keyword[0].split(',');
-    console.log('GOING TO FLYTO', coord);
     map.flyTo({ center: coord, zoom: 14.5 });
     const placeName = keyword[1];
     setKeyword(placeName);

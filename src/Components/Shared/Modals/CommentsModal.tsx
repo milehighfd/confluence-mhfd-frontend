@@ -25,10 +25,10 @@ const CommentsModal = () => {
   const {userInformation} = useProfileState();
   const { openNotification } = useNotifications();
   const sponsorProject = detailed?.project_staffs?.map((item: any) => item?.business_associate_contact_id);
-  const businessAssociateId = userInformation?.business_associate_contact?.business_address?.business_associate_id;
+  const businessAssociateId = userInformation?.business_associate_contact?.business_associate_contact_id;
   const isAdminOrStaff = userInformation?.designation === 'admin' || userInformation?.designation === 'staff'
-  const canAddDiscussion = ((sponsorProject?.includes(businessAssociateId))) || isAdminOrStaff    
-
+  const canAddDiscussion = ((sponsorProject?.includes(businessAssociateId))) || isAdminOrStaff   
+  
   function convertTimestampWithMoment(timestamp: string): string {
     return moment.utc(timestamp).format('MMM D, YYYY [at] h:mm A');
   }

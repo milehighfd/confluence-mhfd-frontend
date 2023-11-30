@@ -607,7 +607,6 @@ export const addPopupsOnClick = async (
       mobile.push({
         layer: item.layer,
       });
-      console.log('getTitleOfProblemsPart(feature)', getTitleOfProblemsPart(feature));
       menuOptions.push(getTitleOfProblemsPart(feature));
       popups.push(item);
       ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });

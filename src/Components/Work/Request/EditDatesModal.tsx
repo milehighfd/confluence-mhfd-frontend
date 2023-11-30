@@ -349,11 +349,12 @@ const EditDatesModal = ({
             </Select>
             <label>2. It’s start date is:</label><br />
             <DatePicker
+                format="MM-DD-YYYY"
               value = {startDate}
               style={{ width: '100%', borderRadius: '5px', height: '36px', marginBottom: '16px' }}
               onChange={(date: any) => setStartDate(date)}
             />
-            <div style={{display:'flex'}}>
+            {/* <div style={{display:'flex'}}>
               <div>
                 <label>3. Is an OnBase number available?</label><br />
                 <Radio.Group
@@ -392,7 +393,7 @@ const EditDatesModal = ({
               </Option>
             </Select>
             <label>6. The location is:</label><br />
-            <Input placeholder="Type a location" style={{ width: '100%', borderRadius: '5px', height: '36px' }} />
+            <Input placeholder="Type a location" style={{ width: '100%', borderRadius: '5px', height: '36px' }} /> */}
           </div>
         </div>
       )}
