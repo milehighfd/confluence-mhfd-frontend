@@ -18,7 +18,10 @@ const ModalProjectsCreate = ({visible, setVisible}
 
   const { 
     setVisibleCreateProject,
-    setVisibleCreateOrImport
+    setVisibleCreateOrImport,
+    setIsCreatedFromBoard,
+    setIsImported,
+    setImportedProjectData
   } = useRequestDispatch();
 
   const {
@@ -28,6 +31,7 @@ const ModalProjectsCreate = ({visible, setVisible}
   const onClickNewProject = () => {
     setVisibleCreateOrImport(false);
     setVisibleCreateProject(true);
+    setIsCreatedFromBoard(true);
   };
   
   const [isApproved, setIsApproved] = useState(false);
@@ -66,25 +70,29 @@ const ModalProjectsCreate = ({visible, setVisible}
       locality: namespaceId.locality,
       year: namespaceId.year,
     }
-    datasets.postData(SERVER.SEARH_BOARDS_IMPORT, searchInfo).then((data: any) => {
+      datasets.postData(SERVER.SEARH_BOARDS_IMPORT, searchInfo).then((data: any) => {
       setListProjects(data.map((item: any) => {
+        const CODE_SPONSOR = 11;
+        const sponsor = item?.projectData?.project_partners?.find((sponsor: any) => sponsor?.code_partner_type_id === CODE_SPONSOR);
         return {
           id: item?.project_id,
           name: item?.projectData?.project_name,
-          type: item?.board?.projecttype
+          type: item?.board?.projecttype,
+          sponsor: sponsor?.business_associate.business_name,
         }
       }));
     });
   }, [keyword]);
 
   const getCompleteProjectData = () => {
+    if (selectedProjectId === -1) return;
     datasets.getData(SERVER.V2_DETAILED_PAGE(selectedProjectId), datasets.getToken())
       .then(dataFromDB => {
         setNameProject(dataFromDB?.project_name);
         setCompleteProjectData({ ...dataFromDB, projectType });
         //setVisible(false);
         setVisibleCapital(true);
-        console.log('dataFromDB', dataFromDB);
+        setIsImported(true);
       });
   }
 
@@ -108,7 +116,10 @@ const ModalProjectsCreate = ({visible, setVisible}
         maskClosable={false}
         visible={visible}
         onOk={() => setVisible(false)}
-        onCancel={() => setVisible(false)}
+        onCancel={() => {
+          setVisible(false)
+          setIsCreatedFromBoard(false)
+        }}
         className="new-project"
         width={pageWidth > 3000 ? "1100px" : "800px"}
         footer={[
@@ -139,7 +150,12 @@ const ModalProjectsCreate = ({visible, setVisible}
             <img src="/Icons/ic-files-green.svg" alt="plus-green" />
             <p className='text'>Existing Project</p>
           </div>
-          <Input className='input-search' placeholder="Search for existing project" prefix={<SearchOutlined />} />
+          <Input
+            className='input-search'
+            placeholder="Search for existing project"
+            prefix={<SearchOutlined />}
+            onPressEnter={(event: React.KeyboardEvent<HTMLInputElement>) => setKeyword(event.currentTarget.value)}
+          />
           <Row>
             <Col span={17}>
               <p className='title-list'>Project</p>
@@ -150,13 +166,25 @@ const ModalProjectsCreate = ({visible, setVisible}
             {/* <Col span={3} style={{textAlign:'center'}}>
               <p className='title-list'>Work Plan Boards</p>
             </Col> */}
+            {
+              namespaceId.type === WORK_PLAN &&
+              <Col span={3} style={{ textAlign: 'center' }}>
+                <p className='title-list'>Sponsor</p>
+              </Col>
+            }
           </Row>
           <div className='body-create-projects'>
             {listProjects.map((project, index) => (
               <Row 
               key={index} 
               className={`row-detail-project ${selectedProjectId === project.id ? 'selected' : ''}`}
-              onClick={() => setSelectedProjectId(project?.id)}
+              onClick={() => {
+                setSelectedProjectId(project?.id)
+                setImportedProjectData({
+                  projectType: project?.type,
+                  projectSponsor: project?.sponsor,
+                })
+              }}
               >
                 <Col span={17}>
                   {project.name}
@@ -167,6 +195,12 @@ const ModalProjectsCreate = ({visible, setVisible}
                 {/* <Col span={3} style={{ textAlign: 'center', opacity: 0.6 }}>
                   2022
                 </Col> */}
+                {
+                  namespaceId.type === WORK_PLAN &&
+                  <Col span={3} style={{ textAlign: 'center', opacity: 0.6 }}>
+                    {project.sponsor}
+                  </Col>
+                }
               </Row>
             ))}
           </div>
