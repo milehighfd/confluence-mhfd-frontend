@@ -59,7 +59,10 @@ import {
   startLoadingColumns,
   stopLoadingColumns,
   sendProjectToWorkPlan,
-  setSentToWP
+  setSentToWP,
+  setIsCreatedFromBoard,
+  setIsImported,
+  setImportedProjectData,
 } from 'store/actions/requestActions';
 import { DragAndDropCards } from 'store/types/requestTypes';
 
@@ -245,6 +248,15 @@ export const useRequestDispatch = () => {
   const _setSentToWP = useCallback((sentToWP: boolean) => {
     dispatch(setSentToWP(sentToWP));
   }, [dispatch]);
+  const _setIsCreatedFromBoard = useCallback((isCreatedFromBoard: boolean) => {
+    dispatch(setIsCreatedFromBoard(isCreatedFromBoard));
+  }, [dispatch]);
+  const _setIsImported = useCallback((isImported: boolean) => {
+    dispatch(setIsImported(isImported));
+  }, [dispatch]);
+  const _setImportedProjectData = useCallback((importedProjectData: any) => {
+    dispatch(setImportedProjectData(importedProjectData));
+  }, [dispatch]);
   return {
     setShowModalProject: _setShowModalProject,
     setCompleteProjectData: _setCompleteProjectData,
@@ -304,6 +316,9 @@ export const useRequestDispatch = () => {
     startLoadingColumns: _startLoadingColumns,
     stopLoadingColumns: _stopLoadingColumns,
     sendProjectToWorkPlan: _sendProjectToWorkPlan,
-    setSentToWP: _setSentToWP
+    setSentToWP: _setSentToWP,
+    setIsCreatedFromBoard: _setIsCreatedFromBoard,
+    setIsImported: _setIsImported,
+    setImportedProjectData: _setImportedProjectData
   };
 };

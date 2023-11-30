@@ -168,6 +168,11 @@ export const setVisibleCreateOrImport = (payload: any) => ({
   payload
 });
 
+export const setIsCreatedFromBoard = (payload: any) => ({
+  type: types.REQUEST_SET_IS_CREATED_FROM_BOARD,
+  payload
+});
+
 export const setLeftWidth = (payload: any) => ({
   type: types.REQUEST_SET_LEFT_WIDTH,
   payload
@@ -785,5 +790,15 @@ export const setSentToWP = (payload: boolean) => ({
 
 export const setFilterLoading = (payload: boolean) => ({
   type: types.REQUEST_SET_FILTER_LOADING,
+  payload
+});
+
+export const setIsImported = (payload: boolean) => ({
+  type: types.REQUEST_SET_IS_IMPORTED,
+  payload
+});
+
+export const setImportedProjectData = (payload: any) => ({
+  type: types.REQUEST_SET_IMPORTED_PROJECT_TYPE,
   payload
 });

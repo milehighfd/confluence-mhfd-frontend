@@ -50,6 +50,8 @@ const initialState = {
   localityType: '',
   visibleCreateProject: false,
   visibleCreateOrImport: false,
+  isCreatedFromBoard: false,
+  importedProjectData: {projectType: '', projectSponsor: ''},
   leftWidth: MEDIUM_SCREEN_RIGHT - 1,
   localities: [],
   columns: defaultColumns,
@@ -60,6 +62,7 @@ const initialState = {
   projectIds: [],
   loadingColumns: false,
   localityFilter: '',
+  isImported: false,
   dataAutocomplete: [],
   setIsOnSelected: false,
   filterMap: {},
@@ -244,6 +247,11 @@ const requestReducer = (state = initialState, action: any) => {
         ...state,
         visibleCreateOrImport: action.payload
       };
+    case types.REQUEST_SET_IS_CREATED_FROM_BOARD:
+      return {
+        ...state,
+        isCreatedFromBoard: action.payload
+      };
     case types.REQUEST_SET_LEFT_WIDTH:
       return {
         ...state,
@@ -395,6 +403,16 @@ const requestReducer = (state = initialState, action: any) => {
       return {
         ...state,
         filterLoading: action.payload
+      };
+    case types.REQUEST_SET_IS_IMPORTED:
+      return {
+        ...state,
+        isImported: action.payload
+      };
+    case types.REQUEST_SET_IMPORTED_PROJECT_TYPE:
+      return {
+        ...state,
+        importedProjectData: action.payload
       };
     default:
       return state;
