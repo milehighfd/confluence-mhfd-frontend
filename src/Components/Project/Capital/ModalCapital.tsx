@@ -9,7 +9,7 @@ import { useProjectState, useProjectDispatch } from 'hook/projectHook';
 import { useAttachmentDispatch } from 'hook/attachmentHook';
 import { Project } from 'Classes/Project';
 import { useProfileDispatch, useProfileState } from 'hook/profileHook';
-import { ADMIN, NEW_PROJECT_TYPES, STAFF, WINDOW_WIDTH, WORK_PLAN_TAB } from 'constants/constants';
+import { ADMIN, NEW_PROJECT_TYPES, STAFF, WINDOW_WIDTH, WORK_PLAN, WORK_PLAN_TAB } from 'constants/constants';
 import { useHistory } from 'react-router-dom';
 import { UploadImagesDocuments } from 'Components/Project/TypeProjectComponents/UploadImagesDocuments';
 import { getProjectOverheadCost } from 'utils/parsers';
@@ -32,7 +32,7 @@ import { DiscussionCreateProject } from '../TypeProjectComponents/DiscussionCrea
 import { ActivitiCreateProject } from '../TypeProjectComponents/ActivityCreateProject';
 import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
 import EditAmountCreateProject from '../TypeProjectComponents/EditAmountCreateProject';
-import { useRequestDispatch } from 'hook/requestHook';
+import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -139,6 +139,8 @@ export const ModalCapital = ({
     getComponentsByProjectId,
     resetDiscussion,
   } = useProjectDispatch();
+  const { setIsCreatedFromBoard, setIsImported, loadColumns } = useRequestDispatch();
+  const { isCreatedFromBoard, isImported, namespaceId, importedProjectData } = useRequestState();
   const { getGroupOrganization, openDiscussionTab } = useProfileDispatch();
   const {
     listComponents, 
@@ -152,9 +154,7 @@ export const ModalCapital = ({
     listStreams,
     streamsIntersectedIds
   } = useProjectState();
-  const {
-    setVisibleCreateProject
-  } = useRequestDispatch();
+  
   const [loading, setLoading] = useState(false);
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
@@ -275,7 +275,6 @@ export const ModalCapital = ({
   }, [userInformation]);
 
   useEffect(() => {
-    console.log(openDiscussion, 'openDiscussion')
     if (openDiscussion){
       setActiveTabBodyProject('Discussion');
       openDiscussionTab(false);
@@ -588,6 +587,7 @@ export const ModalCapital = ({
     if(status === 1 || status === 0) {
       setVisible(false);
       setVisibleCapital(false);
+      setIsCreatedFromBoard(false);
       setLoading(false);
     } else {
       setLoading(false);
@@ -604,52 +604,89 @@ export const ModalCapital = ({
     }
   }, [disabledLG, isWorkPlan, swSave]);
 
+  useEffect(() => {
+    if (isImported) {
+      setDisableFieldsForLg(true);
+    }else{
+      setDisableFieldsForLg(false);
+    }
+  }, [isImported]);
+
   const handleOk = (e: any) => {
-    datasets.postData(SERVER.CHECK_PROJECT_NAME, { project_name: nameProject }, datasets.getToken()).then(data => {
-      if (data.exists && !swSave) {
-        handleNotification(`Project name already exists.`);
-      } else {
-        if (!disable) {
-          setVisibleAlert(true);
+    if(!isImported){
+      datasets.postData(SERVER.CHECK_PROJECT_NAME, { project_name: nameProject }, datasets.getToken()).then(data => {
+        if (data.exists && !swSave) {
+          handleNotification(`Project name already exists.`);
         } else {
-          let missingFields = [];
-          if (!description) missingFields.push('Description');
-          if (!county?.length) missingFields.push('County');
-          if (!serviceArea?.length) missingFields.push('Service Area');
-          if (!jurisdiction?.length) missingFields.push('Jurisdiction');
-          if (!nameProject) missingFields.push('Project Name');
-          if (!sponsor) missingFields.push('Sponsor');
-          const isGeom = (selectedTypeProject === 'capital' || selectedTypeProject === 'maintenance');
-          const isPin = (selectedTypeProject === 'acquisition' || selectedTypeProject === 'special');
-          let geomLengthFlag = false;
-          if ((geom?.coordinates || streamIntersected?.geom) && isGeomDrawn===true) {
-            geomLengthFlag = true;
+          if (!disable) {
+            setVisibleAlert(true);
           } else {
-            geomLengthFlag = false;
-          }
-          if (isGeom && !geomLengthFlag && !isCountyWide) missingFields.push('Geometry');
-          if (isPin && !geom && !isCountyWide) missingFields.push('Pin');
-          if (selectedTypeProject === 'study' && !streamsIntersectedIds.length && !isCountyWide) missingFields.push('Geometry');
-          if (selectedTypeProject === 'study' && !studyreason) missingFields.push('Study Reason');
-          if (selectedTypeProject === 'capital' && !componentsToSave?.length && !thisIndependentComponents?.length) missingFields.push('Proposed Actions or Independent Actions');
-          if (selectedTypeProject === 'acquisition' && !progress) missingFields.push('Progress');
-          if (selectedTypeProject === 'acquisition' && !purchaseDate) missingFields.push('Purchase Date');
-          if (selectedTypeProject === 'maintenance' && !frequency) missingFields.push('Frequency');
-          if (selectedTypeProject === 'maintenance' && !eligibility) missingFields.push('Eligibility');
-          if (thisIndependentComponents.length && !checkIfIndependentHaveName()) {
-            missingFields.push('Independent actions name');
-          }
-          if (nameProject === 'Add Project Name') {
-            missingFields.push('Change Project Name');
-          }
-          if (missingFields.length > 0) {
-            handleErrorNotification(missingFields);
-          }else{
-            handleNotification('Please fill out all required fields.');
+            let missingFields = [];
+            if (!description) missingFields.push('Description');
+            if (!county?.length) missingFields.push('County');
+            if (!serviceArea?.length) missingFields.push('Service Area');
+            if (!jurisdiction?.length) missingFields.push('Jurisdiction');
+            if (!nameProject) missingFields.push('Project Name');
+            if (!sponsor) missingFields.push('Sponsor');
+            const isGeom = (selectedTypeProject === 'capital' || selectedTypeProject === 'maintenance');
+            const isPin = (selectedTypeProject === 'acquisition' || selectedTypeProject === 'special');
+            let geomLengthFlag = false;
+            if ((geom?.coordinates || streamIntersected?.geom) && isGeomDrawn===true) {
+              geomLengthFlag = true;
+            } else {
+              geomLengthFlag = false;
+            }
+            if (isGeom && !geomLengthFlag && !isCountyWide) missingFields.push('Geometry');
+            if (isPin && !geom && !isCountyWide) missingFields.push('Pin');
+            if (selectedTypeProject === 'study' && !streamsIntersectedIds.length && !isCountyWide) missingFields.push('Geometry');
+            if (selectedTypeProject === 'study' && !studyreason) missingFields.push('Study Reason');
+            if (selectedTypeProject === 'capital' && !componentsToSave?.length && !thisIndependentComponents?.length) missingFields.push('Proposed Actions or Independent Actions');
+            if (selectedTypeProject === 'acquisition' && !progress) missingFields.push('Progress');
+            if (selectedTypeProject === 'acquisition' && !purchaseDate) missingFields.push('Purchase Date');
+            if (selectedTypeProject === 'maintenance' && !frequency) missingFields.push('Frequency');
+            if (selectedTypeProject === 'maintenance' && !eligibility) missingFields.push('Eligibility');
+            if (thisIndependentComponents.length && !checkIfIndependentHaveName()) {
+              missingFields.push('Independent actions name');
+            }
+            if (nameProject === 'Add Project Name') {
+              missingFields.push('Change Project Name');
+            }
+            if (missingFields.length > 0) {
+              handleErrorNotification(missingFields);
+            }else{
+              handleNotification('Please fill out all required fields.');
+            }
           }
         }
+      })
+    }else{
+      let locality = namespaceId.type === WORK_PLAN ? importedProjectData.projectSponsor : namespaceId.locality;
+      if (locality === 'MHFD'){
+        locality = 'MHFD District Work Plan';
       }
-    })
+      const boardProject= {
+        type: namespaceId.type,
+        year: namespaceId.year,
+        locality: locality,
+        projecttype: importedProjectData.projectType,
+        project_id: projectid
+      }
+      datasets.postData(SERVER.IMPORT_PROJECT, boardProject, datasets.getToken()).then(data => {
+        if(data){
+          setIsCreatedFromBoard(false);
+          loadColumns();
+          setLoading(false);
+          setIsImported(false);
+          setVisible(false);
+          setVisibleCapital(false);
+          openNotification('Success.', 'success','Project imported successfully.');
+        }else{
+          openNotification(`Error.`, "warning", 'An error occurred while importing the project.');
+        }
+      }).catch(error => {
+        openNotification(`Error.`, "warning", 'An error occurred while importing the project.');
+      });
+    }    
   };
 
   const checkIfIndependentHaveName = () => {
@@ -802,9 +839,11 @@ export const ModalCapital = ({
   const handleCancel = (e: any) => {
     const auxState = {...state};
     setVisibleCapital (false);
-    setVisibleCreateProject(true);
-    setState(auxState);
-    setVisible(false);
+    setIsImported(false);
+    if (!isCreatedFromBoard){
+      setVisible(false);
+    }
+    setState(auxState);    
   };
 
   const onClickDraw = () => {
@@ -1410,8 +1449,10 @@ export const ModalCapital = ({
           {activeTabBodyProject === 'Activity' &&
           <ActivitiCreateProject projectId={projectid} data={data}/>}
           <div className="footer-project">
-            <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>
-            <Button className="btn-purple" onClick={handleOk}><span className="text-color-disable">Save Draft Project</span></Button>
+            <Button className="btn-borde" onClick={handleCancel}>{!isImported ? 'Cancel' : 'Return'}</Button>
+            <Button className="btn-purple" onClick={handleOk}><span className="text-color-disable">
+              {!isImported? 'Save Draft Project': 'Import'}
+            </span></Button>
           </div>
         </Col>
       </Row>
