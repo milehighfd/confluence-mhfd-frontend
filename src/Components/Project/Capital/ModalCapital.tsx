@@ -1449,7 +1449,7 @@ export const ModalCapital = ({
           <div className="footer-project">
             <Button className="btn-borde" onClick={handleCancel}>{!isImported ? 'Cancel' : 'Return'}</Button>
             <Button className="btn-purple" onClick={handleOk}><span className="text-color-disable">
-              {!isImported? 'Save Draft Project': 'Import'}
+              {!isImported? 'Save Draft Project': 'Import Project'}
             </span></Button>
           </div>
         </Col>
