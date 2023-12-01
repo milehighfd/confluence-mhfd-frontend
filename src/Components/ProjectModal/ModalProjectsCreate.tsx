@@ -65,6 +65,7 @@ const ModalProjectsCreate = ({visible, setVisible}
   }, [namespaceId]);
 
   useEffect(() => {
+    if (!keyword) return;
     const searchInfo = {
       keyword,
       locality: namespaceId.locality,
@@ -126,7 +127,12 @@ const ModalProjectsCreate = ({visible, setVisible}
           <Button key="back" className="btn-borde" onClick={() => setVisible(false)}>
             Cancel
           </Button>,
-          <Button key="submit" className="btn-purple" onClick={() => getCompleteProjectData()}>
+          <Button
+            key="submit"
+            className="btn-purple"
+            onClick={() => getCompleteProjectData()}
+            disabled={selectedProjectId === -1}
+          >
             Next
           </Button>,
         ]}
@@ -161,19 +167,13 @@ const ModalProjectsCreate = ({visible, setVisible}
               <p className='title-list' >Project</p>
             </Col>
             <Col span={4}>
-              <p className='title-list' style={{paddingLeft:'5px'}}>Type</p>
+              <p className='title-list' style={{ paddingLeft: '5px' }}>Type</p>
             </Col>
-            {/* <Col span={3} style={{textAlign:'center'}}>
-              <p className='title-list'>Work Plan Boards</p>
-            </Col> */}
-            {/* {
-              namespaceId.type === WORK_PLAN && */}
-              <Col span={8} >
-                <p className='title-list' style={{paddingLeft:'5px'}}>Sponsor</p>
-              </Col>
-            {/* } */}
+            <Col span={8} >
+              <p className='title-list' style={{ paddingLeft: '5px' }}>Sponsor</p>
+            </Col>
           </Row>
-          <div className='body-create-projects'>
+          {keyword && <div className='body-create-projects'>
             {listProjects.map((project, index) => (
               <Row 
               key={index} 
@@ -192,18 +192,12 @@ const ModalProjectsCreate = ({visible, setVisible}
                 <Col span={4} className='col-create-project'>
                   {project.type}
                 </Col>
-                {/* <Col span={3} style={{ textAlign: 'center', opacity: 0.6 }}>
-                  2022
-                </Col> */}
-                {/* {
-                  namespaceId.type === WORK_PLAN && */}
-                  <Col span={8} style={{  }} className='col-create-project'>
-                    {project.sponsor}
-                  </Col>
-                {/* } */}
+                <Col span={8} style={{}} className='col-create-project'>
+                  {project.sponsor}
+                </Col>
               </Row>
             ))}
-          </div>
+          </div>}
         </div>
       </Modal>
     </div>
