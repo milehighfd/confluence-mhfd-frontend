@@ -9,7 +9,7 @@ import { useProjectState, useProjectDispatch } from 'hook/projectHook';
 import { useAttachmentDispatch } from 'hook/attachmentHook';
 import { Project } from 'Classes/Project';
 import { useProfileDispatch, useProfileState } from 'hook/profileHook';
-import { ADMIN, NEW_PROJECT_TYPES, STAFF, WINDOW_WIDTH, WORK_PLAN, WORK_PLAN_TAB } from 'constants/constants';
+import { ADMIN, NEW_PROJECT_TYPES, STAFF, WINDOW_WIDTH, WORK_PLAN, WORK_PLAN_TAB, WORK_REQUEST } from 'constants/constants';
 import { useHistory } from 'react-router-dom';
 import { UploadImagesDocuments } from 'Components/Project/TypeProjectComponents/UploadImagesDocuments';
 import { getProjectOverheadCost } from 'utils/parsers';
@@ -139,7 +139,7 @@ export const ModalCapital = ({
     getComponentsByProjectId,
     resetDiscussion,
   } = useProjectDispatch();
-  const { setIsCreatedFromBoard, setIsImported, loadColumns } = useRequestDispatch();
+  const { setIsCreatedFromBoard, setIsImported, loadColumns , setVisibleCreateOrImport} = useRequestDispatch();
   const { isCreatedFromBoard, isImported, namespaceId, importedProjectData } = useRequestState();
   const { getGroupOrganization, openDiscussionTab } = useProfileDispatch();
   const {
@@ -663,8 +663,9 @@ export const ModalCapital = ({
       if (locality === 'MHFD'){
         locality = 'MHFD District Work Plan';
       }
+      const typeToSend = locality === 'MHFD District Work Plan' ? WORK_PLAN : WORK_REQUEST
       const boardProject= {
-        type: namespaceId.type,
+        type: typeToSend,
         year: namespaceId.year,
         locality: locality,
         projecttype: importedProjectData.projectType,
@@ -837,11 +838,14 @@ export const ModalCapital = ({
 
   const handleCancel = (e: any) => {
     const auxState = {...state};
-    setVisibleCapital (false);
-    setIsImported(false);
+    setVisibleCapital (false);    
     if (!isCreatedFromBoard){
       setVisible(false);
     }
+    if (isImported){
+      setVisibleCreateOrImport(true);
+    }
+    setIsImported(false);
     setState(auxState);    
   };
 
