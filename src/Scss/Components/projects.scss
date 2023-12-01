@@ -1420,7 +1420,7 @@
   }
   .title-list{
     color: $purple00;
-    // font-size: 12px;
+    font-size: 12px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -2279,7 +2279,7 @@
     }
     .body-create-projects{
       max-height: calc(100vh - 699px);
-      margin-right: 19px;
+      margin-right: -14px;
       padding-right: 6px;
       .row-detail-project{
         padding: 10px 0px;
