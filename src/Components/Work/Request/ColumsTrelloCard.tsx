@@ -161,66 +161,66 @@ const ColumsTrelloCard = ({
           && boardStatus === 'Approved' && 
           namespaceId.year >= YEAR_LOGIC_2024          
         ){
-          const dataOutsideColumn = (projectId: number, columns: any, excludedColumnPosition: number) => {
-            const foundProjects = [];
-            for (let i = 0; i < columns.length; i++) {
-              if (i !== excludedColumnPosition && columns[i].title !== "Workspace") {
-                for (const project of columns[i].projects) {
-                  if (project.project_id === projectId) {
-                    foundProjects.push(project);
-                  }
-                }
-              }
-            }
-            return foundProjects.length > 0 ? foundProjects : [];
-          };
-          const dataInColumn = columns[originColumnPosition].projects[sourcePosition];
-          const projectsOutsideColumn = dataOutsideColumn(projectId, columns, originColumnPosition);
-          const ranksAndReqs = projectsOutsideColumn.reduce((acc: any, obj: any) => {
-            const ranks: any = {};
-            for (let i = 0; i <= 5; i++) {
-              const rank = obj[`rank${i}`];
-              const req = obj[`req${i}`];
-              if (rank !== undefined && req !== undefined) {
-                ranks[`rank${i}`] = rank;
-                ranks[`req${i}`] = req;
-              }
-            }
-            acc.push(ranks);
-            return acc;
-          }, []);
-          const currentYear = +namespaceId.year;
-          let targetRank: number | null = null;
-          for (let i = 1; i <= 5; i++) {
-            if (dataInColumn[`rank${i}`] !== undefined) {
-              targetRank = i;
-              break;
-            }
-          }
-          const years: number[] = [];
-          const extraAmounts: number[] = [];
-          ranksAndReqs.forEach((obj: any) => {
-            for (let i = 1; i <= 5; i++) {
-              if (obj[`rank${i}`] !== undefined && obj[`req${i}`] !== undefined) {
-                years.push(currentYear + i - 1);
-                if (i === targetColumnPosition) {
-                  extraAmounts.push(dataInColumn[`req${targetRank}`] + obj[`req${i}`]);
-                } else {
-                  extraAmounts.push(obj[`req${i}`]);
-                }
-              }
-            }
-          });
-          const sponsor = (columns[originColumnPosition].projects[sourcePosition].projectData?.project_partners.find((x: any) => x.code_partner_type_id === SPONSOR_ID)?.business_associate?.business_name)   
-          sendProjectToBoardYear(
-            columns[originColumnPosition].projects[sourcePosition]?.projectData?.project_id,
-            namespaceId.year,
-            years,
-            sponsor,
-            namespaceId.projecttype,
-            extraAmounts,
-            ''
-          );
+        //   const dataOutsideColumn = (projectId: number, columns: any, excludedColumnPosition: number) => {
+        //     const foundProjects = [];
+        //     for (let i = 0; i < columns.length; i++) {
+        //       if (i !== excludedColumnPosition && columns[i].title !== "Workspace") {
+        //         for (const project of columns[i].projects) {
+        //           if (project.project_id === projectId) {
+        //             foundProjects.push(project);
+        //           }
+        //         }
+        //       }
+        //     }
+        //     return foundProjects.length > 0 ? foundProjects : [];
+        //   };
+        //   const dataInColumn = columns[originColumnPosition].projects[sourcePosition];
+        //   const projectsOutsideColumn = dataOutsideColumn(projectId, columns, originColumnPosition);
+        //   const ranksAndReqs = projectsOutsideColumn.reduce((acc: any, obj: any) => {
+        //     const ranks: any = {};
+        //     for (let i = 0; i <= 5; i++) {
+        //       const rank = obj[`rank${i}`];
+        //       const req = obj[`req${i}`];
+        //       if (rank !== undefined && req !== undefined) {
+        //         ranks[`rank${i}`] = rank;
+        //         ranks[`req${i}`] = req;
+        //       }
+        //     }
+        //     acc.push(ranks);
+        //     return acc;
+        //   }, []);
+        //   const currentYear = +namespaceId.year;
+        //   let targetRank: number | null = null;
+        //   for (let i = 1; i <= 5; i++) {
+        //     if (dataInColumn[`rank${i}`] !== undefined) {
+        //       targetRank = i;
+        //       break;
+        //     }
+        //   }
+        //   const years: number[] = [];
+        //   const extraAmounts: number[] = [];
+        //   ranksAndReqs.forEach((obj: any) => {
+        //     for (let i = 1; i <= 5; i++) {
+        //       if (obj[`rank${i}`] !== undefined && obj[`req${i}`] !== undefined) {
+        //         years.push(currentYear + i - 1);
+        //         if (i === targetColumnPosition) {
+        //           extraAmounts.push(dataInColumn[`req${targetRank}`] + obj[`req${i}`]);
+        //         } else {
+        //           extraAmounts.push(obj[`req${i}`]);
+        //         }
+        //       }
+        //     }
+        //   });
+        //   const sponsor = (columns[originColumnPosition].projects[sourcePosition].projectData?.project_partners.find((x: any) => x.code_partner_type_id === SPONSOR_ID)?.business_associate?.business_name)   
+        //   sendProjectToBoardYear(
+        //     columns[originColumnPosition].projects[sourcePosition]?.projectData?.project_id,
+        //     namespaceId.year,
+        //     years,
+        //     sponsor,
+        //     namespaceId.projecttype,
+        //     extraAmounts,
+        //     ''
+        //   );
         }        
       }
     }
