@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { SERVER } from 'Config/Server.config';
 import * as datasets from "../../Config/datasets";
 import { ModalCapital } from 'Components/Project/Capital/ModalCapital';
+import { MaintenanceTypes } from 'Components/Work/Request/RequestViewUtil';
 const pageWidth  = document.documentElement.scrollWidth;
 
 
@@ -71,14 +72,23 @@ const ModalProjectsCreate = ({visible, setVisible}
       locality: namespaceId.locality,
       year: namespaceId.year,
     }
-      datasets.postData(SERVER.SEARH_BOARDS_IMPORT, searchInfo).then((data: any) => {
+    datasets.postData(SERVER.SEARH_BOARDS_IMPORT, searchInfo).then((data: any) => {
       setListProjects(data.map((item: any) => {
         const CODE_SPONSOR = 11;
-        const sponsor = item?.projectData?.project_partners?.find((sponsor: any) => sponsor?.code_partner_type_id === CODE_SPONSOR);
+        const CODE_ACQUISITION = 13;
+        const sponsor = item?.project_partners?.find((sponsor: any) => sponsor?.code_partner_type_id === CODE_SPONSOR);
+        let projectCode = '';
+        if (MaintenanceTypes.includes(item?.code_project_type?.project_short_name)) {
+          projectCode = 'Maintenance';
+        } else if (item?.code_project_type?.code_project_type_id === CODE_ACQUISITION) {
+          projectCode = 'Acquisition';
+        } else {
+          projectCode = item?.code_project_type?.project_short_name;
+        }
         return {
           id: item?.project_id,
-          name: item?.projectData?.project_name,
-          type: item?.board?.projecttype,
+          name: item?.project_name,
+          type: projectCode,
           sponsor: sponsor?.business_associate.business_name,
         }
       }));
@@ -162,7 +172,7 @@ const ModalProjectsCreate = ({visible, setVisible}
             prefix={<SearchOutlined />}
             onPressEnter={(event: React.KeyboardEvent<HTMLInputElement>) => setKeyword(event.currentTarget.value)}
           />
-          <Row className='row-project-project'>
+          {keyword && <Row className='row-project-project'>
             <Col span={12}>
               <p className='title-list' >Project</p>
             </Col>
@@ -172,7 +182,7 @@ const ModalProjectsCreate = ({visible, setVisible}
             <Col span={8} >
               <p className='title-list' style={{ paddingLeft: '5px' }}>Sponsor</p>
             </Col>
-          </Row>
+          </Row>}
           {keyword && <div className='body-create-projects'>
             {listProjects.map((project, index) => (
               <Row 
