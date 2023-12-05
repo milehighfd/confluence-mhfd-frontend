@@ -78,7 +78,7 @@ const ModalProjectsCreate = ({visible, setVisible}
         const CODE_ACQUISITION = 13;
         const sponsor = item?.project_partners?.find((sponsor: any) => sponsor?.code_partner_type_id === CODE_SPONSOR);
         let projectCode = '';
-        if (MaintenanceTypes.includes(item?.code_project_type?.project_short_name)) {
+        if (MaintenanceTypes.includes(item?.code_project_type?.project_type_name)) {
           projectCode = 'Maintenance';
         } else if (item?.code_project_type?.code_project_type_id === CODE_ACQUISITION) {
           projectCode = 'Acquisition';
