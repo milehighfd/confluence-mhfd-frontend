@@ -1339,7 +1339,6 @@
     align-items: center;
     border-radius: 8px;
     border: 1px solid transparent;
-    margin-bottom: 8px;
     width: 100%;
     cursor: pointer;
     img{
@@ -1374,11 +1373,7 @@
   .existing-project{
     padding: 16px 19px;
     display: flex;
-    cursor: pointer;
     align-items: center;
-    border-radius: 8px;
-    margin-bottom: 8px;
-    border: 1px solid transparent;;
     p{
       color: #11093C;
       font-style: normal;
@@ -1387,10 +1382,6 @@
       margin-bottom: 0px;
       margin-left: 15px;
     }
-  }
-  .existing-project:hover{
-    background: #F2F5F6;
-    border: 1px solid #D7D7D9;
   }
   .input-search{
     margin-bottom: 30px;
