@@ -2147,6 +2147,10 @@
       }
     }
   }
+  .mapboxgl-ctrl-scale {
+    width: fit-content !important;
+    font-size: 14px;
+    }
   .group-dropdown-financial{
     .ant-input-affix-wrapper {
       height: 39px !important;
@@ -2571,6 +2575,10 @@
       margin-bottom: 2px;
     }
   }
+  .mapboxgl-ctrl-scale {
+    width: fit-content !important;
+    font-size: 18px;
+    }
   .detailed-modal {
     width: 1850px !important;
 
@@ -2981,7 +2989,7 @@
     }
   }
   .detail-image-btn-filter-k {
-    font-size: 18px;
+    font-size: 21px;
   }
   //PROBLEM-PARTS
   .detail-problem-parts-table {
