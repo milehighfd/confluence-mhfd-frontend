@@ -41,12 +41,6 @@ const contentIndComp = (<div className="popver-info">Independent Actions should 
 const contentOverheadCost = (<div className="popver-info"> Overhead Cost includes all costs beyond the costs of physical construction (Subtotal Cost). The default values shown here can and should be changed when different percentages are anticipated, such as in urban settings. Please add a description explaining any changes from default values. </div>);
 const contentAdditionalCost = (<div className="popver-info"> Enter any additional costs here that were not captured previously as Actions, Independent Actions, or Overhead Costs. Additional Costs (unlike Independent Actions) will NOT have Overhead Costs applied to them. </div>);
 const contentRecommendedBudget = (<div className="popver-info"> The <b>Recommended Project Budget</b> is the sum of all proposed action costs, independent action costs, overhead costs and additional costs. </div>);
-const content10 = (<div className="popver-info">The Action Status indicates whether or not the Action has already been built (Complete) or still needs to be built (Proposed).</div>);
-const content05 = (<div className="popver-info" style={{ width: '261px' }}> Indicate why this project is eligible for MHFD maintenance. <br /><br /><b>Capital Project</b> – The project was completed as part of a MHFD Capital Improvement Plan
-  <br /> <b>MEP</b> – The project has been accepted through development review as part of MHFD's Maintenance Eligibility Program (MEP)
-  <br /><b>Grandfathered</b> – Development occurred before MHFD’s Maintenance Eligibility Program started in 1980
-  <br /><b>Not Eligible</b> – The project does not meet any of the above criteria
-  <br /><b>Unknown</b>  – Maintenance eligibility status is unknown</div>);
 const stateValue = {
   visibleCapital: false
 }
@@ -57,41 +51,6 @@ const formatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 2
 });
 
-const genExtra05 = (totalIndependentComp: any) => (
-  <Row className="tab-head-project">
-    <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10 }}>Independent Actions</Col>
-    <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 6 }}></Col>
-    <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 4 }}></Col>
-    <Col className="tab-cost-independent" xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }} >{formatter.format(totalIndependentComp)}</Col>
-  </Row>
-);
-const genTitleNoAvailable = (groups:any, setKeyOpenClose: Function) => {
-  let totalSumCost = 0;
-  for( let component of groups.components){
-    totalSumCost += component.original_cost;
-  }
-
-  return (
-  <Row className="tab-head-project" onClick={()=>{setKeyOpenClose(-1)}}>
-    <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 14 }}>No Problem Group Available</Col>
-    <Col style={{textAlign:'center'}} xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}></Col>
-  <Col className="tab-cost" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }} style={{ whiteSpace:'nowrap', textOverflow:'ellipsis'}}>{formatter.format(totalSumCost)}</Col>
-  </Row>
-  )
-}
-const genTitleProblem = (problem: any, key:any, setValuesProblem:Function, setValueZoomProb: Function, setKeyOpenClose: Function) => {
-  let totalSumCost = 0;
-  for( let component of problem.components){
-    totalSumCost += component.original_cost;
-  }
-  return (
-    <Row className="tab-head-project" onMouseEnter={()=> setValuesProblem(key, problem.problemname)} onMouseLeave={()=>setValuesProblem(undefined,undefined)} onClick={()=>{setValueZoomProb(key); setKeyOpenClose(key)}} >
-      <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 14 }}>{problem.problemname}</Col>
-      <Col style={{textAlign:'center'}} className='col-cost-geom' xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{problem.solutionstatus ? problem.solutionstatus + '%' : ''}</Col>
-      <Col className="tab-cost cost-position" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{formatter.format(totalSumCost)}</Col>
-    </Row>
-  )
-}
 export const ModalCapital = ({
   visibleCapital, 
   setVisibleCapital, 
@@ -573,7 +532,11 @@ export const ModalCapital = ({
       });
       removeAttachment(deleteAttachmentsIds);
       if (swSave) {
-        editProjectCapital(capital);
+        if (isImported) {
+          importProject(capital);
+        } else {
+          editProjectCapital(capital);
+        }
       }
       else {
         saveProjectCapital(capital);
@@ -603,91 +566,84 @@ export const ModalCapital = ({
     }
   }, [disabledLG, isWorkPlan, swSave]);
 
-  useEffect(() => {
-    if (isImported) {
-      setDisableFieldsForLg(true);
-    }else{
-      setDisableFieldsForLg(false);
-    }
-  }, [isImported]);
-
   const handleOk = (e: any) => {
-    if(!isImported){
-      datasets.postData(SERVER.CHECK_PROJECT_NAME, { project_name: nameProject }, datasets.getToken()).then(data => {
-        if (data.exists && !swSave) {
-          handleNotification(`Project name already exists.`);
+    datasets.postData(SERVER.CHECK_PROJECT_NAME, { project_name: nameProject }, datasets.getToken()).then(data => {
+      if (data.exists && !swSave) {
+        handleNotification(`Project name already exists.`);
+      } else {
+        if (!disable) {
+          setVisibleAlert(true);
         } else {
-          if (!disable) {
-            setVisibleAlert(true);
+          let missingFields = [];
+          if (!description) missingFields.push('Description');
+          if (!county?.length) missingFields.push('County');
+          if (!serviceArea?.length) missingFields.push('Service Area');
+          if (!jurisdiction?.length) missingFields.push('Jurisdiction');
+          if (!nameProject) missingFields.push('Project Name');
+          if (!sponsor) missingFields.push('Sponsor');
+          const isGeom = (selectedTypeProject === 'capital' || selectedTypeProject === 'maintenance');
+          const isPin = (selectedTypeProject === 'acquisition' || selectedTypeProject === 'special');
+          let geomLengthFlag = false;
+          if ((geom?.coordinates || streamIntersected?.geom) && isGeomDrawn === true) {
+            geomLengthFlag = true;
           } else {
-            let missingFields = [];
-            if (!description) missingFields.push('Description');
-            if (!county?.length) missingFields.push('County');
-            if (!serviceArea?.length) missingFields.push('Service Area');
-            if (!jurisdiction?.length) missingFields.push('Jurisdiction');
-            if (!nameProject) missingFields.push('Project Name');
-            if (!sponsor) missingFields.push('Sponsor');
-            const isGeom = (selectedTypeProject === 'capital' || selectedTypeProject === 'maintenance');
-            const isPin = (selectedTypeProject === 'acquisition' || selectedTypeProject === 'special');
-            let geomLengthFlag = false;
-            if ((geom?.coordinates || streamIntersected?.geom) && isGeomDrawn===true) {
-              geomLengthFlag = true;
-            } else {
-              geomLengthFlag = false;
-            }
-            if (isGeom && !geomLengthFlag && !isCountyWide) missingFields.push('Geometry');
-            if (isPin && !geom && !isCountyWide) missingFields.push('Pin');
-            if (selectedTypeProject === 'study' && !streamsIntersectedIds.length && !isCountyWide) missingFields.push('Geometry');
-            if (selectedTypeProject === 'study' && !studyreason) missingFields.push('Study Reason');
-            if (selectedTypeProject === 'capital' && !componentsToSave?.length && !thisIndependentComponents?.length) missingFields.push('Proposed Actions or Independent Actions');
-            if (selectedTypeProject === 'acquisition' && !progress) missingFields.push('Progress');
-            if (selectedTypeProject === 'acquisition' && !purchaseDate) missingFields.push('Purchase Date');
-            if (selectedTypeProject === 'maintenance' && !frequency) missingFields.push('Frequency');
-            if (selectedTypeProject === 'maintenance' && !eligibility) missingFields.push('Eligibility');
-            if (thisIndependentComponents.length && !checkIfIndependentHaveName()) {
-              missingFields.push('Independent actions name');
-            }
-            if (nameProject === 'Add Project Name') {
-              missingFields.push('Change Project Name');
-            }
-            if (missingFields.length > 0) {
-              handleErrorNotification(missingFields);
-            }else{
-              handleNotification('Please fill out all required fields.');
-            }
+            geomLengthFlag = false;
+          }
+          if (isGeom && !geomLengthFlag && !isCountyWide) missingFields.push('Geometry');
+          if (isPin && !geom && !isCountyWide) missingFields.push('Pin');
+          if (selectedTypeProject === 'study' && !streamsIntersectedIds.length && !isCountyWide) missingFields.push('Geometry');
+          if (selectedTypeProject === 'study' && !studyreason) missingFields.push('Study Reason');
+          if (selectedTypeProject === 'capital' && !componentsToSave?.length && !thisIndependentComponents?.length) missingFields.push('Proposed Actions or Independent Actions');
+          if (selectedTypeProject === 'acquisition' && !progress) missingFields.push('Progress');
+          if (selectedTypeProject === 'acquisition' && !purchaseDate) missingFields.push('Purchase Date');
+          if (selectedTypeProject === 'maintenance' && !frequency) missingFields.push('Frequency');
+          if (selectedTypeProject === 'maintenance' && !eligibility) missingFields.push('Eligibility');
+          if (thisIndependentComponents.length && !checkIfIndependentHaveName()) {
+            missingFields.push('Independent actions name');
+          }
+          if (nameProject === 'Add Project Name') {
+            missingFields.push('Change Project Name');
+          }
+          if (missingFields.length > 0) {
+            handleErrorNotification(missingFields);
+          } else {
+            handleNotification('Please fill out all required fields.');
           }
         }
-      })
-    }else{
-      let locality = namespaceId.type === WORK_PLAN ? importedProjectData.projectSponsor : namespaceId.locality;
-      if (locality === 'MHFD'){
-        locality = 'MHFD District Work Plan';
       }
-      const typeToSend = locality === 'MHFD District Work Plan' ? WORK_PLAN : WORK_REQUEST
-      const boardProject= {
-        type: typeToSend,
-        year: namespaceId.year,
-        locality: locality,
-        projecttype: importedProjectData.projectType,
-        project_id: projectid
-      }
-      datasets.postData(SERVER.IMPORT_PROJECT, boardProject, datasets.getToken()).then(data => {
-        if(data){
-          setIsCreatedFromBoard(false);
-          loadColumns();
-          setLoading(false);
-          setIsImported(false);
-          setVisible(false);
-          setVisibleCapital(false);
-          openNotification('Success.', 'success','Project imported successfully.');
-        }else{
-          openNotification(`Error.`, "warning", 'An error occurred while importing the project.');
-        }
-      }).catch(error => {
-        openNotification(`Error.`, "warning", 'An error occurred while importing the project.');
-      });
-    }    
+    })
   };
+
+  const importProject = (capital: Project) => {
+    let locality = namespaceId.type === WORK_PLAN ? importedProjectData.projectSponsor : namespaceId.locality;
+    if (locality === 'MHFD'){
+      locality = 'MHFD District Work Plan';
+    }
+    const typeToSend = locality === 'MHFD District Work Plan' ? WORK_PLAN : WORK_REQUEST
+    const boardProject= {
+      type: typeToSend,
+      year: namespaceId.year,
+      locality: locality,
+      projecttype: importedProjectData.projectType,
+      project_id: projectid
+    }
+    datasets.postData(SERVER.IMPORT_PROJECT, boardProject, datasets.getToken()).then(data => {
+      if(data){        
+        setIsCreatedFromBoard(false);
+        loadColumns();
+        //setLoading(false);
+        setIsImported(false);
+        editProjectCapital(capital);        
+        //setVisible(false);
+        //setVisibleCapital(false);
+        openNotification('Success.', 'success','Project imported successfully.');
+      }else{
+        openNotification(`Error.`, "warning", 'An error occurred while importing the project.');
+      }
+    }).catch(error => {
+      openNotification(`Error.`, "warning", 'An error occurred while importing the project.');
+    });
+  }
 
   const checkIfIndependentHaveName = () => {
       let result = true;
@@ -1116,7 +1072,6 @@ export const ModalCapital = ({
     setCounty([]);
     setjurisdiction([]);
   }
-
   useEffect(() => {
     if ((['capital', 'maintenance'].includes(lastValue)) && (['acquisition', 'special'].includes(selectedTypeProject))) {
       RestartLocation();
