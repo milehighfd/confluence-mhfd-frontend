@@ -149,6 +149,7 @@ const ColumsTrelloCard = ({
           targetColumnPosition,
           sourcePosition,
           targetPosition,
+          isWorkPlan: namespaceId.type === WORK_PLAN
         });
       } else {
         handleMoveFromColumnToColumn({
@@ -156,6 +157,7 @@ const ColumsTrelloCard = ({
           targetColumnPosition,
           sourcePosition,
           targetPosition,
+          isWorkPlan: namespaceId.type === WORK_PLAN
         });
         if (namespaceId.type === WORK_PLAN 
           && boardStatus === 'Approved' && 
