@@ -100,7 +100,15 @@ const ModalProjectsCreate = ({visible, setVisible}
     datasets.getData(SERVER.V2_DETAILED_PAGE(selectedProjectId), datasets.getToken())
       .then(dataFromDB => {
         setNameProject(dataFromDB?.project_name);
-        setCompleteProjectData({ ...dataFromDB, projectType });
+        let projectTypeS = dataFromDB?.code_project_type?.project_type_name;
+        if (MaintenanceTypes.includes(projectTypeS)) {
+          setSubType(projectTypeS);
+          projectTypeS = 'Maintenance';
+        } else if (projectTypeS === 'CIP') {
+          projectTypeS = 'Capital';
+        }
+        setTypeProyect(projectTypeS);
+        setCompleteProjectData({ ...dataFromDB, tabkey: projectTypeS });
         //setVisible(false);
         setVisibleCapital(true);
         setIsImported(true);
