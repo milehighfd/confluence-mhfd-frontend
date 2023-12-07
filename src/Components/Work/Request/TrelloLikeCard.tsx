@@ -366,13 +366,13 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
       }}>
         <div style={{width:'100%'}}>
           <div style={{display:'flex', justifyContent:'space-between'}}>
-            <Popover placement="top" content={<>
+            <Popover placement="top" content={<div className='popover-card-wr-name'>
             <b>{project_name}</b>
             <br />
             <b>Project: </b> {project_id}
             <br />
             <b>Board project: </b> {board_project_id}
-            </>}>
+            </div>}>
               <h4>{displayName}</h4>
             </Popover>
               {
