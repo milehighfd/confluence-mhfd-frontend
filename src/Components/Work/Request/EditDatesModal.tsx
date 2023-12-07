@@ -35,8 +35,18 @@ const EditDatesModal = ({
   const [viewOverlappingAlert, setViewOverlappingAlert] = useState(false);
   const [overlapping, setOverlapping] = useState(false);
   const [emptyDatesAlert, setEmptyDatesAlert] = useState(false);
+  const [primaryStream, setPrimaryStream] = useState<{ id: number, name: string }>({ id: -1, name: '' });
+  const [location, setLocation] = useState<string>('');
+  const [mhfdLead, setMhfdLead] = useState<{ id: number, name: string }>({ id: -1, name: '' });
+  const [onBase, setOnBase] = useState<number>(0);
+  const [disabledFields, setDisabledFields] = useState<any>({primary_stream: false, location: false, mhfd_lead: false, on_base: true});
+  const [mhfdStaffList, setMhfdStaffList] = useState<any[]>([]);
+  const [streamList, setStreamList] = useState<any[]>([]);
+  const [isCountyWide, setIsCountyWide] = useState<boolean>(false);
+  const [fieldsMissing, setFieldsMissing] = useState<any[]>([]);
+
   const { openNotification } = useNotifications();
-  const [onBaseNumber, setOnBaseNumber] = useState('yes');
+  const [onBaseNumber, setOnBaseNumber] = useState('no');
   const {
     loadColumns, 
   } = useRequestDispatch();
@@ -77,6 +87,55 @@ const EditDatesModal = ({
       console.log(e);
     })
   },[project])
+
+  useEffect(() => {
+    datasets.getData(`${SERVER.ACTIVE_DETAILS}/${project?.project_id}`, datasets.getToken()).then((data: any) => {
+      setIsCountyWide(data?.projectLocation?.is_county_wide)
+      if (data?.projectLocation?.location){
+        setLocation(data.projectLocation.location)
+        setDisabledFields({...disabledFields, location: true})
+      }
+      if (data?.projectLocation?.onbase_project_number){
+        setOnBase(data.projectLocation.onbase_project_number)
+        setOnBaseNumber('yes')
+      }
+      if(data?.projectStreams?.primaryStream){
+        setPrimaryStream({id: data.projectStreams.primaryStream.project_stream_id, name: data.projectStreams.primaryStream.stream.stream_name})
+        setDisabledFields({...disabledFields, primary_stream: true})
+      }
+      const mhfdLead = data?.projectStaff?.mhfdLead?.business_associate_contact;
+      if(mhfdLead){
+        setMhfdLead({id: mhfdLead.business_associate_contact_id, name: mhfdLead.contact_name})
+        setDisabledFields({...disabledFields, mhfd_lead: true})
+      }
+      setMhfdStaffList(data?.projectStaff?.mhfdStaff)
+      setStreamList(data?.projectStreams?.projectStreams)
+    })
+  }, [project]);
+
+  useEffect(() => {
+    const CODES_NOT_STREAM = [13,15]
+    let requiredFields = ['phase', 'start_date', 'primary_stream', 'mhfd_lead', 'location'];
+    if (CODES_NOT_STREAM.includes(project?.code_project_type?.code_project_type_id) || 
+    isCountyWide){
+      requiredFields = ['phase', 'start_date', 'mhfd_lead'];
+    }
+    if (selectedPhase) {
+      requiredFields = requiredFields.filter(field => field !== 'phase');
+    }
+    if (startDate) {
+      requiredFields = requiredFields.filter(field => field !== 'start_date');
+    }
+    if (primaryStream?.id > 0) {
+      requiredFields = requiredFields.filter(field => field !== 'primary_stream');
+    }
+    if (mhfdLead?.id > 0) {
+      requiredFields = requiredFields.filter(field => field !== 'mhfd_lead');
+    }
+    if (location) {
+      requiredFields = requiredFields.filter(field => field !== 'location');
+    }
+  }, [selectedPhase, startDate, primaryStream, mhfdLead, project, isCountyWide, location]);
 
   useEffect(() => {
     if (selectedPhase && startDate) {
@@ -297,6 +356,10 @@ const EditDatesModal = ({
       className="work-modal-edit-dates"
       width= '666px'
     > 
+      {(!onBase || onBase > 0) && <div>
+        An OnBase number has not yet been assigned.<br />
+        Please continue activating the project
+      </div>}
       <div className="header-step">
         <div className={step === 0 ? 'step-active':"step"}>
           <p>STEP 1</p>
@@ -354,7 +417,7 @@ const EditDatesModal = ({
               style={{ width: '100%', borderRadius: '5px', height: '36px', marginBottom: '16px' }}
               onChange={(date: any) => setStartDate(date)}
             />
-            {/* <div style={{display:'flex'}}>
+            <div style={{display:'flex'}}>
               <div>
                 <label>3. Is an OnBase number available?</label><br />
                 <Radio.Group
@@ -369,7 +432,12 @@ const EditDatesModal = ({
               </div>
               {onBaseNumber==='yes' && <div style={{marginLeft:'26px'}}>
                 <p className="text-min">The following number will be associated</p>
-                <Input placeholder="OnBase number" style={{ width: '100%', borderRadius: '5px', height: '36px' }} value='108881' />
+                <Input
+                  placeholder="OnBase number"
+                  style={{ width: '100%', borderRadius: '5px', height: '36px' }}
+                  value={onBase}
+                  disabled={disabledFields?.on_base}
+                />
               </div>}
             </div>
             <label>4. The primary stream is:</label><br />
@@ -377,23 +445,40 @@ const EditDatesModal = ({
               placeholder="Select primary stream"
               style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
               listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+              onChange={(value: string) => { setPrimaryStream({ ...primaryStream, id: +value }) }}
             >
-              <Option key={'test'} value={'test'}>
-                test
-              </Option>
+              {
+                streamList.map((item) => (
+                  <Option key={item.project_stream_id} value={item.project_stream_id}>
+                    {item.stream.stream_name}
+                  </Option>
+                ))
+              }
             </Select>
             <label>5. The MHFD lead is::</label><br />
-            <Select
-              placeholder="Select lead"
-              style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
-              listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-            >
-              <Option key={'test'} value={'test'}>
-                test
-              </Option>
-            </Select>
+              <Select
+                placeholder="Select lead"
+                style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
+                listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+                onChange={(value: string) => { setMhfdLead({ ...mhfdLead, id: +value }) }}
+                value={mhfdLead?.id.toString()}
+                disabled={disabledFields?.mhfd_lead}
+              >
+                {
+                  mhfdStaffList.map((staff) => (
+                    <Option key={staff.id} value={staff.id.toString()}>
+                      {staff.value}
+                    </Option>
+                  ))
+                }
+              </Select>
             <label>6. The location is:</label><br />
-            <Input placeholder="Type a location" style={{ width: '100%', borderRadius: '5px', height: '36px' }} /> */}
+              <Input
+                value={location}
+                disabled={disabledFields?.location}
+                placeholder="Type a location"
+                style={{ width: '100%', borderRadius: '5px', height: '36px' }}
+              />
           </div>
         </div>
       )}
