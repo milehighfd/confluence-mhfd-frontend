@@ -1370,7 +1370,7 @@
 
 .pop-card-map {
   margin-top: 17px !important;
-  margin-left: 6px;
+  margin-left: 4%;
   .ant-popover-content{
     margin-top: 6px;
     margin-left: -5px;
@@ -1449,7 +1449,12 @@
     color: #706b8a;
   }
 }
-
+.pop-card-map.ant-popover-placement-bottomRight{
+  color: red;
+  .ant-popover-arrow {
+    right: 1px;
+  }
+}
 // MAP
 .head-m {
   margin-bottom: 20px;
