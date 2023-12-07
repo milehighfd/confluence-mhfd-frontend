@@ -280,15 +280,15 @@
       padding: 10px 129px 56px 129px !important;
     }
     h4{
-      font-size: 22px !important;
+      font-size: 24px !important;
     }
     .ant-input{
       height: 54px !important;
-      font-size: 17px !important;
+      font-size: 22px !important;
       padding: 0px 21px !important;
     }
     .button-project{
-      height: 91px !important;
+      height: 110px !important;
 
       .project-img{
         width: 111px !important;
@@ -303,11 +303,12 @@
         padding: 10px !important;
 
         h5{
-          font-size: 20px !important;
+          font-size: 22px !important;
           margin-bottom: 4px;
         }
         p{
-          font-size: 12px !important;
+          font-size: 17px !important;
+          line-height: 22px;
         }
       }
     }
@@ -322,10 +323,11 @@
       padding: 18px;
 
       button{
-        width: 210px !important;
-        height: 55px !important;
-        font-size: 17px !important;
+        // width: 210px !important;
+        height: 65px !important;
+        font-size: 22px !important;
         margin-left: 18px;
+        padding: 0px 50px;
       }
     }
   }
