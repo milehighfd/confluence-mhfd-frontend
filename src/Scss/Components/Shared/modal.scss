@@ -589,6 +589,9 @@
     justify-content: center;
     align-items: center;
     display: flex;
+    p{
+      margin-bottom: 0px;
+    }
   }
   .name-project {
     color: #11093c;
@@ -1110,6 +1113,9 @@
     width: 983px !important;
     .header-3{
       font-size: 19px;
+      p{
+        margin-bottom: 0px;
+      }
     }
     .name-project{
       font-size: 18px;
