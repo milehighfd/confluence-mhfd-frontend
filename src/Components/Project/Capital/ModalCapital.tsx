@@ -9,7 +9,7 @@ import { useProjectState, useProjectDispatch } from 'hook/projectHook';
 import { useAttachmentDispatch } from 'hook/attachmentHook';
 import { Project } from 'Classes/Project';
 import { useProfileDispatch, useProfileState } from 'hook/profileHook';
-import { ADMIN, NEW_PROJECT_TYPES, STAFF, WINDOW_WIDTH, WORK_PLAN, WORK_PLAN_TAB, WORK_REQUEST } from 'constants/constants';
+import { ADMIN, MAP_TAB, NEW_PROJECT_TYPES, STAFF, WINDOW_WIDTH, WORK_PLAN, WORK_PLAN_TAB, WORK_REQUEST } from 'constants/constants';
 import { useHistory } from 'react-router-dom';
 import { UploadImagesDocuments } from 'Components/Project/TypeProjectComponents/UploadImagesDocuments';
 import { getProjectOverheadCost } from 'utils/parsers';
@@ -155,7 +155,7 @@ export const ModalCapital = ({
   const pageWidth  = document.documentElement.scrollWidth;
   const { tabActiveNavbar } = useMapState();
   const isWorkPlan = tabActiveNavbar === WORK_PLAN_TAB;
-  const { groupOrganization, userInformation, openDiscussion} = useProfileState();
+  const { groupOrganization, userInformation, openDiscussion, workRequestYear, workPlanYear} = useProfileState();
   const [activeTabBodyProject, setActiveTabBodyProject] = useState('Details');
   const [favorite, setFavorite] = useState(false);
   const [groupParsed, setGroupParsed] = useState<any>([]);
@@ -200,7 +200,6 @@ export const ModalCapital = ({
   const menuTypeProjects = () => {
     return (<TypeProjectsMenu setTypeAndSubType={setTypeAndSubType} />)
   };
-
   //Delete all data when opening
   useEffect(() => {
     setServiceAreaCounty({});
@@ -220,7 +219,6 @@ export const ModalCapital = ({
       setComponentsFromMap([]);
     }
   }, []);
-
   //Load Sponsor with Local Government if user is Local Government
   useEffect(() => {
     const CODE_LOCAL_GOVERNMENT = 3;
@@ -432,7 +430,15 @@ export const ModalCapital = ({
       //general
       capital.fromTab = tabActiveNavbar;
       capital.locality = _locality;
-      capital.year = _year ?? capital.year;
+      if (workRequestYear.default && tabActiveNavbar === MAP_TAB) {
+        if (sponsor === 'MHFD') {
+          capital.year = workPlanYear.default;
+        } else {
+          capital.year = workRequestYear.default;
+        }
+      } else {
+        capital.year = _year ?? capital.year;
+      }
       let csponsor = "";
       if (cosponsor) {
         cosponsor.forEach((element: any) => {
