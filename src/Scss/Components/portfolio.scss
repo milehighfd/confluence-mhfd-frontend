@@ -12,6 +12,10 @@
       justify-content: end;
       text-align: right;
     }
+    .no-wrap{
+      white-space: normal !important;
+      text-overflow: clip !important;
+    }
     .user-status {
       border-radius: 4px;
       // font-weight: bold;

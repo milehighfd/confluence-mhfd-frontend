@@ -671,21 +671,21 @@ useEffect(() => {
               </p>
               <p
                 onClick={() => {
-                  activeTab(2, '#vendors');
-                }}
-                className={openSecction === 2 ? 'detailed-tab detailed-tab-active' : 'detailed-tab'}
-                style={!activeScroll ? { cursor: 'default' } : { cursor: 'pointer' }}
-              >
-                Vendors
-              </p>
-              <p
-                onClick={() => {
                   activeTab(3, '#proposed-actions');
                 }}
                 className={openSecction === 3 ? 'detailed-tab detailed-tab-active' : 'detailed-tab'}
                 style={!activeScroll ? { cursor: 'default' } : { cursor: 'pointer' }}
               >
                 Proposed Actions
+              </p>
+              <p
+                onClick={() => {
+                  activeTab(2, '#vendors');
+                }}
+                className={openSecction === 2 ? 'detailed-tab detailed-tab-active' : 'detailed-tab'}
+                style={!activeScroll ? { cursor: 'default' } : { cursor: 'pointer' }}
+              >
+                Vendors
               </p>
               <p
                 onClick={() => {
@@ -1010,8 +1010,8 @@ useEffect(() => {
                       />
                     <DetailInformationProject />
                     <ProblemsProjects />
-                    <Vendors />
                     <ComponentSolucions />
+                    <Vendors />
                     <Roadmap
                       data={dataRoadmap}
                       setOpenPiney={setOpenPiney}
