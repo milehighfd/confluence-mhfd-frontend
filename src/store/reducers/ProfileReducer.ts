@@ -28,7 +28,7 @@ const initProfile = {
   allUserProjects: [],
   isLocalGovernment: false,
   openDiscussion: false,
-  workRequestYears: {max: 0, default: 0},
+  workRequestYear: {max: 0, default: 0},
   workPlanYear: {max: 0, default: 0}
 }
 
