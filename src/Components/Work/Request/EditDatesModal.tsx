@@ -483,6 +483,12 @@ const EditDatesModal = ({
         </div>
       )}
       {step === 2 && (
+        <>
+        <div className="header-3">
+          <p>An OnBase number has not yet been assigned.<br/> 
+Please continue activating the project</p>
+
+        </div>
         <div className="body-edit-dates-step2">
           <div style={{ display: 'flex' }}>
             <span className="span-dots-heder">
@@ -616,6 +622,7 @@ const EditDatesModal = ({
             </Col>
           </Row>
         </div>
+        </>
       )}
       <div className="foot-edit-dates">
         <Button className="btn-transparent"
