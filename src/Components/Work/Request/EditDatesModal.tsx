@@ -379,310 +379,285 @@ const EditDatesModal = ({
       className="work-modal-edit-dates"
       width= '666px'
     > 
-      {(!onBase || onBase <= 0) && <div className="header-3">
+      <div className="step-body">
+        <div className="header-step">
+          <div className={step === 0 ? 'step-active':"step"}>
+            <p>STEP 1</p>
+            <p className="p-active">Start here</p>
+          </div>
+          <div className={step === 1 ? 'step-active':"step"}>
+            <p>STEP 2</p>
+            <p className="p-active">Current phase & date </p>
+          </div>
+          <div className={step === 2 ? 'step-active':"step"}>
+            <p>STEP 3</p>
+            <p className="p-active">Confirm </p>
+          </div>
+        </div>
+        <div className="name-project">
+          {`${project?.code_project_type?.project_type_name} Project`}
+          <h1>{project?.project_name}</h1>
+          <p>{step=== 0 ? 'Let’s begin.': 'Define the current phase and start date'}</p>
+        </div>
+        {step === 0 && (
+          <div className="body-edit-dates">
+            <div className="img-confetti">
+              {/* <img src="Icons/ic-confetti.svg" alt="ic-confetti"/> */}
+              <br/>
+              Hooray! 
+              <br/>
+              Let’s add context to your project!
+            </div>
+          </div>
+        )}
+        {step === 1 && (
+          <>
+                {(!onBase || onBase <= 0) && <div className="header-3">
         An OnBase number has not yet been assigned.<br />
         Please continue activating the project
       </div>}
-      <div className="header-step">
-        <div className={step === 0 ? 'step-active':"step"}>
-          <p>STEP 1</p>
-          <p className="p-active">Start here</p>
-        </div>
-        <div className={step === 1 ? 'step-active':"step"}>
-          <p>STEP 2</p>
-          <p className="p-active">Current phase & date </p>
-        </div>
-        <div className={step === 2 ? 'step-active':"step"}>
-          <p>STEP 3</p>
-          <p className="p-active">Confirm </p>
-        </div>
-      </div>
-      <div className="name-project">
-        {`${project?.code_project_type?.project_type_name} Project`}
-        <h1>{project?.project_name}</h1>
-        <p>{step=== 0 ? 'Let’s begin.': 'Define the current phase and start date'}</p>
-      </div>
-      {step === 0 && (
-        <div className="body-edit-dates">
-          <div className="img-confetti">
-            {/* <img src="Icons/ic-confetti.svg" alt="ic-confetti"/> */}
-            <br/>
-            Hooray! 
-            <br/>
-            Let’s add context to your project!
-          </div>
-        </div>
-      )}
-      {step === 1 && (
-        <div className="body-edit-dates">
-          <div className="form-edit-dates">
-            <label>1. The current phase for my project is:</label><br/>
-            <Select
-              placeholder="Select phase"
-              style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
-              listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-              value={selectedPhase}
-              onChange={(value: string) => {
-                setSelectedPhase(value)
-                setDateIndex(phaseList.findIndex(x => x.value === value))
-              }}
-            >
-              {phaseList.map((phase, index) => (
-                <Option key={index} value={phase.value}>
-                  {phase.label}
-                </Option>
-              ))}
-            </Select>
-            <label>2. It’s start date is:</label><br />
-            <DatePicker
-                format="MM-DD-YYYY"
-              value = {startDate}
-              style={{ width: '100%', borderRadius: '5px', height: '36px', marginBottom: '16px' }}
-              onChange={(date: any) => setStartDate(date)}
-            />
-            <div style={{display:'flex'}}>
-              <div>
-                <label>3. Is an OnBase number available?</label><br />
-                <Radio.Group
-                  name="designation"
-                  style={{ marginBottom: '16px' }}
-                  onChange={(e)=>setOnBaseNumber(e.target.value)}
-                  value={onBaseNumber}
-                >
-                  <Radio value={'yes'} >Yes</Radio>
-                  <Radio value={'no'} >No</Radio>
-                </Radio.Group><br />
-              </div>
-              {onBaseNumber==='yes' && <div style={{marginLeft:'26px'}}>
-                <p className="text-min">The following number will be associated</p>
-                <Input
-                  placeholder="OnBase number"
-                  style={{ width: '100%', borderRadius: '5px', height: '36px' }}
-                  value={onBase}
-                  disabled={disabledFields?.on_base}
-                />
-              </div>}
-            </div>
-            <label>4. The primary stream is:</label><br />
-            <Select
-              placeholder="Select primary stream"
-              style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
-              listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-              onChange={(value: string) => {
-                const selectedItem = streamList.find(item => item.project_stream_id.toString() === value);
-                if (selectedItem) {
-                  setPrimaryStream({ id: selectedItem.project_stream_id, name: selectedItem.stream.stream_name });
-                }
-              }}
-              value={primaryStream?.id !== null ? primaryStream.id.toString() : undefined}
-              disabled={disabledFields?.primary_stream}
-            >
-              {
-                streamList.map((item) => (
-                  <Option key={item.project_stream_id} value={item.project_stream_id.toString()}>
-                    {item.stream.stream_name}
-                  </Option>
-                ))
-              }
-            </Select>
-            <label>5. The MHFD lead is::</label><br />
+          <div className="body-edit-dates">
+            <div className="form-edit-dates">
+              <label>1. The current phase for my project is:</label><br/>
               <Select
-                placeholder="Select lead"
+                placeholder="Select phase"
+                style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
+                listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+                value={selectedPhase}
+                onChange={(value: string) => {
+                  setSelectedPhase(value)
+                  setDateIndex(phaseList.findIndex(x => x.value === value))
+                }}
+              >
+                {phaseList.map((phase, index) => (
+                  <Option key={index} value={phase.value}>
+                    {phase.label}
+                  </Option>
+                ))}
+              </Select>
+              <label>2. It’s start date is:</label><br />
+              <DatePicker
+                  format="MM-DD-YYYY"
+                value = {startDate}
+                style={{ width: '100%', borderRadius: '5px', height: '36px', marginBottom: '16px' }}
+                onChange={(date: any) => setStartDate(date)}
+              />
+              <label>3. The primary stream is:</label><br />
+              <Select
+                placeholder="Select primary stream"
                 style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
                 listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
                 onChange={(value: string) => {
-                  const selectedStaff = mhfdStaffList.find(staff => staff.id.toString() === value);
-                  if (selectedStaff) {
-                    setMhfdLead({ id: selectedStaff.id, name: selectedStaff.value });
+                  const selectedItem = streamList.find(item => item.project_stream_id.toString() === value);
+                  if (selectedItem) {
+                    setPrimaryStream({ id: selectedItem.project_stream_id, name: selectedItem.stream.stream_name });
                   }
                 }}
-                value={mhfdLead?.id !== null ? mhfdLead.id.toString() : undefined}
-                disabled={disabledFields?.mhfd_lead}
+                value={primaryStream?.id !== null ? primaryStream.id.toString() : undefined}
+                disabled={disabledFields?.primary_stream}
               >
                 {
-                  mhfdStaffList.map((staff) => (
-                    <Option key={staff.id} value={staff.id.toString()}>
-                      {staff.value}
+                  streamList.map((item) => (
+                    <Option key={item.project_stream_id} value={item.project_stream_id.toString()}>
+                      {item.stream.stream_name}
                     </Option>
                   ))
                 }
               </Select>
-            <label>6. The location is:</label><br />
-              <Input
-                value={location}
-                disabled={disabledFields?.location}
-                placeholder="Type a location"
-                style={{ width: '100%', borderRadius: '5px', height: '36px' }}
-                onChange={(e) => setLocation(e.target.value)}
-              />
+              <label>4. The MHFD lead is::</label><br />
+                <Select
+                  placeholder="Select lead"
+                  style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
+                  listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+                  onChange={(value: string) => {
+                    const selectedStaff = mhfdStaffList.find(staff => staff.id.toString() === value);
+                    if (selectedStaff) {
+                      setMhfdLead({ id: selectedStaff.id, name: selectedStaff.value });
+                    }
+                  }}
+                  value={mhfdLead?.id !== null ? mhfdLead.id.toString() : undefined}
+                  disabled={disabledFields?.mhfd_lead}
+                >
+                  {
+                    mhfdStaffList.map((staff) => (
+                      <Option key={staff.id} value={staff.id.toString()}>
+                        {staff.value}
+                      </Option>
+                    ))
+                  }
+                </Select>
+              <label>5. The location is:</label><br />
+                <Input
+                  value={location}
+                  disabled={disabledFields?.location}
+                  placeholder="Type a location"
+                  style={{ width: '100%', borderRadius: '5px', height: '36px' }}
+                  onChange={(e) => setLocation(e.target.value)}
+                />
+            </div>
           </div>
-        </div>
-      )}
-      {step === 2 && (
-        <>
-        {(!onBase || onBase <= 0) && <div className="header-3">
-          <p>An OnBase number has not yet been assigned.<br />
-            Please continue activating the project</p>
-        </div>}
-        <div className="body-edit-dates-step2">
-          <div style={{ display: 'flex' }}>
-            <span className="span-dots-heder">
-              <div className="circulo" style={{ backgroundColor: '#5D3DC7' }} />
-              <span style={{ marginLeft: '1px', marginRight: '15px' }}>Done</span>
-            </span>
-            <span className="span-dots-heder">
-              <div className="circulo" style={{ backgroundColor: '#047CD7' }} />
-              <span style={{ marginLeft: '1px', marginRight: '15px' }}>Current</span>
-            </span>
-            <span className="span-dots-heder">
-              <div className="circulo" style={{ backgroundColor: '#D4D2D9' }} />
-              <span style={{ marginLeft: '1px', marginRight: '15px' }}>Not Started</span>
-            </span>
-            <span className="span-dots-heder">
-              <div className="circulo" style={{ backgroundColor: '#F5575C' }} />
-              <span style={{ marginLeft: '1px', marginRight: '15px' }}>Overdue</span>
-            </span>
-          </div>
-          <Row
-            className="tollgate-header tollgate-header-head"
-            gutter={[16, 16]}
-          >
-            <Col xs={{ span: 12 }} lg={{ span: 24 }}>
-              <Row className="tollgate-row-list-view">
-                <Col xs={{ span: 12 }} lg={{ span: 9 }}>
-                  <Row style={{ height: '30px' }}>
-                    <Col xs={{ span: 12 }} lg={{ span: 11 }}></Col>
-                    <Col xs={{ span: 12 }} lg={{ span: 11 }}></Col>
-                  </Row>
-                </Col>
-                <Col xs={{ span: 12 }} lg={{ span: 10 }}>
-                  <Row style={{ height: '30px' }}>
-                    <Col xs={{ span: 12 }} lg={{ span: 10 }} style={{ textAlign: 'center' }}>
-                      <h5>Start</h5>
-                    </Col>
-                    <Col xs={{ span: 12 }} lg={{ span: 11 }} style={{ textAlign: 'center' }}>
-                      <h5>End</h5>
-                    </Col>
-                    <Col xs={{ span: 12 }} lg={{ span: 3 }} style={{ textAlign: 'center' }}></Col>
-                  </Row>
-                </Col>
-                <Col xs={{ span: 12 }} lg={{ span: 5 }}>
-                  <Row style={{ height: '30px' }}>
-                    <Col xs={{ span: 12 }} lg={{ span: 24 }} style={{ textAlign: 'center' }}>
-                      <h5>Months</h5>
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-          <Row
-            className="tollgate-header"
-            gutter={[16, 16]}
-            style={{ paddingTop: '0px', paddingBottom: '20px' }}
-          >
-            <Col xs={{ span: 12 }} lg={{ span: 24 }}>
-              <Row className="tollgate-row-list-view  tollgate-body">
-                <Col xs={{ span: 12 }} lg={{ span: 9 }} className="left-tollgate">
-                  {dates?.map((x: any, index: number) => {
-                    return (
-                      <div key={x.phase_id} className="text-tollgate-title">
-                        <span className='name-tollgate' style={{ marginBottom: '25px', color: invalidDateIndex === index ? 'red' : undefined }}>
-                          <span className="span-dots-tollgate">
-                            <div className="toolgate-circle" style={{ backgroundColor: colorScale[paintCircle(index)] }} />
+          </>
+        )}
+        {step === 2 && (
+          <div className="body-edit-dates-step2">
+            <div style={{ display: 'flex' }}>
+              <span className="span-dots-heder">
+                <div className="circulo" style={{ backgroundColor: '#5D3DC7' }} />
+                <span style={{ marginLeft: '1px', marginRight: '15px' }}>Done</span>
+              </span>
+              <span className="span-dots-heder">
+                <div className="circulo" style={{ backgroundColor: '#047CD7' }} />
+                <span style={{ marginLeft: '1px', marginRight: '15px' }}>Current</span>
+              </span>
+              <span className="span-dots-heder">
+                <div className="circulo" style={{ backgroundColor: '#D4D2D9' }} />
+                <span style={{ marginLeft: '1px', marginRight: '15px' }}>Not Started</span>
+              </span>
+              <span className="span-dots-heder">
+                <div className="circulo" style={{ backgroundColor: '#F5575C' }} />
+                <span style={{ marginLeft: '1px', marginRight: '15px' }}>Overdue</span>
+              </span>
+            </div>
+            <Row
+              className="tollgate-header tollgate-header-head"
+              gutter={[16, 16]}
+            >
+              <Col xs={{ span: 12 }} lg={{ span: 24 }}>
+                <Row className="tollgate-row-list-view">
+                  <Col xs={{ span: 12 }} lg={{ span: 9 }}>
+                    <Row style={{ height: '30px' }}>
+                      <Col xs={{ span: 12 }} lg={{ span: 11 }}></Col>
+                      <Col xs={{ span: 12 }} lg={{ span: 11 }}></Col>
+                    </Row>
+                  </Col>
+                  <Col xs={{ span: 12 }} lg={{ span: 10 }}>
+                    <Row style={{ height: '30px' }}>
+                      <Col xs={{ span: 12 }} lg={{ span: 10 }} style={{ textAlign: 'center' }}>
+                        <h5>Start</h5>
+                      </Col>
+                      <Col xs={{ span: 12 }} lg={{ span: 11 }} style={{ textAlign: 'center' }}>
+                        <h5>End</h5>
+                      </Col>
+                      <Col xs={{ span: 12 }} lg={{ span: 3 }} style={{ textAlign: 'center' }}></Col>
+                    </Row>
+                  </Col>
+                  <Col xs={{ span: 12 }} lg={{ span: 5 }}>
+                    <Row style={{ height: '30px' }}>
+                      <Col xs={{ span: 12 }} lg={{ span: 24 }} style={{ textAlign: 'center' }}>
+                        <h5>Months</h5>
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+            <Row
+              className="tollgate-header"
+              gutter={[16, 16]}
+              style={{ paddingTop: '0px', paddingBottom: '20px' }}
+            >
+              <Col xs={{ span: 12 }} lg={{ span: 24 }}>
+                <Row className="tollgate-row-list-view  tollgate-body">
+                  <Col xs={{ span: 12 }} lg={{ span: 9 }} className="left-tollgate">
+                    {dates?.map((x: any, index: number) => {
+                      return (
+                        <div key={x.phase_id} className="text-tollgate-title">
+                          <span className='name-tollgate' style={{ marginBottom: '25px', color: invalidDateIndex === index ? 'red' : undefined }}>
+                            <span className="span-dots-tollgate">
+                              <div className="toolgate-circle" style={{ backgroundColor: colorScale[paintCircle(index)] }} />
+                            </span>
+                            {x.name.replace(/([A-Z])/g, ' $1')}
                           </span>
-                          {x.name.replace(/([A-Z])/g, ' $1')}
-                        </span>
-                        <span>
-                          {x.locked && <LockOutlined />}
-                          <Dropdown overlay={menu(x, index)} placement="bottomRight">
-                            <MoreOutlined />
-                          </Dropdown>
-                        </span>
-                      </div>
-                    );
-                  })}
-                </Col>
-                <Col xs={{ span: 12 }} lg={{ span: 10 }}>
-                  {dates?.map((x: any, index: number) => {
-                    return (
-                      <div className="calendar-toollgate" key={x.phase_id}>
-                        <RangePicker
-                          bordered={false}
-                          onCalendarChange={(e: any) => {
-                            if (!x?.from || e[0].format('DD/MM/YYYY') !== x.from?.format('DD/MM/YYYY')) {
-                              if (!e[0] && e[1]) {
-                                updateDate(index, e[1]);
+                          <span>
+                            {x.locked && <LockOutlined />}
+                            <Dropdown overlay={menu(x, index)} placement="bottomRight">
+                              <MoreOutlined />
+                            </Dropdown>
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </Col>
+                  <Col xs={{ span: 12 }} lg={{ span: 10 }}>
+                    {dates?.map((x: any, index: number) => {
+                      return (
+                        <div className="calendar-toollgate" key={x.phase_id}>
+                          <RangePicker
+                            bordered={false}
+                            onCalendarChange={(e: any) => {
+                              if (!x?.from || e[0].format('DD/MM/YYYY') !== x.from?.format('DD/MM/YYYY')) {
+                                if (!e[0] && e[1]) {
+                                  updateDate(index, e[1]);
+                                }
+                                updateDate(index, e[0]);
                               }
-                              updateDate(index, e[0]);
-                            }
-                            if (e[1]) {
-                              updateEndDate(index, e[1]);
-                            }
-                            if (x.current) {
-                              x.locked = true;
-                            }
-                            setCalendarValue(e[0]);
-                            setCalendarPhase(x.phase_id);
-                          }}
-                          format={dateFormatList}
-                          value={[x.from, x.to]}
-                        />
-                      </div>
-                    );
-                  })}
-                </Col>
-                <Col xs={{ span: 12 }} lg={{ span: 5 }} style={{ paddingLeft: '10px' }}>
-                  {dates?.map((x: any, index: number) => {
-                    return (
-                      <Row key={x.phase_id}>
-                        <Col xs={{ span: 12 }} lg={{ span: 24 }}>
-                          <InputNumber
-                            className="duration-toollgate duration-toollgate-l"
-                            min={1}
-                            max={48}
-                            defaultValue={x.duration}
-                            value={x.duration}
-                            onChange={e => {
-                              updateDuration(index, e);
+                              if (e[1]) {
+                                updateEndDate(index, e[1]);
+                              }
+                              if (x.current) {
+                                x.locked = true;
+                              }
+                              setCalendarValue(e[0]);
+                              setCalendarPhase(x.phase_id);
                             }}
+                            format={dateFormatList}
+                            value={[x.from, x.to]}
                           />
-                        </Col>
-                      </Row>
-                    );
-                  })}
-                </Col>
-              </Row>
+                        </div>
+                      );
+                    })}
+                  </Col>
+                  <Col xs={{ span: 12 }} lg={{ span: 5 }} style={{ paddingLeft: '10px' }}>
+                    {dates?.map((x: any, index: number) => {
+                      return (
+                        <Row key={x.phase_id}>
+                          <Col xs={{ span: 12 }} lg={{ span: 24 }}>
+                            <InputNumber
+                              className="duration-toollgate duration-toollgate-l"
+                              min={1}
+                              max={48}
+                              defaultValue={x.duration}
+                              value={x.duration}
+                              onChange={e => {
+                                updateDuration(index, e);
+                              }}
+                            />
+                          </Col>
+                        </Row>
+                      );
+                    })}
+                  </Col>
+                </Row>
 
-            </Col>
-          </Row>
-        </div>
-        </>
-      )}
-      <div className="foot-edit-dates">
-        <Button className="btn-transparent"
-          onClick={() => resetData()}>
-          Clear
-        </Button>
-        <Button className="btn-purple"
-          onClick={() =>{if(step === 2) {
-            if (overlapping) {
-              setViewOverlappingAlert(true)
+              </Col>
+            </Row>
+          </div>
+        )}
+        <div className="foot-edit-dates">
+          <Button className="btn-transparent"
+            onClick={() => resetData()}>
+            Clear
+          </Button>
+          <Button className="btn-purple"
+            onClick={() =>{if(step === 2) {
+              if (overlapping) {
+                setViewOverlappingAlert(true)
+              }else{
+                sendData()
+              }
             }else{
-              sendData()
-            }
-          }else{
-            if (step === 1 && missingFields.length > 0) {
-              openNotification(`Please fill the following fields: ${missingFields.join(', ')}`, "warning");
-              return
-            }
-            if (step === 1 && selectedPhase && startDate){
-              setGenerateDates(!generateDates)
-            }
-            setStep(step + 1)
-          }}}
-        >
-        {step === 2 ?'Activate':'Next'}</Button>
+              if (step === 1 && missingFields.length > 0) {
+                openNotification(`Please fill the following fields: ${missingFields.join(', ')}`, "warning");
+                return
+              }
+              if (step === 1 && selectedPhase && startDate){
+                setGenerateDates(!generateDates)
+              }
+              setStep(step + 1)
+            }}}
+          >
+          {step === 2 ?'Activate':'Next'}</Button>
+        </div>
       </div>
     </Modal>
     </>
