@@ -155,6 +155,32 @@
     }
   }
   .upcoming-table{
-    
+    .ant-table-body{
+      overflow-y: scroll;
+      max-height: calc(100vh - 297px) !important;
+    }
+    .ant-table-thead>tr>th{
+      color: rgb(112 107 138);
+      font-weight: 500;
+      font-family: Ubuntu;
+      font-size: 12px 8px;
+      font-style: normal;
+      line-height: normal;
+      padding: 12px;
+      background: white;
+      p{
+        margin: 0px;
+      }
+    }
+    .ant-table-tbody>tr>td{
+      border-bottom: 1px solid #f0f0f0;
+      padding: 8px;
+      color: #11093C;
+      font-family: Ubuntu;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
   }
 }

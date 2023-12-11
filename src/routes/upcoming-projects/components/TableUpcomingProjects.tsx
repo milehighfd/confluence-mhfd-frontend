@@ -34,7 +34,7 @@ const TableUpcomingProjects = () => {
       consultant: 'Yes',
       selection: '-',
       contractor: '-',
-      staff: '-',
+      staff: 'Jan 1, 2025',
     },
     {
       key: '4',
@@ -43,9 +43,9 @@ const TableUpcomingProjects = () => {
       description: 'Flood control improvements to improve capacity, outfall, and operation of the Fairfax Park Detention facility. Improvements are intended to alleviate flooding issues in the s...',
       cost: '$200,000',
       consultant: 'No',
-      selection: '2024',
-      contractor: '2025',
-      staff: '2025+',
+      selection: 'Jan 1, 2024',
+      contractor: 'May 5, 2024',
+      staff: 'Jan 1, 2025',
     },
     {
       key: '5',
@@ -56,7 +56,7 @@ const TableUpcomingProjects = () => {
       consultant: 'Yes',
       selection: '-',
       contractor: '-',
-      staff: '2025+',
+      staff: 'Jan 1, 2025',
     },
     {
       key: '6',
@@ -65,9 +65,9 @@ const TableUpcomingProjects = () => {
       description: 'Stream evaluation to look at sediment transport through Happy Canyon. Identify potential sediment removal locations and fix existing downstream drop structures.',
       cost: '$10,0000',
       consultant: 'No',
-      selection: 'complete',
+      selection: 'Jan 1, 2024',
       contractor: '-',
-      staff: '2024',
+      staff: 'Jan 1, 2025',
     },
     {
       key: '7',
@@ -76,9 +76,9 @@ const TableUpcomingProjects = () => {
       description: 'Stream and floodplain stabilization and possible conveyance/detention improvements resulting from Master Plan and Stream Assessment',
       cost: '$5,234,000',
       consultant: 'No',
-      selection: 'N/A',
-      contractor: 'Q1 2023',
-      staff: '2026+',
+      selection: 'Jan 1, 2024',
+      contractor: 'May 5, 2024',
+      staff: 'Jan 1, 2025',
     },
     {
       key: '8',
@@ -87,9 +87,9 @@ const TableUpcomingProjects = () => {
       description: 'Stream and floodplain stabilization and possible conveyance/detention improvements resulting from Master Plan and Stream Assessment',
       cost: '$360,000',
       consultant: 'Yes',
-      selection: 'N/A',
-      contractor: 'Q1 2023',
-      staff: '2026+',
+      selection: '-',
+      contractor: 'May 5, 2024',
+      staff: 'Jan 1, 2025',
     },
   ];
   
@@ -98,18 +98,21 @@ const TableUpcomingProjects = () => {
       title: 'Project',
       dataIndex: 'project',
       key: 'project',
+      width:'17%',
       sorter: (a:any, b:any) => a.age - b.age,
     },
     {
       title: 'MHFD Lead',
       dataIndex: 'lead',
       key: 'lead',
+      // width: '10%',
       sorter: (a:any, b:any) => a.age - b.age,
     },
     {
       title: 'Description',
       dataIndex: 'description',
       key: 'description',
+      width: '25%',
       sorter: (a:any, b:any) => a.age - b.age,
     },
     {
@@ -144,7 +147,13 @@ const TableUpcomingProjects = () => {
     },
   ];
   return (
-    <Table dataSource={dataSource} columns={columns} />
+    <Table
+      scroll={{ y: 240 }}
+      className='upcoming-table'
+      dataSource={dataSource}
+      columns={columns}
+      pagination={false}
+    />
   );
 }
 
