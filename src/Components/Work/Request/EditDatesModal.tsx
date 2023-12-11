@@ -379,7 +379,7 @@ const EditDatesModal = ({
       className="work-modal-edit-dates"
       width= '666px'
     > 
-      {(!onBase || onBase > 0) && <div className="header-3">
+      {(!onBase || onBase <= 0) && <div className="header-3">
         An OnBase number has not yet been assigned.<br />
         Please continue activating the project
       </div>}
@@ -520,7 +520,7 @@ const EditDatesModal = ({
       )}
       {step === 2 && (
         <>
-        {(!onBase || onBase > 0) && <div className="header-3">
+        {(!onBase || onBase <= 0) && <div className="header-3">
           <p>An OnBase number has not yet been assigned.<br />
             Please continue activating the project</p>
         </div>}
