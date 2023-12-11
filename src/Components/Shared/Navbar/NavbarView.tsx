@@ -126,6 +126,8 @@ const NavbarView = ({
         value = ROUTER_TITLE.WORK_PLAN;
       } 
     }
+  } else if (location[1] === ROUTERS.UPCOMING_PROJECTS ) {
+    value = ROUTER_TITLE.UPCOMING_PROJECTS;
   } else if (location[1] === ROUTERS.NEW_PROJECT_TYPES && location.length === 2) {
     value = ROUTER_TITLE.NEW_PROJECT_TYPES;
   } else if (location[1] === ROUTERS.USER && location.length === 2) {
