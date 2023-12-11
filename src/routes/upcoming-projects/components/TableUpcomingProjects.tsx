@@ -37,7 +37,7 @@ const TableUpcomingProjects = () => {
       key: '3',
       project: 'Grange Hall Creek Tributary South ‐ Grant to Washington',
       lead: 'Andy Stewart',
-      description: 'Flood control improvements to replace a failing/undersized culvert at Washington St, enlarge detention upstream of Washington St. and remove downstream townhomes from the fl...',
+      description: 'Flood control improvements to replace a failing/undersized culvert at Washington St, enlarge detention upstream of Washington St. and remove downstream townhomes from the floodplain. Perform value engineering study/alternatives analysis for the area to determine the scope of the overall CIP project.',
       cost: '-',
       consultant: 'Yes',
       selection: '-',
