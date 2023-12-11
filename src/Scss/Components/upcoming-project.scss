@@ -12,20 +12,14 @@
     padding: 18px 40px;
     align-items: center;
     .upcoming-select {
-      color: #11093c;
-      font-size: 22px;
-      font-weight: 500;
-      .ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
-        border-color: transparent !important;
-      }
-      .ant-select-selector:hover {
-        border-color: transparent !important;
-      }
-      .ant-select-selector:active {
-        border-color: transparent !important;
-      }
-      .ant-select-selector:focus {
-        border-color: transparent !important;
+      
+      .ant-select-selector {
+        border: 0px;
+        span {
+          color: #11093c;
+          font-size: 22px;
+          font-weight: 500;
+        }
       }
     }
     .upcoming-tag-label {
