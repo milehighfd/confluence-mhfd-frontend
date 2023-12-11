@@ -1,8 +1,9 @@
-import { Popover, Tabs } from 'antd'
+import { Popover, Table, Tabs } from 'antd'
 import React, { useState } from 'react'
 import BoardYear from 'routes/user-management/components/BoardYear';
 import UserActivity from 'routes/user-management/components/UserActivity';
 import UserList from 'routes/user-management/components/UserList';
+import TableUpcomingProjects from './TableUpcomingProjects';
 const { TabPane } = Tabs;
 
 const ALL = 'All';
@@ -50,7 +51,7 @@ export const UpcomingProjectBody = () => {
               }
             >
               <div className="user-management-body">
-                <TabComponent />
+                <TableUpcomingProjects />
               </div>
             </TabPane>
           ))
