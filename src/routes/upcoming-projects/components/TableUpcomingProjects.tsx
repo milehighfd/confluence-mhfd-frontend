@@ -1,7 +1,15 @@
 import React from "react";
-import { Table } from "antd";
+import { Table, Tooltip } from "antd";
 
 const TableUpcomingProjects = () => {
+  const tooltipContent = (title:any, content:any) => {
+    return (
+      <div>
+        <p className="title-tooltip">{title}</p>
+        <p className="content-tooltip">{content}</p>
+      </div>
+    )
+  }
   const dataSource = [
     {
       key: '1',
@@ -105,7 +113,6 @@ const TableUpcomingProjects = () => {
       title: 'MHFD Lead',
       dataIndex: 'lead',
       key: 'lead',
-      // width: '10%',
       sorter: (a:any, b:any) => a.age - b.age,
     },
     {
@@ -113,6 +120,7 @@ const TableUpcomingProjects = () => {
       dataIndex: 'description',
       key: 'description',
       width: '25%',
+      render: (text:any, record:any) => <Tooltip placement="top" title={tooltipContent(record.project, text)} overlayClassName="upcoming-tooltip-table"><p>{text}</p></Tooltip>,
       sorter: (a:any, b:any) => a.age - b.age,
     },
     {
