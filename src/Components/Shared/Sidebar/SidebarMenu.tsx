@@ -62,7 +62,7 @@ const SidebarMenu = ({ collapsed, setVisibleTutorial, }: { collapsed: boolean, s
     label: <Link to={pmToolsAccess ? '/pm-tools' : '#'}>
       <img className={"img-h anticon"+(pmToolsAccess?'':' img-opaque')+(collapsed?" img-collapsed":"")}src="/Icons/menu-white-11.svg" alt="" width="22px" height="22px"/>
       <img className={"img-a anticon"+(pmToolsAccess?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-11.svg" alt="" width="22px" height="22px"/>
-      <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>pm tools</span>
+      <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>PM tools</span>
     </Link>
   },
   {
@@ -91,7 +91,7 @@ const SidebarMenu = ({ collapsed, setVisibleTutorial, }: { collapsed: boolean, s
   }, {
     className: Number(indexOf) === 7 ? 'menu-sidebar-hover':'',
     key: '7',
-    label: <a href={'https://forms.office.com/r/CUgfTnrTUm'} target="_blank">
+    label: <a href={'https://forms.office.com/r/CUgfTnrTUm'} target="_blank" rel="noreferrer">
       <img className={"img-h anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-12.svg" alt="" width="22px" height="22px" />
       <img className={"img-a anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-12.svg" alt="" width="22px" height="22px" />
       <span className={collapsed? 'menu-sidebar-colapse mobile-no-display' : 'menu-sidebar'}>Feedback</span>
