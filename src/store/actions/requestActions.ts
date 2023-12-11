@@ -434,7 +434,7 @@ const moveProjectsManualReducer = (columns2: any[], action: any) => {
 export const moveProjectsManual = (payload: DragAndDropCards) => {
   return (dispatch: any, getState: Function) => {
     const { request: { columns2 } } = getState();
-    const { originColumnPosition, targetPosition } = payload;
+    const { originColumnPosition, targetPosition, isWorkPlan } = payload;
     const updatedColumns = moveProjectsManualReducer(columns2, { payload });
     const projectsUpdated = updatedColumns[originColumnPosition].projects;
     const before = targetPosition === 0 ? null : projectsUpdated[targetPosition - 1][`rank${originColumnPosition}`];
@@ -451,6 +451,7 @@ export const moveProjectsManual = (payload: DragAndDropCards) => {
         columnNumber: originColumnPosition,
         beforeIndex: targetPosition - 1,
         afterIndex: targetPosition === projectsUpdated.length - 1 ? -1 : targetPosition + 1,
+        isWorkPlan
       },
       datasets.getToken()
     ).then(() => {
@@ -516,7 +517,7 @@ const handleMoveFromColumnToColumnReducer = (columns2: any[], action: any): any[
 export const handleMoveFromColumnToColumn = (payload: DragAndDropCards) => {
   return (dispatch: any, getState: Function) => {
     const { request: { columns2 } } = getState();
-    const { originColumnPosition, targetColumnPosition, targetPosition } = payload;
+    const { originColumnPosition, targetColumnPosition, targetPosition, isWorkPlan } = payload;
     const [
       updatedColumns,
       requestFields,
@@ -539,7 +540,8 @@ export const handleMoveFromColumnToColumn = (payload: DragAndDropCards) => {
         beforeIndex: projectPosition - 1,
         afterIndex: projectPosition === projectsUpdated.length - 1 ? -1 : projectPosition + 1,
         targetPosition: projectPosition,
-        otherFields: { ...requestFields, [`rank${originColumnPosition}`]: null }
+        otherFields: { ...requestFields, [`rank${originColumnPosition}`]: null },
+        isWorkPlan
       },
       datasets.getToken()
     ).then((res: any) => {

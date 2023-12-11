@@ -3,6 +3,7 @@ export interface DragAndDropCards {
   targetColumnPosition: number;
   sourcePosition: number;
   targetPosition: number;
+  isWorkPlan: boolean
 }
 
 export const REQUEST_SHOW_MODAL_PROJECT = 'REQUEST_SHOW_MODAL_PROJECT';
