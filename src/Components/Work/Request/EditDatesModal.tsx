@@ -35,15 +35,15 @@ const EditDatesModal = ({
   const [viewOverlappingAlert, setViewOverlappingAlert] = useState(false);
   const [overlapping, setOverlapping] = useState(false);
   const [emptyDatesAlert, setEmptyDatesAlert] = useState(false);
-  const [primaryStream, setPrimaryStream] = useState<{ id: number, name: string }>({ id: -1, name: '' });
+  const [primaryStream, setPrimaryStream] = useState<{ id: any, name: string }>({ id: null, name: '' });
   const [location, setLocation] = useState<string>('');
-  const [mhfdLead, setMhfdLead] = useState<{ id: number, name: string }>({ id: -1, name: '' });
+  const [mhfdLead, setMhfdLead] = useState<{ id: any, name: string }>({ id: null, name: '' });
   const [onBase, setOnBase] = useState<number>(0);
   const [disabledFields, setDisabledFields] = useState<any>({primary_stream: false, location: false, mhfd_lead: false, on_base: true});
   const [mhfdStaffList, setMhfdStaffList] = useState<any[]>([]);
   const [streamList, setStreamList] = useState<any[]>([]);
   const [isCountyWide, setIsCountyWide] = useState<boolean>(false);
-  const [fieldsMissing, setFieldsMissing] = useState<any[]>([]);
+  const [missingFields, setMissingFields] = useState<string[]>([]);
 
   const { openNotification } = useNotifications();
   const [onBaseNumber, setOnBaseNumber] = useState('no');
@@ -90,24 +90,28 @@ const EditDatesModal = ({
 
   useEffect(() => {
     datasets.getData(`${SERVER.ACTIVE_DETAILS}/${project?.project_id}`, datasets.getToken()).then((data: any) => {
+      let newDisabledFields = { ...disabledFields };
       setIsCountyWide(data?.projectLocation?.is_county_wide)
       if (data?.projectLocation?.location){
         setLocation(data.projectLocation.location)
-        setDisabledFields({...disabledFields, location: true})
+        newDisabledFields = { ...newDisabledFields, location: true }
       }
       if (data?.projectLocation?.onbase_project_number){
         setOnBase(data.projectLocation.onbase_project_number)
         setOnBaseNumber('yes')
       }
       if(data?.projectStreams?.primaryStream){
-        setPrimaryStream({id: data.projectStreams.primaryStream.project_stream_id, name: data.projectStreams.primaryStream.stream.stream_name})
-        setDisabledFields({...disabledFields, primary_stream: true})
+        const streamName = data.projectStreams.primaryStream.project_stream.stream.stream_name;
+        const streamId = data.projectStreams.primaryStream.project_stream_id;
+        setPrimaryStream({id: streamId, name: streamName})
+        newDisabledFields = { ...newDisabledFields, primary_stream: true }
       }
       const mhfdLead = data?.projectStaff?.mhfdLead?.business_associate_contact;
       if(mhfdLead){
         setMhfdLead({id: mhfdLead.business_associate_contact_id, name: mhfdLead.contact_name})
-        setDisabledFields({...disabledFields, mhfd_lead: true})
+        newDisabledFields = { ...newDisabledFields, mhfd_lead: true }
       }
+      setDisabledFields(newDisabledFields);
       setMhfdStaffList(data?.projectStaff?.mhfdStaff)
       setStreamList(data?.projectStreams?.projectStreams)
     })
@@ -116,25 +120,31 @@ const EditDatesModal = ({
   useEffect(() => {
     const CODES_NOT_STREAM = [13,15]
     let requiredFields = ['phase', 'start_date', 'primary_stream', 'mhfd_lead', 'location'];
-    if (CODES_NOT_STREAM.includes(project?.code_project_type?.code_project_type_id) || 
-    isCountyWide){
+    let nameFields = ['Phase', 'Start date', 'Primary stream', 'MHFD lead', 'Location'];
+
+    if (CODES_NOT_STREAM.includes(project?.code_project_type?.code_project_type_id) || isCountyWide){
       requiredFields = ['phase', 'start_date', 'mhfd_lead'];
+      nameFields = ['Phase', 'Start date', 'MHFD lead'];
     }
-    if (selectedPhase) {
-      requiredFields = requiredFields.filter(field => field !== 'phase');
-    }
-    if (startDate) {
-      requiredFields = requiredFields.filter(field => field !== 'start_date');
-    }
-    if (primaryStream?.id > 0) {
-      requiredFields = requiredFields.filter(field => field !== 'primary_stream');
-    }
-    if (mhfdLead?.id > 0) {
-      requiredFields = requiredFields.filter(field => field !== 'mhfd_lead');
-    }
-    if (location) {
-      requiredFields = requiredFields.filter(field => field !== 'location');
-    }
+
+    const fields = [
+      { field: 'phase', name: 'Phase', condition: selectedPhase },
+      { field: 'start_date', name: 'Start date', condition: startDate },
+      { field: 'primary_stream', name: 'Primary stream', condition: primaryStream?.id > 0 },
+      { field: 'mhfd_lead', name: 'MHFD lead', condition: mhfdLead?.id > 0 },
+      { field: 'location', name: 'Location', condition: location },
+    ];
+
+    fields.forEach(({ field, name, condition }) => {
+      if (condition) {
+        const index = requiredFields.indexOf(field);
+        if (index > -1) {
+          requiredFields.splice(index, 1);
+          nameFields.splice(index, 1);
+        }
+      }
+    });
+    setMissingFields(nameFields);
   }, [selectedPhase, startDate, primaryStream, mhfdLead, project, isCountyWide, location]);
 
   useEffect(() => {
@@ -293,27 +303,40 @@ const EditDatesModal = ({
       });    
   }, [dates]);
 
-  function sendData() {
+  function sendData() {    
     if (dates.some((date) => !date.from || !date.to)) {
       setEmptyDatesAlert(true);
     } else {
-      datasets
-        .postData(
-          SERVER.CREATE_STATUS_GROUP,
-          {
-            project_id: project?.project_id,
-            phases: dates,
-          },
-          datasets.getToken(),
-        )
-        .then(async res => {
-          openNotification('Success! Your project timeline was just updated!', "success");
-          setStep(0)
-          setVisible(false);
-          loadColumns();
-        });
-    }    
+      handleActivation();
+    }
   }
+
+  const handleActivation = async () => {
+    const sendData = {
+      project_id: project?.project_id,
+      location: location,
+      primaryStream: primaryStream?.id,
+      mhfdLead: mhfdLead?.id
+    }
+    try {
+      await datasets.postData(`${SERVER.ACTIVATE_PROJECT}`, { ...sendData }, datasets.getToken());  
+      const res = await datasets.postData(
+        SERVER.CREATE_STATUS_GROUP,
+        {
+          project_id: project?.project_id,
+          phases: dates,
+        },
+        datasets.getToken(),
+      );  
+      openNotification('Success! Your project timeline was just updated!', "success");
+      setStep(0);
+      setVisible(false);
+      loadColumns();
+    } catch (error) {
+      console.error(error);
+      openNotification(`Error.`, "warning", 'An error occurred while updating your project timeline.');
+    }
+  };
 
   function resetData() {
     if (step === 1) {
@@ -338,7 +361,7 @@ const EditDatesModal = ({
       setCalendarPhase(0);
     }    
   }
-
+  
   return(
     <>
       {emptyDatesAlert && (
@@ -356,7 +379,7 @@ const EditDatesModal = ({
       className="work-modal-edit-dates"
       width= '666px'
     > 
-      {(!onBase || onBase > 0) && <div>
+      {(!onBase || onBase > 0) && <div className="header-3">
         An OnBase number has not yet been assigned.<br />
         Please continue activating the project
       </div>}
@@ -445,11 +468,18 @@ const EditDatesModal = ({
               placeholder="Select primary stream"
               style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
               listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-              onChange={(value: string) => { setPrimaryStream({ ...primaryStream, id: +value }) }}
+              onChange={(value: string) => {
+                const selectedItem = streamList.find(item => item.project_stream_id.toString() === value);
+                if (selectedItem) {
+                  setPrimaryStream({ id: selectedItem.project_stream_id, name: selectedItem.stream.stream_name });
+                }
+              }}
+              value={primaryStream?.id !== null ? primaryStream.id.toString() : undefined}
+              disabled={disabledFields?.primary_stream}
             >
               {
                 streamList.map((item) => (
-                  <Option key={item.project_stream_id} value={item.project_stream_id}>
+                  <Option key={item.project_stream_id} value={item.project_stream_id.toString()}>
                     {item.stream.stream_name}
                   </Option>
                 ))
@@ -460,8 +490,13 @@ const EditDatesModal = ({
                 placeholder="Select lead"
                 style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
                 listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-                onChange={(value: string) => { setMhfdLead({ ...mhfdLead, id: +value }) }}
-                value={mhfdLead?.id.toString()}
+                onChange={(value: string) => {
+                  const selectedStaff = mhfdStaffList.find(staff => staff.id.toString() === value);
+                  if (selectedStaff) {
+                    setMhfdLead({ id: selectedStaff.id, name: selectedStaff.value });
+                  }
+                }}
+                value={mhfdLead?.id !== null ? mhfdLead.id.toString() : undefined}
                 disabled={disabledFields?.mhfd_lead}
               >
                 {
@@ -478,17 +513,17 @@ const EditDatesModal = ({
                 disabled={disabledFields?.location}
                 placeholder="Type a location"
                 style={{ width: '100%', borderRadius: '5px', height: '36px' }}
+                onChange={(e) => setLocation(e.target.value)}
               />
           </div>
         </div>
       )}
       {step === 2 && (
         <>
-        <div className="header-3">
-          <p>An OnBase number has not yet been assigned.<br/> 
-Please continue activating the project</p>
-
-        </div>
+        {(!onBase || onBase > 0) && <div className="header-3">
+          <p>An OnBase number has not yet been assigned.<br />
+            Please continue activating the project</p>
+        </div>}
         <div className="body-edit-dates-step2">
           <div style={{ display: 'flex' }}>
             <span className="span-dots-heder">
@@ -637,7 +672,8 @@ Please continue activating the project</p>
               sendData()
             }
           }else{
-            if (step === 1 && (!selectedPhase || !startDate)) {
+            if (step === 1 && missingFields.length > 0) {
+              openNotification(`Please fill the following fields: ${missingFields.join(', ')}`, "warning");
               return
             }
             if (step === 1 && selectedPhase && startDate){

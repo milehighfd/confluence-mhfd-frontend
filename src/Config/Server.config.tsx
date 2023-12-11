@@ -228,6 +228,7 @@ export const SERVER = (function () {
         PROJECT_CHECKLIST : `${URL_BASE.BASE}/checklistitem`,
         STATUS: `${URL_BASE.BASE}/${STATUS}`,
         STATUSCOMMENT: `${URL_BASE.BASE}/${STATUS}/comment`,
+        ACTIVATE_PROJECT: `${URL_BASE.BASE}/${PROJECT}/active-details`,
         CREATE_STATUS_GROUP: `${URL_BASE.BASE}/${STATUS}/create-group`,
         PROJECT_ACTION_ITEM:`${URL_BASE.BASE}/actionitem`,
         BUSINESS_ASSOCIATES:`${URL_BASE.BASE}/${BUSINESS}/business-associates`,
