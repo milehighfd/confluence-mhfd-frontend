@@ -11,7 +11,7 @@ import UserManagement from 'routes/user-management';
 import MyProfile from 'routes/my-profile';
 import PreSignUpLayout from 'routes/sign-up/components/PreSignUpLayout';
 import { useProfileState } from 'hook/profileHook';
-import UpcomingProjects from 'routes/UpcomingProjects/UpcomingProjects';
+import UpcomingProjects from 'routes/upcoming-projects/UpcomingProjects';
 const LoginRoute = lazy(() => import('./routes/login'));
 const SignUpRoute = lazy(() => import('./routes/sign-up'));
 const ResetPasswordRoute = lazy(() => import('./routes/reset-password'));
