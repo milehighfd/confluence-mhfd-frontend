@@ -1,8 +1,5 @@
-import { Popover, Table, Tabs } from 'antd'
+import { Popover, Tabs } from 'antd'
 import React, { useState } from 'react'
-import BoardYear from 'routes/user-management/components/BoardYear';
-import UserActivity from 'routes/user-management/components/UserActivity';
-import UserList from 'routes/user-management/components/UserList';
 import TableUpcomingProjects from './TableUpcomingProjects';
 const { TabPane } = Tabs;
 
@@ -15,13 +12,13 @@ const SPECIAL = 'Special';
 const DIP = 'DIP';
   
 const tabKeyComponentMap = {
-  [ALL]: UserList,
-  [CAPITAL]: UserActivity,
-  [MAINTENANCE]: BoardYear,
-  [STUDY]: BoardYear,
-  [ACQUISITION]: BoardYear,
-  [SPECIAL]: BoardYear,
-  [DIP]: BoardYear,
+  [ALL]: TableUpcomingProjects,
+  [CAPITAL]: TableUpcomingProjects,
+  [MAINTENANCE]: TableUpcomingProjects,
+  [STUDY]: TableUpcomingProjects,
+  [ACQUISITION]: TableUpcomingProjects,
+  [SPECIAL]: TableUpcomingProjects,
+  [DIP]: TableUpcomingProjects,
 };
 const actions = <span>Extra Action</span>;
 const tabKeys = [ALL, CAPITAL, MAINTENANCE, STUDY, ACQUISITION, SPECIAL, DIP];
@@ -51,7 +48,7 @@ export const UpcomingProjectBody = () => {
               }
             >
               <div className="user-management-body">
-                <TableUpcomingProjects />
+                <TabComponent />
               </div>
             </TabPane>
           ))
