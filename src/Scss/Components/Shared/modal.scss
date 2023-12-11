@@ -572,6 +572,27 @@
       }
     }
   }
+  .header-3{
+    position: absolute;
+    background: #29C499;
+    top: 0;
+    width: 100%;
+    left: 0;
+    color: #FFF;
+    text-align: center;
+    font-family: Ubuntu;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+    height: 98px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    p{
+      margin-bottom: 0px;
+    }
+  }
   .name-project {
     color: #11093c;
     font-family: Ubuntu;
@@ -1093,6 +1114,12 @@
   }
   .work-modal-edit-dates{
     width: 983px !important;
+    .header-3{
+      font-size: 19px;
+      p{
+        margin-bottom: 0px;
+      }
+    }
     .name-project{
       font-size: 18px;
       h1{
