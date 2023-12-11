@@ -1012,7 +1012,8 @@ export const ROUTERS = {
   PROJECT_MAINTENANCE_SEDIMENT: 'sediment',
   PROJECT_MAINTENANCE_RESTORATION: 'restoration',
   PROJECT_STUDY_MASTER: 'masterPlan',
-  PROJECT_STUDY_FHAD: 'fhad'
+  PROJECT_STUDY_FHAD: 'fhad',
+  UPCOMING_PROJECTS: 'upcoming-projects',
 };
 export const ROUTER_TITLE = {
   PROFILE_VIEW: 'Confluence   |   User Profile',
@@ -1030,7 +1031,8 @@ export const ROUTER_TITLE = {
   PROJECT_STUDY_MASTER: 'Confluence   |   Create Project - Study Master Plan ',
   PROJECT_SPECIAL: 'Confluence   |   Create Project - Special',
   PROJECT_ACQUISITION: 'Confluence   |   Create Project - Acquisition',
-  PROJECT_CAPITAL: 'Confluence   |   Create Project - Capital Type'
+  PROJECT_CAPITAL: 'Confluence   |   Create Project - Capital Type',
+  UPCOMING_PROJECTS: 'Confluence   |   Upcoming Projects',
 }
 export const TASK = [
   {

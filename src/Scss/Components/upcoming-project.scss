@@ -122,14 +122,25 @@
       color: rgb(112 107 138);
       font-weight: 500;
       font-family: Ubuntu;
-      font-size: 12px 8px;
+      font-size: 12px;
       font-style: normal;
       line-height: normal;
-      padding: 12px;
+      padding: 12px 8px;
       background: white;
+      // display: inline-flex;
       p {
         margin: 0px;
       }
+    }
+    .ant-table-thead>tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan]):before{
+      display: none;
+    }
+    .ant-table-column-sorters{
+      display: inline-flex;
+    }
+    .ant-table-column-sorter{
+      color: $purple00;
+      margin-left: 10px;
     }
     .ant-table-tbody > tr > td {
       border-bottom: 1px solid #f0f0f0;
@@ -140,7 +151,42 @@
       font-style: normal;
       font-weight: 400;
       line-height: normal;
+      p{
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        margin-bottom: 0px;
+      }
     }
+  }
+}
+.upcoming-tooltip-table{
+  max-width: 25%;
+  .ant-tooltip-inner{
+    background-color: #06242d !important;
+    color: white !important;
+    padding: 12px 10px !important;
+  }
+  .ant-tooltip-arrow-content{
+    --antd-arrow-background-color: #06242d !important;
+  }
+  .title-tooltip{
+    color: #FFF;
+    font-family: Ubuntu;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%; 
+  }
+  .content-tooltip{
+    color: #FFF;
+    font-family: Ubuntu;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; 
+    margin-bottom: 0px;
   }
 }
 
@@ -233,6 +279,42 @@
           }
         }
       }
+    }
+    .upcoming-table {
+      .ant-table-body {
+        overflow-y: scroll;
+      }
+      .ant-table-thead > tr > th {
+        font-size: 18px;
+        p {
+          margin: 0px;
+        }
+      }
+      .ant-table-tbody > tr > td {
+        font-size: 20px;
+      }
+    }
+  }
+  .upcoming-tooltip-table{
+    .ant-tooltip-inner{
+      padding: 15px !important;
+    }
+    .title-tooltip{
+      color: #FFF;
+      font-family: Ubuntu;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 120%; 
+    }
+    .content-tooltip{
+      color: #FFF;
+      font-family: Ubuntu;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; 
+      margin-bottom: 0px;
     }
   }
 }
