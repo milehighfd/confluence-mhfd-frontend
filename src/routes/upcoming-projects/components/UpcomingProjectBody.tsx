@@ -22,7 +22,7 @@ const tabKeyComponentMap = {
   [SPECIAL]: BoardYear,
   [DIP]: BoardYear,
 };
-
+const actions = <span>Extra Action</span>;
 const tabKeys = [ALL, CAPITAL, MAINTENANCE, STUDY, ACQUISITION, SPECIAL, DIP];
 export const UpcomingProjectBody = () => {
     const [tabKey, setTabKey] = useState<keyof typeof tabKeyComponentMap>(ALL);
@@ -34,6 +34,7 @@ export const UpcomingProjectBody = () => {
         activeKey={tabKey}
         onChange={(key) => setTabKey(key as any)} 
         className="tabs-upcoming-project"
+        tabBarExtraContent={actions}
       >
         {
           displayedTabKey.map((tk: string) => (
