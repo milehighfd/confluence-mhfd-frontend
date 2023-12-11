@@ -9,7 +9,7 @@ const items = [
 export const UpcomingProjectHeader = () => {
   return (
     <div className="upcoming-header">
-      <AutoComplete options={items} bordered={false} defaultValue={'South Watershed'}></AutoComplete>
+      <Select className='upcoming-select' options={items} bordered={false} defaultValue='South Watershed'></Select>
       <span className="upcoming-tag-label">Year 2023 - Quarter 2</span>
     </div>
   );
