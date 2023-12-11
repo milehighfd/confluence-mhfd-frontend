@@ -11,6 +11,7 @@ import UserManagement from 'routes/user-management';
 import MyProfile from 'routes/my-profile';
 import PreSignUpLayout from 'routes/sign-up/components/PreSignUpLayout';
 import { useProfileState } from 'hook/profileHook';
+import UpcomingProjects from 'routes/UpcomingProjects/UpcomingProjects';
 const LoginRoute = lazy(() => import('./routes/login'));
 const SignUpRoute = lazy(() => import('./routes/sign-up'));
 const ResetPasswordRoute = lazy(() => import('./routes/reset-password'));
@@ -44,6 +45,7 @@ const App = () => {
         {(userInformation.designation === 'admin' ||
           userInformation.designation === 'staff' || userInformation.designation === 'government_staff') && (userInformation.status === 'approved') && <Route path={`/pm-tools`} component={PortfolioView} />}
         <Route path={`/pre-signup`} component={PreSignUpLayout} />
+        <Route path={`/upcoming-projects`} component={UpcomingProjects} />
         <Route exact path="/" render={() => (
           <Redirect to="/login" />
         )} />
