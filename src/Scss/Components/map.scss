@@ -1046,7 +1046,9 @@
 
 .popover-filter-map {
   z-index: 1070 !important;
-
+  .ant-popover-arrow-content:before{
+    background-color: $black;
+  }
   .ant-popover-inner {
     background-color: $black;
   }

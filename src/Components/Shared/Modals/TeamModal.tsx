@@ -20,7 +20,20 @@ const TeamModal = () => {
       setData(getTeam(detailed?.project_staffs || []));
     }
   }, [detailed]);
-  
+  function isUnicorporated(organization: string) {
+    const [first, ...second] = organization.split(" ")
+    if(first==='Unincorporated'){
+          const county = second.join(" ")
+      return (
+        <span>
+          {first} <br/>
+          {county}
+        </span>
+      )
+    }
+    return organization
+  }
+
   return <>
     <div className='body-team-comment'>
       {data.map((item: any) => (
@@ -35,8 +48,8 @@ const TeamModal = () => {
           <div className='organization'>
             {item?.organization ? 
               (item?.user?.user_id ? (
-                  <p className={`user-status active`}>
-                    {item.organization}
+                  <p className={`${item.organization.split(' ')[0]==='Unincorporated'?'user-status active no-wrap':'user-status active'}`}>
+                    {isUnicorporated(item.organization)}
                   </p>
                 ):(
                   <>
