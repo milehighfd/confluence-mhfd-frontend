@@ -148,7 +148,7 @@ const TableUpcomingProjects = () => {
       sorter: (a:any, b:any) => a.age - b.age,
     },
     {
-      title: <p style={{textAlign:'center'}}>Anticipated<br/>Construction<br/>Staff</p>,
+      title: <p style={{textAlign:'center'}}>Anticipated<br/>Construction<br/>Start</p>,
       dataIndex: 'staff',
       key: 'staff',
       sorter: (a:any, b:any) => a.age - b.age,

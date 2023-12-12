@@ -9,7 +9,7 @@ const CAPITAL = 'Capital';
 const MAINTENANCE = 'Maintenance';
 const STUDY = 'Study';
 const ACQUISITION = 'Acquisition';
-const SPECIAL = 'Special';
+const SPECIAL = 'R&D';
 const DIP = 'DIP';
 
 const tabKeyComponentMap = {

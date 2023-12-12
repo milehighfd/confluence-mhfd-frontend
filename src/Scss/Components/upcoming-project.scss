@@ -42,6 +42,7 @@
       .ant-tabs-nav {
         padding-left: 40px;
         padding-right: 40px;
+        margin-bottom: 0px;
       }
       .ant-tabs-content-holder {
         padding-left: 40px;
@@ -119,13 +120,13 @@
       max-height: calc(100vh - 297px) !important;
     }
     .ant-table-thead > tr > th {
-      color: rgb(112 107 138);
+      color: $purple00;
       font-weight: 500;
       font-family: Ubuntu;
-      font-size: 12px;
+      // font-size: 12px;
       font-style: normal;
       line-height: normal;
-      padding: 12px 8px;
+      padding: 12px 12px;
       background: white;
       // display: inline-flex;
       p {
@@ -140,11 +141,11 @@
     }
     .ant-table-column-sorter{
       color: $purple00;
-      margin-left: 10px;
+      margin-left: 14px;
     }
     .ant-table-tbody > tr > td {
-      border-bottom: 1px solid #f0f0f0;
-      padding: 8px;
+      border-bottom: 1px solid transparent;
+      padding: 12px;
       color: #11093c;
       font-family: Ubuntu;
       font-size: 14px;
