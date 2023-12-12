@@ -251,6 +251,20 @@
         }
       }
     }
+    .upcoming-table {
+      .ant-table-body {
+        overflow-y: scroll;
+      }
+      .ant-table-thead > tr > th {
+        font-size: 14px;
+        p {
+          margin: 0px;
+        }
+      }
+      .ant-table-tbody > tr > td {
+        font-size: 16px;
+      }
+    }
   }
 }
 
@@ -303,7 +317,7 @@
     }
     .upcoming-table {
       .ant-table-body {
-        overflow-y: scroll;
+        max-height: calc(100vh - 343px) !important;
       }
       .ant-table-thead > tr > th {
         font-size: 18px;

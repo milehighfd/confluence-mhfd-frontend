@@ -1574,6 +1574,9 @@
           margin-bottom: 9px;
         }
       }
+      .icon-actions{
+        height: 15px;
+      }
       .sub-project {
         p {
           font-size: 14px;
@@ -1715,7 +1718,7 @@
       }
     }
     p {
-      font-size: 20px;
+      font-size: 20px !important;
       line-height: 31px;
     }
     .head-project {
@@ -1835,7 +1838,7 @@
             font-size: 20px;
           }
           .btn-purple{
-            padding: 15px 18px !important;
+            padding: 10px 18px !important;
             span{
               font-size: 21px !important;
               margin-left: 10px !important;
@@ -1886,7 +1889,7 @@
         .ant-radio-inner:after {
           width: 22px;
           height: 22px;
-          margin-top: -10.5px;
+          margin-top: -11.5px;
           margin-left: -11px;
         }
         .text-radio-btn {
@@ -1927,7 +1930,7 @@
       }
       h5 {
         font-size: 24px;
-        margin: 20px 0px !important;
+        margin: 25px 0px 10px 0px !important;
 
         img {
           height: 24px;
