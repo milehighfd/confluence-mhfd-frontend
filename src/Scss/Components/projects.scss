@@ -1516,6 +1516,15 @@
       }
       h5 {
         font-size: 17px;
+        img{
+          height: 17px;
+        }
+      }
+      span{
+        font-size: 16px;
+        img{
+          height: 17px;
+        }
       }
       .requiered-text {
         .requiered {
@@ -1523,14 +1532,14 @@
         }
       }
       .sub-title {
-        font-size: 12px;
+        font-size: 16px;
         .bottomn-heder {
           font-size: 16px;
           padding: 10px 15px;
           height: auto;
-          img {
-            height: 17px;
-          }
+        }
+        img {
+          height: 17px;
         }
       }
       .table-project {
@@ -1775,6 +1784,9 @@
       span{
         font-size: 20px;
         line-height: 24px;
+        img{
+          height: 20px;
+        }
       }
       .sec-edit-amount{
         b{
