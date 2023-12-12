@@ -78,6 +78,7 @@
       column-gap: 8px;
       .ant-input-affix-wrapper {
         border-radius: 4px;
+        border-color: #251863 !important
       }
       span {
         font-size: 12px;
@@ -106,11 +107,9 @@
         align-items: center;
         font-size: 14px;
         letter-spacing: 0.2px;
-        opacity: 0.5;
       }
       .buttons-tab:hover {
         background: rgba(245, 247, 255, 0.8);
-        opacity: 1;
       }
     }
   }
