@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Tooltip } from "antd";
+import * as datasets from 'Config/datasets';
+import { SERVER } from "Config/Server.config";
 
 const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
   const tooltipContent = (title:any, content:any) => {
@@ -10,96 +12,117 @@ const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
       </div>
     )
   }
-  const dataSource = [
-    {
-      key: '1',
-      project: 'Irondale Gulch at Highway 2',
-      lead: 'Teresa Patterson',
-      description: '-',
-      cost: '-',
-      consultant: 'Yes',
-      selection: '-',
-      contractor: '-',
-      staff: '-',
-    },
-    {
-      key: '2',
-      project: 'Shaw Heights Tributary ‐ Lowell to Little Dry Creek',
-      lead: 'Dan Hill',
-      description: 'Assessment of tributary for best location of flood control improvements in heavily urbanized tribut',
-      cost: '$10,500,000',
-      consultant: 'No',
-      selection: 'Jan 1, 2024',
-      contractor: 'May 5, 2024',
-      staff: '-',
-    },
-    {
-      key: '3',
-      project: 'Grange Hall Creek Tributary South ‐ Grant to Washington',
-      lead: 'Andy Stewart',
-      description: 'Flood control improvements to replace a failing/undersized culvert at Washington St, enlarge detention upstream of Washington St. and remove downstream townhomes from the floodplain. Perform value engineering study/alternatives analysis for the area to determine the scope of the overall CIP project.',
-      cost: '-',
-      consultant: 'Yes',
-      selection: '-',
-      contractor: '-',
-      staff: 'Jan 1, 2025',
-    },
-    {
-      key: '4',
-      project: 'Fairfax Park Detention and Outfall',
-      lead: 'Jen Winters',
-      description: 'Flood control improvements to improve capacity, outfall, and operation of the Fairfax Park Detention facility. Improvements are intended to alleviate flooding issues in the s...',
-      cost: '$200,000',
-      consultant: 'No',
-      selection: 'Jan 1, 2024',
-      contractor: 'May 5, 2024',
-      staff: 'Jan 1, 2025',
-    },
-    {
-      key: '5',
-      project: 'Ragweed Drain ‐ O`Brian Canal Crossing',
-      lead: 'Andy Stewart',
-      description: 'Flood control improvements per the ongoing MDP recommendations. Design and Construction of box culverts underneath the O`Brian Canal along Ragweed Drain.',
-      cost: '$879,300',
-      consultant: 'Yes',
-      selection: '-',
-      contractor: '-',
-      staff: 'Jan 1, 2025',
-    },
-    {
-      key: '6',
-      project: 'Happy Canyon ‐ Jordan Rd to Broncos Pwky',
-      lead: 'Laura Hinds',
-      description: 'Stream evaluation to look at sediment transport through Happy Canyon. Identify potential sediment removal locations and fix existing downstream drop structures.',
-      cost: '$10,0000',
-      consultant: 'No',
-      selection: 'Jan 1, 2024',
-      contractor: '-',
-      staff: 'Jan 1, 2025',
-    },
-    {
-      key: '7',
-      project: 'Willow Creek County Line to Quebec',
-      lead: 'Jon Villines',
-      description: 'Stream and floodplain stabilization and possible conveyance/detention improvements resulting from Master Plan and Stream Assessment',
-      cost: '$5,234,000',
-      consultant: 'No',
-      selection: 'Jan 1, 2024',
-      contractor: 'May 5, 2024',
-      staff: 'Jan 1, 2025',
-    },
-    {
-      key: '8',
-      project: 'Willow Creek County Line to Quebec',
-      lead: 'Jon Villines',
-      description: 'Stream and floodplain stabilization and possible conveyance/detention improvements resulting from Master Plan and Stream Assessment',
-      cost: '$360,000',
-      consultant: 'Yes',
-      selection: '-',
-      contractor: 'May 5, 2024',
-      staff: 'Jan 1, 2025',
-    },
-  ];
+  const [dataSource, setDataSource] = useState<any>([]);
+
+  useEffect(() => {
+    datasets.postData(SERVER.GET_LIST_PMTOOLS(''), {}).then(data => {
+      const parsedData = data.map((d: any, index: any) => {
+        const mhfdLead = d.project_staffs.find((staff: any) => staff.code_project_staff_role_type_id === 1);
+        const estimatedCost = d.project_costs.find((cost: any) => cost.code_project_cost_type_id === 1);
+        return {
+        key: d.projectid,
+        project: d.project_name,
+        lead: mhfdLead ? mhfdLead.business_associate_contact.contact_name : '-',
+        description: d.description,
+        cost: estimatedCost ? estimatedCost.cost : '-',
+        consultant: d.consultant,
+        selection: d.selection,
+        contractor: d.contractor,
+        staff: '-'}
+      });
+      setDataSource(parsedData);
+    });
+  }, []);
+  // const dataSource = [
+  //   {
+  //     key: '1',
+  //     project: 'Irondale Gulch at Highway 2',
+  //     lead: 'Teresa Patterson',
+  //     description: '-',
+  //     cost: '-',
+  //     consultant: 'Yes',
+  //     selection: '-',
+  //     contractor: '-',
+  //     staff: '-',
+  //   },
+  //   {
+  //     key: '2',
+  //     project: 'Shaw Heights Tributary ‐ Lowell to Little Dry Creek',
+  //     lead: 'Dan Hill',
+  //     description: 'Assessment of tributary for best location of flood control improvements in heavily urbanized tribut',
+  //     cost: '$10,500,000',
+  //     consultant: 'No',
+  //     selection: 'Jan 1, 2024',
+  //     contractor: 'May 5, 2024',
+  //     staff: '-',
+  //   },
+  //   {
+  //     key: '3',
+  //     project: 'Grange Hall Creek Tributary South ‐ Grant to Washington',
+  //     lead: 'Andy Stewart',
+  //     description: 'Flood control improvements to replace a failing/undersized culvert at Washington St, enlarge detention upstream of Washington St. and remove downstream townhomes from the floodplain. Perform value engineering study/alternatives analysis for the area to determine the scope of the overall CIP project.',
+  //     cost: '-',
+  //     consultant: 'Yes',
+  //     selection: '-',
+  //     contractor: '-',
+  //     staff: 'Jan 1, 2025',
+  //   },
+  //   {
+  //     key: '4',
+  //     project: 'Fairfax Park Detention and Outfall',
+  //     lead: 'Jen Winters',
+  //     description: 'Flood control improvements to improve capacity, outfall, and operation of the Fairfax Park Detention facility. Improvements are intended to alleviate flooding issues in the s...',
+  //     cost: '$200,000',
+  //     consultant: 'No',
+  //     selection: 'Jan 1, 2024',
+  //     contractor: 'May 5, 2024',
+  //     staff: 'Jan 1, 2025',
+  //   },
+  //   {
+  //     key: '5',
+  //     project: 'Ragweed Drain ‐ O`Brian Canal Crossing',
+  //     lead: 'Andy Stewart',
+  //     description: 'Flood control improvements per the ongoing MDP recommendations. Design and Construction of box culverts underneath the O`Brian Canal along Ragweed Drain.',
+  //     cost: '$879,300',
+  //     consultant: 'Yes',
+  //     selection: '-',
+  //     contractor: '-',
+  //     staff: 'Jan 1, 2025',
+  //   },
+  //   {
+  //     key: '6',
+  //     project: 'Happy Canyon ‐ Jordan Rd to Broncos Pwky',
+  //     lead: 'Laura Hinds',
+  //     description: 'Stream evaluation to look at sediment transport through Happy Canyon. Identify potential sediment removal locations and fix existing downstream drop structures.',
+  //     cost: '$10,0000',
+  //     consultant: 'No',
+  //     selection: 'Jan 1, 2024',
+  //     contractor: '-',
+  //     staff: 'Jan 1, 2025',
+  //   },
+  //   {
+  //     key: '7',
+  //     project: 'Willow Creek County Line to Quebec',
+  //     lead: 'Jon Villines',
+  //     description: 'Stream and floodplain stabilization and possible conveyance/detention improvements resulting from Master Plan and Stream Assessment',
+  //     cost: '$5,234,000',
+  //     consultant: 'No',
+  //     selection: 'Jan 1, 2024',
+  //     contractor: 'May 5, 2024',
+  //     staff: 'Jan 1, 2025',
+  //   },
+  //   {
+  //     key: '8',
+  //     project: 'Willow Creek County Line to Quebec',
+  //     lead: 'Jon Villines',
+  //     description: 'Stream and floodplain stabilization and possible conveyance/detention improvements resulting from Master Plan and Stream Assessment',
+  //     cost: '$360,000',
+  //     consultant: 'Yes',
+  //     selection: '-',
+  //     contractor: 'May 5, 2024',
+  //     staff: 'Jan 1, 2025',
+  //   },
+  // ];
   
   const columns = [
     {
