@@ -618,6 +618,7 @@
   }
   .body-edit-dates {
     height: 310px;
+    overflow: auto;
     .img-confetti {
       color: #11093c;
       text-align: center;
@@ -633,8 +634,7 @@
     }
     .form-edit-dates {
       text-align: left;
-      height: calc(100vh - 395px);
-      overflow: auto;
+      height: fit-content;
       padding-right: 10px;
       label {
         margin-top: 16px;

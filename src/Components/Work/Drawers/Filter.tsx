@@ -167,57 +167,58 @@ const Filter = () => {
       className="work-utilities drawer-filter"
       mask={false}
     >
-      {
-        <FilterGroup
-          label="Project Status"
-          filterList={projectStatusFilter}
-        />
-      }
-      { isListView &&
-        <FilterGroup
-          label="Funding Year"
-          filterList={yearFilter}
-          setYearFilter={setYearFilter}
-        />
-      }
-      {
-        tabActiveNavbar === 'WORK_PLAN' &&
-        <FilterGroup
-          label="Priority"
-          filterList={priorityFilter}
-        />
-      }
-      {
-        tabActiveNavbar === 'WORK_PLAN' &&
-        <FilterGroup
-          label="Sponsor"
-          filterList={sponsorFilter}
-        />
-      }
-      {
-        tabActiveNavbar === 'WORK_PLAN' &&
-        <FilterGroup
-          label="Local Government"
-          filterList={jurisdictionFilter}
-        />
-      }
-      {
-        (tabActiveNavbar === 'WORK_REQUEST' ||  tabActiveNavbar === 'WORK_PLAN') &&
-        <FilterGroup
-          label="County"
-          filterList={countyFilter}
-          disabled = {disableFilterCounty}
-        />
-      }
-      {
-        (tabActiveNavbar === 'WORK_REQUEST' ||  tabActiveNavbar === 'WORK_PLAN') &&
-        <FilterGroup
-          label="Service Area"
-          filterList={serviceAreaFilter}
-          disabled = {disableFilterServiceArea}
-        />
-      }
-
+      <div className="body-drawer">
+        {
+          <FilterGroup
+            label="Project Status"
+            filterList={projectStatusFilter}
+          />
+        }
+        { isListView &&
+          <FilterGroup
+            label="Funding Year"
+            filterList={yearFilter}
+            setYearFilter={setYearFilter}
+          />
+        }
+        {
+          tabActiveNavbar === 'WORK_PLAN' &&
+          <FilterGroup
+            label="Priority"
+            filterList={priorityFilter}
+          />
+        }
+        {
+          tabActiveNavbar === 'WORK_PLAN' &&
+          <FilterGroup
+            label="Sponsor"
+            filterList={sponsorFilter}
+          />
+        }
+        {
+          tabActiveNavbar === 'WORK_PLAN' &&
+          <FilterGroup
+            label="Local Government"
+            filterList={jurisdictionFilter}
+          />
+        }
+        {
+          (tabActiveNavbar === 'WORK_REQUEST' ||  tabActiveNavbar === 'WORK_PLAN') &&
+          <FilterGroup
+            label="County"
+            filterList={countyFilter}
+            disabled = {disableFilterCounty}
+          />
+        }
+        {
+          (tabActiveNavbar === 'WORK_REQUEST' ||  tabActiveNavbar === 'WORK_PLAN') &&
+          <FilterGroup
+            label="Service Area"
+            filterList={serviceAreaFilter}
+            disabled = {disableFilterServiceArea}
+          />
+        }
+      </div>
       <div className="footer-drawer" style={{ position: 'fixed', bottom: '50px', right: '19px', backgroundColor: 'white', 'width': '277px' }}>
         <div className="buttons-filters" style={{ display: 'flex' }}>
           <Button className="btn-borde" onClick={() => reset()}>
