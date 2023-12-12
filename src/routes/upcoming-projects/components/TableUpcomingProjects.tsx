@@ -2,7 +2,6 @@ import React from "react";
 import { Table, Tooltip } from "antd";
 
 const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
-  console.log(tipe, 'TIPEEEE')
   const tooltipContent = (title:any, content:any) => {
     return (
       <div>
