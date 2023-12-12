@@ -1,7 +1,8 @@
 import React from "react";
 import { Table, Tooltip } from "antd";
 
-const TableUpcomingProjects = () => {
+const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
+  console.log(tipe, 'TIPEEEE')
   const tooltipContent = (title:any, content:any) => {
     return (
       <div>
@@ -154,12 +155,47 @@ const TableUpcomingProjects = () => {
       sorter: (a:any, b:any) => a.age - b.age,
     },
   ];
+  const columnsNew = [
+    {
+      title: 'Project',
+      dataIndex: 'project',
+      key: 'project',
+      width:'25%',
+      sorter: (a:any, b:any) => a.age - b.age,
+    },
+    {
+      title: 'MHFD Lead',
+      dataIndex: 'lead',
+      key: 'lead',
+      sorter: (a:any, b:any) => a.age - b.age,
+    },
+    {
+      title: 'Description',
+      dataIndex: 'description',
+      key: 'description',
+      width: '35%',
+      render: (text:any, record:any) => <Tooltip placement="top" title={tooltipContent(record.project, text)} overlayClassName="upcoming-tooltip-table"><p>{text}</p></Tooltip>,
+      sorter: (a:any, b:any) => a.age - b.age,
+    },
+    {
+      title: <p style={{textAlign:'center'}}>Project<br/>Estimated<br/>Cost</p>,
+      dataIndex: 'cost',
+      key: 'cost',
+      sorter: (a:any, b:any) => a.age - b.age,
+    },
+    {
+      title: <p style={{textAlign:'center'}}>Contractor<br/>Selection</p>,
+      dataIndex: 'contractor',
+      key: 'contractor',
+      sorter: (a:any, b:any) => a.age - b.age,
+    },
+  ];
   return (
     <Table
       scroll={{ y: 240 }}
       className='upcoming-table'
       dataSource={dataSource}
-      columns={columns}
+      columns={tipe === 'DIP' || tipe === 'R&D' || tipe === 'Acquisition' ? columnsNew:columns}
       pagination={false}
     />
   );
