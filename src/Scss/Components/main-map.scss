@@ -1576,7 +1576,7 @@ hr.filters-line {
 
     .ant-input-affix-wrapper {
       height: 50px;
-      width: 460px;
+      width: 397px;
     }
 
     .ant-input-affix-wrapper .ant-input {
@@ -1759,8 +1759,14 @@ hr.filters-line {
       padding: 20px 15px 0px 15px;
     }
   }
+  .tabs-map{
+    .ant-tabs-content-holder{
+      padding-left: 25px;
+    }
+  }
   .tabs-map .ant-tabs-nav {
     padding: 0px 20px;
+    padding-left: 30px;
   }
   .tabs-map .ant-tabs-nav .ant-tabs-tab{
     font-size: 22px;
@@ -1961,7 +1967,7 @@ hr.filters-line {
   .infinite-scroll-component{
     overflow-x: auto;
     overflow-y: hidden;
-    height: calc(100vh - 350px);
+    height: calc(100vh - 339px) !important;
   }
   .main-map-list-name-popover-text{
     font-size: 16px;
