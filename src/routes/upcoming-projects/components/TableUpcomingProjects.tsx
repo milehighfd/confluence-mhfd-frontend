@@ -36,7 +36,7 @@ const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
   
   const columns = [
     {
-      title: 'Project',
+      title: 'Project Name',
       dataIndex: 'project',
       key: 'project',
       width:'17%',
@@ -82,24 +82,25 @@ const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
     },
     {
       title: <p style={{textAlign:'center'}}>Consultant<br/>Selected</p>,
-      dataIndex: 'consultant',
-      key: 'consultant',
-      sorter: (a:any, b:any) => a.age - b.age,
-    },
-    {
-      title: <p style={{textAlign:'center'}}>Consultant<br/>Selection</p>,
       dataIndex: 'selection',
       key: 'selection',
       sorter: (a:any, b:any) => a.age - b.age,
     },
     {
-      title: <p style={{textAlign:'center'}}>Contractor<br/>Selection</p>,
+      title: <p style={{textAlign:'center'}}>Consultant<br/>Selection Date</p>,
+      dataIndex: 'consultant',
+      key: 'consultant',
+      sorter: (a:any, b:any) => a.age - b.age,
+    },
+
+    {
+      title: <p style={{textAlign:'center'}}>Contractor<br/>Selection Date</p>,
       dataIndex: 'contractor',
       key: 'contractor',
       sorter: (a:any, b:any) => a.age - b.age,
     },
     {
-      title: <p style={{textAlign:'center'}}>Anticipated<br/>Construction<br/>Start</p>,
+      title: <p style={{textAlign:'center'}}>Anticipated<br/>Construction<br/>Start Date</p>,
       dataIndex: 'staff',
       key: 'staff',
       sorter: (a:any, b:any) => a.age - b.age,
@@ -107,7 +108,7 @@ const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
   ];
   const columnsNew = [
     {
-      title: 'Project',
+      title: 'Project Name',
       dataIndex: 'project',
       key: 'project',
       width:'25%',
@@ -134,9 +135,9 @@ const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
       sorter: (a:any, b:any) => a.age - b.age,
     },
     {
-      title: <p style={{textAlign:'center'}}>Contractor<br/>Selection</p>,
-      dataIndex: 'contractor',
-      key: 'contractor',
+      title: <p style={{textAlign:'center'}}>Consultant<br/>Selection Date</p>,
+      dataIndex: 'consultant',
+      key: 'consultant',
       sorter: (a:any, b:any) => a.age - b.age,
     },
   ];
@@ -145,7 +146,7 @@ const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
       scroll={{ y: 240 }}
       className='upcoming-table'
       dataSource={dataSource}
-      columns={tipe === 'DIP' || tipe === 'R&D' || tipe === 'Acquisition' ? columnsNew:columns}
+      columns={tipe === 'Study' || tipe === 'R&D' || tipe === 'Acquisition' ? columnsNew:columns}
       pagination={false}
     />
   );

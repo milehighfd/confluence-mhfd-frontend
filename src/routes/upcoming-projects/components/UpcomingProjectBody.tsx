@@ -6,7 +6,7 @@ const { TabPane } = Tabs;
 
 const ALL = 'All';
 const CAPITAL = 'Capital';
-const MAINTENANCE = 'Maintenance';
+const MAINTENANCE = 'Restoration';
 const STUDY = 'Study';
 const ACQUISITION = 'Acquisition';
 const SPECIAL = 'R&D';
@@ -74,7 +74,7 @@ const actions = (
     </Popover>
   </div>
 );
-const tabKeys = [ALL, CAPITAL, MAINTENANCE, STUDY, ACQUISITION, SPECIAL, DIP];
+const tabKeys = [ALL, CAPITAL, DIP,  MAINTENANCE, STUDY, ACQUISITION, SPECIAL];
 export const UpcomingProjectBody = () => {
   const [tabKey, setTabKey] = useState<any>(ALL);
   let displayedTabKey = tabKeys;
