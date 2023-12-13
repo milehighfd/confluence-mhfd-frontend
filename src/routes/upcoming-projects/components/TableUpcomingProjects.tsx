@@ -26,7 +26,7 @@ const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
         description: d.description,
         cost: estimatedCost ? estimatedCost.cost : '-',
         consultant: d.consultant,
-        selection: d.selection,
+        consultantSelected: (d.civilContractor.length > 0 || d.currentPrimeConsultant.length > 0) ? 'Yes': 'No' ,
         contractor: d.contractor,
         staff: '-'}
       });
@@ -82,9 +82,15 @@ const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
     },
     {
       title: <p style={{textAlign:'center'}}>Consultant<br/>Selected</p>,
-      dataIndex: 'selection',
-      key: 'selection',
-      sorter: (a:any, b:any) => a.age - b.age,
+      dataIndex: 'consultantSelected',
+      key: 'consultantSelected',
+      sorter: (a:any, b:any) => {
+        if (a.consultantSelected < b.consultantSelected)
+          return -1;
+        if ( a.consultantSelected > b.consultantSelected)
+          return 1;
+        return 0;
+      },
     },
     {
       title: <p style={{textAlign:'center'}}>Consultant<br/>Selection Date</p>,
