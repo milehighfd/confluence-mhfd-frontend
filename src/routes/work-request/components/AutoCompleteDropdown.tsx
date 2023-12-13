@@ -65,6 +65,7 @@ const AutoCompleteDropdown = ({ type }: { type: string }) => {
           return (
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <div
+                className='dot-approved'
                 style={{
                   width: '10px',
                   height: '10px',
@@ -80,6 +81,7 @@ const AutoCompleteDropdown = ({ type }: { type: string }) => {
           return (
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <div
+                className='dot-approved'
                 style={{
                   width: '10px',
                   height: '10px',
@@ -95,6 +97,7 @@ const AutoCompleteDropdown = ({ type }: { type: string }) => {
           return (
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <div
+                className='dot-approved'
                 style={{
                   width: '10px',
                   height: '10px',

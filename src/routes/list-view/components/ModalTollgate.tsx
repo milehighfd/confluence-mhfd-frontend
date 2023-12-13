@@ -450,11 +450,12 @@ const ModalTollgate = ({ saveCB, setOpenPiney }: { saveCB?: any; setOpenPiney?: 
       )}
       <Modal
         className="modal-tollgate"
-        style={{ top: 123, width: '322px', height: '551px' }}
+        style={{ width: '322px'}}
         visible={visible}
         onCancel={() => setVisible(false)}
         forceRender={false}
         destroyOnClose
+        centered
       >
         <div className="tollgate-layout">
           <Row className="tollgate-header" gutter={[16, 8]}>

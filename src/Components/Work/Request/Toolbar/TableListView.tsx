@@ -465,7 +465,7 @@ const TableListView = ({
             key: 'name',
             title: 'Project Name',
             dataIndex: 'name',
-            width: '255px',
+            width: '20%',
             fixed: 'left',
             render: (name: any, record:any) =>            
               <div className='name-project-sec'>
@@ -513,8 +513,9 @@ const TableListView = ({
         {
             key: 'status',
             title: 'Status',
+            width: '8%',
             dataIndex: 'status',
-            width: windowWidthSize > 1900 ? (windowWidthSize > 2500 ? '125px':'100px'): '80px',
+            // width: windowWidthSize > 1900 ? (windowWidthSize > 2500 ? '125px':'100px'): '80px',
             render: (status: any) => 
                     <span className={typeStatus(status)} style={getStyleForStatus(status)}>{status}</span>,
             sorter: {

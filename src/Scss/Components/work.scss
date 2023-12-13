@@ -2641,6 +2641,12 @@
       left: 4px !important;
     }
   }
+  .auto-complete-map{
+    .dot-approved{
+      height: 15px;
+      width: 15px;
+    }
+  }
   .work-head {
     padding: 20px 20px 0px 20px;
     .button-header-tab {
@@ -2696,7 +2702,7 @@
       padding-left: 10px !important;
     }
     .ant-select-1 {
-      max-width: 620px !important;
+      max-width: 590px !important;
     }
     .icon-bt {
       height: 59px !important;
@@ -2761,11 +2767,11 @@
         max-height: calc(100vh - 334px) !important;
       }
       .ant-table {
-        font-size: 19px !important;
-        line-height: 24px !important;
+        font-size: 20px !important;
+        line-height: 25px !important;
       }
       .name-project-sec {
-        font-size: 21px !important;
+        font-size: 20px !important;
         line-height: 25px !important;
         .name-popup-list {
           font-size: 20px !important;
@@ -2779,7 +2785,7 @@
       .table-map-list .ant-table-thead > tr > th,
       .table-map-list .ant-table tfoot > tr > td,
       .table-map-list .ant-table tfoot > tr > th {
-        padding: 13px 4px;
+        padding: 14px 4px;
         border: 2px;
       }
       ::-webkit-scrollbar {

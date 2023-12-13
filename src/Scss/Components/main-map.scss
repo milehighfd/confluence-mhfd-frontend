@@ -1517,6 +1517,9 @@ hr.filters-line {
       }
     }
   }
+  .auto-complete-map{
+    margin-left: 10px;
+  }
   .button-header-tab {
     .ico-header-tab {
       font-size: 22px;
@@ -1873,6 +1876,10 @@ hr.filters-line {
     .ant-input-affix-wrapper .ant-input-suffix{
       font-size: 24px;
     }
+    .dot-approved{
+      height: 15px;
+      width: 15px;
+    }
   }
   .tag-filters {
     //width: auto;
@@ -1960,6 +1967,7 @@ hr.filters-line {
   }
   .table-list-map .project-name {
     font-size: 16px;
+    line-height: normal;
   }
   .table-scroll-map-list{
     height: calc(100vh - 350px);
