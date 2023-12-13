@@ -91,6 +91,17 @@ const MapLayout = () => {
     setLeftWidth,
     setShowFilters,
   } = useRequestDispatch();
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   const currentDataForBoard: BoardDataRequest = {
     type: tabActiveNavbar === WORK_REQUEST ? WORK_REQUEST: WORK_PLAN,
     year: `${year}`,
@@ -309,12 +320,13 @@ const MapLayout = () => {
                   <Col
                     xs={{ span: 24 }}
                     className={open ? "padding-comment transition-map" : "transition-map"}
-                    lg={tabActiveNavbar === MAP ? leftWidthMap: { span: leftWidth }}
+                    lg={tabActiveNavbar === MAP ? (screenWidth > 2500 ? leftWidthMap + 1 : leftWidthMap): { span: screenWidth > 2500 ? leftWidth + 1: leftWidth }}
                   >
                     <Map
-                      leftWidth={tabActiveNavbar === MAP ? leftWidthMap : leftWidth}
+                      leftWidth={tabActiveNavbar === MAP ? (screenWidth > 2500 ? leftWidthMap + 1 : leftWidthMap) : (screenWidth > 2500 ? leftWidth + 1: leftWidth)}
                       commentVisible={commentVisible}
                       setCommentVisible={setCommentVisible}
+                      
                     />
                     <Button className="btn-coll" onClick={updateWidth} disabled={tabActiveNavbar!==MAP && commentVisible}>
                       <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px" />
@@ -323,7 +335,7 @@ const MapLayout = () => {
                   <Col
                     xs={{ span: 24 }}
                     className="menu-mobile"
-                    lg={24 - (tabActiveNavbar === MAP ? leftWidthMap : leftWidth)}
+                    lg={24 - (tabActiveNavbar === MAP ? (screenWidth > 2500 ? leftWidthMap + 1 : leftWidthMap) : (screenWidth > 2500 ? leftWidth + 1: leftWidth))}
                   >
                    {tabActiveNavbar === MAP && <MapView />}
                    {(tabActiveNavbar === WORK_REQUEST || tabActiveNavbar === WORK_PLAN) && <RequestView
