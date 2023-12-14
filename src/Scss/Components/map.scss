@@ -3104,6 +3104,11 @@ hr.filters-line {
 
   }
 }
+@media(min-width: 3500px){
+  .map-modal-layers{
+    right: 6%;
+  }
+}
 // @media(min-width: 3800px) and (max-width: 5999px) {
 //   .tabs-map .ant-collapse > .ant-collapse-item:last-child, .tabs-map .ant-collapse > .ant-collapse-item:last-child > .ant-collapse-header {
 //     padding: 10px 9px;
