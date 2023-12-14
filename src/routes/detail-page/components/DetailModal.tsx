@@ -521,6 +521,7 @@ useEffect(() => {
         onCancel={() => setVisible(false)}
         forceRender={false}
         destroyOnClose
+        centered
       >
         <div className="detailed-layout">
           {isLoading && <LoadingViewOverall />}
