@@ -5,6 +5,7 @@ import { SERVER } from "Config/Server.config";
 import moment from "moment";
 import { formatter } from "Components/Work/Request/RequestViewUtil";
 import { handleAbortError } from 'store/actions/mapActions';
+import { useMapState } from "hook/mapHook";
 let controller = new AbortController();
 const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
   
@@ -18,8 +19,11 @@ const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
   }
   const [dataSource, setDataSource] = useState<any>([]);
 
+  const {
+    filterProjectOptions,
+  } = useMapState();
   useEffect(() => {
-    console.log('Tipe', tipe);
+    console.log('Tipe', tipe, 'filter', filterProjectOptions);
     let code_project_type_id = 0;
     switch (tipe) {
       case 'Capital':
@@ -49,7 +53,7 @@ const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
     controller = new AbortController();
     datasets.postData(
       SERVER.GET_LIST_PMTOOLS(code_project_type_id),
-      {},
+      filterProjectOptions,
       null,
       controller.signal
     ).then(data => {
@@ -60,7 +64,7 @@ const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
         const contractor = d?.contractor_phase  ? d.contractor_phase?.actual_start_date ? moment(d.contractor_phase?.actual_start_date).format('MM-DD-YYYY')  :'-'  : '-';
         const constructor = d?.construction_phase ? d.construction_phase?.actual_start_date ? moment(d.construction_phase?.actual_start_date).format('MM-DD-YYYY') :'-' : '-';
         return {
-          key: d.projectid,
+          key: d.project_id,
           project: d.project_name,
           lead: mhfdLead ? mhfdLead.business_associate_contact.contact_name : '-',
           description: d.description,
@@ -71,12 +75,14 @@ const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
           constructor
         }
       });
+      console.log('New Data', parsedData);
       setDataSource(parsedData);
     }).catch(handleAbortError);
     return () => {
       controller.abort();
+      setDataSource([]);
     };
-  }, [tipe]);
+  }, [tipe, filterProjectOptions]);
   
   const columns = [
     {
@@ -198,6 +204,9 @@ const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
       sorter: (a:any, b:any) => a.age - b.age,
     },
   ];
+  useEffect(() => {
+    console.log('datasource', dataSource);
+  } ,[dataSource]);
   return (
     <Table
       scroll={{ y: 240 }}

@@ -12,15 +12,6 @@ const ACQUISITION = 'Acquisition';
 const SPECIAL = 'R&D';
 const DIP = 'DIP';
 
-// const tabKeyComponentMap = {
-//   [ALL]: TableUpcomingProjects(tipe:'ALL'),
-//   [CAPITAL]: TableUpcomingProjects(CAPITAL),
-//   [MAINTENANCE]: TableUpcomingProjects(MAINTENANCE),
-//   [STUDY]: TableUpcomingProjects(STUDY),
-//   [ACQUISITION]: TableUpcomingProjects(ACQUISITION),
-//   [SPECIAL]: TableUpcomingProjects(SPECIAL),
-//   [DIP]: TableUpcomingProjects(DIP),
-// };
 const actions = (
   <div className="tabs-upcoming-extra">
     <Input id="search-input" allowClear placeholder="Search" className="search-input" prefix={<SearchOutlined />} />
