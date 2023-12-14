@@ -4,8 +4,10 @@ import * as datasets from 'Config/datasets';
 import { SERVER } from "Config/Server.config";
 import moment from "moment";
 import { formatter } from "Components/Work/Request/RequestViewUtil";
-
+import { handleAbortError } from 'store/actions/mapActions';
+let controller = new AbortController();
 const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
+  
   const tooltipContent = (title:any, content:any) => {
     return (
       <div>
@@ -17,7 +19,40 @@ const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
   const [dataSource, setDataSource] = useState<any>([]);
 
   useEffect(() => {
-    datasets.postData(SERVER.GET_LIST_PMTOOLS(''), {}).then(data => {
+    console.log('Tipe', tipe);
+    let code_project_type_id = 0;
+    switch (tipe) {
+      case 'Capital':
+        code_project_type_id = 5;
+        break;
+      case 'DIP':
+        code_project_type_id = 6;
+        break;
+      case 'Restoration':
+        code_project_type_id = 7;
+        break;
+      case 'Study':
+        code_project_type_id = 1;
+        break;
+      case 'Acquisition':
+        code_project_type_id = 13;
+        break;
+      case 'R&D':
+        code_project_type_id = 15;
+        break;
+      default:
+        code_project_type_id = 0;
+        break;
+    }
+
+    controller.abort();
+    controller = new AbortController();
+    datasets.postData(
+      SERVER.GET_LIST_PMTOOLS(code_project_type_id),
+      {},
+      null,
+      controller.signal
+    ).then(data => {
       const parsedData = data.map((d: any, index: any) => {
         const mhfdLead = d.project_staffs.find((staff: any) => staff.code_project_staff_role_type_id === 1);
         const estimatedCost = d.project_costs.find((cost: any) => cost.code_cost_type_id === 1);
@@ -37,8 +72,11 @@ const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
         }
       });
       setDataSource(parsedData);
-    });
-  }, []);
+    }).catch(handleAbortError);
+    return () => {
+      controller.abort();
+    };
+  }, [tipe]);
   
   const columns = [
     {

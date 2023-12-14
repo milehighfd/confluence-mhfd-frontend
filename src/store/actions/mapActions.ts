@@ -24,6 +24,7 @@ const isAbortError = (error: any) => {
 };
 
 export const handleAbortError = (error: any) => {
+  console.log('Error in handleAbortError', error);
   if (!isAbortError(error)) {
     console.log(`Error`, error);
   }
