@@ -3800,6 +3800,13 @@
     }
   }
 }
+@media (min-width: 3500px) {
+  .phaseview-body {
+    .piney-text{
+      width: 605px !important;
+    }
+  }
+}
 
 // @media (min-width: 3800px) and (max-width: 5999px) {
 //   .team-item {

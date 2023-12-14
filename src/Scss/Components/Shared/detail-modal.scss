@@ -2690,7 +2690,7 @@
   }
   .detailed-body {
     .detail-body-carousel {
-      height: 69vh;
+      height: calc(100vh - 310px) !important;
     }
 
     .img-carousel-detail {
@@ -3215,6 +3215,13 @@
   }
 }
 
+@media (min-width: 3800px) and (max-width: 5999px) {
+  .detailed-body{
+    .detail-body-carousel{
+      height: calc(100vh - 380px);
+    }
+  }
+}
 // @media (min-width: 3800px) and (max-width: 5999px) {
 //   .detailed-modal {
 //     top: 99px !important;

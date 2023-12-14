@@ -268,7 +268,7 @@
 // 2560x1440 DISPLAY
 @media (min-width: 2500px){
   .new-project{
-    width: 55% !important;
+    width: 47% !important;
 
     .ant-modal-header{
       padding: 26px 17px !important;
@@ -337,3 +337,8 @@
   }
 }
 
+@media (min-width: 3500px){
+  .new-project{
+    width: 35% !important;
+  }
+}
