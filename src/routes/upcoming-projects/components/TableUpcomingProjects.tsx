@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Table, Tooltip } from "antd";
 import * as datasets from 'Config/datasets';
 import { SERVER } from "Config/Server.config";
+import moment from "moment";
 
 const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
   const tooltipContent = (title:any, content:any) => {
@@ -19,16 +20,22 @@ const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
       const parsedData = data.map((d: any, index: any) => {
         const mhfdLead = d.project_staffs.find((staff: any) => staff.code_project_staff_role_type_id === 1);
         const estimatedCost = d.project_costs.find((cost: any) => cost.code_project_cost_type_id === 1);
+        const consultant = d?.consultant_phase ? d.consultant_phase.length > 0 ? d.consultant_phase[0]?.actual_start_date ? moment(d.consultant_phase[0]?.actual_start_date).format('YYYY-MM-DD') : '-' : '-' : '-';
+        const contractor = d?.contractor_phase ? d.contractor_phase.length > 0 ? d.contractor_phase[0]?.actual_start_date ? moment(d.contractor_phase[0]?.actual_start_date).format('YYYY-MM-DD') : '-' : '-' : '-';
+        const constructor = d?.construction_phase ? d.construction_phase.length > 0 ? d.construction_phase[0]?.actual_start_date ? moment(d.construction_phase[0]?.actual_start_date).format('YYYY-MM-DD'): '-' : '-' : '-';
+
+        
         return {
-        key: d.projectid,
-        project: d.project_name,
-        lead: mhfdLead ? mhfdLead.business_associate_contact.contact_name : '-',
-        description: d.description,
-        cost: estimatedCost ? estimatedCost.cost : '-',
-        consultant: d.consultant,
-        consultantSelected: (d.civilContractor.length > 0 || d.currentPrimeConsultant.length > 0) ? 'Yes': 'No' ,
-        contractor: d.contractor,
-        staff: '-'}
+          key: d.projectid,
+          project: d.project_name,
+          lead: mhfdLead ? mhfdLead.business_associate_contact.contact_name : '-',
+          description: d.description,
+          cost: estimatedCost ? estimatedCost.cost : '-',
+          consultant,
+          consultantSelected: (d.civilContractor.length > 0 || d.currentPrimeConsultant.length > 0) ? 'Yes': 'No' ,
+          contractor,
+          constructor
+        }
       });
       setDataSource(parsedData);
     });
@@ -96,20 +103,39 @@ const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
       title: <p style={{textAlign:'center'}}>Consultant<br/>Selection Date</p>,
       dataIndex: 'consultant',
       key: 'consultant',
-      sorter: (a:any, b:any) => a.age - b.age,
+      sorter: (a:any, b:any) => {
+        if (a.consultant < b.consultant)
+          return -1;
+        if ( a.consultant > b.consultant)
+          return 1;
+        return 0;
+      }
     },
 
     {
       title: <p style={{textAlign:'center'}}>Contractor<br/>Selection Date</p>,
       dataIndex: 'contractor',
       key: 'contractor',
-      sorter: (a:any, b:any) => a.age - b.age,
+      sorter: (a:any, b:any) => {
+        if (a.contractor < b.contractor)
+          return -1;
+        if ( a.contractor > b.contractor)
+          return 1;
+        return 0;
+      
+      },
     },
     {
       title: <p style={{textAlign:'center'}}>Anticipated<br/>Construction<br/>Start Date</p>,
-      dataIndex: 'staff',
-      key: 'staff',
-      sorter: (a:any, b:any) => a.age - b.age,
+      dataIndex: 'constructor',
+      key: 'constructor',
+      sorter: (a:any, b:any) => {
+        if (a.constructor < b.constructor)
+          return -1;
+        if ( a.constructor > b.constructor)
+          return 1;
+        return 0;
+      },
     },
   ];
   const columnsNew = [
