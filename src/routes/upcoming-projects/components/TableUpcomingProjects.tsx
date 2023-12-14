@@ -19,7 +19,7 @@ const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
     datasets.postData(SERVER.GET_LIST_PMTOOLS(''), {}).then(data => {
       const parsedData = data.map((d: any, index: any) => {
         const mhfdLead = d.project_staffs.find((staff: any) => staff.code_project_staff_role_type_id === 1);
-        const estimatedCost = d.project_costs.find((cost: any) => cost.code_project_cost_type_id === 1);
+        const estimatedCost = d.project_costs.find((cost: any) => cost.code_cost_type_id === 1);
         const consultant = d?.consultant_phase  ? d.consultant_phase?.actual_start_date ? moment(d.consultant_phase?.actual_start_date).format('YYYY-MM-DD') : '-' : '-';
         const contractor = d?.contractor_phase  ? d.contractor_phase?.actual_start_date ? moment(d.contractor_phase?.actual_start_date).format('YYYY-MM-DD')  :'-'  : '-';
         const constructor = d?.construction_phase ? d.construction_phase?.actual_start_date ? moment(d.construction_phase?.actual_start_date).format('YYYY-MM-DD') :'-' : '-';
