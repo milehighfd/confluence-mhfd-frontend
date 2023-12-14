@@ -13,7 +13,7 @@ export const UpcomingProjectHeader = () => {
   return (
     <div className="upcoming-header">
       <Select className='upcoming-select' options={items} bordered={false} defaultValue='South Watershed'></Select>
-      <span className="upcoming-tag-label">Year 2023</span>
+      {/* <span className="upcoming-tag-label">Year 2023</span> */}
     </div>
   );
 };
