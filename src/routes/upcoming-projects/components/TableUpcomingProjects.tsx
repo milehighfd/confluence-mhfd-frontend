@@ -55,7 +55,7 @@ const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
       SERVER.GET_LIST_PMTOOLS(code_project_type_id),
       filterProjectOptions,
       null,
-      controller.signal
+      // controller.signal
     ).then(data => {
       const parsedData = data.map((d: any, index: any) => {
         const mhfdLead = d.project_staffs.find((staff: any) => staff.code_project_staff_role_type_id === 1);

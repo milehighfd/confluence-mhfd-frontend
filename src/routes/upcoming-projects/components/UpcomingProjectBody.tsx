@@ -69,10 +69,10 @@ const tabKeys = [ALL, CAPITAL, DIP,  MAINTENANCE, STUDY, ACQUISITION, SPECIAL];
 export const UpcomingProjectBody = () => {
   const [tabKey, setTabKey] = useState<any>(ALL);
   let displayedTabKey = tabKeys;
-  // const TabComponent = tabKeyComponentMap[tabKey];
   return (
     <div className="upcoming-body">
       <Tabs
+        destroyInactiveTabPane={true}
         defaultActiveKey={displayedTabKey[1]}
         activeKey={tabKey}
         onChange={key => setTabKey(key as any)}
