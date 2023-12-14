@@ -84,7 +84,8 @@ export const UploaderModal = (
       visible={modal}
       onCancel={() => setModal(false)}
       forceRender={false}
-      wrapClassName='center-modal'
+      // wrapClassName='center-modal'
+      centered
       destroyOnClose>
       <div className="upload">
         <Row className="detailed-h" gutter={[16, 8]}>
