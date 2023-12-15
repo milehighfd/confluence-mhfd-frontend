@@ -7,7 +7,7 @@ import { formatter } from "Components/Work/Request/RequestViewUtil";
 import { handleAbortError } from 'store/actions/mapActions';
 import { useMapState } from "hook/mapHook";
 
-const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
+const TableUpcomingProjects = ({tipe, searchValue}:{tipe:string, searchValue: string}) => {
   
   const tooltipContent = (title:any, content:any) => {
     return (
@@ -18,7 +18,29 @@ const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
     )
   }
   const [dataSource, setDataSource] = useState<any>([]);
+  const [filteredDataSource, setFilteredDataSource] = useState<any>([]);
 
+  useEffect(() => {
+    if (searchValue === '') {
+      setFilteredDataSource(dataSource);
+    } else {
+      // filter values inside datasource by searchValue on this attributes: onbase, projectid, project, lead
+      const filtered = dataSource.filter((data: any) => {
+        // make all four variables to string 
+        const onBase = data.onbase ? data.onbase.toString(): '';
+        const projectid = data.projectid ? data.projectid.toString(): '';
+        const project = data.project ? data.project.toString(): '';
+        const lead = data.lead ? data.lead.toString(): '';
+
+        console.log('onBase', onBase, 'projectid', projectid, 'project', project, 'lead', lead)
+        return onBase.toLowerCase().includes(searchValue.toLowerCase()) ||
+          projectid.toLowerCase().includes(searchValue.toLowerCase()) ||
+          project.toLowerCase().includes(searchValue.toLowerCase()) ||
+          lead.toLowerCase().includes(searchValue.toLowerCase());
+      });
+      setFilteredDataSource(filtered);
+    }
+  } ,[searchValue]);
   const {
     filterProjectOptions,
   } = useMapState();
@@ -63,6 +85,8 @@ const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
         const constructor = d?.construction_phase ? d.construction_phase?.actual_start_date ? moment(d.construction_phase?.actual_start_date).format('MM-DD-YYYY') :'-' : '-';
         return {
           key: d.project_id,
+          onbase: d.onbase_project_number,
+          projectid: d.project_id,
           project: d.project_name,
           lead: mhfdLead ? mhfdLead.business_associate_contact.contact_name : '-',
           description: d.description,
@@ -73,8 +97,8 @@ const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
           constructor
         }
       });
-      console.log('New Data', parsedData);
       setDataSource(parsedData);
+      setFilteredDataSource(parsedData);
     }).catch(handleAbortError);
     return () => {
       controller.abort();
@@ -202,14 +226,11 @@ const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
       sorter: (a:any, b:any) => a.age - b.age,
     },
   ];
-  useEffect(() => {
-    console.log('datasource', dataSource);
-  } ,[dataSource]);
   return (
     <Table
       scroll={{ y: 240 }}
       className='upcoming-table'
-      dataSource={dataSource}
+      dataSource={filteredDataSource}
       columns={tipe === 'Study' || tipe === 'R&D' || tipe === 'Acquisition' ? columnsNew:columns}
       pagination={false}
     />
