@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Table, Tooltip } from "antd";
 import * as datasets from 'Config/datasets';
 import { SERVER } from "Config/Server.config";
@@ -19,9 +19,17 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
   }
   const [dataSource, setDataSource] = useState<any>([]);
   const [filteredDataSource, setFilteredDataSource] = useState<any>([]);
+  const actualColumns = useRef<any>([]);
 
   const setDataForCSV = (dataFiltered: any) => {
-    const dataCSV = dataFiltered.map(({key, onbase, projectid, ...restAttrib}: {key: any, onbase: any, projectid: any}) => restAttrib);
+    const dataCSV = dataFiltered.map((attribs: any) => {
+      const newObject: any = {};
+      actualColumns.current.forEach((column: any) => {
+        newObject[column.displayCSV] = attribs[column.dataIndex];
+      });
+      return newObject;
+    });
+    console.log('Data For CSV', dataCSV);
     setCsvData(dataCSV);
   }
   useEffect(() => {
@@ -125,6 +133,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
           return 1;
         return 0;
       },
+      displayCSV: 'Project Name'
     },
     {
       title: 'MHFD Lead',
@@ -137,6 +146,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
           return 1;
         return 0;
       },
+      displayCSV: 'MHFD Lead'
     },
     {
       title: 'Description',
@@ -151,6 +161,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
           return 1;
         return 0;
       },
+      displayCSV: 'Description'
     },
     {
       title: <p style={{textAlign:'center'}}>Project<br/>Estimated<br/>Cost</p>,
@@ -158,6 +169,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
       dataIndex: 'cost',
       key: 'cost',
       sorter: (a:any, b:any) => a.cost - b.cost,
+      displayCSV: 'Project Estimated Cost'
     },
     {
       title: <p style={{textAlign:'center'}}>Consultant<br/>Selected</p>,
@@ -170,6 +182,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
           return 1;
         return 0;
       },
+      displayCSV: 'Consultant Selected'
     },
     {
       title: <p style={{textAlign:'center'}}>Consultant<br/>Selection Date</p>,
@@ -177,7 +190,8 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
       key: 'consultant',
       sorter: (a:any, b:any) => {
         return moment(a.consultant !== '-' ? a.consultant : '01-01-1900').diff(moment(b.consultant !== '-' ?  b.consultant : '01-01-1900'));
-      }
+      },
+      displayCSV: 'Consultant Selection Date'
     },
 
     {
@@ -187,6 +201,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
       sorter: (a:any, b:any) => {
         return moment(a.contractor !== '-' ? a.contractor : '01-01-1900').diff(moment(b.contractor !== '-' ?  b.contractor : '01-01-1900'));
       },
+      displayCSV: 'Contractor Selection Date'
     },
     {
       title: <p style={{textAlign:'center'}}>Anticipated<br/>Construction<br/>Start Date</p>,
@@ -195,6 +210,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
       sorter: (a:any, b:any) => {
         return moment(a.constructor !== '-' ? a.constructor : '01-01-1900').diff(moment(b.constructor !== '-' ?  b.constructor : '01-01-1900'));
       },
+      displayCSV: 'Anticipated Construction Start Date'
     },
   ];
   const columnsNew = [
@@ -203,13 +219,27 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
       dataIndex: 'project',
       key: 'project',
       width:'25%',
-      sorter: (a:any, b:any) => a.age - b.age,
+      sorter: (a:any, b:any) => {
+        if (a.project < b.project)
+          return -1;
+        if ( a.project > b.project)
+          return 1;
+        return 0;
+      },
+      displayCSV: 'Project Name'
     },
     {
       title: 'MHFD Lead',
       dataIndex: 'lead',
       key: 'lead',
-      sorter: (a:any, b:any) => a.age - b.age,
+      sorter: (a:any, b:any) => {
+        if (a.lead < b.lead)
+          return -1;
+        if ( a.lead > b.lead)
+          return 1;
+        return 0;
+      },
+      displayCSV: 'MHFD Lead'
     },
     {
       title: 'Description',
@@ -217,27 +247,46 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
       key: 'description',
       width: '35%',
       render: (text:any, record:any) => <Tooltip placement="top" title={tooltipContent(record.project, text)} overlayClassName="upcoming-tooltip-table"><p>{text}</p></Tooltip>,
-      sorter: (a:any, b:any) => a.age - b.age,
+      sorter: (a:any, b:any) => {
+        if (a.description < b.description)
+          return -1;
+        if ( a.description > b.description)
+          return 1;
+        return 0;
+      },
+      displayCSV: 'Description'
     },
     {
       title: <p style={{textAlign:'center'}}>Project<br/>Estimated<br/>Cost</p>,
       dataIndex: 'cost',
       key: 'cost',
-      sorter: (a:any, b:any) => a.age - b.age,
+      sorter: (a:any, b:any) => a.cost - b.cost,
+      displayCSV: 'Project Estimated Cost'
     },
     {
       title: <p style={{textAlign:'center'}}>Consultant<br/>Selection Date</p>,
       dataIndex: 'consultant',
       key: 'consultant',
-      sorter: (a:any, b:any) => a.age - b.age,
+      sorter: (a:any, b:any) => {
+        return moment(a.consultant !== '-' ? a.consultant : '01-01-1900').diff(moment(b.consultant !== '-' ?  b.consultant : '01-01-1900'));
+      },
+      displayCSV: 'Consultant Selection Date'
     },
   ];
+  useEffect(() => {
+    if (tipe === 'Study' || tipe === 'R&D' || tipe === 'Acquisition') {
+      console.log('Setting ', columnsNew);
+      actualColumns.current = columnsNew;
+    } else {
+      actualColumns.current = columns;
+    }
+  } ,[tipe]);
   return (
     <Table
       scroll={{ y: 240 }}
       className='upcoming-table'
       dataSource={filteredDataSource}
-      columns={tipe === 'Study' || tipe === 'R&D' || tipe === 'Acquisition' ? columnsNew:columns}
+      columns={actualColumns.current}
       pagination={false}
       onChange={(pagination, filters, sorter, currentTable) => onTableChange(pagination, filters, sorter, currentTable)}
     />
