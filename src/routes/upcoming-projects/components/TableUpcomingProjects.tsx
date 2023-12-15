@@ -6,7 +6,7 @@ import moment from "moment";
 import { formatter } from "Components/Work/Request/RequestViewUtil";
 import { handleAbortError } from 'store/actions/mapActions';
 import { useMapState } from "hook/mapHook";
-let controller = new AbortController();
+
 const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
   
   const tooltipContent = (title:any, content:any) => {
@@ -48,14 +48,12 @@ const TableUpcomingProjects = ({tipe}:{tipe:string}) => {
         code_project_type_id = 0;
         break;
     }
-
-    controller.abort();
-    controller = new AbortController();
+    const controller = new AbortController();
     datasets.postData(
       SERVER.GET_LIST_PMTOOLS(code_project_type_id),
       filterProjectOptions,
       null,
-      // controller.signal
+      controller.signal
     ).then(data => {
       const parsedData = data.map((d: any, index: any) => {
         const mhfdLead = d.project_staffs.find((staff: any) => staff.code_project_staff_role_type_id === 1);

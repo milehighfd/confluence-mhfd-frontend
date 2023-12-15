@@ -1231,7 +1231,7 @@ export const ModalCapital = ({
           <div className='header-tab'>
             <p className={activeTabBodyProject ===  'Details'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Details')}}>Details</p>
             {swSave && <p className={activeTabBodyProject ===  'Discussion'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Discussion')}}>Discussion</p>}
-            <p className={activeTabBodyProject ===  'Activity'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Activity')}}>Activity</p>
+            <p className={activeTabBodyProject ===  'Activity'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Activity')}}>History</p>
           </div> 
           {activeTabBodyProject === 'Details' && <>
             <div className="body-project" style={{overflowX: 'hidden'}} onScroll={()=>{setOpen(false)}}>
