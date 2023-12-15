@@ -1,5 +1,6 @@
 import { Button, Input, Popover, Tabs } from 'antd';
 import React, { useState } from 'react';
+import { CSVLink } from 'react-csv';
 import TableUpcomingProjects from './TableUpcomingProjects';
 import { SearchOutlined } from '@ant-design/icons';
 const { TabPane } = Tabs;
@@ -16,6 +17,8 @@ const tabKeys = [ALL, CAPITAL, DIP,  MAINTENANCE, STUDY, ACQUISITION, SPECIAL];
 export const UpcomingProjectBody = () => {
   const [tabKey, setTabKey] = useState<any>(ALL);
   const [searchValue, setSearchValue] = useState<any>('');
+  const [csvData, setCsvData] = useState<string[][]>([[]]);
+  const [csvFileName, setCsvFileName] = useState<string>('');
   const actions = (
     <div className="tabs-upcoming-extra">
       <Input
@@ -48,14 +51,27 @@ export const UpcomingProjectBody = () => {
           <div className="popover-text">
             Export:
             <br />
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Download data to CSV
           </div>
         }
         placement="bottomLeft"
         overlayClassName="popover-work-header"
       >
         <Button className="buttons" type="link">
-          <img src="Icons/ic-004.svg" alt="" />
+          <CSVLink
+            filename={csvFileName}
+            data={csvData}
+            onClick={() => {
+              setCsvFileName('upcomingprojects.csv');
+              setCsvData(csvData);
+            }}        
+            style={{ padding: '0px' }}
+          >
+          <img
+            src='Icons/ic-004.svg'
+            alt=""
+          />
+        </CSVLink>
         </Button>
       </Popover>
       <Popover
@@ -97,7 +113,7 @@ export const UpcomingProjectBody = () => {
               </span>
             }
           >
-            <TableUpcomingProjects tipe={tabKey} searchValue={searchValue} />
+            <TableUpcomingProjects tipe={tabKey} searchValue={searchValue} setCsvData={setCsvData}/>
           </TabPane>
         ))}
       </Tabs>
