@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Row, Tooltip } from 'antd';
-import { HeartFilled, HeartOutlined } from '@ant-design/icons';
+import { Col, Menu, Popover, Row, Tooltip } from 'antd';
+import { HeartFilled, HeartOutlined, MoreOutlined } from '@ant-design/icons';
 import * as d3 from 'd3';
 import moment from 'moment';
 import { SERVER } from 'Config/Server.config';
@@ -13,6 +13,7 @@ import { colorScale } from 'routes/portfolio-view/constants/PhaseViewData';
 import { useMapState } from "hook/mapHook";
 import { handleAbortError } from 'store/actions/mapActions';
 import DetailModal from 'routes/detail-page/components/DetailModal';
+import menu, { MenuProps } from 'antd/lib/menu';
 
 const CalendarBody = ({
   dataId,
@@ -1326,7 +1327,24 @@ const CalendarBody = ({
       parent.removeChild(parent.firstChild);
     }
   };
-
+  const menu = () => {
+    let menuPopupItem: MenuProps['items'] = [
+      {
+        key: '0',
+        label: <span >Edit Project</span>
+      },
+      {
+        key: '1',
+        label: <span >View Project</span>,
+      }
+    ];
+    return <Menu
+      className="js-mm-00"
+      style={{ backgroundColor: 'white', border: 0, paddingTop: '0px' }}
+      items={menuPopupItem}
+    >
+    </Menu>
+  };
   return <>
     {detailOpen && <DetailModal
       visible={detailOpen}
@@ -1356,6 +1374,9 @@ const CalendarBody = ({
                   /> : <HeartOutlined
                     style={{ marginLeft: '7px', color: '#706B8A', marginRight: '10px' }}
                     onClick={() => addFunction('', d.project_id, '')} />}
+                <Popover placement='bottom' trigger="click" content={menu()} overlayClassName='pm-popover'>
+                  <MoreOutlined className="menu-wr" style={{cursor: 'pointer'}}></MoreOutlined>
+                </Popover>
               </div>
             ))
           }

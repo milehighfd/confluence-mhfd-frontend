@@ -990,7 +990,6 @@
     background: $purple00;
     border-radius: 10px;
   }
-
   .dashed-line {
     transform: rotate(90deg) translate(400px, -196px);
     position: relative;
@@ -1964,6 +1963,21 @@
   .phaseview-body::-webkit-scrollbar-thumb {
     background: $purple00;
     border-radius: 10px;
+  }
+}
+.pm-popover{
+  .ant-popover-inner-content {
+    padding: 4px 4px;
+  }
+  .ant-menu-item:hover,
+  .ant-menu-submenu-title:hover {
+    background: #f7f7f9;
+    border-radius: 10px;
+    padding: 5px 10px;
+    color: #817c98 !important;
+  }
+  span:hover {
+    color: #817c98 !important;
   }
 }
 .body-piney {
@@ -3087,6 +3101,12 @@
   .scroll-custom {
     margin-left: 20.5%;
     height: 10px;
+  }
+  .pm-popover{
+    padding: 16px !important;
+    span {
+      font-size: 20px !important;
+    }
   }
   .phase-groups {
     height: calc(100vh - 282px) !important;

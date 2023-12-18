@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Row, Tooltip } from 'antd';
+import { Col, Menu, MenuProps, Popover, Row, Tooltip } from 'antd';
 import * as d3 from 'd3';
 import moment from 'moment';
-import { HeartFilled, HeartOutlined } from '@ant-design/icons';
+import { HeartFilled, HeartOutlined, MoreOutlined } from '@ant-design/icons';
 import { SERVER } from 'Config/Server.config';
 import { FILTER_PROJECTS_TRIGGER, LIMIT_PAGINATION } from 'constants/constants';
 import { getCurrentProjectStatus, getServiceAreas, getStreams, getTotalEstimatedCost } from 'utils/parsers';
@@ -674,6 +674,24 @@ const PhaseBody = ({
       parent.removeChild(parent.firstChild);
     }
   };
+  const menu = () => {
+    let menuPopupItem: MenuProps['items'] = [
+      {
+        key: '0',
+        label: <span >Edit Project</span>
+      },
+      {
+        key: '1',
+        label: <span >View Project</span>,
+      }
+    ];
+    return <Menu
+      className="js-mm-00"
+      style={{ backgroundColor: 'white', border: 0, paddingTop: '0px' }}
+      items={menuPopupItem}
+    >
+    </Menu>
+  };
   return <>
     {detailOpen && <DetailModal
       visible={detailOpen}
@@ -698,6 +716,9 @@ const PhaseBody = ({
                   }} className="title-project" >{d.rowLabel}</p>
                 </Tooltip>
                 {d.isFavorite ? <HeartFilled style={{ marginLeft: '7px', color: '#F5575C', marginRight: '10px' }} onClick={() => (deleteFunction(d.project_id, email, ''))} /> : <HeartOutlined style={{ marginLeft: '7px', color: '#706B8A', marginRight: '10px' }} onClick={() => addFunction(email, d.project_id, '')} />}
+                <Popover placement='bottom' trigger="click" content={menu()} overlayClassName='pm-popover'>
+                  <MoreOutlined className="menu-wr" style={{cursor: 'pointer'}}></MoreOutlined>
+                </Popover>
               </div>
             ))
           }
