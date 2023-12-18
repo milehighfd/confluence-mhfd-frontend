@@ -92,6 +92,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
         const consultant = d?.consultant_phase  ? d.consultant_phase?.actual_start_date ? moment(d.consultant_phase?.actual_start_date).format('MM-DD-YYYY') : '-' : '-';
         const contractor = d?.contractor_phase  ? d.contractor_phase?.actual_start_date ? moment(d.contractor_phase?.actual_start_date).format('MM-DD-YYYY')  :'-'  : '-';
         const constructor = d?.construction_phase ? d.construction_phase?.actual_start_date ? moment(d.construction_phase?.actual_start_date).format('MM-DD-YYYY') :'-' : '-';
+        const localgovernment = d?.project_local_governments[0]?.CODE_LOCAL_GOVERNMENT?.local_government_name;
         return {
           key: d.project_id,
           onbase: d.onbase_project_number,
@@ -103,7 +104,8 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
           consultant,
           consultantSelected: (d.civilContractor.length > 0 || d.currentPrimeConsultant.length > 0) ? 'Yes': 'No' ,
           contractor,
-          constructor
+          constructor,
+          localgovernment: localgovernment ? localgovernment : '-'
         }
       });
       setDataSource(parsedData);
@@ -173,9 +175,15 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
     },
     {
       title: <p style={{textAlign:'center'}}>Local<br/>Government</p>,
-      dataIndex: 'localGovernment',
-      key: 'localGovernment',
-      sorter: (a:any, b:any) => a.cost - b.cost,
+      dataIndex: 'localgovernment',
+      key: 'localgovernment',
+      sorter: (a:any, b:any) => {
+        if (a.localgovernment < b.localgovernment)
+          return -1;
+        if ( a.localgovernment > b.localgovernment)
+          return 1;
+        return 0;
+      },
     },
     {
       title: <p style={{textAlign:'center'}}>Consultant<br/>Selected</p>,
@@ -271,9 +279,15 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
     },
     {
       title: <p style={{textAlign:'center'}}>Local<br/>Government</p>,
-      dataIndex: 'localGovernment',
-      key: 'localGovernment',
-      sorter: (a:any, b:any) => a.cost - b.cost,
+      dataIndex: 'localgovernment',
+      key: 'localgovernment',
+      sorter: (a:any, b:any) => {
+        if (a.localgovernment < b.localgovernment)
+          return -1;
+        if ( a.localgovernment > b.localgovernment)
+          return 1;
+        return 0;
+      },
     },
     {
       title: <p style={{textAlign:'center'}}>Consultant<br/>Selection Date</p>,
