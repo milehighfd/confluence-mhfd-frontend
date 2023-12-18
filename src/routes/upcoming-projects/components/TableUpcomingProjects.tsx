@@ -25,7 +25,9 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
     const dataCSV = dataFiltered.map((attribs: any) => {
       const newObject: any = {};
       actualColumns.current.forEach((column: any) => {
-        newObject[column.displayCSV] = attribs[column.dataIndex];
+        // set a new variable with attrbis[column.dataindex] and if attribs[column.dataIndex] is string replace it with this str.replace(/"/g, '""'); 
+        const newAttrib = attribs[column.dataIndex] && typeof attribs[column.dataIndex] === 'string' ? attribs[column.dataIndex].replace(/"/g, '""') : attribs[column.dataIndex];
+        newObject[column.displayCSV] = newAttrib;
       });
       return newObject;
     });
@@ -184,6 +186,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
           return 1;
         return 0;
       },
+      displayCSV: 'Local Government'
     },
     {
       title: <p style={{textAlign:'center'}}>Consultant<br/>Selected</p>,
@@ -288,6 +291,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
           return 1;
         return 0;
       },
+      displayCSV: 'Local Government'
     },
     {
       title: <p style={{textAlign:'center'}}>Consultant<br/>Selection Date</p>,
