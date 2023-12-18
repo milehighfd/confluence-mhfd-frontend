@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { CSVLink } from 'react-csv';
 import TableUpcomingProjects from './TableUpcomingProjects';
 import { SearchOutlined } from '@ant-design/icons';
+import Filter from 'Components/Work/Drawers/Filter';
+
 const { TabPane } = Tabs;
 
 const ALL = 'All';
@@ -16,6 +18,7 @@ const DIP = 'DIP';
 const tabKeys = [ALL, CAPITAL, DIP,  MAINTENANCE, STUDY, ACQUISITION, SPECIAL];
 export const UpcomingProjectBody = () => {
   const [tabKey, setTabKey] = useState<any>(ALL);
+  const [showFilters, setShowFilters] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<any>('');
   const [csvData, setCsvData] = useState<string[][]>([[]]);
   const [csvFileName, setCsvFileName] = useState<string>('');
@@ -41,7 +44,7 @@ export const UpcomingProjectBody = () => {
         placement="bottomLeft"
         overlayClassName="popover-work-header"
       >
-        <Button className="buttons" type="link">
+        <Button className="buttons" type="link" onClick={() => setShowFilters(true)}>
           <img src="Icons/ic-003.svg" alt="" />
         </Button>
       </Popover>
@@ -95,6 +98,9 @@ export const UpcomingProjectBody = () => {
   let displayedTabKey = tabKeys;
   return (
     <div className="upcoming-body">
+      {
+        showFilters && <Filter/>
+      }
       <Tabs
         destroyInactiveTabPane={true}
         defaultActiveKey={displayedTabKey[1]}
