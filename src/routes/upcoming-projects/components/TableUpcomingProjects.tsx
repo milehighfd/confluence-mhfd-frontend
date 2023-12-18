@@ -25,7 +25,9 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
     const dataCSV = dataFiltered.map((attribs: any) => {
       const newObject: any = {};
       actualColumns.current.forEach((column: any) => {
-        newObject[column.displayCSV] = attribs[column.dataIndex];
+        // set a new variable with attrbis[column.dataindex] and if attribs[column.dataIndex] is string replace it with this str.replace(/"/g, '""'); 
+        const newAttrib = attribs[column.dataIndex] && typeof attribs[column.dataIndex] === 'string' ? attribs[column.dataIndex].replace(/"/g, '""') : attribs[column.dataIndex];
+        newObject[column.displayCSV] = newAttrib;
       });
       return newObject;
     });
@@ -92,6 +94,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
         const consultant = d?.consultant_phase  ? d.consultant_phase?.actual_start_date ? moment(d.consultant_phase?.actual_start_date).format('MM-DD-YYYY') : '-' : '-';
         const contractor = d?.contractor_phase  ? d.contractor_phase?.actual_start_date ? moment(d.contractor_phase?.actual_start_date).format('MM-DD-YYYY')  :'-'  : '-';
         const constructor = d?.construction_phase ? d.construction_phase?.actual_start_date ? moment(d.construction_phase?.actual_start_date).format('MM-DD-YYYY') :'-' : '-';
+        const localgovernment = d?.project_local_governments[0]?.CODE_LOCAL_GOVERNMENT?.local_government_name;
         return {
           key: d.project_id,
           onbase: d.onbase_project_number,
@@ -103,7 +106,8 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
           consultant,
           consultantSelected: (d.civilContractor.length > 0 || d.currentPrimeConsultant.length > 0) ? 'Yes': 'No' ,
           contractor,
-          constructor
+          constructor,
+          localgovernment: localgovernment ? localgovernment : '-'
         }
       });
       setDataSource(parsedData);
@@ -152,7 +156,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
       title: 'Description',
       dataIndex: 'description',
       key: 'description',
-      width: '25%',
+      width: '20%',
       render: (text:any, record:any) => <Tooltip placement="top" title={tooltipContent(record.project, text)} overlayClassName="upcoming-tooltip-table"><p>{text}</p></Tooltip>,
       sorter: (a:any, b:any) => {
         if (a.description < b.description)
@@ -170,6 +174,19 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
       key: 'cost',
       sorter: (a:any, b:any) => a.cost - b.cost,
       displayCSV: 'Project Estimated Cost'
+    },
+    {
+      title: <p style={{textAlign:'center'}}>Local<br/>Government</p>,
+      dataIndex: 'localgovernment',
+      key: 'localgovernment',
+      sorter: (a:any, b:any) => {
+        if (a.localgovernment < b.localgovernment)
+          return -1;
+        if ( a.localgovernment > b.localgovernment)
+          return 1;
+        return 0;
+      },
+      displayCSV: 'Local Government'
     },
     {
       title: <p style={{textAlign:'center'}}>Consultant<br/>Selected</p>,
@@ -245,7 +262,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
       title: 'Description',
       dataIndex: 'description',
       key: 'description',
-      width: '35%',
+      width: '25%',
       render: (text:any, record:any) => <Tooltip placement="top" title={tooltipContent(record.project, text)} overlayClassName="upcoming-tooltip-table"><p>{text}</p></Tooltip>,
       sorter: (a:any, b:any) => {
         if (a.description < b.description)
@@ -262,6 +279,19 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
       key: 'cost',
       sorter: (a:any, b:any) => a.cost - b.cost,
       displayCSV: 'Project Estimated Cost'
+    },
+    {
+      title: <p style={{textAlign:'center'}}>Local<br/>Government</p>,
+      dataIndex: 'localgovernment',
+      key: 'localgovernment',
+      sorter: (a:any, b:any) => {
+        if (a.localgovernment < b.localgovernment)
+          return -1;
+        if ( a.localgovernment > b.localgovernment)
+          return 1;
+        return 0;
+      },
+      displayCSV: 'Local Government'
     },
     {
       title: <p style={{textAlign:'center'}}>Consultant<br/>Selection Date</p>,
@@ -281,6 +311,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
       actualColumns.current = columns;
     }
   } ,[tipe]);
+
   return (
     <Table
       scroll={{ y: 240 }}
