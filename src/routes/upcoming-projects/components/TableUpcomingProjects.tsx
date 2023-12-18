@@ -6,6 +6,7 @@ import moment from "moment";
 import { formatter } from "Components/Work/Request/RequestViewUtil";
 import { handleAbortError } from 'store/actions/mapActions';
 import { useMapState } from "hook/mapHook";
+import DetailModal from 'routes/detail-page/components/DetailModal';
 
 const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, searchValue: string, setCsvData: Function}) => {
   
@@ -20,6 +21,8 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
   const [dataSource, setDataSource] = useState<any>([]);
   const [filteredDataSource, setFilteredDataSource] = useState<any>([]);
   const actualColumns = useRef<any>([]);
+  const [visible, setVisible] = useState(false);
+  const [detailProject, setDetailProject] = useState<any>({});
 
   const setDataForCSV = (dataFiltered: any) => {
     const dataCSV = dataFiltered.map((attribs: any) => {
@@ -303,6 +306,13 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
       displayCSV: 'Consultant Selection Date'
     },
   ];
+  const getDataForProject = (project_id: any) => {
+    datasets.getData(SERVER.GET_PROJECT_DATA(project_id)).then(projectData => {
+      if(projectData[0]) {
+        setDetailProject(projectData[0]);
+      }
+    })
+  }
   useEffect(() => {
     if (tipe === 'Study' || tipe === 'R&D' || tipe === 'Acquisition') {
       console.log('Setting ', columnsNew);
@@ -313,14 +323,39 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
   } ,[tipe]);
 
   return (
-    <Table
-      scroll={{ y: 240 }}
-      className='upcoming-table'
-      dataSource={filteredDataSource}
-      columns={actualColumns.current}
-      pagination={false}
-      onChange={(pagination, filters, sorter, currentTable) => onTableChange(pagination, filters, sorter, currentTable)}
-    />
+    <>
+      {
+        visible &&
+        <DetailModal
+          visible={visible}
+          setVisible={setVisible}
+          data={detailProject}
+          type={'Projects'}
+          deleteCallback={null}
+          addFavorite={null}
+        />
+      }
+       <Table
+        scroll={{ y: 240 }}
+        className='upcoming-table'
+        dataSource={filteredDataSource}
+        columns={actualColumns.current}
+        pagination={false}
+        onChange={(pagination, filters, sorter, currentTable) => onTableChange(pagination, filters, sorter, currentTable)}
+        onRow={(record, rowIndex) => {
+          return {
+            onClick: event => {
+              console.log('Clicked Row', rowIndex, record);
+              if(record.projectid) {
+                getDataForProject(record.projectid);
+                setVisible(true);
+              }
+            }, // click row
+          };
+        }}
+      />
+    </>
+   
   );
 }
 

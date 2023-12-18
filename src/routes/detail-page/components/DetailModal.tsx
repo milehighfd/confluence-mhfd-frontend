@@ -92,6 +92,7 @@ const DetailModal = ({
   let carouselRef = useRef<undefined | any>(undefined);
   const { getAttachmentProjectId } = useAttachmentDispatch();
   const { attachments } = useAttachmentState();
+  useEffect(() => {console.log('DAta xcv', data);} ,[data]);
 useEffect(() => {
   const CODE_LOCAL_GOVERNMENT = 3;
   
