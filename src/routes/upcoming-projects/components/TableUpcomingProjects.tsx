@@ -152,7 +152,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
       title: 'Description',
       dataIndex: 'description',
       key: 'description',
-      width: '25%',
+      width: '20%',
       render: (text:any, record:any) => <Tooltip placement="top" title={tooltipContent(record.project, text)} overlayClassName="upcoming-tooltip-table"><p>{text}</p></Tooltip>,
       sorter: (a:any, b:any) => {
         if (a.description < b.description)
@@ -170,6 +170,12 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
       key: 'cost',
       sorter: (a:any, b:any) => a.cost - b.cost,
       displayCSV: 'Project Estimated Cost'
+    },
+    {
+      title: <p style={{textAlign:'center'}}>Local<br/>Government</p>,
+      dataIndex: 'localGovernment',
+      key: 'localGovernment',
+      sorter: (a:any, b:any) => a.cost - b.cost,
     },
     {
       title: <p style={{textAlign:'center'}}>Consultant<br/>Selected</p>,
@@ -245,7 +251,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
       title: 'Description',
       dataIndex: 'description',
       key: 'description',
-      width: '35%',
+      width: '25%',
       render: (text:any, record:any) => <Tooltip placement="top" title={tooltipContent(record.project, text)} overlayClassName="upcoming-tooltip-table"><p>{text}</p></Tooltip>,
       sorter: (a:any, b:any) => {
         if (a.description < b.description)
@@ -262,6 +268,12 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
       key: 'cost',
       sorter: (a:any, b:any) => a.cost - b.cost,
       displayCSV: 'Project Estimated Cost'
+    },
+    {
+      title: <p style={{textAlign:'center'}}>Local<br/>Government</p>,
+      dataIndex: 'localGovernment',
+      key: 'localGovernment',
+      sorter: (a:any, b:any) => a.cost - b.cost,
     },
     {
       title: <p style={{textAlign:'center'}}>Consultant<br/>Selection Date</p>,
@@ -281,6 +293,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
       actualColumns.current = columns;
     }
   } ,[tipe]);
+
   return (
     <Table
       scroll={{ y: 240 }}
