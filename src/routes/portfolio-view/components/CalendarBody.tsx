@@ -1367,16 +1367,18 @@ const CalendarBody = ({
                     setDataDetail(d)
                   }} className="title-project" >{d.rowLabel}</p>
                 </Tooltip>
-                {
-                  d.isFavorite ? <HeartFilled
-                    style={{ marginLeft: '7px', color: '#F5575C', marginRight: '10px' }}
-                    onClick={() => deleteFunction(d.project_id)}
-                  /> : <HeartOutlined
-                    style={{ marginLeft: '7px', color: '#706B8A', marginRight: '10px' }}
-                    onClick={() => addFunction('', d.project_id, '')} />}
-                <Popover placement='bottom' trigger="click" content={menu()} overlayClassName='pm-popover'>
-                  <MoreOutlined className="menu-wr" style={{cursor: 'pointer'}}></MoreOutlined>
-                </Popover>
+                <div style={{display:'flex'}}>
+                  {
+                    d.isFavorite ? <HeartFilled
+                      style={{ marginLeft: '7px', color: '#F5575C', marginRight: '10px' }}
+                      onClick={() => deleteFunction(d.project_id)}
+                    /> : <HeartOutlined
+                      style={{ marginLeft: '7px', color: '#706B8A', marginRight: '10px' }}
+                      onClick={() => addFunction('', d.project_id, '')} />}
+                  <Popover placement='bottom' trigger="click" content={menu()} overlayClassName='pm-popover'>
+                    <MoreOutlined className="menu-wr" style={{cursor: 'pointer'}}></MoreOutlined>
+                  </Popover>
+                </div>
               </div>
             ))
           }
