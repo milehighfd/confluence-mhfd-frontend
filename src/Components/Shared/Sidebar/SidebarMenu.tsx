@@ -67,8 +67,7 @@ const SidebarMenu = ({ collapsed, setVisibleTutorial, }: { collapsed: boolean, s
   },
   {
     className: Number(indexOf) === 9 ? 'menu-sidebar-hover mobile-no-display':'mobile-no-display',
-    // TODO: Dotty this is generating warnings in console, due to key(5) duplicated
-    key: '5',
+    key: '10',
     label: <Link to={collapsed ? '/upcoming-projects' : '#'}>
       <img className={"img-h anticon"+(collapsed?'':' img-opaque')+(collapsed?" img-collapsed":"")}src="/Icons/menu-white-18.svg" alt="" width="22px" height="22px"/>
       <img className={"img-a anticon"+(collapsed?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-18.svg" alt="" width="22px" height="22px"/>
