@@ -312,6 +312,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
     datasets.getData(SERVER.GET_PROJECT_DATA(project_id)).then(projectData => {
       if(projectData[0]) {
         setDetailProject(projectData[0]);
+        setVisible(true);
       }
     })
   }
@@ -322,7 +323,6 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
       actualColumns.current = columns;
     }
   } ,[tipe]);
-
   return (
     <>
       {
@@ -348,7 +348,6 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
             onClick: event => {
               if(record.projectid) {
                 getDataForProject(record.projectid);
-                setVisible(true);
               }
             }, // click row
           };

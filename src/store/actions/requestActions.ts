@@ -683,6 +683,7 @@ export const toggleFilter = (type: any, id: any) => {
       }
       return item;
     });
+    console.trace("NEW FILTER REQ", newFilterRequest);
     dispatch({
       type: types.REQUEST_SET_FILTER_REQUEST,
       payload: newFilterRequest
@@ -692,6 +693,7 @@ export const toggleFilter = (type: any, id: any) => {
 
 export const setFilterRequest = (payload: any) => {
   return (dispatch: any) => {
+    console.trace("NEW FILTER REQ1", payload);
     dispatch({
       type: types.REQUEST_SET_FILTER_REQUEST,
       payload

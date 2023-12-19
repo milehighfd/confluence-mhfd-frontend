@@ -30,6 +30,7 @@ const Filter = () => {
     setFilterRequest,
     setFilterYear
   } = useRequestDispatch();
+// filter request viene de loadfilters in requestactions
   let jurisdictionFilterList: any[] = filterMap['project_local_governments'];
   let countiesFilterList: any[] = filterMap['project_counties'];
   let serviceAreasFilterList: any[] = filterMap['project_service_areas'];
@@ -173,6 +174,7 @@ useEffect(() => {
     >
       <div className="body-drawer">
         {
+           tabActiveNavbar !== UPCOMING_PROJECTS &&
           <FilterGroup
             label="Project Status"
             filterList={projectStatusFilter}

@@ -69,6 +69,7 @@ const DetailModal = ({
   const useQuery = () => new URLSearchParams(useLocation().search);
   const query = useQuery();
   const project_idS = query.get('project_id') || data?.project_id || data?.id;
+  console.log('Project_ids ', project_idS, data?.project_id, data?.id);
   const problem_idS = query.get('problem_id') || data?.problemid;
   const ciprRef = useRef(null);
   const cipjRef = useRef(null);
@@ -154,16 +155,20 @@ useEffect(() => {
         setProblemPart(t);
       });
     } else {
-      const project_id = project_idS ? +project_idS : +problem_idS ? +problem_idS : 0;
-      getDetailedPageProject(project_id ? project_id : data?.project_id);
-      getComponentsByProblemId({
-        id: (project_id ? project_id : data.project_id) || data?.on_base || data?.id || data?.cartodb_id,
-        typeid: 'projectid',
-        sortby: 'type',
-        sorttype: 'asc',
-      });
+      const project_id = project_idS ? +project_idS : +problem_idS ? +problem_idS : undefined;
+      console.log('project_id', project_id, data?.project_id);
+      const projectIdToSend = project_id ? project_id : data?.project_id;
+      // if (projectIdToSend ) {
+        getDetailedPageProject(projectIdToSend);
+        getComponentsByProblemId({
+          id: (project_id ? project_id : data.project_id) || data?.on_base || data?.id || data?.cartodb_id,
+          typeid: 'projectid',
+          sortby: 'type',
+          sorttype: 'asc',
+        });
+      // }
     }
-  }, []);
+  }, [data]);
   useEffect(() => {
     const projectType = detailed?.code_project_type?.project_type_name;
     setProjecttype(projectType);
@@ -1025,11 +1030,11 @@ useEffect(() => {
                       (appUser.designation === ADMIN || appUser.designation === STAFF)) || isPartnerLG) && (
                         <>
                           {
-                            detailed && detailed.code_project_type_id &&
+                            detailed && detailed.code_project_type_id && project_idS && 
                             <StackedBarChart projectId={project_idS} isRestoration={detailed.code_project_type_id == 7}/>
                           }
                           <br></br>
-                          <Financials projectId={project_idS} />
+                          { project_idS && <Financials projectId={project_idS} />}
                         </>
                       )}
                     <br></br>
