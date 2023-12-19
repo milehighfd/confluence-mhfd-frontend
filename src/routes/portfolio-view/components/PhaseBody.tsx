@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Col, Menu, MenuProps, Popover, Row, Tooltip } from 'antd';
 import * as d3 from 'd3';
 import moment from 'moment';
-import { HeartFilled, HeartOutlined, MoreOutlined } from '@ant-design/icons';
+import { EyeOutlined, HeartFilled, HeartOutlined, MoreOutlined } from '@ant-design/icons';
 import { SERVER } from 'Config/Server.config';
 import { FILTER_PROJECTS_TRIGGER, LIMIT_PAGINATION } from 'constants/constants';
 import { getCurrentProjectStatus, getServiceAreas, getStreams, getTotalEstimatedCost } from 'utils/parsers';
@@ -678,11 +678,11 @@ const PhaseBody = ({
     let menuPopupItem: MenuProps['items'] = [
       {
         key: '0',
-        label: <span >Edit Project</span>
+        label: <span> <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} /> Edit Project</span>
       },
       {
         key: '1',
-        label: <span >View Project</span>,
+        label: <span style={{display: 'flex', alignItems: 'center'}}> <EyeOutlined className='tooltip-icon-pm' style={{opacity: '0.5', marginRight: '4px', fontSize: '12px'}}/> View Project</span>,
       }
     ];
     return <Menu

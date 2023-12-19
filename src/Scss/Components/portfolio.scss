@@ -3106,6 +3106,12 @@
     padding: 16px !important;
     span {
       font-size: 20px !important;
+      img{
+        width: 18px;
+      }
+      .tooltip-icon-pm{
+        margin-right: 8px !important;
+      }
     }
   }
   .phase-groups {
