@@ -3,7 +3,7 @@ import { Drawer, Button } from 'antd';
 import { useRequestDispatch, useRequestState } from "hook/requestHook";
 import FilterGroup from "./FilterGroup";
 import { useMapState } from "hook/mapHook";
-import { YEAR_LOGIC_2024, WORK_PLAN } from 'constants/constants';
+import { YEAR_LOGIC_2024, WORK_PLAN, UPCOMING_PROJECTS } from 'constants/constants';
 import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 
@@ -46,6 +46,7 @@ const Filter = () => {
   const [serviceAreaFilter, setServiceAreaFilter] = useState<any[]>([]);
   const [countyFilter, setCountyFilter] = useState<any[]>([]);
   const [jurisdictionFilter, setJurisdictionFilter] = useState<any[]>([]);
+  const [mhfdLeadFilter, setMhfdLeadFilter] = useState<any[]>([]);
   const [projectStatusFilter, setProjectStatusFilter] = useState<any[]>([]);
   const [sponsorFilter, setSponsorFilter] = useState<any[]>([]);
   const [priorityFilter, setPriorityFilter] = useState<any[]>([]);
@@ -78,7 +79,9 @@ const Filter = () => {
       setCompleteFilter(res);
     });
   }, []);
-
+useEffect(() => {
+  console.log('filterRequest: ', filterRequest);
+} ,[filterRequest]);
   useEffect(() => {
     const orderForStatus = ['Draft', 'Requested', 'Under Review', 'Approved', 'Cancelled', 'Inactive'];
     const sortedFilterRequest = [...filterRequest].sort((a, b) => a.name.localeCompare(b.name));
@@ -109,6 +112,7 @@ const Filter = () => {
     setJurisdictionFilter(result.filter((f: any) => f.type === 'project_local_governments'));
     setSponsorFilter(result.filter((f: any) => f.type === 'project_partners'));
     setProjectStatusFilter(statusFilter);
+    setMhfdLeadFilter(result.filter((f: any) => f.type === 'mhfd_lead'));
   }, [filterRequest, resetFilter, completeFilter]);
 
   useEffect(() => {
@@ -182,6 +186,13 @@ const Filter = () => {
           />
         }
         {
+          tabActiveNavbar === UPCOMING_PROJECTS &&
+          <FilterGroup
+            label="MHFD Lead"
+            filterList={mhfdLeadFilter}
+          />
+        }
+        {
           tabActiveNavbar === 'WORK_PLAN' &&
           <FilterGroup
             label="Priority"
@@ -196,14 +207,14 @@ const Filter = () => {
           />
         }
         {
-          tabActiveNavbar === 'WORK_PLAN' &&
+          (tabActiveNavbar === 'WORK_PLAN' || tabActiveNavbar === UPCOMING_PROJECTS) &&
           <FilterGroup
             label="Local Government"
             filterList={jurisdictionFilter}
           />
         }
         {
-          (tabActiveNavbar === 'WORK_REQUEST' ||  tabActiveNavbar === 'WORK_PLAN') &&
+          (tabActiveNavbar === 'WORK_REQUEST' ||  tabActiveNavbar === 'WORK_PLAN' || tabActiveNavbar === UPCOMING_PROJECTS) &&
           <FilterGroup
             label="County"
             filterList={countyFilter}
@@ -211,7 +222,7 @@ const Filter = () => {
           />
         }
         {
-          (tabActiveNavbar === 'WORK_REQUEST' ||  tabActiveNavbar === 'WORK_PLAN') &&
+          (tabActiveNavbar === 'WORK_REQUEST' ||  tabActiveNavbar === 'WORK_PLAN' || tabActiveNavbar === UPCOMING_PROJECTS) &&
           <FilterGroup
             label="Service Area"
             filterList={serviceAreaFilter}

@@ -4,7 +4,7 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import { ROUTERS_SIDEBAR } from "./constants/layout.constants";
 import '../../../Scss/Components/Shared/sidebar.scss';
 import { useMapDispatch, useMapState } from "hook/mapHook";
-import { MAP, WORK_PLAN, WORK_REQUEST } from "constants/constants";
+import { MAP, UPCOMING_PROJECTS, WORK_PLAN, WORK_REQUEST } from "constants/constants";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { useProfileState } from 'hook/profileHook';
 
@@ -68,7 +68,7 @@ const SidebarMenu = ({ collapsed, setVisibleTutorial, }: { collapsed: boolean, s
   {
     className: Number(indexOf) === 9 ? 'menu-sidebar-hover mobile-no-display':'mobile-no-display',
     key: '10',
-    label: <Link to={collapsed ? '/upcoming-projects' : '#'}>
+    label: <Link to={collapsed ? '/upcoming-projects' : '#'} onClick={()=>{setTabActiveNavbar(UPCOMING_PROJECTS)}}>
       <img className={"img-h anticon"+(collapsed?'':' img-opaque')+(collapsed?" img-collapsed":"")}src="/Icons/menu-white-18.svg" alt="" width="22px" height="22px"/>
       <img className={"img-a anticon"+(collapsed?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-18.svg" alt="" width="22px" height="22px"/>
       <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>Upcoming Projects</span>

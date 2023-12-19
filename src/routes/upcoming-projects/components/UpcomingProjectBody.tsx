@@ -1,9 +1,10 @@
 import { Button, Input, Popover, Tabs } from 'antd';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CSVLink } from 'react-csv';
 import TableUpcomingProjects from './TableUpcomingProjects';
 import { SearchOutlined } from '@ant-design/icons';
 import Filter from 'Components/Work/Drawers/Filter';
+import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 
 const { TabPane } = Tabs;
 
@@ -17,8 +18,15 @@ const DIP = 'DIP';
 
 const tabKeys = [ALL, CAPITAL, DIP,  MAINTENANCE, STUDY, ACQUISITION, SPECIAL];
 export const UpcomingProjectBody = () => {
+
+  const {
+    showFilters
+  } = useRequestState();
+  const { 
+    setShowFilters, 
+  } = useRequestDispatch();
+  
   const [tabKey, setTabKey] = useState<any>(ALL);
-  const [showFilters, setShowFilters] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<any>('');
   const [csvData, setCsvData] = useState<string[][]>([[]]);
   const [csvFileName, setCsvFileName] = useState<string>('');
@@ -96,6 +104,9 @@ export const UpcomingProjectBody = () => {
     </div>
   );
   let displayedTabKey = tabKeys;
+  useEffect(() => {
+    console.log('Show Filters: ', showFilters);
+  } ,[showFilters]);
   return (
     <div className="upcoming-body">
       {

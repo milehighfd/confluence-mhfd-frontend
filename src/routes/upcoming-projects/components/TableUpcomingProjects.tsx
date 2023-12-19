@@ -34,7 +34,6 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
       });
       return newObject;
     });
-    console.log('Data For CSV', dataCSV);
     setCsvData(dataCSV);
   }
   useEffect(() => {
@@ -94,12 +93,12 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
       const parsedData = data.map((d: any, index: any) => {
         const mhfdLead = d.project_staffs.find((staff: any) => staff.code_project_staff_role_type_id === 1);
         const estimatedCost = d.project_costs.find((cost: any) => cost.code_cost_type_id === 1);
-        let consultant = d?.consultant_phase  ? d.consultant_phase?.actual_start_date ? moment(d.consultant_phase?.actual_start_date).format('MM-DD-YYYY') : '-' : '-';
+        let consultant = d?.consultant_phase  ? d.consultant_phase?.actual_start_date ? moment(d.consultant_phase?.actual_start_date).utcOffset(-7).format('MM-DD-YYYY') : '-' : '-';
         if ( tipe === 'Study') {
-          consultant = d?.fundingConsultantSelectionPhase  ? d.fundingConsultantSelectionPhase?.actual_start_date ? moment(d.fundingConsultantSelectionPhase?.actual_start_date).format('MM-DD-YYYY') : '-' : '-';
+          consultant = d?.fundingConsultantSelectionPhase  ? d.fundingConsultantSelectionPhase?.actual_start_date ? moment(d.fundingConsultantSelectionPhase?.actual_start_date).utcOffset(-7).format('MM-DD-YYYY') : '-' : '-';
         }
-        const contractor = d?.contractor_phase  ? d.contractor_phase?.actual_start_date ? moment(d.contractor_phase?.actual_start_date).format('MM-DD-YYYY')  :'-'  : '-';
-        const constructor = d?.construction_phase ? d.construction_phase?.actual_start_date ? moment(d.construction_phase?.actual_start_date).format('MM-DD-YYYY') :'-' : '-';
+        const contractor = d?.contractor_phase  ? d.contractor_phase?.actual_start_date ? moment(d.contractor_phase?.actual_start_date).utcOffset(-7).format('MM-DD-YYYY')  :'-'  : '-';
+        const constructor = d?.construction_phase ? d.construction_phase?.actual_start_date ? moment(d.construction_phase?.actual_start_date).utcOffset(-7).format('MM-DD-YYYY') :'-' : '-';
         const localgovernment = d?.project_local_governments[0]?.CODE_LOCAL_GOVERNMENT?.local_government_name;
         return {
           key: d.project_id,
@@ -318,7 +317,6 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
   }
   useEffect(() => {
     if (tipe === 'Study' || tipe === 'R&D' || tipe === 'Acquisition') {
-      console.log('Setting ', columnsNew);
       actualColumns.current = columnsNew;
     } else {
       actualColumns.current = columns;
@@ -348,7 +346,6 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
         onRow={(record, rowIndex) => {
           return {
             onClick: event => {
-              console.log('Clicked Row', rowIndex, record);
               if(record.projectid) {
                 getDataForProject(record.projectid);
                 setVisible(true);
