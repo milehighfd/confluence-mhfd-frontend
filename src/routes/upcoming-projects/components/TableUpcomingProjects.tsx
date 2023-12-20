@@ -267,7 +267,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
     },
     {
       title: <p style={{textAlign:'center'}}>Consultant<br/>Selection<br/>Date&nbsp;<Tooltip placement="top" title={<>Selection and Start Dates are estimates and subject to change at any time without notice.</>}>
-        <InfoCircleOutlined style={{opacity:'0.3'}} />
+        <InfoCircleOutlined style={{opacity:'0.3'}} className="information-ico"/>
       </Tooltip></p>,
       dataIndex: 'consultant',
       key: 'consultant',
@@ -279,7 +279,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
 
     {
       title: <p style={{textAlign:'center'}}>Contractor<br/>Selection<br/>Date&nbsp;<Tooltip placement="top" title={<>Selection and Start Dates are estimates and subject to change at any time without notice.</>}>
-      <InfoCircleOutlined style={{opacity:'0.3'}} />
+      <InfoCircleOutlined style={{opacity:'0.3'}} className="information-ico"/>
     </Tooltip></p>,
       dataIndex: 'contractor',
       key: 'contractor',
@@ -363,7 +363,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
     },
     {
       title: <p style={{textAlign:'center'}}>Consultant<br/>Selection<br/>Date&nbsp;<Tooltip placement="top" title={<>Selection and Start Dates are estimates and subject to change at any time without notice.</>}>
-      <InfoCircleOutlined style={{opacity:'0.3'}} />
+      <InfoCircleOutlined style={{opacity:'0.3'}} className="information-ico"/>
     </Tooltip></p>,
       dataIndex: 'consultant',
       key: 'consultant',
