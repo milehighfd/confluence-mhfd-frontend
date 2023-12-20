@@ -23,7 +23,8 @@ const Filter = ({origin}:{origin: any}) => {
     isListView,
     namespaceId,
     filterYear,
-    filterCost
+    filterCost,
+    filterBy
   } = useRequestState();
   const {
     tabActiveNavbar,
@@ -145,7 +146,8 @@ const Filter = ({origin}:{origin: any}) => {
   const applyFilters = () => {
     setFilterYear(yearFilter.filter((f: any) => f.selected).map((f: any) => f.id));
     if (origin === UPCOMING_PROJECTS) {
-      const filters = {
+      
+      const filters: any = {
         county:filterRequest?.filter((item: any, _: number) => item.selected && 
         item.type === 'project_counties').map((r: any) => r.id),
         jurisdiction: filterRequest?.filter((item: any, _: number) => item.selected && 
@@ -155,6 +157,9 @@ const Filter = ({origin}:{origin: any}) => {
         mhfdmanager: filterRequest?.filter((item: any, _:number) => item.selected && item.type === 'mhfd_lead').map((r:any) => r.id),
         totalcost: filterCost
       };
+      if (filterBy.filterBy !== '' && filterBy.filterValue !== -1) {
+        filters[filterBy.filterBy] = [...filters[filterBy.filterBy], filterBy.filterValue];
+      }
       setFilterProjectOptions({...filterProjectOptions, ...filters});
     } else {
       loadColumns();    

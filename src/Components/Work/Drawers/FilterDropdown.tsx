@@ -112,7 +112,6 @@ const FilterDropdown = ({
     {"min":60000000,"max":61000000,"last":true}
   ];
   useEffect(() => {
-    console.log('Cost Range', filterCost);
     if(filterCost && filterCost.length === 0) {
       setMinIndex(-1);
       setMaxIndex(-1);  

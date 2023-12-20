@@ -675,6 +675,10 @@ export const setCostRange = (payload: any) => ({
   type: types.SET_COST_RANGE,
   payload
 });
+export const setFilterBy = (payload: any) => ({
+  type: types.SET_FILTER_BY,
+  payload
+});
 export const toggleFilter = (type: any, id: any) => {
   return (dispatch: any, getState: Function) => {
     const { request: { filterRequest } } = getState();

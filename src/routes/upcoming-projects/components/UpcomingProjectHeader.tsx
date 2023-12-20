@@ -1,6 +1,7 @@
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import { Dropdown, Select } from 'antd';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
+import { useRequestDispatch, useRequestState} from 'hook/requestHook';
 import React, { useState, useCallback, useEffect } from 'react';
 import { FilterByGroupName } from 'routes/portfolio-view/components/FilterByGroupField';
 
@@ -13,6 +14,10 @@ export const UpcomingProjectHeader = () => {
   const {
     setFilterProjectOptions
   } = useMapDispatch();
+  const {
+    setFilterBy
+  } = useRequestDispatch();
+
   const [filterby, setFilterby] = useState('');
   const [filterValue, setFilterValue] = useState(-1);
   const [filtername, setFiltername] = useState('Mile High Flood District');
@@ -59,11 +64,13 @@ export const UpcomingProjectHeader = () => {
     // isInit=true;
     // resetFilterProjectOptionsEmpty();
     if (filterValue != -1) {
-      apply([filterValue], filterby, '');     
+      apply([filterValue], filterby, '');   
     } else {
       apply([], filterby, '');
     }
+    setFilterBy({filterBy: filterby, filterValue: filterValue});  
   } ,[filterby, filterValue]);
+
   const menu = (
     <FilterByGroupName 
       setFilterby={setFilterby}

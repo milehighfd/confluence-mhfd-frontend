@@ -73,7 +73,8 @@ const initialState = {
   filterYear: [],
   isListView: false,
   sentToWP: false,
-  filterCost: []
+  filterCost: [],
+  filterBy: '' 
 };
 
 const requestReducer = (state = initialState, action: any) => {
@@ -366,6 +367,11 @@ const requestReducer = (state = initialState, action: any) => {
         ...state,
         filterCost: action.payload
       }
+      case types.SET_FILTER_BY:
+        return {
+          ...state,
+          filterBy: action.payload
+        }
     case types.REQUEST_SET_DISABLE_FILTER_COUNTY:
       return {
         ...state,
