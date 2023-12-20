@@ -141,12 +141,13 @@ const Filter = ({origin}:{origin: any}) => {
     setFilterYear(yearFilter.filter((f: any) => f.selected).map((f: any) => f.id));
     if (origin === UPCOMING_PROJECTS) {
       const filters = {
-        county:filterRequest?.filter((item: any, index: number) => item.selected && 
+        county:filterRequest?.filter((item: any, _: number) => item.selected && 
         item.type === 'project_counties').map((r: any) => r.id),
-        jurisdiction: filterRequest?.filter((item: any, index: number) => item.selected && 
+        jurisdiction: filterRequest?.filter((item: any, _: number) => item.selected && 
         item.type === 'project_local_governments').map((r: any) => r.id),
-        servicearea: filterRequest?.filter((item: any, index: number) => item.selected && 
+        servicearea: filterRequest?.filter((item: any, _: number) => item.selected && 
         item.type === 'project_service_areas').map((r: any) => r.id),
+        mhfdmanager: filterRequest?.filter((item: any, _:number) => item.selected && item.type === 'mhfd_lead').map((r:any) => r.id)
       };
       setFilterProjectOptions({...filterProjectOptions, ...filters});
     } else {
@@ -162,12 +163,13 @@ const Filter = ({origin}:{origin: any}) => {
     setFilterRequest(filterRequestReset);
     if (origin === UPCOMING_PROJECTS) {
       const filters = {
-        county:filterRequestReset?.filter((item: any, index: number) => item.selected && 
+        county:filterRequestReset?.filter((item: any, _: number) => item.selected && 
         item.type === 'project_counties').map((r: any) => r.id),
-        jurisdiction: filterRequestReset?.filter((item: any, index: number) => item.selected && 
+        jurisdiction: filterRequestReset?.filter((item: any, _: number) => item.selected && 
         item.type === 'project_local_governments').map((r: any) => r.id),
-        servicearea: filterRequestReset?.filter((item: any, index: number) => item.selected && 
+        servicearea: filterRequestReset?.filter((item: any, _: number) => item.selected && 
         item.type === 'project_service_areas').map((r: any) => r.id),
+        mhfdmanager: filterRequestReset?.filter((item: any, _:number) => item.selected && item.type === 'mhfd_lead').map((r:any) => r.id)
       };
       setFilterProjectOptions({...filterProjectOptions, ...filters});
     } else {
@@ -182,7 +184,6 @@ const Filter = ({origin}:{origin: any}) => {
   } else if (l === 'CODE_SERVICE_AREA' || l === 'MHFD_BOUNDARY') {
     label = 'SERVICE AREA';
   }
-
   return (
     <Drawer
       title={

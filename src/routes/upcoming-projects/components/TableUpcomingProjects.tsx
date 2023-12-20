@@ -32,6 +32,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
   } = useRequestState();
 
   const setDataForCSV = (dataFiltered: any) => {
+    console.log('Data ilter ', dataFiltered);
     const dataCSV = dataFiltered.map((attribs: any) => {
       const newObject: any = {};
       actualColumns.current.forEach((column: any) => {
@@ -48,7 +49,6 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
       newObject['type'] = 'project_local_governments';
       // find in filterRequest the value with id and name and type to see the value of the selected 
       const found = filterRequest.find((element: any) => element.id === newObject['id'] && element.name === newObject['name'] && element.type === newObject['type']);
-      console.log('Found', found)
       newObject['selected'] = found ? found.selected: false;
       return newObject;
     });
@@ -72,23 +72,26 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
     });
     const mhfdLeads = dataFiltered.map((attribs: any) => {
       const newObject: any = {};
-      newObject['id'] = attribs.lead;
-      newObject['name'] = attribs.lead;
+      // find inside project_staffs, the business_associate_contact with code_project_staff_role_type_id = 1
+      const mhfdLeadStaff = attribs?.completeData?.project_staffs.find((staff: any) => staff.code_project_staff_role_type_id === 1);
+      newObject['id'] = mhfdLeadStaff ? mhfdLeadStaff.business_associate_contact.business_associate_contact_id : undefined;
+      newObject['name'] =  attribs.lead;
       newObject['type'] = 'mhfd_lead';
       const found = filterRequest.find((element: any) => element.id === newObject['id'] && element.name === newObject['name'] && element.type === newObject['type']);
-      console.log('Found', found);
       newObject['selected'] = found ? found.selected: false;
       return newObject;
     });
     const uniqueLocalGovernments = localgovernments.filter((v:any, i:any, a:any) => a.findIndex((t:any) => (t.id === v.id)) === i);
     const uniqueServiceAreas = serviceAreas.filter((v:any, i:any, a:any) => a.findIndex((t:any) => (t.id === v.id)) === i);
     const uniqueCounties = counties.filter((v:any, i:any, a:any) => a.findIndex((t:any) => (t.id === v.id)) === i);
-    
+    const uniqueMhfdLeads = mhfdLeads.filter((v:any, i:any, a:any) => a.findIndex((t:any) => (t.id === v.id)) === i);
+
     const uniqueLocalGovernmentsFiltered = uniqueLocalGovernments.filter((v:any, i:any, a:any) => (v.id !== undefined && v.name !== undefined));
     const uniqueServiceAreasFiltered = uniqueServiceAreas.filter((v:any, i:any, a:any) => (v.id !== undefined && v.name !== undefined));
     const uniqueCountiesFiltered = uniqueCounties.filter((v:any, i:any, a:any) => (v.id !== undefined && v.name !== undefined));
+    const uniqueMhfdLeadsFiltered = uniqueMhfdLeads.filter((v:any, i:any, a:any) => (v.id !== undefined && v.name !== undefined));
 
-    setFilterRequest([...uniqueLocalGovernmentsFiltered, ...uniqueServiceAreasFiltered, ...uniqueCountiesFiltered, ...mhfdLeads]);
+    setFilterRequest([...uniqueLocalGovernmentsFiltered, ...uniqueServiceAreasFiltered, ...uniqueCountiesFiltered, ...uniqueMhfdLeadsFiltered]);
     setCsvData(dataCSV);
   }
   useEffect(() => {
