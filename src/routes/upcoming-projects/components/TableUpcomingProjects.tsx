@@ -8,6 +8,7 @@ import { handleAbortError } from 'store/actions/mapActions';
 import { useMapState } from "hook/mapHook";
 import DetailModal from 'routes/detail-page/components/DetailModal';
 import { useRequestDispatch, useRequestState } from "hook/requestHook";
+import { InfoCircleOutlined } from "@ant-design/icons";
 
 const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, searchValue: string, setCsvData: Function}) => {
   
@@ -265,7 +266,9 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
       displayCSV: 'Consultant Selected'
     },
     {
-      title: <p style={{textAlign:'center'}}>Consultant<br/>Selection Date</p>,
+      title: <p style={{textAlign:'center'}}>Consultant<br/>Selection<br/>Date&nbsp;<Tooltip placement="top" title={<>Selection and Start Dates are estimates and subject to change at any time without notice.</>}>
+        <InfoCircleOutlined style={{opacity:'0.3'}} />
+      </Tooltip></p>,
       dataIndex: 'consultant',
       key: 'consultant',
       sorter: (a:any, b:any) => {
@@ -275,7 +278,9 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
     },
 
     {
-      title: <p style={{textAlign:'center'}}>Contractor<br/>Selection Date</p>,
+      title: <p style={{textAlign:'center'}}>Contractor<br/>Selection<br/>Date&nbsp;<Tooltip placement="top" title={<>Selection and Start Dates are estimates and subject to change at any time without notice.</>}>
+      <InfoCircleOutlined style={{opacity:'0.3'}} />
+    </Tooltip></p>,
       dataIndex: 'contractor',
       key: 'contractor',
       sorter: (a:any, b:any) => {
@@ -357,7 +362,9 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
       displayCSV: 'Local Government'
     },
     {
-      title: <p style={{textAlign:'center'}}>Consultant<br/>Selection Date</p>,
+      title: <p style={{textAlign:'center'}}>Consultant<br/>Selection<br/>Date&nbsp;<Tooltip placement="top" title={<>Selection and Start Dates are estimates and subject to change at any time without notice.</>}>
+      <InfoCircleOutlined style={{opacity:'0.3'}} />
+    </Tooltip></p>,
       dataIndex: 'consultant',
       key: 'consultant',
       sorter: (a:any, b:any) => {
