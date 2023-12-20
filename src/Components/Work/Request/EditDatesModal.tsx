@@ -339,27 +339,28 @@ const EditDatesModal = ({
   };
 
   function resetData() {
-    if (step === 1) {
-      console.log('reset')
-      setSelectedPhase(null);
-      setStartDate(null);
-    }else if (step === 2) {
-      const copy = dates?.map((x: any) => {
-        if (x.locked) {
-          return {
-            ...x,
-          };
-        }
-        return {
-          ...x,
-          from: undefined,
-          to: undefined,
-        };
-      });
-      setDates(copy);
-      setCalendarValue('');
-      setCalendarPhase(0);
-    }    
+    setVisible(false);
+    // if (step === 1) {
+    //   console.log('reset')
+    //   setSelectedPhase(null);
+    //   setStartDate(null);
+    // }else if (step === 2) {
+    //   const copy = dates?.map((x: any) => {
+    //     if (x.locked) {
+    //       return {
+    //         ...x,
+    //       };
+    //     }
+    //     return {
+    //       ...x,
+    //       from: undefined,
+    //       to: undefined,
+    //     };
+    //   });
+    //   setDates(copy);
+    //   setCalendarValue('');
+    //   setCalendarPhase(0);
+    // }    
   }
   
   return(
@@ -448,20 +449,24 @@ const EditDatesModal = ({
                 style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
                 listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
                 onChange={(value: string) => {
-                  const selectedItem = streamList.find(item => item.project_stream_id.toString() === value);
+                  const selectedItem = streamList.find(item => item.stream_id.toString() === value);
                   if (selectedItem) {
-                    setPrimaryStream({ id: selectedItem.project_stream_id, name: selectedItem.stream.stream_name });
+                    console.log(selectedItem);
+                    setPrimaryStream({ id: selectedItem.stream_id, name: selectedItem.stream_name });
                   }
                 }}
                 value={primaryStream?.id !== null ? primaryStream.id.toString() : undefined}
                 disabled={disabledFields?.primary_stream}
               >
                 {
-                  streamList.map((item) => (
-                    <Option key={item.project_stream_id} value={item.project_stream_id.toString()}>
-                      {item.stream.stream_name}
-                    </Option>
-                  ))
+                  streamList.map((item) => {
+                    const stream_name = item.stream_name || 'NA';
+                    return (
+                      <Option key={item.stream_id} value={item.stream_id.toString()}>
+                        {`${stream_name} - ${item.mhfd_code}`}
+                      </Option>
+                    );
+                  })
                 }
               </Select>
               <label>4. The MHFD lead is::</label><br />
@@ -636,7 +641,7 @@ const EditDatesModal = ({
         <div className="foot-edit-dates">
           <Button className="btn-transparent"
             onClick={() => resetData()}>
-            Clear
+            Cancel
           </Button>
           <Button className="btn-purple"
             onClick={() =>{if(step === 2) {
