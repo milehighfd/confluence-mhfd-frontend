@@ -2,12 +2,12 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Drawer, Button } from 'antd';
 import { useRequestDispatch, useRequestState } from "hook/requestHook";
 import FilterGroup from "./FilterGroup";
-import { useMapState } from "hook/mapHook";
+import { useMapDispatch, useMapState } from "hook/mapHook";
 import { YEAR_LOGIC_2024, WORK_PLAN, UPCOMING_PROJECTS } from 'constants/constants';
 import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 
-const Filter = () => {
+const Filter = ({origin}:{origin: any}) => {
   const {
     showFilters,
     localityType: l,
@@ -22,7 +22,8 @@ const Filter = () => {
     filterYear
   } = useRequestState();
   const {
-    tabActiveNavbar
+    tabActiveNavbar,
+    filterProjectOptions
   } = useMapState();
   const { 
     setShowFilters, 
@@ -30,6 +31,9 @@ const Filter = () => {
     setFilterRequest,
     setFilterYear
   } = useRequestDispatch();
+  const {
+    setFilterProjectOptions
+  } = useMapDispatch();
 // filter request viene de loadfilters in requestactions
   let jurisdictionFilterList: any[] = filterMap['project_local_governments'];
   let countiesFilterList: any[] = filterMap['project_counties'];
@@ -80,9 +84,6 @@ const Filter = () => {
       setCompleteFilter(res);
     });
   }, []);
-useEffect(() => {
-  console.log('filterRequest: ', filterRequest);
-} ,[filterRequest]);
   useEffect(() => {
     const orderForStatus = ['Draft', 'Requested', 'Under Review', 'Approved', 'Cancelled', 'Inactive'];
     const sortedFilterRequest = [...filterRequest].sort((a, b) => a.name.localeCompare(b.name));
@@ -138,7 +139,19 @@ useEffect(() => {
 
   const applyFilters = () => {
     setFilterYear(yearFilter.filter((f: any) => f.selected).map((f: any) => f.id));
-    loadColumns();    
+    if (origin === UPCOMING_PROJECTS) {
+      const filters = {
+        county:filterRequest?.filter((item: any, index: number) => item.selected && 
+        item.type === 'project_counties').map((r: any) => r.id),
+        jurisdiction: filterRequest?.filter((item: any, index: number) => item.selected && 
+        item.type === 'project_local_governments').map((r: any) => r.id),
+        servicearea: filterRequest?.filter((item: any, index: number) => item.selected && 
+        item.type === 'project_service_areas').map((r: any) => r.id),
+      };
+      setFilterProjectOptions({...filterProjectOptions, ...filters});
+    } else {
+      loadColumns();    
+    }
   }
   const reset = () => {
     let filterRequestReset = filterRequest.map((f: any) => {
@@ -147,7 +160,20 @@ useEffect(() => {
     });
     setFilterYear([]);
     setFilterRequest(filterRequestReset);
-    loadColumns();
+    if (origin === UPCOMING_PROJECTS) {
+      const filters = {
+        county:filterRequestReset?.filter((item: any, index: number) => item.selected && 
+        item.type === 'project_counties').map((r: any) => r.id),
+        jurisdiction: filterRequestReset?.filter((item: any, index: number) => item.selected && 
+        item.type === 'project_local_governments').map((r: any) => r.id),
+        servicearea: filterRequestReset?.filter((item: any, index: number) => item.selected && 
+        item.type === 'project_service_areas').map((r: any) => r.id),
+      };
+      setFilterProjectOptions({...filterProjectOptions, ...filters});
+    } else {
+      loadColumns();
+    }
+    
     setResetFilter(!resetFilter);
   }
   let label;

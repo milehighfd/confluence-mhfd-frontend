@@ -285,7 +285,7 @@ const MapLayout = () => {
         showBoardStatus && <Status />
       }
       {
-        showFilters && <Filter/>
+        showFilters && <Filter origin="MAPLAYOUT"/>
       }
       {
         visibleCreateProject &&

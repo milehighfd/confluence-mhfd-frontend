@@ -93,24 +93,23 @@ const DetailModal = ({
   let carouselRef = useRef<undefined | any>(undefined);
   const { getAttachmentProjectId } = useAttachmentDispatch();
   const { attachments } = useAttachmentState();
-  useEffect(() => {console.log('DAta xcv', data);} ,[data]);
-useEffect(() => {
-  const CODE_LOCAL_GOVERNMENT = 3;
-  
-  const existInStaff = detailed?.project_staffs?.find(
-    (staff: any) => 
-      staff?.business_associate_contact_id === 
-      appUser?.business_associate_contact?.business_associate_contact_id
-  );
-  
-  const isLocalGovernment = 
-    appUser?.business_associate_contact?.business_address?.business_associate?.code_business_associates_type_id === 
-    CODE_LOCAL_GOVERNMENT;
+  useEffect(() => {
+    const CODE_LOCAL_GOVERNMENT = 3;
+    
+    const existInStaff = detailed?.project_staffs?.find(
+      (staff: any) => 
+        staff?.business_associate_contact_id === 
+        appUser?.business_associate_contact?.business_associate_contact_id
+    );
+    
+    const isLocalGovernment = 
+      appUser?.business_associate_contact?.business_address?.business_associate?.code_business_associates_type_id === 
+      CODE_LOCAL_GOVERNMENT;
 
-  const showFinancials = existInStaff && isLocalGovernment;
-  
-  setIsPartnerLG(showFinancials);
-}, [detailed]);
+    const showFinancials = existInStaff && isLocalGovernment;
+    
+    setIsPartnerLG(showFinancials);
+  }, [detailed]);
 
   useEffect(() => {
     if (detailed?.project_id) {

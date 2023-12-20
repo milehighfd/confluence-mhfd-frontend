@@ -5,6 +5,7 @@ import TableUpcomingProjects from './TableUpcomingProjects';
 import { SearchOutlined } from '@ant-design/icons';
 import Filter from 'Components/Work/Drawers/Filter';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
+import { UPCOMING_PROJECTS } from 'constants/constants';
 
 const { TabPane } = Tabs;
 
@@ -103,14 +104,14 @@ export const UpcomingProjectBody = () => {
       </Popover>
     </div>
   );
-  let displayedTabKey = tabKeys;
   useEffect(() => {
-    console.log('Show Filters: ', showFilters);
-  } ,[showFilters]);
+    setShowFilters(false);
+  }, []);
+  let displayedTabKey = tabKeys;
   return (
     <div className="upcoming-body">
       {
-        showFilters && <Filter/>
+        showFilters && <Filter origin={UPCOMING_PROJECTS}/>
       }
       <Tabs
         destroyInactiveTabPane={true}

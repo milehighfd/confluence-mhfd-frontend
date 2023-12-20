@@ -7,6 +7,7 @@ import { formatter } from "Components/Work/Request/RequestViewUtil";
 import { handleAbortError } from 'store/actions/mapActions';
 import { useMapState } from "hook/mapHook";
 import DetailModal from 'routes/detail-page/components/DetailModal';
+import { useRequestDispatch, useRequestState } from "hook/requestHook";
 
 const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, searchValue: string, setCsvData: Function}) => {
   
@@ -23,6 +24,12 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
   const actualColumns = useRef<any>([]);
   const [visible, setVisible] = useState(false);
   const [detailProject, setDetailProject] = useState<any>({});
+  const {
+    setFilterRequest
+  } = useRequestDispatch();
+  const {
+    filterRequest
+  } = useRequestState();
 
   const setDataForCSV = (dataFiltered: any) => {
     const dataCSV = dataFiltered.map((attribs: any) => {
@@ -34,6 +41,54 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
       });
       return newObject;
     });
+    const localgovernments = dataFiltered.map((attribs: any) => {
+      const newObject: any = {};
+      newObject['id'] = attribs.completeData?.project_local_governments[0]?.CODE_LOCAL_GOVERNMENT?.code_local_government_id;
+      newObject['name'] = attribs.completeData?.project_local_governments[0]?.CODE_LOCAL_GOVERNMENT?.local_government_name;
+      newObject['type'] = 'project_local_governments';
+      // find in filterRequest the value with id and name and type to see the value of the selected 
+      const found = filterRequest.find((element: any) => element.id === newObject['id'] && element.name === newObject['name'] && element.type === newObject['type']);
+      console.log('Found', found)
+      newObject['selected'] = found ? found.selected: false;
+      return newObject;
+    });
+    const serviceAreas = dataFiltered.map((attribs: any) => {
+      const newObject: any = {};
+      newObject['id'] = attribs.completeData?.project_service_areas[0]?.CODE_SERVICE_AREA?.code_service_area_id;
+      newObject['name'] = attribs.completeData?.project_service_areas[0]?.CODE_SERVICE_AREA?.service_area_name;
+      newObject['type'] = 'project_service_areas';
+      const found = filterRequest.find((element: any) => element.id === newObject['id'] && element.name === newObject['name'] && element.type === newObject['type']);
+      newObject['selected'] = found ? found.selected: false;
+      return newObject;
+    });
+    const counties = dataFiltered.map((attribs: any) => {
+      const newObject: any = {};
+      newObject['id'] = attribs.completeData?.project_counties[0]?.CODE_STATE_COUNTY?.state_county_id;
+      newObject['name'] = attribs.completeData?.project_counties[0]?.CODE_STATE_COUNTY?.county_name;
+      newObject['type'] = 'project_counties';
+      const found = filterRequest.find((element: any) => element.id === newObject['id'] && element.name === newObject['name'] && element.type === newObject['type']);
+      newObject['selected'] = found ? found.selected: false;
+      return newObject;
+    });
+    const mhfdLeads = dataFiltered.map((attribs: any) => {
+      const newObject: any = {};
+      newObject['id'] = attribs.lead;
+      newObject['name'] = attribs.lead;
+      newObject['type'] = 'mhfd_lead';
+      const found = filterRequest.find((element: any) => element.id === newObject['id'] && element.name === newObject['name'] && element.type === newObject['type']);
+      console.log('Found', found);
+      newObject['selected'] = found ? found.selected: false;
+      return newObject;
+    });
+    const uniqueLocalGovernments = localgovernments.filter((v:any, i:any, a:any) => a.findIndex((t:any) => (t.id === v.id)) === i);
+    const uniqueServiceAreas = serviceAreas.filter((v:any, i:any, a:any) => a.findIndex((t:any) => (t.id === v.id)) === i);
+    const uniqueCounties = counties.filter((v:any, i:any, a:any) => a.findIndex((t:any) => (t.id === v.id)) === i);
+    
+    const uniqueLocalGovernmentsFiltered = uniqueLocalGovernments.filter((v:any, i:any, a:any) => (v.id !== undefined && v.name !== undefined));
+    const uniqueServiceAreasFiltered = uniqueServiceAreas.filter((v:any, i:any, a:any) => (v.id !== undefined && v.name !== undefined));
+    const uniqueCountiesFiltered = uniqueCounties.filter((v:any, i:any, a:any) => (v.id !== undefined && v.name !== undefined));
+
+    setFilterRequest([...uniqueLocalGovernmentsFiltered, ...uniqueServiceAreasFiltered, ...uniqueCountiesFiltered, ...mhfdLeads]);
     setCsvData(dataCSV);
   }
   useEffect(() => {
@@ -112,7 +167,8 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
           consultantSelected: (d.civilContractor.length > 0 || d.currentPrimeConsultant.length > 0) ? 'Yes': 'No' ,
           contractor,
           constructor,
-          localgovernment: localgovernment ? localgovernment : '-'
+          localgovernment: localgovernment ? localgovernment : '-',
+          completeData: d
         }
       });
       setDataSource(parsedData);
