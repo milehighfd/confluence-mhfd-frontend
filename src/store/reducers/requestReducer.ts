@@ -73,6 +73,7 @@ const initialState = {
   filterYear: [],
   isListView: false,
   sentToWP: false,
+  filterCost: []
 };
 
 const requestReducer = (state = initialState, action: any) => {
@@ -360,6 +361,11 @@ const requestReducer = (state = initialState, action: any) => {
         ...state,
         filterRequest: action.payload
       };
+    case types.SET_COST_RANGE: 
+      return {
+        ...state,
+        filterCost: action.payload
+      }
     case types.REQUEST_SET_DISABLE_FILTER_COUNTY:
       return {
         ...state,

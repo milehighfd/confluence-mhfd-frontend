@@ -32,7 +32,6 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
   } = useRequestState();
 
   const setDataForCSV = (dataFiltered: any) => {
-    console.log('Data ilter ', dataFiltered);
     const dataCSV = dataFiltered.map((attribs: any) => {
       const newObject: any = {};
       actualColumns.current.forEach((column: any) => {

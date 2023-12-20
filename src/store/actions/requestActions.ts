@@ -671,6 +671,10 @@ export const emptyBoard = () => ({
   type: types.REQUEST_EMPTY_BOARD
 })
 
+export const setCostRange = (payload: any) => ({
+  type: types.SET_COST_RANGE,
+  payload
+});
 export const toggleFilter = (type: any, id: any) => {
   return (dispatch: any, getState: Function) => {
     const { request: { filterRequest } } = getState();

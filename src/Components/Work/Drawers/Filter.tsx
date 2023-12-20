@@ -6,6 +6,9 @@ import { useMapDispatch, useMapState } from "hook/mapHook";
 import { YEAR_LOGIC_2024, WORK_PLAN, UPCOMING_PROJECTS } from 'constants/constants';
 import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
+import { DropdownFilters } from "Components/FiltersProject/DropdownFilters";
+import { FILTERS } from "constants/filter";
+import FilterDropdown from "./FilterDropdown";
 
 const Filter = ({origin}:{origin: any}) => {
   const {
@@ -19,7 +22,8 @@ const Filter = ({origin}:{origin: any}) => {
     disableFilterCounty,
     isListView,
     namespaceId,
-    filterYear
+    filterYear,
+    filterCost
   } = useRequestState();
   const {
     tabActiveNavbar,
@@ -29,7 +33,8 @@ const Filter = ({origin}:{origin: any}) => {
     setShowFilters, 
     loadColumns, 
     setFilterRequest,
-    setFilterYear
+    setFilterYear,
+    setCostRange
   } = useRequestDispatch();
   const {
     setFilterProjectOptions
@@ -147,7 +152,8 @@ const Filter = ({origin}:{origin: any}) => {
         item.type === 'project_local_governments').map((r: any) => r.id),
         servicearea: filterRequest?.filter((item: any, _: number) => item.selected && 
         item.type === 'project_service_areas').map((r: any) => r.id),
-        mhfdmanager: filterRequest?.filter((item: any, _:number) => item.selected && item.type === 'mhfd_lead').map((r:any) => r.id)
+        mhfdmanager: filterRequest?.filter((item: any, _:number) => item.selected && item.type === 'mhfd_lead').map((r:any) => r.id),
+        totalcost: filterCost
       };
       setFilterProjectOptions({...filterProjectOptions, ...filters});
     } else {
@@ -169,8 +175,10 @@ const Filter = ({origin}:{origin: any}) => {
         item.type === 'project_local_governments').map((r: any) => r.id),
         servicearea: filterRequestReset?.filter((item: any, _: number) => item.selected && 
         item.type === 'project_service_areas').map((r: any) => r.id),
-        mhfdmanager: filterRequestReset?.filter((item: any, _:number) => item.selected && item.type === 'mhfd_lead').map((r:any) => r.id)
+        mhfdmanager: filterRequestReset?.filter((item: any, _:number) => item.selected && item.type === 'mhfd_lead').map((r:any) => r.id),
+        totalcost: []
       };
+      setCostRange([]);
       setFilterProjectOptions({...filterProjectOptions, ...filters});
     } else {
       loadColumns();
@@ -257,6 +265,14 @@ const Filter = ({origin}:{origin: any}) => {
             filterList={serviceAreaFilter}
             disabled = {disableFilterServiceArea}
           />
+        }
+        {
+          (tabActiveNavbar === UPCOMING_PROJECTS) && 
+          <div>
+            <FilterDropdown
+            label="Estimated Cost Range"
+          />
+          </div>
         }
       </div>
       <div className="footer-drawer" style={{ position: 'fixed', bottom: '50px', right: '19px', backgroundColor: 'white', 'width': '277px' }}>

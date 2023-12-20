@@ -63,6 +63,7 @@ import {
   setIsCreatedFromBoard,
   setIsImported,
   setImportedProjectData,
+  setCostRange
 } from 'store/actions/requestActions';
 import { DragAndDropCards } from 'store/types/requestTypes';
 
@@ -257,6 +258,9 @@ export const useRequestDispatch = () => {
   const _setImportedProjectData = useCallback((importedProjectData: any) => {
     dispatch(setImportedProjectData(importedProjectData));
   }, [dispatch]);
+  const _setCostRange = useCallback((costRange: any) => {
+    dispatch(setCostRange(costRange));
+  }, [dispatch]);
   return {
     setShowModalProject: _setShowModalProject,
     setCompleteProjectData: _setCompleteProjectData,
@@ -319,6 +323,7 @@ export const useRequestDispatch = () => {
     setSentToWP: _setSentToWP,
     setIsCreatedFromBoard: _setIsCreatedFromBoard,
     setIsImported: _setIsImported,
-    setImportedProjectData: _setImportedProjectData
+    setImportedProjectData: _setImportedProjectData,
+    setCostRange: _setCostRange
   };
 };
