@@ -311,7 +311,7 @@ export const getListComponentsByComponentsAndPolygon = (components: any, geom: a
   return (dispatch: Function) => {
     const controller = getAndDispatchAbortableCtrl(dispatch, 'getListComponentsByComponentsAndPolygon');
     datasets.postData(SERVER.GET_COMPONENTS_WITH_GEOM, {components, geom}, datasets.getToken(), controller.signal).then(listComponents => {
-      // console.trace('Setting listcomponents', listComponents);
+      console.trace('Setting listcomponents', listComponents);
       dispatch({type: types.SET_LIST_COMPONENTS, listComponents});
     }).catch(err => {
       if (!isAbortError) {

@@ -272,10 +272,10 @@ const CreateProjectMap = (type: any) => {
   }, []);
   useEffect(() => {
     setLoading(true);
-    const waiting = () => {
+    const waitingInside = () => {
       html = document.getElementById('map3');
       if (!html) {
-        setTimeout(waiting, 50);
+        setTimeout(waitingInside, 50);
       } else {
         if (!map) {
           // getNotes();
@@ -291,12 +291,17 @@ const CreateProjectMap = (type: any) => {
           });
           map.isStyleLoaded(() => {
             map.map.setTerrain();
+            map.map.once('idle', () => {
+              setLoading(false);
+              flagInit = false;
+              map.orderLayers();
+            });
           });
         }
       }
     };
     // map = undefined;
-    waiting();
+    waitingInside();
     EventService.setRef('click', eventClick);
     EventService.setRef('move', eventMove);
     EventService.setRef('addmarker', addMarker);
