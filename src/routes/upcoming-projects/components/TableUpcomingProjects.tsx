@@ -169,6 +169,10 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
         const contractor = d?.contractor_phase  ? d.contractor_phase?.actual_start_date ? moment(d.contractor_phase?.actual_start_date).utcOffset(-7).format('MM-DD-YYYY')  :'-'  : '-';
         const constructor = d?.construction_phase ? d.construction_phase?.actual_start_date ? moment(d.construction_phase?.actual_start_date).utcOffset(-7).format('MM-DD-YYYY') :'-' : '-';
         const localgovernment = d?.project_local_governments[0]?.CODE_LOCAL_GOVERNMENT?.local_government_name;
+        const consultantSelectedValue = (d.civilContractor.length > 0 || d.currentPrimeConsultant.length > 0) ? 'Yes': 'No' ;
+        if (consultantSelectedValue === 'Yes') {
+          consultant = '-';
+        }
         return {
           key: d.project_id,
           onbase: d.onbase_project_number,
@@ -178,7 +182,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
           description: d.description,
           cost: estimatedCost ? estimatedCost.cost : '-',
           consultant,
-          consultantSelected: (d.civilContractor.length > 0 || d.currentPrimeConsultant.length > 0) ? 'Yes': 'No' ,
+          consultantSelected: consultantSelectedValue,
           contractor,
           constructor,
           localgovernment: localgovernment ? localgovernment : '-',
