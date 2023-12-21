@@ -27,7 +27,8 @@ const ModalProjectView = ({
   editable,
   problemId,
   currentData,
-  year
+  year,
+  originLocation
 }: {
   visible: boolean,
   setVisible: Function,
@@ -38,7 +39,8 @@ const ModalProjectView = ({
   editable:boolean,
   problemId?: any,
   currentData?: any,
-  year?: number
+  year?: number,
+  originLocation?: any
 }) => {
   const {
     getStreamsByProjectId, 
@@ -219,6 +221,7 @@ const ModalProjectView = ({
       editable= {editable}
       problemId= {problemId}
       subTypeInit={subType}
+      originLocation={originLocation}
      />}
      {visibleModal && <Modal
        title="Create Project"

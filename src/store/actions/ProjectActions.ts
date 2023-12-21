@@ -4,7 +4,7 @@ import { SERVER } from "Config/Server.config";
 import { loadColumns, loadFilters, loadOneColumn } from 'store/actions/requestActions';
 import * as turf from '@turf/turf';
 import { depth } from 'routes/map/components/MapFunctionsUtilities';
-import { MAP_TAB } from 'constants/constants';
+import { MAP_TAB, PMTOOLS } from 'constants/constants';
 
 
 const getAndDispatchAbortableCtrl = (dispatch: Function, key: string): AbortController => {
@@ -103,7 +103,7 @@ export const saveCapital = (data: any) => {
     })
   };
 };
-export const editCapital = (data: any) => {
+export const editCapital = (data: any, originLocation?: any) => {
   return ( dispatch: Function, getState: Function) => {
     const { request: { namespaceId } } = getState();
     const formData = new FormData();
@@ -143,7 +143,9 @@ export const editCapital = (data: any) => {
       }else{
         status = 0;
       }
-      dispatch(loadColumns());
+      if (originLocation !== PMTOOLS) {
+        dispatch(loadColumns());
+      }
       dispatch(loadFilters())
       dispatch({ type: types.SET_EDIT, status });
       callArcGisProcess(data, data.editProject, 'edit');

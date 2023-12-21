@@ -249,6 +249,14 @@ const Filter = ({origin}:{origin: any}) => {
           />
         }
         {
+          (tabActiveNavbar === UPCOMING_PROJECTS) && 
+          <div>
+            <FilterDropdown
+            label="Estimated Cost Range"
+          />
+          </div>
+        }
+        {
           tabActiveNavbar === 'WORK_PLAN' &&
           <FilterGroup
             label="Priority"
@@ -270,7 +278,9 @@ const Filter = ({origin}:{origin: any}) => {
           />
         }
         {
-          (tabActiveNavbar === 'WORK_REQUEST' ||  tabActiveNavbar === 'WORK_PLAN' || tabActiveNavbar === UPCOMING_PROJECTS) &&
+          tabActiveNavbar !== UPCOMING_PROJECTS &&
+        <div>{
+          (tabActiveNavbar === 'WORK_REQUEST' ||  tabActiveNavbar === 'WORK_PLAN') &&
           <FilterGroup
             label="County"
             filterList={countyFilter}
@@ -278,19 +288,27 @@ const Filter = ({origin}:{origin: any}) => {
           />
         }
         {
-          (tabActiveNavbar === 'WORK_REQUEST' ||  tabActiveNavbar === 'WORK_PLAN' || tabActiveNavbar === UPCOMING_PROJECTS) &&
+          (tabActiveNavbar === 'WORK_REQUEST' ||  tabActiveNavbar === 'WORK_PLAN') &&
           <FilterGroup
             label="Service Area"
             filterList={serviceAreaFilter}
             disabled = {disableFilterServiceArea}
           />
         }
+        </div>}
         {
-          (tabActiveNavbar === UPCOMING_PROJECTS) && 
+          tabActiveNavbar === UPCOMING_PROJECTS &&
           <div>
-            <FilterDropdown
-            label="Estimated Cost Range"
-          />
+            <FilterGroup
+              label="Service Area"
+              filterList={serviceAreaFilter}
+              disabled = {disableFilterServiceArea}
+            />
+            <FilterGroup
+              label="County"
+              filterList={countyFilter}
+              disabled = {disableFilterCounty}
+            />
           </div>
         }
       </div>

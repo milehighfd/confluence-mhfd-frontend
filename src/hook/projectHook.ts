@@ -162,8 +162,8 @@ export const useProjectDispatch = () => {
     setStreamsIds: (streamsIntersectedIds: any) => {
       dispatch(setStreamsIds(streamsIntersectedIds));
     },
-    editProjectCapital: (data: any) => {
-      dispatch(editCapital(data));
+    editProjectCapital: (data: any, originLocation?: any) => {
+      dispatch(editCapital(data, originLocation));
     },
     setEditLocation: (editLocation: any) => {
       dispatch(setEditLocation(editLocation));

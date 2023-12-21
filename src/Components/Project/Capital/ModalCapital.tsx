@@ -63,6 +63,7 @@ export const ModalCapital = ({
   editable, 
   problemId,
   subTypeInit,
+  originLocation
 }:{
   visibleCapital: boolean, 
   setVisibleCapital: Function, 
@@ -75,6 +76,7 @@ export const ModalCapital = ({
   editable:boolean, 
   problemId?: any,
   subTypeInit?: string
+  originLocation?: string
 }) => {
  
   const {
@@ -541,7 +543,7 @@ export const ModalCapital = ({
         if (isImported) {
           importProject(capital);
         } else {
-          editProjectCapital(capital);
+          editProjectCapital(capital, originLocation);
         }
       }
       else {
@@ -639,7 +641,7 @@ export const ModalCapital = ({
         loadColumns();
         //setLoading(false);
         setIsImported(false);
-        editProjectCapital(capital);        
+        editProjectCapital(capital, originLocation);        
         //setVisible(false);
         //setVisibleCapital(false);
         openNotification('Success.', 'success','Project imported successfully.');

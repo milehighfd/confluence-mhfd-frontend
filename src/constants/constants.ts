@@ -13,6 +13,7 @@ export const MAP= 'MAP';
 export const WORK_REQUEST='WORK_REQUEST';
 export const WORK_PLAN='WORK_PLAN';
 export const UPCOMING_PROJECTS = 'UPCOMING_PROJECTS';
+export const PMTOOLS = 'PMTOOLS';
 
 export const MAPBOX_TOKEN = 'pk.eyJ1IjoibWlsZWhpZ2hmZCIsImEiOiJjazRqZjg1YWQwZTN2M2RudmhuNXZtdWFyIn0.oU_jVFAr808WPbcVOFnzbg';
 export const NEARMAP_TOKEN = 'NzA3ZjlkODYtMTNiMC00Y2E3LWE1MzAtYzU3NWUzMmJjMGUw';
