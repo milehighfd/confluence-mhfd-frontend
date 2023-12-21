@@ -143,6 +143,7 @@ const Filter = ({origin}:{origin: any}) => {
     setYearFilter(updatedYears);
   }, [filterYear,resetFilter]);
 
+
   const applyFilters = () => {
     setFilterYear(yearFilter.filter((f: any) => f.selected).map((f: any) => f.id));
     if (origin === UPCOMING_PROJECTS) {
@@ -158,13 +159,19 @@ const Filter = ({origin}:{origin: any}) => {
         totalcost: filterCost
       };
       if (filterBy.filterBy !== '' && filterBy.filterValue !== -1) {
-        filters[filterBy.filterBy] = [...filters[filterBy.filterBy], filterBy.filterValue];
+        console.log('filters[filterBy.filterBy]', filters[filterBy.filterBy]);
+        if (filters[filterBy.filterBy]) {
+          filters[filterBy.filterBy] = [...filters[filterBy.filterBy], filterBy.filterValue];
+        } else {
+          filters[filterBy.filterBy] = [filterBy.filterValue];
+        }
       }
       setFilterProjectOptions({...filterProjectOptions, ...filters});
     } else {
       loadColumns();    
     }
   }
+  
   const reset = () => {
     let filterRequestReset = filterRequest.map((f: any) => {
       f.selected = false;
@@ -173,7 +180,7 @@ const Filter = ({origin}:{origin: any}) => {
     setFilterYear([]);
     setFilterRequest(filterRequestReset);
     if (origin === UPCOMING_PROJECTS) {
-      const filters = {
+      const filters: any = {
         county:filterRequestReset?.filter((item: any, _: number) => item.selected && 
         item.type === 'project_counties').map((r: any) => r.id),
         jurisdiction: filterRequestReset?.filter((item: any, _: number) => item.selected && 
@@ -183,6 +190,13 @@ const Filter = ({origin}:{origin: any}) => {
         mhfdmanager: filterRequestReset?.filter((item: any, _:number) => item.selected && item.type === 'mhfd_lead').map((r:any) => r.id),
         totalcost: []
       };
+      if (filterBy.filterBy !== '' && filterBy.filterValue !== -1) {
+        if (filters[filterBy.filterBy]) {
+          filters[filterBy.filterBy] = [...filters[filterBy.filterBy], filterBy.filterValue];
+        } else {
+          filters[filterBy.filterBy] = [filterBy.filterValue];
+        }
+      }
       setCostRange([]);
       setFilterProjectOptions({...filterProjectOptions, ...filters});
     } else {

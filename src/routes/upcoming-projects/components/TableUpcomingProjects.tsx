@@ -26,12 +26,23 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
   const [visible, setVisible] = useState(false);
   const [detailProject, setDetailProject] = useState<any>({});
   const {
-    setFilterRequest
+    setFilterRequest,
+    setCostRange
   } = useRequestDispatch();
   const {
-    filterRequest
+    filterRequest,
+    filterBy
   } = useRequestState();
 
+  useEffect(() => {
+    let filterRequestReset = filterRequest.map((f: any) => {
+      f.selected = false;
+      return f;
+    });
+
+    setCostRange([]);
+    setFilterRequest(filterRequestReset);
+  }, [filterBy]);
   const setDataForCSV = (dataFiltered: any) => {
     const dataCSV = dataFiltered.map((attribs: any) => {
       const newObject: any = {};
