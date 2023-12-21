@@ -280,7 +280,7 @@ const TableBody = ({
       }
     }
   }
-  const menu = () => {
+  const menu = (dataValue: any) => {
     let menuPopupItem: MenuProps['items'] = [
       {
         key: '0',
@@ -288,7 +288,12 @@ const TableBody = ({
       },
       {
         key: '1',
-        label: <span style={{display: 'flex', alignItems: 'center'}}> <EyeOutlined className='tooltip-icon-pm' style={{opacity: '0.5', marginRight: '4px', fontSize: '12px'}}/> View Project</span>,
+        label: <span style={{display: 'flex', alignItems: 'center'}} onClick={() => {
+          setDetailOpen(true);
+          setDataDetail(dataValue);
+        }}> 
+          <EyeOutlined className='tooltip-icon-pm' style={{opacity: '0.5', marginRight: '4px', fontSize: '12px'}}/> View Project
+        </span>,
       }
     ];
     return <Menu
@@ -335,7 +340,7 @@ const TableBody = ({
                 </Tooltip>
                 <div style={{display:'flex'}}>
                   {d.isFavorite ? <HeartFilled style={{ marginLeft: '7px', color: '#F5575C', marginRight: '10px' }} onClick={() => (deleteFunction(d.project_id, email, ''))} /> : <HeartOutlined style={{ marginLeft: '7px', color: '#706B8A', marginRight: '10px' }} onClick={() => addFunction(email, d.project_id, '')} />}
-                  <Popover placement='bottom' trigger="click" content={menu()} overlayClassName='pm-popover'>
+                  <Popover placement='bottom' trigger="click" content={menu(d)} overlayClassName='pm-popover'>
                     <MoreOutlined className="menu-wr" style={{cursor: 'pointer'}}></MoreOutlined>
                   </Popover>
                 </div>
