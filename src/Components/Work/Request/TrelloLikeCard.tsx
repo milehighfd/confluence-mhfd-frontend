@@ -107,8 +107,8 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
         console.log('e', e)
       })
   };
-
-  
+useEffect(() => {console.log('editable', editable);} ,[editable]);
+useEffect(() => {console.log('localitu', locality);} ,[locality]);
   const content = () => {
     const isAdminStaff = appUser?.userInformation?.designation === 'admin' || appUser?.userInformation?.designation === 'staff';
     const items: MenuProps['items'] = [{

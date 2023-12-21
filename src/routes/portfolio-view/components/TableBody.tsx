@@ -12,6 +12,7 @@ import { handleAbortError } from 'store/actions/mapActions';
 import DetailModal from 'routes/detail-page/components/DetailModal';
 import { useProfileState } from 'hook/profileHook';
 import { useProjectDispatch, useProjectState } from 'hook/projectHook';
+import ModalProjectView from 'Components/ProjectModal/ModalProjectView'
 
 const TableBody = ({
   dataId,
@@ -71,7 +72,15 @@ const TableBody = ({
   const [activeBorder, setActiveBorder] = useState(false);
   const [rowActive, setRowActive] = useState(-20);
   const [globalId, setGlobalId] = useState(0);
+  const [showModalProject, setShowModalProject] = useState(false);
+  const [completeProjectData, setCompleteProjectData] = useState<any>(null);
+
   let limitPage = Number(counter) % LIMIT_PAGINATION > 0 ?  Math.floor(Number(counter) / LIMIT_PAGINATION + 1) : Number(counter) / LIMIT_PAGINATION;
+
+  const getCompleteProjectData = async (project_id: any) => {
+    const dataFromDB = await datasets.getData(SERVER.V2_DETAILED_PAGE(project_id), datasets.getToken());
+    setCompleteProjectData({...dataFromDB, tabKey}); 
+  }
 
   useEffect(() => {
     if (next && page < limitPage) {
@@ -284,7 +293,13 @@ const TableBody = ({
     let menuPopupItem: MenuProps['items'] = [
       {
         key: '0',
-        label: <span> <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} /> Edit Project</span>
+        label: <span
+          onClick={() => {
+            getCompleteProjectData(dataValue.project_id);
+          }}
+        > 
+          <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} /> Edit Project
+        </span>
       },
       {
         key: '1',
@@ -313,6 +328,17 @@ const TableBody = ({
       deleteCallback={deleteFunction}
       addFavorite={addFunction}
     />}
+    {/* {
+      showModalProject &&
+      <ModalProjectView
+          visible= {showModalProject}
+          setVisible= {setShowModalProject}
+          data={completeProjectData}
+          showDefaultTab={true}
+          locality={locality}
+          editable= {editable}
+      />
+    } */}
     <div className="table-body">
       <Row>
         <Col xs={{ span: 10 }} lg={{ span: 5 }} style={{zIndex:2}}>

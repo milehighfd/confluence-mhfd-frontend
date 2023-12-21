@@ -155,7 +155,6 @@ const DetailModal = ({
       });
     } else {
       const project_id = project_idS ? +project_idS : +problem_idS ? +problem_idS : undefined;
-      console.log('project_id', project_id, data?.project_id);
       const projectIdToSend = project_id ? project_id : data?.project_id;
       // if (projectIdToSend ) {
         getDetailedPageProject(projectIdToSend);
@@ -167,7 +166,7 @@ const DetailModal = ({
         });
       // }
     }
-  }, [data]);
+  }, []);
   useEffect(() => {
     const projectType = detailed?.code_project_type?.project_type_name;
     setProjecttype(projectType);
