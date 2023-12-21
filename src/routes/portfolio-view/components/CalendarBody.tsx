@@ -1375,7 +1375,7 @@ const CalendarBody = ({
                     /> : <HeartOutlined
                       style={{ marginLeft: '7px', color: '#706B8A', marginRight: '10px' }}
                       onClick={() => addFunction('', d.project_id, '')} />}
-                  <Popover placement='bottom' trigger="click" content={menu()} overlayClassName='pm-popover'>
+                  <Popover placement='bottom' trigger="click" content={menu()} overlayClassName='pm-popover'  zIndex={2}>
                     <MoreOutlined className="menu-wr" style={{cursor: 'pointer'}}></MoreOutlined>
                   </Popover>
                 </div>
