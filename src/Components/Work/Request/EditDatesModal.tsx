@@ -35,7 +35,7 @@ const EditDatesModal = ({
   const [viewOverlappingAlert, setViewOverlappingAlert] = useState(false);
   const [overlapping, setOverlapping] = useState(false);
   const [emptyDatesAlert, setEmptyDatesAlert] = useState(false);
-  const [primaryStream, setPrimaryStream] = useState<{ id: any, name: string }>({ id: null, name: '' });
+  const [primaryStream, setPrimaryStream] = useState<{ id: any, name: string, value: number }>({ id: null, name: '', value: -1 });
   const [location, setLocation] = useState<string>('');
   const [mhfdLead, setMhfdLead] = useState<{ id: any, name: string }>({ id: null, name: '' });
   const [onBase, setOnBase] = useState<number>(0);
@@ -102,8 +102,9 @@ const EditDatesModal = ({
       }
       if(data?.projectStreams?.primaryStream){
         const streamName = data.projectStreams.primaryStream.project_stream.stream.stream_name;
-        const streamId = data.projectStreams.primaryStream.project_stream_id;
-        setPrimaryStream({id: streamId, name: streamName})
+        const streamId = data.projectStreams.primaryStream.stream_id;
+        const projectStreamId = data.projectStreams.primaryStream.project_stream_id;
+        setPrimaryStream({ id: streamId, name: streamName, value:projectStreamId})
         newDisabledFields = { ...newDisabledFields, primary_stream: true }
       }
       const mhfdLead = data?.projectStaff?.mhfdLead?.business_associate_contact;
@@ -315,7 +316,7 @@ const EditDatesModal = ({
     const sendData = {
       project_id: project?.project_id,
       location: location,
-      primaryStream: primaryStream?.id,
+      primaryStream: primaryStream?.value,
       mhfdLead: mhfdLead?.id
     }
     try {
@@ -340,27 +341,6 @@ const EditDatesModal = ({
 
   function resetData() {
     setVisible(false);
-    // if (step === 1) {
-    //   console.log('reset')
-    //   setSelectedPhase(null);
-    //   setStartDate(null);
-    // }else if (step === 2) {
-    //   const copy = dates?.map((x: any) => {
-    //     if (x.locked) {
-    //       return {
-    //         ...x,
-    //       };
-    //     }
-    //     return {
-    //       ...x,
-    //       from: undefined,
-    //       to: undefined,
-    //     };
-    //   });
-    //   setDates(copy);
-    //   setCalendarValue('');
-    //   setCalendarPhase(0);
-    // }    
   }
   
   return(
@@ -451,8 +431,9 @@ const EditDatesModal = ({
                 onChange={(value: string) => {
                   const selectedItem = streamList.find(item => item.stream_id.toString() === value);
                   if (selectedItem) {
-                    console.log(selectedItem);
-                    setPrimaryStream({ id: selectedItem.stream_id, name: selectedItem.stream_name });
+                    if (selectedItem.project_stream_id){
+                      setPrimaryStream({ id: selectedItem.stream_id, name: selectedItem.stream_name, value: selectedItem.project_stream_id });
+                    }                    
                   }
                 }}
                 value={primaryStream?.id !== null ? primaryStream.id.toString() : undefined}
@@ -463,7 +444,7 @@ const EditDatesModal = ({
                     const stream_name = item.stream_name || 'NA';
                     return (
                       <Option key={item.stream_id} value={item.stream_id.toString()}>
-                        {`${stream_name} - ${item.mhfd_code}`}
+                        {`${stream_name} - ${item.mhfd_code_stream}`}
                       </Option>
                     );
                   })
