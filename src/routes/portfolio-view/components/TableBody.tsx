@@ -369,7 +369,7 @@ const TableBody = ({
                 </Tooltip>
                 <div style={{display:'flex'}}>
                   {d.isFavorite ? <HeartFilled style={{ marginLeft: '7px', color: '#F5575C', marginRight: '10px' }} onClick={() => (deleteFunction(d.project_id, email, ''))} /> : <HeartOutlined style={{ marginLeft: '7px', color: '#706B8A', marginRight: '10px' }} onClick={() => addFunction(email, d.project_id, '')} />}
-                  <Popover placement='bottom' trigger="click" content={menu(d)} overlayClassName='pm-popover'>
+                  <Popover placement='bottom' trigger="click" content={menu(d)} overlayClassName='pm-popover' zIndex={2}>
                     <MoreOutlined className="menu-wr" style={{cursor: 'pointer'}}></MoreOutlined>
                   </Popover>
                 </div>
