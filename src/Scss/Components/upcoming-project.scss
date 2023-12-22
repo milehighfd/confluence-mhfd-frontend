@@ -76,6 +76,23 @@
     .tabs-upcoming-extra {
       display: flex;
       column-gap: 8px;
+      .share-url{
+        button {
+          height: 38px;
+          padding: 9px 8px;
+          gap: 8;
+          border-radius: 4px;
+          align-items: center;
+          border: none;
+          display: flex;
+          align-items: center;
+          font-size: 14px;
+          letter-spacing: 0.2px;
+        }
+        button:hover {
+          background: rgba(245, 247, 255, 0.8);
+        }
+      }
       .ant-input-affix-wrapper {
         border-radius: 4px;
         border-color: #251863 !important
@@ -246,6 +263,16 @@
         span {
           font-size: 12.5px;
         }
+        .share-url{
+          button {
+            height: 35px;
+            width: 35px;
+            img {
+              height: 22px;
+              width: 22px;
+            }
+          }
+        }
         .buttons-tab {
           height: 35px;
           width: 35px;
@@ -313,6 +340,17 @@
         }
         span {
           font-size: 20px;
+        }
+        .share-url{
+          button {
+            height: 45px;
+            width: 45px;
+            border-radius: 7px;
+            img {
+              height: 25px;
+              width: 25px;
+            }
+          }
         }
         .buttons-tab {
           height: 45px;

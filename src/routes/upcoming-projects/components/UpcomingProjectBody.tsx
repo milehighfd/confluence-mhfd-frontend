@@ -87,7 +87,9 @@ export const UpcomingProjectBody = () => {
         </CSVLink>
         </Button>
       </Popover>
-      <ShareURL parentName={UPCOMING_PROJECTS}/>
+      <div className='share-url'>
+        <ShareURL parentName={UPCOMING_PROJECTS}/>
+      </div>
     </div>
   );
   useEffect(() => {

@@ -1303,6 +1303,54 @@
   border-bottom: 1.6px solid $green !important;
   border-radius: 0px;
 }
+.new-project{
+  .row-project-project{
+    padding: 0px 10px ;
+    margin: 0px -10px;
+  }
+  .title-list{
+    color: $purple00;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    opacity: 0.8;
+  }
+  .body-create-projects{
+    margin-right: -10px;
+    padding-right: 5px;
+    max-height: calc(100vh - 505px);
+    height: auto;
+    overflow: auto;
+    color: #11093C;
+    font-family: Ubuntu;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    overflow-x: hidden;
+    margin-left: -10px;
+    .row-detail-project{
+      padding: 0px 0px ;
+    // margin: 0px -10px;
+    }
+    .col-create-project{
+      padding: 10px 10px 10px 10px;
+    }
+    .row-detail-project.selected {
+      // border: 1px solid #000;
+      border-radius: 10px;
+      background-color: #f5f5f5;
+    }
+  }
+  .title-list{
+    color: $purple00;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    opacity: 0.8;
+  }
+}
 .create-projects-modal{
   margin-bottom: -30px;
   .subtitle-project-modal{
@@ -1333,6 +1381,7 @@
       font-weight: 600;
     }
   }
+
   .new-project-sec{
     display: inline-flex;
     padding: 16px 18px;
@@ -2242,6 +2291,20 @@
   }
   .ant-modal .new-project {
     width: 1500px !important;
+  }
+  .new-project{
+    .body-create-projects{
+      max-height: calc(100vh - 699px);
+      margin-right: -14px;
+      padding-right: 6px;
+      .row-detail-project{
+        padding: 10px 0px;
+        font-size: 19px;
+      }
+    }
+    .title-list{
+      font-size: 17px;
+    }
   }
   .create-projects-modal{
     margin-bottom: -30px;
