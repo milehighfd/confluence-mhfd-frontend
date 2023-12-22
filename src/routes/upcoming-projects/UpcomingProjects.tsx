@@ -14,7 +14,7 @@ const UpcomingProjects = () => {
   }, []);
   return (
     <Layout>
-      <NavbarView />
+      <NavbarView parentComponentName={UPCOMING_PROJECTS}/>
       <Layout>
         <SidebarView></SidebarView>
         <Layout style={{ overflow: 'hidden', zIndex: '1' }}>

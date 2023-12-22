@@ -3,7 +3,7 @@ import { Col, Menu, MenuProps, Popover, Row, Table, Tooltip } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
-import { FILTER_PROJECTS_TRIGGER, LIMIT_PAGINATION, PMTOOLS, UPCOMING_PROJECTS } from 'constants/constants';
+import { FILTER_PROJECTS_TRIGGER, LIMIT_PAGINATION, PMTOOLS } from 'constants/constants';
 import { getCounties, getCurrentProjectStatus, getServiceAreas, getSponsors, getStreams, getTotalEstimatedCost } from 'utils/parsers';
 import { AllValueTable, CIPValueTable, DIPValueTable, PlanningValueTable, PropertyAcquisitionValueTable, RDValueTable, RestorationValueTable } from "../constants/tableHeader";
 import { usePortflioState, usePortfolioDispatch } from '../../../hook/portfolioHook';

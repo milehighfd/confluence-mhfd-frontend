@@ -425,7 +425,7 @@ export const ModalCapital = ({
       let sponsorList = [...serviceAreaList, ...filteredCountyList, ...jurisdictionList];
       let matchedSponsor = sponsorList.find((item: any) => sponsor.toLowerCase() === item.name.toLowerCase());
       let sponsorId = matchedSponsor ? matchedSponsor.id : null;
-      const params = new URLSearchParams(history.location.search)
+      const params = new URLSearchParams(history.location.search);
       const _year = params.get('year');
       const _locality = params.get('locality');
       var capital = new Project();

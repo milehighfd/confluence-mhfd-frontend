@@ -360,6 +360,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
       title: <p style={{textAlign:'center'}}>Project<br/>Estimated<br/>Cost</p>,
       dataIndex: 'cost',
       key: 'cost',
+      render: (text: any, record: any) => <p> { text !== '-' ? formatter.format(text): text}</p> ,
       sorter: (a:any, b:any) => a.cost - b.cost,
       displayCSV: 'Project Estimated Cost'
     },

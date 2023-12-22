@@ -5,7 +5,7 @@ import { CaretDownOutlined, CloseCircleFilled, CloseCircleOutlined, QuestionCirc
 import { GlobalMapHook } from 'utils/globalMapHook';
 import * as datasets from 'Config/datasets';
 import 'Scss/Components/Shared/navbar.scss';
-import { FILTER_PROJECTS_TRIGGER, ROUTERS, ROUTER_TITLE, MAP_TAB, WORK_REQUEST_TAB, WORK_PLAN_TAB } from 'constants/constants';
+import { FILTER_PROJECTS_TRIGGER, ROUTERS, ROUTER_TITLE, MAP_TAB, WORK_REQUEST_TAB, WORK_PLAN_TAB, UPCOMING_PROJECTS } from 'constants/constants';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
 import { useProfileDispatch, useProfileState } from 'hook/profileHook';
 import { useUsersState } from 'hook/usersHook';
@@ -23,8 +23,10 @@ const content = (<div className="popoveer-00">No Notifications</div>);
 const NavbarView = ({
   tabActive,
   // setTabActive,
+  parentComponentName
 }: {
   tabActive?: string,
+  parentComponentName?: string
   // setTabActive?: React.Dispatch<React.SetStateAction<string>>
 }) => {
   const { deleteNotification } = useProfileDispatch();
@@ -66,8 +68,10 @@ const NavbarView = ({
 
   let locationPage = useLocation();
   useEffect(() => {
-    resetTimesLogin();
-    getTimesLogin();
+    if (parentComponentName !== UPCOMING_PROJECTS) {
+      resetTimesLogin();
+      getTimesLogin();
+    }
   }, []);
   useEffect(() => {
     setNotification(userInformation.notifications);
@@ -298,7 +302,8 @@ const NavbarView = ({
     };
   }, [activeSearch]);  
   
-  if (redirect) {
+  if (redirect && parentComponentName !== UPCOMING_PROJECTS) {
+    console.log('AQUI NO?');
     return <Redirect to="/login" />
   }
 

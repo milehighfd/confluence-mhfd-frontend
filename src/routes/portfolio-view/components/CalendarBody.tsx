@@ -4,7 +4,7 @@ import { EyeOutlined, HeartFilled, HeartOutlined, MoreOutlined } from '@ant-desi
 import * as d3 from 'd3';
 import moment from 'moment';
 import { SERVER } from 'Config/Server.config';
-import { FILTER_PROJECTS_TRIGGER } from 'constants/constants';
+import { FILTER_PROJECTS_TRIGGER, PMTOOLS } from 'constants/constants';
 import { getCurrentProjectStatus, getServiceAreas, getStreams, getTotalEstimatedCost } from 'utils/parsers';
 import * as datasets from 'Config/datasets';
 import { LIMIT_PAGINATION } from 'constants/constants';
@@ -14,7 +14,7 @@ import { useMapState } from "hook/mapHook";
 import { handleAbortError } from 'store/actions/mapActions';
 import DetailModal from 'routes/detail-page/components/DetailModal';
 import menu, { MenuProps } from 'antd/lib/menu';
-
+import ModalProjectView from 'Components/ProjectModal/ModalProjectView';
 const CalendarBody = ({
   dataId,
   tabKey,
@@ -78,8 +78,17 @@ const CalendarBody = ({
   const [locations, setLocations] = useState<any>([]);
   const [datas, setDatas] = useState<any>([]);
   const [updateForDates, setUpdateForDates] = useState<any>(false);
+  const [showModalProject, setShowModalProject] = useState(false);
+  const [completeProjectData, setCompleteProjectData] = useState<any>(null);
+
   const windowWidth: any = window.innerWidth;
-  let limitPage = Number(counter) % LIMIT_PAGINATION > 0 ?  Math.floor(Number(counter) / LIMIT_PAGINATION + 1) : Number(counter) / LIMIT_PAGINATION;
+  let limitPage = Number(counter) % LIMIT_PAGINATION > 0 ?  Math.floor(Number(counter) / LIMIT_PAGINATION + 1) : Number(counter) / 
+  LIMIT_PAGINATION;
+  const getCompleteProjectData = async (project_id: any) => {
+    const dataFromDB = await datasets.getData(SERVER.V2_DETAILED_PAGE(project_id), datasets.getToken());
+    setCompleteProjectData({...dataFromDB, tabKey}); 
+    setShowModalProject(true);
+  }
   let zoom: any;
   let svg: any;
   let svgAxis: any;
@@ -1327,15 +1336,25 @@ const CalendarBody = ({
       parent.removeChild(parent.firstChild);
     }
   };
-  const menu = () => {
+  const menu = (dataValue: any) => {
     let menuPopupItem: MenuProps['items'] = [
       {
         key: '0',
-        label: <span> <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} /> Edit Project</span>
+        label: <span
+          onClick={() => {
+            getCompleteProjectData(dataValue.project_id);
+
+          }}
+        > <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} /> Edit Project</span>
       },
       {
         key: '1',
-        label: <span style={{display: 'flex', alignItems: 'center'}}> <EyeOutlined className='tooltip-icon-pm' style={{opacity: '0.5', marginRight: '4px', fontSize: '12px'}}/> View Project</span>,
+        label: <span style={{display: 'flex', alignItems: 'center'}}
+          onClick={() => {
+            setDetailOpen(true);
+            setDataDetail(dataValue);
+          }}
+        > <EyeOutlined className='tooltip-icon-pm' style={{opacity: '0.5', marginRight: '4px', fontSize: '12px'}}/> View Project</span>,
       }
     ];
     return <Menu
@@ -1346,7 +1365,7 @@ const CalendarBody = ({
     </Menu>
   };
   return <>
-    {detailOpen && <DetailModal
+    {detailOpen && dataDetail && <DetailModal
       visible={detailOpen}
       setVisible={setDetailOpen}
       data={dataDetail}
@@ -1354,6 +1373,18 @@ const CalendarBody = ({
       deleteCallback={deleteFunction}
       addFavorite={addFunction}
     />}
+    {
+      showModalProject &&
+      <ModalProjectView
+          visible= {showModalProject}
+          setVisible= {setShowModalProject}
+          data={completeProjectData}
+          showDefaultTab={true}
+          locality={''}
+          editable= {true}
+          originLocation={PMTOOLS}
+      />
+    }
     <div >
       <Row>
         <Col xs={{ span: 10 }} lg={{ span: 5 }} style={{}}>
@@ -1375,7 +1406,7 @@ const CalendarBody = ({
                     /> : <HeartOutlined
                       style={{ marginLeft: '7px', color: '#706B8A', marginRight: '10px' }}
                       onClick={() => addFunction('', d.project_id, '')} />}
-                  <Popover placement='bottom' trigger="click" content={menu()} overlayClassName='pm-popover'  zIndex={2}>
+                  <Popover placement='bottom' trigger="click" content={menu(d)} overlayClassName='pm-popover'  zIndex={2}>
                     <MoreOutlined className="menu-wr" style={{cursor: 'pointer'}}></MoreOutlined>
                   </Popover>
                 </div>
