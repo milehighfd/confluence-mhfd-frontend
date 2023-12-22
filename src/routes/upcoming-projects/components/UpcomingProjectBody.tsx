@@ -6,6 +6,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import Filter from 'Components/Work/Drawers/Filter';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { UPCOMING_PROJECTS } from 'constants/constants';
+import ShareURL from 'Components/Work/Request/Toolbar/ShareURL';
 
 const { TabPane } = Tabs;
 
@@ -47,7 +48,7 @@ export const UpcomingProjectBody = () => {
           <div className="popover-text">
             Filter:
             <br />
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Filter the selection by MHFD Lead, Location, and other attributes.
           </div>
         }
         placement="bottomLeft"
@@ -86,22 +87,7 @@ export const UpcomingProjectBody = () => {
         </CSVLink>
         </Button>
       </Popover>
-      <Popover
-        className="buttons-tab"
-        content={
-          <div className="popover-text">
-            Share URL:
-            <br />
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </div>
-        }
-        placement="bottomLeft"
-        overlayClassName="popover-work-header"
-      >
-        <Button className="buttons" type="link">
-          <img src="Icons/ic-005.svg" alt="" />
-        </Button>
-      </Popover>
+      <ShareURL parentName={UPCOMING_PROJECTS}/>
     </div>
   );
   useEffect(() => {
