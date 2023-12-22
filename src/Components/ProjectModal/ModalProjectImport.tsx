@@ -2,23 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Button, Input, Row, Col, Popover } from 'antd';
 import { ModalCapital } from 'Components/Project/Capital/ModalCapital';
 import { NEW_PROJECT_TYPES, MAINTENANCE_IDS } from 'constants/constants';
-import { useProjectDispatch } from 'hook/projectHook';
 import * as datasets from "../../Config/datasets";
 import { SERVER } from 'Config/Server.config';
 import { MaintenanceTypes } from 'Components/Work/Request/RequestViewUtil';
-import { getAllowedBasedOnLocality } from 'Components/Work/Request/RequestViewUtil';
-import { postData, getToken } from 'Config/datasets';
-import { getCurrentProjectStatus } from 'utils/parsers';
-import { useAttachmentDispatch } from 'hook/attachmentHook';
-import { DownOutlined, SearchOutlined, UpOutlined } from '@ant-design/icons';
-import { BASE_BOARD_RESOURCE_URL } from 'Config/endpoints/board';
-import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 
-const content00 = (<div className="popver-info">Collection and removal of trash and debris that could prevent the system from functioning as intended.</div>);
-const content01 = (<div className="popver-info">Planting, seeding, thinning, weed control, adaptive management, and other vegetation-related activities.</div>);
-const content02 = (<div className="popver-info">Removal of accumulated sediment to maintain capacity in the system.</div>);
-const content03 = (<div className="popver-info">Upkeep of aging or failing drop structures, outfalls, and other eligible flood control features.</div>);
-const content04 = (<div className="popver-info">Re-establishing the natural processes of a stream to promote high functioning and low maintenance systems.</div>);
+import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 
 const ModalProjectImport= ({
   visible,
@@ -158,7 +146,8 @@ const ModalProjectImport= ({
         </Button>,
        ]}
      >
-      <h4>Name</h4>
+      <h4>Import Project</h4>
+      <p style={{color: '#11093c', lineHeight: 'normal'}}>Search for a project from a previous years' Work Request or Work Plan by Name, Project ID, or Onbase Project Number.</p>
       <Input
         placeholder="Search for existing project"
         onChange={(nameProject)=> onChange(nameProject)}
