@@ -503,7 +503,6 @@ const DetailModal = ({
       }, 1850);
     }
   };
-  
   return (
     <>
       <ModalTollgate setOpenPiney={setOpenPiney} />
