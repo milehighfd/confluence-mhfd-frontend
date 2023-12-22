@@ -1234,6 +1234,9 @@ const CalendarBody = ({
       }
     });
     setCalendarData(datasInt);
+    return () => {
+      setShowModalProject(false);
+    }
   }, [dataBody, favorites])
 
   useEffect(() => {

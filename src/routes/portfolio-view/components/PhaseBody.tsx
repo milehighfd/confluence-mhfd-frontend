@@ -208,6 +208,9 @@ const PhaseBody = ({
           phaseChart(element);
       });
     }    
+    return () => {
+      setShowModalProject(false);
+    }
   }, [phaseData, windowWidth]);
 
   function startsWithNumber(str:string) {

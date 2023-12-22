@@ -145,8 +145,8 @@ export const editCapital = (data: any, originLocation?: any) => {
       }
       if (originLocation !== PMTOOLS) {
         dispatch(loadColumns());
+        dispatch(loadFilters())
       }
-      dispatch(loadFilters())
       dispatch({ type: types.SET_EDIT, status });
       callArcGisProcess(data, data.editProject, 'edit');
     })

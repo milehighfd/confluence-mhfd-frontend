@@ -209,7 +209,10 @@ const TableBody = ({
           return false;
         }),
       }
-    }))
+    }));
+    return () => {
+      setShowModalProject(false);
+    }
   }, [dataBody, favorites])
 
   useEffect(() => {
