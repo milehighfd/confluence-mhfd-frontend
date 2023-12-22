@@ -55,7 +55,8 @@ const TableBody = ({
 
   const {
     globalSearch,
-    globalProjectData
+    globalProjectData,
+    status
   } = useProjectState();
 
   const{
@@ -231,7 +232,7 @@ const TableBody = ({
     return () => {
       controller.abort();
     };
-  }, [ filterProjectOptions, page, globalSearch])
+  }, [ filterProjectOptions, page, globalSearch, status])
 
   useEffect(() => {
     if (globalSearch) {      
