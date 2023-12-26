@@ -48,7 +48,11 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData, setLoading}:{tipe
       const newObject: any = {};
       actualColumns.current.forEach((column: any) => {
         // set a new variable with attrbis[column.dataindex] and if attribs[column.dataIndex] is string replace it with this str.replace(/"/g, '""'); 
-        const newAttrib = attribs[column.dataIndex] && typeof attribs[column.dataIndex] === 'string' ? attribs[column.dataIndex].replace(/"/g, '""') : attribs[column.dataIndex];
+        let newAttrib = attribs[column.dataIndex] && typeof attribs[column.dataIndex] === 'string' ? attribs[column.dataIndex].replace(/"/g, '""') : attribs[column.dataIndex];
+        // console.log('newAttrib', newAttrib, 'attribs[column.dataIndex]', attribs[column.dataIndex], 'column.dataIndex', column.dataIndex, 'attribs', attribs);
+        if (column.dataIndex === 'cost' && attribs[column.dataIndex] !== '-') {
+          newAttrib = formatter.format(newAttrib);
+        }
         newObject[column.displayCSV] = newAttrib;
       });
       return newObject;
