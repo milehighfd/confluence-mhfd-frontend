@@ -13,6 +13,7 @@ import DetailModal from 'routes/detail-page/components/DetailModal';
 import { useProfileState } from 'hook/profileHook';
 import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import ModalProjectView from 'Components/ProjectModal/ModalProjectView'
+import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 
 const TableBody = ({
   dataId,
@@ -65,7 +66,7 @@ const TableBody = ({
   
   const appUser = useProfileState();
   const email = appUser.userInformation?.email;
-
+  const [loading, setLoading] = useState(false);
   const [dataParsed, setDataParsed] = useState<any>([]);
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
@@ -81,9 +82,11 @@ const TableBody = ({
   let limitPage = Number(counter) % LIMIT_PAGINATION > 0 ?  Math.floor(Number(counter) / LIMIT_PAGINATION + 1) : Number(counter) / LIMIT_PAGINATION;
 
   const getCompleteProjectData = async (project_id: any) => {
+    setLoading(true);
     const dataFromDB = await datasets.getData(SERVER.V2_DETAILED_PAGE(project_id), datasets.getToken());
     setCompleteProjectData({...dataFromDB, tabKey}); 
     showModalProject.current = true;
+    setLoading(false);
   }
   useEffect(() => {
     if (status === 1 || status === 0) {
@@ -333,6 +336,7 @@ const setShowModalProject = (newValue: any) => {
 }
 useEffect(() => {console.log('showModalProject',showModalProject.current);} ,[showModalProject.current]);
   return <>
+    {loading && <LoadingViewOverall></LoadingViewOverall>}
     {detailOpen && dataDetail && <DetailModal
       visible={detailOpen}
       setVisible={setDetailOpen}

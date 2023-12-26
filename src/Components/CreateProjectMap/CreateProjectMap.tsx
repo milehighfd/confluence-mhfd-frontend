@@ -291,11 +291,11 @@ const CreateProjectMap = (type: any) => {
           });
           map.isStyleLoaded(() => {
             map.map.setTerrain();
-            map.map.once('idle', () => {
-              setLoading(false);
-              flagInit = false;
-              map.orderLayers();
-            });
+            // map.map.once('idle', () => {
+            //   setLoading(false);
+            //   flagInit = false;
+            //   map.orderLayers();
+            // });
           });
         }
       }

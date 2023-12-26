@@ -7,6 +7,7 @@ import Filter from 'Components/Work/Drawers/Filter';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { UPCOMING_PROJECTS } from 'constants/constants';
 import ShareURL from 'Components/Work/Request/Toolbar/ShareURL';
+import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 
 const { TabPane } = Tabs;
 
@@ -32,6 +33,7 @@ export const UpcomingProjectBody = () => {
   const [searchValue, setSearchValue] = useState<any>('');
   const [csvData, setCsvData] = useState<string[][]>([[]]);
   const [csvFileName, setCsvFileName] = useState<string>('');
+  const [loading, setLoading] = useState(false);
   const actions = (
     <div className="tabs-upcoming-extra">
       <Input
@@ -98,6 +100,7 @@ export const UpcomingProjectBody = () => {
   let displayedTabKey = tabKeys;
   return (
     <div className="upcoming-body">
+      {loading && <LoadingViewOverall></LoadingViewOverall>}
       {
         showFilters && <Filter origin={UPCOMING_PROJECTS}/>
       }
@@ -119,7 +122,7 @@ export const UpcomingProjectBody = () => {
               </span>
             }
           >
-            <TableUpcomingProjects tipe={tabKey} searchValue={searchValue} setCsvData={setCsvData}/>
+            <TableUpcomingProjects tipe={tabKey} searchValue={searchValue} setCsvData={setCsvData} setLoading={setLoading} />
           </TabPane>
         ))}
       </Tabs>

@@ -10,7 +10,7 @@ import DetailModal from 'routes/detail-page/components/DetailModal';
 import { useRequestDispatch, useRequestState } from "hook/requestHook";
 import { InfoCircleOutlined } from "@ant-design/icons";
 
-const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, searchValue: string, setCsvData: Function}) => {
+const TableUpcomingProjects = ({tipe, searchValue, setCsvData, setLoading}:{tipe:string, searchValue: string, setCsvData: Function, setLoading: any}) => {
   
   const tooltipContent = (title:any, content:any) => {
     return (
@@ -128,6 +128,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
     filterProjectOptions,
   } = useMapState();
   useEffect(() => {
+    setLoading(true);
     let code_project_type_id = 0;
     switch (tipe) {
       case 'Capital':
@@ -159,6 +160,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
       null,
       controller.signal
     ).then(data => {
+
       const parsedData = data.map((d: any, index: any) => {
         const mhfdLead = d.project_staffs.find((staff: any) => staff.code_project_staff_role_type_id === 1);
         const estimatedCost = d.project_costs.find((cost: any) => cost.code_cost_type_id === 1);
@@ -173,6 +175,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData}:{tipe:string, sea
         if (consultantSelectedValue === 'Yes') {
           consultant = '-';
         }
+        setLoading(false);
         return {
           key: d.project_id,
           onbase: d.onbase_project_number,
