@@ -1,6 +1,6 @@
 import { EyeOutlined, HeartFilled, HeartOutlined, MoreOutlined } from '@ant-design/icons';
 import { Col, Menu, MenuProps, Popover, Row, Table, Tooltip } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
 import { FILTER_PROJECTS_TRIGGER, LIMIT_PAGINATION, PMTOOLS } from 'constants/constants';
@@ -73,17 +73,23 @@ const TableBody = ({
   const [activeBorder, setActiveBorder] = useState(false);
   const [rowActive, setRowActive] = useState(-20);
   const [globalId, setGlobalId] = useState(0);
-  const [showModalProject, setShowModalProject] = useState(false);
+  // const [showModalProject, setShowModalProject] = useState(false);
+  const showModalProject = useRef(false);
   const [completeProjectData, setCompleteProjectData] = useState<any>(null);
+  const { setSave } = useProjectDispatch();
 
   let limitPage = Number(counter) % LIMIT_PAGINATION > 0 ?  Math.floor(Number(counter) / LIMIT_PAGINATION + 1) : Number(counter) / LIMIT_PAGINATION;
 
   const getCompleteProjectData = async (project_id: any) => {
     const dataFromDB = await datasets.getData(SERVER.V2_DETAILED_PAGE(project_id), datasets.getToken());
     setCompleteProjectData({...dataFromDB, tabKey}); 
-    setShowModalProject(true);
+    showModalProject.current = true;
   }
-
+  useEffect(() => {
+    if (status === 1 || status === 0) {
+      setSave(2);
+    };
+  }, [status]);
   useEffect(() => {
     if (next && page < limitPage) {
       setPage(page + 1)
@@ -211,9 +217,6 @@ const TableBody = ({
         }),
       }
     }));
-    return () => {
-      setShowModalProject(false);
-    }
   }, [dataBody, favorites])
 
   useEffect(() => {
@@ -324,7 +327,11 @@ const TableBody = ({
     >
     </Menu>
   };
-
+  // TODO: find where is setting showmodalproject as false after first save
+const setShowModalProject = (newValue: any) => {
+  showModalProject.current = newValue;
+}
+useEffect(() => {console.log('showModalProject',showModalProject.current);} ,[showModalProject.current]);
   return <>
     {detailOpen && dataDetail && <DetailModal
       visible={detailOpen}
@@ -335,9 +342,9 @@ const TableBody = ({
       addFavorite={addFunction}
     />}
     {
-      showModalProject &&
+      showModalProject.current &&
       <ModalProjectView
-          visible= {showModalProject}
+          visible= {showModalProject.current}
           setVisible= {setShowModalProject}
           data={completeProjectData}
           showDefaultTab={true}

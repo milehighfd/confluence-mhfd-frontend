@@ -207,9 +207,6 @@ const PhaseBody = ({
       phaseData.forEach((element:any) => {
           phaseChart(element);
       });
-    }    
-    return () => {
-      setShowModalProject(false);
     }
   }, [phaseData, windowWidth]);
 
