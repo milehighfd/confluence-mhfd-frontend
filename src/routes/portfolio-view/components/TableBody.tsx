@@ -83,10 +83,11 @@ const TableBody = ({
 
   const getCompleteProjectData = async (project_id: any) => {
     setLoading(true);
-    const dataFromDB = await datasets.getData(SERVER.V2_DETAILED_PAGE(project_id), datasets.getToken());
-    setCompleteProjectData({...dataFromDB, tabKey}); 
-    showModalProject.current = true;
-    setLoading(false);
+    datasets.getData(SERVER.V2_DETAILED_PAGE(project_id), datasets.getToken()).then((res: any) => {
+      setCompleteProjectData({...res, tabKey}); 
+      setLoading(false);
+      showModalProject.current = true;
+    });
   }
   useEffect(() => {
     if (status === 1 || status === 0) {

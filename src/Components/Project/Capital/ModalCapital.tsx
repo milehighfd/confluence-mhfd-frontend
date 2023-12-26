@@ -78,7 +78,9 @@ export const ModalCapital = ({
   subTypeInit?: string
   originLocation?: string
 }) => {
- 
+ useEffect(() => {
+  console.log('originLocation', originLocation);
+ } ,[originLocation]);
   const {
     saveProjectCapital,
     setComponentIntersected, 
@@ -1216,7 +1218,7 @@ export const ModalCapital = ({
      >
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-          <CreateProjectMap type={selectedTypeProject.toUpperCase()} locality={locality} projectid={projectid} isEdit={swSave} problemId={problemId} lastValue={lastValue}></CreateProjectMap>
+          <CreateProjectMap type={selectedTypeProject.toUpperCase()} locality={locality} projectid={projectid} isEdit={swSave} problemId={problemId} lastValue={lastValue} originLocation={originLocation}></CreateProjectMap>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
           <Header
