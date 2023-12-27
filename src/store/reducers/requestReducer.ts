@@ -49,6 +49,9 @@ const initialState = {
   csaSelected: [],
   localityType: '',
   visibleCreateProject: false,
+  visibleCreateOrImport: false,
+  isCreatedFromBoard: false,
+  importedProjectData: {projectType: '', projectSponsor: ''},
   leftWidth: MEDIUM_SCREEN_RIGHT - 1,
   localities: [],
   columns: defaultColumns,
@@ -59,6 +62,7 @@ const initialState = {
   projectIds: [],
   loadingColumns: false,
   localityFilter: '',
+  isImported: false,
   dataAutocomplete: [],
   setIsOnSelected: false,
   filterMap: {},
@@ -69,6 +73,8 @@ const initialState = {
   filterYear: [],
   isListView: false,
   sentToWP: false,
+  filterCost: [],
+  filterBy: '' 
 };
 
 const requestReducer = (state = initialState, action: any) => {
@@ -238,6 +244,16 @@ const requestReducer = (state = initialState, action: any) => {
         ...state,
         visibleCreateProject: action.payload
       };
+    case types.REQUEST_SET_VISIBLE_CREATE_OR_IMPORT:
+      return {
+        ...state,
+        visibleCreateOrImport: action.payload
+      };
+    case types.REQUEST_SET_IS_CREATED_FROM_BOARD:
+      return {
+        ...state,
+        isCreatedFromBoard: action.payload
+      };
     case types.REQUEST_SET_LEFT_WIDTH:
       return {
         ...state,
@@ -346,6 +362,16 @@ const requestReducer = (state = initialState, action: any) => {
         ...state,
         filterRequest: action.payload
       };
+    case types.SET_COST_RANGE: 
+      return {
+        ...state,
+        filterCost: action.payload
+      }
+      case types.SET_FILTER_BY:
+        return {
+          ...state,
+          filterBy: action.payload
+        }
     case types.REQUEST_SET_DISABLE_FILTER_COUNTY:
       return {
         ...state,
@@ -389,6 +415,16 @@ const requestReducer = (state = initialState, action: any) => {
       return {
         ...state,
         filterLoading: action.payload
+      };
+    case types.REQUEST_SET_IS_IMPORTED:
+      return {
+        ...state,
+        isImported: action.payload
+      };
+    case types.REQUEST_SET_IMPORTED_PROJECT_TYPE:
+      return {
+        ...state,
+        importedProjectData: action.payload
       };
     default:
       return state;

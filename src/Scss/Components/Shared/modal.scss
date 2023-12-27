@@ -572,6 +572,31 @@
       }
     }
   }
+  .header-3{
+    position: absolute;
+    background: #29C499;
+    top: 0;
+    width: 100%;
+    left: 0;
+    color: #FFF;
+    text-align: center;
+    font-family: Ubuntu;
+    font-size: 14px;
+    font-style: normal;
+    border-radius: 8px 8px 0px 0px;
+    font-weight: 700;
+    line-height: 120%;
+    height: 84px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    p{
+      margin-bottom: 0px;
+    }
+  }
+  .step-body{
+    padding-top: 30px;
+  }
   .name-project {
     color: #11093c;
     font-family: Ubuntu;
@@ -592,7 +617,8 @@
     }
   }
   .body-edit-dates {
-    height: 350px;
+    height: 310px;
+    overflow: auto;
     .img-confetti {
       color: #11093c;
       text-align: center;
@@ -608,14 +634,13 @@
     }
     .form-edit-dates {
       text-align: left;
-      height: calc(100vh - 348px);
-      overflow: auto;
+      height: fit-content;
       padding-right: 10px;
       label {
         margin-top: 16px;
         color: #11093c;
         font-family: Ubuntu;
-        font-size: 10px;
+        font-size: 14px;
         font-style: normal;
         font-weight: 400;
         line-height: normal;
@@ -999,7 +1024,7 @@
       }
     }
     .body-edit-dates{
-      height: 487px !important;
+      height: 455px !important;
     }
     // height: 1040px !important;
     .ant-modal-content{
@@ -1085,11 +1110,21 @@
       }
     }
   }
+  .popover-edit-amount{
+    font-size: 16px;
+  }
   .card-dropdown {
     width: 235px;
   }
   .work-modal-edit-dates{
     width: 983px !important;
+    .header-3{
+      height: 87px;
+      font-size: 19px;
+      p{
+        margin-bottom: 0px;
+      }
+    }
     .name-project{
       font-size: 18px;
       h1{

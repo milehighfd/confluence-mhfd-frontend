@@ -10,9 +10,10 @@ const Alert = ({ save, visible, setVisible, message }: { save: Function, visible
   return (
     <Modal
       className="detailed-version detailed-upload-save"
-      style={{ top: 'calc(50vh - 100px)' }}
+      // style={{ top: 'calc(50vh - 100px)' }}
       visible={visible.visible}
       onCancel={handleCancel}
+      centered
       forceRender={false}
       destroyOnClose>
       <div className="detailed">

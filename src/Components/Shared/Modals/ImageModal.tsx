@@ -138,6 +138,7 @@ const ImageModal = ({
       }}
       forceRender={false}
       destroyOnClose
+      centered
     >
       <div className="detailed-image-layout" onKeyDown={moveImage}>
         <Row className="detailed-image-placeholder detailed-image-header" gutter={[16, 8]}>

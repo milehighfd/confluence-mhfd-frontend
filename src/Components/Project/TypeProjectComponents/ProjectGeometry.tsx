@@ -80,7 +80,7 @@ export const ProjectGeometry = ({
           key: `title-${id}`,
           reach: key,
           delete: true,
-          mhfd_code: thislistStreams[key][0].mhfd_code,
+          mhfd_code: thislistStreams[key][0]?.mhfd_code,
         };
         dataFormated.push(titleTemplate);
         const substreams = thislistStreams[key];
@@ -90,8 +90,8 @@ export const ProjectGeometry = ({
           const rowTemplate = {
             ...substream,
             key: `${id}_${index}`,
-            reach: substream.jurisdiction,
-            code: substream.mhfd_code,
+            reach: substream?.jurisdiction,
+            code: substream?.mhfd_code,
             tributary: substream.tributary ?? 0,
             length: substream.length ?? 0,
             

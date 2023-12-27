@@ -7,11 +7,12 @@ const JURISDICTION = 'jurisdiction',
 COUNTY = 'county', SERVICE_AREA = 'servicearea', CONSULTANT = 'consultant',
 CONTRACTOR = 'contractor', STAFF = 'staff';
 export const FilterByGroupName = ({
-  setFilterby, setFiltervalue, setFiltername
+  setFilterby, setFiltervalue, setFiltername, isPortfolio
 }: {
   setFilterby: Function,
   setFiltervalue: Function,
-  setFiltername: Function
+  setFiltername: Function,
+  isPortfolio: Boolean
 }) => {
   const {    
     resetFilterProjectOptionsEmpty,
@@ -23,6 +24,7 @@ export const FilterByGroupName = ({
   const [contractorList, setContractorList] = useState([]);
   const [staffList, setStaffList] = useState([]);
   const [activeDrop, setActiveDrop] = useState('MHFD District Plan');
+  const [visibleItems, setVisibleItems] = useState<any>([]);
 
   const parseToMenuItem = (list: any, filterby: string) => {
     let post = '';
@@ -60,59 +62,62 @@ export const FilterByGroupName = ({
       const groups = valuesGroups.groups;
       setJurisdictionList(parseToMenuItem(groups, JURISDICTION));
     });
-    getGroupList(CONSULTANT).then((valuesGroups) => {
-      const groups = valuesGroups.groups;
-      setConsultantList(parseToMenuItem(groups, CONSULTANT));
-    });
-    getGroupList(CONTRACTOR).then((valuesGroups) => {
-      const groups = valuesGroups.groups;
-      setContractorList(parseToMenuItem(groups, CONTRACTOR));
-    });
     getGroupList(STAFF).then((valuesGroups) => {
       const groups = valuesGroups.groups;
       setStaffList(parseToMenuItem(groups, STAFF));
     });
+    if ( isPortfolio) {
+      getGroupList(CONSULTANT).then((valuesGroups) => {
+        const groups = valuesGroups.groups;
+        setConsultantList(parseToMenuItem(groups, CONSULTANT));
+      });
+      getGroupList(CONTRACTOR).then((valuesGroups) => {
+        const groups = valuesGroups.groups;
+        setContractorList(parseToMenuItem(groups, CONTRACTOR));
+      });
+    }
+    
   }, []);
-
-  return (
-    <Menu
-      className="menu-drop"
-      items={[
-        {
-          key: '-1',
-          label: <span onClick={()=>{setActiveDrop('MHFD District Plan');}}>Mile High Flood District</span>,
-          onClick: () => {
-            setFilterby('');
-            setFiltervalue(-1);
-            setFiltername('Mile High Flood District');
-            resetFilterProjectOptionsEmpty();
-          },
-          className: activeDrop === 'MHFD District Plan' ? 'menu-active menu-drop-sub-sub' :'menu-drop-sub-sub',
+  useEffect(() => {
+    const items = [
+      {
+        key: '-1',
+        label: <span onClick={()=>{setActiveDrop('MHFD District Plan');}}>Mile High Flood District</span>,
+        onClick: () => {
+          setFilterby('');
+          setFiltervalue(-1);
+          setFiltername('Mile High Flood District');
+          resetFilterProjectOptionsEmpty();
         },
-        {
-          key: '1',
-          label: 'MHFD Lead',
-          className: activeDrop === 'MHFD Lead' ? 'menu-active menu-drop-sub-sub' :'menu-drop-sub-sub',
-          children: staffList,
-        },
-        {
-          key: '2',
-          label: 'Service Area',
-          children: serviceAreaList,
-          className: activeDrop === 'servicearea' ? 'menu-active-active' :'',
-        },
-        {
-          key: '3',
-          label: 'County',
-          children: countyList,
-          className: activeDrop === 'county' ? 'menu-active-active ' :'',
-        },
-        {
-          key: '4',
-          label: 'Local Government',
-          children: jurisdictionList,
-          className: activeDrop === 'jurisdiction' ? 'menu-active-active' :'',
-        },
+        className: activeDrop === 'MHFD District Plan' ? 'menu-active menu-drop-sub-sub' :'menu-drop-sub-sub',
+      },
+      {
+        key: '1',
+        label: 'MHFD Lead',
+        className: activeDrop === 'MHFD Lead' ? 'menu-active menu-drop-sub-sub' :'menu-drop-sub-sub',
+        children: staffList,
+      },
+      {
+        key: '2',
+        label: 'Service Area',
+        children: serviceAreaList,
+        className: activeDrop === 'servicearea' ? 'menu-active-active' :'',
+      },
+      {
+        key: '3',
+        label: 'County',
+        children: countyList,
+        className: activeDrop === 'county' ? 'menu-active-active ' :'',
+      },
+      {
+        key: '4',
+        label: 'Local Government',
+        children: jurisdictionList,
+        className: activeDrop === 'jurisdiction' ? 'menu-active-active' :'',
+      }
+    ];
+    if (isPortfolio) {
+      items.push(
         {
           key: '5',
           label: 'Consultant',
@@ -124,8 +129,22 @@ export const FilterByGroupName = ({
           label: 'Contractor',
           children: contractorList,
           className: activeDrop === 'contractor' ? 'menu-active-active' :'',
-        },
-      ]}
+      });
+    }
+    setVisibleItems(items);
+  }, [
+    serviceAreaList,
+    countyList,
+    jurisdictionList,
+    consultantList,
+    contractorList,
+    staffList
+  ]); 
+
+  return (
+    <Menu
+      className="menu-drop"
+      items={visibleItems}
     />
   );
 }

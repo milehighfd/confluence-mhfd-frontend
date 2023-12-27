@@ -9,7 +9,7 @@ import { useProjectState, useProjectDispatch } from 'hook/projectHook';
 import { useAttachmentDispatch } from 'hook/attachmentHook';
 import { Project } from 'Classes/Project';
 import { useProfileDispatch, useProfileState } from 'hook/profileHook';
-import { ADMIN, NEW_PROJECT_TYPES, STAFF, WINDOW_WIDTH, WORK_PLAN_TAB } from 'constants/constants';
+import { ADMIN, MAP_TAB, NEW_PROJECT_TYPES, STAFF, WINDOW_WIDTH, WORK_PLAN, WORK_PLAN_TAB, WORK_REQUEST } from 'constants/constants';
 import { useHistory } from 'react-router-dom';
 import { UploadImagesDocuments } from 'Components/Project/TypeProjectComponents/UploadImagesDocuments';
 import { getProjectOverheadCost } from 'utils/parsers';
@@ -32,6 +32,7 @@ import { DiscussionCreateProject } from '../TypeProjectComponents/DiscussionCrea
 import { ActivitiCreateProject } from '../TypeProjectComponents/ActivityCreateProject';
 import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
 import EditAmountCreateProject from '../TypeProjectComponents/EditAmountCreateProject';
+import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -40,12 +41,6 @@ const contentIndComp = (<div className="popver-info">Independent Actions should 
 const contentOverheadCost = (<div className="popver-info"> Overhead Cost includes all costs beyond the costs of physical construction (Subtotal Cost). The default values shown here can and should be changed when different percentages are anticipated, such as in urban settings. Please add a description explaining any changes from default values. </div>);
 const contentAdditionalCost = (<div className="popver-info"> Enter any additional costs here that were not captured previously as Actions, Independent Actions, or Overhead Costs. Additional Costs (unlike Independent Actions) will NOT have Overhead Costs applied to them. </div>);
 const contentRecommendedBudget = (<div className="popver-info"> The <b>Recommended Project Budget</b> is the sum of all proposed action costs, independent action costs, overhead costs and additional costs. </div>);
-const content10 = (<div className="popver-info">The Action Status indicates whether or not the Action has already been built (Complete) or still needs to be built (Proposed).</div>);
-const content05 = (<div className="popver-info" style={{ width: '261px' }}> Indicate why this project is eligible for MHFD maintenance. <br /><br /><b>Capital Project</b> – The project was completed as part of a MHFD Capital Improvement Plan
-  <br /> <b>MEP</b> – The project has been accepted through development review as part of MHFD's Maintenance Eligibility Program (MEP)
-  <br /><b>Grandfathered</b> – Development occurred before MHFD’s Maintenance Eligibility Program started in 1980
-  <br /><b>Not Eligible</b> – The project does not meet any of the above criteria
-  <br /><b>Unknown</b>  – Maintenance eligibility status is unknown</div>);
 const stateValue = {
   visibleCapital: false
 }
@@ -56,41 +51,6 @@ const formatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 2
 });
 
-const genExtra05 = (totalIndependentComp: any) => (
-  <Row className="tab-head-project">
-    <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10 }}>Independent Actions</Col>
-    <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 6 }}></Col>
-    <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 4 }}></Col>
-    <Col className="tab-cost-independent" xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }} >{formatter.format(totalIndependentComp)}</Col>
-  </Row>
-);
-const genTitleNoAvailable = (groups:any, setKeyOpenClose: Function) => {
-  let totalSumCost = 0;
-  for( let component of groups.components){
-    totalSumCost += component.original_cost;
-  }
-
-  return (
-  <Row className="tab-head-project" onClick={()=>{setKeyOpenClose(-1)}}>
-    <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 14 }}>No Problem Group Available</Col>
-    <Col style={{textAlign:'center'}} xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}></Col>
-  <Col className="tab-cost" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }} style={{ whiteSpace:'nowrap', textOverflow:'ellipsis'}}>{formatter.format(totalSumCost)}</Col>
-  </Row>
-  )
-}
-const genTitleProblem = (problem: any, key:any, setValuesProblem:Function, setValueZoomProb: Function, setKeyOpenClose: Function) => {
-  let totalSumCost = 0;
-  for( let component of problem.components){
-    totalSumCost += component.original_cost;
-  }
-  return (
-    <Row className="tab-head-project" onMouseEnter={()=> setValuesProblem(key, problem.problemname)} onMouseLeave={()=>setValuesProblem(undefined,undefined)} onClick={()=>{setValueZoomProb(key); setKeyOpenClose(key)}} >
-      <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 14 }}>{problem.problemname}</Col>
-      <Col style={{textAlign:'center'}} className='col-cost-geom' xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{problem.solutionstatus ? problem.solutionstatus + '%' : ''}</Col>
-      <Col className="tab-cost cost-position" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{formatter.format(totalSumCost)}</Col>
-    </Row>
-  )
-}
 export const ModalCapital = ({
   visibleCapital, 
   setVisibleCapital, 
@@ -103,6 +63,7 @@ export const ModalCapital = ({
   editable, 
   problemId,
   subTypeInit,
+  originLocation
 }:{
   visibleCapital: boolean, 
   setVisibleCapital: Function, 
@@ -115,8 +76,11 @@ export const ModalCapital = ({
   editable:boolean, 
   problemId?: any,
   subTypeInit?: string
+  originLocation?: string
 }) => {
- 
+ useEffect(() => {
+  console.log('originLocation', originLocation);
+ } ,[originLocation]);
   const {
     saveProjectCapital,
     setComponentIntersected, 
@@ -138,6 +102,8 @@ export const ModalCapital = ({
     getComponentsByProjectId,
     resetDiscussion,
   } = useProjectDispatch();
+  const { setIsCreatedFromBoard, setIsImported, loadColumns , setVisibleCreateOrImport} = useRequestDispatch();
+  const { isCreatedFromBoard, isImported, namespaceId, importedProjectData } = useRequestState();
   const { getGroupOrganization, openDiscussionTab } = useProfileDispatch();
   const {
     listComponents, 
@@ -149,10 +115,9 @@ export const ModalCapital = ({
     status,
     deleteAttachmentsIds,
     listStreams,
-    streamsIntersectedIds,
-    disableFieldsForLG,
-    createdProject
+    streamsIntersectedIds
   } = useProjectState();
+  
   const [loading, setLoading] = useState(false);
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
@@ -194,8 +159,7 @@ export const ModalCapital = ({
   const pageWidth  = document.documentElement.scrollWidth;
   const { tabActiveNavbar } = useMapState();
   const isWorkPlan = tabActiveNavbar === WORK_PLAN_TAB;
-  const { groupOrganization, userInformation, openDiscussion} = useProfileState();
-  const [openDropdownTypeProject, setOpenDropdownTypeProject] = useState(false);
+  const { groupOrganization, userInformation, openDiscussion, workRequestYear, workPlanYear} = useProfileState();
   const [activeTabBodyProject, setActiveTabBodyProject] = useState('Details');
   const [favorite, setFavorite] = useState(false);
   const [groupParsed, setGroupParsed] = useState<any>([]);
@@ -240,7 +204,6 @@ export const ModalCapital = ({
   const menuTypeProjects = () => {
     return (<TypeProjectsMenu setTypeAndSubType={setTypeAndSubType} />)
   };
-
   //Delete all data when opening
   useEffect(() => {
     setServiceAreaCounty({});
@@ -260,7 +223,6 @@ export const ModalCapital = ({
       setComponentsFromMap([]);
     }
   }, []);
-
   //Load Sponsor with Local Government if user is Local Government
   useEffect(() => {
     const CODE_LOCAL_GOVERNMENT = 3;
@@ -274,7 +236,6 @@ export const ModalCapital = ({
   }, [userInformation]);
 
   useEffect(() => {
-    console.log(openDiscussion, 'openDiscussion')
     if (openDiscussion){
       setActiveTabBodyProject('Discussion');
       openDiscussionTab(false);
@@ -466,14 +427,22 @@ export const ModalCapital = ({
       let sponsorList = [...serviceAreaList, ...filteredCountyList, ...jurisdictionList];
       let matchedSponsor = sponsorList.find((item: any) => sponsor.toLowerCase() === item.name.toLowerCase());
       let sponsorId = matchedSponsor ? matchedSponsor.id : null;
-      const params = new URLSearchParams(history.location.search)
+      const params = new URLSearchParams(history.location.search);
       const _year = params.get('year');
       const _locality = params.get('locality');
       var capital = new Project();
       //general
       capital.fromTab = tabActiveNavbar;
       capital.locality = _locality;
-      capital.year = _year ?? capital.year;
+      if (workRequestYear.default && tabActiveNavbar === MAP_TAB) {
+        if (sponsor === 'MHFD') {
+          capital.year = workPlanYear.default;
+        } else {
+          capital.year = workRequestYear.default;
+        }
+      } else {
+        capital.year = _year ?? capital.year;
+      }
       let csponsor = "";
       if (cosponsor) {
         cosponsor.forEach((element: any) => {
@@ -573,7 +542,11 @@ export const ModalCapital = ({
       });
       removeAttachment(deleteAttachmentsIds);
       if (swSave) {
-        editProjectCapital(capital);
+        if (isImported) {
+          importProject(capital);
+        } else {
+          editProjectCapital(capital, originLocation);
+        }
       }
       else {
         saveProjectCapital(capital);
@@ -586,6 +559,7 @@ export const ModalCapital = ({
     if(status === 1 || status === 0) {
       setVisible(false);
       setVisibleCapital(false);
+      setIsCreatedFromBoard(false);
       setLoading(false);
     } else {
       setLoading(false);
@@ -620,7 +594,7 @@ export const ModalCapital = ({
           const isGeom = (selectedTypeProject === 'capital' || selectedTypeProject === 'maintenance');
           const isPin = (selectedTypeProject === 'acquisition' || selectedTypeProject === 'special');
           let geomLengthFlag = false;
-          if ((geom?.coordinates || streamIntersected?.geom) && isGeomDrawn===true) {
+          if ((geom?.coordinates || streamIntersected?.geom) && isGeomDrawn === true) {
             geomLengthFlag = true;
           } else {
             geomLengthFlag = false;
@@ -642,13 +616,44 @@ export const ModalCapital = ({
           }
           if (missingFields.length > 0) {
             handleErrorNotification(missingFields);
-          }else{
+          } else {
             handleNotification('Please fill out all required fields.');
           }
         }
       }
     })
   };
+
+  const importProject = (capital: Project) => {
+    let locality = namespaceId.type === WORK_PLAN ? importedProjectData.projectSponsor : namespaceId.locality;
+    if (locality === 'MHFD'){
+      locality = 'MHFD District Work Plan';
+    }
+    const typeToSend = locality === 'MHFD District Work Plan' ? WORK_PLAN : WORK_REQUEST
+    const boardProject= {
+      type: typeToSend,
+      year: namespaceId.year,
+      locality: locality,
+      projecttype: importedProjectData.projectType,
+      project_id: projectid
+    }
+    datasets.postData(SERVER.IMPORT_PROJECT, boardProject, datasets.getToken()).then(data => {
+      if(data){        
+        setIsCreatedFromBoard(false);
+        loadColumns();
+        //setLoading(false);
+        setIsImported(false);
+        editProjectCapital(capital, originLocation);        
+        //setVisible(false);
+        //setVisibleCapital(false);
+        openNotification('Success.', 'success','Project imported successfully.');
+      }else{
+        openNotification(`Error.`, "warning", 'An error occurred while importing the project.');
+      }
+    }).catch(error => {
+      openNotification(`Error.`, "warning", 'An error occurred while importing the project.');
+    });
+  }
 
   const checkIfIndependentHaveName = () => {
       let result = true;
@@ -799,9 +804,15 @@ export const ModalCapital = ({
 
   const handleCancel = (e: any) => {
     const auxState = {...state};
-    setVisibleCapital (false);
-    setState(auxState);
-    setVisible(false);
+    setVisibleCapital (false);    
+    if (!isCreatedFromBoard){
+      setVisible(false);
+    }
+    if (isImported){
+      setVisibleCreateOrImport(true);
+    }
+    setIsImported(false);
+    setState(auxState);    
   };
 
   const onClickDraw = () => {
@@ -1071,7 +1082,6 @@ export const ModalCapital = ({
     setCounty([]);
     setjurisdiction([]);
   }
-
   useEffect(() => {
     if ((['capital', 'maintenance'].includes(lastValue)) && (['acquisition', 'special'].includes(selectedTypeProject))) {
       RestartLocation();
@@ -1208,7 +1218,7 @@ export const ModalCapital = ({
      >
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-          <CreateProjectMap type={selectedTypeProject.toUpperCase()} locality={locality} projectid={projectid} isEdit={swSave} problemId={problemId} lastValue={lastValue}></CreateProjectMap>
+          <CreateProjectMap type={selectedTypeProject.toUpperCase()} locality={locality} projectid={projectid} isEdit={swSave} problemId={problemId} lastValue={lastValue} originLocation={originLocation}></CreateProjectMap>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
           <Header
@@ -1225,7 +1235,7 @@ export const ModalCapital = ({
           <div className='header-tab'>
             <p className={activeTabBodyProject ===  'Details'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Details')}}>Details</p>
             {swSave && <p className={activeTabBodyProject ===  'Discussion'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Discussion')}}>Discussion</p>}
-            <p className={activeTabBodyProject ===  'Activity'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Activity')}}>Activity</p>
+            <p className={activeTabBodyProject ===  'Activity'? 'tab active-tab': 'tab'} onClick={()=>{setActiveTabBodyProject('Activity')}}>History</p>
           </div> 
           {activeTabBodyProject === 'Details' && <>
             <div className="body-project" style={{overflowX: 'hidden'}} onScroll={()=>{setOpen(false)}}>
@@ -1406,8 +1416,10 @@ export const ModalCapital = ({
           {activeTabBodyProject === 'Activity' &&
           <ActivitiCreateProject projectId={projectid} data={data}/>}
           <div className="footer-project">
-            <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>
-            <Button className="btn-purple" onClick={handleOk}><span className="text-color-disable">Save Draft Project</span></Button>
+            <Button className="btn-borde" onClick={handleCancel}>{!isImported ? 'Cancel' : 'Return'}</Button>
+            <Button className="btn-purple" onClick={handleOk}><span className="text-color-disable">
+              {!isImported? 'Save Draft Project': 'Import Project'}
+            </span></Button>
           </div>
         </Col>
       </Row>

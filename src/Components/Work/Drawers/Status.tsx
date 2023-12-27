@@ -207,7 +207,7 @@ const Status = () => {
               if (status === APPROVED_STATE) {
                 setMessage(`Please note that only your notes were updated.`)
               } else {
-                setMessage(`Please note that only your notes and project type settings were updated. Once all five project types are toggled to 'Yes' will the board be submitted to the Mile High Flood District for review.`)
+                setMessage(`Once all five project types are toggled to ‘Yes’ you will be able to use the Save button to submit your Work Request to MHFD for review.`)
               }
               save(status);
               setVisibleModal(true);

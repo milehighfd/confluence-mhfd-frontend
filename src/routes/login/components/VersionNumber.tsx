@@ -24,6 +24,15 @@ const VersionNumber = ({visible, setVisible}: {visible: boolean, setVisible: Rea
         </Row>
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
           <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c', overflowY: 'scroll', height: '400px'}} className='scroll-version'>
+            <p style={{ color: '#11093c', fontWeight: '500', paddingBottom: '10px' }}>v2.5 - December 22, 2023</p>
+            <ul>
+              <li>Enhanced workflow for transferring projects from the Work Plan to the Project Management Module</li>
+              <li>New Import Project feature for any Work Request or Work Plan board</li>
+              <li>Email all users - incl. Local Government staff, Consultants and Contractors, MHFD Staff, and MHFD Senior Managers - when the Work Plan is approved</li>
+              <li>Email MHFD Staff and Senior Mangers when a Work Request is submitted by a Local Government</li>
+              <li>New project activity logs within the Project Detail and Edit project views</li>
+              <li>Require Consultants and Contractors to list their Organization when registering</li>
+            </ul>
             <p style={{ color: '#11093c', fontWeight: '500', paddingBottom: '10px' }}>v2.4 - November 13, 2023</p>
             <ul>
               <li>New Project Discussion within the Create Project module and Project Profile</li>

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Row, Tooltip } from 'antd';
+import { Col, Menu, MenuProps, Popover, Row, Tooltip } from 'antd';
 import * as d3 from 'd3';
 import moment from 'moment';
-import { HeartFilled, HeartOutlined } from '@ant-design/icons';
+import { EyeOutlined, HeartFilled, HeartOutlined, MoreOutlined } from '@ant-design/icons';
 import { SERVER } from 'Config/Server.config';
-import { FILTER_PROJECTS_TRIGGER, LIMIT_PAGINATION } from 'constants/constants';
+import { FILTER_PROJECTS_TRIGGER, LIMIT_PAGINATION, PMTOOLS} from 'constants/constants';
 import { getCurrentProjectStatus, getServiceAreas, getStreams, getTotalEstimatedCost } from 'utils/parsers';
 import * as datasets from 'Config/datasets';
 import { colorScale } from 'routes/portfolio-view/constants/PhaseViewData';
@@ -12,6 +12,7 @@ import { usePortflioState, usePortfolioDispatch } from '../../../hook/portfolioH
 import { useMapState } from 'hook/mapHook';
 import DetailModal from 'routes/detail-page/components/DetailModal';
 import { useProfileState } from 'hook/profileHook';
+import ModalProjectView from 'Components/ProjectModal/ModalProjectView';
 
 const PhaseBody = ({
   dataId,
@@ -66,7 +67,14 @@ const PhaseBody = ({
   const [dataDetail, setDataDetail] = useState();
   const [phaseData, setPhaseData] = useState<any>([]);
   const [updateForPhase, setUpdateForPhase] = useState(false);
+  const [showModalProject, setShowModalProject] = useState(false);
+  const [completeProjectData, setCompleteProjectData] = useState<any>(null);
   let limitPage = Number(counter) % LIMIT_PAGINATION > 0 ?  Math.floor(Number(counter) / LIMIT_PAGINATION + 1) : Number(counter) / LIMIT_PAGINATION;
+  const getCompleteProjectData = async (project_id: any) => {
+    const dataFromDB = await datasets.getData(SERVER.V2_DETAILED_PAGE(project_id), datasets.getToken());
+    setCompleteProjectData({...dataFromDB, tabKey}); 
+    setShowModalProject(true);
+  }
   let svg: any;
   const windowWidth: any = window.innerWidth;
   const valuesForResolutions = (value: any) => {
@@ -199,7 +207,7 @@ const PhaseBody = ({
       phaseData.forEach((element:any) => {
           phaseChart(element);
       });
-    }    
+    }
   }, [phaseData, windowWidth]);
 
   function startsWithNumber(str:string) {
@@ -674,6 +682,34 @@ const PhaseBody = ({
       parent.removeChild(parent.firstChild);
     }
   };
+  const menu = (dataValue: any) => {
+    let menuPopupItem: MenuProps['items'] = [
+      {
+        key: '0',
+        label: <span
+          onClick={() => {
+            getCompleteProjectData(dataValue.project_id);
+
+          }}
+        > <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} /> Edit Project</span>
+      },
+      {
+        key: '1',
+        label: <span style={{display: 'flex', alignItems: 'center'}}
+          onClick={() => {
+            setDetailOpen(true);
+            setDataDetail(dataValue);
+          }}
+        > <EyeOutlined className='tooltip-icon-pm' style={{opacity: '0.5', marginRight: '4px', fontSize: '12px'}}/> View Project</span>,
+      }
+    ];
+    return <Menu
+      className="js-mm-00"
+      style={{ backgroundColor: 'white', border: 0, paddingTop: '0px' }}
+      items={menuPopupItem}
+    >
+    </Menu>
+  };
   return <>
     {detailOpen && <DetailModal
       visible={detailOpen}
@@ -683,6 +719,18 @@ const PhaseBody = ({
       deleteCallback={deleteFunction}
       addFavorite={addFunction}
     />}
+    {
+      showModalProject &&
+      <ModalProjectView
+          visible= {showModalProject}
+          setVisible= {setShowModalProject}
+          data={completeProjectData}
+          showDefaultTab={true}
+          locality={''}
+          editable= {true}
+          originLocation={PMTOOLS}
+      />
+    }
     <div >
       <Row>
         <Col xs={{ span: 10 }} lg={{ span: 5 }} style={{}}>
@@ -697,7 +745,12 @@ const PhaseBody = ({
                     setDataDetail(d)
                   }} className="title-project" >{d.rowLabel}</p>
                 </Tooltip>
-                {d.isFavorite ? <HeartFilled style={{ marginLeft: '7px', color: '#F5575C', marginRight: '10px' }} onClick={() => (deleteFunction(d.project_id, email, ''))} /> : <HeartOutlined style={{ marginLeft: '7px', color: '#706B8A', marginRight: '10px' }} onClick={() => addFunction(email, d.project_id, '')} />}
+                <div style={{display:'flex'}}>
+                  {d.isFavorite ? <HeartFilled style={{ marginLeft: '7px', color: '#F5575C', marginRight: '10px' }} onClick={() => (deleteFunction(d.project_id, email, ''))} /> : <HeartOutlined style={{ marginLeft: '7px', color: '#706B8A', marginRight: '10px' }} onClick={() => addFunction(email, d.project_id, '')} />}
+                  <Popover placement='bottom' trigger="click" content={menu(d)} overlayClassName='pm-popover' zIndex={2}>
+                    <MoreOutlined className="menu-wr" style={{cursor: 'pointer'}}></MoreOutlined>
+                  </Popover>
+                </div>
               </div>
             ))
           }

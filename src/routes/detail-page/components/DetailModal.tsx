@@ -69,6 +69,7 @@ const DetailModal = ({
   const useQuery = () => new URLSearchParams(useLocation().search);
   const query = useQuery();
   const project_idS = query.get('project_id') || data?.project_id || data?.id;
+  
   const problem_idS = query.get('problem_id') || data?.problemid;
   const ciprRef = useRef(null);
   const cipjRef = useRef(null);
@@ -92,23 +93,23 @@ const DetailModal = ({
   let carouselRef = useRef<undefined | any>(undefined);
   const { getAttachmentProjectId } = useAttachmentDispatch();
   const { attachments } = useAttachmentState();
-useEffect(() => {
-  const CODE_LOCAL_GOVERNMENT = 3;
-  
-  const existInStaff = detailed?.project_staffs?.find(
-    (staff: any) => 
-      staff?.business_associate_contact_id === 
-      appUser?.business_associate_contact?.business_associate_contact_id
-  );
-  
-  const isLocalGovernment = 
-    appUser?.business_associate_contact?.business_address?.business_associate?.code_business_associates_type_id === 
-    CODE_LOCAL_GOVERNMENT;
+  useEffect(() => {
+    const CODE_LOCAL_GOVERNMENT = 3;
+    
+    const existInStaff = detailed?.project_staffs?.find(
+      (staff: any) => 
+        staff?.business_associate_contact_id === 
+        appUser?.business_associate_contact?.business_associate_contact_id
+    );
+    
+    const isLocalGovernment = 
+      appUser?.business_associate_contact?.business_address?.business_associate?.code_business_associates_type_id === 
+      CODE_LOCAL_GOVERNMENT;
 
-  const showFinancials = existInStaff && isLocalGovernment;
-  
-  setIsPartnerLG(showFinancials);
-}, [detailed]);
+    const showFinancials = existInStaff && isLocalGovernment;
+    
+    setIsPartnerLG(showFinancials);
+  }, [detailed]);
 
   useEffect(() => {
     if (detailed?.project_id) {
@@ -153,14 +154,17 @@ useEffect(() => {
         setProblemPart(t);
       });
     } else {
-      const project_id = project_idS ? +project_idS : +problem_idS ? +problem_idS : 0;
-      getDetailedPageProject(project_id ? project_id : data?.project_id);
-      getComponentsByProblemId({
-        id: (project_id ? project_id : data.project_id) || data?.on_base || data?.id || data?.cartodb_id,
-        typeid: 'projectid',
-        sortby: 'type',
-        sorttype: 'asc',
-      });
+      const project_id = project_idS ? +project_idS : +problem_idS ? +problem_idS : undefined;
+      const projectIdToSend = project_id ? project_id : data?.project_id;
+      // if (projectIdToSend ) {
+        getDetailedPageProject(projectIdToSend);
+        getComponentsByProblemId({
+          id: (project_id ? project_id : data.project_id) || data?.on_base || data?.id || data?.cartodb_id,
+          typeid: 'projectid',
+          sortby: 'type',
+          sorttype: 'asc',
+        });
+      // }
     }
   }, []);
   useEffect(() => {
@@ -499,7 +503,6 @@ useEffect(() => {
       }, 1850);
     }
   };
-  
   return (
     <>
       <ModalTollgate setOpenPiney={setOpenPiney} />
@@ -521,6 +524,7 @@ useEffect(() => {
         onCancel={() => setVisible(false)}
         forceRender={false}
         destroyOnClose
+        centered
       >
         <div className="detailed-layout">
           {isLoading && <LoadingViewOverall />}
@@ -671,21 +675,21 @@ useEffect(() => {
               </p>
               <p
                 onClick={() => {
-                  activeTab(2, '#vendors');
-                }}
-                className={openSecction === 2 ? 'detailed-tab detailed-tab-active' : 'detailed-tab'}
-                style={!activeScroll ? { cursor: 'default' } : { cursor: 'pointer' }}
-              >
-                Vendors
-              </p>
-              <p
-                onClick={() => {
                   activeTab(3, '#proposed-actions');
                 }}
                 className={openSecction === 3 ? 'detailed-tab detailed-tab-active' : 'detailed-tab'}
                 style={!activeScroll ? { cursor: 'default' } : { cursor: 'pointer' }}
               >
                 Proposed Actions
+              </p>
+              <p
+                onClick={() => {
+                  activeTab(2, '#vendors');
+                }}
+                className={openSecction === 2 ? 'detailed-tab detailed-tab-active' : 'detailed-tab'}
+                style={!activeScroll ? { cursor: 'default' } : { cursor: 'pointer' }}
+              >
+                Vendors
               </p>
               <p
                 onClick={() => {
@@ -1010,8 +1014,8 @@ useEffect(() => {
                       />
                     <DetailInformationProject />
                     <ProblemsProjects />
-                    <Vendors />
                     <ComponentSolucions />
+                    <Vendors />
                     <Roadmap
                       data={dataRoadmap}
                       setOpenPiney={setOpenPiney}
@@ -1023,11 +1027,11 @@ useEffect(() => {
                       (appUser.designation === ADMIN || appUser.designation === STAFF)) || isPartnerLG) && (
                         <>
                           {
-                            detailed && detailed.code_project_type_id &&
+                            detailed && detailed.code_project_type_id && project_idS && 
                             <StackedBarChart projectId={project_idS} isRestoration={detailed.code_project_type_id == 7}/>
                           }
                           <br></br>
-                          <Financials projectId={project_idS} />
+                          { project_idS && <Financials projectId={project_idS} />}
                         </>
                       )}
                     <br></br>

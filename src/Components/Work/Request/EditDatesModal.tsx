@@ -35,8 +35,18 @@ const EditDatesModal = ({
   const [viewOverlappingAlert, setViewOverlappingAlert] = useState(false);
   const [overlapping, setOverlapping] = useState(false);
   const [emptyDatesAlert, setEmptyDatesAlert] = useState(false);
+  const [primaryStream, setPrimaryStream] = useState<{ id: any, name: string, value: number }>({ id: null, name: '', value: -1 });
+  const [location, setLocation] = useState<string>('');
+  const [mhfdLead, setMhfdLead] = useState<{ id: any, name: string }>({ id: null, name: '' });
+  const [onBase, setOnBase] = useState<number>(0);
+  const [disabledFields, setDisabledFields] = useState<any>({primary_stream: false, location: false, mhfd_lead: false, on_base: true});
+  const [mhfdStaffList, setMhfdStaffList] = useState<any[]>([]);
+  const [streamList, setStreamList] = useState<any[]>([]);
+  const [isCountyWide, setIsCountyWide] = useState<boolean>(false);
+  const [missingFields, setMissingFields] = useState<string[]>([]);
+
   const { openNotification } = useNotifications();
-  const [onBaseNumber, setOnBaseNumber] = useState('yes');
+  const [onBaseNumber, setOnBaseNumber] = useState('no');
   const {
     loadColumns, 
   } = useRequestDispatch();
@@ -77,6 +87,66 @@ const EditDatesModal = ({
       console.log(e);
     })
   },[project])
+
+  useEffect(() => {
+    datasets.getData(`${SERVER.ACTIVE_DETAILS}/${project?.project_id}`, datasets.getToken()).then((data: any) => {
+      let newDisabledFields = { ...disabledFields };
+      setIsCountyWide(data?.projectLocation?.is_county_wide)
+      if (data?.projectLocation?.location){
+        setLocation(data.projectLocation.location)
+        newDisabledFields = { ...newDisabledFields, location: true }
+      }
+      if (data?.projectLocation?.onbase_project_number){
+        setOnBase(data.projectLocation.onbase_project_number)
+        setOnBaseNumber('yes')
+      }
+      if(data?.projectStreams?.primaryStream){
+        const streamName = data.projectStreams.primaryStream.project_stream.stream.stream_name;
+        const streamId = data.projectStreams.primaryStream.stream_id;
+        const projectStreamId = data.projectStreams.primaryStream.project_stream_id;
+        setPrimaryStream({ id: streamId, name: streamName, value:projectStreamId})
+        newDisabledFields = { ...newDisabledFields, primary_stream: true }
+      }
+      const mhfdLead = data?.projectStaff?.mhfdLead?.business_associate_contact;
+      if(mhfdLead){
+        setMhfdLead({id: mhfdLead.business_associate_contact_id, name: mhfdLead.contact_name})
+        newDisabledFields = { ...newDisabledFields, mhfd_lead: true }
+      }
+      setDisabledFields(newDisabledFields);
+      setMhfdStaffList(data?.projectStaff?.mhfdStaff)
+      setStreamList(data?.projectStreams?.projectStreams)
+    })
+  }, [project]);
+
+  useEffect(() => {
+    const CODES_NOT_STREAM = [13,15]
+    let requiredFields = ['phase', 'start_date', 'primary_stream', 'mhfd_lead', 'location'];
+    let nameFields = ['Phase', 'Start date', 'Primary stream', 'MHFD lead', 'Location'];
+
+    if (CODES_NOT_STREAM.includes(project?.code_project_type?.code_project_type_id) || isCountyWide){
+      requiredFields = ['phase', 'start_date', 'mhfd_lead'];
+      nameFields = ['Phase', 'Start date', 'MHFD lead'];
+    }
+
+    const fields = [
+      { field: 'phase', name: 'Phase', condition: selectedPhase },
+      { field: 'start_date', name: 'Start date', condition: startDate },
+      { field: 'primary_stream', name: 'Primary stream', condition: primaryStream?.id > 0 },
+      { field: 'mhfd_lead', name: 'MHFD lead', condition: mhfdLead?.id > 0 },
+      { field: 'location', name: 'Location', condition: location },
+    ];
+
+    fields.forEach(({ field, name, condition }) => {
+      if (condition) {
+        const index = requiredFields.indexOf(field);
+        if (index > -1) {
+          requiredFields.splice(index, 1);
+          nameFields.splice(index, 1);
+        }
+      }
+    });
+    setMissingFields(nameFields);
+  }, [selectedPhase, startDate, primaryStream, mhfdLead, project, isCountyWide, location]);
 
   useEffect(() => {
     if (selectedPhase && startDate) {
@@ -234,52 +304,45 @@ const EditDatesModal = ({
       });    
   }, [dates]);
 
-  function sendData() {
+  function sendData() {    
     if (dates.some((date) => !date.from || !date.to)) {
       setEmptyDatesAlert(true);
     } else {
-      datasets
-        .postData(
-          SERVER.CREATE_STATUS_GROUP,
-          {
-            project_id: project?.project_id,
-            phases: dates,
-          },
-          datasets.getToken(),
-        )
-        .then(async res => {
-          openNotification('Success! Your project timeline was just updated!', "success");
-          setStep(0)
-          setVisible(false);
-          loadColumns();
-        });
-    }    
+      handleActivation();
+    }
   }
+
+  const handleActivation = async () => {
+    const sendData = {
+      project_id: project?.project_id,
+      location: location,
+      primaryStream: primaryStream?.value,
+      mhfdLead: mhfdLead?.id
+    }
+    try {
+      await datasets.postData(`${SERVER.ACTIVATE_PROJECT}`, { ...sendData }, datasets.getToken());  
+      const res = await datasets.postData(
+        SERVER.CREATE_STATUS_GROUP,
+        {
+          project_id: project?.project_id,
+          phases: dates,
+        },
+        datasets.getToken(),
+      );  
+      openNotification('Success! Your project timeline was just updated!', "success");
+      setStep(0);
+      setVisible(false);
+      loadColumns();
+    } catch (error) {
+      console.error(error);
+      openNotification(`Error.`, "warning", 'An error occurred while updating your project timeline.');
+    }
+  };
 
   function resetData() {
-    if (step === 1) {
-      console.log('reset')
-      setSelectedPhase(null);
-      setStartDate(null);
-    }else if (step === 2) {
-      const copy = dates?.map((x: any) => {
-        if (x.locked) {
-          return {
-            ...x,
-          };
-        }
-        return {
-          ...x,
-          from: undefined,
-          to: undefined,
-        };
-      });
-      setDates(copy);
-      setCalendarValue('');
-      setCalendarPhase(0);
-    }    
+    setVisible(false);
   }
-
+  
   return(
     <>
       {emptyDatesAlert && (
@@ -297,264 +360,290 @@ const EditDatesModal = ({
       className="work-modal-edit-dates"
       width= '666px'
     > 
-      <div className="header-step">
-        <div className={step === 0 ? 'step-active':"step"}>
-          <p>STEP 1</p>
-          <p className="p-active">Start here</p>
-        </div>
-        <div className={step === 1 ? 'step-active':"step"}>
-          <p>STEP 2</p>
-          <p className="p-active">Current phase & date </p>
-        </div>
-        <div className={step === 2 ? 'step-active':"step"}>
-          <p>STEP 3</p>
-          <p className="p-active">Confirm </p>
-        </div>
-      </div>
-      <div className="name-project">
-        {`${project?.code_project_type?.project_type_name} Project`}
-        <h1>{project?.project_name}</h1>
-        <p>{step=== 0 ? 'Let’s begin.': 'Define the current phase and start date'}</p>
-      </div>
-      {step === 0 && (
-        <div className="body-edit-dates">
-          <div className="img-confetti">
-            {/* <img src="Icons/ic-confetti.svg" alt="ic-confetti"/> */}
-            <br/>
-            Hooray! 
-            <br/>
-            Let’s add context to your project!
+      <div className="step-body">
+        <div className="header-step">
+          <div className={step === 0 ? 'step-active':"step"}>
+            <p>STEP 1</p>
+            <p className="p-active">Start here</p>
+          </div>
+          <div className={step === 1 ? 'step-active':"step"}>
+            <p>STEP 2</p>
+            <p className="p-active">Current phase & date </p>
+          </div>
+          <div className={step === 2 ? 'step-active':"step"}>
+            <p>STEP 3</p>
+            <p className="p-active">Confirm </p>
           </div>
         </div>
-      )}
-      {step === 1 && (
-        <div className="body-edit-dates">
-          <div className="form-edit-dates">
-            <label>1. The current phase for my project is:</label><br/>
-            <Select
-              placeholder="Select phase"
-              style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
-              listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-              value={selectedPhase}
-              onChange={(value: string) => {
-                setSelectedPhase(value)
-                setDateIndex(phaseList.findIndex(x => x.value === value))
-              }}
-            >
-              {phaseList.map((phase, index) => (
-                <Option key={index} value={phase.value}>
-                  {phase.label}
-                </Option>
-              ))}
-            </Select>
-            <label>2. It’s start date is:</label><br />
-            <DatePicker
-                format="MM-DD-YYYY"
-              value = {startDate}
-              style={{ width: '100%', borderRadius: '5px', height: '36px', marginBottom: '16px' }}
-              onChange={(date: any) => setStartDate(date)}
-            />
-            {/* <div style={{display:'flex'}}>
-              <div>
-                <label>3. Is an OnBase number available?</label><br />
-                <Radio.Group
-                  name="designation"
-                  style={{ marginBottom: '16px' }}
-                  onChange={(e)=>setOnBaseNumber(e.target.value)}
-                  value={onBaseNumber}
-                >
-                  <Radio value={'yes'} >Yes</Radio>
-                  <Radio value={'no'} >No</Radio>
-                </Radio.Group><br />
-              </div>
-              {onBaseNumber==='yes' && <div style={{marginLeft:'26px'}}>
-                <p className="text-min">The following number will be associated</p>
-                <Input placeholder="OnBase number" style={{ width: '100%', borderRadius: '5px', height: '36px' }} value='108881' />
-              </div>}
+        <div className="name-project">
+          {`${project?.code_project_type?.project_type_name} Project`}
+          <h1>{project?.project_name}</h1>
+          <p>{step=== 0 ? 'Let’s begin.': 'Define the current phase and start date'}</p>
+        </div>
+        {step === 0 && (
+          <div className="body-edit-dates">
+            <div className="img-confetti">
+              {/* <img src="Icons/ic-confetti.svg" alt="ic-confetti"/> */}
+              <br/>
+              Hooray! 
+              <br/>
+              Let’s add context to your project!
             </div>
-            <label>4. The primary stream is:</label><br />
-            <Select
-              placeholder="Select primary stream"
-              style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
-              listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-            >
-              <Option key={'test'} value={'test'}>
-                test
-              </Option>
-            </Select>
-            <label>5. The MHFD lead is::</label><br />
-            <Select
-              placeholder="Select lead"
-              style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
-              listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-            >
-              <Option key={'test'} value={'test'}>
-                test
-              </Option>
-            </Select>
-            <label>6. The location is:</label><br />
-            <Input placeholder="Type a location" style={{ width: '100%', borderRadius: '5px', height: '36px' }} /> */}
           </div>
-        </div>
-      )}
-      {step === 2 && (
-        <div className="body-edit-dates-step2">
-          <div style={{ display: 'flex' }}>
-            <span className="span-dots-heder">
-              <div className="circulo" style={{ backgroundColor: '#5D3DC7' }} />
-              <span style={{ marginLeft: '1px', marginRight: '15px' }}>Done</span>
-            </span>
-            <span className="span-dots-heder">
-              <div className="circulo" style={{ backgroundColor: '#047CD7' }} />
-              <span style={{ marginLeft: '1px', marginRight: '15px' }}>Current</span>
-            </span>
-            <span className="span-dots-heder">
-              <div className="circulo" style={{ backgroundColor: '#D4D2D9' }} />
-              <span style={{ marginLeft: '1px', marginRight: '15px' }}>Not Started</span>
-            </span>
-            <span className="span-dots-heder">
-              <div className="circulo" style={{ backgroundColor: '#F5575C' }} />
-              <span style={{ marginLeft: '1px', marginRight: '15px' }}>Overdue</span>
-            </span>
-          </div>
-          <Row
-            className="tollgate-header tollgate-header-head"
-            gutter={[16, 16]}
-          >
-            <Col xs={{ span: 12 }} lg={{ span: 24 }}>
-              <Row className="tollgate-row-list-view">
-                <Col xs={{ span: 12 }} lg={{ span: 9 }}>
-                  <Row style={{ height: '30px' }}>
-                    <Col xs={{ span: 12 }} lg={{ span: 11 }}></Col>
-                    <Col xs={{ span: 12 }} lg={{ span: 11 }}></Col>
-                  </Row>
-                </Col>
-                <Col xs={{ span: 12 }} lg={{ span: 10 }}>
-                  <Row style={{ height: '30px' }}>
-                    <Col xs={{ span: 12 }} lg={{ span: 10 }} style={{ textAlign: 'center' }}>
-                      <h5>Start</h5>
-                    </Col>
-                    <Col xs={{ span: 12 }} lg={{ span: 11 }} style={{ textAlign: 'center' }}>
-                      <h5>End</h5>
-                    </Col>
-                    <Col xs={{ span: 12 }} lg={{ span: 3 }} style={{ textAlign: 'center' }}></Col>
-                  </Row>
-                </Col>
-                <Col xs={{ span: 12 }} lg={{ span: 5 }}>
-                  <Row style={{ height: '30px' }}>
-                    <Col xs={{ span: 12 }} lg={{ span: 24 }} style={{ textAlign: 'center' }}>
-                      <h5>Months</h5>
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-          <Row
-            className="tollgate-header"
-            gutter={[16, 16]}
-            style={{ paddingTop: '0px', paddingBottom: '20px' }}
-          >
-            <Col xs={{ span: 12 }} lg={{ span: 24 }}>
-              <Row className="tollgate-row-list-view  tollgate-body">
-                <Col xs={{ span: 12 }} lg={{ span: 9 }} className="left-tollgate">
-                  {dates?.map((x: any, index: number) => {
+        )}
+        {step === 1 && (
+          <>
+                {(!onBase || onBase <= 0) && <div className="header-3">
+        An OnBase number has not yet been assigned.<br />
+        Please continue activating the project
+      </div>}
+          <div className="body-edit-dates">
+            <div className="form-edit-dates">
+              <label>1. The current phase for my project is:</label><br/>
+              <Select
+                placeholder="Select phase"
+                style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
+                listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+                value={selectedPhase}
+                onChange={(value: string) => {
+                  setSelectedPhase(value)
+                  setDateIndex(phaseList.findIndex(x => x.value === value))
+                }}
+              >
+                {phaseList.map((phase, index) => (
+                  <Option key={index} value={phase.value}>
+                    {phase.label}
+                  </Option>
+                ))}
+              </Select>
+              <label>2. It’s start date is:</label><br />
+              <DatePicker
+                  format="MM-DD-YYYY"
+                value = {startDate}
+                style={{ width: '100%', borderRadius: '5px', height: '36px', marginBottom: '16px' }}
+                onChange={(date: any) => setStartDate(date)}
+              />
+              <label>3. The primary stream is:</label><br />
+              <Select
+                placeholder="Select primary stream"
+                style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
+                listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+                onChange={(value: string) => {
+                  const selectedItem = streamList.find(item => item.stream_id.toString() === value);
+                  if (selectedItem) {
+                    if (selectedItem.project_stream_id){
+                      setPrimaryStream({ id: selectedItem.stream_id, name: selectedItem.stream_name, value: selectedItem.project_stream_id });
+                    }                    
+                  }
+                }}
+                value={primaryStream?.id !== null ? primaryStream.id.toString() : undefined}
+                disabled={disabledFields?.primary_stream}
+              >
+                {
+                  streamList.map((item) => {
+                    const stream_name = item.stream_name || 'NA';
                     return (
-                      <div key={x.phase_id} className="text-tollgate-title">
-                        <span className='name-tollgate' style={{ marginBottom: '25px', color: invalidDateIndex === index ? 'red' : undefined }}>
-                          <span className="span-dots-tollgate">
-                            <div className="toolgate-circle" style={{ backgroundColor: colorScale[paintCircle(index)] }} />
+                      <Option key={item.stream_id} value={item.stream_id.toString()}>
+                        {`${stream_name} - ${item.mhfd_code_stream}`}
+                      </Option>
+                    );
+                  })
+                }
+              </Select>
+              <label>4. The MHFD lead is::</label><br />
+                <Select
+                  placeholder="Select lead"
+                  style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
+                  listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+                  onChange={(value: string) => {
+                    const selectedStaff = mhfdStaffList.find(staff => staff.id.toString() === value);
+                    if (selectedStaff) {
+                      setMhfdLead({ id: selectedStaff.id, name: selectedStaff.value });
+                    }
+                  }}
+                  value={mhfdLead?.id !== null ? mhfdLead.id.toString() : undefined}
+                  disabled={disabledFields?.mhfd_lead}
+                >
+                  {
+                    mhfdStaffList.map((staff) => (
+                      <Option key={staff.id} value={staff.id.toString()}>
+                        {staff.value}
+                      </Option>
+                    ))
+                  }
+                </Select>
+              <label>5. The location is:</label><br />
+                <Input
+                  value={location}
+                  disabled={disabledFields?.location}
+                  placeholder="Type a location"
+                  style={{ width: '100%', borderRadius: '5px', height: '36px' }}
+                  onChange={(e) => setLocation(e.target.value)}
+                />
+            </div>
+          </div>
+          </>
+        )}
+        {step === 2 && (
+          <div className="body-edit-dates-step2">
+            <div style={{ display: 'flex' }}>
+              <span className="span-dots-heder">
+                <div className="circulo" style={{ backgroundColor: '#5D3DC7' }} />
+                <span style={{ marginLeft: '1px', marginRight: '15px' }}>Done</span>
+              </span>
+              <span className="span-dots-heder">
+                <div className="circulo" style={{ backgroundColor: '#047CD7' }} />
+                <span style={{ marginLeft: '1px', marginRight: '15px' }}>Current</span>
+              </span>
+              <span className="span-dots-heder">
+                <div className="circulo" style={{ backgroundColor: '#D4D2D9' }} />
+                <span style={{ marginLeft: '1px', marginRight: '15px' }}>Not Started</span>
+              </span>
+              <span className="span-dots-heder">
+                <div className="circulo" style={{ backgroundColor: '#F5575C' }} />
+                <span style={{ marginLeft: '1px', marginRight: '15px' }}>Overdue</span>
+              </span>
+            </div>
+            <Row
+              className="tollgate-header tollgate-header-head"
+              gutter={[16, 16]}
+            >
+              <Col xs={{ span: 12 }} lg={{ span: 24 }}>
+                <Row className="tollgate-row-list-view">
+                  <Col xs={{ span: 12 }} lg={{ span: 9 }}>
+                    <Row style={{ height: '30px' }}>
+                      <Col xs={{ span: 12 }} lg={{ span: 11 }}></Col>
+                      <Col xs={{ span: 12 }} lg={{ span: 11 }}></Col>
+                    </Row>
+                  </Col>
+                  <Col xs={{ span: 12 }} lg={{ span: 10 }}>
+                    <Row style={{ height: '30px' }}>
+                      <Col xs={{ span: 12 }} lg={{ span: 10 }} style={{ textAlign: 'center' }}>
+                        <h5>Start</h5>
+                      </Col>
+                      <Col xs={{ span: 12 }} lg={{ span: 11 }} style={{ textAlign: 'center' }}>
+                        <h5>End</h5>
+                      </Col>
+                      <Col xs={{ span: 12 }} lg={{ span: 3 }} style={{ textAlign: 'center' }}></Col>
+                    </Row>
+                  </Col>
+                  <Col xs={{ span: 12 }} lg={{ span: 5 }}>
+                    <Row style={{ height: '30px' }}>
+                      <Col xs={{ span: 12 }} lg={{ span: 24 }} style={{ textAlign: 'center' }}>
+                        <h5>Months</h5>
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+            <Row
+              className="tollgate-header"
+              gutter={[16, 16]}
+              style={{ paddingTop: '0px', paddingBottom: '20px' }}
+            >
+              <Col xs={{ span: 12 }} lg={{ span: 24 }}>
+                <Row className="tollgate-row-list-view  tollgate-body">
+                  <Col xs={{ span: 12 }} lg={{ span: 9 }} className="left-tollgate">
+                    {dates?.map((x: any, index: number) => {
+                      return (
+                        <div key={x.phase_id} className="text-tollgate-title">
+                          <span className='name-tollgate' style={{ marginBottom: '25px', color: invalidDateIndex === index ? 'red' : undefined }}>
+                            <span className="span-dots-tollgate">
+                              <div className="toolgate-circle" style={{ backgroundColor: colorScale[paintCircle(index)] }} />
+                            </span>
+                            {x.name.replace(/([A-Z])/g, ' $1')}
                           </span>
-                          {x.name.replace(/([A-Z])/g, ' $1')}
-                        </span>
-                        <span>
-                          {x.locked && <LockOutlined />}
-                          <Dropdown overlay={menu(x, index)} placement="bottomRight">
-                            <MoreOutlined />
-                          </Dropdown>
-                        </span>
-                      </div>
-                    );
-                  })}
-                </Col>
-                <Col xs={{ span: 12 }} lg={{ span: 10 }}>
-                  {dates?.map((x: any, index: number) => {
-                    return (
-                      <div className="calendar-toollgate" key={x.phase_id}>
-                        <RangePicker
-                          bordered={false}
-                          onCalendarChange={(e: any) => {
-                            if (!x?.from || e[0].format('DD/MM/YYYY') !== x.from?.format('DD/MM/YYYY')) {
-                              if (!e[0] && e[1]) {
-                                updateDate(index, e[1]);
+                          <span>
+                            {x.locked && <LockOutlined />}
+                            <Dropdown overlay={menu(x, index)} placement="bottomRight">
+                              <MoreOutlined />
+                            </Dropdown>
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </Col>
+                  <Col xs={{ span: 12 }} lg={{ span: 10 }}>
+                    {dates?.map((x: any, index: number) => {
+                      return (
+                        <div className="calendar-toollgate" key={x.phase_id}>
+                          <RangePicker
+                            bordered={false}
+                            onCalendarChange={(e: any) => {
+                              if (!x?.from || e[0].format('DD/MM/YYYY') !== x.from?.format('DD/MM/YYYY')) {
+                                if (!e[0] && e[1]) {
+                                  updateDate(index, e[1]);
+                                }
+                                updateDate(index, e[0]);
                               }
-                              updateDate(index, e[0]);
-                            }
-                            if (e[1]) {
-                              updateEndDate(index, e[1]);
-                            }
-                            if (x.current) {
-                              x.locked = true;
-                            }
-                            setCalendarValue(e[0]);
-                            setCalendarPhase(x.phase_id);
-                          }}
-                          format={dateFormatList}
-                          value={[x.from, x.to]}
-                        />
-                      </div>
-                    );
-                  })}
-                </Col>
-                <Col xs={{ span: 12 }} lg={{ span: 5 }} style={{ paddingLeft: '10px' }}>
-                  {dates?.map((x: any, index: number) => {
-                    return (
-                      <Row key={x.phase_id}>
-                        <Col xs={{ span: 12 }} lg={{ span: 24 }}>
-                          <InputNumber
-                            className="duration-toollgate duration-toollgate-l"
-                            min={1}
-                            max={48}
-                            defaultValue={x.duration}
-                            value={x.duration}
-                            onChange={e => {
-                              updateDuration(index, e);
+                              if (e[1]) {
+                                updateEndDate(index, e[1]);
+                              }
+                              if (x.current) {
+                                x.locked = true;
+                              }
+                              setCalendarValue(e[0]);
+                              setCalendarPhase(x.phase_id);
                             }}
+                            format={dateFormatList}
+                            value={[x.from, x.to]}
                           />
-                        </Col>
-                      </Row>
-                    );
-                  })}
-                </Col>
-              </Row>
+                        </div>
+                      );
+                    })}
+                  </Col>
+                  <Col xs={{ span: 12 }} lg={{ span: 5 }} style={{ paddingLeft: '10px' }}>
+                    {dates?.map((x: any, index: number) => {
+                      return (
+                        <Row key={x.phase_id}>
+                          <Col xs={{ span: 12 }} lg={{ span: 24 }}>
+                            <InputNumber
+                              className="duration-toollgate duration-toollgate-l"
+                              min={1}
+                              max={48}
+                              defaultValue={x.duration}
+                              value={x.duration}
+                              onChange={e => {
+                                updateDuration(index, e);
+                              }}
+                            />
+                          </Col>
+                        </Row>
+                      );
+                    })}
+                  </Col>
+                </Row>
 
-            </Col>
-          </Row>
-        </div>
-      )}
-      <div className="foot-edit-dates">
-        <Button className="btn-transparent"
-          onClick={() => resetData()}>
-          Clear
-        </Button>
-        <Button className="btn-purple"
-          onClick={() =>{if(step === 2) {
-            if (overlapping) {
-              setViewOverlappingAlert(true)
+              </Col>
+            </Row>
+          </div>
+        )}
+        <div className="foot-edit-dates">
+          <Button className="btn-transparent"
+            onClick={() => resetData()}>
+            Cancel
+          </Button>
+          <Button className="btn-purple"
+            onClick={() =>{if(step === 2) {
+              if (overlapping) {
+                setViewOverlappingAlert(true)
+              }else{
+                sendData()
+              }
             }else{
-              sendData()
-            }
-          }else{
-            if (step === 1 && (!selectedPhase || !startDate)) {
-              return
-            }
-            if (step === 1 && selectedPhase && startDate){
-              setGenerateDates(!generateDates)
-            }
-            setStep(step + 1)
-          }}}
-        >
-        {step === 2 ?'Activate':'Next'}</Button>
+              if (step === 1 && missingFields.length > 0) {
+                openNotification(`Please fill the following fields: ${missingFields.join(', ')}`, "warning");
+                return
+              }
+              if (step === 1 && selectedPhase && startDate){
+                setGenerateDates(!generateDates)
+              }
+              setStep(step + 1)
+            }}}
+          >
+          {step === 2 ?'Activate':'Next'}</Button>
+        </div>
       </div>
     </Modal>
     </>

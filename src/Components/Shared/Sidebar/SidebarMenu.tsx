@@ -4,7 +4,7 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import { ROUTERS_SIDEBAR } from "./constants/layout.constants";
 import '../../../Scss/Components/Shared/sidebar.scss';
 import { useMapDispatch, useMapState } from "hook/mapHook";
-import { MAP, WORK_PLAN, WORK_REQUEST } from "constants/constants";
+import { MAP, UPCOMING_PROJECTS, WORK_PLAN, WORK_REQUEST } from "constants/constants";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { useProfileState } from 'hook/profileHook';
 
@@ -27,7 +27,7 @@ const SidebarMenu = ({ collapsed, setVisibleTutorial, }: { collapsed: boolean, s
     label: <Link to={'/profile-view'}>
       <img className={"img-h anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-01.svg" alt="" width="22px" height="20px" />
       <img className={"img-a anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-01.svg" alt="" width="22px" height="22px" />
-      <span className={collapsed? 'menu-sidebar-colapse mobile-no-display' : 'menu-sidebar'}>my confluence</span>
+      <span className={collapsed? 'menu-sidebar-colapse mobile-no-display' : 'menu-sidebar'}>My Confluence</span>
     </Link>
   }, {
     className: Number(indexOf) === 1 ? 'menu-sidebar-hover':'',
@@ -35,7 +35,7 @@ const SidebarMenu = ({ collapsed, setVisibleTutorial, }: { collapsed: boolean, s
     label: <Link to={'/map'} onClick={()=>{setTabActiveNavbar(MAP)}}>
       <img className={"img-h anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-02.svg" alt="" width="22px" height="20px" />
       <img className={"img-a anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-02.svg" alt="" width="22px" height="22px" />
-      <span className={collapsed? 'menu-sidebar-colapse mobile-no-display' : 'menu-sidebar'}>map view</span>
+      <span className={collapsed? 'menu-sidebar-colapse mobile-no-display' : 'menu-sidebar'}>Map View</span>
     </Link>
   }, 
   {
@@ -44,7 +44,7 @@ const SidebarMenu = ({ collapsed, setVisibleTutorial, }: { collapsed: boolean, s
     label: <Link to={userApproved ? '/map'+search : '#'} onClick={()=>{setTabActiveNavbar(WORK_REQUEST)}}>
       <img className={"img-h anticon"+(userApproved?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-14.svg" alt="" width="22px" height="22px" />
       <img className={"img-a anticon"+(userApproved?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-14.svg" alt="" width="22px" height="22px" />
-      <span className={collapsed? 'menu-sidebar-colapse mobile-no-display' : 'menu-sidebar'}>work request</span>
+      <span className={collapsed? 'menu-sidebar-colapse mobile-no-display' : 'menu-sidebar'}>Work Request</span>
     </Link>
   },
   {
@@ -53,7 +53,7 @@ const SidebarMenu = ({ collapsed, setVisibleTutorial, }: { collapsed: boolean, s
     label: <Link to={userApproved ? '/map'+search : '#'} onClick={()=>{setTabActiveNavbar(WORK_PLAN)}}>
       <img className={"img-h anticon"+(userApproved?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-13.svg" alt="" width="22px" height="22px" />
       <img className={"img-a anticon"+(userApproved?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-13.svg" alt="" width="22px" height="22px" />
-      <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>work plan</span>
+      <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>Work Plan</span>
     </Link>
   },
   {
@@ -62,15 +62,24 @@ const SidebarMenu = ({ collapsed, setVisibleTutorial, }: { collapsed: boolean, s
     label: <Link to={pmToolsAccess ? '/pm-tools' : '#'}>
       <img className={"img-h anticon"+(pmToolsAccess?'':' img-opaque')+(collapsed?" img-collapsed":"")}src="/Icons/menu-white-11.svg" alt="" width="22px" height="22px"/>
       <img className={"img-a anticon"+(pmToolsAccess?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-11.svg" alt="" width="22px" height="22px"/>
-      <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>pm tools</span>
+      <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>PM Tools</span>
     </Link>
-  }, {
+  },
+  {
+    className: Number(indexOf) === 9 ? 'menu-sidebar-hover mobile-no-display':'mobile-no-display',
+    key: '10',
+    label: <Link to={collapsed ? '/upcoming-projects' : '#'} onClick={()=>{setTabActiveNavbar(UPCOMING_PROJECTS)}}>
+      <img className={"img-h anticon"+(collapsed?'':' img-opaque')+(collapsed?" img-collapsed":"")}src="/Icons/menu-white-18.svg" alt="" width="22px" height="22px"/>
+      <img className={"img-a anticon"+(collapsed?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-18.svg" alt="" width="22px" height="22px"/>
+      <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>Upcoming Projects</span>
+    </Link>
+  },  {
     className: Number(indexOf) === 2 ? 'menu-sidebar-hover mobile-no-display':'mobile-no-display',
     key: '2',
     label: <Link to={'/map'}>
       <img className={"img-h anticon img-opaque"+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-15.svg" alt="" width="22px" height="22px" />
       <img className={"img-a anticon img-opaque"+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-15.svg" alt="" width="22px" height="22px" />
-      <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>watershed story</span>
+      <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>Watershed Story</span>
     </Link>
   // }, {
   //   key: '6',
@@ -82,10 +91,10 @@ const SidebarMenu = ({ collapsed, setVisibleTutorial, }: { collapsed: boolean, s
   }, {
     className: Number(indexOf) === 7 ? 'menu-sidebar-hover':'',
     key: '7',
-    label: <a href={'https://forms.office.com/r/CUgfTnrTUm'} target="_blank">
+    label: <a href={'https://forms.office.com/r/CUgfTnrTUm'} target="_blank" rel="noreferrer">
       <img className={"img-h anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-12.svg" alt="" width="22px" height="22px" />
       <img className={"img-a anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-12.svg" alt="" width="22px" height="22px" />
-      <span className={collapsed? 'menu-sidebar-colapse mobile-no-display' : 'menu-sidebar'}>feedback</span>
+      <span className={collapsed? 'menu-sidebar-colapse mobile-no-display' : 'menu-sidebar'}>Feedback</span>
     </a>
   }, {
     key: '8',
@@ -93,7 +102,7 @@ const SidebarMenu = ({ collapsed, setVisibleTutorial, }: { collapsed: boolean, s
     label: <Link to={'/user'}>
       <img className={"img-h anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-white-06.svg" alt="" width="22px" height="22px" />
       <img className={"img-a anticon"+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-06.svg" alt="" width="22px" height="22px" />
-      <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>settings</span>
+      <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>Settings</span>
     </Link>
   },
   {

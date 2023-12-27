@@ -1303,6 +1303,54 @@
   border-bottom: 1.6px solid $green !important;
   border-radius: 0px;
 }
+.new-project{
+  .row-project-project{
+    padding: 0px 10px ;
+    margin: 0px -10px;
+  }
+  .title-list{
+    color: $purple00;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    opacity: 0.8;
+  }
+  .body-create-projects{
+    margin-right: -10px;
+    padding-right: 5px;
+    max-height: calc(100vh - 505px);
+    height: auto;
+    overflow: auto;
+    color: #11093C;
+    font-family: Ubuntu;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    overflow-x: hidden;
+    margin-left: -10px;
+    .row-detail-project{
+      padding: 0px 0px ;
+    // margin: 0px -10px;
+    }
+    .col-create-project{
+      padding: 10px 10px 10px 10px;
+    }
+    .row-detail-project.selected {
+      // border: 1px solid #000;
+      border-radius: 10px;
+      background-color: #f5f5f5;
+    }
+  }
+  .title-list{
+    color: $purple00;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    opacity: 0.8;
+  }
+}
 .create-projects-modal{
   margin-bottom: -30px;
   .subtitle-project-modal{
@@ -1322,18 +1370,24 @@
       background-color: #29C499;
       border-radius: 50%;
     }
+    .circle-pending{
+      width: 8px;
+      height: 8px;
+      background-color: #F2C94C;
+      border-radius: 50%;
+    }
     .subtitle-location{
       color: $purple00;
       font-weight: 600;
     }
   }
+
   .new-project-sec{
     display: inline-flex;
     padding: 16px 18px;
     align-items: center;
     border-radius: 8px;
-    border: 1px solid #D7D7D9;
-    background: rgba(196, 203, 209, 0.20);
+    border: 1px solid transparent;
     width: 100%;
     cursor: pointer;
     img{
@@ -1362,7 +1416,8 @@
     }
   }
   .new-project-sec:hover{
-    opacity: 0.8;
+    background: #f5f5f5;
+    border: 1px solid #D7D7D9;
   }
   .existing-project{
     padding: 16px 19px;
@@ -1382,6 +1437,10 @@
     padding: 0px 10px;
     border-radius: 4px;
   }
+  .row-project-project{
+      padding: 0px 10px ;
+    margin: 0px -10px;
+  }
   .body-create-projects{
     margin-right: -10px;
     padding-right: 5px;
@@ -1393,15 +1452,26 @@
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
+    overflow-x: hidden;
+    margin-left: -10px;
     .row-detail-project{
-      padding: 10px 0px
+      padding: 0px 0px ;
+    // margin: 0px -10px;
+    }
+    .col-create-project{
+      padding: 10px 10px 10px 10px;
+    }
+    .row-detail-project.selected {
+      // border: 1px solid #000;
+      border-radius: 10px;
+      background-color: #f5f5f5;
     }
   }
   .title-list{
-    color: #000;
+    color: $purple00;
     font-size: 12px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 700;
     line-height: normal;
     opacity: 0.8;
   }
@@ -1495,6 +1565,15 @@
       }
       h5 {
         font-size: 17px;
+        img{
+          height: 17px;
+        }
+      }
+      span{
+        font-size: 16px;
+        img{
+          height: 17px;
+        }
       }
       .requiered-text {
         .requiered {
@@ -1502,14 +1581,14 @@
         }
       }
       .sub-title {
-        font-size: 12px;
+        font-size: 16px;
         .bottomn-heder {
           font-size: 16px;
           padding: 10px 15px;
           height: auto;
-          img {
-            height: 17px;
-          }
+        }
+        img {
+          height: 17px;
         }
       }
       .table-project {
@@ -1543,6 +1622,9 @@
           width: 21px;
           margin-bottom: 9px;
         }
+      }
+      .icon-actions{
+        height: 15px;
       }
       .sub-project {
         p {
@@ -1685,7 +1767,7 @@
       }
     }
     p {
-      font-size: 22px;
+      font-size: 20px !important;
       line-height: 31px;
     }
     .head-project {
@@ -1721,6 +1803,7 @@
       }
       p {
         font-size: 22px !important;
+        line-height: 24px;
       }
       .btn-transparent {
         height: 45px;
@@ -1754,6 +1837,9 @@
       span{
         font-size: 20px;
         line-height: 24px;
+        img{
+          height: 20px;
+        }
       }
       .sec-edit-amount{
         b{
@@ -1802,7 +1888,7 @@
             font-size: 20px;
           }
           .btn-purple{
-            padding: 15px 18px !important;
+            padding: 10px 18px !important;
             span{
               font-size: 21px !important;
               margin-left: 10px !important;
@@ -1853,7 +1939,7 @@
         .ant-radio-inner:after {
           width: 22px;
           height: 22px;
-          margin-top: -10.5px;
+          margin-top: -11.5px;
           margin-left: -11px;
         }
         .text-radio-btn {
@@ -1893,8 +1979,8 @@
         font-size: 18px;
       }
       h5 {
-        font-size: 26px;
-        margin: 20px 0px !important;
+        font-size: 24px;
+        margin: 25px 0px 10px 0px !important;
 
         img {
           height: 24px;
@@ -2185,8 +2271,8 @@
     }
     .footer-project {
       button {
-        height: 78px;
-        font-size: 24px;
+        height: 65px;
+        font-size: 22px;
         padding: 0px 50px;
         margin-left: 23px;
       }
@@ -2205,6 +2291,20 @@
   }
   .ant-modal .new-project {
     width: 1500px !important;
+  }
+  .new-project{
+    .body-create-projects{
+      max-height: calc(100vh - 699px);
+      margin-right: -14px;
+      padding-right: 6px;
+      .row-detail-project{
+        padding: 10px 0px;
+        font-size: 19px;
+      }
+    }
+    .title-list{
+      font-size: 17px;
+    }
   }
   .create-projects-modal{
     margin-bottom: -30px;
@@ -2227,10 +2327,10 @@
         gap: 4px;
         margin-left: 14px;
         p{
-          font-size: 21px;
+          font-size: 23px;
         }
         .description-new-project-sec{
-          font-size: 17px;
+          font-size: 19px;
         }
         img{
           height: 21px;
@@ -2258,7 +2358,7 @@
     }
     .body-create-projects{
       max-height: calc(100vh - 699px);
-      margin-right: 19px;
+      margin-right: -14px;
       padding-right: 6px;
       .row-detail-project{
         padding: 10px 0px;

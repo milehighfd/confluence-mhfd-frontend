@@ -301,7 +301,7 @@
 }
 .sign-menu-organization {
   overflow-y: auto;
-  max-height: 225px;
+  max-height: 265px;
   background: white;
 }
 .sign-menu-organization2x {
@@ -869,6 +869,9 @@
   }
   .group label{
     font-size: 21px;
+  }
+  .sign-menu-organization {
+    max-height: 320px;
   }
   .conection-message{
     font-size: 21px;

@@ -32,6 +32,7 @@ import {
   setCsaSelected,
   setLocalityType,
   setVisibleCreateProject,
+  setVisibleCreateOrImport,
   setLeftWidth,
   setLocalities,
   setColumns,
@@ -58,7 +59,12 @@ import {
   startLoadingColumns,
   stopLoadingColumns,
   sendProjectToWorkPlan,
-  setSentToWP
+  setSentToWP,
+  setIsCreatedFromBoard,
+  setIsImported,
+  setImportedProjectData,
+  setCostRange,
+  setFilterBy
 } from 'store/actions/requestActions';
 import { DragAndDropCards } from 'store/types/requestTypes';
 
@@ -157,8 +163,11 @@ export const useRequestDispatch = () => {
   const _setLocalityType = useCallback((localityType: any) => {
     dispatch(setLocalityType(localityType));
   }, [dispatch]);
-  const _setVisibleCreateProject = useCallback((visibleCreateProject: any) => {
+  const _setVisibleCreateProject = useCallback((visibleCreateProject: boolean) => {
     dispatch(setVisibleCreateProject(visibleCreateProject));
+  }, [dispatch]);
+  const _setVisibleCreateOrImport = useCallback((importOrCreated: any) => {
+    dispatch(setVisibleCreateOrImport(importOrCreated));
   }, [dispatch]);
   const _setLeftWidth = useCallback((leftWidth: any) => {
     dispatch(setLeftWidth(leftWidth));
@@ -241,6 +250,21 @@ export const useRequestDispatch = () => {
   const _setSentToWP = useCallback((sentToWP: boolean) => {
     dispatch(setSentToWP(sentToWP));
   }, [dispatch]);
+  const _setIsCreatedFromBoard = useCallback((isCreatedFromBoard: boolean) => {
+    dispatch(setIsCreatedFromBoard(isCreatedFromBoard));
+  }, [dispatch]);
+  const _setIsImported = useCallback((isImported: boolean) => {
+    dispatch(setIsImported(isImported));
+  }, [dispatch]);
+  const _setImportedProjectData = useCallback((importedProjectData: any) => {
+    dispatch(setImportedProjectData(importedProjectData));
+  }, [dispatch]);
+  const _setCostRange = useCallback((costRange: any) => {
+    dispatch(setCostRange(costRange));
+  }, [dispatch]);
+  const _setFilterBy = useCallback((filterBy: any) => {
+    dispatch(setFilterBy(filterBy));
+  },[dispatch]);
   return {
     setShowModalProject: _setShowModalProject,
     setCompleteProjectData: _setCompleteProjectData,
@@ -273,6 +297,7 @@ export const useRequestDispatch = () => {
     setCsaSelected: _setCsaSelected,
     setLocalityType: _setLocalityType,
     setVisibleCreateProject: _setVisibleCreateProject,
+    setVisibleCreateOrImport: _setVisibleCreateOrImport,
     setLeftWidth: _setLeftWidth,
     setLocalities: _setLocalities,
     setColumns: _setColumns,
@@ -299,6 +324,11 @@ export const useRequestDispatch = () => {
     startLoadingColumns: _startLoadingColumns,
     stopLoadingColumns: _stopLoadingColumns,
     sendProjectToWorkPlan: _sendProjectToWorkPlan,
-    setSentToWP: _setSentToWP
+    setSentToWP: _setSentToWP,
+    setIsCreatedFromBoard: _setIsCreatedFromBoard,
+    setIsImported: _setIsImported,
+    setImportedProjectData: _setImportedProjectData,
+    setCostRange: _setCostRange,
+    setFilterBy: _setFilterBy
   };
 };

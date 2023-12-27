@@ -17,7 +17,7 @@
     }
 
     .checkbox-select {
-      box-sizing: border-box;
+        box-sizing: border-box;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -237,6 +237,15 @@
 }
 
 @media (min-width: 2555px){
+  .pm-sidebar-graphics-display{
+    .body-piney{
+      .checkbox-select{
+        label{
+          height: 32px;
+        }
+      }
+    }
+  }
   .piney-modal-detail {
     padding: 25px 20px !important;
     .checkbox-select {
@@ -281,6 +290,7 @@
     }
     h1 {
       font-size: 22px !important;
+      font-weight: 700;
     }
     .tag-blue {
       font-size: 21px !important;

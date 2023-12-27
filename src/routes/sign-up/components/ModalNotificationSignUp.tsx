@@ -8,8 +8,9 @@ const ModalNotificationSignUp = ({ visible, setVisible, message }: {   visible: 
   return (
     <Modal
       className="detailed-version detailed-upload-pre-signup"
-      style={{ top: 'calc(50vh - 100px)', width: '34%' }}
+      style={{ width: '34%' }}
       visible={visible}
+      centered
       onCancel={handleCancel}
       forceRender={false}
       destroyOnClose>

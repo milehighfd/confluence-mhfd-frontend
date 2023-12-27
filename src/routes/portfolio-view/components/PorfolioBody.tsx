@@ -108,6 +108,7 @@ const PortafolioBody = () => {
       setFilterby={setFilterby}
       setFiltervalue={setFilterValue}
       setFiltername={setFiltername}
+      isPortfolio={true}
     />
   );
 

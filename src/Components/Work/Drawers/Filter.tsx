@@ -2,12 +2,15 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Drawer, Button } from 'antd';
 import { useRequestDispatch, useRequestState } from "hook/requestHook";
 import FilterGroup from "./FilterGroup";
-import { useMapState } from "hook/mapHook";
-import { YEAR_LOGIC_2024, WORK_PLAN } from 'constants/constants';
+import { useMapDispatch, useMapState } from "hook/mapHook";
+import { YEAR_LOGIC_2024, WORK_PLAN, UPCOMING_PROJECTS } from 'constants/constants';
 import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
+import { DropdownFilters } from "Components/FiltersProject/DropdownFilters";
+import { FILTERS } from "constants/filter";
+import FilterDropdown from "./FilterDropdown";
 
-const Filter = () => {
+const Filter = ({origin}:{origin: any}) => {
   const {
     showFilters,
     localityType: l,
@@ -19,17 +22,25 @@ const Filter = () => {
     disableFilterCounty,
     isListView,
     namespaceId,
-    filterYear
+    filterYear,
+    filterCost,
+    filterBy
   } = useRequestState();
   const {
-    tabActiveNavbar
+    tabActiveNavbar,
+    filterProjectOptions
   } = useMapState();
   const { 
     setShowFilters, 
     loadColumns, 
     setFilterRequest,
-    setFilterYear
+    setFilterYear,
+    setCostRange
   } = useRequestDispatch();
+  const {
+    setFilterProjectOptions
+  } = useMapDispatch();
+// filter request viene de loadfilters in requestactions
   let jurisdictionFilterList: any[] = filterMap['project_local_governments'];
   let countiesFilterList: any[] = filterMap['project_counties'];
   let serviceAreasFilterList: any[] = filterMap['project_service_areas'];
@@ -46,6 +57,7 @@ const Filter = () => {
   const [serviceAreaFilter, setServiceAreaFilter] = useState<any[]>([]);
   const [countyFilter, setCountyFilter] = useState<any[]>([]);
   const [jurisdictionFilter, setJurisdictionFilter] = useState<any[]>([]);
+  const [mhfdLeadFilter, setMhfdLeadFilter] = useState<any[]>([]);
   const [projectStatusFilter, setProjectStatusFilter] = useState<any[]>([]);
   const [sponsorFilter, setSponsorFilter] = useState<any[]>([]);
   const [priorityFilter, setPriorityFilter] = useState<any[]>([]);
@@ -78,7 +90,6 @@ const Filter = () => {
       setCompleteFilter(res);
     });
   }, []);
-
   useEffect(() => {
     const orderForStatus = ['Draft', 'Requested', 'Under Review', 'Approved', 'Cancelled', 'Inactive'];
     const sortedFilterRequest = [...filterRequest].sort((a, b) => a.name.localeCompare(b.name));
@@ -109,6 +120,7 @@ const Filter = () => {
     setJurisdictionFilter(result.filter((f: any) => f.type === 'project_local_governments'));
     setSponsorFilter(result.filter((f: any) => f.type === 'project_partners'));
     setProjectStatusFilter(statusFilter);
+    setMhfdLeadFilter(result.filter((f: any) => f.type === 'mhfd_lead'));
   }, [filterRequest, resetFilter, completeFilter]);
 
   useEffect(() => {
@@ -131,10 +143,35 @@ const Filter = () => {
     setYearFilter(updatedYears);
   }, [filterYear,resetFilter]);
 
+
   const applyFilters = () => {
     setFilterYear(yearFilter.filter((f: any) => f.selected).map((f: any) => f.id));
-    loadColumns();    
+    if (origin === UPCOMING_PROJECTS) {
+      
+      const filters: any = {
+        county:filterRequest?.filter((item: any, _: number) => item.selected && 
+        item.type === 'project_counties').map((r: any) => r.id),
+        jurisdiction: filterRequest?.filter((item: any, _: number) => item.selected && 
+        item.type === 'project_local_governments').map((r: any) => r.id),
+        servicearea: filterRequest?.filter((item: any, _: number) => item.selected && 
+        item.type === 'project_service_areas').map((r: any) => r.id),
+        mhfdmanager: filterRequest?.filter((item: any, _:number) => item.selected && item.type === 'mhfd_lead').map((r:any) => r.id),
+        totalcost: filterCost
+      };
+      if (filterBy.filterBy !== '' && filterBy.filterValue !== -1) {
+        console.log('filters[filterBy.filterBy]', filters[filterBy.filterBy]);
+        if (filters[filterBy.filterBy]) {
+          filters[filterBy.filterBy] = [...filters[filterBy.filterBy], filterBy.filterValue];
+        } else {
+          filters[filterBy.filterBy] = [filterBy.filterValue];
+        }
+      }
+      setFilterProjectOptions({...filterProjectOptions, ...filters});
+    } else {
+      loadColumns();    
+    }
   }
+  
   const reset = () => {
     let filterRequestReset = filterRequest.map((f: any) => {
       f.selected = false;
@@ -142,7 +179,30 @@ const Filter = () => {
     });
     setFilterYear([]);
     setFilterRequest(filterRequestReset);
-    loadColumns();
+    if (origin === UPCOMING_PROJECTS) {
+      const filters: any = {
+        county:filterRequestReset?.filter((item: any, _: number) => item.selected && 
+        item.type === 'project_counties').map((r: any) => r.id),
+        jurisdiction: filterRequestReset?.filter((item: any, _: number) => item.selected && 
+        item.type === 'project_local_governments').map((r: any) => r.id),
+        servicearea: filterRequestReset?.filter((item: any, _: number) => item.selected && 
+        item.type === 'project_service_areas').map((r: any) => r.id),
+        mhfdmanager: filterRequestReset?.filter((item: any, _:number) => item.selected && item.type === 'mhfd_lead').map((r:any) => r.id),
+        totalcost: []
+      };
+      if (filterBy.filterBy !== '' && filterBy.filterValue !== -1) {
+        if (filters[filterBy.filterBy]) {
+          filters[filterBy.filterBy] = [...filters[filterBy.filterBy], filterBy.filterValue];
+        } else {
+          filters[filterBy.filterBy] = [filterBy.filterValue];
+        }
+      }
+      setCostRange([]);
+      setFilterProjectOptions({...filterProjectOptions, ...filters});
+    } else {
+      loadColumns();
+    }
+    
     setResetFilter(!resetFilter);
   }
   let label;
@@ -151,7 +211,6 @@ const Filter = () => {
   } else if (l === 'CODE_SERVICE_AREA' || l === 'MHFD_BOUNDARY') {
     label = 'SERVICE AREA';
   }
-
   return (
     <Drawer
       title={
@@ -167,57 +226,92 @@ const Filter = () => {
       className="work-utilities drawer-filter"
       mask={false}
     >
-      {
-        <FilterGroup
-          label="Project Status"
-          filterList={projectStatusFilter}
-        />
-      }
-      { isListView &&
-        <FilterGroup
-          label="Funding Year"
-          filterList={yearFilter}
-          setYearFilter={setYearFilter}
-        />
-      }
-      {
-        tabActiveNavbar === 'WORK_PLAN' &&
-        <FilterGroup
-          label="Priority"
-          filterList={priorityFilter}
-        />
-      }
-      {
-        tabActiveNavbar === 'WORK_PLAN' &&
-        <FilterGroup
-          label="Sponsor"
-          filterList={sponsorFilter}
-        />
-      }
-      {
-        tabActiveNavbar === 'WORK_PLAN' &&
-        <FilterGroup
-          label="Local Government"
-          filterList={jurisdictionFilter}
-        />
-      }
-      {
-        (tabActiveNavbar === 'WORK_REQUEST' ||  tabActiveNavbar === 'WORK_PLAN') &&
-        <FilterGroup
-          label="County"
-          filterList={countyFilter}
-          disabled = {disableFilterCounty}
-        />
-      }
-      {
-        (tabActiveNavbar === 'WORK_REQUEST' ||  tabActiveNavbar === 'WORK_PLAN') &&
-        <FilterGroup
-          label="Service Area"
-          filterList={serviceAreaFilter}
-          disabled = {disableFilterServiceArea}
-        />
-      }
-
+      <div className="body-drawer">
+        {
+           tabActiveNavbar !== UPCOMING_PROJECTS &&
+          <FilterGroup
+            label="Project Status"
+            filterList={projectStatusFilter}
+          />
+        }
+        { isListView &&
+          <FilterGroup
+            label="Funding Year"
+            filterList={yearFilter}
+            setYearFilter={setYearFilter}
+          />
+        }
+        {
+          tabActiveNavbar === UPCOMING_PROJECTS &&
+          <FilterGroup
+            label="MHFD Lead"
+            filterList={mhfdLeadFilter}
+          />
+        }
+        {
+          (tabActiveNavbar === UPCOMING_PROJECTS) && 
+          <div>
+            <FilterDropdown
+            label="Estimated Cost Range"
+          />
+          </div>
+        }
+        {
+          tabActiveNavbar === 'WORK_PLAN' &&
+          <FilterGroup
+            label="Priority"
+            filterList={priorityFilter}
+          />
+        }
+        {
+          tabActiveNavbar === 'WORK_PLAN' &&
+          <FilterGroup
+            label="Sponsor"
+            filterList={sponsorFilter}
+          />
+        }
+        {
+          (tabActiveNavbar === 'WORK_PLAN' || tabActiveNavbar === UPCOMING_PROJECTS) &&
+          <FilterGroup
+            label="Local Government"
+            filterList={jurisdictionFilter}
+          />
+        }
+        {
+          tabActiveNavbar !== UPCOMING_PROJECTS &&
+        <div>{
+          (tabActiveNavbar === 'WORK_REQUEST' ||  tabActiveNavbar === 'WORK_PLAN') &&
+          <FilterGroup
+            label="County"
+            filterList={countyFilter}
+            disabled = {disableFilterCounty}
+          />
+        }
+        {
+          (tabActiveNavbar === 'WORK_REQUEST' ||  tabActiveNavbar === 'WORK_PLAN') &&
+          <FilterGroup
+            label="Service Area"
+            filterList={serviceAreaFilter}
+            disabled = {disableFilterServiceArea}
+          />
+        }
+        </div>}
+        {
+          tabActiveNavbar === UPCOMING_PROJECTS &&
+          <div>
+            <FilterGroup
+              label="Service Area"
+              filterList={serviceAreaFilter}
+              disabled = {disableFilterServiceArea}
+            />
+            <FilterGroup
+              label="County"
+              filterList={countyFilter}
+              disabled = {disableFilterCounty}
+            />
+          </div>
+        }
+      </div>
       <div className="footer-drawer" style={{ position: 'fixed', bottom: '50px', right: '19px', backgroundColor: 'white', 'width': '277px' }}>
         <div className="buttons-filters" style={{ display: 'flex' }}>
           <Button className="btn-borde" onClick={() => reset()}>

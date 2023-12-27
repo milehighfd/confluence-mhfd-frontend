@@ -12,6 +12,8 @@ export const WINDOW_WIDTH: any = window.innerWidth;
 export const MAP= 'MAP';
 export const WORK_REQUEST='WORK_REQUEST';
 export const WORK_PLAN='WORK_PLAN';
+export const UPCOMING_PROJECTS = 'UPCOMING_PROJECTS';
+export const PMTOOLS = 'PMTOOLS';
 
 export const MAPBOX_TOKEN = 'pk.eyJ1IjoibWlsZWhpZ2hmZCIsImEiOiJjazRqZjg1YWQwZTN2M2RudmhuNXZtdWFyIn0.oU_jVFAr808WPbcVOFnzbg';
 export const NEARMAP_TOKEN = 'NzA3ZjlkODYtMTNiMC00Y2E3LWE1MzAtYzU3NWUzMmJjMGUw';
@@ -1012,7 +1014,8 @@ export const ROUTERS = {
   PROJECT_MAINTENANCE_SEDIMENT: 'sediment',
   PROJECT_MAINTENANCE_RESTORATION: 'restoration',
   PROJECT_STUDY_MASTER: 'masterPlan',
-  PROJECT_STUDY_FHAD: 'fhad'
+  PROJECT_STUDY_FHAD: 'fhad',
+  UPCOMING_PROJECTS: 'upcoming-projects',
 };
 export const ROUTER_TITLE = {
   PROFILE_VIEW: 'Confluence   |   User Profile',
@@ -1030,7 +1033,8 @@ export const ROUTER_TITLE = {
   PROJECT_STUDY_MASTER: 'Confluence   |   Create Project - Study Master Plan ',
   PROJECT_SPECIAL: 'Confluence   |   Create Project - Special',
   PROJECT_ACQUISITION: 'Confluence   |   Create Project - Acquisition',
-  PROJECT_CAPITAL: 'Confluence   |   Create Project - Capital Type'
+  PROJECT_CAPITAL: 'Confluence   |   Create Project - Capital Type',
+  UPCOMING_PROJECTS: 'Confluence   |   Upcoming Projects',
 }
 export const TASK = [
   {

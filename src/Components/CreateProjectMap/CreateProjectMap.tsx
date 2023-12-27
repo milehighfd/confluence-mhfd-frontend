@@ -56,6 +56,7 @@ import {
   REMOVAL_AREA,
   REMOVAL_LINE,
   PROPOSED_ACTIONS,
+  PMTOOLS,
 } from '../../constants/constants';
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import { Button, Popover, Modal, Input, AutoComplete, Col, Row } from 'antd';
@@ -83,7 +84,6 @@ let componentsList: any[] = [];
 let marker = new mapboxgl.Marker({ color: '#ffbf00', scale: 0.7 });
 let currentDraw = 'polygon';
 let firstCallDraw = false;
-let flagInit = true;
 type GeoJSONMeasures = {
   type: string;
   features: any[];
@@ -105,7 +105,7 @@ const linestringMeasure = {
 };
 type LayersType = string | ObjectLayerType;
 let magicAddingVariable = false;
-const CreateProjectMap = (type: any) => {
+  const CreateProjectMap = (type: any) => {
   let html = document.getElementById('map3');
   const factorKMToMiles = 0.621371;
   const factorKMtoFeet = 3280.8;
@@ -157,6 +157,7 @@ const CreateProjectMap = (type: any) => {
     setEditLocation,
     setStreamsList
   } = useProjectDispatch();
+  let flagInit = useRef(true);
   const {
     userPolygon,
     streamIntersected,
@@ -271,11 +272,12 @@ const CreateProjectMap = (type: any) => {
     };
   }, []);
   useEffect(() => {
+    console.log('THIS IS SETTING TO TRUE ON CREATER PREOJCT MAP');
     setLoading(true);
-    const waiting = () => {
+    const waitingInside = () => {
       html = document.getElementById('map3');
       if (!html) {
-        setTimeout(waiting, 50);
+        setTimeout(waitingInside, 50);
       } else {
         if (!map) {
           // getNotes();
@@ -291,12 +293,17 @@ const CreateProjectMap = (type: any) => {
           });
           map.isStyleLoaded(() => {
             map.map.setTerrain();
+            map.map.once('idle', () => {
+              // setLoading(false);
+              flagInit.current = false;
+              // map.orderLayers();
+            });
           });
         }
       }
     };
     // map = undefined;
-    waiting();
+    waitingInside();
     EventService.setRef('click', eventClick);
     EventService.setRef('move', eventMove);
     EventService.setRef('addmarker', addMarker);
@@ -368,7 +375,7 @@ const CreateProjectMap = (type: any) => {
     }
   }, [editLocation]);
   useEffect(() => {
-    if (!flagInit) {
+    if (!flagInit.current) {
       setLoading(false);
     }
   }, [listStreams]);
@@ -551,6 +558,7 @@ const CreateProjectMap = (type: any) => {
       }
       setComponentsHover(componentsHovers);
       setTimeout(() => {
+        console.log('LOADING ', false);
         setLoading(false);
       }, 1500);
 
@@ -560,11 +568,16 @@ const CreateProjectMap = (type: any) => {
       showHoverComponents();
       // setStreamIntersected({ geom: null }); // TODO entender porque se borraba la intersection cuando no habia listcompoennts
       // setStreamsIds([]);
-      if (!flagInit) {
+      if (!flagInit.current) {
         setLoading(false);
       }
     }
-  }, [listComponents]);
+    if (type.originLocation === PMTOOLS && flagInit.current === false) {
+      map.map.once('idle', () => {
+        setLoading(false);
+      });
+    }
+  }, [listComponents, flagInit.current]);
 
   useEffect(() => {
     // if (flagtoDraw && listComponents && listComponents.result && listComponents.result.length > 0) {
@@ -696,6 +709,7 @@ const CreateProjectMap = (type: any) => {
         setIsGeomDrawn(false);
       } else if (geom.coordinates?.length == 0) {
         setShowIntersectionError(true);
+        console.log('LOADING ', false);
         setLoading(false);
         return;
       }
@@ -847,7 +861,7 @@ const CreateProjectMap = (type: any) => {
               applyMapLayers();
               map.map.once('idle', () => {
                 setLoading(false);
-                flagInit = false;
+                flagInit.current = false;
                 map.orderLayers();
               });
               applyProblemClusterLayer();
@@ -960,6 +974,7 @@ const CreateProjectMap = (type: any) => {
     const currentType = typeRef.current;
     firstCallDraw = true;
     // removeProjectLayer();
+    console.log('Another loading true');
     setLoading(true);
     const userPolygon = event.features[0];
     if (currentType === 'CAPITAL') {

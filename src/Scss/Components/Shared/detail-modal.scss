@@ -2,7 +2,7 @@
 
 .detailed-modal {
   width: 1300px !important;
-  top: 30px;
+  // top: 30px;
 
   /* Default close button */
   .ant-modal-close {
@@ -1047,7 +1047,7 @@
 //IMAGE-MODAL
 .detailed-image {
   width: 1376px !important;
-  top: 48px;
+  // top: 48px;
 
   .detail-image-btn-filter-k {
     border: 1px solid #ffffff;
@@ -1922,7 +1922,7 @@
     p {
       width: 6.6666666667%;
       padding: 0px 0px;
-      color: #6d6888;
+      // color: #6d6888;
       line-height: 14px;
       margin-bottom: 0px;
       letter-spacing: -1px;
@@ -1937,7 +1937,7 @@
       line-height: 14px;
       text-align: center;
 
-      color: #251863;
+      color: #858f94;
 
       mix-blend-mode: normal;
 
@@ -1977,7 +1977,7 @@
       // font-size: 11px !important;
       line-height: 14px;
       text-align: center;
-      color: #251863;
+      color: #858f94;
       mix-blend-mode: normal;
       flex: none;
       order: 1;
@@ -2147,6 +2147,10 @@
       }
     }
   }
+  .mapboxgl-ctrl-scale {
+    width: fit-content !important;
+    font-size: 14px;
+    }
   .group-dropdown-financial{
     .ant-input-affix-wrapper {
       height: 39px !important;
@@ -2571,6 +2575,10 @@
       margin-bottom: 2px;
     }
   }
+  .mapboxgl-ctrl-scale {
+    width: fit-content !important;
+    font-size: 18px;
+    }
   .detailed-modal {
     width: 1850px !important;
 
@@ -2682,7 +2690,7 @@
   }
   .detailed-body {
     .detail-body-carousel {
-      height: 69vh;
+      height: calc(100vh - 310px) !important;
     }
 
     .img-carousel-detail {
@@ -2981,7 +2989,7 @@
     }
   }
   .detail-image-btn-filter-k {
-    font-size: 18px;
+    font-size: 21px;
   }
   //PROBLEM-PARTS
   .detail-problem-parts-table {
@@ -3021,7 +3029,8 @@
   .roadmap-content {
     .roadmap-title {
       p {
-        font-size: 11.8px !important;
+        font-size: 13px !important;
+        line-height: normal !important;
       }
     }
 
@@ -3033,9 +3042,10 @@
       }
 
       p {
-        font-size: 14px !important;
+        font-size: 13px !important;
         height: 14px !important;
         border-left: 3px solid #eae8f0 !important;
+        line-height: normal !important;
       }
     }
   }
@@ -3205,6 +3215,13 @@
   }
 }
 
+@media (min-width: 3800px) and (max-width: 5999px) {
+  .detailed-body{
+    .detail-body-carousel{
+      height: calc(100vh - 380px);
+    }
+  }
+}
 // @media (min-width: 3800px) and (max-width: 5999px) {
 //   .detailed-modal {
 //     top: 99px !important;

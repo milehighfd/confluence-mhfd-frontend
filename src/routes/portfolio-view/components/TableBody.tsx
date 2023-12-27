@@ -1,9 +1,9 @@
-import { HeartFilled, HeartOutlined } from '@ant-design/icons';
-import { Col, Row, Table, Tooltip } from 'antd';
-import React, { useEffect, useState } from 'react';
+import { EyeOutlined, HeartFilled, HeartOutlined, MoreOutlined } from '@ant-design/icons';
+import { Col, Menu, MenuProps, Popover, Row, Table, Tooltip } from 'antd';
+import React, { useEffect, useRef, useState } from 'react';
 import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
-import { FILTER_PROJECTS_TRIGGER, LIMIT_PAGINATION } from 'constants/constants';
+import { FILTER_PROJECTS_TRIGGER, LIMIT_PAGINATION, PMTOOLS } from 'constants/constants';
 import { getCounties, getCurrentProjectStatus, getServiceAreas, getSponsors, getStreams, getTotalEstimatedCost } from 'utils/parsers';
 import { AllValueTable, CIPValueTable, DIPValueTable, PlanningValueTable, PropertyAcquisitionValueTable, RDValueTable, RestorationValueTable } from "../constants/tableHeader";
 import { usePortflioState, usePortfolioDispatch } from '../../../hook/portfolioHook';
@@ -12,6 +12,8 @@ import { handleAbortError } from 'store/actions/mapActions';
 import DetailModal from 'routes/detail-page/components/DetailModal';
 import { useProfileState } from 'hook/profileHook';
 import { useProjectDispatch, useProjectState } from 'hook/projectHook';
+import ModalProjectView from 'Components/ProjectModal/ModalProjectView'
+import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 
 const TableBody = ({
   dataId,
@@ -54,7 +56,8 @@ const TableBody = ({
 
   const {
     globalSearch,
-    globalProjectData
+    globalProjectData,
+    status
   } = useProjectState();
 
   const{
@@ -63,7 +66,7 @@ const TableBody = ({
   
   const appUser = useProfileState();
   const email = appUser.userInformation?.email;
-
+  const [loading, setLoading] = useState(false);
   const [dataParsed, setDataParsed] = useState<any>([]);
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
@@ -71,8 +74,26 @@ const TableBody = ({
   const [activeBorder, setActiveBorder] = useState(false);
   const [rowActive, setRowActive] = useState(-20);
   const [globalId, setGlobalId] = useState(0);
+  // const [showModalProject, setShowModalProject] = useState(false);
+  const showModalProject = useRef(false);
+  const [completeProjectData, setCompleteProjectData] = useState<any>(null);
+  const { setSave } = useProjectDispatch();
+
   let limitPage = Number(counter) % LIMIT_PAGINATION > 0 ?  Math.floor(Number(counter) / LIMIT_PAGINATION + 1) : Number(counter) / LIMIT_PAGINATION;
 
+  const getCompleteProjectData = async (project_id: any) => {
+    setLoading(true);
+    datasets.getData(SERVER.V2_DETAILED_PAGE(project_id), datasets.getToken()).then((res: any) => {
+      setCompleteProjectData({...res, tabKey}); 
+      setLoading(false);
+      showModalProject.current = true;
+    });
+  }
+  useEffect(() => {
+    if (status === 1 || status === 0) {
+      setSave(2);
+    };
+  }, [status]);
   useEffect(() => {
     if (next && page < limitPage) {
       setPage(page + 1)
@@ -199,7 +220,7 @@ const TableBody = ({
           return false;
         }),
       }
-    }))
+    }));
   }, [dataBody, favorites])
 
   useEffect(() => {
@@ -218,7 +239,7 @@ const TableBody = ({
     return () => {
       controller.abort();
     };
-  }, [ filterProjectOptions, page, globalSearch])
+  }, [ filterProjectOptions, page, globalSearch, status])
 
   useEffect(() => {
     if (globalSearch) {      
@@ -280,8 +301,43 @@ const TableBody = ({
       }
     }
   }
+  const menu = (dataValue: any) => {
+    let menuPopupItem: MenuProps['items'] = [
+      {
+        key: '0',
+        label: <span
+          onClick={() => {
+            getCompleteProjectData(dataValue.project_id);
 
+          }}
+        > 
+          <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} /> Edit Project
+        </span>
+      },
+      {
+        key: '1',
+        label: <span style={{display: 'flex', alignItems: 'center'}} onClick={() => {
+          setDetailOpen(true);
+          setDataDetail(dataValue);
+        }}> 
+          <EyeOutlined className='tooltip-icon-pm' style={{opacity: '0.5', marginRight: '4px', fontSize: '12px'}}/> View Project
+        </span>,
+      }
+    ];
+    return <Menu
+      className="js-mm-00"
+      style={{ backgroundColor: 'white', border: 0, paddingTop: '0px' }}
+      items={menuPopupItem}
+    >
+    </Menu>
+  };
+  // TODO: find where is setting showmodalproject as false after first save
+const setShowModalProject = (newValue: any) => {
+  showModalProject.current = newValue;
+}
+useEffect(() => {console.log('showModalProject',showModalProject.current);} ,[showModalProject.current]);
   return <>
+    {loading && <LoadingViewOverall></LoadingViewOverall>}
     {detailOpen && dataDetail && <DetailModal
       visible={detailOpen}
       setVisible={setDetailOpen}
@@ -290,6 +346,18 @@ const TableBody = ({
       deleteCallback={deleteFunction}
       addFavorite={addFunction}
     />}
+    {
+      showModalProject.current &&
+      <ModalProjectView
+          visible= {showModalProject.current}
+          setVisible= {setShowModalProject}
+          data={completeProjectData}
+          showDefaultTab={true}
+          locality={''}
+          editable= {true}
+          originLocation={PMTOOLS}
+      />
+    }
     <div className="table-body">
       <Row>
         <Col xs={{ span: 10 }} lg={{ span: 5 }} style={{zIndex:2}}>
@@ -315,7 +383,12 @@ const TableBody = ({
                     setDataDetail(d)
                   }} className="title-project" >{d.rowLabel}</p>
                 </Tooltip>
-                {d.isFavorite ? <HeartFilled style={{ marginLeft: '7px', color: '#F5575C', marginRight: '10px' }} onClick={() => (deleteFunction(d.project_id, email, ''))} /> : <HeartOutlined style={{ marginLeft: '7px', color: '#706B8A', marginRight: '10px' }} onClick={() => addFunction(email, d.project_id, '')} />}
+                <div style={{display:'flex'}}>
+                  {d.isFavorite ? <HeartFilled style={{ marginLeft: '7px', color: '#F5575C', marginRight: '10px' }} onClick={() => (deleteFunction(d.project_id, email, ''))} /> : <HeartOutlined style={{ marginLeft: '7px', color: '#706B8A', marginRight: '10px' }} onClick={() => addFunction(email, d.project_id, '')} />}
+                  <Popover placement='bottom' trigger="click" content={menu(d)} overlayClassName='pm-popover' zIndex={2}>
+                    <MoreOutlined className="menu-wr" style={{cursor: 'pointer'}}></MoreOutlined>
+                  </Popover>
+                </div>
               </div>
             ))
           }

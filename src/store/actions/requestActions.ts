@@ -163,6 +163,16 @@ export const setVisibleCreateProject = (payload: any) => ({
   payload
 });
 
+export const setVisibleCreateOrImport = (payload: any) => ({
+  type: types.REQUEST_SET_VISIBLE_CREATE_OR_IMPORT,
+  payload
+});
+
+export const setIsCreatedFromBoard = (payload: any) => ({
+  type: types.REQUEST_SET_IS_CREATED_FROM_BOARD,
+  payload
+});
+
 export const setLeftWidth = (payload: any) => ({
   type: types.REQUEST_SET_LEFT_WIDTH,
   payload
@@ -424,7 +434,7 @@ const moveProjectsManualReducer = (columns2: any[], action: any) => {
 export const moveProjectsManual = (payload: DragAndDropCards) => {
   return (dispatch: any, getState: Function) => {
     const { request: { columns2 } } = getState();
-    const { originColumnPosition, targetPosition } = payload;
+    const { originColumnPosition, targetPosition, isWorkPlan } = payload;
     const updatedColumns = moveProjectsManualReducer(columns2, { payload });
     const projectsUpdated = updatedColumns[originColumnPosition].projects;
     const before = targetPosition === 0 ? null : projectsUpdated[targetPosition - 1][`rank${originColumnPosition}`];
@@ -441,6 +451,7 @@ export const moveProjectsManual = (payload: DragAndDropCards) => {
         columnNumber: originColumnPosition,
         beforeIndex: targetPosition - 1,
         afterIndex: targetPosition === projectsUpdated.length - 1 ? -1 : targetPosition + 1,
+        isWorkPlan
       },
       datasets.getToken()
     ).then(() => {
@@ -506,7 +517,7 @@ const handleMoveFromColumnToColumnReducer = (columns2: any[], action: any): any[
 export const handleMoveFromColumnToColumn = (payload: DragAndDropCards) => {
   return (dispatch: any, getState: Function) => {
     const { request: { columns2 } } = getState();
-    const { originColumnPosition, targetColumnPosition, targetPosition } = payload;
+    const { originColumnPosition, targetColumnPosition, targetPosition, isWorkPlan } = payload;
     const [
       updatedColumns,
       requestFields,
@@ -529,7 +540,8 @@ export const handleMoveFromColumnToColumn = (payload: DragAndDropCards) => {
         beforeIndex: projectPosition - 1,
         afterIndex: projectPosition === projectsUpdated.length - 1 ? -1 : projectPosition + 1,
         targetPosition: projectPosition,
-        otherFields: { ...requestFields, [`rank${originColumnPosition}`]: null }
+        otherFields: { ...requestFields, [`rank${originColumnPosition}`]: null },
+        isWorkPlan
       },
       datasets.getToken()
     ).then((res: any) => {
@@ -659,6 +671,14 @@ export const emptyBoard = () => ({
   type: types.REQUEST_EMPTY_BOARD
 })
 
+export const setCostRange = (payload: any) => ({
+  type: types.SET_COST_RANGE,
+  payload
+});
+export const setFilterBy = (payload: any) => ({
+  type: types.SET_FILTER_BY,
+  payload
+});
 export const toggleFilter = (type: any, id: any) => {
   return (dispatch: any, getState: Function) => {
     const { request: { filterRequest } } = getState();
@@ -780,5 +800,15 @@ export const setSentToWP = (payload: boolean) => ({
 
 export const setFilterLoading = (payload: boolean) => ({
   type: types.REQUEST_SET_FILTER_LOADING,
+  payload
+});
+
+export const setIsImported = (payload: boolean) => ({
+  type: types.REQUEST_SET_IS_IMPORTED,
+  payload
+});
+
+export const setImportedProjectData = (payload: any) => ({
+  type: types.REQUEST_SET_IMPORTED_PROJECT_TYPE,
   payload
 });
