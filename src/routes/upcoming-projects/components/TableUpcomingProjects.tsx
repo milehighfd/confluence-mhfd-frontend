@@ -196,6 +196,10 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData, setLoading}:{tipe
           completeData: d
         }
       });
+      // sort parsedData by consultant 
+      parsedData.sort((b:any, a:any) => {
+        return moment(a.consultant !== '-' ? a.consultant : '01-01-1900').diff(moment(b.consultant !== '-' ?  b.consultant : '01-01-1900'));
+      });
       setDataSource(parsedData);
       setFilteredDataSource(parsedData);
       setDataForCSV(parsedData);
