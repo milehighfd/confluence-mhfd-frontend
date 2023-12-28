@@ -138,7 +138,7 @@ const Toolbar = ({
         }
         <Popover
           className='buttons-header'
-          content={<div className='popover-text'>Analytics:<br />Display project counts and estimates per year and either by county or service area.</div>} placement="bottomLeft" overlayClassName='popover-work-header' >
+          content={<div className='popover-text'>Analytics:<br />Display project counts and estimates per year and by local government, county, or service area.</div>} placement="bottomLeft" overlayClassName='popover-work-header' >
           <Button
            className='buttons' 
           type='link'
