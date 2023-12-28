@@ -44,7 +44,7 @@ const AmountModal = ({ project, visible, setVisible }: {
   });
 
   const handleOk = (e: any) => {
-    const send = { ...cost, isMaintenance };
+    const send = { ...cost, isMaintenance, boardId: namespaceId };
     datasets.putData(
       BOARD_PROJECT_COST(board_project_id),
       send,
