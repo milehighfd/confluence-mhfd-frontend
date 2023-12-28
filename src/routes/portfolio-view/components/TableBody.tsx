@@ -302,24 +302,24 @@ const TableBody = ({
     }
   }
   const menu = (dataValue: any) => {
+    const onClickElement = (e: any) => {
+      if (e.key === '0') {
+        getCompleteProjectData(dataValue.project_id);
+      } else {
+        setDetailOpen(true);
+        setDataDetail(dataValue);
+      }
+    }
     let menuPopupItem: MenuProps['items'] = [
       {
         key: '0',
-        label: <span
-          onClick={() => {
-            getCompleteProjectData(dataValue.project_id);
-
-          }}
-        > 
+        label: <span> 
           <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} /> Edit Project
         </span>
       },
       {
         key: '1',
-        label: <span style={{display: 'flex', alignItems: 'center'}} onClick={() => {
-          setDetailOpen(true);
-          setDataDetail(dataValue);
-        }}> 
+        label: <span style={{display: 'flex', alignItems: 'center'}}> 
           <EyeOutlined className='tooltip-icon-pm' style={{opacity: '0.5', marginRight: '4px', fontSize: '12px'}}/> View Project
         </span>,
       }
@@ -327,6 +327,7 @@ const TableBody = ({
     return <Menu
       className="js-mm-00"
       style={{ backgroundColor: 'white', border: 0, paddingTop: '0px' }}
+      onClick={(e) => onClickElement(e)}
       items={menuPopupItem}
     >
     </Menu>
