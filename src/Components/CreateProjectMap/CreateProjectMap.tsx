@@ -155,7 +155,8 @@ let magicAddingVariable = false;
     setComponentIntersected,
     setComponentGeom,
     setEditLocation,
-    setStreamsList
+    setStreamsList,
+    setIsStillLoading
   } = useProjectDispatch();
   let flagInit = useRef(true);
   const {
@@ -271,6 +272,9 @@ let magicAddingVariable = false;
       // recien mandar al zoomgeom
     };
   }, []);
+  useEffect(() => {
+    setIsStillLoading(loading);
+  }, [loading]);
   useEffect(() => {
     console.log('THIS IS SETTING TO TRUE ON CREATER PREOJCT MAP');
     setLoading(true);

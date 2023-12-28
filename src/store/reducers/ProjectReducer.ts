@@ -112,7 +112,8 @@ const initState = {
   createdProject:{},
   globalSearchValue: '',
   discussion: [],
-  completeCosts: {}
+  completeCosts: {},
+  isStillLoading: false
 }
 
 const projectReducer = (state = initState, action: any) => {
@@ -494,6 +495,13 @@ const projectReducer = (state = initState, action: any) => {
         completeCosts: action.completeCosts
       }
     }
+    case types.SET_IS_STILL_LOADING: {
+      return {
+        ...state,
+        isStillLoading: action.isStillLoading
+      }
+    }
+
     default: 
       return state;
   }

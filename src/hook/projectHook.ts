@@ -68,7 +68,8 @@ import {
   resetDiscussion,
   deleteDiscussionMessage,
   setCompleteCosts,
-  editDiscussionMessage
+  editDiscussionMessage,
+  setIsStillLoading
 } from '../store/actions/ProjectActions';
 
 export const useProjectState = () => useSelector(
@@ -78,6 +79,9 @@ export const useProjectState = () => useSelector(
 export const useProjectDispatch = () => {
   const dispatch = useDispatch();
   return {
+    setIsStillLoading: (isStillLoading: boolean) => {
+      dispatch(setIsStillLoading(isStillLoading));
+    },
     setSave: (status: number) => {
       dispatch(setSave(status));
     },

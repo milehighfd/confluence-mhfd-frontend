@@ -560,8 +560,10 @@ export const ModalCapital = ({
       setVisible(false);
       setVisibleCapital(false);
       setIsCreatedFromBoard(false);
+      console.log('THIS LOADING FALSE');
       setLoading(false);
     } else {
+      console.log('THIS LOADFERIN LFALSE');
       setLoading(false);
       setSave(false);
     }

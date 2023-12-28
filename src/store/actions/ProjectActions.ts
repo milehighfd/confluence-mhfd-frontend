@@ -53,6 +53,11 @@ const callArcGisProcess = (data: any, project_id: any, typeprocess: string) => {
     console.error('Error at arcgis creation', error);
   }
 }
+export const setIsStillLoading = (isStillLoading: boolean) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.SET_IS_STILL_LOADING, isStillLoading});
+  }
+}
 export const saveCapital = (data: any) => {
   return ( dispatch: Function, getState: Function) => {
     const { request: { namespaceId } } = getState();

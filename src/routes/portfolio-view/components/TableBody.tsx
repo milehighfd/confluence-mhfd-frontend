@@ -57,7 +57,8 @@ const TableBody = ({
   const {
     globalSearch,
     globalProjectData,
-    status
+    status,
+    isStillLoading
   } = useProjectState();
 
   const{
@@ -85,10 +86,14 @@ const TableBody = ({
     setLoading(true);
     datasets.getData(SERVER.V2_DETAILED_PAGE(project_id), datasets.getToken()).then((res: any) => {
       setCompleteProjectData({...res, tabKey}); 
-      setLoading(false);
       showModalProject.current = true;
     });
   }
+  useEffect(() => {
+    if(!isStillLoading) {
+      setLoading(false);
+    }
+  }, [isStillLoading]);
   useEffect(() => {
     if (status === 1 || status === 0) {
       setSave(2);
