@@ -42,7 +42,6 @@ const ModalProjectImport= ({
   const pageWidth  = document.documentElement.scrollWidth;
 
   useEffect(() => {
-    if (!keyword) return;
     const searchInfo = {
       keyword,
       locality: namespaceId.locality,
@@ -155,7 +154,7 @@ const ModalProjectImport= ({
         onPressEnter={(event: React.KeyboardEvent<HTMLInputElement>) => setKeyword(event.currentTarget.value)}
       />
       <br/><br/>
-      {keyword && <Row className='row-project-project'>
+      {<Row className='row-project-project'>
         <Col span={12}>
           <p className='title-list' >Project</p>
         </Col>
@@ -166,7 +165,7 @@ const ModalProjectImport= ({
           <p className='title-list' style={{ paddingLeft: '5px' }}>Sponsor</p>
         </Col>
       </Row>}
-      {keyword && <div className='body-create-projects'>
+      {<div className='body-create-projects'>
         {listProjects.map((project, index) => (
           <Row 
           key={index} 
