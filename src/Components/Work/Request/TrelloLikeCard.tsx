@@ -127,7 +127,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
     }, {
       key: '2',
       label: <span className='wr-poopover-item'>
-        <img src="/Icons/ic-search.svg" alt="" width="24px" height="16"/>
+        <img src="/Icons/ic_search.svg" alt=""/>
         Zoom to
       </span>,
       onClick: (() => { setZoomProject(project.projectData);})
