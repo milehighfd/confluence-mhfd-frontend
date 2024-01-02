@@ -387,7 +387,7 @@ const TableListView = ({
         items.push({
           key: '5',
           label: <span className='wr-poopover-item'>
-          <img src="/Icons/ic-detail.svg" alt="" width="24px" height="24"/>
+          <img src="/Icons/ic-make-active.svg" alt="" width="24px" height="24"/>
             Make Project Active
           </span>,
           onClick: (() => {
