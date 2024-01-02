@@ -52,7 +52,7 @@ const contentPopOver = (text: string, title?:string) => {
   return <div className="popoveer-00"><i><span style={{fontWeight: '600'}}>{title? title:''}</span>{text}</i></div>
 }
 const contentPopOverWithLink = (text: string, link: string, title?:string) => {
-  return <div className="popoveer-00"><i><span style={{fontWeight: '600'}}>{title? title:''}</span>{text}</i> <a href={link} target='_blank'>Info Sheet</a></div>
+  return <div className="popoveer-00"><i><span style={{fontWeight: '600'}}>{title? title:''}</span>{text}</i> <a href={link} target='_blank' rel="noreferrer">Info Sheet</a></div>
 }
 
 const MapFilterView = ({
@@ -678,7 +678,7 @@ const MapFilterView = ({
     </div>
 
     <div className="btn-footer-02">
-      <Button className="btn-borde" onClick={() => {
+      <Button onClick={() => {
         removePopup();
         setVisibleDropdown(false);
       }}>Close</Button>

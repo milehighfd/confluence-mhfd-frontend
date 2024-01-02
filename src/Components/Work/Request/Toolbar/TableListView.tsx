@@ -320,8 +320,8 @@ const TableListView = ({
     const isAdminStaff = appUser?.userInformation?.designation === 'admin' || appUser?.userInformation?.designation === 'staff'; 
     const items: MenuProps['items'] = [{
       key: '0',
-      label: <span style={{borderBottom: '1px solid transparent'}}>
-        <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
+      label: <span className='wr-poopover-item'>
+      <img src="/Icons/ic-edit.svg" alt="" width="24px" height="24"/>
         Edit Project
       </span>,
       onClick: (() => {
@@ -331,8 +331,8 @@ const TableListView = ({
     }, {
       key: '1',
       // disabled: boardStatus === BOARD_STATUS_TYPES.APPROVED,
-      label: <span style={{borderBottom: '1px solid transparent'}}>
-        <img src="/Icons/icon-90.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px', marginRight: '4px' }} />
+      label: <span className='wr-poopover-item'>
+      <img src="/Icons/ic-sus.svg" alt="" width="24px" height="24"/>
         Edit Amount
       </span>,
       onClick: (() => {
@@ -342,8 +342,8 @@ const TableListView = ({
       })
     }, {
       key: '2',
-      label: <span style={{borderBottom: '1px solid transparent'}}>
-        <img src="/Icons/icon-13.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px', marginRight: '4.6px' }} />
+      label: <span className='wr-poopover-item'>
+      <img src="/Icons/ic-search.svg" alt="" width="24px" height="16"/>
         Zoom to
       </span>,
       onClick: (() => { 
@@ -358,8 +358,8 @@ const TableListView = ({
     if (record?.projectData?.currentId[0]?.status_name === 'Active'){
       items.push({
         key: '3',
-        label: <span style={{ borderBottom: '1px solid transparent' }}>
-          <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
+        label: <span className='wr-poopover-item'>
+        <img src="/Icons/ic-detail.svg" alt="" width="24px" height="24"/>
           Detail Page
         </span>,
         onClick: (() => {
@@ -372,8 +372,8 @@ const TableListView = ({
     if (isAdminStaff) {
       items.push({
         key: '4',
-        label: <span style={{ borderBottom: '1px solid transparent' }}>
-          <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
+        label: <span className='wr-poopover-item'>
+        <img src="/Icons/ic-archive.svg" alt=''/>
           Archive Project
         </span>,
         onClick: (() => {
@@ -386,8 +386,8 @@ const TableListView = ({
         ) {
         items.push({
           key: '5',
-          label: <span style={{ borderBottom: '1px solid transparent' }}>
-            <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
+          label: <span className='wr-poopover-item'>
+          <img src="/Icons/ic-detail.svg" alt="" width="24px" height="24"/>
             Make Project Active
           </span>,
           onClick: (() => {
@@ -401,8 +401,8 @@ const TableListView = ({
       if (!existInWP && namespaceId.type === WORK_REQUEST && isAdminStaff && boardStatus === BOARD_STATUS_TYPES.APPROVED) {
         items.push({
           key: '6',
-          label: <span style={{ borderBottom: '1px solid transparent' }}>
-            <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
+          label: <span className='wr-poopover-item'>
+          <img src="/Icons/ic-detail.svg" alt="" width="24px" height="24"/>
             Send To Work Plan
           </span>,
           onClick: (() => {

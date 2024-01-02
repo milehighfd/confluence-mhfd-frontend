@@ -947,7 +947,7 @@
 }
 
 .filter-map {
-  max-height: calc(100vh - 170px);
+  max-height: calc(100vh - 180px);
   overflow-y: auto;
   overflow-x: hidden;
   height: auto;
@@ -1021,6 +1021,9 @@
   left: -20px;
   margin: 0px 20px !important;
   padding-top: 0px !important;
+  .btn-footer-02 {
+    padding: 10px 10px 8px 10px;
+  }
 }
 
 .filter-coll-header {

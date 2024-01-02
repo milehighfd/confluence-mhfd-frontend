@@ -890,6 +890,9 @@
     border-radius: 10px;
     padding: 5px 10px;
     color: #817c98 !important;
+    img{
+      opacity: 0.6;
+    }
   }
   .ant-menu-item:focus-visible,
   .ant-menu-submenu-title:focus-visible {
@@ -904,6 +907,12 @@
   }
   .ant-popover-content {
     width: 165px;
+  }
+  .wr-poopover-item{
+    display: flex;
+    line-height: normal;
+    padding: 8px 0px;
+    align-items: center;
   }
 }
 // MODAL EDIT
@@ -3275,11 +3284,13 @@
       line-height: 54px !important;
     }
     img {
-      width: 16px !important;
       margin-right: 12px !important;
     }
     span {
       font-size: 20px !important;
+    }
+    .wr-poopover-item{
+      padding: 14px 0px;
     }
   }
   //Total Cost
