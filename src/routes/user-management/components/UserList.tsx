@@ -350,11 +350,11 @@ const UserList = () => {
             },
             expandIcon: ({ expanded, onExpand, record }) =>{
               if(expandableRow && expanded && userSelected.user_id === record.user_id){
-                return(<DownOutlined onClick={(e:any) => onExpand(record, e)}/>)
+                return(<img src={'/Icons/fi_chevron-down.svg'} alt='ico-more' className='ico-more' onClick={(e:any) => onExpand(record, e)}/>)
               }
               else{
                 return(<div className='row-menu'><Dropdown overlay={menu(record, onExpand)} placement="bottomRight" >
-                <MoreOutlined />
+                <img src={'/Icons/u_ellipsis-v.svg'} alt='ico-more' className='ico-more'/>
               </Dropdown>
               </div>)
               }
