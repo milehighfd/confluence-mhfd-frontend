@@ -878,6 +878,10 @@
   .ant-popover-inner-content {
     padding: 4px 4px;
   }
+  .ant-menu-item{
+    display: flex;
+    align-items: center;
+  }
   .ant-menu-item:active,
   .ant-menu-submenu-title:active {
     background: #f7f7f9;
