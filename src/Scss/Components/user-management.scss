@@ -195,6 +195,9 @@
       text-align: initial;
       height: 36px;
     }
+    .ant-input-wrapper{
+      box-shadow: rgba(17, 17, 26, 0.06) 0px 4px 16px, rgb(17 17 26 / 2%) 0px 8px 32px !important;
+    }
     .btn-borde {
       width: 100%;
       text-align: initial;
@@ -205,6 +208,7 @@
       border-radius: 5px !important;
       align-items: center;
       border: 1px solid #d9d9d9 !important;
+      box-shadow: rgba(17, 17, 26, 0.06) 0px 4px 16px, rgb(17 17 26 / 2%) 0px 8px 32px !important;
       span {
         display: inline-block;
         white-space: nowrap;
@@ -245,6 +249,12 @@
     .ant-input-search .ant-input:focus,
     .ant-input-search .ant-input:hover {
       border-color: $purple;
+    }
+    .ant-select{
+      box-shadow: rgba(17, 17, 26, 0.06) 0px 4px 16px, rgb(17 17 26 / 2%) 0px 8px 32px;
+      input {
+        box-shadow: none;
+      }
     }
   }
   .ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover {
@@ -573,6 +583,18 @@
         height: 36px;
         color: $purple00;
         font-weight: 300 !important;
+        box-shadow: rgba(17, 17, 26, 0.06) 0px 4px 16px, rgb(17 17 26 / 2%) 0px 8px 32px;
+      }
+      .ant-select{
+        box-shadow: rgba(17, 17, 26, 0.06) 0px 4px 16px, rgb(17 17 26 / 2%) 0px 8px 32px;
+        input {
+          box-shadow: none;
+        }
+      }
+      .ant-select-selector{
+        input {
+          box-shadow: none;
+        }
       }
       input::placeholder{
         color: $purple00;
@@ -589,6 +611,8 @@
         padding: 6.5px 10px;
         border-radius: 3px !important;
         margin-bottom: 15px;
+        box-shadow: rgba(17, 17, 26, 0.06) 0px 4px 16px, rgb(17 17 26 / 2%) 0px 8px 32px !important;
+
         span {
           display: inline-block;
           white-space: nowrap;
@@ -1281,7 +1305,7 @@
           white-space: nowrap;
           text-overflow: ellipsis;
           overflow: hidden;
-          font-size: 17px;
+          font-size: 16px;
         }
         .anticon {
           margin-top: 7px;
