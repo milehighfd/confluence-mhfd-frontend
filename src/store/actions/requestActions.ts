@@ -433,12 +433,16 @@ const moveProjectsManualReducer = (columns2: any[], action: any) => {
 
 export const moveProjectsManual = (payload: DragAndDropCards) => {
   return (dispatch: any, getState: Function) => {
-    const { request: { columns2 } } = getState();
+    const { request: { columns2, namespaceId } } = getState();
     const { originColumnPosition, targetPosition, isWorkPlan } = payload;
     const updatedColumns = moveProjectsManualReducer(columns2, { payload });
     const projectsUpdated = updatedColumns[originColumnPosition].projects;
-    const before = targetPosition === 0 ? null : projectsUpdated[targetPosition - 1][`rank${originColumnPosition}`];
-    const after = targetPosition === projectsUpdated.length - 1 ? null : projectsUpdated[targetPosition + 1][`rank${originColumnPosition}`];
+    
+    const previousPosition = targetPosition - 1;
+    const nextPosition = targetPosition + 1;
+    const before = targetPosition === 0 ? null : projectsUpdated[previousPosition][`boardProjectToCostData`][0]?.sort_order;
+    const after = targetPosition === projectsUpdated.length - 1 ? null : projectsUpdated[nextPosition][`boardProjectToCostData`][0]?.sort_order;
+    console.log('Projects updated', projectsUpdated, projectsUpdated[previousPosition], projectsUpdated[nextPosition]);
     dispatch({
       type: types.REQUEST_MOVE_PROJECTS_MANUAL,
       payload: updatedColumns
@@ -451,7 +455,8 @@ export const moveProjectsManual = (payload: DragAndDropCards) => {
         columnNumber: originColumnPosition,
         beforeIndex: targetPosition - 1,
         afterIndex: targetPosition === projectsUpdated.length - 1 ? -1 : targetPosition + 1,
-        isWorkPlan
+        isWorkPlan,
+        boardId: namespaceId
       },
       datasets.getToken()
     ).then(() => {
@@ -516,7 +521,7 @@ const handleMoveFromColumnToColumnReducer = (columns2: any[], action: any): any[
 
 export const handleMoveFromColumnToColumn = (payload: DragAndDropCards) => {
   return (dispatch: any, getState: Function) => {
-    const { request: { columns2 } } = getState();
+    const { request: { columns2, namespaceId } } = getState();
     const { originColumnPosition, targetColumnPosition, targetPosition, isWorkPlan } = payload;
     const [
       updatedColumns,
@@ -541,7 +546,8 @@ export const handleMoveFromColumnToColumn = (payload: DragAndDropCards) => {
         afterIndex: projectPosition === projectsUpdated.length - 1 ? -1 : projectPosition + 1,
         targetPosition: projectPosition,
         otherFields: { ...requestFields, [`rank${originColumnPosition}`]: null },
-        isWorkPlan
+        isWorkPlan,
+        boardId: namespaceId
       },
       datasets.getToken()
     ).then((res: any) => {
