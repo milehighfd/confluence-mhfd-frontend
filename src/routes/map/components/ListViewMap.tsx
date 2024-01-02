@@ -269,14 +269,14 @@ const ListViewMap = ({
       {
         key: 'popup-favorite',
         label: <span className="menu-item-text">
-          <img src="/Icons/ic-search.svg" alt="" width="24px" height="16"/>&nbsp;
+          <img src="/Icons/u_edit-alt.svg" alt="" width="24px" height="24"/>&nbsp;
           {record.isFavorite ? 'Unfavorite Card':'Favorite Card'}
         </span>
       },
       {
         key: 'popup-comment',
         label: <span className="menu-item-text" >
-          <img src="/Icons/ic-search.svg" alt="" width="24px" height="16"/>&nbsp;
+          <img src="/Icons/u_comment-alt.svg" alt="" width="24px" height="24"/>&nbsp;
           Add a Comment
         </span>
       },
