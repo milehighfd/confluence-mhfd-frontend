@@ -158,7 +158,7 @@ const UserList = () => {
     });
   }
   let items = [
-    { key: 'edit-user', label: 'Edit User' },
+    { key: 'edit-user', label: <>Edit User</> },
     { key: 'delete-user', label: 'Delete User' },
     { key: 'change-status', label: 'Approve User' },
   ];
@@ -166,8 +166,8 @@ const UserList = () => {
     switch (record.status) {
       case 'approved':
         items = [
-          { key: 'edit-user', label: 'Edit User' },
-          { key: 'delete-user', label: 'Delete User' },
+          { key: 'edit-user', label: <div style={{alignItems:'center', display:'flex', color:'#002633', justifyContent:'initial', marginLeft:'-4px'}}><img src={'/Icons/fi_clipboard.svg'} alt='ico-clip'/>&nbsp;&nbsp;Edit User</div> },
+          { key: 'delete-user', label: <div style={{alignItems:'center', display:'flex', color:'#FF5722', justifyContent:'initial', marginLeft:'-4px'}}><img src={'/Icons/frame-delete.svg'} alt='ico-clip'/>&nbsp;&nbsp;Delete User</div> },
         ];
         break;
       case 'deleted':

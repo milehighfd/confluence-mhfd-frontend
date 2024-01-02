@@ -71,6 +71,7 @@
 }
 
 .user-management-body {
+  padding-top: 18px;
   .row-board-year{
     border: 1px solid #eceaf2;
     border-radius: 4px;
@@ -1052,6 +1053,7 @@
 .tabs-user-management {
   .ant-tabs-nav {
     padding-left: 16px;
+    margin-bottom: 0px;
   }
   .ant-tabs-content-holder {
     padding-left: 16px;
