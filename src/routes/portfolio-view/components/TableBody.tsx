@@ -75,25 +75,28 @@ const TableBody = ({
   const [activeBorder, setActiveBorder] = useState(false);
   const [rowActive, setRowActive] = useState(-20);
   const [globalId, setGlobalId] = useState(0);
-  // const [showModalProject, setShowModalProject] = useState(false);
-  const showModalProject = useRef(false);
+  const [showModalProject, setShowModalProject] = useState(false);
+  //const showModalProject = useRef(false);
+
   const [completeProjectData, setCompleteProjectData] = useState<any>(null);
   const { setSave } = useProjectDispatch();
 
   let limitPage = Number(counter) % LIMIT_PAGINATION > 0 ?  Math.floor(Number(counter) / LIMIT_PAGINATION + 1) : Number(counter) / LIMIT_PAGINATION;
 
-  const getCompleteProjectData = async (project_id: any) => {
+  const getCompleteProjectData = (project_id: any) => {
     setLoading(true);
     datasets.getData(SERVER.V2_DETAILED_PAGE(project_id), datasets.getToken()).then((res: any) => {
       setCompleteProjectData({...res, tabKey}); 
-      showModalProject.current = true;
+      setShowModalProject(true);
     });
   }
+
   useEffect(() => {
     if(!isStillLoading) {
       setLoading(false);
     }
   }, [isStillLoading]);
+
   useEffect(() => {
     if (status === 1 || status === 0) {
       setSave(2);
@@ -319,13 +322,13 @@ const TableBody = ({
       {
         key: '0',
         label: <span> 
-          <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} /> Edit Project
+          <img src="/Icons/ic-edit.svg" alt=""/> Edit Project
         </span>
       },
       {
         key: '1',
         label: <span style={{display: 'flex', alignItems: 'center'}}> 
-          <EyeOutlined className='tooltip-icon-pm' style={{opacity: '0.5', marginRight: '4px', fontSize: '12px'}}/> View Project
+          <img src="/Icons/ic-detail.svg" alt=""/> Detail Page
         </span>,
       }
     ];
@@ -338,10 +341,6 @@ const TableBody = ({
     </Menu>
   };
   // TODO: find where is setting showmodalproject as false after first save
-const setShowModalProject = (newValue: any) => {
-  showModalProject.current = newValue;
-}
-useEffect(() => {console.log('showModalProject',showModalProject.current);} ,[showModalProject.current]);
   return <>
     {loading && <LoadingViewOverall></LoadingViewOverall>}
     {detailOpen && dataDetail && <DetailModal
@@ -353,9 +352,9 @@ useEffect(() => {console.log('showModalProject',showModalProject.current);} ,[sh
       addFavorite={addFunction}
     />}
     {
-      showModalProject.current &&
+      showModalProject &&
       <ModalProjectView
-          visible= {showModalProject.current}
+          visible= {showModalProject}
           setVisible= {setShowModalProject}
           data={completeProjectData}
           showDefaultTab={true}
@@ -391,8 +390,14 @@ useEffect(() => {console.log('showModalProject',showModalProject.current);} ,[sh
                 </Tooltip>
                 <div style={{display:'flex'}}>
                   {d.isFavorite ? <HeartFilled style={{ marginLeft: '7px', color: '#F5575C', marginRight: '10px' }} onClick={() => (deleteFunction(d.project_id, email, ''))} /> : <HeartOutlined style={{ marginLeft: '7px', color: '#706B8A', marginRight: '10px' }} onClick={() => addFunction(email, d.project_id, '')} />}
-                  <Popover placement='bottom' trigger="click" content={menu(d)} overlayClassName='pm-popover' zIndex={2}>
-                    <MoreOutlined className="menu-wr" style={{cursor: 'pointer'}}></MoreOutlined>
+                  <Popover
+                    placement='bottom'
+                    trigger="click"
+                    content={menu(d)}
+                    overlayClassName='pm-popover'
+                    zIndex={2}
+                  >
+                    <MoreOutlined className="menu-wr" style={{ cursor: 'pointer' }}></MoreOutlined>
                   </Popover>
                 </div>
               </div>

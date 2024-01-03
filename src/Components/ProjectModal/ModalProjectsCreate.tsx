@@ -111,8 +111,10 @@ const ModalProjectsCreate = ({visible, setVisible}
             <img src="/Icons/ic-files-green.svg" alt="plus-green" />
             <div className='text-new-project-sec'>
               <p className='text'>Import Project</p>
-              <p className='description-new-project-sec'></p>
-Search for a project from a previous years' Work Request or Work Plan by Name, Project ID, or Onbase Project Number.            </div>
+              <p className='description-new-project-sec'>
+                Search for a project from a previous years' Work Request or Work Plan by Name, Project ID, or Onbase Project Number.
+              </p>
+            </div>
           </div>
           {/* <Input
             className='input-search'

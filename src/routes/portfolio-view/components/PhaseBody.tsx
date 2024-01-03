@@ -695,13 +695,13 @@ const PhaseBody = ({
       {
         key: '0',
         label: <span> 
-          <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} /> Edit Project
+          <img src="/Icons/ic-edit.svg" alt=""/> Edit Project
         </span>
       },
       {
         key: '1',
         label: <span style={{display: 'flex', alignItems: 'center'}}> 
-          <EyeOutlined className='tooltip-icon-pm' style={{opacity: '0.5', marginRight: '4px', fontSize: '12px'}}/> View Project
+          <img src="/Icons/ic-detail.svg" alt=""/> Detail Page
         </span>,
       }
     ];

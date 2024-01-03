@@ -665,6 +665,17 @@
   margin-top: -10px;
   border-radius: 0px;
   padding: 6px 0px;
+  .menu-item-text {
+    display: flex;
+    align-items: center;
+    justify-content: initial;
+    margin-left: -8px;
+    color: $purple00;
+    font-size: 14px !important;
+  }
+  .menu-item-text:hover {
+    opacity: 0.7;
+  }
 }
 
 .card-button-hover {
@@ -1539,6 +1550,14 @@ hr.filters-line {
         width: 26px;
         margin-right: 8px;
       }
+    }
+  }
+  .menu-dropdown-map {
+    li{
+     height: 50px;
+    }
+    .menu-item-text {
+      font-size: 19px !important;
     }
   }
   .sort-map-desktop {

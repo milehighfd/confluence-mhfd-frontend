@@ -313,11 +313,14 @@ const EditDatesModal = ({
   }
 
   const handleActivation = async () => {
+    const hasProjectStream = primaryStream?.value > 0;
+    const streamId = hasProjectStream ? primaryStream?.value : primaryStream?.id;
     const sendData = {
       project_id: project?.project_id,
       location: location,
-      primaryStream: primaryStream?.value,
-      mhfdLead: mhfdLead?.id
+      primaryStream: streamId,
+      mhfdLead: mhfdLead?.id,
+      hasProjectStream
     }
     try {
       await datasets.postData(`${SERVER.ACTIVATE_PROJECT}`, { ...sendData }, datasets.getToken());  

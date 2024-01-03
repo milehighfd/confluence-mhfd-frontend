@@ -71,6 +71,7 @@
 }
 
 .user-management-body {
+  padding-top: 18px;
   .row-board-year{
     border: 1px solid #eceaf2;
     border-radius: 4px;
@@ -195,6 +196,9 @@
       text-align: initial;
       height: 36px;
     }
+    .ant-input-wrapper{
+      box-shadow: rgba(26, 26, 26, 0.04) 0px 4px 16px, rgba(17, 17, 26, 0.02) 0px 8px 32px !important;
+    }
     .btn-borde {
       width: 100%;
       text-align: initial;
@@ -205,6 +209,7 @@
       border-radius: 5px !important;
       align-items: center;
       border: 1px solid #d9d9d9 !important;
+      box-shadow: rgba(26, 26, 26, 0.04) 0px 4px 16px, rgba(17, 17, 26, 0.02) 0px 8px 32px !important;
       span {
         display: inline-block;
         white-space: nowrap;
@@ -245,6 +250,12 @@
     .ant-input-search .ant-input:focus,
     .ant-input-search .ant-input:hover {
       border-color: $purple;
+    }
+    .ant-select{
+      box-shadow: rgba(26, 26, 26, 0.04) 0px 4px 16px, rgba(17, 17, 26, 0.02) 0px 8px 32px;
+      input {
+        box-shadow: none;
+      }
     }
   }
   .ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover {
@@ -573,6 +584,18 @@
         height: 36px;
         color: $purple00;
         font-weight: 300 !important;
+        box-shadow: rgba(26, 26, 26, 0.04) 0px 4px 16px, rgba(17, 17, 26, 0.02) 0px 8px 32px;
+      }
+      .ant-select{
+        box-shadow: rgba(26, 26, 26, 0.04) 0px 4px 16px, rgba(17, 17, 26, 0.02) 0px 8px 32px;
+        input {
+          box-shadow: none;
+        }
+      }
+      .ant-select-selector{
+        input {
+          box-shadow: none;
+        }
       }
       input::placeholder{
         color: $purple00;
@@ -589,6 +612,8 @@
         padding: 6.5px 10px;
         border-radius: 3px !important;
         margin-bottom: 15px;
+        box-shadow: rgba(26, 26, 26, 0.04) 0px 4px 16px, rgba(17, 17, 26, 0.02) 0px 8px 32px !important;
+
         span {
           display: inline-block;
           white-space: nowrap;
@@ -1028,6 +1053,7 @@
 .tabs-user-management {
   .ant-tabs-nav {
     padding-left: 16px;
+    margin-bottom: 0px;
   }
   .ant-tabs-content-holder {
     padding-left: 16px;
@@ -1281,7 +1307,7 @@
           white-space: nowrap;
           text-overflow: ellipsis;
           overflow: hidden;
-          font-size: 17px;
+          font-size: 16px;
         }
         .anticon {
           margin-top: 7px;
@@ -1317,6 +1343,10 @@
     .table-user-management {
       height: calc(100vh - 222px);
       margin-top: 10px !important;
+      .ico-more{
+        height: 20px;
+        width: 20px;
+      }
       .ant-table-column-sorter-down.active,
       .ant-table-column-sorter-up.active {
         color: $purple;
@@ -1654,6 +1684,10 @@
       }
       .span-Inactive {
         padding: 6px 17px !important;
+      }
+      .ico-more{
+        height: 27px;
+        width: 27px;
       }
       .ant-pagination-jump-next,
       .ant-pagination-jump-prev,

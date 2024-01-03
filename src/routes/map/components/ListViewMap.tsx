@@ -248,37 +248,46 @@ const ListViewMap = ({
       }
     };
     let menuPopupItem: MenuProps['items'] = [
-      {
-        key: 'popup-title',
-        style: {cursor: 'auto', color: 'rgba(17, 9, 60, 0.5)', background: 'rgba(61, 46, 138, 0.07)', margin:'0px'},
-        label: <label style={{ cursor: 'auto', color: 'rgba(17, 9, 60, 0.5)' }}>
-          LIST ACTIONS
-        </label>
-      },
-      {
-        key: 'popup-show-components',
-        label: <span className="menu-item-text" style={{ opacity: itHasComponents?1:0.5 }} >Show Actions</span>
-      },
+      // {
+      //   key: 'popup-title',
+      //   style: {cursor: 'auto', color: 'rgba(17, 9, 60, 0.5)', background: 'rgba(61, 46, 138, 0.07)', margin:'0px'},
+      //   label: <label style={{ cursor: 'auto', color: 'rgba(17, 9, 60, 0.5)' }}>
+      //     LIST ACTIONS
+      //   </label>
+      // },
+      // {
+      //   key: 'popup-show-components',
+      //   label: <span className="menu-item-text" style={{ opacity: itHasComponents?1:0.5 }} >Show Actions</span>
+      // },
       {
         key: 'popup-zoom',
-        label: <span className="menu-item-text" onClick={() => {changeCenter(record.project_id, '')}}>Zoom to Feature</span>
+        label: <span className="menu-item-text" onClick={() => {changeCenter(record.project_id, '')}}>
+          <img src="/Icons/ic-search.svg" alt="" width="24px" height="16"/>&nbsp;
+          Zoom to Feature
+        </span>
       },
       {
         key: 'popup-favorite',
-        label: <span className="menu-item-text">{record.isFavorite ? 'Unfavorite Card':'Favorite Card'}</span>
+        label: <span className="menu-item-text">
+          <img src="/Icons/u_edit-alt.svg" alt="" width="24px" height="24"/>&nbsp;
+          {record.isFavorite ? 'Unfavorite Card':'Favorite Card'}
+        </span>
       },
       {
         key: 'popup-comment',
-        label: <span className="menu-item-text" >Add a Comment</span>
+        label: <span className="menu-item-text" >
+          <img src="/Icons/u_comment-alt.svg" alt="" width="24px" height="24"/>&nbsp;
+          Add a Comment
+        </span>
       },
-      {
-        key: 'popup-add-team',
-        label: <span className="menu-item-text" style={{ cursor: 'auto', opacity: 0.5 }}>Add Team Member</span>
-      }
+      // {
+      //   key: 'popup-add-team',
+      //   label: <span className="menu-item-text" style={{ cursor: 'auto', opacity: 0.5 }}>Add Team Member</span>
+      // }
     ];
     return <Menu
       className="menu-dropdown-map"
-      style={{ backgroundColor: 'white', border: 0, paddingTop: '0px' }}
+      style={{ backgroundColor: 'white', border: 0 }}
       items={menuPopupItem}
       onClick={onClickPopupCard}
     >

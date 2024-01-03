@@ -48,6 +48,18 @@ export const ProjectGeometry = ({
   });
 
 
+  const formatNumberToAcres = (number:number) => {
+    const sqmiles = +number * 0.0015625;
+    const formattedSqMiles = formatterDecimals.format(sqmiles);
+    
+    return (
+      <>
+      {formatterIntegers.format(+number) + ' acres'}
+      <br/>
+      {'(' + formattedSqMiles + ' sq miles)'}
+      </>
+    );
+  }
   const formatNumberToFeet = (number:number) => {
     const roundedNumber = Math.round(number);
     const formattedNumber = formatterIntegers.format(roundedNumber);
@@ -163,7 +175,7 @@ export const ProjectGeometry = ({
       width: '20%',
     },
     {
-      title: 'Tributary',
+      title: 'Tributary Area',
       dataIndex: 'tributary',
       key: 'tributary',
       width: '20%',
@@ -171,7 +183,7 @@ export const ProjectGeometry = ({
         if (text === undefined) {
           return ('');
         }else{
-          return formatterIntegers.format(+text) + ' acres';
+          return formatNumberToAcres(text);
         }
       }
     },
