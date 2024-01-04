@@ -101,6 +101,7 @@ export const ModalCapital = ({
     getIndependentComponentsByProjectId,
     getComponentsByProjectId,
     resetDiscussion,
+    setScrollToImages
   } = useProjectDispatch();
   const { setIsCreatedFromBoard, setIsImported, loadColumns , setVisibleCreateOrImport} = useRequestDispatch();
   const { isCreatedFromBoard, isImported, namespaceId, importedProjectData } = useRequestState();
@@ -115,7 +116,9 @@ export const ModalCapital = ({
     status,
     deleteAttachmentsIds,
     listStreams,
-    streamsIntersectedIds
+    streamsIntersectedIds,
+    isStillLoading,
+    scrollToImages
   } = useProjectState();
   
   const [loading, setLoading] = useState(false);
@@ -172,6 +175,7 @@ export const ModalCapital = ({
   const [isSouthPlate, setIsSouthPlate] = useState();
   const [disabledLG, setDisabledLG] = useState(appUser?.isLocalGovernment || appUser?.userInformation?.designation === 'government_staff');
   const { openNotification } = useNotifications();
+  const uploadRef = useRef<HTMLDivElement>(null);
   //maintenance
   const [frequency, setFrequency] = useState('');
   const [eligibility, setEligibility] = useState('');
@@ -241,6 +245,14 @@ export const ModalCapital = ({
       openDiscussionTab(false);
     }
   },[openDiscussion]);
+
+  useEffect(() => {
+    if (!isStillLoading && scrollToImages && !loading && uploadRef.current){
+      console.log('SCROLL TO IMAGES')
+      uploadRef.current.scrollIntoView({ behavior: 'smooth' });
+      setScrollToImages(false);
+    }
+  },[isStillLoading, loading]);
 
   useEffect(() => {
     if(!showDraw) {
@@ -1400,14 +1412,16 @@ export const ModalCapital = ({
                 save={save}
                 subType={subType}
                 sponsor={sponsor}
-              />                 
-              <UploadImagesDocuments
-                isCapital={true}
-                setFiles={setFiles}
-                index={indexForm++}
-                type={''}
-                visibleCapital={visibleCapital}
-              />
+              />     
+              <div ref={uploadRef}>          
+                <UploadImagesDocuments              
+                  isCapital={true}
+                  setFiles={setFiles}
+                  index={indexForm++}
+                  type={''}
+                  visibleCapital={visibleCapital}
+                />
+              </div>  
             </div>
           </>}
           {(activeTabBodyProject === 'Discussion' && swSave) &&
