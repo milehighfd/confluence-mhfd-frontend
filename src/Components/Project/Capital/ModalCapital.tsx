@@ -122,6 +122,7 @@ export const ModalCapital = ({
   } = useProjectState();
   
   const [loading, setLoading] = useState(false);
+  const [hasLoadData, setHasLoadData] = useState(false);
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -247,9 +248,9 @@ export const ModalCapital = ({
   },[openDiscussion]);
 
   useEffect(() => {
-    if (!isStillLoading && scrollToImages && !loading && uploadRef.current){
-      console.log('SCROLL TO IMAGES')
+    if (!isStillLoading && scrollToImages && !loading && uploadRef.current && hasLoadData){
       uploadRef.current.scrollIntoView({ behavior: 'smooth' });
+      setHasLoadData(false);
       setScrollToImages(false);
     }
   },[isStillLoading, loading]);
@@ -402,6 +403,7 @@ export const ModalCapital = ({
             )
         }, 1200);
       }
+      setHasLoadData(true);
     } else {
       setStreamIntersected([]);
       setIndComponents([]);
@@ -1412,16 +1414,15 @@ export const ModalCapital = ({
                 save={save}
                 subType={subType}
                 sponsor={sponsor}
-              />     
-              <div ref={uploadRef}>          
-                <UploadImagesDocuments              
-                  isCapital={true}
-                  setFiles={setFiles}
-                  index={indexForm++}
-                  type={''}
-                  visibleCapital={visibleCapital}
-                />
-              </div>  
+              />          
+              <UploadImagesDocuments              
+                isCapital={true}
+                setFiles={setFiles}
+                index={indexForm++}
+                type={''}
+                visibleCapital={visibleCapital}
+                uploadRef={uploadRef}
+              />
             </div>
           </>}
           {(activeTabBodyProject === 'Discussion' && swSave) &&
