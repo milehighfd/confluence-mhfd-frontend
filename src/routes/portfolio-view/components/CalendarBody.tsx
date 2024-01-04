@@ -15,6 +15,7 @@ import { handleAbortError } from 'store/actions/mapActions';
 import DetailModal from 'routes/detail-page/components/DetailModal';
 import menu, { MenuProps } from 'antd/lib/menu';
 import ModalProjectView from 'Components/ProjectModal/ModalProjectView';
+import { useProjectDispatch } from 'hook/projectHook';
 const CalendarBody = ({
   dataId,
   tabKey,
@@ -68,6 +69,9 @@ const CalendarBody = ({
     setDatesData,
     setPineyData,
   } = usePortfolioDispatch();
+  const{
+    setScrollToImages
+  } = useProjectDispatch();
   let wasMonthly = true;
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
@@ -1338,8 +1342,11 @@ const CalendarBody = ({
   };
   const menu = (dataValue: any) => {
     const onClickElement = (e: any) => {
-      if (e.key === '0') {
+      if (e.key === '0' || e.key === '2') {
         getCompleteProjectData(dataValue.project_id);
+        if (e.key === '2') {
+          setScrollToImages(true);
+        }
       } else {
         setDetailOpen(true);
         setDataDetail(dataValue);

@@ -62,7 +62,8 @@ const TableBody = ({
   } = useProjectState();
 
   const{
-    setGlobalSearch
+    setGlobalSearch,
+    setScrollToImages
   } = useProjectDispatch();
   
   const appUser = useProfileState();
@@ -311,8 +312,11 @@ const TableBody = ({
   }
   const menu = (dataValue: any) => {
     const onClickElement = (e: any) => {
-      if (e.key === '0') {
+      if (e.key === '0' || e.key === '2') {
         getCompleteProjectData(dataValue.project_id);
+        if (e.key === '2') {
+          setScrollToImages(true);
+        }
       } else {
         setDetailOpen(true);
         setDataDetail(dataValue);
@@ -329,6 +333,12 @@ const TableBody = ({
         key: '1',
         label: <span style={{display: 'flex', alignItems: 'center'}}> 
           <img src="/Icons/ic-detail.svg" alt=""/> Detail Page
+        </span>,
+      },
+      {
+        key: '2',
+        label: <span style={{display: 'flex', alignItems: 'center'}}> 
+          <img src="/Icons/ic-detail.svg" alt=""/> View Images
         </span>,
       }
     ];

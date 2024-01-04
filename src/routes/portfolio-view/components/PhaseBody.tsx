@@ -13,6 +13,7 @@ import { useMapState } from 'hook/mapHook';
 import DetailModal from 'routes/detail-page/components/DetailModal';
 import { useProfileState } from 'hook/profileHook';
 import ModalProjectView from 'Components/ProjectModal/ModalProjectView';
+import { useProjectDispatch } from 'hook/projectHook';
 
 const PhaseBody = ({
   dataId,
@@ -62,6 +63,9 @@ const PhaseBody = ({
     setDatesData,
     setPineyData,
   } = usePortfolioDispatch();
+  const{
+    setScrollToImages
+  } = useProjectDispatch();
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState();
@@ -684,8 +688,11 @@ const PhaseBody = ({
   };
   const menu = (dataValue: any) => {
     const onClickElement = (e: any) => {
-      if (e.key === '0') {
+      if (e.key === '0' || e.key === '2') {
         getCompleteProjectData(dataValue.project_id);
+        if (e.key === '2') {
+          setScrollToImages(true);
+        }
       } else {
         setDetailOpen(true);
         setDataDetail(dataValue);
