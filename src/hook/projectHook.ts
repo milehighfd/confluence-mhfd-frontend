@@ -69,7 +69,8 @@ import {
   deleteDiscussionMessage,
   setCompleteCosts,
   editDiscussionMessage,
-  setIsStillLoading
+  setIsStillLoading,
+  setScrollToImages
 } from '../store/actions/ProjectActions';
 
 export const useProjectState = () => useSelector(
@@ -81,6 +82,9 @@ export const useProjectDispatch = () => {
   return {
     setIsStillLoading: (isStillLoading: boolean) => {
       dispatch(setIsStillLoading(isStillLoading));
+    },
+    setScrollToImages: (scrollToImages: boolean) => {
+      dispatch(setScrollToImages(scrollToImages));
     },
     setSave: (status: number) => {
       dispatch(setSave(status));

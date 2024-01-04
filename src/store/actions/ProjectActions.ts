@@ -58,6 +58,11 @@ export const setIsStillLoading = (isStillLoading: boolean) => {
     dispatch({type: types.SET_IS_STILL_LOADING, isStillLoading});
   }
 }
+export const setScrollToImages = (scrollToImages: boolean) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.SCROLL_TO_IMAGES, scrollToImages});
+  }
+}
 export const saveCapital = (data: any) => {
   return ( dispatch: Function, getState: Function) => {
     const { request: { namespaceId } } = getState();
