@@ -66,7 +66,7 @@ const ModalProjectsCreate = ({visible, setVisible}
   }, [namespaceId]);
 
   useEffect(() => {
-    if (!keyword) return;
+    // if (!keyword) return;
     const searchInfo = {
       keyword,
       locality: namespaceId.locality,
@@ -180,7 +180,7 @@ const ModalProjectsCreate = ({visible, setVisible}
             prefix={<SearchOutlined />}
             onPressEnter={(event: React.KeyboardEvent<HTMLInputElement>) => setKeyword(event.currentTarget.value)}
           />
-          {keyword && <Row className='row-project-project'>
+          { <Row className='row-project-project'>
             <Col span={12}>
               <p className='title-list' >Project</p>
             </Col>
@@ -191,7 +191,7 @@ const ModalProjectsCreate = ({visible, setVisible}
               <p className='title-list' style={{ paddingLeft: '5px' }}>Sponsor</p>
             </Col>
           </Row>}
-          {keyword && <div className='body-create-projects'>
+          { <div className='body-create-projects'>
             {listProjects.map((project, index) => (
               <Row 
               key={index} 
