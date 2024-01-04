@@ -1381,17 +1381,30 @@
       font-weight: 600;
     }
   }
-
   .new-project-sec{
     display: inline-flex;
-    padding: 16px 18px;
+    padding: 16px 0px;
+    justify-content: space-between;
     align-items: center;
     border-radius: 8px;
     border: 1px solid transparent;
     width: 100%;
-    cursor: pointer;
     img{
       height: 32px;
+    }
+    .btn-create{
+      font-size: 14px;
+      padding-right: 0px;
+      font-weight: 700;
+      img{
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+      }
+    }
+    .new-project-sec-right{
+      width: 70%;
+      display: flex;
     }
     .text-new-project-sec{
       color: $purple00;
@@ -1412,17 +1425,19 @@
         font-size: 11px;
         font-style: normal;
         font-weight: 400;
+        line-height: 150%;
       }
     }
   }
-  .new-project-sec:hover{
-    background: #f5f5f5;
-    border: 1px solid #D7D7D9;
-  }
+  // .new-project-sec:hover{
+  //   background: #f5f5f5;
+  //   border: 1px solid #D7D7D9;
+  // }
   .existing-project{
     padding: 16px 19px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     p{
       color: #11093C;
       font-style: normal;
@@ -1436,6 +1451,12 @@
     margin-bottom: 30px;
     padding: 0px 10px;
     border-radius: 4px;
+    border: 1px solid #047CD7;
+    box-shadow: 0 0 0 3px #C0DEF5;
+    &:hover{
+      border: 1px solid #047CD7 !important;
+      box-shadow: 0 0 0 3px #C0DEF5;
+    }
   }
   .row-project-project{
       padding: 0px 10px ;
@@ -1732,15 +1753,18 @@
     }
   }
   .create-projects-modal{
-    .input-search{
-      padding: 0px 18px;
-      .ant-input {
-        padding: 0px 7px !important;
-        height: 44px !important;
+    .new-project-sec{
+      .btn-create{
+        font-size: 16px;
       }
-    }
-    .body-create-projects{
-      max-height: calc(100vh - 630px);
+      .text-new-project-sec{
+        p{
+          font-size: 16px;
+        }
+        .description-new-project-sec{
+          font-size: 14px;
+        }
+      }
     }
   }
 }
@@ -2317,7 +2341,17 @@
       }
     }
     .new-project-sec{
-      padding: 21px;
+      padding: 21px 0px;
+      .btn-create{
+        img{
+          width: 20px;
+          height: 20px;
+        }
+        font-size: 21px;
+      }
+      .new-project-sec-right{
+        display: flex;
+      }
       img{
         height: 42px;
       }
@@ -2337,13 +2371,16 @@
         }
       }
     }
-    .new-project-sec:hover{
-      opacity: 0.8;
-    }
+    // .new-project-sec:hover{
+    //   opacity: 0.8;
+    // }
     .existing-project{
       padding: 21px;
       img{
         height: 40px;
+      }
+      .description-new-project-sec{
+        font-size: 19px;
       }
       p{
         font-size: 21px;

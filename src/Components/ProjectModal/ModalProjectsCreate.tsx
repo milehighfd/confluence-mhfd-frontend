@@ -163,16 +163,25 @@ const ModalProjectsCreate = ({visible, setVisible}
               {boardLocality} {year} {boardType}
             </span>
           </p>}
-          <div className='new-project-sec' onClick={onClickNewProject}>
+          {/* <div className='new-project-sec' onClick={onClickNewProject}>
             <img src="/Icons/icon-18-green.svg" alt="plus-green" />
             <div className='text-new-project-sec'>
               <p>New Project</p>
               <p className='description-new-project-sec'>Includes CIP, Studies, Acquisitions, R&D and Maintenance Activities</p>
             </div>
-          </div>
-          <div className='existing-project'>
-            <img src="/Icons/ic-files-green.svg" alt="plus-green" />
-            <p className='text'>Existing Project</p>
+          </div> */}
+          <div className='new-project-sec'>
+            <div className='new-project-sec-right'>
+              <img src="/Icons/ic-files-green.svg" alt="plus-green" />
+              <div className='text-new-project-sec'>
+                <p >Search for a Project</p>
+                <p className='description-new-project-sec'>Search for a project from a previous year's Work Request or Work Plan by Name, Project ID, or OnBase project number.</p>
+              </div>
+            </div>
+            <Button className="btn-transparent btn-create" onClick={onClickNewProject}>
+                {<img src="/Icons/icon-18.svg" style={{ marginBottom: '2px' }} alt="" />}
+                Create Project
+            </Button>
           </div>
           <Input
             className='input-search'
