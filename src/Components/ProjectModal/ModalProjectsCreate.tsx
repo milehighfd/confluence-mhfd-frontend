@@ -66,7 +66,7 @@ const ModalProjectsCreate = ({visible, setVisible}
   }, [namespaceId]);
 
   useEffect(() => {
-    if (!keyword) return;
+    // if (!keyword) return;
     const searchInfo = {
       keyword,
       locality: namespaceId.locality,
@@ -189,19 +189,20 @@ const ModalProjectsCreate = ({visible, setVisible}
             prefix={<SearchOutlined />}
             onPressEnter={(event: React.KeyboardEvent<HTMLInputElement>) => setKeyword(event.currentTarget.value)}
           />
-          {keyword && <Row className='row-project-project'>
-            <Col span={12}>
+          {<Row className='row-project-project'>
+            <Col span={16}>
               <p className='title-list' >Project</p>
             </Col>
             <Col span={4}>
               <p className='title-list' style={{ paddingLeft: '5px' }}>Type</p>
             </Col>
-            <Col span={8} >
-              <p className='title-list' style={{ paddingLeft: '5px' }}>Sponsor</p>
+            <Col span={4} >
+              <p className='title-list' style={{ paddingLeft: '5px' }}>Preview</p>
             </Col>
           </Row>}
-          {keyword && <div className='body-create-projects'>
-            {listProjects.map((project, index) => (
+          { <div className='body-create-projects'>
+            {listProjects.length > 0 ?
+              listProjects.map((project, index) => (
               <Row 
               key={index} 
               className={`row-detail-project ${selectedProjectId === project.id ? 'selected' : ''}`}
@@ -213,17 +214,28 @@ const ModalProjectsCreate = ({visible, setVisible}
                 })
               }}
               >
-                <Col span={12} className='col-create-project'>
+                <Col span={16} className='col-create-project'>
                   {project.name}
                 </Col>
                 <Col span={4} className='col-create-project'>
                   {project.type}
                 </Col>
-                <Col span={8} style={{}} className='col-create-project'>
-                  {project.sponsor}
+                <Col span={4} style={{}} className='col-create-project'>
+                  {/* {project.sponsor} */}
+                  Open
                 </Col>
               </Row>
-            ))}
+            ))
+            : <div className='nothing-found'>
+                <img src='/Icons/no_data.svg' alt='no_data' />
+                <h2>Nothing Found!</h2>
+                <p>
+                  There 's nothing related to <b>“{keyword}"</b> inside
+                  <br/>
+                  the project database. Go ahead and <span style={{color:'#29C499', textDecoration:'underline', cursor:'pointer'}}   onClick={onClickNewProject}>create a project</span>.
+                </p>
+              </div>
+          }
           </div>}
         </div>
       </Modal>
