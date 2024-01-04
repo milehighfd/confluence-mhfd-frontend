@@ -332,13 +332,13 @@ const EditDatesModal = ({
         },
         datasets.getToken(),
       );  
-      openNotification('Success! Your project timeline was just updated!', "success");
+      openNotification('Success! Your project was activated correctly!', "success");
       setStep(0);
       setVisible(false);
       loadColumns();
     } catch (error) {
       console.error(error);
-      openNotification(`Error.`, "warning", 'An error occurred while updating your project timeline.');
+      openNotification(`Error.`, "warning", 'An error occurred while activating your project.');
     }
   };
 
@@ -551,13 +551,13 @@ const EditDatesModal = ({
                     {dates?.map((x: any, index: number) => {
                       return (
                         <div key={x.phase_id} className="text-tollgate-title">
-                          <span className='name-tollgate' style={{ marginBottom: '25px', color: invalidDateIndex === index ? 'red' : undefined }}>
+                          <span className='name-tollgate' style={{color: invalidDateIndex === index ? 'red' : undefined }}>
                             <span className="span-dots-tollgate">
                               <div className="toolgate-circle" style={{ backgroundColor: colorScale[paintCircle(index)] }} />
                             </span>
                             {x.name.replace(/([A-Z])/g, ' $1')}
                           </span>
-                          <span>
+                          <span className='dots-tollgate'>
                             {x.locked && <LockOutlined />}
                             <Dropdown overlay={menu(x, index)} placement="bottomRight">
                               <MoreOutlined />

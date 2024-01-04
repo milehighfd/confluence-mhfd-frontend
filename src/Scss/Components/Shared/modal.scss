@@ -687,13 +687,23 @@
       .tollgate-body{
         height: 311px;
         padding-top: 2px;
+        .text-tollgate-title{
+          padding-top: 5px;
+          .name-tollgate{
+            line-height: 1.4;
+            height: 40px;
+          }
+          .dots-tollgate{
+            padding-top: 2px;
+          }
+        }
       }
     }
     .duration-toollgate{
-      margin-bottom: 14.5px !important;
+      margin-bottom: 13px !important;
     }
     .calendar-toollgate {
-      margin-bottom: 14.5px !important;
+      margin-bottom: 13px !important;
     }
 
   }
@@ -1017,10 +1027,12 @@
         }   
       }
       .calendar-toollgate{
-        margin-bottom: 11px !important;
+        height: 35px;
+        margin-bottom: 10px !important;
       }
       .duration-toollgate {
-        margin-bottom: 11px !important;
+        height: 35px;
+        margin-bottom: 10px !important;
       }
     }
     .body-edit-dates{
@@ -1172,19 +1184,20 @@
           height: 524px !important;
           .text-tollgate-title{
             .name-tollgate{
-              margin-bottom: 22px !important;
+              height: 60px;
+              margin-bottom: 0px !important;
             }
           }
         }
       }
       .calendar-toollgate{
-        margin-bottom: 11px !important;
+        margin-bottom: 23px !important;
         .ant-picker-input > input {
           font-size: 19px;
         }
       }
       .duration-toollgate {
-        margin-bottom: 11px !important;
+        margin-bottom: 23px !important;
       }
       .ant-picker.ant-picker-borderless {
         height: 42px;

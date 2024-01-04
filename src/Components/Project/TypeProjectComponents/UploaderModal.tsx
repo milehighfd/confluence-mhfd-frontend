@@ -89,7 +89,7 @@ export const UploaderModal = (
       destroyOnClose>
       <div className="upload">
         <Row className="detailed-h" gutter={[16, 8]}>
-          <Col xs={{ span: 16 }} lg={{ span: 16 }}>
+          <Col xs={{ span: 16 }} lg={{ span: 16 }} style={{padding:'0px'}}>
             <h1 style={{marginTop: '15px'}}>{ type === 'images' ? 'Upload Images' : 'Upload Documents'}
             </h1>
           </Col>
@@ -98,7 +98,7 @@ export const UploaderModal = (
           </Col>
         </Row>
         <Row className="detailed-h" gutter={[16, 16]} style={{backgroundColor: 'white', paddingBottom:'0px'}}>
-        <label className="sub-title" style={{color:'#11093C'}}>Title </label>
+          <label className="sub-title" style={{color:'#11093C'}}>Title </label>
           <Input placeholder="Add title" onChange={(e) => setDescriptionFile(e.target.value)}/>
           <input 
             id="uploader"
@@ -115,16 +115,16 @@ export const UploaderModal = (
               onDragLeave={dragLeave}
               onDrop={fileDrop}>
               <label htmlFor="uploader" className="draw" style={{paddingTop: '40px'}}>
-                <img style={{marginRight:'5px', marginTop:'-3px', height: '56px'}} src="/Icons/ic-upload.svg" />
+                <img style={{marginTop:'-3px', height: '56px'}} src="/Icons/ic-upload.svg" alt=''/>
                 <h1 style={{fontSize:'19px'}}>Select file to Upload</h1>
-                  <p>or drag and drop it here</p>
-                  <p style={{paddingTop: '20px'}}>Accepted File Types: {type === 'images' ? '.png or .jpg' : '.docx, .xlsx, or .pdf'}</p>
+                <p>or drag and drop it here</p>
+                <p style={{paddingTop: '20px', paddingBottom:'10px'}}>Accepted File Types: {type === 'images' ? '.png or .jpg' : '.docx, .xlsx, or .pdf'}</p>
               </label>
           </div>
         </Row>
         {
           selectedFile && <Row className="detailed-h" gutter={[16, 16]} style={{backgroundColor: 'white', minHeight: '25px', padding: '7px 20px'}}>
-          <div style={{width: '100%', padding: '8px'}}>
+          <div style={{width: '100%', padding: '8px 0px'}}>
             <span className="tag-upload" style={{
               background: '#282363',
               borderRadius: '16px',              
@@ -136,7 +136,7 @@ export const UploaderModal = (
         }
         {
           errorMessage && <Row className="detailed-h" gutter={[16, 16]} style={{backgroundColor: 'white', minHeight: '25px', padding: '7px 20px'}}>
-          <div style={{width: '100%', padding: '8px'}}>
+          <div style={{width: '100%', padding: '8px 0px'}}>
             <span className="tag-upload" style={{
               background: 'white',
               borderRadius: '16px',              
@@ -147,7 +147,7 @@ export const UploaderModal = (
         </Row>
         }
         <Row className="detailed-h" gutter={[16, 16]} style={{backgroundColor: 'white', minHeight: '25px', padding: '0px'}}>
-          <div style={{width: '100%', padding: '8px'}}>
+          <div style={{width: '100%', padding: '8px 0px'}}>
             <Button
               className="upload-button"
               onClick={() => addFile(selectedFile, descriptionFile, type)}

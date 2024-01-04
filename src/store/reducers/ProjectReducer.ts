@@ -113,7 +113,8 @@ const initState = {
   globalSearchValue: '',
   discussion: [],
   completeCosts: {},
-  isStillLoading: false
+  isStillLoading: false,
+  scrollToImages: false
 }
 
 const projectReducer = (state = initState, action: any) => {
@@ -501,7 +502,12 @@ const projectReducer = (state = initState, action: any) => {
         isStillLoading: action.isStillLoading
       }
     }
-
+    case types.SCROLL_TO_IMAGES: {
+      return {
+        ...state,
+        scrollToImages: action.scrollToImages
+      }
+    }
     default: 
       return state;
   }
