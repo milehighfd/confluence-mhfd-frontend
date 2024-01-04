@@ -338,7 +338,7 @@ const TableBody = ({
       {
         key: '2',
         label: <span style={{display: 'flex', alignItems: 'center'}}> 
-          <img src="/Icons/ic-detail.svg" alt=""/> View Images
+          <img src="/Icons/ic_images.svg" alt=""/> View Images
         </span>,
       }
     ];
