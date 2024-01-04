@@ -114,6 +114,7 @@ const ColumsTrelloCard = ({
     targetPosition: number,
   ) => {
     const projectId = columns[originColumnPosition].projects[sourcePosition]?.projectData?.project_id;
+    const projectData = columns[originColumnPosition].projects[sourcePosition]?.projectData;
     let projectExistOutsideGivenColumn = false;
     const doesProjectExistOutsideGivenColumn = (projectId:number, columns:any, excludedColumnPosition:number) => {
       for (let i = 0; i < columns.length; i++) {
@@ -154,7 +155,8 @@ const ColumsTrelloCard = ({
           targetColumnPosition,
           sourcePosition,
           targetPosition,
-          isWorkPlan: namespaceId.type === WORK_PLAN
+          isWorkPlan: namespaceId.type === WORK_PLAN,
+          projectData
         });
       } else {
         handleMoveFromColumnToColumn({
@@ -162,7 +164,8 @@ const ColumsTrelloCard = ({
           targetColumnPosition,
           sourcePosition,
           targetPosition,
-          isWorkPlan: namespaceId.type === WORK_PLAN
+          isWorkPlan: namespaceId.type === WORK_PLAN,
+          projectData
         });
         if (namespaceId.type === WORK_PLAN 
           && boardStatus === 'Approved' && 

@@ -434,7 +434,7 @@ const moveProjectsManualReducer = (columns2: any[], action: any) => {
 export const moveProjectsManual = (payload: DragAndDropCards) => {
   return (dispatch: any, getState: Function) => {
     const { request: { columns2, namespaceId } } = getState();
-    const { originColumnPosition, targetPosition, isWorkPlan } = payload;
+    const { originColumnPosition, targetPosition, isWorkPlan, projectData } = payload;
     const updatedColumns = moveProjectsManualReducer(columns2, { payload });
     const projectsUpdated = updatedColumns[originColumnPosition].projects;
     
@@ -456,7 +456,8 @@ export const moveProjectsManual = (payload: DragAndDropCards) => {
         beforeIndex: targetPosition - 1,
         afterIndex: targetPosition === projectsUpdated.length - 1 ? -1 : targetPosition + 1,
         isWorkPlan,
-        boardId: namespaceId
+        boardId: namespaceId,
+        projectData
       },
       datasets.getToken()
     ).then(() => {
@@ -522,16 +523,18 @@ const handleMoveFromColumnToColumnReducer = (columns2: any[], action: any): any[
 export const handleMoveFromColumnToColumn = (payload: DragAndDropCards) => {
   return (dispatch: any, getState: Function) => {
     const { request: { columns2, namespaceId } } = getState();
-    const { originColumnPosition, targetColumnPosition, targetPosition, isWorkPlan } = payload;
+    const { originColumnPosition, targetColumnPosition, targetPosition, isWorkPlan, projectData } = payload;
     const [
       updatedColumns,
       requestFields,
       targetColumnSameProjectIndex
     ] = handleMoveFromColumnToColumnReducer(columns2, { payload });
+    const previousPosition = targetPosition - 1;
+    const nextPosition = targetPosition + 1;
     const projectsUpdated = updatedColumns[targetColumnPosition].projects;
     const projectPosition = targetColumnSameProjectIndex === -1 ? targetPosition : targetColumnSameProjectIndex;
-    const before = projectPosition === 0 ? null : projectsUpdated[projectPosition - 1][`rank${targetColumnPosition}`];
-    const after = projectPosition >= projectsUpdated.length - 1 ? null : projectsUpdated[projectPosition + 1][`rank${targetColumnPosition}`];
+    const before = targetPosition === 0 ? null : projectsUpdated[previousPosition][`boardProjectToCostData`][0]?.sort_order;
+    const after = targetPosition === projectsUpdated.length - 1 ? null : projectsUpdated[nextPosition][`boardProjectToCostData`][0]?.sort_order;
     dispatch({
       type: types.REQUEST_HANDLE_MOVE_FROM_COLUMN_TO_COLUMN_MANUAL,
       payload: updatedColumns
@@ -545,9 +548,10 @@ export const handleMoveFromColumnToColumn = (payload: DragAndDropCards) => {
         beforeIndex: projectPosition - 1,
         afterIndex: projectPosition === projectsUpdated.length - 1 ? -1 : projectPosition + 1,
         targetPosition: projectPosition,
-        otherFields: { ...requestFields, [`rank${originColumnPosition}`]: null },
+        previousColumn: originColumnPosition,
         isWorkPlan,
-        boardId: namespaceId
+        boardId: namespaceId,
+        projectData
       },
       datasets.getToken()
     ).then((res: any) => {
