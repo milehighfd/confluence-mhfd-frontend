@@ -180,7 +180,7 @@ const ModalProjectsCreate = ({visible, setVisible}
             prefix={<SearchOutlined />}
             onPressEnter={(event: React.KeyboardEvent<HTMLInputElement>) => setKeyword(event.currentTarget.value)}
           />
-          { <Row className='row-project-project'>
+          {<Row className='row-project-project'>
             <Col span={12}>
               <p className='title-list' >Project</p>
             </Col>
@@ -192,7 +192,8 @@ const ModalProjectsCreate = ({visible, setVisible}
             </Col>
           </Row>}
           { <div className='body-create-projects'>
-            {listProjects.map((project, index) => (
+            {listProjects.length > 0 ?
+              listProjects.map((project, index) => (
               <Row 
               key={index} 
               className={`row-detail-project ${selectedProjectId === project.id ? 'selected' : ''}`}
@@ -214,7 +215,17 @@ const ModalProjectsCreate = ({visible, setVisible}
                   {project.sponsor}
                 </Col>
               </Row>
-            ))}
+            ))
+            : <div className='nothing-found'>
+                <img src='/Icons/no_data.svg' alt='no_data' />
+                <h2>Nothing Found!</h2>
+                <p>
+                  There 's nothing related to <b>“search query"</b> inside
+                  <br/>
+                  the project database. Go ahead and <span style={{color:'#29C499', textDecoration:'underline', cursor:'pointer'}}   onClick={onClickNewProject}>create a project</span>.
+                </p>
+              </div>
+          }
           </div>}
         </div>
       </Modal>
