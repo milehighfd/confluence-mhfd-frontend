@@ -312,9 +312,9 @@ const TableBody = ({
   }
   const menu = (dataValue: any) => {
     const onClickElement = (e: any) => {
-      if (e.key === '0' || e.key === '2') {
+      if (e.key === '0' || e.key === '1') {
         getCompleteProjectData(dataValue.project_id);
-        if (e.key === '2') {
+        if (e.key === '1') {
           setScrollToImages(true);
         }
       } else {
@@ -332,13 +332,13 @@ const TableBody = ({
       {
         key: '1',
         label: <span style={{display: 'flex', alignItems: 'center'}}> 
-          <img src="/Icons/ic-detail.svg" alt=""/> Detail Page
+          <img src="/Icons/ic_images.svg" alt=""/> Edit Images
         </span>,
       },
       {
         key: '2',
         label: <span style={{display: 'flex', alignItems: 'center'}}> 
-          <img src="/Icons/ic_images.svg" alt=""/> View Images
+          <img src="/Icons/ic-detail.svg" alt=""/> Detail Page
         </span>,
       }
     ];
