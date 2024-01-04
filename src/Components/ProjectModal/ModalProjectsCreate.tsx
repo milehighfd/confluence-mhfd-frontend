@@ -181,14 +181,14 @@ const ModalProjectsCreate = ({visible, setVisible}
             onPressEnter={(event: React.KeyboardEvent<HTMLInputElement>) => setKeyword(event.currentTarget.value)}
           />
           {<Row className='row-project-project'>
-            <Col span={12}>
+            <Col span={16}>
               <p className='title-list' >Project</p>
             </Col>
             <Col span={4}>
               <p className='title-list' style={{ paddingLeft: '5px' }}>Type</p>
             </Col>
-            <Col span={8} >
-              <p className='title-list' style={{ paddingLeft: '5px' }}>Sponsor</p>
+            <Col span={4} >
+              <p className='title-list' style={{ paddingLeft: '5px' }}>Preview</p>
             </Col>
           </Row>}
           { <div className='body-create-projects'>
@@ -205,14 +205,15 @@ const ModalProjectsCreate = ({visible, setVisible}
                 })
               }}
               >
-                <Col span={12} className='col-create-project'>
+                <Col span={16} className='col-create-project'>
                   {project.name}
                 </Col>
                 <Col span={4} className='col-create-project'>
                   {project.type}
                 </Col>
-                <Col span={8} style={{}} className='col-create-project'>
-                  {project.sponsor}
+                <Col span={4} style={{}} className='col-create-project'>
+                  {/* {project.sponsor} */}
+                  Open
                 </Col>
               </Row>
             ))
