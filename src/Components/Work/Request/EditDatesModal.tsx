@@ -332,13 +332,13 @@ const EditDatesModal = ({
         },
         datasets.getToken(),
       );  
-      openNotification('Success! Your project timeline was just updated!', "success");
+      openNotification('Success! Your project was activated correctly!', "success");
       setStep(0);
       setVisible(false);
       loadColumns();
     } catch (error) {
       console.error(error);
-      openNotification(`Error.`, "warning", 'An error occurred while updating your project timeline.');
+      openNotification(`Error.`, "warning", 'An error occurred while activating your project.');
     }
   };
 
