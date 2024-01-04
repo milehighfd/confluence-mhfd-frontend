@@ -1491,7 +1491,8 @@
     .nothing-found{
       text-align: center;
       width: 100%;
-      padding: 24px 0px;
+      padding: 20px 0px;
+      padding-bottom: 0px;
       color: $purple00;
       h2{
         color: $purple00;
@@ -1777,6 +1778,10 @@
           font-size: 14px;
         }
       }
+    }
+    .nothing-found{
+      padding: 24px 0px !important;
+      padding-bottom: 24px !important;
     }
     .input-search{
       padding: 0px 15px;
@@ -2419,6 +2424,19 @@
     }
     .title-list{
       font-size: 17px;
+    }
+    .nothing-found{
+      padding: 30px 0px !important;
+      padding-bottom: 30px !important;
+      img{
+        height: 105px;
+      }
+      h2{
+        font-size: 28px;
+      }
+      p{
+        font-size: 18px;
+      }
     }
   }
 }
