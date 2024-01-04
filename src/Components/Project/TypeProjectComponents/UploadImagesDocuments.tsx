@@ -17,8 +17,20 @@ interface DataType {
   age: number;
   address: string;
 }
-export const UploadImagesDocuments = ({isCapital, setFiles, index, type, visibleCapital}: {
-  isCapital?: any, setFiles: any, index?: any, type: string, visibleCapital: boolean;
+export const UploadImagesDocuments = ({
+  isCapital, 
+  setFiles, 
+  index, 
+  type, 
+  visibleCapital,
+  uploadRef
+}: {
+  isCapital?: any,
+  setFiles: any, 
+  index?: any, 
+  type: string, 
+  visibleCapital: boolean,
+  uploadRef: any
 }) => {
   const {
     setDeleteAttachmentsIds,
@@ -328,7 +340,7 @@ const mimeToExtension = (mimeType:any) => {
   }
   return (
     <>
-    <div className="upload-sections">
+    <div className="upload-sections" ref={uploadRef}>
       <div className="upload-documents">
         <div className="sub-title-project sub-title-project-upload">
           <h5 className="requestor-information">{index}
