@@ -221,7 +221,7 @@ const ModalProjectsCreate = ({visible, setVisible}
                 <img src='/Icons/no_data.svg' alt='no_data' />
                 <h2>Nothing Found!</h2>
                 <p>
-                  There 's nothing related to <b>“search query"</b> inside
+                  There 's nothing related to <b>“{keyword}"</b> inside
                   <br/>
                   the project database. Go ahead and <span style={{color:'#29C499', textDecoration:'underline', cursor:'pointer'}}   onClick={onClickNewProject}>create a project</span>.
                 </p>
