@@ -222,7 +222,7 @@ const ModalProjectsCreate = ({visible, setVisible}
                   </Col>
                   <Col span={4} style={{}} className='col-create-project'>
                     {/* {project.sponsor} */}
-                    Open
+                    <span style={{color:'#29C499', cursor:'pointer'}}>View</span>
                   </Col>
                 </Row>
               ))}</div>)
