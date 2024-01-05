@@ -434,12 +434,13 @@ const moveProjectsManualReducer = (columns2: any[], action: any) => {
 export const moveProjectsManual = (payload: DragAndDropCards) => {
   return (dispatch: any, getState: Function) => {
     const { request: { columns2, namespaceId } } = getState();
-    const { originColumnPosition, targetPosition, isWorkPlan, projectData } = payload;
+    const { originColumnPosition, targetPosition, isWorkPlan, projectData, sourcePosition } = payload;
     const updatedColumns = moveProjectsManualReducer(columns2, { payload });
     const projectsUpdated = updatedColumns[originColumnPosition].projects;
     
     const previousPosition = targetPosition - 1;
     const nextPosition = targetPosition + 1;
+    
     const before = targetPosition === 0 ? null : projectsUpdated[previousPosition][`boardProjectToCostData`][0]?.sort_order;
     const after = targetPosition === projectsUpdated.length - 1 ? null : projectsUpdated[nextPosition][`boardProjectToCostData`][0]?.sort_order;
     console.log('Projects updated', projectsUpdated, projectsUpdated[previousPosition], projectsUpdated[nextPosition]);
@@ -457,7 +458,10 @@ export const moveProjectsManual = (payload: DragAndDropCards) => {
         afterIndex: targetPosition === projectsUpdated.length - 1 ? -1 : targetPosition + 1,
         isWorkPlan,
         boardId: namespaceId,
-        projectData
+        previousColumn: originColumnPosition,
+        projectData,
+        targetPosition,
+        sourcePosition
       },
       datasets.getToken()
     ).then(() => {
