@@ -29,7 +29,8 @@ const ColumsTrelloCard = ({
   const { 
     moveProjectsManual, 
     handleMoveFromColumnToColumn, 
-    setVisibleCreateOrImport
+    setVisibleCreateOrImport,
+    setVisibleCreateProject
   } = useRequestDispatch();
   const { userInformation } = useProfileState();
   const { clear } = useAttachmentDispatch();
@@ -57,8 +58,8 @@ const ColumsTrelloCard = ({
 
   const onClickNewProject = () => {
     clear();
-    //setVisibleCreateProject(true);   
-    setVisibleCreateOrImport(true);
+    setVisibleCreateProject(true);   
+    //setVisibleCreateOrImport(true);
     setStreamsIds([]);
     setComponentsFromMap([]);
   };
