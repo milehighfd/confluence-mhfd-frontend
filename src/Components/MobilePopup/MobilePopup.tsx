@@ -55,7 +55,7 @@ const MobilePopup = ({items,  seeDetails}: {items: any, seeDetails: Function}) =
           {data.watershedmanager && <h6><a className="sub-title">Watershed Manager: </a>{data.watershedmanager}</h6>}
           {data.constructionmanagers && <h6><animate className="sub-title">Construction Managers: </animate>{data.constructionmanagers}</h6>}
           
-          {data.mhfd_code ? <h6><a className="sub-title">MHFD Code:</a>  {data.mhfd_code}</h6> : ''}
+          {data.mhfd_code_stream ? <h6><a className="sub-title">MHFD Code:</a>  {data.mhfd_code_stream}</h6> : ''}
           {data.catch_sum ? <h6><a className="sub-title">Tributary:</a>  {Math.round(data.catch_sum) + " acres"}</h6> : ''}
           {data.str_ft ?<h6> <a className="sub-title">Reach Length:</a>  {Math.round(data.str_ft) + " ft"}</h6> : ''}
           {data.slope ?<h6> <a className="sub-title">Slope:</a>  {(data.slope * 100).toFixed(2) + "%"}</h6> : ''}
