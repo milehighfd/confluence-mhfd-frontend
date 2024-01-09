@@ -25,7 +25,7 @@ const ColumsTrelloCard = ({
   type: string,
   selectView: string
 }) => {
-  const { columns2: columns, tabKey, locality, year, namespaceId, boardStatus, loadingColumns } = useRequestState();
+  const { columns2: columns, tabKey, locality, year, namespaceId, boardStatus, loadingColumns, filterRequest } = useRequestState();
   const { 
     moveProjectsManual, 
     handleMoveFromColumnToColumn, 
@@ -107,12 +107,26 @@ const ColumsTrelloCard = ({
         return 0;
     }
   };
+  const isFilterApplied = () => {
+    // check if filterRequest has any selected value with true 
+    let filterApplied = false;
+    for (const key in filterRequest) {
+      if (filterRequest[key].selected) {
+        filterApplied = true;
+        break;
+      }
+    }
+    return filterApplied;
+  }
   const onDropV2 = (
     originColumnPosition: number,
     targetColumnPosition: number,
     sourcePosition: number,
     targetPosition: number,
   ) => {
+    if (isFilterApplied()) {
+      return;
+    }
     const projectId = columns[originColumnPosition].projects[sourcePosition]?.projectData?.project_id;
     const projectData = columns[originColumnPosition].projects[sourcePosition]?.projectData;
     let projectExistOutsideGivenColumn = false;
