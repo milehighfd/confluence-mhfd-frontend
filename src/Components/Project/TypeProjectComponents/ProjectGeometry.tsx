@@ -47,7 +47,6 @@ export const ProjectGeometry = ({
     maximumFractionDigits: 2,
   });
 
-
   const formatNumberToAcres = (number:number) => {
     const sqmiles = +number * 0.0015625;
     const formattedSqMiles = formatterDecimals.format(sqmiles);
@@ -92,7 +91,7 @@ export const ProjectGeometry = ({
           key: `title-${id}`,
           reach: key,
           delete: true,
-          mhfd_code: thislistStreams[key][0]?.mhfd_code,
+          mhfd_code: thislistStreams[key][0]?.mhfd_code_stream,
         };
         dataFormated.push(titleTemplate);
         const substreams = thislistStreams[key];
@@ -221,7 +220,7 @@ export const ProjectGeometry = ({
 
   const removeStreamByName = (stream: any) => {
     let mhfd_NameToRemove = stream?.reach;
-    let mhfd_codeToRemove = stream?.mhfd_code;
+    let mhfd_codeToRemove = stream?.mhfd_code_stream;
     let copyList = { ...currentListStreams.current };
     for (let jurisdiction in copyList) {      let newArray = [...copyList[jurisdiction]].filter((st: any) => {
         if (mhfd_NameToRemove === 'Unnamed Streams') {
@@ -245,7 +244,7 @@ export const ProjectGeometry = ({
         if (mhfd_NameToRemove === 'Unnamed Streams') {
           return id.str_name;
         } else {
-          return id.mhfd_code_full ? id.mhfd_code_full !== mhfd_codeToRemove : id.mhfd_code !== mhfd_codeToRemove; 
+          return id.mhfd_code_full ? id.mhfd_code_full !== mhfd_codeToRemove : id.mhfd_code_stream !== mhfd_codeToRemove; 
         }
       });
       setStreamsIds(newIds);
@@ -311,7 +310,7 @@ export const ProjectGeometry = ({
                       setHighlightedStreams(listStreams[key])
                     } else {
                       const streamData = listStreams[key];
-                      const valueHighlight = !(streamData[0].cartodb_id) ? deletefirstnumbersmhfdcode(streamData[0]) : streamData[0].mhfd_code;
+                      const valueHighlight = !(streamData[0].cartodb_id) ? (streamData[0].stream.stream.mhfd_code_stream) : streamData[0].mhfd_code;
                       setHighlightedStream(valueHighlight);
                     }
                   },
