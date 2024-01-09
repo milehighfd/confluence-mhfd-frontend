@@ -988,10 +988,10 @@ export const addPopupsOnClick = async (
           layer: 'Streams',
           title: dataFromDBforStreams[0] ? dataFromDBforStreams[0].stream_name : 'Unnamed Stream',
           streamname: dataFromDBforStreams[0].stream_name,
-          mhfd_code: dataFromDBforStreams[0].mhfd_code,
-          catch_sum: dataFromDBforStreams[0].catchment_area_sum_ac,
-          str_ft: dataFromDBforStreams[0].stream_length_ft,
-          slope: dataFromDBforStreams[0].slope_ft,
+          mhfd_code: dataFromDBforStreams[0].mhfd_code_stream,
+          catch_sum: dataFromDBforStreams[0].sum_catchment_area_ac,
+          str_ft: dataFromDBforStreams[0].sum_stream_length_ft,
+          slope: dataFromDBforStreams[0].slope_ft ?? feature.properties.slope
         };
         menuOptions.push('Stream');
         mobile.push({ ...item });
