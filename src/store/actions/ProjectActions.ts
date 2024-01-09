@@ -407,7 +407,7 @@ export const getStreamsByProjectId = (projectId: any, typeProjectId: any) => {
       const completeMhfdList:any = [];
       independentStreams = independentStreams.map((indStr:any) => {
         const arrayValues = indStr.stream.stream.mhfd_code_stream.split('.');
-        arrayValues.shift();
+        //arrayValues.shift();
         completeMhfdList.push({mhfd_code_complete: indStr.stream.stream.mhfd_code_stream, mhfd_code_split: arrayValues.join('.'), str_name: indStr.stream.stream.stream_name});
         return arrayValues.join('.');
       });
