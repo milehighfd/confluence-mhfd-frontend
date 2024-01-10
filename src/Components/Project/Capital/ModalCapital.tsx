@@ -529,7 +529,7 @@ export const ModalCapital = ({
       }      
       //study
       if (selectedTypeProject === 'study') {
-        let mhfd_codes = streamsIntersectedIds.map((str: any) => str.mhfd_code_stream);
+        let mhfd_codes = streamsIntersectedIds.map((str: any) => str.mhfd_code);
         capital.ids = mhfd_codes;
         let newStreamsArray: any = [];
         for (let str in listStreams) {
