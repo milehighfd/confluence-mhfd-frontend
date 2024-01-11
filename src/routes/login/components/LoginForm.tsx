@@ -149,6 +149,10 @@ const LoginView = () => {
               <span className="highlight"></span>
               <span className="bar"></span>
             </div>
+            <span className='conection-message' style={{ color: message.color }}>&nbsp;&nbsp; {message.message}</span>
+            <Button className="btn-purple" block htmlType="submit">
+              Log In
+            </Button>
             <div className="marbot-4">
               <span>Don't have an account?</span>
               <Link
@@ -163,17 +167,13 @@ const LoginView = () => {
               >
                 Forgot Password?
               </Link>
-              <br/><br/>
+              {/* <br/><br/> */}
               <GoogleReCaptcha
                 onVerify={(token: string) => {
                   values.recaptcha = '' + (token !== 'null' ? token : '');
                 }}
               />
             </div>
-            <span className='conection-message' style={{ color: message.color }}>&nbsp;&nbsp; {message.message}</span>
-            <Button className="btn-purple" block htmlType="submit">
-              Login
-            </Button>
             <div className='divider-container'><hr /><span>or</span> <hr /></div>
             <div className="button-container">
               <Button className="text-button" onClick={() => redirectGuest()}>
