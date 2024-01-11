@@ -122,6 +122,7 @@ export const ModalCapital = ({
   } = useProjectState();
   
   const [loading, setLoading] = useState(false);
+  const [hasLoadData, setHasLoadData] = useState(false);
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -247,9 +248,9 @@ export const ModalCapital = ({
   },[openDiscussion]);
 
   useEffect(() => {
-    if (!isStillLoading && scrollToImages && !loading && uploadRef.current){
-      console.log('SCROLL TO IMAGES')
+    if (!isStillLoading && scrollToImages && !loading && uploadRef.current && hasLoadData){
       uploadRef.current.scrollIntoView({ behavior: 'smooth' });
+      setHasLoadData(false);
       setScrollToImages(false);
     }
   },[isStillLoading, loading]);
@@ -402,6 +403,7 @@ export const ModalCapital = ({
             )
         }, 1200);
       }
+      setHasLoadData(true);
     } else {
       setStreamIntersected([]);
       setIndComponents([]);
@@ -501,7 +503,7 @@ export const ModalCapital = ({
           componentsToSave?.length > 0 ?
             componentsToSave.length : 0) +
           (thisIndependentComponents?.length > 0 ? thisIndependentComponents.length : 0);
-        let mhfd_codes = streamsIntersectedIds.map((str: any) => str.mhfd_code);
+        let mhfd_codes = streamsIntersectedIds.map((str: any) => str.mhfd_code_stream);
         capital.ids = mhfd_codes;
         let newStreamsArray: any = [];
         for (let str in listStreams) {
@@ -517,7 +519,7 @@ export const ModalCapital = ({
         capital.frequency = frequency === 'None' ? 0 : frequency;
         capital.maintenanceeligibility = eligibility;
         capital.ownership = String(ownership);
-        let mhfd_codes = streamsIntersectedIds.map((str: any) => str.mhfd_code);
+        let mhfd_codes = streamsIntersectedIds.map((str: any) => str.mhfd_code_stream);
         capital.ids = mhfd_codes;
         let newStreamsArray: any = [];
         for (let str in listStreams) {
@@ -1412,16 +1414,15 @@ export const ModalCapital = ({
                 save={save}
                 subType={subType}
                 sponsor={sponsor}
-              />     
-              <div ref={uploadRef}>          
-                <UploadImagesDocuments              
-                  isCapital={true}
-                  setFiles={setFiles}
-                  index={indexForm++}
-                  type={''}
-                  visibleCapital={visibleCapital}
-                />
-              </div>  
+              />          
+              <UploadImagesDocuments              
+                isCapital={true}
+                setFiles={setFiles}
+                index={indexForm++}
+                type={''}
+                visibleCapital={visibleCapital}
+                uploadRef={uploadRef}
+              />
             </div>
           </>}
           {(activeTabBodyProject === 'Discussion' && swSave) &&

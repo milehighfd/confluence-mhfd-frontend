@@ -98,6 +98,40 @@
     margin-top: 1px;
   }
 }
+.divider-container{
+  display: flex;
+  color: $purple;
+  font-size: 16px;
+  align-items: center;
+  margin-top: 30px;
+  span{
+    padding: 3px 16px;
+  }
+  hr{
+    width: 100%;
+    opacity: 0.3;
+  }
+}
+.button-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  .text-button {
+    font-size: 15px;
+    margin-top: 3px;
+    border: none;
+    span{
+      color: $purple;
+      font-size: 18px;
+      margin-right: 6px;
+    }
+    &:hover{
+      opacity: 0.5;
+    }
+  }
+
+}
 .contact02:hover {
   color: $green;
 }
@@ -869,6 +903,34 @@
   }
   .group label{
     font-size: 21px;
+  }
+  .divider-container{
+    font-size: 21px;
+    margin-top: 30px;
+    span{
+      padding: 3px 16px;
+    }
+  }
+  .button-container{
+    margin-top: 20px;
+    button{
+      height: auto;
+      display: flex;
+      align-items: center;
+    }
+    .text-button {
+      font-size: 21px;
+      margin-top: 3px;
+      span{
+        font-size: 24px;
+        margin-right: 6px;
+      }
+      img{
+        width: 38px;
+        height: 38px;
+        margin-bottom: 0px;
+      }
+    }
   }
   .sign-menu-organization {
     max-height: 320px;

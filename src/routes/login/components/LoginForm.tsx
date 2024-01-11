@@ -11,6 +11,7 @@ import { useMapDispatch } from 'hook/mapHook';
 import { REQUIRED } from 'routes/login/components/constantsLogin';
 import { GlobalMapHook } from 'utils/globalMapHook';
 import CheckYourEmailModal from '../../sign-up/components/CheckYourEmailModal';
+import { ArrowRightOutlined } from '@ant-design/icons';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -95,6 +96,19 @@ const LoginView = () => {
     return <Redirect to="/map" />
   }
 
+  const redirectGuest = () => {
+    datasets.getData(SERVER.GUEST).then(async res => {
+      if (res?.token) {
+        localStorage.setItem('mfx-token', res.token);
+        await datasets.getData(SERVER.ME, datasets.getToken()).then(async result => {
+          replaceAppUser(result);
+          saveUserInformation(result)
+        });
+        setRedirect(true);
+      }
+    })
+  };
+
   return (
     <>
       {
@@ -160,6 +174,12 @@ const LoginView = () => {
             <Button className="btn-purple" block htmlType="submit">
               Login
             </Button>
+            <div className='divider-container'><hr /><span>or</span> <hr /></div>
+            <div className="button-container">
+              <Button className="text-button" onClick={() => redirectGuest()}>
+                <span className="text-l">Continue as Guest</span> <img src="/icons/ic_arrow-circle.svg" alt="" />
+              </Button>
+            </div>
           </div>
         </Form> :
         <CheckYourEmailModal
