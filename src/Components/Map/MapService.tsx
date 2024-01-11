@@ -124,7 +124,6 @@ class MapService {
       // 'custom-sprite/rd_RED.png',
       'custom-sprite/prop-acq_RED.png',
       'custom-sprite/MEP-X.png',
-      'custom-sprite/propacq_RED_small.png',
       'custom-sprite/SMC_medgreen.png',
       'custom-sprite/SMC_lightgreen.png',
       // 'custom-sprite/RD_RED_small.png',
