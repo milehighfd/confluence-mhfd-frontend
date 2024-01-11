@@ -25,7 +25,7 @@ export const ArchiveAlert = ({
       visible={visibleAlert}
       onOk={handleOk}
       onCancel={handleCancel}
-      className="c"
+      className="modal-confirm"
       width="400px"
     >
       <Row className="detailed-h" gutter={[16, 8]}>
