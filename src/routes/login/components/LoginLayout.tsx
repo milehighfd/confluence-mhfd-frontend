@@ -16,10 +16,10 @@ const LoginLayout = () => {
         }
         <Col xs={{ span: 24 }} lg={{ span: 11 }} className="login-hh">
           <div className="login-step01" id="login-form">
-
+{/* 
             {
               pageWidth < 700 && <ContinueAsGuest />
-            }
+            } */}
             <LoginForm />
           </div>
           <span

@@ -177,7 +177,7 @@ const LoginView = () => {
             <div className='divider-container'><hr /><span>or</span> <hr /></div>
             <div className="button-container">
               <Button className="text-button" onClick={() => redirectGuest()}>
-                <span className="text-l">Continue as Guest</span> <img src="/icons/ic_arrow-circle.svg" alt="" />
+                <span className="text-l">Continue as Guest</span> <ArrowRightOutlined></ArrowRightOutlined>
               </Button>
             </div>
           </div>
