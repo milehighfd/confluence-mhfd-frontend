@@ -7,7 +7,7 @@ import { formatter } from 'Components/Work/Request/RequestViewUtil';
 import AmountNumericInput from './AmountNumericInput';
 import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { BOARD_PROJECT_COST } from 'Config/endpoints/board-project';
-import { BOARD_STATUS_TYPES, MHFD_ACRONYM, WORK_PLAN, YEAR_LOGIC_2024 } from 'constants/constants';
+import { BOARD_STATUS_TYPES, MHFD_ACRONYM, PMTOOLS, WORK_PLAN, YEAR_LOGIC_2024 } from 'constants/constants';
 import { getBoardStatus } from 'dataFetching/workRequest';
 
 const EditAmountCreateProject = ({
@@ -18,7 +18,8 @@ const EditAmountCreateProject = ({
   save,
   subType,
   sponsor,
-  estimatedCostInput
+  estimatedCostInput,
+  originLocation
 }:{
   index: number,
   type: string,
@@ -27,7 +28,8 @@ const EditAmountCreateProject = ({
   save: any,
   subType: any,
   sponsor: any,
-  estimatedCostInput: any
+  estimatedCostInput: any,
+  originLocation: string | undefined
 }) => {
   const {
     columns2: columns,
@@ -125,9 +127,11 @@ const EditAmountCreateProject = ({
       datasets.getToken()
     ).then((res: any) => {
       // setCost(res.newCost);
-      res.columnsChanged.forEach((columnNumber: number) => {
-        loadOneColumn(columnNumber);
-      });
+      if (originLocation !== PMTOOLS) {
+        res.columnsChanged.forEach((columnNumber: number) => {
+          loadOneColumn(columnNumber);
+        });
+      }
     })
       .catch((err: any) => {
         console.log(err);

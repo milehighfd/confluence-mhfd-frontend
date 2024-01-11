@@ -1414,6 +1414,7 @@ export const ModalCapital = ({
                 save={save}
                 subType={subType}
                 sponsor={sponsor}
+                originLocation= {originLocation}
               />          
               <UploadImagesDocuments              
                 isCapital={true}
