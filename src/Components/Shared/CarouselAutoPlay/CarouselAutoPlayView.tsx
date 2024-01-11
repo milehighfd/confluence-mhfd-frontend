@@ -37,31 +37,31 @@ const CarouselAutoPlayView = () => {
     return <Redirect to="/map" />
   }
   return <Col xs={{ span: 24 }} lg={{ span: 13 }} style={{background: 'white'}}>
-    <a href="https://mhfd.org/" target="_blank">
+    <a href="https://mhfd.org/" target="_blank" rel="noreferrer">
       <div className="logo-white"
         style={{ backgroundImage: 'url(/Icons/logo-white.svg)' }}>
         <p className="text-logo">Protecting People, Property,</p>
         <p className="text-logo02">and our Environment.</p>
       </div>
     </a>
-    <div className="contact02">
+    {/* <div className="contact02">
     <Button className="text-button" onClick={() => redirectGuest()}>
       <span className="text-l">Continue as Guest</span> <ArrowRightOutlined/>
     </Button>
-    </div>
+    </div> */}
     <div className="contact01">
       <div className="icons-list">
-        <a href="https://twitter.com/MHFloodDistrict" target="_blank"><img className="anticon" src="/Icons/twitter.svg" alt="" height="14px" /></a>
-        <a href="https://www.facebook.com/MileHighFloodDistrict/" target="_blank"><img className="anticon" src="/Icons/facebook.svg" alt="" height="14px" /></a>
-        <a href="https://www.linkedin.com/company/milehighflooddistrict/" target="_blank"><img className="anticon" src="/Icons/link.svg" alt="" height="14px" /></a>
+        <a href="https://twitter.com/MHFloodDistrict" target="_blank" rel="noreferrer"><img className="anticon" src="/Icons/twitter.svg" alt="" height="14px" /></a>
+        <a href="https://www.facebook.com/MileHighFloodDistrict/" target="_blank" rel="noreferrer"><img className="anticon" src="/Icons/facebook.svg" alt="" height="14px" /></a>
+        <a href="https://www.linkedin.com/company/milehighflooddistrict/" target="_blank" rel="noreferrer"><img className="anticon" src="/Icons/link.svg" alt="" height="14px" /></a>
       </div>
       <div className="social01">
         <ul>
-          <li><a href="https://mhfd.org/contact-us/" target="_blank">Contact</a></li>
+          <li><a href="https://mhfd.org/contact-us/" target="_blank" rel="noreferrer">Contact</a></li>
           <span>|</span>
           <li><a href="/login" >©2023 Mile High Flood District</a></li>
           <span>|</span>
-          <li><a href="https://mhfd.org/wp-content/uploads/2019/12/CORA_Policy_Website.pdf" target="_blank">Privacy Policy</a></li>
+          <li><a href="https://mhfd.org/wp-content/uploads/2019/12/CORA_Policy_Website.pdf" target="_blank" rel="noreferrer">Privacy Policy</a></li>
         </ul>
       </div>
       <div className="mobile-login">
