@@ -904,6 +904,34 @@
   .group label{
     font-size: 21px;
   }
+  .divider-container{
+    font-size: 21px;
+    margin-top: 30px;
+    span{
+      padding: 3px 16px;
+    }
+  }
+  .button-container{
+    margin-top: 20px;
+    button{
+      height: auto;
+      display: flex;
+      align-items: center;
+    }
+    .text-button {
+      font-size: 21px;
+      margin-top: 3px;
+      span{
+        font-size: 24px;
+        margin-right: 6px;
+      }
+      img{
+        width: 38px;
+        height: 38px;
+        margin-bottom: 0px;
+      }
+    }
+  }
   .sign-menu-organization {
     max-height: 320px;
   }
