@@ -503,7 +503,7 @@ export const ModalCapital = ({
           componentsToSave?.length > 0 ?
             componentsToSave.length : 0) +
           (thisIndependentComponents?.length > 0 ? thisIndependentComponents.length : 0);
-        let mhfd_codes = streamsIntersectedIds.map((str: any) => str.mhfd_code);
+        let mhfd_codes = streamsIntersectedIds.map((str: any) => str.mhfd_code_stream);
         capital.ids = mhfd_codes;
         let newStreamsArray: any = [];
         for (let str in listStreams) {
@@ -519,7 +519,7 @@ export const ModalCapital = ({
         capital.frequency = frequency === 'None' ? 0 : frequency;
         capital.maintenanceeligibility = eligibility;
         capital.ownership = String(ownership);
-        let mhfd_codes = streamsIntersectedIds.map((str: any) => str.mhfd_code);
+        let mhfd_codes = streamsIntersectedIds.map((str: any) => str.mhfd_code_stream);
         capital.ids = mhfd_codes;
         let newStreamsArray: any = [];
         for (let str in listStreams) {

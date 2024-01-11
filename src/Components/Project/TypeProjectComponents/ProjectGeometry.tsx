@@ -47,7 +47,6 @@ export const ProjectGeometry = ({
     maximumFractionDigits: 2,
   });
 
-
   const formatNumberToAcres = (number:number) => {
     const sqmiles = +number * 0.0015625;
     const formattedSqMiles = formatterDecimals.format(sqmiles);
@@ -238,9 +237,9 @@ export const ProjectGeometry = ({
         newCopyList[jurisdiction] = copyList[jurisdiction];
       }
     }
-
     setStreamsList(newCopyList);
-    if (currentStreamsIds.current.length > 0) {
+    
+    if (currentStreamsIds.current.length > 0) {      
       let newIds = [...currentStreamsIds.current].filter((id: any) => {
         if (mhfd_NameToRemove === 'Unnamed Streams') {
           return id.str_name;
@@ -248,10 +247,9 @@ export const ProjectGeometry = ({
           return id.mhfd_code_full ? id.mhfd_code_full !== mhfd_codeToRemove : id.mhfd_code !== mhfd_codeToRemove; 
         }
       });
+      console.log(newIds, 'newIds')
       setStreamsIds(newIds);
-    }
-    
-    
+    }   
   }
 
   const clearTableAndGeom = () => {
@@ -311,7 +309,7 @@ export const ProjectGeometry = ({
                       setHighlightedStreams(listStreams[key])
                     } else {
                       const streamData = listStreams[key];
-                      const valueHighlight = !(streamData[0].cartodb_id) ? deletefirstnumbersmhfdcode(streamData[0]) : streamData[0].mhfd_code;
+                      const valueHighlight = !(streamData[0].cartodb_id) ? (streamData[0].stream.stream.mhfd_code_stream) : streamData[0].mhfd_code;
                       setHighlightedStream(valueHighlight);
                     }
                   },

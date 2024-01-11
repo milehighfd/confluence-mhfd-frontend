@@ -800,7 +800,7 @@ let magicAddingVariable = false;
         .filter((fstr: any) => fstr.mhfd_code)
         .map((str: any) => str.mhfd_code);
       map.isStyleLoaded(() => {
-        let filter = ['in', ['get', 'unique_mhfd_code'], ['literal', [...streamsCodes]]];
+        let filter = ['in', ['get', 'mhfd_code_stream'], ['literal', [...streamsCodes]]];
 
         map.removeLayer('streams-intersects');
         if (!map.getLayer('streams-intersects')) {
@@ -1547,7 +1547,7 @@ let magicAddingVariable = false;
     const styles = { ...(tileStyles as any) };
     styles[MHFD_STREAMS_FILTERS].forEach((style: LayerStylesType, index: number) => {
       if (map.getLayer(MHFD_STREAMS_FILTERS + '_' + index) && !magicAddingVariable) {
-        let filter = ['in', ['get', 'unique_mhfd_code'], ['literal', [mhfd_code]]];
+        let filter = ['in', ['get', 'mhfd_code_stream'], ['literal', [mhfd_code]]];
         map.map.moveLayer(MHFD_STREAMS_FILTERS + '_highlight_' + index);
         map.setFilter(MHFD_STREAMS_FILTERS + '_highlight_' + index, filter);
       }
@@ -1557,7 +1557,7 @@ let magicAddingVariable = false;
     const styles = { ...(tileStyles as any) };
     styles[MHFD_STREAMS_FILTERS].forEach((style: LayerStylesType, index: number) => {
       if (map.getLayer(MHFD_STREAMS_FILTERS + '_' + index) && !magicAddingVariable) {
-        let filter = ['in', ['get', 'unique_mhfd_code'], ['literal', [...mhfd_codes]]];
+        let filter = ['in', ['get', 'mhfd_code_stream'], ['literal', [...mhfd_codes]]];
         map.map.moveLayer(MHFD_STREAMS_FILTERS + '_highlight_' + index);
         map.setFilter(MHFD_STREAMS_FILTERS + '_highlight_' + index, filter);
       }

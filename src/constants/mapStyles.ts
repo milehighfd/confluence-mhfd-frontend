@@ -3328,7 +3328,7 @@ export const PROJECTS_STYLES_WR = {
       },
       'source-layer': 'pluto15v1',
       layout: {
-        'icon-image': 'RD_Red_New',
+        'icon-image': 'RD_red',
         'icon-size': 0.5,
         'icon-allow-overlap': true,
         'icon-padding': 0,
@@ -3345,7 +3345,7 @@ export const PROJECTS_STYLES_WR = {
       },
       'source-layer': 'pluto15v1',
       layout: {
-        'icon-image': 'RD_Orange_New',
+        'icon-image': 'RD_orange',
         'icon-size': 0.5,
         'icon-allow-overlap': true,
         'icon-padding': 0,
@@ -3362,7 +3362,7 @@ export const PROJECTS_STYLES_WR = {
       },
       'source-layer': 'pluto15v1',
       layout: {
-        'icon-image': 'RD_Pink_New',
+        'icon-image': 'RD_pink',
         'icon-size': 0.5,
         'icon-allow-overlap': true,
         'icon-padding': 0,
@@ -3381,7 +3381,7 @@ export const PROJECTS_STYLES_WR = {
       layout: {
         'icon-allow-overlap': true,
         'icon-padding': 0,
-        'icon-image': 'RD_Green_New',
+        'icon-image': 'RD_green',
         'icon-size': 0.5,
         'icon-ignore-placement': true,
       },

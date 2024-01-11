@@ -387,7 +387,7 @@ export const ComponentPopup = ({ id, item, isComponent, maptype, eventFunctions 
             {item.email? <p><i>Contact Us: </i><a href={`mailto:${item.email}`}> {item.email}</a></p>:''}
             {item.constructionmanagers ? <p><i>Construction Manager:</i>  {item.constructionmanagers}</p> : ''}
             {item.city ? <p><i>City:</i>  {item.city}</p> : ''}
-            {item.mhfd_code ? <p><i>MHFD Code:</i>  {item.mhfd_code}</p> : ''}
+            {item.mhfd_code_stream ? <p><i>MHFD Code:</i>  {item.mhfd_code_stream}</p> : ''}
             {item.catch_acre ? <p><i>Tributary Area:</i>  {item.catch_acre} acre-feet</p> : ''}
             {item.dfirm_id ? <p><i>DFIRM ID:</i>  {item.dfirm_id}</p> : ''}
             {item.fld_zone ? <p><i>Flood Zone:</i>  {item.fld_zone}</p> : ''}
@@ -483,7 +483,7 @@ export const ComponentPopupCreate = ({ id, item, isComponent, isWR, eventFunctio
           {item.watershedmanager ? <p><i>Watershed Manager:</i>  {item.watershedmanager}</p> : ''}
           {item.constructionmanagers ? <p><i>Construction Manager:</i>  {item.constructionmanagers}</p> : ''}
           {item.city ? <p><i>City:</i>  {item.city}</p> : ''}
-          {item.mhfd_code ? <p><i>MHFD Code:</i>  {item.mhfd_code}</p> : ''}
+          {item.mhfd_code_stream ? <p><i>MHFD Code:</i>  {item.mhfd_code_stream}</p> : ''}
           {item.catch_acre ? <p><i>Tributary Area:</i>  {item.catch_acre} acre-feet</p> : ''}
           {item.dfirm_id ? <p><i>DFIRM ID:</i>  {item.dfirm_id}</p> : ''}
           {item.fld_zone ? <p><i>Flood Zone:</i>  {item.fld_zone}</p> : ''}

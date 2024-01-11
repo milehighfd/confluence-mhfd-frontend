@@ -1489,17 +1489,6 @@
       border-radius: 10px;
       background-color: #f5f5f5;
     }
-    .nothing-found{
-      text-align: center;
-      width: 100%;
-      padding: 20px 0px;
-      padding-bottom: 0px;
-      color: $purple00;
-      h2{
-        color: $purple00;
-        margin-top: 8px;
-      }
-    }
   }
   .title-list{
     color: $purple00;
@@ -1508,6 +1497,19 @@
     font-weight: 700;
     line-height: normal;
     opacity: 0.8;
+  }
+  .nothing-found{
+    text-align: center;
+    width: 100%;
+    padding: 10px 0px;
+    height: 100%;
+    padding-bottom: 0px;
+    color: $purple00;
+    h2{
+      color: $purple00;
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
   }
 }
 
@@ -1780,13 +1782,13 @@
         }
       }
     }
-    .nothing-found{
-      padding: 24px 0px !important;
-      padding-bottom: 24px !important;
-    }
     .input-search{
       padding: 0px 15px;
     }
+  }
+  .nothing-found{
+    padding: 24px 0px !important;
+    padding-bottom: 24px !important;
   }
 }
 // 2560x1440 DISPLAY
@@ -2426,18 +2428,18 @@
     .title-list{
       font-size: 17px;
     }
-    .nothing-found{
-      padding: 30px 0px !important;
-      padding-bottom: 30px !important;
-      img{
-        height: 105px;
-      }
-      h2{
-        font-size: 28px;
-      }
-      p{
-        font-size: 18px;
-      }
+  }
+  .nothing-found{
+    padding: 30px 0px !important;
+    padding-bottom: 30px !important;
+    img{
+      height: 105px;
+    }
+    h2{
+      font-size: 28px;
+    }
+    p{
+      font-size: 18px;
     }
   }
 }

@@ -200,32 +200,32 @@ const ModalProjectsCreate = ({visible, setVisible}
               <p className='title-list' style={{ paddingLeft: '5px' }}>Preview</p>
             </Col>
           </Row>}
-          { <div className='body-create-projects'>
-            {listProjects.length > 0 ?
-              listProjects.map((project, index) => (
-              <Row 
-              key={index} 
-              className={`row-detail-project ${selectedProjectId === project.id ? 'selected' : ''}`}
-              onClick={() => {
-                setSelectedProjectId(project?.id)
-                setImportedProjectData({
-                  projectType: project?.type,
-                  projectSponsor: project?.sponsor,
-                })
-              }}
-              >
-                <Col span={16} className='col-create-project'>
-                  {project.name}
-                </Col>
-                <Col span={4} className='col-create-project'>
-                  {project.type}
-                </Col>
-                <Col span={4} style={{}} className='col-create-project'>
-                  {/* {project.sponsor} */}
-                  Open
-                </Col>
-              </Row>
-            ))
+            {listProjects.length > 0 ? (
+              <div className='body-create-projects'>
+                {listProjects.map((project, index) => (
+                <Row 
+                key={index} 
+                className={`row-detail-project ${selectedProjectId === project.id ? 'selected' : ''}`}
+                onClick={() => {
+                  setSelectedProjectId(project?.id)
+                  setImportedProjectData({
+                    projectType: project?.type,
+                    projectSponsor: project?.sponsor,
+                  })
+                }}
+                >
+                  <Col span={16} className='col-create-project'>
+                    {project.name}
+                  </Col>
+                  <Col span={4} className='col-create-project'>
+                    {project.type}
+                  </Col>
+                  <Col span={4} style={{}} className='col-create-project'>
+                    {/* {project.sponsor} */}
+                    <span style={{color:'#29C499', cursor:'pointer'}}>View</span>
+                  </Col>
+                </Row>
+              ))}</div>)
             : <div className='nothing-found'>
                 <img src='/Icons/no_data.svg' alt='no_data' />
                 <h2>Nothing Found!</h2>
@@ -236,7 +236,6 @@ const ModalProjectsCreate = ({visible, setVisible}
                 </p>
               </div>
           }
-          </div>}
         </div>
       </Modal>
     </div>

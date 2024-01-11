@@ -161,7 +161,7 @@ export const onRender = (id: any, phase: any, actualDuration: any, baseDuration:
 };
 
 export const deletefirstnumbersmhfdcode = (value: any) => {
-  const arrayValues = value.stream.stream.MHFD_Code.split('.');
+  const arrayValues = value.stream.stream.mhfd_code_stream.split('.');
   arrayValues.shift();
   return arrayValues.join('.');
 }
