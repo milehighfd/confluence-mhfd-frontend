@@ -15,6 +15,7 @@ import { usePortflioState, usePortfolioDispatch } from 'hook/portfolioHook';
 import { handleAbortError } from 'store/actions/mapActions';
 import { useProfileState } from 'hook/profileHook';
 import { useProjectState } from 'hook/projectHook';
+import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
 
 const { TabPane } = Tabs;
 let isInit = true;
@@ -42,7 +43,8 @@ const PortafolioBody = () => {
   } = usePortflioState();
   const { setFavorites, getListPMTools, setOpenGroups, getActionsDone, getCreatedActions } = usePortfolioDispatch();
   const {
-    globalSearch
+    globalSearch,
+    status
   } = useProjectState();
   const { openModalTollgate: visible, } = usePortflioState();
   const [filterby, setFilterby] = useState('');
@@ -59,6 +61,7 @@ const PortafolioBody = () => {
   const [sortValue, setSortValue] = useState({columnKey: null, order: undefined});
   const appUser = useProfileState();
   const [updateFilter, setUpdateFilter] = useState([]);
+  const { openNotification } = useNotifications();
 
   useEffect(() => {
     setTabActiveNavbar('List')
@@ -157,6 +160,12 @@ const PortafolioBody = () => {
     setFilterProjectOptions(options);
     setUpdateFilter(options);
   }, [filterProjectOptions]);
+
+  useEffect(() => {
+    if(status === 1){
+      openNotification('Success! Your project was saved!', "success");
+    }
+  }, [status]);
 
   useEffect(() => {
     isInit=true;
