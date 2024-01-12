@@ -981,24 +981,22 @@ export const addPopupsOnClick = async (
     }
     if (feature.source === 'stream_segment') {
       const objectidstream = feature.properties.mhfd_code_segment;
-      const dataFromDBforStreams = await datasets.getData(SERVER.STREAM_BY_ID(objectidstream), datasets.getToken());
-      if (dataFromDBforStreams.length > 0) {
-        const item = {
-          type: 'streams-reaches',
-          layer: 'Streams',
-          title: dataFromDBforStreams[0] ? dataFromDBforStreams[0].stream_name : 'Unnamed Stream',
-          streamname: dataFromDBforStreams[0].stream_name,
-          mhfd_code: dataFromDBforStreams[0].mhfd_code_segment,
-          catch_sum: dataFromDBforStreams[0].sum_catchment_area_ac,
-          str_ft: dataFromDBforStreams[0].sum_stream_length_ft,
-          slope: dataFromDBforStreams[0].slope_ft
-        };
-        menuOptions.push('Stream');
-        mobile.push({ ...item });
-        mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-        popups.push(item);
-        ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-      }
+      console.log(feature.properties, feature.properties.catchment_area_sum_ac, formatterIntegers.format(feature.properties.catchment_area_sum_ac ?? '0'));
+      const item = {
+        type: 'streams-reaches',
+        layer: 'Streams',
+        title: feature.properties ? feature.properties.stream_name : 'Unnamed Stream',
+        streamname: feature.properties.stream_name,
+        mhfd_code: objectidstream,
+        catch_sum: feature.properties.catchment_area_sum_ac ? formatterIntegers.format(feature.properties.catchment_area_sum_ac ?? '0') : '-',
+        str_ft: feature.properties.sum_stream_length_ft,
+        slope:  feature.properties.slope_ft
+      };
+      menuOptions.push('Stream');
+      mobile.push({ ...item });
+      mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
+      popups.push(item);
+      ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
     }
     if (feature.source === ACTIVE_LOMS) {
       let extraProperties = {};
