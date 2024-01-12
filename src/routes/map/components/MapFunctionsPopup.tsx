@@ -979,8 +979,8 @@ export const addPopupsOnClick = async (
       popups.push(item);
       ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
     }
-    if (feature.source === 'streams') {
-      const objectidstream = feature.properties.mhfd_code;
+    if (feature.source === 'stream_segment') {
+      const objectidstream = feature.properties.mhfd_code_segment;
       const dataFromDBforStreams = await datasets.getData(SERVER.STREAM_BY_ID(objectidstream), datasets.getToken());
       if (dataFromDBforStreams.length > 0) {
         const item = {
