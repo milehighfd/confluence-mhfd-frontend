@@ -988,7 +988,7 @@ export const addPopupsOnClick = async (
           layer: 'Streams',
           title: dataFromDBforStreams[0] ? dataFromDBforStreams[0].stream_name : 'Unnamed Stream',
           streamname: dataFromDBforStreams[0].stream_name,
-          mhfd_code: dataFromDBforStreams[0].mhfd_code_stream,
+          mhfd_code: dataFromDBforStreams[0].mhfd_code_segment,
           catch_sum: dataFromDBforStreams[0].sum_catchment_area_ac,
           str_ft: dataFromDBforStreams[0].sum_stream_length_ft,
           slope: dataFromDBforStreams[0].slope_ft
