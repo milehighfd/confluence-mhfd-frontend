@@ -158,7 +158,6 @@ export const StreamPopupFull = ({ id, item } : any) => {
             {item.streamname ? <h4>{item.streamname}</h4> : <h4>Unnamed Stream</h4>}
             {item.mhfd_code ? <p><i>MHFD Code:</i>  {item.mhfd_code}</p> : ''}
             {item.catch_sum ? <p><i>Tributary:</i>  {Math.round(item.catch_sum) + " acres"}</p> : ''}
-            {item.str_ft ? <p><i>Reach Length:</i>  {Math.round(item.str_ft) + " ft"}</p> : ''}
             {item.slope ? <p><i>Slope:</i>  {(item.slope * 100).toFixed(2) + "%"}</p> : ''}
         </div>
         </Card>
