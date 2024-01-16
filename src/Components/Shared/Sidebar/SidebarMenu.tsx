@@ -20,6 +20,8 @@ const SidebarMenu = ({ collapsed, setVisibleTutorial, }: { collapsed: boolean, s
   const showWorkRequest = (userInformation.designation === 'government_staff' && !userInformation?.business_associate_contact?.business_address?.business_associate?.business_name)
   const userApproved = userInformation.status === 'approved';
   const pmToolsAccess = (userInformation?.designation?.toLocaleLowerCase() !== 'guest' && (userInformation.designation === 'admin' || userInformation.designation === 'staff' || userInformation.designation === 'government_staff') && userInformation.status === 'approved');
+  const isMhfdStaff = userInformation.designation === 'admin' || userInformation.designation === 'staff' ||
+    userInformation.business_associate_contact?.business_address?.business_associate?.business_name === 'MHFD';
   
   const itemMenuSidebar: MenuProps['items'] = [{
     className: Number(indexOf) === 0 ? 'menu-sidebar-hover':'',
@@ -73,7 +75,8 @@ const SidebarMenu = ({ collapsed, setVisibleTutorial, }: { collapsed: boolean, s
       <img className={"img-a anticon"+(collapsed?'':' img-opaque')+(collapsed?" img-collapsed":"")} src="/Icons/menu-green-18.svg" alt="" width="22px" height="22px"/>
       <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>Upcoming Projects</span>
     </Link>
-  },  {
+  },  
+  {
     className: Number(indexOf) === 2 ? 'menu-sidebar-hover mobile-no-display':'mobile-no-display',
     key: '2',
     label: <Link to={'/map'}>
@@ -125,6 +128,9 @@ const SidebarMenu = ({ collapsed, setVisibleTutorial, }: { collapsed: boolean, s
   }
   if (!((userInformation.designation === 'admin' || userInformation.designation === 'staff') && (userInformation.status === 'approved'))) {
     removeItemArray('6');
+  }
+  if (!isMhfdStaff) {
+    removeItemArray('10');
   }
   if (!(userInformation?.designation?.toLocaleLowerCase() !== 'guest')) {
     removeItemArray('0');
