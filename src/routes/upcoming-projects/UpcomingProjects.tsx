@@ -11,22 +11,29 @@ import * as datasets from "../../Config/datasets";
 import { SERVER } from 'Config/Server.config';
 
 const UpcomingProjects = () => {
-  const { setTabActiveNavbar } =  useMapDispatch();
+  const { setTabActiveNavbar } = useMapDispatch();
   const { userInformation } = useProfileState();
   const {
     replaceAppUser,
     saveUserInformation
   } = useProfileDispatch();
-  const redirectGuest = () => {
-    datasets.getData(SERVER.GUEST).then(async res => {
-      if (res?.token) {
-        localStorage.setItem('mfx-token', res.token);
-        await datasets.getData(SERVER.ME, datasets.getToken()).then(async result => {
-          replaceAppUser(result);
-          saveUserInformation(result)
-        });
-      }
-    })
+  const redirectGuest = (): void => {
+    datasets.getData(SERVER.ME, datasets.getToken())
+      .then(result => {
+        replaceAppUser(result);
+        saveUserInformation(result)
+      })
+      .catch(error => {
+        datasets.getData(SERVER.GUEST).then(async res => {
+          if (res?.token) {
+            localStorage.setItem('mfx-token', res.token);
+            await datasets.getData(SERVER.ME, datasets.getToken()).then(async result => {
+              replaceAppUser(result);
+              saveUserInformation(result)
+            });
+          }
+        })
+      });
   };
   useEffect(() => {
     setTabActiveNavbar(UPCOMING_PROJECTS);
@@ -34,10 +41,10 @@ const UpcomingProjects = () => {
       redirectGuest();
     }
   }, []);
-  
+
   return (
     <Layout>
-      <NavbarView parentComponentName={UPCOMING_PROJECTS}/>
+      <NavbarView parentComponentName={UPCOMING_PROJECTS} />
       <Layout>
         <SidebarView></SidebarView>
         <Layout style={{ overflow: 'hidden', zIndex: '1' }}>
