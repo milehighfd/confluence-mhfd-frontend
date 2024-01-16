@@ -1035,6 +1035,7 @@ export const ROUTER_TITLE = {
   PROJECT_ACQUISITION: 'Confluence   |   Create Project - Acquisition',
   PROJECT_CAPITAL: 'Confluence   |   Create Project - Capital Type',
   UPCOMING_PROJECTS: 'Confluence   |   Upcoming Projects',
+  PM_TOOLS: 'Confluence   |   PM Tools',
 }
 export const TASK = [
   {
