@@ -15,7 +15,7 @@ const Application = () => {
   useEffect(() => {
     const getBoardYear = async () => {
       try {
-        const response = await datasets.getData(SERVER.GET_CONFIGURATIONS('BOARD_YEAR'));
+        const response = await datasets.getData(SERVER.ECHO);
         console.log('response', response);
       } catch (err) {
         console.log('err', err);
