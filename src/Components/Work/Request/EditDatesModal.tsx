@@ -88,55 +88,53 @@ const EditDatesModal = ({
     })
   },[project])
 
-  // useEffect(() => {
-  //   datasets.getData(`${SERVER.ACTIVE_DETAILS}/${project?.project_id}`, datasets.getToken()).then((data: any) => {
-  //     let newDisabledFields = { ...disabledFields };
-  //     setIsCountyWide(data?.projectLocation?.is_county_wide)
-  //     if (data?.projectLocation?.location){
-  //       setLocation(data.projectLocation.location)
-  //       newDisabledFields = { ...newDisabledFields, location: true }
-  //     }
-  //     if (data?.projectLocation?.onbase_project_number){
-  //       setOnBase(data.projectLocation.onbase_project_number)
-  //       setOnBaseNumber('yes')
-  //     }
-  //     if(data?.projectStreams?.primaryStream){
-  //       const streamName = data.projectStreams.primaryStream.project_stream.stream.stream_name;
-  //       const streamId = data.projectStreams.primaryStream.stream_id;
-  //       const projectStreamId = data.projectStreams.primaryStream.project_stream_id;
-  //       setPrimaryStream({ id: streamId, name: streamName, value:projectStreamId})
-  //       newDisabledFields = { ...newDisabledFields, primary_stream: true }
-  //     }
-  //     const mhfdLead = data?.projectStaff?.mhfdLead?.business_associate_contact;
-  //     if(mhfdLead){
-  //       setMhfdLead({id: mhfdLead.business_associate_contact_id, name: mhfdLead.contact_name})
-  //       newDisabledFields = { ...newDisabledFields, mhfd_lead: true }
-  //     }
-  //     setDisabledFields(newDisabledFields);
-  //     setMhfdStaffList(data?.projectStaff?.mhfdStaff)
-  //     setStreamList(data?.projectStreams?.projectStreams)
-  //   })
-  // }, [project]);
+  useEffect(() => {
+    datasets.getData(`${SERVER.ACTIVE_DETAILS}/${project?.project_id}`, datasets.getToken()).then((data: any) => {
+      let newDisabledFields = { ...disabledFields };
+      setIsCountyWide(data?.projectLocation?.is_county_wide)
+      if (data?.projectLocation?.location){
+        setLocation(data.projectLocation.location)
+        newDisabledFields = { ...newDisabledFields, location: true }
+      }
+      if (data?.projectLocation?.onbase_project_number){
+        setOnBase(data.projectLocation.onbase_project_number)
+        setOnBaseNumber('yes')
+      }
+      if(data?.projectStreams?.primaryStream){
+        const streamName = data.projectStreams.primaryStream.project_stream.stream.stream_name;
+        const streamId = data.projectStreams.primaryStream.stream_id;
+        const projectStreamId = data.projectStreams.primaryStream.project_stream_id;
+        setPrimaryStream({ id: streamId, name: streamName, value:projectStreamId})
+        newDisabledFields = { ...newDisabledFields, primary_stream: true }
+      }
+      const mhfdLead = data?.projectStaff?.mhfdLead?.business_associate_contact;
+      if(mhfdLead){
+        setMhfdLead({id: mhfdLead.business_associate_contact_id, name: mhfdLead.contact_name})
+        newDisabledFields = { ...newDisabledFields, mhfd_lead: true }
+      }
+      setDisabledFields(newDisabledFields);
+      setMhfdStaffList(data?.projectStaff?.mhfdStaff)
+      setStreamList(data?.projectStreams?.projectStreams)
+    })
+  }, [project]);
 
   useEffect(() => {
     const CODES_NOT_STREAM = [13,15]
-    let requiredFields = ['phase', 'start_date'];
-    let nameFields = ['Phase', 'Start date'];
 
-    // let requiredFields = ['phase', 'start_date', 'primary_stream', 'mhfd_lead', 'location'];
-    // let nameFields = ['Phase', 'Start date', 'Primary stream', 'MHFD lead', 'Location'];
+    let requiredFields = ['phase', 'start_date', 'primary_stream', 'mhfd_lead', 'location'];
+    let nameFields = ['Phase', 'Start date', 'Primary stream', 'MHFD lead', 'Location'];
 
-    // if (CODES_NOT_STREAM.includes(project?.code_project_type?.code_project_type_id) || isCountyWide){
-    //   requiredFields = ['phase', 'start_date', 'mhfd_lead'];
-    //   nameFields = ['Phase', 'Start date', 'MHFD lead'];
-    // }
+    if (CODES_NOT_STREAM.includes(project?.code_project_type?.code_project_type_id) || isCountyWide){
+      requiredFields = ['phase', 'start_date', 'mhfd_lead'];
+      nameFields = ['Phase', 'Start date', 'MHFD lead'];
+    }
 
     const fields = [
       { field: 'phase', name: 'Phase', condition: selectedPhase },
       { field: 'start_date', name: 'Start date', condition: startDate },
-      // { field: 'primary_stream', name: 'Primary stream', condition: primaryStream?.id > 0 },
-      // { field: 'mhfd_lead', name: 'MHFD lead', condition: mhfdLead?.id > 0 },
-      // { field: 'location', name: 'Location', condition: location },
+      { field: 'primary_stream', name: 'Primary stream', condition: primaryStream?.id > 0 },
+      { field: 'mhfd_lead', name: 'MHFD lead', condition: mhfdLead?.id > 0 },
+      { field: 'location', name: 'Location', condition: location },
     ];
 
     fields.forEach(({ field, name, condition }) => {
@@ -149,7 +147,7 @@ const EditDatesModal = ({
       }
     });
     setMissingFields(nameFields);
-  }, [selectedPhase, startDate]);
+  }, [selectedPhase, startDate, primaryStream, mhfdLead, project, isCountyWide, location]);
 
   useEffect(() => {
     if (selectedPhase && startDate) {
@@ -326,7 +324,7 @@ const EditDatesModal = ({
       hasProjectStream
     }
     try {
-      //await datasets.postData(`${SERVER.ACTIVATE_PROJECT}`, { ...sendData }, datasets.getToken());  
+      await datasets.postData(`${SERVER.ACTIVATE_PROJECT}`, { ...sendData }, datasets.getToken());  
       const res = await datasets.postData(
         SERVER.CREATE_STATUS_GROUP,
         {
@@ -429,7 +427,7 @@ const EditDatesModal = ({
                 style={{ width: '100%', borderRadius: '5px', height: '36px', marginBottom: '16px' }}
                 onChange={(date: any) => setStartDate(date)}
               />
-              {/* <label>3. The primary stream is:</label><br />
+              <label>3. The primary stream is:</label><br />
               <Select
                 placeholder="Select primary stream"
                 style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
@@ -485,7 +483,7 @@ const EditDatesModal = ({
                   placeholder="Type a location"
                   style={{ width: '100%', borderRadius: '5px', height: '36px' }}
                   onChange={(e) => setLocation(e.target.value)}
-                /> */}
+                />
             </div>
           </div>
           </>
