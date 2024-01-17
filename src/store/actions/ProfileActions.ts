@@ -126,9 +126,10 @@ export const getBoardYears = () => {
   return (dispatch: Function) => {
     datasets.getData(SERVER.GET_CONFIGURATION_USER, datasets.getToken()).then(result => {
       const years = {
-        workRequestYears: { max: 2027, default: 2022 },
-        workPlanYears: { max: 2027, default: 2022 },
+        workRequestYears: { max: 2030, default: 2022 },
+        workPlanYears: { max: 2030, default: 2022 },
       };
+      console.log('Result ', result);
       result.forEach((item: any) => {
         if (item.type === 'WORK_REQUEST') {
           if (item.description === 'MAX') {
