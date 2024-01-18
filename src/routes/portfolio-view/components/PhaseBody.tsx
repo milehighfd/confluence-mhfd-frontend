@@ -701,7 +701,7 @@ const PhaseBody = ({
     let menuPopupItem: MenuProps['items'] = [
       {
         key: '0',
-        label: <span> 
+        label: <span style={{display: 'flex', alignItems: 'center'}}> 
           <img src="/Icons/ic-edit.svg" alt=""/> Edit Project
         </span>
       },
