@@ -543,7 +543,7 @@
     .step {
       width: 180px;
       border-top: 4px solid #d9d9d9;
-      padding-top: 8px;
+      padding-top: 14px;
       p {
         color: #858f94;
         font-family: Ubuntu;
@@ -557,7 +557,7 @@
     .step-active {
       width: 180px;
       border-top: 4px solid #28c499;
-      padding-top: 8px;
+      padding-top: 14px;
       p {
         color: #858f94;
         font-family: Ubuntu;
@@ -617,7 +617,7 @@
     }
   }
   .body-edit-dates {
-    height: 310px;
+    height: 298px;
     overflow: auto;
     .img-confetti {
       color: #11093c;
@@ -644,6 +644,10 @@
         font-style: normal;
         font-weight: 400;
         line-height: normal;
+      }
+      .ant-input{
+        background-color: white !important;
+        box-shadow: 0px 4px 40px 0px rgb(0 0 0 / 3%);
       }
       .text-min{
         font-size: 10px;
@@ -1154,6 +1158,7 @@
       .step{
         width: 275px;
         border-top: 7px solid #d9d9d9;
+        padding-top: 20px;
         p{
           font-size: 18px;
         }
@@ -1161,6 +1166,7 @@
       .step-active {
         width: 275px;
         border-top: 7px solid #28c499;
+        padding-top: 20px;
         p{
           font-size: 18px;
         }
@@ -1168,8 +1174,14 @@
     }
     .body-edit-dates {
       .form-edit-dates label {
-        font-size: 17px;
-        line-height: 32px;
+        font-size: 19px;
+        line-height: 48px;
+      }
+      .form-edit-dates{
+        .ant-input{
+          height: 45px !important;
+          background-color: white !important;
+        }
       }
       .text-min{
         font-size: 14px !important;
@@ -1204,7 +1216,7 @@
       }
     }
     .body-edit-dates{
-      height: 656px !important;
+      height: 485px !important;
       .ant-select:not(.ant-select-customize-input) .ant-select-selector {
         min-height: 45px;
       }
