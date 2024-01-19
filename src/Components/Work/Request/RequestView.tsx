@@ -381,12 +381,14 @@ const RequestView = ({ type, widthMap }: {
   
 
   useEffect(() => {
-    let diffTmp = []
-    for (var i = 1; i <= 5; i++) {
-      let d = reqManager[i - 1] - sumTotal[`req${i}`];
-      diffTmp.push(d);
+    if (reqManager && sumTotal) {
+      let diffTmp = []
+      for (var i = 1; i <= 5; i++) {
+        let d = reqManager[i - 1] - sumTotal[`req${i}`];
+        diffTmp.push(d);
+      }
+      setDiff(diffTmp);
     }
-    setDiff(diffTmp);
   }, [reqManager, sumTotal]);
 
   const scrollToRight = () => {

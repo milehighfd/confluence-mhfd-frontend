@@ -72,6 +72,7 @@ import {
   PROPOSED_ACTIONS_LINES,
   PROPOSED_ACTIONS_POINTS,
   PROPOSED_ACTIONS_POLYS,
+  CRITICAL_FACILITIES,
 } from './constants';
 
 export const localComponents = {
@@ -3392,6 +3393,317 @@ export const PROJECTS_STYLES_WR = {
 
 export const tileStyles = {
   ...LAND_OBJECT,
+  [CRITICAL_FACILITIES]: [
+    {
+      // "id": "CF Shadow",
+      "type": "circle",
+      "metadata": {"mapbox:group": "1bbd288acd424c3713fc52ae8fb51481"},
+      'source-layer': 'pluto15v1',
+      "slot": "",
+      "filter": [
+          "match",
+          ["get", "source_aggregate"],
+          [
+              "Fire Station",
+              "Airport",
+              "Hazardous Material",
+              "Water Treatment",
+              "Power Plant",
+              "Police Station",
+              "Medical Facility",
+              "Emergency Operation Center",
+              "Schools"
+          ],
+          true,
+          false
+      ],
+      "paint": {
+          "circle-color": "hsl(41, 0%, 0%)",
+          "circle-radius": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              0,
+              3,
+              11,
+              5,
+              13.5,
+              9,
+              22,
+              9
+          ],
+          "circle-blur": 1
+      }
+    },
+    {
+        // "id": "Water Treatment_CF",
+        "type": "circle",
+        "metadata": {"mapbox:group": "1bbd288acd424c3713fc52ae8fb51481"},
+        'source-layer': 'pluto15v1',
+        "slot": "",
+        "filter": [
+            "match",
+            ["get", "source_aggregate"],
+            ["Water Treatment"],
+            true,
+            false
+        ],
+        "paint": {
+            "circle-color": "#d8a550",
+            "circle-radius": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                0,
+                1.5,
+                11,
+                3,
+                13.5,
+                5,
+                22,
+                5
+            ]
+        }
+    },
+    {
+        // "id": "Schools_CF",
+        "type": "circle",
+        "metadata": {"mapbox:group": "1bbd288acd424c3713fc52ae8fb51481"},
+        'source-layer': 'pluto15v1',
+        "slot": "",
+        "filter": [
+            "match",
+            ["get", "source_aggregate"],
+            ["Schools"],
+            true,
+            false
+        ],
+        "paint": {
+            "circle-color": "#f29742",
+            "circle-radius": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                0,
+                1.5,
+                11,
+                3,
+                13.5,
+                5,
+                22,
+                5
+            ]
+        }
+    },
+    {
+        // "id": "Power Plant_CF ",
+        "type": "circle",
+        "metadata": {"mapbox:group": "1bbd288acd424c3713fc52ae8fb51481"},
+        'source-layer': 'pluto15v1',
+        "slot": "",
+        "filter": [
+            "match",
+            ["get", "source_aggregate"],
+            ["Power Plant"],
+            true,
+            false
+        ],
+        "paint": {
+            "circle-color": "#bf7b55",
+            "circle-radius": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                0,
+                1.5,
+                11,
+                3,
+                13.5,
+                5,
+                22,
+                5
+            ]
+        }
+    },
+    {
+        // "id": "Police Station_CF",
+        "type": "circle",
+        "metadata": {"mapbox:group": "1bbd288acd424c3713fc52ae8fb51481"},
+        'source-layer': 'pluto15v1',
+        "slot": "",
+        "filter": [
+            "match",
+            ["get", "source_aggregate"],
+            ["Police Station"],
+            true,
+            false
+        ],
+        "paint": {
+            "circle-color": "#b3956f",
+            "circle-radius": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                0,
+                1.5,
+                11,
+                3,
+                13.5,
+                5,
+                22,
+                5
+            ]
+        }
+    },
+    {
+        // "id": "Medical Facilities_CF",
+        "type": "circle",
+        "metadata": {"mapbox:group": "1bbd288acd424c3713fc52ae8fb51481"},
+        'source-layer': 'pluto15v1',
+        "slot": "",
+        "filter": [
+            "match",
+            ["get", "source_aggregate"],
+            ["Medical Facility"],
+            true,
+            false
+        ],
+        "paint": {
+            "circle-color": "#f1c783",
+            "circle-radius": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                0,
+                1.5,
+                11,
+                3,
+                13.5,
+                5,
+                22,
+                5
+            ]
+        }
+    },
+    {
+        // "id": "HAZMAT_CF",
+        "type": "circle",
+        "metadata": {"mapbox:group": "1bbd288acd424c3713fc52ae8fb51481"},
+        'source-layer': 'pluto15v1',
+        "slot": "",
+        "filter": [
+            "match",
+            ["get", "source_aggregate"],
+            ["Hazardous Material"],
+            true,
+            false
+        ],
+        "paint": {
+            "circle-color": "#bf5e2e",
+            "circle-radius": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                0,
+                1.5,
+                11,
+                3,
+                13.5,
+                5,
+                22,
+                5
+            ]
+        }
+    },
+    {
+        // "id": "Fire Station_CF",
+        "type": "circle",
+        "metadata": {"mapbox:group": "1bbd288acd424c3713fc52ae8fb51481"},
+        'source-layer': 'pluto15v1',
+        "slot": "",
+        "filter": [
+            "match",
+            ["get", "source_aggregate"],
+            ["Hazardous Material", "Fire Station"],
+            true,
+            false
+        ],
+        "paint": {
+            "circle-color": "#f2a47b",
+            "circle-radius": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                0,
+                1.5,
+                11,
+                3,
+                13.5,
+                5,
+                22,
+                5
+            ]
+        }
+    },
+    {
+        // "id": "EmergencyOp_CF",
+        "type": "circle",
+        "metadata": {"mapbox:group": "1bbd288acd424c3713fc52ae8fb51481"},
+        'source-layer': 'pluto15v1',
+        "filter": [
+            "match",
+            ["get", "source_aggregate"],
+            ["Emergency Operation Center"],
+            true,
+            false
+        ],
+        "paint": {
+            "circle-color": "#b6853f",
+            "circle-radius": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                0,
+                1.5,
+                11,
+                3,
+                13.5,
+                5,
+                22,
+                5
+            ]
+        }
+    },
+    {
+        // "id": "Airports_CF",
+        "type": "circle",
+        "metadata": {"mapbox:group": "1bbd288acd424c3713fc52ae8fb51481"},
+        'source-layer': 'pluto15v1',
+        "filter": [
+            "match",
+            ["get", "source_aggregate"],
+            ["Airport"],
+            true,
+            false
+        ],
+        "paint": {
+            "circle-color": "#e7c6a8",
+            "circle-radius": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                0,
+                1.5,
+                11,
+                3,
+                13.5,
+                5,
+                22,
+                5
+            ]
+        }
+    },
+  ],
   [FLOODPLAINS_FEMA_FILTERS]: [
     {
       type: 'fill',
@@ -3988,7 +4300,7 @@ export const tileStyles = {
         'line-width': [
           'interpolate',
           ['linear'],
-          ['get', 'catch_sum'],
+          ['get', 'catchment_area_sum_ac'],
           640,
           5,
           6400,
@@ -4030,15 +4342,15 @@ export const tileStyles = {
           ['linear'],
           ['zoom'],
           0,
-          ['interpolate', ['linear'], ['get', 'catch_sum'], 640, 0, 6400, 0, 1131411.08001002, 0],
+          ['interpolate', ['linear'], ['get', 'catchment_area_sum_ac'], 640, 0, 6400, 0, 1131411.08001002, 0],
           9,
-          ['interpolate', ['linear'], ['get', 'catch_sum'], 640, 0, 6400, 3, 568906, 5, 1131411.08001002, 7],
+          ['interpolate', ['linear'], ['get', 'catchment_area_sum_ac'], 640, 0, 6400, 3, 568906, 5, 1131411.08001002, 7],
           12,
-          ['interpolate', ['linear'], ['get', 'catch_sum'], 640, 1.5, 6400, 6, 568906, 12, 1131411.08001002, 16],
+          ['interpolate', ['linear'], ['get', 'catchment_area_sum_ac'], 640, 1.5, 6400, 6, 568906, 12, 1131411.08001002, 16],
           15,
-          ['interpolate', ['linear'], ['get', 'catch_sum'], 640, 2, 6400, 6, 568906, 12, 1131411.08001002, 16],
+          ['interpolate', ['linear'], ['get', 'catchment_area_sum_ac'], 640, 2, 6400, 6, 568906, 12, 1131411.08001002, 16],
           22,
-          ['interpolate', ['linear'], ['get', 'catch_sum'], 640, 2.5, 6400, 6, 1131411.08001002, 16],
+          ['interpolate', ['linear'], ['get', 'catchment_area_sum_ac'], 640, 2.5, 6400, 6, 1131411.08001002, 16],
         ],
         'line-opacity': ['interpolate', ['linear'], ['zoom'], 8, 1, 12, 1, 22, 0.5],
       },
@@ -4054,7 +4366,7 @@ export const tileStyles = {
         'line-width': [
           'interpolate',
           ['linear'],
-          ['get', 'catch_sum'],
+          ['get', 'catchment_area_sum_ac'],
           130.080010015,
           0.5,
           640,
@@ -4091,7 +4403,7 @@ export const tileStyles = {
     //     "line-width": [
     //         "interpolate",
     //         ["linear"],
-    //         ["get", "catch_sum"],
+    //         ["get", "catchment_area_sum_ac"],
     //         130.080010015,
     //         0.5,
     //         640,

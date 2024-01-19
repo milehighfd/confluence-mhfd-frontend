@@ -29,6 +29,7 @@ import {
   STREAM_IMPROVEMENT_MEASURE,
   MAPTYPES,
   ROUTINE_MAINTENANCES,
+  CRITICAL_FACILITIES,
 } from '../../../constants/constants';
 import * as datasets from '../../../Config/datasets';
 import {
@@ -979,26 +980,43 @@ export const addPopupsOnClick = async (
       popups.push(item);
       ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
     }
-    if (feature.source === 'streams') {
-      const objectidstream = feature.properties.mhfd_code;
-      const dataFromDBforStreams = await datasets.getData(SERVER.STREAM_BY_ID(objectidstream), datasets.getToken());
-      if (dataFromDBforStreams.length > 0) {
-        const item = {
-          type: 'streams-reaches',
-          layer: 'Streams',
-          title: dataFromDBforStreams[0] ? dataFromDBforStreams[0].stream_name : 'Unnamed Stream',
-          streamname: dataFromDBforStreams[0].stream_name,
-          mhfd_code: dataFromDBforStreams[0].mhfd_code_stream,
-          catch_sum: dataFromDBforStreams[0].sum_catchment_area_ac,
-          str_ft: dataFromDBforStreams[0].sum_stream_length_ft,
-          slope: dataFromDBforStreams[0].slope_ft
-        };
-        menuOptions.push('Stream');
-        mobile.push({ ...item });
-        mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-        popups.push(item);
-        ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-      }
+    if( feature.source === CRITICAL_FACILITIES) {
+      const item = {
+        layer: MENU_OPTIONS.CRITICAL_FACILITIES,
+        name: feature.properties.critical_facility_name,
+        address: feature.properties.critical_facility_address,
+        source_aggregate: feature.properties.source_aggregate,
+        source_category1: feature.properties.source_category1,
+        source_category2: feature.properties.source_category2,
+        source_agency: feature.properties.source_agency
+      };
+      menuOptions.push(MENU_OPTIONS.CRITICAL_FACILITIES);
+      popups.push(item);
+      mobile.push({
+        layer: MENU_OPTIONS.CRITICAL_FACILITIES,
+        name: item.name
+      });
+      mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
+      ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+    }
+    if (feature.source === 'stream_segment') {
+      const objectidstream = feature.properties.mhfd_code_segment;
+      console.log(feature.properties, feature.properties.catchment_area_sum_ac, formatterIntegers.format(feature.properties.catchment_area_sum_ac ?? '0'));
+      const item = {
+        type: 'streams-reaches',
+        layer: 'Streams',
+        title: feature.properties ? feature.properties.stream_name : 'Unnamed Stream',
+        streamname: feature.properties.stream_name,
+        mhfd_code: objectidstream,
+        catch_sum: feature.properties.catchment_area_sum_ac ? formatterIntegers.format(feature.properties.catchment_area_sum_ac ?? '0') : '-',
+        str_ft: feature.properties.sum_stream_length_ft,
+        slope:  feature.properties.slope_ft
+      };
+      menuOptions.push('Stream');
+      mobile.push({ ...item });
+      mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
+      popups.push(item);
+      ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
     }
     if (feature.source === ACTIVE_LOMS) {
       let extraProperties = {};

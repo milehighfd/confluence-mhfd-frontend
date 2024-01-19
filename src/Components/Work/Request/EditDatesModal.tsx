@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, DatePicker, Dropdown, Input, InputNumber, Menu, Modal, Radio, Row, Select } from "antd";
+import { Button, Col, DatePicker, Dropdown, Input, InputNumber, Menu, Modal, Popover, Radio, Row, Select } from "antd";
 import { WINDOW_WIDTH } from "constants/constants";
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import moment from "moment";
-import { LockOutlined, MoreOutlined } from "@ant-design/icons";
+import { InfoCircleOutlined, LockOutlined, MoreOutlined } from "@ant-design/icons";
 import { OverlappingDatesAlert } from "Components/Alerts/OverlappingAlert";
 import { useNotifications } from "Components/Shared/Notifications/NotificationsProvider";
 import { useRequestDispatch } from "hook/requestHook";
@@ -44,6 +44,7 @@ const EditDatesModal = ({
   const [streamList, setStreamList] = useState<any[]>([]);
   const [isCountyWide, setIsCountyWide] = useState<boolean>(false);
   const [missingFields, setMissingFields] = useState<string[]>([]);
+  const CODES_NOT_STREAM = [15]
 
   const { openNotification } = useNotifications();
   const [onBaseNumber, setOnBaseNumber] = useState('no');
@@ -88,55 +89,59 @@ const EditDatesModal = ({
     })
   },[project])
 
-  // useEffect(() => {
-  //   datasets.getData(`${SERVER.ACTIVE_DETAILS}/${project?.project_id}`, datasets.getToken()).then((data: any) => {
-  //     let newDisabledFields = { ...disabledFields };
-  //     setIsCountyWide(data?.projectLocation?.is_county_wide)
-  //     if (data?.projectLocation?.location){
-  //       setLocation(data.projectLocation.location)
-  //       newDisabledFields = { ...newDisabledFields, location: true }
-  //     }
-  //     if (data?.projectLocation?.onbase_project_number){
-  //       setOnBase(data.projectLocation.onbase_project_number)
-  //       setOnBaseNumber('yes')
-  //     }
-  //     if(data?.projectStreams?.primaryStream){
-  //       const streamName = data.projectStreams.primaryStream.project_stream.stream.stream_name;
-  //       const streamId = data.projectStreams.primaryStream.stream_id;
-  //       const projectStreamId = data.projectStreams.primaryStream.project_stream_id;
-  //       setPrimaryStream({ id: streamId, name: streamName, value:projectStreamId})
-  //       newDisabledFields = { ...newDisabledFields, primary_stream: true }
-  //     }
-  //     const mhfdLead = data?.projectStaff?.mhfdLead?.business_associate_contact;
-  //     if(mhfdLead){
-  //       setMhfdLead({id: mhfdLead.business_associate_contact_id, name: mhfdLead.contact_name})
-  //       newDisabledFields = { ...newDisabledFields, mhfd_lead: true }
-  //     }
-  //     setDisabledFields(newDisabledFields);
-  //     setMhfdStaffList(data?.projectStaff?.mhfdStaff)
-  //     setStreamList(data?.projectStreams?.projectStreams)
-  //   })
-  // }, [project]);
+  useEffect(() => {
+    datasets.getData(`${SERVER.ACTIVE_DETAILS}/${project?.project_id}`, datasets.getToken()).then((data: any) => {
+      let newDisabledFields = { ...disabledFields };
+      setIsCountyWide(data?.projectLocation?.is_county_wide)
+      if (data?.projectLocation?.location){
+        setLocation(data.projectLocation.location)
+        newDisabledFields = { ...newDisabledFields, location: true }
+      }
+      if (data?.projectLocation?.onbase_project_number){
+        setOnBase(data.projectLocation.onbase_project_number)
+        setOnBaseNumber('yes')
+      }
+      if(data?.projectStreams?.primaryStream){
+        const streamName = data.projectStreams.primaryStream.project_stream.stream.stream_name;
+        const streamId = data.projectStreams.primaryStream.stream_id;
+        const projectStreamId = data.projectStreams.primaryStream.project_stream_id;
+        setPrimaryStream({ id: streamId, name: streamName, value:projectStreamId})
+        newDisabledFields = { ...newDisabledFields, primary_stream: true }
+      }
+      const mhfdLead = data?.projectStaff?.mhfdLead?.business_associate_contact;
+      if(mhfdLead){
+        setMhfdLead({id: mhfdLead.business_associate_contact_id, name: mhfdLead.contact_name})
+        newDisabledFields = { ...newDisabledFields, mhfd_lead: true }
+      }
+      setDisabledFields(newDisabledFields);
+      setMhfdStaffList(data?.projectStaff?.mhfdStaff)
+      setStreamList(data?.projectStreams?.projectStreams)
+    })
+  }, [project]);
+
+  const [allFiedsRequired, setAllFiedsRequired] = useState<boolean>(true);
 
   useEffect(() => {
-    const CODES_NOT_STREAM = [13,15]
-    let requiredFields = ['phase', 'start_date'];
-    let nameFields = ['Phase', 'Start date'];
+    if (CODES_NOT_STREAM.includes(project?.code_project_type?.code_project_type_id) || isCountyWide){
+      setAllFiedsRequired(false);
+    }
+  }, [project, isCountyWide, CODES_NOT_STREAM]);
 
-    // let requiredFields = ['phase', 'start_date', 'primary_stream', 'mhfd_lead', 'location'];
-    // let nameFields = ['Phase', 'Start date', 'Primary stream', 'MHFD lead', 'Location'];
+  useEffect(() => {
+    let requiredFields = ['phase', 'start_date', 'primary_stream', 'mhfd_lead', 'location'];
+    let nameFields = ['Phase', 'Start date', 'Primary stream', 'MHFD lead', 'Location'];
 
-    // if (CODES_NOT_STREAM.includes(project?.code_project_type?.code_project_type_id) || isCountyWide){
-    //   requiredFields = ['phase', 'start_date', 'mhfd_lead'];
-    //   nameFields = ['Phase', 'Start date', 'MHFD lead'];
-    // }
+    if (!allFiedsRequired){
+      requiredFields = ['phase', 'start_date', 'mhfd_lead'];
+      nameFields = ['Phase', 'Start date', 'MHFD lead'];
+    }
 
     const fields = [
       { field: 'phase', name: 'Phase', condition: selectedPhase },
       { field: 'start_date', name: 'Start date', condition: startDate },
-      // { field: 'primary_stream', name: 'Primary stream', condition: primaryStream?.id > 0 },
-      // { field: 'mhfd_lead', name: 'MHFD lead', condition: mhfdLead?.id > 0 },
-      // { field: 'location', name: 'Location', condition: location },
+      { field: 'primary_stream', name: 'Primary stream', condition: primaryStream?.id > 0 },
+      { field: 'mhfd_lead', name: 'MHFD lead', condition: mhfdLead?.id > 0 },
+      { field: 'location', name: 'Location', condition: location },
     ];
 
     fields.forEach(({ field, name, condition }) => {
@@ -149,7 +154,7 @@ const EditDatesModal = ({
       }
     });
     setMissingFields(nameFields);
-  }, [selectedPhase, startDate]);
+  }, [selectedPhase, startDate, primaryStream, mhfdLead, project, isCountyWide, location, allFiedsRequired]);
 
   useEffect(() => {
     if (selectedPhase && startDate) {
@@ -326,7 +331,7 @@ const EditDatesModal = ({
       hasProjectStream
     }
     try {
-      //await datasets.postData(`${SERVER.ACTIVATE_PROJECT}`, { ...sendData }, datasets.getToken());  
+      await datasets.postData(`${SERVER.ACTIVATE_PROJECT}`, { ...sendData }, datasets.getToken());  
       const res = await datasets.postData(
         SERVER.CREATE_STATUS_GROUP,
         {
@@ -405,7 +410,15 @@ const EditDatesModal = ({
       </div>}
           <div className="body-edit-dates">
             <div className="form-edit-dates">
-              <label>1. The current phase for my project is:</label><br/>
+              <label>1. Current Project Phase &nbsp;<Popover placement="top"
+                content={
+                  <div className="popoveer-00">
+                    <b>Phase:</b> The current phase of the project. Phases are detailed milestones specific to each project type.
+                  </div>
+                }
+              >
+                <InfoCircleOutlined style={{opacity:0.4, marginRight:'2px'}} />
+              </Popover></label><br/>
               <Select
                 placeholder="Select phase"
                 style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
@@ -422,14 +435,32 @@ const EditDatesModal = ({
                   </Option>
                 ))}
               </Select>
-              <label>2. It’s start date is:</label><br />
+              <label>2. Start Date &nbsp;<Popover placement="top"
+                content={
+                  <div className="popoveer-00">
+                    <b>Phase Start Date:</b> Estimated start date of the selected phase. The date entered will be used to prepopulate your project’s schedule.
+                  </div>
+                }
+              >
+                <InfoCircleOutlined style={{opacity:0.4, marginRight:'2px'}} />
+              </Popover></label><br />
               <DatePicker
                   format="MM-DD-YYYY"
                 value = {startDate}
                 style={{ width: '100%', borderRadius: '5px', height: '36px', marginBottom: '16px' }}
                 onChange={(date: any) => setStartDate(date)}
               />
-              {/* <label>3. The primary stream is:</label><br />
+                <label>
+                  3. Primary Stream &nbsp;<Popover placement="top"
+                content={
+                  <div className="popoveer-00">
+                    <b>Primary Stream:</b> The primary stream the project is impacting. Primary Stream is a requirement for generating the Onbase Project Name.
+                  </div>
+                }
+              >
+                <InfoCircleOutlined style={{opacity:0.4, marginRight:'2px'}} />
+              </Popover> {allFiedsRequired ? '' : <em>(optional)</em>}
+                </label><br />
               <Select
                 placeholder="Select primary stream"
                 style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
@@ -456,7 +487,15 @@ const EditDatesModal = ({
                   })
                 }
               </Select>
-              <label>4. The MHFD lead is::</label><br />
+              <label>4. MHFD Lead &nbsp;<Popover placement="top"
+                content={
+                  <div className="popoveer-00">
+                    <b>MHFD Lead:</b> The MHFD staff serving as the primary manager for the project.
+                  </div>
+                }
+              >
+                <InfoCircleOutlined style={{opacity:0.4, marginRight:'2px'}} />
+              </Popover></label><br />
                 <Select
                   placeholder="Select lead"
                   style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
@@ -478,14 +517,24 @@ const EditDatesModal = ({
                     ))
                   }
                 </Select>
-              <label>5. The location is:</label><br />
+                <label>
+                  5. Location &nbsp;<Popover placement="top"
+                content={
+                  <div className="popoveer-00">
+                    <b>Location:</b> Cross streets or landmarks of the project limits. Location is a requirement for generating the Onbase Project Name.
+                  </div>
+                }
+              >
+                <InfoCircleOutlined style={{opacity:0.4, marginRight:'2px'}} />
+              </Popover> {allFiedsRequired ? '' : <em>(optional)</em>}
+                </label><br />
                 <Input
                   value={location}
                   disabled={disabledFields?.location}
                   placeholder="Type a location"
                   style={{ width: '100%', borderRadius: '5px', height: '36px' }}
                   onChange={(e) => setLocation(e.target.value)}
-                /> */}
+                />
             </div>
           </div>
           </>

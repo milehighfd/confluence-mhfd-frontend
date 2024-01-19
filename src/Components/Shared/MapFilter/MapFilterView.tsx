@@ -34,7 +34,9 @@ import {
   USE_LAND_COVER_LABEL,
   USE_LAND_COVER,
   ALERT_STATION,
-  PROPOSED_ACTIONS
+  PROPOSED_ACTIONS,
+  CRITICAL_FACILITIES,
+  BASEMAP
 } from '../../../constants/constants';
 
 
@@ -89,6 +91,7 @@ const MapFilterView = ({
     [NRCS_SOILS]: false,
     [ALERT_STATION]: false,
     [DWR_DAM_SAFETY]: false,
+    [CRITICAL_FACILITIES]: false,
     [USE_LAND_COVER_LABEL]: false,
     [STREAM_MANAGEMENT_CORRIDORS]: false,
     [BLOCK_CLEARANCE_ZONES_LAYERS]: false,
@@ -96,7 +99,8 @@ const MapFilterView = ({
     [BCZ_UTE_LADIES_TRESSES_ORCHID]: false,
     [RESEARCH_MONITORING]: false,
     [CLIMB_TO_SAFETY]: false,
-    [SEMSWA_SERVICE_AREA]: false
+    [SEMSWA_SERVICE_AREA]: false,
+    [BASEMAP]: false
   });
 
   const [groups, setGroups] = useState( isWR? {
@@ -107,7 +111,8 @@ const MapFilterView = ({
     environmental: false,
     humanConnection: false,
     boundaries: false,
-    workrequest: false
+    workrequest: false,
+    basemap: false
   }:{
     MHFDData: false,
     hydrologic: false,
@@ -115,7 +120,8 @@ const MapFilterView = ({
     geomorphology: false,
     environmental: false,
     humanConnection: false,
-    boundaries: false
+    boundaries: false,
+    basemap: false
   });
   let locationType =  'GUIDELINES';
   useEffect(() => {
@@ -204,6 +210,7 @@ const MapFilterView = ({
         });
       }
     }
+    console.log('Value', value, elements, name);
     setSwitches({...switches, ...newSwitches});
     selectCheckboxes(switchSelected);
     removePopup();
@@ -318,7 +325,17 @@ const MapFilterView = ({
         }}/>
     </div>
   );
+  const genExtra08 = () => (
+    <div className="filter-coll-header" key="DzdiEvq8vmf7">
+      <div  key="TZAPjUAZ6Cu855" style={switches[BASEMAP] ? weightStyle : emptyStyle}>{BASEMAP} </div>
+      <Switch key="7GX33A8WhGwR55" checked={groups['basemap']} size="small" onClick={(value, event) => {
+          event.stopPropagation();
+          changeGroup(value, [BASEMAP], 'basemap')
+        }}/>
+    </div>
+  );
   const onChange = (value: boolean, item: any) => {
+    console.log('VAlue', value, item);
     if (item.hasOwnProperty('name')) {
       if (item.name === USE_LAND_COVER_LABEL) {
         setShowmodal(value);
@@ -416,6 +433,13 @@ const MapFilterView = ({
         removePopup();
       }}>
         <Collapse defaultActiveKey={['6asdffds', '1', '2', '3', '4', '5', '6', '7', '8']} key="V4mBA5NQvgvvxJt0">
+          {/* <Panel header="" key="6asdffds222" extra={genExtra08()}>
+            <p>
+              <img key="jk9N6L5cdFnD" src="/Icons/Filters/ic_borders.png" width="18px" alt="" />
+                  Light/Street
+              <Switch key="7VVlkJw5jSYm" size="small" checked={switches[BASEMAP]} onClick={(value) => onChange(value, BASEMAP)} />
+            </p>
+          </Panel> */}
           { 
           <Panel header="" key="6asdffds" extra={genExtra07(locationType)}>
             <p>
@@ -434,7 +458,8 @@ const MapFilterView = ({
               </Popover>
               <Switch key="1O736dRsouSm" size="small" checked={switches[AREA_BASED_MASK]} onClick={(value) => onChange(value, AREA_BASED_MASK)} />
             </p>
-          </Panel>}
+          </Panel>
+          }
           <Panel header="" key="1" extra={genExtra()}>
             <p>
               <img key="mxq8tfB7PK3Z" src="/Icons/Filters/ic_problems.png" width="18px" alt="" />
@@ -605,16 +630,22 @@ const MapFilterView = ({
           </Panel>
 
           <Panel header="" key="6" extra={genExtra05()}>
-          { process.env.REACT_APP_NODE_ENV !== 'prod'?
-          <p>
-              <img key="9YinsTRVwIpC" src="/Icons/ic_lulc.png" width="18px" alt="" />
-                  Land Use Land Cover
-                  <Popover key="t7qedHPH0Pbx" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.land_use,'Land Use Land Cover – ')}>
-                <img key="04awLSrS1YFr" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
-              </Popover>
-              <Switch key="1fMvx97oGwQr" size="small" checked={switches[USE_LAND_COVER_LABEL]} onClick={(value) => onChange(value, USE_LAND_COVER)} />
-          </p>
-          : ''}
+            <p>
+                <img key="9YinsTRVwIpC" src="/Icons/ic_cf.png" width="18px" alt="" />
+                    Critical Facilities
+                  <Popover key="t7qedHPH0Pbx" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.critical_facilities,'Critical Facilities – ')}>
+                    <img key="04awLSrS1YFr" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                  </Popover>
+                <Switch key="1fMvx97oGwQr" size="small" checked={switches[CRITICAL_FACILITIES]} onClick={(value) => onChange(value, CRITICAL_FACILITIES)} />
+            </p>
+            <p>
+                <img key="9YinsTRVwIpC" src="/Icons/ic_lulc.png" width="18px" alt="" />
+                    Land Use Land Cover
+                    <Popover key="t7qedHPH0Pbx" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.land_use,'Land Use Land Cover – ')}>
+                  <img key="04awLSrS1YFr" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                </Popover>
+                <Switch key="1fMvx97oGwQr" size="small" checked={switches[USE_LAND_COVER_LABEL]} onClick={(value) => onChange(value, USE_LAND_COVER)} />
+            </p>
             <p>
               <img key="DvH4OKqWywyM" src="/Icons/Filters/ic_climb.png" width="18px" alt="" />
                   Climb to Safety Signs

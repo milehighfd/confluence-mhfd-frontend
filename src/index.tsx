@@ -1,40 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'connected-react-router';
-import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
-
 import * as serviceWorker from './serviceWorker';
-import { history } from "./store/configureStore";
-import getStore from './store';
 import '@mdi/font/scss/materialdesignicons.scss';
 import 'antd/dist/antd.min.css';
 import './index.scss';
-import App from './App';
-import { NotificationsProvider } from 'Components/Shared/Notifications/NotificationsProvider';
-import * as datasets from 'Config/datasets';
-import { SERVER } from 'Config/Server.config';
+import ErrorBoundary from 'Components/MainPage/ErrorBoundary';
+import Application from 'Components/MainPage/Application';
 
 const init = async () => {
-  let yearConfiguration;
-  try {
-    yearConfiguration = await datasets.getData(SERVER.GET_CONFIGURATIONS('BOARD_YEAR'))
-  } catch (error) {
-    console.error(error);
-  }
-
   ReactDOM.render(
-    <GoogleReCaptchaProvider reCaptchaKey={process.env.REACT_APP_CAPTCHA}>
-      <Provider store={getStore({
-        year: +yearConfiguration.value
-      })}>
-        <ConnectedRouter history={history}>
-          <NotificationsProvider>
-            <App />
-          </NotificationsProvider>
-        </ConnectedRouter>
-      </Provider>
-    </GoogleReCaptchaProvider>,
+    <ErrorBoundary fallback={
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", width: "100%" }}>
+        <img
+          style={{ height: "80%" }}
+          src="Error_Message.jpg"
+          alt="Error"
+        />
+      </div>
+    }>
+      <Application />
+    </ErrorBoundary>,
     document.getElementById('root')
   );
 }

@@ -171,7 +171,7 @@ const RequestCostRows = () => {
                 <div className="body-4">
                   <Row>
                     <Col span={4}>Budget</Col>
-                    {reqManager.map((val: any, index: number) => (
+                    {reqManager?.map((val: any, index: number) => (
                       <Col span={4} className="row-col-4" key={index}>
                         <InputNumber
                           placeholder="Enter target cost"

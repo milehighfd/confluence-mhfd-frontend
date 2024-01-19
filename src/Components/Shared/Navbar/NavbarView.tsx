@@ -156,6 +156,8 @@ const NavbarView = ({
     value = ROUTER_TITLE.PROJECT_STUDY_MASTER;
   } else if (location[2] === ROUTERS.PROJECT_STUDY_FHAD && location[1] === 'project-study' && location.length === 4) {
     value = ROUTER_TITLE.PROJECT_STUDY_FHAD;
+  } else if (location[1] === 'pm-tools'){
+    value = ROUTER_TITLE.PM_TOOLS;
   }
   const logout = () => {
     datasets.logout();

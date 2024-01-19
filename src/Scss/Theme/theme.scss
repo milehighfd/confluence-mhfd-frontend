@@ -146,6 +146,7 @@ body {
 
 .marbot-4 {
   margin-bottom: 10px;
+  margin-top: 14px; //14px
 }
 
 .btn-footer {
@@ -3193,6 +3194,12 @@ tr > .ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
 .ant-select-single .ant-select-selector .ant-select-selection-placeholder {
   align-items: center;
   display: flex;
+}
+
+@media (max-width: 575.98px) {
+  .marbot-4{
+    font-size: 13.5px;
+  }
 }
 
 @media (min-width: 1900px) and (max-width: 2550px) {

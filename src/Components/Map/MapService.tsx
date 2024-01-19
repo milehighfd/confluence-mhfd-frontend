@@ -477,7 +477,7 @@ class MapService {
   ) {
     SELECT_ALL_FILTERS.forEach(layer => {
       if (typeof layer === 'object') {
-        if (layer.name === USE_LAND_COVER_LABEL && process.env.REACT_APP_NODE_ENV !== 'prod') {
+        if (layer.name === USE_LAND_COVER_LABEL) {
           this.applyTileSetLayer();
           layer.tiles.forEach((tile: string) => {
             this.addTileSource(tile, addMapListeners);
@@ -675,6 +675,15 @@ class MapService {
       this.addTilesLayers(key, addMapListeners);
     }
   };
+  changeBaseMapStyle(type: string) {
+    if(type === 'light') {
+      console.log('About to set ', type, MAP_DROPDOWN_ITEMS[1].style);
+      this.map.setStyle(MAP_DROPDOWN_ITEMS[1].style);
+    } else if (type === 'street') {
+      console.log('About to set ' ,type, MAP_DROPDOWN_ITEMS[2].style);
+      this.map.setStyle(MAP_DROPDOWN_ITEMS[5].style);
+    }
+  }
 
   get map(): any {
     return this._map;

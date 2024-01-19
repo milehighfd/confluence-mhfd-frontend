@@ -34,6 +34,10 @@ export const MAP_DROPDOWN_ITEMS = [
   }, {
     type: 'Terrain',
     style: 'mapbox://styles/milehighfd/ck4jflu4000ry1cmnh7fdp2oi'
+  },
+  {
+    type: 'light',
+    style: 'mapbox://styles/milehighfd/clrjvtgpo000y01pf4si8c5f8'
   }
 ];
 
@@ -112,7 +116,7 @@ export const PROPOSED_ACTIONS = {
 };
 export const FEMA_FLOOD_HAZARD = 'fema_flood_hazard_zones';
 export const WATERSHED_FILTERS = 'mhfd_catchments_simple_v1';
-export const STREAMS_FILTERS = 'streams';
+export const STREAMS_FILTERS = 'stream_segment';
 export const MHFD_STREAMS_FILTERS = 'stream';
 export const XSTREAMS = 'xstreams';
 export const STREAMS_POINT = 'mhfd_flow_points';
@@ -420,6 +424,7 @@ export const PROJECTS_DRAFT_MAP_STYLES = {
 }
 export const NRCS_SOILS = 'usda_nrcs_soils';
 export const ALERT_STATION = 'alert_stations';
+export const CRITICAL_FACILITIES = 'criticalfacilities';
 export const DWR_DAM_SAFETY = 'dwr_dam_safety';
 export const STREAM_MANAGEMENT_CORRIDORS = 'mhfd_smcs';
 export const BCZ_PREBLE_MEADOW_JUMPING =
@@ -431,6 +436,7 @@ export const RESEARCH_MONITORING =
   'stormwater_research_sites';
 export const CLIMB_TO_SAFETY = 'climb_to_safety_signs';
 export const GUIDELINES = 'guidelines';
+export const BASEMAP = 'Basemap';
 export const SEMSWA_SERVICE_AREA =
   'semswa_service_area';
 export const BORDER = 'border';
@@ -443,6 +449,7 @@ export const SELECT_ALL_FILTERS = [
   MHFD_BOUNDARY_FILTERS,
   NRCS_SOILS,
   ALERT_STATION,
+  CRITICAL_FACILITIES,
   WATERSHED_FILTERS,
   SERVICE_AREA_LAYERS,
   SEMSWA_SERVICE_AREA,
@@ -467,7 +474,7 @@ export const SELECT_ALL_FILTERS = [
   BORDER,
   AREA_BASED_MASK,
   TEST_LINE,
-  PROPOSED_ACTIONS
+  PROPOSED_ACTIONS,
 ];
 export const SWITCHES_MAP = [
   BORDER,
@@ -1035,6 +1042,7 @@ export const ROUTER_TITLE = {
   PROJECT_ACQUISITION: 'Confluence   |   Create Project - Acquisition',
   PROJECT_CAPITAL: 'Confluence   |   Create Project - Capital Type',
   UPCOMING_PROJECTS: 'Confluence   |   Upcoming Projects',
+  PM_TOOLS: 'Confluence   |   PM Tools',
 }
 export const TASK = [
   {
@@ -1211,6 +1219,7 @@ export const popUps = {
   active_lomcs: 'A Letter of Map Change (LOMC) is issued when FEMA is requested to revise its effective flood map to reflect changed flooding conditions. reflects an official change to an effective Flood Insurance Rate Map (FIRM).',
   effective_reaches: 'The Effective Model Reaches catalogue and track the hydraulic model information used to create the effective Flood Insurance Rate Maps (FIRMs) available from the Federal Emergency Management Agency (FEMA).',
   alert_station: ' Alert Stations show the locations of MHFD real-time rainfall and stream flow sensors',
+  critical_facilities: 'Critical facilities no data yet'
 }
 
 export const MENU_OPTIONS =
@@ -1251,7 +1260,8 @@ export const MENU_OPTIONS =
   MUNICIPALITIES: 'Municipality',
   MEASURES: 'MEASURE',
   FEMA_FLOOD_HAZARD: 'FEMA Flood Hazard',
-  FLOODPLAINS_NON_FEMA: 'Floodplains (Non-FEMA)'
+  FLOODPLAINS_NON_FEMA: 'Floodplains (Non-FEMA)',
+  CRITICAL_FACILITIES: 'Critical Facility'
 }
   ;
 
@@ -1374,7 +1384,8 @@ export const ICON_POPUPS = [
   ['Irrigated Land/Turf', '/Icons/ic_luluc_irrigated_land.png'],
   ['Grassland', '/Icons/ic_luluc_grasslands.png'],
   ['Cropland', '/Icons/ic_luluc_cropland.png'],
-  ['Barren/Rock', '/Icons/ic_luluc_barren_rock.png']
+  ['Barren/Rock', '/Icons/ic_luluc_barren_rock.png'],
+  ['Critical Facility', '/Icons/ic_cf.png']
 ]
 
 export const MAPTYPES = {

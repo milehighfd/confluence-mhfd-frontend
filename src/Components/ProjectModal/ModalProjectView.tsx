@@ -118,7 +118,7 @@ const ModalProjectView = ({
     }
   };
   const handleCancel = (e: any) => {
-    //setVisibleCreateOrImport(true)
+    setVisibleCreateOrImport(true)
     setVisibleCreateProject(false);
     setIsCreatedFromBoard(false);
     setVisibleModal(false);

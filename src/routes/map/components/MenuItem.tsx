@@ -62,6 +62,7 @@ const MenuItem = ({menu, maptype,item, index, itemData, eventFunctions, userInfo
         ep: false
       };
     } else {
+      console.log('Main ppopup ');
       ItemComponent = MainPopup;
       props = {
         id: index,
