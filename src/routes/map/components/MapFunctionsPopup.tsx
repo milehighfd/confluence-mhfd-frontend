@@ -29,6 +29,7 @@ import {
   STREAM_IMPROVEMENT_MEASURE,
   MAPTYPES,
   ROUTINE_MAINTENANCES,
+  CRITICAL_FACILITIES,
 } from '../../../constants/constants';
 import * as datasets from '../../../Config/datasets';
 import {
@@ -978,6 +979,25 @@ export const addPopupsOnClick = async (
       menuOptions.push(MENU_OPTIONS.SEMSWA_SERVICE_AREA);
       popups.push(item);
       ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
+    }
+    if( feature.source === CRITICAL_FACILITIES) {
+      const item = {
+        layer: MENU_OPTIONS.CRITICAL_FACILITIES,
+        name: feature.properties.critical_facility_name,
+        address: feature.properties.critical_facility_address,
+        source_aggregate: feature.properties.source_aggregate,
+        source_category1: feature.properties.source_category1,
+        source_category2: feature.properties.source_category2,
+        source_agency: feature.properties.source_agency
+      };
+      menuOptions.push(MENU_OPTIONS.CRITICAL_FACILITIES);
+      popups.push(item);
+      mobile.push({
+        layer: MENU_OPTIONS.CRITICAL_FACILITIES,
+        name: item.name
+      });
+      mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
+      ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
     }
     if (feature.source === 'stream_segment') {
       const objectidstream = feature.properties.mhfd_code_segment;

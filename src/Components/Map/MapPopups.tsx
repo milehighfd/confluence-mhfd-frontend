@@ -198,71 +198,32 @@ const copiedFilepath = (filepath:any) => {
 };
 
 export const ComponentPopup = ({ id, item, isComponent, maptype, eventFunctions } : any) => {
-  if (!item.layer) {
-    isComponent = false;
-  } else if(item.layer == 'County') {
-    item.feature = item.feature +" County";
-    isComponent = false;
-  } else if (item.layer == 'Service Area') {
-    item.feature = item.feature + " Service Area";
-    isComponent = false;
-  } else if ( item.layer == 'Municipality') {
-    isComponent = false;
-  } else if ( item.layer == 'FEMA Flood Hazard') {
-    isComponent = false;
-  } else if ( item.layer == 'Floodplains (Non-FEMA)') {
-    isComponent = false;
-  } else if (item.layer.includes('LOMC')) {
-    isComponent = false;
-  } else if (item.layer.includes('Effective')) {
-    isComponent = false;
-  }
-  else if (item.layer.includes('Stream Management Corridor')) {
-    isComponent = false;
-  }
-  else if (item.layer.includes('Active Stream Corridor')) {
-    isComponent = false;
-  }
-  else if (item.layer.includes('Fluvial Hazard Buffe')) {
-    isComponent = false;
-  }
-  else if (item.layer.includes('Active Stream Corridor')) {
-    isComponent = false;
-  }
-  else if (item.layer.includes('Fluvial Hazard Buffer')) {
-    isComponent = false;
-  }
-  else if (item.layer.includes('Watershed Change Line')) {
-    isComponent = false;
-  }
-  else if (item.layer.includes('Flood Hazard Point')) {
-    isComponent = false;
-  }
-  else if (item.layer.includes('Flood Hazard Polygon')) {
-    isComponent = false;
-  }
-  else if (item.layer.includes('Flood Hazard Line')) {
-    isComponent = false;
-  }
-  else if (item.layer.includes('Stream Condition Point')) {
-    isComponent = false;
-  }
-  else if (item.layer.includes('Stream Condition Polygon')) {
-    isComponent = false;
-  }
-  else if (item.layer.includes('Stream Condition Line')) {
-    isComponent = false;
-  }
-  else if (item.layer.includes('Watershed Change Polygon')) {
-    isComponent = false;
-  }
-  else if (item.layer.includes('LAND USE LAND COVER')) {
-    isComponent = false;
-  }
-  else if (item.layer.includes('Alert Station')) {
-    isComponent = false;
-  }
-  else if (item.source && item.source.includes('routine_maintenance')) {
+  if (
+    !item.layer ||
+    item.layer == 'County' ||
+    item.layer == 'Service Area' ||
+    item.layer == 'Municipality' ||
+    item.layer == 'FEMA Flood Hazard' ||
+    item.layer == 'Floodplains (Non-FEMA)' ||
+    item.layer.includes('LOMC') ||
+    item.layer.includes('Effective') ||
+    item.layer.includes('Stream Management Corridor') ||
+    item.layer.includes('Active Stream Corridor') ||
+    item.layer.includes('Fluvial Hazard Buffe') ||
+    item.layer.includes('Fluvial Hazard Buffer') ||
+    item.layer.includes('Watershed Change Line') ||
+    item.layer.includes('Flood Hazard Point') ||
+    item.layer.includes('Flood Hazard Polygon') ||
+    item.layer.includes('Flood Hazard Line') ||
+    item.layer.includes('Stream Condition Point') ||
+    item.layer.includes('Stream Condition Polygon') ||
+    item.layer.includes('Stream Condition Line') ||
+    item.layer.includes('Watershed Change Polygon') ||
+    item.layer.includes('LAND USE LAND COVER') ||
+    item.layer.includes('Alert Station') ||
+    (item.source && item.source.includes('routine_maintenance')) ||
+    item.layer.includes('Critical Facility')
+  ) {
     isComponent = false;
   }
     return <div id={'popup-' + id} className="map-pop-01">
@@ -280,6 +241,12 @@ export const ComponentPopup = ({ id, item, isComponent, maptype, eventFunctions 
             Cost is adjusted for inflation</div>
             }><ExclamationCircleOutlined/></Tooltip>:<></>} 
             : </i>  ${numberWithCommas(item.estimatedcost)}</p> : ''}
+            {item.name ? <p><i>Critical Facility Name:</i>  {item.name}</p> : ''}
+            {item.address ? <p><i>Critical Facility Address:</i>  {item.address}</p> : ''}
+            {item.source_aggregate ? <p><i>Source Aggregate Type:</i>  {item.source_aggregate}</p> : ''}
+            {item.source_category1 ? <p><i>Source Category 1:</i>  {item.source_category1}</p> : ''}
+            {item.source_category2 ? <p><i>Source Category 2:</i>  {item.source_category2}</p> : ''}
+            {item.source_agency ? <p><i>Source Agency:</i>  {item.source_agency}</p> : ''}
             {item.studyyear ? <p><i>Study Year:</i>  {item.studyyear}</p> : ''}
             {item.status && !item?.layer?.includes('LOMC') ? <p><i>Status:</i>  {item.status}</p> : ''}
             {item.streamname ? <p><i>Stream:</i>  {item.streamname}</p> : ''}
