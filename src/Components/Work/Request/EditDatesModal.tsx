@@ -403,7 +403,7 @@ const EditDatesModal = ({
       </div>}
           <div className="body-edit-dates">
             <div className="form-edit-dates">
-              <label>1. Current Project Phase <Popover placement="top"
+              <label>1. Current Project Phase &nbsp;<Popover placement="top"
                 content={
                   <div className="popoveer-00">
                     <b>Phase:</b> The current phase of the project. Phases are detailed milestones specific to each project type.
@@ -411,7 +411,7 @@ const EditDatesModal = ({
                 }
               >
                 <InfoCircleOutlined style={{opacity:0.4, marginRight:'2px'}} />
-              </Popover>:</label><br/>
+              </Popover></label><br/>
               <Select
                 placeholder="Select phase"
                 style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
@@ -428,7 +428,7 @@ const EditDatesModal = ({
                   </Option>
                 ))}
               </Select>
-              <label>2. Start Date <Popover placement="top"
+              <label>2. Start Date &nbsp;<Popover placement="top"
                 content={
                   <div className="popoveer-00">
                     <b>Phase Start Date:</b> Estimated start date of the selected phase. The date entered will be used to prepopulate your project’s schedule.
@@ -436,14 +436,14 @@ const EditDatesModal = ({
                 }
               >
                 <InfoCircleOutlined style={{opacity:0.4, marginRight:'2px'}} />
-              </Popover>:</label><br />
+              </Popover></label><br />
               <DatePicker
                   format="MM-DD-YYYY"
                 value = {startDate}
                 style={{ width: '100%', borderRadius: '5px', height: '36px', marginBottom: '16px' }}
                 onChange={(date: any) => setStartDate(date)}
               />
-              <label>3. Primary Stream <Popover placement="top"
+              <label>3. Primary Stream &nbsp;<Popover placement="top"
                 content={
                   <div className="popoveer-00">
                     <b>Primary Stream:</b> The primary stream the project is impacting. Primary Stream is a requirement for generating the Onbase Project Name.
@@ -451,7 +451,7 @@ const EditDatesModal = ({
                 }
               >
                 <InfoCircleOutlined style={{opacity:0.4, marginRight:'2px'}} />
-              </Popover>:</label><br />
+              </Popover></label><br />
               <Select
                 placeholder="Select primary stream"
                 style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
@@ -478,7 +478,7 @@ const EditDatesModal = ({
                   })
                 }
               </Select>
-              <label>4. MHFD Lead <Popover placement="top"
+              <label>4. MHFD Lead &nbsp;<Popover placement="top"
                 content={
                   <div className="popoveer-00">
                     <b>MHFD Lead:</b> The MHFD staff serving as the primary manager for the project.
@@ -486,7 +486,7 @@ const EditDatesModal = ({
                 }
               >
                 <InfoCircleOutlined style={{opacity:0.4, marginRight:'2px'}} />
-              </Popover>:</label><br />
+              </Popover></label><br />
                 <Select
                   placeholder="Select lead"
                   style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
@@ -508,7 +508,7 @@ const EditDatesModal = ({
                     ))
                   }
                 </Select>
-              <label>5. Location <Popover placement="top"
+              <label>5. Location &nbsp;<Popover placement="top"
                 content={
                   <div className="popoveer-00">
                     <b>Location:</b> Cross streets or landmarks of the project limits. Location is a requirement for generating the Onbase Project Name.
@@ -516,7 +516,7 @@ const EditDatesModal = ({
                 }
               >
                 <InfoCircleOutlined style={{opacity:0.4, marginRight:'2px'}} />
-              </Popover>:</label><br />
+              </Popover></label><br />
                 <Input
                   value={location}
                   disabled={disabledFields?.location}
