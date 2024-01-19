@@ -44,6 +44,7 @@ const EditDatesModal = ({
   const [streamList, setStreamList] = useState<any[]>([]);
   const [isCountyWide, setIsCountyWide] = useState<boolean>(false);
   const [missingFields, setMissingFields] = useState<string[]>([]);
+  const CODES_NOT_STREAM = [15]
 
   const { openNotification } = useNotifications();
   const [onBaseNumber, setOnBaseNumber] = useState('no');
@@ -118,13 +119,19 @@ const EditDatesModal = ({
     })
   }, [project]);
 
-  useEffect(() => {
-    const CODES_NOT_STREAM = [13,15]
+  const [allFiedsRequired, setAllFiedsRequired] = useState<boolean>(true);
 
+  useEffect(() => {
+    if (CODES_NOT_STREAM.includes(project?.code_project_type?.code_project_type_id) || isCountyWide){
+      setAllFiedsRequired(false);
+    }
+  }, [project, isCountyWide, CODES_NOT_STREAM]);
+
+  useEffect(() => {
     let requiredFields = ['phase', 'start_date', 'primary_stream', 'mhfd_lead', 'location'];
     let nameFields = ['Phase', 'Start date', 'Primary stream', 'MHFD lead', 'Location'];
 
-    if (CODES_NOT_STREAM.includes(project?.code_project_type?.code_project_type_id) || isCountyWide){
+    if (!allFiedsRequired){
       requiredFields = ['phase', 'start_date', 'mhfd_lead'];
       nameFields = ['Phase', 'Start date', 'MHFD lead'];
     }
@@ -147,7 +154,7 @@ const EditDatesModal = ({
       }
     });
     setMissingFields(nameFields);
-  }, [selectedPhase, startDate, primaryStream, mhfdLead, project, isCountyWide, location]);
+  }, [selectedPhase, startDate, primaryStream, mhfdLead, project, isCountyWide, location, allFiedsRequired]);
 
   useEffect(() => {
     if (selectedPhase && startDate) {
@@ -443,7 +450,8 @@ const EditDatesModal = ({
                 style={{ width: '100%', borderRadius: '5px', height: '36px', marginBottom: '16px' }}
                 onChange={(date: any) => setStartDate(date)}
               />
-              <label>3. Primary Stream &nbsp;<Popover placement="top"
+                <label>
+                  3. Primary Stream &nbsp;<Popover placement="top"
                 content={
                   <div className="popoveer-00">
                     <b>Primary Stream:</b> The primary stream the project is impacting. Primary Stream is a requirement for generating the Onbase Project Name.
@@ -451,7 +459,8 @@ const EditDatesModal = ({
                 }
               >
                 <InfoCircleOutlined style={{opacity:0.4, marginRight:'2px'}} />
-              </Popover></label><br />
+              </Popover> {allFiedsRequired ? '' : <em>(optional)</em>}
+                </label><br />
               <Select
                 placeholder="Select primary stream"
                 style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
@@ -508,7 +517,8 @@ const EditDatesModal = ({
                     ))
                   }
                 </Select>
-              <label>5. Location &nbsp;<Popover placement="top"
+                <label>
+                  5. Location &nbsp;<Popover placement="top"
                 content={
                   <div className="popoveer-00">
                     <b>Location:</b> Cross streets or landmarks of the project limits. Location is a requirement for generating the Onbase Project Name.
@@ -516,7 +526,8 @@ const EditDatesModal = ({
                 }
               >
                 <InfoCircleOutlined style={{opacity:0.4, marginRight:'2px'}} />
-              </Popover></label><br />
+              </Popover> {allFiedsRequired ? '' : <em>(optional)</em>}
+                </label><br />
                 <Input
                   value={location}
                   disabled={disabledFields?.location}
