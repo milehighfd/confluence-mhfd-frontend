@@ -34,6 +34,10 @@ export const MAP_DROPDOWN_ITEMS = [
   }, {
     type: 'Terrain',
     style: 'mapbox://styles/milehighfd/ck4jflu4000ry1cmnh7fdp2oi'
+  },
+  {
+    type: 'light',
+    style: 'mapbox://styles/milehighfd/clrjvtgpo000y01pf4si8c5f8'
   }
 ];
 
@@ -432,6 +436,7 @@ export const RESEARCH_MONITORING =
   'stormwater_research_sites';
 export const CLIMB_TO_SAFETY = 'climb_to_safety_signs';
 export const GUIDELINES = 'guidelines';
+export const BASEMAP = 'Basemap';
 export const SEMSWA_SERVICE_AREA =
   'semswa_service_area';
 export const BORDER = 'border';

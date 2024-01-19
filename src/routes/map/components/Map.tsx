@@ -34,7 +34,8 @@ import {
   PROJECTS_DRAFT,
   MAP_TAB,
   MAINTENANCE_IDS,
-  PROPOSED_ACTIONS
+  PROPOSED_ACTIONS,
+  BASEMAP
 } from 'constants/constants';
 import {
   tileStyles,
@@ -906,83 +907,87 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
 
   const showLayers = (key: string) => {
     const styles = { ...tileStyles as any };
-    console.log('Key ', key);
-    styles[key].forEach((_: LayerStylesType, index: number) => {
-      const currentLayer: any = map.getLayer(key + '_' + index);
-      if (currentLayer) {
-        if (key === PROJECTS_DRAFT + 'draft') {
-          let allFilters: any = ['in', ['get', 'projectid'], ['literal', []]];
-          const statusLayer = currentLayer?.metadata?.project_status;
-          const typeLayer = currentLayer?.metadata?.project_type || currentLayer?.metadata?.projecttype;
-          let verifiedStatus= 5;
-          typeLayer?.forEach((type: any) => {
-            if (statusLayer.length > 0) {
-              statusLayer.forEach((currentStatus: any) => {
-                verifiedStatus = currentStatus;
-                switch (tabKey) {
-                  case 'Capital':
-                    verifiedStatus = 5;
-                    break;
-                  case 'Maintenance':
-                    verifiedStatus = 8;
-                    break;
-                  case 'Study':
-                    verifiedStatus = 1;
-                    break;
-                  case 'Acquisition':
-                    verifiedStatus = 13;
-                    break;
-                  case 'R&D':
-                    verifiedStatus = 15;
-                    break;
-                  default:
-                    break;
-                }
-              });
-            }
-          });
-          const undefinedValues = groupedIdsBoardProjects?.undefined?.undefined ?? [];
-          const newValues = [...(groupedIdsBoardProjects ? groupedIdsBoardProjects[1]?.[verifiedStatus] ?? []: []), ...undefinedValues];
-          const result = {
-            ...groupedIdsBoardProjects,
-            1: {
-              ...(groupedIdsBoardProjects?groupedIdsBoardProjects[1]: []),
-              [Number(verifiedStatus)]: newValues,
-            },
-          };
-          // delete result.undefined;
-          let idsToFilter: any = [];
-          typeLayer?.forEach((type: any) => {
-            if (statusLayer.length > 0) {
-              statusLayer.forEach((currentStatus: any) => {
-                let idsCurrent = result[currentStatus];
-                if (idsCurrent && idsCurrent[type]?.length > 0) {
-                  idsToFilter = [...idsToFilter, ...result[currentStatus][type]];
-                }
-              });
-            }
-          });
-          allFilters = ['all', ['in', ['get', 'projectid'], ['literal', [...idsToFilter]]]];
-          map.setFilter(key + '_' + index, allFilters);
-          map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
-        } else {
-          map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
-        }
-        if (COMPONENT_LAYERS.tiles.includes(key) && filterComponents) {
-          mapService.showSelectedComponents(filterComponents.component_type.split(','));
-        }
-        if (key === PROBLEMS_TRIGGER) {
-          isProblemActive = selectedLayers.includes(PROBLEMS_TRIGGER);;
-        }
-      }
-    });
-    if (key === STREAMS_FILTERS) {
-      styles[STREAMS_POINT].forEach((style: LayerStylesType, index: number) => {
-        if (map && map.getLayer(STREAMS_POINT + '_' + index)) {
-          map.setLayoutProperty(STREAMS_POINT + '_' + index, 'visibility', 'visible');
+    if (key === BASEMAP) {
+      mapService.changeBaseMapStyle('light');
+    } else {
+      styles[key]?.forEach((_: LayerStylesType, index: number) => {
+        const currentLayer: any = map.getLayer(key + '_' + index);
+        if (currentLayer) {
+          if (key === PROJECTS_DRAFT + 'draft') {
+            let allFilters: any = ['in', ['get', 'projectid'], ['literal', []]];
+            const statusLayer = currentLayer?.metadata?.project_status;
+            const typeLayer = currentLayer?.metadata?.project_type || currentLayer?.metadata?.projecttype;
+            let verifiedStatus= 5;
+            typeLayer?.forEach((type: any) => {
+              if (statusLayer.length > 0) {
+                statusLayer.forEach((currentStatus: any) => {
+                  verifiedStatus = currentStatus;
+                  switch (tabKey) {
+                    case 'Capital':
+                      verifiedStatus = 5;
+                      break;
+                    case 'Maintenance':
+                      verifiedStatus = 8;
+                      break;
+                    case 'Study':
+                      verifiedStatus = 1;
+                      break;
+                    case 'Acquisition':
+                      verifiedStatus = 13;
+                      break;
+                    case 'R&D':
+                      verifiedStatus = 15;
+                      break;
+                    default:
+                      break;
+                  }
+                });
+              }
+            });
+            const undefinedValues = groupedIdsBoardProjects?.undefined?.undefined ?? [];
+            const newValues = [...(groupedIdsBoardProjects ? groupedIdsBoardProjects[1]?.[verifiedStatus] ?? []: []), ...undefinedValues];
+            const result = {
+              ...groupedIdsBoardProjects,
+              1: {
+                ...(groupedIdsBoardProjects?groupedIdsBoardProjects[1]: []),
+                [Number(verifiedStatus)]: newValues,
+              },
+            };
+            // delete result.undefined;
+            let idsToFilter: any = [];
+            typeLayer?.forEach((type: any) => {
+              if (statusLayer.length > 0) {
+                statusLayer.forEach((currentStatus: any) => {
+                  let idsCurrent = result[currentStatus];
+                  if (idsCurrent && idsCurrent[type]?.length > 0) {
+                    idsToFilter = [...idsToFilter, ...result[currentStatus][type]];
+                  }
+                });
+              }
+            });
+            allFilters = ['all', ['in', ['get', 'projectid'], ['literal', [...idsToFilter]]]];
+            map.setFilter(key + '_' + index, allFilters);
+            map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
+          } else {
+            map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
+          }
+          if (COMPONENT_LAYERS.tiles.includes(key) && filterComponents) {
+            mapService.showSelectedComponents(filterComponents.component_type.split(','));
+          }
+          if (key === PROBLEMS_TRIGGER) {
+            isProblemActive = selectedLayers.includes(PROBLEMS_TRIGGER);;
+          }
         }
       });
+      if (key === STREAMS_FILTERS) {
+        styles[STREAMS_POINT].forEach((style: LayerStylesType, index: number) => {
+          if (map && map.getLayer(STREAMS_POINT + '_' + index)) {
+            map.setLayoutProperty(STREAMS_POINT + '_' + index, 'visibility', 'visible');
+          }
+        });
+      }
     }
+
   };
 
   useEffect(() => {
@@ -1500,22 +1505,27 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
 
   const hideLayers = (key: string) => {
     const styles = { ...(tileStyles as any) };
-    styles[key].forEach((_: LayerStylesType, index: number) => {
-      if (map.getLayer(key + '_' + index)) {
-        map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
-      }
-    });
-    if (key === STREAMS_FILTERS && styles[STREAMS_POINT]) {
-      styles[STREAMS_POINT].forEach((_: LayerStylesType, index: number) => {
-        if (map.getLayer(STREAMS_POINT + '_' + index)) {
-          map.setLayoutProperty(STREAMS_POINT + '_' + index, 'visibility', 'none');
+    if (key === BASEMAP) {
+      mapService.changeBaseMapStyle('street');
+    } else {
+      styles[key]?.forEach((_: LayerStylesType, index: number) => {
+        if (map.getLayer(key + '_' + index)) {
+          map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
         }
       });
+      if (key === STREAMS_FILTERS && styles[STREAMS_POINT]) {
+        styles[STREAMS_POINT].forEach((_: LayerStylesType, index: number) => {
+          if (map.getLayer(STREAMS_POINT + '_' + index)) {
+            map.setLayoutProperty(STREAMS_POINT + '_' + index, 'visibility', 'none');
+          }
+        });
+      }
+      if (key === PROBLEMS_TRIGGER) {
+        isProblemActive = false;
+        removeGeojsonCluster(map);
+      }
     }
-    if (key === PROBLEMS_TRIGGER) {
-      isProblemActive = false;
-      removeGeojsonCluster(map);
-    }
+    
   };
 
   const getDetailPage = (item: any) => {
