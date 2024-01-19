@@ -1255,7 +1255,8 @@ export const MENU_OPTIONS =
   MUNICIPALITIES: 'Municipality',
   MEASURES: 'MEASURE',
   FEMA_FLOOD_HAZARD: 'FEMA Flood Hazard',
-  FLOODPLAINS_NON_FEMA: 'Floodplains (Non-FEMA)'
+  FLOODPLAINS_NON_FEMA: 'Floodplains (Non-FEMA)',
+  CRITICAL_FACILITIES: 'Critical Facility'
 }
   ;
 
@@ -1378,7 +1379,8 @@ export const ICON_POPUPS = [
   ['Irrigated Land/Turf', '/Icons/ic_luluc_irrigated_land.png'],
   ['Grassland', '/Icons/ic_luluc_grasslands.png'],
   ['Cropland', '/Icons/ic_luluc_cropland.png'],
-  ['Barren/Rock', '/Icons/ic_luluc_barren_rock.png']
+  ['Barren/Rock', '/Icons/ic_luluc_barren_rock.png'],
+  ['Critical Facility', '/Icons/ic_cf.png']
 ]
 
 export const MAPTYPES = {
