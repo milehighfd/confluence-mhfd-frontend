@@ -477,7 +477,7 @@ class MapService {
   ) {
     SELECT_ALL_FILTERS.forEach(layer => {
       if (typeof layer === 'object') {
-        if (layer.name === USE_LAND_COVER_LABEL && process.env.REACT_APP_NODE_ENV !== 'prod') {
+        if (layer.name === USE_LAND_COVER_LABEL) {
           this.applyTileSetLayer();
           layer.tiles.forEach((tile: string) => {
             this.addTileSource(tile, addMapListeners);

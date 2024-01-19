@@ -906,6 +906,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
 
   const showLayers = (key: string) => {
     const styles = { ...tileStyles as any };
+    console.log('Key ', key);
     styles[key].forEach((_: LayerStylesType, index: number) => {
       const currentLayer: any = map.getLayer(key + '_' + index);
       if (currentLayer) {

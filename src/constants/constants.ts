@@ -420,6 +420,7 @@ export const PROJECTS_DRAFT_MAP_STYLES = {
 }
 export const NRCS_SOILS = 'usda_nrcs_soils';
 export const ALERT_STATION = 'alert_stations';
+export const CRITICAL_FACILITIES = 'criticalfacilities';
 export const DWR_DAM_SAFETY = 'dwr_dam_safety';
 export const STREAM_MANAGEMENT_CORRIDORS = 'mhfd_smcs';
 export const BCZ_PREBLE_MEADOW_JUMPING =
@@ -443,6 +444,7 @@ export const SELECT_ALL_FILTERS = [
   MHFD_BOUNDARY_FILTERS,
   NRCS_SOILS,
   ALERT_STATION,
+  CRITICAL_FACILITIES,
   WATERSHED_FILTERS,
   SERVICE_AREA_LAYERS,
   SEMSWA_SERVICE_AREA,
@@ -467,7 +469,7 @@ export const SELECT_ALL_FILTERS = [
   BORDER,
   AREA_BASED_MASK,
   TEST_LINE,
-  PROPOSED_ACTIONS
+  PROPOSED_ACTIONS,
 ];
 export const SWITCHES_MAP = [
   BORDER,
@@ -1212,6 +1214,7 @@ export const popUps = {
   active_lomcs: 'A Letter of Map Change (LOMC) is issued when FEMA is requested to revise its effective flood map to reflect changed flooding conditions. reflects an official change to an effective Flood Insurance Rate Map (FIRM).',
   effective_reaches: 'The Effective Model Reaches catalogue and track the hydraulic model information used to create the effective Flood Insurance Rate Maps (FIRMs) available from the Federal Emergency Management Agency (FEMA).',
   alert_station: ' Alert Stations show the locations of MHFD real-time rainfall and stream flow sensors',
+  critical_facilities: 'Critical facilities no data yet'
 }
 
 export const MENU_OPTIONS =

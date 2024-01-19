@@ -34,7 +34,8 @@ import {
   USE_LAND_COVER_LABEL,
   USE_LAND_COVER,
   ALERT_STATION,
-  PROPOSED_ACTIONS
+  PROPOSED_ACTIONS,
+  CRITICAL_FACILITIES
 } from '../../../constants/constants';
 
 
@@ -89,6 +90,7 @@ const MapFilterView = ({
     [NRCS_SOILS]: false,
     [ALERT_STATION]: false,
     [DWR_DAM_SAFETY]: false,
+    [CRITICAL_FACILITIES]: false,
     [USE_LAND_COVER_LABEL]: false,
     [STREAM_MANAGEMENT_CORRIDORS]: false,
     [BLOCK_CLEARANCE_ZONES_LAYERS]: false,
@@ -605,16 +607,22 @@ const MapFilterView = ({
           </Panel>
 
           <Panel header="" key="6" extra={genExtra05()}>
-          { process.env.REACT_APP_NODE_ENV !== 'prod'?
-          <p>
-              <img key="9YinsTRVwIpC" src="/Icons/ic_lulc.png" width="18px" alt="" />
-                  Land Use Land Cover
-                  <Popover key="t7qedHPH0Pbx" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.land_use,'Land Use Land Cover – ')}>
-                <img key="04awLSrS1YFr" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
-              </Popover>
-              <Switch key="1fMvx97oGwQr" size="small" checked={switches[USE_LAND_COVER_LABEL]} onClick={(value) => onChange(value, USE_LAND_COVER)} />
-          </p>
-          : ''}
+            <p>
+                <img key="9YinsTRVwIpC" src="/Icons/ic_cf.png" width="18px" alt="" />
+                    Critical Facilities
+                  <Popover key="t7qedHPH0Pbx" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.critical_facilities,'Critical Facilities – ')}>
+                    <img key="04awLSrS1YFr" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                  </Popover>
+                <Switch key="1fMvx97oGwQr" size="small" checked={switches[CRITICAL_FACILITIES]} onClick={(value) => onChange(value, CRITICAL_FACILITIES)} />
+            </p>
+            <p>
+                <img key="9YinsTRVwIpC" src="/Icons/ic_lulc.png" width="18px" alt="" />
+                    Land Use Land Cover
+                    <Popover key="t7qedHPH0Pbx" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.land_use,'Land Use Land Cover – ')}>
+                  <img key="04awLSrS1YFr" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                </Popover>
+                <Switch key="1fMvx97oGwQr" size="small" checked={switches[USE_LAND_COVER_LABEL]} onClick={(value) => onChange(value, USE_LAND_COVER)} />
+            </p>
             <p>
               <img key="DvH4OKqWywyM" src="/Icons/Filters/ic_climb.png" width="18px" alt="" />
                   Climb to Safety Signs
