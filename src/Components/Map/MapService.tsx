@@ -675,6 +675,15 @@ class MapService {
       this.addTilesLayers(key, addMapListeners);
     }
   };
+  changeBaseMapStyle(type: string) {
+    if(type === 'light') {
+      console.log('About to set ', type, MAP_DROPDOWN_ITEMS[1].style);
+      this.map.setStyle(MAP_DROPDOWN_ITEMS[1].style);
+    } else if (type === 'street') {
+      console.log('About to set ' ,type, MAP_DROPDOWN_ITEMS[2].style);
+      this.map.setStyle(MAP_DROPDOWN_ITEMS[5].style);
+    }
+  }
 
   get map(): any {
     return this._map;
