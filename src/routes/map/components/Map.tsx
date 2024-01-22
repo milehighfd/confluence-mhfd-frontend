@@ -448,6 +448,11 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     }
   }, [data]);
 
+  const removeFromAllLayers = (id: string) => {
+    const allLayersCopy = [...allLayers];
+    const filteredLayers = allLayersCopy.filter((layer) => !layer.includes(id));
+    setAllLayers(filteredLayers);
+  }
   
   useEffect(() => {
     popup.remove();
@@ -458,6 +463,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
       styles[key].forEach((style: LayerStylesType, index: number) => {
         if (map.getLayer(key + '_' + index)) {
           map.removeLayer(key + '_' + index);
+          removeFromAllLayers(key);
         }
       });
     }

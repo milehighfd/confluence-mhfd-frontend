@@ -1219,7 +1219,7 @@ export const popUps = {
   active_lomcs: 'A Letter of Map Change (LOMC) is issued when FEMA is requested to revise its effective flood map to reflect changed flooding conditions. reflects an official change to an effective Flood Insurance Rate Map (FIRM).',
   effective_reaches: 'The Effective Model Reaches catalogue and track the hydraulic model information used to create the effective Flood Insurance Rate Maps (FIRMs) available from the Federal Emergency Management Agency (FEMA).',
   alert_station: ' Alert Stations show the locations of MHFD real-time rainfall and stream flow sensors',
-  critical_facilities: 'Critical facilities no data yet'
+  critical_facilities: ' are the structures or related infrastructure that if flooded may result in significant hazards to public health and safety or interrupt essential services and operations for the community at any time before, during, or after a flood. Represented here are the top priority critical facilities as defined by FEMA, sourced from various local agencies.'
 }
 
 export const MENU_OPTIONS =
