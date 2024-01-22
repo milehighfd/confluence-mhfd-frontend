@@ -101,7 +101,8 @@ export const ModalCapital = ({
     getIndependentComponentsByProjectId,
     getComponentsByProjectId,
     resetDiscussion,
-    setScrollToImages
+    setScrollToImages,
+    getStreamsByProjectId
   } = useProjectDispatch();
   const { setIsCreatedFromBoard, setIsImported, loadColumns , setVisibleCreateOrImport} = useRequestDispatch();
   const { isCreatedFromBoard, isImported, namespaceId, importedProjectData } = useRequestState();
@@ -118,7 +119,7 @@ export const ModalCapital = ({
     listStreams,
     streamsIntersectedIds,
     isStillLoading,
-    scrollToImages
+    scrollToImages,
   } = useProjectState();
   
   const [loading, setLoading] = useState(false);
@@ -271,6 +272,7 @@ export const ModalCapital = ({
     resetDiscussion();
     setIsEdit(false);
     if (data !== 'no data') {
+      getStreamsByProjectId(data.project_id, data.code_project_type_id);
       const counties = data.project_counties.map((e: any) => e?.CODE_STATE_COUNTY?.county_name);
       const serviceAreas = data.project_service_areas.map((e: any) => e?.CODE_SERVICE_AREA?.service_area_name);
       const localJurisdiction = data.project_local_governments.map((e: any) => e?.CODE_LOCAL_GOVERNMENT?.local_government_name);
