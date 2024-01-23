@@ -78,17 +78,10 @@ export const getStreams = (projectStreams: any) => {
 };
 
 export const getTotalEstimatedCost = (projectCosts: any) => {
-if (projectCosts && projectCosts.length > 0) {
-  let estimatedCost = projectCosts.filter((pc: any) => pc.code_cost_type_id === 1);
-  return estimatedCost ? estimatedCost[0]?.cost : 0;
-}
-  // return projectCosts?.reduce((accumulator: number, pl: any) => {
-  //   let sum = accumulator;
-  //   if (pl.code_cost_type_id === ESTIMATED_COST) {
-  //     sum += pl.cost;
-  //   }
-  //   return sum;
-  // }, 0);
+  if (projectCosts && projectCosts.length > 0) {
+    let estimatedCost = projectCosts.filter((pc: any) => pc.code_cost_type_id === 1);
+    return estimatedCost.length > 0 ? estimatedCost[0]?.cost : 0;
+  }
   return 0;
 };
 

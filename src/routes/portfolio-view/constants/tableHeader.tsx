@@ -1253,12 +1253,13 @@ export const CIPValueTable:ColumnsType<DataTypeCIP | any> = [
     title: '',
     dataIndex: 'estimated_cost',
     key: 'estimated_cost',
-    className:'table-text-body',
-    render: (data) => {return data === 0 ? <span className="tag">No Cost</span> : <span style={{}}>{formatter.format(+data)}</span>;},
-    // width:"7.142857142857143",
+    className: 'table-text-body',
+    render: (data) => {
+      return (data === 0 || data === undefined)
+        ? <span className="tag">No Cost</span> : <span style={{}}>{formatter.format(+data)}</span>;
+    },
     ellipsis: true,
   },
-  
   {
     title: '',
     dataIndex: 'consultant',
