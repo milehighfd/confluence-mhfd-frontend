@@ -1,9 +1,9 @@
 
-import { SearchOutlined, UserOutlined } from '@ant-design/icons';
+import { CloseCircleFilled, SearchOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Col, Input, Modal, Row } from 'antd';
 import { WORK_PLAN } from 'constants/constants';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { SERVER } from 'Config/Server.config';
 import * as datasets from "../../Config/datasets";
 import { ModalCapital } from 'Components/Project/Capital/ModalCapital';
@@ -65,10 +65,33 @@ const ModalProjectsCreate = ({visible, setVisible}
     });
   }, [namespaceId]);
 
+  const getCompleteProjectData = () => {
+    if (selectedProjectId === -1) return;
+    datasets.getData(SERVER.V2_DETAILED_PAGE(selectedProjectId), datasets.getToken())
+      .then(dataFromDB => {
+        setNameProject(dataFromDB?.project_name);
+        let projectTypeS = dataFromDB?.code_project_type?.project_type_name;
+        if (MaintenanceTypes.includes(projectTypeS)) {
+          setSubType(projectTypeS);
+          projectTypeS = 'Maintenance';
+        } else if (projectTypeS === 'CIP') {
+          projectTypeS = 'Capital';
+        }
+        setTypeProyect(projectTypeS);
+        setCompleteProjectData({ ...dataFromDB, tabkey: projectTypeS });
+        //setVisible(false);
+        setVisibleCapital(true);
+        setIsImported(true);
+      });
+  }
+
   useEffect(() => {
-    // if (!keyword) return;
+    performSearch('');
+  }, []);
+
+  const performSearch = (nameProject: string) => {
     const searchInfo = {
-      keyword,
+      keyword: nameProject,
       locality: namespaceId.locality,
       year: namespaceId.year,
     }
@@ -93,27 +116,22 @@ const ModalProjectsCreate = ({visible, setVisible}
         }
       }));
     });
-  }, [keyword]);
-
-  const getCompleteProjectData = () => {
-    if (selectedProjectId === -1) return;
-    datasets.getData(SERVER.V2_DETAILED_PAGE(selectedProjectId), datasets.getToken())
-      .then(dataFromDB => {
-        setNameProject(dataFromDB?.project_name);
-        let projectTypeS = dataFromDB?.code_project_type?.project_type_name;
-        if (MaintenanceTypes.includes(projectTypeS)) {
-          setSubType(projectTypeS);
-          projectTypeS = 'Maintenance';
-        } else if (projectTypeS === 'CIP') {
-          projectTypeS = 'Capital';
-        }
-        setTypeProyect(projectTypeS);
-        setCompleteProjectData({ ...dataFromDB, tabkey: projectTypeS });
-        //setVisible(false);
-        setVisibleCapital(true);
-        setIsImported(true);
-      });
   }
+
+  const debounce = (func: Function, delay: number) => {
+    let timeoutId: ReturnType<typeof setTimeout>;  
+    return (...args: any[]) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func.apply(null, args);
+      }, delay);
+    };
+  };
+
+  const debouncedOnChange = useCallback(
+    debounce((nameProject: string) => performSearch(nameProject), 500),
+    []
+  );
 
   return (
     <div >
@@ -187,7 +205,16 @@ const ModalProjectsCreate = ({visible, setVisible}
             className='input-search'
             placeholder="Search for existing project"
             prefix={<SearchOutlined />}
-            onPressEnter={(event: React.KeyboardEvent<HTMLInputElement>) => setKeyword(event.currentTarget.value)}
+            suffix={keyword && <CloseCircleFilled
+              onClick={() => {
+                setKeyword('')
+                performSearch('')
+              }} />}
+            onChange={(event) => {
+              setKeyword(event.target.value)
+              debouncedOnChange(event.target.value)
+            }}
+            value={keyword}
           />
           {<Row className='row-project-project'>
             <Col span={16}>
