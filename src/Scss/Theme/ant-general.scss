@@ -287,6 +287,19 @@
 .ant-select-selection-placeholder{
   color: $purple;
 }
+
+.search-input-dropdown-stream{
+  font-size: 14px;
+  color: #11093c;
+  .global-search-item{
+    h6{
+      font-size: 14px !important;
+      color: #11093c;
+      font-weight: 400 !important;
+    }
+  }
+}
+
 //movend from project.scss
 .ant-select-arrow {
   align-items: right;

@@ -193,7 +193,7 @@ const ModalProjectsCreate = ({visible, setVisible}
               <img src="/Icons/ic-files-green.svg" alt="plus-green" />
               <div className='text-new-project-sec'>
                 <p >Search for a Project</p>
-                <p className='description-new-project-sec'>Search for a project from a previous year's Work Request or Work Plan by Name, Project ID, or OnBase project number.</p>
+                <p className='description-new-project-sec'>Search for a project from a previous year’s Work Request or Work Plan by name, project id, or OnBase project number. If searching for a project within a Work Request board, results are filtered by the local government.</p>
               </div>
             </div>
             <Button className="btn-transparent btn-create" onClick={onClickNewProject}>
@@ -254,11 +254,9 @@ const ModalProjectsCreate = ({visible, setVisible}
               ))}</div>)
             : <div className='nothing-found'>
                 <img src='/Icons/no_data.svg' alt='no_data' />
-                <h2>Nothing Found!</h2>
-                <p>
-                  There 's nothing related to <b>“{keyword}"</b> inside
-                  <br/>
-                  the project database. Go ahead and <span style={{color:'#29C499', textDecoration:'underline', cursor:'pointer'}}   onClick={onClickNewProject}>create a project</span>.
+                <h2>No matching results!</h2>
+                <p>Try modifying your search parameter. Projects of the current<br/> year are ineligible for import, find thoseby using the<br/> board  search in the upper right corner.<br/>
+                If still unable to locate, proceed to <span style={{color:'#29C499', textDecoration:'underline', cursor:'pointer'}}   onClick={onClickNewProject}>create a project</span>.
                 </p>
               </div>
           }

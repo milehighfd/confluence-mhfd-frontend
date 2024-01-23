@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, DatePicker, Dropdown, Input, InputNumber, Menu, Modal, Popover, Radio, Row, Select } from "antd";
+import { AutoComplete, Button, Col, DatePicker, Dropdown, Input, InputNumber, Menu, Modal, Popover, Radio, Row, Select } from "antd";
 import { WINDOW_WIDTH } from "constants/constants";
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
@@ -51,7 +51,11 @@ const EditDatesModal = ({
   const {
     loadColumns, 
   } = useRequestDispatch();
-  
+  const [keyword, setKeyword] = useState('');
+
+  const handleSearch = (value: string) => {
+    setKeyword(value);
+  };
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
   const colorScale: any = {
     Done: '#5D3DC7',
@@ -353,7 +357,19 @@ const EditDatesModal = ({
   function resetData() {
     setVisible(false);
   }
-  
+  const renderOption = (item: any) => {
+    const stream_name = item.stream_name || 'NA';
+    return {
+      key: `${item.stream_id}`,
+      value: `${item.stream_name}`,
+      label: (
+        <div className="global-search-item">
+          <h6 className="wraptext">{stream_name}</h6>
+          <h5 className="wraptext" style={{ whiteSpace: 'normal' }}>{item.place_name}</h5>
+        </div>
+      ),
+    }
+  };
   return(
     <>
       {emptyDatesAlert && (
@@ -461,32 +477,23 @@ const EditDatesModal = ({
                 <InfoCircleOutlined style={{opacity:0.4, marginRight:'2px'}} />
               </Popover> {allFiedsRequired ? '' : <em>(optional)</em>}
                 </label><br />
-              <Select
-                placeholder="Select primary stream"
+              <AutoComplete
                 style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
-                listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-                onChange={(value: string) => {
-                  const selectedItem = streamList.find(item => item.stream_id.toString() === value);
-                  if (selectedItem) {
-                    if (selectedItem.project_stream_id){
-                      setPrimaryStream({ id: selectedItem.stream_id, name: selectedItem.stream_name, value: selectedItem.project_stream_id });
-                    }                    
+                options={streamList.length > 0 ? [...streamList.map(renderOption), {}] : streamList.map(renderOption)}
+                placeholder="Select primary stream"
+                filterOption={(inputValue: any, option: any) => {
+                  console.log('inputValue', inputValue);
+                  console.log('option', option);
+                  // console.log(option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1, 'OP');
+                  if(option.value){
+                    return option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
                   }
-                }}
-                value={primaryStream?.id !== null ? primaryStream.id.toString() : undefined}
-                disabled={disabledFields?.primary_stream}
-              >
-                {
-                  streamList.map((item) => {
-                    const stream_name = item.stream_name || 'NA';
-                    return (
-                      <Option key={item.stream_id} value={item.stream_id.toString()}>
-                        {`${stream_name} - ${item.mhfd_code_stream}`}
-                      </Option>
-                    );
-                  })
+                  return false;
                 }
-              </Select>
+                }
+                className="search-input"
+                dropdownClassName="search-input-dropdown-stream"
+              />
               <label>4. MHFD Lead &nbsp;<Popover placement="top"
                 content={
                   <div className="popoveer-00">
