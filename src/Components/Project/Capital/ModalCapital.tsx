@@ -446,18 +446,18 @@ export const ModalCapital = ({
       const params = new URLSearchParams(history.location.search);
       const _year = params.get('year');
       const _locality = params.get('locality');
-      var capital = new Project();
+      var projectToSend = new Project();
       //general
-      capital.fromTab = tabActiveNavbar;
-      capital.locality = _locality;
+      projectToSend.fromTab = tabActiveNavbar;
+      projectToSend.locality = _locality;
       if (workRequestYear.default && tabActiveNavbar === MAP_TAB) {
         if (sponsor === 'MHFD') {
-          capital.year = workPlanYear.default;
+          projectToSend.year = workPlanYear.default;
         } else {
-          capital.year = workRequestYear.default;
+          projectToSend.year = workRequestYear.default;
         }
       } else {
-        capital.year = _year ?? capital.year;
+        projectToSend.year = _year ?? projectToSend.year;
       }
       let csponsor = "";
       if (cosponsor) {
@@ -468,88 +468,88 @@ export const ModalCapital = ({
           csponsor = csponsor.substring(0, csponsor.length - 1)
         }
       }
-      capital.subtotalcost = getSubTotalCost();
-      capital.servicearea = serviceAreaIds;
-      capital.county = countyIds;
-      capital.jurisdiction = jurisdictionIds;
-      capital.sponsor = sponsor === 'Select a Sponsor' ? '' : sponsor;
-      capital.sponsorId = sponsorId;
-      capital.cosponsor = csponsor;
-      capital.projectname = nameProject;
-      capital.description = description;      
-      capital.files = files;
-      capital.editProject = editprojectid;
-      capital.cover = '';
-      capital.sendToWR = sendToWR;
-      capital.isWorkPlan = isWorkPlan;
-      capital.type = selectedTypeProject;
-      capital.isCountyWide = isCountyWide ? isCountyWide : false;
-      capital.isSouthPlate = isSouthPlate ? isSouthPlate : false;
-      capital.userChangedOverhead = userChangedOverhead;
-      capital.userChangedAdditional = userChangedAdditional;
+      projectToSend.subtotalcost = getSubTotalCost();
+      projectToSend.servicearea = serviceAreaIds;
+      projectToSend.county = countyIds;
+      projectToSend.jurisdiction = jurisdictionIds;
+      projectToSend.sponsor = sponsor === 'Select a Sponsor' ? '' : sponsor;
+      projectToSend.sponsorId = sponsorId;
+      projectToSend.cosponsor = csponsor;
+      projectToSend.projectname = nameProject;
+      projectToSend.description = description;      
+      projectToSend.files = files;
+      projectToSend.editProject = editprojectid;
+      projectToSend.cover = '';
+      // projectToSend.sendToWR = sendToWR;
+      projectToSend.isWorkPlan = isWorkPlan;
+      projectToSend.type = selectedTypeProject;
+      projectToSend.isCountyWide = isCountyWide ? isCountyWide : false;
+      projectToSend.isSouthPlate = isSouthPlate ? isSouthPlate : false;
+      projectToSend.userChangedOverhead = userChangedOverhead;
+      projectToSend.userChangedAdditional = userChangedAdditional;
       changeAddLocationState(false);
       //capital 
       if (selectedTypeProject === 'capital') {
-        capital.geom = streamIntersected.geom;
-        capital.overheadcost = overheadCosts;
-        capital.overheadcostdescription = overheadDescription;
-        capital.additionalcost = additionalCost;
-        capital.additionalcostdescription = additionalDescription;
-        capital.components = componentsToSave ? JSON.stringify(componentsToSave, null, 2) : [];
-        capital.independentComponent = JSON.stringify(thisIndependentComponents, null, 2);
-        capital.estimatedcost = getTotalCost();
-        capital.estimatedcostInput = estimatedCostInput;
-        capital.estimatedcostDescription = estimatedCostDescription;
-        capital.componentcost = getSubTotalCost();
-        capital.componentcount = (
+        projectToSend.geom = streamIntersected.geom;
+        projectToSend.overheadcost = overheadCosts;
+        projectToSend.overheadcostdescription = overheadDescription;
+        projectToSend.additionalcost = additionalCost;
+        projectToSend.additionalcostdescription = additionalDescription;
+        projectToSend.components = componentsToSave ? JSON.stringify(componentsToSave, null, 2) : [];
+        projectToSend.independentComponent = JSON.stringify(thisIndependentComponents, null, 2);
+        projectToSend.estimatedcost = getTotalCost();
+        projectToSend.estimatedcostInput = estimatedCostInput;
+        projectToSend.estimatedcostDescription = estimatedCostDescription;
+        projectToSend.componentcost = getSubTotalCost();
+        projectToSend.componentcount = (
           componentsToSave?.length > 0 ?
             componentsToSave.length : 0) +
           (thisIndependentComponents?.length > 0 ? thisIndependentComponents.length : 0);
         let mhfd_codes = streamsIntersectedIds.map((str: any) => str.mhfd_code_stream);
-        capital.ids = mhfd_codes;
+        projectToSend.ids = mhfd_codes;
         let newStreamsArray: any = [];
         for (let str in listStreams) {
           newStreamsArray = [...newStreamsArray, ...listStreams[str]];
         }
-        capital.streams = newStreamsArray;
+        projectToSend.streams = newStreamsArray;
       }     
       //maintenance
       if (selectedTypeProject === 'maintenance') {
-        capital.is_routine = isRoutine;
-        capital.geom = streamIntersected.geom;
-        capital.projectsubtype = subType;
-        capital.frequency = frequency === 'None' ? 0 : frequency;
-        capital.maintenanceeligibility = eligibility;
-        capital.ownership = String(ownership);
+        projectToSend.is_routine = isRoutine;
+        projectToSend.geom = streamIntersected.geom;
+        projectToSend.projectsubtype = subType;
+        projectToSend.frequency = frequency === 'None' ? 0 : frequency;
+        projectToSend.maintenanceeligibility = eligibility;
+        projectToSend.ownership = String(ownership);
         let mhfd_codes = streamsIntersectedIds.map((str: any) => str.mhfd_code_stream);
-        capital.ids = mhfd_codes;
+        projectToSend.ids = mhfd_codes;
         let newStreamsArray: any = [];
         for (let str in listStreams) {
           newStreamsArray = [...newStreamsArray, ...listStreams[str]];
         }
-        capital.streams = newStreamsArray;
+        projectToSend.streams = newStreamsArray;
       }      
       //study
       if (selectedTypeProject === 'study') {
         let mhfd_codes = streamsIntersectedIds.map((str: any) => str.mhfd_code);
-        capital.ids = mhfd_codes;
+        projectToSend.ids = mhfd_codes;
         let newStreamsArray: any = [];
         for (let str in listStreams) {
           newStreamsArray = [...newStreamsArray, ...listStreams[str]];
         }
-        capital.streams = newStreamsArray;
-        capital.studyreason = studyreason;
-        capital.otherReason = otherReason;
+        projectToSend.streams = newStreamsArray;
+        projectToSend.studyreason = studyreason;
+        projectToSend.otherReason = otherReason;
       }
       //acquisition
       if (selectedTypeProject === 'acquisition') {
-        capital.geom = geom;
-        capital.acquisitionprogress = progress;
-        capital.acquisitionanticipateddate = purchaseDate;
+        projectToSend.geom = geom;
+        projectToSend.acquisitionprogress = progress;
+        projectToSend.acquisitionanticipateddate = purchaseDate;
       }
       //special
       if (selectedTypeProject === 'special') {
-        capital.geom = geom;
+        projectToSend.geom = geom;
       }
       files.forEach((file: any) => {
         if (file._id) {
@@ -559,13 +559,13 @@ export const ModalCapital = ({
       removeAttachment(deleteAttachmentsIds);
       if (swSave) {
         if (isImported) {
-          importProject(capital);
+          importProject(projectToSend);
         } else {
-          editProjectCapital(capital, originLocation);
+          editProjectCapital(projectToSend, originLocation);
         }
       }
       else {
-        saveProjectCapital(capital);
+        saveProjectCapital(projectToSend);
       }
       // setVisible(false);
     }
