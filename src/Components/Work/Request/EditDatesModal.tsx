@@ -478,6 +478,7 @@ const EditDatesModal = ({
               </Popover> {allFiedsRequired ? '' : <em>(optional)</em>}
                 </label><br />
               <AutoComplete
+                dropdownMatchSelectWidth={true} 
                 style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
                 options={streamList.length > 0 ? [...streamList.map(renderOption), {}] : streamList.map(renderOption)}
                 placeholder="Select primary stream"
