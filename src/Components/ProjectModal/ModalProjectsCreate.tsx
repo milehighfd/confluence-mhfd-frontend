@@ -160,7 +160,7 @@ const ModalProjectsCreate = ({visible, setVisible}
         className="new-project"
         width={pageWidth > 3000 ? "1100px" : "800px"}
         footer={[
-          <Button key="back" className="btn-borde" onClick={() => setVisible(false)}>
+          <Button key="back" className="btn-borde" onClick={() => setVisible(false)} style={{padding:'0px'}}>
             Cancel
           </Button>,
           <Button
