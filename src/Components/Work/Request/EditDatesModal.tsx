@@ -48,6 +48,18 @@ const EditDatesModal = ({
 
   const { openNotification } = useNotifications();
   const [onBaseNumber, setOnBaseNumber] = useState('no');
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   const {
     loadColumns, 
   } = useRequestDispatch();
@@ -482,6 +494,7 @@ const EditDatesModal = ({
                 style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
                 options={streamList.length > 0 ? [...streamList.map(renderOption), {}] : streamList.map(renderOption)}
                 placeholder="Select primary stream"
+                listHeight={windowWidth > 2554 ? (windowWidth > 3799 ? 500 : 300) : 188}
                 filterOption={(inputValue: any, option: any) => {
                   console.log('inputValue', inputValue);
                   console.log('option', option);
