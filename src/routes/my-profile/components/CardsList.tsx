@@ -58,17 +58,18 @@ const CardsList = ({
             // Maintenance Eligibiity Project (MEP)
             // Research and Development (RD)
             image: (
-              projectType === 'CIP' ? '/projectImages/capital.png' :
-                projectType === 'Development Improvement Project' || projectType === 'DIP' ? '/projectImages/dip.png' :
-                  projectType === 'Research and Development' || projectType === 'R&D' ? '/projectImages/rd.png' :
-                    projectType === 'Study' ? '/projectImages/study.png' :
-                      projectType === 'Special' ? '/projectImages/special.png' :
-                        projectType === 'Vegetation Management' ? '/projectImages/vegetation-management.png' :
-                          projectType === 'Sediment Removal' ? '/projectImages/sediment-removal.png' :
-                            projectType === 'Restoration' ? '/projectImages/restoration.png' :
-                              projectType === 'General Maintenance' ? '/projectImages/minor-repairs.png' :
-                                projectType === 'Acquisition' ? '/projectImages/acquisition.png' :
-                                  projectType === 'Routine Trash and Debris' ? '/projectImages/debris-management.png' : '/projectImages/watershed-change.png'
+              project?.project_attachments?.length > 0 ? `${SERVER.BASE_URL_IMAGES}/${project?.project_attachments[0]?.attachment_url}` :
+                projectType === 'CIP' ? '/projectImages/capital.png' :
+                  projectType === 'Development Improvement Project' || projectType === 'DIP' ? '/projectImages/dip.png' :
+                    projectType === 'Research and Development' || projectType === 'R&D' ? '/projectImages/rd.png' :
+                      projectType === 'Study' ? '/projectImages/study.png' :
+                        projectType === 'Special' ? '/projectImages/special.png' :
+                          projectType === 'Vegetation Management' ? '/projectImages/vegetation-management.png' :
+                            projectType === 'Sediment Removal' ? '/projectImages/sediment-removal.png' :
+                              projectType === 'Restoration' ? '/projectImages/restoration.png' :
+                                projectType === 'General Maintenance' ? '/projectImages/minor-repairs.png' :
+                                  projectType === 'Acquisition' ? '/projectImages/acquisition.png' :
+                                    projectType === 'Routine Trash and Debris' ? '/projectImages/debris-management.png' : '/projectImages/watershed-change.png'
             ),
             requestName: project.project_name,
             sponsor: project.sponsor,
