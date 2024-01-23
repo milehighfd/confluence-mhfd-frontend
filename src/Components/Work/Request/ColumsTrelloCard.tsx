@@ -58,8 +58,8 @@ const ColumsTrelloCard = ({
 
   const onClickNewProject = () => {
     clear();
-    //setVisibleCreateProject(true);   
-    setVisibleCreateOrImport(true);
+    setVisibleCreateProject(true);   
+    //setVisibleCreateOrImport(true);
     setStreamsIds([]);
     setComponentsFromMap([]);
   };
