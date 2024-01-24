@@ -982,7 +982,7 @@ export const addPopupsOnClick = async (
     }
     if( feature.source === CRITICAL_FACILITIES) {
       const item = {
-        title: MENU_OPTIONS.CRITICAL_FACILITIES+' '+feature.properties.source_aggregate,
+        title: MENU_OPTIONS.CRITICAL_FACILITIES+' - '+feature.properties.source_aggregate,
         layer: MENU_OPTIONS.CRITICAL_FACILITIES,
         name: feature.properties.critical_facility_name,
         address: feature.properties.critical_facility_address,
