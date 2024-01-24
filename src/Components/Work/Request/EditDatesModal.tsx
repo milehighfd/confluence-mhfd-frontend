@@ -496,14 +496,21 @@ const EditDatesModal = ({
                 placeholder="Select primary stream"
                 listHeight={windowWidth > 2554 ? (windowWidth > 3799 ? 500 : 300) : 188}
                 filterOption={(inputValue: any, option: any) => {
-                  console.log('inputValue', inputValue);
-                  console.log('option', option);
-                  // console.log(option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1, 'OP');
                   if(option.value){
                     return option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
                   }
                   return false;
                 }
+                }
+                onSelect = {(value: any) => {
+                  const selectedItem = streamList.find(item => item.stream_name.toString() === value);
+                  if (selectedItem) {
+                    if (selectedItem.project_stream_id){
+                      setPrimaryStream({ id: selectedItem.stream_id, name: selectedItem.stream_name, value: selectedItem.project_stream_id });
+                    }                    
+                  }
+                  setKeyword(value);
+                  }
                 }
                 className="search-input"
                 dropdownClassName="search-input-dropdown-stream"
