@@ -709,8 +709,9 @@
     height: 350px;
     .tollgate-header {
       padding: 0px !important;
+      padding-top: 10px !important;
       .tollgate-body{
-        height: 311px;
+        height: 271px;
         padding-top: 2px;
         .text-tollgate-title{
           padding-top: 5px;
@@ -1045,7 +1046,7 @@
       .tollgate-header{
         .tollgate-body {
           // height: 424px !important;
-          height: 392px !important;
+          height: 360px !important;
           .text-tollgate-title{
             .name-tollgate{
               // margin-bottom: 34px !important;
