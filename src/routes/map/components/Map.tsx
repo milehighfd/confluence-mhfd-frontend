@@ -941,7 +941,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
                     case 'Acquisition':
                       verifiedStatus = 13;
                       break;
-                    case 'R&D':
+                    case 'R&D' || 'Research and Development':
                       verifiedStatus = 15;
                       break;
                     default:
