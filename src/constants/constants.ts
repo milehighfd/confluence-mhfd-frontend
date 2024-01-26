@@ -1525,3 +1525,5 @@ export const LOCALITIES_TYPES = {
   CODE_SERVICE_AREA : 'CODE_SERVICE_AREA',
   MHHD_BOUNDARY : 'MHHD_BOUNDARY',
 }
+
+export const newRD = 'research and development';

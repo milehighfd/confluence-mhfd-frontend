@@ -272,7 +272,7 @@ const RequestView = ({ type, widthMap }: {
         type,
         year: `${year}`,
         locality: locality === 'Mile High Flood District' ? 'MHFD District Work Plan' : locality,
-        projecttype: tabKey ? (tabKey === 'R&D' ? 'Special' : tabKey) : tabKeys[0],
+        projecttype: tabKey ? (tabKey === 'R&D' ? 'Research and Development' : tabKey) : tabKeys[0],
       }
       setColumns(defaultColumns);
       let board;
