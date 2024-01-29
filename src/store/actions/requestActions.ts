@@ -443,7 +443,7 @@ export const moveProjectsManual = (payload: DragAndDropCards) => {
     
     const before = targetPosition === 0 ? null : projectsUpdated[previousPosition][`boardProjectToCostData`][0]?.sort_order;
     const after = targetPosition === projectsUpdated.length - 1 ? null : projectsUpdated[nextPosition][`boardProjectToCostData`][0]?.sort_order;
-    console.log('Projects updated', projectsUpdated, projectsUpdated[previousPosition], projectsUpdated[nextPosition]);
+    // console.log('Projects updated', projectsUpdated, projectsUpdated[previousPosition], projectsUpdated[nextPosition]);
     dispatch({
       type: types.REQUEST_MOVE_PROJECTS_MANUAL,
       payload: updatedColumns
@@ -538,7 +538,8 @@ export const handleMoveFromColumnToColumn = (payload: DragAndDropCards) => {
     const projectsUpdated = updatedColumns[targetColumnPosition].projects;
     const projectPosition = targetColumnSameProjectIndex === -1 ? targetPosition : targetColumnSameProjectIndex;
     const before = targetPosition === 0 ? null : projectsUpdated[previousPosition][`boardProjectToCostData`][0]?.sort_order;
-    const after = targetPosition === projectsUpdated.length - 1 ? null : projectsUpdated[nextPosition][`boardProjectToCostData`][0]?.sort_order;
+    // console.log( projectsUpdated, 'updated columns', updatedColumns, 'targetColumnPosition',targetColumnPosition, 'projectsUpdated[nextPosition]', projectsUpdated[nextPosition], 'enxt', nextPosition);
+    const after = targetPosition === projectsUpdated.length - 1 ? null : ( projectsUpdated[nextPosition] ? projectsUpdated[nextPosition][`boardProjectToCostData`][0]?.sort_order : null);
     dispatch({
       type: types.REQUEST_HANDLE_MOVE_FROM_COLUMN_TO_COLUMN_MANUAL,
       payload: updatedColumns
@@ -583,7 +584,7 @@ export const recalculateTotals = () => {
     dispatch(groupProjects(allProjects));
     const sumByGroupMapTotal = mergeSumByGroupMaps(sums);
     const totalByGroupMap = mergeTotalByGroupMaps(totals);
-    console.log('window.location.pathname', window.location.pathname);
+    // console.log('window.location.pathname', window.location.pathname);
     dispatch({
       type: types.REQUEST_SET_SUM_BY_COUNTY,
       payload: Object.keys(sumByGroupMapTotal['project_counties'] || {}).map(
