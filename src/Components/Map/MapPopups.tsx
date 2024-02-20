@@ -383,7 +383,7 @@ export const ComponentPopupCreate = ({ id, item, isComponent, isWR, eventFunctio
     return <div id={'popup-' + id} className="map-pop-01">
       <Card hoverable>
       <div className="headmap">
-        {item.layer === 'Components' ? 'Actions': item.layer}
+        {item.layer === 'Components' ? 'Actions': ( item.title ?? item.layer)}
       </div>
       <div className="bodymap">
           {item.type ? <h4><i>{item.type}</i> </h4> : ''}
@@ -398,7 +398,12 @@ export const ComponentPopupCreate = ({ id, item, isComponent, isWR, eventFunctio
           {item.status ? <p><i>Status:</i>  {item.status}</p> : ''}
           {item.streamname ? <p><i>Stream:</i>  {item.streamname}</p> : ''}
           {item.studyname ? <p><i>Study Name:</i>  {item.studyname}</p> : ''}
-          
+          {item.name ? <p><i>Critical Facility Name:</i>  {item.name}</p> : ''}
+          {item.address ? <p><i>Critical Facility Address:</i>  {item.address}</p> : ''}
+          {item.source_aggregate ? <p><i>Source Aggregate Type:</i>  {item.source_aggregate}</p> : ''}
+          {item.source_category1 ? <p><i>Source Category 1:</i>  {item.source_category1}</p> : ''}
+          {item.source_category2 ? <p><i>Source Category 2:</i>  {item.source_category2}</p> : ''}
+          {item.source_agency ? <p><i>Source Agency:</i>  {item.source_agency}</p> : ''}
           {item.jurisdiction ? <p><i>Jurisdiction:</i>  {item.jurisdiction}</p> : ''}
           {item.description ? <p><i>Description:</i>  {item.description}</p> : ''}
 

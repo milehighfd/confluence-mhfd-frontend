@@ -24,6 +24,12 @@ const VersionNumber = ({visible, setVisible}: {visible: boolean, setVisible: Rea
         </Row>
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
           <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c', overflowY: 'scroll', height: '400px'}} className='scroll-version'>
+            <p style={{ color: '#11093c', fontWeight: '500', paddingBottom: '10px' }}>v2.7 - January 23, 2024</p>
+            <ul>
+              <li>Enhanced Make Active Workflow process that includes assigning an MHFD Lead, a Primary Stream, and Location attribute</li>
+              <li>New 'stream' layer dataset displayed on the map and across all Create Project calculations</li>
+              <li>New 'critical facilities' map layer </li>
+            </ul>
             <p style={{ color: '#11093c', fontWeight: '500', paddingBottom: '10px' }}>v2.6 - January 5, 2024</p>
             <ul>
               <li>New Upcoming Projects module for vendor planning</li>

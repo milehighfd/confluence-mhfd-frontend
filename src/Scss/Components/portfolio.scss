@@ -1073,7 +1073,7 @@
       right: -100vw;
       border-left: 1px solid #e3e5e5;
     }
-    scrollbar-color: $purple00 transparent;
+    scrollbar-color: transparent;
   }
   .table-body {
     overflow-x: hidden;
@@ -1125,7 +1125,7 @@
         width: 99.3%;
         top: 70px;
       }
-      scrollbar-color: $purple00 transparent;
+      scrollbar-color:  transparent;
     }
     .table-body-body::-webkit-scrollbar-thumb {
       background: transparent;
@@ -1574,7 +1574,7 @@
       .header-title {
         width: 100%;
         overflow: auto;
-        scrollbar-color: transparent transparent;
+        scrollbar-color: transparent;
         scrollbar-width: thin;
         padding-right: 14px;
       }

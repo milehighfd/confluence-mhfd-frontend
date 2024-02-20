@@ -60,7 +60,7 @@ export const TypeProjectsMenu: React.FC<Props> = ({ setTypeAndSubType }) => {
         {
           key: 'R&D',
           label: 'R&D',
-          onClick: () => {setTypeAndSubType('special','','R&D')},
+          onClick: () => {setTypeAndSubType('research and development','','R&D')},
         },
       ]}
     />

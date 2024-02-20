@@ -207,7 +207,9 @@ const Map = forwardRef(({ type }: { type: any }, ref) => {
   };
 
   useEffect(() => {
+    console.log('WHATTTT', allLayers);
     if (map) {
+      console.trace(allLayers);
       let eventToClick = eventclick;
       map.map.on('click', eventToClick);
       return () => {
@@ -279,9 +281,11 @@ const Map = forwardRef(({ type }: { type: any }, ref) => {
   };
   const addMapListeners = (key: string, value: string) => {
     const styles = { ...(tileStyles as any) };
+    console.log('llega o no???');    
     const availableLayers: any[] = [];
     if (styles[key]) {
       styles[key]?.forEach((style: LayerStylesType, index: number) => {
+        console.log('map.getLayer(value + index)', map.getLayer(value + index));
         if (!map.getLayer(value + index)) {
           return;
         }
@@ -310,6 +314,7 @@ const Map = forwardRef(({ type }: { type: any }, ref) => {
       } else {
         if (!map) {
           map = new MapService('map2');
+          console.log('IS STYLE LOADED ');
           map.isStyleLoaded(addLayer);
         }
       }

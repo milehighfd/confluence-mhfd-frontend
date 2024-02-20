@@ -287,6 +287,20 @@
 .ant-select-selection-placeholder{
   color: $purple;
 }
+
+.search-input-dropdown-stream{
+  font-size: 14px;
+  color: #11093c;
+  .global-search-item{
+    h6{
+      font-size: 14px !important;
+      color: #11093c;
+      font-weight: 400 !important;
+      width: 100%;
+    }
+  }
+}
+
 //movend from project.scss
 .ant-select-arrow {
   align-items: right;
@@ -559,6 +573,18 @@
   }
 }
 @media (min-width: 2550px){
+  .search-input-dropdown-stream{
+    font-size: 20px;
+    color: #11093c;
+    .global-search-item{
+      width: 100%;
+      h6{
+        font-size: 20px !important;
+        color: #11093c;
+        font-weight: 400 !important;
+      }
+    }
+  }
   .ant-dropdown-menu-title-content {
     // padding: 4px 0px !important;
   }

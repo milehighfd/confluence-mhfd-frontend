@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Row, Col, Popover, Table } from 'antd';
 import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 import { Countywide } from "./Countywide";
+import { newRD } from "constants/constants";
 
 const columns = [
   {
@@ -60,7 +61,7 @@ export const DropPin = ({
 
   }
   useEffect(()=>{
-    if(specialLocation.geom && typeProject === 'special') {
+    if(specialLocation.geom && typeProject === newRD) {
       setLatitude( parseFloat(specialLocation.geom.coordinates[0][0][1]).toFixed(4) );
       setLongitude( parseFloat(specialLocation.geom.coordinates[0][0][0]).toFixed(4) );
       setLocation(specialLocation.geom);

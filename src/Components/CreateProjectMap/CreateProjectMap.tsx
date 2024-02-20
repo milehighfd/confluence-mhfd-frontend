@@ -57,6 +57,7 @@ import {
   REMOVAL_LINE,
   PROPOSED_ACTIONS,
   PMTOOLS,
+  newRD,
 } from '../../constants/constants';
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import { Button, Popover, Modal, Input, AutoComplete, Col, Row } from 'antd';
@@ -667,7 +668,7 @@ let magicAddingVariable = false;
         map.removeDrawController();
       }
       setIsAlreadyDraw(true);
-      if (type.type != 'ACQUISITION' && type.type != 'SPECIAL') {
+      if (type.type != 'ACQUISITION' && type.type != newRD.toUpperCase()) {
         isPopup = false;
         map.addDrawControllerTopLeft();
         let drawEvent = EventService.getRef('oncreatedraw');
@@ -1150,7 +1151,7 @@ let magicAddingVariable = false;
     });
     applyFilters(PROBLEMS_TRIGGER, filterProblems);
     let filterProjectsNew = { ...filterProjects };
-    if (type.type === 'SPECIAL') {
+    if (type.type === newRD.toUpperCase()) {
       filterProjectsNew.projecttype = 'Special';
     } else if (type.type === 'STUDY') {
       filterProjectsNew.projecttype = 'Study';
@@ -1660,7 +1661,7 @@ let magicAddingVariable = false;
         ],
       },
     };
-    if (type.type === 'SPECIAL') {
+    if (type.type === newRD.toUpperCase()) {
       saveSpecialLocation(sendLine);
     } else if (type.type === 'ACQUISITION') {
       saveAcquisitionLocation(sendLine);
@@ -1684,7 +1685,7 @@ let magicAddingVariable = false;
         ],
       },
     };
-    if (type.type === 'SPECIAL') {
+    if (type.type === newRD.toUpperCase()) {
       saveSpecialLocation(sendLine);
     } else if (type.type === 'ACQUISITION') {
       saveAcquisitionLocation(sendLine);

@@ -4,7 +4,7 @@ import { SERVER } from "Config/Server.config";
 import { loadColumns, loadFilters, loadOneColumn } from 'store/actions/requestActions';
 import * as turf from '@turf/turf';
 import { depth } from 'routes/map/components/MapFunctionsUtilities';
-import { MAP_TAB, PMTOOLS } from 'constants/constants';
+import { MAP_TAB, PMTOOLS, newRD } from 'constants/constants';
 
 
 const getAndDispatchAbortableCtrl = (dispatch: Function, key: string): AbortController => {
@@ -71,7 +71,7 @@ export const saveCapital = (data: any) => {
     Object.keys(data).forEach((key: string) => {
       if (key === 'geom' && (data.type === 'capital' || data.type === 'maintenance')) {
         formData.append(key, data[key]);
-      }else if (key === 'geom' && (data.type === 'acquisition' || data.type === 'special')) {
+      }else if (key === 'geom' && (data.type === 'acquisition' || data.type === newRD)) {
         formData.append(key, JSON.stringify(data[key]));
       }
       else if (key === 'geom' && data.type === 'study') {
@@ -122,7 +122,7 @@ export const editCapital = (data: any, originLocation?: any) => {
     Object.keys(data).forEach((key: string) => {
       if (key === 'geom' && (data.type === 'capital' || data.type === 'maintenance')) {
         formData.append(key, data[key]);
-      }else if (key === 'geom' && (data.type === 'acquisition' || data.type === 'special')) {
+      }else if (key === 'geom' && (data.type === 'acquisition' || data.type === newRD)) {
         formData.append(key, JSON.stringify(data[key]));
       }
       else if (key === 'geom' && data.type === 'study') {

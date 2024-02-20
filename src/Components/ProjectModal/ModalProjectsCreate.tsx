@@ -1,9 +1,9 @@
 
-import { SearchOutlined, UserOutlined } from '@ant-design/icons';
+import { CloseCircleFilled, SearchOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Col, Input, Modal, Row } from 'antd';
 import { WORK_PLAN } from 'constants/constants';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { SERVER } from 'Config/Server.config';
 import * as datasets from "../../Config/datasets";
 import { ModalCapital } from 'Components/Project/Capital/ModalCapital';
@@ -65,10 +65,33 @@ const ModalProjectsCreate = ({visible, setVisible}
     });
   }, [namespaceId]);
 
+  const getCompleteProjectData = () => {
+    if (selectedProjectId === -1) return;
+    datasets.getData(SERVER.V2_DETAILED_PAGE(selectedProjectId), datasets.getToken())
+      .then(dataFromDB => {
+        setNameProject(dataFromDB?.project_name);
+        let projectTypeS = dataFromDB?.code_project_type?.project_type_name;
+        if (MaintenanceTypes.includes(projectTypeS)) {
+          setSubType(projectTypeS);
+          projectTypeS = 'Maintenance';
+        } else if (projectTypeS === 'CIP') {
+          projectTypeS = 'Capital';
+        }
+        setTypeProyect(projectTypeS);
+        setCompleteProjectData({ ...dataFromDB, tabkey: projectTypeS });
+        //setVisible(false);
+        setVisibleCapital(true);
+        setIsImported(true);
+      });
+  }
+
   useEffect(() => {
-    // if (!keyword) return;
+    performSearch('');
+  }, []);
+
+  const performSearch = (nameProject: string) => {
     const searchInfo = {
-      keyword,
+      keyword: nameProject,
       locality: namespaceId.locality,
       year: namespaceId.year,
     }
@@ -93,27 +116,22 @@ const ModalProjectsCreate = ({visible, setVisible}
         }
       }));
     });
-  }, [keyword]);
-
-  const getCompleteProjectData = () => {
-    if (selectedProjectId === -1) return;
-    datasets.getData(SERVER.V2_DETAILED_PAGE(selectedProjectId), datasets.getToken())
-      .then(dataFromDB => {
-        setNameProject(dataFromDB?.project_name);
-        let projectTypeS = dataFromDB?.code_project_type?.project_type_name;
-        if (MaintenanceTypes.includes(projectTypeS)) {
-          setSubType(projectTypeS);
-          projectTypeS = 'Maintenance';
-        } else if (projectTypeS === 'CIP') {
-          projectTypeS = 'Capital';
-        }
-        setTypeProyect(projectTypeS);
-        setCompleteProjectData({ ...dataFromDB, tabkey: projectTypeS });
-        //setVisible(false);
-        setVisibleCapital(true);
-        setIsImported(true);
-      });
   }
+
+  const debounce = (func: Function, delay: number) => {
+    let timeoutId: ReturnType<typeof setTimeout>;  
+    return (...args: any[]) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func.apply(null, args);
+      }, delay);
+    };
+  };
+
+  const debouncedOnChange = useCallback(
+    debounce((nameProject: string) => performSearch(nameProject), 500),
+    []
+  );
 
   return (
     <div >
@@ -142,7 +160,7 @@ const ModalProjectsCreate = ({visible, setVisible}
         className="new-project"
         width={pageWidth > 3000 ? "1100px" : "800px"}
         footer={[
-          <Button key="back" className="btn-borde" onClick={() => setVisible(false)}>
+          <Button key="back" className="btn-borde" onClick={() => setVisible(false)} style={{padding:'0px'}}>
             Cancel
           </Button>,
           <Button
@@ -175,7 +193,7 @@ const ModalProjectsCreate = ({visible, setVisible}
               <img src="/Icons/ic-files-green.svg" alt="plus-green" />
               <div className='text-new-project-sec'>
                 <p >Search for a Project</p>
-                <p className='description-new-project-sec'>Search for a project from a previous year's Work Request or Work Plan by Name, Project ID, or OnBase project number.</p>
+                <p className='description-new-project-sec'>Search for a project from a previous year’s Work Request or Work Plan by name, project id, or OnBase project number. If searching for a project within a Work Request board, results are filtered by the local government.</p>
               </div>
             </div>
             <Button className="btn-transparent btn-create" onClick={onClickNewProject}>
@@ -187,7 +205,16 @@ const ModalProjectsCreate = ({visible, setVisible}
             className='input-search'
             placeholder="Search for existing project"
             prefix={<SearchOutlined />}
-            onPressEnter={(event: React.KeyboardEvent<HTMLInputElement>) => setKeyword(event.currentTarget.value)}
+            suffix={keyword && <CloseCircleFilled
+              onClick={() => {
+                setKeyword('')
+                performSearch('')
+              }} />}
+            onChange={(event) => {
+              setKeyword(event.target.value)
+              debouncedOnChange(event.target.value)
+            }}
+            value={keyword}
           />
           {<Row className='row-project-project'>
             <Col span={16}>
@@ -227,11 +254,9 @@ const ModalProjectsCreate = ({visible, setVisible}
               ))}</div>)
             : <div className='nothing-found'>
                 <img src='/Icons/no_data.svg' alt='no_data' />
-                <h2>Nothing Found!</h2>
-                <p>
-                  There 's nothing related to <b>“{keyword}"</b> inside
-                  <br/>
-                  the project database. Go ahead and <span style={{color:'#29C499', textDecoration:'underline', cursor:'pointer'}}   onClick={onClickNewProject}>create a project</span>.
+                <h2>No matching results!</h2>
+                <p>Try modifying your search parameter. Projects of the current<br/> year are ineligible for import, find those by using the<br/> board  search in the upper right corner.<br/>
+                If still unable to locate, proceed to <span style={{color:'#29C499', textDecoration:'underline', cursor:'pointer'}}   onClick={onClickNewProject}>create a project</span>.
                 </p>
               </div>
           }

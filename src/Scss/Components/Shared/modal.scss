@@ -656,6 +656,27 @@
       }
       input::placeholder{
         color: #11093c;
+        // font-size: 14px !important;
+      }
+      .search-input{
+        font-size: 14px;
+        color: #11093c;
+        background-color: white !important;
+        box-shadow: 0px 4px 40px 0px rgb(0 0 0 / 3%);
+        .ant-select-selection-search-input{
+          font-size: 14px;
+          color: #11093c;
+          height: 100%;
+        }
+        .ant-select-selection-placeholder{
+          font-size: 14px ;
+          color: #11093c;
+        }
+        .ant-select-selection-search-input::placeholder{
+          font-size: 14px;
+          color: #11093c;
+          
+        }
       }
     }
     .ant-picker-input > input {
@@ -688,8 +709,9 @@
     height: 350px;
     .tollgate-header {
       padding: 0px !important;
+      padding-top: 10px !important;
       .tollgate-body{
-        height: 311px;
+        height: 271px;
         padding-top: 2px;
         .text-tollgate-title{
           padding-top: 5px;
@@ -1019,10 +1041,12 @@
       }
     }
     .body-edit-dates-step2{
-      height: 487px !important;
+      // height: 487px !important;
+      height: 459px !important;
       .tollgate-header{
         .tollgate-body {
-          height: 424px !important;
+          // height: 424px !important;
+          height: 360px !important;
           .text-tollgate-title{
             .name-tollgate{
               // margin-bottom: 34px !important;
@@ -1181,6 +1205,26 @@
         .ant-input{
           height: 45px !important;
           background-color: white !important;
+        }
+      }
+      .search-input{
+        font-size: 20px;
+        color: #11093c;
+        background-color: white !important;
+        box-shadow: 0px 4px 40px 0px rgb(0 0 0 / 3%);
+        .ant-select-selection-search-input{
+          font-size: 20px !important;
+          color: #11093c;
+          height: 100%;
+        }
+        .ant-select-selection-placeholder{
+          font-size: 20px !important;
+          color: #11093c;
+        }
+        .ant-select-selection-search-input::placeholder{
+          font-size: 20px;
+          color: #11093c;
+          
         }
       }
       .text-min{

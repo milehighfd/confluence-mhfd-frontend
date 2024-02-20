@@ -9,7 +9,7 @@ import { useProjectState, useProjectDispatch } from 'hook/projectHook';
 import { useAttachmentDispatch } from 'hook/attachmentHook';
 import { Project } from 'Classes/Project';
 import { useProfileDispatch, useProfileState } from 'hook/profileHook';
-import { ADMIN, MAP_TAB, NEW_PROJECT_TYPES, STAFF, WINDOW_WIDTH, WORK_PLAN, WORK_PLAN_TAB, WORK_REQUEST } from 'constants/constants';
+import { ADMIN, MAP_TAB, NEW_PROJECT_TYPES, STAFF, WINDOW_WIDTH, WORK_PLAN, WORK_PLAN_TAB, WORK_REQUEST, newRD } from 'constants/constants';
 import { useHistory } from 'react-router-dom';
 import { UploadImagesDocuments } from 'Components/Project/TypeProjectComponents/UploadImagesDocuments';
 import { getProjectOverheadCost } from 'utils/parsers';
@@ -168,7 +168,7 @@ export const ModalCapital = ({
   const [activeTabBodyProject, setActiveTabBodyProject] = useState('Details');
   const [favorite, setFavorite] = useState(false);
   const [groupParsed, setGroupParsed] = useState<any>([]);
-  const [selectedTypeProject, setSelectedTypeProject] = useState((typeProject.toLowerCase() === 'r&d' ? 'special' : typeProject.toLowerCase()) || 'capital');
+  const [selectedTypeProject, setSelectedTypeProject] = useState(((typeProject.toLowerCase() === 'r&d' || typeProject.toLocaleLowerCase() === 'special') ? newRD : typeProject.toLowerCase()) || 'capital');
   const [selectedLabelProject, setSelectedLabelProject] = useState((subTypeInit === '' ? (typeProject) : subTypeInit) || 'Capital');
   const [lastValue, setLastValue] = useState('');
   const [showDraw, setShowDraw] = useState(true);
@@ -391,7 +391,7 @@ export const ModalCapital = ({
           setOwnership(false);
         }
       }   
-      if (selectedTypeProject === 'special') {
+      if (selectedTypeProject === newRD) {
         setTimeout(() => {
           getData(SERVER.GET_GEOM_BY_PROJECTID(data.project_id), getToken())
             .then(
@@ -550,8 +550,8 @@ export const ModalCapital = ({
         projectToSend.acquisitionanticipateddate = purchaseDate;
       }
       //special
-      if (selectedTypeProject === 'special') {
-        projectToSend.geom = geom;
+      if (selectedTypeProject === newRD) {
+        capital.geom = geom;
       }
       files.forEach((file: any) => {
         if (file._id) {
@@ -612,7 +612,7 @@ export const ModalCapital = ({
           if (!nameProject) missingFields.push('Project Name');
           if (!sponsor) missingFields.push('Sponsor');
           const isGeom = (selectedTypeProject === 'capital' || selectedTypeProject === 'maintenance');
-          const isPin = (selectedTypeProject === 'acquisition' || selectedTypeProject === 'special');
+          const isPin = (selectedTypeProject === 'acquisition' || selectedTypeProject === newRD);
           let geomLengthFlag = false;
           if ((geom?.coordinates || streamIntersected?.geom) && isGeomDrawn === true) {
             geomLengthFlag = true;
@@ -686,7 +686,7 @@ export const ModalCapital = ({
     let disableEditForLG = disabledLG && isWorkPlan && swSave;    
     if (!disableEditForLG) {  
       const pinFlag = (selectedTypeProject === 'acquisition'
-        || selectedTypeProject === 'special')
+        || selectedTypeProject === newRD)
         && (geom || isCountyWide);
       let geomLengthFlag = false;
       if ((geom?.coordinates || streamIntersected?.geom)) {
@@ -699,7 +699,7 @@ export const ModalCapital = ({
           setDisable(false);
         } else if (selectedTypeProject === 'capital' && (thisIndependentComponents?.length > 0 || componentsToSave?.length > 0) && (geomLengthFlag || isCountyWide)) {
           setDisable(false);
-        } else if (selectedTypeProject === 'special' && (pinFlag || isCountyWide)) {
+        } else if (selectedTypeProject === newRD && (pinFlag || isCountyWide)) {
           setDisable(false);
         } else if (selectedTypeProject === 'maintenance' && (geomLengthFlag || isCountyWide) && frequency && eligibility) {
           setDisable(false);
@@ -1100,16 +1100,16 @@ export const ModalCapital = ({
     setjurisdiction([]);
   }
   useEffect(() => {
-    if ((['capital', 'maintenance'].includes(lastValue)) && (['acquisition', 'special'].includes(selectedTypeProject))) {
+    if ((['capital', 'maintenance'].includes(lastValue)) && (['acquisition', newRD].includes(selectedTypeProject))) {
       RestartLocation();
     }
-    if ((['acquisition', 'special'].includes(lastValue)) && (['capital', 'maintenance'].includes(selectedTypeProject))) {
+    if ((['acquisition', newRD].includes(lastValue)) && (['capital', 'maintenance'].includes(selectedTypeProject))) {
       RestartLocation();
     }
-    if ((['study'].includes(lastValue)) && (['capital', 'maintenance', 'acquisition', 'special'].includes(selectedTypeProject))) {
+    if ((['study'].includes(lastValue)) && (['capital', 'maintenance', 'acquisition', newRD].includes(selectedTypeProject))) {
       RestartLocation();
     }
-    if ((['capital', 'maintenance', 'acquisition', 'special'].includes(lastValue)) && (['study'].includes(selectedTypeProject))) {
+    if ((['capital', 'maintenance', 'acquisition', newRD].includes(lastValue)) && (['study'].includes(selectedTypeProject))) {
       RestartLocation();
     }
   },[selectedTypeProject]);
@@ -1187,7 +1187,7 @@ export const ModalCapital = ({
 
   //acquisition special functions
   useEffect(()=> {
-    if(isEditingPosition && (selectedTypeProject === 'acquisition'|| selectedTypeProject === 'special')){
+    if(isEditingPosition && (selectedTypeProject === 'acquisition'|| selectedTypeProject === newRD)){
       setServiceArea([])
       setCounty([])
       setjurisdiction([])
@@ -1313,7 +1313,7 @@ export const ModalCapital = ({
               }
               {
                 (selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Acquisition.toLowerCase()||
-                selectedTypeProject && selectedTypeProject?.toLowerCase() === 'special') &&
+                selectedTypeProject && selectedTypeProject?.toLowerCase() === newRD) &&
                 <div className="sub-title-project">
                   <h5 className="requestor-information">
                     {indexForm++}. Drop Pin *
@@ -1343,7 +1343,7 @@ export const ModalCapital = ({
                 />              
               }
               {(selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Acquisition.toLowerCase()||
-                selectedTypeProject && selectedTypeProject?.toLowerCase() === 'special') &&
+                selectedTypeProject && selectedTypeProject?.toLowerCase() === newRD) &&
                 <DropPin
                   typeProject={selectedTypeProject}
                   geom={geom}

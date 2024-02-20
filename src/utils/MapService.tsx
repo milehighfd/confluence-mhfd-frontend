@@ -285,6 +285,11 @@ export class MapService {
           .setHTML(html)
           .addTo(this.map);
   }
+  hideLayer(id: string) {
+    if (this.map.getLayer(id)) {
+      this.map.setLayoutProperty(id, 'visibility', 'none');
+    }
+  }
   addPopUpContent(coordinates: any, content: any) {
     this.popup.setLngLat(coordinates)
           .setDOMContent(content)
