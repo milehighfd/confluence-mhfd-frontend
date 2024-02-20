@@ -9,6 +9,8 @@ export const MHFD_LEAD = 1;
 export const LG_LEAD = 10;
 export const MHFD_SUPPORT = 4;
 export const ADMIN_STAFF = 5;
+export const VENDOR_LEAD = 6;
+export const VENDOR_STAFF = 11;
 
 export const PARTNER_MAP: any = {
   [CONSULTANT_ID]: 'Consultant',
