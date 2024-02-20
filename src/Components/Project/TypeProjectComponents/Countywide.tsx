@@ -72,7 +72,6 @@ export const Countywide = ({
   }
   return (
     <>
-      <p className='text-default'>Projects are spatially defined by stream reaches.  Select the option below that best allows you to define the project.</p>
       <div className='section-gemetry'>
         <p>i. Is this a countywide project?</p>
         <Radio.Group value={defaultValueCounty} disabled={disableFieldsForLG} onChange={(e) => {
