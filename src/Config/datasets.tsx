@@ -85,9 +85,7 @@ export const putData = (url: any, body: any, token?: any) => {
     })
     .then(handleErrors)
     .then(data => (data))
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => (err));
 }
 
 export const getData = (url: any, token?: any, signal?: AbortSignal) => {
