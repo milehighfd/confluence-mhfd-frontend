@@ -13,7 +13,7 @@ interface ModalAcquisitionProps {
   year: number;
 }
 const content03 = (<div className="popver-info">How far has this property acquisition already progressed?</div>);
-const content04 = (<div className="popver-info">Flip this switch to indicate that the project is located on a property to which the Local Government has legal right-of-access. This is a requirement for all Maintenance Projects.</div>);
+const content04 = (<div className="popver-info">This is the anticipated year during which the property is expected to be purchased (best estimate).</div>);
 const selec = [0];
 for (var i = 1; i < 21; i++) {
   selec.push(i);
