@@ -551,7 +551,7 @@ export const ModalCapital = ({
       }
       //special
       if (selectedTypeProject === newRD) {
-        capital.geom = geom;
+        projectToSend.geom = geom;
       }
       files.forEach((file: any) => {
         if (file._id) {
