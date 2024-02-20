@@ -9,6 +9,7 @@ import { useMapState } from "hook/mapHook";
 import { WORK_PLAN } from "constants/constants";
 import { notification } from 'antd';
 import { CheckCircleFilled } from '@ant-design/icons';
+import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
 
 const content02 = (<div className="popver-info">This is a place to add notes on a Local Government work request. Notes will be visible to any user from the same Local Government as well as MHFD staff.</div>);
 const Status = () => {
@@ -42,6 +43,7 @@ const Status = () => {
   const [pending, setpending] = useState(false);
   const [api, contextHolder] = notification.useNotification();
   const [message, setMessage] = useState('');
+  const { openNotification } = useNotifications();
 
   const UNDER_REVIEW_STATE = 'Under Review';
   const APPROVED_STATE = 'Approved';
@@ -54,6 +56,9 @@ const Status = () => {
       substatus: boardSubstatus
     }, getToken())
         .then((r) => {
+          if (r instanceof Error) {
+            throw r;
+          }
           if(status === APPROVED_STATE){
             api.success({
               message: 'Success! Your board is in progress of being updated!',
@@ -85,6 +90,7 @@ const Status = () => {
         })
         .catch((e) => {
           console.log('e', e)
+          openNotification(`Error.`, "warning", 'An error occurred while approving the board');
         })
   }
 
