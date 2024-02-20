@@ -444,11 +444,11 @@ export const moveProjectsManual = (payload: DragAndDropCards) => {
     const before = targetPosition === 0 ? null : projectsUpdated[previousPosition][`boardProjectToCostData`][0]?.sort_order;
     const after = targetPosition === projectsUpdated.length - 1 ? null : projectsUpdated[nextPosition][`boardProjectToCostData`][0]?.sort_order;
     // console.log('Projects updated', projectsUpdated, projectsUpdated[previousPosition], projectsUpdated[nextPosition]);
-    dispatch({
-      type: types.REQUEST_MOVE_PROJECTS_MANUAL,
-      payload: updatedColumns
-    });
-    datasets.putData(
+    // dispatch({
+    //   type: types.REQUEST_MOVE_PROJECTS_MANUAL,
+    //   payload: updatedColumns
+    // });
+    datasets.postData(
       BOARD_UPDATE_RANK(projectsUpdated[targetPosition].board_project_id),
       {
         before,
@@ -461,13 +461,16 @@ export const moveProjectsManual = (payload: DragAndDropCards) => {
         previousColumn: originColumnPosition,
         projectData,
         targetPosition,
-        sourcePosition
+        sourcePosition,
+        project_id: projectData.project_id,
       },
       datasets.getToken()
     ).then(() => {
         dispatch(loadOneColumn(originColumnPosition));
+        dispatch(setIsDragging(false))
     })
     .catch((err: any) => {
+      dispatch(setIsDragging(false))
         console.log('err', err)
     })
   }
@@ -523,11 +526,15 @@ const handleMoveFromColumnToColumnReducer = (columns2: any[], action: any): any[
   });
   return [columns, requestFields, targetColumnSameProjectIndex];
 };
-
+let lastAbortController: AbortController | null = null;
 export const handleMoveFromColumnToColumn = (payload: DragAndDropCards) => {
   return (dispatch: any, getState: Function) => {
     const { request: { columns2, namespaceId } } = getState();
-    const { originColumnPosition, targetColumnPosition, targetPosition, isWorkPlan, projectData } = payload;
+    const { originColumnPosition, targetColumnPosition, targetPosition, isWorkPlan, projectData, board_id, controller } = payload;
+    if (lastAbortController) {
+      lastAbortController.abort();
+    }
+    lastAbortController = new AbortController();
     const [
       updatedColumns,
       requestFields,
@@ -540,11 +547,11 @@ export const handleMoveFromColumnToColumn = (payload: DragAndDropCards) => {
     const before = targetPosition === 0 ? null : projectsUpdated[previousPosition][`boardProjectToCostData`][0]?.sort_order;
     // console.log( projectsUpdated, 'updated columns', updatedColumns, 'targetColumnPosition',targetColumnPosition, 'projectsUpdated[nextPosition]', projectsUpdated[nextPosition], 'enxt', nextPosition);
     const after = targetPosition === projectsUpdated.length - 1 ? null : ( projectsUpdated[nextPosition] ? projectsUpdated[nextPosition][`boardProjectToCostData`][0]?.sort_order : null);
-    dispatch({
-      type: types.REQUEST_HANDLE_MOVE_FROM_COLUMN_TO_COLUMN_MANUAL,
-      payload: updatedColumns
-    });
-    datasets.putData(
+    // dispatch({
+    //   type: types.REQUEST_HANDLE_MOVE_FROM_COLUMN_TO_COLUMN_MANUAL,
+    //   payload: updatedColumns
+    // });
+    datasets.postData(
       BOARD_UPDATE_RANK(projectsUpdated[projectPosition].board_project_id),
       {
         before: !before ? null : before,
@@ -556,14 +563,19 @@ export const handleMoveFromColumnToColumn = (payload: DragAndDropCards) => {
         previousColumn: originColumnPosition,
         isWorkPlan,
         boardId: namespaceId,
-        projectData
+        project_id: projectData.project_id,
+        board_id
       },
-      datasets.getToken()
+      datasets.getToken(),
+      lastAbortController.signal
     ).then((res: any) => {
+      console.log(res)      
       dispatch(loadOneColumn(originColumnPosition));
       dispatch(loadOneColumn(targetColumnPosition));
+      dispatch(setIsDragging(false))
     })
     .catch((err: any) => {
+      dispatch(setIsDragging(false))
         console.log('err', err)
     })
   }
@@ -825,5 +837,10 @@ export const setIsImported = (payload: boolean) => ({
 
 export const setImportedProjectData = (payload: any) => ({
   type: types.REQUEST_SET_IMPORTED_PROJECT_TYPE,
+  payload
+});
+
+export const setIsDragging = (payload: boolean) => ({
+  type: types.SET_IS_DRAGGING,
   payload
 });

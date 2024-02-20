@@ -103,8 +103,9 @@ export const saveCapital = (data: any) => {
         status = 0;
       }
       if(data.fromTab !== MAP_TAB){
-        dispatch(loadColumns());
-        dispatch(loadFilters())
+        // if there is an issue showing the project: enable
+        // dispatch(loadColumns());
+        dispatch(loadFilters());
       }
       dispatch({ type: types.SET_SAVE, status });
       callArcGisProcess(data, res.project_data.project_id, 'create');
@@ -154,8 +155,9 @@ export const editCapital = (data: any, originLocation?: any) => {
         status = 0;
       }
       if (originLocation !== PMTOOLS) {
-        dispatch(loadColumns());
-        dispatch(loadFilters())
+        // if there is an issue showing the project: enable
+        // dispatch(loadColumns());
+        dispatch(loadFilters());
       }
       dispatch({ type: types.SET_EDIT, status });
       callArcGisProcess(data, data.editProject, 'edit');

@@ -5,6 +5,8 @@ export interface DragAndDropCards {
   targetPosition: number;
   isWorkPlan: boolean;
   projectData: any;
+  board_id?: number;
+  controller: AbortController;
 }
 
 export const REQUEST_SHOW_MODAL_PROJECT = 'REQUEST_SHOW_MODAL_PROJECT';
@@ -69,5 +71,6 @@ export const REQUEST_SET_SENT_TO_WP = 'REQUEST_SET_SENT_TO_WP';
 export const REQUEST_SET_FILTER_LOADING = 'REQUEST_SET_FILTER_LOADING';
 export const REQUEST_SET_IS_IMPORTED = 'REQUEST_SET_IS_IMPORTED';
 export const REQUEST_SET_IMPORTED_PROJECT_TYPE = 'REQUEST_SET_IMPORTED_PROJECT_TYPE';
+export const SET_IS_DRAGGING = 'SET_IS_DRAGGING';
 export const SET_COST_RANGE = 'SET_COST_RANGE';
 export const SET_FILTER_BY = 'SET_FILTER_BY';

@@ -64,7 +64,8 @@ import {
   setIsImported,
   setImportedProjectData,
   setCostRange,
-  setFilterBy
+  setFilterBy,
+  setIsDragging
 } from 'store/actions/requestActions';
 import { DragAndDropCards } from 'store/types/requestTypes';
 
@@ -265,6 +266,9 @@ export const useRequestDispatch = () => {
   const _setFilterBy = useCallback((filterBy: any) => {
     dispatch(setFilterBy(filterBy));
   },[dispatch]);
+  const _setIsDragging = useCallback((isDragging: boolean) => {
+    dispatch(setIsDragging(isDragging));
+  }, [dispatch]);
   return {
     setShowModalProject: _setShowModalProject,
     setCompleteProjectData: _setCompleteProjectData,
@@ -329,6 +333,7 @@ export const useRequestDispatch = () => {
     setIsImported: _setIsImported,
     setImportedProjectData: _setImportedProjectData,
     setCostRange: _setCostRange,
-    setFilterBy: _setFilterBy
+    setFilterBy: _setFilterBy,
+    setIsDragging: _setIsDragging
   };
 };

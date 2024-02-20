@@ -19,7 +19,8 @@ const EditAmountCreateProject = ({
   subType,
   sponsor,
   estimatedCostInput,
-  originLocation
+  originLocation,
+  importedId
 }:{
   index: number,
   type: string,
@@ -29,7 +30,8 @@ const EditAmountCreateProject = ({
   subType: any,
   sponsor: any,
   estimatedCostInput: any,
-  originLocation: string | undefined
+  originLocation: string | undefined,
+  importedId: number
 }) => {
   const {
     columns2: columns,
@@ -37,13 +39,14 @@ const EditAmountCreateProject = ({
     tabKey,
     boardStatus,
     namespaceId,
+    isImported
   } = useRequestState();
   const { loadOneColumn, loadColumns } = useRequestDispatch();
   const { status, createdProject, completeCosts } = useProjectState();
   const { setCreatedProject, sendProjectToBoardYear, setCompleteCosts } = useProjectDispatch();
   const [project, setProject] = useState<any>({})
   const [board_project_id, setBoard_project_id] = useState<any>()
-  const [createData, setCreatedData] = useState<any>({})
+  const [createdData, setCreatedData] = useState<any>({})
   const isMaintenance = tabKey === 'Maintenance'
   const priorFundingString = 'priorFunding';
   const [isDisabledAmountInput, setIsDisabledAmountInput] = useState<boolean>(false);
@@ -80,11 +83,12 @@ const EditAmountCreateProject = ({
     return totalSum;
   }
 
-  const handleOk = () => {
+  const handleOk = (boardProjectId: number) => {
     let newCostToSend:any = [];
+    const boardInfo = createdData?.boardValues ? createdData.boardValues : namespaceId;
     if(completeCosts?.amounts) {
       newCostToSend = completeCosts?.amounts.map((x: any) => {
-        if (x.business_name === 'MHFD' && (namespaceId.type === WORK_PLAN ? x.code_cost_type_id ===21 : x.code_cost_type_id === 22 )) {
+        if (x.business_name === 'MHFD' && (boardInfo.type === WORK_PLAN ? x.code_cost_type_id ===21 : x.code_cost_type_id === 22 )) {
           return {
             ...x,
             values: cost
@@ -95,7 +99,7 @@ const EditAmountCreateProject = ({
     } else if (Object.keys(project).length === 0){
       newCostToSend = [
           {
-            code_cost_type_id: namespaceId.type === WORK_PLAN ? 21 : 22,
+            code_cost_type_id: boardInfo.type === WORK_PLAN ? 21 : 22,
             business_associates_id: 4585,
             business_name: "MHFD",
             code_partner_type_id: 88,
@@ -120,9 +124,9 @@ const EditAmountCreateProject = ({
       isMaintenance: false
     }
     // const send = { ...cost, isMaintenance };
-    const send = {...newCompleteCosts, isWorkPlan, isMaintenance, amountsTouched, boardId: namespaceId};
+    const send = {...newCompleteCosts, isWorkPlan, isMaintenance, amountsTouched, boardId: boardInfo};
     datasets.putData(
-      BOARD_PROJECT_COST(board_project_id),
+      BOARD_PROJECT_COST(boardProjectId),
       send,
       datasets.getToken()
     ).then((res: any) => {
@@ -140,15 +144,16 @@ const EditAmountCreateProject = ({
   };  
 
   useEffect(() => {
-    if(Object.keys(createdProject).length !== 0 && Object.keys(project).length === 0){
+    if (Object.keys(createdProject).length !== 0 && Object.keys(project).length === 0) {
       setCreatedData(createdProject)
       setBoard_project_id(createdProject?.boardProjectId?.board_project_id);
     }
   }, [createdProject]);
 
   useEffect(() => {
-    if(save === true && board_project_id !== undefined && status === 1){
-      handleOk();
+    if(save === true && (board_project_id !== undefined || importedId) && status === 1){
+      const boardProjectId = importedId ? importedId : board_project_id;
+      handleOk(boardProjectId);
     }
   }, [save, board_project_id,status]);
 

@@ -205,6 +205,8 @@ export const ModalCapital = ({
     setSelectedTypeProject(type);
     setSelectedLabelProject(label);
   }; 
+  //import
+  const [importedId, setImportedId] = useState<number>(0);
 
   //list Menu TypeProjects
   const menuTypeProjects = () => {
@@ -656,14 +658,11 @@ export const ModalCapital = ({
       project_id: projectid
     }
     datasets.postData(SERVER.IMPORT_PROJECT, boardProject, datasets.getToken()).then(data => {
-      if(data){        
+      if(data){
         setIsCreatedFromBoard(false);
-        loadColumns();
-        //setLoading(false);
+        setImportedId(data.board_project_id);
         setIsImported(false);
-        editProjectCapital(capital, originLocation);        
-        //setVisible(false);
-        //setVisibleCapital(false);
+        editProjectCapital(capital, originLocation);
         openNotification('Success.', 'success','Project imported successfully.');
       }else{
         openNotification(`Error.`, "warning", 'An error occurred while importing the project.');
@@ -1417,6 +1416,7 @@ export const ModalCapital = ({
                 subType={subType}
                 sponsor={sponsor}
                 originLocation= {originLocation}
+                importedId = {importedId}
               />          
               <UploadImagesDocuments              
                 isCapital={true}

@@ -25,12 +25,25 @@ const ColumsTrelloCard = ({
   type: string,
   selectView: string
 }) => {
-  const { columns2: columns, tabKey, locality, year, namespaceId, boardStatus, loadingColumns, filterRequest } = useRequestState();
+  const { 
+    columns2: columns,
+    tabKey,
+    locality,
+    year,
+    namespaceId,
+    boardStatus,
+    loadingColumns,
+    filterRequest,
+    board,
+    isDragging
+  } = useRequestState();
+
   const { 
     moveProjectsManual, 
     handleMoveFromColumnToColumn, 
     setVisibleCreateOrImport,
-    setVisibleCreateProject
+    setVisibleCreateProject,
+    setIsDragging
   } = useRequestDispatch();
   const { userInformation } = useProfileState();
   const { clear } = useAttachmentDispatch();
@@ -119,15 +132,18 @@ const ColumsTrelloCard = ({
     }
     return filterApplied;
   }
+  const controller = new AbortController();
   const onDropV2 = (
     originColumnPosition: number,
     targetColumnPosition: number,
     sourcePosition: number,
     targetPosition: number,
   ) => {
-    if (isFilterApplied()) {
+    controller.abort();
+    if (isFilterApplied() || isDragging) {
       return;
     }
+    setIsDragging(true);
     const projectId = columns[originColumnPosition].projects[sourcePosition]?.projectData?.project_id;
     const projectData = columns[originColumnPosition].projects[sourcePosition]?.projectData;
     let projectExistOutsideGivenColumn = false;
@@ -143,14 +159,17 @@ const ColumsTrelloCard = ({
       }
       return false;
     };
+    console.log('here')
     if (doesProjectExistOutsideGivenColumn(projectId, columns, originColumnPosition) && targetColumnPosition === 0) {
       projectExistOutsideGivenColumn = true;
+      setIsDragging(false);
     }
     let moveMaintenance = false;
     if (tabKey === 'Maintenance') {
       const currentSubType =
         columns[originColumnPosition].projects[sourcePosition]?.projectData?.code_project_type?.code_project_type_id;
       const posibleTargetColumn = getColumnProjectType(currentSubType);
+      
       if (
         (originColumnPosition === 0 &&
           (targetColumnPosition === originColumnPosition || targetColumnPosition === posibleTargetColumn)) || // from 0 to subtype column
@@ -171,16 +190,19 @@ const ColumsTrelloCard = ({
           sourcePosition,
           targetPosition,
           isWorkPlan: namespaceId.type === WORK_PLAN,
-          projectData
+          projectData,
+          controller
         });
-      } else {
+      } else {        
         handleMoveFromColumnToColumn({
           originColumnPosition,
           targetColumnPosition,
           sourcePosition,
           targetPosition,
           isWorkPlan: namespaceId.type === WORK_PLAN,
-          projectData
+          projectData,
+          board_id: board.board_id,
+          controller
         });
         if (namespaceId.type === WORK_PLAN 
           && boardStatus === 'Approved' && 
@@ -248,6 +270,8 @@ const ColumsTrelloCard = ({
         //   );
         }        
       }
+    } else{
+      setIsDragging(false);
     }
   };
 

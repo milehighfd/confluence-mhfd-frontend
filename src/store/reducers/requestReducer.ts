@@ -74,7 +74,8 @@ const initialState = {
   isListView: false,
   sentToWP: false,
   filterCost: [],
-  filterBy: '' 
+  filterBy: '',
+  isDragging: false,
 };
 
 const requestReducer = (state = initialState, action: any) => {
@@ -426,6 +427,11 @@ const requestReducer = (state = initialState, action: any) => {
         ...state,
         importedProjectData: action.payload
       };
+    case types.SET_IS_DRAGGING:
+      return {
+        ...state,
+        isDragging: action.payload
+      }
     default:
       return state;
   }
