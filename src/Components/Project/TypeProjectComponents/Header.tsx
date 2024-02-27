@@ -49,7 +49,7 @@ export const Header = ({
       content = CONTENT_POPUP_ACQUISITION;
       break;
     default:
-      content = CONTENT_POPUP_CAPITAL;
+      content = CONTENT_POPUP_MAINTENANCE;
   }
   
   return (
