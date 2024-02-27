@@ -1514,6 +1514,9 @@
     }
   }
 }
+.popover-no-arrow .ant-popover-arrow{
+  display: none !important;
+}
 
 // 1920x1080 DISPLAY
 @media (min-width: 900px) and (max-width: 1899px) {

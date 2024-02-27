@@ -51,7 +51,7 @@ export const Header = ({
     default:
       content = CONTENT_POPUP_CAPITAL;
   }
-
+  
   return (
     <div className="head-project">
       <div className='project-title'>
@@ -94,7 +94,7 @@ export const Header = ({
             </a>
           </div>
         </Dropdown>}
-        <Popover content={content}>
+        <Popover content={content} overlayClassName="popover-no-arrow">
           <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" />
         </Popover>
       </div>
