@@ -136,12 +136,79 @@ const EditAmountCreateProject = ({
           loadOneColumn(columnNumber);
         });
       }
+      if (namespaceId.type === WORK_PLAN
+        && boardStatus === 'Approved' &&
+        namespaceId.year >= YEAR_LOGIC_2024
+      ) {
+        let subTypeSend = '';
+        const MhfdAmmounts = send?.amounts?.find((obj: any) => obj.code_cost_type_id === 21);
+        let years: { extraYears: number[]; extraYearsAmounts: number[] } = {extraYears:[], extraYearsAmounts:[]};  
+        if (namespaceId.projecttype === 'Maintenance') {
+          subTypeSend = subType;
+          years = convertObjectToArraysMaintenance(MhfdAmmounts?.values, namespaceId.year);
+        }else{
+          years = convertObjectToArrays(MhfdAmmounts?.values, namespaceId.year);
+        }
+        console.log(createdData)
+        const sendBody = {
+          project_id: createdData.project_id,
+          year: namespaceId.year,
+          extraYears: years.extraYears,
+          sponsor,
+          project_type: namespaceId.projecttype,
+          extraYearsAmounts: years.extraYearsAmounts,
+          subType: subTypeSend,
+        }
+        sendProjectToBoardYear(
+          sendBody.project_id,
+          sendBody.year,
+          sendBody.extraYears,
+          sendBody.sponsor,
+          sendBody.project_type,
+          sendBody.extraYearsAmounts,
+          sendBody.subType
+        );
+      }
     })
       .catch((err: any) => {
         console.log(err);
       });
       setCreatedProject({});      
   };  
+
+  function convertObjectToArraysMaintenance(obj: any, currentYear: number) {
+    const extraYears = [];
+    const extraYearsAmounts = [];
+    const value = obj[`req1`];
+    const valueYear2 = obj[`req11`];
+    const valueYear3 = obj[`req12`];
+    if (value !== null && value !== 0) {
+      extraYears.push(+currentYear + 1 - 1);
+      extraYearsAmounts.push(value);
+    }
+    if (valueYear2 !== null && valueYear2 !== 0) {
+      extraYears.push(+currentYear + 2 - 1);
+      extraYearsAmounts.push(valueYear2);
+    }
+    if (valueYear3 !== null && valueYear3 !== 0) {
+      extraYears.push(+currentYear + 3 - 1);
+      extraYearsAmounts.push(valueYear3);
+    }
+    return { extraYears, extraYearsAmounts };
+  }
+
+  function convertObjectToArrays(input: any, year: number) {
+    const extraYears = [];
+    const extraYearsAmounts = [];
+    for (let i = 1; i <= 5; i++) {
+      const value = input[`req${i}`];
+      if (value !== null && value !== 0) {
+        extraYears.push(+year + i - 1);
+        extraYearsAmounts.push(value);
+      }
+    }
+    return { extraYears, extraYearsAmounts };
+  }
 
   useEffect(() => {
     if (Object.keys(createdProject).length !== 0 && Object.keys(project).length === 0) {

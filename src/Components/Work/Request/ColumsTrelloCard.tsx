@@ -254,15 +254,15 @@ const ColumsTrelloCard = ({
           const extraAmounts = combinedData.map(data => data.amount);
           const sponsor = (columns[originColumnPosition].projects[sourcePosition].projectData?.project_partners.find((x: any) => x.code_partner_type_id === SPONSOR_ID)?.business_associate?.business_name)
           console.log('years', years, 'extraAmounts', extraAmounts, 'sponsor', sponsor)
-          // sendProjectToBoardYear(
-          //   columns[originColumnPosition].projects[sourcePosition]?.projectData?.project_id,
-          //   namespaceId.year,
-          //   years,
-          //   sponsor,
-          //   namespaceId.projecttype,
-          //   extraAmounts,
-          //   ''
-          // );
+          sendProjectToBoardYear(
+            columns[originColumnPosition].projects[sourcePosition]?.projectData?.project_id,
+            namespaceId.year,
+            years,
+            sponsor,
+            namespaceId.projecttype,
+            extraAmounts,
+            ''
+          );
         }        
       }
     } else{

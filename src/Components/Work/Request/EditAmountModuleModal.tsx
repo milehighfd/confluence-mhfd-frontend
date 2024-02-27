@@ -328,43 +328,39 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
         send,
         datasets.getToken()
       ).then((res: any) => {
-        // setCost(res.newCost);
-        // res.columnsChanged.forEach((columnNumber: number) => {
-        //   loadOneColumn(columnNumber);
-        // });
         loadColumns();
-        // if (namespaceId.type === WORK_PLAN
-        //   && boardStatus === 'Approved' &&
-        //   namespaceId.year >= YEAR_LOGIC_2024
-        // ) {
-        //   let subTypeSend = '';
-        //   const MhfdAmmounts = send?.amounts?.find((obj: any) => obj.code_cost_type_id === 21);
-        //   let years: { extraYears: number[]; extraYearsAmounts: number[] } = {extraYears:[], extraYearsAmounts:[]};  
-        //   if (namespaceId.projecttype === 'Maintenance') {
-        //     subTypeSend = maintenanceSubtype;
-        //     years = convertObjectToArraysMaintenance(MhfdAmmounts?.values, namespaceId.year);
-        //   }else{
-        //     years = convertObjectToArrays(MhfdAmmounts?.values, namespaceId.year);
-        //   }
-        //   const sendBody = {
-        //     project_id: project?.projectData?.project_id,
-        //     year: namespaceId.year,
-        //     extraYears: years.extraYears,
-        //     sponsor: project?.projectData?.project_partners.find((x:any)=> x.code_partner_type_id === SPONSOR_ID)?.business_associate.business_name,
-        //     project_type: namespaceId.projecttype,
-        //     extraYearsAmounts: years.extraYearsAmounts,
-        //     subType: subTypeSend,
-        //   }
-        //   sendProjectToBoardYear(
-        //     sendBody.project_id,
-        //     sendBody.year,
-        //     sendBody.extraYears,
-        //     sendBody.sponsor,
-        //     sendBody.project_type,
-        //     sendBody.extraYearsAmounts,
-        //     sendBody.subType
-        //   );
-        // }
+        if (namespaceId.type === WORK_PLAN
+          && boardStatus === 'Approved' &&
+          namespaceId.year >= YEAR_LOGIC_2024
+        ) {
+          let subTypeSend = '';
+          const MhfdAmmounts = send?.amounts?.find((obj: any) => obj.code_cost_type_id === 21);
+          let years: { extraYears: number[]; extraYearsAmounts: number[] } = {extraYears:[], extraYearsAmounts:[]};  
+          if (namespaceId.projecttype === 'Maintenance') {
+            subTypeSend = maintenanceSubtype;
+            years = convertObjectToArraysMaintenance(MhfdAmmounts?.values, namespaceId.year);
+          }else{
+            years = convertObjectToArrays(MhfdAmmounts?.values, namespaceId.year);
+          }
+          const sendBody = {
+            project_id: project?.projectData?.project_id,
+            year: namespaceId.year,
+            extraYears: years.extraYears,
+            sponsor: project?.projectData?.project_partners.find((x:any)=> x.code_partner_type_id === SPONSOR_ID)?.business_associate.business_name,
+            project_type: namespaceId.projecttype,
+            extraYearsAmounts: years.extraYearsAmounts,
+            subType: subTypeSend,
+          }
+          sendProjectToBoardYear(
+            sendBody.project_id,
+            sendBody.year,
+            sendBody.extraYears,
+            sendBody.sponsor,
+            sendBody.project_type,
+            sendBody.extraYearsAmounts,
+            sendBody.subType
+          );
+        }
         openNotification('Success! Your project was saved!', "success");
       })
         .catch((err: any) => {

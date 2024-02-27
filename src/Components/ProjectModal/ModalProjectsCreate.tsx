@@ -255,7 +255,7 @@ const ModalProjectsCreate = ({visible, setVisible}
             : <div className='nothing-found'>
                 <img src='/Icons/no_data.svg' alt='no_data' />
                 <h2>No matching results!</h2>
-                <p>Try modifying your search parameter, or if still unable to locate, proceed <span style={{color:'#29C499', textDecoration:'underline', cursor:'pointer'}}   onClick={onClickNewProject}>create a project</span>.
+                <p>Try modifying your search parameter, or if still unable to locate, proceed to <span style={{color:'#29C499', textDecoration:'underline', cursor:'pointer'}}   onClick={onClickNewProject}>create a project</span>.
                 </p>
               </div>
           }
