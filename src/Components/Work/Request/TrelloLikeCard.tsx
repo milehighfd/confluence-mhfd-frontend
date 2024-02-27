@@ -236,7 +236,6 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   },[showModalProject]);
 
   let color = null, backgroundColor = null;
-  
   switch(status) {
     case 'Requested':
       backgroundColor = 'rgba(94, 61, 255, 0.15)';
@@ -292,7 +291,10 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
       sponsor = sponsor.substr(0, 9) + '...';
     }
   }
-
+  let newBorderColor = borderColor;
+  if (type === 'WORK_PLAN' && priority === null) {
+    newBorderColor = '#9faeb1';
+  }
   return (
     <>
       {
@@ -344,7 +346,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
     <div className={globalProject ? 'global-active-wr' : (activeProject ? 'active-card-wr' : 'inactive-card-wr')}>
     <div ref={divRef} className="card-wr" 
       style={{
-        borderLeft: `${pageWidth > 2000? (pageWidth > 3000? '6':'5'):'3'}px solid ${borderColor}`, 
+        borderLeft: `${pageWidth > 2000? (pageWidth > 3000? '6':'5'):'3'}px solid ${newBorderColor}`, 
         borderRadius: '4px'
       }} draggable={editable && !filtered}
       onDragStart={e => {

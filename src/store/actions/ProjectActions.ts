@@ -649,8 +649,6 @@ export const sendProjectToBoardYear = (project_id: number, year: number, extraYe
         break;
     }
     datasets.postData(SERVER.UPDATE_APPROVED_BOARD, {project_id, year, extraYears, sponsor, project_type, extraYearsAmounts, subTypeIndex}, datasets.getToken()).then(res => {
-      console.log('res', res);
-      dispatch(loadColumns());
       dispatch(loadFilters());
     });
   }
