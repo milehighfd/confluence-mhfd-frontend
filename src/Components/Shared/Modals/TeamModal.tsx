@@ -43,33 +43,22 @@ const TeamModal = () => {
             <h6 style={{ fontWeight: 500 }}>
               {item.fullName}
             </h6>
-            <p>{item.roleType}</p>
+            <p>{item.organization}</p>
           </div>
           <div className='organization'>
-            {item?.organization ? 
-              (item?.user?.user_id ? (
-                  <p className={`${item.organization.split(' ')[0]==='Unincorporated'?'user-status active no-wrap':'user-status active'}`}>
-                    {isUnicorporated(item.organization)}
-                  </p>
-                ):(
-                  <>
-                    <p className={`user-status active`} style={{paddingTop: '14px'}}>
-                      {item.organization}
-                    </p>
-                      <span className={`user-status-inactive-min`}>
-                        No User
-                      </span>
-                  </>
-                ))
-              :(item?.user?.user_id ? (
-                <></>
-              ):(
-                <>
-                  <span className={`user-status inactive`}>
-                    No User
-                  </span>
-                </>
-              ))
+            {
+              item?.roleType ? (
+                <p className={`${item.organization.split(' ')[0] === 'Unincorporated' && item?.user?.user_id ? 'user-status active no-wrap' : 'user-status active'}`} style={!item?.user?.user_id ? {paddingTop: '14px'} : {}}>
+                  {item.roleType}
+                </p>
+              ) : null
+            }
+            {
+              !item?.user?.user_id ? (
+                <span className={`user-status inactive`}>
+                  No User
+                </span>
+              ) : null
             }
           </div>
         </div>

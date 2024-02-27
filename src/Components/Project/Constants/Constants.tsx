@@ -105,11 +105,11 @@ export const COLUMNS_GEOMEOTRY = [
   },
 ];
 
-export const CONTENT_POPUP_CAPITAL =<div className="popver-info popver-project">Projects identified in a MHFD master plan that increase conveyance or reduce flow and require a 50% local match.</div>;
-export const CONTENT_POPUP_STUDY =<div className="popver-info popver-project">Master plans that set goals for the watershed and stream corridor, identify problems, and recommend improvements.</div>;
-export const CONTENT_POPUP_MAINTENANCE =<div className="popver-info popver-project">Projects that repair or restore existing infrastructure and are eligible for MHFD participation.</div>;
+export const CONTENT_POPUP_CAPITAL =<div className="popver-info popver-project">Master planned improvements that increase conveyance or reduce flow.</div>;
+export const CONTENT_POPUP_STUDY =<div className="popver-info popver-project">Master plans that identify problems and recommend improvements.</div>;
+export const CONTENT_POPUP_MAINTENANCE =<div className="popver-info popver-project">Restore existing infrastructure eligible for MHFD participation.</div>;
 export const CONTENT_POPUP_R_D =<div className="popver-info popver-project">Research and Development projects include new stream/rain gages, research, data development, new education and outreach programming, and criteria or guidance development.</div>;
-export const CONTENT_POPUP_ACQUISITION =<div className="popver-info popver-project">The purchase of property that is shown to have high flood risk or is needed to implement master plan improvements.</div>;
+export const CONTENT_POPUP_ACQUISITION =<div className="popver-info popver-project">Property with high flood risk or needed for improvements.</div>;
 
 export const CAPITAL_POPUP = 'Capital';
 export const MAINTENANCE_POPUP = 'Maintenance';

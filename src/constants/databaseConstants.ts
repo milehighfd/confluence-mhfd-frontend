@@ -25,4 +25,6 @@ export const STAFF_ROL_MAP: any = {
   [MHFD_SUPPORT]: 'MHFD Support',
   [ADMIN_STAFF]: 'Admin Staff',
   [LG_LEAD]: 'LG Lead',
+  [VENDOR_LEAD]: 'Vendor Lead',
+  [VENDOR_STAFF]: 'Vendor Staff'
 };
