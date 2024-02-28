@@ -344,7 +344,7 @@ const mimeToExtension = (mimeType:any) => {
       <div className="upload-documents">
         <div className="sub-title-project sub-title-project-upload">
           <h5 className="requestor-information">{index}
-            . Upload images
+            . Upload images 
           </h5>
           <div className="group-btn">
             {toDelete.length ?  <span onClick={deleteImages} className="delete-upload">Delete</span> : null }

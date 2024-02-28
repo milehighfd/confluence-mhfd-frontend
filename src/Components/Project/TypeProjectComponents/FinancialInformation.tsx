@@ -201,7 +201,7 @@ export const FinancialInformation = ({
       <hr/>
       <Row className="sub-project">
         <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}>
-          <p className='title-sub-project'>Overhead Cost &nbsp;&nbsp;<Popover content={contentOverheadCost}><InfoCircleOutlined style={{color:'#C5C2D5'}} /></Popover></p>
+          <p className='title-sub-project'>Overhead Cost &nbsp;&nbsp;<Popover overlayClassName="project-popover" content={contentOverheadCost}><img src="/Icons/icon-19.svg" alt="" height="12px" /></Popover></p>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
         </Col>
@@ -217,7 +217,7 @@ export const FinancialInformation = ({
         </Row>
         <Row className="sub-project" style={{alignItems:'center'}}>
           <Col xs={{ span: 24 }} lg={{ span: 13}} xxl={{ span: 13}}>
-            <p>Additional Cost <Popover content={contentAdditionalCost}><img src="/Icons/icon-19.svg" alt="" height="10px" className='icon-cost'/></Popover></p>
+            <p>Additional Cost <Popover overlayClassName="project-popover" content={contentAdditionalCost}><img src="/Icons/icon-19.svg" alt="" height="10px" className='icon-cost'/></Popover></p>
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 8 }} xxl={{ span: 8 }} className='col-input-badget'>
             <Input className='bold-text input-reverse' disabled={disableFieldsForLG} style={{paddingLeft:'0px'}} placeholder="$0" onChange={onChangeAdditionalCost} value={formatter.format(additionalCost ? additionalCost : 0)}/>
@@ -231,7 +231,7 @@ export const FinancialInformation = ({
         <br/>
         <Row className="sub-project">
           <Col xs={{ span: 18 }} lg={{ span: 13 }} xxl={{ span: 13 }}>
-            <p className='title-sub-project recomended-margin'>RECOMMENDED PROJECT BUDGET &nbsp;&nbsp;<Popover content={contentRecommendedBudget}><InfoCircleOutlined style={{color:'#C5C2D5'}} /></Popover></p>
+            <p className='title-sub-project recomended-margin'>RECOMMENDED PROJECT BUDGET &nbsp;&nbsp;<Popover overlayClassName="project-popover" content={contentRecommendedBudget}><img src="/Icons/icon-19.svg" alt="" height="12px" /></Popover></p>
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 8 }} xxl={{ span: 8 }} className='col-input-badget'>
             <p className='bold-text input-reverse' style={{paddingLeft:'0px', display:'flex'}} placeholder="$0">{formatter.format(getTotalCost() ? getTotalCost() : 0)}</p>

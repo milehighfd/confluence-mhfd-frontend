@@ -12,8 +12,8 @@ interface ModalAcquisitionProps {
   setPurchaseDate: Function;
   year: number;
 }
-const content03 = (<div className="popver-info">How far has this property acquisition already progressed?</div>);
-const content04 = (<div className="popver-info">This is the anticipated year during which the property is expected to be purchased (best estimate).</div>);
+const content03 = (<div className="popver-info"><b>Progress:</b> How far has this property acquisition already progressed?</div>);
+const content04 = (<div className="popver-info"><b>Anticipated Purchase Date:</b> This is the anticipated year during which the property is expected to be purchased (best estimate).</div>);
 const selec = [0];
 for (var i = 1; i < 21; i++) {
   selec.push(i);
@@ -38,7 +38,7 @@ export const InformationAcquisition = ({
   return (
     <Row gutter={[16, 16]}>
     <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{marginTop:'10px'}}>
-      <label className="sub-title">Progress <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+      <label className="sub-title">Progress <Popover overlayClassName="project-popover" content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
       <div id="progreid">
         <Select
           placeholder={progress != '' ? PROGRESS_ACQUISITION.find((el: any) => parseInt(el.id) === parseInt(progress))?.name + "" : "Select a Status"}
@@ -53,7 +53,7 @@ export const InformationAcquisition = ({
       </Select></div>
     </Col>
     <Col xs={{ span: 24 }} lg={{ span: 12 }}  style={{marginTop:'10px'}}>
-      <label className="sub-title">Anticipated Purchase Date <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+      <label className="sub-title">Anticipated Purchase Date <Popover overlayClassName="project-popover" content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
       <div id="antid">
         <Select
           placeholder={purchaseDate != '' ? purchaseDate + "" : "Select a Purchase Date"}

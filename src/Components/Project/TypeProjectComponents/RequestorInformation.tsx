@@ -75,9 +75,9 @@ export const RequestorInformation = ({
     return 'Project';
   }
   
-  const content03 = (<div className="popver-info">This is the primary local government sponsor that is requesting the project. By default, this attribute matches that of the Work Request. If changed, this project will be sent to the corresponding Work Request.</div>);
+  const content03 = (<div className="popver-info"><b>Sponsor:</b> This is the primary local government sponsor that is requesting the project. By default, this attribute matches that of the Work Request. If changed, this project will be sent to the corresponding Work Request.</div>);
   const contentLocInf = (<div className="popver-info"><b>Sponsor Information: </b>Some Location Information fields are populated automatically when the {getLabelCap()} Location is drawn. Please check them for accuracy and make changes as-necessary.</div>);
-  const content04 = (<div className="popver-info">This is a list of all potential local government co-sponsors which might contribute funding or otherwise participate in the {getLabel()}.</div>);
+  const content04 = (<div className="popver-info"><b>Potential Co-Sponsor:</b> This is a list of all potential local government co-sponsors which might contribute funding or otherwise participate in the {getLabel()}.</div>);
   
   useEffect(() => {
     datasets.getData(`${SERVER.GET_SPONSOR}`)
@@ -136,11 +136,11 @@ export const RequestorInformation = ({
   return (
     <div>
       <div className="sub-title-project">
-        <h5 className="requestor-information">{index}. SPONSOR INFORMATION <Popover content={contentLocInf}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
+        <h5 className="requestor-information">{index}. SPONSOR INFORMATION <Popover overlayClassName="project-popover" content={contentLocInf}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
       </div>
       <Row gutter={[16, 16]} style={{ marginTop: '10px' }}>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-          <label className="sub-title">Sponsor&nbsp;&nbsp;* <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+          <label className="sub-title">Sponsor&nbsp;&nbsp;* <Popover overlayClassName="project-popover" content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
           <div id="sponsorid">
             <Select
               style={{ width: '100%' }}
@@ -163,7 +163,7 @@ export const RequestorInformation = ({
           </div>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-          <label className="sub-title">Potential Co-Sponsor <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+          <label className="sub-title">Potential Co-Sponsor <Popover overlayClassName="project-popover" content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
           <div className="sponsor-select" id="cosponsorid">
             <Select
               mode="multiple"
