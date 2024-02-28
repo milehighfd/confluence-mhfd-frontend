@@ -115,7 +115,7 @@ export const ProjectInformation = ({
         otherReason={otherReason}
         setOtherReason={setOtherReason}
       /></>)}
-      <label className="sub-title">Description <Popover content={content00}><img src="../Icons/icon-19-black.svg" alt="" height="10px" /></Popover></label>
+      <label className="sub-title">Description <Popover content={content00}><img src="../Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
       <TextArea rows={4} disabled={disableFieldsForLG} placeholder="Add description" onChange={(description) => applyDescription(description)} value={description} />
       {type && type?.toLowerCase() === NEW_PROJECT_TYPES.Maintenance.toLowerCase() && (<>
         <InformationMaintenance
