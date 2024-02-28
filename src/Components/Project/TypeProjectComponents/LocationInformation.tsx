@@ -51,10 +51,10 @@ export const LocationInformation = ({
     return 'Project';
   }
 
-  const contentLocInf = (<div className="popver-info">Some Location Information fields are populated automatically when the {getLabelCap()} Location is drawn. Please check them for accuracy and make changes as-necessary.</div>);
-  const contentSerAre = (<div className="popver-info">This is the MHFD Service Area where the {getLabel()} is located.</div>);
-  const contentCounty = (<div className="popver-info">This is the County or Counties where the {getLabel()} is located.</div>);
-  const contentJuris = (<div className="popver-info">This is the Local Government(s) where the {getLabel()} is located.</div>);
+  const contentLocInf = (<div className="popver-info"><b>Location: </b>Some Location Information fields are populated automatically when the {getLabelCap()} Location is drawn. Please check them for accuracy and make changes as-necessary.</div>);
+  const contentSerAre = (<div className="popver-info"><b>Service Area: </b>This is the MHFD Service Area where the {getLabel()} is located.</div>);
+  const contentCounty = (<div className="popver-info"><b>County: </b>This is the County or Counties where the {getLabel()} is located.</div>);
+  const contentJuris = (<div className="popver-info"><b>Local Government: </b>This is the Local Government(s) where the {getLabel()} is located.</div>);
  
   const { 
   currentServiceAreaCounty,
