@@ -75,9 +75,9 @@ export const RequestorInformation = ({
     return 'Project';
   }
   
-  const content03 = (<div className="popver-info">This is the primary local government sponsor that is requesting the project. By default, this attribute matches that of the Work Request. If changed, this project will be sent to the corresponding Work Request.</div>);
+  const content03 = (<div className="popver-info">Sponsor: This is the primary local government sponsor that is requesting the project. By default, this attribute matches that of the Work Request. If changed, this project will be sent to the corresponding Work Request.</div>);
   const contentLocInf = (<div className="popver-info">Some Location Information fields are populated automatically when the {getLabelCap()} Location is drawn. Please check them for accuracy and make changes as-necessary.</div>);
-  const content04 = (<div className="popver-info">This is a list of all potential local government co-sponsors which might contribute funding or otherwise participate in the {getLabel()}.</div>);
+  const content04 = (<div className="popver-info"><b>Potential Co-Sponsor:</b> This is a list of all potential local government co-sponsors which might contribute funding or otherwise participate in the {getLabel()}.</div>);
   
   useEffect(() => {
     datasets.getData(`${SERVER.GET_SPONSOR}`)

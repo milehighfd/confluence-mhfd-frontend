@@ -12,8 +12,8 @@ interface ModalAcquisitionProps {
   setPurchaseDate: Function;
   year: number;
 }
-const content03 = (<div className="popver-info">Frequency indicates the number of times per-year that a maintenance activity is requested for routine activities. For example, select 2 for twice-per-year, or select 12 for monthly.</div>);
-const content04 = (<div className="popver-info">Flip this switch to indicate that the project is located on a property to which the Local Government has legal right-of-access. This is a requirement for all Maintenance Projects.</div>);
+const content03 = (<div className="popver-info"><b>Progress:</b> How far has this property acquisition already progressed?</div>);
+const content04 = (<div className="popver-info"><b>Anticipated Purchase Date:</b> This is the anticipated year during which the property is expected to be purchased (best estimate).</div>);
 const selec = [0];
 for (var i = 1; i < 21; i++) {
   selec.push(i);
