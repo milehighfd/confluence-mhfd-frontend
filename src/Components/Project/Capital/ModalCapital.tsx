@@ -601,8 +601,19 @@ export const ModalCapital = ({
       if (data.exists && !swSave) {
         handleNotification(`Project name already exists.`);
       } else {
-        if (!disable) {
-          setVisibleAlert(true);
+        if (!disable || swSave) {
+          if (swSave) {
+            let missingFields = [];
+            if (!nameProject) missingFields.push('Project Name');
+            if (!sponsor) missingFields.push('Sponsor');
+            if (missingFields.length > 0) {
+              handleErrorNotification(missingFields);
+            } else {
+              setVisibleAlert(true);
+            }
+          } else {
+            setVisibleAlert(true);
+          }
         } else {
           let missingFields = [];
           if (!description) missingFields.push('Description');
