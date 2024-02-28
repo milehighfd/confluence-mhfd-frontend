@@ -44,12 +44,17 @@ const ModalProjectsCreate = ({visible, setVisible}
   const [nameProject, setNameProject] = useState('');
   const [typeProject, setTypeProyect] = useState('');
   const [subType, setSubType] = useState('');
+  const [labelYear, setLabelYear] = useState('');
+  const [labelBoardType, setLabelBoardType] = useState('');
+  const [labelBoardLocality, setLabelBoardLocality] = useState('');
 
-  const boardType = namespaceId.type === WORK_PLAN ? 'Work Plan' : 'Work Request';
-  const projectType = namespaceId.projecttype;
   const isWorkPlan = namespaceId.type === WORK_PLAN;
-  const boardLocality = namespaceId.locality;
-  const year = namespaceId.year;
+
+  useEffect(() => {
+    setLabelBoardLocality(namespaceId.locality);
+    setLabelBoardType(namespaceId.type === WORK_PLAN ? 'Work Plan' : 'Work Request');
+    setLabelYear(namespaceId.year);
+  }, [namespaceId]);
 
   useEffect(() => {
     const boardsInfo = {
@@ -60,7 +65,7 @@ const ModalProjectsCreate = ({visible, setVisible}
     }
     datasets.postData(SERVER.GET_STATUS_BOARD, boardsInfo).then((data: any[]) => {
       let colorData: { locality: string, status: string }[] = data;
-      const isApproved = colorData.some((item: { locality: string, status: string }) => item.locality === boardLocality && item.status === 'Approved');
+      const isApproved = colorData.some((item: { locality: string, status: string }) => item.locality === labelBoardLocality && item.status === 'Approved');
       setIsApproved(isApproved);
     });
   }, [namespaceId]);
@@ -142,7 +147,7 @@ const ModalProjectsCreate = ({visible, setVisible}
         setNameProject={setNameProject}
         typeProject={typeProject}
         setVisible={setVisible}
-        locality={boardLocality}
+        locality={labelBoardLocality}
         data={completeProjectData}
         editable={true}
         subTypeInit={subType}
@@ -178,7 +183,7 @@ const ModalProjectsCreate = ({visible, setVisible}
             Create Project in:&nbsp; &nbsp;
             {isApproved ? <div className='circle' /> : <div className='circle-pending' />}&nbsp;
             <span className='subtitle-location'>
-              {boardLocality} {year} {boardType}
+              {labelBoardLocality} {labelYear} {labelBoardType}
             </span>
           </p>}
           {/* <div className='new-project-sec' onClick={onClickNewProject}>
