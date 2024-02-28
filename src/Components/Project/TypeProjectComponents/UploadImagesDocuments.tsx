@@ -344,7 +344,7 @@ const mimeToExtension = (mimeType:any) => {
       <div className="upload-documents">
         <div className="sub-title-project sub-title-project-upload">
           <h5 className="requestor-information">{index}
-            . Upload images <img src="/Icons/icon-19.svg" alt="" height="14px" className="icon-upload"/>
+            . Upload images 
           </h5>
           <div className="group-btn">
             {toDelete.length ?  <span onClick={deleteImages} className="delete-upload">Delete</span> : null }
@@ -386,7 +386,7 @@ const mimeToExtension = (mimeType:any) => {
       <div className="upload-documents">
         <div className="sub-title-project sub-title-project-upload">
           <h5 className="location">{index+1}
-            . Upload documents <img src="/Icons/icon-19.svg" alt="" height="14px" className="icon-upload"/>
+            . Upload documents
           </h5>
           <div className="group-btn">
           {toDeleteFiles.length ?  <span onClick={deleteFiles} className="delete-upload">Delete</span> : null }
