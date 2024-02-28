@@ -240,7 +240,7 @@ export const FinancialInformation = ({
         <div className='budget-container'>
           <Row className="sub-project">
             <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 18 }}>
-              <p className='title-sub-project'>ACTUAL PROJECT ESTIMATED COST &nbsp;&nbsp;<Popover overlayClassName="project-popover" content={contentActualEstimatedCost}><img src="/Icons/icon-19.svg" alt="" height="12px" /></Popover></p>
+              <p className='title-sub-project'>ACTUAL PROJECT ESTIMATED COST &nbsp;&nbsp;</p>
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 6 }}>
               <Input className='budget-input bold-text input-reverse-badget' disabled={disableFieldsForLG} style={{paddingLeft:'0px'}} placeholder="$0" onChange={handleChange} maxLength={40} value={formatter.format(estimatedCostFromDB ? estimatedCostFromDB : 0)}/>
