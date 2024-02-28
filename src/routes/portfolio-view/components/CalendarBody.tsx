@@ -961,14 +961,6 @@ const CalendarBody = ({
             .remove();
         }
 
-        scheduleGaxis.enter().append("circle")
-          .attr('id', 'todayCircle')
-          .attr("cx", function () {
-            return xScale(today);
-          })
-          .attr("cy", 10)
-          .attr("r", 6)
-          .style("fill", '#FF901C')
         zoomed = function () { 
           if (!shouldCallZoomed) return;
           setCurrentZScale(d3.event.transform.k);
@@ -989,7 +981,6 @@ const CalendarBody = ({
             renderMonthNames();
           }
           updateRects();
-          d3.select('#todayCircle').attr('cx', calctodayX);
           const linesAxis:any = document.getElementsByTagName("line")
           if(linesAxis){
             for(let line of linesAxis){
