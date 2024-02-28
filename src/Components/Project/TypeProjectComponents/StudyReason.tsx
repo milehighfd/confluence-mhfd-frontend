@@ -6,7 +6,7 @@ import { useProjectState } from "hook/projectHook";
 const { TextArea } = Input;
 const { Option } = Select;
 const content00 = (<div className="popver-info">Please include all known information relating to the origin, purpose, need, and scope of this project. Description is a required field.</div>);
-const content01 = (<div className="popver-info">What is the most pressing reason for studying this basin at this time?</div>);
+const content01 = (<div className="popver-info"><b>Reason for Study:</b> What is the most pressing reason for studying this basin at this time?</div>);
 const selec = ['None'];
 for (var i = 1; i < 13; i++) {
   selec.push('' + i);
@@ -103,7 +103,7 @@ export const StudyReason = ({
       <>
         <Row gutter={[16, 16]} className="information-description">
           <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-            <label className="sub-title">Other reason<Popover overlayClassName="project-popover" content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+            <label className="sub-title">Other Reason</label>
             <TextArea rows={1} placeholder="Add another reason" onChange={(text) => applyOtherReason(text)} value={otherReason} />
           </Col>
         </Row>

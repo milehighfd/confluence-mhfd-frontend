@@ -12,8 +12,8 @@ interface ModalAcquisitionProps {
   setPurchaseDate: Function;
   year: number;
 }
-const content03 = (<div className="popver-info">How far has this property acquisition already progressed?</div>);
-const content04 = (<div className="popver-info">This is the anticipated year during which the property is expected to be purchased (best estimate).</div>);
+const content03 = (<div className="popver-info"><b>Progress:</b> How far has this property acquisition already progressed?</div>);
+const content04 = (<div className="popver-info"><b>Anticipated Purchase Date:</b> This is the anticipated year during which the property is expected to be purchased (best estimate).</div>);
 const selec = [0];
 for (var i = 1; i < 21; i++) {
   selec.push(i);
