@@ -178,11 +178,11 @@ export const LocationInformation = ({
     <>
     <div className="location-information">
       <div className="sub-title-project">
-        <h5 className="location">{index}. LOCATION <Popover content={contentLocInf}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
+        <h5 className="location">{index}. LOCATION <Popover content={contentLocInf}><img src="/Icons/icon-19-black.svg" alt="" height="14px" /></Popover></h5>
       </div>
       <Row gutter={[16, 16]}>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-          <label className="sub-title">Service Area <Popover content={contentSerAre}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+          <label className="sub-title">Service Area <Popover content={contentSerAre}><img src="/Icons/icon-19-black.svg" alt="" height="10px" /></Popover></label>
           {(isMaintenance || isStudy) && !isWorkPlan && <>
             <span id="required-location" className="requiered">&nbsp;*&nbsp;</span>
             </>}
@@ -203,7 +203,7 @@ export const LocationInformation = ({
           </div>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-          <label className="sub-title">County <Popover content={contentCounty}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+          <label className="sub-title">County <Popover content={contentCounty}><img src="/Icons/icon-19-black.svg" alt="" height="10px" /></Popover></label>
           {(isMaintenance || isStudy) && !isWorkPlan && <>
             <span style={{ color: '#df3232' }} className="requiered">&nbsp;*&nbsp;</span>
             </>}
@@ -226,7 +226,7 @@ export const LocationInformation = ({
       </Row>
       <Row gutter={[16, 16]} style={{marginTop:'10px'}}>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-          <label className="sub-title">Local Government <Popover content={contentJuris}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+          <label className="sub-title">Local Government <Popover content={contentJuris}><img src="/Icons/icon-19-black.svg" alt="" height="10px" /></Popover></label>
           {(isMaintenance || isStudy) && !isWorkPlan && <>
             <span id="required-location" className="requiered">&nbsp;*&nbsp;</span>
             </>}

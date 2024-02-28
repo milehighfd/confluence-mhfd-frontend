@@ -50,7 +50,7 @@ export const InformationMaintenance = ({
       </Row>
       <Row gutter={[16, 16]} style={{ marginTop: '13px' }}>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-          <label className="sub-title">Frequency <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+          <label className="sub-title">Frequency <Popover content={content03}><img src="/Icons/icon-19-black.svg" alt="" height="10px" /></Popover></label>
           <div id="freqid">
             <Select
               placeholder={frequency !== '' ? frequency + '' : 'Select a Frequency'}
@@ -71,7 +71,7 @@ export const InformationMaintenance = ({
           </div>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-          <label className="sub-title">Access Control <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+          <label className="sub-title">Access Control <Popover content={content04}><img src="/Icons/icon-19-black.svg" alt="" height="10px" /></Popover></label>
           <p className="switch-option" style={{ fontSize: '14px' }}>
             Public Access / Ownership{' '}
             <span>
@@ -82,7 +82,7 @@ export const InformationMaintenance = ({
       </Row>
       <Row gutter={[16, 16]} style={{ marginTop: '10px' }}>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-          <label className="sub-title">Maintenance Eligibility <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+          <label className="sub-title">Maintenance Eligibility <Popover content={content05}><img src="/Icons/icon-19-black.svg" alt="" height="10px" /></Popover></label>
           <div id="elegid">
             <Select
               placeholder={eligibility !== '' ? MAINTENANCE_ELIGIBILITY.find((el: any) => parseInt(el.id) === parseInt(eligibility))?.name + '' : 'Select a Eligibility'}

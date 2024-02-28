@@ -56,7 +56,7 @@ export const StudyReason = ({
       <>
         <Row gutter={[16, 16]} className="information-description">
           <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{ padding: '8px' }}>
-            <label className="sub-title">Reason for Study <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+            <label className="sub-title">Reason for Study <Popover content={content01}><img src="/Icons/icon-19-black.svg" alt="" height="10px" /></Popover></label>
             <div id="reason">
               <Select
                 style={{ width: '100%' }}
@@ -103,7 +103,7 @@ export const StudyReason = ({
       <>
         <Row gutter={[16, 16]} className="information-description">
           <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-            <label className="sub-title">Other reason<Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+            <label className="sub-title">Other reason<Popover content={content01}><img src="/Icons/icon-19-black.svg" alt="" height="10px" /></Popover></label>
             <TextArea rows={1} placeholder="Add another reason" onChange={(text) => applyOtherReason(text)} value={otherReason} />
           </Col>
         </Row>
