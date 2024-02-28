@@ -263,7 +263,7 @@ export const ProposedActions = (props: ProposedActionsProps) => {
         </>
       }
       {visibleUnnamedComponent && <Table dataSource={thisIndependentComponents} columns={columnsIndependent} className='table-project' />}
-      <Button disabled={disableFieldsForLG} className="btn-transparent-green" onClick={() => { applyIndependentComponent() }}><PlusCircleFilled /> Independent Actions</Button> <Popover content={contentIndComp}><img src="/Icons/icon-19.svg" alt="" height="10px" className='icon-actions' /></Popover>
+      <Button disabled={disableFieldsForLG} className="btn-transparent-green" onClick={() => { applyIndependentComponent() }}><PlusCircleFilled /> Independent Actions</Button> <Popover overlayClassName="project-popover" content={contentIndComp}><img src="/Icons/icon-19.svg" alt="" height="10px" className='icon-actions' /></Popover>
     </>
   );
 }
