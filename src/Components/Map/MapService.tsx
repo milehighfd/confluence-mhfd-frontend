@@ -50,12 +50,14 @@ import {
 } from 'constants/mapStyles';
 import { hovereableLayers } from '../../routes/map/constants/layout.constants';
 import { LayerStylesType, ObjectLayerType } from 'Classes/MapTypes';
+import { useProfileState } from 'hook/profileHook';
 type LayersType = string | ObjectLayerType;
 class MapService {
 
   private _map: any;
   private _autocomplete: any;
-
+  private _user: any;
+  private _isMhfdStaff: any;
   isAutocompleteUsed = false;
 
   hideAndRemoveLayer() {
@@ -464,7 +466,12 @@ class MapService {
             }
         });
     }
-}
+  }
+  setUser(user: any) {
+    this._user = user;
+    this._isMhfdStaff = user.designation === 'admin' || user.designation === 'staff' ||
+    user.business_associate_contact?.business_address?.business_associate?.business_name === 'MHFD';
+  }
   applyMapLayers(
     layerFilters: any,
     selectedLayers: any,

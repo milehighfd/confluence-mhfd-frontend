@@ -72,6 +72,7 @@ import SideMenuTools from 'routes/map/components/SideMenuTools';
 import ModalLayers from 'Components/Project/TypeProjectComponents/ModalLayers';
 import { deletefirstnumbersmhfdcode } from 'utils/utils';
 import { BBOX_PROJECT_ID } from 'Config/endpoints/board';
+import { MEP_PROJECTS_DETENTION_BASINS_POLYGON } from 'routes/map/constants/layout.constants';
 
 const windowWidth: any = window.innerWidth;
 
@@ -194,6 +195,7 @@ let magicAddingVariable = false;
     PROJECTS_POLYGONS,
     MEP_PROJECTS_TEMP_LOCATIONS,
     MEP_PROJECTS_DETENTION_BASINS,
+    MEP_PROJECTS_DETENTION_BASINS_POLYGON,
     MEP_PROJECTS_CHANNELS,
     MEP_PROJECTS_STORM_OUTFALLS,
     ROUTINE_NATURAL_AREAS,

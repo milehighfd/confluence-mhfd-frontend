@@ -212,7 +212,6 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
   const [idsBoardProjects, setIdsBoardProjects] = useState<any>([]);
   const [groupedIdsBoardProjects, setGroupedIdsBoardProjects] = useState<any>([]);
   const coorBounds: any[][] = [];
-
   const [data, setData] = useState({
     problemid: '',
     id: '',
@@ -887,6 +886,11 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     }
   }, [groupOrganization]);
 
+  useEffect(() => {
+    if(userInformation) {
+      mapService.setUser(userInformation);
+    }
+  }, [userInformation]);
   useEffect(() => {
     if (coorBounds && (coorBounds.length === 0 || coorBounds[0][0])) {
       flytoBoundsCoor(
