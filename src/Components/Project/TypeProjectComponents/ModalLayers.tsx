@@ -84,6 +84,7 @@ const ModalLayers = ({
   }
   const getLayersOptions = (type:any) => {
    let checkedLayers: any = [];
+   console.log('Type ', type.type);
     switch (type.type) {
       case 'CAPITAL':
         checkedLayers = [
@@ -122,17 +123,18 @@ const ModalLayers = ({
           { label: <> {LAYERS_LABELS.STREAMS_FILTERS} <Popover key="LSWV3pbvYghho" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.streams,'Streams – ')}><InfoCircleOutlined style={{opacity:0.35}} /></Popover></>, value: STREAMS_FILTERS },
         ]
         break
-      case 'SPECIAL':
+      case ('RESEARCH AND DEVELOPMENT'):
         checkedLayers = [
           { label: <> {LAYERS_LABELS.BORDER} <Popover key="LSWV3bvYghhpo" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.borders, 'Borders –')}><InfoCircleOutlined style={{opacity:0.35}} /></Popover></>, value: BORDER },
           { label: <> {LAYERS_LABELS.AREA_BASED_MASK} <Popover key="LSWpV3bvYghho" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.area_based_mask, 'Area-Based Mask – ')}><InfoCircleOutlined style={{opacity:0.35}} /></Popover></>, value: AREA_BASED_MASK },
           { label: <> {LAYERS_LABELS.STREAMS_FILTERS} <Popover key="LSWVp3bvYghho" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.streams, 'Streams – ')}><InfoCircleOutlined style={{opacity:0.35}} /></Popover></>, value: STREAMS_FILTERS },
           { label: <> {LAYERS_LABELS.ALERT_STATION} <Popover key="LSWV3bvpYghho" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.alert_station, 'Alert Stations – ')}><InfoCircleOutlined style={{opacity:0.35}} /></Popover></>, value: ALERT_STATION },
           { label: <> {LAYERS_LABELS.RESEARCH_MONITORING} <Popover key="LSpWV3bvYghho" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.research_monitoring, 'Research/Monitoring – ')}><InfoCircleOutlined style={{opacity:0.35}} /></Popover></>, value: RESEARCH_MONITORING },
-
         ]
         break
+        
     }
+    console.log('Checked layers', checkedLayers);
     setProjectTypeLayers(checkedLayers)
   }
 

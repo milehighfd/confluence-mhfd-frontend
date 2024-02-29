@@ -114,7 +114,7 @@ export const PROPOSED_ACTIONS = {
     PROPOSED_ACTIONS_LINES
   ]
 };
-export const FEMA_FLOOD_HAZARD = 'fema_flood_hazard_zones';
+export const FEMA_FLOOD_HAZARD = 'flood_hazard_zones';
 export const WATERSHED_FILTERS = 'mhfd_catchments_simple_v1';
 export const STREAMS_FILTERS = 'stream_segment';
 export const MHFD_STREAMS_FILTERS = 'stream';
