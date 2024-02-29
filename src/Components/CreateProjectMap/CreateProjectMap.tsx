@@ -236,7 +236,7 @@ let magicAddingVariable = false;
   const [markerGeocoder, setMarkerGeocoder] = useState<any>(undefined);
   const [zoomEndCounter, setZoomEndCounter] = useState(0);
   const [dragEndCounter, setDragEndCounter] = useState(0);
-  const [visible, setVisible] = useState(false);
+  const [visibleModal, setVisibleModal] = useState(false);
   const [flagtoDraw, setFlagtoDraw] = useState(false);
   const [mapService] = useState<MapService>(new MapService());
   const currentBounds = useRef(undefined);
@@ -2093,7 +2093,7 @@ let magicAddingVariable = false;
           addToMap={addToMap}
         />
       )} */}
-      <ModalLayers type={type} selectCheckboxes={selectCheckboxes} visible={visible} setVisible={setVisible} />
+      <ModalLayers type={type} selectCheckboxes={selectCheckboxes} visible={visibleModal} setVisible={setVisibleModal} />
       {showIntersectionError && (
         <Modal
           className="detailed-version detailed-upload-save"
@@ -2196,7 +2196,7 @@ let magicAddingVariable = false;
           </AutoComplete>
         </div>
         <div className='show-filter'>
-          <Button className='btn-show-filter' onClick={()=>{setVisible(!visible)}}>Show suggested layers</Button>
+          <Button className='btn-show-filter' onClick={()=>{setVisibleModal(!visibleModal)}}>Show suggested layers</Button>
         </div>
       </div>
       {loading && <LoadingViewOverall></LoadingViewOverall>}
