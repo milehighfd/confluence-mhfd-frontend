@@ -30,6 +30,7 @@ import {
   MAPTYPES,
   ROUTINE_MAINTENANCES,
   CRITICAL_FACILITIES,
+  FEMA_FLOOD_HAZARD,
 } from '../../../constants/constants';
 import * as datasets from '../../../Config/datasets';
 import {
@@ -683,7 +684,7 @@ export const addPopupsOnClick = async (
       popups.push(item);
       ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
     }
-    if (feature.source === 'fema_flood_hazard_zones') {
+    if (feature.source === FEMA_FLOOD_HAZARD) {
       const item = {
         layer: MENU_OPTIONS.FEMA_FLOOD_HAZARD,
         dfirm_id: feature.properties.dfirm_id ? feature.properties.dfirm_id : '-',
