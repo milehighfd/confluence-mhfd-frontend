@@ -674,7 +674,7 @@ export const ModalCapital = ({
         setImportedId(data.board_project_id);
         setIsImported(false);
         editProjectCapital(capital, originLocation);
-        openNotification('Success.', 'success','Project imported successfully.');
+        openNotification('Success! Your project was imported successfully!', "success");
       }else{
         openNotification(`Error.`, "warning", 'An error occurred while importing the project.');
       }
