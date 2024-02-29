@@ -45,6 +45,7 @@ const EditDatesModal = ({
   const [isCountyWide, setIsCountyWide] = useState<boolean>(false);
   const [missingFields, setMissingFields] = useState<string[]>([]);
   const CODES_NOT_STREAM = [15]
+  const [inputValue, setInputValue] = useState(primaryStream?.name || '');
 
   const { openNotification } = useNotifications();
   const [onBaseNumber, setOnBaseNumber] = useState('no');
@@ -63,11 +64,7 @@ const EditDatesModal = ({
   const {
     loadColumns, 
   } = useRequestDispatch();
-  const [keyword, setKeyword] = useState('');
 
-  const handleSearch = (value: string) => {
-    setKeyword(value);
-  };
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
   const colorScale: any = {
     Done: '#5D3DC7',
@@ -118,10 +115,11 @@ const EditDatesModal = ({
         setOnBaseNumber('yes')
       }
       if(data?.projectStreams?.primaryStream){
-        const streamName = data.projectStreams.primaryStream.project_stream.stream.stream_name;
+        const streamName = data.projectStreams.primaryStream.stream_name;
         const streamId = data.projectStreams.primaryStream.stream_id;
         const projectStreamId = data.projectStreams.primaryStream.project_stream_id;
         setPrimaryStream({ id: streamId, name: streamName, value:projectStreamId})
+        setInputValue(streamName);
         newDisabledFields = { ...newDisabledFields, primary_stream: true }
       }
       const mhfdLead = data?.projectStaff?.mhfdLead?.business_associate_contact;
@@ -492,8 +490,9 @@ const EditDatesModal = ({
               <AutoComplete
                 dropdownMatchSelectWidth={true} 
                 style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
-                options={streamList.length > 0 ? [...streamList.map(renderOption), {}] : streamList.map(renderOption)}
+                options={streamList.map(renderOption)}
                 placeholder="Select primary stream"
+                defaultValue={inputValue}
                 listHeight={windowWidth > 2554 ? (windowWidth > 3799 ? 500 : 300) : 188}
                 filterOption={(inputValue: any, option: any) => {
                   if(option.value){
@@ -502,16 +501,22 @@ const EditDatesModal = ({
                   return false;
                 }
                 }
-                onSelect = {(value: any) => {
-                  const selectedItem = streamList.find(item => item.stream_name.toString() === value);
+                value={inputValue}
+                onChange={(value: any) => {
+                  setInputValue(value);
+                }}
+                onSelect = {(value: any,option: any) => {
+                  const selectedItem = streamList.find(item => item.stream_id.toString() === option.key.toString());
                   if (selectedItem) {
                     if (selectedItem.project_stream_id){
+                      if (selectedItem.stream_name === null){
+                        selectedItem.stream_name = 'NA'
+                      }
                       setPrimaryStream({ id: selectedItem.stream_id, name: selectedItem.stream_name, value: selectedItem.project_stream_id });
+                      setInputValue(selectedItem.stream_name);
                     }                    
                   }
-                  setKeyword(value);
-                  }
-                }
+                }}
                 className="search-input"
                 dropdownClassName="search-input-dropdown-stream"
               />
@@ -534,7 +539,7 @@ const EditDatesModal = ({
                       setMhfdLead({ id: selectedStaff.id, name: selectedStaff.value });
                     }
                   }}
-                  value={mhfdLead?.id !== null ? mhfdLead.id.toString() : undefined}
+                  value={mhfdLead?.name}
                   disabled={disabledFields?.mhfd_lead}
                 >
                   {
