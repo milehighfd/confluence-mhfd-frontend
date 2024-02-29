@@ -118,7 +118,7 @@ const EditDatesModal = ({
         setOnBaseNumber('yes')
       }
       if(data?.projectStreams?.primaryStream){
-        const streamName = data.projectStreams.primaryStream.project_stream.stream.stream_name;
+        const streamName = data.projectStreams.primaryStream.stream_name;
         const streamId = data.projectStreams.primaryStream.stream_id;
         const projectStreamId = data.projectStreams.primaryStream.project_stream_id;
         setPrimaryStream({ id: streamId, name: streamName, value:projectStreamId})
@@ -494,6 +494,7 @@ const EditDatesModal = ({
                 style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
                 options={streamList.length > 0 ? [...streamList.map(renderOption), {}] : streamList.map(renderOption)}
                 placeholder="Select primary stream"
+                value={primaryStream?.name}
                 listHeight={windowWidth > 2554 ? (windowWidth > 3799 ? 500 : 300) : 188}
                 filterOption={(inputValue: any, option: any) => {
                   if(option.value){
@@ -534,7 +535,7 @@ const EditDatesModal = ({
                       setMhfdLead({ id: selectedStaff.id, name: selectedStaff.value });
                     }
                   }}
-                  value={mhfdLead?.id !== null ? mhfdLead.id.toString() : undefined}
+                  value={mhfdLead?.name}
                   disabled={disabledFields?.mhfd_lead}
                 >
                   {
