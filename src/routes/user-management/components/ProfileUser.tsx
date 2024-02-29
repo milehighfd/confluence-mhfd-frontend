@@ -189,7 +189,8 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUs
         label: <span style={{ border: 'transparent' }}>{'Add New Contact'}</span>
       });
     };
-    generateItemMenu(listContacts);
+    const sortedList = listContacts.sort((a: any, b: any) => a.contact_name.localeCompare(b.contact_name));
+    generateItemMenu(sortedList);
     return <Menu
       key={'organization'}
       className="js-mm-00 sign-menu-organization"
