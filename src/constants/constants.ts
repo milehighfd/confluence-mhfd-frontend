@@ -1527,3 +1527,16 @@ export const LOCALITIES_TYPES = {
 }
 
 export const newRD = 'research and development';
+
+export const ORIGIN_PM_TOOLS = 'pm_tools';
+
+export const ORDER_STATUS = [
+  'Draft',
+  'Requested',
+  'Approved',
+  'Active',
+  'Closeout',
+  'Closed',
+  'Inactive',
+  'Cancelled'
+]
