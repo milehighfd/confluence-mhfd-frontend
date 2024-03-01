@@ -1215,9 +1215,27 @@ export const ModalCapital = ({
   const handleNotification = (message: string) => {
     openNotification(`Warning!`, "warning", message);
   }
+
+  const resetLocations = () => {
+    setServiceArea([]);
+    setCounty([]);
+    setjurisdiction([]);
+  }
+
+  const addSouthPlate = (add: boolean) => {
+    const SOUTH_PLATE_RIVER = 'South Platte River';
+    if (add) {
+      if (!serviceArea.includes(SOUTH_PLATE_RIVER)) {
+        setServiceArea([...serviceArea, SOUTH_PLATE_RIVER]);
+      }
+    } else {
+      setServiceArea(serviceArea.filter((area: any) => area !== SOUTH_PLATE_RIVER));
+    }
+  }
+
   let indexForm = 1;
   const [open, setOpen] = useState(false)
-    return (
+  return (
     <>
     {loading && <LoadingViewOverall></LoadingViewOverall>}
     {visibleAlert && <AlertView
@@ -1342,6 +1360,8 @@ export const ModalCapital = ({
                 setIsSouthPlate={setIsSouthPlate}
                 isCountyWide={isCountyWide}
                 setIsCountyWide={setIsCountyWide}
+                resetLocations = {resetLocations}
+                addSouthPlate = {addSouthPlate}
               />
               {(selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Capital.toLowerCase()||
               selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Maintenance.toLowerCase()||
