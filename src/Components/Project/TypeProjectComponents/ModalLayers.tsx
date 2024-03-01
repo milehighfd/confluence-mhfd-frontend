@@ -84,7 +84,6 @@ const ModalLayers = ({
   }
   const getLayersOptions = (type:any) => {
    let checkedLayers: any = [];
-   console.log('Type ', type.type);
     switch (type.type) {
       case 'CAPITAL':
         checkedLayers = [
@@ -134,7 +133,6 @@ const ModalLayers = ({
         break
         
     }
-    console.log('Checked layers', checkedLayers);
     setProjectTypeLayers(checkedLayers)
   }
 

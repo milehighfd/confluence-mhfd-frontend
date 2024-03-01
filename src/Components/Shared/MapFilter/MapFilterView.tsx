@@ -446,7 +446,7 @@ const MapFilterView = ({
           <Panel header="" key="0" extra={genExtra08()}>
             <p>
               <img key="jk9N6L5cdFnD" src="/Icons/Filters/ic_borders.png" width="18px" alt="" />
-                  Light/Street
+                  Light
               <Switch key="7VVlkJw5jSYm" size="small" checked={basemapSelected} onClick={(value) => onChange(value, BASEMAP)} />
             </p>
           </Panel>

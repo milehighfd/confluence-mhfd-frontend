@@ -493,7 +493,6 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
       mapService.changeBaseMapStyle(basemapSelected);
       reloadLayers = true;
     }
-    
     const [intervalId, promise] = waitingInterval(map);
     promise.then(() => {
       if(reloadLayers) {
@@ -1015,9 +1014,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     }
 
   };
-  useEffect(() => {
-    isProblemActive = selectedLayers.includes(PROBLEMS_TRIGGER);
-    const [intervalId, promise] = waitingInterval(map);
+  const loadSelectedLayersOnMap = (promise: any) => {
     updateSelectedLayersCP(selectedLayers);
     promise.then(() => {
       applySkyMapLayer();
@@ -1044,43 +1041,16 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
         }
       });
     });
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [reloadLayers]);
+  }
   useEffect(() => {
     isProblemActive = selectedLayers.includes(PROBLEMS_TRIGGER);
     const [intervalId, promise] = waitingInterval(map);
-    updateSelectedLayersCP(selectedLayers);
-    promise.then(() => {
-      applySkyMapLayer();
-      mapService.applyMapLayers(layerFilters, selectedLayers, showLayers, applyFilters, getProjectsFilteredIds, filterProblems, filterProjectOptions, addMapListeners);
-      if (areObjectsDifferent(initFilterProblems, filterProblems)) {
-        applyProblemClusterLayer();
-      }
-      setSpinMapLoaded(false);
-      applyNearMapLayer();
-      applyMeasuresLayer(map, geojsonMeasures, geojsonMeasuresSaved);
-      const removedLayers = SWITCHES_MAP.filter((layerElement: any) => !selectedLayers.includes(layerElement));
-      removedLayers.forEach((layerExcluded: any) => {
-        if (typeof layerExcluded === 'object') {
-          layerExcluded.tiles.forEach((subKey: string) => {
-            hideLayerAfterRender(subKey);
-          });
-          if(layerExcluded === COMPONENT_LAYERS){
-            PROPOSED_ACTIONS.tiles.forEach((subKey: string) => {
-              hideLayerAfterRender(subKey);
-            });
-          }
-        } else {
-          hideLayerAfterRender(layerExcluded);
-        }
-      });
-    });
+    console.log('selectedLayers', selectedLayers, reloadLayers);
+    loadSelectedLayersOnMap(promise);
     return () => {
       clearInterval(intervalId);
     };
-  }, [selectedLayers]);
+  }, [selectedLayers, reloadLayers]);
 
   useEffect(() => {
     if (map.getLayer('mapboxArcs')) {

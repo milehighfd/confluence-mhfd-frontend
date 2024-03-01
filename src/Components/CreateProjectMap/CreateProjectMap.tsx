@@ -7,7 +7,7 @@ import { getData, getToken } from '../../Config/datasets';
 import { SERVER } from '../../Config/Server.config';
 import { addGeojsonSource, removeGeojsonCluster } from './../../routes/map/components/MapFunctionsCluster';
 import { addPopupAndListeners, addPopupsOnClick, measureFunction } from '../../routes/map/components/MapFunctionsPopup';
-import { depth, applyMeasuresLayer } from '../../routes/map/components/MapFunctionsUtilities';
+import { depth, applyMeasuresLayer, waitingInterval } from '../../routes/map/components/MapFunctionsUtilities';
 import EventService from '../../services/EventService';
 import MapService from 'Components/Map/MapService';
 import {
@@ -58,6 +58,7 @@ import {
   PROPOSED_ACTIONS,
   PMTOOLS,
   newRD,
+  MAP_DROPDOWN_ITEMS,
 } from '../../constants/constants';
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import { Button, Popover, Modal, Input, AutoComplete, Col, Row } from 'antd';
@@ -183,6 +184,7 @@ let magicAddingVariable = false;
     highlightedStreams,
   } = useProjectState();
   const { groupOrganization, userInformation: user } = useProfileState();
+  const [reloadLayers, setReloadLayer] = useState(0);
   // const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
   // const { notes, availableColors } = useNotesState();
   const [idsBoardProjects, setIdsBoardProjects] = useState(boardProjectsCreate);
@@ -889,7 +891,27 @@ let magicAddingVariable = false;
     map.orderLayers();
     EventService.setRef('oncreatedraw', onCreateDraw);
     // EventService.setRef('addmarker', addMarker);
-  }, [selectedLayersCP]);
+  }, [selectedLayersCP, reloadLayers]);
+  useEffect(() => {
+    let reloadLayers = false;
+    if (typeof basemapSelected === 'boolean' && map.map) {
+      if(basemapSelected) {
+        map.map.setStyle(MAP_DROPDOWN_ITEMS[5].style);
+      } else {
+        map.map.setStyle(MAP_DROPDOWN_ITEMS[1].style);
+      }
+      reloadLayers = true;
+    }
+    const [intervalId, promise] = waitingInterval(map.map);
+    promise.then(() => {
+      if(reloadLayers) {
+        setReloadLayer(Math.random()); 
+      }
+    });
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [basemapSelected]);
   const setIsMeasuring = (value: boolean) => {
     isMeasuring.current = value;
     setMeasuringState2(value);
@@ -1170,7 +1192,9 @@ let magicAddingVariable = false;
     applyFilters(MHFD_PROJECTS, filterProjectsNew);
     applyMeasuresLayer(map.map, geojsonMeasures, geojsonMeasuresSaved);
     setTimeout(() => {
-      map.map.moveLayer('munis-centroids-shea-plusother');
+      if(map.map.getLayer('munis-centroids-shea-plusother')){
+        map.map.moveLayer('munis-centroids-shea-plusother');
+      }
     }, 500);
   }, [selectedLayersCP]);
   const showLayers = (key: string) => {

@@ -717,12 +717,12 @@ class MapService {
     }
   };
   changeBaseMapStyle(basemapSelected: boolean) {
-    if(basemapSelected) {
-      console.log('About to set ', MAP_DROPDOWN_ITEMS[1].style);
-      this.map.setStyle(MAP_DROPDOWN_ITEMS[1].style);
-    } else {
-      console.log('About to set ' , MAP_DROPDOWN_ITEMS[2].style);
-      this.map.setStyle(MAP_DROPDOWN_ITEMS[5].style);
+    if (this.map) {
+      if(basemapSelected) {
+        this.map.setStyle(MAP_DROPDOWN_ITEMS[5].style);
+      } else {
+        this.map.setStyle(MAP_DROPDOWN_ITEMS[1].style);
+      }
     }
   }
 
