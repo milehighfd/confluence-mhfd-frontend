@@ -61,7 +61,8 @@ import {
   getProblemCounter,
   resetFilterProjectOptionsEmpty,
   getExtraGalleryProjects,
-  setTabActiveNavbar
+  setTabActiveNavbar,
+  setBasemapSelected
 } from 'store/actions/mapActions';
 
 import { OptionProblems, OptionProjects } from 'Classes/MapTypes';
@@ -264,6 +265,9 @@ export const useMapDispatch = () => {
     },
     setTabActiveNavbar: (tab: string) => {
       dispatch(setTabActiveNavbar(tab));
+    },
+    setBasemapSelected: (basemapSelected: boolean) => {
+      dispatch(setBasemapSelected(basemapSelected));
     }
   };
 };

@@ -18,6 +18,7 @@ export const PROJECTS_DRAFT = 'mhfd_projects' + process.env.REACT_APP_NODE_ENV ?
 
 export const MEP_PROJECTS_TEMP_LOCATIONS = 'mep_projects_temp_locations';
 export const MEP_PROJECTS_DETENTION_BASINS = 'mep_detentionbasins_1';
+export const MEP_PROJECTS_DETENTION_BASINS_POLYGON = 'mep_detentionbasins';
 export const MEP_PROJECTS_CHANNELS = 'mep_channels_1'; 
 export const MEP_PROJECTS_STORM_OUTFALLS = 'mep_outfalls_1'; 
 
@@ -60,6 +61,7 @@ export const hovereableLayers = [
   PROJECTS_POLYGONS,
   MEP_PROJECTS_TEMP_LOCATIONS,
   MEP_PROJECTS_DETENTION_BASINS,
+  MEP_PROJECTS_DETENTION_BASINS_POLYGON,
   MEP_PROJECTS_CHANNELS,
   MEP_PROJECTS_STORM_OUTFALLS,
   ROUTINE_NATURAL_AREAS,
