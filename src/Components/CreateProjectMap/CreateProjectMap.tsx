@@ -123,6 +123,7 @@ let magicAddingVariable = false;
     componentDetailIds,
     filterComponents,
     projectsids,
+    basemapSelected
   } = useMapState();
 
   const {
@@ -132,7 +133,8 @@ let magicAddingVariable = false;
     existDetailedPageProblem,
     existDetailedPageProject,
     getComponentsByProjid,
-    updateSelectedLayers
+    updateSelectedLayers,
+    setBasemapSelected
   } = useMapDispatch();
   const {
     saveSpecialLocation,
@@ -2183,6 +2185,8 @@ let magicAddingVariable = false;
             selectCheckboxes={selectCheckboxes}
             selectedLayers={selectedLayersCP}
             removePopup={removePopup}
+            basemapSelected={basemapSelected}
+            setBasemapSelected={setBasemapSelected}
             // isWR={true}
           />
           <AutoComplete

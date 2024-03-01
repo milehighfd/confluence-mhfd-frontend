@@ -489,7 +489,8 @@ const initState = {
     favoritesLoader: 0,
     showComponents: [],
     places: [],
-    tabActiveNavbar: 'MAP'
+    tabActiveNavbar: 'MAP',
+    basemapSelected: false
 }
 
 const mapReducer = (state = initState, action: any) => {
@@ -894,6 +895,12 @@ const mapReducer = (state = initState, action: any) => {
             return {
                 ...state,
                 tabActiveNavbar: action.tabActiveNavbar
+            }
+        }
+        case types.SET_BASEMAP: {
+            return {
+                ...state,
+                basemapSelected: action.basemapSelected
             }
         }
         default:

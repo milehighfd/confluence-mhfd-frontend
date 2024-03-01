@@ -481,6 +481,31 @@ class MapService {
     this._isMhfdStaff = user.designation === 'admin' || user.designation === 'staff' ||
     user.business_associate_contact?.business_address?.business_associate?.business_name === 'MHFD';
   }
+  removeMapLayers() {
+    SELECT_ALL_FILTERS.forEach(layer => {
+      if (typeof layer === 'object') {
+        if (layer.name === USE_LAND_COVER_LABEL) {
+          layer.tiles.forEach((tile: string) => {
+            if (this.map.getLayer(tile + '_0')) {
+              this.map.removeLayer(tile + '_0');
+            }
+          });
+        } else if (layer.tiles) {
+          layer.tiles.forEach((subKey: string) => {
+            if (this.map.getLayer(subKey + '_0')) {
+              this.map.removeLayer(subKey + '_0');
+            }
+          });
+        }
+      } else {
+        if (layer !== 'area_based_mask' && layer !== 'border') {
+          if (this.map.getLayer(layer + '_0')) {
+            this.map.removeLayer(layer + '_0');
+          }
+        }
+      }
+    });
+  }
   applyMapLayers(
     layerFilters: any,
     selectedLayers: any,

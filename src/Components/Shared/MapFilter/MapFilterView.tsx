@@ -62,15 +62,18 @@ const MapFilterView = ({
   setVisibleDropdown,
   selectedLayers,
   removePopup,
-  isWR
+  isWR,
+  basemapSelected,
+  setBasemapSelected
 }: {
   selectCheckboxes: Function,
   setVisibleDropdown: Function,
   selectedLayers: any,
   removePopup: Function,
-  isWR?: boolean
+  isWR?: boolean,
+  basemapSelected: boolean,
+  setBasemapSelected: Function
 }) => {
-  const [basemapSelected, setBaseMapSelected] = useState(false);
   const [showModal, setShowmodal] = useState(false);
   const [switches, setSwitches] = useState({
     [GUIDELINES]: true,
@@ -172,7 +175,7 @@ const MapFilterView = ({
     setGroups({...groups, ...newGroups});
   }, [switches]);
   useEffect(() => {
-    setGroups({...groups, basemap: basemapSelected});
+    setGroups({...groups, basemap: (basemapSelected ?? false)});
   } ,[basemapSelected]);
   useEffect(() => {
     const newSwitches: any = {...switches};
@@ -334,13 +337,13 @@ const MapFilterView = ({
       <div  key="TZAPjUAZ6Cu855" style={basemapSelected ? weightStyle : emptyStyle}>{BASEMAP} </div>
       <Switch key="7GX33A8WhGwR55" checked={groups['basemap']} size="small" onClick={(value, event) => {
           event.stopPropagation();
-          setBaseMapSelected(value);
+          setBasemapSelected(value);
         }}/>
     </div>
   );
   const onChange = (value: boolean, item: any) => {
     if (item === BASEMAP) {
-      setBaseMapSelected(value);
+      setBasemapSelected(value);
     } else {
       if (item.hasOwnProperty('name')) {
         if (item.name === USE_LAND_COVER_LABEL) {
