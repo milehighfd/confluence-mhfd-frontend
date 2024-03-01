@@ -1130,7 +1130,8 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
         tileSize: 128,
         tiles: [`https://api.nearmap.com/tiles/v3/Vert/{z}/{x}/{y}.png?apikey=${NEARMAP_TOKEN}`],
       });
-      map.addLayer(NEARMAP_STYLE, 'aerialway');
+      const underLayer = map.getLayer('aerialway') ? 'aerialway' : '';
+      map.addLayer(NEARMAP_STYLE, underLayer);
     }
   };
 

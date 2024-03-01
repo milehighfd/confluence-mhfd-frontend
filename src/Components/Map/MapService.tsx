@@ -196,20 +196,29 @@ class MapService {
   topAddLayers () {
     const styles = { ...(tileStyles as any) };
     styles[DWR_DAM_SAFETY].forEach((style: LayerStylesType, index: number) => {
-      this.map.moveLayer(`${DWR_DAM_SAFETY}_${index}`);
+      if (this.map.getLayer(`${DWR_DAM_SAFETY}_${index}`)) {
+        this.map.moveLayer(`${DWR_DAM_SAFETY}_${index}`);
+      }
     });
     styles[RESEARCH_MONITORING].forEach((style: LayerStylesType, index: number) => {
-      this.map.moveLayer(`${RESEARCH_MONITORING}_${index}`);
+      if (this.map.getLayer(`${RESEARCH_MONITORING}_${index}`)) {
+        this.map.moveLayer(`${RESEARCH_MONITORING}_${index}`);
+      }
     });
     styles[CLIMB_TO_SAFETY].forEach((style: LayerStylesType, index: number) => {
-      this.map.moveLayer(`${CLIMB_TO_SAFETY}_${index}`);
+      if (this.map.getLayer(`${CLIMB_TO_SAFETY}_${index}`)) {
+        this.map.moveLayer(`${CLIMB_TO_SAFETY}_${index}`);
+      }
     });
   };
 
   topProjects () {
     const styles = { ...(tileStyles as any) };
-    styles[MHFD_PROJECTS].forEach((style: LayerStylesType, index: number) => {
-      this.map.moveLayer(`${MHFD_PROJECTS}_${index}`);
+    styles[MHFD_PROJECTS].forEach((_: LayerStylesType, index: number) => {
+      if (this.map.getLayer(`${MHFD_PROJECTS}_${index}`)) {
+        this.map.moveLayer(`${MHFD_PROJECTS}_${index}`);
+      }
+      
     });
   };
   topComponents () {
@@ -683,6 +692,7 @@ class MapService {
     }
   };
   changeBaseMapStyle(type: string) {
+    console.trace('type', type);
     if(type === 'light') {
       console.log('About to set ', type, MAP_DROPDOWN_ITEMS[1].style);
       this.map.setStyle(MAP_DROPDOWN_ITEMS[1].style);
