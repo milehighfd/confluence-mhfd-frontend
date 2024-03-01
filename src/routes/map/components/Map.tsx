@@ -237,6 +237,7 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
   const [distanceValueMi, setDistanceValueMi] = useState('0');
   const [areaValue, setAreaValue] = useState('0');
   const { openNotification } = useNotifications();
+  const [reloadLayers, setReloadLayer] = useState(0);
   const setNote = useCallback(
     (event: any, note?: any) => {
       const getText = event?.target?.value ? event.target.value : event;
@@ -486,6 +487,23 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     }
   }, [boardProjects]);
 
+  useEffect(() => {
+    let reloadLayers = false;
+    if (typeof basemapSelected === 'boolean' && map) {
+      mapService.changeBaseMapStyle(basemapSelected);
+      reloadLayers = true;
+    }
+    
+    const [intervalId, promise] = waitingInterval(map);
+    promise.then(() => {
+      if(reloadLayers) {
+        setReloadLayer(Math.random()); 
+      }
+    });
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [basemapSelected]);
   useEffect(() => {
     let filterProjectsDraft = { ...filterProjects };
     filterProjectsDraft.projecttype = '';
@@ -997,7 +1015,39 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
     }
 
   };
-
+  useEffect(() => {
+    isProblemActive = selectedLayers.includes(PROBLEMS_TRIGGER);
+    const [intervalId, promise] = waitingInterval(map);
+    updateSelectedLayersCP(selectedLayers);
+    promise.then(() => {
+      applySkyMapLayer();
+      mapService.applyMapLayers(layerFilters, selectedLayers, showLayers, applyFilters, getProjectsFilteredIds, filterProblems, filterProjectOptions, addMapListeners);
+      if (areObjectsDifferent(initFilterProblems, filterProblems)) {
+        applyProblemClusterLayer();
+      }
+      setSpinMapLoaded(false);
+      applyNearMapLayer();
+      applyMeasuresLayer(map, geojsonMeasures, geojsonMeasuresSaved);
+      const removedLayers = SWITCHES_MAP.filter((layerElement: any) => !selectedLayers.includes(layerElement));
+      removedLayers.forEach((layerExcluded: any) => {
+        if (typeof layerExcluded === 'object') {
+          layerExcluded.tiles.forEach((subKey: string) => {
+            hideLayerAfterRender(subKey);
+          });
+          if(layerExcluded === COMPONENT_LAYERS){
+            PROPOSED_ACTIONS.tiles.forEach((subKey: string) => {
+              hideLayerAfterRender(subKey);
+            });
+          }
+        } else {
+          hideLayerAfterRender(layerExcluded);
+        }
+      });
+    });
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [reloadLayers]);
   useEffect(() => {
     isProblemActive = selectedLayers.includes(PROBLEMS_TRIGGER);
     const [intervalId, promise] = waitingInterval(map);
