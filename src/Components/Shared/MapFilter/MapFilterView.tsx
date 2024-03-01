@@ -70,6 +70,7 @@ const MapFilterView = ({
   removePopup: Function,
   isWR?: boolean
 }) => {
+  const [basemapSelected, setBaseMapSelected] = useState(false);
   const [showModal, setShowmodal] = useState(false);
   const [switches, setSwitches] = useState({
     [GUIDELINES]: true,
@@ -168,13 +169,11 @@ const MapFilterView = ({
     } else {
       newGroups['workrequest'] = false;
     }
-    if(switches[BASEMAP]) {
-      newGroups['basemap'] = true;
-    } else {
-      newGroups['basemap'] = false;
-    }
     setGroups({...groups, ...newGroups});
   }, [switches]);
+  useEffect(() => {
+    setGroups({...groups, basemap: basemapSelected});
+  } ,[basemapSelected]);
   useEffect(() => {
     const newSwitches: any = {...switches};
     for(let val in newSwitches) {
@@ -332,41 +331,43 @@ const MapFilterView = ({
   );
   const genExtra08 = () => (
     <div className="filter-coll-header" key="DzdiEvq8vmf7">
-      <div  key="TZAPjUAZ6Cu855" style={switches[BASEMAP] ? weightStyle : emptyStyle}>{BASEMAP} </div>
+      <div  key="TZAPjUAZ6Cu855" style={basemapSelected ? weightStyle : emptyStyle}>{BASEMAP} </div>
       <Switch key="7GX33A8WhGwR55" checked={groups['basemap']} size="small" onClick={(value, event) => {
           event.stopPropagation();
-          changeGroup(value, [BASEMAP], 'basemap')
+          setBaseMapSelected(value);
         }}/>
     </div>
   );
   const onChange = (value: boolean, item: any) => {
-    console.log('VAlue', value, item);
-    if (item.hasOwnProperty('name')) {
-      if (item.name === USE_LAND_COVER_LABEL) {
-        setShowmodal(value);
-      }
-      setSwitches({...switches, [item['name']]: value});
+    if (item === BASEMAP) {
+      setBaseMapSelected(value);
     } else {
-      setSwitches({...switches, [item]: value});
-    }
-    let switchSelected: any[] = [...selectedLayers];
-    if (value) {
-      if(item === COMPONENT_LAYERS){
-        switchSelected.push(PROPOSED_ACTIONS);
-      }
-      switchSelected.push(item);
-    } else {
-      switchSelected = switchSelected.filter((element) => {
-        if(item === COMPONENT_LAYERS){
-          return element !== PROPOSED_ACTIONS && element !== item;
-        }else{
-          return element !== item;
+      if (item.hasOwnProperty('name')) {
+        if (item.name === USE_LAND_COVER_LABEL) {
+          setShowmodal(value);
         }
-      });
+        setSwitches({...switches, [item['name']]: value});
+      } else {
+        setSwitches({...switches, [item]: value});
+      }
+      let switchSelected: any[] = [...selectedLayers];
+      if (value) {
+        if(item === COMPONENT_LAYERS){
+          switchSelected.push(PROPOSED_ACTIONS);
+        }
+        switchSelected.push(item);
+      } else {
+        switchSelected = switchSelected.filter((element) => {
+          if(item === COMPONENT_LAYERS){
+            return element !== PROPOSED_ACTIONS && element !== item;
+          }else{
+            return element !== item;
+          }
+        });
+      }
+      console.log('Switch selected', switchSelected);
+      selectCheckboxes(switchSelected);
     }
-    console.log('Switch selected', switchSelected);
-    selectCheckboxes(switchSelected);
-
     removePopup();
   }
 
@@ -443,7 +444,7 @@ const MapFilterView = ({
             <p>
               <img key="jk9N6L5cdFnD" src="/Icons/Filters/ic_borders.png" width="18px" alt="" />
                   Light/Street
-              <Switch key="7VVlkJw5jSYm" size="small" checked={switches[BASEMAP]} onClick={(value) => onChange(value, BASEMAP)} />
+              <Switch key="7VVlkJw5jSYm" size="small" checked={basemapSelected} onClick={(value) => onChange(value, BASEMAP)} />
             </p>
           </Panel>
           { 

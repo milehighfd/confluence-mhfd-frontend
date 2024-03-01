@@ -695,10 +695,10 @@ class MapService {
     console.trace('type', type);
     if(type === 'light') {
       console.log('About to set ', type, MAP_DROPDOWN_ITEMS[1].style);
-      this.map.setStyle(MAP_DROPDOWN_ITEMS[1].style);
+      this.map.setStyle(MAP_DROPDOWN_ITEMS[5].style);
     } else if (type === 'street') {
       console.log('About to set ' ,type, MAP_DROPDOWN_ITEMS[2].style);
-      this.map.setStyle(MAP_DROPDOWN_ITEMS[5].style);
+      this.map.setStyle(MAP_DROPDOWN_ITEMS[1].style);
     }
   }
 

@@ -24,7 +24,7 @@ export const MAP_DROPDOWN_ITEMS = [
   }, {
     // THIS ONE IS THE BASEMAP OFFICIAL
     type: 'Optional style',
-    style: `mapbox://styles/milehighfd/ckxhudjgf1er514o9wbyvi6nw`,
+    style: `mapbox://styles/milehighfd/ckxhudjgf1er514o9wbyvi6nw`
   }, {
     type: 'Dark Road',
     style: 'mapbox://styles/milehighfd/ck4jfj4yy5abd1cqw90v1dlft'
@@ -37,7 +37,7 @@ export const MAP_DROPDOWN_ITEMS = [
   },
   {
     type: 'light',
-    style: 'mapbox://styles/milehighfd/clrjvtgpo000y01pf4si8c5f8'
+    style: 'mapbox://styles/milehighfd/clt8shxo100ph01qpctqx6j8m'
   }
 ];
 
