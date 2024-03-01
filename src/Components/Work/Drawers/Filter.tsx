@@ -3,7 +3,7 @@ import { Drawer, Button } from 'antd';
 import { useRequestDispatch, useRequestState } from "hook/requestHook";
 import FilterGroup from "./FilterGroup";
 import { useMapDispatch, useMapState } from "hook/mapHook";
-import { YEAR_LOGIC_2024, WORK_PLAN, UPCOMING_PROJECTS } from 'constants/constants';
+import { YEAR_LOGIC_2024, WORK_PLAN, UPCOMING_PROJECTS, ORDER_STATUS } from 'constants/constants';
 import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import { DropdownFilters } from "Components/FiltersProject/DropdownFilters";
@@ -91,7 +91,6 @@ const Filter = ({origin}:{origin: any}) => {
     });
   }, []);
   useEffect(() => {
-    const orderForStatus = ['Draft', 'Requested', 'Under Review', 'Approved', 'Cancelled', 'Inactive'];
     const sortedFilterRequest = [...filterRequest].sort((a, b) => a.name.localeCompare(b.name));
     setPriorityFilter(sortedFilterRequest.filter((f: any) => f.type === 'project_priorities').map((f: any) => ({ ...f, disabled: false })));
     const result = completeFilter.map((bObj: any) => {
@@ -113,7 +112,13 @@ const Filter = ({origin}:{origin: any}) => {
       };
     });
     const statusFilter = result.filter((f: any) => f.type === 'status').sort((a: any, b: any) => {
-      return orderForStatus.indexOf(a.name) - orderForStatus.indexOf(b.name);
+      const indexA = ORDER_STATUS.indexOf(a.name);
+      const indexB = ORDER_STATUS.indexOf(b.name);
+
+      if (indexA === -1) return 1;
+      if (indexB === -1) return -1;
+
+      return indexA - indexB;
     });
     setServiceAreaFilter(result.filter((f: any) => f.type === 'project_service_areas'));
     setCountyFilter(result.filter((f: any) => f.type === 'project_counties'));
