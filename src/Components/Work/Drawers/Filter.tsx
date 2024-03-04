@@ -257,7 +257,7 @@ const Filter = ({origin}:{origin: any}) => {
           (tabActiveNavbar === UPCOMING_PROJECTS) && 
           <div>
             <FilterDropdown
-            label="Estimated Cost Range"
+            label="Estimated Cost"
           />
           </div>
         }
@@ -276,16 +276,9 @@ const Filter = ({origin}:{origin: any}) => {
           />
         }
         {
-          (tabActiveNavbar === 'WORK_PLAN') &&
+          (tabActiveNavbar === 'WORK_PLAN' || tabActiveNavbar === UPCOMING_PROJECTS) &&
           <FilterGroup
             label="Local Government"
-            filterList={jurisdictionFilter}
-          />
-        }
-        {
-          (tabActiveNavbar === UPCOMING_PROJECTS) &&
-          <FilterGroup
-            label="Estimated Cost"
             filterList={jurisdictionFilter}
           />
         }
