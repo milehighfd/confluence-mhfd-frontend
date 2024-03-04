@@ -418,7 +418,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
                 return (
                   <Col style={{width: widthInput}}>
                     {item.business_name} <p>{'Sponsor '}
-                    {isWorkPlan && <Tooltip title={
+                    {isWorkPlan && <Tooltip overlayClassName='project-tooltip' title={
                       <div style={{zIndex:"1000"}} className='popover-edit-amount'>
                         Requested Amounts: <br/>
                         <Row>
@@ -464,7 +464,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
                 return (
                   <Col style={{width: widthInput}}>
                     {item.business_name} Funding 
-                    {isWorkPlan && <Tooltip title={
+                    {isWorkPlan && <Tooltip overlayClassName='project-tooltip' title={
                       <div style={{zIndex:"1000"}} className='popover-edit-amount'>
                         Requested Amounts: <br/>
                         <Row>
@@ -513,7 +513,7 @@ const EditAmountModuleModal = ({ project, completeProjectData, visible, setVisib
             {/* <Row>Prior Funding</Row> */}
             {/* <Row className='rowname'>--</Row> */}
             <Row className='rowname' style={{display: 'flex',alignItems: 'center'}}>Prior Funding&nbsp; 
-              <Popover placement="top" content={<p className='popover-edit-amount' style={{marginBottom:'0px'}}>Prior Funding is the total amount approved by<br/> MHFD on past Work Plans in Confluence.</p>}>
+              <Popover overlayClassName='project-popover' placement="top" content={<p className='popover-edit-amount' style={{marginBottom:'0px'}}>Prior Funding is the total amount approved by<br/> MHFD on past Work Plans in Confluence.</p>}>
               <ExclamationCircleOutlined style={{opacity:0.4, transform: 'scale(0.9)', cursor:'pointer'}}/>
             </Popover>
             </Row>

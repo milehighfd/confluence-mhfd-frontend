@@ -310,13 +310,23 @@
       box-sizing: border-box;
       display: flex;
       flex-direction: row;
+      align-items: baseline;
       justify-content: space-between;
       width: 100%;
     }
     .text-tollgate-body{
       height: 32px;
-      align-items: center;
+      align-items: baseline;
       margin-bottom: 14px;
+      .name-tollgate{
+        display: flex;
+        align-items: baseline;
+        line-height: 1.4;
+        height: 40px;
+        .date-label{
+          margin-left: 1px;
+        }
+      }
     }
   }
 }
@@ -330,12 +340,11 @@
   padding-top: 10px;
 }
 .span-dots-tollgate {
-  display: inline-flex;
+  display: flex;
   font-family: Ubuntu;
   font-style: normal;
   color: #858f94;
   font-size: 12px;
-  display: inline-flex;
   align-items: center;
   .toolgate-circle {
     width: 9px;
@@ -539,8 +548,8 @@
   .span-dots-tollgate {
     font-size: 16px;
     .toolgate-circle {
-      width: 14px;
-      height: 14px;
+      width: 12px;
+      height: 12px;
     }
   }
             
@@ -594,6 +603,11 @@
     }
     .tollgate-body {
       height: 269px !important;
+      .text-tollgate-body .name-tollgate {
+        .date-label{
+          margin-left: 7px;
+        }
+      }
     }
 
     .tollgate-row-list-view {

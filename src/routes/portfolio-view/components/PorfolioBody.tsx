@@ -312,7 +312,7 @@ const PortafolioBody = () => {
       </div>
       <div className="work-body portafolio">
         <div className="legends-porfolio">
-          {(tabActiveNavbar === 'Phase' || tabActiveNavbar === 'Schedule') && <div>
+          {(tabActiveNavbar === 'Phase' || tabActiveNavbar === 'Schedule') && <div style={{display:'flex'}}>
                 <span className="span-dots-heder">
                   <div className="circulo" style={{backgroundColor:'#5D3DC7'}}/>
                   <span style={{marginLeft:'1px', marginRight:'12px'}}>Done</span>

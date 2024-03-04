@@ -37,7 +37,7 @@ const Vendors = () => {
       </Row>
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="detail-problems-component-table">
-          <Table dataSource={data} columns={columns} pagination={false} rowKey={record => record.key} />
+          <Table dataSource={data} columns={columns} pagination={false} rowKey={record => record.key} showSorterTooltip={false}/>
         </Col>
       </Row>
     </>

@@ -48,12 +48,15 @@ const ModalLayers = ({
   const [ checkedLayersOnChange, setCheckedLayersOnChange ] =useState<any>(selectedLayersCP);
   
   const onChange = (checkedValues: CheckboxValueType[]) => {
+    console.log('final checked laer', checkedValues);
     setFinalCheckedLayers(checkedValues)
     const layers = [...new Set([...selectedLayersCP, ...checkedValues])as any];
+    console.log('All options are', projectTypeLayers);
     const uncheckedResult = projectTypeLayers
     .filter((layer:any) => !checkedValues.includes(layer.value))
     .map((layer:any) => layer.value);
     const layersResult = layers.filter(item => !uncheckedResult.includes(item));
+    console.log('Layers result', layersResult);
     setCheckedLayersOnChange(layersResult)
   };
 
@@ -66,15 +69,16 @@ const ModalLayers = ({
 
   const updateLayers = () => {
     const layers = [...new Set([...selectedLayersCP, ...finalCheckedLayers])as any];
-
     const uncheckedResult = projectTypeLayers
     .filter((layer:any) => !finalCheckedLayers.includes(layer.value))
     .map((layer:any) => layer.value);
-
-    const layersResult = layers.filter(item => !uncheckedResult.includes(item));
+    const layersResult = layers.filter(item => {
+      console.log('uncheced result', item, !uncheckedResult.includes(item));
+      return !uncheckedResult.includes(item)
+    });
     if(layersResult.includes(COMPONENT_LAYERS)){
       layersResult.push(PROPOSED_ACTIONS)
-    } else {
+    } else if (layersResult.indexOf(PROPOSED_ACTIONS) !== -1) {
       layersResult.splice(layersResult.indexOf(PROPOSED_ACTIONS), 1)
     }
     selectCheckboxes(layersResult);

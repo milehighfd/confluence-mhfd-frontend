@@ -289,6 +289,7 @@ export const ProjectGeometry = ({
             pagination={false}
             dataSource={streamListdata}
             columns={columnsGeometry}
+            showSorterTooltip={false}
             className='table-project table-geometry'
             rowClassName={(record, index) => {
               if (record.key.includes('total')) {

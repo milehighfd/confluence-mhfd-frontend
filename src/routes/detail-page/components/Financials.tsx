@@ -440,6 +440,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
             <div className="scroll-table" style={{ width: '100%', overflowX: 'hidden' }}>
               <div className="body-scroll-table">
                 <Table
+                  showSorterTooltip={false}
                   dataSource={finalData}
                   columns={columns}
                   pagination={{ pageSize: 50 }}

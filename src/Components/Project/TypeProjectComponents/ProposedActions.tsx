@@ -259,7 +259,7 @@ export const ProposedActions = (props: ProposedActionsProps) => {
       }
       {((keys && keys !== 0 && keys.length && groups && Object.keys(groups).length > 0)) &&
         <>
-          <Table pagination={false} dataSource={groupParsed} columns={columns} className='table-project' />
+          <Table pagination={false} dataSource={groupParsed} columns={columns} className='table-project' showSorterTooltip={false}/>
         </>
       }
       {visibleUnnamedComponent && <Table dataSource={thisIndependentComponents} columns={columnsIndependent} className='table-project' />}

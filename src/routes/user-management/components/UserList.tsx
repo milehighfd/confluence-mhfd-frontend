@@ -334,6 +334,7 @@ const UserList = () => {
       </div>
       <div className="table-user-management">
         <Table
+          showSorterTooltip={false}
           pagination={{ pageSize: 20 }}
           columns={columns}
           className={!expandableRow?'expandable-row':''}

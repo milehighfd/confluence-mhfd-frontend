@@ -41,7 +41,7 @@ const ProblemParts = ({problemParts}:{problemParts:any}) => {
       </Row>
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="detail-problems-component-table">
-          <Table dataSource={problemParts ?  problemPartsData : {}} columns={columns} pagination={false}/>
+          <Table dataSource={problemParts ?  problemPartsData : {}} columns={columns} pagination={false} showSorterTooltip={false}/>
         </Col>
       </Row>
     </>
