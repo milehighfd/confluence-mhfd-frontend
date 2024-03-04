@@ -108,7 +108,7 @@ const EditDatesModal = ({
       setIsCountyWide(data?.projectLocation?.is_county_wide)
       if (data?.projectLocation?.location){
         setLocation(data.projectLocation.location)
-        newDisabledFields = { ...newDisabledFields, location: true }
+        // newDisabledFields = { ...newDisabledFields, location: true }
       }
       if (data?.projectLocation?.onbase_project_number){
         setOnBase(data.projectLocation.onbase_project_number)
@@ -120,12 +120,12 @@ const EditDatesModal = ({
         const projectStreamId = data.projectStreams.primaryStream.project_stream_id;
         setPrimaryStream({ id: streamId, name: streamName, value:projectStreamId})
         setInputValue(streamName);
-        newDisabledFields = { ...newDisabledFields, primary_stream: true }
+        // newDisabledFields = { ...newDisabledFields, primary_stream: true }
       }
       const mhfdLead = data?.projectStaff?.mhfdLead?.business_associate_contact;
       if(mhfdLead){
         setMhfdLead({id: mhfdLead.business_associate_contact_id, name: mhfdLead.contact_name})
-        newDisabledFields = { ...newDisabledFields, mhfd_lead: true }
+        // newDisabledFields = { ...newDisabledFields, mhfd_lead: true }
       }
       setDisabledFields(newDisabledFields);
       setMhfdStaffList(data?.projectStaff?.mhfdStaff)
