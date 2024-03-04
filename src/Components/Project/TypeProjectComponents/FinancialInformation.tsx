@@ -231,7 +231,7 @@ export const FinancialInformation = ({
         <br/>
         <Row className="sub-project">
           <Col xs={{ span: 18 }} lg={{ span: 13 }} xxl={{ span: 13 }}>
-            <p className='title-sub-project recomended-margin'>RECOMMENDED PROJECT BUDGET &nbsp;&nbsp;<Popover overlayClassName="project-popover" content={contentRecommendedBudget}><img src="/Icons/icon-19.svg" alt="" height="12px" /></Popover></p>
+            <p className='title-sub-project recomended-margin'>CALCULATED ESTIMATED COST &nbsp;&nbsp;<Popover overlayClassName="project-popover" content={contentRecommendedBudget}><img src="/Icons/icon-19.svg" alt="" height="12px" /></Popover></p>
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 8 }} xxl={{ span: 8 }} className='col-input-badget'>
             <p className='bold-text input-reverse' style={{paddingLeft:'0px', display:'flex'}} placeholder="$0">{formatter.format(getTotalCost() ? getTotalCost() : 0)}</p>
@@ -240,7 +240,7 @@ export const FinancialInformation = ({
         <div className='budget-container'>
           <Row className="sub-project">
             <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 18 }}>
-              <p className='title-sub-project'>ACTUAL PROJECT ESTIMATED COST &nbsp;&nbsp;</p>
+              <p className='title-sub-project'>USER-DEFINED ESTIMATED COST &nbsp;&nbsp;</p>
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 6 }}>
               <Input className='budget-input bold-text input-reverse-badget' disabled={disableFieldsForLG} style={{paddingLeft:'0px'}} placeholder="$0" onChange={handleChange} maxLength={40} value={formatter.format(estimatedCostFromDB ? estimatedCostFromDB : 0)}/>
