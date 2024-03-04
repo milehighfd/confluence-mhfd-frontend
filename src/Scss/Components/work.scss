@@ -1240,6 +1240,10 @@
     margin-bottom: 16px;
     .filter-00 {
       padding-top: 16px;
+      display: flex;
+      label {
+        margin-right: 10px;
+      }
     }
     .check-filter {
       .ant-checkbox-wrapper:hover .ant-checkbox-inner,
@@ -1295,6 +1299,10 @@
     margin-bottom: 16px;
     .filter-00 {
       padding-top: 16px;
+      display: flex;
+      label {
+        margin-right: 10px;
+      }
     }
     .ant-checkbox-inner {
       width: 18px;

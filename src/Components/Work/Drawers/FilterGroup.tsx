@@ -42,7 +42,20 @@ const FilterGroup = ({
                   toggleFilter(cn?.type,cn?.id)
                 }                
               }} />
-              &nbsp;&nbsp;&nbsp;{cn?.name}
+              {/* <span>
+              {label === 'Funding Year' && setYearFilter
+                ? setYearFilter(
+                    filterList.map((f: any) => {
+                      const selected = f.selected;
+                      if (f.id === cn.id) {
+                        f.selected = !selected;
+                      }
+                      return f;
+                    })
+                  )
+                : toggleFilter(cn?.type, cn?.id)}
+              </span> */}
+              <span>{cn?.name}</span>
               <br />
             </div>
           ))
