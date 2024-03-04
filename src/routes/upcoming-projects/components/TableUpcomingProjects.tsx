@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Table, Tooltip } from "antd";
+import { Popover, Table, Tooltip } from "antd";
 import * as datasets from 'Config/datasets';
 import { SERVER } from "Config/Server.config";
 import moment from "moment";
@@ -305,9 +305,14 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData, setLoading}:{tipe
       displayCSV: 'Consultant Selected'
     },
     {
-      title: <p style={{textAlign:'center'}}>Consultant<br/>Selection<br/>Date&nbsp;<Tooltip placement="top" title={<>Selection and Start Dates are estimates and subject to change at any time without notice.</>}>
-        <InfoCircleOutlined style={{opacity:'0.3'}} className="information-ico"/>
-      </Tooltip></p>,
+      title: <p style={{textAlign:'center'}}>Consultant<br/>Selection<br/>Date&nbsp;
+      <Popover
+        overlayClassName="project-popover"
+        placement="top"
+        content={<div className="popver-info popver-project"><b>Prime Consultant Selection Date: </b>Selection and Start Dates are estimates and subject to change at any time without notice.</div>}
+        >
+          <InfoCircleOutlined style={{opacity:'0.3'}} className="information-ico"/>
+        </Popover></p>,
       dataIndex: 'consultant',
       key: 'consultant',
       sorter: (a:any, b:any) => {
@@ -317,9 +322,14 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData, setLoading}:{tipe
     },
 
     {
-      title: <p style={{textAlign:'center'}}>Contractor<br/>Selection<br/>Date&nbsp;<Tooltip placement="top" title={<>Selection and Start Dates are estimates and subject to change at any time without notice.</>}>
-      <InfoCircleOutlined style={{opacity:'0.3'}} className="information-ico"/>
-    </Tooltip></p>,
+      title: <p style={{textAlign:'center'}}>Contractor<br/>Selection<br/>Date&nbsp;
+      <Popover
+        overlayClassName="project-popover"
+        placement="top"
+        content={<div className="popver-info popver-project"><b>Contractor Selection Date: </b>Selection and Start Dates are estimates and subject to change at any time without notice.</div>}
+      >
+        <InfoCircleOutlined style={{opacity:'0.3'}} className="information-ico"/>
+      </Popover></p>,
       dataIndex: 'contractor',
       key: 'contractor',
       sorter: (a:any, b:any) => {
