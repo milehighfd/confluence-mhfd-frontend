@@ -23,9 +23,6 @@ const BoardYear = () => {
 
   return (
     <div>
-      <div style={{position: 'absolute', top: '95px', right: '23px'}} className='img-dowload'>
-        <img src='/Icons/ic-dowload.svg' alt='dowload'/>
-      </div>
       {contextHolder}
       <Row>
         <Col xs={{ span: 24}} lg={{ span: 24 }} className='col-table-board' style={{paddingLeft: '2px', paddingRight:'2px'}}>

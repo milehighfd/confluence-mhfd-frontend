@@ -8,7 +8,7 @@ import { WrongModal } from "../Request/WrongModal";
 import { useMapState } from "hook/mapHook";
 import { WORK_PLAN } from "constants/constants";
 import { notification } from 'antd';
-import { CheckCircleFilled } from '@ant-design/icons';
+import { CheckCircleFilled, InfoCircleOutlined } from '@ant-design/icons';
 import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
 
 const content02 = (<div className="popver-info">This is a place to add notes on a Local Government work request. Notes will be visible to any user from the same Local Government as well as MHFD staff.</div>);
@@ -194,7 +194,9 @@ const Status = () => {
                 )}
               />
       <br />
-      <p className="note-text">Notes <Popover content={content02}>  <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></p>
+      <p className="note-text">Notes <Popover content={content02} overlayClassName="project-popover"> 
+        <InfoCircleOutlined style={{opacity:'0.3'}} className="information-ico"/>
+      </Popover></p>
       <textarea className="note" rows={8} value={boardComment} onChange={e => {
         setBoardComment(e.target.value)
       }} style={{width:'100%'}}>

@@ -675,6 +675,7 @@ const TableListView = ({
             <Table
               columns={filteredColumns}
               dataSource={parsedData}
+              showSorterTooltip={false}
               pagination={false}
               onRow={(record, rowIndex) => {
                 return {

@@ -49,6 +49,7 @@ const ProblemsProjects = () => {
             dataSource={detailed?.problems && detailed?.problems?.length > 0 ? problemPartsData : []}
             columns={columns}
             pagination={false}
+            showSorterTooltip={false}
           />
         </Col>
       </Row>

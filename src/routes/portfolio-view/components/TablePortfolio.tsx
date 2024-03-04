@@ -156,6 +156,7 @@ const TablePortafolio = ({
                   className="table-portafolio header-table"
                   style={{ marginBottom: '20px' }}
                   ref={tableHeaderRef}
+                  showSorterTooltip={false}
                   onChange={(pagination, filters, sorters: any) => {
                     setSortValue({
                       columnKey: sorters.columnKey,

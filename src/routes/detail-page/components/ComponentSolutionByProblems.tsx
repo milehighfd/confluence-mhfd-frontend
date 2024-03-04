@@ -69,7 +69,7 @@ const ComponentSolucionsByProblems = () => {
       </Row>
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="detail-problems-component-table">
-          <Table dataSource={componentsOfProblems ? componentSolutionData : {}} columns={columns} pagination={false} />
+          <Table showSorterTooltip={false} dataSource={componentsOfProblems ? componentSolutionData : {}} columns={columns} pagination={false} />
           {componentsOfProblems.length > 0 && (
             <div className="table-value-total">
               <p

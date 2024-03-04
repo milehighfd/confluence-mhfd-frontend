@@ -68,6 +68,7 @@ const UserActivity = () => {
       </Row>
       <div className="table-user-management">
         <Table
+          showSorterTooltip={false}
           columns={columns2}
           rowKey={record => record.id}
           dataSource={userActivity.data}
