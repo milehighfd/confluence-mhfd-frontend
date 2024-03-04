@@ -850,3 +850,9 @@ export const setTabActiveNavbar = (tabActiveNavbar: string) => {
     dispatch({ type: types.SET_TAB_ACTIVE_NAVBAR, tabActiveNavbar });
   };
 };
+
+export const setBasemapSelected = (basemapSelected: boolean) => {
+  return (dispatch: Function) => {
+    dispatch({ type: types.SET_BASEMAP, basemapSelected });
+  };
+}

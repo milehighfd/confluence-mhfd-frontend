@@ -127,3 +127,4 @@ export const VEGETATION_MANAGEMENT_POPUP = 'Vegetation Management';
 export const SEDIMENT_REMOVAL_POPUP = 'Sediment Removal';
 export const MINOR_REPAIR_POPUP = 'Minor Repair';
 export const RESTORATION_POPUP = 'Restoration';
+

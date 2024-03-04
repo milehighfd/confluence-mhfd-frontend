@@ -27,6 +27,7 @@ import {
   LANDSCAPING_AREA,
   MEP_PROJECTS_TEMP_LOCATIONS,
   MEP_PROJECTS_DETENTION_BASINS,
+  MEP_PROJECTS_DETENTION_BASINS_POLYGON,
   MEP_PROJECTS_CHANNELS,
   MEP_PROJECTS_STORM_OUTFALLS,
   ROUTINE_NATURAL_AREAS,
@@ -1658,6 +1659,52 @@ export const MEP_PROJECTS_STYLES = {
       paint: { 'circle-color': '#febf71', 'circle-radius': 3 },
     },
   ],
+  [MEP_PROJECTS_DETENTION_BASINS_POLYGON]: [
+    {
+      "type": "fill",
+      "source-layer": "pluto15v1",
+      "maxzoom": 13,
+      "paint": {
+          "fill-color": "#613500",
+          "fill-outline-color": "#f08605",
+          "fill-opacity": 0.4
+      }
+    },
+    {
+        "type": "line",
+        "source-layer": "pluto15v1",
+        "maxzoom": 13,
+        "paint": {"line-color": "#613500", "line-width": 4}
+    },
+    {
+        "type": "line",
+        "source-layer": "pluto15v1",
+        "maxzoom": 13,
+        "paint": {"line-color": "#febf71"}
+    },
+    {
+      "type": "fill",
+      "source-layer": "pluto15v1",
+      "minzoom": 13,
+      "paint": {
+          "fill-color": "#613500",
+          "fill-outline-color": "#f08605",
+          "fill-opacity": 0.4
+      }
+  },
+  {
+      "type": "line",
+      "source-layer": "pluto15v1",
+      "minzoom": 13,
+      "paint": {"line-color": "#613500", "line-width": 4}
+  },
+  {
+      "type": "line",
+      "source-layer": "pluto15v1",
+      "minzoom": 13,
+      "paint": {"line-width": 2, "line-color": "#febf71"}
+  },
+  ]
 };
 
 export const ROUTINE_MAINTENANCE_STYLES = {

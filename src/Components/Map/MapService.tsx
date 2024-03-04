@@ -50,12 +50,14 @@ import {
 } from 'constants/mapStyles';
 import { hovereableLayers } from '../../routes/map/constants/layout.constants';
 import { LayerStylesType, ObjectLayerType } from 'Classes/MapTypes';
+import { useProfileState } from 'hook/profileHook';
 type LayersType = string | ObjectLayerType;
 class MapService {
 
   private _map: any;
   private _autocomplete: any;
-
+  private _user: any;
+  private _isMhfdStaff: any;
   isAutocompleteUsed = false;
 
   hideAndRemoveLayer() {
@@ -194,20 +196,29 @@ class MapService {
   topAddLayers () {
     const styles = { ...(tileStyles as any) };
     styles[DWR_DAM_SAFETY].forEach((style: LayerStylesType, index: number) => {
-      this.map.moveLayer(`${DWR_DAM_SAFETY}_${index}`);
+      if (this.map.getLayer(`${DWR_DAM_SAFETY}_${index}`)) {
+        this.map.moveLayer(`${DWR_DAM_SAFETY}_${index}`);
+      }
     });
     styles[RESEARCH_MONITORING].forEach((style: LayerStylesType, index: number) => {
-      this.map.moveLayer(`${RESEARCH_MONITORING}_${index}`);
+      if (this.map.getLayer(`${RESEARCH_MONITORING}_${index}`)) {
+        this.map.moveLayer(`${RESEARCH_MONITORING}_${index}`);
+      }
     });
     styles[CLIMB_TO_SAFETY].forEach((style: LayerStylesType, index: number) => {
-      this.map.moveLayer(`${CLIMB_TO_SAFETY}_${index}`);
+      if (this.map.getLayer(`${CLIMB_TO_SAFETY}_${index}`)) {
+        this.map.moveLayer(`${CLIMB_TO_SAFETY}_${index}`);
+      }
     });
   };
 
   topProjects () {
     const styles = { ...(tileStyles as any) };
-    styles[MHFD_PROJECTS].forEach((style: LayerStylesType, index: number) => {
-      this.map.moveLayer(`${MHFD_PROJECTS}_${index}`);
+    styles[MHFD_PROJECTS].forEach((_: LayerStylesType, index: number) => {
+      if (this.map.getLayer(`${MHFD_PROJECTS}_${index}`)) {
+        this.map.moveLayer(`${MHFD_PROJECTS}_${index}`);
+      }
+      
     });
   };
   topComponents () {
@@ -464,7 +475,37 @@ class MapService {
             }
         });
     }
-}
+  }
+  setUser(user: any) {
+    this._user = user;
+    this._isMhfdStaff = user.designation === 'admin' || user.designation === 'staff' ||
+    user.business_associate_contact?.business_address?.business_associate?.business_name === 'MHFD';
+  }
+  removeMapLayers() {
+    SELECT_ALL_FILTERS.forEach(layer => {
+      if (typeof layer === 'object') {
+        if (layer.name === USE_LAND_COVER_LABEL) {
+          layer.tiles.forEach((tile: string) => {
+            if (this.map.getLayer(tile + '_0')) {
+              this.map.removeLayer(tile + '_0');
+            }
+          });
+        } else if (layer.tiles) {
+          layer.tiles.forEach((subKey: string) => {
+            if (this.map.getLayer(subKey + '_0')) {
+              this.map.removeLayer(subKey + '_0');
+            }
+          });
+        }
+      } else {
+        if (layer !== 'area_based_mask' && layer !== 'border') {
+          if (this.map.getLayer(layer + '_0')) {
+            this.map.removeLayer(layer + '_0');
+          }
+        }
+      }
+    });
+  }
   applyMapLayers(
     layerFilters: any,
     selectedLayers: any,
@@ -675,13 +716,13 @@ class MapService {
       this.addTilesLayers(key, addMapListeners);
     }
   };
-  changeBaseMapStyle(type: string) {
-    if(type === 'light') {
-      console.log('About to set ', type, MAP_DROPDOWN_ITEMS[1].style);
-      this.map.setStyle(MAP_DROPDOWN_ITEMS[1].style);
-    } else if (type === 'street') {
-      console.log('About to set ' ,type, MAP_DROPDOWN_ITEMS[2].style);
-      this.map.setStyle(MAP_DROPDOWN_ITEMS[5].style);
+  changeBaseMapStyle(basemapSelected: boolean) {
+    if (this.map) {
+      if(basemapSelected) {
+        this.map.setStyle(MAP_DROPDOWN_ITEMS[5].style);
+      } else {
+        this.map.setStyle(MAP_DROPDOWN_ITEMS[1].style);
+      }
     }
   }
 

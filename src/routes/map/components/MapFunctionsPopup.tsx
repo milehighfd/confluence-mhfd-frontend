@@ -30,6 +30,8 @@ import {
   MAPTYPES,
   ROUTINE_MAINTENANCES,
   CRITICAL_FACILITIES,
+  FEMA_FLOOD_HAZARD,
+  FLOODPLAINS_NON_FEMA_FILTERS,
 } from '../../../constants/constants';
 import * as datasets from '../../../Config/datasets';
 import {
@@ -44,6 +46,7 @@ import { getAlertNameAndIcon, numberWithCommas } from '../../../utils/utils';
 import { SERVER } from '../../../Config/Server.config';
 import { SPONSOR_ID } from '../../../constants/databaseConstants';
 import { getCurrentProjectStatus, getJurisdictions } from '../../../utils/parsers';
+import { MEP_PROJECTS_DETENTION_BASINS_POLYGON } from '../constants/layout.constants';
 
 const factorKMToMiles = 0.621371;
 const factorKMtoFeet = 3280.8;
@@ -517,6 +520,29 @@ export const addPopupsOnClick = async (
       mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
       ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
     }
+    if (feature.source === MEP_PROJECTS_DETENTION_BASINS_POLYGON) {
+      console.log('features', feature.properties);
+      const item = {
+        layer: MENU_OPTIONS.MEP_DETENTION_BASINS_POLYGON,
+        feature: feature.properties.projectname ? feature.properties.projectname : '-',
+        pondname: feature.properties.pondname ? feature.properties.pondname : '-',
+        mhfd_projectstatus: feature.properties.mep_eligibilitystatus ? feature.properties.mep_eligibilitystatus : '-',
+        designApprovalDate: feature.properties.mep_date_designapproval ? feature.properties.mep_date_designapproval : '-',
+        constructionApprovalDate: feature.properties.mep_date_constructionapproval ? feature.properties.mep_date_constructionapproval : '-', 
+        finalacceptancedate: feature.properties.mep_date_finalacceptance ? feature.properties.mep_date_finalacceptance : '-',
+        mhfd_ineligibledate: feature.properties.mep_date_ineligible ? feature.properties.mep_date_ineligible : '-',
+        mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties),
+      };
+      menuOptions.push(MENU_OPTIONS.MEP_DETENTION_BASIN);
+      popups.push(item);
+      mobile.push({
+        layer: item.layer,
+        proj_name: item.feature,
+        // mep_status: item.mep_eligibilitystatus,
+      });
+      mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
+      ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
+    }
     if (feature.source === MEP_PROJECTS_CHANNELS) {
       const item = {
 
@@ -683,7 +709,7 @@ export const addPopupsOnClick = async (
       popups.push(item);
       ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
     }
-    if (feature.source === 'fema_flood_hazard_zones') {
+    if (feature.source === FEMA_FLOOD_HAZARD) {
       const item = {
         layer: MENU_OPTIONS.FEMA_FLOOD_HAZARD,
         dfirm_id: feature.properties.dfirm_id ? feature.properties.dfirm_id : '-',
@@ -695,7 +721,7 @@ export const addPopupsOnClick = async (
       popups.push(item);
       ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
     }
-    if (feature.source === 'floodplains_non_fema') {
+    if (feature.source === FLOODPLAINS_NON_FEMA_FILTERS) {
       const item = {
         layer: MENU_OPTIONS.FLOODPLAINS_NON_FEMA,
         study_name: feature.properties.study_name ? feature.properties.study_name : '-',

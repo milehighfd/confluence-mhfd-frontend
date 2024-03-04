@@ -18,6 +18,8 @@ interface Props {
   setIsCountyWide: Function;
   isSouthPlate: boolean | undefined;
   setIsSouthPlate: Function;
+  resetLocations: () => void;
+  addSouthPlate: (value: boolean) => void;
 }
 const { Option } = Select;
 
@@ -32,6 +34,8 @@ export const Countywide = ({
   setIsCountyWide,
   isSouthPlate,
   setIsSouthPlate,
+  resetLocations,
+  addSouthPlate
 }: Props) => {
   const { groupOrganization } = useProfileState();
   const [countyList, setCountyList] = useState<any>([]);
@@ -83,6 +87,7 @@ export const Countywide = ({
             setIsCountyWide(false);
             setShowDraw(true);
             setShowCounty(false);
+            resetLocations();
           } else{
             setIsCountyWide(false);
             setShowDraw(false);
@@ -113,8 +118,10 @@ export const Countywide = ({
         <Radio.Group value={defaultValueSouthPlate} disabled={disableFieldsForLG} onChange={(e) => {
           if (e.target.value === 'Yes') {
             setIsSouthPlate(true);
+            addSouthPlate(true);
           } else if (e.target.value === 'No') {
             setIsSouthPlate(false);
+            addSouthPlate(false);
           }
         }}>
           <Radio value="Yes"><span className='text-radio-btn'>Yes</span></Radio>

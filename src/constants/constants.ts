@@ -24,7 +24,7 @@ export const MAP_DROPDOWN_ITEMS = [
   }, {
     // THIS ONE IS THE BASEMAP OFFICIAL
     type: 'Optional style',
-    style: `mapbox://styles/milehighfd/ckxhudjgf1er514o9wbyvi6nw`,
+    style: `mapbox://styles/milehighfd/ckxhudjgf1er514o9wbyvi6nw`
   }, {
     type: 'Dark Road',
     style: 'mapbox://styles/milehighfd/ck4jfj4yy5abd1cqw90v1dlft'
@@ -37,7 +37,7 @@ export const MAP_DROPDOWN_ITEMS = [
   },
   {
     type: 'light',
-    style: 'mapbox://styles/milehighfd/clrjvtgpo000y01pf4si8c5f8'
+    style: 'mapbox://styles/milehighfd/clt8shxo100ph01qpctqx6j8m'
   }
 ];
 
@@ -91,7 +91,7 @@ export const PROBLEMS_MODAL = 'Problems';
 export const COMPONENTS_TRIGGER = 'components';
 
 export const FLOODPLAINS_FEMA_FILTERS = 'floodplains_fema_sfha';
-export const FLOODPLAINS_NON_FEMA_FILTERS = 'floodplains_non_fema';
+export const FLOODPLAINS_NON_FEMA_FILTERS = 'floodplainsnonfema';
 export const ACTIVE_LOMS = 'active_lomcs';
 export const EFFECTIVE_REACHES = 'effective_reaches';
 export const EFFECTIVE_REACHES_ENDPOINTS = 'effective_reaches_endpoints';
@@ -114,7 +114,7 @@ export const PROPOSED_ACTIONS = {
     PROPOSED_ACTIONS_LINES
   ]
 };
-export const FEMA_FLOOD_HAZARD = 'fema_flood_hazard_zones';
+export const FEMA_FLOOD_HAZARD = 'flood_hazard_zones';
 export const WATERSHED_FILTERS = 'mhfd_catchments_simple_v1';
 export const STREAMS_FILTERS = 'stream_segment';
 export const MHFD_STREAMS_FILTERS = 'stream';
@@ -370,6 +370,7 @@ export const SERVICE_AREA_LAYERS = {
 };
 export const MEP_PROJECTS_TEMP_LOCATIONS = 'mep_projects_temp_locations';
 export const MEP_PROJECTS_DETENTION_BASINS = 'mep_detentionbasins_1';
+export const MEP_PROJECTS_DETENTION_BASINS_POLYGON = 'mep_detentionbasins';
 export const MEP_PROJECTS_CHANNELS = 'mep_channels_1';
 export const MEP_PROJECTS_STORM_OUTFALLS = 'mep_outfalls_1';
 
@@ -379,6 +380,7 @@ export const MEP_PROJECTS = {
     MEP_PROJECTS_STORM_OUTFALLS,
     MEP_PROJECTS_CHANNELS,
     MEP_PROJECTS_DETENTION_BASINS,
+    MEP_PROJECTS_DETENTION_BASINS_POLYGON
   ]
 };
 
@@ -1226,6 +1228,7 @@ export const MENU_OPTIONS =
 {
   MEP_TEMPORARY_LOCATION: 'MEP Temporary Location',
   MEP_DETENTION_BASIN: 'MEP Detention Basin',
+  MEP_DETENTION_BASINS_POLYGON: 'MEP Detention Basin Polygon',
   MEP_CHANNEL: 'MEP Channel',
   MEP_STORM_OUTFALL: 'MEP Storm Outfall',
   PROBLEM_PART: 'Problem Part',
@@ -1527,3 +1530,16 @@ export const LOCALITIES_TYPES = {
 }
 
 export const newRD = 'research and development';
+
+export const ORIGIN_PM_TOOLS = 'pm_tools';
+
+export const ORDER_STATUS = [
+  'Draft',
+  'Requested',
+  'Approved',
+  'Active',
+  'Closeout',
+  'Closed',
+  'Inactive',
+  'Cancelled'
+]

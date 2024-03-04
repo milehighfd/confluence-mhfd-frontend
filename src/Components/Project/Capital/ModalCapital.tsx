@@ -37,7 +37,7 @@ import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 const { Option } = Select;
 const { Panel } = Collapse;
 const content = (<div className="popver-info">Projects identified in a MHFD master plan that increase conveyance or reduce flow and require a 50% local match.</div>);
-const contentIndComp = (<div className="popver-info">Independent Actions should be added to represent any known project actions that are not already shown in the Actions layer. Independent Action costs should reflect only the cost of construction; they will have Overhead Costs applied to them</div>);
+const contentIndComp = (<div className="popver-info"><b>Independent Actions:</b> Should be added to represent any known project actions that are not already shown in the Actions layer. Independent Action costs should reflect only the cost of construction; they will have Overhead Costs applied to them.</div>);
 const contentOverheadCost = (<div className="popver-info"><b>Overhead Cost:</b> Includes all costs beyond the costs of physical construction (Subtotal Cost). The default values shown here can and should be changed when different percentages are anticipated, such as in urban settings. Please add a description explaining any changes from default values. </div>);
 const contentAdditionalCost = (<div className="popver-info"><b>Additional Cost:</b> Enter any additional costs here that were not captured previously as Actions, Independent Actions, or Overhead Costs. Additional Costs (unlike Independent Actions) will NOT have Overhead Costs applied to them. </div>);
 const contentRecommendedBudget = (<div className="popver-info"><b>Recommended Project Budget:</b> The sum of all proposed action costs, independent action costs, overhead costs and additional costs. </div>);
@@ -601,8 +601,19 @@ export const ModalCapital = ({
       if (data.exists && !swSave) {
         handleNotification(`Project name already exists.`);
       } else {
-        if (!disable) {
-          setVisibleAlert(true);
+        if (!disable || swSave) {
+          if (swSave) {
+            let missingFields = [];
+            if (!nameProject) missingFields.push('Project Name');
+            if (!sponsor) missingFields.push('Sponsor');
+            if (missingFields.length > 0) {
+              handleErrorNotification(missingFields);
+            } else {
+              setVisibleAlert(true);
+            }
+          } else {
+            setVisibleAlert(true);
+          }
         } else {
           let missingFields = [];
           if (!description) missingFields.push('Description');
@@ -663,7 +674,7 @@ export const ModalCapital = ({
         setImportedId(data.board_project_id);
         setIsImported(false);
         editProjectCapital(capital, originLocation);
-        openNotification('Success.', 'success','Project imported successfully.');
+        openNotification('Success! Your project was imported successfully!', "success");
       }else{
         openNotification(`Error.`, "warning", 'An error occurred while importing the project.');
       }
@@ -1204,9 +1215,27 @@ export const ModalCapital = ({
   const handleNotification = (message: string) => {
     openNotification(`Warning!`, "warning", message);
   }
+
+  const resetLocations = () => {
+    setServiceArea([]);
+    setCounty([]);
+    setjurisdiction([]);
+  }
+
+  const addSouthPlate = (add: boolean) => {
+    const SOUTH_PLATE_RIVER = 'South Platte River';
+    if (add) {
+      if (!serviceArea.includes(SOUTH_PLATE_RIVER)) {
+        setServiceArea([...serviceArea, SOUTH_PLATE_RIVER]);
+      }
+    } else {
+      setServiceArea(serviceArea.filter((area: any) => area !== SOUTH_PLATE_RIVER));
+    }
+  }
+
   let indexForm = 1;
   const [open, setOpen] = useState(false)
-    return (
+  return (
     <>
     {loading && <LoadingViewOverall></LoadingViewOverall>}
     {visibleAlert && <AlertView
@@ -1331,6 +1360,8 @@ export const ModalCapital = ({
                 setIsSouthPlate={setIsSouthPlate}
                 isCountyWide={isCountyWide}
                 setIsCountyWide={setIsCountyWide}
+                resetLocations = {resetLocations}
+                addSouthPlate = {addSouthPlate}
               />
               {(selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Capital.toLowerCase()||
               selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Maintenance.toLowerCase()||

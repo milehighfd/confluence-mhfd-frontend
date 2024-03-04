@@ -63,6 +63,21 @@ export const Header = ({
     case ACQUISITION_POPUP:
       content = CONTENT_POPUP_ACQUISITION;
       break;
+    case ROUNTINE_TRASH_POPUP:
+      content = CONTENT_POPUP_ROUNTINE_TRASH;
+      break;
+    case VEGETATION_MANAGEMENT_POPUP:
+      content = CONTENT_POPUP_VEGETATION_MANAGEMENT;
+      break;
+    case SEDIMENT_REMOVAL_POPUP:
+      content = CONTENT_POPUP_SEDIMENT_REMOVAL;
+      break;
+    case MINOR_REPAIR_POPUP:
+      content = CONTENT_POPUP_MINOR_REPAIR;
+      break;
+    case RESTORATION_POPUP:
+      content = CONTENT_POPUP_RESTORATION;
+      break;
     default:
       content = CONTENT_POPUP_MAINTENANCE;
   }
