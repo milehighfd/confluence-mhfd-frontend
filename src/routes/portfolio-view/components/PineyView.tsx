@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Checkbox, Col, DatePicker, Input, Menu, Progress, Row, Steps} from 'antd';
+import { Button, Checkbox, Col, DatePicker, Input, Menu, Popover, Progress, Row, Steps} from 'antd';
 import { ClockCircleOutlined, CloseOutlined, InfoCircleOutlined, PlusCircleFilled} from "@ant-design/icons";
 import moment from 'moment';
 import TextArea from "antd/lib/input/TextArea";
@@ -51,6 +51,8 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
   const [inputValues, setInputValues] = useState<any>([]);
   const [actionInProgress, setActionInProgress] = useState(false);
   const actionInProgressRef = useRef(false);
+
+  const contentTotalPopup =<div className="popver-info popver-project"><b>Total Estimated Cost: </b>This value represents the most recent cost estimate based on current project conditions. The value displayed may be sourced from OnBase or manually updated in the Edit Project page.</div>;
 
   const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"];
@@ -446,10 +448,10 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
           <span className="tag-blue">{data.phase}</span>
         </div>
         <div className="body-piney-body" id='pineyBody' style={{ paddingBottom: '30px' }}>
-          <p style={{ marginBottom: '5px', fontWeight: '700', opacity: '0.6' }}>Notes</p>
+          <p style={{ marginBottom: '5px', fontWeight: '700'}}>Notes</p>
           <TextArea
             rows={4}
-            style={{ marginBottom: '15px', color: '#706b8a', resize: 'none' }}
+            style={{ marginBottom: '15px', color: '#11093c', resize: 'none' }}
             className='text-area-piney'
             onChange={handleOnchange}
             value={newNote}
@@ -469,7 +471,11 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
             </Row>
             <Row>
               <Col xs={{ span: 10 }} lg={{ span: 11 }}>
-                <p >Total Est. Cost <InfoCircleOutlined style={{color:'rgb(205 203 214)'}}/></p>
+                <p >Total Est. Cost&nbsp;
+                  <Popover content={contentTotalPopup} overlayClassName="project-popover">
+                    <InfoCircleOutlined style={{color:'rgb(205 203 214)'}}/>
+                  </Popover>
+                </p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>                
                   <p  className="text-piney-body">{!data.estimated_cost?'N/A':formatter.format(data.estimated_cost)}</p>                
