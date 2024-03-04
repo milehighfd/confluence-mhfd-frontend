@@ -1,15 +1,11 @@
+import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
 import { Button, Popover, notification } from 'antd';
 import { UPCOMING_PROJECTS } from 'constants/constants';
 import React, { useEffect, useState } from 'react';
 
 const ShareURL = (parentName?: any) => {
+  const { openNotification } = useNotifications();
   const [hoverText, setHoverText] = useState('Board link is copied and shareable with users who also have access to this board.');
-  const openNotification = () => {
-    notification.open({
-      message: `Share URL Copied to clipboard`,
-      duration: 5
-    });
-  };
   useEffect(() => { 
       if (parentName === UPCOMING_PROJECTS) {
         setHoverText('Share the Upcoming Project link, accessible to everyone.');
@@ -27,7 +23,7 @@ const ShareURL = (parentName?: any) => {
      onClick={
       () => {
         navigator.clipboard.writeText(window.location.href);
-        openNotification();
+        openNotification('Success','success',  'Board URL copies to your clipboard.');
       }
     }>
       <img
