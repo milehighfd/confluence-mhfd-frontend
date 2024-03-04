@@ -23,7 +23,7 @@ const ShareURL = (parentName?: any) => {
      onClick={
       () => {
         navigator.clipboard.writeText(window.location.href);
-        openNotification('Success','success',  'Board URL copies to your clipboard.');
+        openNotification('Success','success',  'Board URL copied to your clipboard.');
       }
     }>
       <img
