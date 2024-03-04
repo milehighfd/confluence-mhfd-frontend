@@ -640,7 +640,7 @@ const EditDatesModal = ({
                             <span className="span-dots-tollgate">
                               <div className="toolgate-circle" style={{ backgroundColor: colorScale[paintCircle(index)] }} />
                             </span>
-                            {x.name.replace(/([A-Z])/g, ' $1')}
+                            <span className='date-label'>{x.name.replace(/([A-Z])/g, ' $1')}</span>
                           </span>
                           <span className='dots-tollgate'>
                             {x.locked && <LockOutlined />}
