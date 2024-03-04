@@ -27,8 +27,7 @@ class ColorService {
             default:
                 return color;
         }
-    }
-  
+    }  
   }
   
   export default new ColorService();

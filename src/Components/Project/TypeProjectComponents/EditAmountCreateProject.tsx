@@ -126,7 +126,7 @@ const EditAmountCreateProject = ({
       isMaintenance: false
     }
     // const send = { ...cost, isMaintenance };
-    const sendToWorkPlan = (isEdit && isWorkPlan) || sponsor === MHFD_ACRONYM ? true : false;
+    const sendToWorkPlan = (isEdit && isWorkPlan && !importedId) || sponsor === MHFD_ACRONYM ? true : false;
     const send = {...newCompleteCosts, isWorkPlan: sendToWorkPlan, isMaintenance, amountsTouched, boardId: boardInfo};
     datasets.putData(
       BOARD_PROJECT_COST(boardProjectId),
@@ -152,7 +152,6 @@ const EditAmountCreateProject = ({
         }else{
           years = convertObjectToArrays(MhfdAmmounts?.values, namespaceId.year);
         }
-        console.log(createdData)
         const sendBody = {
           project_id: createdData.project_id,
           year: namespaceId.year,
