@@ -197,7 +197,7 @@ const SidebarMenuDown = ({
       className: 'submenu-sidebar submenu-sidebar-porfile',
       theme: 'light',
       label: optionsLabel,
-      popupOffset: [15, -100],
+      popupOffset: [15, -60],
       children: [
         {
           key: '2',
