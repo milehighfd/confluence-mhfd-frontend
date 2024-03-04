@@ -1448,6 +1448,7 @@ export const ModalCapital = ({
                 sponsor={sponsor}
                 originLocation= {originLocation}
                 importedId = {importedId}
+                isEdit = {swSave}
               />          
               <UploadImagesDocuments              
                 isCapital={true}
