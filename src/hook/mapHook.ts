@@ -85,9 +85,9 @@ export const useMapDispatch = () => {
     setToggleModalFilter: (toggle: boolean) => {
       dispatch(setToggleModalFilter(toggle));
     },
-    getParamFilterProjects: (bounds: string, data?: any) => {
+    getParamFilterProjects: (bounds: string, data?: any, origin?: string) => {
       if (!bounds) return;
-      dispatch(getParamFilterProjects(bounds, data));
+      dispatch(getParamFilterProjects(bounds, data, origin));
     },
     getParamFilterProjectsNoBounds: (data?: any) => {
       dispatch(getParamFilterProjectsNoBounds(data));

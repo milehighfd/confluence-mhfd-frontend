@@ -10,7 +10,6 @@ export const CheckBoxFilters = ({
 }: any) => {
   const [selectedData, setSelectedData] = useState<any[]>([]);
 
-
   useEffect(() => {
     if (selected && selected.length) {
       let temporal = selected
@@ -39,8 +38,7 @@ export const CheckBoxFilters = ({
     } else {
       onSelect(defaultValue);
       setSelectedData(defaultValue);
-    }
-    
+    }    
   }
 
   const showLabel = (label: string) => {

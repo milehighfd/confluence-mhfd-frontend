@@ -29,7 +29,7 @@ const content16 = (<div className="popoveer-00"><b>MHFD Manager</b> is the name 
 const content17 = (<div className="popoveer-00"><b>Local Government Manager</b> is the name or ID of the stream where the project is located.</div>);
 
 
-export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) => {
+export const NewProjectsFilter = ({ filtersObject, origin }: { filtersObject?: any, origin?: string | undefined }) => {
     const {
         filterProjectOptions,
         paramFilters: {
@@ -84,8 +84,8 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
             }
         }
         setFilterProjectOptions(options);
-        let defaultBounds = `${-105.3236683149282},${39.274174328991904},${-104.48895750946532},${40.26156304805423}`; 
-        getParamFilterProjects(applyFilter ? boundsMap : defaultBounds, options);
+        let defaultBounds = `${-105.3236683149282},${39.274174328991904},${-104.48895750946532},${40.26156304805423}`;
+        getParamFilterProjects(applyFilter ? boundsMap : defaultBounds, options, origin);
         
         resetNextPageOfCards();
         resetInfiniteScrollItems();
