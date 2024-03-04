@@ -16,6 +16,7 @@ import { handleAbortError } from 'store/actions/mapActions';
 import { useProfileState } from 'hook/profileHook';
 import { useProjectState } from 'hook/projectHook';
 import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
+import { ORIGIN_PM_TOOLS } from 'constants/constants';
 
 const { TabPane } = Tabs;
 let isInit = true;
@@ -339,7 +340,7 @@ const PortafolioBody = () => {
               return (
                 <TabPane style={{ marginBottom: '0px', zIndex: 1 }} tab={<span>{tk}</span>} key={tk} disabled={(tabActiveNavbar === 'Phase') && tk === 'All' ? true : false}>
                   <div className="portafolio-body">
-                    {openFilters && <Filters filtersObject={{ filterby, filterValue, tabKey }} />}
+                    {openFilters && <Filters filtersObject={{ filterby, filterValue, tabKey }} origin={ORIGIN_PM_TOOLS} />}
                     {tabActiveNavbar === 'List' && <TablePortafolio
                       tabKey={tabKey}
                       tabKeyId={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}

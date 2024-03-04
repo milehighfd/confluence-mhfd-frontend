@@ -1228,7 +1228,7 @@ export const MENU_OPTIONS =
 {
   MEP_TEMPORARY_LOCATION: 'MEP Temporary Location',
   MEP_DETENTION_BASIN: 'MEP Detention Basin',
-  MEP_DETENTION_BASINS_POLYGON: 'MEP Detention Basin Polygon',
+  MEP_DETENTION_BASINS_POLYGON: 'MEP Detention Basin',
   MEP_CHANNEL: 'MEP Channel',
   MEP_STORM_OUTFALL: 'MEP Storm Outfall',
   PROBLEM_PART: 'Problem Part',

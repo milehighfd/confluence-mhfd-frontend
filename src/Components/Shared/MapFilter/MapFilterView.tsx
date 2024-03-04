@@ -217,7 +217,6 @@ const MapFilterView = ({
         });
       }
     }
-    console.log('Value', value, elements, name);
     setSwitches({...switches, ...newSwitches});
     selectCheckboxes(switchSelected);
     removePopup();
@@ -368,7 +367,6 @@ const MapFilterView = ({
           }
         });
       }
-      console.log('Switch selected', switchSelected);
       selectCheckboxes(switchSelected);
     }
     removePopup();

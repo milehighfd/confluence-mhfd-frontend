@@ -501,9 +501,14 @@ export const getParamsFilter = (bounds: string) => {
   };
 };
 
-export const getParamFilterProjects = (bounds: string, data?: any) => {
+export const getParamFilterProjects = (bounds: string, data?: any, origin?: string) => {
   return (dispatch: Function) => {
     const controller = getAndDispatchAbortableCtrl(dispatch, 'getParamFilterProjects');
+
+    if (origin) {
+      data = { ...data, origin };
+    }
+
     datasets
       .postData(`${SERVER.PARAM_FILTER_PROJECTS}?bounds=${bounds}`, data || {}, datasets.getToken(), controller.signal)
       .then((params: any) => {

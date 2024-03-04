@@ -20,7 +20,8 @@ const EditAmountCreateProject = ({
   sponsor,
   estimatedCostInput,
   originLocation,
-  importedId
+  importedId,
+  isEdit
 }:{
   index: number,
   type: string,
@@ -31,7 +32,8 @@ const EditAmountCreateProject = ({
   sponsor: any,
   estimatedCostInput: any,
   originLocation: string | undefined,
-  importedId: number
+  importedId: number,
+  isEdit: boolean
 }) => {
   const {
     columns2: columns,
@@ -124,7 +126,8 @@ const EditAmountCreateProject = ({
       isMaintenance: false
     }
     // const send = { ...cost, isMaintenance };
-    const send = {...newCompleteCosts, isWorkPlan, isMaintenance, amountsTouched, boardId: boardInfo};
+    const sendToWorkPlan = (isEdit && isWorkPlan) || sponsor === MHFD_ACRONYM ? true : false;
+    const send = {...newCompleteCosts, isWorkPlan: sendToWorkPlan, isMaintenance, amountsTouched, boardId: boardInfo};
     datasets.putData(
       BOARD_PROJECT_COST(boardProjectId),
       send,

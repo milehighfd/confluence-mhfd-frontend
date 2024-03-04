@@ -206,12 +206,6 @@ const SidebarMenuDown = ({
           onClick: () => setVisibleIntroduction(true),
         },
         {
-          key: '3',
-          className: 'option-layout option-layout-central',
-          label: 'Tutorial',
-          onClick: () => setVisibleTutorial(true),
-        },
-        {
           key: '4',
           className: 'option-line',
           type: 'divider',

@@ -276,9 +276,16 @@ const Filter = ({origin}:{origin: any}) => {
           />
         }
         {
-          (tabActiveNavbar === 'WORK_PLAN' || tabActiveNavbar === UPCOMING_PROJECTS) &&
+          (tabActiveNavbar === 'WORK_PLAN') &&
           <FilterGroup
             label="Local Government"
+            filterList={jurisdictionFilter}
+          />
+        }
+        {
+          (tabActiveNavbar === UPCOMING_PROJECTS) &&
+          <FilterGroup
+            label="Estimated Cost"
             filterList={jurisdictionFilter}
           />
         }
