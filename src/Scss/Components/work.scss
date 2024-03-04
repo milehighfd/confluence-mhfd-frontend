@@ -2030,7 +2030,11 @@
     }
   }
 }
-
+.test-select{
+  .ant-select-arrow{
+      transform: rotate(180deg);
+  }
+}
 //MOBILE
 @media (min-width: 0px) and (max-width: 600px) {
   .work-utilities {

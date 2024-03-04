@@ -1,5 +1,5 @@
-import { InfoCircleOutlined } from '@ant-design/icons';
-import { Checkbox, Select } from 'antd';
+import { DownOutlined, InfoCircleOutlined, UpOutlined } from '@ant-design/icons';
+import { Checkbox, Dropdown, Select } from 'antd';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import React, {useState, useEffect} from 'react';
 import { capitalLetter, capitalizeWords } from 'utils/utils';
@@ -35,6 +35,8 @@ const FilterDropdown = ({
   const numberWithCommas =(x:any) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
+  const [isOpen1, setIsOpen1] = useState(false);
+  const [isOpen2, setIsOpen2] = useState(false);
   useEffect(() => {
     const sData: any[] = [];
     if (minIndex !== -1 || maxIndex !== -1) {
@@ -129,6 +131,10 @@ const FilterDropdown = ({
             value={minIndex === -1 ? 'No min' : moneyFormat(data[minIndex])}
             style={{ width: '100%', fontSize: '12px' }}
             listHeight={256}
+            getPopupContainer={(trigger:any) => trigger.parentNode}
+            open={isOpen1}
+            onDropdownVisibleChange={() => { setIsOpen1(!isOpen1) }}
+            className={`${isOpen1 && 'test-select'}`}
             onChange={(e: number) => {
               if (e < maxIndex || maxIndex === -1) {
                 setMinIndex(e);
@@ -148,6 +154,10 @@ const FilterDropdown = ({
             value={maxIndex === -1 ? 'No max' : moneyFormat(data[maxIndex])}
             style={{ width: '100%', fontSize: '12px' }}
             listHeight={256}
+            getPopupContainer={(trigger:any) => trigger.parentNode}
+            open={isOpen2}
+            onDropdownVisibleChange={() => { setIsOpen2(!isOpen2) }}
+            className={`${isOpen2 && 'test-select'}`}
             onChange={(e: number) => {
               if ( e > minIndex ) {
                 setMaxIndex(e);
