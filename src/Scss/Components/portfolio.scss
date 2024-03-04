@@ -1590,7 +1590,7 @@
 
       /* Handle */
       .header-title::-webkit-scrollbar-thumb {
-        background: #11093c00;
+        background: transparent;
         border-radius: 10px;
       }
       .container-timeline {
@@ -1908,10 +1908,10 @@
         padding: 3px 10px;
       }
       p {
-        color: #706b8a ;
+        color:  $purple00 ;
       }
       .text-piney-body {
-        color: #706b8a !important;
+        color: $purple00 !important;
         opacity: 0.8;
       }
       .form-text-calendar {
