@@ -181,7 +181,7 @@ export const componentSolutionsPanel = (data : any) => {
 
 export const problemPanel = (data : DetailedMapProps) => (
   <Panel header="PROBLEM" key="5" extra={genExtra()}>
-  <Table dataSource={dataSource} columns={columns} />
+  <Table dataSource={dataSource} columns={columns} showSorterTooltip={false}/>
     {/*<div className="detailed-info">
       <Row>
         <Col span={4}>

@@ -361,6 +361,7 @@ const mimeToExtension = (mimeType:any) => {
         </div>
           <Table
             style={{width: '100%'}}
+            showSorterTooltip={false}
             rowSelection={{
               type: 'checkbox',
               ...rowSelection,

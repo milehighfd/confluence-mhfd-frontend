@@ -447,6 +447,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData, setLoading}:{tipe
         dataSource={filteredDataSource}
         columns={actualColumns.current}
         pagination={false}
+        showSorterTooltip={false}
         onChange={(pagination, filters, sorter, currentTable) => onTableChange(pagination, filters, sorter, currentTable)}
         onRow={(record, rowIndex) => {
           return {
