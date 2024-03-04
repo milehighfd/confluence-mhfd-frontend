@@ -450,6 +450,7 @@ const EditDatesModal = ({
                 style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
                 listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
                 value={selectedPhase}
+                getPopupContainer={(trigger:any) => trigger.parentNode}
                 onChange={(value: string) => {
                   setSelectedPhase(value)
                   setDateIndex(phaseList.findIndex(x => x.value === value))
@@ -492,6 +493,7 @@ const EditDatesModal = ({
                 style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
                 options={streamList.map(renderOption)}
                 placeholder="Select primary stream"
+                getPopupContainer={(trigger:any) => trigger.parentNode}
                 defaultValue={inputValue}
                 listHeight={windowWidth > 2554 ? (windowWidth > 3799 ? 500 : 300) : 188}
                 filterOption={(inputValue: any, option: any) => {
@@ -532,6 +534,7 @@ const EditDatesModal = ({
                 <Select
                   placeholder="Select lead"
                   style={{ width: '100%', fontSize: '12px', marginBottom: '16px' }}
+                  getPopupContainer={(trigger:any) => trigger.parentNode}
                   listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
                   onChange={(value: string) => {
                     const selectedStaff = mhfdStaffList.find(staff => staff.id.toString() === value);
