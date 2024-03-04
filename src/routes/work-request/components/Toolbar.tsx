@@ -110,7 +110,7 @@ const Toolbar = ({
           className='buttons1'
           type='link'
         >
-          {!showSearch &&<Popover className='buttons-header' content={<div className='popover-text'>Search:<br />Filter projects below by querying a name.</div>} placement="bottomLeft" overlayClassName='popover-work-header' >
+          {!showSearch &&<Popover className='buttons-header' content={<div className='popover-text'><b>Search:</b> Filter projects below by querying a name.</div>} placement="bottom" overlayClassName='popover-work-header project-popover' >
             <div onClick={handleIconClick}>
             <img
               src='Icons/ic-000.svg'
@@ -122,7 +122,7 @@ const Toolbar = ({
           
         {
           (locality === 'Mile High Flood District' || locality === 'MHFD District Work Plan' || type === 'WORK_REQUEST') &&
-          <Popover className='buttons-header' content={<div className='popover-text'>Status:<br />Submit the board for Mile High's review.</div>} placement="bottomLeft" overlayClassName='popover-work-header' >
+          <Popover className='buttons-header' content={<div className='popover-text'><b>Status:</b> Submit the board for Mile High's review.</div>} placement="bottomLeft" overlayClassName='popover-work-header project-popover' >
             <Button
               className='buttons'
               type='link'
@@ -138,7 +138,7 @@ const Toolbar = ({
         }
         <Popover
           className='buttons-header'
-          content={<div className='popover-text'>Analytics:<br />Display project counts and estimates per year and by local government, county, or service area.</div>} placement="bottomLeft" overlayClassName='popover-work-header' >
+          content={<div className='popover-text'><b>Analytics:</b> Display project counts and estimates per year and by local government, county, or service area.</div>} placement="bottomLeft" overlayClassName='popover-work-header project-popover' >
           <Button
            className='buttons' 
           type='link'
@@ -153,7 +153,7 @@ const Toolbar = ({
         </Popover>
         <Popover
           className='buttons-header'
-          content={<div className='popover-text'>Filter:<br />Display projects by conditions such as project status and location.</div>} placement="bottomLeft" overlayClassName='popover-work-header' >
+          content={<div className='popover-text'><b>Filter:</b> Display projects by conditions such as project status and location.</div>} placement="bottomLeft" overlayClassName='popover-work-header project-popover' >
           <Button
           className='buttons'
           type='link'           

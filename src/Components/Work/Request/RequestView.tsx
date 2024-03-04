@@ -544,7 +544,7 @@ const RequestView = ({ type, widthMap }: {
                 }} className="tabs-work">
                 {
                   displayedTabKey.map((tk: string) => (
-                    <TabPane tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style">{tk} </Popover> </span>} key={tk}>
+                    <TabPane tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style project-popover">{tk} </Popover> </span>} key={tk}>
                         { selectView === 'list' &&
                         <TableListView maintenanceSubType={maintenanceSubType} />
                         }{selectView === 'card' && <div><div className="work-table"

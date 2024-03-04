@@ -18,8 +18,8 @@ const ShareURL = (parentName?: any) => {
   return (
     <Popover
       className={parentName === UPCOMING_PROJECTS ?'buttons-tab':'buttons-header'}
-      content={<div className='popover-text'>Share URL: <br/>{hoverText}</div>}
-      placement="bottomLeft" overlayClassName='popover-work-header'
+      content={<div className='popover-text'><b>Share URL:</b> {hoverText}</div>}
+      placement="bottomLeft" overlayClassName='popover-work-header project-popover'
     >
     <Button 
     className='buttons'

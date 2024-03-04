@@ -48,13 +48,11 @@ export const UpcomingProjectBody = () => {
         className="buttons-tab"
         content={
           <div className="popover-text">
-            Filter:
-            <br />
-            Filter the selection by MHFD Lead, Location, and other attributes.
+            <b>Filter:</b> Filter the selection by MHFD Lead, Location, and other attributes.
           </div>
         }
         placement="bottomLeft"
-        overlayClassName="popover-work-header"
+        overlayClassName="popover-work-header project-popover"
       >
         <Button className="buttons" type="link" onClick={() => setShowFilters(true)}>
           <img src="Icons/ic-003.svg" alt="" />
@@ -64,13 +62,11 @@ export const UpcomingProjectBody = () => {
         className="buttons-tab"
         content={
           <div className="popover-text">
-            Export:
-            <br />
-            Download data to CSV
+            <b>Export:</b> Download data to CSV
           </div>
         }
         placement="bottomLeft"
-        overlayClassName="popover-work-header"
+        overlayClassName="popover-work-header project-popover"
       >
         <Button className="buttons" type="link">
           <CSVLink
