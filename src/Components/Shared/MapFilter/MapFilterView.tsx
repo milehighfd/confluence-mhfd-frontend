@@ -441,13 +441,13 @@ const MapFilterView = ({
         removePopup();
       }}>
         <Collapse defaultActiveKey={['0','6asdffds', '1', '2', '3', '4', '5', '6', '7', '8']} key="V4mBA5NQvgvvxJt0">
-          <Panel header="" key="0" extra={genExtra08()}>
+          {/* <Panel header="" key="0" extra={genExtra08()}>
             <p>
               <img key="jk9N6L5cdFnD" src="/Icons/Filters/ic_borders.png" width="18px" alt="" />
                   Light
               <Switch key="7VVlkJw5jSYm" size="small" checked={basemapSelected} onClick={(value) => onChange(value, BASEMAP)} />
             </p>
-          </Panel>
+          </Panel> */}
           { 
           <Panel header="" key="6asdffds" extra={genExtra07(locationType)}>
             <p>
