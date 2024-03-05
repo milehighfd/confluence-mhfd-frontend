@@ -129,7 +129,6 @@ export const getBoardYears = () => {
         workRequestYears: { max: 2030, default: 2022 },
         workPlanYears: { max: 2030, default: 2022 },
       };
-      console.log('Result ', result);
       result.forEach((item: any) => {
         if (item.type === 'WORK_REQUEST') {
           if (item.description === 'MAX') {

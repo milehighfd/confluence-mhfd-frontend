@@ -1045,7 +1045,6 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
   useEffect(() => {
     isProblemActive = selectedLayers.includes(PROBLEMS_TRIGGER);
     const [intervalId, promise] = waitingInterval(map);
-    console.log('selectedLayers', selectedLayers, reloadLayers);
     loadSelectedLayersOnMap(promise);
     return () => {
       clearInterval(intervalId);

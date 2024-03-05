@@ -521,7 +521,6 @@ export const addPopupsOnClick = async (
       ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
     }
     if (feature.source === MEP_PROJECTS_DETENTION_BASINS_POLYGON) {
-      console.log('features', feature.properties);
       const item = {
         layer: MENU_OPTIONS.MEP_DETENTION_BASINS_POLYGON,
         feature: feature.properties.projectname ? feature.properties.projectname : '-',
@@ -1028,7 +1027,6 @@ export const addPopupsOnClick = async (
     }
     if (feature.source === 'stream_segment') {
       const objectidstream = feature.properties.mhfd_code_segment;
-      console.log(feature.properties, feature.properties.catchment_area_sum_ac, formatterIntegers.format(feature.properties.catchment_area_sum_ac ?? '0'));
       const item = {
         type: 'streams-reaches',
         layer: 'Streams',

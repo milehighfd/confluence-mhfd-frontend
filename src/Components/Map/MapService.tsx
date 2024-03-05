@@ -678,6 +678,20 @@ class MapService {
             ...style,
           });
           this.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
+        } else if (key === FLOODPLAINS_NON_FEMA_FILTERS) {
+          if (this.map.getLayer(key + '_' + index)) {
+            return;
+          }
+          let filter: any = ['==', 'is_public', 1];
+          if (this._isMhfdStaff) {
+            filter = [];
+          }
+          this.map.addLayer({
+            id: key + '_' + index,
+            source: key,
+            filter:  filter,
+            ...style,
+          });
         } else {
           if (style.source_name) {
             this.map.addLayer({
