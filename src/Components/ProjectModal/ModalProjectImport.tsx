@@ -47,7 +47,7 @@ const ModalProjectImport= ({
       locality: namespaceId.locality,
       year: namespaceId.year,
     }
-    datasets.postData(SERVER.SEARH_BOARDS_IMPORT, searchInfo).then((data: any) => {
+    datasets.postData(SERVER.SEARCH_BOARDS_IMPORT, searchInfo).then((data: any) => {
       setListProjects(data.map((item: any) => {
         const CODE_SPONSOR = 11;
         const CODE_ACQUISITION = 13;
