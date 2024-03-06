@@ -284,14 +284,17 @@ const NavbarView = ({
     [tabActiveSearch, activeSearch]
   );
 
-  useEffect(() => {
-    handleSearch(globalSearchValue);    
-  }, [globalSearchValue, handleSearch]);
+  const handleSearchAndCount = (searchValue: string) => {
+    handleSearch(searchValue);
+    handleCountSearch(searchValue);
+  };
 
-  useEffect(() => {
-    handleCountSearch(globalSearchValue);    
-  }, [globalSearchValue, handleCountSearch]);
-  
+useEffect(() => {
+  if (globalSearchValue.length >= 4) {
+    handleSearchAndCount(globalSearchValue);
+  }
+}, [globalSearchValue]);
+
   useEffect(() => {
     const handleClickOutside = (event: any) => {
       if (activeSearch && event.target.closest('.navbar-search-content') === null && event.target.id !== 'navbar-search' && !event.target.closest('#navbar-search')) {
