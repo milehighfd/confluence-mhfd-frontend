@@ -42,7 +42,7 @@ export const RequestorInformation = ({
     disableFieldsForLG,
   } = useProjectState();
   const { setServiceAreaCounty } = useProjectDispatch();
-  const { year } = useRequestState();
+  const { year, isImported } = useRequestState();
   const { userInformation: user } = useProfileState();
   const history = useHistory();
   const isMaintenance = originModal === 'Maintenance';
@@ -147,7 +147,7 @@ export const RequestorInformation = ({
               placeholder={'Select a Sponsor'}
               value={sponsor === "" ? undefined : (sponsor === 'Mhfd' ? sponsor.toUpperCase(): sponsor)}
               listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-              disabled={isLocalGovernment || disableFieldsForLG || !isBoardInWRUnderReview}
+              disabled={isLocalGovernment || disableFieldsForLG || !isBoardInWRUnderReview || isImported}
               onChange={setSponsor}
               getPopupContainer={() => (document.getElementById("sponsorid") as HTMLElement)}>
               {
