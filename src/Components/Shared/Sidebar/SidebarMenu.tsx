@@ -129,13 +129,14 @@ const SidebarMenu = ({ collapsed, setVisibleTutorial, }: { collapsed: boolean, s
   if (!((userInformation.designation === 'admin' || userInformation.designation === 'staff') && (userInformation.status === 'approved'))) {
     removeItemArray('6');
   }
-  if (!isMhfdStaff) {
-    removeItemArray('10');
-  }
+  // if (!isMhfdStaff) {
+  //   removeItemArray('10');
+  // }
   if (!(userInformation?.designation?.toLocaleLowerCase() !== 'guest')) {
     removeItemArray('0');
     removeItemArray('2');
     removeItemArray('5');
+    removeItemArray('10');
   }
   if (!showWorkRequestPlan) {
     removeItemArray('3');
