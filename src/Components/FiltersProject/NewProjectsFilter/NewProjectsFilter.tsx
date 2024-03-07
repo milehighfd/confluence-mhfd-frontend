@@ -230,7 +230,7 @@ export const NewProjectsFilter = ({ filtersObject, origin }: { filtersObject?: a
                 <h5 className="filter-title chart-filter-title">Project Status <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></h5>
                 {
                     paramProjects?.status &&
-                    <CheckBoxFilters defaultValue={5}
+                    <CheckBoxFilters defaultValue={''}
                         data={(paramProjects.status)}
                         selected={filterProjectOptions.status}
                         onSelect={(items: any) => apply(items, FILTERS.PROJECT.STATUS)} />

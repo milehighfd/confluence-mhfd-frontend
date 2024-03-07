@@ -199,6 +199,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUs
         if (event.key === 'Create_1') {
           setDisabledContact(true)
           //setContactData({})
+          setContactId('')
           setContactLabel('')
           setCreateContact(true)
           setCreateFullName('')
@@ -504,6 +505,7 @@ const ProfileUser = ({ record, saveUser, setExpandedRow }: { record: any, saveUs
           ...newAddress,
           contact_name: createFullName,
           contact_email: createMail,
+          business_associate_contact_id: +contactId,
           contact_phone_number: createPhone,
           business_address_id: addressId,
           user_id: record.user_id

@@ -191,8 +191,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData, setLoading}:{tipe
             value += sa;
           }
           return value;
-        }, '');
-        setLoading(false);
+        }, '');       
         return {
           key: d.project_id,
           onbase: d.onbase_project_number,
@@ -213,6 +212,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData, setLoading}:{tipe
       parsedData.sort((b:any, a:any) => {
         return moment(a.consultant !== '-' ? a.consultant : '01-01-1900').diff(moment(b.consultant !== '-' ?  b.consultant : '01-01-1900'));
       });
+      setLoading(false);
       setDataSource(parsedData);
       setFilteredDataSource(parsedData);
       setDataForCSV(parsedData);

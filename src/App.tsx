@@ -45,7 +45,7 @@ const App = () => {
         {(userInformation.designation === 'admin' ||
           userInformation.designation === 'staff' || userInformation.designation === 'government_staff') && (userInformation.status === 'approved') && <Route path={`/pm-tools`} component={PortfolioView} />}
         <Route path={`/pre-signup`} component={PreSignUpLayout} />
-        <Route path={`/upcoming-projects`} component={UpcomingProjects} />
+        {userInformation.designation !== 'Guest' && <Route path={`/upcoming-projects`} component={UpcomingProjects} />}
         <Route exact path="/" render={() => (
           <Redirect to="/login" />
         )} />

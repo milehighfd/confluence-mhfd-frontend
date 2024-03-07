@@ -157,7 +157,7 @@ const RequestView = ({ type, widthMap }: {
   useEffect(() => {
     const initLoading = async () => {
       let params = new URLSearchParams(history.location.search)
-      let _year = params.get('year');
+      // let _year = params.get('year');
       let _locality: any; //= params.get('locality'); commented to avoid preserve the same locality for wr and wp
       let _tabKey: any = 'Capital';
       if(params.get('tabKey') !== null){
@@ -178,13 +178,13 @@ const RequestView = ({ type, widthMap }: {
       };
       setLocalities(r.localities);
       setDataAutocomplete(r.localities.map((l: any) => l.name));
-      if (_year) {
-        setYear(_year);
-      } else {
-        const [configuredYear, generatedYearList] = await getYearList();
-        setYear(configuredYear);
-        setYearList(generatedYearList);
-      }
+      // if (_year) {
+      //   setYear(_year);
+      // } else {
+      //   const [configuredYear, generatedYearList] = await getYearList();
+      //   setYear(configuredYear);
+      //   setYearList(generatedYearList);
+      // }
       if (!_locality && r.localities.length > 0) {
         _locality = r.localities[0].name;
       }

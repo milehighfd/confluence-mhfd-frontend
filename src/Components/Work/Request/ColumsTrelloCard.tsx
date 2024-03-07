@@ -6,7 +6,7 @@ import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { useProfileState } from 'hook/profileHook';
 import TrelloLikeCard from 'Components/Work/Request/TrelloLikeCard';
-import { ADMIN, BOARD_STATUS_TYPES, STAFF, WORK_PLAN, WORK_REQUEST, YEAR_LOGIC_2024 } from 'constants/constants';
+import { ADMIN, BOARD_STATUS_TYPES, MHFD_ACRONYM, STAFF, WORK_PLAN, WORK_REQUEST, YEAR_LOGIC_2024 } from 'constants/constants';
 import ColorService from 'Components/Work/Request/ColorService';
 import useFakeLoadingHook from 'hook/custom/useFakeLoadingHook';
 import { SPONSOR_ID } from 'constants/databaseConstants';
@@ -269,6 +269,16 @@ const ColumsTrelloCard = ({
       setIsDragging(false);
     }
   };
+  const canCreateProject = () => {
+    const isMhfdUser = userInformation?.business_associate_contact?.business_address?.business_associate?.business_name === MHFD_ACRONYM;
+    const isInWorkPlan = namespaceId.type === WORK_PLAN;
+  
+    if (isMhfdUser || (!isMhfdUser && !isInWorkPlan)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   return (
     <DragDropContext
@@ -320,7 +330,11 @@ const ColumsTrelloCard = ({
                 }}
               >
                 {column.hasCreateOption && (
-                  <Button className="btn-transparent button-createProject " onClick={onClickNewProject}>
+                  <Button
+                    className="btn-transparent button-createProject "
+                    onClick={onClickNewProject}
+                    disabled={!canCreateProject()}
+                  >
                     {<img src="/Icons/icon-18.svg" style={{ marginBottom: '2px' }} alt="" />}
                     Create Project
                   </Button>

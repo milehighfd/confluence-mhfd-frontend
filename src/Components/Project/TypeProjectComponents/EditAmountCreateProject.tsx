@@ -126,7 +126,8 @@ const EditAmountCreateProject = ({
       isMaintenance: false
     }
     // const send = { ...cost, isMaintenance };
-    const sendToWorkPlan = (isEdit && isWorkPlan && !importedId) || sponsor === MHFD_ACRONYM ? true : false;
+    const sendToWorkPlan = (isEdit && isWorkPlan && !importedId) ||
+      (sponsor?.toLowerCase() === MHFD_ACRONYM.toLowerCase()) ? true : false;
     const send = {...newCompleteCosts, isWorkPlan: sendToWorkPlan, isMaintenance, amountsTouched, boardId: boardInfo};
     datasets.putData(
       BOARD_PROJECT_COST(boardProjectId),

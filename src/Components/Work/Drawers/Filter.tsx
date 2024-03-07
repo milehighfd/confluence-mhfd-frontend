@@ -111,15 +111,13 @@ const Filter = ({origin}:{origin: any}) => {
         selected: matchingAObj ? (matchingAObj.selected ? matchingAObj.selected : false) : false
       };
     });
-    const statusFilter = result.filter((f: any) => f.type === 'status').sort((a: any, b: any) => {
-      const indexA = ORDER_STATUS.indexOf(a.name);
-      const indexB = ORDER_STATUS.indexOf(b.name);
+    const statusFilter = result.filter((f: any) => f.type === 'status' &&
+      ORDER_STATUS.includes(f.name)).sort((a: any, b: any) => {
+        const indexA = ORDER_STATUS.indexOf(a.name);
+        const indexB = ORDER_STATUS.indexOf(b.name);
 
-      if (indexA === -1) return 1;
-      if (indexB === -1) return -1;
-
-      return indexA - indexB;
-    });
+        return indexA - indexB;
+      });
     setServiceAreaFilter(result.filter((f: any) => f.type === 'project_service_areas'));
     setCountyFilter(result.filter((f: any) => f.type === 'project_counties'));
     setJurisdictionFilter(result.filter((f: any) => f.type === 'project_local_governments'));

@@ -100,7 +100,7 @@ const ModalProjectsCreate = ({visible, setVisible}
       locality: namespaceId.locality,
       year: namespaceId.year,
     }
-    datasets.postData(SERVER.SEARH_BOARDS_IMPORT, searchInfo).then((data: any) => {
+    datasets.postData(SERVER.SEARCH_BOARDS_IMPORT, searchInfo).then((data: any) => {
       setListProjects(data.map((item: any) => {
         const CODE_SPONSOR = 11;
         const CODE_ACQUISITION = 13;
@@ -217,7 +217,10 @@ const ModalProjectsCreate = ({visible, setVisible}
               }} />}
             onChange={(event) => {
               setKeyword(event.target.value)
-              debouncedOnChange(event.target.value)
+              const lenght = event.target.value.length;
+              if (lenght >= 4) {
+                debouncedOnChange(event.target.value)
+              }
             }}
             value={keyword}
           />

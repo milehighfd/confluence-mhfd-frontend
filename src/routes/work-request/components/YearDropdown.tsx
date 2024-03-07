@@ -5,33 +5,32 @@ import { WINDOW_WIDTH, WORK_PLAN } from 'constants/constants';
 import { setIsLocatedInSouthPlateRiverSelected } from 'store/actions/requestActions';
 import { useProfileState } from 'hook/profileHook';
 import { useProjectState } from 'hook/projectHook';
+import { useMapState } from 'hook/mapHook';
 
 const YearDropdown = () => {
   const { year, yearList, namespaceId } = useRequestState();
   const { setYear, setPrioritySelected, setNamespaceId } = useRequestDispatch();
   const { globalSearch } = useProjectState();
+  const { tabActiveNavbar } = useMapState();
   const [openYearDropdown, setOpenYearDropdown] = useState(false);
   const { workRequestYear, workPlanYear } = useProfileState();
-  const [defaultYear, setDefaultYear] = useState('2022');
+  const [defaultYear, setDefaultYear] = useState(namespaceId.type === WORK_PLAN ? workPlanYear.default : workRequestYear.default);
   const [yearListDropdown, setYearListDropdown] = useState<any>([]);
 
   useEffect(() => {
-    const defaultValue = namespaceId.type === WORK_PLAN ? workPlanYear.default : workRequestYear.default;
-    if (!globalSearch){
+    if (!namespaceId.type){
+      const defaultValue = tabActiveNavbar === WORK_PLAN ? workPlanYear.default : workRequestYear.default;
       setDefaultYear(defaultValue);
-      setYear(defaultValue);    
+      setYear(defaultValue);
       setNamespaceId({ ...namespaceId, year: defaultValue });
-    }else{
-      setDefaultYear(namespaceId.year);
-      setYear(namespaceId.year);
-    }
+    }    
     const maxYear = namespaceId.type === WORK_PLAN ? workPlanYear.max : workRequestYear.max;
     const yearList = [];
     for (let year = maxYear; year >= 2022; year--) {
       yearList.push(year);
     }
     setYearListDropdown(yearList);
-  }, [namespaceId.type]);
+  }, []);
 
   return (
     <Select
