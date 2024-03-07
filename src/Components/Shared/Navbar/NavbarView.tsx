@@ -284,16 +284,13 @@ const NavbarView = ({
     [tabActiveSearch, activeSearch]
   );
 
-  const handleSearchAndCount = (searchValue: string) => {
-    handleSearch(searchValue);
-    handleCountSearch(searchValue);
-  };
+  useEffect(() => {
+    handleSearch(globalSearchValue);
+  }, [globalSearchValue, handleSearch]);
 
-useEffect(() => {
-  if (globalSearchValue.length >= 4) {
-    handleSearchAndCount(globalSearchValue);
-  }
-}, [globalSearchValue]);
+  useEffect(() => {
+    handleCountSearch(globalSearchValue);
+  }, [globalSearchValue, handleCountSearch]);
 
   useEffect(() => {
     const handleClickOutside = (event: any) => {

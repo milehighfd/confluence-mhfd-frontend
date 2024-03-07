@@ -217,10 +217,7 @@ const ModalProjectsCreate = ({visible, setVisible}
               }} />}
             onChange={(event) => {
               setKeyword(event.target.value)
-              const lenght = event.target.value.length;
-              if (lenght >= 4) {
-                debouncedOnChange(event.target.value)
-              }
+              debouncedOnChange(event.target.value)
             }}
             value={keyword}
           />
