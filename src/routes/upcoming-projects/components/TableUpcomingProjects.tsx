@@ -192,6 +192,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData, setLoading}:{tipe
           }
           return value;
         }, '');
+        const primeConsultantSelected = primeConsultant ? 'Yes': 'No';
         setLoading(false);
         return {
           key: d.project_id,
@@ -202,7 +203,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData, setLoading}:{tipe
           description: d.description,
           cost: estimatedCost ? estimatedCost.cost : '-',
           consultant,
-          consultantSelected: primeConsultant || '-',
+          consultantSelected: primeConsultantSelected,
           contractor,
           constructor,
           localgovernment: localgovernment ? localgovernment : '-',
@@ -292,7 +293,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData, setLoading}:{tipe
       displayCSV: 'Local Government'
     },
     {
-      title: <p style={{textAlign:'center'}}>Prime<br/>Consultant</p>,
+      title: <p style={{textAlign:'center'}}>Prime<br/>Consultant<br/>Selected?</p>,
       dataIndex: 'consultantSelected',
       key: 'consultantSelected',
       sorter: (a:any, b:any) => {
