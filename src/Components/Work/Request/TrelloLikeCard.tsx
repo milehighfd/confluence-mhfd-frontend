@@ -402,7 +402,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
                 type === 'WORK_PLAN' &&
                 <label className="purple-priority"style={{}}>
                   {
-                    priority === null ? 'Work Plan' :`No. ${priority}`
+                    priority === null ? 'Work Plan' :`No. ${priority + 1}`
                   }
                 </label>
               }

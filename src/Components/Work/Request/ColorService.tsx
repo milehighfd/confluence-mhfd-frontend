@@ -14,7 +14,7 @@ class ColorService {
                     }
                 })
             } else {
-                index = project[`originPosition${columnIdx}`] - 1;
+              index = project[`originPosition${columnIdx}`];
             }
         }
         switch(index) {
