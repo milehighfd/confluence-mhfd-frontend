@@ -179,6 +179,19 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData, setLoading}:{tipe
         if (consultantSelectedValue === 'Yes') {
           consultant = '-';
         }
+        const primeConsultant = d?.project_partners.reduce((accumulator: string, pl: any) => {
+          const PRIME_CONSULTANT = 13;
+          const sa = pl?.business_associate?.business_name || '';
+          const sa1 = pl?.code_partner_type_id || '';
+          let value = accumulator;
+          if (sa && sa1 === PRIME_CONSULTANT) {
+            if (value) {
+              value += ',';
+            }
+            value += sa;
+          }
+          return value;
+        }, '');
         setLoading(false);
         return {
           key: d.project_id,
@@ -189,7 +202,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData, setLoading}:{tipe
           description: d.description,
           cost: estimatedCost ? estimatedCost.cost : '-',
           consultant,
-          consultantSelected: consultantSelectedValue,
+          consultantSelected: primeConsultant || '-',
           contractor,
           constructor,
           localgovernment: localgovernment ? localgovernment : '-',
@@ -279,7 +292,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData, setLoading}:{tipe
       displayCSV: 'Local Government'
     },
     {
-      title: <p style={{textAlign:'center'}}>Consultant<br/>Selected</p>,
+      title: <p style={{textAlign:'center'}}>Prime<br/>Consultant</p>,
       dataIndex: 'consultantSelected',
       key: 'consultantSelected',
       sorter: (a:any, b:any) => {

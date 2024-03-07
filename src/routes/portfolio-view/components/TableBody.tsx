@@ -159,11 +159,11 @@ const TableBody = ({
         stream: getStreams(x?.project_streams || []).join(' , '),
         estimated_cost: getTotalEstimatedCost(x?.project_costs),
         consultant: x?.project_partners.reduce((accumulator: string, pl: any) => {
-          const CONSULTANT = 3;
+          const PRIME_CONSULTANT = 13;
           const sa = pl?.business_associate?.business_name || '';
           const sa1 = pl?.code_partner_type_id || '';
           let value = accumulator;
-          if (sa && sa1 === CONSULTANT) {
+          if (sa && sa1 === PRIME_CONSULTANT) {
             if (value) {
               value += ',';
             }

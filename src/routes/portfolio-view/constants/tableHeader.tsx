@@ -468,7 +468,7 @@ export const DIPHeaderTable:ColumnsType<DataTypeDIP | DataType | DataTypeAll | a
   },
   
   {
-    title: <>Consultant</>,
+    title: <>Prime Consultant</>,
     dataIndex: 'consultant',
     key: 'consultant',
     className:'table-text-body',
@@ -733,7 +733,7 @@ export const RDHeaderTable:ColumnsType<DataTypeRD | any> = [
     sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Consultant</>,
+    title: <>Prime Consultant</>,
     dataIndex: 'consultant',
     key: 'consultant',
     className:'rd-table',
@@ -864,7 +864,7 @@ export const RestorationHeaderTable:ColumnsType<DataTypeRestoration | any> = [
   },
   
   {
-    title: <>Consultant</>,
+    title: <>Prime Consultant</>,
     dataIndex: 'consultant',
     key: 'consultant',
     className:'table-text-body',
@@ -1127,7 +1127,7 @@ export const CIPHeaderTable:ColumnsType<DataTypeCIP | any> = [
   },
   
   {
-    title: <>Consultant</>,
+    title: <>Prime Consultant</>,
     dataIndex: 'consultant',
     className:'table-text-body',
     key: 'consultant',
