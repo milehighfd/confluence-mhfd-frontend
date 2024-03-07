@@ -638,7 +638,7 @@ export const sendProjectToBoardYear = (project_id: number, year: number, extraYe
       case 'Sediment Removal':
         subTypeIndex = 3;
         break;
-      case 'Minor Repair':
+      case 'Minor Repairs':
         subTypeIndex = 4;
         break;
       case 'Restoration':
