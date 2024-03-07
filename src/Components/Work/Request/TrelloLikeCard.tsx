@@ -58,7 +58,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   let status: any =  STATUS_NAMES[proj_status_type_id];
   const {id, board_project_id} = project;
   const [amount, setAmount] = useState(project[`req${columnIdx}`]);
-  const priority = project[`originPosition${columnIdx}`];
+  const priority = project[`${columnIdx}`];
   const [showAmountModal, setShowAmountModal] = useState(false);
   const [showModalProject, setShowModalProject] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -402,7 +402,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
                 type === 'WORK_PLAN' &&
                 <label className="purple-priority"style={{}}>
                   {
-                    priority === null ? 'Work Plan' :`No. ${priority}`
+                    priority === null ? 'Work Plan' :`No. ${priority + 1}`
                   }
                 </label>
               }
