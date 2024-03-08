@@ -441,7 +441,7 @@ const ModalTollgate = ({ saveCB, setOpenPiney }: { saveCB?: any; setOpenPiney?: 
       return true;
     }
     return x.name !== 'WorkPlan(WP)' && x.name !== 'WorkRequest(WR)' && x.name !== 'Approved' && x.name !== 'Requested';
-  });
+  }) || [];
 
 
   return (
@@ -547,7 +547,6 @@ const ModalTollgate = ({ saveCB, setOpenPiney }: { saveCB?: any; setOpenPiney?: 
               <Row className="tollgate-row-list-view  tollgate-body">
                 <Col xs={{ span: 12 }} lg={{ span: 9 }} className="left-tollgate">
                   {cleanedDates.map((x: any, index: number) => {
-                    console.log('my fucking x', x);
                     return (
                       <div key={x.phase_id} className="text-tollgate-title text-tollgate-body">
                         <span className='name-tollgate tollgate-text' style={{ marginBottom: '0px', color: invalidDateIndex === index ? 'red' : undefined }}>
