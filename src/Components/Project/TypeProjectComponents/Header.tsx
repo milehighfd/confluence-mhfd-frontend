@@ -104,7 +104,7 @@ export const Header = ({
         :<Dropdown overlay={menuTypeProjects} trigger={['click']} overlayClassName="drop-menu-type-project" placement="bottomRight" onVisibleChange={() => { setOpenDropdownTypeProject(!openDropdownTypeProject) }}>
           <div className="drop-espace">
             <a onClick={e => e.preventDefault()} style={{ marginLeft: '2%', display: 'flex', alignItems: 'center' }}>
-              {<p>{selectedType}</p>} &nbsp;
+              {<p>{selectedType === 'Special'? 'R&D':selectedType}</p>} &nbsp;
               {openDropdownTypeProject ? <UpOutlined style={{ color: '#251863', fontSize: '14px' }} /> : <DownOutlined style={{ color: '#251863', fontSize: '14px' }} />}
             </a>
           </div>
