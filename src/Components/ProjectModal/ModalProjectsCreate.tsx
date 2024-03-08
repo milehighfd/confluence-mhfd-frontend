@@ -153,7 +153,7 @@ const ModalProjectsCreate = ({visible, setVisible}
         subTypeInit={subType}
       />}
       <Modal
-        title="Create Project"
+        title="Create or Import a Project"
         centered
         maskClosable={false}
         visible={visible}
