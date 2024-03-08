@@ -435,6 +435,15 @@ const ModalTollgate = ({ saveCB, setOpenPiney }: { saveCB?: any; setOpenPiney?: 
     newDates[index].locked = !newDates[index].locked;
     setDates(newDates);
   }
+
+  const cleanedDates = dates?.filter((x: any) => {
+    if (datesData?.d?.project_type !== 'R&D') {
+      return true;
+    }
+    return x.name !== 'WorkPlan(WP)' && x.name !== 'WorkRequest(WR)' && x.name !== 'Approved' && x.name !== 'Requested';
+  });
+
+
   return (
     <>
       {detailOpen && (
@@ -537,7 +546,8 @@ const ModalTollgate = ({ saveCB, setOpenPiney }: { saveCB?: any; setOpenPiney?: 
             <Col xs={{ span: 12 }} lg={{ span: 24 }}>
               <Row className="tollgate-row-list-view  tollgate-body">
                 <Col xs={{ span: 12 }} lg={{ span: 9 }} className="left-tollgate">
-                  {dates?.map((x: any, index: number) => {
+                  {cleanedDates.map((x: any, index: number) => {
+                    console.log('my fucking x', x);
                     return (
                       <div key={x.phase_id} className="text-tollgate-title text-tollgate-body">
                         <span className='name-tollgate tollgate-text' style={{ marginBottom: '0px', color: invalidDateIndex === index ? 'red' : undefined }}>
@@ -557,7 +567,7 @@ const ModalTollgate = ({ saveCB, setOpenPiney }: { saveCB?: any; setOpenPiney?: 
                   })}
                 </Col>
                 <Col xs={{ span: 12 }} lg={{ span: 10 }}>
-                  {dates?.map((x: any, index: number) => {
+                  {cleanedDates?.map((x: any, index: number) => {
                     return (
                       <div className="calendar-toollgate" key={x.phase_id}>
                         <RangePicker
@@ -586,7 +596,7 @@ const ModalTollgate = ({ saveCB, setOpenPiney }: { saveCB?: any; setOpenPiney?: 
                   })}
                 </Col>
                 <Col xs={{ span: 12 }} lg={{ span: 5 }} style={{ paddingLeft: '10px' }}>
-                  {dates?.map((x: any, index: number) => {
+                  {cleanedDates?.map((x: any, index: number) => {
                     return (
                       <Row key={x.phase_id}>
                         <Col xs={{ span: 12 }} lg={{ span: 24 }}>
