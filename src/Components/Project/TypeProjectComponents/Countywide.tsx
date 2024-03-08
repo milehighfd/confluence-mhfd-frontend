@@ -20,6 +20,7 @@ interface Props {
   setIsSouthPlate: Function;
   resetLocations: () => void;
   addSouthPlate: (value: boolean) => void;
+  countyList: any;
 }
 const { Option } = Select;
 
@@ -35,10 +36,10 @@ export const Countywide = ({
   isSouthPlate,
   setIsSouthPlate,
   resetLocations,
-  addSouthPlate
+  addSouthPlate,
+  countyList
 }: Props) => {
   const { groupOrganization } = useProfileState();
-  const [countyList, setCountyList] = useState<any>([]);
   const [defaultValueCounty, setDefaultValueCounty] = useState<any>('');
   const [defaultValueSouthPlate, setDefaultValueSouthPlate] = useState<any>('');
   const {
@@ -50,18 +51,6 @@ export const Countywide = ({
     setDefaultValueSouthPlate(isSouthPlate ? 'Yes' : 'No');
   }, [isCountyWide, isSouthPlate])
 
-  useEffect(() => {
-    datasets.getData(`${SERVER.ALL_GROUP_ORGANIZATION}`)
-      .then((rows) => {
-        setCountyList(rows.county.map((item: any) => {
-          return { key: item.state_county_id, value: item.county_name, label: item.county_name }
-        }).filter((data: any) => !!data.value));
-      })
-      .catch((e) => {
-        console.log(e);
-      })       
-  },[])
-  
   const filterName = (name: string) => {
     if (!name) {
       return '';

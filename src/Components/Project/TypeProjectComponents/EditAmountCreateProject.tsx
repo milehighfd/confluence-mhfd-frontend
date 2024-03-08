@@ -21,7 +21,8 @@ const EditAmountCreateProject = ({
   estimatedCostInput,
   originLocation,
   importedId,
-  isEdit
+  isEdit,
+  isBoardWRUnderReview
 }:{
   index: number,
   type: string,
@@ -33,7 +34,8 @@ const EditAmountCreateProject = ({
   estimatedCostInput: any,
   originLocation: string | undefined,
   importedId: number,
-  isEdit: boolean
+  isEdit: boolean,
+  isBoardWRUnderReview: boolean
 }) => {
   const {
     columns2: columns,
@@ -51,7 +53,6 @@ const EditAmountCreateProject = ({
   const [createdData, setCreatedData] = useState<any>({})
   const isMaintenance = tabKey === 'Maintenance'
   const priorFundingString = 'priorFunding';
-  const [isDisabledAmountInput, setIsDisabledAmountInput] = useState<boolean>(false);
   const [amountsTouched, setAmountsTouched] = useState<any>({req1: true, req2: true, req3: true, req4: true, req5: true, req11: true, req12: true});
   // const [completeCosts, setCompleteCosts] = useState<any>({});
   const isWorkPlan = namespaceId.type === WORK_PLAN;
@@ -153,12 +154,13 @@ const EditAmountCreateProject = ({
         }else{
           years = convertObjectToArrays(MhfdAmmounts?.values, namespaceId.year);
         }
+        console.log(type)
         const sendBody = {
           project_id: createdData.project_id,
           year: namespaceId.year,
           extraYears: years.extraYears,
           sponsor,
-          project_type: namespaceId.projecttype,
+          project_type: type,
           extraYearsAmounts: years.extraYearsAmounts,
           subType: subTypeSend,
         }
@@ -177,7 +179,7 @@ const EditAmountCreateProject = ({
         console.log(err);
       });
       setCreatedProject({});      
-  };  
+  };
 
   function convertObjectToArraysMaintenance(obj: any, currentYear: number) {
     const extraYears = [];
@@ -261,34 +263,7 @@ const EditAmountCreateProject = ({
       });
   }, [board_project_id]);
 
-
-  useEffect(() => {
-    if(isWorkPlan){
-      if ((project_id === undefined || board_project_id === undefined) && (sponsor !== MHFD_ACRONYM)){
-        setIsDisabledAmountInput(true);
-      } else {
-        setIsDisabledAmountInput(false);
-      }
-    }
-  }, [project_id,board_project_id,sponsor]);
-
-    const costDataList = useCostDataFormattingHook(tabKey, subType, startYear, board_project_id, true);
-
-    useEffect(() => {
-      if(!isWorkPlan){
-        const checkStatus = async () => {
-          const boards = await getBoardStatus({
-            type: 'WORK_REQUEST',
-            year: `${startYear}`,
-            locality: sponsor
-          });
-          const statuses = boards.status;
-          const isUnderReview = statuses === 'Under Review';
-          setIsDisabledAmountInput(!isUnderReview);
-        };
-        checkStatus();
-      }
-    }, [sponsor]);
+  const costDataList = useCostDataFormattingHook(tabKey, subType, startYear, board_project_id, true);
 
   return (
   <div className='sec-edit-amount'>
@@ -306,11 +281,16 @@ const EditAmountCreateProject = ({
         costDataList.map((item: any) => {
           return (
             (item.show && item.key !== priorFundingString) && 
-            
-            
+                       
             <div className='edit-amount' key={item.key}>
               <label className="sub-title">{item.label} </label>
-              <AmountNumericInput disabled={(isDisabledAmountInput || boardStatus === BOARD_STATUS_TYPES.APPROVED) ? true: false} key={item.key} value={cost[item.key]?.toLocaleString('en-US')} onChange={(value: any) => setCost({ ...cost, [item.key]: value })} />
+              <AmountNumericInput
+                disabled={(isBoardWRUnderReview
+                  || boardStatus === BOARD_STATUS_TYPES.APPROVED) ? true : false}
+                key={item.key}
+                value={cost[item.key]?.toLocaleString('en-US')}
+                onChange={(value: any) => setCost({ ...cost, [item.key]: value })}
+              />
             </div>
           )
         })

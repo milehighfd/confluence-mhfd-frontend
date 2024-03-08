@@ -19,6 +19,7 @@ interface Props {
   setCoSponsor: any;  
   originModal: string;
   projectId: number;
+  isBoardWRUnderReview: boolean;
 }
 const { Option } = Select;
 
@@ -30,12 +31,12 @@ export const RequestorInformation = ({
   setCoSponsor,
   originModal,
   projectId = 0,
+  isBoardWRUnderReview,
 }: Props) => {  
   const [localities, setLocalities] = useState([]);
   const [name, setName] = useState('');
   const [createdDate, setCreatedDate] = useState('');
   const [businessName, setBusinessName] = useState('');
-  const [isBoardInWRUnderReview, setIsBoardInWRUnderReview] = useState(true);
   const [isLocalGovernment, setIsLocalGovernment] = useState(false);
   const {
     isEdit,
@@ -98,23 +99,6 @@ export const RequestorInformation = ({
   }, []);
 
   useEffect(() => {
-    const checkStatus = async () => {
-      const boards = await getBoardStatus({
-        type: 'WORK_REQUEST',
-        year: `${year}`,
-        locality: sponsor
-      });
-      const statuses = boards.status;
-      const isUnderReview = statuses === 'Under Review';
-      if(projectId>0){
-        setIsBoardInWRUnderReview(isUnderReview);
-      }
-    };
-    checkStatus();
-
-  }, [sponsor, projectId]);
-
-  useEffect(() => {
     if (isEdit && projectId > 0) {
       datasets.getData(SERVER.GET_CREATE_DATA(projectId), datasets.getToken())
         .then((rows) => {
@@ -147,7 +131,7 @@ export const RequestorInformation = ({
               placeholder={'Select a Sponsor'}
               value={sponsor === "" ? undefined : (sponsor === 'Mhfd' ? sponsor.toUpperCase(): sponsor)}
               listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-              disabled={isLocalGovernment || disableFieldsForLG || !isBoardInWRUnderReview || isImported}
+              disabled={isLocalGovernment || disableFieldsForLG || !isBoardWRUnderReview || isImported}
               onChange={setSponsor}
               getPopupContainer={() => (document.getElementById("sponsorid") as HTMLElement)}>
               {

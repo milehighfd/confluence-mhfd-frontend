@@ -95,11 +95,13 @@ const ImageModal = ({
   };
 
   useEffect(() => {
-    datasets.getData(SERVER.FAVORITE_PROJECTS, datasets.getToken()).then(result => {
-      if (result.findIndex((x: any) => x.project_id === detailed?.project_id) >= 0) {
-        setFavorite(true);
-      }
-    });
+    if (!visibleCapital){
+      datasets.getData(SERVER.FAVORITE_PROJECTS, datasets.getToken()).then(result => {
+        if (result.findIndex((x: any) => x.project_id === detailed?.project_id) >= 0) {
+          setFavorite(true);
+        }
+      });
+    }
   }, [visible]);
   useEffect(() => {
     setTimeout(() => {

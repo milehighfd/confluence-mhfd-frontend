@@ -33,6 +33,7 @@ import { ActivitiCreateProject } from '../TypeProjectComponents/ActivityCreatePr
 import { useNotifications } from 'Components/Shared/Notifications/NotificationsProvider';
 import EditAmountCreateProject from '../TypeProjectComponents/EditAmountCreateProject';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
+import { getBoardStatus } from 'dataFetching/workRequest';
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -207,6 +208,11 @@ export const ModalCapital = ({
   }; 
   //import
   const [importedId, setImportedId] = useState<number>(0);
+  const [open, setOpen] = useState(false);
+  const [isBoardWRUnderReview, setIsBoardWRUnderReview] = useState(false);
+  const [countyList, setCountyList] = useState<any[]>([]);
+  const [serviceAreaList, setServiceAreaList] = useState<any[]>([]);
+  const [jurisdictionList, setJurisdictionList] = useState<any[]>([]);
 
   //list Menu TypeProjects
   const menuTypeProjects = () => {
@@ -274,7 +280,7 @@ export const ModalCapital = ({
     resetDiscussion();
     setIsEdit(false);
     if (data !== 'no data') {
-      getStreamsByProjectId(data.project_id, data.code_project_type_id);
+      //getStreamsByProjectId(data.project_id, data.code_project_type_id);
       const counties = data.project_counties.map((e: any) => e?.CODE_STATE_COUNTY?.county_name);
       const serviceAreas = data.project_service_areas.map((e: any) => e?.CODE_SERVICE_AREA?.service_area_name);
       const localJurisdiction = data.project_local_governments.map((e: any) => e?.CODE_LOCAL_GOVERNMENT?.local_government_name);
@@ -1234,7 +1240,42 @@ export const ModalCapital = ({
   }
 
   let indexForm = 1;
-  const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    if (sponsor !== 'MHFD') {
+      const checkStatus = async () => {
+        const boards = await getBoardStatus({
+          type: 'WORK_REQUEST',
+          year: `${year}`,
+          locality: sponsor
+        });
+        const statuses = boards.status;
+        const isUnderReview = statuses === 'Under Review';
+        setIsBoardWRUnderReview(isUnderReview);
+      };
+      checkStatus();
+    }
+  }, [sponsor]);
+
+  //fill jurisdiction,service area and county list with db
+  useEffect(() => {
+    datasets.getData(`${SERVER.ALL_GROUP_ORGANIZATION}`)
+      .then((rows) => {
+        setCountyList(rows.county.map((item: any) => {
+          return { key: item.state_county_id, value: item.county_name, label: item.county_name }
+        }).filter((data: any) => !!data.value));
+        setJurisdictionList(rows.jurisdiction.map((item: any) => {
+          return { key: item.code_local_government_id, value: item.local_government_name, label: item.local_government_name }
+        }).filter((data: any) => !!data.value));
+        setServiceAreaList(rows.servicearea.map((item: any) => {
+          return { key: item.code_service_area_id, value: item.service_area_name, label: item.service_area_name }
+        }).filter((data: any) => !!data.value));
+      })
+      .catch((e) => {
+        console.log(e);
+      })             
+  }, []);
+
   return (
     <>
     {loading && <LoadingViewOverall></LoadingViewOverall>}
@@ -1362,6 +1403,7 @@ export const ModalCapital = ({
                 setIsCountyWide={setIsCountyWide}
                 resetLocations = {resetLocations}
                 addSouthPlate = {addSouthPlate}
+                countyList={countyList}
               />
               {(selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Capital.toLowerCase()||
               selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Maintenance.toLowerCase()||
@@ -1399,6 +1441,9 @@ export const ModalCapital = ({
                 isCapital={true}
                 originModal={selectedTypeProject}
                 index={indexForm++}
+                countyList={countyList}
+                jurisdictionList={jurisdictionList}
+                serviceAreaList={serviceAreaList}
               />
               <RequestorInformation
                 index = {indexForm++}
@@ -1408,6 +1453,7 @@ export const ModalCapital = ({
                 setCoSponsor = {setCosponsor}                
                 originModal={selectedTypeProject}
                 projectId = {projectid}
+                isBoardWRUnderReview = {isBoardWRUnderReview}
               />
               {selectedTypeProject && selectedTypeProject?.toLowerCase() === NEW_PROJECT_TYPES.Capital.toLowerCase() &&
                 <FinancialInformation
@@ -1449,6 +1495,7 @@ export const ModalCapital = ({
                 originLocation= {originLocation}
                 importedId = {importedId}
                 isEdit = {swSave}
+                isBoardWRUnderReview = {isBoardWRUnderReview}
               />          
               <UploadImagesDocuments              
                 isCapital={true}

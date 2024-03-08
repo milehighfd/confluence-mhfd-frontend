@@ -11,7 +11,7 @@ import { useProfileState } from "hook/profileHook";
 const { Option } = Select;
 export const LocationInformation = ({
   setServiceArea, setCounty, setjurisdiction, serviceArea, county, editable, jUrisdiction, setCoSponsor, setSponsor, cosponsor, sponsor, isEdit, isCapital, originModal,
-  isWorkPlan, index
+  isWorkPlan, index, countyList, jurisdictionList, serviceAreaList
 }: {
   setServiceArea: Function,
   setCounty: Function,
@@ -28,7 +28,10 @@ export const LocationInformation = ({
   isCapital?: boolean,
   originModal?: string,
   isWorkPlan?: boolean
-  index?: number
+  index?: number,
+  countyList: any,
+  jurisdictionList: any,
+  serviceAreaList: any
 }) => {
   const isMaintenance = originModal === 'Maintenance';
   const isStudy = originModal === 'Study';
@@ -64,12 +67,6 @@ export const LocationInformation = ({
   const [, setSCounty] = useState(undefined);
   const { userInformation: user } = useProfileState();
 
-  //Variables for use in the dropdowns
-  const [countyList, setCountyList] = useState<any[]>([]);
-  const [serviceAreaList, setServiceAreaList] = useState<any[]>([]);
-  const [jurisdictionList, setJurisdictionList] = useState<any[]>([]);
-
-
   const officialS_A = SERVICE_AREA.map((elem: any) => {
     if (elem === 'Boulder Service Area') {
       return 'Boulder Creek Service Area';
@@ -84,25 +81,7 @@ export const LocationInformation = ({
     setCounty(e);
     setSCounty(e);
   };
-  //fill jurisdiction,service area and county list with db
-  useEffect(() => {
-    datasets.getData(`${SERVER.ALL_GROUP_ORGANIZATION}`)
-      .then((rows) => {
-        setCountyList(rows.county.map((item: any) => {
-          return { key: item.state_county_id, value: item.county_name, label: item.county_name }
-        }).filter((data: any) => !!data.value));
-        setJurisdictionList(rows.jurisdiction.map((item: any) => {
-          return { key: item.code_local_government_id, value: item.local_government_name, label: item.local_government_name }
-        }).filter((data: any) => !!data.value));
-        setServiceAreaList(rows.servicearea.map((item: any) => {
-          return { key: item.code_service_area_id, value: item.service_area_name, label: item.service_area_name }
-        }).filter((data: any) => !!data.value));
-      })
-      .catch((e) => {
-        console.log(e);
-      })             
-  }, []);
-
+  
   useEffect(() => {
     if (editable) {
       if (currentServiceAreaCounty && currentServiceAreaCounty['Service Area']) {
@@ -196,7 +175,7 @@ export const LocationInformation = ({
               value={serviceArea} 
               disabled={disableFieldsForLG}
               getPopupContainer={() => (document.getElementById("serviceid") as HTMLElement)}>
-              {serviceAreaList.map((element) => 
+              {serviceAreaList.map((element: any) => 
                 element != 'None' && element != 'Boulder Service Area' && <Option key={element.key} value={element.value}>{filterName(element.label)}</Option>
               )}
             </Select>
@@ -217,7 +196,7 @@ export const LocationInformation = ({
               onChange={(county: any) => apllyCounty(county)}
               disabled={disableFieldsForLG}
               getPopupContainer={() => (document.getElementById("countyid") as HTMLElement)}>
-              {countyList.map((element) => {
+              {countyList.map((element: any) => {
                 return <Option key={element.key} value={element.value}>{filterName(element.label)}</Option>
               })}
             </Select>
@@ -240,7 +219,7 @@ export const LocationInformation = ({
               disabled={disableFieldsForLG}
               onChange={(jUrisdiction: any) => setjurisdiction(jUrisdiction)}
               getPopupContainer={() => (document.getElementById("jurisdictionid") as HTMLElement)} >
-              {jurisdictionList.map((element) => {
+              {jurisdictionList.map((element: any) => {
                 return <Option key={element.key} value={element.value}>{filterName(element.label)}</Option>
               })}
             </Select>

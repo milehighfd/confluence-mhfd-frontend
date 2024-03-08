@@ -206,7 +206,7 @@ const ModalProjectView = ({
       getAttachmentProjectId(data.project_id);
       setProjectId(data.project_id);
     }    
-  }, [data,visibleCapital]);
+  }, [data]);
 
   useEffect(() => {
     setAllowed(getAllowedBasedOnLocality(locality, year));
