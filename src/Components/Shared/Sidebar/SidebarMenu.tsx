@@ -134,6 +134,7 @@ const SidebarMenu = ({ collapsed, setVisibleTutorial, }: { collapsed: boolean, s
     removeItemArray('2');
     removeItemArray('5');
     removeItemArray('10');
+    removeItemArray('10');
   }
   if (!showWorkRequestPlan) {
     removeItemArray('3');
