@@ -108,7 +108,7 @@ const linestringMeasure = {
 };
 type LayersType = string | ObjectLayerType;
 let magicAddingVariable = false;
-  const CreateProjectMap = (type: any) => {
+const CreateProjectMap = (type: any) => {
   let html = document.getElementById('map3');
   const factorKMToMiles = 0.621371;
   const factorKMtoFeet = 3280.8;
@@ -182,11 +182,10 @@ let magicAddingVariable = false;
     boardProjectsCreate,
     highlightedStream,
     highlightedStreams,
+    isEdit
   } = useProjectState();
   const { groupOrganization, userInformation: user } = useProfileState();
   const [reloadLayers, setReloadLayer] = useState(0);
-  // const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
-  // const { notes, availableColors } = useNotesState();
   const [idsBoardProjects, setIdsBoardProjects] = useState(boardProjectsCreate);
   const [layerFilters, setLayerFilters] = useState(layers);
   const [localAOI, setLocalAOI] = useState(type.locality);
@@ -255,17 +254,6 @@ let magicAddingVariable = false;
   const groupedProjectIdsType = useRef<any>({});
   // the next const is created to avoid error adding buttons to sidebar
   const [commentVisible ,setCommentVisible] = useState(false);
-  // the next const is created to avoid error adding buttons to sidebar
-  // const [markersNotes, setMarkerNotes] = useState([]);
-  // let momentaryMarker = new mapboxgl.Marker({ color: '#FFFFFF', scale: 0.7 });
-  // const docNote = document.createElement('div');
-  // docNote.className = 'marker-note';
-  // const markerNote = new mapboxgl.Marker(docNote);
-  // let isEdit = false;
-  // let newNote: any = undefined;
-  // let currentNote: any = undefined;
-  // let canAdd = { value: false };
-  // let commentAvailable = false;
 
   useEffect(() => {
     magicAddingVariable = isAddLocation;
@@ -276,12 +264,13 @@ let magicAddingVariable = false;
     return () => {
       setStreamIntersected([]);
       setZoomGeomCreateMap(currentBounds.current);
-      // recien mandar al zoomgeom
     };
   }, []);
+
   useEffect(() => {
     setIsStillLoading(loading);
   }, [loading]);
+
   useEffect(() => {
     console.log('THIS IS SETTING TO TRUE ON CREATER PREOJCT MAP');
     setLoading(true);
@@ -291,7 +280,6 @@ let magicAddingVariable = false;
         setTimeout(waitingInside, 50);
       } else {
         if (!map) {
-          // getNotes();
           map = new MapServiceCreate('map3');
           map.loadImages();
           let _ = 0;
@@ -305,15 +293,12 @@ let magicAddingVariable = false;
           map.isStyleLoaded(() => {
             map.map.setTerrain();
             map.map.once('idle', () => {
-              // setLoading(false);
               flagInit.current = false;
-              // map.orderLayers();
             });
           });
         }
       }
     };
-    // map = undefined;
     waitingInside();
     EventService.setRef('click', eventClick);
     EventService.setRef('move', eventMove);
@@ -346,11 +331,9 @@ let magicAddingVariable = false;
       setStreamsIds([]);
       setComponentIntersected([]);
       setComponentGeom(undefined);
-      // updateSelectedLayersCP([]);
       setUserPolygon([]);
       setEditLocation([]);
       marker.remove();
-      // setZoomGeom(undefined);
     };
   }, [type.type]);
 
@@ -374,6 +357,7 @@ let magicAddingVariable = false;
       }
     }
   }, [zoomEndCounter, dragEndCounter]);
+
   useEffect(() => {
     if (editLocation && editLocation[0]) {
       setTimeout(() => {
@@ -385,36 +369,23 @@ let magicAddingVariable = false;
       marker.remove();
     }
   }, [editLocation]);
+
   useEffect(() => {
     if (!flagInit.current) {
       setLoading(false);
     }
   }, [listStreams]);
+
   useEffect(() => {
-    if (zoomGeom && map ) {
+    if (zoomGeom && map && !isEdit) {
       map.map.fitBounds(zoomGeom);
       map.map.once('load', () => {
         map.map.fitBounds(zoomGeom);
       });
     }
   }, [zoomGeom, map]);
-  useEffect(() => {
-    // commented to avoid only one action to be highlighted instead of all actions in same table 
-    // if (map) {
-    //   if (highlightedComponent.table && !magicAddingVariable) {
-    //     setFlagtoDraw(false);
-    //     hideHighlighted();
-    //     if (highlightedComponent.table.includes('stream_improvement_measure_copy')) {
-    //       showHighlighted(highlightedComponent.table, highlightedComponent.objectid);
-    //     } else {
-    //       showHighlighted(highlightedComponent.table, highlightedComponent.cartodb_id);
-    //     }
-    //   } else {
-    //     // hideHighlighted();
-    //     setFlagtoDraw(true);
-    //   }
-    // }
-  }, [highlightedComponent]);
+
+  // //Check  this
   useEffect(() => {
     let mask;
     setTimeout(() => {
@@ -437,6 +408,7 @@ let magicAddingVariable = false;
       });
     }, 1200);
   }, [coordinatesJurisdiction]);
+
   useEffect(() => {
     const equals = (a: any, b: any) => a.length === b.length && a.every((v: any, i: any) => v === b[i]);
     if (boardProjectsCreate.ids && boardProjectsCreate.ids[0] != '-8888') {
@@ -445,17 +417,18 @@ let magicAddingVariable = false;
       }
     }
   }, [boardProjectsCreate]);
+
   useEffect(() => {
     if (map) {
       if (highlightedProblem.problemid && !magicAddingVariable) {
         showHighlightedProblem(highlightedProblem.problemid);
-        // updateSelectedLayersCP([...selectedLayersCP, PROBLEMS_TRIGGER]);
       } else {
         hideHighlighted();
         showHoverComponents();
       }
     }
   }, [highlightedProblem]);
+
   useEffect(() => {
     if (map) {
       if (highlightedStream.streamId && !magicAddingVariable) {
@@ -466,6 +439,7 @@ let magicAddingVariable = false;
       }
     }
   }, [highlightedStream]);
+
   useEffect(() => {
     if (highlightedStreams.ids) {
       let codes = highlightedStreams.ids.map((hs: any) => {
@@ -515,6 +489,7 @@ let magicAddingVariable = false;
       }
     }
   };
+
   const wait = (cb: any) => {
     if (!map.map) {
       setTimeout(wait, 50);
@@ -522,11 +497,13 @@ let magicAddingVariable = false;
       cb();
     }
   };
+
   useEffect(() => {
     if (type.projectid != -1 && type.projectid) {
       getData(BBOX_PROJECT_ID(type.projectid), getToken()).then(
         (r: any) => {
           if (r?.bbox) {
+            console.log('BBOX', r.bbox)
             let BBoxPolygon = JSON.parse(r.bbox);
             let bboxBounds = turf.bbox(BBoxPolygon);
             if (map.map) {
@@ -542,17 +519,17 @@ let magicAddingVariable = false;
       );
     }
   }, [type.projectid]);
+
   useEffect(() => {
-    setTimeout(() => {
-      let value = user.zoomarea ? user.zoomarea : localAOI;
-      if (type.locality && type.locality !== 'Select a Sponsor') {
-        value = type.locality;
-      }
-      if (groupOrganization.length > 0) {
-        wait(() => setBounds(value));
-      }
-    }, 500);
+    let value = user.zoomarea ? user.zoomarea : localAOI;
+    if (type.locality && type.locality !== 'Select a Sponsor') {
+      value = type.locality;
+    }
+    if (groupOrganization.length > 0) {
+      wait(() => setBounds(value));
+    }
   }, [groupOrganization, type.locality, localAOI]);
+
   useEffect(() => {
     if (listComponents && listComponents.result && listComponents.result.length > 0) {
       let componentsHovers: any = {};
@@ -568,17 +545,12 @@ let magicAddingVariable = false;
         }
       }
       setComponentsHover(componentsHovers);
-      setTimeout(() => {
-        console.log('LOADING ', false);
-        setLoading(false);
-      }, 1500);
+      setLoading(false);
 
       componentsList = listComponents.result;
     } else {
       hideHighlighted();
       showHoverComponents();
-      // setStreamIntersected({ geom: null }); // TODO entender porque se borraba la intersection cuando no habia listcompoennts
-      // setStreamsIds([]);
       if (!flagInit.current) {
         setLoading(false);
       }
@@ -726,7 +698,6 @@ let magicAddingVariable = false;
       }
       if (type.type === 'CAPITAL' || type.type === 'MAINTENANCE') {
         getServiceAreaPolygonofStreams(thisStreamIntersected.geom);
-        // setLoading(false);
       }
 
       if (type.problemId && geom.coordinates.length > 0) {
@@ -786,6 +757,7 @@ let magicAddingVariable = false;
         });
       }
     } else if (thisStreamIntersected && componentGeom && thisStreamIntersected.geom == null && componentGeom.geom) {
+      console.log('thisStreamIntersected.geom == null && componentGeom.geom', componentGeom.geom)
       let cg = componentGeom ? JSON.parse(componentGeom.geom) : undefined;
       let poly = getTurfGeom(cg);
       if (map.map && poly) {
@@ -801,6 +773,7 @@ let magicAddingVariable = false;
       }
     }
   }, [streamIntersected]);
+
   useEffect(() => {
     if (streamsIntersectedIds.length > 0) {
       let streamsCodes: any = streamsIntersectedIds
@@ -842,6 +815,7 @@ let magicAddingVariable = false;
       map.removeLayer('streams-intersects');
     }
   }, [streamsIntersectedIds]);
+
   useEffect(() => {
     if (map) {
       map.create();
@@ -856,6 +830,7 @@ let magicAddingVariable = false;
       });
     }
   }, [map]);
+
   const [compareSL, setCompareSL] = useState('');
   const waiting = () => {
     if (map && !map.map.isStyleLoaded()) {
@@ -884,14 +859,15 @@ let magicAddingVariable = false;
       }
     }
   };
+
   useEffect(() => {
     if (map && selectedLayersCP.length > 0) {
       waiting();
     }
     map.orderLayers();
     EventService.setRef('oncreatedraw', onCreateDraw);
-    // EventService.setRef('addmarker', addMarker);
   }, [selectedLayersCP, reloadLayers]);
+
   useEffect(() => {
     let reloadLayers = false;
     if (typeof basemapSelected === 'boolean' && map.map) {
@@ -968,30 +944,6 @@ let magicAddingVariable = false;
     }
   };
   const setLayersSelectedOnInit = () => {
-    // let ppArray: any = [];
-    // let thisSL = [...ppArray, MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS];
-    // if (type.type === 'CAPITAL') {
-    //   thisSL = [...thisSL, AREA_BASED_MASK, BORDER, PROBLEMS_TRIGGER, COMPONENT_LAYERS];
-    // }
-    // if (type.type === 'ACQUISITION' || type.type === 'SPECIAL') {
-    //   thisSL = [...thisSL, AREA_BASED_MASK, BORDER];
-    // }
-    // if (type.type === 'STUDY') {
-    //   thisSL = [
-    //     ...thisSL,
-    //     AREA_BASED_MASK,
-    //     BORDER,
-    //     FLOODPLAINS,
-    //     FEMA_FLOOD_HAZARD,
-    //     PROBLEMS_TRIGGER,
-    //     MHFD_BOUNDARY_FILTERS,
-    //     XSTREAMS,
-    //     STREAMS_FILTERS,
-    //   ];
-    // }
-    // if (type.type === 'MAINTENANCE') {
-    //   thisSL = [...thisSL, AREA_BASED_MASK, BORDER, PROBLEMS_TRIGGER, ROUTINE_MAINTENANCE, MEP_PROJECTS];
-    // }
     map.isStyleLoaded(() => {
       // updateSelectedLayersCP(thisSL);
       // updateSelectedLayersCP(selectedLayers);
@@ -1004,7 +956,6 @@ let magicAddingVariable = false;
     }
     const currentType = typeRef.current;
     firstCallDraw = true;
-    // removeProjectLayer();
     console.log('Another loading true');
     setLoading(true);
     const userPolygon = event.features[0];
@@ -1021,7 +972,6 @@ let magicAddingVariable = false;
       getStreamIntersectionPolygon(userPolygon.geometry);
       getStreamsList(userPolygon.geometry, currentType);
     } else if (currentType === 'STUDY') {
-      // type.setGeom(userPolygon.geometry); TODO verify if this is needed
       getStreamsIntersectedPolygon(userPolygon.geometry);
       getStreamsList(userPolygon.geometry, currentType);
       getServiceAreaStreams(userPolygon.geometry);
@@ -1052,45 +1002,7 @@ let magicAddingVariable = false;
       map.map.addLayer(NEARMAP_STYLE, 'aerialway');
     }
   };
-  const topStreams = () => {
-    setTimeout(() => {
-      if (
-        map.map.getLayer('measuresSaved') &&
-        map.map.getLayer('measure-lines') &&
-        map.map.getLayer('measuresSaved-border') &&
-        map.map.getLayer('streams_0') &&
-        map.map.getLayer('streams_1') &&
-        map.map.getLayer('streams_2') &&
-        map.map.getLayer('streams_3')
-      ) {
-        map.map.moveLayer('landscaping_area');
-        map.map.moveLayer('land_acquisition');
-        map.map.moveLayer('detention_facilities');
-        map.map.moveLayer('storm_drain');
-        map.map.moveLayer('channel_improvements_area');
-        map.map.moveLayer('channel_improvements_linear');
-        map.map.moveLayer('storm_drain');
-        map.map.moveLayer('pipe_appurtenances');
-        map.map.moveLayer('grade_control_structure');
-        map.map.moveLayer('maintenance_trails');
-        map.map.moveLayer('stream_improvement_measure_copy');
-        map.map.moveLayer('removal_line');
-        map.map.moveLayer('removal_area');
-        map.map.moveLayer('measuresSaved');
-        map.map.moveLayer('measure-lines');
-        map.map.moveLayer('streams_0');
-        map.map.moveLayer('streams_1');
-        map.map.moveLayer('streams_2');
-        map.map.moveLayer('streams_3');
-        map.map.moveLayer('measuresSaved-border');
-        map.map.moveLayer('area_based_mask');
-        setTimeout(() => {
-          map.map.moveLayer('area_based_maskMASK');
-          map.map.moveLayer('borderMASK');
-        }, 300);
-      }
-    }, 1000);
-  };
+
   const applyProblemClusterLayer = () => {
     const controller = new AbortController();
     getData(SERVER.MAP_PROBLEM_TABLES, getToken(), controller.signal).then((geoj: any) => {
@@ -1305,16 +1217,7 @@ let magicAddingVariable = false;
               if (filterField === 'completedyear') {
                 continue;
               }
-              if (typeof filters === 'object') {
-                // TODO: find why is not used anymore
-                // for (const range of filters) {
-                //   const [lower, upper] = range?.split(',');
-                //   const lowerArray: any[] = ['>=', ['to-number', ['get', filterField]], +lower];
-                //   const upperArray: any[] = ['<=', ['to-number', ['get', filterField]], +upper];
-                //   const allFilter = ['all', lowerArray, upperArray];
-                //   options.push(allFilter);
-                // }
-              } else {
+              else {
                 for (const filter of filters.split(',')) {
                   if (isNaN(+filter)) {
                     options.push(['==', ['get', filterField], filter]);
@@ -1375,8 +1278,8 @@ let magicAddingVariable = false;
     updateSelectedLayersCP(selectedItems);
     updateSelectedLayers(selectedItems);
     map.orderLayers();
-    // topStreams();
   };
+
   const hideLayers = (key: string) => {
     if (map) {
       const styles = { ...(tileStyles as any) };
@@ -1398,6 +1301,7 @@ let magicAddingVariable = false;
       }
     }
   };
+
   const removeTilesHandler = (selectedLayer: LayersType) => {
     if (typeof selectedLayer === 'object') {
       selectedLayer.tiles.forEach((subKey: string) => {
@@ -1407,6 +1311,7 @@ let magicAddingVariable = false;
       hideLayers(selectedLayer);
     }
   };
+
   const addLayersSource = (key: string, tiles: Array<string>) => {
     if (!map.getSource(key) && tiles && !tiles.hasOwnProperty('error')) {
       map.map.addSource(key, {
@@ -1493,10 +1398,7 @@ let magicAddingVariable = false;
           });
         }
       });
-    } else {
-      // console.log('No style for ', key);
     }
-
     addMapListeners(key);
   };
   const addMapListeners = async (key: string) => {
@@ -1513,9 +1415,6 @@ let magicAddingVariable = false;
             if (isDrawingCurrently || isMeasuring.current) {
               return;
             }
-            // if (commentAvailable) {
-            //   return;
-            // }
             if (hovereableLayers.includes(key) && currentDraw != 'capitalpolygon' && !magicAddingVariable) {
               setFlagtoDraw(false);
               if (key.includes('stream_improvement_measure_copy')) {
@@ -1853,51 +1752,6 @@ let magicAddingVariable = false;
       }
       
     }
-
-    // if (isEdit) {
-    //   editNoteWithElem(currentNote, editNote);
-    //   isEdit = false;
-    //   newNote = undefined;
-    //   currentNote = undefined;
-    // }
-    // if (newNote !== void 0 && isEdit === false) {
-    //   createNoteWithElem(newNote, createNote);
-    //   markerNote.remove();
-    //   popup.remove();
-    //   isEdit = false;
-    //   newNote = undefined;
-    //   currentNote = undefined;
-    // }
-
-    // if (markerGeocoder) {
-    //   markerGeocoder.remove();
-    //   setMarkerGeocoder(undefined);
-    // }
-
-    // if (commentAvailable && canAdd.value) {
-    //   const html = notesPopup(setNote, handleDeleteNote);
-    //   popup = new mapboxgl.Popup({
-    //     closeButton: false,
-    //     offset: {
-    //       top: [0, 10],
-    //       bottom: [0, -10],
-    //       left: [10, 0],
-    //       right: [-10, 0],
-    //     },
-    //   });
-    //   markerNote.setPopup(popup);
-    //   popup.setDOMContent(html);
-    //   markerNote
-    //     .setLngLat([e.lngLat.lng, e.lngLat.lat])
-    //     .setPopup(popup)
-    //     .addTo(map)
-    //     .togglePopup();
-    //   canAdd.value = false;
-    //   return;
-    // }
-    // if (commentAvailable) {
-    //   return;
-    // }
   };
   const getComponentsFromProjProb = (item: any, event: any) => {
     let id = item.type == 'project' ? item.id : item.problemid;
@@ -1984,143 +1838,8 @@ let magicAddingVariable = false;
     popup.remove();
   };
 
-  // const setNote = useCallback(
-  //   (event: any, note?: any) => {
-  //     const getText = event?.target?.value ? event.target.value : event;
-  //     const getColorId = handleColor(availableColors);
-  //     if (!note) {
-  //       const note = {
-  //         color_id: getColorId,
-  //         note_text: getText,
-  //         latitude: popup.getLngLat().lat,
-  //         longitude: popup.getLngLat().lng,
-  //       };
-  //       newNote = note;
-  //       return;
-  //     } else {
-  //       const noteEdit = {
-  //         newnotes_id: note.newnotes_id,
-  //         color_id: getColorId,
-  //         note_text: getText,
-  //         latitude: note.latitude,
-  //         longitude: note.longitude,
-  //       };
-  //       currentNote = noteEdit;
-  //       isEdit = true;
-  //       return;
-  //     }
-  //   },
-  //   [availableColors],
-  // );
-
-  // const flyTo = (longitude: number, latitude: number, zoom?: number) => {
-  //   map.flyTo({
-  //     center: [longitude, latitude],
-  //     zoom: zoom ?? 15,
-  //   });
-  // };
-
-  // const openEditNote = (note: any) => {
-  //   flyTo(note.longitude, note.latitude, 16.5);
-  //   popup.remove();
-  //   openMarkerOfNoteWithoutAdd(
-  //     note,
-  //     markersNotes,
-  //     // eventsOnClickNotes
-  //   );
-  // };
-
-  // const setSideBarStatus = (status: boolean) => {
-  //   setCommentVisible(status);
-  //   setOpen(status);
-  // };
-
-  // const addToMap = () => {
-  //   if (markersNotes.length > 0) {
-  //     markersNotes.forEach((marker: any) => {
-  //       marker.marker._popup.remove();
-  //     });
-  //   }
-  //   canAdd.value = true;
-  // };
-
-  // const handleDeleteNote = (note: any) => {
-  //   let noteId = note.newnotes_id;
-  //   deleteNote(noteId);
-  //   markerNote.remove();
-  //   popup.remove();
-  // };
-
-  // useEffect(() => {
-  //   if (commentVisible && markersNotes.length > 0) {
-  //     markersNotes.forEach((marker: any) => {
-  //       marker.marker.addTo(map.map);
-  //     });
-  //   } else if (markersNotes.length > 0) {
-  //     markersNotes.forEach((marker: any) => {
-  //       marker.marker.remove();
-  //     });
-  //   }
-  // }, [markersNotes, commentVisible]);
-
-  // useEffect(() => {
-  //   let totalmarkers: any = [];
-  //   if (map) {
-  //     markersNotes?.forEach((marker: any) => {
-  //       marker.marker.remove();
-  //     });
-  //     notes?.forEach((note: any) => {
-  //       let colorOfMarker = note?.color?.color ? note?.color?.color : '#F6BE0F';
-  //       const doc = document.createElement('div');
-  //       doc.className = 'marker-note';
-  //       doc.style.backgroundColor = colorOfMarker;
-  //       const newmarker = new mapboxgl.Marker(doc);
-  //       const html = notesPopup(setNote, handleDeleteNote, note);
-  //       let newpopup = new mapboxgl.Popup({
-  //         closeButton: false,
-  //         offset: {
-  //           top: [0, 10],
-  //           bottom: [0, -10],
-  //           left: [10, 0],
-  //           right: [-10, 0],
-  //         },
-  //       });
-  //       newpopup.on('close', (e: any) => {
-  //         momentaryMarker.remove();
-  //       });
-  //       newmarker.setPopup(newpopup);
-  //       newpopup.setDOMContent(html);
-  //       newmarker.setLngLat([note?.longitude, note?.latitude]).setPopup(newpopup);
-  //       totalmarkers.push({ marker: newmarker, note: note });
-  //     });
-  //     setMarkerNotes(totalmarkers);
-  //   }
-  // }, [notes]);
-
-  // useEffect(() => {
-  //   commentAvailable = commentVisible;
-  //   setOpen(commentVisible);
-  //   if (map) {
-  //     setTimeout(() => {
-  //       map?.map.resize();
-  //     }, 2000);
-  //   }
-  //   if (!commentVisible) {
-  //     markerNote.remove();
-  //     popup.remove();
-  //   }
-  // }, [commentVisible]);
   return (
     <div className="map createmap" id='create-map'>
-      {/* {commentVisible && (
-      <SideBarComment
-          visible={commentVisible}
-          setVisible={setSideBarStatus}
-          flyTo={flyTo}
-          openEditNote={openEditNote}
-          addToMap={addToMap}
-        />
-      )} */}
       <ModalLayers type={type} selectCheckboxes={selectCheckboxes} visible={visibleModal} setVisible={setVisibleModal} />
       {showIntersectionError && (
         <Modal
@@ -2211,7 +1930,6 @@ let magicAddingVariable = false;
             removePopup={removePopup}
             basemapSelected={basemapSelected}
             setBasemapSelected={setBasemapSelected}
-            // isWR={true}
           />
           <AutoComplete
             dropdownMatchSelectWidth={true}

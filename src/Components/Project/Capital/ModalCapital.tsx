@@ -25,7 +25,7 @@ import { SERVER } from 'Config/Server.config';
 import * as datasets from "../../../Config/datasets";
 import { Countywide } from '../TypeProjectComponents/Countywide';
 import { TypeProjectsMenu } from '../TypeProjectComponents/TypeProjectMenu';
-import { setStreamsList } from 'store/actions/ProjectActions';
+import { setStreamsList, setZoomGeomCreateMap } from 'store/actions/ProjectActions';
 import { deletefirstnumbersmhfdcode } from 'utils/utils';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 import { DiscussionCreateProject } from '../TypeProjectComponents/DiscussionCreateProject';
@@ -278,7 +278,6 @@ export const ModalCapital = ({
   //Load Data if is Edit
   useEffect(() => {
     resetDiscussion();
-    setIsEdit(false);
     if (data !== 'no data') {
       //getStreamsByProjectId(data.project_id, data.code_project_type_id);
       const counties = data.project_counties.map((e: any) => e?.CODE_STATE_COUNTY?.county_name);
@@ -319,7 +318,6 @@ export const ModalCapital = ({
       setCosponsor(coEsponsor);
       setSponsor(titleCase(sponsor));
       setSwSave(true);
-      setIsEdit(true);
       setEditsetprojectid(data.project_id);
       if (selectedTypeProject === 'capital') {        
         const aditionalCostObject = data.project_costs.filter((e: any) => e.code_cost_type_id === 4)[0];
@@ -571,11 +569,11 @@ export const ModalCapital = ({
         } else {
           editProjectCapital(projectToSend, originLocation);
         }
+        setIsEdit(false);
       }
       else {
         saveProjectCapital(projectToSend);
       }
-      // setVisible(false);
     }
   }, [save]);
   
@@ -847,6 +845,8 @@ export const ModalCapital = ({
     }
     setIsImported(false);
     setState(auxState);    
+    setStreamIntersected({ geom: null });
+    setIsEdit(false);
   };
 
   const onClickDraw = () => {
@@ -1305,7 +1305,15 @@ export const ModalCapital = ({
      >
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-          <CreateProjectMap type={selectedTypeProject.toUpperCase()} locality={locality} projectid={projectid} isEdit={swSave} problemId={problemId} lastValue={lastValue} originLocation={originLocation}></CreateProjectMap>
+          <CreateProjectMap 
+            type={selectedTypeProject.toUpperCase()} 
+            locality={locality} 
+            projectid={projectid} 
+            isEdit={swSave} 
+            problemId={problemId} 
+            lastValue={lastValue} 
+            originLocation={originLocation}
+          ></CreateProjectMap>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
           <Header

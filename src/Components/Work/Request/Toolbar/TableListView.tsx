@@ -24,7 +24,7 @@ const TableListView = ({
   const [completeProjectData, setCompleteProjectData] = useState<any>(null);
   const [ammountProjectData, setAmmountProjectData] = useState<any>(null);
   const [showAmountModal, setShowAmountModal] = useState(false);
-  const {setZoomProject, archiveProject} = useProjectDispatch();
+  const {setZoomProject, archiveProject, setIsEdit} = useProjectDispatch();
   const{
     sendProjectToWorkPlan
   } = useRequestDispatch();
@@ -326,7 +326,8 @@ const TableListView = ({
       </span>,
       onClick: (() => {
         hidePopover();
-        getCompleteProjectData(record);        
+        getCompleteProjectData(record);   
+        setIsEdit(true);     
       })
     }, {
       key: '1',

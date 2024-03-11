@@ -43,10 +43,10 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
   cardRefs?:any
 }) => {
   const { showFilters: filtered, loadingColumns, boardStatus, loadColumns, sentToWP} = useRequestState();
-  const {setZoomProject, updateSelectedLayers, archiveProject, setGlobalSearch} = useProjectDispatch();
+  const {setZoomProject, updateSelectedLayers, archiveProject, setGlobalSearch, setIsEdit} = useProjectDispatch();
   const {
     globalSearch,
-    globalProjectData
+    globalProjectData    
   } = useProjectState();
   const{
     sendProjectToWorkPlan,
@@ -115,7 +115,11 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
         <img src="/Icons/ic-edit.svg" alt="" width="24px" height="24"/>
           Edit Project
       </span>,
-      onClick: (() => {getCompleteProjectData(); setTypeEdition('editProject')})
+      onClick: (() => {
+        getCompleteProjectData();
+        setTypeEdition('editProject');
+        setIsEdit(true)
+      })
     }, {
       key: '1',
       // disabled: boardStatus === BOARD_STATUS_TYPES.APPROVED,
