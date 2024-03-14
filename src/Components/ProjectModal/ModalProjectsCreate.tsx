@@ -8,6 +8,7 @@ import { SERVER } from 'Config/Server.config';
 import * as datasets from "../../Config/datasets";
 import { ModalCapital } from 'Components/Project/Capital/ModalCapital';
 import { MaintenanceTypes } from 'Components/Work/Request/RequestViewUtil';
+import { useProjectDispatch } from 'hook/projectHook';
 const pageWidth  = document.documentElement.scrollWidth;
 
 
@@ -28,6 +29,10 @@ const ModalProjectsCreate = ({visible, setVisible}
   const {
     namespaceId
   } = useRequestState();
+
+  const {
+    setIsEdit
+  } = useProjectDispatch();
 
   const onClickNewProject = () => {
     setVisibleCreateOrImport(false);
@@ -72,6 +77,7 @@ const ModalProjectsCreate = ({visible, setVisible}
 
   const getCompleteProjectData = () => {
     if (selectedProjectId === -1) return;
+    setIsEdit(true);
     datasets.getData(SERVER.V2_DETAILED_PAGE(selectedProjectId), datasets.getToken())
       .then(dataFromDB => {
         setNameProject(dataFromDB?.project_name);
