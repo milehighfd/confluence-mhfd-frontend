@@ -377,6 +377,8 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
             <b>Project: </b> {project_id}
             <br />
             <b>Board project: </b> {board_project_id}
+            <br />
+            { project.inaccuracy && <b style={{color:'red'}} >{project.inaccuracyMessage}</b> }
             </div>}>
               <h4>{displayName}</h4>
             </Popover>
