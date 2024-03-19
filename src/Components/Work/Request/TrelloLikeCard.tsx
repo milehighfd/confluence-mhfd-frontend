@@ -351,7 +351,8 @@ const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, t
     <div ref={divRef} className="card-wr" 
       style={{
         borderLeft: `${pageWidth > 2000? (pageWidth > 3000? '6':'5'):'3'}px solid ${newBorderColor}`, 
-        borderRadius: '4px'
+        borderRadius: '4px',
+        backgroundColor: project.inaccuracy ? '#aecbfa' : '',
       }} draggable={editable && !filtered}
       onDragStart={e => {
         onDragStart(e, project_id);
