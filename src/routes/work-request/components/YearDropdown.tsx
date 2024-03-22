@@ -32,6 +32,12 @@ const YearDropdown = () => {
     setYearListDropdown(yearList);
   }, []);
 
+  useEffect(() => {
+    if (globalSearch) {
+      setDefaultYear(year);
+    }
+  }, [globalSearch]);
+
   return (
     <Select
       defaultValue={defaultYear}
