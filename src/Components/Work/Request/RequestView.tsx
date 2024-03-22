@@ -127,7 +127,7 @@ const RequestView = ({ type, widthMap }: {
 
   useEffect(() => {
     if (sentToWP){
-      openNotification('Success! Your project was sent to Work Plan', "success");
+      openNotification('Success! Your project was sent to the Work Plan.', "success");
       setSentToWP(false)
     }
   }, [sentToWP]);
