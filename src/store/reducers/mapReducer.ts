@@ -283,6 +283,11 @@ const initState = {
             'popover': '06'
         },
         {
+            'name': 'phase',
+            'display': 'PHASE',
+            'detail': []
+        },
+        {
             'name': 'year',
             'display': 'YEAR',
             'detail': [],
@@ -356,7 +361,7 @@ const initState = {
         },
         {
             'name': 'servicearea',
-            'display': 'WATERSHED SERVICE AREA',
+            'display': 'SERVICE AREA',
             'detail': [],
             'popover': ''
         }
