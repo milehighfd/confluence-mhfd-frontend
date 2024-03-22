@@ -39,7 +39,8 @@ const STATUS = 'status',
   MHFD_LEAD = 'staff',
   LG_LEAD = 'lg_lead',
   FAVORITES = 'Favorites',
-  TEAMS = 'Teams';
+  TEAMS = 'Teams',
+  PHASE = 'phase';
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 let contents: any = [];
@@ -57,6 +58,8 @@ contents.push(
 );
 
 const content = (<div className="popoveer-00"><b>Watershed Service Area</b> is the MHFD Watershed Service Area where the project is located.</div>);
+const content17 = (<div className="popoveer-00"><b>Service Area</b> is the MHFD Watershed Service Area where the project is located.</div>);
+const content18 = (<div className="popoveer-00"><b>Project Phase</b> is the MHFD program of which the project is a part.</div>);
 const content1 = (<div className="popoveer-00"><b>County</b> is the county where the project is located.</div>);
 const content2 = (<div className="popoveer-00"><b>Local Government</b> is the local government where the project is located.</div>);
 const content3 = (<div className="popoveer-00"><b>MHFD Lead</b> is the MHFD PM who is responsible for the service area where the project is located.</div>);
@@ -73,6 +76,7 @@ const content13 = (<div className="popoveer-00"><b>Contractor</b> is the primary
 const content14 = (<div className="popoveer-00"><b>Stream Name</b> is the name or ID of the stream where the project is located.</div>);
 const content15 = (<div className="popoveer-00"><b>Personalized</b> are projects which have been favorited or to which the user belongs.</div>);
 const content16 = (<div className="popoveer-00"><b>Personalized</b> are problems which have been favorited.</div>);
+
 
 const { TabPane } = Tabs;
 const { Search } = Input;
@@ -174,6 +178,7 @@ const MapView = () => {
     creator: [],
     mhfdmanager: [],
     servicearea: [],
+    phase: [],
   });
   useEffect(() => {
     getParamFilterProjects(boundsMap, filterProjectOptions);
@@ -262,6 +267,7 @@ const MapView = () => {
     } else {
       options.projecttype = [];
       options.status = [];
+      options.phase = [];
     }
     options.column = 'projectname';
     options.order = 'asc';
@@ -614,6 +620,12 @@ const MapView = () => {
                 value: tag[index],
               });
               break;
+            } else if (key === 'phase'){
+              elements.push({
+                tag: key,
+                value: tag[index],
+                display: tag[index],
+              });
             } else {
               elements.push({
                 tag: key,
@@ -681,6 +693,8 @@ const MapView = () => {
             <Popover
               content={toCamelCase(element.display) === 'project type' ? content4
                 : toCamelCase(element.display) === 'watershed service area' ? content
+                : toCamelCase(element.display) === 'service area' ? content17
+                : toCamelCase(element.display) === 'phase' ? content18
                 : toCamelCase(element.display) === 'county' ? content1
                 : toCamelCase(element.display) === 'jurisdiction' ? content2
                 : toCamelCase(element.display) === 'mhfd watershed manager' ? content3
@@ -829,7 +843,8 @@ const MapView = () => {
       getGroupListWithAbortController(STREAMS),
       getGroupListWithAbortController(PROJECTTYPE),
       getGroupListWithAbortController(MHFD_LEAD),
-      getGroupListWithAbortController(LG_LEAD)
+      getGroupListWithAbortController(LG_LEAD),
+      getGroupListWithAbortController(PHASE)      
     ];
     const promises = requestListWithAbortController.map(r => r[1]);
     const controllers = requestListWithAbortController.map(r => r[0]);
@@ -845,7 +860,8 @@ const MapView = () => {
         streamname: values[6]?.groups,
         projecttype: values[7]?.groups,
         mhfdmanager: values[8]?.groups,
-        lgmanager: values[9]?.groups
+        lgmanager: values[9]?.groups,
+        phase: values[10]?.groups
       });
       setStaffValues(values[8]?.groups);
     });
