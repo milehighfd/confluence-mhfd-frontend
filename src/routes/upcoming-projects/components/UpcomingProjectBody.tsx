@@ -118,7 +118,7 @@ export const UpcomingProjectBody = () => {
               </span>
             }
           >
-            <TableUpcomingProjects tipe={tabKey} searchValue={searchValue} setCsvData={setCsvData} setLoading={setLoading} />
+            <TableUpcomingProjects type={tabKey} searchValue={searchValue} setCsvData={setCsvData} setLoading={setLoading} />
           </TabPane>
         ))}
       </Tabs>

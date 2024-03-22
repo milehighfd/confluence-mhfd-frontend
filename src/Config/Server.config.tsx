@@ -307,7 +307,8 @@ export const SERVER = (function () {
         DISCUSSION : `${URL_BASE.BASE}/${DISCUSSION}`,
         EDIT_DISCUSSION: `${URL_BASE.BASE}/${DISCUSSION}/edit-thread`,
         GET_SIGNUP_EMAIL: (token: string) => `${URL_BASE.BASE}/${USER}/${GET_SIGNUP_EMAIL}?token=${token}`,
-        GET_LIST_PMTOOLS: (code_project_type_id: number) => `${URL_BASE.BASE}/${PMTOOLS}/list?code_project_type_id=${code_project_type_id}`,
+        GET_LIST_PMTOOLS: (code_project_type_id: number) =>
+            `${URL_BASE.BASE}/${PMTOOLS}/list${code_project_type_id !== 0 ? `?code_project_type_id=${code_project_type_id}` : ''}`,
         GET_COUNT_FOR_PROBLEM: (problemid: string) => `${URL_BASE.BASE}/${GALLERY}/${GET_COUNT_FOR_PROBLEM}/${problemid}`,
         GET_LIST_PMTOOLS_PAGE: (groupname: string, group : number) => `${URL_BASE.BASE}/${PMTOOLS}/groupsFilter/${groupname}/${group}/${ORIGIN_PM_TOOLS}`,
         GET_COUNT_PMTOOLS_PAGE: (groupname: string, group : number) => `${URL_BASE.BASE}/${PMTOOLS}/groupsFilter/${COUNT}/${groupname}/${group}/${ORIGIN_PM_TOOLS}`,

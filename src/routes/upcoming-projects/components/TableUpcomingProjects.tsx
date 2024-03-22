@@ -10,7 +10,7 @@ import DetailModal from 'routes/detail-page/components/DetailModal';
 import { useRequestDispatch, useRequestState } from "hook/requestHook";
 import { InfoCircleOutlined } from "@ant-design/icons";
 
-const TableUpcomingProjects = ({tipe, searchValue, setCsvData, setLoading}:{tipe:string, searchValue: string, setCsvData: Function, setLoading: any}) => {
+const TableUpcomingProjects = ({type, searchValue, setCsvData, setLoading}:{type:string, searchValue: string, setCsvData: Function, setLoading: any}) => {
   
   const tooltipContent = (title:any, content:any) => {
     return (
@@ -134,7 +134,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData, setLoading}:{tipe
   useEffect(() => {
     setLoading(true);
     let code_project_type_id = 0;
-    switch (tipe) {
+    switch (type) {
       case 'Capital':
         code_project_type_id = 5;
         break;
@@ -169,7 +169,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData, setLoading}:{tipe
         const mhfdLead = d.project_staffs.find((staff: any) => staff.code_project_staff_role_type_id === 1);
         const estimatedCost = d.project_costs.find((cost: any) => cost.code_cost_type_id === 1);
         let consultant = d?.consultant_phase  ? d.consultant_phase?.actual_start_date ? moment.utc(d.consultant_phase?.actual_start_date).format('MM-DD-YYYY') : '-' : '-';
-        if ( tipe === 'Study') {
+        if ( type === 'Study') {
           consultant = d?.fundingConsultantSelectionPhase  ? d.fundingConsultantSelectionPhase?.actual_start_date ? moment.utc(d.fundingConsultantSelectionPhase?.actual_start_date).format('MM-DD-YYYY') : '-' : '-';
         }
         const contractor = d?.contractor_phase  ? d.contractor_phase?.actual_start_date ? moment.utc(d.contractor_phase?.actual_start_date).format('MM-DD-YYYY')  :'-'  : '-';
@@ -223,7 +223,7 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData, setLoading}:{tipe
       controller.abort();
       setDataSource([]);
     };
-  }, [tipe, filterProjectOptions]);
+  }, [type, filterProjectOptions]);
   function onTableChange(pagination: any, filter: any, sorter: any, anyvalue: any){
     if(anyvalue.currentDataSource) {
       setDataForCSV(anyvalue.currentDataSource);
@@ -434,12 +434,12 @@ const TableUpcomingProjects = ({tipe, searchValue, setCsvData, setLoading}:{tipe
     })
   }
   useEffect(() => {
-    if (tipe === 'Study' || tipe === 'R&D' || tipe === 'Acquisition') {
+    if (type === 'Study' || type === 'R&D' || type === 'Acquisition') {
       actualColumns.current = columnsNew;
     } else {
       actualColumns.current = columns;
     }
-  } ,[tipe]);
+  } ,[type]);
   return (
     <>
       {
