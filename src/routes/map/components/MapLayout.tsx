@@ -167,6 +167,7 @@ const MapLayout = () => {
   // }, []);
 
   useEffect(() => {
+    setSafeLoading(true);
     const initialTables = SELECT_ALL_FILTERS.flatMap(layer =>
       typeof layer === 'object' ? layer.tiles : [layer]
     );
@@ -194,12 +195,13 @@ const MapLayout = () => {
             }
           }
         });
-
+        setSafeLoading(false);
         setLoaded(true);
-        setSafeLoading(true);
-        setTimeout(() => {
-          setSafeLoading(false);
-        }, 10000);
+        // commented until we know what was the issue it was trying to solve
+        // setSafeLoading(true);
+        // setTimeout(() => {
+        //   setSafeLoading(false);
+        // }, 10000);
       }).catch(error => console.error('Error fetching map tables:', error));
     }
   }, []);
