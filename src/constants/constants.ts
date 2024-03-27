@@ -1543,3 +1543,17 @@ export const ORDER_STATUS = [
   'Inactive',
   'Cancelled'
 ]
+
+export const groups = [
+  { name: 'status', table: 'code_status_type'},
+  { name: 'jurisdiction', table: 'CODE_LOCAL_GOVERNMENT_4326' },
+  { name: 'county', table: 'CODE_STATE_COUNTY_CLIP_4326' },
+  { name: 'servicearea', table: 'CODE_SERVICE_AREA_4326' },
+  { name: 'consultant', table: 'business_associates'},
+  { name: 'contractor', table: 'business_associates' },
+  { name: 'streams', table: 'streams' },
+  { name: 'projecttype', table: 'projecttype' },
+  { name: 'staff', table: 'staff' },
+  { name: 'lg_lead', table: 'lg_lead' },
+  { name: 'phase', table: 'code_phase_type' }
+];
