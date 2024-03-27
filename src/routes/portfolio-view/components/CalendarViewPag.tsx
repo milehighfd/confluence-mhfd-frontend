@@ -10,6 +10,7 @@ import SearchDropdown from 'routes/portfolio-view/components//SearchDropdown';
 import { handleAbortError } from 'store/actions/mapActions';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 import { useProfileState } from 'hook/profileHook';
+import { useMapState } from 'hook/mapHook';
 
 const CalendarViewPag = ({
   tabKey,
@@ -28,7 +29,11 @@ const CalendarViewPag = ({
     setDatesData, 
     getActionsDone,
     getCreatedActions,
+    setGroupCounters
   } = usePortfolioDispatch();
+  const {
+    filterProjectOptions,
+  } = useMapState();
   const [detailGroup, setDetailGroup] = useState<any>(null);
   const [updateAction, setUpdateAction] = useState(false);
   const [editData,setEditData] = useState<any>({});
@@ -59,6 +64,19 @@ const CalendarViewPag = ({
       controller.abort();
     };
   }, [currentGroup]);
+
+  useEffect(() => {
+    if (detailGroup === null) return;
+    const detailGroupIds = detailGroup.map((group: any) => group.id);
+    datasets.postData(
+      SERVER.GET_COUNTER_FOR_GROUPS(currentGroup),
+      { ...filterProjectOptions, detailGroupIds },
+      datasets.getToken(),
+    ).then((valuesGroups) => {
+      setGroupCounters(valuesGroups)
+    })
+  }, [detailGroup]);
+
   return (
     <>
     {

@@ -558,7 +558,7 @@ const CalendarBody = ({
             const arrayToCompare = actionsDone[projectId]
             if (arrayToCompare !== undefined) {
               for (let i = 0; i < Object.keys(arrayToCompare).length; i++) {
-                counterdown += scheduleData.tasksData.some((option: any) => option.code_rule_action_item_id === arrayToCompare[i].code_rule_action_item_id);
+                counterdown += scheduleData?.tasksData.some((option: any) => option.code_rule_action_item_id === arrayToCompare[i].code_rule_action_item_id);
               }
             }
             const createdActionsData = createdActions[projectId]
@@ -1002,11 +1002,12 @@ const CalendarBody = ({
 
         if (zoomSelected === 'Weekly') {
           zoom.transform(svg, d3.zoomIdentity.translate(0, 0).scale(0.9));
-        
+          console.log('weekly')
         }
         if (zoomSelected === 'Monthly') {
           
           zoom.transform(svg, d3.zoomIdentity.translate(xScale(today), 0).scale(0.104));
+          console.log('monthly')
           shouldCallZoomed = false;
         }
         

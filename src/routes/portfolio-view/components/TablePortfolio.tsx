@@ -17,6 +17,7 @@ import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import { useProjectState } from 'hook/projectHook';
 import { setGlobalSearch } from 'store/actions/ProjectActions';
+import { useMapState } from 'hook/mapHook';
 
 const TablePortafolio = ({
     tabKey,
@@ -34,12 +35,15 @@ const TablePortafolio = ({
     globalProjectData,
     globalSearch
   } = useProjectState(); 
-  const { setOpenGroups } = usePortfolioDispatch();
+  const { setOpenGroups, setGroupCounters } = usePortfolioDispatch();
   const [detailGroup, setDetailGroup] = useState<any>(null);
   const headerRef = useRef<null | HTMLDivElement>(null);
   const scrollRef = useRef<null | HTMLDivElement>(null);
   const tableHeaderRef = useRef<null | HTMLDivElement>(null);
   const tableRef = useRef<any[]>([]);
+  const {
+    filterProjectOptions,
+  } = useMapState();
   const ValueTabsHeader = () => {
     let header = AllHeaderTable;
     switch (tabKey) {
@@ -102,6 +106,19 @@ const TablePortafolio = ({
       controller.abort();
     };
   }, [currentGroup, globalSearch, globalProjectData]);
+
+  useEffect(() => {
+    if (detailGroup === null) return;
+    const detailGroupIds = detailGroup.map((group: any) => group.id);
+    datasets.postData(
+      SERVER.GET_COUNTER_FOR_GROUPS(currentGroup),
+      { ...filterProjectOptions, detailGroupIds },
+      datasets.getToken(),
+    ).then((valuesGroups) => {
+      setGroupCounters(valuesGroups)
+    })
+  }, [detailGroup]);
+
   let drr =tableHeaderRef.current;
   let widthMax = drr? drr.offsetWidth : 0;
   let myDiv = drr?.querySelector('.ant-table-thead');

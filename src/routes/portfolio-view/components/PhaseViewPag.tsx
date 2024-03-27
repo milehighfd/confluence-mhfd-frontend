@@ -7,6 +7,7 @@ import PineyView from 'routes/portfolio-view/components/PineyView';
 import SearchDropdown from 'routes/portfolio-view/components/SearchDropdown';
 import { usePortflioState, usePortfolioDispatch } from '../../../hook/portfolioHook';
 import { handleAbortError } from 'store/actions/mapActions';
+import { useMapState } from 'hook/mapHook';
 
 const PhaseViewPag = ({  
   tabKey,
@@ -18,7 +19,10 @@ const PhaseViewPag = ({
   phaseList,
   statusList,
   } = usePortflioState();
-  const { getActionsDone, getCreatedActions } = usePortfolioDispatch();
+  const { getActionsDone, getCreatedActions, setGroupCounters } = usePortfolioDispatch();
+  const {
+    filterProjectOptions,
+  } = useMapState();
   const [availableStatusList, setAvailableStatusList] = useState<any>([]);
   const [detailGroup, setDetailGroup] = useState<any>(null);
   const [updateAction,setUpdateAction] = useState(false);
@@ -67,6 +71,19 @@ const PhaseViewPag = ({
       controller.abort();
     };
   }, [currentGroup]);
+
+  useEffect(() => {
+    if (detailGroup === null) return;
+    const detailGroupIds = detailGroup.map((group: any) => group.id);
+    datasets.postData(
+      SERVER.GET_COUNTER_FOR_GROUPS(currentGroup),
+      { ...filterProjectOptions, detailGroupIds },
+      datasets.getToken(),
+    ).then((valuesGroups) => {
+      setGroupCounters(valuesGroups)
+    })
+  }, [detailGroup]);
+
   let drr = phaseHeaderRef.current;
   let myDiv = drr?.querySelector('.container-phase');
   let widthMax = myDiv? myDiv.clientWidth : 0;

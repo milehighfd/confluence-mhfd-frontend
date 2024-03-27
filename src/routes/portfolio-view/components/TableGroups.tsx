@@ -33,7 +33,7 @@ const TableGroups = ({
   headerRef: any,
   dataId: any,
 }) => {
-  const { currentGroup, collapsePhase, openGroups } = usePortflioState();
+  const { currentGroup, collapsePhase, openGroups, groupCounters } = usePortflioState();
   const { setCollapsePhase, setOpenGroups } = usePortfolioDispatch();
   const {
     globalProjectData,
@@ -71,21 +71,29 @@ const TableGroups = ({
   }, [globalProjectData, globalSearch]);
 
   useEffect(() => {
-    const controller = new AbortController();
-    datasets.postData(
-      `${SERVER.GET_COUNT_PMTOOLS_PAGE(currentGroup, dataId)}?code_project_type_id=${tabKeyId}`,
-      sendfilter,
-      datasets.getToken(),
-      controller.signal
-    )
-    .then((res: any) => {
-      setCounter(res.count)
-    })
-    .catch(handleAbortError);
-    return () => {
-      controller.abort();
+    // TO DO: delete after testing is approved this can be used in schedule and phase view as well,
+    // in there it was deleted
+    // const controller = new AbortController();
+    // datasets.postData(
+    //   `${SERVER.GET_COUNT_PMTOOLS_PAGE(currentGroup, dataId)}?code_project_type_id=${tabKeyId}`,
+    //   sendfilter,
+    //   datasets.getToken(),
+    //   controller.signal
+    // )
+    // .then((res: any) => {
+    //   setCounter(res.count)
+    // })
+    // .catch(handleAbortError);
+    // return () => {
+    //   controller.abort();
+    // }
+    if (groupCounters) {
+      const counter = groupCounters[dataId];
+      if (counter) {
+        setCounter(counter);
+      }
     }
-  }, [tabKeyId, sendfilter, currentGroup, dataId]);
+  }, [groupCounters]);
 
   let limitPage = Number(counter) % LIMIT_PAGINATION > 0 ?  Math.floor(Number(counter) / LIMIT_PAGINATION + 1) : Number(counter) / LIMIT_PAGINATION;
   const getActiveKeys = () => {

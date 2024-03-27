@@ -29,7 +29,7 @@ const PhaseGroups = ({
   headerRef: any,
   dataId: any,
 }) => {
-  const { currentGroup, collapsePhase, openGroups, updateGroup } = usePortflioState();
+  const { groupCounters, collapsePhase, openGroups, updateGroup } = usePortflioState();
   const { setCollapsePhase, setOpenGroups } = usePortfolioDispatch();
   const {
     filterProjectOptions,
@@ -48,13 +48,13 @@ const PhaseGroups = ({
   }, [page, counter]);
 
   useEffect(() => {
-    const sendfilter = {...filterProjectOptions};
-    delete sendfilter.sortby;
-    delete sendfilter.sortorder;
-    datasets.postData(SERVER.GET_COUNT_PMTOOLS_PAGE(currentGroup, dataId) + `?code_project_type_id=${tabKey}`, sendfilter).then((res: any) => {
-      setCounter(res.count)
-    })
-  }, [tabKey, filterProjectOptions,updateGroup])
+    if (groupCounters) {
+      const counter = groupCounters[dataId];
+      if (counter) {
+        setCounter(counter);
+      }
+    }
+  }, [groupCounters]);
   
   const getActiveKeys = () => {
     const indices = openGroups.reduce(

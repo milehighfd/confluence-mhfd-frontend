@@ -26,7 +26,7 @@ const CalendarGroups = ({
   setEditData: any,
   dataId: any,
 }) => {
-  const { currentGroup, collapsePhase, openGroups, updateGroup } = usePortflioState();
+  const { currentGroup, collapsePhase, openGroups, updateGroup, groupCounters } = usePortflioState();
   const { setCollapsePhase, setOpenGroups } = usePortfolioDispatch();
   const {
     filterProjectOptions,
@@ -45,23 +45,14 @@ const CalendarGroups = ({
   }, [page, counter]);
 
   useEffect(() => {
-    const sendfilter = {...filterProjectOptions};
-    delete sendfilter.sortby;
-    delete sendfilter.sortorder;
-    if(currentGroup === 'streams') return;
-    const controller = new AbortController();
-    datasets.postData(
-      `${SERVER.GET_COUNT_PMTOOLS_PAGE(currentGroup, dataId)}?code_project_type_id=${tabKey}`,
-      sendfilter,
-      datasets.getToken(),
-      controller.signal
-    ).then((res: any) => {
-      setCounter(res.count)
-    }).catch(handleAbortError);
-    return () => {
-      controller.abort();
-    };
-  },[tabKey,filterProjectOptions,updateGroup])
+    if (currentGroup === 'streams') return;
+    if (groupCounters) {
+      const counter = groupCounters[dataId];
+      if (counter) {
+        setCounter(counter);
+      }
+    }
+  }, [groupCounters])
 
   const getActiveKeys = () => {
     const indices = openGroups.reduce(
