@@ -13,7 +13,8 @@ import {
   COMPONENTS_TRIGGER,
   SELECT_ALL_FILTERS,
   MAINTENANCE_IDS,
-  GOVERNMENT_STAFF
+  GOVERNMENT_STAFF,
+  groups
 } from 'constants/constants';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
 import { capitalLetter, elementCost, getStatus } from 'utils/utils';
@@ -27,6 +28,7 @@ import { useFilterContext } from 'utils/filterContext';
 import ListViewMap from './ListViewMap';
 import MapAutoComplete from 'routes/map/components/MapAutoComplete';
 import FiltersProjectView from 'Components/FiltersProject/FiltersProjectView';
+import * as datasets from 'Config/datasets';
 
 const STATUS = 'status',
   JURISDICTION = 'jurisdiction',
@@ -189,15 +191,16 @@ const MapView = () => {
   useEffect(() => {
     setSpinMapLoaded(true);
     getGroupOrganization();
-    SELECT_ALL_FILTERS.forEach(layer => {
-      if (typeof layer === 'object') {
-        layer.tiles.forEach((subKey: string) => {
-          getMapTables(subKey, layer.name);
-        });
-      } else {
-        getMapTables(layer);
-      }
-    });
+    // Map layers: Test to see if a layer is missing
+    // SELECT_ALL_FILTERS.forEach(layer => {
+    //   if (typeof layer === 'object') {
+    //     layer.tiles.forEach((subKey: string) => {
+    //       getMapTables(subKey, layer.name);
+    //     });
+    //   } else {
+    //     getMapTables(layer);
+    //   }
+    // });
     if (location.includes('problemid=')) {
       const id = location.replace('?problemid=', '');
       existDetailedPageProblem(id);
@@ -225,15 +228,12 @@ const MapView = () => {
       setNameZoomArea('Mile High Flood District');
     }
     //setNameZoomArea(zoomarea);
-    const controllers = getFilterLabels();
+    getFilterLabels();
     return () => {
       const user = userInformation;
       user.isSelect = false;
       saveUserInformation(user);
       counterZoomArea = 0;
-      controllers.forEach((controller: any) => {
-        controller.abort();
-      });
     };
   }, []);
   const toCamelCase = (str:string):string => {
@@ -833,39 +833,17 @@ const MapView = () => {
   }, [filterComponentOptions, filterProblemOptions, filterProjectOptions]);
 
   const getFilterLabels = () => {
-    const requestListWithAbortController = [
-      getGroupListWithAbortController(SERVICE_AREA),
-      getGroupListWithAbortController(COUNTY),
-      getGroupListWithAbortController(JURISDICTION),
-      getGroupListWithAbortController(CONSULTANT),
-      getGroupListWithAbortController(CONTRACTOR),
-      getGroupListWithAbortController(STATUS),
-      getGroupListWithAbortController(STREAMS),
-      getGroupListWithAbortController(PROJECTTYPE),
-      getGroupListWithAbortController(MHFD_LEAD),
-      getGroupListWithAbortController(LG_LEAD),
-      getGroupListWithAbortController(PHASE)      
-    ];
-    const promises = requestListWithAbortController.map(r => r[1]);
-    const controllers = requestListWithAbortController.map(r => r[0]);
-    Promise.all(promises).then(values => {
-      setGroupsLabels({
-        ...groupsLabels,
-        servicearea: values[0]?.groups,
-        county: values[1]?.groups,
-        jurisdiction: values[2]?.groups,
-        consultant: values[3]?.groups,
-        contractor: values[4]?.groups,
-        status: values[5]?.groups,
-        streamname: values[6]?.groups,
-        projecttype: values[7]?.groups,
-        mhfdmanager: values[8]?.groups,
-        lgmanager: values[9]?.groups,
-        phase: values[10]?.groups
+    datasets.getData(
+      SERVER.GET_ALL_GROUPS,
+      datasets.getToken()
+    ).then((response) => {
+      const newGroupsLabels = { ...groupsLabels };
+      groups.forEach(group => {
+        newGroupsLabels[group.name] = response.find((x: any) => x.table === group.table)?.groups;
       });
-      setStaffValues(values[8]?.groups);
+      setGroupsLabels(newGroupsLabels);
+      setStaffValues(response.find((x: any) => x.table === 'staff')?.groups);
     });
-    return controllers;
   };
 
   useEffect(() => {

@@ -134,36 +134,88 @@ const MapLayout = () => {
     })];
   }
 
+  // useEffect(() => {
+  //   // getUserInformation();
+  //   const promises: Promise<any>[] = [];
+  //   const controllers: AbortController[] = [];
+  //   const stringTables: string[] = [];
+  //   SELECT_ALL_FILTERS.forEach((layer) => {
+  //     if (typeof layer === 'object') {
+  //       layer.tiles.forEach((subKey: string) => {
+  //         const [controller, promise] = loadData(subKey, layer.name);
+  //         stringTables.push(subKey);
+  //         promises.push(promise);
+  //         controllers.push(controller);
+  //       });
+  //     } else {
+  //       const [controller, promise] = loadData(layer);
+  //       stringTables.push(layer);
+  //       promises.push(promise);
+  //       controllers.push(controller);
+  //     }
+  //   });
+  //   //ALL_MAP_TABLES
+  //   if (stringTables.length > 0) {
+  //     datasets.postData(
+  //       SERVER.ALL_MAP_TABLES,
+  //       { tables: stringTables },
+  //       datasets.getToken()
+  //     ).then((res: any): void => {
+  //       console.log('res', res)
+  //     });
+  //   }
+  //   console.log('stringTables', stringTables)
+  //   Promise.all(promises)
+  //     .then(() => {
+  //       setLoaded(true);
+  //       setSafeLoading(true);
+  //       setTimeout(() =>{
+  //         setSafeLoading(false);
+  //       }, 10000);
+  //     })
+  //   return () => {
+  //     controllers.forEach((controller) => {
+  //       controller.abort();
+  //     });
+  //   };
+  // }, []);
+
   useEffect(() => {
-    // getUserInformation();
-    const promises: Promise<any>[] = [];
-    const controllers: AbortController[] = [];
-    SELECT_ALL_FILTERS.forEach((layer) => {
-      if (typeof layer === 'object') {
-        layer.tiles.forEach((subKey: string) => {
-          const [controller, promise] = loadData(subKey, layer.name);
-          promises.push(promise);
-          controllers.push(controller);
+    const initialTables = SELECT_ALL_FILTERS.flatMap(layer =>
+      typeof layer === 'object' ? layer.tiles : [layer]
+    );
+
+    const filteredTables = initialTables.filter(table => !table.includes('milehighfd'));
+
+    if (filteredTables.length > 0) {
+      datasets.postData(
+        SERVER.ALL_MAP_TABLES,
+        { tables: filteredTables },
+        datasets.getToken()
+      ).then((response) => {
+        SELECT_ALL_FILTERS.forEach(filter => {
+          if (typeof filter === 'object' && filter.tiles) {
+            filter.tiles.forEach(subKey => {
+              const tableData = response.find((table: any) => table.table === subKey);
+              if (tableData) {
+                getMapWithSublayers(subKey, tableData.data, filter.name);
+              }
+            });
+          } else {
+            const tableData = response.find((table: any) => table.table === filter);
+            if (tableData) {
+              getMapLayers(filter, tableData.data);
+            }
+          }
         });
-      } else {
-        const [controller, promise] = loadData(layer);
-        promises.push(promise);
-        controllers.push(controller);
-      }
-    });
-    Promise.all(promises)
-      .then(() => {
+
         setLoaded(true);
         setSafeLoading(true);
-        setTimeout(() =>{
+        setTimeout(() => {
           setSafeLoading(false);
         }, 10000);
-      })
-    return () => {
-      controllers.forEach((controller) => {
-        controller.abort();
-      });
-    };
+      }).catch(error => console.error('Error fetching map tables:', error));
+    }
   }, []);
 
   useEffect(() => {
