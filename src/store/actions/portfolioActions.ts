@@ -182,6 +182,11 @@ export const setUpdateActionItem = () => ({
   type: types.SET_UPDATE_ACTION_ITEM,
 });
 
+export const setGroupCounters = (value: Object) => ({
+  type: types.SET_GROUP_COUNTERS,
+  payload: value
+});
+
 export const getActionsDone = () => {
   return (dispatch: Function) => {
     const controller = new AbortController();

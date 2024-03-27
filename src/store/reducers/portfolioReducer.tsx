@@ -29,6 +29,7 @@ const initState = {
   actionsDone: [],
   createdActions: [],
   updateActionItem: false,
+  groupCounters: {},
 }
 
 const portfolioReducer = (state = initState, action: any) => {
@@ -183,6 +184,11 @@ const portfolioReducer = (state = initState, action: any) => {
       return {
         ...state,
         updateActionItem: !state.updateActionItem,
+      };
+    case types.SET_GROUP_COUNTERS:
+      return {
+        ...state,
+        groupCounters: action.payload,
       };
     default:
       return state;

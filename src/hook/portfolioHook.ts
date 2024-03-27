@@ -26,7 +26,8 @@ import {
   setIsFromDetailPage,
   getActionsDone,
   getCreatedActions,
-  setUpdateActionItem
+  setUpdateActionItem,
+  setGroupCounters
 } from 'store/actions/portfolioActions';
 
 export const usePortflioState = () => useSelector(
@@ -114,6 +115,9 @@ export const usePortfolioDispatch = () => {
   const _setUpdateActionItem = useCallback(() => {
     dispatch(setUpdateActionItem());
   }, [dispatch]);
+  const _setGroupCounters = useCallback((value: Object) => {
+    dispatch(setGroupCounters(value));
+  }, [dispatch]);
 
   return {
     setSearchWord: _setSearchWord,
@@ -141,6 +145,7 @@ export const usePortfolioDispatch = () => {
     setIsFromDetailPage: _setIsFromDetailPage,
     getActionsDone: _getActionsDone,
     getCreatedActions: _getCreatedActions,
-    setUpdateActionItem: _setUpdateActionItem
+    setUpdateActionItem: _setUpdateActionItem,
+    setGroupCounters: _setGroupCounters
   };
 };

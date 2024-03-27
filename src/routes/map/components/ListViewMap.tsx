@@ -26,8 +26,6 @@ const ListViewMap = ({
   const size = 20;
   let totalElement = cardInformation?.length || 0;  
   const [isLoading, setIsLoading] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  const [dataSet, setDataSet] = useState<any>([]);
   const [data, setData] = useState<any>({});
   const [dataProjects, setDataProjects] = useState<any>([]);
   const [dataProblems, setDataProblems] = useState<any>([]);
@@ -39,7 +37,6 @@ const ListViewMap = ({
     items: Array.from({ length: size }),
     hasMore: true
   });
-  const [carInfo, setCardInfo] = useState<any>([]);
   const { 
     setNextPageOfCards, 
     setInfiniteScrollItems, 
@@ -97,19 +94,7 @@ const ListViewMap = ({
       if ((nextPageOfCards + 1) === a) {
         setNextPageOfCards(a)
       }
-    }
-    if (favorites && carInfo) {
-      setDataSet(
-        carInfo.map((ci: any) => {
-          return {
-            ...ci,
-            isFavorite: favorites.some((f: any) => (f.project_id && f.project_id === ci.project_id) || (f.problem_id && f.problem_id === ci.problemid))
-          }
-
-        })
-      )
-    }
-    setCardInfo(cardInformation);    
+    }  
   }, [favorites, cardInformation]);
 
   useEffect(() => {
