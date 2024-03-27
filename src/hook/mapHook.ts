@@ -47,6 +47,7 @@ import {
   resetDetailed,
   getComponentsByProblemId,
   getMapTables,
+  setAllMapTables,
   getComponentsByProjid,
   replaceFilterCoordinates,
   resetMap,
@@ -235,6 +236,9 @@ export const useMapDispatch = () => {
     },
     getMapTables: (trigger: any, name?: any) => {
       dispatch(getMapTables(trigger, name));
+    },
+    setAllMapTables: () => {
+      dispatch(setAllMapTables());
     },
     getComponentsByProjid: (projectid: any, setCounter: Function) => {
       dispatch(getComponentsByProjid(projectid, setCounter));

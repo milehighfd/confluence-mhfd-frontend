@@ -133,6 +133,7 @@ const MapView = () => {
     setAutocomplete,
     setBBOXComponents,
     getMapTables,
+    setAllMapTables
   } = useMapDispatch();
   const { getGroupOrganization } = useProfileDispatch();
   const { resetNextPageOfCards, resetInfiniteScrollItems, resetInfiniteScrollHasMoreItems } = useProjectDispatch();
@@ -191,7 +192,6 @@ const MapView = () => {
   useEffect(() => {
     setSpinMapLoaded(true);
     getGroupOrganization();
-    // Map layers: Test to see if a layer is missing
     // SELECT_ALL_FILTERS.forEach(layer => {
     //   if (typeof layer === 'object') {
     //     layer.tiles.forEach((subKey: string) => {
@@ -201,6 +201,8 @@ const MapView = () => {
     //     getMapTables(layer);
     //   }
     // });
+    // All the layers loaded simultaneously
+    setAllMapTables();
     if (location.includes('problemid=')) {
       const id = location.replace('?problemid=', '');
       existDetailedPageProblem(id);

@@ -138,33 +138,19 @@ const MapLayout = () => {
   //   // getUserInformation();
   //   const promises: Promise<any>[] = [];
   //   const controllers: AbortController[] = [];
-  //   const stringTables: string[] = [];
   //   SELECT_ALL_FILTERS.forEach((layer) => {
   //     if (typeof layer === 'object') {
   //       layer.tiles.forEach((subKey: string) => {
   //         const [controller, promise] = loadData(subKey, layer.name);
-  //         stringTables.push(subKey);
   //         promises.push(promise);
   //         controllers.push(controller);
   //       });
   //     } else {
   //       const [controller, promise] = loadData(layer);
-  //       stringTables.push(layer);
   //       promises.push(promise);
   //       controllers.push(controller);
   //     }
   //   });
-  //   //ALL_MAP_TABLES
-  //   if (stringTables.length > 0) {
-  //     datasets.postData(
-  //       SERVER.ALL_MAP_TABLES,
-  //       { tables: stringTables },
-  //       datasets.getToken()
-  //     ).then((res: any): void => {
-  //       console.log('res', res)
-  //     });
-  //   }
-  //   console.log('stringTables', stringTables)
   //   Promise.all(promises)
   //     .then(() => {
   //       setLoaded(true);

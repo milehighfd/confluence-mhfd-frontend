@@ -6,6 +6,7 @@ import * as datasets from 'Config/datasets';
 import * as constants from 'constants/constants';
 import { OptionProblems, OptionProjects, OptionComponents } from 'Classes/MapTypes';
 import { optionsProjects } from 'routes/portfolio-view/components/ListUtils';
+import { SELECT_ALL_FILTERS } from 'constants/constants';
 
 const getAndDispatchAbortableCtrl = (dispatch: Function, key: string): AbortController => {
   const controller = new AbortController();
@@ -42,6 +43,39 @@ export const getMapTables = (trigger: string, name?: string) => {
         }
       });
     }
+  };
+};
+
+export const setAllMapTables = () => {
+  return (dispatch: Function) => {
+    const initialTables = SELECT_ALL_FILTERS.flatMap(layer =>
+      typeof layer === 'object' ? layer.tiles : [layer]
+    );
+
+    const filteredTables = initialTables.filter(table => !table.includes('milehighfd'));
+    datasets.postData(SERVER.ALL_MAP_TABLES, { tables: filteredTables }, datasets.getToken()).then(tiles => {
+      SELECT_ALL_FILTERS.forEach(filter => {
+        if (typeof filter === 'object' && filter.tiles) {
+          filter.tiles.forEach(subKey => {
+            const tableData = tiles.find((table: any) => table.table === subKey);
+            if (tableData) {
+              dispatch({
+                type: types.GET_MAP_WITH_SUBLAYERS,
+                data: { trigger: subKey, tiles: tableData.data, name: filter.name },
+              });
+            }
+          });
+        } else {
+          const tableData = tiles.find((table: any) => table.table === filter);
+          if (tableData) {
+            dispatch({
+              type: types.GET_MAP_LAYERS,
+              data: { trigger: filter, tiles: tableData.data },
+            });
+          }
+        }
+      });
+    });
   };
 };
 
