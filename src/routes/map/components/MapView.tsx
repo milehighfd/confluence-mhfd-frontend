@@ -202,7 +202,7 @@ const MapView = () => {
     //   }
     // });
     // All the layers loaded simultaneously
-    setAllMapTables();
+    // setAllMapTables();
     if (location.includes('problemid=')) {
       const id = location.replace('?problemid=', '');
       existDetailedPageProblem(id);
