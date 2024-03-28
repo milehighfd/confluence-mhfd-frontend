@@ -130,7 +130,7 @@ let isProblemActive = false;
 
 let commentAvailable = false;
 
-const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
+const Map = ({ leftWidth, commentVisible, setCommentVisible, setLoader }: MapProps) => {
   const {
     updateSelectedLayers,
     setFilterCoordinates,
@@ -1793,6 +1793,13 @@ const Map = ({ leftWidth, commentVisible, setCommentVisible }: MapProps) => {
       }
     }
   };
+  if (map) {
+    map.once('idle', () => {      
+      if (setLoader) {
+        setLoader(false);
+      }
+    });
+  }
 
   const openEdit = (project: any) => {
     datasets.getData(

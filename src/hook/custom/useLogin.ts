@@ -6,12 +6,33 @@ import { useProfileDispatch } from 'hook/profileHook';
 
 const useLogin = () => {
   const { replaceFilterCoordinates } = useMapDispatch();
-  const { replaceAppUser,addNotifications, saveUserInformation, getBoardYears } = useProfileDispatch();
+  const { replaceAppUser,addNotifications, saveUserInformation, getBoardYears, setBoardYears } = useProfileDispatch();
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     datasets.getData(SERVER.ME, datasets.getToken())
       .then((res) => {
         if (res?.user_id) {
+          // getBoardYears();
+          const years = {
+            workRequestYears: { max: 2030, default: 2022 },
+            workPlanYears: { max: 2030, default: 2022 },
+          };
+          res.board_year.forEach((item: any) => {
+            if (item.type === 'WORK_REQUEST') {
+              if (item.description === 'MAX') {
+                years.workRequestYears.max = parseInt(item.value);
+              } else if (item.description === 'DEFAULT') {
+                years.workRequestYears.default = parseInt(item.value);
+              }
+            } else if (item.type === 'WORK_PLAN') {
+              if (item.description === 'MAX') {
+                years.workPlanYears.max = parseInt(item.value);
+              } else if (item.description === 'DEFAULT') {
+                years.workPlanYears.default = parseInt(item.value);
+              }
+            }
+          });
+          setBoardYears(years);
           saveUserInformation(res);
           if (res.polygon && res.polygon.length) {
             let bottomLongitude = res.polygon[0][0];
@@ -41,8 +62,7 @@ const useLogin = () => {
           replaceAppUser(res);
           datasets.getData(SERVER.NOTIFICATIONS, datasets.getToken()).then(async result => {
             addNotifications(result);
-          });
-          getBoardYears();
+          });          
         }
       }).catch((e) => {
         console.error('error', e);

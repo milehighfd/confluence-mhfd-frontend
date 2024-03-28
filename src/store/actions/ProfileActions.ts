@@ -148,3 +148,11 @@ export const getBoardYears = () => {
     })
   }
 }
+
+export const setBoardYears = (years: any) => {
+  return {
+    type: types.GET_BOARD_YEARS,
+    workRequestYear: years.workRequestYears,
+    workPlanYear: years.workPlanYears
+  };
+};

@@ -195,7 +195,7 @@ const MapLayout = () => {
             }
           }
         });
-        setSafeLoading(false);
+        // setSafeLoading(false);
         setLoaded(true);
         // commented until we know what was the issue it was trying to solve
         // setSafeLoading(true);
@@ -366,7 +366,7 @@ const MapLayout = () => {
                       leftWidth={tabActiveNavbar === MAP ? (screenWidth > 2500 ? leftWidthMap + 1 : leftWidthMap) : (screenWidth > 2500 ? leftWidth + 1: leftWidth)}
                       commentVisible={commentVisible}
                       setCommentVisible={setCommentVisible}
-                      
+                      setLoader={setSafeLoading}
                     />
                     <Button className="btn-coll" onClick={updateWidth} disabled={tabActiveNavbar!==MAP && commentVisible}>
                       <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px" />
